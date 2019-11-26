@@ -326,12 +326,6 @@ protected:
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 
-    /// @brief from edge (used by flows and trips)
-    GNEEdge* myFromEdge;
-
-    /// @brief to edge (used by flows and trips)
-    GNEEdge* myToEdge;
-
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);

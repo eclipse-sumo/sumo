@@ -261,9 +261,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
         {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(),
-    myFromEdge(nullptr),
-    myToEdge(nullptr) {
+    SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -274,9 +272,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& v
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
         {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
-        SUMOVehicleParameter(vehicleParameters),
-    myFromEdge(nullptr),
-    myToEdge(nullptr) {
+        SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // set manually vtypeID (needed for saving)
@@ -287,9 +283,7 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEDe
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
         {}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(vehicleParameters),
-    myFromEdge(nullptr),
-    myToEdge(nullptr) {
+    SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // reset routeid
@@ -301,10 +295,8 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge) :
     GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
-        {}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(),
-    myFromEdge(fromEdge),
-    myToEdge(toEdge) {
+        {fromEdge, toEdge}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter() {
     // compute vehicle without referencing edges
     computeWithoutReferences();
 }
@@ -312,10 +304,8 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& v
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag,
-        {}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(vehicleParameters),
-    myFromEdge(fromEdge),
-    myToEdge(toEdge) {
+        {fromEdge, toEdge}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter(vehicleParameters) {
     // compute vehicle without referencing edges
     computeWithoutReferences();
 }
@@ -1516,15 +1506,15 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         // Specific of Trips and flow
         case SUMO_ATTR_FROM: {
-            // update myFrom edge
-            myFromEdge = myViewNet->getNet()->retrieveEdge(value);
+            // change first edge
+            changeFirstEdgeParent(this, myViewNet->getNet()->retrieveEdge(value));
             // compute path
             updateGeometry();
             break;
         }
         case SUMO_ATTR_TO: {
-            // update myToEdge edge
-            myToEdge = myViewNet->getNet()->retrieveEdge(value);
+            // change last edge
+            changeLastEdgeParent(this, myViewNet->getNet()->retrieveEdge(value));
             // compute path
             updateGeometry();
             break;
@@ -1541,6 +1531,8 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // unset parameter
                 parametersSet &= ~VEHPARS_VIA_SET;
             }
+            // update via
+            changeMiddleEdgeParents(this, parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value));
             // compute path
             updateGeometry();
             break;
@@ -1592,27 +1584,10 @@ GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
 
 void 
 GNEVehicle::computeWithoutReferences() {
-    // only recompute flows and trips
-    if (myFromEdge && myToEdge) {
-        // declare a from-via-to edges vector
-        std::vector<std::string> FromViaToEdges;
-        // add from edge
-        FromViaToEdges.push_back(myFromEdge->getID());
-        // add via edges
-        FromViaToEdges.insert(FromViaToEdges.end(), via.begin(), via.end());
-        // add to edge
-        FromViaToEdges.push_back(myToEdge->getID());
-        // calculate route
-        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
-        // check if rute is valid
-        if (route.size() > 0) {
-            changeEdgeParents(this, route, false);
-        } else if (getEdgeParents().size() > 0) {
-            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(via) + " " + getEdgeParents().back()->getID(), false);
-        }
-        // update geometry
-        updateGeometry();
-    }
+    // calculate route and update routeEdges
+    updateRouteEdges(getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), getEdgeParents()));
+    // update geometry
+    updateGeometry();
 }
 
 /****************************************************************************/

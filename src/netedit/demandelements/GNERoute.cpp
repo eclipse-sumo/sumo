@@ -470,7 +470,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeDemandElementID(value);
             break;
         case SUMO_ATTR_EDGES:
-            changeEdgeParents(this, value, true);
+            changeEdgeParents(this, value);
             // compute route
             updateGeometry();
             break;

@@ -76,7 +76,7 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
         myLanes.back()->incRef("GNEEdge::GNEEdge");
     }
     // update Lane geometries
-    for (auto i : myLanes) {
+    for (const auto &i : myLanes) {
         i->updateGeometry();
     }
 }
@@ -85,6 +85,7 @@ GNEEdge::GNEEdge() :
     GNENetElement(nullptr, "DUMMY", GLO_EDGE, SUMO_TAG_NOTHING),
     myNBEdge(NBEdge::DummyEdge) {
 }
+
 
 GNEEdge::~GNEEdge() {
     // Delete references to this eddge in lanes

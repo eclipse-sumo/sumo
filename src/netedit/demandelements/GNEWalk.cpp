@@ -45,8 +45,6 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, const std:
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_EDGES), viewNet, GLO_WALK, SUMO_TAG_WALK_EDGES, 
         {edges}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
-    myFromEdge(nullptr),
-    myToEdge(nullptr),
     myArrivalPosition(arrivalPosition) {
     // compute walk without referencing edges
     computeWithoutReferences();
@@ -55,10 +53,8 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, const std:
 
 GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_FROMTO), viewNet, GLO_WALK, SUMO_TAG_WALK_FROMTO, 
-        {}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
+        {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
-    myFromEdge(fromEdge),
-    myToEdge(toEdge),
     myArrivalPosition(arrivalPosition) {
     // compute walk without referencing edges
     computeWithoutReferences();
@@ -67,10 +63,8 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
 
 GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_BUSSTOP), viewNet, GLO_WALK, SUMO_TAG_WALK_BUSSTOP, 
-        {}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
+        {fromEdge}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
-    myFromEdge(fromEdge),
-    myToEdge(nullptr),
     myArrivalPosition(-1) {
     // compute walk without referencing edges
     computeWithoutReferences();
@@ -81,8 +75,6 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEDemandE
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_ROUTE), viewNet, GLO_WALK, SUMO_TAG_WALK_ROUTE,
         {}, {}, {}, {}, {personParent, routeParent}, {}, {}, {}, {}, {}),
     Parameterised(),
-    myFromEdge(nullptr),
-    myToEdge(nullptr),
     myArrivalPosition(arrivalPosition) {
     // compute walk without referencing edges
     computeWithoutReferences();
@@ -303,8 +295,11 @@ GNEWalk::updateGeometry() {
         // use edges of route parent
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getDemandElementParents().at(1)->getEdgeParents(), getVClass(), 
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+    } else if (myTagProperty.getTag() == SUMO_TAG_WALK_EDGES) {
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getEdgeParents(), getVClass(), 
+            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry,getEdgeParents(), getVClass(), 
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getRouteEdges(), getVClass(), 
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
     // update demand element childrens
@@ -426,7 +421,7 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TO:
             return getEdgeParents().back()->getID();
         case SUMO_ATTR_VIA:
-            return toString(myVia);
+            return toString(getMiddleEdgeParents());
         case SUMO_ATTR_EDGES:
             return parseIDs(getEdgeParents());
         case SUMO_ATTR_ROUTE:
@@ -568,35 +563,30 @@ GNEWalk::getHierarchyName() const {
 void
 GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-                // Specific of Trips and flow
+        // Specific of Trips and flow
         case SUMO_ATTR_FROM: {
-            // update myFrom edge
-            myFromEdge = myViewNet->getNet()->retrieveEdge(value);
+            // update first edge
+            changeFirstEdgeParent(this, myViewNet->getNet()->retrieveEdge(value));
             // compute path
             updateGeometry();
             break;
         }
         case SUMO_ATTR_TO: {
-            // update myToEdge edge
-            myToEdge = myViewNet->getNet()->retrieveEdge(value);
+            // update last edge
+            changeLastEdgeParent(this, myViewNet->getNet()->retrieveEdge(value));
             // compute path
             updateGeometry();
             break;
         }
         case SUMO_ATTR_VIA: {
-            if (!value.empty()) {
-                // set new via edges
-                myVia = parse< std::vector<std::string> >(value);
-            } else {
-                // clear via
-                myVia.clear();
-            }
+            // update via
+            changeMiddleEdgeParents(this, parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value));
             // compute path
             updateGeometry();
             break;
         }
         case SUMO_ATTR_EDGES:
-            changeEdgeParents(this, value, true);
+            changeEdgeParents(this, value);
             updateGeometry();
             break;
         case SUMO_ATTR_ROUTE:
@@ -635,40 +625,16 @@ GNEWalk::setEnabledAttribute(const int /*enabledAttributes*/) {
 
 void 
 GNEWalk::computeWithoutReferences() {
-    if ((myTagProperty.getTag() == SUMO_TAG_WALK_FROMTO) && myFromEdge && myToEdge) {
-        // declare a from-via-to edges vector
-        std::vector<std::string> FromViaToEdges;
-        // add from edge
-        FromViaToEdges.push_back(myFromEdge->getID());
-        // add via edges
-        FromViaToEdges.insert(FromViaToEdges.end(), myVia.begin(), myVia.end());
-        // add to edge
-        FromViaToEdges.push_back(myToEdge->getID());
-        // calculate route
-        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
-        // check if rute is valid
-        if (route.size() > 0) {
-            changeEdgeParents(this, route, false);
-        } else if (getEdgeParents().size() > 0) {
-            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), false);
-        }
-    } else if ((myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) && myFromEdge && (getAdditionalParents().size() > 0)) {
+    if ((myTagProperty.getTag() == SUMO_TAG_WALK_FROMTO)) {
+        // calculate route and update routeEdges
+        updateRouteEdges(getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), getEdgeParents()));
+    } else if (myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) {
         // declare a from-via-busStop edges vector
-        std::vector<std::string> FromViaBusStopEdges;
-        // add from edge
-        FromViaBusStopEdges.push_back(myFromEdge->getID());
-        // add via edges
-        FromViaBusStopEdges.insert(FromViaBusStopEdges.end(), myVia.begin(), myVia.end());
+        std::vector<GNEEdge*> fromViaBusStopEdges = getEdgeParents();
         // add busStop edge
-        FromViaBusStopEdges.push_back(getAdditionalParents().front()->getLaneParents().front()->getParentEdge().getID());
-        // calculate route
-        std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaBusStopEdges);
-        // check if rute is valid
-        if (route.size() > 0) {
-            changeEdgeParents(this, route, false);
-        } else if (getEdgeParents().size() > 0) {
-            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + toString(myVia) + " " + getEdgeParents().back()->getID(), false);
-        }
+        fromViaBusStopEdges.push_back(&getAdditionalParents().front()->getLaneParents().front()->getParentEdge());
+        // calculate route and update routeEdges
+        updateRouteEdges(getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), fromViaBusStopEdges));
     }
     // update geometry
     updateGeometry();

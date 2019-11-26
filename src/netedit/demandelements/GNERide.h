@@ -212,15 +212,6 @@ public:
 protected:
     /// @brief variable for move rides
     DemandElementMove myRideMove;
-    
-    /// @brief from edge (used by rideFromTo)
-    GNEEdge* myFromEdge;
-
-    /// @brief to edge (used by rideFromTo)
-    GNEEdge* myToEdge;
-
-    /// @brief via edges  (used by rideFromTo)
-    std::vector<std::string> myVia;
 
     /// @brief arrival position
     double myArrivalPosition;

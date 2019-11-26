@@ -229,15 +229,6 @@ protected:
     /// @brief variable for move walks
     DemandElementMove myWalkMove;
 
-    /// @brief from edge (used by walkFromTo)
-    GNEEdge* myFromEdge;
-
-    /// @brief to edge (used by walkFromTo)
-    GNEEdge* myToEdge;
-
-    /// @brief via edges  (used by walkFromTo)
-    std::vector<std::string> myVia;
-
     /// @brief arrival position
     double myArrivalPosition;
 

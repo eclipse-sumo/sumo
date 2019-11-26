@@ -217,15 +217,6 @@ protected:
     /// @brief variable for move person trips
     DemandElementMove myPersonTripMove;
 
-    /// @brief from edge
-    GNEEdge* myFromEdge;
-
-    /// @brief to edge (used by person tripFromTo)
-    GNEEdge* myToEdge;
-
-    /// @brief via edges  (used by person tripFromTo)
-    std::vector<std::string> myVia;
-
     /// @brief arrival position
     double myArrivalPosition;
 

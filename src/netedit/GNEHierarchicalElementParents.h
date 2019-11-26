@@ -92,6 +92,9 @@ public:
     /// @brief get edge parents
     const std::vector<GNEEdge*>& getEdgeParents() const;
 
+    /// @brief get middle (via) edge parents
+    std::vector<GNEEdge*> getMiddleEdgeParents() const;
+
     /// @}
 
     /// @name members and functions related to route parents

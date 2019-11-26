@@ -184,7 +184,23 @@ GNEHierarchicalElementParents::getEdgeParents() const {
 }
 
 
-const std::vector<GNEEdge*> &
+std::vector<GNEEdge*> 
+GNEHierarchicalElementParents::getMiddleEdgeParents() const {
+    std::vector<GNEEdge*> middleEdges;
+    // there are only middle edges if there is more than two edges
+    if (middleEdges.size() > 2) {
+        // resize middleEdges
+        middleEdges.resize(myEdgeParents.size()-2);
+        // iterate over second and previous last edge parent
+        for (auto i = (myEdgeParents.begin() + 1); i !=(myEdgeParents.end() - 1); i++) {
+            middleEdges.push_back(*i);
+        }
+    }
+    return middleEdges;
+}
+
+
+const std::vector<GNEEdge*>&
 GNEHierarchicalElementParents::getRouteEdges() const {
     return myRouteEdges;
 }
