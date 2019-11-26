@@ -275,7 +275,7 @@ GNEPersonTrip::updateGeometry() {
     // calculate person plan start and end positions
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path
-    GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getRouteEdges(), getVClass(), 
+    GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(), 
         getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
@@ -587,14 +587,14 @@ void
 GNEPersonTrip::computePersonTrip() {
     if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_FROMTO) {
         // calculate route and update routeEdges
-        updateRouteEdges(getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), getEdgeParents()));
+        changePathEdges(this, getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), getEdgeParents()));
     } else if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) {
         // declare a from-via-busStop edges vector
         std::vector<GNEEdge*> fromViaBusStopEdges = getEdgeParents();
         // add busStop edge
         fromViaBusStopEdges.push_back(&getAdditionalParents().front()->getLaneParents().front()->getParentEdge());
         // calculate route and update routeEdges
-        updateRouteEdges(getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), fromViaBusStopEdges));
+        changePathEdges(this, getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), fromViaBusStopEdges));
     }
     // update geometry
     updateGeometry();

@@ -312,6 +312,12 @@ public:
     /// @brief draw partial person plan
     void drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDemandElement* personPlan, const GNEJunction* junction) const;
 
+    /// @brief add path element (Only used by GNEHierarchicalElementParents::changeRouteEdges)
+    void addPathElement(const GNEDemandElement* pathElementChild);
+
+    /// @brief remove path element (Only used by GNEHierarchicalElementParents::changeRouteEdges)
+    void removePathElement(const GNEDemandElement* pathElementChild);
+
 protected:
     /// @brief the underlying NBEdge
     NBEdge& myNBEdge;
@@ -339,6 +345,9 @@ protected:
 
     /// @brief modification status of the connections
     std::string myConnectionStatus;
+
+    /// @brief vector with references to path element childs
+    std::vector<const GNEDemandElement*> myPathElementChilds;
 
 private:
     /// @brief set attribute after validation

@@ -184,33 +184,6 @@ GNEHierarchicalElementParents::getEdgeParents() const {
 }
 
 
-std::vector<GNEEdge*> 
-GNEHierarchicalElementParents::getMiddleEdgeParents() const {
-    std::vector<GNEEdge*> middleEdges;
-    // there are only middle edges if there is more than two edges
-    if (middleEdges.size() > 2) {
-        // resize middleEdges
-        middleEdges.resize(myEdgeParents.size()-2);
-        // iterate over second and previous last edge parent
-        for (auto i = (myEdgeParents.begin() + 1); i !=(myEdgeParents.end() - 1); i++) {
-            middleEdges.push_back(*i);
-        }
-    }
-    return middleEdges;
-}
-
-
-const std::vector<GNEEdge*>&
-GNEHierarchicalElementParents::getRouteEdges() const {
-    return myRouteEdges;
-}
-
-void 
-GNEHierarchicalElementParents::updateRouteEdges(const std::vector<GNEEdge*> &routeEdges) {
-    myRouteEdges = routeEdges;
-}
-
-
 void
 GNEHierarchicalElementParents::addLaneParent(GNELane* lane) {
     // Check that lane is valid and doesn't exist previously
@@ -277,6 +250,28 @@ GNEHierarchicalElementParents::getShapeParents() const {
 // ---------------------------------------------------------------------------
 // GNEHierarchicalElementParents - protected methods
 // ---------------------------------------------------------------------------
+
+const std::vector<GNEEdge*>&
+GNEHierarchicalElementParents::getPathEdges() const {
+    return myRouteEdges;
+}
+
+
+std::vector<GNEEdge*> 
+GNEHierarchicalElementParents::getMiddleEdgeParents() const {
+    std::vector<GNEEdge*> middleEdges;
+    // there are only middle edges if there is more than two edges
+    if (middleEdges.size() > 2) {
+        // resize middleEdges
+        middleEdges.resize(myEdgeParents.size()-2);
+        // iterate over second and previous last edge parent
+        for (auto i = (myEdgeParents.begin() + 1); i !=(myEdgeParents.end() - 1); i++) {
+            middleEdges.push_back(*i);
+        }
+    }
+    return middleEdges;
+}
+
 
 void
 GNEHierarchicalElementParents::changeEdgeParents(GNEShape* elementChild, const std::string& newEdgeIDs) {
@@ -411,6 +406,21 @@ GNEHierarchicalElementParents::changeLastEdgeParent(GNEDemandElement* elementChi
         myEdgeParents.push_back(newLastEdge);
         // add demandElement into edge parents
         myEdgeParents.back()->addDemandElementChild(elementChild);
+    }
+}
+
+
+void 
+GNEHierarchicalElementParents::changePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*> &routeEdges) {
+    // remove demandElement of edge parents
+    for (const auto& i : myRouteEdges) {
+        i->removePathElement(elementChild);
+    }
+    // set new route edges
+    myRouteEdges = routeEdges;
+    // add demandElement into edge parents
+    for (const auto& i : myEdgeParents) {
+        i->addPathElement(elementChild);
     }
 }
 

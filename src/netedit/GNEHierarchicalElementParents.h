@@ -92,22 +92,7 @@ public:
     /// @brief get edge parents
     const std::vector<GNEEdge*>& getEdgeParents() const;
 
-    /// @brief get middle (via) edge parents
-    std::vector<GNEEdge*> getMiddleEdgeParents() const;
-
     /// @}
-
-    /// @name members and functions related to route parents
-    /// @{
-
-    /// @brief get route edges
-    const std::vector<GNEEdge*> &getRouteEdges() const;
-
-    /// @brief update edge edge route Parents
-    void updateRouteEdges(const std::vector<GNEEdge*> &routeEdges);
-
-    /// @}
-
 
     /// @name members and functions related to lane parents
     /// @{
@@ -165,6 +150,12 @@ public:
     std::string getNewListOfParents(const GNENetElement *currentElement, const GNENetElement *newNextElement) const;
 
 protected:
+    /// @brief get path edges
+    const std::vector<GNEEdge*> &getPathEdges() const;
+
+    /// @brief get middle (via) edge parents
+    std::vector<GNEEdge*> getMiddleEdgeParents() const;
+
     /// @name members and functions relative to changing parents
     /// @{
 
@@ -188,6 +179,9 @@ protected:
 
     /// @brief change last edge parent (used by demand elements)
     void changeLastEdgeParent(GNEDemandElement* elementChild, GNEEdge* newLastEdge);
+
+    /// @brief change edge route Parents
+    void changePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*> &routeEdges);
 
     /// @brief change edge parents of a shape
     void changeLaneParents(GNEShape* elementChild, const std::string& newLaneIDs);

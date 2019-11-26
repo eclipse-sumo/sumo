@@ -295,7 +295,7 @@ GNEWalk::updateGeometry() {
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getEdgeParents(), getVClass(), 
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getRouteEdges(), getVClass(), 
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(), 
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
     // update demand element childrens
@@ -624,14 +624,14 @@ void
 GNEWalk::computeWalk() {
     if ((myTagProperty.getTag() == SUMO_TAG_WALK_FROMTO)) {
         // calculate route and update routeEdges
-        updateRouteEdges(getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), getEdgeParents()));
+        changePathEdges(this, getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), getEdgeParents()));
     } else if (myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) {
         // declare a from-via-busStop edges vector
         std::vector<GNEEdge*> fromViaBusStopEdges = getEdgeParents();
         // add busStop edge
         fromViaBusStopEdges.push_back(&getAdditionalParents().front()->getLaneParents().front()->getParentEdge());
         // calculate route and update routeEdges
-        updateRouteEdges(getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), fromViaBusStopEdges));
+        changePathEdges(this, getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), fromViaBusStopEdges));
     }
     // update geometry
     updateGeometry();
