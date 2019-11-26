@@ -49,21 +49,26 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, const std:
 }
 
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*> &via, 
+    double arrivalPosition) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_FROMTO), viewNet, GLO_WALK, SUMO_TAG_WALK_FROMTO, 
         {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
     myArrivalPosition(arrivalPosition) {
+    // set via parameter without updating references
+    changeMiddleEdgeParents(this, via, false);
     // compute walk
     computeWalk();
 }
 
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop) :
+GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*> &via) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_BUSSTOP), viewNet, GLO_WALK, SUMO_TAG_WALK_BUSSTOP, 
         {fromEdge}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
     myArrivalPosition(-1) {
+    // set via parameter without updating references
+    changeMiddleEdgeParents(this, via, false);
     // compute walk
     computeWalk();
 }
@@ -576,7 +581,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_VIA: {
             // update via
-            changeMiddleEdgeParents(this, parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value));
+            changeMiddleEdgeParents(this, parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), true);
             // compute walk
             computeWalk();
             break;

@@ -184,6 +184,22 @@ GNEHierarchicalElementParents::getEdgeParents() const {
 }
 
 
+std::vector<GNEEdge*> 
+GNEHierarchicalElementParents::getMiddleEdgeParents() const {
+    std::vector<GNEEdge*> middleEdges;
+    // there are only middle edges if there is more than two edges
+    if (middleEdges.size() > 2) {
+        // resize middleEdges
+        middleEdges.resize(myEdgeParents.size()-2);
+        // iterate over second and previous last edge parent
+        for (auto i = (myEdgeParents.begin() + 1); i !=(myEdgeParents.end() - 1); i++) {
+            middleEdges.push_back(*i);
+        }
+    }
+    return middleEdges;
+}
+
+
 void
 GNEHierarchicalElementParents::addLaneParent(GNELane* lane) {
     // Check that lane is valid and doesn't exist previously
@@ -254,22 +270,6 @@ GNEHierarchicalElementParents::getShapeParents() const {
 const std::vector<GNEEdge*>&
 GNEHierarchicalElementParents::getPathEdges() const {
     return myRouteEdges;
-}
-
-
-std::vector<GNEEdge*> 
-GNEHierarchicalElementParents::getMiddleEdgeParents() const {
-    std::vector<GNEEdge*> middleEdges;
-    // there are only middle edges if there is more than two edges
-    if (middleEdges.size() > 2) {
-        // resize middleEdges
-        middleEdges.resize(myEdgeParents.size()-2);
-        // iterate over second and previous last edge parent
-        for (auto i = (myEdgeParents.begin() + 1); i !=(myEdgeParents.end() - 1); i++) {
-            middleEdges.push_back(*i);
-        }
-    }
-    return middleEdges;
 }
 
 
@@ -370,25 +370,26 @@ GNEHierarchicalElementParents::changeFirstEdgeParent(GNEDemandElement* elementCh
 
 
 void 
-GNEHierarchicalElementParents::changeMiddleEdgeParents(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newMiddleEdges) {
-    // first check that at least there is two edges
-    if (myEdgeParents.size() < 2) {
-        throw InvalidArgument("Invalid minimum number of edges");
-    } else {
-        // declare a vector for new parent edges
-        std::vector<GNEEdge*> newEdges;
-        // resize newEdges
-        newEdges.resize(newMiddleEdges.size() + 2);
-        // add first edge
+GNEHierarchicalElementParents::changeMiddleEdgeParents(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newMiddleEdges, const bool updateChildReferences) {
+    // declare a vector for new parent edges
+    std::vector<GNEEdge*> newEdges;
+    // check if add first edge
+    if (myEdgeParents.size() > 0) {
         newEdges.push_back(myEdgeParents.front());
-        // add newMiddleEdges
-        for (const auto &edge : newMiddleEdges) {
-            newEdges.push_back(edge);
-        }
-        // add last edge
+    }
+    // add newMiddleEdges
+    for (const auto &edge : newMiddleEdges) {
+        newEdges.push_back(edge);
+    }
+    // check if add last edge
+    if (myEdgeParents.size() > 1) {
         newEdges.push_back(myEdgeParents.back());
-        // change all edge parents
+    }
+    // check if we have to update references in all childs, or simply update edge parents vector 
+    if (updateChildReferences) {
         changeEdgeParents(elementChild, newEdges);
+    } else {
+        myEdgeParents = newEdges;
     }
 }
 

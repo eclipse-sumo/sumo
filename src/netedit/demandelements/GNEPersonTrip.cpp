@@ -42,20 +42,22 @@
 // method definitions
 // ===========================================================================
 
-GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition, 
-    const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*> &via, 
+    double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO, 
         {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes) {
+    // set via parameter without updating references
+    changeMiddleEdgeParents(this, via, false);
     // compute person trip
     computePersonTrip();
 }
 
 
-GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, 
+GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*> &via, 
     const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP, 
         {fromEdge}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
@@ -63,6 +65,8 @@ GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent
     myArrivalPosition(-1),
     myVTypes(types),
     myModes(modes) {
+    // set via parameter without updating references
+    changeMiddleEdgeParents(this, via, false);
     // compute person trip
     computePersonTrip();
 }
@@ -541,7 +545,7 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_VIA: {
             // update via
-            changeMiddleEdgeParents(this, parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value));
+            changeMiddleEdgeParents(this, parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), true);
             // compute person trip
             computePersonTrip();
             break;
