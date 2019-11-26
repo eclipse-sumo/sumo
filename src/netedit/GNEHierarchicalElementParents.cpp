@@ -184,6 +184,17 @@ GNEHierarchicalElementParents::getEdgeParents() const {
 }
 
 
+const std::vector<GNEEdge*> &
+GNEHierarchicalElementParents::getRouteEdges() const {
+    return myRouteEdges;
+}
+
+void 
+GNEHierarchicalElementParents::updateRouteEdges(const std::vector<GNEEdge*> &routeEdges) {
+    myRouteEdges = routeEdges;
+}
+
+
 void
 GNEHierarchicalElementParents::addLaneParent(GNELane* lane) {
     // Check that lane is valid and doesn't exist previously

@@ -94,6 +94,18 @@ public:
 
     /// @}
 
+    /// @name members and functions related to route parents
+    /// @{
+
+    /// @brief get route edges
+    const std::vector<GNEEdge*> &getRouteEdges() const;
+
+    /// @brief update edge edge route Parents
+    void updateRouteEdges(const std::vector<GNEEdge*> &routeEdges);
+
+    /// @}
+
+
     /// @name members and functions related to lane parents
     /// @{
     /// @brief add lane parent
@@ -218,6 +230,9 @@ protected:
 private:
     /// @brief list of edge parents of this element
     std::vector<GNEEdge*> myEdgeParents;
+
+    /// @brief list of edges used in Flow/Trips/PersonTrips
+    std::vector<GNEEdge*> myRouteEdges;
 
     /// @brief list of lane parents of this element
     std::vector<GNELane*> myLaneParents;
