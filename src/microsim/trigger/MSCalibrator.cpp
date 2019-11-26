@@ -473,9 +473,9 @@ MSCalibrator::remainingVehicleCapacity(int laneIndex) const {
     const SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
     const MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
     const double spacePerVehicle = vtype->getLengthWithGap() + myEdge->getSpeedLimit() * vtype->getCarFollowModel().getHeadwayTime();
-    int overallSpaceLeft = ceil(lane->getLength() / spacePerVehicle) - lane->getVehicleNumber();
+    int overallSpaceLeft = (int)ceil(lane->getLength() / spacePerVehicle) - lane->getVehicleNumber();
     if (last != nullptr) {
-        int entrySpaceLeft = last->getPositionOnLane() / spacePerVehicle;
+        int entrySpaceLeft = (int)(last->getPositionOnLane() / spacePerVehicle);
         return MAX2(overallSpaceLeft, entrySpaceLeft);
     } else {
         return overallSpaceLeft;

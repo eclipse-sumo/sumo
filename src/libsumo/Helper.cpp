@@ -541,21 +541,21 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
     }
 
     // Whether vehicles on opposite lanes shall be taken into account
-    const bool disregardOppositeDirection = (s.activeFilters & SUBS_FILTER_NOOPPOSITE);
+    const bool disregardOppositeDirection = (s.activeFilters & SUBS_FILTER_NOOPPOSITE) != 0;
 
     // Check filter specification consistency
     // TODO: Warn only once
     if (disregardOppositeDirection && (s.activeFilters & SUBS_FILTER_NO_RTREE) == 0) {
         WRITE_WARNING("Ignoring no-opposite subscription filter for geographic range object collection. Consider using the 'lanes' filter.")
     }
-    if ((s.activeFilters & SUBS_FILTER_FIELD_OF_VISION) && (s.activeFilters & SUBS_FILTER_NO_RTREE)) {
+    if ((s.activeFilters & SUBS_FILTER_FIELD_OF_VISION) != 0 && (s.activeFilters & SUBS_FILTER_NO_RTREE) != 0) {
         WRITE_WARNING("Ignoring field of vision subscription filter due to incompatibility with other filter(s).")
     }
 
     // TODO: Treat case, where ego vehicle is currently on opposite lane
 
     std::set<const MSVehicle*> vehs;
-    if (s.activeFilters & SUBS_FILTER_NO_RTREE) {
+    if ((s.activeFilters & SUBS_FILTER_NO_RTREE) != 0) {
         // Set defaults for upstream and downstream distances
         double downstreamDist = s.range, upstreamDist = s.range;
         if (s.activeFilters & SUBS_FILTER_DOWNSTREAM_DIST) {
@@ -592,9 +592,9 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         std::cout << "Upstream distance: " << upstreamDist << std::endl;
 #endif
 
-        if (s.activeFilters & SUBS_FILTER_MANEUVER) {
+        if ((s.activeFilters & SUBS_FILTER_MANEUVER) != 0) {
             // Maneuver filters disables road net search for all surrounding vehicles
-            if (s.activeFilters & SUBS_FILTER_LEAD_FOLLOW) {
+            if ((s.activeFilters & SUBS_FILTER_LEAD_FOLLOW) != 0) {
                 // Return leader and follower on the specified lanes in context subscription result.
                 for (int offset : filterLanes) {
                     MSLane* lane = v->getLane()->getParallelLane(offset, false);

@@ -344,10 +344,10 @@ GUISUMOViewParent::onUpdSpeedFactor(FXObject* sender, FXSelector, void* ptr) {
         if (o != nullptr) {
             if (o->getType() == GLO_VEHICLE) {
                 MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(o);
-                mySpeedFactorSlider->setValue(veh->getChosenSpeedFactor() * SPEEDFACTOR_SCALE);
+                mySpeedFactorSlider->setValue((int)(veh->getChosenSpeedFactor() * SPEEDFACTOR_SCALE));
             } else if (o->getType() == GLO_PERSON) {
                 MSPerson* person = dynamic_cast<MSPerson*>(o);
-                mySpeedFactorSlider->setValue(person->getChosenSpeedFactor() * SPEEDFACTOR_SCALE);
+                mySpeedFactorSlider->setValue((int)(person->getChosenSpeedFactor() * SPEEDFACTOR_SCALE));
             }
         }
 
