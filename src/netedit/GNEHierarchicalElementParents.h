@@ -27,6 +27,7 @@
 #include <utils/geom/Position.h>
 
 #include "GNEAttributeCarrier.h"
+#include "GNEGeometry.h"
 
 // ===========================================================================
 // class declarations
@@ -149,28 +150,6 @@ public:
     std::string getNewListOfParents(const GNENetElement *currentElement, const GNENetElement *newNextElement) const;
 
 protected:
-    /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their children
-    struct ParentConnections {
-        /// @brief constructor
-        ParentConnections(GNEHierarchicalElementParents* hierarchicalElement);
-
-        /// @brief update Connection's geometry
-        void update();
-
-        /// @brief draw connections between Parent and childrens
-        void draw(const GUIVisualizationSettings& s, const GUIGlObjectType parentType) const;
-
-        /// @brief position and rotation of every symbol over lane
-        std::vector<std::pair<Position, double> > symbolsPositionAndRotation;
-
-        /// @brief Matrix with the Vertex's positions of connections between parents an their children
-        std::vector<PositionVector> connectionPositions;
-
-    private:
-        /// @brief pointer to hierarchical element parent
-        GNEHierarchicalElementParents* myHierarchicalElement;
-    };
-
     /// @name members and functions relative to changing parents
     /// @{
 
@@ -234,7 +213,7 @@ protected:
     /// @}
 
     /// @brief variable ParentConnections
-    ParentConnections myParentConnections;
+    GNEGeometry::ParentConnections myParentConnections;
 
 private:
     /// @brief list of edge parents of this element
