@@ -46,8 +46,6 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, const std:
         {edges}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
     myArrivalPosition(arrivalPosition) {
-    // compute walk without referencing edges
-    computeWithoutReferences();
 }
 
 
@@ -56,8 +54,8 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
         {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
     myArrivalPosition(arrivalPosition) {
-    // compute walk without referencing edges
-    computeWithoutReferences();
+    // compute walk
+    computeWalk();
 }
 
 
@@ -66,8 +64,8 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
         {fromEdge}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
     Parameterised(),
     myArrivalPosition(-1) {
-    // compute walk without referencing edges
-    computeWithoutReferences();
+    // compute walk
+    computeWalk();
 }
 
 
@@ -76,8 +74,6 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEDemandE
         {}, {}, {}, {}, {personParent, routeParent}, {}, {}, {}, {}, {}),
     Parameterised(),
     myArrivalPosition(arrivalPosition) {
-    // compute walk without referencing edges
-    computeWithoutReferences();
 }
 
 
@@ -567,22 +563,22 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM: {
             // update first edge
             changeFirstEdgeParent(this, myViewNet->getNet()->retrieveEdge(value));
-            // compute path
-            updateGeometry();
+            // compute walk
+            computeWalk();
             break;
         }
         case SUMO_ATTR_TO: {
             // update last edge
             changeLastEdgeParent(this, myViewNet->getNet()->retrieveEdge(value));
-            // compute path
-            updateGeometry();
+            // compute walk
+            computeWalk();
             break;
         }
         case SUMO_ATTR_VIA: {
             // update via
             changeMiddleEdgeParents(this, parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value));
-            // compute path
-            updateGeometry();
+            // compute walk
+            computeWalk();
             break;
         }
         case SUMO_ATTR_EDGES:
@@ -595,7 +591,8 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_BUS_STOP:
             changeAdditionalParent(this, value, 0);
-            updateGeometry();
+            // compute walk
+            computeWalk();
             break;
         case SUMO_ATTR_ARRIVALPOS:
             myArrivalPosition = parse<double>(value);
@@ -624,7 +621,7 @@ GNEWalk::setEnabledAttribute(const int /*enabledAttributes*/) {
 
 
 void 
-GNEWalk::computeWithoutReferences() {
+GNEWalk::computeWalk() {
     if ((myTagProperty.getTag() == SUMO_TAG_WALK_FROMTO)) {
         // calculate route and update routeEdges
         updateRouteEdges(getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), getEdgeParents()));

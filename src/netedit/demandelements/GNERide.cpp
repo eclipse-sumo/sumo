@@ -47,8 +47,8 @@ GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
     Parameterised(),
     myArrivalPosition(arrivalPosition),
     myLines(lines) {
-    // compute ride without referencing edges
-    computeWithoutReferences();
+    // compute ride
+    computeRide();
 }
 
 
@@ -58,8 +58,8 @@ GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
     Parameterised(),
     myArrivalPosition(-1),
     myLines(lines) {
-    // compute ride without referencing edges
-    computeWithoutReferences();
+    // compute ride
+    computeRide();
 }
 
 
@@ -262,7 +262,7 @@ GNERide::updateGeometry() {
     // calculate person plan start and end positions
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path
-    GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getEdgeParents(), 
+    GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getRouteEdges(), 
         getVClass(), getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
@@ -507,27 +507,28 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM: {
             // change first edge
             changeFirstEdgeParent(this, myViewNet->getNet()->retrieveEdge(value));
-            // compute path
-            updateGeometry();
+            // compute ride
+            computeRide();
             break;
         }
         case SUMO_ATTR_TO: {
             // change last edge
             changeLastEdgeParent(this, myViewNet->getNet()->retrieveEdge(value));
-            // compute path
-            updateGeometry();
+            // compute ride
+            computeRide();
             break;
         }
         case SUMO_ATTR_VIA: {
             // update via
             changeMiddleEdgeParents(this, parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value));
-            // compute path
-            updateGeometry();
+            // compute ride
+            computeRide();
             break;
         }
         case SUMO_ATTR_BUS_STOP:
             changeAdditionalParent(this, value, 0);
-            updateGeometry();
+            // compute ride
+            computeRide();
             break;
         case SUMO_ATTR_LINES:
             myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
@@ -559,7 +560,7 @@ GNERide::setEnabledAttribute(const int /*enabledAttributes*/) {
 
 
 void 
-GNERide::computeWithoutReferences() {
+GNERide::computeRide() {
     if (myTagProperty.getTag() == SUMO_TAG_RIDE_FROMTO) {
         // calculate route and update routeEdges
         updateRouteEdges(getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), getEdgeParents()));

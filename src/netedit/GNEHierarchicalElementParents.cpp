@@ -405,12 +405,12 @@ GNEHierarchicalElementParents::changeLastEdgeParent(GNEDemandElement* elementChi
         throw InvalidArgument("Invalid minimum number of edges");
     } else {
         // remove demandElement of edge parents
-        myEdgeParents.front()->removeDemandElementChild(elementChild);
+        myEdgeParents.back()->removeDemandElementChild(elementChild);
         // replace last edge 
         myEdgeParents.pop_back();
         myEdgeParents.push_back(newLastEdge);
         // add demandElement into edge parents
-        myEdgeParents.front()->addDemandElementChild(elementChild);
+        myEdgeParents.back()->addDemandElementChild(elementChild);
     }
 }
 

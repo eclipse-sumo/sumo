@@ -233,8 +233,8 @@ private:
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
 
-    /// @brief compute demand element without updating references
-    void computeWithoutReferences();
+    /// @brief compute person trip
+    void computePersonTrip();
 
     /// @brief Invalidated copy constructor.
     GNEPersonTrip(GNEPersonTrip*) = delete;

@@ -50,8 +50,8 @@ GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes) {
-    // compute person trip without referencing edges
-    computeWithoutReferences();
+    // compute person trip
+    computePersonTrip();
 }
 
 
@@ -63,8 +63,8 @@ GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent
     myArrivalPosition(-1),
     myVTypes(types),
     myModes(modes) {
-    // compute person trip without referencing edges
-    computeWithoutReferences();
+    // compute person trip
+    computePersonTrip();
 }
 
 
@@ -275,7 +275,7 @@ GNEPersonTrip::updateGeometry() {
     // calculate person plan start and end positions
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path
-    GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getEdgeParents(), getVClass(), 
+    GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getRouteEdges(), getVClass(), 
         getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
@@ -387,8 +387,6 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
             return getEdgeParents().back()->getID();
         case SUMO_ATTR_VIA:
             return toString(getMiddleEdgeParents());
-        case SUMO_ATTR_EDGES:
-            return parseIDs(getEdgeParents());
         case SUMO_ATTR_BUS_STOP:
             return getAdditionalParents().front()->getID();
         case SUMO_ATTR_MODES:
@@ -429,7 +427,6 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
         case SUMO_ATTR_VIA:
-        case SUMO_ATTR_EDGES:
         case SUMO_ATTR_BUS_STOP:
         case SUMO_ATTR_MODES:
         case SUMO_ATTR_VTYPES:
@@ -455,13 +452,6 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else {
                 return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
-            }
-        case SUMO_ATTR_EDGES:
-            if (canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false)) {
-                // all edges exist, then check if compounds a valid route
-                return GNEDemandElement::isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), false);
-            } else {
-                return false;
             }
         case SUMO_ATTR_BUS_STOP:
             return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
@@ -538,31 +528,28 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM: {
             // change first edge
             changeFirstEdgeParent(this, myViewNet->getNet()->retrieveEdge(value));
-            // compute path
-            updateGeometry();
+            // compute person trip
+            computePersonTrip();
             break;
         }
         case SUMO_ATTR_TO: {
             // change last edge
             changeLastEdgeParent(this, myViewNet->getNet()->retrieveEdge(value));
-            // compute path
-            updateGeometry();
+            // compute person trip
+            computePersonTrip();
             break;
         }
         case SUMO_ATTR_VIA: {
             // update via
             changeMiddleEdgeParents(this, parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value));
-            // compute path
-            updateGeometry();
+            // compute person trip
+            computePersonTrip();
             break;
         }
-        case SUMO_ATTR_EDGES:
-            changeEdgeParents(this, value);
-            updateGeometry();
-            break;
         case SUMO_ATTR_BUS_STOP:
             changeAdditionalParent(this, value, 0);
-            updateGeometry();
+            // compute person trip
+            computePersonTrip();
             break;
         case SUMO_ATTR_MODES:
             myModes = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
@@ -597,7 +584,7 @@ GNEPersonTrip::setEnabledAttribute(const int /*enabledAttributes*/) {
 
 
 void 
-GNEPersonTrip::computeWithoutReferences() {
+GNEPersonTrip::computePersonTrip() {
     if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_FROMTO) {
         // calculate route and update routeEdges
         updateRouteEdges(getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), getEdgeParents()));

@@ -297,8 +297,8 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& v
     GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
         {fromEdge, toEdge}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter() {
-    // compute vehicle without referencing edges
-    computeWithoutReferences();
+    // compute vehicle
+    computeVehicle();
 }
 
 
@@ -306,8 +306,8 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEEd
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag,
         {fromEdge, toEdge}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter(vehicleParameters) {
-    // compute vehicle without referencing edges
-    computeWithoutReferences();
+    // compute vehicle
+    computeVehicle();
 }
 
 
@@ -521,7 +521,7 @@ GNEVehicle::updateGeometry() {
         arrivalPosLane = arrivalPos;
     }
     // calculate geometry path
-    GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry,getEdgeParents(), getVClass(), 
+    GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getRouteEdges(), getVClass(), 
         getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {
@@ -1508,15 +1508,15 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM: {
             // change first edge
             changeFirstEdgeParent(this, myViewNet->getNet()->retrieveEdge(value));
-            // compute path
-            updateGeometry();
+            // compute vehicle
+            computeVehicle();
             break;
         }
         case SUMO_ATTR_TO: {
             // change last edge
             changeLastEdgeParent(this, myViewNet->getNet()->retrieveEdge(value));
-            // compute path
-            updateGeometry();
+            // compute vehicle
+            computeVehicle();
             break;
         }
         case SUMO_ATTR_VIA: {
@@ -1533,8 +1533,8 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // update via
             changeMiddleEdgeParents(this, parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value));
-            // compute path
-            updateGeometry();
+            // compute vehicle
+            computeVehicle();
             break;
         }
         // Specific of routeFlows
@@ -1583,7 +1583,7 @@ GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
 
 
 void 
-GNEVehicle::computeWithoutReferences() {
+GNEVehicle::computeVehicle() {
     // calculate route and update routeEdges
     updateRouteEdges(getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), getEdgeParents()));
     // update geometry
