@@ -440,13 +440,13 @@ if (MVN_EXECUTABLE AND Java_FOUND)
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_custom_target(lisum-core
         COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-core/pom.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-core/target/lisum-core-1.0.1-SNAPSHOT-jar-with-dependencies.jar bin
-        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/lisum-core-1.0.1-SNAPSHOT.jar -DgroupId=de.dlr.ts -DartifactId=lisum-core -Dversion=1.0.1 -Dpackaging=jar
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-core/target/lisum-core-1.0.1-SNAPSHOT-jar-with-dependencies.jar bin/lisum-core.jar
+        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=tools/contributed/lisum-core/target/lisum-core-1.0.1-SNAPSHOT.jar -DgroupId=de.dlr.ts -DartifactId=lisum-core -Dversion=1.0.1 -Dpackaging=jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_dependencies(lisum-core traas)
     add_custom_target(lisum-gui
         COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-gui/pom_new.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0-jar-with-dependencies.jar bin
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0-jar-with-dependencies.jar bin/lisum-gui.jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_dependencies(lisum-gui lisum-core)
     add_custom_target(lisum)
