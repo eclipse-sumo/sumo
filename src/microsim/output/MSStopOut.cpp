@@ -139,6 +139,12 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     if (stop.chargingStation != "") {
         myDevice.writeAttr(SUMO_ATTR_CHARGING_STATION, stop.chargingStation);
     }
+    if (stop.tripId != "") {
+        myDevice.writeAttr(SUMO_ATTR_TRIP_ID, stop.tripId);
+    }
+    if (stop.line != "") {
+        myDevice.writeAttr(SUMO_ATTR_LINE, stop.line);
+    }
     myDevice.closeTag();
     myStopped.erase(veh);
 }
