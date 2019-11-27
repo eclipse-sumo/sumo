@@ -68,12 +68,7 @@ MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, doub
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=veh->getActionStepLengthSecs(), to assure that
     // the stopping position is approached with a uniform deceleration also for tau!=veh->getActionStepLengthSecs().
-    if (veh->hasDriverState()) {
-        // @todo: Provide objectID (e.g. pointer address for the relevant object at the given distance(gap))
-        //        This is for item related management of known object and perception updates when the distance
-        //        changes significantly. (Should not be too important for stationary objects though.)
-        applyHeadwayPerceptionError(veh, speed, gap);
-    }
+    applyHeadwayPerceptionError(veh, speed, gap);
     return MIN2(maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
@@ -81,9 +76,7 @@ MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, doub
 double
 MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
     //gDebugFlag1 = DEBUG_COND;
-    if (veh->hasDriverState()) {
-        applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap, predSpeed, predMaxDecel, pred);
-    }
+    applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap, predSpeed, predMaxDecel, pred);
     //gDebugFlag1 = DEBUG_COND; // enable for DEBUG_EMERGENCYDECEL
     const double vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
     //gDebugFlag1 = false;
