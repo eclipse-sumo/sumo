@@ -153,6 +153,8 @@ enum DepartPosDefinition {
     DEPART_POS_LAST,
     /// @brief If a fixed number of random choices fails, a free position is chosen
     DEPART_POS_RANDOM_FREE,
+    /// @brief depart position is endPos of first stop
+    DEPART_POS_STOP,
     /// @brief Tag for the last element in the enum for safe int casting
     DEPART_POS_DEF_MAX
 };

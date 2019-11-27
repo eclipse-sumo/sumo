@@ -323,6 +323,8 @@ SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string& 
         dpd = DEPART_POS_BASE;
     } else if (val == "last") {
         dpd = DEPART_POS_LAST;
+    } else if (val == "stop") {
+        dpd = DEPART_POS_STOP;
     } else {
         try {
             pos = StringUtils::toDouble(val);
@@ -632,6 +634,9 @@ SUMOVehicleParameter::getDepartPos() const {
             break;
         case DEPART_POS_BASE:
             val = "base";
+            break;
+        case DEPART_POS_STOP:
+            val = "stop";
             break;
         case DEPART_POS_DEFAULT:
         default:

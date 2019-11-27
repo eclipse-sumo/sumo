@@ -571,6 +571,12 @@ MSLane::insertVehicle(MSVehicle& veh) {
             return freeInsertion(veh, speed, posLat);
         case DEPART_POS_LAST:
             return lastInsertion(veh, speed, posLat, patchSpeed);
+        case DEPART_POS_STOP:
+            if (veh.hasStops() && veh.getNextStop().lane == this) {
+                pos = veh.getNextStop().getEndPos(veh);
+                break;
+            }
+            /// fall through
         case DEPART_POS_BASE:
         case DEPART_POS_DEFAULT:
         default:
