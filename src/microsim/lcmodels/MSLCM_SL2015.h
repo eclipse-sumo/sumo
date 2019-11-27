@@ -339,6 +339,12 @@ protected:
     /// @brief compute speedGain when moving by the given amount
     double computeSpeedGain(double latDistSublane, double defaultNextSpeed) const;
 
+    /// @brief get lateral position of this vehicle
+    double getPosLat();
+
+    /// @brief get lateral drift for the current step
+    double getLateralDrift();
+
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial
     double mySpeedGainProbabilityRight;
@@ -417,6 +423,9 @@ protected:
     double myChangeProbThresholdLeft;
     // @brief threshold value for accepting speed loss to achieve desired sublane alignment
     double mySpeedLossProbThreshold;
+
+    // @brief state of lane keeping imperfection
+    double mySigmaState;
     //@}
 
 };

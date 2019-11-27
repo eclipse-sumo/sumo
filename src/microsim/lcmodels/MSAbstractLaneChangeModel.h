@@ -250,28 +250,7 @@ public:
     void setLeaderGaps(const MSLeaderDistanceInfo& vehicles);
     void setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicles);
 
-    virtual void prepareStep() {
-        getCanceledState(-1) = LCA_NONE;
-        getCanceledState(0) = LCA_NONE;
-        getCanceledState(1) = LCA_NONE;
-        saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
-        saveLCState(0, LCA_UNKNOWN, LCA_UNKNOWN);
-        saveLCState(1, LCA_UNKNOWN, LCA_UNKNOWN);
-        myLastLateralGapRight = NO_NEIGHBOR;
-        myLastLateralGapLeft = NO_NEIGHBOR;
-        if (!myDontResetLCGaps) {
-            myLastLeaderGap = NO_NEIGHBOR;
-            myLastLeaderSecureGap = NO_NEIGHBOR;
-            myLastFollowerGap = NO_NEIGHBOR;
-            myLastFollowerSecureGap = NO_NEIGHBOR;
-            myLastOrigLeaderGap = NO_NEIGHBOR;
-            myLastOrigLeaderSecureGap = NO_NEIGHBOR;
-            myLastLeaderSpeed = NO_NEIGHBOR;
-            myLastFollowerSpeed = NO_NEIGHBOR;
-            myLastOrigLeaderSpeed = NO_NEIGHBOR;
-        }
-        myCommittedSpeed = 0;
-    }
+    virtual void prepareStep();
 
     /** @brief Called to examine whether the vehicle wants to change
      * using the given laneOffset.
@@ -570,7 +549,7 @@ public:
     void setSpeedLat(double speedLat) {
         mySpeedLat = speedLat;
     }
-
+    
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
     ///        and updates maneuverDist according to lateral safety constraints.
     virtual double computeSpeedLat(double latDist, double& maneuverDist);
@@ -718,6 +697,8 @@ protected:
     double myMaxSpeedLatStanding;
     // @brief the factor of maximum lateral speed to longitudinal speed
     double myMaxSpeedLatFactor;
+    // @brief factor for lane keeping imperfection
+    double mySigma;
 
     /* @brief to be called by derived classes in their changed() method.
      * If dir=0 is given, the current value remains unchanged */

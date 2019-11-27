@@ -67,6 +67,7 @@
         <xsd:attribute name="lcMaxSpeedLatFactor" type="positiveFloatType"/>
         <xsd:attribute name="lcOvertakeRight" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcLaneDiscipline" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcSigma" type="nonNegativeFloatType"/>
         <xsd:attribute name="maxSpeedLat" type="positiveFloatType"/>
         <xsd:attribute name="latAlignment">
             <xsd:simpleType>

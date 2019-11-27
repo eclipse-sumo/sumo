@@ -27,6 +27,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSDriverState.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/pedestrians/MSPModel.h>
 #include "MSLCM_SL2015.h"
@@ -145,7 +146,8 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myTurnAlignmentDist(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, 0.0)),
     myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)),
     mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)),
-    myLaneDiscipline(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LANE_DISCIPLINE, 0.0)) 
+    myLaneDiscipline(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LANE_DISCIPLINE, 0.0)),
+    mySigmaState(0)
 {
     initDerivedParameters();
 }
@@ -196,6 +198,7 @@ MSLCM_SL2015::wantsChangeSublane(
                   << " lane=" << myVehicle.getLane()->getID()
                   << " pos=" << myVehicle.getPositionOnLane()
                   << " posLat=" << myVehicle.getLateralPositionOnLane()
+                  << " posLatError=" << mySigmaState
                   << " speed=" << myVehicle.getSpeed()
                   << " considerChangeTo=" << changeType
                   << "\n";
@@ -914,8 +917,25 @@ MSLCM_SL2015::prepareStep() {
         myLastEdge = currEdge;
     }
     assert(myExpectedSublaneSpeeds.size() == myVehicle.getLane()->getEdge().getSubLaneSides().size());
+    if (mySigma > 0) {
+        mySigmaState += getLateralDrift();
+    }
 }
 
+double
+MSLCM_SL2015::getLateralDrift() {
+    //OUProcess::step(double state, double dt, double timeScale, double noiseIntensity)
+    const double deltaState = OUProcess::step(mySigmaState, 
+            myVehicle.getActionStepLengthSecs(),
+            MAX2(NUMERICAL_EPS, (1 - mySigma) * 100), mySigma) - mySigmaState;
+    const double scaledDelta = deltaState * myVehicle.getSpeed() / myVehicle.getLane()->getSpeedLimit();
+    return scaledDelta;
+}
+
+double
+MSLCM_SL2015::getPosLat() {
+    return myVehicle.getLateralPositionOnLane() + mySigmaState;
+}
 
 int
 MSLCM_SL2015::computeSublaneShift(const MSEdge* prevEdge, const MSEdge* curEdge) {
@@ -1717,13 +1737,13 @@ MSLCM_SL2015::_wantsChangeSublane(
             }
             switch (align) {
                 case LATALIGN_RIGHT:
-                    latDistSublane = -halfLaneWidth + halfVehWidth - myVehicle.getLateralPositionOnLane();
+                    latDistSublane = -halfLaneWidth + halfVehWidth - getPosLat();
                     break;
                 case LATALIGN_LEFT:
-                    latDistSublane = halfLaneWidth - halfVehWidth - myVehicle.getLateralPositionOnLane();
+                    latDistSublane = halfLaneWidth - halfVehWidth - getPosLat();
                     break;
                 case LATALIGN_CENTER:
-                    latDistSublane = -myVehicle.getLateralPositionOnLane();
+                    latDistSublane = -getPosLat();
                     break;
                 case LATALIGN_NICE:
                     latDistSublane = latDistNice;
@@ -1732,7 +1752,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                     latDistSublane = sublaneSides[sublaneCompact] - rightVehSide;
                     break;
                 case LATALIGN_ARBITRARY:
-                    latDistSublane = 0;
+                    latDistSublane = getLateralDrift();
                     break;
             }
         }
@@ -3350,6 +3370,8 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(mySpeedGainRight);
     } else if (key == toString(SUMO_ATTR_LCA_LANE_DISCIPLINE)) {
         return toString(myLaneDiscipline);
+    } else if (key == toString(SUMO_ATTR_LCA_SIGMA)) {
+        return toString(mySigma);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
@@ -3391,6 +3413,8 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         mySpeedGainRight = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_LANE_DISCIPLINE)) {
         myLaneDiscipline = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_SIGMA)) {
+        mySigma = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }

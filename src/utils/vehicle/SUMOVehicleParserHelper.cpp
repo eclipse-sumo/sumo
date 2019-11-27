@@ -1227,6 +1227,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
         lc2013Params.insert(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR);
         lc2013Params.insert(SUMO_ATTR_LCA_ASSERTIVE);
         lc2013Params.insert(SUMO_ATTR_LCA_OVERTAKE_RIGHT);
+        lc2013Params.insert(SUMO_ATTR_LCA_SIGMA);
         lc2013Params.insert(SUMO_ATTR_LCA_EXPERIMENTAL1);
         allowedLCModelAttrs[LCM_LC2013] = lc2013Params;
 
@@ -1281,6 +1282,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
                     case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
                     case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
                     case SUMO_ATTR_LCA_LANE_DISCIPLINE:
+                    case SUMO_ATTR_LCA_SIGMA:
                         if (LCMAttribute < 0) {
                             ok = false;
                             if (hardFail) {

@@ -39,6 +39,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSDriverState.h>
 #include <microsim/MSGlobals.h>
 #include "MSLCM_DK2008.h"
 #include "MSLCM_LC2013.h"
@@ -123,6 +124,7 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myDontResetLCGaps(false),
     myMaxSpeedLatStanding(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, v.getVehicleType().getMaxSpeedLat())),
     myMaxSpeedLatFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1)),
+    mySigma(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SIGMA, 0.0)),
     myLastLaneChangeOffset(0),
     myAmOpposite(false) {
     saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
@@ -871,6 +873,30 @@ MSAbstractLaneChangeModel::setOrigLeaderGaps(CLeaderDist leader, double secGap) 
         myLastOrigLeaderSecureGap = secGap;
         myLastOrigLeaderSpeed = leader.first->getSpeed();
     }
+}
+
+void
+MSAbstractLaneChangeModel::prepareStep() {
+    getCanceledState(-1) = LCA_NONE;
+    getCanceledState(0) = LCA_NONE;
+    getCanceledState(1) = LCA_NONE;
+    saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
+    saveLCState(0, LCA_UNKNOWN, LCA_UNKNOWN);
+    saveLCState(1, LCA_UNKNOWN, LCA_UNKNOWN);
+    myLastLateralGapRight = NO_NEIGHBOR;
+    myLastLateralGapLeft = NO_NEIGHBOR;
+    if (!myDontResetLCGaps) {
+        myLastLeaderGap = NO_NEIGHBOR;
+        myLastLeaderSecureGap = NO_NEIGHBOR;
+        myLastFollowerGap = NO_NEIGHBOR;
+        myLastFollowerSecureGap = NO_NEIGHBOR;
+        myLastOrigLeaderGap = NO_NEIGHBOR;
+        myLastOrigLeaderSecureGap = NO_NEIGHBOR;
+        myLastLeaderSpeed = NO_NEIGHBOR;
+        myLastFollowerSpeed = NO_NEIGHBOR;
+        myLastOrigLeaderSpeed = NO_NEIGHBOR;
+    }
+    myCommittedSpeed = 0;
 }
 
 void

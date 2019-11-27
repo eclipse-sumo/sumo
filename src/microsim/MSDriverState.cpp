@@ -113,6 +113,11 @@ OUProcess::step(double dt) {
 #endif
 }
 
+double
+OUProcess::step(double state, double dt, double timeScale, double noiseIntensity) {
+    /// see above
+    return exp(-dt / timeScale) * state + noiseIntensity * sqrt(2 * dt / timeScale) * RandHelper::randNorm(0, 1, &myRNG);
+}
 
 double
 OUProcess::getState() const {
