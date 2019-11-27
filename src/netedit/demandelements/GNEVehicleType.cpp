@@ -440,12 +440,6 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_PROB);
             }
-        case SUMO_ATTR_HASDRIVERSTATE:
-            if (wasSet(VTYPEPARS_HASDRIVERSTATE_SET)) {
-                return toString(hasDriverState);
-            } else {
-                return myTagProperty.getDefaultValue(SUMO_ATTR_HASDRIVERSTATE);
-            }
         case SUMO_ATTR_CARRIAGE_LENGTH:
             if (wasSet(VTYPEPARS_CARRIAGE_LENGTH_SET)) {
                 return toString(carriageLength);
@@ -611,7 +605,6 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_MAXSPEED_LAT:
         case SUMO_ATTR_ACTIONSTEPLENGTH:
         case SUMO_ATTR_PROB:
-        case SUMO_ATTR_HASDRIVERSTATE:
         case SUMO_ATTR_OSGFILE:
         case SUMO_ATTR_CARRIAGE_LENGTH:
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
@@ -783,8 +776,6 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && (parse<double>(value) >= 0);
-        case SUMO_ATTR_HASDRIVERSTATE:
-            return canParse<bool>(value);
         case SUMO_ATTR_OSGFILE:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_CARRIAGE_LENGTH:
@@ -1094,9 +1085,6 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newV
     }
     if (newVTypeParameter->wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
         vType->setAttribute(SUMO_ATTR_ACTIONSTEPLENGTH, toString(newVTypeParameter->actionStepLength), undoList);
-    }
-    if (newVTypeParameter->wasSet(VTYPEPARS_HASDRIVERSTATE_SET)) {
-        vType->setAttribute(SUMO_ATTR_HASDRIVERSTATE, toString(newVTypeParameter->hasDriverState), undoList);
     }
     if (newVTypeParameter->wasSet(VTYPEPARS_PROBABILITY_SET)) {
         vType->setAttribute(SUMO_ATTR_PROB, toString(newVTypeParameter->defaultProbability), undoList);
@@ -1572,18 +1560,6 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 defaultProbability = parse<double>(myTagProperty.getDefaultValue(key));
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_PROBABILITY_SET;
-            }
-            break;
-        case SUMO_ATTR_HASDRIVERSTATE:
-            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                hasDriverState = parse<bool>(value);
-                // mark parameter as set
-                parametersSet |= VTYPEPARS_HASDRIVERSTATE_SET;
-            } else {
-                // set default value
-                hasDriverState = parse<bool>(myTagProperty.getDefaultValue(key));
-                // unset parameter
-                parametersSet &= ~VTYPEPARS_HASDRIVERSTATE_SET;
             }
             break;
         case SUMO_ATTR_OSGFILE:

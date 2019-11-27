@@ -304,7 +304,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "emergencyDecel",         SUMO_ATTR_EMERGENCYDECEL },
     { "apparentDecel",          SUMO_ATTR_APPARENTDECEL },
     { "actionStepLength",       SUMO_ATTR_ACTIONSTEPLENGTH },
-    { "hasDriverState",         SUMO_ATTR_HASDRIVERSTATE },
     { "vClass",                 SUMO_ATTR_VCLASS },
     { "vClasses",               SUMO_ATTR_VCLASSES },
     { "exceptions",             SUMO_ATTR_EXCEPTIONS },

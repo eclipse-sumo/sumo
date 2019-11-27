@@ -3322,12 +3322,6 @@ GNEAttributeCarrier::fillDemandElements() {
                                            toString(DEFAULT_VEH_PROB));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = AttributeProperties(SUMO_ATTR_HASDRIVERSTATE,
-                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
-                                           "Whether vehicles of this type are equipped with a driver (i.e. MSDriverState))",
-                                           "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
         attrProperty = AttributeProperties(SUMO_ATTR_OSGFILE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
                                            "3D model file for this class",

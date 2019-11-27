@@ -283,9 +283,6 @@ public:
         /// @brief VTypeAttributeRow for ActionStepLength
         VTypeAttributeRow* myActionStepLength;
 
-        /// @brief VTypeAttributeRow for HasDriveState
-        VTypeAttributeRow* myHasDriveState;
-
         /// @brief VTypeAttributeRow for Probability
         VTypeAttributeRow* myProbability;
 
