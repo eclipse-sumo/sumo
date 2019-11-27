@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 time 1.0
 Driver state device infos for vehicle 'deviceHolder'
 Static parameters:
@@ -56,6 +57,6 @@ Dynamic parameters:
   awareness = 0.77
   errorNoiseIntensity = 0.05
   errorTimeScale = 0.08
-  errorState = -0.05
+  errorState = -0.42
   actionStepLength(dev) = 5.00
   actionStepLength(veh) = 5.0

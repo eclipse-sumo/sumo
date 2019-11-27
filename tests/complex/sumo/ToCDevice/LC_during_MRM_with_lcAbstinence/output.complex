@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 time 1.0
 ToC device infos for vehicle 'ToC_veh'
 Static parameters:
@@ -520,43 +521,43 @@ ToC device infos for vehicle 'ToC_veh'
 time 100.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.95
-  currentSpeed = 0.851806422885
+  currentSpeed = 0.853863212845
   state = RECOVERING
 Time 101.0: veh 'ToC_veh' changed lanes. Current: 0
 time 101.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 0.0645498523331
+  currentSpeed = 0.0633345526669
   state = MANUAL
 time 102.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 2.60425548554
+  currentSpeed = 2.60304018588
   state = MANUAL
 time 103.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 4.04594415525
+  currentSpeed = 4.04472885558
   state = MANUAL
 time 104.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 5.71970278205
+  currentSpeed = 5.71848748238
   state = MANUAL
 time 105.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 7.47035561293
+  currentSpeed = 7.46914031327
   state = MANUAL
 time 106.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 9.37654362943
+  currentSpeed = 9.37532832977
   state = MANUAL
 time 107.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 11.4662635121
+  currentSpeed = 11.4650482124
   state = MANUAL
 time 108.0
 ToC device infos for vehicle 'ToC_veh'
