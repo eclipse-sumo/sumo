@@ -322,6 +322,12 @@ GNEStop::updatePartialGeometry(const GNEEdge* edge) {
 }
 
 
+void 
+GNEStop::computePath() {
+    // nothing to compute
+}
+
+
 Position
 GNEStop::getPositionInView() const {
     if (getLaneParents().size() > 0) {

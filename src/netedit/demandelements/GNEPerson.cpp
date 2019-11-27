@@ -332,6 +332,12 @@ GNEPerson::updatePartialGeometry(const GNEEdge* edge) {
 }
 
 
+void 
+GNEPerson::computePath() {
+    // nothing to compute
+}
+
+
 Position
 GNEPerson::getPositionInView() const {
     // Position in view depend of first child element

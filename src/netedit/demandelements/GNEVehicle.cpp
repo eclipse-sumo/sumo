@@ -301,7 +301,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& v
     // set via parameter without updating references
     changeMiddleEdgeParents(this, via, false);
     // compute vehicle
-    computeVehicle();
+    computePath();
 }
 
 
@@ -313,7 +313,7 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEEd
     // set via parameter without updating references
     changeMiddleEdgeParents(this, via, false);
     // compute vehicle
-    computeVehicle();
+    computePath();
 }
 
 
@@ -554,6 +554,15 @@ GNEVehicle::updatePartialGeometry(const GNEEdge* edge) {
     for (const auto& i : getDemandElementChildren()) {
         i->updatePartialGeometry(edge);
     }
+}
+
+
+void 
+GNEVehicle::computePath() {
+    // calculate route and update routeEdges
+    changePathEdges(this, getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), getEdgeParents()));
+    // update geometry
+    updateGeometry();
 }
 
 
@@ -1515,14 +1524,14 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // change first edge
             changeFirstEdgeParent(this, myViewNet->getNet()->retrieveEdge(value));
             // compute vehicle
-            computeVehicle();
+            computePath();
             break;
         }
         case SUMO_ATTR_TO: {
             // change last edge
             changeLastEdgeParent(this, myViewNet->getNet()->retrieveEdge(value));
             // compute vehicle
-            computeVehicle();
+            computePath();
             break;
         }
         case SUMO_ATTR_VIA: {
@@ -1540,7 +1549,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update via
             changeMiddleEdgeParents(this, parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), true);
             // compute vehicle
-            computeVehicle();
+            computePath();
             break;
         }
         // Specific of routeFlows
@@ -1587,13 +1596,5 @@ GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
     parametersSet = enabledAttributes;
 }
 
-
-void 
-GNEVehicle::computeVehicle() {
-    // calculate route and update routeEdges
-    changePathEdges(this, getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), getEdgeParents()));
-    // update geometry
-    updateGeometry();
-}
 
 /****************************************************************************/

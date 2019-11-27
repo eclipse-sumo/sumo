@@ -159,6 +159,12 @@ GNEVehicleType::updatePartialGeometry(const GNEEdge* edge) {
 }
 
 
+void 
+GNEVehicleType::computePath() {
+    // nothing to compute
+}
+
+
 Position
 GNEVehicleType::getPositionInView() const {
     return Position();

@@ -173,6 +173,9 @@ public:
     /// @brief partial update pre-computed geometry information
     void updatePartialGeometry(const GNEEdge *edge);
 
+    /// @brief compute path
+    void computePath();
+
     /// @brief Returns position of demand element in view
     Position getPositionInView() const;
     /// @}

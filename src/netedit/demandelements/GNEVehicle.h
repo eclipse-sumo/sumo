@@ -226,6 +226,9 @@ public:
     /// @brief partial update pre-computed geometry information
     void updatePartialGeometry(const GNEEdge *edge);
 
+    /// @brief compute path
+    void computePath();
+
     /// @brief Returns position of demand element in view
     Position getPositionInView() const;
     /// @}
@@ -332,9 +335,6 @@ private:
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
-
-    /// @brief compute vehicle
-    void computeVehicle();
 
     /// @brief Invalidated copy constructor.
     GNEVehicle(const GNEVehicle&) = delete;

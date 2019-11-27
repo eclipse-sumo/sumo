@@ -282,6 +282,12 @@ GNERoute::updatePartialGeometry(const GNEEdge* edge) {
 }
 
 
+void 
+GNERoute::computePath() {
+    // nothing to compute
+}
+
+
 Position
 GNERoute::getPositionInView() const {
     return Position();
