@@ -817,7 +817,7 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
                                             NBEdge::UNSPECIFIED_SPEED, PositionVector::EMPTY, false, warnOnly);
     }
     // ensure that connections for other lanes are guessed if not specified
-    from->declareConnectionsAsLoaded(NBEdge::INIT);
+    from->declareConnectionsAsLoaded(NBEdge::EdgeBuildingStep::INIT);
     from->getLaneStruct(fromLane).connectionsDone = true;
     return true;
 }

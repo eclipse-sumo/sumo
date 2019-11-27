@@ -87,7 +87,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
             myErrorMsgHandler->informf("The connection-destination edge '%' to reset is not known.", to);
             return;
         }
-        if (!fromEdge->isConnectedTo(toEdge) && fromEdge->getStep() >= NBEdge::EDGE2EDGES) {
+        if (!fromEdge->isConnectedTo(toEdge) && fromEdge->getStep() >= NBEdge::EdgeBuildingStep::EDGE2EDGES) {
             WRITE_WARNINGF("Target edge '%' is not connected with '%'; the connection cannot be reset.", toEdge->getID(), fromEdge->getID());
             return;
         }
@@ -101,7 +101,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
             }
             // we could be trying to reset a connection loaded from a sumo net and which has become obsolete.
             // In this case it's ok to encounter invalid lance indices
-            if (!fromEdge->hasConnectionTo(toEdge, toLane) && fromEdge->getStep() >= NBEdge::LANES2EDGES) {
+            if (!fromEdge->hasConnectionTo(toEdge, toLane) && fromEdge->getStep() >= NBEdge::EdgeBuildingStep::LANES2EDGES) {
                 WRITE_WARNINGF("Edge '%' has no connection to lane '%'; the connection cannot be reset.", fromEdge->getID(), toEdge->getLaneID(toLane));
             }
         }
@@ -224,7 +224,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
         }
 
         NBEdge::Connection defaultCon(fromLane, to, toLane);
-        if (from->getStep() == NBEdge::LANES2LANES_USER) {
+        if (from->getStep() == NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
             // maybe we are patching an existing connection
             std::vector<NBEdge::Connection> existing = from->getConnectionsFromLane(fromLane, to, toLane);
             if (existing.size() > 0) {

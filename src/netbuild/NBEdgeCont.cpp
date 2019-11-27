@@ -1356,19 +1356,15 @@ NBEdgeCont::removeRoundabout(const NBNode* node) {
 
 void
 NBEdgeCont::markRoundabouts() {
-    const std::set<EdgeSet> roundabouts = getRoundabouts();
-    for (std::set<EdgeSet>::const_iterator it = roundabouts.begin(); it != roundabouts.end(); ++it) {
-        const EdgeSet roundaboutSet = *it;
-        for (std::set<NBEdge*>::const_iterator j = roundaboutSet.begin(); j != roundaboutSet.end(); ++j) {
+    for (const EdgeSet& roundaboutSet : getRoundabouts()) {
+        for (NBEdge* const edge : roundaboutSet) {
             // disable turnarounds on incoming edges
-            NBNode* node = (*j)->getToNode();
-            const EdgeVector& incoming = node->getIncomingEdges();
-            for (EdgeVector::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
-                NBEdge* inEdge = *k;
+            NBNode* const node = edge->getToNode();
+            for (NBEdge* const inEdge : node->getIncomingEdges()) {
                 if (roundaboutSet.count(inEdge) > 0) {
                     continue;
                 }
-                if ((inEdge)->getStep() >= NBEdge::LANES2LANES_USER) {
+                if (inEdge->getStep() >= NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
                     continue;
                 }
                 if (inEdge->getTurnDestination() != nullptr) {
@@ -1376,12 +1372,13 @@ NBEdgeCont::markRoundabouts() {
                 }
             }
             // let the connections to succeeding roundabout edge have a higher priority
-            (*j)->setJunctionPriority(node, NBEdge::ROUNDABOUT);
-            (*j)->setJunctionPriority((*j)->getFromNode(), NBEdge::ROUNDABOUT);
+            edge->setJunctionPriority(node, NBEdge::ROUNDABOUT);
+            edge->setJunctionPriority(edge->getFromNode(), NBEdge::ROUNDABOUT);
             node->setRoundabout();
         }
     }
 }
+
 
 void
 NBEdgeCont::generateStreetSigns() {

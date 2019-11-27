@@ -269,7 +269,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
                const std::string& streetName,
                LaneSpreadFunction spread) :
     Named(StringUtils::convertUmlaute(id)),
-    myStep(INIT),
+    myStep(EdgeBuildingStep::INIT),
     myType(StringUtils::convertUmlaute(type)),
     myFrom(from), myTo(to),
     myStartAngle(0), myEndAngle(0), myTotalAngle(0),
@@ -299,7 +299,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
                const std::string& origID,
                LaneSpreadFunction spread, bool tryIgnoreNodePositions) :
     Named(StringUtils::convertUmlaute(id)),
-    myStep(INIT),
+    myStep(EdgeBuildingStep::INIT),
     myType(StringUtils::convertUmlaute(type)),
     myFrom(from), myTo(to),
     myStartAngle(0), myEndAngle(0), myTotalAngle(0),
@@ -323,7 +323,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
 
 NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tpl, const PositionVector& geom, int numLanes) :
     Named(StringUtils::convertUmlaute(id)),
-    myStep(INIT),
+    myStep(EdgeBuildingStep::INIT),
     myType(tpl->getTypeID()),
     myFrom(from), myTo(to),
     myStartAngle(0), myEndAngle(0), myTotalAngle(0),
@@ -948,7 +948,7 @@ NBEdge::checkGeometry(const double maxAngle, const double minRadius, bool fix, b
 // ----------- Setting and getting connections
 bool
 NBEdge::addEdge2EdgeConnection(NBEdge* dest) {
-    if (myStep == INIT_REJECT_CONNECTIONS) {
+    if (myStep == EdgeBuildingStep::INIT_REJECT_CONNECTIONS) {
         return true;
     }
     // check whether the node was merged and now a connection between
@@ -963,8 +963,8 @@ NBEdge::addEdge2EdgeConnection(NBEdge* dest) {
     } else if (find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(dest)) == myConnections.end()) {
         myConnections.push_back(Connection(-1, dest, -1));
     }
-    if (myStep < EDGE2EDGES) {
-        myStep = EDGE2EDGES;
+    if (myStep < EdgeBuildingStep::EDGE2EDGES) {
+        myStep = EdgeBuildingStep::EDGE2EDGES;
     }
     return true;
 }
@@ -981,7 +981,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                double speed,
                                const PositionVector& customShape,
                                bool uncontrolled) {
-    if (myStep == INIT_REJECT_CONNECTIONS) {
+    if (myStep == EdgeBuildingStep::INIT_REJECT_CONNECTIONS) {
         return true;
     }
     // check whether the node was merged and now a connection between
@@ -1025,7 +1025,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       double speed,
                       const PositionVector& customShape,
                       bool uncontrolled) {
-    if (myStep == INIT_REJECT_CONNECTIONS) {
+    if (myStep == EdgeBuildingStep::INIT_REJECT_CONNECTIONS) {
         return false;
     }
     // some kind of a misbehaviour which may occure when the junction's outgoing
@@ -1066,16 +1066,16 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     myConnections.back().customShape = customShape;
     myConnections.back().uncontrolled = uncontrolled;
     if (type == L2L_USER) {
-        myStep = LANES2LANES_USER;
+        myStep = EdgeBuildingStep::LANES2LANES_USER;
     } else {
         // check whether we have to take another look at it later
         if (type == L2L_COMPUTED) {
             // yes, the connection was set using an algorithm which requires a recheck
-            myStep = LANES2LANES_RECHECK;
+            myStep = EdgeBuildingStep::LANES2LANES_RECHECK;
         } else {
             // ok, let's only not recheck it if we did no add something that has to be rechecked
-            if (myStep != LANES2LANES_RECHECK) {
-                myStep = LANES2LANES_DONE;
+            if (myStep != EdgeBuildingStep::LANES2LANES_RECHECK) {
+                myStep = EdgeBuildingStep::LANES2LANES_DONE;
             }
         }
     }
@@ -1239,7 +1239,7 @@ NBEdge::remapConnections(const EdgeVector& incoming) {
     for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
         NBEdge* inc = *i;
         // We have to do this
-        inc->myStep = EDGE2EDGES;
+        inc->myStep = EdgeBuildingStep::EDGE2EDGES;
         // add all connections
         for (EdgeVector::iterator j = connected.begin(); j != connected.end(); j++) {
             inc->addEdge2EdgeConnection(*j);
@@ -1324,9 +1324,9 @@ NBEdge::invalidateConnections(bool reallowSetting) {
     myTurnDestination = nullptr;
     myConnections.clear();
     if (reallowSetting) {
-        myStep = INIT;
+        myStep = EdgeBuildingStep::INIT;
     } else {
-        myStep = INIT_REJECT_CONNECTIONS;
+        myStep = EdgeBuildingStep::INIT_REJECT_CONNECTIONS;
     }
 }
 
@@ -1387,7 +1387,7 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
 #endif
             continue;
         }
-        if (which->getStep() == EDGE2EDGES) {
+        if (which->getStep() == EdgeBuildingStep::EDGE2EDGES) {
             // do not set lane-level connections
             replaceInConnections(which, (*i).toEdge, 0);
             continue;
@@ -2128,7 +2128,7 @@ NBEdge::computeEdge2Edges(bool noLeftMovers) {
 #endif
     // return if this relationship has been build in previous steps or
     //  during the import
-    if (myStep >= EDGE2EDGES) {
+    if (myStep >= EdgeBuildingStep::EDGE2EDGES) {
         return true;
     }
     const EdgeVector& o = myTo->getOutgoingEdges();
@@ -2144,7 +2144,7 @@ NBEdge::computeEdge2Edges(bool noLeftMovers) {
         }
         myConnections.push_back(Connection(-1, *i, -1));
     }
-    myStep = EDGE2EDGES;
+    myStep = EdgeBuildingStep::EDGE2EDGES;
     return true;
 }
 
@@ -2161,10 +2161,10 @@ NBEdge::computeLanes2Edges() {
 #endif
     // return if this relationship has been build in previous steps or
     //  during the import
-    if (myStep >= LANES2EDGES) {
+    if (myStep >= EdgeBuildingStep::LANES2EDGES) {
         return true;
     }
-    assert(myStep == EDGE2EDGES);
+    assert(myStep == EdgeBuildingStep::EDGE2EDGES);
     // get list of possible outgoing edges sorted by direction clockwise
     //  the edge in the backward direction (turnaround) is not in the list
     const EdgeVector* edges = getConnectedSorted();
@@ -2176,7 +2176,7 @@ NBEdge::computeLanes2Edges() {
         divideOnEdges(edges);
     }
     delete edges;
-    myStep = LANES2EDGES;
+    myStep = EdgeBuildingStep::LANES2EDGES;
     return true;
 }
 
@@ -2202,7 +2202,7 @@ NBEdge::recheckLanes() {
             ++i;
         }
     }
-    if (myStep != LANES2LANES_DONE && myStep != LANES2LANES_USER) {
+    if (myStep != EdgeBuildingStep::LANES2LANES_DONE && myStep != EdgeBuildingStep::LANES2LANES_USER) {
         // check #1:
         // If there is a lane with no connections and any neighbour lane has
         //  more than one connections, try to move one of them.
@@ -2782,7 +2782,7 @@ NBEdge::moveOutgoingConnectionsFrom(NBEdge* e, int laneOff) {
 
 bool
 NBEdge::lanesWereAssigned() const {
-    return myStep == LANES2LANES_DONE || myStep == LANES2LANES_USER;
+    return myStep == EdgeBuildingStep::LANES2LANES_DONE || myStep == EdgeBuildingStep::LANES2LANES_USER;
 }
 
 
@@ -2974,11 +2974,11 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
     //  both edges
     // This edge must have a one-to-one connection to the following lanes
     switch (myStep) {
-        case INIT_REJECT_CONNECTIONS:
+        case EdgeBuildingStep::INIT_REJECT_CONNECTIONS:
             break;
-        case INIT:
+        case EdgeBuildingStep::INIT:
             break;
-        case EDGE2EDGES: {
+        case EdgeBuildingStep::EDGE2EDGES: {
             // the following edge must be connected
             const EdgeVector& conn = getConnectedEdges();
             if (find(conn.begin(), conn.end(), possContinuation) == conn.end()) {
@@ -2987,10 +2987,10 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
             }
         }
         break;
-        case LANES2EDGES:
-        case LANES2LANES_RECHECK:
-        case LANES2LANES_DONE:
-        case LANES2LANES_USER: {
+        case EdgeBuildingStep::LANES2EDGES:
+        case EdgeBuildingStep::LANES2LANES_RECHECK:
+        case EdgeBuildingStep::LANES2LANES_DONE:
+        case EdgeBuildingStep::LANES2LANES_USER: {
             // the possible continuation must be connected
             if (find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(possContinuation)) == myConnections.end()) {
                 reason = "disconnected";
@@ -3143,7 +3143,7 @@ NBEdge::incLaneNo(int by) {
     int newLaneNo = (int)myLanes.size() + by;
     while ((int)myLanes.size() < newLaneNo) {
         // recompute shapes on last addition
-        const bool recompute = ((int)myLanes.size() == newLaneNo - 1) && myStep < LANES2LANES_USER;
+        const bool recompute = ((int)myLanes.size() == newLaneNo - 1) && myStep < EdgeBuildingStep::LANES2LANES_USER;
         addLane((int)myLanes.size(), recompute, recompute, false);
     }
 }
@@ -3175,7 +3175,7 @@ NBEdge::decLaneNo(int by) {
     assert(newLaneNo > 0);
     while ((int)myLanes.size() > newLaneNo) {
         // recompute shapes on last removal
-        const bool recompute = (int)myLanes.size() == newLaneNo + 1 && myStep < LANES2LANES_USER;
+        const bool recompute = (int)myLanes.size() == newLaneNo + 1 && myStep < EdgeBuildingStep::LANES2LANES_USER;
         deleteLane((int)myLanes.size() - 1, recompute, false);
     }
 }
@@ -3184,7 +3184,7 @@ NBEdge::decLaneNo(int by) {
 void
 NBEdge::markAsInLane2LaneState() {
     assert(myTo->getOutgoingEdges().size() == 0);
-    myStep = LANES2LANES_DONE;
+    myStep = EdgeBuildingStep::LANES2LANES_DONE;
 }
 
 

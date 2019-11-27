@@ -106,7 +106,7 @@ public:
      *  information, a counter holding the current step is needed. This is done
      *  by using this enumeration.
      */
-    enum EdgeBuildingStep {
+    enum class EdgeBuildingStep {
         /// @brief The edge has been loaded and connections shall not be added
         INIT_REJECT_CONNECTIONS,
         /// @brief The edge has been loaded, nothing is computed yet
@@ -1290,7 +1290,7 @@ public:
     }
 
     /// @brief declares connections as fully loaded. This is needed to avoid recomputing connections if an edge has no connections intentionally.
-    void declareConnectionsAsLoaded(EdgeBuildingStep step = LANES2LANES_USER) {
+    void declareConnectionsAsLoaded(EdgeBuildingStep step = EdgeBuildingStep::LANES2LANES_USER) {
         myStep = step;
     }
 

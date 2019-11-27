@@ -1171,7 +1171,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
                 continue;
             }
             const auto& cons = cur->getConnections();
-            if (cons.size() == 0 || ec.hasPostProcessConnection(cur->getID()) || cur->getStep() == NBEdge::INIT) {
+            if (cons.size() == 0 || ec.hasPostProcessConnection(cur->getID()) || cur->getStep() == NBEdge::EdgeBuildingStep::INIT) {
                 // check permissions to determine reachability
                 for (NBEdge* out : cur->getToNode()->getOutgoingEdges()) {
                     if (seen.count(out) == 0
@@ -1234,7 +1234,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
             e->addLane2LaneConnection((*k).fromLane, (*k).toEdge, (*k).toLane, NBEdge::L2L_USER, false, (*k).mayDefinitelyPass);
             if ((*k).fromLane >= 0 && (*k).fromLane < e->getNumLanes() && e->getLaneStruct((*k).fromLane).connectionsDone) {
                 // @note (see NIImporter_DlrNavteq::ConnectedLanesHandler)
-                e->declareConnectionsAsLoaded(NBEdge::INIT);
+                e->declareConnectionsAsLoaded(NBEdge::EdgeBuildingStep::INIT);
             }
         }
     }

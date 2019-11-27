@@ -134,7 +134,7 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
     assert((int)myApproaching.size() > src);
     // get the origin edge
     NBEdge* incomingEdge = myApproaching[src];
-    if (incomingEdge->getStep() == NBEdge::LANES2LANES_DONE || incomingEdge->getStep() == NBEdge::LANES2LANES_USER) {
+    if (incomingEdge->getStep() == NBEdge::EdgeBuildingStep::LANES2LANES_DONE || incomingEdge->getStep() == NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
         return;
     }
     if (myAvailableLanes.size() == 0) {
@@ -1043,7 +1043,7 @@ NBNode::computeLanes2Lanes() {
 #endif
         const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
-        if (in->getStep() <= NBEdge::LANES2EDGES
+        if (in->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES
                 && in->getNumLanes() - inOffset == out->getNumLanes() - outOffset - 1
                 && in != out
                 && in->isConnectedTo(out)) {
@@ -1065,8 +1065,8 @@ NBNode::computeLanes2Lanes() {
         int in1Offset = MAX2(0, in1->getFirstNonPedestrianLaneIndex(FORWARD, true));
         int in2Offset = MAX2(0, in2->getFirstNonPedestrianLaneIndex(FORWARD, true));
         if (in1->getNumLanes() + in2->getNumLanes() - in1Offset - in2Offset == out->getNumLanes() - outOffset
-                && (in1->getStep() <= NBEdge::LANES2EDGES)
-                && (in2->getStep() <= NBEdge::LANES2EDGES)
+                && (in1->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES)
+                && (in2->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES)
                 && in1 != out
                 && in2 != out
                 && in1->isConnectedTo(out)
@@ -1106,7 +1106,7 @@ NBNode::computeLanes2Lanes() {
         int out2Offset = MAX2(0, out2->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int deltaLaneSum = (out2->getNumLanes() + out1->getNumLanes() - out1Offset - out2Offset) - (in->getNumLanes() - inOffset);
         if ((deltaLaneSum == 0 || (deltaLaneSum == 1 && in->getPermissionVariants(inOffset, in->getNumLanes()).size() == 1))
-                && (in->getStep() <= NBEdge::LANES2EDGES)
+                && (in->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES)
                 && in != out1
                 && in != out2
                 && in->isConnectedTo(out1)
@@ -1146,7 +1146,7 @@ NBNode::computeLanes2Lanes() {
 #endif
         const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
-        if (in->getStep() <= NBEdge::LANES2EDGES
+        if (in->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES
                 && in->getNumLanes() - inOffset == out->getNumLanes() - outOffset + 1
                 && in != out
                 && in->isConnectedTo(out)) {
@@ -1174,7 +1174,7 @@ NBNode::computeLanes2Lanes() {
         int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int reduction = (in->getNumLanes() - inOffset) - (out->getNumLanes() - outOffset);
-        if (in->getStep() <= NBEdge::LANES2EDGES
+        if (in->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES
                 && reduction >= 0
                 && in != out
                 && in->isConnectedTo(out)) {
@@ -1216,7 +1216,7 @@ NBNode::computeLanes2Lanes() {
 
         // ensure that all modes have a connection if possible
         for (NBEdge* incoming : myIncomingEdges) {
-            if (incoming->getConnectionLanes(currentOutgoing).size() > 0 && incoming->getStep() <= NBEdge::LANES2LANES_DONE) {
+            if (incoming->getConnectionLanes(currentOutgoing).size() > 0 && incoming->getStep() <= NBEdge::EdgeBuildingStep::LANES2LANES_DONE) {
                 // no connections are needed for pedestrians during this step
                 // no satisfaction is possible if the outgoing edge disallows
                 SVCPermissions unsatisfied = incoming->getPermissions() & currentOutgoing->getPermissions() & ~SVC_PEDESTRIAN;
@@ -1267,7 +1267,7 @@ NBNode::computeLanes2Lanes() {
             // and the bicycle mode might already be satisfied by other lanes
             // assume that left-turns and turn-arounds are better satisfied from lanes to the left
             LinkDirection dir = getDirection(incoming, currentOutgoing);
-            if (incoming->getStep() <= NBEdge::LANES2LANES_DONE
+            if (incoming->getStep() <= NBEdge::EdgeBuildingStep::LANES2LANES_DONE
                     && ((bikeLaneTarget >= 0 && dir != LINKDIR_TURN)
                         || dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT || dir == LINKDIR_STRAIGHT)) {
                 bool builtConnection = false;
