@@ -56,7 +56,7 @@ GNEBusStop::updateGeometry() {
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Update common geometry of stopping place
-    setStoppingPlaceGeometry(getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) / 2);
+    setStoppingPlaceGeometry(getLaneParents().front()->getParentEdge()->getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) / 2);
 
     // Obtain a copy of the shape
     PositionVector tmpShape = myAdditionalGeometry.getShape();
@@ -74,7 +74,7 @@ GNEBusStop::updateGeometry() {
     myBlockIcon.setRotation(getLaneParents().front());
     
     // obtain edge parent
-    const GNEEdge *edge = &getLaneParents().front()->getParentEdge();
+    const GNEEdge *edge = getLaneParents().front()->getParentEdge();
 
     // update demand element children geometry
     for (const auto& i : getDemandElementChildren()) {
@@ -312,7 +312,7 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(parse<double>(value), myEndPosition, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
+                return SUMORouteHandler::isStopPosValid(parse<double>(value), myEndPosition, getLaneParents().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
             } else {
                 return false;
             }
@@ -320,7 +320,7 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(myStartPosition, parse<double>(value), getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
+                return SUMORouteHandler::isStopPosValid(myStartPosition, parse<double>(value), getLaneParents().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
             } else {
                 return false;
             }

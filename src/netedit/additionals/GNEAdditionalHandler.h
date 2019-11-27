@@ -564,7 +564,7 @@ public:
     static bool fixE2DetectorPosition(double& pos, double& length, const double laneLength, const bool friendlyPos);
 
     /// @brief check if a GNEAccess can be created in a certain Edge
-    static bool accessCanBeCreated(GNEAdditional* busStopParent, GNEEdge& edge);
+    static bool accessCanBeCreated(GNEAdditional* busStopParent, GNEEdge* edge);
 
     /// @brief check if an overlapping is produced in rerouter if a interval with certain begin and end is inserted
     static bool checkOverlappingRerouterIntervals(GNEAdditional* rerouter, SUMOTime newBegin, SUMOTime newEnd);

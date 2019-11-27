@@ -350,7 +350,7 @@ GNENet::createEdge(
     if (tpl) {
         NBEdge* nbeTpl = tpl->getNBEdge();
         NBEdge* nbe = new NBEdge(id, src->getNBNode(), dest->getNBNode(), nbeTpl);
-        edge = new GNEEdge(*nbe, this, wasSplit);
+        edge = new GNEEdge(this, nbe, wasSplit);
     } else {
         // default if no template is given
         const OptionsCont& oc = OptionsCont::getOptions();
@@ -365,7 +365,7 @@ GNENet::createEdge(
                                  defaultNrLanes, defaultPriority,
                                  defaultWidth,
                                  defaultOffset);
-        edge = new GNEEdge(*nbe, this, wasSplit);
+        edge = new GNEEdge(this, nbe, wasSplit);
     }
     undoList->p_begin("create " + toString(SUMO_TAG_EDGE));
     undoList->add(new GNEChange_Edge(edge, true), true);
@@ -544,7 +544,7 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
 
 void
 GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections) {
-    GNEEdge* edge = &lane->getParentEdge();
+    GNEEdge* edge = lane->getParentEdge();
     if (edge->getNBEdge()->getNumLanes() == 1) {
         // remove the whole edge instead
         deleteEdge(edge, undoList, recomputeConnections);
@@ -655,13 +655,13 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
 void
 GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections) {
     undoList->p_begin("duplicate " + toString(SUMO_TAG_LANE));
-    GNEEdge* edge = &lane->getParentEdge();
+    GNEEdge* edge = lane->getParentEdge();
     const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
     if (recomputeConnections) {
         edge->getGNEJunctionSource()->setLogicValid(false, undoList);
         edge->getGNEJunctionSource()->setLogicValid(false, undoList);
     }
-    GNELane* newLane = new GNELane(*edge, lane->getIndex());
+    GNELane* newLane = new GNELane(edge, lane->getIndex());
     undoList->add(new GNEChange_Lane(edge, newLane, laneAttrs, true, recomputeConnections), true);
     requireRecompute();
     undoList->p_end();
@@ -672,15 +672,15 @@ bool
 GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoList) {
     bool addRestriction = true;
     if (vclass == SVC_PEDESTRIAN) {
-        GNEEdge& edge = lane->getParentEdge();
-        for (auto i : edge.getLanes()) {
-            if (i->isRestricted(SVC_PEDESTRIAN)) {
+        GNEEdge* edge = lane->getParentEdge();
+        for (const auto  lane : edge->getLanes()) {
+            if (lane->isRestricted(SVC_PEDESTRIAN)) {
                 // prevent adding a 2nd sidewalk
                 addRestriction = false;
             } else {
                 // ensure that the sidewalk is used exclusively
-                const SVCPermissions allOldWithoutPeds = edge.getNBEdge()->getPermissions(i->getIndex()) & ~SVC_PEDESTRIAN;
-                i->setAttribute(SUMO_ATTR_ALLOW, getVehicleClassNames(allOldWithoutPeds), undoList);
+                const SVCPermissions allOldWithoutPeds = edge->getNBEdge()->getPermissions(lane->getIndex()) & ~SVC_PEDESTRIAN;
+                lane->setAttribute(SUMO_ATTR_ALLOW, getVehicleClassNames(allOldWithoutPeds), undoList);
             }
         }
     }
@@ -699,15 +699,15 @@ GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoLi
 
 
 bool
-GNENet::addRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, int index, GNEUndoList* undoList) {
+GNENet::addRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, int index, GNEUndoList* undoList) {
     // First check that edge don't have a restricted lane of the given vclass
-    for (auto i : edge.getLanes()) {
-        if (i->isRestricted(vclass)) {
+    for (const auto &lane : edge->getLanes()) {
+        if (lane->isRestricted(vclass)) {
             return false;
         }
     }
     // check that index is correct (index == size adds to the left of the leftmost lane)
-    const int numLanes = (int)edge.getLanes().size();
+    const int numLanes = (int)edge->getLanes().size();
     if (index > numLanes) {
         return false;
     }
@@ -717,30 +717,30 @@ GNENet::addRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, int index, GNE
             index = 0;
         } else if (vclass == SVC_BICYCLE) {
             // add bikelanes to the left of an existing sidewalk
-            index = edge.getLanes()[0]->isRestricted(SVC_PEDESTRIAN) ? 1 : 0;
+            index = edge->getLanes()[0]->isRestricted(SVC_PEDESTRIAN) ? 1 : 0;
         } else if (vclass == SVC_IGNORING || vclass == SVC_BUS) {
             // add greenVerge to the left of an existing sidewalk or bikeLane
             // add busLane to the left of an existing sidewalk, bikeLane or greenVerge
             index = 0;
-            while (index < numLanes && (edge.getNBEdge()->getPermissions(index) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
+            while (index < numLanes && (edge->getNBEdge()->getPermissions(index) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
                 index++;
             }
         }
     }
     // duplicate selected lane
-    duplicateLane(edge.getLanes().at(MIN2(index, numLanes - 1)), undoList, true);
+    duplicateLane(edge->getLanes().at(MIN2(index, numLanes - 1)), undoList, true);
     // transform the created lane
-    return restrictLane(vclass, edge.getLanes().at(index), undoList);
+    return restrictLane(vclass, edge->getLanes().at(index), undoList);
 }
 
 
 bool
-GNENet::removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList* undoList) {
+GNENet::removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, GNEUndoList* undoList) {
     // iterate over lanes of edge
-    for (auto i : edge.getLanes()) {
-        if (i->isRestricted(vclass)) {
+    for (const auto &lane : edge->getLanes()) {
+        if (lane->isRestricted(vclass)) {
             // Delete lane
-            deleteLane(i, undoList, true);
+            deleteLane(lane, undoList, true);
             return true;
         }
     }
@@ -2843,7 +2843,7 @@ GNENet::initJunctionsAndEdges() {
     NBEdgeCont& ec = myNetBuilder->getEdgeCont();
     for (auto name_it : ec.getAllNames()) {
         NBEdge* nbe = ec.retrieve(name_it);
-        registerEdge(new GNEEdge(*nbe, this, false, true));
+        registerEdge(new GNEEdge(this, nbe, false, true));
         if (myGrid.getWidth() > 10e16 || myGrid.getHeight() > 10e16) {
             throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
         }

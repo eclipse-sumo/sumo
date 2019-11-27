@@ -130,7 +130,7 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
     if (myConnectorFrameParent->myCurrentEditedLane != 0) {
         // check if routes has to be protected
         if (myProtectRoutesCheckBox->isEnabled() && (myProtectRoutesCheckBox->getCheck() == TRUE)) {
-            for (const auto& i : myConnectorFrameParent->myCurrentEditedLane->getParentEdge().getDemandElementChildren()) {
+            for (const auto& i : myConnectorFrameParent->myCurrentEditedLane->getParentEdge()->getDemandElementChildren()) {
                 if (!i->isDemandElementValid()) {
                     FXMessageBox::warning(getApp(), MBOX_OK,
                                           "Error saving connection operations", "%s",
@@ -451,11 +451,11 @@ GNEConnectorFrame::buildConnection(GNELane* lane, bool mayDefinitelyPass, bool a
         myNumChanges = 0;
         myViewNet->getUndoList()->p_begin("modify " + toString(SUMO_TAG_CONNECTION) + "s");
     } else if (myPotentialTargets.count(lane)
-               || (allowConflict && lane->getParentEdge().getGNEJunctionSource() == myCurrentEditedLane->getParentEdge().getGNEJunctionDestiny())) {
+               || (allowConflict && lane->getParentEdge()->getGNEJunctionSource() == myCurrentEditedLane->getParentEdge()->getGNEJunctionDestiny())) {
         const int fromIndex = myCurrentEditedLane->getIndex();
-        GNEEdge& srcEdge = myCurrentEditedLane->getParentEdge();
-        GNEEdge& destEdge = lane->getParentEdge();
-        std::vector<NBEdge::Connection> connections = srcEdge.getNBEdge()->getConnectionsFromLane(fromIndex);
+        GNEEdge* srcEdge = myCurrentEditedLane->getParentEdge();
+        GNEEdge* destEdge = lane->getParentEdge();
+        std::vector<NBEdge::Connection> connections = srcEdge->getNBEdge()->getConnectionsFromLane(fromIndex);
         bool changed = false;
         LaneStatus status = getLaneStatus(connections, lane);
         if (status == CONFLICTED && allowConflict) {
@@ -465,25 +465,25 @@ GNEConnectorFrame::buildConnection(GNELane* lane, bool mayDefinitelyPass, bool a
             case UNCONNECTED:
                 if (toggle) {
                     // create new connection
-                    NBEdge::Connection newCon(fromIndex, destEdge.getNBEdge(), lane->getIndex(), mayDefinitelyPass);
+                    NBEdge::Connection newCon(fromIndex, destEdge->getNBEdge(), lane->getIndex(), mayDefinitelyPass);
                     // if the connection was previously deleted (by clicking the same lane twice), restore all values
                     for (NBEdge::Connection& c : myDeletedConnections) {
                         // fromLane must be the same, only check toLane
-                        if (c.toEdge == destEdge.getNBEdge() && c.toLane == lane->getIndex()) {
+                        if (c.toEdge == destEdge->getNBEdge() && c.toLane == lane->getIndex()) {
                             newCon = c;
                             newCon.mayDefinitelyPass = mayDefinitelyPass;
                         }
                     }
-                    NBConnection newNBCon(srcEdge.getNBEdge(), fromIndex, destEdge.getNBEdge(), lane->getIndex(), newCon.tlLinkIndex);
-                    myViewNet->getUndoList()->add(new GNEChange_Connection(&srcEdge, newCon, false, true), true);
+                    NBConnection newNBCon(srcEdge->getNBEdge(), fromIndex, destEdge->getNBEdge(), lane->getIndex(), newCon.tlLinkIndex);
+                    myViewNet->getUndoList()->add(new GNEChange_Connection(srcEdge, newCon, false, true), true);
                     lane->setSpecialColor(mayDefinitelyPass ? &myConnectionLegend->getTargetPassColor() : &myConnectionLegend->getTargetColor());
-                    srcEdge.getGNEJunctionDestiny()->invalidateTLS(myViewNet->getUndoList(), NBConnection::InvalidConnection, newNBCon);
+                    srcEdge->getGNEJunctionDestiny()->invalidateTLS(myViewNet->getUndoList(), NBConnection::InvalidConnection, newNBCon);
                 }
                 break;
             case CONNECTED:
             case CONNECTED_PASS: {
                 // remove connection
-                GNEConnection* con = srcEdge.retrieveGNEConnection(fromIndex, destEdge.getNBEdge(), lane->getIndex());
+                GNEConnection* con = srcEdge->retrieveGNEConnection(fromIndex, destEdge->getNBEdge(), lane->getIndex());
                 myDeletedConnections.push_back(con->getNBEdgeConnection());
                 myViewNet->getNet()->deleteConnection(con, myViewNet->getUndoList());
                 lane->setSpecialColor(&myConnectionLegend->getPotentialTargetColor());
@@ -491,8 +491,8 @@ GNEConnectorFrame::buildConnection(GNELane* lane, bool mayDefinitelyPass, bool a
                 break;
             }
             case CONFLICTED:
-                SVCPermissions fromPermissions = srcEdge.getNBEdge()->getPermissions(fromIndex);
-                SVCPermissions toPermissions = destEdge.getNBEdge()->getPermissions(lane->getIndex());
+                SVCPermissions fromPermissions = srcEdge->getNBEdge()->getPermissions(fromIndex);
+                SVCPermissions toPermissions = destEdge->getNBEdge()->getPermissions(lane->getIndex());
                 if ((fromPermissions & toPermissions) == SVC_PEDESTRIAN) {
                     myViewNet->setStatusBarText("Pedestrian connections are generated automatically");
                 } else if ((fromPermissions & toPermissions) == 0) {
@@ -515,7 +515,7 @@ GNEConnectorFrame::buildConnection(GNELane* lane, bool mayDefinitelyPass, bool a
 void
 GNEConnectorFrame::initTargets() {
     // gather potential targets
-    NBNode* nbn = myCurrentEditedLane->getParentEdge().getGNEJunctionDestiny()->getNBNode();
+    NBNode* nbn = myCurrentEditedLane->getParentEdge()->getGNEJunctionDestiny()->getNBNode();
 
     for (auto it : nbn->getOutgoingEdges()) {
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(it->getID());
@@ -524,7 +524,7 @@ GNEConnectorFrame::initTargets() {
         }
     }
     // set color for existing connections
-    std::vector<NBEdge::Connection> connections = myCurrentEditedLane->getParentEdge().getNBEdge()->getConnectionsFromLane(myCurrentEditedLane->getIndex());
+    std::vector<NBEdge::Connection> connections = myCurrentEditedLane->getParentEdge()->getNBEdge()->getConnectionsFromLane(myCurrentEditedLane->getIndex());
     for (auto it : myPotentialTargets) {
         switch (getLaneStatus(connections, it)) {
             case CONNECTED:
@@ -562,9 +562,9 @@ GNEConnectorFrame::cleanup() {
 
 GNEConnectorFrame::LaneStatus
 GNEConnectorFrame::getLaneStatus(const std::vector<NBEdge::Connection>& connections, GNELane* targetLane) {
-    NBEdge* srcEdge = myCurrentEditedLane->getParentEdge().getNBEdge();
+    NBEdge* srcEdge = myCurrentEditedLane->getParentEdge()->getNBEdge();
     const int fromIndex = myCurrentEditedLane->getIndex();
-    NBEdge* destEdge = targetLane->getParentEdge().getNBEdge();
+    NBEdge* destEdge = targetLane->getParentEdge()->getNBEdge();
     const int toIndex = targetLane->getIndex();
     std::vector<NBEdge::Connection>::const_iterator con_it = find_if(
                 connections.begin(), connections.end(),

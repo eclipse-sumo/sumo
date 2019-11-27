@@ -403,7 +403,7 @@ public:
     void handleMultiChange(GNELane* lane, FXObject* obj, FXSelector sel, void* data);
 
     /// @brief whether the given edge is controlled by the currently edited tlDef
-    bool controlsEdge(GNEEdge& edge) const;
+    bool controlsEdge(GNEEdge* edge) const;
 
     /// @brief whether the current traffic light uses fixed phase durations
     bool fixedDuration() const;

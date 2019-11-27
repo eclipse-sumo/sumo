@@ -62,12 +62,12 @@ public:
     /// @brief Definition of the connection's vector
     typedef std::vector<GNEConnection*> ConnectionVector;
 
-    /**@brief Constructor.
-     * @param[in] nbe The represented edge
+    /**@brief Constructor
      * @param[in] net The net to inform about gui updates
+     * @param[in] nbe The represented edge
      * @param[in] loaded Whether the edge was loaded from a file
      */
-    GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit = false, bool loaded = false);
+    GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit = false, bool loaded = false);
 
     /// @brief Destructor.
     ~GNEEdge();
@@ -320,7 +320,7 @@ public:
 
 protected:
     /// @brief the underlying NBEdge
-    NBEdge& myNBEdge;
+    NBEdge* myNBEdge;
 
     /// @brief variable used to save shape bevore moving (used to avoid inconsistences in GL Tree)
     PositionVector myMovingShape;

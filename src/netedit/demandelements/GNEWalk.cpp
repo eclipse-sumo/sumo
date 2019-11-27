@@ -340,7 +340,7 @@ GNEWalk::computePath() {
         // declare a from-via-busStop edges vector
         std::vector<GNEEdge*> fromViaBusStopEdges = getEdgeParents();
         // add busStop edge
-        fromViaBusStopEdges.push_back(&getAdditionalParents().front()->getLaneParents().front()->getParentEdge());
+        fromViaBusStopEdges.push_back(getAdditionalParents().front()->getLaneParents().front()->getParentEdge());
         // calculate route and update routeEdges
         changePathEdges(this, getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), fromViaBusStopEdges));
     }

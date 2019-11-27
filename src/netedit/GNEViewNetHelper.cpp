@@ -124,8 +124,8 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                         case GLO_LANE: {
                             myLanes.push_back(dynamic_cast<GNELane*>(myAttributeCarriers.back()));
                             // check if edge's lane parent is already inserted in myEdges (for example, due clicking over Geometry Points)
-                            if (std::find(myEdges.begin(), myEdges.end(), &myLanes.back()->getParentEdge()) == myEdges.end()) {
-                                myEdges.push_back(&myLanes.back()->getParentEdge());
+                            if (std::find(myEdges.begin(), myEdges.end(), myLanes.back()->getParentEdge()) == myEdges.end()) {
+                                myEdges.push_back(myLanes.back()->getParentEdge());
                             }
                             break;
                         }
