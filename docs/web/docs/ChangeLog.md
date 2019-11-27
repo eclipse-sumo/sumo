@@ -14,6 +14,7 @@ permalink: /ChangeLog/
   - Fixed invalid mode change from car during intermodal routing. Issue #6070
   - Fixed invalid cooperative speed adjustment in sublane model. Issues #6266, #6267
   - Fixed crash related to parkingAreaReroute. Issue #6283
+  - Fixed startup delay in railway simulation when begin time is set to a high value. Issue #6321
 
 - NETEDIT
   - Fixed crash when defining walks between disconnected locations. Issue #5369
@@ -72,6 +73,8 @@ permalink: /ChangeLog/
   - Improved smoothness of acceleration / deceleration for carFollowModel 'IDM' when speed limits change and there is no leader vehicle. Issue #6080
   - Persons can now start their plan in a driving vehicle by setting `depart="triggered"`. Issue #4042
   - Traffic light type 'actuated' now supports skipping phases by defining a list of alternative successor phases in phase attribute 'next'. Issue #5042
+  - stopinfo-output now includes optional stop attributes 'tripId' and 'line'. Issue #6320
+  - Vehicles now support the new symbolic departPos value 'stop' which lets the start at the first stop along their route. Issue #6322
 
 - Meso
   - Vehicles that reach maximum impatience can now pass junctions from an unprioritized road regardless of foe traffic. The old behavior can be restored by disabling impatience growth via **--time-to-impatience 0**. Issue #5830
