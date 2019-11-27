@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 24 15:42:50 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Wed Nov 27 09:35:16 2019 by Eclipse SUMO Version v1_3_1+1129-34e3c4d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="calibtest.2000.1" depart="2.00" arrival="11.00">
+    <vehicle id="calibtest.0.1" depart="2.00" arrival="11.00">
         <route edges="beg middle end"/>
     </vehicle>
 

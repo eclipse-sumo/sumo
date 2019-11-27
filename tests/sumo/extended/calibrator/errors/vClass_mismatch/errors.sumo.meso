@@ -1,2 +1,2 @@
-Error: Vehicle 'cali.6000.0' has no valid route. No connection between edge 'beg2' and edge 'middle'.
+Error: Vehicle 'cali.0.0' has no valid route. No connection between edge 'beg2' and edge 'middle'.
 Quitting (on error).

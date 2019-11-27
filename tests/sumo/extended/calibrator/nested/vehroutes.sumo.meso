@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun  6 13:06:59 2014 by SUMO sumo Version dev-SVN-r16550
+<!-- generated on Wed Nov 27 09:35:15 2019 by Eclipse SUMO Version v1_3_1+1129-34e3c4d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,12 +15,18 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -36,23 +42,23 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.77000.0" depart="77.00" arrival="167.00">
+    <vehicle id="calibtest.0.0" depart="77.00" arrival="167.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.80000.1" depart="80.00" arrival="170.00">
+    <vehicle id="calibtest.0.1" depart="80.00" arrival="170.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.86000.2" depart="86.00" arrival="176.00">
+    <vehicle id="calibtest.0.2" depart="86.00" arrival="176.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.92000.3" depart="92.00" arrival="182.00">
+    <vehicle id="calibtest.0.3" depart="92.00" arrival="182.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.98000.4" depart="98.00" arrival="188.00">
+    <vehicle id="calibtest.0.4" depart="98.00" arrival="188.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
