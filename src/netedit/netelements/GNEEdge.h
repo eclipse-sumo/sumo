@@ -67,7 +67,7 @@ public:
      * @param[in] net The net to inform about gui updates
      * @param[in] loaded Whether the edge was loaded from a file
      */
-    GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit = false, bool loaded = false);
+    GNEEdge(NBEdge* nbe, GNENet* net, bool wasSplit = false, bool loaded = false);
 
     /// @brief Destructor.
     ~GNEEdge();
@@ -320,7 +320,7 @@ public:
 
 protected:
     /// @brief the underlying NBEdge
-    NBEdge& myNBEdge;
+    NBEdge* myNBEdge;
 
     /// @brief variable used to save shape bevore moving (used to avoid inconsistences in GL Tree)
     PositionVector myMovingShape;
