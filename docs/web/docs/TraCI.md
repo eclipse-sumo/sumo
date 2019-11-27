@@ -256,7 +256,7 @@ vehicle during every simulation step (using the python client):
 ```
    while traci.simulation.getMinExpectedNumber() > 0:
        for veh_id in traci.vehicle.getIDList():
-            position = traci.vehicle.getSpeed(veh_id)
+            position = traci.vehicle.getPosition(veh_id)
        traci.simulationStep()
 ```
 
