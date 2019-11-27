@@ -2918,58 +2918,16 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
         reason = "laneNumber";
         return false;
     }
-    const double minLength = OptionsCont::getOptions().getFloat("geometry.remove.min-length");
-    if (minLength > 0 && (possContinuation->getLoadedLength() < minLength || getLoadedLength() < minLength)) {
-        return true;
-    }
-    // the priority, too (?)
-    if (getPriority() != possContinuation->getPriority()) {
-        reason = "priority";
-        return false;
-    }
-    // the speed allowed
-    if (mySpeed != possContinuation->mySpeed) {
-        reason = "speed";
-        return false;
-    }
-    // spreadtype should match or it will look ugly
-    if (myLaneSpreadFunction != possContinuation->myLaneSpreadFunction) {
-        reason = "spreadType";
-        return false;
-    }
     // do not create self loops
     if (myFrom == possContinuation->myTo) {
         reason = "loop";
         return false;
-    }
-    // matching lanes must have identical properties
-    for (int i = 0; i < (int)myLanes.size(); i++) {
-        if (myLanes[i].speed != possContinuation->myLanes[i].speed) {
-            reason = "lane " + toString(i) + " speed";
-            return false;
-        } else if (myLanes[i].permissions != possContinuation->myLanes[i].permissions) {
-            reason = "lane " + toString(i) + " permissions";
-            return false;
-        } else if (myLanes[i].width != possContinuation->myLanes[i].width &&
-                   fabs(myLanes[i].width - possContinuation->myLanes[i].width) > OptionsCont::getOptions().getFloat("geometry.remove.width-tolerance")) {
-            reason = "lane " + toString(i) + " width";
-            return false;
-        }
     }
     // conserve bidi-rails
     if (isBidiRail() != possContinuation->isBidiRail()) {
         reason = "bidi-rail";
         return false;
     }
-
-    // the vehicle class constraints, too
-    /*!!!
-    if (myAllowedOnLanes!=possContinuation->myAllowedOnLanes
-            ||
-            myNotAllowedOnLanes!=possContinuation->myNotAllowedOnLanes) {
-        return false;
-    }
-    */
     // also, check whether the connections - if any exit do allow to join
     //  both edges
     // This edge must have a one-to-one connection to the following lanes
@@ -3008,6 +2966,40 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
         default:
             break;
     }
+    const double minLength = OptionsCont::getOptions().getFloat("geometry.remove.min-length");
+    if (minLength > 0 && (possContinuation->getLoadedLength() < minLength || getLoadedLength() < minLength)) {
+        return true;
+    }
+    // the priority, too (?)
+    if (getPriority() != possContinuation->getPriority()) {
+        reason = "priority";
+        return false;
+    }
+    // the speed allowed
+    if (mySpeed != possContinuation->mySpeed) {
+        reason = "speed";
+        return false;
+    }
+    // spreadtype should match or it will look ugly
+    if (myLaneSpreadFunction != possContinuation->myLaneSpreadFunction) {
+        reason = "spreadType";
+        return false;
+    }
+    // matching lanes must have identical properties
+    for (int i = 0; i < (int)myLanes.size(); i++) {
+        if (myLanes[i].speed != possContinuation->myLanes[i].speed) {
+            reason = "lane " + toString(i) + " speed";
+            return false;
+        } else if (myLanes[i].permissions != possContinuation->myLanes[i].permissions) {
+            reason = "lane " + toString(i) + " permissions";
+            return false;
+        } else if (myLanes[i].width != possContinuation->myLanes[i].width &&
+                   fabs(myLanes[i].width - possContinuation->myLanes[i].width) > OptionsCont::getOptions().getFloat("geometry.remove.width-tolerance")) {
+            reason = "lane " + toString(i) + " width";
+            return false;
+        }
+    }
+
     return true;
 }
 
