@@ -1989,33 +1989,4 @@ GNERouteHandler::PersonPlansValues::getLastEdge() const {
     }
 }
 
-
-std::vector<GNEEdge*>
-GNERouteHandler::PersonPlansValues::calculateEdgePath() const {
-    // first check that from and to exist and are differents
-    if ((from && to) && (from != to)) {
-        // calculate edge path between from and to eges
-        std::vector<GNEEdge*> edgePath = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, {from, to});
-        if (edgePath.empty()) {
-            return {from, to};
-        } else {
-            return edgePath;
-        }
-    } else if (from && busStop) {
-        // calculate edge path between from and busstop's lane
-        std::vector<GNEEdge*> edgePath = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, {from, &busStop->getLaneParents().front()->getParentEdge()});
-        if (edgePath.empty()) {
-            return {from, &busStop->getLaneParents().front()->getParentEdge()};
-        } else {
-            return edgePath;
-        }
-    } else if (from) {
-        return {from};
-    } else if (to) {
-        return {to};
-    } else {
-        throw InvalidArgument("At least from or to edge must be valid");
-    }
-}
-
 /****************************************************************************/
