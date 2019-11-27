@@ -233,24 +233,6 @@ public:
         mySVC(svc) {
     }
 
-    /** @brief Cloning constructor
-     */
-    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation,
-             const SUMOVehicleClass svc,
-             SUMOTime weightPeriod,
-             const typename CHBuilder<E, V>::Hierarchy* hierarchy,
-             const bool havePermissions, const bool haveRestrictions) :
-        SUMOAbstractRouter<E, V>("CHRouterClone", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
-        myEdges(edges),
-        myForwardSearch(edges, true),
-        myBackwardSearch(edges, false),
-        myHierarchyBuilder(0),
-        myHierarchy(hierarchy),
-        myWeightPeriod(weightPeriod),
-        myValidUntil(0),
-        mySVC(svc) {
-    }
-
     /// Destructor
     virtual ~CHRouter() {
         if (myHierarchyBuilder != 0) {
@@ -263,7 +245,7 @@ public:
     virtual SUMOAbstractRouter<E, V>* clone() {
         WRITE_MESSAGE("Cloning Contraction Hierarchy for " + SumoVehicleClassStrings.getString(mySVC) + " and time " + time2string(myValidUntil) + ".");
         CHRouter<E, V>* clone = new CHRouter<E, V>(myEdges, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
-                mySVC, myWeightPeriod, myHierarchy, this->myHavePermissions, this->myHaveRestrictions);
+                mySVC, myWeightPeriod, this->myHavePermissions, this->myHaveRestrictions);
         clone->myValidUntil = myValidUntil;
         return clone;
     }
