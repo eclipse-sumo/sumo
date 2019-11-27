@@ -276,15 +276,15 @@ GNEPoly::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
+    // first obtain poly exaggeration
+    const double polyExaggeration = s.polySize.getExaggeration(s, this);
     // first check if poly can be drawn
-    if (myNet->getViewNet()->getDemandViewOptions().showShapes()) {
-        // draw details of Netedit
+    if ((polyExaggeration > 0) && myNet->getViewNet()->getDemandViewOptions().showShapes()) {
         // Obtain constants
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-        const double exaggeration = s.addSize.getExaggeration(s, this);
         const double vertexWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s, this));
         const double vertexWidthSquared = (vertexWidth * vertexWidth);
-        const double contourWidth = (myHintSize / 4.0) * s.polySize.getExaggeration(s, this);
+        const double contourWidth = (myHintSize / 4.0) * polyExaggeration;
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
@@ -366,13 +366,15 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                                 GLHelper::drawText(toString(vertex.z()), Position(), .1, 0.7, RGBColor::BLUE);
                                 // pop matrix
                                 glPopMatrix();
-                            } else if ((vertex == myShape.front()) && !s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+                            } else if ((vertex == myShape.front()) && !s.drawForRectangleSelection && 
+                                       s.drawDetail(s.detailSettings.geometryPointsText, polyExaggeration)) {
                                 // draw a "s" over first point
                                 glPushMatrix();
                                 glTranslated(vertex.x(), vertex.y(), GLO_POLYGON + 0.03);
                                 GLHelper::drawText("S", Position(), .1, 2 * vertexWidth, invertedColor);
                                 glPopMatrix();
-                            } else if ((vertex == myShape.back()) && (myClosedShape == false) && !s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+                            } else if ((vertex == myShape.back()) && (myClosedShape == false) && !s.drawForRectangleSelection && 
+                                       s.drawDetail(s.detailSettings.geometryPointsText, polyExaggeration)) {
                                 // draw a "e" over last point if polygon isn't closed
                                 glPushMatrix();
                                 glTranslated(vertex.x(), vertex.y(), GLO_POLYGON + 0.03);

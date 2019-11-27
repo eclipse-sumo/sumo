@@ -276,117 +276,120 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
     // declare variable for exaggeration
-    double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
-    exaggeration *= s.junctionSize.getExaggeration(s, this, 4);
-    // declare values for circles
-    const double circleWidth = BUBBLE_RADIUS * exaggeration;
-    const double circleWidthSquared = circleWidth * circleWidth;
-    // declare variable for mouse position
-    const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-    // push name
-    if (s.scale * exaggeration * myMaxSize < 1.) {
-        // draw something simple so that selection still works
-        glPushName(getGlID());
-        GLHelper::drawBoxLine(myNBNode.getPosition(), 0, 1, 1);
-        glPopName();
-    } else {
-        // node shape has been computed and is valid for drawing
-        glPushName(getGlID());
-        // declare flag for drawing junction shape
-        const bool drawShape = (myNBNode.getShape().size() > 0) && s.drawJunctionShape;
-        // declare flag for drawing junction as bubbles
-        bool drawBubble = (!drawShape || (myNBNode.getShape().area() < 4)) && s.drawJunctionShape;
-        // check if show junctions as bubbles checkbox is enabled
-        if (myNet->getViewNet()->showJunctionAsBubbles()) {
-            drawBubble = true;
-        }
-        // in supermode demand Bubble musn't be drawn
-        if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
-            drawBubble = false;
-        }
-        // check if shape has to be drawn
-        if (drawShape) {
-            // set shape color
-            RGBColor junctionShapeColor = setColor(s, false);
-            // recognize full transparency and simply don't draw
-            if (junctionShapeColor.alpha() != 0) {
-                glPushMatrix();
-                glTranslated(0, 0, getType());
-                // obtain junction Shape
-                PositionVector junctionShape = myNBNode.getShape();
-                // close junction shape
-                junctionShape.closePolygon();
-                // adjust shape to exaggeration
-                if (exaggeration > 1) {
-                    junctionShape.scaleRelative(exaggeration);
-                }
-                // first check if inner junction polygon can be drawn
-                if (s.drawForPositionSelection) {
-                    // only draw a point if mouse is around shape
-                    if (junctionShape.around(mousePosition)) {
-                        // push matrix
-                        glPushMatrix();
-                        glTranslated(mousePosition.x(), mousePosition.y(), GLO_JUNCTION);
-                        GLHelper::drawFilledCircle(1, s.getCircleResolution());
-                        glPopMatrix();
-                    }
-                } else if ((s.scale * exaggeration * myMaxSize) < 40.) {
-                    GLHelper::drawFilledPoly(junctionShape, true);
-                } else {
-                    GLHelper::drawFilledPolyTesselated(junctionShape, true);
-                }
-                // check if dotted contour has to be drawn
-                if ((myNet->getViewNet()->getDottedAC() == this) && !drawBubble) {
-                    GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), junctionShape);
-                }
-                glPopMatrix();
+    double junctionExaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
+    junctionExaggeration *= s.junctionSize.getExaggeration(s, this, 4);
+    // only continue if exaggeration is greather than 0
+    if (junctionExaggeration > 0) {
+        // declare values for circles
+        const double circleWidth = BUBBLE_RADIUS * junctionExaggeration;
+        const double circleWidthSquared = circleWidth * circleWidth;
+        // declare variable for mouse position
+        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+        // push name
+        if (s.scale * junctionExaggeration * myMaxSize < 1.) {
+            // draw something simple so that selection still works
+            glPushName(getGlID());
+            GLHelper::drawBoxLine(myNBNode.getPosition(), 0, 1, 1);
+            glPopName();
+        } else {
+            // node shape has been computed and is valid for drawing
+            glPushName(getGlID());
+            // declare flag for drawing junction shape
+            const bool drawShape = (myNBNode.getShape().size() > 0) && s.drawJunctionShape;
+            // declare flag for drawing junction as bubbles
+            bool drawBubble = (!drawShape || (myNBNode.getShape().area() < 4)) && s.drawJunctionShape;
+            // check if show junctions as bubbles checkbox is enabled
+            if (myNet->getViewNet()->showJunctionAsBubbles()) {
+                drawBubble = true;
             }
-        }
-        // check if bubble has to be drawn
-        if (drawBubble) {
-            // set bubble color
-            RGBColor bubbleColor = setColor(s, true);
-            // recognize full transparency and simply don't draw
-            if (bubbleColor.alpha() != 0) {
-                glPushMatrix();
-                // move matrix to 
-                glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
-                // only draw filled circle if we aren't in draw for selecting mode, or if distance to center is enough)
-                if (!s.drawForPositionSelection || (mousePosition.distanceSquaredTo2D(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
-                    std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, s.getCircleResolution());
+            // in supermode demand Bubble musn't be drawn
+            if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+                drawBubble = false;
+            }
+            // check if shape has to be drawn
+            if (drawShape) {
+                // set shape color
+                RGBColor junctionShapeColor = setColor(s, false);
+                // recognize full transparency and simply don't draw
+                if (junctionShapeColor.alpha() != 0) {
+                    glPushMatrix();
+                    glTranslated(0, 0, getType());
+                    // obtain junction Shape
+                    PositionVector junctionShape = myNBNode.getShape();
+                    // close junction shape
+                    junctionShape.closePolygon();
+                    // adjust shape to exaggeration
+                    if (junctionExaggeration > 1) {
+                        junctionShape.scaleRelative(junctionExaggeration);
+                    }
+                    // first check if inner junction polygon can be drawn
+                    if (s.drawForPositionSelection) {
+                        // only draw a point if mouse is around shape
+                        if (junctionShape.around(mousePosition)) {
+                            // push matrix
+                            glPushMatrix();
+                            glTranslated(mousePosition.x(), mousePosition.y(), GLO_JUNCTION);
+                            GLHelper::drawFilledCircle(1, s.getCircleResolution());
+                            glPopMatrix();
+                        }
+                    } else if ((s.scale * junctionExaggeration * myMaxSize) < 40.) {
+                        GLHelper::drawFilledPoly(junctionShape, true);
+                    } else {
+                        GLHelper::drawFilledPolyTesselated(junctionShape, true);
+                    }
                     // check if dotted contour has to be drawn
-                    if (myNet->getViewNet()->getDottedAC() == this) {
-                        GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), vertices);
+                    if ((myNet->getViewNet()->getDottedAC() == this) && !drawBubble) {
+                        GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), junctionShape);
                     }
+                    glPopMatrix();
                 }
+            }
+            // check if bubble has to be drawn
+            if (drawBubble) {
+                // set bubble color
+                RGBColor bubbleColor = setColor(s, true);
+                // recognize full transparency and simply don't draw
+                if (bubbleColor.alpha() != 0) {
+                    glPushMatrix();
+                    // move matrix to 
+                    glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
+                    // only draw filled circle if we aren't in draw for selecting mode, or if distance to center is enough)
+                    if (!s.drawForPositionSelection || (mousePosition.distanceSquaredTo2D(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
+                        std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, s.getCircleResolution());
+                        // check if dotted contour has to be drawn
+                        if (myNet->getViewNet()->getDottedAC() == this) {
+                            GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), vertices);
+                        }
+                    }
+                    glPopMatrix();
+                }
+            }
+            // draw TLS
+            drawTLSIcon(s);
+            // (optional) draw name @todo expose this setting if isn't drawed if isn't being drawn for selecting
+            if (!s.drawForRectangleSelection) {
+                drawName(myNBNode.getPosition(), s.scale, s.junctionName);
+            }
+            // draw elevation
+            if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
+                glPushMatrix();
+                // Translate to center of junction
+                glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 1);
+                // draw Z value
+                GLHelper::drawText(toString(myNBNode.getPosition().z()), Position(), GLO_MAX - 5, s.junctionName.scaledSize(s.scale), s.junctionName.color);
                 glPopMatrix();
             }
-        }
-        // draw TLS
-        drawTLSIcon(s);
-        // (optional) draw name @todo expose this setting if isn't drawed if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection) {
-            drawName(myNBNode.getPosition(), s.scale, s.junctionName);
-        }
-        // draw elevation
-        if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
-            glPushMatrix();
-            // Translate to center of junction
-            glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 1);
-            // draw Z value
-            GLHelper::drawText(toString(myNBNode.getPosition().z()), Position(), GLO_MAX - 5, s.junctionName.scaledSize(s.scale), s.junctionName.color);
-            glPopMatrix();
-        }
-        // name must be removed from selection stack before drawing crossings
-        glPopName();
-        // draw crossings only if junction isn't being moved
-        if (!myMovingGeometryBoundary.isInitialised()) {
-            for (const auto& i : myGNECrossings) {
-                i->drawGL(s);
+            // name must be removed from selection stack before drawing crossings
+            glPopName();
+            // draw crossings only if junction isn't being moved
+            if (!myMovingGeometryBoundary.isInitialised()) {
+                for (const auto& i : myGNECrossings) {
+                    i->drawGL(s);
+                }
             }
+            // draw Junction childs
+            drawJunctionChilds(s);
         }
-        // draw Junction childs
-        drawJunctionChilds(s);
     }
 }
 
