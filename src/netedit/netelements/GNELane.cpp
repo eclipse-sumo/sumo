@@ -55,8 +55,8 @@ FXIMPLEMENT(GNELane, FXDelegator, 0, 0)
 // method definitions
 // ===========================================================================
 
-GNELane::GNELane(GNEEdge& edge, const int index) :
-    GNENetElement(edge.getNet(), edge.getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE),
+GNELane::GNELane(GNEEdge* edge, const int index) :
+    GNENetElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE),
     myParentEdge(edge),
     myIndex(index),
     mySpecialColor(nullptr),
@@ -66,7 +66,7 @@ GNELane::GNELane(GNEEdge& edge, const int index) :
 
 GNELane::GNELane() :
     GNENetElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE),
-    myParentEdge(GNEEdge::getDummyEdge()),
+    myParentEdge(nullptr),
     myIndex(-1),
     mySpecialColor(nullptr),
     mySpecialColorValue(-1),
@@ -85,7 +85,7 @@ GNELane::generateChildID(SumoXMLTag /*childTag*/) {
 
 const PositionVector&
 GNELane::getLaneShape() const {
-    return myParentEdge.getNBEdge()->getLaneShape(myIndex);
+    return myParentEdge->getNBEdge()->getLaneShape(myIndex);
 }
 
 
@@ -106,10 +106,10 @@ GNELane::updateGeometry() {
     // Clear texture containers
     myLaneRestrictedTexturePositions.clear();
     myLaneRestrictedTextureRotations.clear();
-    //double length = myParentEdge.getLength(); // @todo see ticket #448
+    //double length = myParentEdge->getLength(); // @todo see ticket #448
     // may be different from length
     // Obtain lane shape of NBEdge
-    myLaneGeometry.updateGeometryShape(myParentEdge.getNBEdge()->getLaneShape(myIndex));
+    myLaneGeometry.updateGeometryShape(myParentEdge->getNBEdge()->getLaneShape(myIndex));
     // update connections
     myLane2laneConnections.updateLane2laneConnection();
     // update shapes parents associated with this lane
@@ -130,11 +130,11 @@ GNELane::updateGeometry() {
     }
     // partial update demand elements parents associated with this lane
     for (auto i : getDemandElementParents()) {
-        i->updatePartialGeometry(&getParentEdge());
+        i->updatePartialGeometry(myParentEdge);
     }
     // partial update demand elements children associated with this lane
     for (auto i : getDemandElementChildren()) {
-        i->updatePartialGeometry(&getParentEdge());
+        i->updatePartialGeometry(myParentEdge);
     }
     // In Move mode, connections aren't updated
     if (myNet->getViewNet() && myNet->getViewNet()->getEditModes().networkEditMode != GNE_NMODE_MOVE) {
@@ -172,7 +172,7 @@ GNELane::getPositionInView() const {
 
 void
 GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
-    const std::vector<NBEdge::Connection>& cons = myParentEdge.getNBEdge()->getConnectionsFromLane(myIndex);
+    const std::vector<NBEdge::Connection>& cons = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
     int noLinks = (int)cons.size();
     if (noLinks == 0) {
         return;
@@ -180,11 +180,11 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
     // draw all links
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION + 0.5);
-    double w = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
-    double x1 = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2;
+    double w = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
+    double x1 = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
     for (int i = noLinks; --i >= 0;) {
         double x2 = x1 - (double)(w / 2.);
-        const int linkIndex = myParentEdge.getNBEdge()->getToNode()->getConnectionIndex(myParentEdge.getNBEdge(),
+        const int linkIndex = myParentEdge->getNBEdge()->getToNode()->getConnectionIndex(myParentEdge->getNBEdge(),
                               cons[s.lefthand ? noLinks - 1 - i : i]);
         GLHelper::drawTextAtEnd(toString(linkIndex), myLaneGeometry.getShape(), x2, s.drawLinkJunctionIndex.size, s.drawLinkJunctionIndex.color);
         x1 -= w;
@@ -195,7 +195,7 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
 
 void
 GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
-    const std::vector<NBEdge::Connection>& cons = myParentEdge.getNBEdge()->getConnectionsFromLane(myIndex);
+    const std::vector<NBEdge::Connection>& cons = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
     int noLinks = (int)cons.size();
     if (noLinks == 0) {
         return;
@@ -203,8 +203,8 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
     // draw all links
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION + 0.5);
-    double w = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
-    double x1 = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2;
+    double w = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
+    double x1 = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
     for (int i = noLinks; --i >= 0;) {
         double x2 = x1 - (double)(w / 2.);
         int linkNo = cons[s.lefthand ? noLinks - 1 - i : i].tlLinkIndex;
@@ -233,11 +233,11 @@ GNELane::drawArrows(const GUIVisualizationSettings& s) const {
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
     // draw all links
-    const std::vector<NBEdge::Connection>& edgeCons = myParentEdge.getNBEdge()->myConnections;
-    NBNode* dest = myParentEdge.getNBEdge()->myTo;
+    const std::vector<NBEdge::Connection>& edgeCons = myParentEdge->getNBEdge()->myConnections;
+    NBNode* dest = myParentEdge->getNBEdge()->myTo;
     for (auto i : edgeCons) {
         if (i.fromLane == myIndex) {
-            LinkDirection dir = dest->getDirection(myParentEdge.getNBEdge(), i.toEdge, s.lefthand);
+            LinkDirection dir = dest->getDirection(myParentEdge->getNBEdge(), i.toEdge, s.lefthand);
             switch (dir) {
                 case LINKDIR_STRAIGHT:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
@@ -295,11 +295,11 @@ GNELane::drawLane2LaneConnections() const {
     glPushMatrix();
     glPushName(0);
     glTranslated(0, 0, GLO_JUNCTION + .1); // must draw on top of junction shape
-    std::vector<NBEdge::Connection> connections = myParentEdge.getNBEdge()->getConnectionsFromLane(myIndex);
-    NBNode* node = myParentEdge.getNBEdge()->getToNode();
+    std::vector<NBEdge::Connection> connections = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
+    NBNode* node = myParentEdge->getNBEdge()->getToNode();
     const Position& startPos = myLaneGeometry.getShape()[-1];
     for (auto it : connections) {
-        const LinkState state = node->getLinkState(myParentEdge.getNBEdge(), it.toEdge, it.fromLane, it.toLane, it.mayDefinitelyPass, it.tlID);
+        const LinkState state = node->getLinkState(myParentEdge->getNBEdge(), it.toEdge, it.fromLane, it.toLane, it.mayDefinitelyPass, it.tlID);
         switch (state) {
             case LINKSTATE_TL_OFF_NOSIGNAL:
                 glColor3d(1, 1, 0);
@@ -347,10 +347,10 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // Push name
     glPushName(getGlID());
     // Traslate to fromt
-    glTranslated(0, 0, myParentEdge.getNBEdge()->getLength() < 1 ? GLO_JUNCTION + 1 : getType());
+    glTranslated(0, 0, myParentEdge->getNBEdge()->getLength() < 1 ? GLO_JUNCTION + 1 : getType());
     const RGBColor color = setLaneColor(s);
     // start drawing lane checking whether it is not too small
-    const double selectionScale = isAttributeCarrierSelected() || myParentEdge.isAttributeCarrierSelected() ? s.selectionScale : 1;
+    const double selectionScale = isAttributeCarrierSelected() || myParentEdge->isAttributeCarrierSelected() ? s.selectionScale : 1;
     double exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     // XXX apply usefull scale values
     //exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
@@ -402,14 +402,14 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // we draw the lanes with reduced width so that the lane markings below are visible
         // (this avoids artifacts at geometry corners without having to
         // compute lane-marking intersection points)
-        const double halfWidth2 = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - SUMO_const_laneMarkWidth / 2);
+        const double halfWidth2 = exaggeration * (myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2 - SUMO_const_laneMarkWidth / 2);
         // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
         const double halfWidth =  drawUsingSelectColor() ? halfWidth2 - exaggeration * 0.3 : halfWidth2;
-        const bool spreadSuperposed = s.spreadSuperposed && drawAsRailway(s) && myParentEdge.getNBEdge()->isBidiRail();
+        const bool spreadSuperposed = s.spreadSuperposed && drawAsRailway(s) && myParentEdge->getNBEdge()->isBidiRail();
         // Check if lane has to be draw as railway and if isn't being drawn for selecting
         if (drawAsRailway(s) && (!s.drawForRectangleSelection || spreadSuperposed)) {
             PositionVector shape = myLaneGeometry.getShape();
-            const double width = myParentEdge.getNBEdge()->getLaneWidth(myIndex);
+            const double width = myParentEdge->getNBEdge()->getLaneWidth(myIndex);
             // draw as railway: assume standard gauge of 1435mm when lane width is not set
             // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
             // assume crosstie length of 181% gauge (2600mm for standard gauge)
@@ -445,7 +445,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape, halfWidth);
+            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myParentEdge->getNBEdge()->getLaneStruct(myIndex).shape, halfWidth);
         }
         // Pop draw matrix 1
         glPopMatrix();
@@ -456,7 +456,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 drawMarkings(s, exaggeration);
             }
             // draw ROWs only if target junction has a valid logic)
-            if (s.showLinkDecals && myParentEdge.getGNEJunctionDestiny()->isLogicValid() && s.scale > 3) {
+            if (s.showLinkDecals && myParentEdge->getGNEJunctionDestiny()->isLogicValid() && s.scale > 3) {
                 drawArrows(s);
             }
             // Draw direction indicators if the correspondient option is enabled
@@ -481,8 +481,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             // Declare default width of icon (3)
             double iconWidth = 1;
             // Obtain width of icon, if width of lane is different
-            if (myParentEdge.getNBEdge()->getLaneStruct(myIndex).width != -1) {
-                iconWidth = myParentEdge.getNBEdge()->getLaneStruct(myIndex).width / 3;
+            if (myParentEdge->getNBEdge()->getLaneStruct(myIndex).width != -1) {
+                iconWidth = myParentEdge->getNBEdge()->getLaneStruct(myIndex).width / 3;
             }
             // Draw list of icons
             for (int i = 0; i < (int)myLaneRestrictedTexturePositions.size(); i++) {
@@ -508,7 +508,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw a Start/endPoints if lane has a custom shape
-        if (!s.drawForRectangleSelection && (myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.size() > 1)) {
+        if (!s.drawForRectangleSelection && (myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() > 1)) {
             drawStartEndShapePoints(s);
         }
         // Pop Lane Name
@@ -548,9 +548,9 @@ void
 GNELane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_EDGE);
-    const double myHalfLaneWidth = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2;
+    const double myHalfLaneWidth = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
     // optionally draw inverse markings
-    if (myIndex > 0 && (myParentEdge.getNBEdge()->getPermissions(myIndex - 1) & myParentEdge.getNBEdge()->getPermissions(myIndex)) != 0) {
+    if (myIndex > 0 && (myParentEdge->getNBEdge()->getPermissions(myIndex - 1) & myParentEdge->getNBEdge()->getPermissions(myIndex)) != 0) {
         double mw = (myHalfLaneWidth + SUMO_const_laneMarkWidth) * scale;
         double mw2 = (myHalfLaneWidth - SUMO_const_laneMarkWidth) * scale;
         if (s.lefthand) {
@@ -612,7 +612,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             // Create basic commands
             std::string edgeDescPossibleMulti = toString(SUMO_TAG_EDGE);
             const int edgeSelSize = (int)myNet->retrieveEdges(true).size();
-            if (edgeSelSize && myParentEdge.isAttributeCarrierSelected() && (edgeSelSize > 1)) {
+            if (edgeSelSize && myParentEdge->isAttributeCarrierSelected() && (edgeSelSize > 1)) {
                 edgeDescPossibleMulti = toString(edgeSelSize) + " " + toString(SUMO_TAG_EDGE) + "s";
             }
             // if lane is selected, calculate number of restricted lanes
@@ -624,28 +624,28 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             if (isAttributeCarrierSelected()) {
                 auto selectedLanes = myNet->retrieveLanes(true);
                 for (auto i : selectedLanes) {
-                    if (i->getParentEdge().hasRestrictedLane(SVC_PEDESTRIAN)) {
+                    if (i->getParentEdge()->hasRestrictedLane(SVC_PEDESTRIAN)) {
                         edgeHasSidewalk = true;
                     }
-                    if (i->getParentEdge().hasRestrictedLane(SVC_BICYCLE)) {
+                    if (i->getParentEdge()->hasRestrictedLane(SVC_BICYCLE)) {
                         edgeHasBikelane = true;
                     }
-                    if (i->getParentEdge().hasRestrictedLane(SVC_BUS)) {
+                    if (i->getParentEdge()->hasRestrictedLane(SVC_BUS)) {
                         edgeHasBuslane = true;
                     }
-                    if (i->getParentEdge().hasRestrictedLane(SVC_IGNORING)) {
+                    if (i->getParentEdge()->hasRestrictedLane(SVC_IGNORING)) {
                         edgeHasGreenVerge = true;
                     }
-                    if (i->getParentEdge().getNBEdge()->getLaneStruct(i->getIndex()).customShape.size() != 0) {
+                    if (i->getParentEdge()->getNBEdge()->getLaneStruct(i->getIndex()).customShape.size() != 0) {
                         differentLaneShapes = true;
                     }
                 }
             } else {
-                edgeHasSidewalk = myParentEdge.hasRestrictedLane(SVC_PEDESTRIAN);
-                edgeHasBikelane = myParentEdge.hasRestrictedLane(SVC_BICYCLE);
-                edgeHasBuslane = myParentEdge.hasRestrictedLane(SVC_BUS);
-                edgeHasGreenVerge = myParentEdge.hasRestrictedLane(SVC_IGNORING);
-                differentLaneShapes = myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.size() != 0;
+                edgeHasSidewalk = myParentEdge->hasRestrictedLane(SVC_PEDESTRIAN);
+                edgeHasBikelane = myParentEdge->hasRestrictedLane(SVC_BICYCLE);
+                edgeHasBuslane = myParentEdge->hasRestrictedLane(SVC_BUS);
+                edgeHasGreenVerge = myParentEdge->hasRestrictedLane(SVC_IGNORING);
+                differentLaneShapes = myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() != 0;
             }
             // create menu pane for edge operations
             FXMenuPane* edgeOperations = new FXMenuPane(ret);
@@ -763,10 +763,10 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNELane::getCenteringBoundary() const {
-    if (myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.size() == 0) {
-        return myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape.getBoxBoundary();
+    if (myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() == 0) {
+        return myParentEdge->getNBEdge()->getLaneStruct(myIndex).shape.getBoxBoundary();
     } else {
-        return myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.getBoxBoundary();
+        return myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.getBoxBoundary();
     }
 }
 
@@ -779,19 +779,19 @@ GNELane::getIndex() const {
 void
 GNELane::setIndex(int index) {
     myIndex = index;
-    setMicrosimID(myParentEdge.getNBEdge()->getLaneID(index));
+    setMicrosimID(myParentEdge->getNBEdge()->getLaneID(index));
 }
 
 
 double
 GNELane::getSpeed() const {
-    return myParentEdge.getNBEdge()->getLaneSpeed(myIndex);
+    return myParentEdge->getNBEdge()->getLaneSpeed(myIndex);
 }
 
 
 double
 GNELane::getLaneParametricLength() const  {
-    double laneParametricLength = myParentEdge.getNBEdge()->getLoadedLength();
+    double laneParametricLength = myParentEdge->getNBEdge()->getLoadedLength();
     if (laneParametricLength > 0) {
         return laneParametricLength;
     } else {
@@ -808,7 +808,7 @@ GNELane::getLaneShapeLength() const {
 
 bool
 GNELane::isRestricted(SUMOVehicleClass vclass) const {
-    return myParentEdge.getNBEdge()->getPermissions(myIndex) == vclass;
+    return myParentEdge->getNBEdge()->getPermissions(myIndex) == vclass;
 }
 
 
@@ -820,7 +820,7 @@ GNELane::getLane2laneConnections() const {
 
 std::string
 GNELane::getAttribute(SumoXMLAttr key) const {
-    const NBEdge* edge = myParentEdge.getNBEdge();
+    const NBEdge* edge = myParentEdge->getNBEdge();
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
@@ -843,7 +843,7 @@ GNELane::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
-            return myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParametersStr();
+            return myParentEdge->getNBEdge()->getLaneStruct(myIndex).getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1004,7 +1004,7 @@ GNELane::drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEA
 
 void
 GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
-    NBEdge* edge = myParentEdge.getNBEdge();
+    NBEdge* edge = myParentEdge->getNBEdge();
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_INDEX:
@@ -1029,11 +1029,11 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
             // first remove edge parent from net
-            myNet->removeGLObjectFromGrid(&myParentEdge);
+            myNet->removeGLObjectFromGrid(myParentEdge);
             // set new shape
             edge->setLaneShape(myIndex, parse<PositionVector>(value));
             // add edge parent into net again
-            myNet->addGLObjectIntoGrid(&myParentEdge);
+            myNet->addGLObjectIntoGrid(myParentEdge);
             break;
         }
         case GNE_ATTR_SELECTED:
@@ -1044,7 +1044,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case GNE_ATTR_PARAMETERS:
-            myParentEdge.getNBEdge()->getLaneStruct(myIndex).setParametersStr(value);
+            myParentEdge->getNBEdge()->getLaneStruct(myIndex).setParametersStr(value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -1063,7 +1063,7 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
         // iterate over viaEdges
         for (const auto& i : viaEdges) {
             // check if edge parent is in the via edges
-            if (myParentEdge.getID() == i) {
+            if (myParentEdge->getID() == i) {
                 // set green color in GLHelper and return it
                 GLHelper::setColor(RGBColor::GREEN);
                 return RGBColor::GREEN;
@@ -1078,7 +1078,7 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     } else if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
         color = s.colorSettings.selectedLaneColor;
-    } else if (myParentEdge.drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
+    } else if (myParentEdge->drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
         color = s.colorSettings.selectedEdgeColor;
     } else {
@@ -1133,7 +1133,7 @@ GNELane::setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, R
 
 double
 GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
-    const SVCPermissions myPermissions = myParentEdge.getNBEdge()->getPermissions(myIndex);
+    const SVCPermissions myPermissions = myParentEdge->getNBEdge()->getPermissions(myIndex);
     if (mySpecialColor != nullptr && mySpecialColorValue != std::numeric_limits<double>::max()) {
         return mySpecialColorValue;
     }
@@ -1159,19 +1159,19 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
                 return 6;
             }
         case 1:
-            return isAttributeCarrierSelected() || myParentEdge.isAttributeCarrierSelected();
+            return isAttributeCarrierSelected() || myParentEdge->isAttributeCarrierSelected();
         case 2:
             return (double)myPermissions;
         case 3:
-            return myParentEdge.getNBEdge()->getLaneSpeed(myIndex);
+            return myParentEdge->getNBEdge()->getLaneSpeed(myIndex);
         case 4:
-            return myParentEdge.getNBEdge()->getNumLanes();
+            return myParentEdge->getNBEdge()->getNumLanes();
         case 5: {
-            return myParentEdge.getNBEdge()->getLoadedLength() / myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape.length();
+            return myParentEdge->getNBEdge()->getLoadedLength() / myParentEdge->getNBEdge()->getLaneStruct(myIndex).shape.length();
         }
         // case 6: by angle (functional)
         case 7: {
-            return myParentEdge.getNBEdge()->getPriority();
+            return myParentEdge->getNBEdge()->getPriority();
         }
         case 8: {
             // color by z of first shape point
@@ -1180,17 +1180,17 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         // case 9: by segment height
         case 10: {
             // color by incline
-            return (myLaneGeometry.getShape()[-1].z() - myLaneGeometry.getShape()[0].z()) /  myParentEdge.getNBEdge()->getLength();
+            return (myLaneGeometry.getShape()[-1].z() - myLaneGeometry.getShape()[0].z()) /  myParentEdge->getNBEdge()->getLength();
         }
         // case 11: by segment incline
 
         case 12: {
             // by numerical edge param value
             try {
-                return StringUtils::toDouble(myParentEdge.getNBEdge()->getParameter(s.edgeParam, "0"));
+                return StringUtils::toDouble(myParentEdge->getNBEdge()->getParameter(s.edgeParam, "0"));
             } catch (NumberFormatException&) {
                 try {
-                    return StringUtils::toBool(myParentEdge.getNBEdge()->getParameter(s.edgeParam, "0"));
+                    return StringUtils::toBool(myParentEdge->getNBEdge()->getParameter(s.edgeParam, "0"));
                 } catch (BoolFormatException&) {
                     return -1;
                 }
@@ -1199,20 +1199,20 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         case 13: {
             // by numerical lane param value
             try {
-                return StringUtils::toDouble(myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0"));
+                return StringUtils::toDouble(myParentEdge->getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0"));
             } catch (NumberFormatException&) {
                 try {
-                    return StringUtils::toBool(myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0"));
+                    return StringUtils::toBool(myParentEdge->getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0"));
                 } catch (BoolFormatException&) {
                     return -1;
                 }
             }
         }
         case 14: {
-            return myParentEdge.getNBEdge()->getDistance();
+            return myParentEdge->getNBEdge()->getDistance();
         }
         case 15: {
-            return fabs(myParentEdge.getNBEdge()->getDistance());
+            return fabs(myParentEdge->getNBEdge()->getDistance());
         }
     }
     return 0;
@@ -1221,19 +1221,19 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
 
 bool
 GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
-    return isRailway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails && (!s.drawForRectangleSelection || s.spreadSuperposed);
+    return isRailway(myParentEdge->getNBEdge()->getPermissions(myIndex)) && s.showRails && (!s.drawForRectangleSelection || s.spreadSuperposed);
 }
 
  
 bool
 GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
-    return isWaterway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails && !s.drawForRectangleSelection; // reusing the showRails setting
+    return isWaterway(myParentEdge->getNBEdge()->getPermissions(myIndex)) && s.showRails && !s.drawForRectangleSelection; // reusing the showRails setting
 }
 
 
 void
 GNELane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const {
-    const double width = MAX2(NUMERICAL_EPS, (myParentEdge.getNBEdge()->getLaneWidth(myIndex) * exaggeration
+    const double width = MAX2(NUMERICAL_EPS, (myParentEdge->getNBEdge()->getLaneWidth(myIndex) * exaggeration
                               * (spreadSuperposed ? 0.4 : 1)));
     const double sideOffset = spreadSuperposed ? width * -0.5 : 0;
     glPushMatrix();
@@ -1321,7 +1321,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // obtain custom shape
-    const PositionVector& customShape = myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape;
+    const PositionVector& customShape = myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape;
     // draw s depending of detail
     if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
         glPushMatrix();
@@ -1335,7 +1335,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION - 0.01);
     glLineWidth(4);
-    GLHelper::drawLine(customShape.front(), myParentEdge.getGNEJunctionSource()->getPositionInView());
+    GLHelper::drawLine(customShape.front(), myParentEdge->getGNEJunctionSource()->getPositionInView());
     glPopMatrix();
     // draw "e" depending of detail
     if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
@@ -1350,14 +1350,14 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION - 0.01);
     glLineWidth(4);
-    GLHelper::drawLine(customShape.back(), myParentEdge.getGNEJunctionDestiny()->getPositionInView());
+    GLHelper::drawLine(customShape.back(), myParentEdge->getGNEJunctionDestiny()->getPositionInView());
     glPopMatrix();
 }
 
 
 std::string
 GNELane::getParentName() const {
-    return myParentEdge.getMicrosimID();
+    return myParentEdge->getMicrosimID();
 }
 
 
@@ -1368,13 +1368,7 @@ GNELane::onDefault(FXObject* obj, FXSelector sel, void* data) {
 }
 
 
-GNEEdge&
-GNELane::getParentEdge() {
-    return myParentEdge;
-}
-
-
-GNEEdge&
+GNEEdge*
 GNELane::getParentEdge() const {
     return myParentEdge;
 }
@@ -1385,7 +1379,7 @@ GNELane::getGNEIncomingConnections() {
     // Declare a vector to save incoming connections
     std::vector<GNEConnection*> incomingConnections;
     // Obtain incoming edges if junction source was already created
-    GNEJunction* junctionSource =  myParentEdge.getGNEJunctionSource();
+    GNEJunction* junctionSource =  myParentEdge->getGNEJunctionSource();
     if (junctionSource) {
         // Iterate over incoming GNEEdges of junction
         for (auto i : junctionSource->getGNEIncomingEdges()) {
@@ -1404,7 +1398,7 @@ GNELane::getGNEIncomingConnections() {
 std::vector<GNEConnection*>
 GNELane::getGNEOutcomingConnections() {
     // Obtain GNEConnection of edge parent
-    const std::vector<GNEConnection*>& edgeConnections = myParentEdge.getGNEConnections();
+    const std::vector<GNEConnection*>& edgeConnections = myParentEdge->getGNEConnections();
     std::vector<GNEConnection*> outcomingConnections;
     // Obtain outgoing connections
     for (auto i : edgeConnections) {
@@ -1434,8 +1428,8 @@ GNELane::updateConnectionIDs() {
 double
 GNELane::getLengthGeometryFactor() const {
     // factor should not be 0
-    if (myParentEdge.getNBEdge()->getFinalLength() > 0) {
-        return MAX2(POSITION_EPS, (myParentEdge.getNBEdge()->getLaneShape(myIndex).length() / myParentEdge.getNBEdge()->getFinalLength()));
+    if (myParentEdge->getNBEdge()->getFinalLength() > 0) {
+        return MAX2(POSITION_EPS, (myParentEdge->getNBEdge()->getLaneShape(myIndex).length() / myParentEdge->getNBEdge()->getFinalLength()));
     } else {
         return POSITION_EPS;
     };

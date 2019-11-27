@@ -1979,9 +1979,9 @@ GNERouteHandler::PersonPlansValues::getLastEdge() const {
     } else if (route) {
         return route->getEdgeParents().back();
     } else if (busStop) {
-        return &busStop->getLaneParents().front()->getParentEdge();
+        return busStop->getLaneParents().front()->getParentEdge();
     } else if (laneStop) {
-        return &laneStop->getParentEdge();
+        return laneStop->getParentEdge();
     } else if (to) {
         return to;
     } else {

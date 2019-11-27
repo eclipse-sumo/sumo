@@ -58,7 +58,7 @@ public:
     bool isAccessPositionFixed() const;
 
     /// @brief get edge in which this Access is placed
-    GNEEdge& getEdge() const;
+    GNEEdge* getEdge() const;
 
     /// @name Functions related with geometry of element
     /// @{

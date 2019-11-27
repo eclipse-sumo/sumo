@@ -172,7 +172,7 @@ GNEGeometry::Geometry::calculateShapeRotationsAndLengths() {
 
 GNEGeometry::SegmentGeometry::Segment::Segment(const GNEAttributeCarrier* _AC, const GNELane* _lane, const bool _valid) :
     AC(_AC),
-    edge(&_lane->getParentEdge()),
+    edge(_lane->getParentEdge()),
     lane(_lane),
     junction(nullptr),
     valid(_valid),
@@ -184,7 +184,7 @@ GNEGeometry::SegmentGeometry::Segment::Segment(const GNEAttributeCarrier* _AC, c
 GNEGeometry::SegmentGeometry::Segment::Segment(const GNEAttributeCarrier* _AC, const GNELane* _lane,
         const PositionVector& shape, const std::vector<double> &shapeRotations, const std::vector<double> &shapeLengths, const bool _valid) :
     AC(_AC),
-    edge(&_lane->getParentEdge()),
+    edge(_lane->getParentEdge()),
     lane(_lane),
     junction(nullptr),
     valid(_valid),
@@ -200,7 +200,7 @@ GNEGeometry::SegmentGeometry::Segment::Segment(const GNEAttributeCarrier* _AC, c
     AC(_AC),
     edge(nullptr),
     lane(nextLane),
-    junction(currentLane->getParentEdge().getGNEJunctionDestiny()),
+    junction(currentLane->getParentEdge()->getGNEJunctionDestiny()),
     valid(_valid),
     myUseLaneShape(false),
     myUseLane2LaneShape(true),
@@ -387,11 +387,11 @@ GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
     // clear connectionsMap
     connectionsMap.clear();
     // iterate over outgoingEdge's lanes
-    for (const auto &outgoingEdge : myOriginLane->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+    for (const auto &outgoingEdge : myOriginLane->getParentEdge()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
         for (const auto &outgoingLane : outgoingEdge->getLanes()) {
             // get NBEdges from and to
-            const NBEdge* NBEdgeFrom = myOriginLane->getParentEdge().getNBEdge();
-            const NBEdge* NBEdgeTo = outgoingLane->getParentEdge().getNBEdge();
+            const NBEdge* NBEdgeFrom = myOriginLane->getParentEdge()->getNBEdge();
+            const NBEdge* NBEdgeTo = outgoingLane->getParentEdge()->getNBEdge();
             if (NBEdgeFrom->getToNode()->getShape().area() > 4) {
                 // Calculate smooth shape
                 connectionsMap[outgoingLane].updateGeometryShape(NBEdgeFrom->getToNode()->computeSmoothShape(

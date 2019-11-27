@@ -72,7 +72,7 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
     int numLanes = myNBEdge.getNumLanes();
     myLanes.reserve(numLanes);
     for (int i = 0; i < numLanes; i++) {
-        myLanes.push_back(new GNELane(*this, i));
+        myLanes.push_back(new GNELane(this, i));
         myLanes.back()->incRef("GNEEdge::GNEEdge");
     }
     // update Lane geometries
@@ -623,8 +623,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         const double myHalfLaneWidthFront = myNBEdge.getLaneWidth(myLanes.front()->getIndex()) / 2;
         const double myHalfLaneWidthBack = (s.spreadSuperposed && myLanes.back()->drawAsRailway(s) && myNBEdge.isBidiRail()) ? 0 : myNBEdge.getLaneWidth(myLanes.back()->getIndex()) / 2;
         // obtain shapes from NBEdge
-        const PositionVector &frontShape = myLanes.front()->getParentEdge().getNBEdge()->getLaneShape(myLanes.front()->getIndex());
-        const PositionVector &backShape = myLanes.back()->getParentEdge().getNBEdge()->getLaneShape(myLanes.back()->getIndex());
+        const PositionVector &frontShape = myLanes.front()->getParentEdge()->getNBEdge()->getLaneShape(myLanes.front()->getIndex());
+        const PositionVector &backShape = myLanes.back()->getParentEdge()->getNBEdge()->getLaneShape(myLanes.back()->getIndex());
         GLHelper::drawShapeDottedContourBetweenLanes(s, GLO_JUNCTION, frontShape, myHalfLaneWidthFront, backShape, -1 * myHalfLaneWidthBack);
     }
 }
@@ -1455,10 +1455,10 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
     if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getTagProperty().isPersonStop()) {
         if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_LANE) {
             // obtain edge of lane parent
-            firstEdge = &personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getLaneParents().front()->getParentEdge();
+            firstEdge = personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getLaneParents().front()->getParentEdge();
         } else  {
             // obtain edge of busstop's lane parent
-            firstEdge = &personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
+            firstEdge = personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
         }
     } else if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
         // obtain first rute edge
@@ -1655,7 +1655,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
 
     } else {
         // create a new lane by copying leftmost lane
-        lane = new GNELane(*this, index);
+        lane = new GNELane(this, index);
         myLanes.push_back(lane);
     }
     lane->incRef("GNEEdge::addLane");

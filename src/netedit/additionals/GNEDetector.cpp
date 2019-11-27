@@ -110,7 +110,7 @@ GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetElement* 
 double
 GNEDetector::getGeometryPositionOverLane() const {
     double fixedPos = myPositionOverLane;
-    const double len = getLane()->getParentEdge().getNBEdge()->getFinalLength();
+    const double len = getLane()->getParentEdge()->getNBEdge()->getFinalLength();
     if (fixedPos < 0) {
         fixedPos += len;
     }

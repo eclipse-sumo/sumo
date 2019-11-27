@@ -306,14 +306,14 @@ public:
      * @param[in] edge The edge in which insert restricted lane
      * @param[in] undoList The undolist in which to mark changes
      */
-    bool addRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, int index, GNEUndoList* undoList);
+    bool addRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, int index, GNEUndoList* undoList);
 
     /**@brief remove restricted lane
      * @param[in] vclass vehicle class to restrict
      * @param[in] edge the edge in which remove sidewalk
      * @param[in] undoList The undolist in which to mark changes
      */
-    bool removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList* undoList);
+    bool removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, GNEUndoList* undoList);
 
     /**@brief split edge at position by inserting a new junction
      * @param[in] edge The edge to be split

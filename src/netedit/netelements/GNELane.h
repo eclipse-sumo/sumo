@@ -53,7 +53,7 @@ public:
      * @param[in] the edge this lane belongs to
      * @param[in] the index of this lane
      */
-    GNELane(GNEEdge& edge, const int index);
+    GNELane(GNEEdge* edge, const int index);
 
     /// @brief Destructor
     ~GNELane();
@@ -80,10 +80,7 @@ public:
     /// @}
 
     /// @brief Returns underlying parent edge
-    GNEEdge& getParentEdge();
-
-    /// @brief Returns underlying parent edge (const)
-    GNEEdge& getParentEdge() const;
+    GNEEdge* getParentEdge() const;
 
     /// @brief returns a vector with the incoming GNEConnections of this lane
     std::vector<GNEConnection*> getGNEIncomingConnections();
@@ -211,7 +208,7 @@ protected:
     GNELane();
 
     /// @brief The Edge that to which this lane belongs
-    GNEEdge& myParentEdge;
+    GNEEdge* myParentEdge;
 
     /// @brief The index of this lane
     int myIndex;
