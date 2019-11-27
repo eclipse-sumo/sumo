@@ -832,7 +832,7 @@ GUIBaseVehicle::computeSeats(const Position& front, const Position& back, int ma
         if (seat == 0) {
             rowPos += rowOffset;
         }
-        mySeatPositions.push_back(PositionVector::positionBetweenPointsAtOffset2D(front, back, rowPos,
+        mySeatPositions.push_back(PositionVector::positionAtOffset2D(front, back, rowPos,
                                   seat * seatOffset - sideOffset));
         requiredSeats--;
     }

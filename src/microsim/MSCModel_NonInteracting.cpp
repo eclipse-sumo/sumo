@@ -110,7 +110,7 @@ Position
 CState::getPosition(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const {
     const double dist = myCurrentBeginPosition.distanceTo2D(myCurrentEndPosition);    //distance between begin and end position of this tranship stage
     double pos = MIN2(STEPS2TIME(now - myLastEntryTime) *  stage.getMaxSpeed(), dist);    //the containerd shall not go beyond its end position
-    return PositionVector::positionBetweenPointsAtOffset2D(myCurrentBeginPosition, myCurrentEndPosition, pos, 0);
+    return PositionVector::positionAtOffset2D(myCurrentBeginPosition, myCurrentEndPosition, pos, 0);
 }
 
 
