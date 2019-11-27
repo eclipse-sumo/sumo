@@ -445,7 +445,7 @@ GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2,
         tWidth *= length / tLength;
         tLength = length;
     }
-    Position rl(PositionVector::positionAtOffset(p1, p2, length - tLength));
+    Position rl(PositionVector::positionBetweenPointsAtOffset2D(p1, p2, length - tLength));
     glPushMatrix();
     glTranslated(rl.x(), rl.y(), 0);
     glRotated(-GeomHelper::naviDegree(p1.angleTo2D(p2)), 0, 0, 1);

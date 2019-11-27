@@ -563,7 +563,7 @@ NBNode::bezierControlPoints(
             //  - end of incoming lane
             //  - position between incoming/outgoing end/begin shifted by the distance orthogonally
             //  - begin of outgoing lane
-            Position center = PositionVector::positionAtOffset2D(beg, end, beg.distanceTo2D(end) / (double) 2.);
+            Position center = PositionVector::positionBetweenPointsAtOffset2D(beg, end, beg.distanceTo2D(end) / (double) 2.);
             center.sub(beg.y() - end.y(), end.x() - beg.x());
             init.push_back(center);
         } else {
@@ -601,9 +601,9 @@ NBNode::bezierControlPoints(
                 } else {
                     const double endLength = begShape[-2].distanceTo2D(begShape[-1]);
                     const double off1 = endLength + MIN2(extrapolateBeg, halfDistance);
-                    init.push_back(PositionVector::positionAtOffset2D(begShapeEndLineRev[1], begShapeEndLineRev[0], off1));
+                    init.push_back(PositionVector::positionBetweenPointsAtOffset2D(begShapeEndLineRev[1], begShapeEndLineRev[0], off1));
                     const double off2 = 100. - MIN2(extrapolateEnd, halfDistance);
-                    init.push_back(PositionVector::positionAtOffset2D(endShapeBegLine[0], endShapeBegLine[1], off2));
+                    init.push_back(PositionVector::positionBetweenPointsAtOffset2D(endShapeBegLine[0], endShapeBegLine[1], off2));
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints found s-curve beg=" << beg << " end=" << end
                                                                << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle)

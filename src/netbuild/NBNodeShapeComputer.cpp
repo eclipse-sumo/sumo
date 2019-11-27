@@ -123,7 +123,7 @@ computeSameEnd(PositionVector& l1, PositionVector& l2) {
     assert(l1[0].distanceTo2D(l1[1]) >= EXT);
     assert(l2[0].distanceTo2D(l2[1]) >= EXT);
     PositionVector tmp;
-    tmp.push_back(PositionVector::positionAtOffset2D(l1[0], l1[1], EXT));
+    tmp.push_back(PositionVector::positionBetweenPointsAtOffset2D(l1[0], l1[1], EXT));
     tmp.push_back(l1[1]);
     tmp[1].sub(tmp[0]);
     tmp[1].set(-tmp[1].y(), tmp[1].x());

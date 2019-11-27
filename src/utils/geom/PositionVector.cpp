@@ -249,20 +249,29 @@ Position
 PositionVector::positionAtOffset(double pos, double lateralOffset) const {
     if (size() == 0) {
         return Position::INVALID;
-    }
-    const_iterator i = begin();
-    double seenLength = 0;
-    do {
-        const double nextLength = (*i).distanceTo(*(i + 1));
-        if (seenLength + nextLength > pos) {
-            return positionAtOffset(*i, *(i + 1), pos - seenLength, lateralOffset);
-        }
-        seenLength += nextLength;
-    } while (++i != end() - 1);
-    if (lateralOffset == 0 || size() < 2) {
-        return back();
+    } else if (size() == 1) {
+        // if size is exactly 1, then simply return the first position
+        return front();
     } else {
-        return positionAtOffset(*(end() - 2), *(end() - 1), (*(end() - 2)).distanceTo(*(end() - 1)), lateralOffset);
+        // search segment in wich we must to calculate the position between points
+        const_iterator i = begin();
+        double seenLength = 0;
+        // check that next iterator position isn't end
+        do {
+            const double nextLength = i->distanceTo(*(i + 1));
+            if (seenLength + nextLength > pos) {
+                return positionBetweenPointsAtOffset(*i, *(i + 1), pos - seenLength, lateralOffset);
+            }
+            seenLength += nextLength;
+        } while (++i != (end() - 1));
+        // if pos is greather than position vector lenght, then returns last position, or position between las two points
+        if (lateralOffset == 0) {
+            return back();
+        } else {
+            const Position last = *(end() - 1);
+            const Position secondLast = *(end() - 2);
+            return positionBetweenPointsAtOffset(secondLast, last, secondLast.distanceTo(last), lateralOffset);
+        }
     }
 }
 
@@ -271,17 +280,30 @@ Position
 PositionVector::positionAtOffset2D(double pos, double lateralOffset) const {
     if (size() == 0) {
         return Position::INVALID;
-    }
-    const_iterator i = begin();
-    double seenLength = 0;
-    do {
-        const double nextLength = (*i).distanceTo2D(*(i + 1));
-        if (seenLength + nextLength > pos) {
-            return positionAtOffset2D(*i, *(i + 1), pos - seenLength, lateralOffset);
+    } else if (size() == 1) {
+        // if size is exactly 1, then simply return the first position
+        return front();
+    } else {
+        // search segment in wich we must to calculate the position between points
+        const_iterator i = begin();
+        double seenLength = 0;
+        // check that next iterator position isn't end
+        do {
+            const double nextLength = i->distanceTo(*(i + 1));
+            if (seenLength + nextLength > pos) {
+                return positionBetweenPointsAtOffset2D(*i, *(i + 1), pos - seenLength, lateralOffset);
+            }
+            seenLength += nextLength;
+        } while (++i != (end() - 1));
+        // if pos is greather than position vector lenght, then returns last position, or position between las two points
+        if (lateralOffset == 0) {
+            return back();
+        } else {
+            const Position last = *(end() - 1);
+            const Position secondLast = *(end() - 2);
+            return positionBetweenPointsAtOffset2D(secondLast, last, secondLast.distanceTo(last), lateralOffset);
         }
-        seenLength += nextLength;
-    } while (++i != end() - 1);
-    return back();
+    }
 }
 
 
@@ -289,24 +311,27 @@ double
 PositionVector::rotationAtOffset(double pos) const {
     if (size() == 0) {
         return INVALID_DOUBLE;
-    }
-    if (pos < 0) {
-        pos += length();
-    }
-    const_iterator i = begin();
-    double seenLength = 0;
-    do {
-        const Position& p1 = *i;
-        const Position& p2 = *(i + 1);
-        const double nextLength = p1.distanceTo(p2);
-        if (seenLength + nextLength > pos) {
-            return p1.angleTo2D(p2);
+    } else if (size() == 1) {
+        return 0;
+    } else {
+        if (pos < 0) {
+            pos += length();
         }
-        seenLength += nextLength;
-    } while (++i != end() - 1);
-    const Position& p1 = (*this)[-2];
-    const Position& p2 = back();
-    return p1.angleTo2D(p2);
+        const_iterator i = begin();
+        double seenLength = 0;
+        do {
+            const Position& p1 = *i;
+            const Position& p2 = *(i + 1);
+            const double nextLength = p1.distanceTo(p2);
+            if (seenLength + nextLength > pos) {
+                return p1.angleTo2D(p2);
+            }
+            seenLength += nextLength;
+        } while (++i != end() - 1);
+        const Position& p1 = (*this)[-2];
+        const Position& p2 = back();
+        return p1.angleTo2D(p2);
+    }
 }
 
 
@@ -320,64 +345,96 @@ double
 PositionVector::slopeDegreeAtOffset(double pos) const {
     if (size() == 0) {
         return INVALID_DOUBLE;
+    } else if (size() == 1) {
+        return 0;
+    } else {
+        const_iterator i = begin();
+        double seenLength = 0;
+        do {
+            const Position& p1 = *i;
+            const Position& p2 = *(i + 1);
+            const double nextLength = p1.distanceTo(p2);
+            if (seenLength + nextLength > pos) {
+                return RAD2DEG(atan2(p2.z() - p1.z(), p1.distanceTo2D(p2)));
+            }
+            seenLength += nextLength;
+        } while (++i != end() - 1);
+        const Position& p1 = (*this)[-2];
+        const Position& p2 = back();
+        return RAD2DEG(atan2(p2.z() - p1.z(), p1.distanceTo2D(p2)));
     }
-    const_iterator i = begin();
-    double seenLength = 0;
-    do {
-        const Position& p1 = *i;
-        const Position& p2 = *(i + 1);
-        const double nextLength = p1.distanceTo(p2);
-        if (seenLength + nextLength > pos) {
-            return RAD2DEG(atan2(p2.z() - p1.z(), p1.distanceTo2D(p2)));
-        }
-        seenLength += nextLength;
-    } while (++i != end() - 1);
-    const Position& p1 = (*this)[-2];
-    const Position& p2 = back();
-    return RAD2DEG(atan2(p2.z() - p1.z(), p1.distanceTo2D(p2)));
 }
 
 
 Position
-PositionVector::positionAtOffset(const Position& p1, const Position& p2, double pos, double lateralOffset) {
+PositionVector::positionBetweenPointsAtOffset(const Position& p1, const Position& p2, double pos, double lateralOffset) {
+    // first calculate distance between the given two points
     const double dist = p1.distanceTo(p2);
-    if (pos < 0. || dist < pos) {
-        return Position::INVALID;
-    }
-    if (lateralOffset != 0) {
-        if (dist == 0.) {
-            return Position::INVALID;
-        }
-        const Position offset = sideOffset(p1, p2, -lateralOffset); // move in the same direction as Position::move2side
-        if (pos == 0.) {
-            return p1 + offset;
-        }
-        return p1 + (p2 - p1) * (pos / dist) + offset;
-    }
-    if (pos == 0.) {
+    // check that given position is between 0 and dist
+    if ((p1 == p2) && (pos == 0.)) {
         return p1;
+    } else if ((pos < 0) || (dist < pos)) {
+        return Position::INVALID;
+    } else {
+        // check if we have to add an lateral offset
+        if (lateralOffset != 0) {
+            // obtain offset moving in the same direction as Position::move2side
+            const Position offset = sideOffset(p1, p2, -lateralOffset);
+            // check if we have to return the p1 or p2, or a middle point with offset
+            if (pos == 0.) {
+                return p1 + offset;
+            } else if (pos == dist) {
+                return p2 + offset;
+            } else {
+                return p1 + (p2 - p1) * (pos / dist) + offset;
+            }
+        } else {
+            // check if we have to return the p1 or p2, or a middle point
+            if (pos == 0.) {
+                return p1;
+            } else if (pos == dist) {
+                return p2;
+            } else {
+                return p1 + (p2 - p1) * (pos / dist);
+            }
+        }
     }
-    return p1 + (p2 - p1) * (pos / dist);
 }
 
 
 Position
-PositionVector::positionAtOffset2D(const Position& p1, const Position& p2, double pos, double lateralOffset) {
+PositionVector::positionBetweenPointsAtOffset2D(const Position& p1, const Position& p2, double pos, double lateralOffset) {
+    // first calculate distance between the given two points
     const double dist = p1.distanceTo2D(p2);
-    if (pos < 0 || dist < pos) {
-        return Position::INVALID;
-    }
-    if (lateralOffset != 0) {
-        const Position offset = sideOffset(p1, p2, -lateralOffset); // move in the same direction as Position::move2side
-        if (pos == 0.) {
-            return p1 + offset;
-        }
-        return p1 + (p2 - p1) * (pos / dist) + offset;
-    }
-    if (pos == 0.) {
+    // check that given position is between 0 and dist
+    if ((p1 == p2) && (pos == 0.)) {
         return p1;
+    } else if ((pos < 0) || (dist < pos)) {
+        return Position::INVALID;
+    } else {
+        // check if we have to add an lateral offset
+        if (lateralOffset != 0) {
+            // obtain offset moving in the same direction as Position::move2side
+            const Position offset = sideOffset(p1, p2, -lateralOffset);
+            // check if we have to return the p1 or p2, or a middle point with offset
+            if (pos == 0.) {
+                return p1 + offset;
+            } else if (pos == dist) {
+                return p2 + offset;
+            } else {
+                return p1 + (p2 - p1) * (pos / dist) + offset;
+            }
+        } else {
+            // check if we have to return the p1 or p2, or a middle point
+            if (pos == 0.) {
+                return p1;
+            } else if (pos == dist) {
+                return p2;
+            } else {
+                return p1 + (p2 - p1) * (pos / dist);
+            }
+        }
     }
-    return p1 + (p2 - p1) * (pos / dist);
 }
 
 
@@ -409,40 +466,43 @@ Position
 PositionVector::getCentroid() const {
     if (size() == 0) {
         return Position::INVALID;
-    }
-    PositionVector tmp = *this;
-    if (!isClosed()) { // make sure its closed
-        tmp.push_back(tmp[0]);
-    }
-    const int endIndex = (int)tmp.size() - 1;
-    double div = 0; // 6 * area including sign
-    double x = 0;
-    double y = 0;
-    if (tmp.area() != 0) { // numerical instability ?
-        // http://en.wikipedia.org/wiki/Polygon
-        for (int i = 0; i < endIndex; i++) {
-            const double z = tmp[i].x() * tmp[i + 1].y() - tmp[i + 1].x() * tmp[i].y();
-            div += z; // area formula
-            x += (tmp[i].x() + tmp[i + 1].x()) * z;
-            y += (tmp[i].y() + tmp[i + 1].y()) * z;
-        }
-        div *= 3; //  6 / 2, the 2 comes from the area formula
-        return Position(x / div, y / div);
+    } else if (size() == 0) {
+        return front();
     } else {
-        // compute by decomposing into line segments
-        // http://en.wikipedia.org/wiki/Centroid#By_geometric_decomposition
-        double lengthSum = 0;
-        for (int i = 0; i < endIndex; i++) {
-            double length = tmp[i].distanceTo(tmp[i + 1]);
-            x += (tmp[i].x() + tmp[i + 1].x()) * length / 2;
-            y += (tmp[i].y() + tmp[i + 1].y()) * length / 2;
-            lengthSum += length;
+        PositionVector tmp = *this;
+        if (!isClosed()) { // make sure its closed
+            tmp.push_back(tmp[0]);
         }
-        if (lengthSum == 0) {
-            // it is probably only one point
-            return tmp[0];
+        const int endIndex = (int)tmp.size() - 1;
+        double div = 0; // 6 * area including sign
+        double x = 0;
+        double y = 0;
+        if (tmp.area() != 0) { // numerical instability ?
+            // http://en.wikipedia.org/wiki/Polygon
+            for (int i = 0; i < endIndex; i++) {
+                const double z = tmp[i].x() * tmp[i + 1].y() - tmp[i + 1].x() * tmp[i].y();
+                div += z; // area formula
+                x += (tmp[i].x() + tmp[i + 1].x()) * z;
+                y += (tmp[i].y() + tmp[i + 1].y()) * z;
+            }
+            div *= 3; //  6 / 2, the 2 comes from the area formula
+            return Position(x / div, y / div);
+        } else {
+            // compute by decomposing into line segments
+            // http://en.wikipedia.org/wiki/Centroid#By_geometric_decomposition
+            double lengthSum = 0;
+            for (int i = 0; i < endIndex; i++) {
+                double length = tmp[i].distanceTo(tmp[i + 1]);
+                x += (tmp[i].x() + tmp[i + 1].x()) * length / 2;
+                y += (tmp[i].y() + tmp[i + 1].y()) * length / 2;
+                lengthSum += length;
+            }
+            if (lengthSum == 0) {
+                // it is probably only one point
+                return tmp[0];
+            }
+            return Position(x / lengthSum, y / lengthSum);
         }
-        return Position(x / lengthSum, y / lengthSum);
     }
 }
 
@@ -477,27 +537,29 @@ PositionVector::getLineCenter() const {
 
 double
 PositionVector::length() const {
-    if (size() == 0) {
+    if ((size() == 0) || (size() == 1)) {
         return 0;
+    } else {
+        double len = 0;
+        for (const_iterator i = begin(); i != end() - 1; i++) {
+            len += i->distanceTo(*(i + 1));
+        }
+        return len;
     }
-    double len = 0;
-    for (const_iterator i = begin(); i != end() - 1; i++) {
-        len += (*i).distanceTo(*(i + 1));
-    }
-    return len;
 }
 
 
 double
 PositionVector::length2D() const {
-    if (size() == 0) {
+    if ((size() == 0) || (size() == 1)) {
         return 0;
+    } else {
+        double len = 0;
+        for (const_iterator i = begin(); i != end() - 1; i++) {
+            len += i->distanceTo2D(*(i + 1));
+        }
+        return len;
     }
-    double len = 0;
-    for (const_iterator i = begin(); i != end() - 1; i++) {
-        len += (*i).distanceTo2D(*(i + 1));
-    }
-    return len;
 }
 
 
@@ -571,8 +633,8 @@ PositionVector::splitAt(double where, bool use2D) const {
         // we need to insert a new point because 'where' is not close to an
         // existing point or it is to close to the endpoint
         const Position p = (use2D
-                            ? positionAtOffset2D(first.back(), *it, where - seen)
-                            : positionAtOffset(first.back(), *it, where - seen));
+                            ? positionBetweenPointsAtOffset2D(first.back(), *it, where - seen)
+                            : positionBetweenPointsAtOffset(first.back(), *it, where - seen));
         first.push_back(p);
         second.push_back(p);
     } else {
@@ -816,10 +878,10 @@ PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular)
     double minDist = std::numeric_limits<double>::max();
     double nearestPos = GeomHelper::INVALID_OFFSET;
     double seen = 0;
-    for (const_iterator i = begin(); i != end() - 1; i++) {
+    for (const_iterator i = begin(); i != (end() - 1); i++) {
         const double pos =
             GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, perpendicular);
-        const double dist = pos == GeomHelper::INVALID_OFFSET ? minDist : p.distanceTo2D(positionAtOffset2D(*i, *(i + 1), pos));
+        const double dist = pos == GeomHelper::INVALID_OFFSET ? minDist : p.distanceTo2D(positionBetweenPointsAtOffset2D(*i, *(i + 1), pos));
         if (dist < minDist) {
             nearestPos = pos + seen;
             minDist = dist;
@@ -855,7 +917,7 @@ PositionVector::nearest_offset_to_point25D(const Position& p, bool perpendicular
     for (const_iterator i = begin(); i != end() - 1; i++) {
         const double pos =
             GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, perpendicular);
-        const double dist = pos == GeomHelper::INVALID_OFFSET ? minDist : p.distanceTo2D(positionAtOffset2D(*i, *(i + 1), pos));
+        const double dist = pos == GeomHelper::INVALID_OFFSET ? minDist : p.distanceTo2D(positionBetweenPointsAtOffset2D(*i, *(i + 1), pos));
         if (dist < minDist) {
             const double pos25D = pos * (*i).distanceTo(*(i + 1)) / (*i).distanceTo2D(*(i + 1));
             nearestPos = pos25D + seen;
@@ -900,7 +962,7 @@ PositionVector::transformToVectorCoordinates(const Position& p, bool extend) con
     for (const_iterator i = begin(); i != end() - 1; i++) {
         const double pos =
             GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, true);
-        const double dist = pos < 0 ? minDist : p.distanceTo2D(positionAtOffset(*i, *(i + 1), pos));
+        const double dist = pos < 0 ? minDist : p.distanceTo2D(positionBetweenPointsAtOffset(*i, *(i + 1), pos));
         if (dist < minDist) {
             nearestPos = pos + seen;
             minDist = dist;
@@ -958,8 +1020,8 @@ PositionVector::insertAtClosest(const Position& p, bool interpolateZ) {
     double minDist = std::numeric_limits<double>::max();
     int insertionIndex = 1;
     for (int i = 0; i < (int)size() - 1; i++) {
-        const double length = GeomHelper::nearest_offset_on_line_to_point2D((*this)[i], (*this)[i + 1], p, false);
-        const Position& outIntersection = PositionVector::positionAtOffset2D((*this)[i], (*this)[i + 1], length);
+        const double length = GeomHelper::nearest_offset_on_line_to_point2D(this->at(i), this->at(i + 1), p, false);
+        const Position& outIntersection = PositionVector::positionBetweenPointsAtOffset2D(this->at(i), this->at(i + 1), length);
         const double dist = p.distanceTo2D(outIntersection);
         if (dist < minDist) {
             insertionIndex = i + 1;

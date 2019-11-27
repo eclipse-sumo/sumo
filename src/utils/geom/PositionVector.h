@@ -175,10 +175,10 @@ public:
     double slopeDegreeAtOffset(double pos) const;
 
     /// @brief Returns the position between the two given point at the specified position
-    static Position positionAtOffset(const Position& p1, const Position& p2, double pos, double lateralOffset = 0.);
+    static Position positionBetweenPointsAtOffset(const Position& p1, const Position& p2, double pos, double lateralOffset = 0.);
 
     /// Returns the position between the two given point at the specified position
-    static Position positionAtOffset2D(const Position& p1, const Position& p2, double pos, double lateralOffset = 0.);
+    static Position positionBetweenPointsAtOffset2D(const Position& p1, const Position& p2, double pos, double lateralOffset = 0.);
 
     /// @brief Returns a boundary enclosing this list of lines
     Boundary getBoxBoundary() const;
