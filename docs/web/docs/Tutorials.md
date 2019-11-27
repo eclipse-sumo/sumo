@@ -7,25 +7,25 @@ permalink: /Tutorials/
     These tutorials assume minor computer skills. If you run into any questions please read the page [Basics/Basic Computer Skills](Basics/Basic_Computer_Skills.md).
 
 # Beginner Tutorials
-* [Tutorials/OSMWebWizard](Tutorials/OSMWebWizard.md) - setting up your first scenario with only some clicks using osmWebWizard.py
-* [Tutorials/quick start](Tutorials/quick_start.md) - a more complex tutorial with [NETEDIT](NETEDIT.md); first steps in SUMO
-* [Tutorials/Driving in Circles](Tutorials/Driving_in_Circles.md) - Work with netedit; define a flow; let vehicles drive in circles using rerouters
+* [Tutorials/OSMWebWizard](Tutorials/OSMWebWizard.md) - Setting up a scenario with just a few clicks using osmWebWizard.py; getting a network from OpenStreetMap
+* [Tutorials/quick start](Tutorials/quick_start.md) - A more complex tutorial with [NETEDIT](NETEDIT.md); first steps in SUMO
+* [Tutorials/Driving in Circles](Tutorials/Driving_in_Circles.md) - Work with [NETEDIT](NETEDIT.md); define a flow; let vehicles drive in circles using rerouters
 * [Tutorials/SUMOlympics](Tutorials/SUMOlympics.md) - Create special lanes and simple traffic lights in netedit, more about flows and vehicle types, working with vehicle 
 * [Tutorials/Autobahn](Tutorials/Autobahn.md) - Build a highway, create a mixed highway flow, visualize vehicle speed, save view settings
 * [Tutorials/Manhattan](Tutorials/Manhattan.md) - Build a [Manhattan mobility model](https://en.wikipedia.org/wiki/Manhattan_mobility_model)
 
 # Advanced Tutorials
-* [Tutorials/Hello Sumo](Tutorials/Hello_Sumo.md) - the simplest net and a single car set up "by hand"
+* [Tutorials/Hello Sumo](Tutorials/Hello_Sumo.md) - The simplest net and a single car set up "by hand"
 * [Tutorials/ScenarioGuide](Tutorials/ScenarioGuide.md) - High level outline of the steps needed to build a simulation scenario
-* [Tutorials/HighwayDetector](Tutorials/HighwayDetector.md) - how to create a highway scenario based on induction loop data
-* [Tutorials/FundamentalDiagram](Tutorials/FundamentalDiagram.md) - how to compute a fundamental diagram with SUMO
-* [Tutorials/PT from OpenStreetMap](Tutorials/PT_from_OpenStreetMap.md) - shows how to create a runnable public transit scenario entirely from [OpenStreetMap](https://www.openstreetmap.org/)
+* [Tutorials/HighwayDetector](Tutorials/HighwayDetector.md) - How to create a highway scenario based on induction loop data
+* [Tutorials/FundamentalDiagram](Tutorials/FundamentalDiagram.md) - How to compute a fundamental diagram with SUMO
+* [Tutorials/PT from OpenStreetMap](Tutorials/PT_from_OpenStreetMap.md) - Shows how to create a runnable public transit scenario entirely from [OpenStreetMap](https://www.openstreetmap.org/)
 
 # TraCI Tutorials
 These tutorials use the [Python-TraCI Library](TraCI/Interfacing_TraCI_from_Python.md) for interfacing a python script with a running [SUMO](SUMO.md) simulation.
 
-* [Tutorials/TraCI4Traffic Lights](Tutorials/TraCI4Traffic_Lights.md) - an example for how to connect an external application to SUMO via TraCI for traffic lights control
-* [Tutorials/TraCIPedCrossing](Tutorials/TraCIPedCrossing.md) - an example for building a pedestrian-actuated traffic light via TraCI
+* [Tutorials/TraCI4Traffic Lights](Tutorials/TraCI4Traffic_Lights.md) - An example for how to connect an external application to SUMO via TraCI for traffic lights control
+* [Tutorials/TraCIPedCrossing](Tutorials/TraCIPedCrossing.md) - An example for building a pedestrian-actuated traffic light via TraCI
 
 # Other
 
@@ -48,7 +48,7 @@ Preparations for doing the tutorial:
 * Download the Tutorial Files at [http://sumo.dlr.de/daily/ITSC2015_tutorial.zip](http://sumo.dlr.de/daily/ITSC2015_tutorial.zip)
 
 ## Im- and Export
-* [Tutorials/Trace File Generation](Tutorials/Trace_File_Generation.md) - shows how to obtain vehicular trace files, usable for simulating vehicular communication
+* [Tutorials/Trace File Generation](Tutorials/Trace_File_Generation.md) - Shows how to obtain vehicular trace files, usable for simulating vehicular communication
 
 ## Calibration/Validation
 * [Tutorials/Calibration/San Pablo Dam](Tutorials/Calibration/San_Pablo_Dam.md) - Calibration of car-following parameter using vehicle passing times on observation points as used during the NEARCTIS summer school
@@ -77,11 +77,11 @@ will extract you an example for [rerouting vehicles](Simulation/Rerouter.md) int
 # Unfinished Tutorials
 The following tutorials are not yet completed
 
-* [Tutorials/Output Parsing](Tutorials/Output_Parsing.md) - a complex tutorial using rerouters to drive in circles and analyzing simulation output
+* [Tutorials/Output Parsing](Tutorials/Output_Parsing.md) - A complex tutorial using rerouters to drive in circles and analyzing simulation output
 
 # Outdated Tutorials
 The following tutorials are kept for completeness but are superseded by other tutorials/documentation
 
-* [Tutorials/Import from OpenStreetMap](Tutorials/Import_from_OpenStreetMap.md) - shows how to prepare a map from [OpenStreetMap](https://www.openstreetmap.org/) for traffic simulation.
-* [Tutorials/Quick_Start_old_style](Tutorials/Quick_Start_old_style.md) - build a scenario by editing the edge and node files in a text editor instead of [NETEDIT](NETEDIT.md)
-* [Tutorials/CityMobil](Tutorials/CityMobil.md) - simulation of a parking lot management using automated buses. This TraCI tutorial was written before the implementation of pedestrians and parkingAreas
+* [Tutorials/Import from OpenStreetMap](Tutorials/Import_from_OpenStreetMap.md) - Shows how to prepare a map from [OpenStreetMap](https://www.openstreetmap.org/) for traffic simulation
+* [Tutorials/Quick_Start_old_style](Tutorials/Quick_Start_old_style.md) - Build a scenario by editing the edge and node files in a text editor instead of [NETEDIT](NETEDIT.md)
+* [Tutorials/CityMobil](Tutorials/CityMobil.md) - Simulation of a parking lot management using automated buses. This TraCI tutorial was written before the implementation of pedestrians and parkingAreas

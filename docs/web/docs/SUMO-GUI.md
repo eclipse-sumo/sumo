@@ -740,7 +740,7 @@ viewing window is opened for each file at the start of the simulation.
 
 When SUMO-GUI was compiled with [OSG
 (OpenSceneGraph)](http://www.openscenegraph.org/) support an additional
-(![Image:NewView3D.png](images/NewView3D.png))-button is
+(![Image:NewView3D.gif](images/NewView3D.gif))-button is
 present which can be used to open a 3D-View.
 
 !!! caution
