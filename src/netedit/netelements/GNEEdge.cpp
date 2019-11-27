@@ -122,31 +122,35 @@ GNEEdge::generateChildID(SumoXMLTag /*childTag*/) {
 void
 GNEEdge::updateGeometry() {
     // Update geometry of lanes
-    for (auto i : myLanes) {
-        i->updateGeometry();
+    for (const auto &lane : myLanes) {
+        lane->updateGeometry();
     }
     // Update geometry of connections (Only if updateGrid is enabled, because in move mode connections are hidden
     // (note: only the previous marked as deprecated will be updated)
     if (!myMovingGeometryBoundary.isInitialised()) {
-        for (auto i : myGNEConnections) {
-            i->updateGeometry();
+        for (const auto &connection : myGNEConnections) {
+            connection->updateGeometry();
         }
     }
     // Update geometry of additionals children vinculated to this edge
-    for (auto i : getAdditionalChildren()) {
-        i->updateGeometry();
+    for (const auto &additionalChildren : getAdditionalChildren()) {
+        additionalChildren->updateGeometry();
     }
     // Update geometry of additional parents that have this edge as parent
-    for (auto i : getAdditionalParents()) {
-        i->updateGeometry();
+    for (const auto &additionalParent : getAdditionalParents()) {
+        additionalParent->updateGeometry();
     }
     // Update partial geometry of demand elements parents that have this edge as parent
-    for (auto i : getDemandElementParents()) {
-        i->updatePartialGeometry(this);
+    for (const auto &demandElementParent : getDemandElementParents()) {
+        demandElementParent->updatePartialGeometry(this);
     }
     // Update partial geometry of demand elements children vinculated to this edge
-    for (auto i : getDemandElementChildren()) {
-        i->updatePartialGeometry(this);
+    for (const auto &demandElementChildren : getDemandElementChildren()) {
+        demandElementChildren->updatePartialGeometry(this);
+    }
+    // Update partial geometry of routes vinculated to this edge
+    for (const auto &pathElementChild : myPathElementChilds) {
+        pathElementChild->updatePartialGeometry(this);
     }
 }
 
@@ -716,9 +720,26 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
     if (lefthand) {
         myNBEdge.mirrorX();
     }
+    // update geometry
     updateGeometry();
+    // invalidate junction source shape
     myGNEJunctionSource->invalidateShape();
+    // iterate over GNEJunctionSource edges and update geometry
+    for (const auto &edge : myGNEJunctionSource->getGNEIncomingEdges()) {
+        edge->updateGeometry();
+    }
+    for (const auto &edge : myGNEJunctionSource->getGNEOutgoingEdges()) {
+        edge->updateGeometry();
+    }
+    // invalidate junction destiny shape
     myGNEJunctionDestiny->invalidateShape();
+    // iterate over GNEJunctionDestiny edges and update geometry
+    for (const auto &edge : myGNEJunctionDestiny->getGNEIncomingEdges()) {
+        edge->updateGeometry();
+    }
+    for (const auto &edge : myGNEJunctionDestiny->getGNEOutgoingEdges()) {
+        edge->updateGeometry();
+    }
 }
 
 
@@ -1454,14 +1475,14 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
 
 
 void 
-GNEEdge::addPathElement(const GNEDemandElement* pathElementChild) {
+GNEEdge::addPathElement(GNEDemandElement* pathElementChild) {
     // simply add path element child
     myPathElementChilds.push_back(pathElementChild);
 }
 
 
 void 
-GNEEdge::removePathElement(const GNEDemandElement* pathElementChild) {
+GNEEdge::removePathElement(GNEDemandElement* pathElementChild) {
     // search and remove pathElementChild
     auto it = std::find(myPathElementChilds.begin(), myPathElementChilds.end(), pathElementChild);
     if (it != myPathElementChilds.end()) {
