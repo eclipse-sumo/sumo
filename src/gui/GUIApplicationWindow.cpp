@@ -160,6 +160,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_I_EDITVIEWPORT,                     GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT,                                        GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_DEMAND_SCALE,                                   GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,            GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_F_FULSCREENMODE,                    GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_TRACI_STATUS,                                   GUIApplicationWindow::onUpdTraCIStatus),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,                  GUIApplicationWindow::onCmdHelp),
 
@@ -1215,6 +1217,9 @@ GUIApplicationWindow::onCmdAppSettings(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
+    if (myGLWindows.empty()) {
+        return 1;
+    }
     myAmGaming = !myAmGaming;
     myGLWindows[0]->getView()->getVisualisationSettings()->gaming = myAmGaming;
     if (myAmGaming) {
@@ -1266,6 +1271,9 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
+    if (myGLWindows.empty()) {
+        return 1;
+    }
     myAmFullScreen = !myAmFullScreen;
     if (myAmFullScreen) {
         getApp()->reg().writeIntEntry("SETTINGS", "x", getX());
