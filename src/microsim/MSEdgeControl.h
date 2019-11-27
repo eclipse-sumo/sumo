@@ -265,6 +265,8 @@ private:
     /// @brief Additional lanes for which collision checking must be performed
     std::set<MSLane*, ComparatorNumericalIdLess> myInactiveCheckCollisions;
 
+    double myMinLengthGeometryFactor;
+
 #ifdef HAVE_FOX
     FXWorkerThread::Pool myThreadPool;
 #endif

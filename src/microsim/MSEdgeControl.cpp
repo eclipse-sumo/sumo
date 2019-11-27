@@ -46,23 +46,26 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
     : myEdges(edges),
       myLanes(MSLane::dictSize()),
       myWithVehicles2Integrate(MSGlobals::gNumSimThreads > 1),
-      myLastLaneChange(MSEdge::dictSize()) {
+      myLastLaneChange(MSEdge::dictSize()),
+      myMinLengthGeometryFactor(1.) {
     // build the usage definitions for lanes
-    for (std::vector< MSEdge* >::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-        const std::vector<MSLane*>& lanes = (*i)->getLanes();
-        if (!(*i)->hasLaneChanger()) {
-            int pos = (*lanes.begin())->getNumericalID();
-            myLanes[pos].lane = *(lanes.begin());
+    for (MSEdge* const edge : myEdges) {
+        const std::vector<MSLane*>& lanes = edge->getLanes();
+        if (!edge->hasLaneChanger()) {
+            const int pos = lanes.front()->getNumericalID();
+            myLanes[pos].lane = lanes.front();
             myLanes[pos].amActive = false;
             myLanes[pos].haveNeighbors = false;
+            myMinLengthGeometryFactor = MIN2(edge->getLengthGeometryFactor(), myMinLengthGeometryFactor);
         } else {
-            for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
-                int pos = (*j)->getNumericalID();
-                myLanes[pos].lane = *j;
+            for (MSLane* const l : lanes) {
+                const int pos = l->getNumericalID();
+                myLanes[pos].lane = l;
                 myLanes[pos].amActive = false;
                 myLanes[pos].haveNeighbors = true;
+                myMinLengthGeometryFactor = MIN2(l->getLengthGeometryFactor(), myMinLengthGeometryFactor);
             }
-            myLastLaneChange[(*i)->getNumericalID()] = -1;
+            myLastLaneChange[edge->getNumericalID()] = -1;
         }
     }
 #ifdef HAVE_FOX

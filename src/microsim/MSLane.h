@@ -517,7 +517,7 @@ public:
      * @return This lane's resulting max. speed
      */
     inline double getVehicleMaxSpeed(const SUMOTrafficObject* const veh) const {
-        if (myRestrictions != 0) {
+        if (myRestrictions != nullptr) {
             std::map<SUMOVehicleClass, double>::const_iterator r = myRestrictions->find(veh->getVClass());
             if (r != myRestrictions->end()) {
                 return MIN2(veh->getMaxSpeed(), r->second * veh->getChosenSpeedFactor());
