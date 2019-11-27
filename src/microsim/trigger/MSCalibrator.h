@@ -247,6 +247,9 @@ protected:
      * return true if removals took place */
     bool removePending();
 
+    /// @brief determine id of new vehicle from calibrator state
+    std::string getNewVehicleID();
+
 protected:
     /// @brief the edge on which this calibrator lies
     const MSEdge* const myEdge;

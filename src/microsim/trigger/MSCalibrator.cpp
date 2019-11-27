@@ -379,7 +379,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
             assert(route != 0 && vtype != 0);
             // build the vehicle
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
-            newPars->id = getID() + "." + toString((int)STEPS2TIME(myCurrentStateInterval->begin)) + "." + toString(myInserted);
+            newPars->id = getNewVehicleID();
             newPars->depart = currentTime;
             newPars->routeid = route->getID();
             newPars->departLaneProcedure = DEPART_LANE_FIRST_ALLOWED; // ensure successful vehicle creation
@@ -577,6 +577,13 @@ MSCalibrator::writeXMLDetectorProlog(OutputDevice& dev) const {
     dev.writeXMLHeader("calibratorstats", "calibratorstats_file.xsd");
 }
 
+std::string
+MSCalibrator::getNewVehicleID() {
+    // avoid name clash for subsecond interval spacing
+    const double beginS = STEPS2TIME(myCurrentStateInterval->begin);
+    const int precision = beginS == int(beginS) ? 0 : 2;
+    return getID() + "." + toString(beginS, precision) + "." + toString(myInserted);
+}
 
 /****************************************************************************/
 

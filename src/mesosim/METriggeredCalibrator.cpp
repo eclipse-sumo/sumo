@@ -181,7 +181,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                 // build the vehicle
                 const SUMOTime depart = mySegment->getNextInsertionTime(currentTime);
                 SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
-                newPars->id = getID() + "." + toString(depart) + "." + toString(myInserted);
+                newPars->id = getNewVehicleID();
                 newPars->depart = depart;
                 newPars->routeid = route->getID();
                 MEVehicle* vehicle;
