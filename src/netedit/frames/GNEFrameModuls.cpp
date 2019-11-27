@@ -1088,7 +1088,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
                 if (myClickedDemandElement->getDemandElementParents().front()->getDemandElementChildren().front() == myClickedDemandElement) {
                     moveUpMenuCommand->setText("Move up (It's already the first element)");
                     moveUpMenuCommand->disable();
-                } else if (myClickedDemandElement->getDemandElementParents().front()->getPreviousemandElement(myClickedDemandElement)->getTagProperty().isPersonStop()) {
+                } else if (myClickedDemandElement->getDemandElementParents().front()->getPreviousDemandElement(myClickedDemandElement)->getTagProperty().isPersonStop()) {
                     moveUpMenuCommand->setText("Move up (Previous element is a Stop)");
                     moveUpMenuCommand->disable();
                 }

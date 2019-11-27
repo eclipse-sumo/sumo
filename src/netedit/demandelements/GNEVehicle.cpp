@@ -548,7 +548,7 @@ GNEVehicle::updatePartialGeometry(const GNEEdge* edge) {
     if (arrivalPosProcedure == ARRIVAL_POS_GIVEN) {
         arrivalPosLane = arrivalPos;
     }
-    // calculate geometry path
+    // update geometry path for the given edge
     GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane);
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {

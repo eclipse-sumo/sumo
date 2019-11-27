@@ -283,7 +283,7 @@ GNEStop::updateGeometry() {
         getDemandElementParents().front()->updateGeometry();
     } else if (getDemandElementParents().front()->getTagProperty().isPerson()) {
         // compute previous and next person plan
-        GNEDemandElement *previousDemandElement = getDemandElementParents().front()->getPreviousemandElement(this);
+        GNEDemandElement *previousDemandElement = getDemandElementParents().front()->getPreviousDemandElement(this);
         if (previousDemandElement) {
             previousDemandElement->updateGeometry();
         }
@@ -310,7 +310,7 @@ GNEStop::updatePartialGeometry(const GNEEdge* edge) {
         getDemandElementParents().front()->updatePartialGeometry(edge);
     } else if (getDemandElementParents().front()->getTagProperty().isPerson()) {
         // compute previous and next person plan
-        GNEDemandElement *previousDemandElement = getDemandElementParents().front()->getPreviousemandElement(this);
+        GNEDemandElement *previousDemandElement = getDemandElementParents().front()->getPreviousDemandElement(this);
         if (previousDemandElement) {
             previousDemandElement->updatePartialGeometry(edge);
         }

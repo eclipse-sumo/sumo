@@ -318,7 +318,7 @@ GNEHierarchicalElementChildren::checkDemandElementChildrenOverlapping() const {
 
 
 GNEDemandElement*
-GNEHierarchicalElementChildren::getPreviousemandElement(const GNEDemandElement* demandElement) const {
+GNEHierarchicalElementChildren::getPreviousDemandElement(const GNEDemandElement* demandElement) const {
     // find demand element child
     auto it = std::find(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement);
     // return element or null depending of iterator

@@ -170,7 +170,7 @@ public:
     bool checkDemandElementChildrenOverlapping() const;
 
     /// @brief get previous demand element to the given demand element
-    GNEDemandElement* getPreviousemandElement(const GNEDemandElement* demandElement) const;
+    GNEDemandElement* getPreviousDemandElement(const GNEDemandElement* demandElement) const;
 
     /// @brief get next demand element to the given demand element
     GNEDemandElement* getNextDemandElement(const GNEDemandElement* demandElement) const;

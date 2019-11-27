@@ -81,7 +81,7 @@ GNEBusStop::updateGeometry() {
         // special case for person trips
         if (i->getTagProperty().isPersonTrip()) {
             // update previous and next person plan
-            GNEDemandElement *previousDemandElement = i->getDemandElementParents().front()->getPreviousemandElement(i);
+            GNEDemandElement *previousDemandElement = i->getDemandElementParents().front()->getPreviousDemandElement(i);
             if (previousDemandElement) {
                 previousDemandElement->updatePartialGeometry(edge);
             }

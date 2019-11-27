@@ -414,14 +414,14 @@ GNEHierarchicalElementParents::changeLastEdgeParent(GNEDemandElement* elementChi
 void 
 GNEHierarchicalElementParents::changePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*> &routeEdges) {
     // remove demandElement of edge parents
-    for (const auto& i : myRouteEdges) {
-        i->removePathElement(elementChild);
+    for (const auto& edge : myRouteEdges) {
+        edge->removePathElement(elementChild);
     }
     // set new route edges
     myRouteEdges = routeEdges;
     // add demandElement into edge parents
-    for (const auto& i : myEdgeParents) {
-        i->addPathElement(elementChild);
+    for (const auto& edge : myRouteEdges) {
+        edge->addPathElement(elementChild);
     }
 }
 

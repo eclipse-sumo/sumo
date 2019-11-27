@@ -403,7 +403,7 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos(double &startPos, double &e
     GNEAdditional* busStop = getAdditionalParents().size() > 0? getAdditionalParents().front() : nullptr;
     // declare pointers for previous elements
     GNEAdditional* previousBusStop = nullptr;
-    GNEDemandElement *previousPersonPlan = getDemandElementParents().at(0)->getPreviousemandElement(this);
+    GNEDemandElement *previousPersonPlan = getDemandElementParents().at(0)->getPreviousDemandElement(this);
     // declare pointer to next person plan
     GNEDemandElement *nextPersonPlan = getDemandElementParents().at(0)->getNextDemandElement(this);
     // obtain departlane throught previous element
@@ -440,7 +440,7 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos(double &startPos, double &e
 void 
 GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position &startPos, Position &endPos) const {
     // obtain previous demand element
-    GNEDemandElement *previousDemandElmement = getDemandElementParents().front()->getPreviousemandElement(this);
+    GNEDemandElement *previousDemandElmement = getDemandElementParents().front()->getPreviousDemandElement(this);
     if (previousDemandElmement) {
         // update startPos
         if ((previousDemandElmement->getAdditionalParents().size() > 0) && 
