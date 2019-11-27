@@ -12,3 +12,6 @@ maxSpeedLat
 
 # A vehicle that does not fit into a single lane should drive safely
 extra_wide_vehicle
+
+# vehicles overtaking a bicycle on a single-lane road with lateral imperfection
+overtaking_bicycle_lcSigma

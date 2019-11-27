@@ -39,4 +39,7 @@ check_leader_on_both_lanes2
 
 # test dynamics of continuous lane changing at speed 0
 change_while_stopped
+
+# test lateral imperfection
+lcSigma
 bugs
