@@ -75,8 +75,10 @@ fi
 if test -e build/$FILEPREFIX/src/CMakeFiles/sumo.dir/sumo_main.cpp.gcda; then
   date >> $TESTLOG
   tests/runExtraTests.py --gui "b $FILEPREFIX" >> $TESTLOG 2>&1
-  $SIP_HOME/tests/runTests.sh -b $FILEPREFIX >> $TESTLOG 2>&1
+#  $SIP_HOME/tests/runTests.sh -b $FILEPREFIX >> $TESTLOG 2>&1
+  cd build/$FILEPREFIX
   make lcov >> $TESTLOG 2>&1 || (echo "make lcov failed"; tail -10 $TESTLOG)
+  cd $PREFIX/sumo
   date >> $TESTLOG
 fi
 
