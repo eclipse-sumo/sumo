@@ -53,7 +53,7 @@ const double GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
 // members methods
 // ===========================================================================
 
-GNEEdge::GNEEdge(NBEdge* nbe, GNENet* net, bool wasSplit, bool loaded):
+GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     GNENetElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE),
     myNBEdge(nbe),
     myGNEJunctionSource(myNet->retrieveJunction(nbe->getFromNode()->getID())),

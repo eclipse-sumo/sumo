@@ -350,7 +350,7 @@ GNENet::createEdge(
     if (tpl) {
         NBEdge* nbeTpl = tpl->getNBEdge();
         NBEdge* nbe = new NBEdge(id, src->getNBNode(), dest->getNBNode(), nbeTpl);
-        edge = new GNEEdge(nbe, this, wasSplit);
+        edge = new GNEEdge(this, nbe, wasSplit);
     } else {
         // default if no template is given
         const OptionsCont& oc = OptionsCont::getOptions();
@@ -365,7 +365,7 @@ GNENet::createEdge(
                                  defaultNrLanes, defaultPriority,
                                  defaultWidth,
                                  defaultOffset);
-        edge = new GNEEdge(nbe, this, wasSplit);
+        edge = new GNEEdge(this, nbe, wasSplit);
     }
     undoList->p_begin("create " + toString(SUMO_TAG_EDGE));
     undoList->add(new GNEChange_Edge(edge, true), true);
@@ -2843,7 +2843,7 @@ GNENet::initJunctionsAndEdges() {
     NBEdgeCont& ec = myNetBuilder->getEdgeCont();
     for (auto name_it : ec.getAllNames()) {
         NBEdge* nbe = ec.retrieve(name_it);
-        registerEdge(new GNEEdge(nbe, this, false, true));
+        registerEdge(new GNEEdge(this, nbe, false, true));
         if (myGrid.getWidth() > 10e16 || myGrid.getHeight() > 10e16) {
             throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
         }
