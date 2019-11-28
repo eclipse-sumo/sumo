@@ -2577,7 +2577,7 @@ long
 GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this,
                     "Save Network as", ".net.xml",
-                    GUIIconSubSys::getIcon(ICON_MODECREATEEDGE),
+                    GUIIconSubSys::getIcon(ICON_SAVE),
                     gCurrentFolder);
     // add xml extension
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
@@ -2597,7 +2597,7 @@ long
 GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the plain-xml edge-file (other names will be deduced from this)", "",
-                    GUIIconSubSys::getIcon(ICON_MODECREATEEDGE),
+                    GUIIconSubSys::getIcon(ICON_SAVE),
                     gCurrentFolder);
     // check that file is valid (note: in this case we don't need to use function FileHelpers::addExtension)
     if (file != "") {
@@ -2645,7 +2645,7 @@ long
 GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the joined-junctions file", ".nod.xml",
-                    GUIIconSubSys::getIcon(ICON_MODECREATEEDGE),
+                    GUIIconSubSys::getIcon(ICON_SAVE),
                     gCurrentFolder);
     // add xml extension
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
