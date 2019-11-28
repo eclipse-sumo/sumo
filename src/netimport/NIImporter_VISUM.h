@@ -542,6 +542,7 @@ protected:
         VISUM_FROMNODE,
         VISUM_TONODE,
         VISUM_TYPE,
+        VISUM_DISTRICT_CONNECTION,
         VISUM_NO // must be the last one
     };
 

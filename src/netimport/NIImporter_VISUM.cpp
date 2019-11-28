@@ -54,6 +54,7 @@ StringBijection<NIImporter_VISUM::VISUM_KEY>::Entry NIImporter_VISUM::KEYS_DE[] 
     { "VONKNOTNR", VISUM_FROMNODE },
     { "NACHKNOTNR", VISUM_TONODE },
     { "TYPNR", VISUM_TYPE },
+    { "ANBINDUNG", VISUM_DISTRICT_CONNECTION },
     { "NR", VISUM_NO } // must be the last one
 };
 
@@ -112,7 +113,7 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
     addParser("KANTE", &NIImporter_VISUM::parse_Kante);
 
     // set3
-    addParser("ANBINDUNG", &NIImporter_VISUM::parse_Connectors);
+    addParser(KEYS.getString(VISUM_DISTRICT_CONNECTION), &NIImporter_VISUM::parse_Connectors);
     // two types of "abbieger"
     addParser("ABBIEGEBEZIEHUNG", &NIImporter_VISUM::parse_Turns);
     addParser("ABBIEGER", &NIImporter_VISUM::parse_Turns);
