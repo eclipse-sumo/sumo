@@ -95,5 +95,8 @@ visibility
 speed
 shape
 
+# custom connection permissions
+permissions
+
 # some edges are disconnected explicitly
 unconnected
