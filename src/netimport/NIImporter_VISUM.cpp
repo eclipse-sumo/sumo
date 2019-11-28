@@ -790,6 +790,8 @@ NIImporter_VISUM::parse_Lanes() {
         std::string nid = edgeID + "_" +  toString((int) length) + "_" + node->getID();
         myNetBuilder.getEdgeCont().splitAt(myNetBuilder.getDistrictCont(), edge, useLength, rn,
                                            edge->getID(), nid, edge->getNumLanes() + 0, edge->getNumLanes() + 1);
+        // old edge is deleted and a new edge with the same name created
+        edge = myNetBuilder.getEdgeCont().retrieve(edgeID);
         NBEdge* nedge = myNetBuilder.getEdgeCont().retrieve(nid);
         nedge = nedge->getToNode()->getOutgoingEdges()[0];
         while (isSplitEdge(edge, node)) {
