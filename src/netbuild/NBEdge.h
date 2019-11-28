@@ -203,7 +203,8 @@ public:
                    double speed_ = UNSPECIFIED_SPEED,
                    bool haveVia_ = false,
                    bool uncontrolled_ = false,
-                   const PositionVector& customShape_ = PositionVector::EMPTY);
+                   const PositionVector& customShape_ = PositionVector::EMPTY,
+                   SVCPermissions permissions = SVC_UNSPECIFIED);
 
         /// @brief The lane the connections starts at
         int fromLane;
@@ -231,6 +232,9 @@ public:
 
         /// @brief custom foe visiblity for connection
         double visibility;
+
+        /// @brief List of vehicle types that are allowed on this connection
+        SVCPermissions permissions;
 
         /// @brief custom speed for connection
         double speed;
@@ -832,7 +836,8 @@ public:
                                 double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
                                 double speed = UNSPECIFIED_SPEED,
                                 const PositionVector& customShape = PositionVector::EMPTY,
-                                const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED);
+                                const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
+                                SVCPermissions = SVC_UNSPECIFIED);
 
     /** @brief Builds no connections starting at the given lanes
      *
@@ -876,7 +881,8 @@ public:
                        double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
                        double speed = UNSPECIFIED_SPEED,
                        const PositionVector& customShape = PositionVector::EMPTY,
-                       const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED);
+                       const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
+                       SVCPermissions permissions = SVC_UNSPECIFIED);
 
     /** @brief Returns connections from a given lane
      *

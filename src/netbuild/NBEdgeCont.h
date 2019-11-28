@@ -540,7 +540,8 @@ public:
                                   bool keepClear, double contPos, double visibility, double speed,
                                   const PositionVector& customShape,
                                   bool uncontrolled,
-                                  bool warnOnly);
+                                  bool warnOnly,
+                                  SVCPermissions permissions = SVC_UNSPECIFIED);
 
     bool hasPostProcessConnection(const std::string& from, const std::string& to = "");
 
@@ -626,13 +627,14 @@ private:
                               bool mayDefinitelyPass_, bool keepClear_, double contPos_, double visibility_, double speed_,
                               const PositionVector& customShape_,
                               bool uncontrolled_,
-                              bool warnOnly_) :
+                              bool warnOnly_, SVCPermissions permissions_) :
             from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_), contPos(contPos_),
             visibility(visibility_),
             speed(speed_),
             customShape(customShape_),
             uncontrolled(uncontrolled_),
-            warnOnly(warnOnly_) {
+            warnOnly(warnOnly_),
+            permissions(permissions_) {
         }
         /// @brief The id of the edge the connection starts at
         std::string from;
@@ -652,6 +654,8 @@ private:
         double visibility;
         /// @brief custom speed for connection
         double speed;
+        /// @brief custom permissions for connection
+        SVCPermissions permissions;
         /// @brief custom shape for connection
         PositionVector customShape;
         /// @brief whether this connection shall not be controlled by a traffic light

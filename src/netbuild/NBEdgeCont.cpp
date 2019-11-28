@@ -1052,8 +1052,8 @@ NBEdgeCont::getByID(const std::string& edgeID) const {
 void
 NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass,
                                      bool keepClear, double contPos, double visibility, double speed,
-                                     const PositionVector& customShape, bool uncontrolled, bool warnOnly) {
-    myConnections[from].push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape, uncontrolled, warnOnly));
+                                     const PositionVector& customShape, bool uncontrolled, bool warnOnly, SVCPermissions permissions) {
+    myConnections[from].push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape, uncontrolled, warnOnly, permissions));
 }
 
 bool
