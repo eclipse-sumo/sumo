@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:49 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Thu Nov 28 16:14:49 2019 by Eclipse SUMO netconvert Version v1_3_1+1186-0432136
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -70,7 +70,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_7_0" index="0" speed="13.89" length="19.35" shape="110.40,101.60 105.15,100.85 101.40,98.60 99.15,94.85 98.40,89.60"/>
     </edge>
     <edge id=":C_8" function="internal">
-        <lane id=":C_8_0" index="0" speed="13.89" length="9.03" shape="104.80,89.60 105.15,92.05 106.20,93.80 107.95,94.85 110.40,95.20"/>
+        <lane id=":C_8_0" index="0" allow="bus" speed="13.89" length="9.03" shape="104.80,89.60 105.15,92.05 106.20,93.80 107.95,94.85 110.40,95.20"/>
     </edge>
     <edge id=":C_9" function="internal">
         <lane id=":C_9_0" index="0" speed="13.89" length="20.80" shape="104.80,89.60 104.80,110.40"/>
@@ -184,7 +184,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_1_0" dir="s" state="M"/>
     <connection from="NC" to="CS" fromLane="1" toLane="1" shape="98.35,108.05 103.00,100.00 98.35,91.95" via=":C_1_1" dir="s" state="M"/>
     <connection from="NC" to="CE" fromLane="1" toLane="1" via=":C_3_0" dir="l" state="m"/>
-    <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_8_0" dir="r" state="M"/>
+    <connection from="SC" to="CE" fromLane="0" toLane="0" allow="bus" via=":C_8_0" dir="r" state="M"/>
     <connection from="SC" to="CN" fromLane="0" toLane="0" keepClear="0" via=":C_9_0" dir="s" state="M"/>
     <connection from="SC" to="CN" fromLane="1" toLane="1" keepClear="0" via=":C_9_1" dir="s" state="M"/>
     <connection from="SC" to="CW" fromLane="1" toLane="1" contPos="4.00" via=":C_11_0" dir="l" state="m"/>
