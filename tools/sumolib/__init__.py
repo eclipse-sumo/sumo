@@ -22,13 +22,10 @@ import warnings
 from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
 
-try:
-    from . import visualization  # noqa
-except ImportError as e:
-    warnings.warn(str(e))
 from . import files, net, output, sensors, shapes  # noqa
 from . import color, geomhelper, miscutils, options, route  # noqa
 from .xml import writeHeader as writeXMLHeader  # noqa
+# the visualization submodule is not imported to avoid an explicit matplotlib dependency
 
 
 class ConfigurationReader(handler.ContentHandler):

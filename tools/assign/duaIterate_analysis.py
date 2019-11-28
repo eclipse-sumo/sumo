@@ -145,9 +145,9 @@ def gnuplot_teleport_edges(plotfile, step_counts, xlabel):
         teleports = float(sum(counts.itervalues()))
         if teleports == 0:
             continue
-        for edge, count in counts.iteritems():
+        for edge, count in counts.items():
             interestingness[edge] += count / teleports
-    interesting = sorted([(c, e) for e, c in interestingness.iteritems()])[-7:]
+    interesting = sorted([(c, e) for e, c in interestingness.items()])[-7:]
     print("most interesting edges:", interesting)
     if len(interesting) > 0:
         interesting = [e for c, e in interesting]

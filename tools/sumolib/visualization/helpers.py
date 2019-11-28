@@ -20,8 +20,9 @@ import os
 import gc
 import sys
 import matplotlib
-if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
-    matplotlib.use('Agg')
+if 'matplotlib.backends' not in sys.modules:
+    if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
+        matplotlib.use('Agg')
 from pylab import arange, close, cm, get_cmap, figure, legend, log, plt, savefig, show, title  # noqa
 from pylab import xlabel, xlim, xticks, ylabel, ylim, yticks  # noqa
 from matplotlib.ticker import FuncFormatter as ff  # noqa
