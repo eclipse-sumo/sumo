@@ -233,14 +233,14 @@ public:
         /// @brief custom foe visiblity for connection
         double visibility;
 
-        /// @brief List of vehicle types that are allowed on this connection
-        SVCPermissions permissions;
-
         /// @brief custom speed for connection
         double speed;
 
         /// @brief custom shape for connection
         PositionVector customShape;
+
+        /// @brief List of vehicle types that are allowed on this connection
+        SVCPermissions permissions;
 
         /// @brief id of Connection
         std::string id;

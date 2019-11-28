@@ -633,9 +633,9 @@ private:
             speed(speed_),
             customShape(customShape_),
             uncontrolled(uncontrolled_),
-            warnOnly(warnOnly_),
-            permissions(permissions_) {
-        }
+            permissions(permissions_),
+            warnOnly(warnOnly_)
+        {}
         /// @brief The id of the edge the connection starts at
         std::string from;
         /// @brief The number of the lane the connection starts at
@@ -654,12 +654,12 @@ private:
         double visibility;
         /// @brief custom speed for connection
         double speed;
-        /// @brief custom permissions for connection
-        SVCPermissions permissions;
         /// @brief custom shape for connection
         PositionVector customShape;
         /// @brief whether this connection shall not be controlled by a traffic light
         bool uncontrolled;
+        /// @brief custom permissions for connection
+        SVCPermissions permissions;
         /// @brief whether a failure to set this connection is a warning or an error
         bool warnOnly;
     };
