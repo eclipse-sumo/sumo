@@ -592,16 +592,21 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         for (const auto& rideBusStop : getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_BUSSTOP)) {
             drawPartialPersonPlan(s, rideBusStop, nullptr);
         }
-/*
         // draw path element childs
         for (const auto& elementChild : myPathElementChilds) {
             if (elementChild->getTagProperty().isVehicle()) {
-                drawPartialTripFromTo(s, elementChild, nullptr);
+                // Start drawing adding an gl identificator
+                glPushName(elementChild->getGlID());
+                // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
+                if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == elementChild) || elementChild->isAttributeCarrierSelected())) {
+                    drawPartialTripFromTo(s, elementChild, nullptr);
+                }
+                // Pop name
+                glPopName();
             } else if (elementChild->getTagProperty().isPersonPlan()) {
                 drawPartialPersonPlan(s, elementChild, nullptr);
             } 
         }
-*/
     }
     // draw geometry points if isnt's too small and
     if ((s.scale > 8.0) && (myNet->getViewNet()->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND)) {
