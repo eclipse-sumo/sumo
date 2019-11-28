@@ -392,7 +392,8 @@ GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
             // get NBEdges from and to
             const NBEdge* NBEdgeFrom = myOriginLane->getParentEdge()->getNBEdge();
             const NBEdge* NBEdgeTo = outgoingLane->getParentEdge()->getNBEdge();
-            if (NBEdgeFrom->getToNode()->getShape().area() > 4) {
+            // only create smooth shapes if Edge From has as maximum 10 lanes
+            if ((NBEdgeFrom->getNumLanes() <= 10) && (NBEdgeFrom->getToNode()->getShape().area() > 4)) {
                 // Calculate smooth shape
                 connectionsMap[outgoingLane].updateGeometryShape(NBEdgeFrom->getToNode()->computeSmoothShape(
                     NBEdgeFrom->getLaneShape(myOriginLane->getIndex()),
@@ -402,7 +403,9 @@ GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
                     (double) 5. * (double) NBEdgeTo->getNumLanes()));
             } else {
                 // create a shape using shape extremes
-                connectionsMap[outgoingLane].updateGeometryShape({NBEdgeFrom->getLaneShape(myOriginLane->getIndex()).back(), NBEdgeTo->getLaneShape(outgoingLane->getIndex()).front()});
+                connectionsMap[outgoingLane].updateGeometryShape({
+                    NBEdgeFrom->getLaneShape(myOriginLane->getIndex()).back(), 
+                    NBEdgeTo->getLaneShape(outgoingLane->getIndex()).front()});
             }
             
         }

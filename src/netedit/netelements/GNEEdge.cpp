@@ -1623,6 +1623,8 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     myGNEJunctionDestiny->setLogicValid(false, undoList);
     // disable update geometry (see #6336)
     myUpdateGeometry = false;
+    // remove edge of RTREE
+    myNet->removeGLObjectFromGrid(this);
     const int oldNumLanes = (int)myLanes.size();
     for (int i = oldNumLanes; i < numLanes; i++) {
         // since the GNELane does not exist yet, it cannot have yet been referenced so we only pass a zero-pointer
@@ -1634,6 +1636,8 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     }
     // enable updateGeometry again
     myUpdateGeometry = true;
+    // insert edge in RTREE again
+    myNet->addGLObjectIntoGrid(this);
     // update geometry of entire edge
     updateGeometry();
     // end undo list
@@ -1644,7 +1648,9 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
 void
 GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeConnections) {
     // boundary of edge depends of number of lanes. We need to extract if before add or remove lane
-    myNet->removeGLObjectFromGrid(this);
+    if (myUpdateGeometry) {
+        myNet->removeGLObjectFromGrid(this);
+    }
     const int index = lane ? lane->getIndex() : myNBEdge->getNumLanes();
     // the laneStruct must be created first to ensure we have some geometry
     // unless the connections are fully recomputed, existing indices must be shifted
@@ -1688,7 +1694,9 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
         i->remakeGNEConnections();
     }
     // add object again
-    myNet->addGLObjectIntoGrid(this);
+    if (myUpdateGeometry) {
+        myNet->addGLObjectIntoGrid(this);
+    }
     // Update geometry with the new lane
     updateGeometry();
 }
@@ -1697,7 +1705,9 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
 void
 GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     // boundary of edge depends of number of lanes. We need to extract if before add or remove lane
-    myNet->removeGLObjectFromGrid(this);
+    if (myUpdateGeometry) {
+        myNet->removeGLObjectFromGrid(this);
+    }
     if (myLanes.size() == 0) {
         throw ProcessError("Should not remove the last " + toString(SUMO_TAG_LANE) + " from an " + getTagStr());
     }
@@ -1738,7 +1748,9 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
         i->remakeGNEConnections();
     }
     // add object again
-    myNet->addGLObjectIntoGrid(this);
+    if (myUpdateGeometry) {
+        myNet->addGLObjectIntoGrid(this);
+    }
     // Update element
     updateGeometry();
 }
