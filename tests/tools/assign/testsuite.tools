@@ -1,5 +1,6 @@
 # DUA iteration tests
 dua-iterate
+duaIterate_analysis
 
 # test the coupling between Sumo and  Cadyts
 calibration
