@@ -391,6 +391,18 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return toString(nbCon.visibility);
         case SUMO_ATTR_TLLINKINDEX:
             return toString(nbCon.tlLinkIndex);
+        case SUMO_ATTR_ALLOW:
+            if (nbCon.permissions == SVC_UNSPECIFIED) {
+                return getVehicleClassNames(nbCon.toEdge->getLanes()[nbCon.toLane].permissions);
+            } else {
+                return getVehicleClassNames(nbCon.permissions);
+            }
+        case SUMO_ATTR_DISALLOW:
+            if (nbCon.permissions == SVC_UNSPECIFIED) {
+                return getVehicleClassNames(invertPermissions(nbCon.toEdge->getLanes()[nbCon.toLane].permissions));
+            } else {
+                return getVehicleClassNames(invertPermissions(nbCon.permissions));
+            }
         case SUMO_ATTR_SPEED:
             return toString(nbCon.speed);
         case SUMO_ATTR_DIR:
@@ -423,6 +435,8 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_CONTPOS:
         case SUMO_ATTR_UNCONTROLLED:
         case SUMO_ATTR_VISIBILITY_DISTANCE:
+        case SUMO_ATTR_ALLOW:
+        case SUMO_ATTR_DISALLOW:
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_CUSTOMSHAPE:
         case GNE_ATTR_SELECTED:
@@ -497,6 +511,9 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case SUMO_ATTR_ALLOW:
+        case SUMO_ATTR_DISALLOW:
+            return canParseVehicleClasses(value);
         case SUMO_ATTR_SPEED:
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_CUSTOMSHAPE: {
@@ -572,6 +589,24 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPEED:
             nbCon.speed = parse<double>(value);
             break;
+        case SUMO_ATTR_ALLOW:
+        {
+            const SVCPermissions successorAllows = nbCon.toEdge->getLanes()[nbCon.toLane].permissions;
+            SVCPermissions customPermissions = parseVehicleClasses(value);
+            if (successorAllows != customPermissions) {
+                nbCon.permissions = customPermissions;
+            }
+            break;
+        }
+        case SUMO_ATTR_DISALLOW:
+        {
+            const SVCPermissions successorDisallows = invertPermissions(nbCon.toEdge->getLanes()[nbCon.toLane].permissions);
+            SVCPermissions customPermissions = invertPermissions(parseVehicleClasses(value));
+            if (successorDisallows != customPermissions) {
+                nbCon.permissions = customPermissions;
+            }
+            break;
+        }
         case SUMO_ATTR_STATE:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         case SUMO_ATTR_DIR:

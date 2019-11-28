@@ -191,6 +191,8 @@ private:
         double contPos;
         /// @brief custom foe visibility for connection
         double visibility;
+        /// @brief custom permissions for connection
+        SVCPermissions permissions;
         /// @brief custom speed for connection
         double speed;
         /// @brief custom shape connection

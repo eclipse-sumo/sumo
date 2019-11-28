@@ -99,6 +99,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     keepClear(true),
     contPos(UNSPECIFIED_CONTPOS),
     visibility(UNSPECIFIED_VISIBILITY_DISTANCE),
+    permissions(SVC_UNSPECIFIED),
     speed(UNSPECIFIED_SPEED),
     id(toEdge_ == nullptr ? "" : toEdge->getFromNode()->getID()),
     haveVia(false),
@@ -108,7 +109,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
 
 
 NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, double contPos_,
-                               double visibility_, double speed_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_) :
+                               double visibility_, double speed_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_, SVCPermissions permissions_) :
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
@@ -123,7 +124,8 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     vmax(UNSPECIFIED_SPEED),
     haveVia(haveVia_),
     internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX),
-    uncontrolled(uncontrolled_) {
+    uncontrolled(uncontrolled_),
+    permissions(permissions_) {
 }
 
 
@@ -980,7 +982,8 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                double visibility,
                                double speed,
                                const PositionVector& customShape,
-                               bool uncontrolled) {
+                               bool uncontrolled,
+                               SVCPermissions permissions) {
     if (myStep == EdgeBuildingStep::INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -993,7 +996,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape, uncontrolled);
+    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape, uncontrolled, permissions);
 }
 
 
@@ -1024,7 +1027,8 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       double visibility,
                       double speed,
                       const PositionVector& customShape,
-                      bool uncontrolled) {
+                      bool uncontrolled,
+                      SVCPermissions permissions) {
     if (myStep == EdgeBuildingStep::INIT_REJECT_CONNECTIONS) {
         return false;
     }
@@ -1062,6 +1066,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     myConnections.back().keepClear = keepClear;
     myConnections.back().contPos = contPos;
     myConnections.back().visibility = visibility;
+    myConnections.back().permissions = permissions;
     myConnections.back().speed = speed;
     myConnections.back().customShape = customShape;
     myConnections.back().uncontrolled = uncontrolled;

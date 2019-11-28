@@ -335,9 +335,10 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 // to avoid changing to an internal lane which has a successor
                 // with the wrong permissions we need to inherit them from the successor
                 const NBEdge::Lane& successor = (*k).toEdge->getLanes()[(*k).toLane];
+                SVCPermissions permissions = ((*k).permissions != SVC_UNSPECIFIED) ? (*k).permissions : successor.permissions;
                 const double width = n.isConstantWidthTransition() && (*i)->getNumLanes() > (*k).toEdge->getNumLanes() ? (*i)->getLaneWidth((*k).fromLane) : successor.width;
                 writeLane(into, (*k).getInternalLaneID(), (*k).vmax,
-                          successor.permissions, successor.preferred,
+                          permissions, successor.preferred,
                           NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                           std::map<int, double>(), width, (*k).shape, &(*k),
                           (*k).length, (*k).internalLaneIndex, oppositeLaneID[(*k).getInternalLaneID()], "");
@@ -359,7 +360,8 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     into.openTag(SUMO_TAG_EDGE);
                     into.writeAttr(SUMO_ATTR_ID, (*k).viaID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
-                    writeLane(into, (*k).viaID + "_0", (*k).vmax, successor.permissions, successor.preferred,
+                    SVCPermissions permissions = ((*k).permissions != SVC_UNSPECIFIED)? (*k).permissions : successor.permissions;
+                    writeLane(into, (*k).viaID + "_0", (*k).vmax, permissions, successor.preferred,
                               NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                               std::map<int, double>(), successor.width, (*k).viaShape, &(*k),
                               MAX2((*k).viaShape.length(), POSITION_EPS), // microsim needs positive length
@@ -682,6 +684,9 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
     }
     if (c.visibility != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE && style != TLL) {
         into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, c.visibility);
+    }
+    if (c.permissions != SVC_UNSPECIFIED && style != TLL) {
+        writePermissions(into, c.permissions);
     }
     if (c.speed != NBEdge::UNSPECIFIED_SPEED && style != TLL) {
         into.writeAttr(SUMO_ATTR_SPEED, c.speed);
