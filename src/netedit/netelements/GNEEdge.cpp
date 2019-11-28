@@ -61,7 +61,8 @@ GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     myLanes(0),
     myAmResponsible(false),
     myWasSplit(wasSplit),
-    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED) {
+    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+    myUpdateGeometry(true) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);
@@ -110,36 +111,39 @@ GNEEdge::generateChildID(SumoXMLTag /*childTag*/) {
 
 void
 GNEEdge::updateGeometry() {
-    // Update geometry of lanes
-    for (const auto &lane : myLanes) {
-        lane->updateGeometry();
-    }
-    // Update geometry of connections (Only if updateGrid is enabled, because in move mode connections are hidden
-    // (note: only the previous marked as deprecated will be updated)
-    if (!myMovingGeometryBoundary.isInitialised()) {
-        for (const auto &connection : myGNEConnections) {
-            connection->updateGeometry();
+    // first check if myUpdateGeometry flag is enabled
+    if (myUpdateGeometry) {
+        // Update geometry of lanes
+        for (const auto &lane : myLanes) {
+            lane->updateGeometry();
         }
-    }
-    // Update geometry of additionals children vinculated to this edge
-    for (const auto &additionalChildren : getAdditionalChildren()) {
-        additionalChildren->updateGeometry();
-    }
-    // Update geometry of additional parents that have this edge as parent
-    for (const auto &additionalParent : getAdditionalParents()) {
-        additionalParent->updateGeometry();
-    }
-    // Update partial geometry of demand elements parents that have this edge as parent
-    for (const auto &demandElementParent : getDemandElementParents()) {
-        demandElementParent->updatePartialGeometry(this);
-    }
-    // Update partial geometry of demand elements children vinculated to this edge
-    for (const auto &demandElementChildren : getDemandElementChildren()) {
-        demandElementChildren->updatePartialGeometry(this);
-    }
-    // Update partial geometry of routes vinculated to this edge
-    for (const auto &pathElementChild : myPathElementChilds) {
-        pathElementChild->updatePartialGeometry(this);
+        // Update geometry of connections (Only if updateGrid is enabled, because in move mode connections are hidden
+        // (note: only the previous marked as deprecated will be updated)
+        if (!myMovingGeometryBoundary.isInitialised()) {
+            for (const auto &connection : myGNEConnections) {
+                connection->updateGeometry();
+            }
+        }
+        // Update geometry of additionals children vinculated to this edge
+        for (const auto &additionalChildren : getAdditionalChildren()) {
+            additionalChildren->updateGeometry();
+        }
+        // Update geometry of additional parents that have this edge as parent
+        for (const auto &additionalParent : getAdditionalParents()) {
+            additionalParent->updateGeometry();
+        }
+        // Update partial geometry of demand elements parents that have this edge as parent
+        for (const auto &demandElementParent : getDemandElementParents()) {
+            demandElementParent->updatePartialGeometry(this);
+        }
+        // Update partial geometry of demand elements children vinculated to this edge
+        for (const auto &demandElementChildren : getDemandElementChildren()) {
+            demandElementChildren->updatePartialGeometry(this);
+        }
+        // Update partial geometry of routes vinculated to this edge
+        for (const auto &pathElementChild : myPathElementChilds) {
+            pathElementChild->updatePartialGeometry(this);
+        }
     }
 }
 
@@ -1612,20 +1616,27 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
+    // begin undo list
     undoList->p_begin("change number of " + toString(SUMO_TAG_LANE) +  "s");
+    // invalidate logic of source/destiny edges
     myGNEJunctionSource->setLogicValid(false, undoList);
     myGNEJunctionDestiny->setLogicValid(false, undoList);
-
+    // disable update geometry (see #6336)
+    myUpdateGeometry = false;
     const int oldNumLanes = (int)myLanes.size();
     for (int i = oldNumLanes; i < numLanes; i++) {
         // since the GNELane does not exist yet, it cannot have yet been referenced so we only pass a zero-pointer
-        undoList->add(new GNEChange_Lane(this, nullptr,
-                                         myNBEdge->getLaneStruct(oldNumLanes - 1), true), true);
+        undoList->add(new GNEChange_Lane(this, nullptr, myNBEdge->getLaneStruct(oldNumLanes - 1), true), true);
     }
-    for (int i = oldNumLanes - 1; i > numLanes - 1; i--) {
+    for (int i = (oldNumLanes - 1); i > (numLanes - 1); i--) {
         // delete leftmost lane
         undoList->add(new GNEChange_Lane(this, myLanes[i], myNBEdge->getLaneStruct(i), false), true);
     }
+    // enable updateGeometry again
+    myUpdateGeometry = true;
+    // update geometry of entire edge
+    updateGeometry();
+    // end undo list
     undoList->p_end();
 }
 

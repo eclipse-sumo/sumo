@@ -350,6 +350,9 @@ protected:
     std::vector<GNEDemandElement*> myPathElementChilds;
 
 private:
+    /// @brif flag to enable/disable update geomtetry of lanes (used mainly by setNumLanes)
+    bool myUpdateGeometry;
+
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
