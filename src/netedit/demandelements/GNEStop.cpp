@@ -328,6 +328,12 @@ GNEStop::computePath() {
 }
 
 
+void 
+GNEStop::invalidatePath() {
+    // nothing to invalidate
+}
+
+
 Position
 GNEStop::getPositionInView() const {
     if (getLaneParents().size() > 0) {

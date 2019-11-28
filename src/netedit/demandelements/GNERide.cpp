@@ -316,6 +316,24 @@ GNERide::computePath() {
 }
 
 
+void 
+GNERide::invalidatePath() {
+    if (myTagProperty.getTag() == SUMO_TAG_RIDE_FROMTO) {
+        // calculate route and update routeEdges
+        changePathEdges(this, getEdgeParents());
+    } else if (myTagProperty.getTag() == SUMO_TAG_RIDE_BUSSTOP) {
+        // declare a from-via-busStop edges vector
+        std::vector<GNEEdge*> fromViaBusStopEdges = getEdgeParents();
+        // add busStop edge
+        fromViaBusStopEdges.push_back(getAdditionalParents().front()->getLaneParents().front()->getParentEdge());
+        // calculate route and update routeEdges
+        changePathEdges(this, fromViaBusStopEdges);
+    }
+    // update geometry
+    updateGeometry();
+}
+
+
 Position
 GNERide::getPositionInView() const {
     return Position();

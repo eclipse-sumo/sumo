@@ -318,6 +318,9 @@ public:
     /// @brief remove path element (Only used by GNEHierarchicalElementParents::changeRouteEdges)
     void removePathElement(GNEDemandElement* pathElementChild);
 
+    /// @brief invalidate path element childs
+    void invalidatePathElementChildrens();
+
 protected:
     /// @brief the underlying NBEdge
     NBEdge* myNBEdge;

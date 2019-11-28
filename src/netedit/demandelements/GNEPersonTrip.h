@@ -122,6 +122,9 @@ public:
     /// @brief compute path
     void computePath();
 
+    /// @brief invalidate path
+    void invalidatePath();
+
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
     /// @}

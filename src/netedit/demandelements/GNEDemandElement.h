@@ -240,6 +240,9 @@ public:
     /// @brief compute path
     virtual void computePath() = 0;
 
+    /// @brief invalidate path
+    virtual void invalidatePath() = 0;
+
     /// @brief Returns position of demand element in view
     virtual Position getPositionInView() const = 0;
 

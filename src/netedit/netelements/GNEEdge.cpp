@@ -1469,8 +1469,10 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
 
 void 
 GNEEdge::addPathElement(GNEDemandElement* pathElementChild) {
-    // simply add path element child
-    myPathElementChilds.push_back(pathElementChild);
+    // avoid insert duplicatd path element childs
+    if (std::find(myPathElementChilds.begin(), myPathElementChilds.end(), pathElementChild) == myPathElementChilds.end()) {
+        myPathElementChilds.push_back(pathElementChild);
+    }
 }
 
 
@@ -1480,6 +1482,16 @@ GNEEdge::removePathElement(GNEDemandElement* pathElementChild) {
     auto it = std::find(myPathElementChilds.begin(), myPathElementChilds.end(), pathElementChild);
     if (it != myPathElementChilds.end()) {
         myPathElementChilds.erase(it);
+    }
+}
+
+
+void 
+GNEEdge::invalidatePathElementChildrens() {
+    // make a copy of myPathElementChilds
+    auto copyOfMyPathElementChilds = myPathElementChilds;
+    for (const auto &pathElementChild : copyOfMyPathElementChilds) {
+        pathElementChild->invalidatePath();
     }
 }
 

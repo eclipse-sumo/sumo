@@ -288,6 +288,12 @@ GNERoute::computePath() {
 }
 
 
+void 
+GNERoute::invalidatePath() {
+    // nothing to invalidate
+}
+
+
 Position
 GNERoute::getPositionInView() const {
     return Position();

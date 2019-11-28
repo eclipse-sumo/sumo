@@ -559,8 +559,21 @@ GNEVehicle::updatePartialGeometry(const GNEEdge* edge) {
 
 void 
 GNEVehicle::computePath() {
-    // calculate route and update routeEdges
-    changePathEdges(this, getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), getEdgeParents()));
+    // calculate route and update routeEdges (only for flows and trips)
+    if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
+        changePathEdges(this, getRouteCalculatorInstance()->calculateDijkstraRoute(getDemandElementParents().at(0)->getVClass(), getEdgeParents()));
+    }
+    // update geometry
+    updateGeometry();
+}
+
+
+void 
+GNEVehicle::invalidatePath() {
+    // calculate route and update routeEdges (only for flows and trips)
+    if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
+        changePathEdges(this, getEdgeParents());
+    }
     // update geometry
     updateGeometry();
 }

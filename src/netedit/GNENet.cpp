@@ -458,6 +458,8 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
             deleteDemandElement(i->getDemandElementChildren().front(), undoList);
         }
     }
+    // invalidate path element childrens
+    edge->invalidatePathElementChildrens();
     // remove edge from crossings related with this edge
     edge->getGNEJunctionSource()->removeEdgeFromCrossings(edge, undoList);
     edge->getGNEJunctionDestiny()->removeEdgeFromCrossings(edge, undoList);
@@ -1521,7 +1523,7 @@ GNENet::computeDemandElements(GNEApplicationWindow* window) {
     // iterate over all demand elements and compute
     for (const auto& i : myAttributeCarriers.demandElements) {
         for (const auto& j : i.second) {
-            j.second->updateGeometry();
+            j.second->computePath();
         }
     }
     window->setStatusBarText("Finished computing demand elements.");

@@ -327,6 +327,24 @@ GNEPersonTrip::computePath() {
 }
 
 
+void 
+GNEPersonTrip::invalidatePath() {
+    if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_FROMTO) || (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+        // calculate route and update routeEdges
+        changePathEdges(this, getEdgeParents());
+    } else if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) {
+        // declare a from-via-busStop edges vector
+        std::vector<GNEEdge*> fromViaBusStopEdges = getEdgeParents();
+        // add busStop edge
+        fromViaBusStopEdges.push_back(getAdditionalParents().front()->getLaneParents().front()->getParentEdge());
+        // calculate route and update routeEdges
+        changePathEdges(this, fromViaBusStopEdges);
+    }
+    // update geometry
+    updateGeometry();
+}
+
+
 Position
 GNEPersonTrip::getPositionInView() const {
     return Position();
