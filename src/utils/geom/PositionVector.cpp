@@ -250,6 +250,9 @@ PositionVector::positionAtOffset(double pos, double lateralOffset) const {
     if (size() == 0) {
         return Position::INVALID;
     }
+    if (size() == 1) {
+        return front();
+    }
     const_iterator i = begin();
     double seenLength = 0;
     do {
@@ -271,6 +274,9 @@ Position
 PositionVector::positionAtOffset2D(double pos, double lateralOffset) const {
     if (size() == 0) {
         return Position::INVALID;
+    }
+    if (size() == 1) {
+        return front();
     }
     const_iterator i = begin();
     double seenLength = 0;
