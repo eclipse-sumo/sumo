@@ -505,7 +505,7 @@ GNEApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
     } else {
         // get the new file name
         FXFileDialog opendialog(this, "Open Netconvert Configuration");
-        opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODECREATEEDGE));
+        opendialog.setIcon(GUIIconSubSys::getIcon(ICON_OPEN_CONFIG));
         opendialog.setSelectMode(SELECTFILE_EXISTING);
         opendialog.setPatternList(myConfigPattern.c_str());
         if (gCurrentFolder.length() != 0) {
@@ -531,7 +531,7 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     } else {
         // get the new file name
         FXFileDialog opendialog(this, "Open Network");
-        opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODECREATEEDGE));
+        opendialog.setIcon(GUIIconSubSys::getIcon(ICON_OPEN_NET));
         opendialog.setSelectMode(SELECTFILE_EXISTING);
         opendialog.setPatternList("SUMO nets (*.net.xml)\nAll files (*)");
         if (gCurrentFolder.length() != 0) {
@@ -560,7 +560,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
     } else {
         // get the new file name
         FXFileDialog opendialog(this, "Import Foreign Network");
-        opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODECREATEEDGE));
+        opendialog.setIcon(GUIIconSubSys::getIcon(ICON_OPEN_NET));
         opendialog.setSelectMode(SELECTFILE_EXISTING);
         FXString osmPattern("OSM net (*.osm.xml,*.osm)");
         opendialog.setPatternText(0, osmPattern);
