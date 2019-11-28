@@ -3,9 +3,6 @@ title: Tutorials/Hello World
 permalink: /Tutorials/Hello_World/
 ---
 
-!!! note
-    This tutorial assumes very basic computer skill. If you run into any questions please read the page [Basics/Basic Computer Skills](../Basics/Basic_Computer_Skills.md).
-
 ## Introduction
 
 This tutorial is for first time [SUMO](../SUMO.md) users. We are going to build the
@@ -26,26 +23,46 @@ Finally, the configuration file is where certain options and all files (Network,
 
 ## Creating the Network in NETEDIT
 
-Open [NETEDIT](../NETEDIT.md) and create a blank new network by selecting *File-\>New Network* or using the shortcut `Ctrl + N`
+Open [NETEDIT](../NETEDIT.md) and create a new network by selecting *File-\>New Network* or using the shortcut `Ctrl + N`
 
 
 Make sure that **Network** is selected.
 ![](../images/NeteditNetworkMode.png)
 
 Enter **Edge Mode** by selecting *Edit-\>Edge mode*, using the shortcut `E` or by clicking on the ![](../images/ModeCreateEdge.gif) button.
-In Edge Mode, make sure that *Chain* is selected. This will facilitate creating multiple nodes and edges with fewer clicks.
+In Edge Mode, make sure that ***Chain*** is selected. This will facilitate creating multiple nodes and their connecting edges with fewer clicks.
 
 ![](../images/NeteditChainSelected.png)
 
+Nodes are created by clicking on empty spaces (when in Edge Mode). Insert 3 nodes (aka Junctions) by clicking on three different places at the white blank space.
+After inserting the last Node, press <ESC\> to unselect that last node.
 
-seleccionar Edge mode (E)
-insertar 3 nodos.
+![](../images/HelloWorld_1.gif)
 
-![](../images/ModeInspect.gif)
-en inspect mode alinear (que se vean bonitos los nodos) y cambiarles el id a 1 2 3
-cambiar nombre a los edges 1to2 out
+!!! note "Tip"
+    In NETEDIT you can use Ctrl + Z to undo
 
-File -> Save Network
+
+Now we want to rename our recently inserted Junctions and Edges (which get arbitrary id's when created) and also make our simple network prettier, by aligning all nodes.
+To do so, enter **Inspect Mode** by selecting *Edit-\>Inspect mode*, using the shortcut `I` or by clicking on the ![](../images/ModeInspect.gif) button.
+
+In inspect mode you can select different type of elements, such as Nodes and Edges. When selecting one element, its properties will appear on the left side.
+Lets rename (change their **id**) the nodes to "1", "2" and "3" (from left to right) and the edges to "1to2" and "out".
+
+Replace the position (**pos**) of the nodes with the following values:
+
+| id | pos     |
+|----|---------|
+| 1  | -100,50 |
+| 2  | 0,50    |
+| 3  | 100,50  |
+
+![](../images/HelloWorld_2.gif)
+
+Our very basic network is done! We just need to save it ![](../images/Save.gif). Use *File -\> Save Network* (Ctrl + S) or *File -\> Save Network As* (Ctrl + Shift + S).
+
+!!! note
+    Network files are saved as .net.xml
 
 
 
