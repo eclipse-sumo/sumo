@@ -75,6 +75,7 @@ permalink: /ChangeLog/
   - Traffic light type 'actuated' now supports skipping phases by defining a list of alternative successor phases in phase attribute 'next'. Issue #5042
   - stopinfo-output now includes optional stop attributes 'tripId' and 'line'. Issue #6320
   - Vehicles now support the new symbolic departPos value 'stop' which lets the start at the first stop along their route. Issue #6322
+  - Permissions of internal lanes (connections) are now taken into account independent of the lanes before and after the intersection. Issue #6210
 
 - Meso
   - Vehicles that reach maximum impatience can now pass junctions from an unprioritized road regardless of foe traffic. The old behavior can be restored by disabling impatience growth via **--time-to-impatience 0**. Issue #5830
@@ -86,6 +87,7 @@ permalink: /ChangeLog/
   - When importing public transport lines from OSM, stops that are not part of the road network are now mapped to the nearest line edge (previously, these stops were discarded). Issue #6114
 
 - Netconvert
+  - Permissions can now be set for individual connections independent of incoming and outgoing lanes. Issue #6217
   - Regional road names (A9, I-95) are now exported as edge params. They are also exported as Regional Name ID in dlr-navteq-output. Issue #6256
   - Added option **--offset.z** to apply a constant z-offset to a simulation network. Issue #6274
   - Added option **--tls.ignore-internal-junction-jam** to force building traffic light right-of-way rules without mutual response flags. Issue #6269
