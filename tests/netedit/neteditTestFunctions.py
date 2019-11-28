@@ -27,7 +27,7 @@ import pyperclip
 # define delay before every operation
 DELAY_KEY = 0.2
 DELAY_KEY_TAB = 0.01
-DELAY_MOUSE = 0.1
+DELAY_MOUSE = 0.5
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
 DELAY_REFERENCE = 30
