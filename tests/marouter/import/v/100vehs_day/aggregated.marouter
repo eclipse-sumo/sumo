@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Nov 29 08:51:48 2019 by Eclipse SUMO marouter Version v1_3_1+1193-2a53b24
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_taz.taz.xml"/>
+        <od-matrix-files value="input_od_v.fma"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="routes.rou.xml"/>
+        <netload-output value="aggregated.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata>
+    <interval begin="0.00" end="3600.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="3600.00" end="7200.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="7200.00" end="10800.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="10800.00" end="14400.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="14400.00" end="18000.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="18000.00" end="21600.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="21600.00" end="25200.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="25200.00" end="28800.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="28800.00" end="32400.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="32400.00" end="36000.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="36000.00" end="39600.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="39600.00" end="43200.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="43200.00" end="46800.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="46800.00" end="50400.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="50400.00" end="54000.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="54000.00" end="57600.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="57600.00" end="61200.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="61200.00" end="64800.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="64800.00" end="68400.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="68400.00" end="72000.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="72000.00" end="75600.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="75600.00" end="79200.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="79200.00" end="82800.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+    <interval begin="82800.00" end="86400.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="end" traveltime="18.01" speed="27.76" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="36.19" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="left2end" traveltime="18.10" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="middle" traveltime="72.17" speed="13.86" entered="100.00" flowCapacityRatio="5.00"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+</meandata>
