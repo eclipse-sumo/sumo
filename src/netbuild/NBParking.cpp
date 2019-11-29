@@ -80,7 +80,7 @@ void
 NBParkingCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) {
     if (oc.isSet("parking-output")) {
         for (NBParking& p : *this) {
-            into.insert(p.getID());
+            into.insert(p.getEdgeID());
         }
     }
 }

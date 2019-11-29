@@ -54,6 +54,10 @@ public:
 
     void write(OutputDevice& device, NBEdgeCont& ec) const;
 
+    const std::string getEdgeID() const {
+        return myEdgeID;
+    }
+
 private:
     std::string myEdgeID;
     std::string myName;
