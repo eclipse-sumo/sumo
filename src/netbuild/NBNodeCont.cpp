@@ -383,7 +383,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             edges2keep.insert(edges.begin(), edges.end());
         }
         sc.addEdges2Keep(oc, edges2keep);
-        lc.addEdges2Keep(oc, edges2keep);
+        UNUSED_PARAMETER(lc); // no need to keep all route edges. They are validated again before writing
         pc.addEdges2Keep(oc, edges2keep);
     }
     int no = 0;
