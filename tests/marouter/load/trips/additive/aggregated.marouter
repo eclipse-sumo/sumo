@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/26/16 14:52:01 by SUMO marouter Version dev-SVN-r20083
+<!-- generated on Fri Nov 29 09:17:57 2019 by Eclipse SUMO marouter Version v1_3_1+1195-b34b12a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="routes.rou.xml"/>
         <netload-output value="aggregated.xml"/>
     </output>
@@ -33,54 +34,54 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <meandata>
-    <interval begin="0.00" end="9223372036854774.00">
-        <edge id="0/0to0/1" traveltime="28.09" speed="13.90" entered="9.49" flowCapacityRatio="0.47"/>
-        <edge id="0/0to1/0" traveltime="28.09" speed="13.90" entered="9.34" flowCapacityRatio="0.47"/>
+    <interval begin="0.00" end="86400.00">
+        <edge id="0/0to0/1" traveltime="28.10" speed="13.90" entered="9.81" flowCapacityRatio="0.49"/>
+        <edge id="0/0to1/0" traveltime="28.10" speed="13.90" entered="9.81" flowCapacityRatio="0.49"/>
         <edge id="0/0tobottom0" traveltime="6.85" speed="13.90" entered="0.00" flowCapacityRatio="0.00"/>
         <edge id="0/0toleft0" traveltime="6.85" speed="13.90" entered="0.00" flowCapacityRatio="0.00"/>
-        <edge id="0/1to0/0" traveltime="28.09" speed="13.90" entered="9.34" flowCapacityRatio="0.47"/>
-        <edge id="0/1to0/2" traveltime="28.09" speed="13.90" entered="19.07" flowCapacityRatio="0.95"/>
-        <edge id="0/1to1/1" traveltime="28.09" speed="13.90" entered="9.30" flowCapacityRatio="0.47"/>
+        <edge id="0/1to0/0" traveltime="28.10" speed="13.90" entered="9.81" flowCapacityRatio="0.49"/>
+        <edge id="0/1to0/2" traveltime="28.11" speed="13.89" entered="19.28" flowCapacityRatio="0.96"/>
+        <edge id="0/1to1/1" traveltime="28.10" speed="13.90" entered="9.47" flowCapacityRatio="0.47"/>
         <edge id="0/1toleft1" traveltime="6.85" speed="13.90" entered="0.00" flowCapacityRatio="0.00"/>
-        <edge id="0/2to0/1" traveltime="28.09" speed="13.90" entered="18.64" flowCapacityRatio="0.93"/>
-        <edge id="0/2to1/2" traveltime="28.09" speed="13.90" entered="11.36" flowCapacityRatio="0.57"/>
+        <edge id="0/2to0/1" traveltime="28.11" speed="13.89" entered="19.28" flowCapacityRatio="0.96"/>
+        <edge id="0/2to1/2" traveltime="28.10" speed="13.90" entered="10.72" flowCapacityRatio="0.54"/>
         <edge id="0/2toleft2" traveltime="6.85" speed="13.90" entered="0.00" flowCapacityRatio="0.00"/>
-        <edge id="0/2totop0" traveltime="6.85" speed="13.90" entered="30.00" flowCapacityRatio="1.50"/>
-        <edge id="1/0to0/0" traveltime="28.09" speed="13.90" entered="9.49" flowCapacityRatio="0.47"/>
-        <edge id="1/0to1/1" traveltime="28.09" speed="13.90" entered="10.05" flowCapacityRatio="0.50"/>
-        <edge id="1/0to2/0" traveltime="28.09" speed="13.90" entered="19.72" flowCapacityRatio="0.99"/>
+        <edge id="0/2totop0" traveltime="6.86" speed="13.89" entered="30.00" flowCapacityRatio="1.50"/>
+        <edge id="1/0to0/0" traveltime="28.10" speed="13.90" entered="9.81" flowCapacityRatio="0.49"/>
+        <edge id="1/0to1/1" traveltime="28.10" speed="13.90" entered="10.18" flowCapacityRatio="0.51"/>
+        <edge id="1/0to2/0" traveltime="28.11" speed="13.89" entered="19.99" flowCapacityRatio="1.00"/>
         <edge id="1/0tobottom1" traveltime="6.85" speed="13.90" entered="0.00" flowCapacityRatio="0.00"/>
-        <edge id="1/1to0/1" traveltime="28.09" speed="13.90" entered="9.58" flowCapacityRatio="0.48"/>
-        <edge id="1/1to1/0" traveltime="28.09" speed="13.90" entered="10.38" flowCapacityRatio="0.52"/>
-        <edge id="1/1to1/2" traveltime="28.09" speed="13.90" entered="18.13" flowCapacityRatio="0.91"/>
-        <edge id="1/1to2/1" traveltime="28.09" speed="13.90" entered="17.17" flowCapacityRatio="0.86"/>
-        <edge id="1/2to0/2" traveltime="28.09" speed="13.90" entered="10.93" flowCapacityRatio="0.55"/>
-        <edge id="1/2to1/1" traveltime="28.09" speed="13.90" entered="18.24" flowCapacityRatio="0.91"/>
-        <edge id="1/2to2/2" traveltime="28.09" speed="13.90" entered="13.12" flowCapacityRatio="0.66"/>
-        <edge id="1/2totop1" traveltime="6.85" speed="13.90" entered="30.00" flowCapacityRatio="1.50"/>
-        <edge id="2/0to1/0" traveltime="28.09" speed="13.90" entered="19.54" flowCapacityRatio="0.98"/>
-        <edge id="2/0to2/1" traveltime="28.09" speed="13.90" entered="15.46" flowCapacityRatio="0.77"/>
+        <edge id="1/1to0/1" traveltime="28.10" speed="13.90" entered="9.47" flowCapacityRatio="0.47"/>
+        <edge id="1/1to1/0" traveltime="28.10" speed="13.90" entered="10.18" flowCapacityRatio="0.51"/>
+        <edge id="1/1to1/2" traveltime="28.11" speed="13.89" entered="18.04" flowCapacityRatio="0.90"/>
+        <edge id="1/1to2/1" traveltime="28.11" speed="13.89" entered="17.33" flowCapacityRatio="0.87"/>
+        <edge id="1/2to0/2" traveltime="28.10" speed="13.90" entered="10.72" flowCapacityRatio="0.54"/>
+        <edge id="1/2to1/1" traveltime="28.11" speed="13.89" entered="18.04" flowCapacityRatio="0.90"/>
+        <edge id="1/2to2/2" traveltime="28.10" speed="13.89" entered="12.68" flowCapacityRatio="0.63"/>
+        <edge id="1/2totop1" traveltime="6.86" speed="13.89" entered="30.00" flowCapacityRatio="1.50"/>
+        <edge id="2/0to1/0" traveltime="28.11" speed="13.89" entered="19.99" flowCapacityRatio="1.00"/>
+        <edge id="2/0to2/1" traveltime="28.11" speed="13.89" entered="15.01" flowCapacityRatio="0.75"/>
         <edge id="2/0tobottom2" traveltime="6.85" speed="13.90" entered="0.00" flowCapacityRatio="0.00"/>
-        <edge id="2/0toright0" traveltime="6.85" speed="13.90" entered="35.00" flowCapacityRatio="1.75"/>
-        <edge id="2/1to1/1" traveltime="28.09" speed="13.90" entered="17.65" flowCapacityRatio="0.88"/>
-        <edge id="2/1to2/0" traveltime="28.09" speed="13.90" entered="15.28" flowCapacityRatio="0.76"/>
-        <edge id="2/1to2/2" traveltime="28.09" speed="13.90" entered="22.80" flowCapacityRatio="1.14"/>
-        <edge id="2/1toright1" traveltime="6.85" speed="13.90" entered="35.00" flowCapacityRatio="1.75"/>
-        <edge id="2/2to1/2" traveltime="28.09" speed="13.90" entered="12.80" flowCapacityRatio="0.64"/>
-        <edge id="2/2to2/1" traveltime="28.09" speed="13.90" entered="23.12" flowCapacityRatio="1.16"/>
+        <edge id="2/0toright0" traveltime="6.86" speed="13.88" entered="35.00" flowCapacityRatio="1.75"/>
+        <edge id="2/1to1/1" traveltime="28.11" speed="13.89" entered="17.33" flowCapacityRatio="0.87"/>
+        <edge id="2/1to2/0" traveltime="28.11" speed="13.89" entered="15.01" flowCapacityRatio="0.75"/>
+        <edge id="2/1to2/2" traveltime="28.11" speed="13.89" entered="22.68" flowCapacityRatio="1.13"/>
+        <edge id="2/1toright1" traveltime="6.86" speed="13.88" entered="35.00" flowCapacityRatio="1.75"/>
+        <edge id="2/2to1/2" traveltime="28.10" speed="13.89" entered="12.68" flowCapacityRatio="0.63"/>
+        <edge id="2/2to2/1" traveltime="28.11" speed="13.89" entered="22.68" flowCapacityRatio="1.13"/>
         <edge id="2/2toright2" traveltime="6.85" speed="13.90" entered="0.00" flowCapacityRatio="0.00"/>
-        <edge id="2/2totop2" traveltime="6.85" speed="13.90" entered="30.00" flowCapacityRatio="1.50"/>
+        <edge id="2/2totop2" traveltime="6.86" speed="13.89" entered="30.00" flowCapacityRatio="1.50"/>
         <edge id="bottom0to0/0" traveltime="6.85" speed="13.90" entered="0.00" flowCapacityRatio="0.00"/>
         <edge id="bottom1to1/0" traveltime="6.85" speed="13.90" entered="0.00" flowCapacityRatio="0.00"/>
         <edge id="bottom2to2/0" traveltime="6.85" speed="13.90" entered="0.00" flowCapacityRatio="0.00"/>
         <edge id="left0to0/0" traveltime="6.85" speed="13.90" entered="0.00" flowCapacityRatio="0.00"/>
         <edge id="left1to0/1" traveltime="6.85" speed="13.90" entered="0.00" flowCapacityRatio="0.00"/>
         <edge id="left2to0/2" traveltime="6.85" speed="13.90" entered="0.00" flowCapacityRatio="0.00"/>
-        <edge id="right0to2/0" traveltime="6.85" speed="13.90" entered="35.00" flowCapacityRatio="1.75"/>
-        <edge id="right1to2/1" traveltime="6.85" speed="13.90" entered="35.00" flowCapacityRatio="1.75"/>
+        <edge id="right0to2/0" traveltime="6.86" speed="13.88" entered="35.00" flowCapacityRatio="1.75"/>
+        <edge id="right1to2/1" traveltime="6.86" speed="13.88" entered="35.00" flowCapacityRatio="1.75"/>
         <edge id="right2to2/2" traveltime="6.85" speed="13.90" entered="0.00" flowCapacityRatio="0.00"/>
-        <edge id="top0to0/2" traveltime="6.85" speed="13.90" entered="30.00" flowCapacityRatio="1.50"/>
-        <edge id="top1to1/2" traveltime="6.85" speed="13.90" entered="30.00" flowCapacityRatio="1.50"/>
-        <edge id="top2to2/2" traveltime="6.85" speed="13.90" entered="30.00" flowCapacityRatio="1.50"/>
+        <edge id="top0to0/2" traveltime="6.86" speed="13.89" entered="30.00" flowCapacityRatio="1.50"/>
+        <edge id="top1to1/2" traveltime="6.86" speed="13.89" entered="30.00" flowCapacityRatio="1.50"/>
+        <edge id="top2to2/2" traveltime="6.86" speed="13.89" entered="30.00" flowCapacityRatio="1.50"/>
     </interval>
 </meandata>
