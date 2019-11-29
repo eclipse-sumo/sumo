@@ -1533,8 +1533,10 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             for (std::vector<FXButton*>::const_iterator it = myStatButtons.begin(); it != myStatButtons.end(); ++it) {
                 (*it)->setText("-");
             }
-            // initialize scale from options
-            myDemandScaleSpinner->setValue(OptionsCont::getOptions().getFloat("scale"));
+            // initialize scale from options unless already set in the UI
+            if (myDemandScaleSpinner->getValue() == 1 || !OptionsCont::getOptions().isDefault("scale")) {
+                myDemandScaleSpinner->setValue(OptionsCont::getOptions().getFloat("scale"));
+            }
         }
     }
     getApp()->endWaitCursor();
