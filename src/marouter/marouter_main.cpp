@@ -177,8 +177,14 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
     SUMOAbstractRouter<ROEdge, ROVehicle>* router = nullptr;
     const std::string measure = oc.getString("weight-attribute");
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
-    const SUMOTime begin = string2time(oc.getString("begin"));
-    const SUMOTime end = string2time(oc.getString("end"));
+    SUMOTime begin = string2time(oc.getString("begin"));
+    SUMOTime end = string2time(oc.getString("end"));
+    if (oc.isDefault("begin") && matrix.getBegin() >= 0) {
+        begin = matrix.getBegin();
+    }
+    if (oc.isDefault("end") && matrix.getEnd() >= 0) {
+        end = matrix.getEnd();
+    }
     DijkstraRouter<ROEdge, ROVehicle>::Operation ttOp = oc.getInt("paths") > 1 ? &ROMAAssignments::getPenalizedTT : &ROEdge::getTravelTimeStatic;
     if (measure == "traveltime") {
         if (routingAlgorithm == "dijkstra") {

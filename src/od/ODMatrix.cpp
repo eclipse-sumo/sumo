@@ -49,7 +49,7 @@
 // method definitions
 // ===========================================================================
 ODMatrix::ODMatrix(const ODDistrictCont& dc)
-    : myDistricts(dc), myNumLoaded(0), myNumWritten(0), myNumDiscarded(0) {}
+    : myDistricts(dc), myNumLoaded(0), myNumWritten(0), myNumDiscarded(0), myBegin(-1), myEnd(-1) {}
 
 
 ODMatrix::~ODMatrix() {
@@ -411,12 +411,12 @@ ODMatrix::readTime(LineReader& lr) {
     std::string line = getNextNonCommentLine(lr);
     try {
         StringTokenizer st(line, StringTokenizer::WHITECHARS);
-        SUMOTime begin = parseSingleTime(st.next());
-        SUMOTime end = parseSingleTime(st.next());
-        if (begin >= end) {
-            throw ProcessError("Matrix begin time " + time2string(begin) + " is larger than end time " + time2string(end) + ".");
+        myBegin = parseSingleTime(st.next());
+        myEnd = parseSingleTime(st.next());
+        if (myBegin >= myEnd) {
+            throw ProcessError("Matrix begin time " + time2string(myBegin) + " is larger than end time " + time2string(myEnd) + ".");
         }
-        return std::make_pair(begin, end);
+        return std::make_pair(myBegin, myEnd);
     } catch (OutOfBoundsException&) {
         throw ProcessError("Broken period definition '" + line + "'.");
     } catch (NumberFormatException&) {

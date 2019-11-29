@@ -250,6 +250,14 @@ public:
 
     void sortByBeginTime();
 
+    SUMOTime getBegin() const {
+        return myBegin;
+    }
+
+    SUMOTime getEnd() const {
+        return myEnd;
+    }
+
 protected:
     /**
      * @struct ODVehicle
@@ -364,6 +372,8 @@ private:
     /// @brief Number of discarded vehicles
     double myNumDiscarded;
 
+    /// @brief parsed time bounds
+    SUMOTime myBegin, myEnd;
 
     /**
      * @class cell_by_begin_comparator
