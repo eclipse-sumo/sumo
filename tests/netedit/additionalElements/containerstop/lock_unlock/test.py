@@ -35,7 +35,7 @@ netedit.changeElement("containerStop")
 netedit.changeDefaultValue(7, "reference center")
 
 # create containerStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 270)
+netedit.leftClick(referencePosition, 250, 255)
 
 # change to move mode
 netedit.moveMode()

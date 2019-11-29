@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect entry
-netedit.leftClick(referencePosition, 150, 250)
+netedit.leftClick(referencePosition, 150, 240)
 
 # Change Netedit parameter parent with a non valid value (Invalid E3 ID)
 netedit.modifyAttribute(4, "invalidE3", True)

@@ -42,18 +42,18 @@ netedit.changeElement("detEntry")
 
 # Create Entry detector E3
 netedit.leftClick(referencePosition, 250, 100)
-netedit.leftClick(referencePosition, 180, 200)
+netedit.leftClick(referencePosition, 180, 240)
 
 # select exit detector and create it
 netedit.changeElement("detExit")
 netedit.leftClick(referencePosition, 250, 100)
-netedit.leftClick(referencePosition, 400, 200)
+netedit.leftClick(referencePosition, 400, 240)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(referencePosition, 200, 200)
+netedit.leftClick(referencePosition, 200, 240)
 
 # check parameters
 netedit.checkParameters(referencePosition, 4, True)

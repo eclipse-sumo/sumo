@@ -42,18 +42,18 @@ netedit.changeElement("detExit")
 
 # Create Entry detector E3
 netedit.leftClick(referencePosition, 250, 100)
-netedit.leftClick(referencePosition, 180, 200)
+netedit.leftClick(referencePosition, 180, 240)
 
 # select Exit detector and create it
 netedit.changeElement("detEntry")
 netedit.leftClick(referencePosition, 250, 100)
-netedit.leftClick(referencePosition, 400, 200)
+netedit.leftClick(referencePosition, 400, 240)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(referencePosition, 200, 200)
+netedit.leftClick(referencePosition, 200, 240)
 
 # Change parameter lane with a non valid value (dummy Lane)
 netedit.modifyAttribute(0, "dummyLane", True)

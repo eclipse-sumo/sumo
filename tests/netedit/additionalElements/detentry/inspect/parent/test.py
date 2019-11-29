@@ -45,14 +45,14 @@ netedit.changeElement("detEntry")
 
 # Create Entry detector for both E3s
 netedit.leftClick(referencePosition, 250, 100)
-netedit.leftClick(referencePosition, 180, 200)
+netedit.leftClick(referencePosition, 180, 240)
 netedit.leftClick(referencePosition, 400, 100)
 netedit.leftClick(referencePosition, 180, 300)
 
 # Create Exit detector for both E3s
 netedit.changeElement("detExit")
 netedit.leftClick(referencePosition, 250, 100)
-netedit.leftClick(referencePosition, 400, 200)
+netedit.leftClick(referencePosition, 400, 240)
 netedit.leftClick(referencePosition, 400, 100)
 netedit.leftClick(referencePosition, 400, 300)
 
@@ -60,7 +60,7 @@ netedit.leftClick(referencePosition, 400, 300)
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(referencePosition, 200, 200)
+netedit.leftClick(referencePosition, 200, 240)
 
 # Change Netedit parameter 1 with a non valid value (Invalid E3 ID)
 netedit.modifyAttribute(6, "invalidE3", True)
