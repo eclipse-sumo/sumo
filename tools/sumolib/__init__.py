@@ -18,7 +18,6 @@ from __future__ import absolute_import
 import os
 import sys
 import subprocess
-import warnings
 from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
 
