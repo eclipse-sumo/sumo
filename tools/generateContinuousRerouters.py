@@ -10,7 +10,7 @@
 # @file    generateContinuousRerouters.py
 # @author  Jakob Erdmann
 # @date    2019-11-23
-# @version $Id$
+# @version $Id$  # noqa
 
 """
 This script generates rerrouters ahead of every intersection with routes to each of
@@ -38,9 +38,9 @@ def get_options(args=None):
                       help="define the output rerouter filename")
     parser.add_option("-T", "--turn-defaults", dest="turnDefaults", default="30,50,20",
                       help="Use STR[] as default turn probabilities [right,straight,left[,turn]]")
-    parser.add_option("-l", "--long-routes", action="store_true", dest="longRoutes", default=False, 
-                      help="place rerouters further upstream (after the previous decision point)"
-                      + "to increase overlap of routes when rerouting and thereby improve anticipation of intersections")
+    parser.add_option("-l", "--long-routes", action="store_true", dest="longRoutes", default=False,
+                      help="place rerouters further upstream (after the previous decision point) to increase " +
+                           "overlap of routes when rerouting and thereby improve anticipation of intersections")
     parser.add_option("-b", "--begin",  default=0, help="begin time")
     parser.add_option("-e", "--end",  default=3600, help="end time (default 3600)")
     (options, args) = parser.parse_args(args=args)
@@ -78,12 +78,14 @@ def getTurnIndex(fromEdge, toEdge):
     else:
         return 3
 
+
 def getNumAlterantives(edge, routes):
     numAlternatives = 0
     for edges in routes:
         if edges[0] in edge.getOutgoing().keys():
             numAlternatives += 1
     return numAlternatives
+
 
 def getNumSiblings(edge):
     """return number of outgoing edges at the fromNode of this edge that can be
@@ -96,9 +98,10 @@ def getNumSiblings(edge):
                     siblings.add(outCon.getTo())
     return len(siblings)
 
+
 def main(options):
     net = sumolib.net.readNet(options.netfile)
-    incomingRoutes = defaultdict(set) # edge : set(route0, route1, ...)
+    incomingRoutes = defaultdict(set)  # edge : set(route0, route1, ...)
     if options.longRoutes:
         # build dictionary of routes leading from an intersection to each edge
         for junction in net.getNodes():
@@ -136,10 +139,12 @@ def main(options):
                                         outf.write('    <route id="%s" edges="%s"/>\n' % (routeID, ' '.join(edgeIDs)))
                                         routeIDs.append((routeID, prob))
 
-                                outf.write('    <rerouter id="rr_%s_%s" edges="%s">\n' % (firstEdgeID, edge.getID(), firstEdgeID))
+                                outf.write('    <rerouter id="rr_%s_%s" edges="%s">\n' %
+                                           (firstEdgeID, edge.getID(), firstEdgeID))
                                 outf.write('        <interval begin="%s" end="%s">\n' % (options.begin, options.end))
                                 for routeID, prob in routeIDs:
-                                    outf.write('            <routeProbReroute id="%s" probability="%s"/>\n' % (routeID, prob))
+                                    outf.write('            <routeProbReroute id="%s" probability="%s"/>\n' %
+                                               (routeID, prob))
                                 outf.write('        </interval>\n')
                                 outf.write('    </rerouter>\n')
 
@@ -158,7 +163,8 @@ def main(options):
                             outf.write('    <rerouter id="rr_%s" edges="%s">\n' % (edge.getID(), edge.getID()))
                             outf.write('        <interval begin="%s" end="%s">\n' % (options.begin, options.end))
                             for routeID, prob in routeIDs:
-                                outf.write('            <routeProbReroute id="%s" probability="%s"/>\n' % (routeID, prob))
+                                outf.write('            <routeProbReroute id="%s" probability="%s"/>\n' %
+                                           (routeID, prob))
                             outf.write('        </interval>\n')
                             outf.write('    </rerouter>\n')
 

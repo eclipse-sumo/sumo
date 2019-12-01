@@ -57,7 +57,7 @@ if __name__ == "__main__":
     (options, args) = optParser.parse_args()
 
     if len(args) == 0:
-        print >> sys.stderr, "Usage: " + sys.argv[0] + " x,y[[,r],c] ..."
+        print("Usage: " + sys.argv[0] + " x,y[[,r],c] ...", file=sys.stderr)
         sys.exit()
 
     output = sys.stdout if options.output_file is None else open(options.output_file, 'w')

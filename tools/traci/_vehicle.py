@@ -1757,6 +1757,7 @@ class VehicleDomain(Domain):
     def addSubscriptionFilterFieldOfVision(self, openingAngle):
         """addSubscriptionFilterFieldOfVision(float) -> None
 
-        Restricts vehicles returned by the last modified vehicle context subscription to vehicles within field of vision with given opening angle
+        Restricts vehicles returned by the last modified vehicle context subscription
+        to vehicles within field of vision with given opening angle
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_FIELD_OF_VISION, openingAngle)
