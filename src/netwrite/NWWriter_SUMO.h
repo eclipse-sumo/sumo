@@ -100,6 +100,12 @@ public:
      */
     static void writeStopOffsets(OutputDevice& into, const std::map<SVCPermissions, double>& stopOffsets);
 
+    /** @brief Writes a district
+     * @param[in] into The device to write the edge into
+     * @param[in] d The district
+     */
+    static void writeDistrict(OutputDevice& into, const NBDistrict& d);
+
 
 private:
     /// @name Methods for writing network parts
@@ -162,12 +168,6 @@ private:
      */
     static bool writeInternalConnections(OutputDevice& into, const NBNode& n);
 
-
-    /** @brief Writes a district
-     * @param[in] into The device to write the edge into
-     * @param[in] d The district
-     */
-    static void writeDistrict(OutputDevice& into, const NBDistrict& d);
 
     /** @brief Writes a single internal connection
      * @param[in] from The id of the from-edge

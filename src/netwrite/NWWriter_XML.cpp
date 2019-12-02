@@ -76,6 +76,9 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (oc.exists("parking-output") && oc.isSet("parking-output")) {
         writeParkingAreas(oc, nb.getParkingCont(), nb.getEdgeCont());
     }
+    if (oc.exists("taz-output") && oc.isSet("taz-output")) {
+        writeDistricts(oc, nb.getDistrictCont());
+    }
 }
 
 
@@ -438,6 +441,14 @@ void NWWriter_XML::writeParkingAreas(const OptionsCont& oc, NBParkingCont& pc, N
     device.close();
 }
 
+void
+NWWriter_XML::writeDistricts(const OptionsCont& oc, NBDistrictCont& dc) {
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("taz-output"));
+    device.writeXMLHeader("additional", "additional_file.xsd");
+    for (std::map<std::string, NBDistrict*>::const_iterator i = dc.begin(); i != dc.end(); i++) {
+        NWWriter_SUMO::writeDistrict(device, *(*i).second);
+    }
+}
 
 void 
 NWWriter_XML::writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVector shape, SumoXMLAttr attr, bool useGeo, bool geoAccuracy) {

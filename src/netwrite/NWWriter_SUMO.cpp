@@ -210,10 +210,11 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     writeRoundabouts(device, ec.getRoundabouts(), ec);
 
     // write the districts
-    for (std::map<std::string, NBDistrict*>::const_iterator i = dc.begin(); i != dc.end(); i++) {
-        writeDistrict(device, *(*i).second);
-    }
-    if (dc.size() != 0) {
+    if (dc.size() != 0 && oc.isDefault("taz-output")) {
+        WRITE_WARNING("Embedding TAZ-data inside the network is deprecated. Use option --taz-output instead");
+        for (std::map<std::string, NBDistrict*>::const_iterator i = dc.begin(); i != dc.end(); i++) {
+            writeDistrict(device, *(*i).second);
+        }
         device.lf();
     }
     device.close();
