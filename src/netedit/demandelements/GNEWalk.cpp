@@ -296,7 +296,7 @@ GNEWalk::updateGeometry() {
         // use edges of route parent
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getDemandElementParents().at(1)->getEdgeParents(), getVClass(), 
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
-    } else if (myTagProperty.getTag() == SUMO_TAG_WALK_EDGES) {
+    } else if (getPathEdges().empty()) {
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getEdgeParents(), getVClass(), 
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
