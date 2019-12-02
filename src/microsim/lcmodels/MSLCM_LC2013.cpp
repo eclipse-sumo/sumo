@@ -2113,6 +2113,8 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
         return toString(mySpeedGainRight);
     } else if (key == toString(SUMO_ATTR_LCA_ASSERTIVE)) {
         return toString(myAssertive);
+    } else if (key == toString(SUMO_ATTR_LCA_OVERTAKE_RIGHT)) {
+        return toString(myOvertakeRightParam);
     } else if (key == toString(SUMO_ATTR_LCA_SIGMA)) {
         return toString(mySigma);
     }
@@ -2144,6 +2146,8 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
         mySpeedGainRight = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_ASSERTIVE)) {
         myAssertive = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_OVERTAKE_RIGHT)) {
+        myOvertakeRightParam = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SIGMA)) {
         mySigma = doubleValue;
     } else {

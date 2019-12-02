@@ -252,9 +252,11 @@ protected:
 
     // @brief willingness to undercut longitudinal safe gaps
     double myAssertive;
+    // allow overtaking right even though it is prohibited
+    double myOvertakeRightParam;
 
-    const double myOvertakeRightParam; // allow overtaking right even though it is prohibited
-    const double myExperimentalParam1; // for feature testing
+    // for feature testing
+    const double myExperimentalParam1;
 
     //@}
 
