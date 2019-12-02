@@ -482,6 +482,7 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
                   << " continueChange veh=" << vehicle->getID()
                   << " from=" << Named::getIDSecure(from->lane)
                   << " dir=" << direction
+                  << " speedLat=" << speedLat
                   << " pastMidpoint=" << pastMidpoint
                   << " posLat=" << vehicle->getLateralPositionOnLane()
                   //<< " completion=" << lcm.getLaneChangeCompletion()
