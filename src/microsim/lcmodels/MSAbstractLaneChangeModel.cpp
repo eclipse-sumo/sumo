@@ -25,7 +25,8 @@
 // ===========================================================================
 //#define DEBUG_TARGET_LANE
 //#define DEBUG_SHADOWLANE
-#define DEBUG_MANEUVER
+//#define DEBUG_OPPOSITE
+//#define DEBUG_MANEUVER
 #define DEBUG_COND (myVehicle.isSelected())
 
 
@@ -310,6 +311,9 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
     laneChangeOutput("change", source, target, direction); // record position on the source edge in case of opposite change
     if (&source->getEdge() != &target->getEdge()) {
         changedToOpposite();
+#ifdef DEBUG_OPPOSITE
+        if (debugVehicle())  std::cout << SIMTIME << " veh=" << myVehicle.getID() << " primaryLaneChanged nowOpposite=" << myAmOpposite << "\n";
+#endif
         myVehicle.setTentativeLaneAndPosition(target, source->getOppositePos(myVehicle.getPositionOnLane()), -myVehicle.getLateralPositionOnLane());
         target->forceVehicleInsertion(&myVehicle, myVehicle.getPositionOnLane(), MSMoveReminder::NOTIFICATION_LANE_CHANGE, myVehicle.getLateralPositionOnLane());
     } else {
@@ -367,7 +371,7 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
 double
 MSAbstractLaneChangeModel::computeSpeedLat(double /*latDist*/, double& maneuverDist) {
     if (myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
-        int stepsToChange = (int)ceil(maneuverDist / SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat()));
+        int stepsToChange = (int)ceil(fabs(maneuverDist) / SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat()));
         return DIST2SPEED(maneuverDist / stepsToChange);
     } else {
         return maneuverDist / STEPS2TIME(MSGlobals::gLaneChangeDuration);
@@ -403,6 +407,9 @@ MSAbstractLaneChangeModel::endLaneChangeManeuver(const MSMoveReminder::Notificat
     myVehicle.fixPosition();
     if (myAmOpposite && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         // aborted maneuver
+#ifdef DEBUG_OPPOSITE
+        if (debugVehicle())  std::cout << SIMTIME << " veh=" << myVehicle.getID() << " aborted maneuver (no longer opposite)\n";
+#endif
         changedToOpposite();
     }
 }
