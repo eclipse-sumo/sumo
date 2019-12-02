@@ -5313,6 +5313,12 @@ double
 MSVehicle::getCenterOnEdge(const MSLane* lane) const {
     if (lane == nullptr || &lane->getEdge() == &myLane->getEdge()) {
         return myLane->getRightSideOnEdge() + myState.myPosLat + 0.5 * myLane->getWidth();
+    } else if (lane == getLaneChangeModel().getShadowLane()) {
+        if (getLaneChangeModel().getShadowDirection() == -1) {
+            return lane->getRightSideOnEdge() + lane->getWidth() + myState.myPosLat + 0.5 * myLane->getWidth();
+        } else {
+            return lane->getRightSideOnEdge() - myLane->getWidth() + myState.myPosLat + 0.5 * myLane->getWidth();
+        }
     } else {
         assert(myFurtherLanes.size() == myFurtherLanesPosLat.size());
         for (int i = 0; i < (int)myFurtherLanes.size(); ++i) {
