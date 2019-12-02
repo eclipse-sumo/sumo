@@ -226,24 +226,45 @@ for p in [
         haveConfig = False
         if app in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert",
                    "netgen", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]:
-            appOptions += ['--save-configuration', '%s.%scfg' %
-                           (nameBase, app[:4])]
             if app == "netgen":
                 # binary is now called differently but app still has the old name
                 app = "netgenerate"
             if options.verbose:
-                print(("calling %s for testPath '%s' with  options '%s'") %
+                print("calling %s for testPath '%s' with options '%s'" %
                       (checkBinary(app), testPath, " ".join(appOptions)))
             try:
-                haveConfig = subprocess.call([checkBinary(app)] + appOptions) == 0
+                haveConfig = subprocess.call([checkBinary(app)] + appOptions +
+                                             ['--save-configuration', '%s.%scfg' %
+                                              (nameBase, app[:4])]) == 0
             except OSError:
                 print("Executable %s not found, generating shell scripts instead of config." % app, file=sys.stderr)
             if not haveConfig:
-                appOptions[-2:] = ["bin/" + app]
+                appOptions.insert(0, "$SUMO_HOME/bin/" + app)
+        elif app == "tools":
+            for i, a in enumerate(appOptions):
+                if a.endswith(".py"):
+                    del appOptions[i:i+1]
+                    appOptions[0:0] = [os.environ.get("PYTHON", "python"), "$SUMO_HOME/" + a]
+                    break
+                if a.endswith(".jar"):
+                    del appOptions[i:i+1]
+                    appOptions[0:0] = ["java", "-jar", "$SUMO_HOME/" + a]
+                    break
+        elif app == "complex":
+            for i, a in enumerate(appOptions):
+                if a.endswith(".py"):
+                    if os.path.exists(join(testPath, os.path.basename(a))):
+                        a = os.path.basename(a)
+                    del appOptions[i:i+1]
+                    appOptions[0:0] = [os.environ.get("PYTHON", "python"), a]
+                    break
         if not haveConfig:
-            cmd = ["$SUMO_HOME/" + appOptions[-1]] + [o if " " not in o else "'%s'" % o for o in appOptions[:-1]]
+            if options.verbose:
+                print("generating shell scripts for testPath '%s' with call '%s'" %
+                      (testPath, " ".join(appOptions)))
+            cmd = [o if " " not in o else "'%s'" % o for o in appOptions]
             open(nameBase + ".sh", "w").write(" ".join(cmd))
-            cmd = ["%SUMO_HOME%/" + appOptions[-1]] + [o if " " not in o else '"%s"' % o for o in appOptions[:-1]]
+            cmd = [o.replace("$SUMO_HOME", "%SUMO_HOME%") if " " not in o else '"%s"' % o for o in appOptions]
             open(nameBase + ".bat", "w").write(" ".join(cmd))
         os.chdir(oldWorkDir)
     if options.python_script:
