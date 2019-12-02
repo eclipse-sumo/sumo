@@ -4266,13 +4266,17 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
             DriveProcessItem& item = lfLinks[i - 1];
             DriveProcessItem& nextItem = lfLinks[i];
             const bool canLeaveJunction = item.myLink->getViaLane() == nullptr || nextItem.myLink == nullptr || nextItem.mySetRequest;
-            const bool opened = item.myLink != nullptr && canLeaveJunction && (
+            const bool opened = (item.myLink != nullptr 
+                    && (canLeaveJunction || (
+                            // indirect bicycle turn
+                            nextItem.myLink != nullptr && nextItem.myLink->isInternalJunctionLink() && nextItem.myLink->haveRed()))
+                    && (
                                     item.myLink->havePriority()
                                     || i == 1 // the upcoming link (item 0) is checked in executeMove anyway. No need to use outdata approachData here
                                     || (myInfluencer != nullptr && !myInfluencer->getRespectJunctionPriority())
                                     || item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,
                                             item.getLeaveSpeed(), getVehicleType().getLength(),
-                                            getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane()));
+                                            getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane())));
             bool allowsContinuation = (item.myLink == nullptr || item.myLink->isCont() || opened) && !item.hadStoppedVehicle;
 #ifdef DEBUG_CHECKREWINDLINKLANES
             if (DEBUG_COND) std::cout
