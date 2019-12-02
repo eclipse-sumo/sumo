@@ -476,7 +476,10 @@ GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position &startPos, Pos
 GNELane* 
 GNEDemandElement::getFirstAllowedVehicleLane() const {
     // first check if current demand element has edge parents
-    if (getEdgeParents().size() > 0) {
+    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
+        // use route edges
+        return getDemandElementParents().at(1)->getEdgeParents().front()->getLaneByAllowedVClass(getVClass());
+    } else if (getEdgeParents().size() > 0) {
         // obtain Lane depending of attribute "departLane"
         if (myTagProperty.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
             // obtain depart lane
@@ -509,7 +512,10 @@ GNEDemandElement::getFirstAllowedVehicleLane() const {
 GNELane* 
 GNEDemandElement::getLastAllowedVehicleLane() const {
     // first check if current demand element has edge parents
-    if (getEdgeParents().size() > 0) {
+    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
+        // use route edges
+        return getDemandElementParents().at(1)->getEdgeParents().back()->getLaneByAllowedVClass(getVClass());
+    } else if (getEdgeParents().size() > 0) {
         if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) ||
             (myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) ||
             (myTagProperty.getTag() == SUMO_TAG_RIDE_BUSSTOP)) {

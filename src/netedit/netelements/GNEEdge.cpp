@@ -1461,7 +1461,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
         }
     } else if (firstPersonPlan->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
         // obtain first rute edge
-        firstEdge = personPlan->getDemandElementParents().at(1)->getEdgeParents().front();
+        firstEdge = firstPersonPlan->getDemandElementParents().at(1)->getEdgeParents().front();
     } else {
         // obtain first edge parent
         firstEdge = firstPersonPlan->getEdgeParents().front();
