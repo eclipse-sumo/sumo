@@ -553,20 +553,20 @@ GNEGeometry::adjustStartPosGeometricPath(double &startPos, const GNELane* startL
     }
     // adjust startPos
     if ((startPos != -1) && startLane) {
-        if (startPos <= POSITION_EPS) {
-            startPos = -1;
+        if (startPos < POSITION_EPS) {
+            startPos = POSITION_EPS;
         } 
-        if (startPos >= (startLane->getLaneShape().length() - POSITION_EPS)) {
-            startPos = -1;
+        if (startPos > (startLane->getLaneShape().length() - POSITION_EPS)) {
+            startPos = (startLane->getLaneShape().length() - POSITION_EPS);
         }
     }
     // adjust endPos
     if ((endPos != -1) && endLane) {
         if (endPos <= POSITION_EPS) {
-            endPos = -1;
+            endPos = POSITION_EPS;
         }
-        if (endPos >= (endLane->getLaneShape().length() - POSITION_EPS)) {
-            endPos = -1;
+        if (endPos > (endLane->getLaneShape().length() - POSITION_EPS)) {
+            endPos = (endLane->getLaneShape().length() - POSITION_EPS);
         }
     }
 }

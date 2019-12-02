@@ -439,7 +439,11 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VTYPES:
             return joinToString(myVTypes, " ");
         case SUMO_ATTR_ARRIVALPOS:
-            return toString(myArrivalPosition);
+            if (myArrivalPosition == -1) {
+                return "";
+            } else {
+                return toString(myArrivalPosition);
+            }
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -456,7 +460,11 @@ double
 GNEPersonTrip::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ARRIVALPOS:
-            return myArrivalPosition;
+            if (myArrivalPosition != -1) {
+                return myArrivalPosition;
+            } else {
+                return (getLastAllowedVehicleLane()->getLaneShape().length() - POSITION_EPS);
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -508,13 +516,14 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VTYPES:
             return canParse<std::vector<std::string> >(value);
         case SUMO_ATTR_ARRIVALPOS:
-            if (canParse<double>(value)) {
-                double parsedValue = canParse<double>(value);
-                // a arrival pos with value -1 means that it will be ignored
-                if (parsedValue == -1) {
-                    return true;
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
+                const double parsedValue = canParse<double>(value);
+                if ((parsedValue < 0) || (parsedValue > getLastAllowedVehicleLane()->getLaneShape().length())) {
+                    return false;
                 } else {
-                    return parsedValue >= 0;
+                    return true;
                 }
             } else {
                 return false;
@@ -603,7 +612,11 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
             myVTypes = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
             break;
         case SUMO_ATTR_ARRIVALPOS:
-            myArrivalPosition = parse<double>(value);
+            if (value.empty()) {
+                myArrivalPosition = -1;
+            } else {
+                myArrivalPosition = parse<double>(value);
+            }
             updateGeometry();
             break;
         case GNE_ATTR_SELECTED:
