@@ -70,6 +70,8 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
             // Remove element from parent elements
             for (const auto& i : myEdgeParents) {
                 i->removeDemandElementChild(myDemandElement);
+                // Also remove path reference
+                i->removePathElement(myDemandElement);
             }
             for (const auto& i : myLaneParents) {
                 i->removeDemandElementChild(myDemandElement);
@@ -115,6 +117,8 @@ GNEChange_DemandElement::undo() {
         // Remove element from parent elements
         for (const auto& i : myEdgeParents) {
             i->removeDemandElementChild(myDemandElement);
+            // Also remove path reference
+            i->removePathElement(myDemandElement);
         }
         for (const auto& i : myLaneParents) {
             i->removeDemandElementChild(myDemandElement);
