@@ -542,7 +542,26 @@ protected:
         VISUM_FROMNODE,
         VISUM_TONODE,
         VISUM_TYPE,
+        VISUM_TYP,
+        VISUM_ID,
+        VISUM_CODE,
         VISUM_DISTRICT_CONNECTION,
+        VISUM_SOURCE_DISTRICT,
+        VISUM_FROMNODENO,
+        VISUM_DIRECTION,
+        VISUM_SURFACEID,
+        VISUM_FACEID,
+        VISUM_FROMPOINTID,
+        VISUM_TOPOINTID,
+        VISUM_EDGE,
+        VISUM_VIANODENO,
+        VISUM_NUMLANES,
+        VISUM_TURN,
+        VISUM_INDEX,
+        VISUM_LINKPOLY,
+        VISUM_SURFACEITEM,
+        VISUM_FACEITEM,
+        VISUM_EDGEID,
         VISUM_NO // must be the last one
     };
 
@@ -559,4 +578,3 @@ protected:
 #endif
 
 /****************************************************************************/
-
