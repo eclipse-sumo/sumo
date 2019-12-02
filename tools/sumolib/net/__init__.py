@@ -156,6 +156,7 @@ class Net:
         self._id2node = {}
         self._id2edge = {}
         self._crossings_and_walkingAreas = set()
+        self._macroConnectors = set()
         self._id2tls = {}
         self._nodes = []
         self._edges = []
@@ -527,6 +528,7 @@ class NetReader(handler.ContentHandler):
         self._withConnections = others.get('withConnections', True)
         self._withFoes = others.get('withFoes', True)
         self._withPedestrianConnections = others.get('withPedestrianConnections', False)
+        self._withMacroConnectors = others.get('withMacroConnectors', False)
         self._withInternal = others.get('withInternal', self._withPedestrianConnections)
         if self._withPedestrianConnections and not self._withInternal:
             sys.stderr.write("Warning: Option withPedestrianConnections requires withInternal\n")
@@ -538,7 +540,7 @@ class NetReader(handler.ContentHandler):
                                   "origBoundary"], attrs["projParameter"])
         if name == 'edge':
             function = attrs.get('function', '')
-            if function == '' or self._withInternal:
+            if function == '' or self._withInternal or self._withMacroConnectors:
                 prio = -1
                 if 'priority' in attrs:
                     prio = int(attrs['priority'])
@@ -564,6 +566,8 @@ class NetReader(handler.ContentHandler):
             else:
                 if function in ['crossing', 'walkingarea']:
                     self._net._crossings_and_walkingAreas.add(attrs['id'])
+                elif function == 'connector':
+                    self._net._macroConnectors.add(attrs['id'])
                 self._currentEdge = None
         if name == 'lane' and self._currentEdge is not None:
             self._currentLane = self._net.addLane(
@@ -622,8 +626,10 @@ class NetReader(handler.ContentHandler):
         if name == 'connection' and self._withConnections and (attrs['from'][0] != ":" or self._withInternal):
             fromEdgeID = attrs['from']
             toEdgeID = attrs['to']
-            if self._withPedestrianConnections or not (fromEdgeID in self._net._crossings_and_walkingAreas or
-                                                       toEdgeID in self._net._crossings_and_walkingAreas):
+            if (self._withPedestrianConnections or not (fromEdgeID in self._net._crossings_and_walkingAreas or
+                                                       toEdgeID in self._net._crossings_and_walkingAreas)
+                and self._withMacroConnectors or not (fromEdgeID in self._net._macroConnectors or
+                                                      toEdgeID in self._net._macroConnectors)):
                 fromEdge = self._net.getEdge(fromEdgeID)
                 toEdge = self._net.getEdge(toEdgeID)
                 fromLane = fromEdge.getLane(int(attrs['fromLane']))
