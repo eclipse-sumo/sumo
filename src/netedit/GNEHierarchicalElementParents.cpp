@@ -200,6 +200,12 @@ GNEHierarchicalElementParents::getMiddleEdgeParents() const {
 }
 
 
+const std::vector<GNEEdge*>&
+GNEHierarchicalElementParents::getPathEdges() const {
+    return myRouteEdges;
+}
+
+
 void
 GNEHierarchicalElementParents::addLaneParent(GNELane* lane) {
     // Check that lane is valid and doesn't exist previously
@@ -266,12 +272,6 @@ GNEHierarchicalElementParents::getShapeParents() const {
 // ---------------------------------------------------------------------------
 // GNEHierarchicalElementParents - protected methods
 // ---------------------------------------------------------------------------
-
-const std::vector<GNEEdge*>&
-GNEHierarchicalElementParents::getPathEdges() const {
-    return myRouteEdges;
-}
-
 
 void
 GNEHierarchicalElementParents::changeEdgeParents(GNEShape* elementChild, const std::string& newEdgeIDs) {

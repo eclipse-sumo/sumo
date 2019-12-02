@@ -95,6 +95,9 @@ public:
     /// @brief get middle (via) edge parents
     std::vector<GNEEdge*> getMiddleEdgeParents() const;
 
+    /// @brief get path edges
+    const std::vector<GNEEdge*> &getPathEdges() const;
+
     /// @}
 
     /// @name members and functions related to lane parents
@@ -153,9 +156,6 @@ public:
     std::string getNewListOfParents(const GNENetElement *currentElement, const GNENetElement *newNextElement) const;
 
 protected:
-    /// @brief get path edges
-    const std::vector<GNEEdge*> &getPathEdges() const;
-
     /// @name members and functions relative to changing parents
     /// @{
 

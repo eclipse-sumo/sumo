@@ -519,9 +519,6 @@ GNEVehicle::updateGeometry() {
     // declare two pointers for depart and arrival pos lanes
     double departPosLane = -1;
     double arrivalPosLane = -1;
-    // declare first and last lane
-    GNELane *departLane = getFirstAllowedVehicleLane();
-    GNELane *arrivalLane = getLastAllowedVehicleLane();
     // check if depart and arrival pos lanes are defiend
     if (departPosProcedure == DEPART_POS_GIVEN) {
         departPosLane = departPos;
@@ -532,10 +529,10 @@ GNEVehicle::updateGeometry() {
     // calculate geometry path
     if (getPathEdges().size() > 0) {
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(), 
-            departLane, arrivalLane, departPosLane, arrivalPosLane);
+            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
     } else {
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getEdgeParents(), getVClass(), 
-            departLane, arrivalLane, departPosLane, arrivalPosLane);
+            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
     }
     // update demand element childrens
     for (const auto& i : getDemandElementChildren()) {

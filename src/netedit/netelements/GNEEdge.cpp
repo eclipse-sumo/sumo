@@ -1450,23 +1450,24 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
     }
     // draw person if this edge correspond to the first edge of first Person's person plan
     GNEEdge* firstEdge = nullptr;
-    if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getTagProperty().isPersonStop()) {
-        if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_LANE) {
+    const GNEDemandElement* firstPersonPlan = personPlan->getDemandElementParents().front()->getDemandElementChildren().front();
+    if (firstPersonPlan->getTagProperty().isPersonStop()) {
+        if (firstPersonPlan->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_LANE) {
             // obtain edge of lane parent
-            firstEdge = personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getLaneParents().front()->getParentEdge();
+            firstEdge = firstPersonPlan->getLaneParents().front()->getParentEdge();
         } else  {
             // obtain edge of busstop's lane parent
-            firstEdge = personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
+            firstEdge = firstPersonPlan->getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
         }
-    } else if (personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
+    } else if (firstPersonPlan->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
         // obtain first rute edge
         firstEdge = personPlan->getDemandElementParents().at(1)->getEdgeParents().front();
     } else {
         // obtain first edge parent
-        firstEdge = personPlan->getDemandElementParents().front()->getDemandElementChildren().front()->getEdgeParents().front();
+        firstEdge = firstPersonPlan->getEdgeParents().front();
     }
     // draw person parent if this is the edge first edge and this is the first plan
-    if ((firstEdge == this) && personPlan->getDemandElementParents().front()->getDemandElementChildren().front() == personPlan) {
+    if ((firstEdge == this) && (firstPersonPlan == personPlan)) {
         personPlan->getDemandElementParents().front()->drawGL(s);
     }
 }

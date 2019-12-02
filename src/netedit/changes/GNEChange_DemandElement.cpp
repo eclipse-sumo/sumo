@@ -44,6 +44,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DemandElement, GNEChange, nullptr, 0)
 GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward) :
     GNEChange(demandElement->getViewNet()->getNet(), forward),
     myDemandElement(demandElement),
+    myEdgePath(demandElement->getPathEdges()),
     myEdgeParents(demandElement->getEdgeParents()),
     myLaneParents(demandElement->getLaneParents()),
     myShapeParents(demandElement->getShapeParents()),
@@ -67,11 +68,13 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
         // make sure that element isn't in net before removing
         if (myNet->demandElementExist(myDemandElement)) {
             myNet->deleteDemandElement(myDemandElement, false);
+        // remove element from path
+            for (const auto& i : myEdgePath) {
+                i->removePathElement(myDemandElement);
+            }
             // Remove element from parent elements
             for (const auto& i : myEdgeParents) {
                 i->removeDemandElementChild(myDemandElement);
-                // Also remove path reference
-                i->removePathElement(myDemandElement);
             }
             for (const auto& i : myLaneParents) {
                 i->removeDemandElementChild(myDemandElement);
@@ -114,11 +117,13 @@ GNEChange_DemandElement::undo() {
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // delete demand element from net
         myNet->deleteDemandElement(myDemandElement, false);
+        // remove element from path
+        for (const auto& i : myEdgePath) {
+            i->removePathElement(myDemandElement);
+        }
         // Remove element from parent elements
         for (const auto& i : myEdgeParents) {
             i->removeDemandElementChild(myDemandElement);
-            // Also remove path reference
-            i->removePathElement(myDemandElement);
         }
         for (const auto& i : myLaneParents) {
             i->removeDemandElementChild(myDemandElement);
@@ -239,6 +244,10 @@ GNEChange_DemandElement::redo() {
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // delete demand element from net
         myNet->deleteDemandElement(myDemandElement, false);
+        // remove element from path
+        for (const auto& i : myEdgePath) {
+            i->removePathElement(myDemandElement);
+        }
         // Remove element from parent elements
         for (const auto& i : myEdgeParents) {
             i->removeDemandElementChild(myDemandElement);
