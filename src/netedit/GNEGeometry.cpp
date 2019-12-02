@@ -50,23 +50,39 @@ GNEGeometry::Geometry::updateGeometryShape(const PositionVector &shape, double s
     const Position &extraFirstPosition, const Position &extraLastPosition) {
     // set new shape
     myShape = shape;
-    // check that split positions are correct
-    if ((startPos <= 0) || (startPos >= shape.length())) {
-        startPos = -1;
-    }
-    if ((endPos <= 0) || (endPos >= shape.length())) {
-        endPos = -1;
-    }
-    // split shape depending of startPos and endPos
-    if ((startPos != -1) && (endPos != -1)) {
-        // split lane
-        myShape = myShape.getSubpart(startPos, endPos);
-    } else if (startPos != -1) {
-        // split lane
-        myShape = myShape.splitAt(startPos).second;
-    } else if (endPos != -1) {
-        // split lane
-        myShape = myShape.splitAt(endPos).first;
+    // check if we have to split the lane
+    if ((startPos != -1) || (endPos != -1)) {
+        // check if both start and end position must be swapped
+        if ((startPos != -1) &&  (endPos != -1) && (endPos < startPos)) {
+            std::swap(startPos, endPos);
+        }
+        // check that split positions are correct
+        if (startPos <= POSITION_EPS) {
+            if (endPos == -1) {
+                // leave shape unmodified
+            } else if (endPos <= POSITION_EPS) {
+                // use only first shape position
+                myShape = PositionVector({myShape.front()});
+            } else if (endPos < (shape.length() - POSITION_EPS)) {
+                // split shape using end position and use left part
+                myShape = myShape.splitAt(endPos).first;
+            }
+        } else if (startPos >= (shape.length() - POSITION_EPS)) {
+            // use only last position
+            myShape = PositionVector({myShape.back()});
+        } else if (endPos == -1) {
+            // split shape using start position and use the right part
+            myShape = myShape.splitAt(startPos).second;
+        } else if (endPos <= POSITION_EPS) {
+            // use only first shape position
+            myShape = PositionVector({myShape.front()});
+        } else if (endPos >= (shape.length() - POSITION_EPS)) {
+            // split shape using start position and use the right part
+            myShape = myShape.splitAt(startPos).second;
+        } else {
+            // split shape using start and end position
+            myShape = myShape.getSubpart(startPos, endPos);
+        }
     }
     // check if we have to add an extra first position
     if (extraFirstPosition != Position::INVALID) {
@@ -562,7 +578,7 @@ GNEGeometry::adjustStartPosGeometricPath(double &startPos, const GNELane* startL
     }
     // adjust endPos
     if ((endPos != -1) && endLane) {
-        if (endPos <= POSITION_EPS) {
+        if (endPos < POSITION_EPS) {
             endPos = POSITION_EPS;
         }
         if (endPos > (endLane->getLaneShape().length() - POSITION_EPS)) {
