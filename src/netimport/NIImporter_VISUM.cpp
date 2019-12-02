@@ -243,6 +243,8 @@ NIImporter_VISUM::load() {
         // close single reader processing
         PROGRESS_DONE_MESSAGE();
     }
+    myNetBuilder.getEdgeCont().reduceGeometries(POSITION_EPS);
+
     // build traffic lights
     for (NIVisumTL_Map::iterator j = myTLS.begin(); j != myTLS.end(); j++) {
         j->second->build(myNetBuilder.getEdgeCont(), myNetBuilder.getTLLogicCont());

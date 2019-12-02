@@ -889,9 +889,9 @@ NBEdge::setLaneSpreadFunction(LaneSpreadFunction spread) {
 void
 NBEdge::addGeometryPoint(int index, const Position& p) {
     if (index >= 0) {
-        myGeom.insert_noDoublePos(myGeom.begin() + index, p);
+        myGeom.insert(myGeom.begin() + index, p);
     } else {
-        myGeom.insert_noDoublePos(myGeom.end() + index, p);
+        myGeom.insert(myGeom.end() + index, p);
     }
 }
 
