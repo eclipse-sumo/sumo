@@ -1,2 +1,3 @@
 Warning: Encountered unknown vehicle category '7' in type '91'
 Warning: Encountered unknown vehicle category '8' in type '91'
+Warning: Embedding TAZ-data inside the network is deprecated. Use option --taz-output instead
