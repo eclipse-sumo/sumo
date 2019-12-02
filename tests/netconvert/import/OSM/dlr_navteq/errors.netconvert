@@ -5,13 +5,6 @@ Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|cy
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|cycleway.track|highway.tertiary' (first occurence for edge '46039050').
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '46150483').
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '81096583').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurence for edge '143308535').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|cycleway.track|highway.secondary' (first occurence for edge '143308542').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|cycleway.track|highway.secondary' (first occurence for edge '143308542').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurence for edge '180239843').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '180239858').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|cycleway.track|highway.primary' (first occurence for edge '320741894').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|cycleway.track|highway.primary' (first occurence for edge '320741894').
 Warning: No way found for reference '320741893' in relation '3422297'
 Warning: Ignoring restriction relation '3422297' with unknown to-way.
 Warning: Found sharp turn with radius 6.56 at the end of edge '415852869'.
@@ -25,3 +18,4 @@ Warning: ambiguous zip code '12489;12345;67890' for edge '415852963'. (using fir
 Warning: ambiguous zip code '12489;12345;67890' for edge '415852964'. (using first value)
 Warning: ambiguous zip code '12489;12345;67890' for edge '415852965'. (using first value)
 Warning: ambiguous zip code '12487; 12345' for edge '415852966'. (using first value)
+Warning: 12 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').

@@ -7,4 +7,4 @@ Warning: Found sharp turn with radius 4.73 at the start of edge '143308685#1'.
 Warning: Found angle of 178.89 degrees at edge '156071615#4', segment 0.
 Warning: Found sharp turn with radius 0.04 at the start of edge '156071615#4'.
 Warning: Found sharp turn with radius 6.42 at the start of edge '47765615#1'.
-Warning: Found sharp turn with radius 2.03 at the start of edge '70214888#3'.
+Warning: 6 total messages of type: Found sharp turn with radius % at the start of edge '%'.
