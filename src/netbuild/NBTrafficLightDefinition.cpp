@@ -481,7 +481,7 @@ NBTrafficLightDefinition::collectAllLinks() {
         }
     }
     if (myControlledLinks.size() > 0 && tlIndex == 0) {
-        WRITE_WARNING("The rail crossing '" + getID() + "' does not have any roads.");
+        WRITE_WARNINGF("The rail crossing '%' does not have any roads.", getID());
     }
 }
 
