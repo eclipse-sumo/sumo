@@ -3,7 +3,7 @@ title: Basics/Notation
 permalink: /Basics/Notation/
 ---
 
-The documentation within this wiki uses coloring to differ between
+This documentation uses coloring to differ between
 different type of information. Below, these annotations and colors are
 described.
 
