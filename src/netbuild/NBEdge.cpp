@@ -95,6 +95,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     toEdge(toEdge_),
     toLane(toLane_),
     tlLinkIndex(-1),
+    tlLinkIndex2(-1),
     mayDefinitelyPass(false),
     keepClear(true),
     contPos(UNSPECIFIED_CONTPOS),
@@ -114,6 +115,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     toEdge(toEdge_),
     toLane(toLane_),
     tlLinkIndex(-1),
+    tlLinkIndex2(-1),
     mayDefinitelyPass(mayDefinitelyPass_),
     keepClear(keepClear_),
     contPos(contPos_),
@@ -2814,6 +2816,7 @@ NBEdge::setControllingTLInformation(const NBConnection& c, const std::string& tl
     NBEdge* toEdge = c.getTo();
     const int toLane = c.getToLane();
     const int tlIndex = c.getTLIndex();
+    const int tlIndex2 = c.getTLIndex2();
     // check whether the connection was not set as not to be controled previously
     if (!mayBeTLSControlled(fromLane, toEdge, toLane)) {
         return false;
@@ -2833,6 +2836,7 @@ NBEdge::setControllingTLInformation(const NBConnection& c, const std::string& tl
             // set the information about the tl
             connection.tlID = tlID;
             connection.tlLinkIndex = tlIndex;
+            connection.tlLinkIndex2 = tlIndex2;
             return true;
         }
     }
@@ -2853,6 +2857,7 @@ NBEdge::setControllingTLInformation(const NBConnection& c, const std::string& tl
         if ((*i).tlID == "") {
             (*i).tlID = tlID;
             (*i).tlLinkIndex = tlIndex;
+            (*i).tlLinkIndex2 = tlIndex2;
             no++;
         } else {
             if ((*i).tlID != tlID && (*i).tlLinkIndex == tlIndex) {

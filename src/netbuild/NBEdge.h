@@ -221,6 +221,9 @@ public:
         /// @brief The index of this connection within the controlling traffic light
         int tlLinkIndex;
 
+        /// @brief The index of the internal junction within the controlling traffic light (optional)
+        int tlLinkIndex2;
+
         /// @brief Information about being definitely free to drive (on-ramps)
         bool mayDefinitelyPass;
 

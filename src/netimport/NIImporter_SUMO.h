@@ -183,6 +183,7 @@ private:
         std::string tlID;
         /// @brief The index of this connection within the controlling traffic light
         int tlLinkIndex;
+        int tlLinkIndex2;
         /// @brief Information about being definitely free to drive (on-ramps)
         bool mayDefinitelyPass;
         /// @brief Whether the junction must be kept clear coming from this connection

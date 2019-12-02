@@ -252,6 +252,11 @@ NIXMLTrafficLightsHandler::addTlConnection(const SUMOSAXAttributes& attrs) {
         // we are updating an existing tl-controlled connection
         tlIndex = c.tlLinkIndex;
     }
+    int tlIndex2 = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX2, nullptr, ok, -1);
+    if (tlIndex2 == -1) {
+        // we are updating an existing tl-controlled connection or index2 is not used
+        tlIndex2 = c.tlLinkIndex2;
+    }
 
     // register the connection with all definitions
     const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(tlID);
@@ -260,7 +265,7 @@ NIXMLTrafficLightsHandler::addTlConnection(const SUMOSAXAttributes& attrs) {
         for (it = programs.begin(); it != programs.end(); it++) {
             NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it->second);
             if (tlDef) {
-                tlDef->addConnection(from, c.toEdge, c.fromLane, c.toLane, tlIndex, false);
+                tlDef->addConnection(from, c.toEdge, c.fromLane, c.toLane, tlIndex, tlIndex2,  false);
             } else {
                 throw ProcessError("Corrupt traffic light definition '"
                                    + tlID + "' (program '" + it->first + "')");

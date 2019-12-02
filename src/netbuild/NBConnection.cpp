@@ -44,7 +44,8 @@ NBConnection::NBConnection(NBEdge* from, NBEdge* to) :
     myFrom(from), myTo(to),
     myFromID(from->getID()), myToID(to->getID()),
     myFromLane(-1), myToLane(-1),
-    myTlIndex(InvalidTlIndex) {
+    myTlIndex(InvalidTlIndex),
+    myTlIndex2(InvalidTlIndex) {
 }
 
 
@@ -53,15 +54,18 @@ NBConnection::NBConnection(const std::string& fromID, NBEdge* from,
     myFrom(from), myTo(to),
     myFromID(fromID), myToID(toID),
     myFromLane(-1), myToLane(-1),
-    myTlIndex(InvalidTlIndex) {
+    myTlIndex(InvalidTlIndex),
+    myTlIndex2(InvalidTlIndex) {
 }
 
 
 NBConnection::NBConnection(NBEdge* from, int fromLane,
-                           NBEdge* to, int toLane, int tlIndex) :
+                           NBEdge* to, int toLane, int tlIndex, int tlIndex2) :
     myFrom(from), myTo(to),
     myFromLane(fromLane), myToLane(toLane),
-    myTlIndex(tlIndex) {
+    myTlIndex(tlIndex),
+    myTlIndex2(tlIndex2)
+{
     /* @todo what should we assert here?
     assert(myFromLane<0||from->getNumLanes()>(int) myFromLane);
     assert(myToLane<0||to->getNumLanes()>(int) myToLane);
@@ -78,7 +82,8 @@ NBConnection::NBConnection(const NBConnection& c) :
     myFrom(c.myFrom), myTo(c.myTo),
     myFromID(c.myFromID), myToID(c.myToID),
     myFromLane(c.myFromLane), myToLane(c.myToLane),
-    myTlIndex(c.myTlIndex) {
+    myTlIndex(c.myTlIndex), 
+    myTlIndex2(c.myTlIndex2) {
 }
 
 
@@ -182,7 +187,8 @@ NBConnection::operator==(const NBConnection& c) const {
     return (myFrom    == c.myFrom     && myTo    == c.myTo &&
             myFromID  == c.myFromID   && myToID  == c.myToID &&
             myFromLane == c.myFromLane && myToLane == c.myToLane &&
-            myTlIndex == c.myTlIndex);
+            myTlIndex == c.myTlIndex &&
+            myTlIndex2 == c.myTlIndex2);
 }
 
 

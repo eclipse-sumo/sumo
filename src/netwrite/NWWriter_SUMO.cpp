@@ -711,6 +711,9 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         if (c.tlID != "") {
             into.writeAttr(SUMO_ATTR_TLID, c.tlID);
             into.writeAttr(SUMO_ATTR_TLLINKINDEX, c.tlLinkIndex);
+            if (c.tlLinkIndex2 >= 0) {
+                into.writeAttr(SUMO_ATTR_TLLINKINDEX2, c.tlLinkIndex2);
+            }
         }
         if (style == SUMONET) {
             // write the direction information
@@ -741,8 +744,14 @@ NWWriter_SUMO::writeInternalConnections(OutputDevice& into, const NBNode& n) {
             LinkDirection dir = n.getDirection(from, c.toEdge, lefthand);
             assert(c.toEdge != 0);
             if (c.haveVia) {
-                // internal split
-                writeInternalConnection(into, c.id, c.toEdge->getID(), c.internalLaneIndex, c.toLane, c.viaID + "_0", dir);
+                // internal split with optional signal
+                std::string tlID = "";
+                int linkIndex2 = NBConnection::InvalidTlIndex;
+                if (c.tlLinkIndex2 != NBConnection::InvalidTlIndex) {
+                    linkIndex2 = c.tlLinkIndex2;
+                    tlID = c.tlID;
+                }
+                writeInternalConnection(into, c.id, c.toEdge->getID(), c.internalLaneIndex, c.toLane, c.viaID + "_0", dir, tlID, linkIndex2);
                 writeInternalConnection(into, c.viaID, c.toEdge->getID(), 0, c.toLane, "", dir);
             } else {
                 // no internal split

@@ -1820,7 +1820,13 @@ GNEAttributeCarrier::fillNetElements() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_TLLINKINDEX,
                                            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUESTATIC,
-                                           "sets the distance to the connection at which all relevant foes are visible",
+                                           "sets index of this connection within the controlling trafficlight",
+                                           "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TLLINKINDEX2,
+                                           ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           "sets index for the internal junction of this connection within the controlling trafficlight",
                                            "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 

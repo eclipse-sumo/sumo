@@ -842,7 +842,7 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
                 }
                 NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
                 repl->addConnection(addedConnection.getFrom(), addedConnection.getTo(),
-                                    addedConnection.getFromLane(), addedConnection.getToLane(), addedConnection.getTLIndex());
+                                    addedConnection.getFromLane(), addedConnection.getToLane(), addedConnection.getTLIndex(), addedConnection.getTLIndex2());
                 replacementDef = repl;
             } else {
                 replacementDef = new NBOwnTLDef(newID, tlDef->getOffset(), tlDef->getType());

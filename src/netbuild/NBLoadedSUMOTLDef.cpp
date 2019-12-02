@@ -93,13 +93,17 @@ NBLoadedSUMOTLDef::myCompute(int brakingTimeSeconds) {
 
 
 void
-NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex, bool reconstruct) {
+NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex, int linkIndex2, bool reconstruct) {
     assert(myTLLogic->getNumLinks() > 0); // logic should be loaded by now
     if (linkIndex >= (int)myTLLogic->getNumLinks()) {
         throw ProcessError("Invalid linkIndex " + toString(linkIndex) + " for traffic light '" + getID() +
                            "' with " + toString(myTLLogic->getNumLinks()) + " links.");
     }
-    NBConnection conn(from, fromLane, to, toLane, linkIndex);
+    if (linkIndex2 >= (int)myTLLogic->getNumLinks()) {
+        throw ProcessError("Invalid linkIndex2 " + toString(linkIndex2) + " for traffic light '" + getID() +
+                           "' with " + toString(myTLLogic->getNumLinks()) + " links.");
+    }
+    NBConnection conn(from, fromLane, to, toLane, linkIndex, linkIndex2);
     // avoid duplicates
     auto newEnd = remove_if(myControlledLinks.begin(), myControlledLinks.end(), connection_equal(conn));
     // remove_if does not remove, only re-order

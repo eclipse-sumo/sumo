@@ -186,6 +186,9 @@ private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
+    /// @brief manage change of tlLinkindices
+    void changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndoList* undoList); 
+
     /// @brief Invalidated copy constructor.
     GNEConnection(const GNEConnection&) = delete;
 

@@ -106,7 +106,7 @@ public:
 
     /** @brief Adds a connection and immediately informs the edges
      */
-    void addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex, bool reconstruct = true);
+    void addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex, int linkIndex2, bool reconstruct = true);
 
 
     /** @brief removes the given connection from the traffic light
