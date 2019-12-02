@@ -562,6 +562,8 @@ protected:
         VISUM_SURFACEITEM,
         VISUM_FACEITEM,
         VISUM_EDGEID,
+        VISUM_ORIGIN,
+        VISUM_DESTINATION,
         VISUM_NO // must be the last one
     };
 

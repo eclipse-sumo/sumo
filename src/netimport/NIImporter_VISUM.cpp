@@ -74,6 +74,8 @@ StringBijection<NIImporter_VISUM::VISUM_KEY>::Entry NIImporter_VISUM::KEYS_DE[] 
     { "FLAECHENELEMENT",  VISUM_SURFACEITEM },
     { "TEILFLAECHENELEMENT",  VISUM_FACEITEM },
     { "KANTEID",  VISUM_EDGEID },
+    { "Q",  VISUM_ORIGIN },
+    { "Z",  VISUM_DESTINATION },
     { "NR", VISUM_NO } // must be the last one
 };
 
@@ -132,7 +134,6 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
 
     // set3
     addParser(KEYS.getString(VISUM_DISTRICT_CONNECTION), &NIImporter_VISUM::parse_Connectors);
-    //addParser("ANBINDUNG", &NIImporter_VISUM::parse_Connectors);
     // two types of "abbieger"
     addParser("ABBIEGEBEZIEHUNG", &NIImporter_VISUM::parse_Turns);
     addParser(KEYS.getString(VISUM_TURN), &NIImporter_VISUM::parse_Turns);
@@ -520,10 +521,10 @@ NIImporter_VISUM::parse_Connectors() {
     // get the information whether this is a sink or a source
     std::string dir = myLineParser.get(KEYS.getString(VISUM_DIRECTION));
     if (dir.length() == 0) {
-        dir = "QZ";
+        dir = KEYS.getString(VISUM_ORIGIN) + KEYS.getString(VISUM_DESTINATION);
     }
     // build the source when needed
-    if (dir.find('Q') != std::string::npos) {
+    if (dir.find(KEYS.getString(VISUM_ORIGIN)) != std::string::npos) {
         const EdgeVector& edges = dest->getOutgoingEdges();
         bool hasContinuation = false;
         for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
@@ -557,7 +558,7 @@ NIImporter_VISUM::parse_Connectors() {
         }
     }
     // build the sink when needed
-    if (dir.find('Z') != std::string::npos) {
+    if (dir.find(KEYS.getString(VISUM_DESTINATION)) != std::string::npos) {
         const EdgeVector& edges = dest->getIncomingEdges();
         bool hasPredeccessor = false;
         for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
