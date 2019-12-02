@@ -510,9 +510,13 @@ GNELane*
 GNEDemandElement::getLastAllowedVehicleLane() const {
     // first check if current demand element has edge parents
     if (getEdgeParents().size() > 0) {
-        // obtain Lane depending of attribute "arrivalLane"
-        if (myTagProperty.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
-            // obtain arrival lane
+        if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) ||
+            (myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) ||
+            (myTagProperty.getTag() == SUMO_TAG_RIDE_BUSSTOP)) {
+            // return busStop lane
+            return getAdditionalParents().front()->getLaneParents().front();
+        } else if (myTagProperty.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
+            // obtain Lane depending of attribute "arrivalLane"
             std::string arrivalLane = getAttribute(SUMO_ATTR_ARRIVALLANE);
             //  check depart lane
             if (arrivalLane == "current") {
