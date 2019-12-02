@@ -38,8 +38,8 @@ Debug: Setting new attribute endPos '10.00' into busStop 'busStop_gneE0_0_0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 3, AttributeCarriers: 3, NetElements: 2, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 3, AttributeCarriers: 3, NetElements: 2, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
-Debug: Setting new attribute startPos '19.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '29.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '18.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '28.00' into busStop 'busStop_gneE0_0_0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
@@ -58,8 +58,8 @@ Debug: Setting previous attribute endPos '50.00' into busStop 'busStop_gneE0_0_0
 Debug: Setting previous attribute startPos '40.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '29.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '19.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '28.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '18.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute endPos '10.00' into busStop 'busStop_gneE0_0_0'
@@ -115,8 +115,8 @@ Debug: Setting new attribute startPos '0.00' into busStop 'busStop_gneE0_0_0'
 Debug: Setting new attribute endPos '10.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '19.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '29.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '18.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '28.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute startPos '40.00' into busStop 'busStop_gneE0_0_0'

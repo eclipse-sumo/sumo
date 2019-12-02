@@ -31,18 +31,16 @@ Debug: Selected item 'flow' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopChargingStation' in TagSelector
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding stopChargingStation 'flowstopChargingStation0' in GNEChange_DemandElement
 Debug: ObjectsUnderCursor: GUIGlObjects: 3, AttributeCarriers: 3, NetElements: 1, Additionals: 1, DemandElements: 1, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Selected checkBox for attribute 'duration'
-Debug: Setting new attribute into stopChargingStation 'flowstopChargingStation0'
-Debug: Selected checkBox for attribute 'duration'
-Debug: Setting new attribute into stopChargingStation 'flowstopChargingStation0'
-Debug: Setting new attribute duration '60' into stopChargingStation 'flowstopChargingStation0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 3, AttributeCarriers: 3, NetElements: 1, Additionals: 1, DemandElements: 1, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Value 'dummyValue' for attribute duration of stopChargingStation isn't valid
 Debug: Setting new attribute duration '60' into stopChargingStation 'flowstopChargingStation0'
 Debug: Value '-5' for attribute duration of stopChargingStation isn't valid
 Debug: Setting new attribute duration '0' into stopChargingStation 'flowstopChargingStation0'
 Debug: Setting new attribute duration '3.5' into stopChargingStation 'flowstopChargingStation0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -55,19 +53,19 @@ Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute duration '60.00' into stopChargingStation 'flowstopChargingStation0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute duration '60.00' into stopChargingStation 'flowstopChargingStation0'
-Debug: Setting previous attribute into stopChargingStation 'flowstopChargingStation0'
+Debug: Removing stopChargingStation 'flowstopChargingStation0' in GNEChange_DemandElement
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute into stopChargingStation 'flowstopChargingStation0'
+Debug: Removing flow 'flow' in GNEChange_DemandElement
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into stopChargingStation 'flowstopChargingStation0'
+Debug: Adding flow 'flow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into stopChargingStation 'flowstopChargingStation0'
-Debug: Setting new attribute duration '60' into stopChargingStation 'flowstopChargingStation0'
+Debug: Adding stopChargingStation 'flowstopChargingStation0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute duration '60' into stopChargingStation 'flowstopChargingStation0'
@@ -78,6 +76,7 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute duration '3.5' into stopChargingStation 'flowstopChargingStation0'
 Debug: Additionals saved
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
