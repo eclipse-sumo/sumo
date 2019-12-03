@@ -440,24 +440,24 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
             deleteShape(i->getShapeChildren().front(), undoList);
         }
     }
-    // delete all additionals children of edge
-    while (edge->getAdditionalChildren().size() > 0) {
-        deleteAdditional(edge->getAdditionalChildren().front(), undoList);
-    }
-    // delete all additionals children of lane
-    for (auto i : edge->getLanes()) {
-        while (i->getAdditionalChildren().size() > 0) {
-            deleteAdditional(i->getAdditionalChildren().front(), undoList);
-        }
-    }
-    // delete all demand element children of edge
+    // delete all edge demand element children
     while (edge->getDemandElementChildren().size() > 0) {
         deleteDemandElement(edge->getDemandElementChildren().front(), undoList);
     }
-    // delete all demand element children of lane
+    // delete all demand element childrens of edge's lanes
     for (auto i : edge->getLanes()) {
         while (i->getDemandElementChildren().size() > 0) {
             deleteDemandElement(i->getDemandElementChildren().front(), undoList);
+        }
+    }
+    // delete all edge additional children
+    while (edge->getAdditionalChildren().size() > 0) {
+        deleteAdditional(edge->getAdditionalChildren().front(), undoList);
+    }
+    // delete all additional children of edge's lanes
+    for (auto i : edge->getLanes()) {
+        while (i->getAdditionalChildren().size() > 0) {
+            deleteAdditional(i->getAdditionalChildren().front(), undoList);
         }
     }
     // invalidate path element childrens
@@ -628,6 +628,10 @@ GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
 void
 GNENet::deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList) {
     undoList->p_begin("delete " + additional->getTagStr());
+    // first remove all demand element children of this additional calling this function recursively
+    while (additional->getDemandElementChildren().size() > 0) {
+        deleteDemandElement(additional->getDemandElementChildren().front(), undoList);
+    }
     // first remove all additional children of this additional calling this function recursively
     while (additional->getAdditionalChildren().size() > 0) {
         deleteAdditional(additional->getAdditionalChildren().front(), undoList);
@@ -649,8 +653,19 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
         while (demandElement->getDemandElementChildren().size() > 0) {
             deleteDemandElement(demandElement->getDemandElementChildren().front(), undoList);
         }
-        // remove demandElement
-        undoList->add(new GNEChange_DemandElement(demandElement, false), true);
+        // we need an special case for person
+        if (demandElement->getTagProperty().isPersonPlan() && (demandElement->getDemandElementParents().front()->getDemandElementChildren().size() == 1)) {
+            // obtain person
+            GNEDemandElement *person = demandElement->getDemandElementParents().front();
+            // remove demandElement
+            undoList->add(new GNEChange_DemandElement(demandElement, false), true);
+            // und now remove person
+            undoList->add(new GNEChange_DemandElement(person, false), true);
+        } else {
+            // remove demandElement
+            undoList->add(new GNEChange_DemandElement(demandElement, false), true);
+
+        }
         undoList->p_end();
     }
 }
