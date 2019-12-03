@@ -576,7 +576,7 @@ MSLane::insertVehicle(MSVehicle& veh) {
                 pos = veh.getNextStop().getEndPos(veh);
                 break;
             }
-            /// fall through
+            FALLTHROUGH;
         case DEPART_POS_BASE:
         case DEPART_POS_DEFAULT:
         default:
