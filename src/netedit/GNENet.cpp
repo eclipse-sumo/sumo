@@ -313,8 +313,10 @@ GNENet::getVisualisationSpeedUp() const {
 GNEJunction*
 GNENet::createJunction(const Position& pos, GNEUndoList* undoList) {
     std::string id = myJunctionIDSupplier.getNext();
+    // create new NBNode
     NBNode* nbn = new NBNode(id, pos);
-    GNEJunction* junction = new GNEJunction(*nbn, this);
+    // create GNEJunciton
+    GNEJunction* junction = new GNEJunction(this, nbn);
     undoList->add(new GNEChange_Junction(junction, true), true);
     assert(myAttributeCarriers.junctions[id]);
     return junction;
@@ -2838,7 +2840,7 @@ GNENet::initJunctionsAndEdges() {
     NBNodeCont& nodeContainer = myNetBuilder->getNodeCont();
     for (auto name_it : nodeContainer.getAllNames()) {
         NBNode* nbn = nodeContainer.retrieve(name_it);
-        registerJunction(new GNEJunction(*nbn, this, true));
+        registerJunction(new GNEJunction(this, nbn, true));
     }
 
     // init edges

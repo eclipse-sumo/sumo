@@ -59,9 +59,10 @@ const double GNEJunction::BUBBLE_RADIUS(4);
 // method definitions
 // ===========================================================================
 
-GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
-    GNENetElement(net, nbn.getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION),
+GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
+    GNENetElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION),
     myNBNode(nbn),
+    myMaxSize(1),
     myAmCreateEdgeSource(false),
     myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
     myAmResponsible(false),
@@ -72,19 +73,19 @@ GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
 
 GNEJunction::~GNEJunction() {
     // delete all GNECrossing
-    for (auto it : myGNECrossings) {
-        it->decRef();
-        if (it->unreferenced()) {
+    for (const auto &crossing : myGNECrossings) {
+        crossing->decRef();
+        if (crossing->unreferenced()) {
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + it->getTagStr() + " '" + it->getID() + "' in GNEJunction destructor");
-            delete it;
+            WRITE_DEBUG("Deleting unreferenced " + crossing->getTagStr() + " '" + crossing->getID() + "' in GNEJunction destructor");
+            delete crossing;
         }
     }
 
     if (myAmResponsible) {
         // show extra information for tests
         WRITE_DEBUG("Deleting NBNode of '" + getID() + "' in GNEJunction destructor");
-        delete &myNBNode;
+        delete myNBNode;
     }
 }
 
@@ -101,7 +102,7 @@ GNEJunction::generateChildID(SumoXMLTag childTag) {
 
 const PositionVector&
 GNEJunction::getJunctionShape() const {
-    return myNBNode.getShape();
+    return myNBNode->getShape();
 }
 
 
@@ -120,7 +121,7 @@ GNEJunction::updateGeometryAfterNetbuild(bool rebuildNBNodeCrossings) {
 
 Position
 GNEJunction::getPositionInView() const {
-    return myNBNode.getPosition();
+    return myNBNode->getPosition();
 }
 
 
@@ -131,15 +132,15 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
         if (rebuildNBNodeCrossings) {
             // build new NBNode::Crossings and walking areas
             mirrorXLeftHand();
-            myNBNode.buildCrossingsAndWalkingAreas();
+            myNBNode->buildCrossingsAndWalkingAreas();
             mirrorXLeftHand();
         }
         // create a vector to keep retrieved and created crossings
         std::vector<GNECrossing*> retrievedCrossings;
         // iterate over NBNode::Crossings of GNEJunction
-        for (auto NBc : myNBNode.getCrossingsIncludingInvalid()) {
+        for (const auto &NBNodeConnection : myNBNode->getCrossingsIncludingInvalid()) {
             // retrieve existent GNECrossing, or create it
-            GNECrossing* retrievedGNECrossing = retrieveGNECrossing(NBc);
+            GNECrossing* retrievedGNECrossing = retrieveGNECrossing(NBNodeConnection);
             retrievedCrossings.push_back(retrievedGNECrossing);
             // check if previously this GNECrossings exists, and if true, remove it from myGNECrossings and insert in tree again
             std::vector<GNECrossing*>::iterator retrievedExists = std::find(myGNECrossings.begin(), myGNECrossings.end(), retrievedGNECrossing);
@@ -153,16 +154,16 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
             }
         }
         // delete non retrieved GNECrossings (we don't need to extract if from Tree two times)
-        for (auto it : myGNECrossings) {
-            it->decRef();
+        for (const auto &crossing : myGNECrossings) {
+            crossing->decRef();
             // check if crossing is selected
-            if (it->isAttributeCarrierSelected()) {
-                it->unselectAttributeCarrier();
+            if (crossing->isAttributeCarrierSelected()) {
+                crossing->unselectAttributeCarrier();
             }
-            if (it->unreferenced()) {
+            if (crossing->unreferenced()) {
                 // show extra information for tests
-                WRITE_DEBUG("Deleting unreferenced " + it->getTagStr() + " in rebuildGNECrossings()");
-                delete it;
+                WRITE_DEBUG("Deleting unreferenced " + crossing->getTagStr() + " in rebuildGNECrossings()");
+                delete crossing;
             }
         }
         // copy retrieved (existent and created) GNECrossigns to myGNECrossings
@@ -173,8 +174,8 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
 void
 GNEJunction::mirrorXLeftHand() {
     if (OptionsCont::getOptions().getBool("lefthand")) {
-        myNBNode.mirrorX();
-        for (NBEdge* e : myNBNode.getEdges()) {
+        myNBNode->mirrorX();
+        for (NBEdge* e : myNBNode->getEdges()) {
             e->mirrorX();
 
         }
@@ -198,7 +199,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         //    // XXX if joinable
         //    new FXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
         //}
-        const int numEndpoints = (int)myNBNode.getEndPoints().size();
+        const int numEndpoints = (int)myNBNode->getEndPoints().size();
         // check if we're handling a selection
         bool handlingSelection = isAttributeCarrierSelected() && (myNet->retrieveJunctions(true).size() > 1);
         // check if menu commands has to be disabled
@@ -228,15 +229,15 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             mcClearConnections->disable();
         }
         // disable mcResetCustomShape if junction doesn't have a custom shape
-        if (myNBNode.getShape().size() == 0) {
+        if (myNBNode->getShape().size() == 0) {
             mcResetCustomShape->disable();
         }
         // checkIsRemovable requiers turnarounds to be computed. This is ugly
-        if ((myNBNode.getIncomingEdges().size() == 2) && (myNBNode.getOutgoingEdges().size() == 2)) {
-            NBTurningDirectionsComputer::computeTurnDirectionsForNode(&myNBNode, false);
+        if ((myNBNode->getIncomingEdges().size() == 2) && (myNBNode->getOutgoingEdges().size() == 2)) {
+            NBTurningDirectionsComputer::computeTurnDirectionsForNode(myNBNode, false);
         }
         std::string reason = "wrong edit mode";
-        if (wrongMode || !myNBNode.checkIsRemovableReporting(reason)) {
+        if (wrongMode || !myNBNode->checkIsRemovableReporting(reason)) {
             mcReplace->setText(mcReplace->getText() + " (" + reason.c_str() + ")");
             mcReplace->disable();
         }
@@ -254,15 +255,15 @@ GNEJunction::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
     if (myMovingGeometryBoundary.isInitialised()) {
         return myMovingGeometryBoundary;
-    } else if (myNBNode.getShape().size() > 0) {
-        Boundary b = myNBNode.getShape().getBoxBoundary();
+    } else if (myNBNode->getShape().size() > 0) {
+        Boundary b = myNBNode->getShape().getBoxBoundary();
         b.grow(10);
         return b;
     } else {
         // calculate boundary using EXTENT as size
         const double EXTENT = 2;
-        Boundary b(myNBNode.getPosition().x() - EXTENT, myNBNode.getPosition().y() - EXTENT,
-                   myNBNode.getPosition().x() + EXTENT, myNBNode.getPosition().y() + EXTENT);
+        Boundary b(myNBNode->getPosition().x() - EXTENT, myNBNode->getPosition().y() - EXTENT,
+                   myNBNode->getPosition().x() + EXTENT, myNBNode->getPosition().y() + EXTENT);
         b.grow(10);
         return b;
     }
@@ -289,15 +290,15 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         if (s.scale * junctionExaggeration * myMaxSize < 1.) {
             // draw something simple so that selection still works
             glPushName(getGlID());
-            GLHelper::drawBoxLine(myNBNode.getPosition(), 0, 1, 1);
+            GLHelper::drawBoxLine(myNBNode->getPosition(), 0, 1, 1);
             glPopName();
         } else {
             // node shape has been computed and is valid for drawing
             glPushName(getGlID());
             // declare flag for drawing junction shape
-            const bool drawShape = (myNBNode.getShape().size() > 0) && s.drawJunctionShape;
+            const bool drawShape = (myNBNode->getShape().size() > 0) && s.drawJunctionShape;
             // declare flag for drawing junction as bubbles
-            bool drawBubble = (!drawShape || (myNBNode.getShape().area() < 4)) && s.drawJunctionShape;
+            bool drawBubble = (!drawShape || (myNBNode->getShape().area() < 4)) && s.drawJunctionShape;
             // check if show junctions as bubbles checkbox is enabled
             if (myNet->getViewNet()->showJunctionAsBubbles()) {
                 drawBubble = true;
@@ -315,7 +316,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     glPushMatrix();
                     glTranslated(0, 0, getType());
                     // obtain junction Shape
-                    PositionVector junctionShape = myNBNode.getShape();
+                    PositionVector junctionShape = myNBNode->getShape();
                     // close junction shape
                     junctionShape.closePolygon();
                     // adjust shape to exaggeration
@@ -352,9 +353,9 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 if (bubbleColor.alpha() != 0) {
                     glPushMatrix();
                     // move matrix to 
-                    glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
+                    glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), getType() + 0.05);
                     // only draw filled circle if we aren't in draw for selecting mode, or if distance to center is enough)
-                    if (!s.drawForPositionSelection || (mousePosition.distanceSquaredTo2D(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
+                    if (!s.drawForPositionSelection || (mousePosition.distanceSquaredTo2D(myNBNode->getPosition()) <= (circleWidthSquared + 2))) {
                         std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, s.getCircleResolution());
                         // check if dotted contour has to be drawn
                         if (myNet->getViewNet()->getDottedAC() == this) {
@@ -368,15 +369,15 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             drawTLSIcon(s);
             // (optional) draw name @todo expose this setting if isn't drawed if isn't being drawn for selecting
             if (!s.drawForRectangleSelection) {
-                drawName(myNBNode.getPosition(), s.scale, s.junctionName);
+                drawName(myNBNode->getPosition(), s.scale, s.junctionName);
             }
             // draw elevation
             if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
                 glPushMatrix();
                 // Translate to center of junction
-                glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 1);
+                glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), getType() + 1);
                 // draw Z value
-                GLHelper::drawText(toString(myNBNode.getPosition().z()), Position(), GLO_MAX - 5, s.junctionName.scaledSize(s.scale), s.junctionName.color);
+                GLHelper::drawText(toString(myNBNode->getPosition().z()), Position(), GLO_MAX - 5, s.junctionName.scaledSize(s.scale), s.junctionName.color);
                 glPopMatrix();
             }
             // name must be removed from selection stack before drawing crossings
@@ -396,7 +397,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
 
 NBNode*
 GNEJunction::getNBNode() const {
-    return &myNBNode;
+    return myNBNode;
 }
 
 
@@ -533,33 +534,33 @@ GNEJunction::startGeometryMoving(bool extendToNeighbors) {
     std::set<GNEJunction*> affectedJunctions;
     std::set<GNEEdge*> affectedEdges;
     // Iterate over GNEEdges
-    for (auto i : myGNEEdges) {
+    for (const auto &edge : myGNEEdges) {
         // Add source and destiny junctions
-        affectedJunctions.insert(i->getGNEJunctionSource());
-        affectedJunctions.insert(i->getGNEJunctionDestiny());
+        affectedJunctions.insert(edge->getGNEJunctionSource());
+        affectedJunctions.insert(edge->getGNEJunctionDestiny());
         // Obtain neighbors of Junction source
-        for (auto j : i->getGNEJunctionSource()->getGNEEdges()) {
-            affectedEdges.insert(j);
+        for (const auto &junctionSourceEdge : edge->getGNEJunctionSource()->getGNEEdges()) {
+            affectedEdges.insert(junctionSourceEdge);
         }
         // Obtain neighbors of Junction destiny
-        for (auto j : i->getGNEJunctionDestiny()->getGNEEdges()) {
-            affectedEdges.insert(j);
+        for (const auto &junctionDestinyEdge : edge->getGNEJunctionDestiny()->getGNEEdges()) {
+            affectedEdges.insert(junctionDestinyEdge);
         }
     }
     // Iterate over affected Junctions only if extendToNeighbors is enabled
     if (extendToNeighbors) {
-        for (auto i : affectedJunctions) {
+        for (const auto &affectedJunction : affectedJunctions) {
             // don't include this junction (to avoid start more than one times)
-            if (i != this) {
+            if (affectedJunction != this) {
                 // start geometry moving in edges
-                i->startGeometryMoving(false);
+                affectedJunction->startGeometryMoving(false);
             }
         }
     }
     // Iterate over affected Edges
-    for (auto i : affectedEdges) {
+    for (const auto &edge : affectedEdges) {
         // start geometry moving in edges
-        i->startGeometryMoving();
+        edge->startGeometryMoving();
     }
 }
 
@@ -576,33 +577,33 @@ GNEJunction::endGeometryMoving(bool extendToNeighbors) {
         std::set<GNEJunction*> affectedJunctions;
         std::set<GNEEdge*> affectedEdges;
         // Iterate over GNEEdges
-        for (auto i : myGNEEdges) {
+        for (const auto &edge : myGNEEdges) {
             // Add source and destiny junctions
-            affectedJunctions.insert(i->getGNEJunctionSource());
-            affectedJunctions.insert(i->getGNEJunctionDestiny());
+            affectedJunctions.insert(edge->getGNEJunctionSource());
+            affectedJunctions.insert(edge->getGNEJunctionDestiny());
             // Obtain neighbors of Junction source
-            for (auto j : i->getGNEJunctionSource()->getGNEEdges()) {
-                affectedEdges.insert(j);
+            for (const auto &junctionSourceEdge : edge->getGNEJunctionSource()->getGNEEdges()) {
+                affectedEdges.insert(junctionSourceEdge);
             }
             // Obtain neighbors of Junction destiny
-            for (auto j : i->getGNEJunctionDestiny()->getGNEEdges()) {
-                affectedEdges.insert(j);
+            for (const auto &junctionDestinyEdge : edge->getGNEJunctionDestiny()->getGNEEdges()) {
+                affectedEdges.insert(junctionDestinyEdge);
             }
         }
         // Iterate over affected Junctions
         if (extendToNeighbors) {
-            for (auto i : affectedJunctions) {
+            for (const auto &affectedJunction : affectedJunctions) {
                 // don't include this junction (to avoid end it more than one times)
-                if (i != this) {
+                if (affectedJunction != this) {
                     // end geometry moving in edges
-                    i->endGeometryMoving(false);
+                    affectedJunction->endGeometryMoving(false);
                 }
             }
         }
         // Iterate over affected Edges
-        for (auto i : affectedEdges) {
+        for (const auto &affectedEdge : affectedEdges) {
             // end geometry moving in edges
-            i->endGeometryMoving();
+            affectedEdge->endGeometryMoving();
         }
         // add object into grid again (using the new centering boundary)
         myNet->addGLObjectIntoGrid(this);
@@ -626,9 +627,9 @@ void
 GNEJunction::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     // first end geometry point
     endGeometryMoving();
-    if (isValid(SUMO_ATTR_POSITION, toString(myNBNode.getPosition()))) {
+    if (isValid(SUMO_ATTR_POSITION, toString(myNBNode->getPosition()))) {
         undoList->p_begin("position of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myNBNode.getPosition()), true, toString(oldPos)));
+        undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myNBNode->getPosition()), true, toString(oldPos)));
         undoList->p_end();
     } else {
         // tried to set an invalid position, revert back to the previous one
@@ -639,14 +640,14 @@ GNEJunction::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList)
 
 void
 GNEJunction::invalidateShape() {
-    if (!myNBNode.hasCustomShape()) {
-        if (myNBNode.myPoly.size() > 0) {
+    if (!myNBNode->hasCustomShape()) {
+        if (myNBNode->myPoly.size() > 0) {
             // write GL Debug
             WRITE_GLDEBUG("<-- Invalidating shape of junction '" + getID() + "' -->");
             // remove Juntion from grid
             myNet->removeGLObjectFromGrid(this);
             // clear poly
-            myNBNode.myPoly.clear();
+            myNBNode->myPoly.clear();
             // add Juntion into grid
             myNet->addGLObjectIntoGrid(this);
         }
@@ -661,8 +662,8 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
     if (!valid) {
         assert(undoList != 0);
         assert(undoList->hasCommandGroup());
-        NBTurningDirectionsComputer::computeTurnDirectionsForNode(&myNBNode, false);
-        EdgeVector incoming = myNBNode.getIncomingEdges();
+        NBTurningDirectionsComputer::computeTurnDirectionsForNode(myNBNode, false);
+        EdgeVector incoming = myNBNode->getIncomingEdges();
         for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
             GNEEdge* srcEdge = myNet->retrieveEdge((*it)->getID());
             removeConnectionsFrom(srcEdge, undoList, false); // false, because the whole tls will be invalidated at the end
@@ -711,7 +712,7 @@ void
 GNEJunction::removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS, int lane) {
     NBEdge* destNBE = edge->getNBEdge();
     std::vector<NBConnection> removeConnections;
-    for (NBEdge* srcNBE : myNBNode.getIncomingEdges()) {
+    for (NBEdge* srcNBE : myNBNode->getIncomingEdges()) {
         GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
         std::vector<NBEdge::Connection> connections = srcNBE->getConnections();
         for (std::vector<NBEdge::Connection>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
@@ -738,28 +739,27 @@ GNEJunction::removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool upda
 
 void
 GNEJunction::removeTLSConnections(std::vector<NBConnection>& connections, GNEUndoList* undoList) {
-    if (connections.size() == 0) {
-        return;
-    }
-    const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode.getControllingTLS(); // make a copy!
-    for (auto it : coypOfTls) {
-        NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it);
-        // guessed TLS (NBOwnTLDef) do not need to be updated
-        if (tlDef != nullptr) {
-            std::string newID = tlDef->getID();
-            // create replacement before deleting the original because deletion will mess up saving original nodes
-            NBLoadedSUMOTLDef* replacementDef = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
-            for (NBConnection& con : connections) {
-                replacementDef->removeConnection(con);
-            }
-            undoList->add(new GNEChange_TLS(this, tlDef, false), true);
-            undoList->add(new GNEChange_TLS(this, replacementDef, true, false, newID), true);
-            // the removed traffic light may have controlled more than one junction. These too have become invalid now
-            const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
-            for (auto it_node : copyOfNodes) {
-                GNEJunction* sharing = myNet->retrieveJunction(it_node->getID());
-                undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
-                undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
+    if (connections.size() > 0) {
+        const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode->getControllingTLS(); // make a copy!
+        for (const auto &TLS : coypOfTls) {
+            NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(TLS);
+            // guessed TLS (NBOwnTLDef) do not need to be updated
+            if (tlDef != nullptr) {
+                std::string newID = tlDef->getID();
+                // create replacement before deleting the original because deletion will mess up saving original nodes
+                NBLoadedSUMOTLDef* replacementDef = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
+                for (NBConnection& con : connections) {
+                    replacementDef->removeConnection(con);
+                }
+                undoList->add(new GNEChange_TLS(this, tlDef, false), true);
+                undoList->add(new GNEChange_TLS(this, replacementDef, true, false, newID), true);
+                // the removed traffic light may have controlled more than one junction. These too have become invalid now
+                const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
+                for (const auto &node : copyOfNodes) {
+                    GNEJunction* sharing = myNet->retrieveJunction(node->getID());
+                    undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
+                    undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
+                }
             }
         }
     }
@@ -776,9 +776,9 @@ GNEJunction::replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList
         undoList->add(new GNEChange_Connection(by, c, false, true), true);
     }
     // also remap tls connections
-    const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode.getControllingTLS(); // make a copy!
-    for (auto it : coypOfTls) {
-        NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it);
+    const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode->getControllingTLS(); // make a copy!
+    for (const auto &TLS : coypOfTls) {
+        NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(TLS);
         // guessed TLS (NBOwnTLDef) do not need to be updated
         if (tlDef != nullptr) {
             std::string newID = tlDef->getID();
@@ -791,8 +791,8 @@ GNEJunction::replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList
             undoList->add(new GNEChange_TLS(this, replacementDef, true, false, newID), true);
             // the removed traffic light may have controlled more than one junction. These too have become invalid now
             const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
-            for (auto it_node : copyOfNodes) {
-                GNEJunction* sharing = myNet->retrieveJunction(it_node->getID());
+            for (const auto &node : copyOfNodes) {
+                GNEJunction* sharing = myNet->retrieveJunction(node->getID());
                 undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
                 undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
             }
@@ -803,7 +803,7 @@ GNEJunction::replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList
 
 void
 GNEJunction::markAsModified(GNEUndoList* undoList) {
-    EdgeVector incoming = myNBNode.getIncomingEdges();
+    EdgeVector incoming = myNBNode->getIncomingEdges();
     for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
         NBEdge* srcNBE = *it;
         GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
@@ -816,9 +816,9 @@ void
 GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedConnection, const NBConnection& addedConnection) {
     assert(undoList->hasCommandGroup());
     // NBLoadedSUMOTLDef becomes invalid, replace with NBOwnTLDef which will be dynamically recomputed
-    const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode.getControllingTLS(); // make a copy!
-    for (auto it : coypOfTls) {
-        NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it);
+    const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode->getControllingTLS(); // make a copy!
+    for (const auto &TLS : coypOfTls) {
+        NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(TLS);
         if (tlDef != nullptr) {
             NBTrafficLightDefinition* replacementDef = nullptr;
             std::string newID = tlDef->getID(); // + "_reguessed"; // changes due to reguessing will be visible in diff
@@ -852,8 +852,8 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
             undoList->add(new GNEChange_TLS(this, replacementDef, true, false, newID), true);
             // the removed traffic light may have controlled more than one junction. These too have become invalid now
             const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
-            for (auto it_node : copyOfNodes) {
-                GNEJunction* sharing = myNet->retrieveJunction(it_node->getID());
+            for (const auto &node : copyOfNodes) {
+                GNEJunction* sharing = myNet->retrieveJunction(node->getID());
                 undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
                 undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
             }
@@ -894,17 +894,17 @@ GNEJunction::isLogicValid() {
 
 
 GNECrossing*
-GNEJunction::retrieveGNECrossing(NBNode::Crossing* crossing, bool createIfNoExist) {
+GNEJunction::retrieveGNECrossing(NBNode::Crossing* NBNodeCrossing, bool createIfNoExist) {
     // iterate over all crossing
-    for (auto i : myGNECrossings) {
+    for (const auto &crossing : myGNECrossings) {
         // if found, return it
-        if (i->getCrossingEdges() == crossing->edges) {
-            return i;
+        if (crossing->getCrossingEdges() == NBNodeCrossing->edges) {
+            return crossing;
         }
     }
     if (createIfNoExist) {
         // create new GNECrossing
-        GNECrossing* createdGNECrossing = new GNECrossing(this, crossing->edges);
+        GNECrossing* createdGNECrossing = new GNECrossing(this, NBNodeCrossing->edges);
         // show extra information for tests
         WRITE_DEBUG("Created " + createdGNECrossing->getTagStr() + " '" + createdGNECrossing->getID() + "' in retrieveGNECrossing()");
         // update geometry after creating
@@ -936,25 +936,25 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_POSITION:
-            return toString(myNBNode.getPosition());
+            return toString(myNBNode->getPosition());
         case SUMO_ATTR_TYPE:
-            return toString(myNBNode.getType());
+            return toString(myNBNode->getType());
         case GNE_ATTR_MODIFICATION_STATUS:
             return myLogicStatus;
         case SUMO_ATTR_SHAPE:
-            return toString(myNBNode.getShape());
+            return toString(myNBNode->getShape());
         case SUMO_ATTR_RADIUS:
-            return toString(myNBNode.getRadius());
+            return toString(myNBNode->getRadius());
         case SUMO_ATTR_TLTYPE:
             if (isAttributeEnabled(SUMO_ATTR_TLTYPE)) {
                 // @todo this causes problems if the node were to have multiple programs of different type (plausible)
-                return toString((*myNBNode.getControllingTLS().begin())->getType());
+                return toString((*myNBNode->getControllingTLS().begin())->getType());
             } else {
                 return "No TLS";
             }
         case SUMO_ATTR_TLID:
             if (isAttributeEnabled(SUMO_ATTR_TLID)) {
-                return toString((*myNBNode.getControllingTLS().begin())->getID());
+                return toString((*myNBNode->getControllingTLS().begin())->getID());
             } else {
                 return "No TLS";
             }
@@ -971,13 +971,13 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
             }
             return toString(false);
         case SUMO_ATTR_RIGHT_OF_WAY:
-            return SUMOXMLDefinitions::RightOfWayValues.getString(myNBNode.getRightOfWay());
+            return SUMOXMLDefinitions::RightOfWayValues.getString(myNBNode->getRightOfWay());
         case SUMO_ATTR_FRINGE:
-            return SUMOXMLDefinitions::FringeTypeValues.getString(myNBNode.getFringeType());
+            return SUMOXMLDefinitions::FringeTypeValues.getString(myNBNode->getFringeType());
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
-            return myNBNode.getParametersStr();
+            return myNBNode->getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1020,9 +1020,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                          || SUMOXMLDefinitions::NodeTypes.get(value) == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED)
                    ) {
                     // make a copy because we will modify the original
-                    const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
-                    for (auto it : copyOfTls) {
-                        undoList->add(new GNEChange_TLS(this, it, false), true);
+                    const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
+                    for (const auto &TLS : copyOfTls) {
+                        undoList->add(new GNEChange_TLS(this, TLS, false), true);
                     }
                 }
                 if (!getNBNode()->isTLControlled()) {
@@ -1032,16 +1032,16 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             } else if (getNBNode()->isTLControlled()) {
                 // delete old traffic light
                 // make a copy because we will modify the original
-                const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
-                for (auto it : copyOfTls) {
-                    undoList->add(new GNEChange_TLS(this, it, false, false), true);
+                const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
+                for (const auto &TLS : copyOfTls) {
+                    undoList->add(new GNEChange_TLS(this, TLS, false, false), true);
                 }
             }
             // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS
             undoList->add(new GNEChange_Attribute(this, myNet, key, value), true);
-            for (auto it : myGNECrossings) {
-                undoList->add(new GNEChange_Attribute(it, myNet, SUMO_ATTR_TLLINKINDEX, "-1"), true);
-                undoList->add(new GNEChange_Attribute(it, myNet, SUMO_ATTR_TLLINKINDEX2, "-1"), true);
+            for (const auto &crossing : myGNECrossings) {
+                undoList->add(new GNEChange_Attribute(crossing, myNet, SUMO_ATTR_TLLINKINDEX, "-1"), true);
+                undoList->add(new GNEChange_Attribute(crossing, myNet, SUMO_ATTR_TLLINKINDEX2, "-1"), true);
             }
             undoList->p_end();
             break;
@@ -1049,17 +1049,17 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_TLTYPE: {
             undoList->p_begin("change " + getTagStr() + " tl-type");
             // make a copy because we will modify the original
-            const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
-            for (auto oldDef : copyOfTls) {
-                NBLoadedSUMOTLDef* oldLoaded = dynamic_cast<NBLoadedSUMOTLDef*>(oldDef);
+            const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
+            for (const auto &TLS : copyOfTls) {
+                NBLoadedSUMOTLDef* oldLoaded = dynamic_cast<NBLoadedSUMOTLDef*>(TLS);
                 if (oldLoaded != nullptr) {
                     NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(oldLoaded, oldLoaded->getLogic());
                     newDef->guessMinMaxDuration();
-                    std::vector<NBNode*> nodes = oldDef->getNodes();
-                    for (auto it : nodes) {
-                        GNEJunction* junction = myNet->retrieveJunction(it->getID());
-                        undoList->add(new GNEChange_TLS(junction, oldDef, false), true);
-                        undoList->add(new GNEChange_TLS(junction, newDef, true), true);
+                    std::vector<NBNode*> nodes = TLS->getNodes();
+                    for (const auto &node : nodes) {
+                        GNEJunction* junction = myNet->retrieveJunction(node->getID());
+                        undoList->add(new GNEChange_TLS(junction, TLS, false), true);
+                        undoList->add(new GNEChange_TLS(junction, TLS, true), true);
                     }
                 }
             }
@@ -1069,7 +1069,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         }
         case SUMO_ATTR_TLID: {
             undoList->p_begin("change " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " id");
-            const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
+            const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
             assert(copyOfTls.size() > 0);
             NBTrafficLightDefinition* currentTLS = *copyOfTls.begin();
             NBTrafficLightDefinition* currentTLSCopy = nullptr;
@@ -1080,15 +1080,15 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                                                        dynamic_cast<NBLoadedSUMOTLDef*>(currentTLS)->getLogic());
             }
             // remove from previous tls
-            for (auto it : copyOfTls) {
-                undoList->add(new GNEChange_TLS(this, it, false), true);
+            for (const auto &TLS : copyOfTls) {
+                undoList->add(new GNEChange_TLS(this, TLS, false), true);
             }
             NBTrafficLightLogicCont& tlCont = myNet->getTLLogicCont();
             // programs to which the current node shall be added
             const std::map<std::string, NBTrafficLightDefinition*> programs = tlCont.getPrograms(value);
             if (programs.size() > 0) {
-                for (auto it : programs) {
-                    NBTrafficLightDefinition* oldTLS = it.second;
+                for (const auto &TLSProgram : programs) {
+                    NBTrafficLightDefinition* oldTLS = TLSProgram.second;
                     if (dynamic_cast<NBOwnTLDef*>(oldTLS) != nullptr) {
                         undoList->add(new GNEChange_TLS(this, oldTLS, true), true);
                     } else {
@@ -1102,11 +1102,11 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                         } else {
                             undoList->add(new GNEChange_TLS(this, nullptr, true, false, value), true);
                         }
-                        NBTrafficLightDefinition* newTLS = *myNBNode.getControllingTLS().begin();
+                        NBTrafficLightDefinition* newTLS = *myNBNode->getControllingTLS().begin();
                         // switch from old to new definition
-                        const std::vector<NBNode*> copyOfNodes = oldTLS->getNodes();
-                        for (auto it_node : copyOfNodes) {
-                            GNEJunction* oldJunction = myNet->retrieveJunction(it_node->getID());
+                        std::vector<NBNode*> copyOfNodes = oldTLS->getNodes();
+                        for (const auto &node : copyOfNodes) {
+                            GNEJunction* oldJunction = myNet->retrieveJunction(node->getID());
                             undoList->add(new GNEChange_TLS(oldJunction, oldTLS, false), true);
                             undoList->add(new GNEChange_TLS(oldJunction, newTLS, true), true);
                         }
@@ -1150,9 +1150,9 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_RADIUS:
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_TLTYPE:
-            return myNBNode.isTLControlled() && SUMOXMLDefinitions::TrafficLightTypes.hasString(value);
+            return myNBNode->isTLControlled() && SUMOXMLDefinitions::TrafficLightTypes.hasString(value);
         case SUMO_ATTR_TLID:
-            return myNBNode.isTLControlled() && (value != "");
+            return myNBNode->isTLControlled() && (value != "");
         case SUMO_ATTR_KEEP_CLEAR:
             return canParse<bool>(value);
         case SUMO_ATTR_RIGHT_OF_WAY:
@@ -1174,7 +1174,7 @@ GNEJunction::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_TLTYPE:
         case SUMO_ATTR_TLID:
-            return myNBNode.isTLControlled();
+            return myNBNode->isTLControlled();
         case SUMO_ATTR_KEEP_CLEAR: {
             // check if at least there is an incoming connection
             for (const auto &i : myGNEIncomingEdges) {
@@ -1203,9 +1203,9 @@ void
 GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s) const {
     // draw TLS icon if isn't being drawn for selecting
     if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) &&
-        (myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForRectangleSelection) {
+        (myNBNode->isTLControlled()) && !myAmTLSSelected && !s.drawForRectangleSelection) {
         glPushMatrix();
-        Position pos = myNBNode.getPosition();
+        Position pos = myNBNode->getPosition();
         glTranslated(pos.x(), pos.y(), getType() + 0.1);
         glColor3d(1, 1, 1);
         const double halfWidth = 32 / s.scale;
@@ -1319,10 +1319,10 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_TYPE: {
             SumoXMLNodeType type = SUMOXMLDefinitions::NodeTypes.get(value);
-            if (myNBNode.getType() == NODETYPE_PRIORITY && type == NODETYPE_RIGHT_BEFORE_LEFT) {
-                myNet->getNetBuilder()->getEdgeCont().removeRoundabout(&myNBNode);
+            if (myNBNode->getType() == NODETYPE_PRIORITY && type == NODETYPE_RIGHT_BEFORE_LEFT) {
+                myNet->getNetBuilder()->getEdgeCont().removeRoundabout(myNBNode);
             }
-            myNBNode.reinit(myNBNode.getPosition(), type);
+            myNBNode->reinit(myNBNode->getPosition(), type);
             break;
         }
         case SUMO_ATTR_POSITION: {
@@ -1339,7 +1339,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_MODIFICATION_STATUS:
             if (myLogicStatus == FEATURE_GUESSED && value != FEATURE_GUESSED) {
                 // clear guessed connections. previous connections will be restored
-                myNBNode.invalidateIncomingConnections();
+                myNBNode->invalidateIncomingConnections();
                 // Clear GNEConnections of incoming edges
                 for (const auto &i : myGNEIncomingEdges) {
                     i->clearGNEConnections();
@@ -1352,7 +1352,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             startGeometryMoving();
             // set new shape (without updating grid)
             const PositionVector shape = parse<PositionVector>(value);
-            myNBNode.setCustomShape(shape);
+            myNBNode->setCustomShape(shape);
             // end geometry moving
             endGeometryMoving();
             // mark this connections and all of the junction's Neighbours as deprecated
@@ -1360,22 +1360,22 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_RADIUS: {
-            myNBNode.setRadius(parse<double>(value));
+            myNBNode->setRadius(parse<double>(value));
             break;
         }
         case SUMO_ATTR_TLTYPE: {
             // we need to make a copy of controlling TLS (because original will be updated)
-            const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
-            for (auto it : copyOfTls) {
-                it->setType(SUMOXMLDefinitions::TrafficLightTypes.get(value));
+            const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
+            for (const auto &TLS : copyOfTls) {
+                TLS->setType(SUMOXMLDefinitions::TrafficLightTypes.get(value));
             }
             break;
         }
         case SUMO_ATTR_RIGHT_OF_WAY:
-            myNBNode.setRightOfWay(SUMOXMLDefinitions::RightOfWayValues.get(value));
+            myNBNode->setRightOfWay(SUMOXMLDefinitions::RightOfWayValues.get(value));
             break;
         case SUMO_ATTR_FRINGE:
-            myNBNode.setFringeType(SUMOXMLDefinitions::FringeTypeValues.get(value));
+            myNBNode->setFringeType(SUMOXMLDefinitions::FringeTypeValues.get(value));
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
@@ -1385,7 +1385,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case GNE_ATTR_PARAMETERS:
-            myNBNode.setParametersStr(value);
+            myNBNode->setParametersStr(value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -1398,7 +1398,7 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& /* s */, int activeSc
     switch (activeScheme) {
         case 0:
             // ensure visibility of red connections
-            if (!(myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS && myNBNode.isTLControlled())) {
+            if (!(myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS && myNBNode->isTLControlled())) {
                 return 1;
             } else {
                 return 0;
@@ -1406,7 +1406,7 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& /* s */, int activeSc
         case 1:
             return isAttributeCarrierSelected();
         case 2:
-            switch (myNBNode.getType()) {
+            switch (myNBNode->getType()) {
                 case NODETYPE_TRAFFIC_LIGHT:
                     return 0;
                 case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
@@ -1441,7 +1441,7 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& /* s */, int activeSc
                     return 12;
             }
         case 3:
-            return myNBNode.getPosition().z();
+            return myNBNode->getPosition().z();
         default:
             assert(false);
             return 0;
@@ -1452,34 +1452,34 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& /* s */, int activeSc
 void
 GNEJunction::moveJunctionGeometry(const Position& pos) {
     // obtain NBNode position
-    const Position orig = myNBNode.getPosition();
+    const Position orig = myNBNode->getPosition();
     // reinit NBNode
-    myNBNode.reinit(pos, myNBNode.getType());
+    myNBNode->reinit(pos, myNBNode->getType());
     // set new position of adjacent edges
-    for (auto i : getNBNode()->getEdges()) {
-        myNet->retrieveEdge(i->getID())->updateJunctionPosition(this, orig);
+    for (const auto &edge : getNBNode()->getEdges()) {
+        myNet->retrieveEdge(edge->getID())->updateJunctionPosition(this, orig);
     }
     // declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
     std::set<GNEJunction*> affectedJunctions;
     std::set<GNEEdge*> affectedEdges;
     // Iterate over GNEEdges
-    for (auto i : myGNEEdges) {
+    for (const auto &edge : myGNEEdges) {
         // Add source and destiny junctions
-        affectedJunctions.insert(i->getGNEJunctionSource());
-        affectedJunctions.insert(i->getGNEJunctionDestiny());
+        affectedJunctions.insert(edge->getGNEJunctionSource());
+        affectedJunctions.insert(edge->getGNEJunctionDestiny());
         // Obtain neighbors of Junction source
-        for (auto j : i->getGNEJunctionSource()->getGNEEdges()) {
-            affectedEdges.insert(j);
+        for (const auto &junctionSourceEdge : edge->getGNEJunctionSource()->getGNEEdges()) {
+            affectedEdges.insert(junctionSourceEdge);
         }
         // Obtain neighbors of Junction destiny
-        for (auto j : i->getGNEJunctionDestiny()->getGNEEdges()) {
-            affectedEdges.insert(j);
+        for (const auto &junctionDestinyEdge : edge->getGNEJunctionDestiny()->getGNEEdges()) {
+            affectedEdges.insert(junctionDestinyEdge);
         }
     }
     // Iterate over affected Edges
-    for (auto i : affectedEdges) {
+    for (const auto &affectedEdge : affectedEdges) {
         // Update edge geometry
-        i->updateGeometry();
+        affectedEdge->updateGeometry();
     }
 }
 
@@ -1507,7 +1507,7 @@ void
 GNEJunction::addTrafficLight(NBTrafficLightDefinition* tlDef, bool forceInsert) {
     NBTrafficLightLogicCont& tlCont = myNet->getTLLogicCont();
     tlCont.insert(tlDef, forceInsert); // may return false for tlDef which controls multiple junctions
-    tlDef->addNode(&myNBNode);
+    tlDef->addNode(myNBNode);
 }
 
 
@@ -1517,7 +1517,7 @@ GNEJunction::removeTrafficLight(NBTrafficLightDefinition* tlDef) {
     if (tlDef->getNodes().size() == 1) {
         tlCont.extract(tlDef);
     }
-    myNBNode.removeTrafficLight(tlDef);
+    myNBNode->removeTrafficLight(tlDef);
 }
 
 /****************************************************************************/
