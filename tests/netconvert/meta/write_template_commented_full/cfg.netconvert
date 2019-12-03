@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec  2 19:03:19 2019 by Eclipse SUMO netconvert Version v1_3_1+1233-b90e13e8e3
+<!-- generated on Tue Dec  3 13:05:59 2019 by Eclipse SUMO netconvert Version v1_3_1+1239-421211f533
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -781,7 +781,7 @@
         <visum.connectors-lane-number value="3" synonymes="visum.connector-laneno" type="INT"/>
 
         <!-- Excludes connectors -->
-        <visum.no-connectors value="false" type="BOOL"/>
+        <visum.no-connectors value="true" type="BOOL"/>
 
         <!-- Computes the number of lanes from the edges&apos; capacities -->
         <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" type="BOOL"/>

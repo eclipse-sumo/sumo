@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec  2 19:03:19 2019 by Eclipse SUMO netconvert Version v1_3_1+1233-b90e13e8e3
+<!-- generated on Tue Dec  3 13:05:59 2019 by Eclipse SUMO netconvert Version v1_3_1+1239-421211f533
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -292,7 +292,7 @@
         <visum.use-type-speed value="false" type="BOOL" help="Uses speeds from types"/>
         <visum.connector-speeds value="100" type="FLOAT" help="Sets connector speed"/>
         <visum.connectors-lane-number value="3" synonymes="visum.connector-laneno" type="INT" help="Sets connector lane number"/>
-        <visum.no-connectors value="false" type="BOOL" help="Excludes connectors"/>
+        <visum.no-connectors value="true" type="BOOL" help="Excludes connectors"/>
         <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" type="BOOL" help="Computes the number of lanes from the edges&apos; capacities"/>
         <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehaviour"/>
         <visum.lanes-from-capacity.norm value="1800" synonymes="capacity-norm lanes-from-capacity.norm" type="FLOAT" help="The factor for flow to no. lanes conversion"/>
