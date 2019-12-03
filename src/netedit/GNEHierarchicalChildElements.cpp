@@ -60,9 +60,9 @@ GNEHierarchicalChildElements::~GNEHierarchicalChildElements() {}
 
 const Position&
 GNEHierarchicalChildElements::getChildPosition(const GNELane* lane) {
-    for (const auto& i : myChildConnections.symbolsPositionAndRotation) {
-        if (i.lane == lane) {
-            return i.pos;
+    for (const auto& childConnection : myChildConnections.symbolsPositionAndRotation) {
+        if (childConnection.lane == lane) {
+            return childConnection.pos;
         }
     }
     throw ProcessError("Lane doesn't exist");
@@ -71,9 +71,9 @@ GNEHierarchicalChildElements::getChildPosition(const GNELane* lane) {
 
 double
 GNEHierarchicalChildElements::getChildRotation(const GNELane* lane) {
-    for (const auto& i : myChildConnections.symbolsPositionAndRotation) {
-        if (i.lane == lane) {
-            return i.rot;
+    for (const auto& childConnection : myChildConnections.symbolsPositionAndRotation) {
+        if (childConnection.lane == lane) {
+            return childConnection.rot;
         }
     }
     throw ProcessError("Lane doesn't exist");
@@ -140,15 +140,15 @@ GNEHierarchicalChildElements::sortChildAdditionals() {
         // we need to sort Entry/Exits due additional.xds model
         std::vector<GNEAdditional*> sortedEntryExits;
         // obtain all entrys
-        for (auto i : myChildAdditionals) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
-                sortedEntryExits.push_back(i);
+        for (const auto &additional : myChildAdditionals) {
+            if (additional->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
+                sortedEntryExits.push_back(additional);
             }
         }
         // obtain all exits
-        for (auto i : myChildAdditionals) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
-                sortedEntryExits.push_back(i);
+        for (const auto &additional : myChildAdditionals) {
+            if (additional->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
+                sortedEntryExits.push_back(additional);
             }
         }
         // change myChildAdditionals for sortedEntryExits
@@ -161,15 +161,15 @@ GNEHierarchicalChildElements::sortChildAdditionals() {
         // we need to sort Entry/Exits due additional.xds model
         std::vector<GNEAdditional*> sortedTAZSourceSink;
         // obtain all TAZSources
-        for (auto i : myChildAdditionals) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-                sortedTAZSourceSink.push_back(i);
+        for (const auto &additional : myChildAdditionals) {
+            if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+                sortedTAZSourceSink.push_back(additional);
             }
         }
         // obtain all TAZSinks
-        for (auto i : myChildAdditionals) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
-                sortedTAZSourceSink.push_back(i);
+        for (const auto &additional : myChildAdditionals) {
+            if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
+                sortedTAZSourceSink.push_back(additional);
             }
         }
         // change myChildAdditionals for sortedEntryExits
@@ -182,17 +182,17 @@ GNEHierarchicalChildElements::sortChildAdditionals() {
         // declare a vector to keep sorted children
         std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChildren;
         // iterate over child additional
-        for (auto i : myChildAdditionals) {
-            sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), i));
+        for (const auto &additional : myChildAdditionals) {
+            sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), additional));
             // set begin/start attribute
-            if (i->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
-                sortedChildren.back().first.first = i->getAttributeDouble(SUMO_ATTR_TIME);
-            } else if (i->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && GNEAttributeCarrier::canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
-                sortedChildren.back().first.first = i->getAttributeDouble(SUMO_ATTR_BEGIN);
+            if (additional->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_TIME))) {
+                sortedChildren.back().first.first = additional->getAttributeDouble(SUMO_ATTR_TIME);
+            } else if (additional->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_BEGIN))) {
+                sortedChildren.back().first.first = additional->getAttributeDouble(SUMO_ATTR_BEGIN);
             }
             // set end attribute
-            if (i->getTagProperty().hasAttribute(SUMO_ATTR_END) && GNEAttributeCarrier::canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
-                sortedChildren.back().first.second = i->getAttributeDouble(SUMO_ATTR_END);
+            if (additional->getTagProperty().hasAttribute(SUMO_ATTR_END) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_END))) {
+                sortedChildren.back().first.second = additional->getAttributeDouble(SUMO_ATTR_END);
             } else {
                 sortedChildren.back().first.second = sortedChildren.back().first.first;
             }
@@ -217,17 +217,17 @@ GNEHierarchicalChildElements::checkChildAdditionalsOverlapping() const {
     // declare a vector to keep sorted children
     std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChildren;
     // iterate over child additional
-    for (auto i : myChildAdditionals) {
-        sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), i));
+    for (const auto &additional : myChildAdditionals) {
+        sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), additional));
         // set begin/start attribute
-        if (i->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
-            sortedChildren.back().first.first = i->getAttributeDouble(SUMO_ATTR_TIME);
-        } else if (i->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && GNEAttributeCarrier::canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
-            sortedChildren.back().first.first = i->getAttributeDouble(SUMO_ATTR_BEGIN);
+        if (additional->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_TIME))) {
+            sortedChildren.back().first.first = additional->getAttributeDouble(SUMO_ATTR_TIME);
+        } else if (additional->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_BEGIN))) {
+            sortedChildren.back().first.first = additional->getAttributeDouble(SUMO_ATTR_BEGIN);
         }
         // set end attribute
-        if (i->getTagProperty().hasAttribute(SUMO_ATTR_END) && GNEAttributeCarrier::canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
-            sortedChildren.back().first.second = i->getAttributeDouble(SUMO_ATTR_END);
+        if (additional->getTagProperty().hasAttribute(SUMO_ATTR_END) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_END))) {
+            sortedChildren.back().first.second = additional->getAttributeDouble(SUMO_ATTR_END);
         } else {
             sortedChildren.back().first.second = sortedChildren.back().first.first;
         }
@@ -462,14 +462,14 @@ GNEHierarchicalChildElements::updateParentDemandElement() {
 void
 GNEHierarchicalChildElements::changeChildEdges(GNEAdditional* elementChild, const std::string& newEdgeIDs) {
     // remove demandElement of child edges
-    for (const auto& i : myChildEdges) {
-        i->removeParentAdditional(elementChild);
+    for (const auto &edge : myChildEdges) {
+        edge->removeParentAdditional(elementChild);
     }
     // obtain new child edges (note: it can be empty)
     myChildEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getViewNet()->getNet(), newEdgeIDs);
     // add demandElement into parent edges
-    for (const auto& i : myChildEdges) {
-        i->addParentAdditional(elementChild);
+    for (const auto &edge : myChildEdges) {
+        edge->addParentAdditional(elementChild);
     }
     // update connections geometry
     myChildConnections.update();
@@ -479,14 +479,14 @@ GNEHierarchicalChildElements::changeChildEdges(GNEAdditional* elementChild, cons
 void
 GNEHierarchicalChildElements::changeChildLanes(GNEAdditional* elementChild, const std::string& newLaneIDs) {
     // remove demandElement of child lanes
-    for (const auto& i : myChildLanes) {
-        i->removeParentAdditional(elementChild);
+    for (const auto &lane : myChildLanes) {
+        lane->removeParentAdditional(elementChild);
     }
     // obtain new child lanes (note: it can be empty)
     myChildLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getViewNet()->getNet(), newLaneIDs);
     // add demandElement into parent lanes
-    for (const auto& i : myChildLanes) {
-        i->addParentAdditional(elementChild);
+    for (const auto &lane : myChildLanes) {
+        lane->addParentAdditional(elementChild);
     }
     // update connections geometry
     myChildConnections.update();
@@ -520,55 +520,55 @@ GNEHierarchicalChildElements::ChildConnections::update() {
     connectionPositions.clear();
     symbolsPositionAndRotation.clear();
     // calculate position and rotation of every simbol for every edge
-    for (const auto& i : myHierarchicalElement->myChildEdges) {
-        for (auto j : i->getLanes()) {
+    for (const auto &edge : myHierarchicalElement->myChildEdges) {
+        for (const auto &lane : edge->getLanes()) {
             Position pos;
             double rot;
             // set position and length depending of shape's lengt
-            if (j->getLaneShape().length() - 6 > 0) {
-                pos = j->getLaneShape().positionAtOffset(j->getLaneShape().length() - 6);
-                rot = j->getLaneShape().rotationDegreeAtOffset(j->getLaneShape().length() - 6);
+            if (lane->getLaneShape().length() - 6 > 0) {
+                pos = lane->getLaneShape().positionAtOffset(lane->getLaneShape().length() - 6);
+                rot = lane->getLaneShape().rotationDegreeAtOffset(lane->getLaneShape().length() - 6);
             } else {
-                pos = j->getLaneShape().positionAtOffset(j->getLaneShape().length());
-                rot = j->getLaneShape().rotationDegreeAtOffset(j->getLaneShape().length());
+                pos = lane->getLaneShape().positionAtOffset(lane->getLaneShape().length());
+                rot = lane->getLaneShape().rotationDegreeAtOffset(lane->getLaneShape().length());
             }
-            symbolsPositionAndRotation.push_back(ConnectionGeometry(j, pos, rot));
+            symbolsPositionAndRotation.push_back(ConnectionGeometry(lane, pos, rot));
         }
     }
     // calculate position and rotation of every symbol for every lane
-    for (const auto& i : myHierarchicalElement->myChildLanes) {
+    for (const auto &lane : myHierarchicalElement->myChildLanes) {
         Position pos;
         double rot;
         // set position and length depending of shape's lengt
-        if (i->getLaneShape().length() - 6 > 0) {
-            pos = i->getLaneShape().positionAtOffset(i->getLaneShape().length() - 6);
-            rot = i->getLaneShape().rotationDegreeAtOffset(i->getLaneShape().length() - 6);
+        if (lane->getLaneShape().length() - 6 > 0) {
+            pos = lane->getLaneShape().positionAtOffset(lane->getLaneShape().length() - 6);
+            rot = lane->getLaneShape().rotationDegreeAtOffset(lane->getLaneShape().length() - 6);
         } else {
-            pos = i->getLaneShape().positionAtOffset(i->getLaneShape().length());
-            rot = i->getLaneShape().rotationDegreeAtOffset(i->getLaneShape().length());
+            pos = lane->getLaneShape().positionAtOffset(lane->getLaneShape().length());
+            rot = lane->getLaneShape().rotationDegreeAtOffset(lane->getLaneShape().length());
         }
-        symbolsPositionAndRotation.push_back(ConnectionGeometry(i, pos, rot));
+        symbolsPositionAndRotation.push_back(ConnectionGeometry(lane, pos, rot));
     }
     // calculate position for every child additional
-    for (const auto& i : myHierarchicalElement->myChildAdditionals) {
+    for (const auto &additional : myHierarchicalElement->myChildAdditionals) {
         // check that position is different of position
-        if (i->getPositionInView() != myHierarchicalElement->getPositionInView()) {
+        if (additional->getPositionInView() != myHierarchicalElement->getPositionInView()) {
             std::vector<Position> posConnection;
-            double A = std::abs(i->getPositionInView().x() - myHierarchicalElement->getPositionInView().x());
-            double B = std::abs(i->getPositionInView().y() - myHierarchicalElement->getPositionInView().y());
+            double A = std::abs(additional->getPositionInView().x() - myHierarchicalElement->getPositionInView().x());
+            double B = std::abs(additional->getPositionInView().y() - myHierarchicalElement->getPositionInView().y());
             // Set positions of connection's vertex. Connection is build from Entry to E3
-            posConnection.push_back(i->getPositionInView());
-            if (myHierarchicalElement->getPositionInView().x() > i->getPositionInView().x()) {
-                if (myHierarchicalElement->getPositionInView().y() > i->getPositionInView().y()) {
-                    posConnection.push_back(Position(i->getPositionInView().x() + A, i->getPositionInView().y()));
+            posConnection.push_back(additional->getPositionInView());
+            if (myHierarchicalElement->getPositionInView().x() > additional->getPositionInView().x()) {
+                if (myHierarchicalElement->getPositionInView().y() > additional->getPositionInView().y()) {
+                    posConnection.push_back(Position(additional->getPositionInView().x() + A, additional->getPositionInView().y()));
                 } else {
-                    posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() - B));
+                    posConnection.push_back(Position(additional->getPositionInView().x(), additional->getPositionInView().y() - B));
                 }
             } else {
-                if (myHierarchicalElement->getPositionInView().y() > i->getPositionInView().y()) {
-                    posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() + B));
+                if (myHierarchicalElement->getPositionInView().y() > additional->getPositionInView().y()) {
+                    posConnection.push_back(Position(additional->getPositionInView().x(), additional->getPositionInView().y() + B));
                 } else {
-                    posConnection.push_back(Position(i->getPositionInView().x() - A, i->getPositionInView().y()));
+                    posConnection.push_back(Position(additional->getPositionInView().x() - A, additional->getPositionInView().y()));
                 }
             }
             posConnection.push_back(myHierarchicalElement->getPositionInView());
@@ -576,23 +576,23 @@ GNEHierarchicalChildElements::ChildConnections::update() {
         }
     }
     // calculate geometry for connections between parent and children
-    for (const auto& i : symbolsPositionAndRotation) {
+    for (const auto &symbol : symbolsPositionAndRotation) {
         std::vector<Position> posConnection;
-        double A = std::abs(i.pos.x() - myHierarchicalElement->getPositionInView().x());
-        double B = std::abs(i.pos.y() - myHierarchicalElement->getPositionInView().y());
+        double A = std::abs(symbol.pos.x() - myHierarchicalElement->getPositionInView().x());
+        double B = std::abs(symbol.pos.y() - myHierarchicalElement->getPositionInView().y());
         // Set positions of connection's vertex. Connection is build from Entry to E3
-        posConnection.push_back(i.pos);
-        if (myHierarchicalElement->getPositionInView().x() > i.pos.x()) {
-            if (myHierarchicalElement->getPositionInView().y() > i.pos.y()) {
-                posConnection.push_back(Position(i.pos.x() + A, i.pos.y()));
+        posConnection.push_back(symbol.pos);
+        if (myHierarchicalElement->getPositionInView().x() > symbol.pos.x()) {
+            if (myHierarchicalElement->getPositionInView().y() > symbol.pos.y()) {
+                posConnection.push_back(Position(symbol.pos.x() + A, symbol.pos.y()));
             } else {
-                posConnection.push_back(Position(i.pos.x(), i.pos.y() - B));
+                posConnection.push_back(Position(symbol.pos.x(), symbol.pos.y() - B));
             }
         } else {
-            if (myHierarchicalElement->getPositionInView().y() > i.pos.y()) {
-                posConnection.push_back(Position(i.pos.x(), i.pos.y() + B));
+            if (myHierarchicalElement->getPositionInView().y() > symbol.pos.y()) {
+                posConnection.push_back(Position(symbol.pos.x(), symbol.pos.y() + B));
             } else {
-                posConnection.push_back(Position(i.pos.x() - A, i.pos.y()));
+                posConnection.push_back(Position(symbol.pos.x() - A, symbol.pos.y()));
             }
         }
         posConnection.push_back(myHierarchicalElement->getPositionInView());
@@ -606,7 +606,7 @@ GNEHierarchicalChildElements::ChildConnections::draw(const GUIVisualizationSetti
     // first check if connections can be drawn
     if (!s.drawForRectangleSelection) {
         // Iterate over myConnectionPositions
-        for (const auto& i : connectionPositions) {
+        for (const auto &connection : connectionPositions) {
             // Add a draw matrix
             glPushMatrix();
             // traslate in the Z axis
@@ -614,9 +614,9 @@ GNEHierarchicalChildElements::ChildConnections::draw(const GUIVisualizationSetti
             // Set color of the base
             GLHelper::setColor(s.colorSettings.childConnections);
             // iterate over connections
-            for (auto j = i.begin(); (j + 1) != i.end(); j++) {
+            for (auto position = connection.begin(); (position + 1) != connection.end(); position++) {
                 // Draw Lines
-                GLHelper::drawLine((*j), (*(j + 1)));
+                GLHelper::drawLine((*position), (*(position + 1)));
             }
             // Pop draw matrix
             glPopMatrix();
