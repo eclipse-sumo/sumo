@@ -25,8 +25,8 @@ set(netedit_SRCS
    GNEAttributeCarrier.cpp
    GNEGeometry.h
    GNEGeometry.cpp
-   GNEHierarchicalElementParents.h
-   GNEHierarchicalElementParents.cpp
+   GNEHierarchicalParentElements.h
+   GNEHierarchicalParentElements.cpp
    GNEHierarchicalElementChildren.h
    GNEHierarchicalElementChildren.cpp
    GNEReferenceCounter.h
