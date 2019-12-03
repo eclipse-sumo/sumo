@@ -25,7 +25,7 @@
 
 
 #include <netedit/GNEHierarchicalParentElements.h>
-#include <netedit/GNEHierarchicalElementChildren.h>
+#include <netedit/GNEHierarchicalChildElements.h>
 
 
 // ===========================================================================

@@ -28,7 +28,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
-#include "GNEHierarchicalElementChildren.h"
+#include "GNEHierarchicalChildElements.h"
 
 // ===========================================================================
 // member method definitions
@@ -49,8 +49,8 @@ GNEHierarchicalChildElements::GNEHierarchicalChildElements(GNEAttributeCarrier* 
     myAC(AC) {
     // fill SortedChildDemandElementsByType with all demand element tags (it's needed because getChildDemandElementsSortedByType(...) function is constant
     auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_DEMANDELEMENT, false);
-    for (const auto& i : listOfTags) {
-        mySortedChildDemandElementsByType[i];
+    for (const auto& tag : listOfTags) {
+        mySortedChildDemandElementsByType[tag];
     }
 }
 
