@@ -540,7 +540,9 @@ class NetReader(handler.ContentHandler):
                                   "origBoundary"], attrs["projParameter"])
         if name == 'edge':
             function = attrs.get('function', '')
-            if function == '' or self._withInternal or self._withMacroConnectors:
+            if (function == '' 
+                    or (self._withInternal and function in ['internal', 'crossing', 'walkingarea'])
+                    or (self._withMacroConnectors and function == 'connector')):
                 prio = -1
                 if 'priority' in attrs:
                     prio = int(attrs['priority'])
@@ -626,10 +628,10 @@ class NetReader(handler.ContentHandler):
         if name == 'connection' and self._withConnections and (attrs['from'][0] != ":" or self._withInternal):
             fromEdgeID = attrs['from']
             toEdgeID = attrs['to']
-            if (self._withPedestrianConnections or not (fromEdgeID in self._net._crossings_and_walkingAreas or
-                                                       toEdgeID in self._net._crossings_and_walkingAreas)
-                and self._withMacroConnectors or not (fromEdgeID in self._net._macroConnectors or
-                                                      toEdgeID in self._net._macroConnectors)):
+            if ((self._withPedestrianConnections or not (fromEdgeID in self._net._crossings_and_walkingAreas or
+                                                       toEdgeID in self._net._crossings_and_walkingAreas))
+                and (self._withMacroConnectors or not (fromEdgeID in self._net._macroConnectors or toEdgeID in
+                                                      self._net._macroConnectors))):
                 fromEdge = self._net.getEdge(fromEdgeID)
                 toEdge = self._net.getEdge(toEdgeID)
                 fromLane = fromEdge.getLane(int(attrs['fromLane']))
