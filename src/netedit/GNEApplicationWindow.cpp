@@ -607,7 +607,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Open Additionals file");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODEADDITIONAL));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("Additional files (*.xml)\nAll files (*)");
+    opendialog.setPatternList("Additional files (*.add.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -684,7 +684,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Open demand element file");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("Demand element files (*.xml)\nAll files (*)");
+    opendialog.setPatternList("Demand element files (*.rou.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1796,7 +1796,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                                     GUIIconSubSys::getIcon(ICON_MODETLS),
                                     gCurrentFolder).text();
                     // add xml extension
-                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
                     // check that file is valid
                     if (fileWithExtension != "") {
                         // update additional files
@@ -1852,11 +1852,11 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                     WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'Yes'");
                     // Open a dialog to set filename output
                     FXString file = MFXUtils::getFilename2Write(this,
-                                    "Select name of the demand element file", ".xml",
+                                    "Select name of the demand element file", ".rou.xml",
                                     GUIIconSubSys::getIcon(ICON_MODETLS),
                                     gCurrentFolder).text();
                     // add xml extension
-                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
                     // check that file is valid
                     if (fileWithExtension != "") {
                         // update route files
@@ -2580,7 +2580,7 @@ GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
                     GUIIconSubSys::getIcon(ICON_SAVE),
                     gCurrentFolder);
     // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".net.xml");
     // check that file with extension is valid
     if (fileWithExtension != "") {
         OptionsCont& oc = OptionsCont::getOptions();
@@ -2759,11 +2759,11 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
         // Check if additionals file was already set at start of netedit or with a previous save
         if (oc.getString("additional-files").empty()) {
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Select name of the additional file", ".xml",
+                            "Select name of the additional file", ".add.xml",
                             GUIIconSubSys::getIcon(ICON_MODEADDITIONAL),
                             gCurrentFolder);
             // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".add.xml");
             // check tat file is valid
             if (fileWithExtension != "") {
                 // change value of "additional-files"
@@ -2801,11 +2801,11 @@ long
 GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
     // Open window to select additional file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the additional file", ".xml",
+                    "Select name of the additional file", ".add.xml",
                     GUIIconSubSys::getIcon(ICON_MODEADDITIONAL),
                     gCurrentFolder);
     // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".add.xml");
     // check tat file is valid
     if (fileWithExtension != "") {
         // reset writtable flag
@@ -2899,11 +2899,11 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
         // Check if demand elements file was already set at start of netedit or with a previous save
         if (oc.getString("route-files").empty()) {
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Select name of the demand element file", ".xml",
+                            "Select name of the demand element file", ".rou.xml",
                             GUIIconSubSys::getIcon(ICON_MODEADDITIONAL),
                             gCurrentFolder);
             // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
             // check tat file is valid
             if (fileWithExtension != "") {
                 // change value of "route-files"
@@ -2941,11 +2941,11 @@ long
 GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
     // Open window to select additionasl file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the demand element file", ".xml",
+                    "Select name of the demand element file", ".rou.xml",
                     GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND),
                     gCurrentFolder);
     // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
     // check that file is correct
     if (fileWithExtension != "") {
         // reset writtable flag
