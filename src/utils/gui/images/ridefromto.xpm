@@ -2,7 +2,7 @@
 static const char *ridefromto_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 9 1 ",
-"  c None",
+"  c blue",
 ". c black",
 "X c #007F46",
 "o c #0A7F4A",

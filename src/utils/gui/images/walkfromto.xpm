@@ -2,7 +2,7 @@
 static const char *walkfromto_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 5 1 ",
-"  c None",
+"  c green",
 ". c black",
 "X c red",
 "o c #0026FF",
