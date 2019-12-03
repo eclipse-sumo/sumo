@@ -14,8 +14,8 @@
 ///
 // A abstract class for representation of Hierarchical Elements
 /****************************************************************************/
-#ifndef GNEHierarchicalElementChildren_h
-#define GNEHierarchicalElementChildren_h
+#ifndef GNEHierarchicalChildElements_h
+#define GNEHierarchicalChildElements_h
 
 // ===========================================================================
 // included modules
@@ -40,10 +40,10 @@ class GNEShape;
 // ===========================================================================
 
 /**
- * @class GNEHierarchicalElementChildren
+ * @class GNEHierarchicalChildElements
  * @brief An special type of Attribute carrier that owns hierarchical elements
  */
-class GNEHierarchicalElementChildren {
+class GNEHierarchicalChildElements {
 
 public:
 
@@ -51,21 +51,21 @@ public:
     friend class GNEChange_Children;
 
     /**@brief Parameter Constructor
-     * @param[in] edgeChildren vector of edge children
-     * @param[in] laneChildren vector of lane children
-     * @param[in] shapeChildren vector of shape children
-     * @param[in] additionalChildren vector of additional children
-     * @param[in] demandElementChildren vector of demand element children
+     * @param[in] childEdges vector of child edges
+     * @param[in] childLanes vector of child lanes
+     * @param[in] childShapes vector of child shapes
+     * @param[in] childAdditionals vector of child additional
+     * @param[in] childDemandElements vector of child demand elements
      */
-    GNEHierarchicalElementChildren(GNEAttributeCarrier* AC,
-                                   const std::vector<GNEEdge*>& edgeChildren,
-                                   const std::vector<GNELane*>& laneChildren,
-                                   const std::vector<GNEShape*>& shapeChildren,
-                                   const std::vector<GNEAdditional*>& additionalChildren,
-                                   const std::vector<GNEDemandElement*>& demandElementChildren);
+    GNEHierarchicalChildElements(GNEAttributeCarrier* AC,
+                                 const std::vector<GNEEdge*>& childEdges,
+                                 const std::vector<GNELane*>& childLanes,
+                                 const std::vector<GNEShape*>& childShapes,
+                                 const std::vector<GNEAdditional*>& childAdditionals,
+                                 const std::vector<GNEDemandElement*>& childDemandElements);
 
     /// @brief Destructor
-    ~GNEHierarchicalElementChildren();
+    ~GNEHierarchicalChildElements();
 
     /// @brief get child position calculated in ChildConnections
     const Position& getChildPosition(const GNELane* lane);
@@ -91,89 +91,89 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
-    /// @name members and functions related to edge children
+    /// @name members and functions related to child edges
     /// @{
-    /// @brief add edge child
-    void addEdgeChild(GNEEdge* edge);
+    /// @brief add child edge
+    void addChildEdge(GNEEdge* edge);
 
-    /// @brief remove edge child
-    void removeEdgeChild(GNEEdge* edge);
+    /// @brief remove child edge
+    void removeChildEdge(GNEEdge* edge);
 
-    /// @brief get edge chidls
-    const std::vector<GNEEdge*>& getEdgeChildren() const;
+    /// @brief get child edges
+    const std::vector<GNEEdge*>& getChildEdges() const;
 
     /// @}
 
-    /// @name members and functions related to lane children
+    /// @name members and functions related to child lanes
     /// @{
-    /// @brief add lane child
-    void addLaneChild(GNELane* lane);
+    /// @brief add child lane
+    void addChildLane(GNELane* lane);
 
-    /// @brief remove lane child
-    void removeLaneChild(GNELane* lane);
+    /// @brief remove child lane
+    void removeChildLane(GNELane* lane);
 
-    /// @brief get lanes of VSS
-    const std::vector<GNELane*>& getLaneChildren() const;
+    /// @brief get child lanes
+    const std::vector<GNELane*>& getChildLanes() const;
 
     /// @}
 
-    /// @name members and functions related to shape children
+    /// @name members and functions related to child shapes
     /// @{
-    /// @brief add shape child
-    void addShapeChild(GNEShape* shape);
+    /// @brief add child shape
+    void addChildShape(GNEShape* shape);
 
-    /// @brief remove shape child
-    void removeShapeChild(GNEShape* shape);
+    /// @brief remove child shape
+    void removeChildShape(GNEShape* shape);
 
-    /// @brief get shapes of VSS
-    const std::vector<GNEShape*>& getShapeChildren() const;
+    /// @brief get child shapes
+    const std::vector<GNEShape*>& getChildShapes() const;
 
     /// @}
 
-    /// @name members and functions related to additional children
+    /// @name members and functions related to child additionals
     /// @{
-    /// @brief add additional child to this additional
-    void addAdditionalChild(GNEAdditional* additional);
+    /// @brief add child additional
+    void addChildAdditional(GNEAdditional* additional);
 
-    /// @brief remove additional child from this additional
-    void removeAdditionalChild(GNEAdditional* additional);
+    /// @brief remove child additional
+    void removeChildAdditional(GNEAdditional* additional);
 
-    /// @brief return vector of additionals that have as Parent this edge (For example, Calibrators)
-    const std::vector<GNEAdditional*>& getAdditionalChildren() const;
+    /// @brief return child additionals
+    const std::vector<GNEAdditional*>& getChildAdditionals() const;
 
-    /// @brief sort children (used by Rerouters, VSS, TAZs...)
-    void sortAdditionalChildren();
+    /// @brief sort child additionals (used by Rerouters, VSS, TAZs...)
+    void sortChildAdditionals();
 
     /// @brief check if children are overlapped (Used by Rerouters)
-    bool checkAdditionalChildrenOverlapping() const;
+    bool checkChildAdditionalsOverlapping() const;
 
     /// @}
 
-    /// @name members and functions related to demand element children
+    /// @name members and functions related to child demand elements
     /// @{
-    /// @brief add demand element child to this demand element
-    void addDemandElementChild(GNEDemandElement* demandElement);
+    /// @brief add child demand element
+    void addChildDemandElement(GNEDemandElement* demandElement);
 
-    /// @brief remove demand element child from this demand element
-    void removeDemandElementChild(GNEDemandElement* demandElement);
+    /// @brief remove child demand element
+    void removeChildDemandElement(GNEDemandElement* demandElement);
 
-    /// @brief return vector of demand elements that have as Parent this edge (For example, Calibrators)
-    const std::vector<GNEDemandElement*>& getDemandElementChildren() const;
+    /// @brief return child demand elements
+    const std::vector<GNEDemandElement*>& getChildDemandElements() const;
 
-    /// @brief return vector of demand elements that have as Parent this edge (For example, Calibrators)
-    const std::set<GNEDemandElement*>& getSortedDemandElementChildrenByType(SumoXMLTag tag) const;
+    /// @brief return child demand elements sorted by type
+    const std::set<GNEDemandElement*>& getChildDemandElementsSortedByType(SumoXMLTag tag) const;
 
-    /// @brief sort children (used by Rerouters, VSS, TAZs...)
-    void sortDemandElementChildren();
+    /// @brief sort child demand elements
+    void sortChildDemandElements();
 
-    /// @brief check if children are overlapped (Used by Rerouters)
-    bool checkDemandElementChildrenOverlapping() const;
+    /// @brief check if childs demand elements are overlapped
+    bool checkChildDemandElementsOverlapping() const;
 
-    /// @brief get previous demand element to the given demand element
-    GNEDemandElement* getPreviousDemandElement(const GNEDemandElement* demandElement) const;
+    /// @brief get previous child demand element to the given demand element
+    GNEDemandElement* getPreviousChildDemandElement(const GNEDemandElement* demandElement) const;
 
-    /// @brief get next demand element to the given demand element
-    GNEDemandElement* getNextDemandElement(const GNEDemandElement* demandElement) const;
+    /// @brief get next child demand element to the given demand element
+    GNEDemandElement* getNextChildDemandElement(const GNEDemandElement* demandElement) const;
 
     /// @}
 
@@ -209,7 +209,7 @@ protected:
 
     public:
         /// @brief constructor
-        ChildConnections(GNEHierarchicalElementChildren* hierarchicalElement);
+        ChildConnections(GNEHierarchicalChildElements* hierarchicalElement);
 
         /// @brief update Connection's geometry
         void update();
@@ -225,45 +225,45 @@ protected:
 
     private:
         /// @brief pointer to hierarchical element parent
-        GNEHierarchicalElementChildren* myHierarchicalElement;
+        GNEHierarchicalChildElements* myHierarchicalElement;
     };
 
-    /// @brief change edge children of an additional
-    void changeEdgeChildren(GNEAdditional* elementChild, const std::string& newEdgeIDs);
+    /// @brief change child edges of an additional
+    void changeChildEdges(GNEAdditional* elementChild, const std::string& newEdgeIDs);
 
-    /// @brief change edge children of an additional
-    void changeLaneChildren(GNEAdditional* elementChild, const std::string& newEdgeIDs);
+    /// @brief change child edges of an additional
+    void changeChildLanes(GNEAdditional* elementChild, const std::string& newEdgeIDs);
 
     /// @brief variable ChildConnections
     ChildConnections myChildConnections;
 
 private:
-    /// @brief vector with the edge children of this element
-    std::vector<GNEEdge*> myEdgeChildren;
+    /// @brief vector with the child edges of this element
+    std::vector<GNEEdge*> myChildEdges;
 
-    /// @brief vector with the lane children of this element
-    std::vector<GNELane*> myLaneChildren;
+    /// @brief vector with the child lanes of this element
+    std::vector<GNELane*> myChildLanes;
 
-    /// @brief vector with the lane children of this element
-    std::vector<GNEShape*> myShapeChildren;
+    /// @brief vector with the child lanes of this element
+    std::vector<GNEShape*> myChildShapes;
 
-    /// @brief vector with the additional children
-    std::vector<GNEAdditional*> myAdditionalChildren;
+    /// @brief vector with the child additional
+    std::vector<GNEAdditional*> myChildAdditionals;
 
     /// @brief vector with the demand elements children
-    std::vector<GNEDemandElement*> myDemandElementChildren;
+    std::vector<GNEDemandElement*> myChildDemandElements;
 
     /// @brief vector with the demand elements children sorted by type and filtered (to avoid duplicated
-    std::map<SumoXMLTag, std::set<GNEDemandElement*> > mySortedDemandElementChildrenByType;
+    std::map<SumoXMLTag, std::set<GNEDemandElement*> > mySortedChildDemandElementsByType;
 
     /// @brief pointer to AC (needed to avoid diamond problem)
     GNEAttributeCarrier* myAC;
 
     /// @brief Invalidated copy constructor.
-    GNEHierarchicalElementChildren(const GNEHierarchicalElementChildren&) = delete;
+    GNEHierarchicalChildElements(const GNEHierarchicalChildElements&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEHierarchicalElementChildren& operator=(const GNEHierarchicalElementChildren&) = delete;
+    GNEHierarchicalChildElements& operator=(const GNEHierarchicalChildElements&) = delete;
 };
 
 #endif

@@ -102,7 +102,7 @@ GNERide::writeDemandElement(OutputDevice& device) const {
     // open tag
     device.openTag(SUMO_TAG_RIDE);
     // write attributes depending  of ride type
-    if (getParentDemandElements().front()->getDemandElementChildren().front() == this) {
+    if (getParentDemandElements().front()->getChildDemandElements().front() == this) {
         device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
     }
     // check if write busStop or edge to
@@ -275,8 +275,8 @@ GNERide::updateGeometry() {
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(), 
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
-    // update demand element childrens
-    for (const auto& i : getDemandElementChildren()) {
+    // update child demand elementss
+    for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
     }
 }
@@ -296,8 +296,8 @@ GNERide::updatePartialGeometry(const GNEEdge* edge) {
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path
     GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
-    // update demand element childrens
-    for (const auto& i : getDemandElementChildren()) {
+    // update child demand elementss
+    for (const auto& i : getChildDemandElements()) {
         i->updatePartialGeometry(edge);
     }
 }

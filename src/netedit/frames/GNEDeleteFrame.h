@@ -116,14 +116,14 @@ protected:
         /// @brief parent additionals
         int parentAdditionals;
 
-        /// @brief additional children
-        int additionalChildren;
+        /// @brief child additional
+        int childAdditionals;
 
         /// @brief parent demand elements
         int parentDemandElements;
 
-        /// @brief demand element children
-        int demandElementChildren;
+        /// @brief child demand elements
+        int childDemandElements;
 
     private:
         /// @brief add operator

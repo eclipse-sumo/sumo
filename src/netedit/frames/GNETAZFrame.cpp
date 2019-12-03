@@ -259,8 +259,8 @@ GNETAZFrame::TAZCurrent::refreshTAZEdges() {
     myMinSourceMinusSinkWeight = -1;
     // only refresh if we're editing an TAZ
     if (myEditedTAZ) {
-        // iterate over additional children and create TAZEdges
-        for (const auto& i : myEditedTAZ->getAdditionalChildren()) {
+        // iterate over child additional and create TAZEdges
+        for (const auto& i : myEditedTAZ->getChildAdditionals()) {
             addTAZChild(dynamic_cast<GNETAZSourceSink*>(i));
         }
         // update colors after add all edges
@@ -373,7 +373,7 @@ GNETAZFrame::TAZCommonStatistics::updateStatistics() {
         // declare ostringstream for statistics
         std::ostringstream information;
         information
-                << "- Number of Edges: " << toString(myTAZFrameParent->myTAZCurrent->getTAZ()->getAdditionalChildren().size() / 2) << "\n"
+                << "- Number of Edges: " << toString(myTAZFrameParent->myTAZCurrent->getTAZ()->getChildAdditionals().size() / 2) << "\n"
                 << "- Min source: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_MIN_SOURCE) << "\n"
                 << "- Max source: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_MAX_SOURCE) << "\n"
                 << "- Average source: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SOURCE) << "\n"
@@ -999,7 +999,7 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         double maxWeightSink = 0;
         double minWeightSink = -1;
         double averageWeightSink = 0;
-        // iterate over additional children
+        // iterate over child additional
         for (const auto&  i : myEdgeAndTAZChildrenSelected) {
             //start with sources
             weight = i.TAZSource->getDepartWeight();

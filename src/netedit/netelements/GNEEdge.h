@@ -319,7 +319,7 @@ public:
     void removePathElement(GNEDemandElement* pathElementChild);
 
     /// @brief invalidate path element childs
-    void invalidatePathElementChildrens();
+    void invalidatePathChildElementss();
 
 protected:
     /// @brief the underlying NBEdge

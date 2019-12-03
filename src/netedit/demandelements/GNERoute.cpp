@@ -152,7 +152,7 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
         device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
         // write stops associated to this route
-        for (const auto& i : getDemandElementChildren()) {
+        for (const auto& i : getChildDemandElements()) {
             if (i->getTagProperty().isStop()) {
                 i->writeDemandElement(device);
             }
@@ -260,8 +260,8 @@ GNERoute::updateGeometry() {
     // calculate geometry path
     GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), 
         getVClass(), getFirstAllowedVehicleLane(), getLastAllowedVehicleLane());
-    // update demand element childrens
-    for (const auto& i : getDemandElementChildren()) {
+    // update child demand elementss
+    for (const auto& i : getChildDemandElements()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
             i->updateGeometry();
         }
@@ -273,8 +273,8 @@ void
 GNERoute::updatePartialGeometry(const GNEEdge* edge) {
     // calculate geometry path
     GNEGeometry::updateGeometricPath( myDemandElementSegmentGeometry, edge);
-    // update demand element childrens
-    for (const auto& i : getDemandElementChildren()) {
+    // update child demand elementss
+    for (const auto& i : getChildDemandElements()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
             i->updatePartialGeometry(edge);
         }

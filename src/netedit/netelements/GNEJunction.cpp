@@ -1226,7 +1226,7 @@ GNEJunction::drawJunctionChilds(const GUIVisualizationSettings& s) const {
         }
         // then draw E2 multilane detectors
         for (const auto& lane : incomingEdge->getLanes()) {
-            for (const auto& additional : lane->getAdditionalChildren()) {
+            for (const auto& additional : lane->getChildAdditionals()) {
                 if (additional->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
                     lane->drawPartialE2DetectorPlan(s, additional, this);
                 }
@@ -1235,21 +1235,21 @@ GNEJunction::drawJunctionChilds(const GUIVisualizationSettings& s) const {
         // first check if Demand elements can be shown
         if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
             // certain demand elements children can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
-            for (const auto& route : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
+            for (const auto& route : incomingEdge->getChildDemandElementsSortedByType(SUMO_TAG_ROUTE)) {
                 // first check if route can be drawn
                 if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(route)) {
                     // draw partial route
                     incomingEdge->drawPartialRoute(s, route, this);
                 }
             }
-            for (const auto& embeddedRoute : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_EMBEDDEDROUTE)) {
+            for (const auto& embeddedRoute : incomingEdge->getChildDemandElementsSortedByType(SUMO_TAG_EMBEDDEDROUTE)) {
                 // first check if embedded route can be drawn
                 if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(embeddedRoute)) {
                     // draw partial route
                     incomingEdge->drawPartialRoute(s, embeddedRoute, this);
                 }
             }
-            for (const auto& trip : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
+            for (const auto& trip : incomingEdge->getChildDemandElementsSortedByType(SUMO_TAG_TRIP)) {
                 // Start drawing adding an gl identificator
                 glPushName(trip->getGlID());
                 // draw partial trip only if is being inspected or selected
@@ -1263,7 +1263,7 @@ GNEJunction::drawJunctionChilds(const GUIVisualizationSettings& s) const {
                 // Pop name
                 glPopName();
             }
-            for (const auto& flow : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
+            for (const auto& flow : incomingEdge->getChildDemandElementsSortedByType(SUMO_TAG_FLOW)) {
                 // Start drawing adding an gl identificator
                 glPushName(flow->getGlID());
                 // draw partial trip only if is being inspected or selected
@@ -1278,28 +1278,28 @@ GNEJunction::drawJunctionChilds(const GUIVisualizationSettings& s) const {
                 glPopName();
             }
             // draw partial person plan elements
-            for (const auto& personTripFromTo : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
+            for (const auto& personTripFromTo : incomingEdge->getChildDemandElementsSortedByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
                 incomingEdge->drawPartialPersonPlan(s, personTripFromTo, this);
             }
-            for (const auto& personTripBusStop : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+            for (const auto& personTripBusStop : incomingEdge->getChildDemandElementsSortedByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
                 incomingEdge->drawPartialPersonPlan(s, personTripBusStop, this);
             }
-            for (const auto& walkEdges : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_EDGES)) {
+            for (const auto& walkEdges : incomingEdge->getChildDemandElementsSortedByType(SUMO_TAG_WALK_EDGES)) {
                 incomingEdge->drawPartialPersonPlan(s, walkEdges, this);
             }
-            for (const auto& walkFromTo : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_FROMTO)) {
+            for (const auto& walkFromTo : incomingEdge->getChildDemandElementsSortedByType(SUMO_TAG_WALK_FROMTO)) {
                 incomingEdge->drawPartialPersonPlan(s, walkFromTo, this);
             }
-            for (const auto& walkBusStop : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_BUSSTOP)) {
+            for (const auto& walkBusStop : incomingEdge->getChildDemandElementsSortedByType(SUMO_TAG_WALK_BUSSTOP)) {
                 incomingEdge->drawPartialPersonPlan(s, walkBusStop, this);
             }
-            for (const auto& walkRoute : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_WALK_ROUTE)) {
+            for (const auto& walkRoute : incomingEdge->getChildDemandElementsSortedByType(SUMO_TAG_WALK_ROUTE)) {
                 incomingEdge->drawPartialPersonPlan(s, walkRoute, this);
             }
-            for (const auto& rideFromTo : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_FROMTO)) {
+            for (const auto& rideFromTo : incomingEdge->getChildDemandElementsSortedByType(SUMO_TAG_RIDE_FROMTO)) {
                 incomingEdge->drawPartialPersonPlan(s, rideFromTo, this);
             }
-            for (const auto& rideBusStop : incomingEdge->getSortedDemandElementChildrenByType(SUMO_TAG_RIDE_BUSSTOP)) {
+            for (const auto& rideBusStop : incomingEdge->getChildDemandElementsSortedByType(SUMO_TAG_RIDE_BUSSTOP)) {
                 incomingEdge->drawPartialPersonPlan(s, rideBusStop, this);
             }
         }

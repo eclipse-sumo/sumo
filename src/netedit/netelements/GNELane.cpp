@@ -116,8 +116,8 @@ GNELane::updateGeometry() {
     for (auto i : getParentShapes()) {
         i->updateGeometry();
     }
-    // update shape children associated with this lane
-    for (auto i : getShapeChildren()) {
+    // update child shapes associated with this lane
+    for (auto i : getChildShapes()) {
         i->updateGeometry();
     }
     // update additionals children associated with this lane
@@ -125,7 +125,7 @@ GNELane::updateGeometry() {
         i->updateGeometry();
     }
     // update additionals parents associated with this lane
-    for (auto i : getAdditionalChildren()) {
+    for (auto i : getChildAdditionals()) {
         i->updateGeometry();
     }
     // partial update demand elements parents associated with this lane
@@ -133,7 +133,7 @@ GNELane::updateGeometry() {
         i->updatePartialGeometry(myParentEdge);
     }
     // partial update demand elements children associated with this lane
-    for (auto i : getDemandElementChildren()) {
+    for (auto i : getChildDemandElements()) {
         i->updatePartialGeometry(myParentEdge);
     }
     // In Move mode, connections aren't updated
@@ -378,12 +378,12 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 drawVSSSymbol(s, i);
             }
         }
-        // draw shape children
-        for (const auto& i : getShapeChildren()) {
+        // draw child shapes
+        for (const auto& i : getChildShapes()) {
             i->drawGL(s);
         }
-        // draw additional children
-        for (const auto& additional : getAdditionalChildren()) {
+        // draw child additional
+        for (const auto& additional : getChildAdditionals()) {
             //draw partial E2 detectors
             if (additional->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
                 drawPartialE2DetectorPlan(s, additional, nullptr);
@@ -392,8 +392,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 additional->drawGL(s);
             }
         }
-        // draw demand element children
-        for (const auto& i : getDemandElementChildren()) {
+        // draw child demand elements
+        for (const auto& i : getChildDemandElements()) {
             if (!i->getTagProperty().isPlacedInRTree()) {
                 i->drawGL(s);
             }
@@ -520,12 +520,12 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 drawVSSSymbol(s, i);
             }
         }
-        // draw shape children
-        for (const auto& i : getShapeChildren()) {
+        // draw child shapes
+        for (const auto& i : getChildShapes()) {
             i->drawGL(s);
         }
-        // draw additional children
-        for (const auto& additional : getAdditionalChildren()) {
+        // draw child additional
+        for (const auto& additional : getChildAdditionals()) {
             //draw partial E2 detectors
             if (additional->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
                 drawPartialE2DetectorPlan(s, additional, nullptr);
@@ -534,8 +534,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 additional->drawGL(s);
             }
         }
-        // draw demand element children
-        for (const auto& i : getDemandElementChildren()) {
+        // draw child demand elements
+        for (const auto& i : getChildDemandElements()) {
             if (!i->getTagProperty().isPlacedInRTree()) {
                 i->drawGL(s);
             }
@@ -1439,24 +1439,24 @@ GNELane::getLengthGeometryFactor() const {
 void
 GNELane::startGeometryMoving() {
     // Lanes don't need to save the current Centering Boundary, due they are parts of an Edge
-    // Save current centering boundary of shape children
-    for (auto i : getShapeChildren()) {
+    // Save current centering boundary of child shapes
+    for (auto i : getChildShapes()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of shapes with this lane as chid
     for (auto i : getParentShapes()) {
         i->startGeometryMoving();
     }
-    // Save current centering boundary of additional children
-    for (auto i : getAdditionalChildren()) {
+    // Save current centering boundary of child additional
+    for (auto i : getChildAdditionals()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of additionals with this lane as chid
     for (auto i : getParentAdditionals()) {
         i->startGeometryMoving();
     }
-    // Save current centering boundary of demand element children
-    for (auto i : getDemandElementChildren()) {
+    // Save current centering boundary of child demand elements
+    for (auto i : getChildDemandElements()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of demand element with this lane as chid
@@ -1470,7 +1470,7 @@ void
 GNELane::endGeometryMoving() {
     // Lanes don't need to save the current Centering Boundary, due they are parts of an Edge
     // Restore centering boundary of shapes with this lane as chid
-    for (auto i : getShapeChildren()) {
+    for (auto i : getChildShapes()) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of shapes with this lane as chid
@@ -1478,7 +1478,7 @@ GNELane::endGeometryMoving() {
         i->endGeometryMoving();
     }
     // Restore centering boundary of additionals with this lane as chid
-    for (auto i : getAdditionalChildren()) {
+    for (auto i : getChildAdditionals()) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of additionals with this lane as chid
@@ -1486,7 +1486,7 @@ GNELane::endGeometryMoving() {
         i->endGeometryMoving();
     }
     // Restore centering boundary of demand elements with this lane as chid
-    for (auto i : getDemandElementChildren()) {
+    for (auto i : getChildDemandElements()) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of demand elements with this lane as chid

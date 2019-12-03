@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEHierarchicalElementChildren.cpp
+/// @file    GNEHierarchicalChildElements.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2015
 /// @version $Id$
@@ -34,32 +34,32 @@
 // member method definitions
 // ===========================================================================
 
-GNEHierarchicalElementChildren::GNEHierarchicalElementChildren(GNEAttributeCarrier* AC,
-        const std::vector<GNEEdge*>& edgeChildren,
-        const std::vector<GNELane*>& laneChildren,
-        const std::vector<GNEShape*>& shapeChildren,
-        const std::vector<GNEAdditional*>& additionalChildren,
-        const std::vector<GNEDemandElement*>& demandElementChildren) :
+GNEHierarchicalChildElements::GNEHierarchicalChildElements(GNEAttributeCarrier* AC,
+        const std::vector<GNEEdge*>& childEdges,
+        const std::vector<GNELane*>& childLanes,
+        const std::vector<GNEShape*>& childShapes,
+        const std::vector<GNEAdditional*>& childAdditionals,
+        const std::vector<GNEDemandElement*>& childDemandElements) :
     myChildConnections(this),
-    myEdgeChildren(edgeChildren),
-    myLaneChildren(laneChildren),
-    myShapeChildren(shapeChildren),
-    myAdditionalChildren(additionalChildren),
-    myDemandElementChildren(demandElementChildren),
+    myChildEdges(childEdges),
+    myChildLanes(childLanes),
+    myChildShapes(childShapes),
+    myChildAdditionals(childAdditionals),
+    myChildDemandElements(childDemandElements),
     myAC(AC) {
-    // fill SortedDemandElementChildrenByType with all demand element tags (it's needed because getSortedDemandElementChildrenByType(...) function is constant
+    // fill SortedChildDemandElementsByType with all demand element tags (it's needed because getChildDemandElementsSortedByType(...) function is constant
     auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_DEMANDELEMENT, false);
     for (const auto& i : listOfTags) {
-        mySortedDemandElementChildrenByType[i];
+        mySortedChildDemandElementsByType[i];
     }
 }
 
 
-GNEHierarchicalElementChildren::~GNEHierarchicalElementChildren() {}
+GNEHierarchicalChildElements::~GNEHierarchicalChildElements() {}
 
 
 const Position&
-GNEHierarchicalElementChildren::getChildPosition(const GNELane* lane) {
+GNEHierarchicalChildElements::getChildPosition(const GNELane* lane) {
     for (const auto& i : myChildConnections.symbolsPositionAndRotation) {
         if (i.lane == lane) {
             return i.pos;
@@ -70,7 +70,7 @@ GNEHierarchicalElementChildren::getChildPosition(const GNELane* lane) {
 
 
 double
-GNEHierarchicalElementChildren::getChildRotation(const GNELane* lane) {
+GNEHierarchicalChildElements::getChildRotation(const GNELane* lane) {
     for (const auto& i : myChildConnections.symbolsPositionAndRotation) {
         if (i.lane == lane) {
             return i.rot;
@@ -81,28 +81,28 @@ GNEHierarchicalElementChildren::getChildRotation(const GNELane* lane) {
 
 
 void
-GNEHierarchicalElementChildren::updateChildConnections() {
+GNEHierarchicalChildElements::updateChildConnections() {
     myChildConnections.update();
 }
 
 
 void
-GNEHierarchicalElementChildren::drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent) const {
+GNEHierarchicalChildElements::drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent) const {
     myChildConnections.draw(s, GLTypeParent);
 }
 
 
 void
-GNEHierarchicalElementChildren::addAdditionalChild(GNEAdditional* additional) {
+GNEHierarchicalChildElements::addChildAdditional(GNEAdditional* additional) {
     // Check if additional is valid
     if (additional == nullptr) {
-        throw InvalidArgument("Trying to add an empty additional child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add an empty child additional in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
-        // add it in additional children container
-        myAdditionalChildren.push_back(additional);
+        // add it in child additional container
+        myChildAdditionals.push_back(additional);
         // Check if children has to be sorted automatically
         if (myAC->getTagProperty().canAutomaticSortChildren()) {
-            sortAdditionalChildren();
+            sortChildAdditionals();
         }
         // update parent additional after add additional (note: by default non-implemented)
         updateParentAdditional();
@@ -111,16 +111,16 @@ GNEHierarchicalElementChildren::addAdditionalChild(GNEAdditional* additional) {
 
 
 void
-GNEHierarchicalElementChildren::removeAdditionalChild(GNEAdditional* additional) {
+GNEHierarchicalChildElements::removeChildAdditional(GNEAdditional* additional) {
     // First check that additional was already inserted
-    auto it = std::find(myAdditionalChildren.begin(), myAdditionalChildren.end(), additional);
-    if (it == myAdditionalChildren.end()) {
+    auto it = std::find(myChildAdditionals.begin(), myChildAdditionals.end(), additional);
+    if (it == myChildAdditionals.end()) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
-        myAdditionalChildren.erase(it);
+        myChildAdditionals.erase(it);
         // Check if children has to be sorted automatically
         if (myAC->getTagProperty().canAutomaticSortChildren()) {
-            sortAdditionalChildren();
+            sortChildAdditionals();
         }
         // update parent additional after add additional (note: by default non-implemented)
         updateParentAdditional();
@@ -129,60 +129,60 @@ GNEHierarchicalElementChildren::removeAdditionalChild(GNEAdditional* additional)
 
 
 const std::vector<GNEAdditional*>&
-GNEHierarchicalElementChildren::getAdditionalChildren() const {
-    return myAdditionalChildren;
+GNEHierarchicalChildElements::getChildAdditionals() const {
+    return myChildAdditionals;
 }
 
 
 void
-GNEHierarchicalElementChildren::sortAdditionalChildren() {
+GNEHierarchicalChildElements::sortChildAdditionals() {
     if (myAC->getTagProperty().getTag() == SUMO_TAG_E3DETECTOR) {
         // we need to sort Entry/Exits due additional.xds model
         std::vector<GNEAdditional*> sortedEntryExits;
         // obtain all entrys
-        for (auto i : myAdditionalChildren) {
+        for (auto i : myChildAdditionals) {
             if (i->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
                 sortedEntryExits.push_back(i);
             }
         }
         // obtain all exits
-        for (auto i : myAdditionalChildren) {
+        for (auto i : myChildAdditionals) {
             if (i->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
                 sortedEntryExits.push_back(i);
             }
         }
-        // change myAdditionalChildren for sortedEntryExits
-        if (sortedEntryExits.size() == myAdditionalChildren.size()) {
-            myAdditionalChildren = sortedEntryExits;
+        // change myChildAdditionals for sortedEntryExits
+        if (sortedEntryExits.size() == myChildAdditionals.size()) {
+            myChildAdditionals = sortedEntryExits;
         } else {
-            throw ProcessError("Some additional children were lost during sorting");
+            throw ProcessError("Some child additional were lost during sorting");
         }
     } else if (myAC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
         // we need to sort Entry/Exits due additional.xds model
         std::vector<GNEAdditional*> sortedTAZSourceSink;
         // obtain all TAZSources
-        for (auto i : myAdditionalChildren) {
+        for (auto i : myChildAdditionals) {
             if (i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
                 sortedTAZSourceSink.push_back(i);
             }
         }
         // obtain all TAZSinks
-        for (auto i : myAdditionalChildren) {
+        for (auto i : myChildAdditionals) {
             if (i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
                 sortedTAZSourceSink.push_back(i);
             }
         }
-        // change myAdditionalChildren for sortedEntryExits
-        if (sortedTAZSourceSink.size() == myAdditionalChildren.size()) {
-            myAdditionalChildren = sortedTAZSourceSink;
+        // change myChildAdditionals for sortedEntryExits
+        if (sortedTAZSourceSink.size() == myChildAdditionals.size()) {
+            myChildAdditionals = sortedTAZSourceSink;
         } else {
-            throw ProcessError("Some additional children were lost during sorting");
+            throw ProcessError("Some child additional were lost during sorting");
         }
     } else {
         // declare a vector to keep sorted children
         std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChildren;
-        // iterate over additional children
-        for (auto i : myAdditionalChildren) {
+        // iterate over child additional
+        for (auto i : myChildAdditionals) {
             sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), i));
             // set begin/start attribute
             if (i->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
@@ -199,25 +199,25 @@ GNEHierarchicalElementChildren::sortAdditionalChildren() {
         }
         // sort children
         std::sort(sortedChildren.begin(), sortedChildren.end());
-        // make sure that number of sorted children is the same as the additional children
-        if (sortedChildren.size() == myAdditionalChildren.size()) {
-            myAdditionalChildren.clear();
+        // make sure that number of sorted children is the same as the child additional
+        if (sortedChildren.size() == myChildAdditionals.size()) {
+            myChildAdditionals.clear();
             for (auto i : sortedChildren) {
-                myAdditionalChildren.push_back(i.second);
+                myChildAdditionals.push_back(i.second);
             }
         } else {
-            throw ProcessError("Some additional children were lost during sorting");
+            throw ProcessError("Some child additional were lost during sorting");
         }
     }
 }
 
 
 bool
-GNEHierarchicalElementChildren::checkAdditionalChildrenOverlapping() const {
+GNEHierarchicalChildElements::checkChildAdditionalsOverlapping() const {
     // declare a vector to keep sorted children
     std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChildren;
-    // iterate over additional children
-    for (auto i : myAdditionalChildren) {
+    // iterate over child additional
+    for (auto i : myChildAdditionals) {
         sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), i));
         // set begin/start attribute
         if (i->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
@@ -234,8 +234,8 @@ GNEHierarchicalElementChildren::checkAdditionalChildrenOverlapping() const {
     }
     // sort children
     std::sort(sortedChildren.begin(), sortedChildren.end());
-    // make sure that number of sorted children is the same as the additional children
-    if (sortedChildren.size() == myAdditionalChildren.size()) {
+    // make sure that number of sorted children is the same as the child additional
+    if (sortedChildren.size() == myChildAdditionals.size()) {
         if (sortedChildren.size() <= 1) {
             return true;
         } else {
@@ -248,83 +248,83 @@ GNEHierarchicalElementChildren::checkAdditionalChildrenOverlapping() const {
         }
         return true;
     } else {
-        throw ProcessError("Some additional children were lost during sorting");
+        throw ProcessError("Some child additional were lost during sorting");
     }
 }
 
 
 void
-GNEHierarchicalElementChildren::addDemandElementChild(GNEDemandElement* demandElement) {
+GNEHierarchicalChildElements::addChildDemandElement(GNEDemandElement* demandElement) {
     // Check if demand element is valid
     if (demandElement == nullptr) {
-        throw InvalidArgument("Trying to add an empty demand element child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add an empty child demand element in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         // add it in demandElement child container
-        myDemandElementChildren.push_back(demandElement);
-        // add it also in SortedDemandElementChildrenByType container
-        mySortedDemandElementChildrenByType.at(demandElement->getTagProperty().getTag()).insert(demandElement);
+        myChildDemandElements.push_back(demandElement);
+        // add it also in SortedChildDemandElementsByType container
+        mySortedChildDemandElementsByType.at(demandElement->getTagProperty().getTag()).insert(demandElement);
         // Check if children has to be sorted automatically
         if (myAC->getTagProperty().canAutomaticSortChildren()) {
-            sortDemandElementChildren();
+            sortChildDemandElements();
         }
     }
 }
 
 
 void
-GNEHierarchicalElementChildren::removeDemandElementChild(GNEDemandElement* demandElement) {
+GNEHierarchicalChildElements::removeChildDemandElement(GNEDemandElement* demandElement) {
     // First check that demandElement was already inserted
-    auto it = std::find(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement);
-    if (it == myDemandElementChildren.end()) {
+    auto it = std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement);
+    if (it == myChildDemandElements.end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         // first check if element is duplicated in vector
-        bool singleElement = std::count(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement) == 1;
-        myDemandElementChildren.erase(it);
-        // only remove it from mySortedDemandElementChildrenByType if is a single element
+        bool singleElement = std::count(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement) == 1;
+        myChildDemandElements.erase(it);
+        // only remove it from mySortedChildDemandElementsByType if is a single element
         if (singleElement) {
-            mySortedDemandElementChildrenByType.at(demandElement->getTagProperty().getTag()).erase(demandElement);
+            mySortedChildDemandElementsByType.at(demandElement->getTagProperty().getTag()).erase(demandElement);
         }
         // Check if children has to be sorted automatically
         if (myAC->getTagProperty().canAutomaticSortChildren()) {
-            sortDemandElementChildren();
+            sortChildDemandElements();
         }
     }
 }
 
 
 const std::vector<GNEDemandElement*>&
-GNEHierarchicalElementChildren::getDemandElementChildren() const {
-    return myDemandElementChildren;
+GNEHierarchicalChildElements::getChildDemandElements() const {
+    return myChildDemandElements;
 }
 
 
 const std::set<GNEDemandElement*>&
-GNEHierarchicalElementChildren::getSortedDemandElementChildrenByType(SumoXMLTag tag) const {
-    return mySortedDemandElementChildrenByType.at(tag);
+GNEHierarchicalChildElements::getChildDemandElementsSortedByType(SumoXMLTag tag) const {
+    return mySortedChildDemandElementsByType.at(tag);
 }
 
 
 void
-GNEHierarchicalElementChildren::sortDemandElementChildren() {
+GNEHierarchicalChildElements::sortChildDemandElements() {
     // by default empty
 }
 
 
 bool
-GNEHierarchicalElementChildren::checkDemandElementChildrenOverlapping() const {
+GNEHierarchicalChildElements::checkChildDemandElementsOverlapping() const {
     return true;
 }
 
 
 GNEDemandElement*
-GNEHierarchicalElementChildren::getPreviousDemandElement(const GNEDemandElement* demandElement) const {
-    // find demand element child
-    auto it = std::find(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement);
+GNEHierarchicalChildElements::getPreviousChildDemandElement(const GNEDemandElement* demandElement) const {
+    // find child demand element
+    auto it = std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement);
     // return element or null depending of iterator
-    if (it == myDemandElementChildren.end()) {
+    if (it == myChildDemandElements.end()) {
         return nullptr;
-    } else if (it == myDemandElementChildren.begin()) {
+    } else if (it == myChildDemandElements.begin()) {
         return nullptr;
     } else {
         return *(it - 1);
@@ -333,13 +333,13 @@ GNEHierarchicalElementChildren::getPreviousDemandElement(const GNEDemandElement*
 
 
 GNEDemandElement*
-GNEHierarchicalElementChildren::getNextDemandElement(const GNEDemandElement* demandElement) const {
-    // find demand element child
-    auto it = std::find(myDemandElementChildren.begin(), myDemandElementChildren.end(), demandElement);
+GNEHierarchicalChildElements::getNextChildDemandElement(const GNEDemandElement* demandElement) const {
+    // find child demand element
+    auto it = std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement);
     // return element or null depending of iterator
-    if (it == myDemandElementChildren.end()) {
+    if (it == myChildDemandElements.end()) {
         return nullptr;
-    } else if (it == (myDemandElementChildren.end() - 1)) {
+    } else if (it == (myChildDemandElements.end() - 1)) {
         return nullptr;
     } else {
         return *(it + 1);
@@ -348,25 +348,25 @@ GNEHierarchicalElementChildren::getNextDemandElement(const GNEDemandElement* dem
 
 
 void
-GNEHierarchicalElementChildren::addEdgeChild(GNEEdge* edge) {
+GNEHierarchicalChildElements::addChildEdge(GNEEdge* edge) {
     // Check that edge is valid and doesn't exist previously
     if (edge == nullptr) {
-        throw InvalidArgument("Trying to add an empty edge child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add an empty child edge in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
-        myEdgeChildren.push_back(edge);
+        myChildEdges.push_back(edge);
     }
 }
 
 
 void
-GNEHierarchicalElementChildren::removeEdgeChild(GNEEdge* edge) {
+GNEHierarchicalChildElements::removeChildEdge(GNEEdge* edge) {
     // Check that edge is valid and exist previously
     if (edge == nullptr) {
-        throw InvalidArgument("Trying to remove an empty edge child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (std::find(myEdgeChildren.begin(), myEdgeChildren.end(), edge) == myEdgeChildren.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted edge child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove an empty child edge in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myChildEdges.begin(), myChildEdges.end(), edge) == myChildEdges.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted child edge in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
-        myEdgeChildren.erase(std::find(myEdgeChildren.begin(), myEdgeChildren.end(), edge));
+        myChildEdges.erase(std::find(myChildEdges.begin(), myChildEdges.end(), edge));
         // update connections geometry
         myChildConnections.update();
     }
@@ -374,18 +374,18 @@ GNEHierarchicalElementChildren::removeEdgeChild(GNEEdge* edge) {
 
 
 const std::vector<GNEEdge*>&
-GNEHierarchicalElementChildren::getEdgeChildren() const {
-    return myEdgeChildren;
+GNEHierarchicalChildElements::getChildEdges() const {
+    return myChildEdges;
 }
 
 
 void
-GNEHierarchicalElementChildren::addLaneChild(GNELane* lane) {
+GNEHierarchicalChildElements::addChildLane(GNELane* lane) {
     // Check if lane is valid
     if (lane == nullptr) {
-        throw InvalidArgument("Trying to add an empty lane child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add an empty child lane in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
-        myLaneChildren.push_back(lane);
+        myChildLanes.push_back(lane);
         // update connections geometry
         myChildConnections.update();
     }
@@ -393,12 +393,12 @@ GNEHierarchicalElementChildren::addLaneChild(GNELane* lane) {
 
 
 void
-GNEHierarchicalElementChildren::removeLaneChild(GNELane* lane) {
+GNEHierarchicalChildElements::removeChildLane(GNELane* lane) {
     // Check if lane is valid
     if (lane == nullptr) {
-        throw InvalidArgument("Trying to remove an empty lane child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove an empty child lane in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
-        myLaneChildren.erase(std::find(myLaneChildren.begin(), myLaneChildren.end(), lane));
+        myChildLanes.erase(std::find(myChildLanes.begin(), myChildLanes.end(), lane));
         // update connections geometry
         myChildConnections.update();
     }
@@ -406,20 +406,20 @@ GNEHierarchicalElementChildren::removeLaneChild(GNELane* lane) {
 
 
 const std::vector<GNELane*>&
-GNEHierarchicalElementChildren::getLaneChildren() const {
-    return myLaneChildren;
+GNEHierarchicalChildElements::getChildLanes() const {
+    return myChildLanes;
 }
 
 
 void
-GNEHierarchicalElementChildren::addShapeChild(GNEShape* shape) {
+GNEHierarchicalChildElements::addChildShape(GNEShape* shape) {
     // Check that shape is valid and doesn't exist previously
     if (shape == nullptr) {
-        throw InvalidArgument("Trying to add an empty shape child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (std::find(myShapeChildren.begin(), myShapeChildren.end(), shape) != myShapeChildren.end()) {
-        throw InvalidArgument("Trying to add a duplicate shape child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add an empty child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myChildShapes.begin(), myChildShapes.end(), shape) != myChildShapes.end()) {
+        throw InvalidArgument("Trying to add a duplicate child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
-        myShapeChildren.push_back(shape);
+        myChildShapes.push_back(shape);
         // update connections geometry
         myChildConnections.update();
     }
@@ -427,14 +427,14 @@ GNEHierarchicalElementChildren::addShapeChild(GNEShape* shape) {
 
 
 void
-GNEHierarchicalElementChildren::removeShapeChild(GNEShape* shape) {
+GNEHierarchicalChildElements::removeChildShape(GNEShape* shape) {
     // Check that shape is valid and exist previously
     if (shape == nullptr) {
-        throw InvalidArgument("Trying to remove an empty shape child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (std::find(myShapeChildren.begin(), myShapeChildren.end(), shape) == myShapeChildren.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted shape child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove an empty child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myChildShapes.begin(), myChildShapes.end(), shape) == myChildShapes.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
-        myShapeChildren.erase(std::find(myShapeChildren.begin(), myShapeChildren.end(), shape));
+        myChildShapes.erase(std::find(myChildShapes.begin(), myChildShapes.end(), shape));
         // update connections geometry
         myChildConnections.update();
     }
@@ -442,33 +442,33 @@ GNEHierarchicalElementChildren::removeShapeChild(GNEShape* shape) {
 
 
 const std::vector<GNEShape*>&
-GNEHierarchicalElementChildren::getShapeChildren() const {
-    return myShapeChildren;
+GNEHierarchicalChildElements::getChildShapes() const {
+    return myChildShapes;
 }
 
 
 void
-GNEHierarchicalElementChildren::updateParentAdditional() {
+GNEHierarchicalChildElements::updateParentAdditional() {
     // by default nothing to do
 }
 
 
 void
-GNEHierarchicalElementChildren::updateParentDemandElement() {
+GNEHierarchicalChildElements::updateParentDemandElement() {
     // by default nothing to do
 }
 
 
 void
-GNEHierarchicalElementChildren::changeEdgeChildren(GNEAdditional* elementChild, const std::string& newEdgeIDs) {
-    // remove demandElement of edge children
-    for (const auto& i : myEdgeChildren) {
+GNEHierarchicalChildElements::changeChildEdges(GNEAdditional* elementChild, const std::string& newEdgeIDs) {
+    // remove demandElement of child edges
+    for (const auto& i : myChildEdges) {
         i->removeParentAdditional(elementChild);
     }
     // obtain new child edges (note: it can be empty)
-    myEdgeChildren = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getViewNet()->getNet(), newEdgeIDs);
+    myChildEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getViewNet()->getNet(), newEdgeIDs);
     // add demandElement into parent edges
-    for (const auto& i : myEdgeChildren) {
+    for (const auto& i : myChildEdges) {
         i->addParentAdditional(elementChild);
     }
     // update connections geometry
@@ -477,15 +477,15 @@ GNEHierarchicalElementChildren::changeEdgeChildren(GNEAdditional* elementChild, 
 
 
 void
-GNEHierarchicalElementChildren::changeLaneChildren(GNEAdditional* elementChild, const std::string& newLaneIDs) {
-    // remove demandElement of lane children
-    for (const auto& i : myLaneChildren) {
+GNEHierarchicalChildElements::changeChildLanes(GNEAdditional* elementChild, const std::string& newLaneIDs) {
+    // remove demandElement of child lanes
+    for (const auto& i : myChildLanes) {
         i->removeParentAdditional(elementChild);
     }
     // obtain new child lanes (note: it can be empty)
-    myLaneChildren = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getViewNet()->getNet(), newLaneIDs);
+    myChildLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getViewNet()->getNet(), newLaneIDs);
     // add demandElement into parent lanes
-    for (const auto& i : myLaneChildren) {
+    for (const auto& i : myChildLanes) {
         i->addParentAdditional(elementChild);
     }
     // update connections geometry
@@ -493,34 +493,34 @@ GNEHierarchicalElementChildren::changeLaneChildren(GNEAdditional* elementChild, 
 }
 
 // ---------------------------------------------------------------------------
-// GNEHierarchicalElementChildren::ChildConnections - methods
+// GNEHierarchicalChildElements::ChildConnections - methods
 // ---------------------------------------------------------------------------
 
-GNEHierarchicalElementChildren::ChildConnections::ConnectionGeometry::ConnectionGeometry() :
+GNEHierarchicalChildElements::ChildConnections::ConnectionGeometry::ConnectionGeometry() :
     lane(nullptr),
     pos(Position::INVALID),
     rot(0) {
 }
 
 
-GNEHierarchicalElementChildren::ChildConnections::ConnectionGeometry::ConnectionGeometry(GNELane* _lane, Position _pos, double _rot) :
+GNEHierarchicalChildElements::ChildConnections::ConnectionGeometry::ConnectionGeometry(GNELane* _lane, Position _pos, double _rot) :
     lane(_lane),
     pos(_pos),
     rot(_rot) {
 }
 
 
-GNEHierarchicalElementChildren::ChildConnections::ChildConnections(GNEHierarchicalElementChildren* hierarchicalElement) :
+GNEHierarchicalChildElements::ChildConnections::ChildConnections(GNEHierarchicalChildElements* hierarchicalElement) :
     myHierarchicalElement(hierarchicalElement) {}
 
 
 void
-GNEHierarchicalElementChildren::ChildConnections::update() {
+GNEHierarchicalChildElements::ChildConnections::update() {
     // first clear connection positions
     connectionPositions.clear();
     symbolsPositionAndRotation.clear();
     // calculate position and rotation of every simbol for every edge
-    for (const auto& i : myHierarchicalElement->myEdgeChildren) {
+    for (const auto& i : myHierarchicalElement->myChildEdges) {
         for (auto j : i->getLanes()) {
             Position pos;
             double rot;
@@ -536,7 +536,7 @@ GNEHierarchicalElementChildren::ChildConnections::update() {
         }
     }
     // calculate position and rotation of every symbol for every lane
-    for (const auto& i : myHierarchicalElement->myLaneChildren) {
+    for (const auto& i : myHierarchicalElement->myChildLanes) {
         Position pos;
         double rot;
         // set position and length depending of shape's lengt
@@ -549,8 +549,8 @@ GNEHierarchicalElementChildren::ChildConnections::update() {
         }
         symbolsPositionAndRotation.push_back(ConnectionGeometry(i, pos, rot));
     }
-    // calculate position for every additional child
-    for (const auto& i : myHierarchicalElement->myAdditionalChildren) {
+    // calculate position for every child additional
+    for (const auto& i : myHierarchicalElement->myChildAdditionals) {
         // check that position is different of position
         if (i->getPositionInView() != myHierarchicalElement->getPositionInView()) {
             std::vector<Position> posConnection;
@@ -602,7 +602,7 @@ GNEHierarchicalElementChildren::ChildConnections::update() {
 
 
 void
-GNEHierarchicalElementChildren::ChildConnections::draw(const GUIVisualizationSettings& s, const GUIGlObjectType parentType) const {
+GNEHierarchicalChildElements::ChildConnections::draw(const GUIVisualizationSettings& s, const GUIGlObjectType parentType) const {
     // first check if connections can be drawn
     if (!s.drawForRectangleSelection) {
         // Iterate over myConnectionPositions

@@ -144,7 +144,7 @@ GNEVehicleType::commitGeometryMoving(GNEUndoList*) {
 void
 GNEVehicleType::updateGeometry() {
     // update geometry of all childrens
-    for (const auto &i : getDemandElementChildren()) {
+    for (const auto &i : getChildDemandElements()) {
         i->updateGeometry();
     }
 }
@@ -153,7 +153,7 @@ GNEVehicleType::updateGeometry() {
 void 
 GNEVehicleType::updatePartialGeometry(const GNEEdge* edge) {
     // update geometry of all childrens
-    for (const auto &i : getDemandElementChildren()) {
+    for (const auto &i : getChildDemandElements()) {
         i->updatePartialGeometry(edge);
     }
 }

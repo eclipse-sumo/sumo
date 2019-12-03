@@ -122,28 +122,28 @@ public:
     };
 
     // ===========================================================================
-    // class SelectorEdgeChildren
+    // class SelectorChildEdges
     // ===========================================================================
 
-    class SelectorEdgeChildren : protected FXGroupBox {
+    class SelectorChildEdges : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::SelectorEdgeChildren)
+        FXDECLARE(GNEAdditionalFrame::SelectorChildEdges)
 
     public:
         /// @brief constructor
-        SelectorEdgeChildren(GNEAdditionalFrame* additionalFrameParent);
+        SelectorChildEdges(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
-        ~SelectorEdgeChildren();
+        ~SelectorChildEdges();
 
         /// @brief get list of selecte id's in string format
         std::string getEdgeIdsSelected() const;
 
-        /// @brief Show SelectorEdgeChildren Modul
-        void showSelectorEdgeChildrenModul(std::string search = "");
+        /// @brief Show SelectorChildEdges Modul
+        void showSelectorChildEdgesModul(std::string search = "");
 
-        /// @brief hide SelectorEdgeChildren Modul
-        void hideSelectorEdgeChildrenModul();
+        /// @brief hide SelectorChildEdges Modul
+        void hideSelectorChildEdgesModul();
 
         /// @brief Update use selectedEdges
         void updateUseSelectedEdges();
@@ -167,7 +167,7 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(SelectorEdgeChildren)
+        FOX_CONSTRUCTOR(SelectorChildEdges)
 
     private:
         /// @brief pointer to additional frame parent
@@ -176,7 +176,7 @@ public:
         /// @brief CheckBox for selected edges
         FXCheckButton* myUseSelectedEdgesCheckButton;
 
-        /// @brief List of SelectorEdgeChildren
+        /// @brief List of SelectorChildEdges
         FXList* myList;
 
         /// @brief text field for search edge IDs
@@ -190,28 +190,28 @@ public:
     };
 
     // ===========================================================================
-    // class SelectorLaneChildren
+    // class SelectorChildLanes
     // ===========================================================================
 
-    class SelectorLaneChildren : protected FXGroupBox {
+    class SelectorChildLanes : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::SelectorLaneChildren)
+        FXDECLARE(GNEAdditionalFrame::SelectorChildLanes)
 
     public:
         /// @brief constructor
-        SelectorLaneChildren(GNEAdditionalFrame* additionalFrameParent);
+        SelectorChildLanes(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
-        ~SelectorLaneChildren();
+        ~SelectorChildLanes();
 
         /// @brief get list of selecte lane ids in string format
         std::string getLaneIdsSelected() const;
 
-        /// @brief Show list of SelectorLaneChildren Modul
-        void showSelectorLaneChildrenModul(std::string search = "");
+        /// @brief Show list of SelectorChildLanes Modul
+        void showSelectorChildLanesModul(std::string search = "");
 
-        /// @brief hide SelectorLaneChildren Modul
-        void hideSelectorLaneChildrenModul();
+        /// @brief hide SelectorChildLanes Modul
+        void hideSelectorChildLanesModul();
 
         // @brief Update use selectedLanes
         void updateUseSelectedLanes();
@@ -235,7 +235,7 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(SelectorLaneChildren)
+        FOX_CONSTRUCTOR(SelectorChildLanes)
 
     private:
         /// @brief pointer to additional frame parent
@@ -244,7 +244,7 @@ public:
         /// @brief CheckBox for selected lanes
         FXCheckButton* myUseSelectedLanesCheckButton;
 
-        /// @brief List of SelectorLaneChildren
+        /// @brief List of SelectorChildLanes
         FXList* myList;
 
         /// @brief text field for search lane IDs
@@ -275,8 +275,8 @@ public:
      */
     bool addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief show selector lane child and update use selected edges/lanes
-    void showSelectorLaneChildrenModul();
+    /// @brief show selector child lane and update use selected edges/lanes
+    void showSelectorChildLanesModul();
 
     /// @brief getConsecutive Lane Selector
     GNEAdditionalFrame::SelectorParentLanes* getConsecutiveLaneSelector() const;
@@ -322,11 +322,11 @@ private:
     /// @brief Modul for select a single parent additional
     GNEFrameModuls::SelectorParent* myParentAdditional;
 
-    /// @brief Modul for select edge children
-    SelectorEdgeChildren* mySelectorEdgeChildren;
+    /// @brief Modul for select child edges
+    SelectorChildEdges* mySelectorChildEdges;
 
-    /// @brief Modul for select lane children
-    SelectorLaneChildren* mySelectorLaneChildren;
+    /// @brief Modul for select child lanes
+    SelectorChildLanes* mySelectorChildLanes;
 };
 
 

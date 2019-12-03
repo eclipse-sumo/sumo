@@ -237,8 +237,8 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
     }
     // write parameters
     writeParams(device);
-    // write demand element children associated to this person (Rides, Walks...)
-    for (const auto& i : getDemandElementChildren()) {
+    // write child demand elements associated to this person (Rides, Walks...)
+    for (const auto& i : getChildDemandElements()) {
         i->writeDemandElement(device);
     }
     // close person tag
@@ -268,13 +268,13 @@ GNEPerson::fixDemandElementProblem() {
 
 GNEEdge*
 GNEPerson::getFromEdge() const {
-    return getDemandElementChildren().front()->getFromEdge();
+    return getChildDemandElements().front()->getFromEdge();
 }
 
 
 GNEEdge*
 GNEPerson::getToEdge() const {
-    return getDemandElementChildren().front()->getToEdge();
+    return getChildDemandElements().front()->getToEdge();
 }
 
 
@@ -317,7 +317,7 @@ GNEPerson::commitGeometryMoving(GNEUndoList*) {
 void
 GNEPerson::updateGeometry() {
     // only update geometry of childrens
-    for (const auto& i : getDemandElementChildren()) {
+    for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
     }
 }
@@ -326,7 +326,7 @@ GNEPerson::updateGeometry() {
 void 
 GNEPerson::updatePartialGeometry(const GNEEdge* edge) {
     // only update partial geometry of childrens
-    for (const auto& i : getDemandElementChildren()) {
+    for (const auto& i : getChildDemandElements()) {
         i->updatePartialGeometry(edge);
     }
 }
@@ -347,13 +347,13 @@ GNEPerson::invalidatePath() {
 Position
 GNEPerson::getPositionInView() const {
     // Position in view depend of first child element
-    if (getDemandElementChildren().size() > 0) {
-        if (getDemandElementChildren().at(0)->getTagProperty().isPersonStop()) {
-            return getDemandElementChildren().at(0)->getDemandElementGeometry().getShape().getLineCenter();
+    if (getChildDemandElements().size() > 0) {
+        if (getChildDemandElements().at(0)->getTagProperty().isPersonStop()) {
+            return getChildDemandElements().at(0)->getDemandElementGeometry().getShape().getLineCenter();
         } else {
             // obtain lane (special case for rides)
-            SUMOVehicleClass vClassEdgeFrom = getDemandElementChildren().front()->getTagProperty().isRide() ? SVC_PASSENGER : SVC_PEDESTRIAN;
-            GNELane* lane = getDemandElementChildren().at(0)->getParentEdges().at(0)->getLaneByAllowedVClass(vClassEdgeFrom);
+            SUMOVehicleClass vClassEdgeFrom = getChildDemandElements().front()->getTagProperty().isRide() ? SVC_PASSENGER : SVC_PEDESTRIAN;
+            GNELane* lane = getChildDemandElements().at(0)->getParentEdges().at(0)->getLaneByAllowedVClass(vClassEdgeFrom);
             // return position in view depending of lane
             if (lane->getLaneShape().length() < 2.5) {
                 return lane->getLaneShape().front();
@@ -386,8 +386,8 @@ GNEPerson::getParentName() const {
 Boundary
 GNEPerson::getCenteringBoundary() const {
     Boundary personBoundary;
-    if (getDemandElementChildren().size() > 0) {
-        personBoundary.add(getDemandElementChildren().front()->getCenteringBoundary());
+    if (getChildDemandElements().size() > 0) {
+        personBoundary.add(getChildDemandElements().front()->getCenteringBoundary());
     } else {
         personBoundary = Boundary(-0.1, -0.1, 0.1, 0.1);
     }
@@ -410,7 +410,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         drawPerson = false;
     } else if (!myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         drawPerson = false;
-    } else if (getDemandElementChildren().empty()) {
+    } else if (getChildDemandElements().empty()) {
         drawPerson = false;
     }
     // continue if person can be drawn
@@ -426,12 +426,12 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         const std::string file = getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
         Position personPosition;
         // obtain position depending of first PersonPlan child
-        if (getDemandElementChildren().front()->getTagProperty().isPersonStop()) {
+        if (getChildDemandElements().front()->getTagProperty().isPersonStop()) {
             // obtain position of stop center
-            personPosition = getDemandElementChildren().front()->getPositionInView();
+            personPosition = getChildDemandElements().front()->getPositionInView();
         } else {
             // obtain position of first edge
-            personPosition = getDemandElementChildren().front()->getDemandElementSegmentGeometry().getFirstPosition();
+            personPosition = getChildDemandElements().front()->getDemandElementSegmentGeometry().getFirstPosition();
         }
         // check that position is valid and person can be drawn
         if ((personPosition != Position::INVALID) && 

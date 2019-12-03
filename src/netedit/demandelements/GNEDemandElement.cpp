@@ -163,15 +163,15 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
                                    const std::vector<GNEShape*>& parentShapes,
                                    const std::vector<GNEAdditional*>& parentAdditionals,
                                    const std::vector<GNEDemandElement*>& parentDemandElements,
-                                   const std::vector<GNEEdge*>& edgeChildren,
-                                   const std::vector<GNELane*>& laneChildren,
-                                   const std::vector<GNEShape*>& shapeChildren,
-                                   const std::vector<GNEAdditional*>& additionalChildren,
-                                   const std::vector<GNEDemandElement*>& demandElementChildren) :
+                                   const std::vector<GNEEdge*>& childEdges,
+                                   const std::vector<GNELane*>& childLanes,
+                                   const std::vector<GNEShape*>& childShapes,
+                                   const std::vector<GNEAdditional*>& childAdditionals,
+                                   const std::vector<GNEDemandElement*>& childDemandElements) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     GNEHierarchicalParentElements(this, parentEdges, parentLanes, parentShapes, parentAdditionals, parentDemandElements),
-    GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
+    GNEHierarchicalChildElements(this, childEdges, childLanes, childShapes, childAdditionals, childDemandElements),
     myViewNet(viewNet) {
 }
 
@@ -182,22 +182,22 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEVie
                                    const std::vector<GNEShape*>& parentShapes,
                                    const std::vector<GNEAdditional*>& parentAdditionals,
                                    const std::vector<GNEDemandElement*>& parentDemandElements,
-                                   const std::vector<GNEEdge*>& edgeChildren,
-                                   const std::vector<GNELane*>& laneChildren,
-                                   const std::vector<GNEShape*>& shapeChildren,
-                                   const std::vector<GNEAdditional*>& additionalChildren,
-                                   const std::vector<GNEDemandElement*>& demandElementChildren) :
+                                   const std::vector<GNEEdge*>& childEdges,
+                                   const std::vector<GNELane*>& childLanes,
+                                   const std::vector<GNEShape*>& childShapes,
+                                   const std::vector<GNEAdditional*>& childAdditionals,
+                                   const std::vector<GNEDemandElement*>& childDemandElements) :
     GUIGlObject(type, demandElementParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     GNEHierarchicalParentElements(this, parentEdges, parentLanes, parentShapes, parentAdditionals, parentDemandElements),
-    GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
+    GNEHierarchicalChildElements(this, childEdges, childLanes, childShapes, childAdditionals, childDemandElements),
     myViewNet(viewNet) {
 }
 
 
 std::string
 GNEDemandElement::generateChildID(SumoXMLTag childTag) {
-    int counter = (int)getDemandElementChildren().size();
+    int counter = (int)getChildDemandElements().size();
     while (myViewNet->getNet()->retrieveDemandElement(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }
@@ -403,9 +403,9 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos(double &startPos, double &e
     GNEAdditional* busStop = getParentAdditionals().size() > 0? getParentAdditionals().front() : nullptr;
     // declare pointers for previous elements
     GNEAdditional* previousBusStop = nullptr;
-    GNEDemandElement *previousPersonPlan = getParentDemandElements().at(0)->getPreviousDemandElement(this);
+    GNEDemandElement *previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
     // declare pointer to next person plan
-    GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextDemandElement(this);
+    GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
     // obtain departlane throught previous element
     if (previousPersonPlan && (previousPersonPlan->getParentAdditionals().size() > 0)) {
         // set previous busStop
@@ -440,7 +440,7 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos(double &startPos, double &e
 void 
 GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position &startPos, Position &endPos) const {
     // obtain previous demand element
-    GNEDemandElement *previousDemandElmement = getParentDemandElements().front()->getPreviousDemandElement(this);
+    GNEDemandElement *previousDemandElmement = getParentDemandElements().front()->getPreviousChildDemandElement(this);
     if (previousDemandElmement) {
         // update startPos
         if ((previousDemandElmement->getParentAdditionals().size() > 0) && 
@@ -461,7 +461,7 @@ GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position &startPos, Pos
         endPos = getParentAdditionals().front()->getAdditionalGeometry().getShape().front();
     } else {
         // obtain next demand element
-        GNEDemandElement *nextDemandElmement = getParentDemandElements().front()->getNextDemandElement(this);
+        GNEDemandElement *nextDemandElmement = getParentDemandElements().front()->getNextChildDemandElement(this);
         if (nextDemandElmement) {
             // update end pos
             if (nextDemandElmement->getTagProperty().isPersonStop() && (nextDemandElmement->getDemandElementGeometry().getShape().size() > 0)) {
@@ -566,9 +566,9 @@ GNEDemandElement::drawUsingSelectColor() const {
 
 
 bool
-GNEDemandElement::checkDemandElementChildRestriction() const {
+GNEDemandElement::checkChildDemandElementRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
-    throw ProcessError("Calling non-implemented function checkDemandElementChildRestriction during saving of " + getTagStr() + ". It muss be reimplemented in child class");
+    throw ProcessError("Calling non-implemented function checkChildDemandElementRestriction during saving of " + getTagStr() + ". It muss be reimplemented in child class");
 }
 
 /****************************************************************************/

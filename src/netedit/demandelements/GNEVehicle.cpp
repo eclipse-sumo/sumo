@@ -391,8 +391,8 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
     }
     // write parameters
     writeParams(device);
-    // write demand element children associated to this vehicle
-    for (const auto& i : getDemandElementChildren()) {
+    // write child demand elements associated to this vehicle
+    for (const auto& i : getChildDemandElements()) {
         i->writeDemandElement(device);
     }
     // close vehicle tag
@@ -453,9 +453,9 @@ GNEVehicle::getFromEdge() const {
         return getParentDemandElements().at(1)->getFromEdge();
     } else if (getParentEdges().size() > 0) {
         return getParentEdges().front();
-    } else if (getDemandElementChildren().size() > 0) {
+    } else if (getChildDemandElements().size() > 0) {
         // obtain edge of embedded route
-        return getDemandElementChildren().at(0)->getFromEdge();
+        return getChildDemandElements().at(0)->getFromEdge();
     } else {
         throw ProcessError("Undefined from edge");
     }
@@ -469,9 +469,9 @@ GNEVehicle::getToEdge() const {
         return getParentDemandElements().at(1)->getToEdge();
     } else if (getParentEdges().size() > 0) {
         return getParentEdges().back();
-    } else if (getDemandElementChildren().size() > 0) {
+    } else if (getChildDemandElements().size() > 0) {
         // obtain edge of embedded route
-        return getDemandElementChildren().at(0)->getToEdge();
+        return getChildDemandElements().at(0)->getToEdge();
     } else {
         throw ProcessError("Undefined to edge");
     }
@@ -534,8 +534,8 @@ GNEVehicle::updateGeometry() {
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(), 
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
     }
-    // update demand element childrens
-    for (const auto& i : getDemandElementChildren()) {
+    // update child demand elementss
+    for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
     }
 }
@@ -555,8 +555,8 @@ GNEVehicle::updatePartialGeometry(const GNEEdge* edge) {
     }
     // update geometry path for the given edge
     GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane);
-    // update demand element childrens
-    for (const auto& i : getDemandElementChildren()) {
+    // update child demand elementss
+    for (const auto& i : getChildDemandElements()) {
         i->updatePartialGeometry(edge);
     }
 }
@@ -670,10 +670,10 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // obtain position and rotation of segments geometry
             vehiclePosition = myDemandElementSegmentGeometry.getFirstPosition();
             vehicleRotation = myDemandElementSegmentGeometry.getFirstRotation();
-        } else if ((getDemandElementChildren().size() > 0) && (getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().size() > 0)) {
+        } else if ((getChildDemandElements().size() > 0) && (getChildDemandElements().at(0)->getDemandElementSegmentGeometry().size() > 0)) {
             // obtain position and rotation of embedded route
-            vehiclePosition = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().getFirstPosition();
-            vehicleRotation = getDemandElementChildren().at(0)->getDemandElementSegmentGeometry().getFirstRotation();
+            vehiclePosition = getChildDemandElements().at(0)->getDemandElementSegmentGeometry().getFirstPosition();
+            vehicleRotation = getChildDemandElements().at(0)->getDemandElementSegmentGeometry().getFirstRotation();
         }
         // check that position is valid
         if (vehiclePosition != Position::INVALID) {

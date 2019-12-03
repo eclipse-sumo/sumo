@@ -225,12 +225,12 @@ GNEPersonPlanFrame::PersonPlanCreator::refreshPersonPlanCreator() {
     // clear edges
     myClickedEdges.clear();
     myTemporalEdgePath.clear();
-    // first check if person has already demand element children
+    // first check if person has already child demand elements
     if (myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement() &&
-            (myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().size() > 0)) {
+            (myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getChildDemandElements().size() > 0)) {
         // obtain last person plan element tag and pointer (to improve code legibliy)
-        SumoXMLTag lastPersonPlanElementTag = myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().back()->getTagProperty().getTag();
-        GNEDemandElement* lastPersonPlanElement = myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getDemandElementChildren().back();
+        SumoXMLTag lastPersonPlanElementTag = myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getChildDemandElements().back()->getTagProperty().getTag();
+        GNEDemandElement* lastPersonPlanElement = myPersonPlanFrameParent->myPersonSelector->getCurrentDemandElement()->getChildDemandElements().back();
         // add edge of last person plan of current edited person
         if (lastPersonPlanElementTag == SUMO_TAG_PERSONSTOP_LANE) {
             // obtan edge's lane of stop lane

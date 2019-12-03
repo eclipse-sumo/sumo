@@ -978,7 +978,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector
         if ((myClickedDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myClickedDemandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
             WRITE_WARNING("Default Vehicle Type '" + myClickedDemandElement->getAttribute(SUMO_ATTR_ID) + "' cannot be removed");
             return 1;
-        } else if (myClickedDemandElement->getTagProperty().isPersonPlan() && (myClickedDemandElement->getParentDemandElements().front()->getDemandElementChildren().size() == 1)) {
+        } else if (myClickedDemandElement->getTagProperty().isPersonPlan() && (myClickedDemandElement->getParentDemandElements().front()->getChildDemandElements().size() == 1)) {
             // we need to check if we're removing the last person plan of a person.
             myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement->getParentDemandElements().front(), myFrameParent->myViewNet->getUndoList()); 
         } else {
@@ -1085,18 +1085,18 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
                 moveDownMenuCommand->disable();
             } else {
                 // check if moveUpMenuCommand has to be disabled
-                if (myClickedDemandElement->getParentDemandElements().front()->getDemandElementChildren().front() == myClickedDemandElement) {
+                if (myClickedDemandElement->getParentDemandElements().front()->getChildDemandElements().front() == myClickedDemandElement) {
                     moveUpMenuCommand->setText("Move up (It's already the first element)");
                     moveUpMenuCommand->disable();
-                } else if (myClickedDemandElement->getParentDemandElements().front()->getPreviousDemandElement(myClickedDemandElement)->getTagProperty().isPersonStop()) {
+                } else if (myClickedDemandElement->getParentDemandElements().front()->getPreviousChildDemandElement(myClickedDemandElement)->getTagProperty().isPersonStop()) {
                     moveUpMenuCommand->setText("Move up (Previous element is a Stop)");
                     moveUpMenuCommand->disable();
                 }
                 // check if moveDownMenuCommand has to be disabled
-                if (myClickedDemandElement->getParentDemandElements().front()->getDemandElementChildren().back() == myClickedDemandElement) {
+                if (myClickedDemandElement->getParentDemandElements().front()->getChildDemandElements().back() == myClickedDemandElement) {
                     moveDownMenuCommand->setText("Move down (It's already the last element)");
                     moveDownMenuCommand->disable();
-                } else if (myClickedDemandElement->getParentDemandElements().front()->getNextDemandElement(myClickedDemandElement)->getTagProperty().isPersonStop()) {
+                } else if (myClickedDemandElement->getParentDemandElements().front()->getNextChildDemandElement(myClickedDemandElement)->getTagProperty().isPersonStop()) {
                     moveDownMenuCommand->setText("Move down (Next element is a Stop)");
                     moveDownMenuCommand->disable();
                 }
@@ -1406,22 +1406,22 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                     for (const auto& i : edge->getLanes()) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
-                    // insert shape children
-                    for (const auto& i : edge->getShapeChildren()) {
+                    // insert child shapes
+                    for (const auto& i : edge->getChildShapes()) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
-                    // insert additional children
-                    for (const auto& i : edge->getAdditionalChildren()) {
+                    // insert child additional
+                    for (const auto& i : edge->getChildAdditionals()) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
-                    // insert demand elements children (note: use getSortedDemandElementChildrenByType to avoid duplicated elements)
-                    for (const auto& i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_ROUTE)) {
+                    // insert demand elements children (note: use getChildDemandElementsSortedByType to avoid duplicated elements)
+                    for (const auto& i : edge->getChildDemandElementsSortedByType(SUMO_TAG_ROUTE)) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
-                    for (const auto& i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_TRIP)) {
+                    for (const auto& i : edge->getChildDemandElementsSortedByType(SUMO_TAG_TRIP)) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
-                    for (const auto& i : edge->getSortedDemandElementChildrenByType(SUMO_TAG_FLOW)) {
+                    for (const auto& i : edge->getChildDemandElementsSortedByType(SUMO_TAG_FLOW)) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
                 }
@@ -1433,16 +1433,16 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                 if (lane) {
                     // insert lane item
                     FXTreeItem* laneItem = addListItem(AC, itemParent);
-                    // insert shape children
-                    for (const auto& i : lane->getShapeChildren()) {
+                    // insert child shapes
+                    for (const auto& i : lane->getChildShapes()) {
                         showAttributeCarrierChildren(i, laneItem);
                     }
-                    // insert additional children
-                    for (const auto& i : lane->getAdditionalChildren()) {
+                    // insert child additional
+                    for (const auto& i : lane->getChildAdditionals()) {
                         showAttributeCarrierChildren(i, laneItem);
                     }
                     // insert demand elements children
-                    for (const auto& i : lane->getDemandElementChildren()) {
+                    for (const auto& i : lane->getChildDemandElements()) {
                         showAttributeCarrierChildren(i, laneItem);
                     }
                     // insert incoming connections of lanes (by default isn't expanded)
@@ -1486,24 +1486,24 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
         if (additional) {
             // insert additional item
             FXTreeItem* additionalItem = addListItem(AC, itemParent);
-            // insert edge children
-            for (const auto& i : additional->getEdgeChildren()) {
+            // insert child edges
+            for (const auto& i : additional->getChildEdges()) {
                 showAttributeCarrierChildren(i, additionalItem);
             }
-            // insert lane children
-            for (const auto& i : additional->getLaneChildren()) {
+            // insert child lanes
+            for (const auto& i : additional->getChildLanes()) {
                 showAttributeCarrierChildren(i, additionalItem);
             }
-            // insert shape children
-            for (const auto& i : additional->getShapeChildren()) {
+            // insert child shapes
+            for (const auto& i : additional->getChildShapes()) {
                 showAttributeCarrierChildren(i, additionalItem);
             }
             // insert additionals children
-            for (const auto& i : additional->getAdditionalChildren()) {
+            for (const auto& i : additional->getChildAdditionals()) {
                 showAttributeCarrierChildren(i, additionalItem);
             }
-            // insert demand element children
-            for (const auto& i : additional->getDemandElementChildren()) {
+            // insert child demand elements
+            for (const auto& i : additional->getChildDemandElements()) {
                 showAttributeCarrierChildren(i, additionalItem);
             }
         }
@@ -1513,24 +1513,24 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
         if (demandElement) {
             // insert demandElement item
             FXTreeItem* demandElementItem = addListItem(AC, itemParent);
-            // insert edge children
-            for (const auto& i : demandElement->getEdgeChildren()) {
+            // insert child edges
+            for (const auto& i : demandElement->getChildEdges()) {
                 showAttributeCarrierChildren(i, demandElementItem);
             }
-            // insert lane children
-            for (const auto& i : demandElement->getLaneChildren()) {
+            // insert child lanes
+            for (const auto& i : demandElement->getChildLanes()) {
                 showAttributeCarrierChildren(i, demandElementItem);
             }
-            // insert shape children
-            for (const auto& i : demandElement->getShapeChildren()) {
+            // insert child shapes
+            for (const auto& i : demandElement->getChildShapes()) {
                 showAttributeCarrierChildren(i, demandElementItem);
             }
             // insert additionals children
-            for (const auto& i : demandElement->getAdditionalChildren()) {
+            for (const auto& i : demandElement->getChildAdditionals()) {
                 showAttributeCarrierChildren(i, demandElementItem);
             }
-            // insert demand element children
-            for (const auto& i : demandElement->getDemandElementChildren()) {
+            // insert child demand elements
+            for (const auto& i : demandElement->getChildDemandElements()) {
                 showAttributeCarrierChildren(i, demandElementItem);
             }
         }

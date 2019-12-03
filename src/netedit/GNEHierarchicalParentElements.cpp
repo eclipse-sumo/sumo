@@ -277,7 +277,7 @@ void
 GNEHierarchicalParentElements::replaceParentEdges(GNEShape* elementChild, const std::string& newEdgeIDs) {
     // remove additional of parent edges
     for (const auto& edge : myParentEdges) {
-        edge->removeShapeChild(elementChild);
+        edge->removeChildShape(elementChild);
     }
     // obtain new parent edges
     myParentEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getNet(), newEdgeIDs);
@@ -287,7 +287,7 @@ GNEHierarchicalParentElements::replaceParentEdges(GNEShape* elementChild, const 
     } else {
         // add additional into parent edges
         for (const auto& edge : myParentEdges) {
-            edge->addShapeChild(elementChild);
+            edge->addChildShape(elementChild);
         }
     }
 }
@@ -297,7 +297,7 @@ void
 GNEHierarchicalParentElements::replaceParentEdges(GNEAdditional* elementChild, const std::string& newEdgeIDs) {
     // remove additional of parent edges
     for (const auto& edge : myParentEdges) {
-        edge->removeAdditionalChild(elementChild);
+        edge->removeChildAdditional(elementChild);
     }
     // obtain new parent edges
     myParentEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getViewNet()->getNet(), newEdgeIDs);
@@ -307,7 +307,7 @@ GNEHierarchicalParentElements::replaceParentEdges(GNEAdditional* elementChild, c
     } else {
         // add additional into parent edges
         for (const auto& edge : myParentEdges) {
-            edge->addAdditionalChild(elementChild);
+            edge->addChildAdditional(elementChild);
         }
     }
 }
@@ -317,7 +317,7 @@ void
 GNEHierarchicalParentElements::replaceParentEdges(GNEDemandElement* elementChild, const std::string& newEdgeIDs) {
     // remove demandElement of parent edges
     for (const auto& edge : myParentEdges) {
-        edge->removeDemandElementChild(elementChild);
+        edge->removeChildDemandElement(elementChild);
     }
     // obtain new parent edges
     myParentEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getViewNet()->getNet(), newEdgeIDs);
@@ -327,7 +327,7 @@ GNEHierarchicalParentElements::replaceParentEdges(GNEDemandElement* elementChild
     } else {
         // add demandElement into parent edges
         for (const auto& edge : myParentEdges) {
-            edge->addDemandElementChild(elementChild);
+            edge->addChildDemandElement(elementChild);
         }
     }
 }
@@ -337,7 +337,7 @@ void
 GNEHierarchicalParentElements::replaceParentEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newEdges) {
     // remove demandElement of parent edges
     for (const auto& edge : myParentEdges) {
-        edge->removeDemandElementChild(elementChild);
+        edge->removeChildDemandElement(elementChild);
     }
     // set new edges
     myParentEdges = newEdges;
@@ -347,7 +347,7 @@ GNEHierarchicalParentElements::replaceParentEdges(GNEDemandElement* elementChild
     } else {
         // add demandElement into parent edges
         for (const auto& edge : myParentEdges) {
-            edge->addDemandElementChild(elementChild);
+            edge->addChildDemandElement(elementChild);
         }
     }
 }
@@ -360,11 +360,11 @@ GNEHierarchicalParentElements::replaceFirstParentEdge(GNEDemandElement* elementC
         throw InvalidArgument("Invalid minimum number of edges");
     } else {
         // remove demandElement of parent edges
-        myParentEdges.front()->removeDemandElementChild(elementChild);
+        myParentEdges.front()->removeChildDemandElement(elementChild);
         // replace first edge 
         myParentEdges[0] = newFirstEdge;
         // add demandElement into parent edges
-        myParentEdges.front()->addDemandElementChild(elementChild);
+        myParentEdges.front()->addChildDemandElement(elementChild);
     }
 }
 
@@ -401,12 +401,12 @@ GNEHierarchicalParentElements::replaceLastParentEdge(GNEDemandElement* elementCh
         throw InvalidArgument("Invalid minimum number of edges");
     } else {
         // remove demandElement of parent edges
-        myParentEdges.back()->removeDemandElementChild(elementChild);
+        myParentEdges.back()->removeChildDemandElement(elementChild);
         // replace last edge 
         myParentEdges.pop_back();
         myParentEdges.push_back(newLastEdge);
         // add demandElement into parent edges
-        myParentEdges.back()->addDemandElementChild(elementChild);
+        myParentEdges.back()->addChildDemandElement(elementChild);
     }
 }
 
@@ -430,7 +430,7 @@ void
 GNEHierarchicalParentElements::replaceParentLanes(GNEAdditional* elementChild, const std::string& newLaneIDs) {
     // remove additional of parent edges
     for (const auto& lane : myParentLanes) {
-        lane->removeAdditionalChild(elementChild);
+        lane->removeChildAdditional(elementChild);
     }
     // obtain new parent edges
     myParentLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getViewNet()->getNet(), newLaneIDs);
@@ -440,7 +440,7 @@ GNEHierarchicalParentElements::replaceParentLanes(GNEAdditional* elementChild, c
     } else {
         // add additional into parent edges
         for (const auto& lane : myParentLanes) {
-            lane->addAdditionalChild(elementChild);
+            lane->addChildAdditional(elementChild);
         }
     }
 }
@@ -450,7 +450,7 @@ void
 GNEHierarchicalParentElements::replaceParentLanes(GNEDemandElement* elementChild, const std::string& newLaneIDs) {
     // remove demandElement of parent edges
     for (const auto& lane : myParentLanes) {
-        lane->removeDemandElementChild(elementChild);
+        lane->removeChildDemandElement(elementChild);
     }
     // obtain new parent edges
     myParentLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getViewNet()->getNet(), newLaneIDs);
@@ -460,7 +460,7 @@ GNEHierarchicalParentElements::replaceParentLanes(GNEDemandElement* elementChild
     } else {
         // add demandElement into parent edges
         for (const auto& lane : myParentLanes) {
-            lane->addDemandElementChild(elementChild);
+            lane->addChildDemandElement(elementChild);
         }
     }
 }
@@ -470,7 +470,7 @@ void
 GNEHierarchicalParentElements::replaceParentLanes(GNEShape* elementChild, const std::string& newLaneIDs) {
     // remove demandElement of parent edges
     for (const auto& lane : myParentLanes) {
-        lane->removeShapeChild(elementChild);
+        lane->removeChildShape(elementChild);
     }
     // obtain new parent edges
     myParentLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getNet(), newLaneIDs);
@@ -480,7 +480,7 @@ GNEHierarchicalParentElements::replaceParentLanes(GNEShape* elementChild, const 
     } else {
         // add demandElement into parent edges
         for (const auto& lane : myParentLanes) {
-            lane->addShapeChild(elementChild);
+            lane->addChildShape(elementChild);
         }
     }
 }
@@ -492,11 +492,11 @@ GNEHierarchicalParentElements::replaceParentAdditional(GNEShape* shapeTobeChange
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(additionalParentIndex) + " parent additionals");
     } else {
         // remove additional of the children of parent additional
-        myParentAdditionals.at(additionalParentIndex)->removeShapeChild(shapeTobeChanged);
+        myParentAdditionals.at(additionalParentIndex)->removeChildShape(shapeTobeChanged);
         // set new parent additional
         myParentAdditionals.at(additionalParentIndex) = shapeTobeChanged->getNet()->retrieveAdditional(myParentAdditionals.at(additionalParentIndex)->getTagProperty().getTag(), newParentAdditionalID);
         // add additional int the children of parent additional
-        myParentAdditionals.at(additionalParentIndex)->addShapeChild(shapeTobeChanged);
+        myParentAdditionals.at(additionalParentIndex)->addChildShape(shapeTobeChanged);
         // update geometry after inserting
         shapeTobeChanged->updateGeometry();
     }
@@ -509,11 +509,11 @@ GNEHierarchicalParentElements::replaceParentAdditional(GNEAdditional* additional
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(additionalParentIndex) + " parent additionals");
     } else {
         // remove additional of the children of parent additional
-        myParentAdditionals.at(additionalParentIndex)->removeAdditionalChild(additionalTobeChanged);
+        myParentAdditionals.at(additionalParentIndex)->removeChildAdditional(additionalTobeChanged);
         // set new parent additional
         myParentAdditionals.at(additionalParentIndex) = additionalTobeChanged->getViewNet()->getNet()->retrieveAdditional(myParentAdditionals.at(additionalParentIndex)->getTagProperty().getTag(), newParentAdditionalID);
         // add additional int the children of parent additional
-        myParentAdditionals.at(additionalParentIndex)->addAdditionalChild(additionalTobeChanged);
+        myParentAdditionals.at(additionalParentIndex)->addChildAdditional(additionalTobeChanged);
         // update geometry after inserting
         additionalTobeChanged->updateGeometry();
     }
@@ -526,11 +526,11 @@ GNEHierarchicalParentElements::replaceParentAdditional(GNEDemandElement* demandE
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(additionalParentIndex) + " parent additionals");
     } else {
         // remove demand element of the children of parent additional
-        myParentAdditionals.at(additionalParentIndex)->removeDemandElementChild(demandElementTobeChanged);
+        myParentAdditionals.at(additionalParentIndex)->removeChildDemandElement(demandElementTobeChanged);
         // set new parent demand element
         myParentAdditionals.at(additionalParentIndex) = demandElementTobeChanged->getViewNet()->getNet()->retrieveAdditional(myParentAdditionals.at(additionalParentIndex)->getTagProperty().getTag(), newParentAdditionalID);
         // add demand element int the children of parent additional
-        myParentAdditionals.at(additionalParentIndex)->removeDemandElementChild(demandElementTobeChanged);
+        myParentAdditionals.at(additionalParentIndex)->removeChildDemandElement(demandElementTobeChanged);
         // update geometry after inserting
         demandElementTobeChanged->updateGeometry();
     }
@@ -543,11 +543,11 @@ GNEHierarchicalParentElements::replaceParentDemandElement(GNEShape* shapeTobeCha
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(demandElementParentIndex) + " parent demand elements");
     } else {
         // remove demand element of the children of parent additional
-        myParentDemandElements.at(demandElementParentIndex)->removeShapeChild(shapeTobeChanged);
+        myParentDemandElements.at(demandElementParentIndex)->removeChildShape(shapeTobeChanged);
         // set new parent demand element
         myParentDemandElements.at(demandElementParentIndex) = shapeTobeChanged->getNet()->retrieveDemandElement(myParentDemandElements.at(demandElementParentIndex)->getTagProperty().getTag(), newParentDemandElementID);
         // add demand element int the children of parent additional
-        myParentDemandElements.at(demandElementParentIndex)->addShapeChild(shapeTobeChanged);
+        myParentDemandElements.at(demandElementParentIndex)->addChildShape(shapeTobeChanged);
         // update geometry after inserting
         shapeTobeChanged->updateGeometry();
     }
@@ -560,11 +560,11 @@ GNEHierarchicalParentElements::replaceParentDemandElement(GNEAdditional* additio
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(demandElementParentIndex) + " parent demand elements");
     } else {
         // remove demand element of the children of parent additional
-        myParentDemandElements.at(demandElementParentIndex)->removeAdditionalChild(additionalTobeChanged);
+        myParentDemandElements.at(demandElementParentIndex)->removeChildAdditional(additionalTobeChanged);
         // set new parent demand element
         myParentDemandElements.at(demandElementParentIndex) = additionalTobeChanged->getViewNet()->getNet()->retrieveDemandElement(myParentDemandElements.at(demandElementParentIndex)->getTagProperty().getTag(), newParentDemandElementID);
         // add demand element int the children of parent additional
-        myParentDemandElements.at(demandElementParentIndex)->addAdditionalChild(additionalTobeChanged);
+        myParentDemandElements.at(demandElementParentIndex)->addChildAdditional(additionalTobeChanged);
         // update geometry after inserting
         additionalTobeChanged->updateGeometry();
     }
@@ -577,11 +577,11 @@ GNEHierarchicalParentElements::replaceParentDemandElement(GNEDemandElement* dema
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(demandElementParentIndex) + " parent demand elements");
     } else {
         // remove additional of the children of parent additional
-        myParentDemandElements.at(demandElementParentIndex)->removeDemandElementChild(demandElementTobeChanged);
+        myParentDemandElements.at(demandElementParentIndex)->removeChildDemandElement(demandElementTobeChanged);
         // set new parent additional
         myParentDemandElements.at(demandElementParentIndex) = demandElementTobeChanged->getViewNet()->getNet()->retrieveDemandElement(myParentDemandElements.at(demandElementParentIndex)->getTagProperty().getTag(), newParentDemandElementID);
         // add additional int the children of parent additional
-        myParentDemandElements.at(demandElementParentIndex)->addDemandElementChild(demandElementTobeChanged);
+        myParentDemandElements.at(demandElementParentIndex)->addChildDemandElement(demandElementTobeChanged);
         // update geometry after inserting
         demandElementTobeChanged->updateGeometry();
     }

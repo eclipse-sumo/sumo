@@ -38,8 +38,8 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* v
     // fill VSS Step with default values
     setDefaultValues();
     // set time Attribute manually
-    if (getParentAdditionals().at(0)->getAdditionalChildren().size() > 0) {
-        myTime = getParentAdditionals().at(0)->getAdditionalChildren().back()->getAttributeDouble(SUMO_ATTR_TIME) + 1;
+    if (getParentAdditionals().at(0)->getChildAdditionals().size() > 0) {
+        myTime = getParentAdditionals().at(0)->getChildAdditionals().back()->getAttributeDouble(SUMO_ATTR_TIME) + 1;
     } else {
         myTime = 0;
     }
@@ -174,7 +174,7 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
                 }
                 // check that there isn't duplicate times
                 int counter = 0;
-                for (auto i : getParentAdditionals().at(0)->getAdditionalChildren()) {
+                for (auto i : getParentAdditionals().at(0)->getChildAdditionals()) {
                     if (i->getAttributeDouble(SUMO_ATTR_TIME) == newTime) {
                         counter++;
                     }

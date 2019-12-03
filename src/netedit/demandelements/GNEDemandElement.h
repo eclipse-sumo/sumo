@@ -53,7 +53,7 @@ class GNEJunction;
  * @class GNEDemandElement
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalParentElements, public GNEHierarchicalElementChildren {
+class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
 
 public:
     /// @brief struct for pack all variables related with Demand Element moving
@@ -110,12 +110,12 @@ public:
      * @param[in] parentLanes vector of parent lanes
      * @param[in] parentShapes vector of parent shapes
      * @param[in] parentAdditionals vector of parent additionals
-     * @param[in] demandElementChildren vector of demandElement parents
-     * @param[in] edgeChildren vector of edge children
-     * @param[in] laneChildren vector of lane children
-     * @param[in] shapeChildren vector of shape children
-     * @param[in] additionalChildren vector of additional children
-     * @param[in] demandElementChildren vector of demandElement children
+     * @param[in] childDemandElements vector of demandElement parents
+     * @param[in] childEdges vector of child edges
+     * @param[in] childLanes vector of child lanes
+     * @param[in] childShapes vector of child shapes
+     * @param[in] childAdditionals vector of child additional
+     * @param[in] childDemandElements vector of demandElement children
      */
     GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
                      const std::vector<GNEEdge*>& parentEdges,
@@ -123,11 +123,11 @@ public:
                      const std::vector<GNEShape*>& parentShapes,
                      const std::vector<GNEAdditional*>& parentAdditionals,
                      const std::vector<GNEDemandElement*>& parentDemandElements,
-                     const std::vector<GNEEdge*>& edgeChildren,
-                     const std::vector<GNELane*>& laneChildren,
-                     const std::vector<GNEShape*>& shapeChildren,
-                     const std::vector<GNEAdditional*>& additionalChildren,
-                     const std::vector<GNEDemandElement*>& demandElementChildren);
+                     const std::vector<GNEEdge*>& childEdges,
+                     const std::vector<GNELane*>& childLanes,
+                     const std::vector<GNEShape*>& childShapes,
+                     const std::vector<GNEAdditional*>& childAdditionals,
+                     const std::vector<GNEDemandElement*>& childDemandElements);
 
     /**@brief Constructor
      * @param[in] demandElementParent pointer to parent demand element pointer (used to generate an ID)
@@ -138,12 +138,12 @@ public:
      * @param[in] parentLanes vector of parent lanes
      * @param[in] parentShapes vector of parent shapes
      * @param[in] parentAdditionals vector of parent additionals
-     * @param[in] demandElementChildren vector of demandElement parents
-     * @param[in] edgeChildren vector of edge children
-     * @param[in] laneChildren vector of lane children
-     * @param[in] shapeChildren vector of shape children
-     * @param[in] additionalChildren vector of additional children
-     * @param[in] demandElementChildren vector of demandElement children
+     * @param[in] childDemandElements vector of demandElement parents
+     * @param[in] childEdges vector of child edges
+     * @param[in] childLanes vector of child lanes
+     * @param[in] childShapes vector of child shapes
+     * @param[in] childAdditionals vector of child additional
+     * @param[in] childDemandElements vector of demandElement children
      */
     GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
                      const std::vector<GNEEdge*>& parentEdges,
@@ -151,11 +151,11 @@ public:
                      const std::vector<GNEShape*>& parentShapes,
                      const std::vector<GNEAdditional*>& parentAdditionals,
                      const std::vector<GNEDemandElement*>& parentDemandElements,
-                     const std::vector<GNEEdge*>& edgeChildren,
-                     const std::vector<GNELane*>& laneChildren,
-                     const std::vector<GNEShape*>& shapeChildren,
-                     const std::vector<GNEAdditional*>& additionalChildren,
-                     const std::vector<GNEDemandElement*>& demandElementChildren);
+                     const std::vector<GNEEdge*>& childEdges,
+                     const std::vector<GNELane*>& childLanes,
+                     const std::vector<GNEShape*>& childShapes,
+                     const std::vector<GNEAdditional*>& childAdditionals,
+                     const std::vector<GNEDemandElement*>& childDemandElements);
 
     /// @brief Destructor
     ~GNEDemandElement();
@@ -415,7 +415,7 @@ private:
     /**@brief check restriction with the number of children
      * @throw ProcessError if itis called without be reimplemented in child class
      */
-    virtual bool checkDemandElementChildRestriction() const;
+    virtual bool checkChildDemandElementRestriction() const;
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;

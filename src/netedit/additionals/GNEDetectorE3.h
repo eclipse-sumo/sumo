@@ -130,7 +130,7 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
-    /// @name inherited from GNEHierarchicalElementChildren
+    /// @name inherited from GNEHierarchicalChildElements
     /// @{
     /// @brief update parent after add or remove a child
     void updateParentAdditional();
@@ -157,7 +157,7 @@ protected:
 
 private:
     /// @brief check restriction with the number of children
-    bool checkAdditionalChildRestriction() const;
+    bool checkChildAdditionalRestriction() const;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

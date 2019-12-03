@@ -254,15 +254,15 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdCreatePersonType(FXObject*, FXSelecto
 long
 GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType(FXObject*, FXSelector, void*) {
     // show question dialog if vtype has already assigned persons
-    if (myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getDemandElementChildren().size() > 0) {
-        std::string plural = myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getDemandElementChildren().size() == 1 ? ("") : ("s");
+    if (myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getChildDemandElements().size() > 0) {
+        std::string plural = myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getChildDemandElements().size() == 1 ? ("") : ("s");
         // show warning in gui testing debug mode
         WRITE_DEBUG("Opening FXMessageBox 'remove vType'");
         // Ask confirmation to user
         FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
                                                ("Remove " + toString(SUMO_TAG_PTYPE) + "s").c_str(), "%s",
                                                ("Delete " + toString(SUMO_TAG_PTYPE) + " '" + myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getID() +
-                                                "' will remove " + toString(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getDemandElementChildren().size()) +
+                                                "' will remove " + toString(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->getChildDemandElements().size()) +
                                                 " person" + plural + ". Continue?").c_str());
         if (answer != 1) { // 1:yes, 2:no, 4:esc
             // write warning if netedit is running in testing mode

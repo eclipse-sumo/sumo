@@ -121,7 +121,7 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getParentEdges()));
     } else {
         // only write From attribute if this is the first Person Plan
-        if (getParentDemandElements().front()->getDemandElementChildren().front() == this) {
+        if (getParentDemandElements().front()->getChildDemandElements().front() == this) {
             device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
         }
         // check if write busStop or edge to
@@ -303,8 +303,8 @@ GNEWalk::updateGeometry() {
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(), 
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
-    // update demand element childrens
-    for (const auto& i : getDemandElementChildren()) {
+    // update child demand elementss
+    for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
     }
 }
@@ -324,8 +324,8 @@ GNEWalk::updatePartialGeometry(const GNEEdge* edge) {
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // udpate geometry path
     GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
-    // update demand element childrens
-    for (const auto& i : getDemandElementChildren()) {
+    // update child demand elementss
+    for (const auto& i : getChildDemandElements()) {
         i->updatePartialGeometry(edge);
     }
 }

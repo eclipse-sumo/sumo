@@ -98,14 +98,14 @@ private:
     /// @brief vector of parent demand elements
     std::vector<GNEDemandElement*> myParentDemandElements;
 
-    /// @brief vector of shape children
-    std::vector<GNEShape*> myShapeChildren;
+    /// @brief vector of child shapes
+    std::vector<GNEShape*> myChildShapes;
 
-    /// @brief vector of additional children
-    std::vector<GNEAdditional*> myAdditionalChildren;
+    /// @brief vector of child additional
+    std::vector<GNEAdditional*> myChildAdditionals;
 
-    /// @brief vector of demand element children
-    std::vector<GNEDemandElement*> myDemandElementChildren;
+    /// @brief vector of child demand elements
+    std::vector<GNEDemandElement*> myChildDemandElements;
 };
 
 #endif

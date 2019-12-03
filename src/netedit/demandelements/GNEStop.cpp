@@ -283,11 +283,11 @@ GNEStop::updateGeometry() {
         getParentDemandElements().front()->updateGeometry();
     } else if (getParentDemandElements().front()->getTagProperty().isPerson()) {
         // compute previous and next person plan
-        GNEDemandElement *previousDemandElement = getParentDemandElements().front()->getPreviousDemandElement(this);
+        GNEDemandElement *previousDemandElement = getParentDemandElements().front()->getPreviousChildDemandElement(this);
         if (previousDemandElement) {
             previousDemandElement->updateGeometry();
         }
-        GNEDemandElement *nextDemandElement = getParentDemandElements().front()->getNextDemandElement(this);
+        GNEDemandElement *nextDemandElement = getParentDemandElements().front()->getNextChildDemandElement(this);
         if (nextDemandElement) {
             nextDemandElement->updateGeometry();
         }
@@ -310,11 +310,11 @@ GNEStop::updatePartialGeometry(const GNEEdge* edge) {
         getParentDemandElements().front()->updatePartialGeometry(edge);
     } else if (getParentDemandElements().front()->getTagProperty().isPerson()) {
         // compute previous and next person plan
-        GNEDemandElement *previousDemandElement = getParentDemandElements().front()->getPreviousDemandElement(this);
+        GNEDemandElement *previousDemandElement = getParentDemandElements().front()->getPreviousChildDemandElement(this);
         if (previousDemandElement) {
             previousDemandElement->updatePartialGeometry(edge);
         }
-        GNEDemandElement *nextDemandElement = getParentDemandElements().front()->getNextDemandElement(this);
+        GNEDemandElement *nextDemandElement = getParentDemandElements().front()->getNextChildDemandElement(this);
         if (nextDemandElement) {
             nextDemandElement->updatePartialGeometry(edge);
         }
@@ -498,7 +498,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         // Pop name
         glPopName();
         // draw person parent if this stop if their first person plan child
-        if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getDemandElementChildren().front() == this) {
+        if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
             getParentDemandElements().front()->drawGL(s);
         }
     }

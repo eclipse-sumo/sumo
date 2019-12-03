@@ -42,7 +42,7 @@ class GNEChange_Children : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_Children)
 
 public:
-    // @brief operation over demand element child
+    // @brief operation over child demand element
     enum Operation {
         MOVE_FRONT = 0, // Move element one position front
         MOVE_BACK = 1   // Move element one position back
@@ -79,16 +79,16 @@ private:
     GNEDemandElement* myParentDemandElement;
 
     /// @brief demand element which position will be edited edited
-    GNEDemandElement* myDemandElementChild;
+    GNEDemandElement* myChildDemandElement;
 
     // @brief Operation to be apply
     const Operation myOperation;
 
-    /// @brief copy of demand element childrens before apply operation
-    const std::vector<GNEDemandElement*> myOriginalElementChildren;
+    /// @brief copy of child demand elementss before apply operation
+    const std::vector<GNEDemandElement*> myOriginalChildElements;
 
     /// @brief element childrens after apply operation
-    std::vector<GNEDemandElement*> myEditedElementChildren;
+    std::vector<GNEDemandElement*> myEditedChildElements;
 };
 
 #endif

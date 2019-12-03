@@ -165,7 +165,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
         if (myRouteList->getItem(i, 2)->hasFocus()) {
             // find all flows that contains route to delete as "route" parameter
             std::vector<GNEAdditional*> calibratorFlowsToErase;
-            for (auto j : myEditedAdditional->getAdditionalChildren()) {
+            for (auto j : myEditedAdditional->getChildAdditionals()) {
                 if (j->getAttribute(SUMO_ATTR_ROUTE) == myRouteList->getItem(i, 0)->getText().text()) {
                     calibratorFlowsToErase.push_back(j);
                 }
@@ -241,16 +241,16 @@ GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedAdditional->getAdditionalChildren().size(); i++) {
+    for (int i = 0; i < (int)myEditedAdditional->getChildAdditionals().size(); i++) {
         if (myFlowList->getItem(i, 2)->hasFocus()) {
             // remove flow of calibrator flows
-            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional->getAdditionalChildren().at(i), false), true);
+            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional->getChildAdditionals().at(i), false), true);
             // update flows table
             updateFlowTable();
             return 1;
         } else if (myFlowList->getItem(i, 0)->hasFocus() || myFlowList->getItem(i, 1)->hasFocus()) {
             // modify flow of calibrator flows (temporal)
-            GNECalibratorFlowDialog(myEditedAdditional->getAdditionalChildren().at(i), true);
+            GNECalibratorFlowDialog(myEditedAdditional->getChildAdditionals().at(i), true);
             // update flows table
             updateFlowTable();
             return 1;
@@ -286,7 +286,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
         } else if (myVehicleTypeList->getItem(i, 2)->hasFocus()) {
             // find all flows that contains vehicle type to delete as "vehicle type" parameter
             std::vector<GNEAdditional*> calibratorFlowsToErase;
-            for (auto j : myEditedAdditional->getAdditionalChildren()) {
+            for (auto j : myEditedAdditional->getChildAdditionals()) {
                 if (j->getAttribute(SUMO_ATTR_TYPE) == myVehicleTypeList->getItem(i, 0)->getText().text()) {
                     calibratorFlowsToErase.push_back(j);
                 }
@@ -385,7 +385,7 @@ GNECalibratorDialog::updateFlowTable() {
     // clear table
     myFlowList->clearItems();
     // set number of rows
-    myFlowList->setTableSize(int(myEditedAdditional->getAdditionalChildren().size()), 3);
+    myFlowList->setTableSize(int(myEditedAdditional->getChildAdditionals().size()), 3);
     // Configure list
     myFlowList->setVisibleColumns(3);
     myFlowList->setColumnWidth(0, 136);
@@ -399,7 +399,7 @@ GNECalibratorDialog::updateFlowTable() {
     int indexRow = 0;
     FXTableItem* item = nullptr;
     // iterate over flows
-    for (auto i : myEditedAdditional->getAdditionalChildren()) {
+    for (auto i : myEditedAdditional->getChildAdditionals()) {
         // Set vehicle type
         item = new FXTableItem(i->getAttribute(SUMO_ATTR_TYPE).c_str());
         myFlowList->setItem(indexRow, 0, item);

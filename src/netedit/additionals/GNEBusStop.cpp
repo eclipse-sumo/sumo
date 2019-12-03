@@ -76,16 +76,16 @@ GNEBusStop::updateGeometry() {
     // obtain parent edge
     const GNEEdge *edge = getParentLanes().front()->getParentEdge();
 
-    // update demand element children geometry
-    for (const auto& i : getDemandElementChildren()) {
+    // update child demand elements geometry
+    for (const auto& i : getChildDemandElements()) {
         // special case for person trips
         if (i->getTagProperty().isPersonTrip()) {
             // update previous and next person plan
-            GNEDemandElement *previousDemandElement = i->getParentDemandElements().front()->getPreviousDemandElement(i);
+            GNEDemandElement *previousDemandElement = i->getParentDemandElements().front()->getPreviousChildDemandElement(i);
             if (previousDemandElement) {
                 previousDemandElement->updatePartialGeometry(edge);
             }
-            GNEDemandElement *nextDemandElement = i->getParentDemandElements().front()->getNextDemandElement(i);
+            GNEDemandElement *nextDemandElement = i->getParentDemandElements().front()->getNextChildDemandElement(i);
             if (nextDemandElement) {
                 nextDemandElement->updatePartialGeometry(edge);
             }
@@ -142,7 +142,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             }
         } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
             // draw lines between BusStops and Acces
-            for (auto i : getAdditionalChildren()) {
+            for (auto i : getChildAdditionals()) {
                 GLHelper::drawBoxLine(i->getAdditionalGeometry().getPosition(), 
                     RAD2DEG(mySignPos.angleTo2D(i->getAdditionalGeometry().getPosition())) - 90, mySignPos.distanceTo2D(i->getAdditionalGeometry().getPosition()), .05);
             }
@@ -215,8 +215,8 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop name
         glPopName();
-        // draw demand element children
-        for (const auto& i : getDemandElementChildren()) {
+        // draw child demand elements
+        for (const auto& i : getChildDemandElements()) {
             if (!i->getTagProperty().isPlacedInRTree()) {
                 i->drawGL(s);
             }
@@ -274,7 +274,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
             // change ID of BusStop
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             // Change Ids of all Acces children
-            for (auto i : getAdditionalChildren()) {
+            for (auto i : getChildAdditionals()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_ACCESS), undoList);
             }
             break;

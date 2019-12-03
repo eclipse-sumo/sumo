@@ -1751,7 +1751,7 @@ GNEViewNetHelper::DemandViewOptions::showNonInspectedDemandElements(const GNEDem
                 return true;
             } else {
                 // if demandElement is a route, check if dottedAC is one of their children (Vehicle or Stop)
-                for (const auto& i : demandElement->getDemandElementChildren()) {
+                for (const auto& i : demandElement->getChildDemandElements()) {
                     if (i == myViewNet->getDottedAC()) {
                         return true;
                     }
