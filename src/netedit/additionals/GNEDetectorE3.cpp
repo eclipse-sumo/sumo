@@ -319,7 +319,7 @@ GNEDetectorE3::getHierarchyName() const {
 
 
 void
-GNEDetectorE3::updateAdditionalParent() {
+GNEDetectorE3::updateParentAdditional() {
     myChildConnections.update();
 }
 

@@ -205,7 +205,7 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
     // obtain tag depending if tagProperty has a synonym
     SumoXMLTag synonymTag = myTagProperty.hasTagSynonym() ? myTagProperty.getTagSynonym() : myTagProperty.getTag();
     // attribute VType musn't be written if is DEFAULT_PEDTYPE_ID
-    if (getDemandElementParents().at(0)->getID() == DEFAULT_PEDTYPE_ID) {
+    if (getParentDemandElements().at(0)->getID() == DEFAULT_PEDTYPE_ID) {
         // unset VType parameter
         parametersSet &= ~VEHPARS_VTYPE_SET;
         // write person attributes (VType will not be written)
@@ -214,7 +214,7 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
         parametersSet |= VEHPARS_VTYPE_SET;
     } else {
         // write person attributes, including VType
-        write(device, OptionsCont::getOptions(), synonymTag, getDemandElementParents().at(0)->getID());
+        write(device, OptionsCont::getOptions(), synonymTag, getParentDemandElements().at(0)->getID());
     }
     // write specific flow attributes
     if (myTagProperty.getTag() == SUMO_TAG_PERSONFLOW) {
@@ -280,7 +280,7 @@ GNEPerson::getToEdge() const {
 
 SUMOVehicleClass
 GNEPerson::getVClass() const {
-    return getDemandElementParents().front()->getVClass();
+    return getParentDemandElements().front()->getVClass();
 }
 
 
@@ -353,7 +353,7 @@ GNEPerson::getPositionInView() const {
         } else {
             // obtain lane (special case for rides)
             SUMOVehicleClass vClassEdgeFrom = getDemandElementChildren().front()->getTagProperty().isRide() ? SVC_PASSENGER : SVC_PEDESTRIAN;
-            GNELane* lane = getDemandElementChildren().at(0)->getEdgeParents().at(0)->getLaneByAllowedVClass(vClassEdgeFrom);
+            GNELane* lane = getDemandElementChildren().at(0)->getParentEdges().at(0)->getLaneByAllowedVClass(vClassEdgeFrom);
             // return position in view depending of lane
             if (lane->getLaneShape().length() < 2.5) {
                 return lane->getLaneShape().front();
@@ -418,12 +418,12 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         // obtain exaggeration (and add the special personExaggeration)
         const double exaggeration = s.personSize.getExaggeration(s, this, 80) + s.detailSettings.personExaggeration;
         // obtain width and length
-        const double length = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
-        const double width = getDemandElementParents().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
+        const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
+        const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
         // obtain diameter around person (used to calculate distance bewteen cursor and person)
         const double distanceSquared = pow(exaggeration*std::max(length, width), 2);
         // obtain img file
-        const std::string file = getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
+        const std::string file = getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
         Position personPosition;
         // obtain position depending of first PersonPlan child
         if (getDemandElementChildren().front()->getTagProperty().isPersonStop()) {
@@ -513,7 +513,7 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getDemandElementID();
         case SUMO_ATTR_TYPE:
-            return getDemandElementParents().at(0)->getID();
+            return getParentDemandElements().at(0)->getID();
         case SUMO_ATTR_COLOR:
             if (wasSet(VEHPARS_COLOR_SET)) {
                 return toString(color);
@@ -737,9 +737,9 @@ GNEPerson::getHierarchyName() const {
         if (myViewNet->getNet()->getViewNet()->getDottedAC() &&
                 myViewNet->getNet()->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
             // check if edge correspond to a "from", "to" or "via" edge
-            if (getEdgeParents().front() == myViewNet->getNet()->getViewNet()->getDottedAC()) {
+            if (getParentEdges().front() == myViewNet->getNet()->getViewNet()->getDottedAC()) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (from)";
-            } else if (getEdgeParents().front() == myViewNet->getNet()->getViewNet()->getDottedAC()) {
+            } else if (getParentEdges().front() == myViewNet->getNet()->getViewNet()->getDottedAC()) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (to)";
             } else {
                 // iterate over via
@@ -841,7 +841,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeDemandElementID(value);
             break;
         case SUMO_ATTR_TYPE:
-            changeDemandElementParent(this, value, 0);
+            replaceParentDemandElement(this, value, 0);
             // set manually vtypeID (needed for saving)
             vtypeid = value;
             break;

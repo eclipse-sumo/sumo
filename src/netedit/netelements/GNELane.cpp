@@ -113,7 +113,7 @@ GNELane::updateGeometry() {
     // update connections
     myLane2laneConnections.updateLane2laneConnection();
     // update shapes parents associated with this lane
-    for (auto i : getShapeParents()) {
+    for (auto i : getParentShapes()) {
         i->updateGeometry();
     }
     // update shape children associated with this lane
@@ -121,7 +121,7 @@ GNELane::updateGeometry() {
         i->updateGeometry();
     }
     // update additionals children associated with this lane
-    for (auto i : getAdditionalParents()) {
+    for (auto i : getParentAdditionals()) {
         i->updateGeometry();
     }
     // update additionals parents associated with this lane
@@ -129,7 +129,7 @@ GNELane::updateGeometry() {
         i->updateGeometry();
     }
     // partial update demand elements parents associated with this lane
-    for (auto i : getDemandElementParents()) {
+    for (auto i : getParentDemandElements()) {
         i->updatePartialGeometry(myParentEdge);
     }
     // partial update demand elements children associated with this lane
@@ -372,7 +372,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop Lane Name
         glPopName();
         // draw parents
-        for (const auto& i : getAdditionalParents()) {
+        for (const auto& i : getParentAdditionals()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_VSS) {
                 // draw VSS Symbol
                 drawVSSSymbol(s, i);
@@ -514,7 +514,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop Lane Name
         glPopName();
         // draw parents
-        for (const auto& i : getAdditionalParents()) {
+        for (const auto& i : getParentAdditionals()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_VSS) {
                 // draw VSS Symbol
                 drawVSSSymbol(s, i);
@@ -590,7 +590,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildCenterPopupEntry(ret);
     // build copy names entry
     if (editMode != GNE_NMODE_TLS) {
-        new FXMenuCommand(ret, "Copy edge parent name to clipboard", nullptr, ret, MID_COPY_EDGE_NAME);
+        new FXMenuCommand(ret, "Copy parent edge name to clipboard", nullptr, ret, MID_COPY_EDGE_NAME);
         buildNameCopyPopupEntry(ret);
     }
     // build selection
@@ -1028,11 +1028,11 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             edge->setAcceleration(myIndex, parse<bool>(value));
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
-            // first remove edge parent from net
+            // first remove parent edge from net
             myNet->removeGLObjectFromGrid(myParentEdge);
             // set new shape
             edge->setLaneShape(myIndex, parse<PositionVector>(value));
-            // add edge parent into net again
+            // add parent edge into net again
             myNet->addGLObjectIntoGrid(myParentEdge);
             break;
         }
@@ -1062,7 +1062,7 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
         std::vector<std::string> viaEdges = parse<std::vector<std::string> >(myNet->getViewNet()->getDottedAC()->getAttribute(SUMO_ATTR_VIA));
         // iterate over viaEdges
         for (const auto& i : viaEdges) {
-            // check if edge parent is in the via edges
+            // check if parent edge is in the via edges
             if (myParentEdge->getID() == i) {
                 // set green color in GLHelper and return it
                 GLHelper::setColor(RGBColor::GREEN);
@@ -1397,7 +1397,7 @@ GNELane::getGNEIncomingConnections() {
 
 std::vector<GNEConnection*>
 GNELane::getGNEOutcomingConnections() {
-    // Obtain GNEConnection of edge parent
+    // Obtain GNEConnection of parent edge
     const std::vector<GNEConnection*>& edgeConnections = myParentEdge->getGNEConnections();
     std::vector<GNEConnection*> outcomingConnections;
     // Obtain outgoing connections
@@ -1444,7 +1444,7 @@ GNELane::startGeometryMoving() {
         i->startGeometryMoving();
     }
     // Save current centering boundary of shapes with this lane as chid
-    for (auto i : getShapeParents()) {
+    for (auto i : getParentShapes()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of additional children
@@ -1452,7 +1452,7 @@ GNELane::startGeometryMoving() {
         i->startGeometryMoving();
     }
     // Save current centering boundary of additionals with this lane as chid
-    for (auto i : getAdditionalParents()) {
+    for (auto i : getParentAdditionals()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of demand element children
@@ -1460,7 +1460,7 @@ GNELane::startGeometryMoving() {
         i->startGeometryMoving();
     }
     // Save current centering boundary of demand element with this lane as chid
-    for (auto i : getDemandElementParents()) {
+    for (auto i : getParentDemandElements()) {
         i->startGeometryMoving();
     }
 }
@@ -1474,7 +1474,7 @@ GNELane::endGeometryMoving() {
         i->endGeometryMoving();
     }
     // Restore centering boundary of shapes with this lane as chid
-    for (auto i : getShapeParents()) {
+    for (auto i : getParentShapes()) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of additionals with this lane as chid
@@ -1482,7 +1482,7 @@ GNELane::endGeometryMoving() {
         i->endGeometryMoving();
     }
     // Restore centering boundary of additionals with this lane as chid
-    for (auto i : getAdditionalParents()) {
+    for (auto i : getParentAdditionals()) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of demand elements with this lane as chid
@@ -1490,7 +1490,7 @@ GNELane::endGeometryMoving() {
         i->endGeometryMoving();
     }
     // Restore centering boundary of demand elements with this lane as chid
-    for (auto i : getDemandElementParents()) {
+    for (auto i : getParentDemandElements()) {
         i->endGeometryMoving();
     }
 }

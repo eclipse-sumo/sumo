@@ -158,11 +158,11 @@ GNEDemandElement::RouteCalculator::areEdgesConsecutives(SUMOVehicleClass vClass,
 // ---------------------------------------------------------------------------
 
 GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-                                   const std::vector<GNEEdge*>& edgeParents,
-                                   const std::vector<GNELane*>& laneParents,
-                                   const std::vector<GNEShape*>& shapeParents,
-                                   const std::vector<GNEAdditional*>& additionalParents,
-                                   const std::vector<GNEDemandElement*>& demandElementParents,
+                                   const std::vector<GNEEdge*>& parentEdges,
+                                   const std::vector<GNELane*>& parentLanes,
+                                   const std::vector<GNEShape*>& parentShapes,
+                                   const std::vector<GNEAdditional*>& parentAdditionals,
+                                   const std::vector<GNEDemandElement*>& parentDemandElements,
                                    const std::vector<GNEEdge*>& edgeChildren,
                                    const std::vector<GNELane*>& laneChildren,
                                    const std::vector<GNEShape*>& shapeChildren,
@@ -170,18 +170,18 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
                                    const std::vector<GNEDemandElement*>& demandElementChildren) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
-    GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
+    GNEHierarchicalParentElements(this, parentEdges, parentLanes, parentShapes, parentAdditionals, parentDemandElements),
     GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
     myViewNet(viewNet) {
 }
 
 
 GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-                                   const std::vector<GNEEdge*>& edgeParents,
-                                   const std::vector<GNELane*>& laneParents,
-                                   const std::vector<GNEShape*>& shapeParents,
-                                   const std::vector<GNEAdditional*>& additionalParents,
-                                   const std::vector<GNEDemandElement*>& demandElementParents,
+                                   const std::vector<GNEEdge*>& parentEdges,
+                                   const std::vector<GNELane*>& parentLanes,
+                                   const std::vector<GNEShape*>& parentShapes,
+                                   const std::vector<GNEAdditional*>& parentAdditionals,
+                                   const std::vector<GNEDemandElement*>& parentDemandElements,
                                    const std::vector<GNEEdge*>& edgeChildren,
                                    const std::vector<GNELane*>& laneChildren,
                                    const std::vector<GNEShape*>& shapeChildren,
@@ -189,7 +189,7 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEVie
                                    const std::vector<GNEDemandElement*>& demandElementChildren) :
     GUIGlObject(type, demandElementParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
-    GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
+    GNEHierarchicalParentElements(this, parentEdges, parentLanes, parentShapes, parentAdditionals, parentDemandElements),
     GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
     myViewNet(viewNet) {
 }
@@ -400,16 +400,16 @@ GNEDemandElement::changeDemandElementID(const std::string& newID) {
 void 
 GNEDemandElement::calculatePersonPlanLaneStartEndPos(double &startPos, double &endPos) const {
     // obtain pointer to current busStop
-    GNEAdditional* busStop = getAdditionalParents().size() > 0? getAdditionalParents().front() : nullptr;
+    GNEAdditional* busStop = getParentAdditionals().size() > 0? getParentAdditionals().front() : nullptr;
     // declare pointers for previous elements
     GNEAdditional* previousBusStop = nullptr;
-    GNEDemandElement *previousPersonPlan = getDemandElementParents().at(0)->getPreviousDemandElement(this);
+    GNEDemandElement *previousPersonPlan = getParentDemandElements().at(0)->getPreviousDemandElement(this);
     // declare pointer to next person plan
-    GNEDemandElement *nextPersonPlan = getDemandElementParents().at(0)->getNextDemandElement(this);
+    GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextDemandElement(this);
     // obtain departlane throught previous element
-    if (previousPersonPlan && (previousPersonPlan->getAdditionalParents().size() > 0)) {
+    if (previousPersonPlan && (previousPersonPlan->getParentAdditionals().size() > 0)) {
         // set previous busStop
-        previousBusStop = previousPersonPlan->getAdditionalParents().front();
+        previousBusStop = previousPersonPlan->getParentAdditionals().front();
     }
     // adjust startPos depending of previous busStop
     if (previousBusStop) {
@@ -423,7 +423,7 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos(double &startPos, double &e
         }
     } else {
         // if this is the first person plan, use departPos of pedestrian
-        startPos = getDemandElementParents().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+        startPos = getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
     }
     // adjust endPos depending of next busStop
     if (busStop) {
@@ -440,13 +440,13 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos(double &startPos, double &e
 void 
 GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position &startPos, Position &endPos) const {
     // obtain previous demand element
-    GNEDemandElement *previousDemandElmement = getDemandElementParents().front()->getPreviousDemandElement(this);
+    GNEDemandElement *previousDemandElmement = getParentDemandElements().front()->getPreviousDemandElement(this);
     if (previousDemandElmement) {
         // update startPos
-        if ((previousDemandElmement->getAdditionalParents().size() > 0) && 
-            (previousDemandElmement->getAdditionalParents().front()->getAdditionalGeometry().getShape().size() > 0)) {
+        if ((previousDemandElmement->getParentAdditionals().size() > 0) && 
+            (previousDemandElmement->getParentAdditionals().front()->getAdditionalGeometry().getShape().size() > 0)) {
             // Previous demand element ends in an busStop
-            startPos = previousDemandElmement->getAdditionalParents().front()->getAdditionalGeometry().getShape().back();
+            startPos = previousDemandElmement->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
         } else if (previousDemandElmement->getTagProperty().isPersonStop() && (previousDemandElmement->getDemandElementGeometry().getShape().size() > 0)) {
             // Previous demand element ends in an Stop
             startPos = previousDemandElmement->getDemandElementGeometry().getShape().back();
@@ -457,11 +457,11 @@ GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position &startPos, Pos
         }
     }
     // check if demand element ends in an busStop
-    if ((getAdditionalParents().size() > 0) && (getAdditionalParents().front()->getAdditionalGeometry().getShape().size() > 0)) {
-        endPos = getAdditionalParents().front()->getAdditionalGeometry().getShape().front();
+    if ((getParentAdditionals().size() > 0) && (getParentAdditionals().front()->getAdditionalGeometry().getShape().size() > 0)) {
+        endPos = getParentAdditionals().front()->getAdditionalGeometry().getShape().front();
     } else {
         // obtain next demand element
-        GNEDemandElement *nextDemandElmement = getDemandElementParents().front()->getNextDemandElement(this);
+        GNEDemandElement *nextDemandElmement = getParentDemandElements().front()->getNextDemandElement(this);
         if (nextDemandElmement) {
             // update end pos
             if (nextDemandElmement->getTagProperty().isPersonStop() && (nextDemandElmement->getDemandElementGeometry().getShape().size() > 0)) {
@@ -475,33 +475,33 @@ GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position &startPos, Pos
 
 GNELane* 
 GNEDemandElement::getFirstAllowedVehicleLane() const {
-    // first check if current demand element has edge parents
+    // first check if current demand element has parent edges
     if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
         // use route edges
-        return getDemandElementParents().at(1)->getEdgeParents().front()->getLaneByAllowedVClass(getVClass());
-    } else if (getEdgeParents().size() > 0) {
+        return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+    } else if (getParentEdges().size() > 0) {
         // obtain Lane depending of attribute "departLane"
         if (myTagProperty.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
             // obtain depart lane
             std::string departLane = getAttribute(SUMO_ATTR_DEPARTLANE);
             //  check depart lane
             if ((departLane == "random") || (departLane == "free") ||(departLane == "allowed") ||(departLane == "best") || (departLane == "first")) {
-                return getEdgeParents().front()->getLaneByAllowedVClass(getVClass());
+                return getParentEdges().front()->getLaneByAllowedVClass(getVClass());
             }
             // obtain index
             const int departLaneIndex = parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE));
             // if index is correct, return lane. In other case, return nullptr;
-            if ((departLaneIndex >= 0) && (departLaneIndex < getEdgeParents().front()->getNBEdge()->getNumLanes())) {
-                return getEdgeParents().front()->getLanes().at(departLaneIndex);
+            if ((departLaneIndex >= 0) && (departLaneIndex < getParentEdges().front()->getNBEdge()->getNumLanes())) {
+                return getParentEdges().front()->getLanes().at(departLaneIndex);
             } else {
                 return nullptr;
             }
         } else if (myTagProperty.isRide()) {
             // special case for rides
-            return getEdgeParents().front()->getLaneByDisallowedVClass(getVClass());
+            return getParentEdges().front()->getLaneByDisallowedVClass(getVClass());
         } else {
             // in other case, always return the first allowed
-            return getEdgeParents().front()->getLaneByAllowedVClass(getVClass());
+            return getParentEdges().front()->getLaneByAllowedVClass(getVClass());
         }
     } else {
         return nullptr;
@@ -511,37 +511,37 @@ GNEDemandElement::getFirstAllowedVehicleLane() const {
 
 GNELane* 
 GNEDemandElement::getLastAllowedVehicleLane() const {
-    // first check if current demand element has edge parents
+    // first check if current demand element has parent edges
     if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
         // use route edges
-        return getDemandElementParents().at(1)->getEdgeParents().back()->getLaneByAllowedVClass(getVClass());
-    } else if (getEdgeParents().size() > 0) {
+        return getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(getVClass());
+    } else if (getParentEdges().size() > 0) {
         if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) ||
             (myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) ||
             (myTagProperty.getTag() == SUMO_TAG_RIDE_BUSSTOP)) {
             // return busStop lane
-            return getAdditionalParents().front()->getLaneParents().front();
+            return getParentAdditionals().front()->getParentLanes().front();
         } else if (myTagProperty.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
             // obtain Lane depending of attribute "arrivalLane"
             std::string arrivalLane = getAttribute(SUMO_ATTR_ARRIVALLANE);
             //  check depart lane
             if (arrivalLane == "current") {
-                return getEdgeParents().back()->getLaneByAllowedVClass(getVClass());
+                return getParentEdges().back()->getLaneByAllowedVClass(getVClass());
             }
             // obtain index
             const int arrivalLaneIndex = parse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE));
             // if index is correct, return lane. In other case, return nullptr;
-            if ((arrivalLaneIndex >= 0) && (arrivalLaneIndex < getEdgeParents().back()->getNBEdge()->getNumLanes())) {
-                return getEdgeParents().back()->getLanes().at(arrivalLaneIndex);
+            if ((arrivalLaneIndex >= 0) && (arrivalLaneIndex < getParentEdges().back()->getNBEdge()->getNumLanes())) {
+                return getParentEdges().back()->getLanes().at(arrivalLaneIndex);
             } else {
                 return nullptr;
             }
         } else if (myTagProperty.isRide()) {
             // special case for rides
-            return getEdgeParents().back()->getLaneByDisallowedVClass(getVClass());
+            return getParentEdges().back()->getLaneByDisallowedVClass(getVClass());
         } else {
             // in other case, always return the first allowed
-            return getEdgeParents().back()->getLaneByAllowedVClass(getVClass());
+            return getParentEdges().back()->getLaneByAllowedVClass(getVClass());
         }
     } else {
         return nullptr;

@@ -483,7 +483,7 @@ GNETAZ::getHierarchyName() const {
 
 
 void
-GNETAZ::updateAdditionalParent() {
+GNETAZ::updateParentAdditional() {
     // reset all stadistic variables
     myMaxWeightSource = 0;
     myMinWeightSource = -1;

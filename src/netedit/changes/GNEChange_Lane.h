@@ -89,14 +89,14 @@ private:
     /// @bried whether to recompute connection when adding a new lane
     bool myRecomputeConnections;
 
-    /// @brief vector of shape parents
-    std::vector<GNEShape*> myShapeParents;
+    /// @brief vector of parent shapes
+    std::vector<GNEShape*> myParentShapes;
 
-    /// @brief vector of additional parents
-    std::vector<GNEAdditional*> myAdditionalParents;
+    /// @brief vector of parent additionals
+    std::vector<GNEAdditional*> myParentAdditionals;
 
-    /// @brief vector of demand element parents
-    std::vector<GNEDemandElement*> myDemandElementParents;
+    /// @brief vector of parent demand elements
+    std::vector<GNEDemandElement*> myParentDemandElements;
 
     /// @brief vector of shape children
     std::vector<GNEShape*> myShapeChildren;

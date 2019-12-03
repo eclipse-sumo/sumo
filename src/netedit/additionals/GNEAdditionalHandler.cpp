@@ -599,7 +599,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, con
             viewNet->getNet()->insertAdditional(rerouter);
             // add this rerouter as parent of all edges
             for (auto i : edges) {
-                i->addAdditionalParent(rerouter);
+                i->addParentAdditional(rerouter);
             }
             rerouter->incRef("buildRerouter");
         }
@@ -767,7 +767,7 @@ GNEAdditionalHandler::buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndo
             viewNet->getNet()->insertAdditional(variableSpeedSign);
             // add this VSS as parent of all edges
             for (auto i : lanes) {
-                i->addAdditionalParent(variableSpeedSign);
+                i->addParentAdditional(variableSpeedSign);
             }
             variableSpeedSign->incRef("buildVariableSpeedSign");
         }
@@ -851,7 +851,7 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
     viewNet->getNet()->enableUpdateGeometry();
     // update TAZ Frame
     TAZ->updateGeometry();
-    TAZ->updateAdditionalParent();
+    TAZ->updateParentAdditional();
     return TAZ;
 }
 
@@ -1157,7 +1157,7 @@ GNEAdditionalHandler::parseAndBuildTAZSource(GNEViewNet* viewNet, bool allowUndo
         GNEAdditional* TAZ = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            TAZ = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_TAZ);
+            TAZ = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_TAZ);
         } else {
             bool ok = true;
             TAZ = viewNet->getNet()->retrieveAdditional(SUMO_TAG_TAZ, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1194,7 +1194,7 @@ GNEAdditionalHandler::parseAndBuildTAZSink(GNEViewNet* viewNet, bool allowUndoRe
         GNEAdditional* TAZ = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            TAZ = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_TAZ);
+            TAZ = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_TAZ);
         } else {
             bool ok = true;
             TAZ = viewNet->getNet()->retrieveAdditional(SUMO_TAG_TAZ, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1297,7 +1297,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(GNEViewNet* viewNet, bool allo
         GNEAdditional* calibrator = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            calibrator = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_CALIBRATOR);
+            calibrator = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_CALIBRATOR);
         } else {
             bool ok = true;
             calibrator = viewNet->getNet()->retrieveAdditional(SUMO_TAG_CALIBRATOR, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1429,7 +1429,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSignStep(GNEViewNet* viewNet, bo
         GNEAdditional* variableSpeedSign = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            variableSpeedSign = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_VSS);
+            variableSpeedSign = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_VSS);
         } else {
             bool ok = true;
             variableSpeedSign = viewNet->getNet()->retrieveAdditional(SUMO_TAG_VSS, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1506,7 +1506,7 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(GNEViewNet* viewNet, bool al
         GNEAdditional* rerouter;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            rerouter = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_REROUTER);
+            rerouter = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_REROUTER);
         } else {
             bool ok = true;
             rerouter = viewNet->getNet()->retrieveAdditional(SUMO_TAG_REROUTER, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1516,13 +1516,13 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(GNEViewNet* viewNet, bool al
             GNEAdditional* lastInsertedRerouterInterval = nullptr;
             // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
             if (insertedAdditionals) {
-                lastInsertedRerouterInterval = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_INTERVAL);
+                lastInsertedRerouterInterval = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_INTERVAL);
             } else {
                 bool ok = true;
                 lastInsertedRerouterInterval = viewNet->getNet()->retrieveAdditional(SUMO_TAG_INTERVAL, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
             }
             if (lastInsertedRerouterInterval) {
-                rerouter = lastInsertedRerouterInterval->getAdditionalParents().at(0);
+                rerouter = lastInsertedRerouterInterval->getParentAdditionals().at(0);
             }
         }
         // check that rerouterInterval can be created
@@ -1556,7 +1556,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(GNEViewNet* viewNe
         GNEAdditional* rerouterInterval = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            rerouterInterval = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_INTERVAL);
+            rerouterInterval = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_INTERVAL);
         } else {
             bool ok = true;
             rerouterInterval = viewNet->getNet()->retrieveAdditional(SUMO_TAG_INTERVAL, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1592,7 +1592,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(GNEViewNet* viewNet, b
         GNEAdditional* rerouterInterval = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            rerouterInterval = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_INTERVAL);
+            rerouterInterval = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_INTERVAL);
         } else {
             bool ok = true;
             rerouterInterval = viewNet->getNet()->retrieveAdditional(SUMO_TAG_INTERVAL, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1627,7 +1627,7 @@ GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(GNEViewNet* viewNet, 
         GNEAdditional* rerouterInterval = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            rerouterInterval = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_INTERVAL);
+            rerouterInterval = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_INTERVAL);
         } else {
             bool ok = true;
             rerouterInterval = viewNet->getNet()->retrieveAdditional(SUMO_TAG_INTERVAL, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1663,7 +1663,7 @@ GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(GNEViewNet* viewNe
         GNEAdditional* rerouterInterval = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            rerouterInterval = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_INTERVAL);
+            rerouterInterval = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_INTERVAL);
         } else {
             bool ok = true;
             rerouterInterval = viewNet->getNet()->retrieveAdditional(SUMO_TAG_INTERVAL, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1697,7 +1697,7 @@ GNEAdditionalHandler::parseAndBuildRerouterRouteProbReroute(GNEViewNet* viewNet,
         GNEAdditional* rerouterInterval = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            rerouterInterval = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_INTERVAL);
+            rerouterInterval = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_INTERVAL);
         } else {
             bool ok = true;
             rerouterInterval = viewNet->getNet()->retrieveAdditional(SUMO_TAG_INTERVAL, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1877,7 +1877,7 @@ GNEAdditionalHandler::parseAndBuildAccess(GNEViewNet* viewNet, bool allowUndoRed
         GNEAdditional* busStop = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            busStop = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_BUS_STOP);
+            busStop = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_BUS_STOP);
         } else {
             bool ok = true;
             busStop = viewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -2069,7 +2069,7 @@ GNEAdditionalHandler::parseAndBuildParkingSpace(GNEViewNet* viewNet, bool allowU
         GNEAdditional* parkingAreaParent = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            parkingAreaParent = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_PARKING_AREA);
+            parkingAreaParent = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_PARKING_AREA);
         } else {
             bool ok = true;
             parkingAreaParent = viewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -2350,7 +2350,7 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(GNEViewNet* viewNet, bool allow
         GNEAdditional* E3Parent = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            E3Parent = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_E3DETECTOR);
+            E3Parent = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_E3DETECTOR);
         } else {
             bool ok = true;
             E3Parent = viewNet->getNet()->retrieveAdditional(SUMO_TAG_E3DETECTOR, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -2393,7 +2393,7 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(GNEViewNet* viewNet, bool allowU
         GNEAdditional* E3Parent = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            E3Parent = insertedAdditionals->retrieveAdditionalParent(viewNet, SUMO_TAG_E3DETECTOR);
+            E3Parent = insertedAdditionals->retrieveParentAdditional(viewNet, SUMO_TAG_E3DETECTOR);
         } else {
             bool ok = true;
             E3Parent = viewNet->getNet()->retrieveAdditional(SUMO_TAG_E3DETECTOR, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -2634,9 +2634,9 @@ GNEAdditionalHandler::HierarchyInsertedAdditionals::popElement() {
 
 
 GNEAdditional*
-GNEAdditionalHandler::HierarchyInsertedAdditionals::retrieveAdditionalParent(GNEViewNet* viewNet, SumoXMLTag expectedTag) const {
+GNEAdditionalHandler::HierarchyInsertedAdditionals::retrieveParentAdditional(GNEViewNet* viewNet, SumoXMLTag expectedTag) const {
     if (myInsertedElements.size() < 2) {
-        // currently we're finding additional parent in the additional XML root
+        // currently we're finding parent additional in the additional XML root
         WRITE_WARNING("A " + toString(myInsertedElements.back().first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
         return nullptr;
     } else {
@@ -2645,7 +2645,7 @@ GNEAdditionalHandler::HierarchyInsertedAdditionals::retrieveAdditionalParent(GNE
             return nullptr;
         } else if ((myInsertedElements.end() - 2)->second == nullptr) {
             WRITE_WARNING(toString(expectedTag) + " parent of " + toString((myInsertedElements.end() - 1)->first) + " was not loaded sucesfully.");
-            // additional parent wasn't sucesfully loaded, then return nullptr
+            // parent additional wasn't sucesfully loaded, then return nullptr
             return nullptr;
         }
         GNEAdditional* retrievedAdditional = viewNet->getNet()->retrieveAdditional((myInsertedElements.end() - 2)->first, (myInsertedElements.end() - 2)->second->getID(), false);
@@ -2654,7 +2654,7 @@ GNEAdditionalHandler::HierarchyInsertedAdditionals::retrieveAdditionalParent(GNE
             WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
             return nullptr;
         } else if (retrievedAdditional->getTagProperty().getTag() != expectedTag) {
-            // invalid additional parent
+            // invalid parent additional
             WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->first) + " cannot be declared within the definition of a " + retrievedAdditional->getTagStr() + ".");
             return nullptr;
         } else {

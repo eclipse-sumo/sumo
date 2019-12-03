@@ -75,13 +75,13 @@ GNERouteProbReroute::updateGeometry() {
 
 Position
 GNERouteProbReroute::getPositionInView() const {
-    return getAdditionalParents().at(0)->getPositionInView();
+    return getParentAdditionals().at(0)->getPositionInView();
 }
 
 
 Boundary
 GNERouteProbReroute::getCenteringBoundary() const {
-    return getAdditionalParents().at(0)->getCenteringBoundary();
+    return getParentAdditionals().at(0)->getCenteringBoundary();
 }
 
 
@@ -93,7 +93,7 @@ GNERouteProbReroute::splitEdgeGeometry(const double /*splitPosition*/, const GNE
 
 std::string
 GNERouteProbReroute::getParentName() const {
-    return getAdditionalParents().at(0)->getID();
+    return getParentAdditionals().at(0)->getID();
 }
 
 
@@ -113,7 +113,7 @@ GNERouteProbReroute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PROB:
             return toString(myProbability);
         case GNE_ATTR_PARENT:
-            return getAdditionalParents().at(0)->getID();
+            return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:

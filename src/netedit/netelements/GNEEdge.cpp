@@ -128,12 +128,12 @@ GNEEdge::updateGeometry() {
         for (const auto &additionalChildren : getAdditionalChildren()) {
             additionalChildren->updateGeometry();
         }
-        // Update geometry of additional parents that have this edge as parent
-        for (const auto &additionalParent : getAdditionalParents()) {
+        // Update geometry of parent additionals that have this edge as parent
+        for (const auto &additionalParent : getParentAdditionals()) {
             additionalParent->updateGeometry();
         }
         // Update partial geometry of demand elements parents that have this edge as parent
-        for (const auto &demandElementParent : getDemandElementParents()) {
+        for (const auto &demandElementParent : getParentDemandElements()) {
             demandElementParent->updatePartialGeometry(this);
         }
         // Update partial geometry of demand elements children vinculated to this edge
@@ -249,8 +249,8 @@ GNEEdge::startGeometryMoving() {
     for (auto i : getAdditionalChildren()) {
         i->startGeometryMoving();
     }
-    // Save current centering boundary of additional parents that have this edge as parent
-    for (auto i : getAdditionalParents()) {
+    // Save current centering boundary of parent additionals that have this edge as parent
+    for (auto i : getParentAdditionals()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of demand elements children vinculated to this edge
@@ -258,7 +258,7 @@ GNEEdge::startGeometryMoving() {
         i->startGeometryMoving();
     }
     // Save current centering boundary of demand elements parents that have this edge as parent
-    for (auto i : getDemandElementParents()) {
+    for (auto i : getParentDemandElements()) {
         i->startGeometryMoving();
     }
 }
@@ -280,8 +280,8 @@ GNEEdge::endGeometryMoving() {
         for (auto i : getAdditionalChildren()) {
             i->endGeometryMoving();
         }
-        // Restore centering boundary of additional parents that have this edge as parent
-        for (auto i : getAdditionalParents()) {
+        // Restore centering boundary of parent additionals that have this edge as parent
+        for (auto i : getParentAdditionals()) {
             i->endGeometryMoving();
         }
         // Restore centering boundary of demand elements children vinculated to this edge
@@ -289,7 +289,7 @@ GNEEdge::endGeometryMoving() {
             i->endGeometryMoving();
         }
         // Restore centering boundary of demand elements parents that have this edge as parent
-        for (auto i : getDemandElementParents()) {
+        for (auto i : getParentDemandElements()) {
             i->endGeometryMoving();
         }
         // add object into grid again (using the new centering boundary)
@@ -512,8 +512,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     for (auto i : myLanes) {
         i->drawGL(s);
     }
-    // draw additional parents
-    for (const auto& i : getAdditionalParents()) {
+    // draw parent additionals
+    for (const auto& i : getParentAdditionals()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
             // draw rerouter symbol
             drawRerouterSymbol(s, i);
@@ -1276,9 +1276,9 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
         }
     }
     // special case for embedded routes
-    if ((route->getTagProperty().getTag() == SUMO_TAG_EMBEDDEDROUTE) && (route->getDemandElementParents().size() > 0) && (route->getEdgeParents().front() == this)) {
+    if ((route->getTagProperty().getTag() == SUMO_TAG_EMBEDDEDROUTE) && (route->getParentDemandElements().size() > 0) && (route->getParentEdges().front() == this)) {
         // draw vehicle parent
-        route->getDemandElementParents().at(0)->drawGL(s);
+        route->getParentDemandElements().at(0)->drawGL(s);
     }
 }
 
@@ -1330,9 +1330,9 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
     bool drawPersonPlan = false;
     if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
         drawPersonPlan = true;
-    } else if (myNet->getViewNet()->getDottedAC() == personPlan->getDemandElementParents().front()) {
+    } else if (myNet->getViewNet()->getDottedAC() == personPlan->getParentDemandElements().front()) {
         drawPersonPlan = true;
-    } else if (myNet->getViewNet()->getDemandViewOptions().getLockedPerson() == personPlan->getDemandElementParents().front()) {
+    } else if (myNet->getViewNet()->getDemandViewOptions().getLockedPerson() == personPlan->getParentDemandElements().front()) {
         drawPersonPlan = true;
     } else if (myNet->getViewNet()->getDottedAC() && myNet->getViewNet()->getDottedAC()->getTagProperty().isPersonPlan() &&
                (myNet->getViewNet()->getDottedAC()->getAttribute(GNE_ATTR_PARENT) == personPlan->getAttribute(GNE_ATTR_PARENT))) {
@@ -1343,7 +1343,7 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
         // calculate personPlan width
         double personPlanWidth = 0;
         // flag to check if width must be duplicated
-        bool duplicateWidth = (myNet->getViewNet()->getDottedAC() == personPlan) || (myNet->getViewNet()->getDottedAC() == personPlan->getDemandElementParents().front()) ? true : false;
+        bool duplicateWidth = (myNet->getViewNet()->getDottedAC() == personPlan) || (myNet->getViewNet()->getDottedAC() == personPlan->getParentDemandElements().front()) ? true : false;
         // Set width depending of person plan type
         if (personPlan->getTagProperty().isPersonTrip()) {
             personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.personTrip;
@@ -1450,25 +1450,25 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
     }
     // draw person if this edge correspond to the first edge of first Person's person plan
     GNEEdge* firstEdge = nullptr;
-    const GNEDemandElement* firstPersonPlan = personPlan->getDemandElementParents().front()->getDemandElementChildren().front();
+    const GNEDemandElement* firstPersonPlan = personPlan->getParentDemandElements().front()->getDemandElementChildren().front();
     if (firstPersonPlan->getTagProperty().isPersonStop()) {
         if (firstPersonPlan->getTagProperty().getTag() == SUMO_TAG_PERSONSTOP_LANE) {
-            // obtain edge of lane parent
-            firstEdge = firstPersonPlan->getLaneParents().front()->getParentEdge();
+            // obtain edge of parent lane
+            firstEdge = firstPersonPlan->getParentLanes().front()->getParentEdge();
         } else  {
-            // obtain edge of busstop's lane parent
-            firstEdge = firstPersonPlan->getAdditionalParents().front()->getLaneParents().front()->getParentEdge();
+            // obtain edge of busstop's parent lane
+            firstEdge = firstPersonPlan->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
         }
     } else if (firstPersonPlan->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
         // obtain first rute edge
-        firstEdge = firstPersonPlan->getDemandElementParents().at(1)->getEdgeParents().front();
+        firstEdge = firstPersonPlan->getParentDemandElements().at(1)->getParentEdges().front();
     } else {
-        // obtain first edge parent
-        firstEdge = firstPersonPlan->getEdgeParents().front();
+        // obtain first parent edge
+        firstEdge = firstPersonPlan->getParentEdges().front();
     }
     // draw person parent if this is the edge first edge and this is the first plan
     if ((firstEdge == this) && (firstPersonPlan == personPlan)) {
-        personPlan->getDemandElementParents().front()->drawGL(s);
+        personPlan->getParentDemandElements().front()->drawGL(s);
     }
 }
 

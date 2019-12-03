@@ -73,10 +73,10 @@ public:
     /// @}
 
 private:
-    /**@brief full information regarding the demand element parent element that will be modified
+    /**@brief full information regarding the parent demand element element that will be modified
      * @note we assume shared responsibility for the pointer (via reference counting)
      */
-    GNEDemandElement* myDemandElementParent;
+    GNEDemandElement* myParentDemandElement;
 
     /// @brief demand element which position will be edited edited
     GNEDemandElement* myDemandElementChild;

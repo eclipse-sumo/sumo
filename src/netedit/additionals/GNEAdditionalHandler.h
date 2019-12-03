@@ -60,8 +60,8 @@ public:
         /// @brief pop last inserted element (used only in function myEndElement)
         void popElement();
 
-        /// @brief retrieve additional parent correspond to current status of myInsertedElements
-        GNEAdditional* retrieveAdditionalParent(GNEViewNet* viewNet, SumoXMLTag expectedTag) const;
+        /// @brief retrieve parent additional correspond to current status of myInsertedElements
+        GNEAdditional* retrieveParentAdditional(GNEViewNet* viewNet, SumoXMLTag expectedTag) const;
 
         /// @brief return last additional inserted
         GNEAdditional* getLastInsertedAdditional() const;

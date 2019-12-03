@@ -53,7 +53,7 @@ class GNEJunction;
  * @class GNEDemandElement
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalElementParents, public GNEHierarchicalElementChildren {
+class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalParentElements, public GNEHierarchicalElementChildren {
 
 public:
     /// @brief struct for pack all variables related with Demand Element moving
@@ -106,10 +106,10 @@ public:
      * @param[in] viewNet pointer to GNEViewNet of this demand element element belongs
      * @param[in] type GUIGlObjectType of demand element
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] shapeParents vector of shape parents
-     * @param[in] additionalParents vector of additional parents
+     * @param[in] parentEdges vector of parent edges
+     * @param[in] parentLanes vector of parent lanes
+     * @param[in] parentShapes vector of parent shapes
+     * @param[in] parentAdditionals vector of parent additionals
      * @param[in] demandElementChildren vector of demandElement parents
      * @param[in] edgeChildren vector of edge children
      * @param[in] laneChildren vector of lane children
@@ -118,11 +118,11 @@ public:
      * @param[in] demandElementChildren vector of demandElement children
      */
     GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-                     const std::vector<GNEEdge*>& edgeParents,
-                     const std::vector<GNELane*>& laneParents,
-                     const std::vector<GNEShape*>& shapeParents,
-                     const std::vector<GNEAdditional*>& additionalParents,
-                     const std::vector<GNEDemandElement*>& demandElementParents,
+                     const std::vector<GNEEdge*>& parentEdges,
+                     const std::vector<GNELane*>& parentLanes,
+                     const std::vector<GNEShape*>& parentShapes,
+                     const std::vector<GNEAdditional*>& parentAdditionals,
+                     const std::vector<GNEDemandElement*>& parentDemandElements,
                      const std::vector<GNEEdge*>& edgeChildren,
                      const std::vector<GNELane*>& laneChildren,
                      const std::vector<GNEShape*>& shapeChildren,
@@ -130,14 +130,14 @@ public:
                      const std::vector<GNEDemandElement*>& demandElementChildren);
 
     /**@brief Constructor
-     * @param[in] demandElementParent pointer to demand element parent pointer (used to generate an ID)
+     * @param[in] demandElementParent pointer to parent demand element pointer (used to generate an ID)
      * @param[in] viewNet pointer to GNEViewNet of this demand element element belongs
      * @param[in] type GUIGlObjectType of demand element
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] shapeParents vector of shape parents
-     * @param[in] additionalParents vector of additional parents
+     * @param[in] parentEdges vector of parent edges
+     * @param[in] parentLanes vector of parent lanes
+     * @param[in] parentShapes vector of parent shapes
+     * @param[in] parentAdditionals vector of parent additionals
      * @param[in] demandElementChildren vector of demandElement parents
      * @param[in] edgeChildren vector of edge children
      * @param[in] laneChildren vector of lane children
@@ -146,11 +146,11 @@ public:
      * @param[in] demandElementChildren vector of demandElement children
      */
     GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-                     const std::vector<GNEEdge*>& edgeParents,
-                     const std::vector<GNELane*>& laneParents,
-                     const std::vector<GNEShape*>& shapeParents,
-                     const std::vector<GNEAdditional*>& additionalParents,
-                     const std::vector<GNEDemandElement*>& demandElementParents,
+                     const std::vector<GNEEdge*>& parentEdges,
+                     const std::vector<GNELane*>& parentLanes,
+                     const std::vector<GNEShape*>& parentShapes,
+                     const std::vector<GNEAdditional*>& parentAdditionals,
+                     const std::vector<GNEDemandElement*>& parentDemandElements,
                      const std::vector<GNEEdge*>& edgeChildren,
                      const std::vector<GNELane*>& laneChildren,
                      const std::vector<GNEShape*>& shapeChildren,

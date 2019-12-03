@@ -524,7 +524,7 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
         }
     }
     // replace in rerouters
-    for (auto rerouter : which->getAdditionalParents()) {
+    for (auto rerouter : which->getParentAdditionals()) {
         replaceInListAttribute(rerouter, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
     }
     // replace in crossings
@@ -654,9 +654,9 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
             deleteDemandElement(demandElement->getDemandElementChildren().front(), undoList);
         }
         // we need an special case for person
-        if (demandElement->getTagProperty().isPersonPlan() && (demandElement->getDemandElementParents().front()->getDemandElementChildren().size() == 1)) {
+        if (demandElement->getTagProperty().isPersonPlan() && (demandElement->getParentDemandElements().front()->getDemandElementChildren().size() == 1)) {
             // obtain person
-            GNEDemandElement *person = demandElement->getDemandElementParents().front();
+            GNEDemandElement *person = demandElement->getParentDemandElements().front();
             // remove demandElement
             undoList->add(new GNEChange_DemandElement(demandElement, false), true);
             // und now remove person
@@ -1843,7 +1843,7 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
             }
         }
         if (!hasStops) {
-            mySortedRoutes.insert(std::make_pair(GNEAttributeCarrier::parseIDs(i.second->getEdgeParents()), i.second));
+            mySortedRoutes.insert(std::make_pair(GNEAttributeCarrier::parseIDs(i.second->getParentEdges()), i.second));
         }
     }
     // now declare a matrix in which organice routes to be merged
@@ -2253,7 +2253,7 @@ GNENet::requireSaveAdditionals(bool value) {
 
 void
 GNENet::saveAdditionals(const std::string& filename) {
-    // obtain invalid additionals depending of number of their lane parents
+    // obtain invalid additionals depending of number of their parent lanes
     std::vector<GNEAdditional*> invalidSingleLaneAdditionals;
     std::vector<GNEAdditional*> invalidMultiLaneAdditionals;
     // iterate over additionals and obtain invalids
@@ -2411,7 +2411,7 @@ void
 GNENet::saveDemandElements(const std::string& filename) {
     // first recompute demand elements
     computeDemandElements(myViewNet->getViewParent()->getGNEAppWindows());
-    // obtain invalid demandElements depending of number of their lane parents
+    // obtain invalid demandElements depending of number of their parent lanes
     std::vector<GNEDemandElement*> invalidSingleLaneDemandElements;
     // iterate over demandElements and obtain invalids
     for (auto i : myAttributeCarriers.demandElements) {
@@ -2500,7 +2500,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
         if (GNEAttributeCarrier::getTagProperties(i.first).isStoppingPlace()) {
             for (auto j : i.second) {
                 // only save stoppingPlaces that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-                if (j.second->getAdditionalParents().empty()) {
+                if (j.second->getParentAdditionals().empty()) {
                     j.second->writeAdditional(device);
                 }
             }
@@ -2511,7 +2511,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
         if (GNEAttributeCarrier::getTagProperties(i.first).isDetector()) {
             for (auto j : i.second) {
                 // only save Detectors that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-                if (j.second->getAdditionalParents().empty()) {
+                if (j.second->getParentAdditionals().empty()) {
                     j.second->writeAdditional(device);
                 }
             }
@@ -2523,7 +2523,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
         if (!tagValue.isStoppingPlace() && !tagValue.isDetector() && (i.first != SUMO_TAG_ROUTEPROBE) && (i.first != SUMO_TAG_VTYPE) && (i.first != SUMO_TAG_ROUTE)) {
             for (auto j : i.second) {
                 // only save additionals that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-                if (j.second->getAdditionalParents().empty()) {
+                if (j.second->getParentAdditionals().empty()) {
                     j.second->writeAdditional(device);
                 }
             }

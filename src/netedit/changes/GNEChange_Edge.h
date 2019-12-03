@@ -81,14 +81,14 @@ private:
      */
     GNEEdge* myEdge;
 
-    /// @brief reference to vector of shape parents
-    const std::vector<GNEShape*>& myEdgeShapeParents;
+    /// @brief reference to vector of parent shapes
+    const std::vector<GNEShape*>& myEdgeParentShapes;
 
-    /// @brief reference to vector of additional parents
-    const std::vector<GNEAdditional*>& myEdgeAdditionalParents;
+    /// @brief reference to vector of parent additionals
+    const std::vector<GNEAdditional*>& myEdgeParentAdditionals;
 
-    /// @brief reference to vector of demand element parents
-    const std::vector<GNEDemandElement*>& myEdgeDemandElementParents;
+    /// @brief reference to vector of parent demand elements
+    const std::vector<GNEDemandElement*>& myEdgeParentDemandElements;
 
     /// @brief reference to vector of shape children
     const std::vector<GNEShape*>& myEdgeShapeChildren;
@@ -99,14 +99,14 @@ private:
     /// @brief vector of references to vector of demand element children (used by lanes)
     const std::vector<GNEDemandElement*>& myEdgeDemandElementChildren;
 
-    /// @brief vector of references to vector of shape parents (used by lanes)
-    std::vector<std::vector<GNEShape*> > myLaneShapeParents;
+    /// @brief vector of references to vector of parent shapes (used by lanes)
+    std::vector<std::vector<GNEShape*> > myLaneParentShapes;
 
-    /// @brief vector of references to vector of additional parents (used by lanes)
-    std::vector<std::vector<GNEAdditional*> > myLaneAdditionalParents;
+    /// @brief vector of references to vector of parent additionals (used by lanes)
+    std::vector<std::vector<GNEAdditional*> > myLaneParentAdditionals;
 
-    /// @brief vector of references to vector of demand element parents (used by lanes)
-    std::vector<std::vector<GNEDemandElement*> > myLaneDemandElementParents;
+    /// @brief vector of references to vector of parent demand elements (used by lanes)
+    std::vector<std::vector<GNEDemandElement*> > myLaneParentDemandElements;
 
     /// @brief vector of references to vector of shape children (used by lanes)
     std::vector<std::vector<GNEShape*> > myLaneShapeChildren;

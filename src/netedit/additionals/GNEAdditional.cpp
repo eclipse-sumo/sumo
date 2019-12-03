@@ -43,11 +43,11 @@
 // ===========================================================================
 
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEEdge*>& parentEdges,
+        const std::vector<GNELane*>& parentLanes,
+        const std::vector<GNEShape*>& parentShapes,
+        const std::vector<GNEAdditional*>& parentAdditionals,
+        const std::vector<GNEDemandElement*>& parentDemandElements,
         const std::vector<GNEEdge*>& edgeChildren,
         const std::vector<GNELane*>& laneChildren,
         const std::vector<GNEShape*>& shapeChildren,
@@ -56,7 +56,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     Parameterised(),
-    GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
+    GNEHierarchicalParentElements(this, parentEdges, parentLanes, parentShapes, parentAdditionals, parentDemandElements),
     GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
@@ -67,11 +67,11 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 
 
 GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEEdge*>& parentEdges,
+        const std::vector<GNELane*>& parentLanes,
+        const std::vector<GNEShape*>& parentShapes,
+        const std::vector<GNEAdditional*>& parentAdditionals,
+        const std::vector<GNEDemandElement*>& parentDemandElements,
         const std::vector<GNEEdge*>& edgeChildren,
         const std::vector<GNELane*>& laneChildren,
         const std::vector<GNEShape*>& shapeChildren,
@@ -80,7 +80,7 @@ GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNe
     GUIGlObject(type, additionalParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     Parameterised(),
-    GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
+    GNEHierarchicalParentElements(this, parentEdges, parentLanes, parentShapes, parentAdditionals, parentDemandElements),
     GNEHierarchicalElementChildren(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
@@ -199,7 +199,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
             // save children in a different filename
             for (auto i : getAdditionalChildren()) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
-                if (i->getAdditionalParents().size() < 1) {
+                if (i->getParentAdditionals().size() < 1) {
                     i->writeAdditional(deviceChildren);
                 } else if (myTagProperty.getTag() == i->getTagProperty().getParentTag()) {
                     i->writeAdditional(deviceChildren);
@@ -209,7 +209,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         } else {
             for (auto i : getAdditionalChildren()) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
-                if (i->getAdditionalParents().size() < 2) {
+                if (i->getParentAdditionals().size() < 2) {
                     i->writeAdditional(device);
                 } else if (myTagProperty.getTag() == i->getTagProperty().getParentTag()) {
                     i->writeAdditional(device);

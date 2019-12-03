@@ -45,7 +45,7 @@ class GNEAdditional;
 class GNEDemandElement;
 class GNEJunction;
 class GNEViewNet;
-class GNEHierarchicalElementParents;
+class GNEHierarchicalParentElements;
 
 // ===========================================================================
 // class definitions
@@ -275,7 +275,7 @@ struct GNEGeometry {
     /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their children
     struct ParentConnections {
         /// @brief constructor
-        ParentConnections(GNEHierarchicalElementParents* hierarchicalElement);
+        ParentConnections(GNEHierarchicalParentElements* hierarchicalElement);
 
         /// @brief update Connection's geometry
         void update();
@@ -291,7 +291,7 @@ struct GNEGeometry {
 
     private:
         /// @brief pointer to hierarchical element parent
-        GNEHierarchicalElementParents* myHierarchicalElement;
+        GNEHierarchicalParentElements* myHierarchicalElement;
     };
 
     /// @brief return angle between two points (used in geometric calculations)

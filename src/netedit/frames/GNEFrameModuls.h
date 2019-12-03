@@ -485,7 +485,7 @@ public:
         /// @brief destructor
         ~SelectorParent();
 
-        /// @brief get currently additional parent selected
+        /// @brief get currently parent additional selected
         std::string getIdSelected() const;
 
         /// @brief select manually a element of the list
@@ -504,7 +504,7 @@ public:
         /// @brief pointer to Frame Parent
         GNEFrame* myFrameParent;
 
-        /// @brief current additional parent tag
+        /// @brief current parent additional tag
         SumoXMLTag myParentTag;
 
         /// @brief Label with parent name

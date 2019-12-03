@@ -51,7 +51,7 @@ GNEDetectorE1Instant::isAdditionalValid() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        return fabs(myPositionOverLane) <= getLaneParents().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        return fabs(myPositionOverLane) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     }
 }
 
@@ -60,7 +60,7 @@ std::string
 GNEDetectorE1Instant::getAdditionalProblem() const {
     // declare variable for error position
     std::string errorPosition;
-    const double len = getLaneParents().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     // check positions over lane
     if (myPositionOverLane < -len) {
         errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
@@ -77,7 +77,7 @@ GNEDetectorE1Instant::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
     // fix pos and length  checkAndFixDetectorPosition
-    GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, getLaneParents().front()->getParentEdge()->getNBEdge()->getFinalLength(), true);
+    GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), true);
     // set new position
     setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
 }
@@ -91,9 +91,9 @@ GNEDetectorE1Instant::moveGeometry(const Position& offset) {
     // filtern position using snap to active grid
     newPosition = myViewNet->snapToActiveGrid(newPosition);
     const bool storeNegative = myPositionOverLane < 0;
-    myPositionOverLane = getLaneParents().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false);
+    myPositionOverLane = getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false);
     if (storeNegative) {
-        myPositionOverLane -= getLaneParents().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        myPositionOverLane -= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     }
     // Update geometry
     updateGeometry();
@@ -112,7 +112,7 @@ GNEDetectorE1Instant::commitGeometryMoving(GNEUndoList* undoList) {
 void
 GNEDetectorE1Instant::updateGeometry() {
     // update geometry
-    myAdditionalGeometry.updateGeometryPosition(getLaneParents().front(), getGeometryPositionOverLane());
+    myAdditionalGeometry.updateGeometryPosition(getParentLanes().front(), getGeometryPositionOverLane());
 
     // Set block icon position
     myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
@@ -121,7 +121,7 @@ GNEDetectorE1Instant::updateGeometry() {
     myBlockIcon.offset = Position(-1, 0);
 
     // Set block icon rotation, and using their rotation for logo
-    myBlockIcon.setRotation(getLaneParents().front());
+    myBlockIcon.setRotation(getParentLanes().front());
 }
 
 
@@ -234,7 +234,7 @@ GNEDetectorE1Instant::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANE:
-            return getLaneParents().front()->getID();
+            return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
         case SUMO_ATTR_NAME:
@@ -294,7 +294,7 @@ GNEDetectorE1Instant::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            return canParse<double>(value) && fabs(parse<double>(value)) < getLaneParents().front()->getParentEdge()->getNBEdge()->getFinalLength();
+            return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_FILE:
@@ -335,7 +335,7 @@ GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
-            changeLaneParents(this, value);
+            replaceParentLanes(this, value);
             break;
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value);

@@ -61,7 +61,7 @@ GNERouteHandler::RouteParameter::RouteParameter(GNEDemandElement* originalDemand
     routeID(originalDemandElement->getTagProperty().isRoute() ?
             originalDemandElement->getID() :
             originalDemandElement->getViewNet()->getNet()->generateDemandElementID(originalDemandElement->getID(), SUMO_TAG_ROUTE)),
-    edges(originalDemandElement->getEdgeParents()),
+    edges(originalDemandElement->getParentEdges()),
     vClass(originalDemandElement->getVClass()),
     color(originalDemandElement->getColor()) {
 }
@@ -162,7 +162,7 @@ GNERouteHandler::buildVehicleOverRoute(GNEViewNet* viewNet, bool undoDemandEleme
             WRITE_ERROR("Invalid vehicle type '" + vehicleParameters.vtypeid + "' used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'.");
         } else if (route == nullptr) {
             WRITE_ERROR("Invalid route '" + vehicleParameters.routeid + "' used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'.");
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DEPART_LANE_GIVEN) && ((int)route->getEdgeParents().front()->getLanes().size() < vehicleParameters.departLane)) {
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DEPART_LANE_GIVEN) && ((int)route->getParentEdges().front()->getLanes().size() < vehicleParameters.departLane)) {
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTLANE) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departLane) + " is greater than number of lanes");
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DEPART_SPEED_GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
@@ -206,7 +206,7 @@ GNERouteHandler::buildFlowOverRoute(GNEViewNet* viewNet, bool undoDemandElements
             WRITE_ERROR("Invalid vehicle type '" + vehicleParameters.vtypeid + "' used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'.");
         } else if (route == nullptr) {
             WRITE_ERROR("Invalid route '" + vehicleParameters.routeid + "' used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'.");
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DEPART_LANE_GIVEN) && ((int)route->getEdgeParents().front()->getLanes().size() < vehicleParameters.departLane)) {
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DEPART_LANE_GIVEN) && ((int)route->getParentEdges().front()->getLanes().size() < vehicleParameters.departLane)) {
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTLANE) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departLane) + " is greater than number of lanes");
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DEPART_SPEED_GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
@@ -247,7 +247,7 @@ GNERouteHandler::buildVehicleWithEmbeddedRoute(GNEViewNet* viewNet, bool undoDem
         GNEDemandElement* vType = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
         if (vType == nullptr) {
             WRITE_ERROR("Invalid vehicle type '" + vehicleParameters.vtypeid + "' used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'.");
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DEPART_LANE_GIVEN) && ((int)embeddedRouteCopy->getEdgeParents().front()->getLanes().size() < vehicleParameters.departLane)) {
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DEPART_LANE_GIVEN) && ((int)embeddedRouteCopy->getParentEdges().front()->getLanes().size() < vehicleParameters.departLane)) {
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTLANE) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departLane) + " is greater than number of lanes");
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DEPART_SPEED_GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
@@ -275,7 +275,7 @@ GNERouteHandler::buildVehicleWithEmbeddedRoute(GNEViewNet* viewNet, bool undoDem
                 vehicle->incRef("buildVehicleWithEmbeddedRoute");
                 // add route manually in net, and in all of their edges and in vehicleOrRouteFlow
                 viewNet->getNet()->insertDemandElement(embeddedRoute);
-                for (const auto& i : embeddedRouteCopy->getEdgeParents()) {
+                for (const auto& i : embeddedRouteCopy->getParentEdges()) {
                     i->addDemandElementChild(vehicle);
                 }
                 // set route as child of vehicle
@@ -297,7 +297,7 @@ GNERouteHandler::buildFlowWithEmbeddedRoute(GNEViewNet* viewNet, bool undoDemand
         GNEDemandElement* vType = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
         if (vType == nullptr) {
             WRITE_ERROR("Invalid vehicle type '" + vehicleParameters.vtypeid + "' used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'.");
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DEPART_LANE_GIVEN) && ((int)embeddedRouteCopy->getEdgeParents().front()->getLanes().size() < vehicleParameters.departLane)) {
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DEPART_LANE_GIVEN) && ((int)embeddedRouteCopy->getParentEdges().front()->getLanes().size() < vehicleParameters.departLane)) {
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTLANE) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departLane) + " is greater than number of lanes");
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DEPART_SPEED_GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
@@ -325,7 +325,7 @@ GNERouteHandler::buildFlowWithEmbeddedRoute(GNEViewNet* viewNet, bool undoDemand
                 flow->incRef("buildFlowWithEmbeddedRoute");
                 // add route manually in net, and in all of their edges and in vehicleOrRouteFlow
                 viewNet->getNet()->insertDemandElement(embeddedRoute);
-                for (const auto& i : embeddedRouteCopy->getEdgeParents()) {
+                for (const auto& i : embeddedRouteCopy->getParentEdges()) {
                     i->addDemandElementChild(flow);
                 }
                 // set route as child of flow
@@ -443,7 +443,7 @@ GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const S
     GNEAdditional* stoppingPlace = nullptr;
     GNELane* lane = nullptr;
     SumoXMLTag stopTagType = SUMO_TAG_NOTHING;
-    bool validDemandElementParent = true;
+    bool validParentDemandElement = true;
     if (stopParameters.busstop.size() > 0) {
         stoppingPlace = viewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, stopParameters.busstop, false);
         // distinguish between stop for vehicles and stops for persons
@@ -457,7 +457,7 @@ GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const S
         // distinguish between stop for vehicles and stops for persons
         if (stopParent->getTagProperty().isPerson()) {
             WRITE_ERROR("Persons doesn't support stops over container stops");
-            validDemandElementParent = false;
+            validParentDemandElement = false;
         } else {
             stopTagType = SUMO_TAG_STOP_CONTAINERSTOP;
         }
@@ -466,7 +466,7 @@ GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const S
         // distinguish between stop for vehicles and stops for persons
         if (stopParent->getTagProperty().isPerson()) {
             WRITE_ERROR("Persons doesn't support stops over charging stations");
-            validDemandElementParent = false;
+            validParentDemandElement = false;
         } else {
             stopTagType = SUMO_TAG_STOP_CHARGINGSTATION;
         }
@@ -475,7 +475,7 @@ GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const S
         // distinguish between stop for vehicles and stops for persons
         if (stopParent->getTagProperty().isPerson()) {
             WRITE_ERROR("Persons doesn't support stops over parking areas");
-            validDemandElementParent = false;
+            validParentDemandElement = false;
         } else {
             stopTagType = SUMO_TAG_STOP_PARKINGAREA;
         }
@@ -489,7 +489,7 @@ GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const S
         }
     }
     // first check that parent is valid
-    if (validDemandElementParent) {
+    if (validParentDemandElement) {
         // check if values are correct
         if (stoppingPlace && lane) {
             WRITE_ERROR("A stop must be defined either over a stoppingPlace or over a lane");
@@ -783,11 +783,11 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         bool selected = originalVehicle->isAttributeCarrierSelected();
         // first check if originalVehicle has an embedded route, and if true, separate it
         if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) &&
-                (originalVehicle->getDemandElementParents().size() == 1)) {
+                (originalVehicle->getParentDemandElements().size() == 1)) {
             originalVehicle = separateEmbeddedRoute(originalVehicle, undoList);
         }
         // obtain VType of original vehicle
-        GNEDemandElement* vType = originalVehicle->getDemandElementParents().at(0);
+        GNEDemandElement* vType = originalVehicle->getParentDemandElements().at(0);
         // extract vehicleParameters of originalVehicle
         SUMOVehicleParameter newVehicleParameters = *originalVehicle;
         // change tag in newVehicleParameters (needed for GNEVehicle constructor)
@@ -795,7 +795,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         // make transformation depending of vehicle tag
         if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
             // obtain vehicle's route (it always exist due call to function separateEmbeddedRoute(...)
-            GNEDemandElement* route = originalVehicle->getDemandElementParents().at(1);
+            GNEDemandElement* route = originalVehicle->getParentDemandElements().at(1);
             // create Vehicle using values of original vehicle
             GNEVehicle* vehicle = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
             // remove original vehicle (to avoid problem with ID)
@@ -843,11 +843,11 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         bool selected = originalVehicle->isAttributeCarrierSelected();
         // first check if originalVehicle has an embedded route, and if true, separate it
         if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) &&
-                (originalVehicle->getDemandElementParents().size() == 1)) {
+                (originalVehicle->getParentDemandElements().size() == 1)) {
             originalVehicle = separateEmbeddedRoute(originalVehicle, undoList);
         }
         // obtain VType of original vehicle
-        GNEDemandElement* vType = originalVehicle->getDemandElementParents().at(0);
+        GNEDemandElement* vType = originalVehicle->getParentDemandElements().at(0);
         // extract vehicleParameters of originalVehicle
         SUMOVehicleParameter newVehicleParameters = *originalVehicle;
         // change tag in newVehicleParameters (needed for GNEVehicle constructor)
@@ -855,7 +855,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         // make transformation depending of vehicle tag
         if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
             // obtain vehicle's route (it always exist due call to function separateEmbeddedRoute(...)
-            GNEDemandElement* route = originalVehicle->getDemandElementParents().at(1);
+            GNEDemandElement* route = originalVehicle->getParentDemandElements().at(1);
             // create flow using newVehicleParameters
             GNEVehicle* flow = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
             // remove original vehicle (to avoid problem with ID)
@@ -905,11 +905,11 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         bool selected = originalVehicle->isAttributeCarrierSelected();
         // first check if originalVehicle has an embedded route, and if true, separate it
         if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) &&
-            (originalVehicle->getDemandElementParents().size() == 1)) {
+            (originalVehicle->getParentDemandElements().size() == 1)) {
             originalVehicle = separateEmbeddedRoute(originalVehicle, undoList);
         }
         // obtain VType of original vehicle
-        GNEDemandElement* vType = originalVehicle->getDemandElementParents().at(0);
+        GNEDemandElement* vType = originalVehicle->getParentDemandElements().at(0);
         // extract vehicleParameters of originalVehicle
         SUMOVehicleParameter newVehicleParameters = *originalVehicle;
         // change tag in newVehicleParameters (needed for GNEVehicle constructor)
@@ -918,9 +918,9 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
             // create trip using values of original vehicle (including ID) and route's edges
             GNEVehicle* trip = new GNEVehicle(originalVehicle->getViewNet(), vType,
-                                              originalVehicle->getDemandElementParents().at(1)->getEdgeParents().front(),
-                                              originalVehicle->getDemandElementParents().at(1)->getEdgeParents().back(), 
-                                              originalVehicle->getDemandElementParents().at(1)->getMiddleEdgeParents(), 
+                                              originalVehicle->getParentDemandElements().at(1)->getParentEdges().front(),
+                                              originalVehicle->getParentDemandElements().at(1)->getParentEdges().back(), 
+                                              originalVehicle->getParentDemandElements().at(1)->getMiddleParentEdges(), 
                                               newVehicleParameters);
             // first remove vehicle (to avoid problem with ID)
             undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
@@ -933,9 +933,9 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP)) {
             // create trip using values of original vehicle (including ID)
             GNEVehicle* trip = new GNEVehicle(originalVehicle->getViewNet(), vType, 
-                originalVehicle->getEdgeParents().front(), 
-                originalVehicle->getEdgeParents().back(), 
-                originalVehicle->getMiddleEdgeParents(),
+                originalVehicle->getParentEdges().front(), 
+                originalVehicle->getParentEdges().back(), 
+                originalVehicle->getMiddleParentEdges(),
                 newVehicleParameters);
             // remove originalVehicle
             undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
@@ -970,12 +970,12 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         bool selected = originalVehicle->isAttributeCarrierSelected();
         // first check if originalVehicle has an embedded route, and if true, separate it
         if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) &&
-            (originalVehicle->getDemandElementParents().size() == 1)) {
+            (originalVehicle->getParentDemandElements().size() == 1)) {
             originalVehicle = separateEmbeddedRoute(originalVehicle, undoList);
-            separatedEmbeddedRoute = originalVehicle->getDemandElementParents().at(1);
+            separatedEmbeddedRoute = originalVehicle->getParentDemandElements().at(1);
         }
         // obtain VType of original vehicle
-        GNEDemandElement* vType = originalVehicle->getDemandElementParents().at(0);
+        GNEDemandElement* vType = originalVehicle->getParentDemandElements().at(0);
         // extract vehicleParameters of originalVehicle
         SUMOVehicleParameter newVehicleParameters = *originalVehicle;
         // change tag in newVehicleParameters (needed for GNEVehicle constructor)
@@ -984,9 +984,9 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
             // create Vehicle using values of original vehicle (including ID) and route's edges
             GNEVehicle* flow = new GNEVehicle(originalVehicle->getViewNet(), vType,
-                                              originalVehicle->getDemandElementParents().at(1)->getEdgeParents().front(),
-                                              originalVehicle->getDemandElementParents().at(1)->getEdgeParents().back(), 
-                                              originalVehicle->getDemandElementParents().at(1)->getMiddleEdgeParents(), 
+                                              originalVehicle->getParentDemandElements().at(1)->getParentEdges().front(),
+                                              originalVehicle->getParentDemandElements().at(1)->getParentEdges().back(), 
+                                              originalVehicle->getParentDemandElements().at(1)->getMiddleParentEdges(), 
                                               newVehicleParameters);
             // first remove vehicle (to avoid problem with ID)
             undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
@@ -995,9 +995,9 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP)) {
             // create flow using values of original vehicle (including ID)
             GNEVehicle* flow = new GNEVehicle(originalVehicle->getViewNet(), vType, 
-                originalVehicle->getEdgeParents().front(), 
-                originalVehicle->getEdgeParents().back(), 
-                originalVehicle->getMiddleEdgeParents(),
+                originalVehicle->getParentEdges().front(), 
+                originalVehicle->getParentEdges().back(), 
+                originalVehicle->getMiddleParentEdges(),
                 newVehicleParameters);
             // remove originalVehicle
             undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
@@ -1094,9 +1094,9 @@ GNERouteHandler::setFlowParameters(const SumoXMLAttr attribute, int &parameters)
 void
 GNERouteHandler::embebbeRoute(GNEVehicle* vehicle, GNEUndoList* undoList) {
     // create a copy of vehicle with the same attributes but without embedded route
-    GNEVehicle* vehicleWithEmbebbeRoute = new GNEVehicle(vehicle->getViewNet(), vehicle->getDemandElementParents().at(0), *vehicle);
+    GNEVehicle* vehicleWithEmbebbeRoute = new GNEVehicle(vehicle->getViewNet(), vehicle->getParentDemandElements().at(0), *vehicle);
     // create a embeddedRoute based on parameters of vehicle's route
-    GNERoute* embeddedRoute = new GNERoute(vehicleWithEmbebbeRoute->getViewNet(), vehicleWithEmbebbeRoute, RouteParameter(vehicle->getDemandElementParents().at(1)));
+    GNERoute* embeddedRoute = new GNERoute(vehicleWithEmbebbeRoute->getViewNet(), vehicleWithEmbebbeRoute, RouteParameter(vehicle->getParentDemandElements().at(1)));
     // remove vehicle, but NOT route
     undoList->add(new GNEChange_DemandElement(vehicle, false), true);
     // now add bot vehicleWithEmbebbeRoute and embeddedRoute
@@ -1110,7 +1110,7 @@ GNERouteHandler::separateEmbeddedRoute(GNEVehicle* vehicle, GNEUndoList* undoLis
     // first create a Route based on the parameters of vehicle's embedded route
     GNERoute* nonEmbeddedRoute = new GNERoute(vehicle->getDemandElementChildren().at(0));
     // create a copy of vehicle with the same attributes but with the nonEmbeddedRoute
-    GNEVehicle* vehicleWithoutEmbebbeRoute = new GNEVehicle(vehicle->getViewNet(), vehicle->getDemandElementParents().at(0), nonEmbeddedRoute, *vehicle);
+    GNEVehicle* vehicleWithoutEmbebbeRoute = new GNEVehicle(vehicle->getViewNet(), vehicle->getParentDemandElements().at(0), nonEmbeddedRoute, *vehicle);
     // remove embedded route andvehicle (because a embebbbed route without vehicle cannot exist)
     undoList->add(new GNEChange_DemandElement(vehicle->getDemandElementChildren().at(0), false), true);
     undoList->add(new GNEChange_DemandElement(vehicle, false), true);
@@ -1977,9 +1977,9 @@ GNERouteHandler::PersonPlansValues::getLastEdge() const {
     if (edges.size() > 0) {
         return edges.back();
     } else if (route) {
-        return route->getEdgeParents().back();
+        return route->getParentEdges().back();
     } else if (busStop) {
-        return busStop->getLaneParents().front()->getParentEdge();
+        return busStop->getParentLanes().front()->getParentEdge();
     } else if (laneStop) {
         return laneStop->getParentEdge();
     } else if (to) {

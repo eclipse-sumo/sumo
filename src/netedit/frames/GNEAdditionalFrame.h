@@ -37,24 +37,24 @@ class GNEAdditionalFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class SelectorLaneParents
+    // class SelectorParentLanes
     // ===========================================================================
 
-    class SelectorLaneParents : protected FXGroupBox {
+    class SelectorParentLanes : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::SelectorLaneParents)
+        FXDECLARE(GNEAdditionalFrame::SelectorParentLanes)
     public:
         /// @brief constructor
-        SelectorLaneParents(GNEAdditionalFrame* additionalFrameParent);
+        SelectorParentLanes(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
-        ~SelectorLaneParents();
+        ~SelectorParentLanes();
 
-        /// @brief show SelectorLaneParents modul
-        void showSelectorLaneParentsModul();
+        /// @brief show SelectorParentLanes modul
+        void showSelectorParentLanesModul();
 
-        /// @brief hide SelectorLaneParents
-        void hideSelectorLaneParentsModul();
+        /// @brief hide SelectorParentLanes
+        void hideSelectorParentLanesModul();
 
         /// @brief start selection of consecutive lanes
         void startConsecutiveLaneSelector(GNELane* lane, const Position& clickedPosition);
@@ -93,7 +93,7 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(SelectorLaneParents)
+        FOX_CONSTRUCTOR(SelectorParentLanes)
 
     private:
         /// @brief pointer to additionalFrameParent
@@ -279,7 +279,7 @@ public:
     void showSelectorLaneChildrenModul();
 
     /// @brief getConsecutive Lane Selector
-    GNEAdditionalFrame::SelectorLaneParents* getConsecutiveLaneSelector() const;
+    GNEAdditionalFrame::SelectorParentLanes* getConsecutiveLaneSelector() const;
 
 protected:
     /// @brief Tag selected in TagSelector
@@ -316,11 +316,11 @@ private:
     /// @brief Netedit parameter
     GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
 
-    /// @brief Modul for select lane parents (currently only consecutives)
-    SelectorLaneParents* mySelectorLaneParents;
+    /// @brief Modul for select parent lanes (currently only consecutives)
+    SelectorParentLanes* mySelectorParentLanes;
 
-    /// @brief Modul for select a single additional parent
-    GNEFrameModuls::SelectorParent* myAdditionalParent;
+    /// @brief Modul for select a single parent additional
+    GNEFrameModuls::SelectorParent* myParentAdditional;
 
     /// @brief Modul for select edge children
     SelectorEdgeChildren* mySelectorEdgeChildren;

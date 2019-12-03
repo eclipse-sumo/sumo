@@ -163,7 +163,7 @@ public:
     /// @}
 
     /// @brief update TAZ after add or remove a Source/sink, or change their weight
-    void updateAdditionalParent();
+    void updateParentAdditional();
 
 protected:
     /// @brief TAZ Color

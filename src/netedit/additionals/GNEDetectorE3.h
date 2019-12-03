@@ -133,7 +133,7 @@ public:
     /// @name inherited from GNEHierarchicalElementChildren
     /// @{
     /// @brief update parent after add or remove a child
-    void updateAdditionalParent();
+    void updateParentAdditional();
     /// @}
 
 protected:

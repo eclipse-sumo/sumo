@@ -14,8 +14,8 @@
 ///
 // A abstract class for representation of Hierarchical Elements
 /****************************************************************************/
-#ifndef GNEHierarchicalElementParents_h
-#define GNEHierarchicalElementParents_h
+#ifndef GNEHierarchicalParentElements_h
+#define GNEHierarchicalParentElements_h
 
 // ===========================================================================
 // included modules
@@ -44,10 +44,10 @@ class GNEConnection;
 // ===========================================================================
 
 /**
- * @class GNEHierarchicalElementParents
+ * @class GNEHierarchicalParentElements
  * @brief An special type of Attribute carrier that owns hierarchical elements
  */
-class GNEHierarchicalElementParents {
+class GNEHierarchicalParentElements {
 
 public:
 
@@ -56,21 +56,21 @@ public:
 
     /**@brief Constructor used by elements that have another additionals as parent
      * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] shapeParents vector of shape parents
-     * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementParents vector of demand element parents
+     * @param[in] parentEdges vector of parent edges
+     * @param[in] parentLanes vector of parent lanes
+     * @param[in] parentShapes vector of parent shapes
+     * @param[in] parentAdditionals vector of parent additionals
+     * @param[in] parentDemandElements vector of parent demand elements
      */
-    GNEHierarchicalElementParents(GNEAttributeCarrier* AC,
-                                  const std::vector<GNEEdge*>& edgeParents,
-                                  const std::vector<GNELane*>& laneParents,
-                                  const std::vector<GNEShape*>& shapeParents,
-                                  const std::vector<GNEAdditional*>& additionalParents,
-                                  const std::vector<GNEDemandElement*>& demandElementParents);
+    GNEHierarchicalParentElements(GNEAttributeCarrier* AC,
+                                  const std::vector<GNEEdge*>& parentEdges,
+                                  const std::vector<GNELane*>& parentLanes,
+                                  const std::vector<GNEShape*>& parentShapes,
+                                  const std::vector<GNEAdditional*>& parentAdditionals,
+                                  const std::vector<GNEDemandElement*>& parentDemandElements);
 
     /// @brief Destructor
-    ~GNEHierarchicalElementParents();
+    ~GNEHierarchicalParentElements();
 
     /// @name Functions related with geometry of element
     /// @{
@@ -81,152 +81,152 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
-    /// @name members and functions related to edge parents
+    /// @name members and functions related to parent edges
     /// @{
-    /// @brief add edge parent
-    void addEdgeParent(GNEEdge* edge);
+    /// @brief add parent edge
+    void addParentEdge(GNEEdge* edge);
 
-    /// @brief remove edge parent
-    void removeEdgeParent(GNEEdge* edge);
+    /// @brief remove parent edge
+    void removeParentEdge(GNEEdge* edge);
 
-    /// @brief get edge parents
-    const std::vector<GNEEdge*>& getEdgeParents() const;
+    /// @brief get parent edges
+    const std::vector<GNEEdge*>& getParentEdges() const;
 
-    /// @brief get middle (via) edge parents
-    std::vector<GNEEdge*> getMiddleEdgeParents() const;
+    /// @brief get middle (via) parent edges
+    std::vector<GNEEdge*> getMiddleParentEdges() const;
 
     /// @brief get path edges
     const std::vector<GNEEdge*> &getPathEdges() const;
 
     /// @}
 
-    /// @name members and functions related to lane parents
+    /// @name members and functions related to parent lanes
     /// @{
-    /// @brief add lane parent
-    void addLaneParent(GNELane* lane);
+    /// @brief add parent lane
+    void addParentLane(GNELane* lane);
 
-    /// @brief remove lane parent
-    void removeLaneParent(GNELane* lane);
+    /// @brief remove parent lane
+    void removeParentLane(GNELane* lane);
 
-    /// @brief get lanes of VSS
-    const std::vector<GNELane*>& getLaneParents() const;
+    /// @brief get parent lanes
+    const std::vector<GNELane*>& getParentLanes() const;
 
     /// @}
 
-    /// @name members and functions related to shape parents
+    /// @name members and functions related to parent shapes
     /// @{
-    /// @brief add shape parent
-    void addShapeParent(GNEShape* shape);
+    /// @brief add parent shape
+    void addParentShape(GNEShape* shape);
 
-    /// @brief remove shape parent
-    void removeShapeParent(GNEShape* shape);
+    /// @brief remove parent shape
+    void removeParentShape(GNEShape* shape);
 
-    /// @brief get shapes of VSS
-    const std::vector<GNEShape*>& getShapeParents() const;
+    /// @brief get parent shapes
+    const std::vector<GNEShape*>& getParentShapes() const;
 
     /// @}
 
-    /// @name members and functions related to additional parents
+    /// @name members and functions related to parent additionals
     /// @{
-    /// @brief add additional parent to this additional
-    void addAdditionalParent(GNEAdditional* additional);
+    /// @brief add parent additional
+    void addParentAdditional(GNEAdditional* additional);
 
-    /// @brief remove additional parent from this additional
-    void removeAdditionalParent(GNEAdditional* additional);
+    /// @brief remove parent additional
+    void removeParentAdditional(GNEAdditional* additional);
 
-    /// @brief return vector of additionals that have as Parent this edge (For example, Calibrators)
-    const std::vector<GNEAdditional*>& getAdditionalParents() const;
+    /// @brief get parent additionals
+    const std::vector<GNEAdditional*>& getParentAdditionals() const;
 
     /// @}
 
-    /// @name members and functions related to demand element parents
+    /// @name members and functions related to parent demand elements
     /// @{
-    /// @brief add demand element parent to this demand element
-    void addDemandElementParent(GNEDemandElement* demandElement);
+    /// @brief add parent demand element
+    void addParentDemandElement(GNEDemandElement* demandElement);
 
-    /// @brief remove demand element parent from this demand element
-    void removeDemandElementParent(GNEDemandElement* demandElement);
+    /// @brief remove parent demand element
+    void removeParentDemandElement(GNEDemandElement* demandElement);
 
-    /// @brief return vector of demand elements that have as Parent this edge (For example, Calibrators)
-    const std::vector<GNEDemandElement*>& getDemandElementParents() const;
+    /// @brief get parent demand elements
+    const std::vector<GNEDemandElement*>& getParentDemandElements() const;
 
     /// @}
 
-    /// @brief if use edge/lane parents as a list of consecutive elements, obtain a list of IDs of elements after insert a new element
+    /// @brief if use edge/parent lanes as a list of consecutive elements, obtain a list of IDs of elements after insert a new element
     std::string getNewListOfParents(const GNENetElement *currentElement, const GNENetElement *newNextElement) const;
 
 protected:
     /// @name members and functions relative to changing parents
     /// @{
 
-    /// @brief change edge parents of a shape
-    void changeEdgeParents(GNEShape* elementChild, const std::string& newEdgeIDs);
+    /// @brief replace the parent edges of a shape
+    void replaceParentEdges(GNEShape* elementChild, const std::string& newEdgeIDs);
 
-    /// @brief change edge parents of an additional
-    void changeEdgeParents(GNEAdditional* elementChild, const std::string& newEdgeIDs);
+    /// @brief replace the parent edges of an additional
+    void replaceParentEdges(GNEAdditional* elementChild, const std::string& newEdgeIDs);
 
-    /// @brief change edge parents of a demandElement
-    void changeEdgeParents(GNEDemandElement* elementChild, const std::string& newEdgeIDs);
+    /// @brief replace the parent edges of a demandElement
+    void replaceParentEdges(GNEDemandElement* elementChild, const std::string& newEdgeIDs);
 
-    /// @brief change edge parents of a demandElement (GNEEdge version)
-    void changeEdgeParents(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newEdges);
+    /// @brief replace the parent edges of a demandElement (GNEEdge version)
+    void replaceParentEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newEdges);
 
-    /// @brief change first edge parent (used by demand elements)
-    void changeFirstEdgeParent(GNEDemandElement* elementChild, GNEEdge* newFirstEdge);
+    /// @brief replace the first parent edge (used by demand elements)
+    void replaceFirstParentEdge(GNEDemandElement* elementChild, GNEEdge* newFirstEdge);
 
-    /// @brief change middle (via) edge parents
-    void changeMiddleEdgeParents(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newMiddleEdges, const bool updateChildReferences);
+    /// @brief replace middle (via) parent edges
+    void replaceMiddleParentEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newMiddleEdges, const bool updateChildReferences);
 
-    /// @brief change last edge parent (used by demand elements)
-    void changeLastEdgeParent(GNEDemandElement* elementChild, GNEEdge* newLastEdge);
+    /// @brief replace the last parent edge (used by demand elements)
+    void replaceLastParentEdge(GNEDemandElement* elementChild, GNEEdge* newLastEdge);
 
-    /// @brief change edge route Parents
-    void changePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*> &routeEdges);
+    /// @brief replace edge route Parents
+    void replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*> &routeEdges);
 
-    /// @brief change edge parents of a shape
-    void changeLaneParents(GNEShape* elementChild, const std::string& newLaneIDs);
+    /// @brief replace the parent edges of a shape
+    void replaceParentLanes(GNEShape* elementChild, const std::string& newLaneIDs);
 
-    /// @brief change edge parents of an additional
-    void changeLaneParents(GNEAdditional* elementChild, const std::string& newLaneIDs);
+    /// @brief replace the parent edges of an additional
+    void replaceParentLanes(GNEAdditional* elementChild, const std::string& newLaneIDs);
 
-    /// @brief change edge parents of a demandElement
-    void changeLaneParents(GNEDemandElement* elementChild, const std::string& newLaneIDs);
+    /// @brief replace the parent edges of a demandElement
+    void replaceParentLanes(GNEDemandElement* elementChild, const std::string& newLaneIDs);
 
-    /**@brief change additional parent of a shape
+    /**@brief replace the parent additional of a shape
      * @throw exception if this shape doesn't have previously a defined Additional parent
-     * @throw exception if shape with ID newAdditionalParentID doesn't exist
+     * @throw exception if shape with ID newParentAdditionalID doesn't exist
      */
-    void changeAdditionalParent(GNEShape* shapeTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex);
+    void replaceParentAdditional(GNEShape* shapeTobeChanged, const std::string& newParentAdditionalID, int additionalParentIndex);
 
-    /**@brief change additional parent of an additional
+    /**@brief replace the parent additional of an additional
      * @throw exception if this additional doesn't have previously a defined Additional parent
-     * @throw exception if additional with ID newAdditionalParentID doesn't exist
+     * @throw exception if additional with ID newParentAdditionalID doesn't exist
      */
-    void changeAdditionalParent(GNEAdditional* additionalTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex);
+    void replaceParentAdditional(GNEAdditional* additionalTobeChanged, const std::string& newParentAdditionalID, int additionalParentIndex);
 
-    /**@brief change additional parent of a demand element
+    /**@brief replace the parent additional of a demand element
      * @throw exception if this additional doesn't have previously a defined Additional parent
-     * @throw exception if additional with ID newAdditionalParentID doesn't exist
+     * @throw exception if additional with ID newParentAdditionalID doesn't exist
      */
-    void changeAdditionalParent(GNEDemandElement* demandElementTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex);
+    void replaceParentAdditional(GNEDemandElement* demandElementTobeChanged, const std::string& newParentAdditionalID, int additionalParentIndex);
 
-    /**@brief change first demand element parent of a shape
+    /**@brief replace the parent demand element of a shape
      * @throw exception if this demand element doesn't have previously a defined DemandElement parent
-     * @throw exception if demand element with ID newDemandElementParentID doesn't exist
+     * @throw exception if demand element with ID newParentDemandElementID doesn't exist
      */
-    void changeDemandElementParent(GNEShape* shapeTobeChanged, const std::string& newDemandElementParentID, int demandElementParentIndex);
+    void replaceParentDemandElement(GNEShape* shapeTobeChanged, const std::string& newParentDemandElementID, int demandElementParentIndex);
 
-    /**@brief change first demand element parent of an additional
+    /**@brief replace the parent demand element of an additional
      * @throw exception if this demand element doesn't have previously a defined DemandElement parent
-     * @throw exception if demand element with ID newDemandElementParentID doesn't exist
+     * @throw exception if demand element with ID newParentDemandElementID doesn't exist
      */
-    void changeDemandElementParent(GNEAdditional* additionalTobeChanged, const std::string& newDemandElementParentID, int demandElementParentIndex);
+    void replaceParentDemandElement(GNEAdditional* additionalTobeChanged, const std::string& newParentDemandElementID, int demandElementParentIndex);
 
-    /**@brief change first demand element parent of demandElement
+    /**@brief change first parent demand element of demandElement
      * @throw exception if this demand element doesn't have previously a defined DemandElement parent
-     * @throw exception if demand element with ID newDemandElementParentID doesn't exist
+     * @throw exception if demand element with ID newParentDemandElementID doesn't exist
      */
-    void changeDemandElementParent(GNEDemandElement* demandElementTobeChanged, const std::string& newDemandElementParentID, int demandElementParentIndex);
+    void replaceParentDemandElement(GNEDemandElement* demandElementTobeChanged, const std::string& newParentDemandElementID, int demandElementParentIndex);
 
     /// @}
 
@@ -234,32 +234,32 @@ protected:
     GNEGeometry::ParentConnections myParentConnections;
 
 private:
-    /// @brief list of edge parents of this element
-    std::vector<GNEEdge*> myEdgeParents;
+    /// @brief list of parent edges of this element
+    std::vector<GNEEdge*> myParentEdges;
 
     /// @brief list of edges used in Flow/Trips/PersonTrips
     std::vector<GNEEdge*> myRouteEdges;
 
-    /// @brief list of lane parents of this element
-    std::vector<GNELane*> myLaneParents;
+    /// @brief list of parent lanes of this element
+    std::vector<GNELane*> myParentLanes;
 
-    /// @brief list of shape parents of this element
-    std::vector<GNEShape*> myShapeParents;
+    /// @brief list of parent shapes of this element
+    std::vector<GNEShape*> myParentShapes;
 
-    /// @brief list of additional parents of this element
-    std::vector<GNEAdditional*> myAdditionalParents;
+    /// @brief list of parent additionals of this element
+    std::vector<GNEAdditional*> myParentAdditionals;
 
     /// @brief list of demand elements parents of this element
-    std::vector<GNEDemandElement*> myDemandElementParents;
+    std::vector<GNEDemandElement*> myParentDemandElements;
 
     /// @brief pointer to AC (needed to avoid diamond problem)
     GNEAttributeCarrier* myAC;
 
     /// @brief Invalidated copy constructor.
-    GNEHierarchicalElementParents(const GNEHierarchicalElementParents&) = delete;
+    GNEHierarchicalParentElements(const GNEHierarchicalParentElements&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEHierarchicalElementParents& operator=(const GNEHierarchicalElementParents&) = delete;
+    GNEHierarchicalParentElements& operator=(const GNEHierarchicalParentElements&) = delete;
 };
 
 #endif

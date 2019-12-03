@@ -2382,9 +2382,9 @@ GNEViewNet::onCmdToogleLockPerson(FXObject*, FXSelector sel, void*) {
                 // change menuCheckLockPerson text
                 myDemandViewOptions.menuCheckLockPerson->setText(("unlock " + personOrPersonPlan->getID()).c_str());
             } else {
-                myDemandViewOptions.lockPerson(personOrPersonPlan->getDemandElementParents().front());
+                myDemandViewOptions.lockPerson(personOrPersonPlan->getParentDemandElements().front());
                 // change menuCheckLockPerson text
-                myDemandViewOptions.menuCheckLockPerson->setText(("unlock " + personOrPersonPlan->getDemandElementParents().front()->getID()).c_str());
+                myDemandViewOptions.menuCheckLockPerson->setText(("unlock " + personOrPersonPlan->getParentDemandElements().front()->getID()).c_str());
             }
         }
     } else {

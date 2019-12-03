@@ -93,13 +93,13 @@ GNECalibratorFlow::updateGeometry() {
 
 Position
 GNECalibratorFlow::getPositionInView() const {
-    return getAdditionalParents().at(0)->getPositionInView();
+    return getParentAdditionals().at(0)->getPositionInView();
 }
 
 
 Boundary
 GNECalibratorFlow::getCenteringBoundary() const {
-    return getAdditionalParents().at(0)->getCenteringBoundary();
+    return getParentAdditionals().at(0)->getCenteringBoundary();
 }
 
 
@@ -111,7 +111,7 @@ GNECalibratorFlow::splitEdgeGeometry(const double /*splitPosition*/, const GNENe
 
 std::string
 GNECalibratorFlow::getParentName() const {
-    return getAdditionalParents().at(0)->getID();
+    return getParentAdditionals().at(0)->getID();
 }
 
 
@@ -165,7 +165,7 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ARRIVALPOS_LAT:
             return myArrivalPosLat;
         case GNE_ATTR_PARENT:
-            return getAdditionalParents().at(0)->getID();
+            return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:

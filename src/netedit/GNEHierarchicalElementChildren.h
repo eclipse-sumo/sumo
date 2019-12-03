@@ -178,10 +178,10 @@ public:
     /// @}
 
     /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)
-    virtual void updateAdditionalParent();
+    virtual void updateParentAdditional();
 
     /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)
-    virtual void updateDemandElementParent();
+    virtual void updateParentDemandElement();
 
 protected:
 

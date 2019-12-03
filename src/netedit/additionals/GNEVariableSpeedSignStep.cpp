@@ -38,8 +38,8 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* v
     // fill VSS Step with default values
     setDefaultValues();
     // set time Attribute manually
-    if (getAdditionalParents().at(0)->getAdditionalChildren().size() > 0) {
-        myTime = getAdditionalParents().at(0)->getAdditionalChildren().back()->getAttributeDouble(SUMO_ATTR_TIME) + 1;
+    if (getParentAdditionals().at(0)->getAdditionalChildren().size() > 0) {
+        myTime = getParentAdditionals().at(0)->getAdditionalChildren().back()->getAttributeDouble(SUMO_ATTR_TIME) + 1;
     } else {
         myTime = 0;
     }
@@ -83,13 +83,13 @@ GNEVariableSpeedSignStep::updateGeometry() {
 
 Position
 GNEVariableSpeedSignStep::getPositionInView() const {
-    return getAdditionalParents().at(0)->getPositionInView();
+    return getParentAdditionals().at(0)->getPositionInView();
 }
 
 
 Boundary
 GNEVariableSpeedSignStep::getCenteringBoundary() const {
-    return getAdditionalParents().at(0)->getCenteringBoundary();
+    return getParentAdditionals().at(0)->getCenteringBoundary();
 }
 
 
@@ -101,7 +101,7 @@ GNEVariableSpeedSignStep::splitEdgeGeometry(const double /*splitPosition*/, cons
 
 std::string
 GNEVariableSpeedSignStep::getParentName() const {
-    return getAdditionalParents().at(0)->getID();
+    return getParentAdditionals().at(0)->getID();
 }
 
 
@@ -121,7 +121,7 @@ GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SPEED:
             return toString(mySpeed);
         case GNE_ATTR_PARENT:
-            return getAdditionalParents().at(0)->getID();
+            return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
@@ -174,7 +174,7 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
                 }
                 // check that there isn't duplicate times
                 int counter = 0;
-                for (auto i : getAdditionalParents().at(0)->getAdditionalChildren()) {
+                for (auto i : getParentAdditionals().at(0)->getAdditionalChildren()) {
                     if (i->getAttributeDouble(SUMO_ATTR_TIME) == newTime) {
                         counter++;
                     }

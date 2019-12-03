@@ -108,7 +108,7 @@ GNEParkingSpace::splitEdgeGeometry(const double /*splitPosition*/, const GNENetE
 
 std::string
 GNEParkingSpace::getParentName() const {
-    return getAdditionalParents().at(0)->getMicrosimID();
+    return getParentAdditionals().at(0)->getMicrosimID();
 }
 
 
@@ -178,7 +178,7 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
-            return getAdditionalParents().at(0)->getID();
+            return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -296,7 +296,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_PARENT:
-            changeAdditionalParent(this, value, 0);
+            replaceParentAdditional(this, value, 0);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

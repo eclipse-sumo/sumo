@@ -53,9 +53,9 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane&
         // non-zero pointer is passsed in case of removal or duplication
         myLane->incRef("GNEChange_Lane");
         // Save hierarchy elements of lane
-        myShapeParents = myLane->getShapeParents();
-        myAdditionalParents = myLane->getAdditionalParents();
-        myDemandElementParents = myLane->getDemandElementParents();
+        myParentShapes = myLane->getParentShapes();
+        myParentAdditionals = myLane->getParentAdditionals();
+        myParentDemandElements = myLane->getParentDemandElements();
         myShapeChildren = myLane->getShapeChildren();
         myAdditionalChildren = myLane->getAdditionalChildren();
         myDemandElementChildren = myLane->getDemandElementChildren();
@@ -96,24 +96,24 @@ GNEChange_Lane::undo() {
         // remove lane from edge
         myEdge->removeLane(myLane, false);
         // Remove lane from parent elements
-        for (const auto& i : myShapeParents) {
+        for (const auto& i : myParentShapes) {
             i->removeLaneChild(myLane);
         }
-        for (const auto& i : myAdditionalParents) {
+        for (const auto& i : myParentAdditionals) {
             i->removeLaneChild(myLane);
         }
-        for (const auto& i : myDemandElementParents) {
+        for (const auto& i : myParentDemandElements) {
             i->removeLaneChild(myLane);
         }
         // Remove lane from child elements
         for (const auto& i : myShapeChildren) {
-            i->removeLaneParent(myLane);
+            i->removeParentLane(myLane);
         }
         for (const auto& i : myAdditionalChildren) {
-            i->removeLaneParent(myLane);
+            i->removeParentLane(myLane);
         }
         for (const auto& i : myDemandElementChildren) {
-            i->removeLaneParent(myLane);
+            i->removeParentLane(myLane);
         }
     } else {
         // show extra information for tests
@@ -126,24 +126,24 @@ GNEChange_Lane::undo() {
         // (lane removal is reverted, no need to recompute connections)
         myEdge->addLane(myLane, myLaneAttrs, false);
         // add lane in parent elements
-        for (const auto& i : myShapeParents) {
+        for (const auto& i : myParentShapes) {
             i->addLaneChild(myLane);
         }
-        for (const auto& i : myAdditionalParents) {
+        for (const auto& i : myParentAdditionals) {
             i->addLaneChild(myLane);
         }
-        for (const auto& i : myDemandElementParents) {
+        for (const auto& i : myParentDemandElements) {
             i->addLaneChild(myLane);
         }
         // add lane in child elements
         for (const auto& i : myShapeChildren) {
-            i->addLaneParent(myLane);
+            i->addParentLane(myLane);
         }
         for (const auto& i : myAdditionalChildren) {
-            i->addLaneParent(myLane);
+            i->addParentLane(myLane);
         }
         for (const auto& i : myDemandElementChildren) {
-            i->addLaneParent(myLane);
+            i->addParentLane(myLane);
         }
     }
     // enable save netElements
@@ -163,24 +163,24 @@ GNEChange_Lane::redo() {
         // add lane and their attributes to edge
         myEdge->addLane(myLane, myLaneAttrs, myRecomputeConnections);
         // add lane in parent elements
-        for (const auto& i : myShapeParents) {
+        for (const auto& i : myParentShapes) {
             i->addLaneChild(myLane);
         }
-        for (const auto& i : myAdditionalParents) {
+        for (const auto& i : myParentAdditionals) {
             i->addLaneChild(myLane);
         }
-        for (const auto& i : myDemandElementParents) {
+        for (const auto& i : myParentDemandElements) {
             i->addLaneChild(myLane);
         }
         // add additional in child elements
         for (const auto& i : myShapeChildren) {
-            i->addLaneParent(myLane);
+            i->addParentLane(myLane);
         }
         for (const auto& i : myAdditionalChildren) {
-            i->addLaneParent(myLane);
+            i->addParentLane(myLane);
         }
         for (const auto& i : myDemandElementChildren) {
-            i->addLaneParent(myLane);
+            i->addParentLane(myLane);
         }
     } else {
         // show extra information for tests
@@ -190,24 +190,24 @@ GNEChange_Lane::redo() {
             WRITE_DEBUG("Removing nullptr " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
         }
         // Remove lane from parent elements
-        for (const auto& i : myShapeParents) {
+        for (const auto& i : myParentShapes) {
             i->removeLaneChild(myLane);
         }
-        for (const auto& i : myAdditionalParents) {
+        for (const auto& i : myParentAdditionals) {
             i->removeLaneChild(myLane);
         }
-        for (const auto& i : myDemandElementParents) {
+        for (const auto& i : myParentDemandElements) {
             i->removeLaneChild(myLane);
         }
         // Remove additional from child elements
         for (const auto& i : myShapeChildren) {
-            i->removeLaneParent(myLane);
+            i->removeParentLane(myLane);
         }
         for (const auto& i : myAdditionalChildren) {
-            i->removeLaneParent(myLane);
+            i->removeParentLane(myLane);
         }
         for (const auto& i : myDemandElementChildren) {
-            i->removeLaneParent(myLane);
+            i->removeParentLane(myLane);
         }
         // remove lane from edge
         myEdge->removeLane(myLane, myRecomputeConnections);

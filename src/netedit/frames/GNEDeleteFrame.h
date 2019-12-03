@@ -113,14 +113,14 @@ protected:
         /// @brief constructor (for demandElements)
         SubordinatedElements(const GNEDemandElement* demandElement);
 
-        /// @brief additional parents
-        int additionalParents;
+        /// @brief parent additionals
+        int parentAdditionals;
 
         /// @brief additional children
         int additionalChildren;
 
-        /// @brief demand element parents
-        int demandElementParents;
+        /// @brief parent demand elements
+        int parentDemandElements;
 
         /// @brief demand element children
         int demandElementChildren;

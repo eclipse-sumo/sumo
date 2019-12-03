@@ -429,10 +429,10 @@ GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEHierarchicalElementParents::ParentConnections - methods
+// GNEHierarchicalParentElements::ParentConnections - methods
 // ---------------------------------------------------------------------------
 
-GNEGeometry::ParentConnections::ParentConnections(GNEHierarchicalElementParents* hierarchicalElement) :
+GNEGeometry::ParentConnections::ParentConnections(GNEHierarchicalParentElements* hierarchicalElement) :
     myHierarchicalElement(hierarchicalElement) {}
 
 
@@ -442,7 +442,7 @@ GNEGeometry::ParentConnections::update() {
     connectionPositions.clear();
     symbolsPositionAndRotation.clear();
     // calculate position and rotation of every simbol for every edge
-    for (const auto &edge : myHierarchicalElement->getEdgeParents()) {
+    for (const auto &edge : myHierarchicalElement->getParentEdges()) {
         for (const auto &lane : edge->getLanes()) {
             std::pair<Position, double> posRot;
             // set position and length depending of shape's lengt
@@ -457,7 +457,7 @@ GNEGeometry::ParentConnections::update() {
         }
     }
     // calculate position and rotation of every symbol for every lane
-    for (const auto &lane : myHierarchicalElement->getLaneParents()) {
+    for (const auto &lane : myHierarchicalElement->getParentLanes()) {
         std::pair<Position, double> posRot;
         // set position and length depending of shape's lengt
         if (lane->getLaneShape().length() - 6 > 0) {
@@ -469,8 +469,8 @@ GNEGeometry::ParentConnections::update() {
         }
         symbolsPositionAndRotation.push_back(posRot);
     }
-    // calculate position for every additional parent
-    for (const auto &additional : myHierarchicalElement->getAdditionalParents()) {
+    // calculate position for every parent additional
+    for (const auto &additional : myHierarchicalElement->getParentAdditionals()) {
         // check that position is different of position
         if (additional->getPositionInView() != myHierarchicalElement->getPositionInView()) {
             std::vector<Position> posConnection;
@@ -594,7 +594,7 @@ GNEGeometry::calculateEdgeGeometricPath(const GNEAttributeCarrier* AC, GNEGeomet
     const Position &extraFirstPosition, const Position &extraLastPosition) {
     // clear geometry
     segmentGeometry.clearSegmentGeometry();
-    // first check that there is edge parents
+    // first check that there is parent edges
     if (edges.size() > 0) {
         // calculate depending if both from and to edges are the same
         if (fromLane == toLane) {
@@ -642,7 +642,7 @@ GNEGeometry::calculateLaneGeometricPath(const GNEAttributeCarrier* AC, GNEGeomet
     double startPos, double endPos, const Position &extraFirstPosition, const Position &extraLastPosition) {
     // clear geometry
     segmentGeometry.clearSegmentGeometry();
-    // first check that there is edge parents
+    // first check that there is parent edges
     if (lanes.size() > 0) {
         // calculate depending if both from and to edges are the same
         if (lanes.size() == 1) {

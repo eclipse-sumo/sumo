@@ -312,10 +312,10 @@ public:
     /// @brief draw partial person plan
     void drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDemandElement* personPlan, const GNEJunction* junction) const;
 
-    /// @brief add path element (Only used by GNEHierarchicalElementParents::changeRouteEdges)
+    /// @brief add path element (Only used by GNEHierarchicalParentElements::changeRouteEdges)
     void addPathElement(GNEDemandElement* pathElementChild);
 
-    /// @brief remove path element (Only used by GNEHierarchicalElementParents::changeRouteEdges)
+    /// @brief remove path element (Only used by GNEHierarchicalParentElements::changeRouteEdges)
     void removePathElement(GNEDemandElement* pathElementChild);
 
     /// @brief invalidate path element childs

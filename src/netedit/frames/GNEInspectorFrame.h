@@ -76,14 +76,14 @@ public:
         /// @brief pointer to inspector frame parent
         GNEInspectorFrame* myInspectorFrameParent;
 
-        /// @frame horizontal frame for change additional parent
-        FXHorizontalFrame* myHorizontalFrameAdditionalParent;
+        /// @frame horizontal frame for replace the parent additional
+        FXHorizontalFrame* myHorizontalFrameParentAdditional;
 
-        /// @brief Label for additional parent
-        FXLabel* myLabelAdditionalParent;
+        /// @brief Label for parent additional
+        FXLabel* myLabelParentAdditional;
 
-        /// @brief pointer for change additional parent
-        FXTextField* myTextFieldAdditionalParent;
+        /// @brief pointer for replace the parent additional
+        FXTextField* myTextFieldParentAdditional;
 
         /// @frame horizontal frame for block movement
         FXHorizontalFrame* myHorizontalFrameBlockMovement;

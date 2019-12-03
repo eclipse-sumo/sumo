@@ -115,7 +115,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                         case GLO_EDGE: {
                             // fisrt obtain Edge
                             GNEEdge* edge = dynamic_cast<GNEEdge*>(myAttributeCarriers.back());
-                            // check if edge parent is already inserted in myEdges (for example, due clicking over Geometry Points)
+                            // check if parent edge is already inserted in myEdges (for example, due clicking over Geometry Points)
                             if (std::find(myEdges.begin(), myEdges.end(), edge) == myEdges.end()) {
                                 myEdges.push_back(edge);
                             }
@@ -123,7 +123,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                         }
                         case GLO_LANE: {
                             myLanes.push_back(dynamic_cast<GNELane*>(myAttributeCarriers.back()));
-                            // check if edge's lane parent is already inserted in myEdges (for example, due clicking over Geometry Points)
+                            // check if edge's parent lane is already inserted in myEdges (for example, due clicking over Geometry Points)
                             if (std::find(myEdges.begin(), myEdges.end(), myLanes.back()->getParentEdge()) == myEdges.end()) {
                                 myEdges.push_back(myLanes.back()->getParentEdge());
                             }
@@ -1757,7 +1757,7 @@ GNEViewNetHelper::DemandViewOptions::showNonInspectedDemandElements(const GNEDem
                     }
                 }
                 // if demandElement is a vehicle, check if dottedAC is one of his route Parent
-                for (const auto& i : demandElement->getDemandElementParents()) {
+                for (const auto& i : demandElement->getParentDemandElements()) {
                     if (i == myViewNet->getDottedAC()) {
                         return true;
                     }
