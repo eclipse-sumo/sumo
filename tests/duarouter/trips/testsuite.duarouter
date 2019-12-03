@@ -67,6 +67,9 @@ taz_noedge
 # running with districts (especially for A*)
 taz
 
+# running with districts (especially for A*)
+taz_weights
+
 # Test with vehicle having same source and destination
 same_edge
 

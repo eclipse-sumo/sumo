@@ -1,0 +1,14 @@
+<tazs>
+    <taz id="1">
+        <tazSource id="5/5to5/6" weight="1"/>
+        <tazSource id="5/5to6/5" weight="2"/>
+        <tazSink id="5/5to5/6" weight="3"/>
+        <tazSink id="5/5to6/5" weight="4"/>
+    </taz>
+    <taz id="2">
+        <tazSource id="9/9to8/9" weight="1"/>
+        <tazSource id="9/9to9/8" weight="1"/>
+        <tazSink id="9/9to8/9" weight="1"/>
+        <tazSink id="9/9to9/8" weight="1"/>
+    </taz>
+</tazs>
