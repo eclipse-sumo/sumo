@@ -160,6 +160,9 @@ public:
         }
         // build the connections
         for (const E* const edge : edges) {
+            if (edge->isTazConnector()) {
+                continue;
+            }
             const L* const sidewalk = getSidewalk<E, L>(edge);
             if (sidewalk == nullptr) {
                 continue;

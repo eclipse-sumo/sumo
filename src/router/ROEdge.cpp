@@ -112,12 +112,12 @@ ROEdge::addSuccessor(ROEdge* s, ROEdge* via, std::string) {
     if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s) == myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
         myFollowingViaEdges.push_back(std::make_pair(s, via));
-        if (isTazConnector()) {//s->getFromJunction() != nullptr) {
+        if (isTazConnector() && s->getFromJunction() != nullptr) {
             myBoundary.add(s->getFromJunction()->getPosition());
         }
         if (!isInternal()) {
             s->myApproachingEdges.push_back(this);
-            if (s->isTazConnector()) {//getToJunction() != nullptr) {
+            if (s->isTazConnector() && getToJunction() != nullptr) {
                 s->myBoundary.add(getToJunction()->getPosition());
             }
             if (via != nullptr) {
