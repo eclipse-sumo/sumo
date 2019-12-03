@@ -30,7 +30,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
-#include "GNEHierarchicalElementParents.h"
+#include "GNEHierarchicalParentElements.h"
 
 // ===========================================================================
 // member method definitions

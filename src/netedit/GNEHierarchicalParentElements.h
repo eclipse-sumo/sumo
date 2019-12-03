@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEHierarchicalElementParents.h
+/// @file    GNEHierarchicalParentElements.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
 /// @version $Id$

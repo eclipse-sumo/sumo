@@ -23,7 +23,7 @@
 
 #include <config.h>
 
-#include <netedit/GNEHierarchicalElementParents.h>
+#include <netedit/GNEHierarchicalParentElements.h>
 #include <netedit/GNEHierarchicalElementChildren.h>
 #include <netedit/GNEGeometry.h>
 #include <utils/common/Parameterised.h>
