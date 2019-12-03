@@ -1347,7 +1347,7 @@ restricted lane*
   *<Esc\>*.
 
 The green polygon outline allows adding and moving geometry points by
-left-clicking anywhere on the outline and dragging.
+left-clicking anywhere on the outline and dragging. Shift-clicking a geometry point deletes it.
 
 ## Additionals
 
