@@ -133,7 +133,11 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
     addParser(KEYS.getString(VISUM_EDGE), &NIImporter_VISUM::parse_Kante);
 
     // set3
-    addParser(KEYS.getString(VISUM_DISTRICT_CONNECTION), &NIImporter_VISUM::parse_Connectors);
+    if (OptionsCont::getOptions().getBool("visum.no-connectors")) {
+        addParser(KEYS.getString(VISUM_DISTRICT_CONNECTION), &NIImporter_VISUM::parse_Connectors);
+    } else {
+        addParser(KEYS.getString(VISUM_DISTRICT_CONNECTION), &NIImporter_VISUM::parse_Connectors_legacy);
+    }
     // two types of "abbieger"
     addParser("ABBIEGEBEZIEHUNG", &NIImporter_VISUM::parse_Turns);
     addParser(KEYS.getString(VISUM_TURN), &NIImporter_VISUM::parse_Turns);
@@ -489,10 +493,41 @@ NIImporter_VISUM::parse_PartOfArea() {
 
 void
 NIImporter_VISUM::parse_Connectors() {
-    if (OptionsCont::getOptions().getBool("visum.no-connectors")) {
-        // do nothing, if connectors shall not be imported
+    // get the source district
+    std::string bez = NBHelpers::normalIDRepresentation(myLineParser.get(KEYS.getString(VISUM_SOURCE_DISTRICT)));
+    // get the destination node
+    NBNode* dest = getNamedNode(KEYS.getString(VISUM_FROMNODENO));
+    if (dest == nullptr) {
         return;
     }
+    // get the weight of the connection
+    double proz = 1;
+    if (myLineParser.know("Proz") || myLineParser.know("Proz(IV)")) {
+        proz = getNamedFloat("Proz", "Proz(IV)") / 100;
+    }
+    // get the information whether this is a sink or a source
+    std::string dir = myLineParser.get(KEYS.getString(VISUM_DIRECTION));
+    if (dir.length() == 0) {
+        dir = KEYS.getString(VISUM_ORIGIN) + KEYS.getString(VISUM_DESTINATION);
+    }
+    // build the source when needed
+    if (dir.find(KEYS.getString(VISUM_ORIGIN)) != std::string::npos) {
+        for (NBEdge* edge : dest->getOutgoingEdges()) {
+            myNetBuilder.getDistrictCont().addSource(bez, edge, proz);
+        }
+    }
+    // build the sink when needed
+    if (dir.find(KEYS.getString(VISUM_DESTINATION)) != std::string::npos) {
+        for (NBEdge* edge : dest->getIncomingEdges()) {
+            myNetBuilder.getDistrictCont().addSink(bez, edge, proz);
+        }
+    }
+}
+
+
+
+void
+NIImporter_VISUM::parse_Connectors_legacy() {
     // get the source district
     std::string bez = NBHelpers::normalIDRepresentation(myLineParser.get(KEYS.getString(VISUM_SOURCE_DISTRICT)));
     // get the destination node

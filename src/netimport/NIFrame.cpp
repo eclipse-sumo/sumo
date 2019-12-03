@@ -283,7 +283,7 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.addSynonyme("visum.connectors-lane-number", "visum.connector-laneno", true);
     oc.addDescription("visum.connectors-lane-number", "Formats", "Sets connector lane number");
 
-    oc.doRegister("visum.no-connectors", new Option_Bool(false));
+    oc.doRegister("visum.no-connectors", new Option_Bool(true));
     oc.addDescription("visum.no-connectors", "Formats", "Excludes connectors");
 
     oc.doRegister("visum.recompute-lane-number", new Option_Bool(false));

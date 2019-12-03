@@ -415,6 +415,7 @@ private:
 
     /// @brief Parses ANBINDUNG
     void parse_Connectors();
+    void parse_Connectors_legacy();
 
     /// @brief Parses ABBIEGEBEZIEHUNG/ABBIEGER
     void parse_Turns();
