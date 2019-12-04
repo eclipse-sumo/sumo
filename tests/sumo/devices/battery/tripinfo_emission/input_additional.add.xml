@@ -9,4 +9,5 @@
    <chargingStation chargeDelay="2" chargeInTransit="1" power="200000" efficiency="0.95" endPos="55.76" id="cS_17to2_0a" lane="17to2_0" startPos="5"/>
    <chargingStation chargeDelay="2" chargeInTransit="1" power="200000" efficiency="0.95" endPos="55.76" id="cS_17to2_1a" lane="17to2_1" startPos="5"/>
 
+   <edgeData type="emissions" id="ed" file="aggregated_300.xml" freq="300"/>
 </additional>

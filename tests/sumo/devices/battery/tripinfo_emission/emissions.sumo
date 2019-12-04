@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Dec  4 22:00:17 2019 by Eclipse SUMO Version v1_3_1+1265-d476559344
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <emission-output value="emissions.xml"/>
+        <battery-output value="battery.xml"/>
+        <battery-output.precision value="4"/>
+        <chargingstations-output value="chargingstations.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <emissions>
+        <device.emissions.probability value="1"/>
+    </emissions>
+
+    <battery>
+        <device.battery.probability value="1"/>
+    </battery>
+
+</configuration>
+-->
+
+<emission-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/emission_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="7.82" noise="64.37" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="0.00" speed="13.61" angle="338.97" x="1428.27" y="25.57"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="14.72" noise="67.05" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="14.41" speed="14.41" angle="338.97" x="1423.10" y="39.02"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="6.34" noise="64.29" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="28.59" speed="14.18" angle="338.97" x="1418.01" y="52.26"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="18.09" noise="68.48" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="43.86" speed="15.27" angle="338.97" x="1412.53" y="66.51"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="7.06" noise="64.99" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="58.93" speed="15.08" angle="338.97" x="1407.12" y="80.58"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="7.75" noise="65.09" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="73.90" speed="14.97" angle="338.97" x="1401.75" y="94.55"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="9.88" noise="65.69" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="89.00" speed="15.10" angle="338.97" x="1396.34" y="108.64"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.29" noise="64.39" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="103.72" speed="14.72" angle="338.97" x="1391.06" y="122.38"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="7.80" noise="64.92" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="118.36" speed="14.64" angle="338.97" x="1385.80" y="136.05"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="9.13" noise="65.30" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="133.08" speed="14.71" angle="338.97" x="1380.52" y="149.78"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="6.87" noise="64.63" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="147.61" speed="14.53" angle="338.97" x="1375.31" y="163.35"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="9.46" noise="65.36" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="162.26" speed="14.65" angle="338.97" x="1370.05" y="177.02"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="6.76" noise="64.56" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="176.72" speed="14.46" angle="338.97" x="1364.86" y="190.52"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="13.33" noise="66.69" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="191.72" speed="15.01" angle="338.97" x="1359.48" y="204.52"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.47" noise="64.38" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="206.38" speed="14.65" angle="338.97" x="1354.22" y="218.20"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="11.34" noise="66.05" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="221.34" speed="14.97" angle="338.97" x="1348.85" y="232.17"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="9.77" noise="65.65" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="236.42" speed="15.08" angle="338.97" x="1343.44" y="246.25"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="3.34" noise="63.86" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="250.92" speed="14.49" angle="338.97" x="1338.24" y="259.77"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-0.43" noise="62.38" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="264.37" speed="13.45" angle="338.97" x="1333.42" y="272.33"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-15.39" noise="55.63" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane=":16_2_0" pos="5.51" speed="8.95" angle="21.82" x="1333.46" y="280.33"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="4.85" noise="60.91" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="8.48" speed="8.92" angle="65.31" x="1341.54" y="284.12"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.80" noise="58.86" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="16.83" speed="8.35" angle="65.31" x="1349.12" y="287.61"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="6.39" noise="61.88" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="25.50" speed="8.67" angle="65.31" x="1357.00" y="291.23"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.18" noise="58.25" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="33.49" speed="7.99" angle="65.31" x="1364.26" y="294.57"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="9.20" noise="64.03" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="42.35" speed="8.86" angle="65.31" x="1372.31" y="298.27"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.30" noise="57.80" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="50.36" speed="8.01" angle="65.31" x="1379.59" y="301.62"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="7.49" noise="62.71" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="58.94" speed="8.58" angle="65.31" x="1387.38" y="305.20"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="7.47" noise="62.68" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="67.99" speed="9.05" angle="65.31" x="1395.60" y="308.98"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="2.76" noise="59.57" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="76.63" speed="8.65" angle="65.31" x="1403.46" y="312.60"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.89" noise="58.73" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="84.74" speed="8.10" angle="65.31" x="1410.82" y="315.98"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="10.32" noise="64.85" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="93.89" speed="9.15" angle="65.31" x="1419.13" y="319.80"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.60" noise="58.88" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="102.42" speed="8.53" angle="65.31" x="1426.88" y="323.37"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="4.83" noise="60.77" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="110.96" speed="8.54" angle="65.31" x="1434.65" y="326.94"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="4.06" noise="60.21" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="119.38" speed="8.41" angle="65.31" x="1442.29" y="330.45"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="8.44" noise="63.38" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="128.46" speed="9.08" angle="65.31" x="1450.54" y="334.25"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="3.05" noise="59.77" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="137.18" speed="8.73" angle="65.31" x="1458.47" y="337.89"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.13" noise="58.25" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="145.22" speed="8.03" angle="65.31" x="1465.77" y="341.25"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="7.39" noise="62.63" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="153.80" speed="8.58" angle="65.31" x="1473.56" y="344.83"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="3.20" noise="59.61" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="162.08" speed="8.29" angle="65.31" x="1481.09" y="348.29"/>
+    </timestep>
+    <timestep time="39.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="4.65" noise="60.57" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="170.38" speed="8.29" angle="65.31" x="1488.63" y="351.76"/>
+    </timestep>
+    <timestep time="40.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="7.48" noise="62.68" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="179.19" speed="8.81" angle="65.31" x="1496.63" y="355.44"/>
+    </timestep>
+    <timestep time="41.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.90" noise="61.59" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="188.17" speed="8.98" angle="65.31" x="1504.80" y="359.19"/>
+    </timestep>
+    <timestep time="42.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-0.01" noise="57.70" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="196.24" speed="8.07" angle="65.31" x="1512.12" y="362.56"/>
+    </timestep>
+    <timestep time="43.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="7.83" noise="62.96" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane=":38_7_0" pos="4.57" speed="8.68" angle="64.18" x="1519.97" y="366.27"/>
+    </timestep>
+    <timestep time="44.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.37" noise="61.20" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="2.54" speed="8.78" angle="57.75" x="1527.47" y="370.82"/>
+    </timestep>
+    <timestep time="45.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.89" noise="58.81" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="10.77" speed="8.23" angle="57.58" x="1534.41" y="375.23"/>
+    </timestep>
+    <timestep time="46.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="8.44" noise="63.41" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="19.70" speed="8.93" angle="57.58" x="1541.95" y="380.02"/>
+    </timestep>
+    <timestep time="47.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="6.23" noise="61.84" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="28.84" speed="9.14" angle="57.58" x="1549.67" y="384.92"/>
+    </timestep>
+    <timestep time="48.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="4.25" noise="60.59" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="37.83" speed="8.99" angle="57.58" x="1557.26" y="389.74"/>
+    </timestep>
+    <timestep time="49.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.20" noise="61.16" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="46.86" speed="9.02" angle="57.58" x="1564.87" y="394.58"/>
+    </timestep>
+    <timestep time="50.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-0.50" noise="57.25" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="54.81" speed="7.96" angle="57.58" x="1571.59" y="398.84"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="9.59" noise="64.33" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="63.72" speed="8.91" angle="57.58" x="1579.11" y="403.62"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="6.00" noise="61.68" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="72.80" speed="9.08" angle="57.58" x="1586.78" y="408.49"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/unknown" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="2.40" noise="59.35" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="81.42" speed="8.61" angle="57.58" x="1594.05" y="413.11"/>
+    </timestep>
+    <timestep time="54.00"/>
+</emission-export>
