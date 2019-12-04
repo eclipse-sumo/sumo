@@ -630,6 +630,15 @@ length look quite odd, buses with 2m length, too.
 
 !!! caution
     Not all of these named shapes are implemented.
+    
+Further parameters can be used to achieve visualization of individual rail carriages
+```
+<vType id="rail">
+    <param key="carriageLength" value="20"/>
+    <param key="carriageGap" value="1"/>
+    <param key="locomotiveLength" value="25"/>   
+</vType>
+```
 
 ## Car-Following Models
 
