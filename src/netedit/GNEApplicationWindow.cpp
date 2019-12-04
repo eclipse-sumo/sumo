@@ -251,7 +251,19 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 // ===========================================================================
 
 GNEApplicationWindow::ToolbarsGrip::ToolbarsGrip(GNEApplicationWindow* GNEApp) :
-    myGNEApp(GNEApp) {
+    myGNEApp(GNEApp),
+    menu(nullptr),
+    superModes(nullptr),
+    saveElements(nullptr),
+    navigation(nullptr),
+    modes(nullptr),
+    modeOptions(nullptr),
+    myToolBarShellMenu(nullptr),
+    myToolBarShellSaveElements(nullptr),
+    myToolBarShellSuperModes(nullptr),
+    myToolBarShellNavigation(nullptr),
+    myToolBarShellModes(nullptr),
+    myToolBarShellModeOptions(nullptr) {
 }
 
 
@@ -272,9 +284,12 @@ GNEApplicationWindow::ToolbarsGrip::buildViewParentToolbarsGrips() {
     superModes = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar Supermodes
     new FXToolBarGrip(superModes, superModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // build menu bar for navigation (bot to menu bar)
+    // build menu bar for save elements (bot to menu bar)
+    myToolBarShellSaveElements = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    saveElements = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
+    // build menu bar for navigation
     myToolBarShellNavigation = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    navigation = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellNavigation, GUIDesignToolBarRaisedNext);
+    navigation = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellNavigation, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar Navigation
     new FXToolBarGrip(navigation, navigation, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for modes
@@ -289,11 +304,13 @@ GNEApplicationWindow::ToolbarsGrip::buildViewParentToolbarsGrips() {
     new FXToolBarGrip(modeOptions, modeOptions, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // create menu bars
     superModes->create();
+    saveElements->create();
     navigation->create();
     modes->create();
     modeOptions->create();
-    // create shell supermodes
+    // create toolbar shells
     myToolBarShellSuperModes->create();
+    myToolBarShellSaveElements->create();
     myToolBarShellNavigation->create();
     myToolBarShellModes->create();
     myToolBarShellModeOptions->create();
@@ -306,11 +323,13 @@ void
 GNEApplicationWindow::ToolbarsGrip::destroyParentToolbarsGrips() {
     // delete Menu bars
     delete superModes;
+    delete saveElements;
     delete navigation;
     delete modes;
     delete modeOptions;
     // also delete toolbar shells to avoid floating windows
     delete myToolBarShellSuperModes;
+    delete myToolBarShellSaveElements;
     delete myToolBarShellNavigation;
     delete myToolBarShellModes;
     delete myToolBarShellModeOptions;

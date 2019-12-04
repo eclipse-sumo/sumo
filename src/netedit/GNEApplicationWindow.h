@@ -82,6 +82,9 @@ public:
         /// @brief The application menu bar for supermodes (network and demand)
         FXMenuBar* superModes;
 
+        /// @brief The application menu bar for save elements (NetElements, additionals and demand elements)
+        FXMenuBar* saveElements;
+
         /// @brief The application menu bar for navigation (zoom, coloring...)
         FXMenuBar* navigation;
 
@@ -100,6 +103,9 @@ public:
 
         /// @brief menu bar drag for modes (network and demand)
         FXToolBarShell* myToolBarShellSuperModes;
+
+        /// @brief menu bar drag for save elements (NetElements, additionals and demand elements)
+        FXToolBarShell* myToolBarShellSaveElements;
 
         /// @brief menu bar drag for navigation (Zoom, coloring...)
         FXToolBarShell* myToolBarShellNavigation;
