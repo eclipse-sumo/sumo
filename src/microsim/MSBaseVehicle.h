@@ -89,6 +89,12 @@ public:
      */
     const SUMOVehicleParameter& getParameter() const;
 
+    /** @brief Returns the vehicle's emission model parameter
+     *
+     * @return The vehicle's emission parameters
+     */
+    const std::map<int, double>* getEmissionParameters() const;
+
     /// @brief replace the vehicle parameter (deleting the old one)
     void replaceParameter(const SUMOVehicleParameter* newParameter);
 

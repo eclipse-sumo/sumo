@@ -28,7 +28,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/iodevices/OutputDevice.h>
-#include "MSDevice_Battery.h"
 #include "MSDevice_Emissions.h"
 
 
@@ -71,7 +70,8 @@ MSDevice_Emissions::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, double
     const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
     const double a = veh.getAcceleration();
     const double slope = veh.getSlope();
-    myEmissions.addScaled(PollutantsInterface::computeAll(c, newSpeed, a, slope, getEmissionParams()), TS);
+    myEmissions.addScaled(PollutantsInterface::computeAll(c, newSpeed, a, slope,
+                static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), TS);
     return true;
 }
 
@@ -89,7 +89,8 @@ MSDevice_Emissions::notifyMoveInternal(const SUMOTrafficObject& veh,
     // called by meso (see MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal)
     const double a = veh.getAcceleration();
     myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(),
-                          meanSpeedVehicleOnLane, a, veh.getSlope()), timeOnLane);
+                          meanSpeedVehicleOnLane, a, veh.getSlope(), 
+                          static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), timeOnLane);
 }
 
 
@@ -110,16 +111,6 @@ MSDevice_Emissions::generateOutput() const {
     }
 }
 
-
-const std::map<int, double>*
-MSDevice_Emissions::getEmissionParams() const {
-    MSDevice_Battery* batteryDevice = static_cast<MSDevice_Battery*>(myHolder.getDevice(typeid(MSDevice_Battery)));
-    if (batteryDevice != nullptr) {
-        return &batteryDevice->getEnergyParams();
-    } else {
-        return nullptr;
-    }
-}
 
 /****************************************************************************/
 

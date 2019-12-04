@@ -141,6 +141,12 @@ public:
      */
     virtual const SUMOVehicleParameter& getParameter() const = 0;
 
+    /** @brief Returns the vehicle's emission model parameter
+     *
+     * @return The vehicle's emission parameters
+     */
+    virtual const std::map<int, double>* getEmissionParameters() const = 0;
+
     /** @brief Replaces the vehicle's parameter
      */
     virtual void replaceParameter(const SUMOVehicleParameter* newParameter) = 0;

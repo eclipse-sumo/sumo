@@ -41,6 +41,7 @@
 #include "MSNet.h"
 #include "devices/MSDevice.h"
 #include "devices/MSDevice_Routing.h"
+#include "devices/MSDevice_Battery.h"
 #include <microsim/devices/MSDevice_Transportable.h>
 #include "MSInsertionControl.h"
 
@@ -143,6 +144,16 @@ MSBaseVehicle::getID() const {
 const SUMOVehicleParameter&
 MSBaseVehicle::getParameter() const {
     return *myParameter;
+}
+
+const std::map<int, double>*
+MSBaseVehicle::getEmissionParameters() const {
+    MSDevice_Battery* batteryDevice = static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery)));
+    if (batteryDevice != nullptr) {
+        return &batteryDevice->getEnergyParams();
+    } else {
+        return nullptr;
+    }
 }
 
 void
