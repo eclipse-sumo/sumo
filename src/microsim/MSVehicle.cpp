@@ -4629,6 +4629,9 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
             rem = myMoveReminders.erase(rem);
         }
     }
+    if (reason == MSMoveReminder::NOTIFICATION_JUNCTION || reason == MSMoveReminder::NOTIFICATION_TELEPORT) {
+        myOdometer += getLane()->getLength();
+    }
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         // @note. In case of lane change, myFurtherLanes and partial occupation
         // are handled in enterLaneAtLaneChange()

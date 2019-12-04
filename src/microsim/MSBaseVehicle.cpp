@@ -85,6 +85,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myArrivalPos(-1),
     myArrivalLane(-1),
     myNumberReroutes(0),
+    myOdometer(0.),
     myNumericalID(myCurrentNumericalIndex++)
 #ifdef _DEBUG
     , myTraceMoveReminders(myShallTraceMoveReminders.count(pars->id) > 0)
@@ -388,6 +389,11 @@ MSBaseVehicle::resetRoutePosition(int index, DepartLaneDefinition departLaneProc
     const_cast<SUMOVehicleParameter*>(myParameter)->departLaneProcedure = departLaneProcedure;
     // !!! hack
     myArrivalPos = (*(myRoute->end() - 1))->getLanes()[0]->getLength();
+}
+
+double
+MSBaseVehicle::getOdometer() const {
+    return -myDepartPos + myOdometer + getPositionOnLane();
 }
 
 

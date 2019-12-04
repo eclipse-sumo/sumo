@@ -299,6 +299,10 @@ public:
     /// @brief reset index of edge within route
     void resetRoutePosition(int index, DepartLaneDefinition departLaneProcedure);
 
+    /** @brief Returns the distance that was already driven by this vehicle
+     * @return the distance driven [m]
+     */
+    double getOdometer() const;
 
     /** @brief Returns the number of new routes this vehicle got
      * @return the number of new routes this vehicle got
@@ -552,6 +556,9 @@ protected:
 
     /// @brief The number of reroutings
     int myNumberReroutes;
+
+    /// @brief A simple odometer to keep track of the length of the route already driven
+    double myOdometer;
 
     /* @brief magic value for undeparted vehicles
      * @note: in previous versions this was -1

@@ -1155,8 +1155,6 @@ public:
     double getHarmonoise_NoiseEmissions() const;
     //@}
 
-
-
     /// @name Interaction with persons
     //@{
 
@@ -2177,6 +2175,8 @@ private:
 
     /// @brief An instance of a velocity/lane influencing instance; built in "getInfluencer"
     Influencer* myInfluencer;
+
+
 
 private:
     /// @brief invalidated default constructor

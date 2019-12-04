@@ -415,6 +415,9 @@ MEVehicle::updateDetectors(SUMOTime currentTime, const bool isLeave, const MSMov
             }
 #endif
             ++rem;
+            if (reason == MSMoveReminder::NOTIFICATION_JUNCTION || reason == MSMoveReminder::NOTIFICATION_TELEPORT) {
+                myOdometer += getEdge()->getLength();
+            }
         } else {
 #ifdef _DEBUG
             if (myTraceMoveReminders) {
