@@ -22,13 +22,14 @@
 // ===========================================================================
 #include <config.h>
 
-#include "MSDevice_Emissions.h"
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/iodevices/OutputDevice.h>
+#include "MSDevice_Battery.h"
+#include "MSDevice_Emissions.h"
 
 
 // ===========================================================================
@@ -70,7 +71,7 @@ MSDevice_Emissions::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, double
     const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
     const double a = veh.getAcceleration();
     const double slope = veh.getSlope();
-    myEmissions.addScaled(PollutantsInterface::computeAll(c, newSpeed, a, slope), TS);
+    myEmissions.addScaled(PollutantsInterface::computeAll(c, newSpeed, a, slope, getEmissionParams()), TS);
     return true;
 }
 
@@ -110,6 +111,15 @@ MSDevice_Emissions::generateOutput() const {
 }
 
 
+const std::map<int, double>*
+MSDevice_Emissions::getEmissionParams() const {
+    MSDevice_Battery* batteryDevice = static_cast<MSDevice_Battery*>(myHolder.getDevice(typeid(MSDevice_Battery)));
+    if (batteryDevice != nullptr) {
+        return &batteryDevice->getEnergyParams();
+    } else {
+        return nullptr;
+    }
+}
 
 /****************************************************************************/
 

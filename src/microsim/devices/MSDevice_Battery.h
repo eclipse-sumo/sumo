@@ -162,6 +162,11 @@ public:
     /// @brief Increase myVehicleStopped
     void increaseVehicleStoppedTimer();
 
+    /// @brief retrieve parameters for the energy consumption model
+    const std::map<int, double>& getEnergyParams() const {
+        return myParam;
+    }
+    
 protected:
     /// @brief Parameter, The actual vehicles's Battery Capacity in kWh, [myActualBatteryCapacity <= myMaximumBatteryCapacity]
     double myActualBatteryCapacity;

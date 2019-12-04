@@ -128,6 +128,8 @@ protected:
                             const double travelledDistanceVehicleOnLane,
                             const double meanLengthOnLane);
 
+    /// @brief retrieve extra parameters for emission computation
+    const std::map<int, double>* getEmissionParams() const; 
 
 private:
     /** @brief Constructor
