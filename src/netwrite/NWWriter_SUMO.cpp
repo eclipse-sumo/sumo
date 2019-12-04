@@ -328,7 +328,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                                                              0, (*i)->getTurnDestination(true), 0);
                             into.writeAttr(SUMO_ATTR_BIDI, bidiCon.id);
                         } catch (ProcessError&) {
-                            std::cout << " could not find bidi-connection\n";
+                            WRITE_WARNINGF("Could not find bidi-connection for edge '%'", edgeID)
                         }
                     }
                     // open a new edge
