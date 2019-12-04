@@ -29,7 +29,8 @@ theme:
     edit: 69      # e
 
 plugins:
-  - git-revision-date
+  - git-revision-date:
+      as_datetime: true
   - macros
 
 extra_css: 

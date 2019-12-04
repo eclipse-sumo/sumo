@@ -194,7 +194,7 @@
         <footer class="col-md-12">
           {%- block footer %}
           {% if page and page.meta.revision_date %}
-        <br><small><i>This page was last edited on: {{ page.meta.revision_date }}</i></small>
+        <br><small><i>This page was last edited on: {{ page.meta.revision_date.strftime('%d %B %Y') }}</i></small>
     {% endif %}
             <hr>
             {%- if config.copyright %}
