@@ -203,6 +203,13 @@ enum GUIIcon {
     ICON_LANEGREENVERGE,
     /// @}
 
+    /// @name netedit save elements
+    /// @{
+    ICON_SAVENETELEMENTS,
+    ICON_SAVEADDITIONALS,
+    ICON_SAVEDEMANDELEMENTS,
+    /// @}
+
     /// @name netedit supermode icons
     /// @{
     ICON_SUPERMODENETWORK,

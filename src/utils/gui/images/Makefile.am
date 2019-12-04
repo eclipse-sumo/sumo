@@ -245,8 +245,11 @@ yellow_person.xpm \
 yellow_vehicle.xpm \
 yes.xpm \
 zoomstyle.xpm \
-supermodedemand.xpm \
+savenetelements.xpm \
+saveaditionalelements.xpm \
+savedemandelements.xpm \
 supermodenetwork.xpm \
+supermodedemand.xpm \
 GNETexture_Rerouter.cpp GNETexture_RerouterSelected.cpp \
 GNETexture_RouteProbe.cpp GNETexture_RouteProbeSelected.cpp \
 GNETexture_VariableSpeedSign.cpp GNETexture_VariableSpeedSignSelected.cpp \
