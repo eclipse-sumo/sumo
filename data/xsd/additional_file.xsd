@@ -84,19 +84,19 @@
                         <xsd:element name="destProbReroute">
                             <xsd:complexType>
                                 <xsd:attribute name="id" type="idType" use="required"/>
-                                <xsd:attribute name="probability" type="positiveFloatType"/>
+                                <xsd:attribute name="probability" type="nonNegativeFloatType"/>
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="routeProbReroute">
                             <xsd:complexType>
                                 <xsd:attribute name="id" type="idType" use="required"/>
-                                <xsd:attribute name="probability" type="positiveFloatType"/>
+                                <xsd:attribute name="probability" type="nonNegativeFloatType"/>
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="parkingAreaReroute">
                             <xsd:complexType>
                                 <xsd:attribute name="id" type="idType" use="required"/>
-                                <xsd:attribute name="probability" type="positiveFloatType"/>
+                                <xsd:attribute name="probability" type="nonNegativeFloatType"/>
                                 <xsd:attribute name="visible" type="boolType"/>
                             </xsd:complexType>
                         </xsd:element>
@@ -309,19 +309,19 @@
                         <xsd:element name="destProbReroute">
                             <xsd:complexType>
                                 <xsd:attribute name="id" type="idType" use="required"/>
-                                <xsd:attribute name="probability" type="positiveFloatType"/>
+                                <xsd:attribute name="probability" type="nonNegativeFloatType"/>
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="routeProbReroute">
                             <xsd:complexType>
                                 <xsd:attribute name="id" type="idType" use="required"/>
-                                <xsd:attribute name="probability" type="positiveFloatType"/>
+                                <xsd:attribute name="probability" type="nonNegativeFloatType"/>
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="parkingAreaReroute">
                             <xsd:complexType>
                                 <xsd:attribute name="id" type="idType" use="required"/>
-                                <xsd:attribute name="probability" type="positiveFloatType"/>
+                                <xsd:attribute name="probability" type="nonNegativeFloatType"/>
                                 <xsd:attribute name="visible" type="boolType"/>
                             </xsd:complexType>
                         </xsd:element>
@@ -334,7 +334,7 @@
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="optional"/>
-        <xsd:attribute name="probability" type="positiveFloatType"/>
+        <xsd:attribute name="probability" type="nonNegativeFloatType"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="timeThreshold" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="pos" type="xsd:string" use="optional"/>
