@@ -47,5 +47,8 @@ crossing_tracks_collision
 # rerouting trains that pass each other in a complex network
 alternativeRoute
 
+# a train that circles endlessly, switches can be controlled in sumo-gui
+model_railroad
+
 # railway-specific bugs
 bugs

@@ -46,6 +46,7 @@ sumo/basic/simple_nets/box/box2l;../docs/examples/sumo/simple_nets/box/box2l
 sumo/basic/simple_nets/box/box3l;../docs/examples/sumo/simple_nets/box/box3l
 sumo/basic/simple_nets/box/box4l;../docs/examples/sumo/simple_nets/box/box4l
 sumo/sublane_model/1edge_2lanes_compact_mixed;../docs/examples/sumo/sublane_model;sumo
+sumo/rail/model_railroad;../docs/examples/sumo/model_railroad
 tools/assign/dua-iterate/simple;../docs/examples/tools/dua-iterate
 tools/detector/flowrouter/bell_pfe/plain;../docs/examples/tools/flowrouter
 tools/output/converter/ns2/mobility_only;../docs/examples/tools/traceExporter
