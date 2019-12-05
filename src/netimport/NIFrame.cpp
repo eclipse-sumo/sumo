@@ -361,6 +361,10 @@ NIFrame::checkOptions() {
             // changed default since we wish to preserve the network as far as possible
             oc.set("geometry.max-grade.fix", "false");
         }
+        if (oc.isWriteable("geometry.min-radius.fix.railways")) {
+            // changed default since we wish to preserve the network as far as possible
+            oc.set("geometry.min-radius.fix.railways", "false");
+        }
     }
     if (!oc.isSet("type-files")) {
         const char* sumoPath = std::getenv("SUMO_HOME");
