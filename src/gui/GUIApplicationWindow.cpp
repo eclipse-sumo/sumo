@@ -458,7 +458,7 @@ GUIApplicationWindow::fillMenuBar() {
                       "Edit Visualisation\tF9\tOpens a dialog for editing visualization settings.",
                       nullptr, this, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
     new FXMenuCommand(myEditMenu,
-                      "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
+                      "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing area, zoom and rotation.",
                       nullptr, this, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
