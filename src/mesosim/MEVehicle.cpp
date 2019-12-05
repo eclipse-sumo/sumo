@@ -432,6 +432,10 @@ MEVehicle::updateDetectors(SUMOTime currentTime, const bool isLeave, const MSMov
 
 void
 MEVehicle::saveState(OutputDevice& out) {
+    if (mySegment != nullptr && MESegment::isInvalid(mySegment)) {
+        // segment is vaporization target, do not write this vehicle
+        return;
+    }
     MSBaseVehicle::saveState(out);
     assert(mySegment == 0 || *myCurrEdge == &mySegment->getEdge());
     std::vector<SUMOTime> internals;
