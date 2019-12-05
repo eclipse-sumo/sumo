@@ -57,7 +57,7 @@ def run(suffix, args, out=sys.stdout, guiTests=False, console=False, chrouter=Tr
     apps = "sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,sumo.astar,sumo.parallel,netconvert.gdal,polyconvert.gdal"
     apps += ",complex.meso,duarouter.astar"
     if chrouter:
-        apps += ",duarouter.chrouter"
+        apps += ",duarouter.chrouter,duarouter.chwrapper"
     ttBin = 'texttest.py'
     if os.name == "posix":
         if subprocess.call(['which', 'texttest']) == 0:

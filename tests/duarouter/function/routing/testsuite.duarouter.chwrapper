@@ -1,0 +1,7 @@
+# when routing based on stored traveltimes the vehicles maximum speed must still be considered
+traveltime_always_checks_vehspeed
+
+# tests for validating particular aspects of chrouter against dijkstra
+# - tests/duarouter establishes the base line
+# - tests/duarouter.chrouter must produce the same results
+chrouter

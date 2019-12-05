@@ -1,0 +1,12 @@
+Loading net ... done.
+Skipped until: 0.00
+Reading up to time step: 0.00Reading up to time step: 200.00Building Contraction Hierarchy for vClass='passenger' and time=0.00 (8 edges)
+ ... 
+Created 2 shortcuts.
+Recomputed priority 12 times.
+done (1ms).
+done.
+Routes found between time steps 0.00 and 0.00.
+CHRouter answered 2 queries and explored 6.00 edges on average.
+CHRouter spent 0ms answering queries (0.00ms on average).
+Success.
