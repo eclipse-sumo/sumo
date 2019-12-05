@@ -114,7 +114,7 @@ def main(options):
                         incomingRoutes[edges[-1]].add(edgeIDs)
 
     with open(options.outfile, 'w') as outf:
-        outf.write('<additional>\n')
+        sumolib.writeXMLHeader(outf, "$Id$", "additional")  # noqa
         for junction in net.getNodes():
             if len(junction.getOutgoing()) > 1:
                 routes = []
