@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov  8 13:16:05 2019 by Eclipse SUMO Version v1_3_1+0801-355be15e4b
+<!-- generated on Thu Dec  5 15:08:24 2019 by Eclipse SUMO Version v1_3_1+1288-abda92d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -165,7 +165,7 @@
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
         <duration-log.disable value="false" synonymes="no-duration-log" type="BOOL" help="Disable performance reports for individual simulation steps"/>
-        <duration-log.statistics value="false" type="BOOL" help="Enable statistics on vehicle trips"/>
+        <duration-log.statistics value="false" synonymes="t" type="BOOL" help="Enable statistics on vehicle trips"/>
         <no-step-log value="false" type="BOOL" help="Disable console output of current simulation step"/>
     </report>
 
@@ -320,6 +320,7 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="FLOAT" help="The aggregation period for value tracker windows"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable ovelay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settingsoutput file"/>
