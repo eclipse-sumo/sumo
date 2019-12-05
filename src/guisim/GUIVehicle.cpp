@@ -657,7 +657,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         }
         std::pair<const MSLane*, double> stopPos = std::make_pair(stop.lane, stop.getEndPos(*this));
         const double textSize = s.vehicleName.size / s.scale;
-        GLHelper::drawText(label, pos - Position(0, textSize * repeat[stopPos]), 1.0, textSize, s.vehicleName.color);
+        GLHelper::drawText(label, pos - Position(0, textSize * repeat[stopPos]), 1.0, textSize, s.vehicleName.color, s.angle);
         repeat[stopPos]++;
         stopIndex++;
     }
