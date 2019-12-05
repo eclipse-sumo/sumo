@@ -44,15 +44,24 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, 
     for pos in trace:
         newPaths = {}
         candidates = net.getNeighboringEdges(pos[0], pos[1], delta)
+        candidates = [(e,d) for e, d in candidates if e.getFunction() != "internal"]    # yp: avoid the match to links within intersections
+        #print("candidates:%s" %candidates)
         if len(candidates) == 0 and verbose:
             print("Found no candidate edges for %s,%s" % pos)
+
+        print("pos:%s, %s" %(pos[0], pos[1]))
         for edge, d in candidates:
             base = polygonOffsetWithMinimumDistanceToPoint(pos, edge.getShape())
             if paths:
-                advance = euclidean(lastPos, pos)
+                advance = euclidean(lastPos, pos)  # soll vecktor sein
+                advance = advance #+ max(abs(lastPos[0] - pos[0])/advance, abs(lastPos[1] - pos[1])/advance) # yp
                 minDist = 1e400
                 minPath = None
+                print("edge:%s\n" %(edge.getID()))
+
                 for path, (dist, lastBase) in paths.items():
+                    print("")
+                    print("*** path:%s, dist:%s, lastBase: %s, minDist: %s" %(path, dist, lastBase, minDist))
                     if dist < minDist:
                         if edge == path[-1]:
                             baseDiff = lastBase + advance - base
@@ -60,10 +69,13 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, 
                         elif edge in path[-1].getOutgoing():
                             baseDiff = lastBase + advance - path[-1].getLength() - base
                             extension = (edge,)
+                            print("---------- extension: %s, baseDiff: %s" %(str(extension), baseDiff))
                         else:
                             extension = None
                             if fillGaps:
-                                extension, cost = net.getShortestPath(path[-1], edge, airDistFactor * advance)
+                                extension, cost = net.getShortestPath(path[-1], edge, airDistFactor * advance + edge.getLength() + path[-1].getLength())
+                                
+                                #print("edge:%s, cost:%s, max:%s" % (str(extension), cost, (airDistFactor * advance)))
                             if extension is None:
                                 airLineDist = euclidean(
                                     path[-1].getToNode().getCoord(),
@@ -89,5 +101,9 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, 
         paths = newPaths
         lastPos = pos
     if paths:
+        print("**************** result:")
+        for i in result + _getMinPath(paths):
+            print("path:%s" %i.getID())
         return result + _getMinPath(paths)
+        
     return result
