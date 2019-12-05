@@ -481,7 +481,14 @@ class Net:
             e.rebuildShape()
 
     def getShortestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None):
-        q = [(0, fromEdge.getID(), fromEdge, ())]
+        """
+        Finds the shortest path from fromEdge to toEdge respecting vClass, using Dijkstra's algorithm.
+        It returns a pair of a tuple of edges and the cost. If no path is found the first element is None.
+        The cost for the returned path is equal to the sum of all edge lengths in the path,
+        including the internal connectors, if they are present in the network.
+        The search may be limited using the given threshold.
+        """
+        q = [(fromEdge.getLength(), fromEdge.getID(), fromEdge, ())]
         seen = set()
         dist = {fromEdge: fromEdge.getLength()}
         while q:
