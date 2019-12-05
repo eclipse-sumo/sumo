@@ -7,6 +7,9 @@ save2
 # save multiple states
 save_at_interval
 
+# save multiple states with human-readable times (no colons)
+save_at_interval_H
+
 # the input is taken from test save2/state2.sumo
 load
 

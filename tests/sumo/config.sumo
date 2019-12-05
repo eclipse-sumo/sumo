@@ -70,9 +70,11 @@ log:log.txt
 state:state.xml
 state2:state2.xml
 state_0:state_0.00.xml
+state_0:state_00-00-00.xml
 state_4:state_4.00.xml
 state_8:state_8.00.xml
 state_12:state_12.00.xml
+state_12:state_00-00-12.xml
 binstate:state.sbx
 calibrator_log:calibrator.log.xml
 links:linkstate.xml
