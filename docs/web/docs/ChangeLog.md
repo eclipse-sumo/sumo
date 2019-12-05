@@ -72,6 +72,8 @@ permalink: /ChangeLog/
 ### Enhancements
 - All Applications
   - Environment variables can now be referenced in configuration files using a shell-like syntax: `<net-file value="${NETFILENAME}.net.xml"/>`. Issue #1901
+  - The new option **--aggregate-warnings** can be used to group warnings of the same type and give only their count after the first N warnings occured.
+  
 - Simulation
   - Simulation of parking vehicles now optionally takes into account [maneuvering times](Simulation/ParkingArea.md#modelling_maneuvering_times_when_entering_and_leaving_the_parking_space). Issue #5956
   - Vehicle stop elements now support attribute 'speed'. This can be used to force a vehicle to drive with a fixed speed on a particular stretch of lane. Issue #1020
@@ -127,9 +129,6 @@ permalink: /ChangeLog/
   - Added new tool [generateContinuousRerouters.py](Tools/Misc.md#generatecontinuousrerouterspy) to easily create a simulation where vehicles circulate according to configured turning ratios without ever arriving. #6310
   
 ### Other
-
-- All Applications
-  - The new option **--aggregate-warnings** can be used to group warnings of the same type and give only their count after the first N warnings occured.
 - SUMO-GUI, NETEDIT
   - Zooming now centers on the mouse-position by default instead of on the screen center. As before, the behavior can be toggled using the icon in the view menu bar and persists across application restarts. Issue #5992
 - NETCONVERT
