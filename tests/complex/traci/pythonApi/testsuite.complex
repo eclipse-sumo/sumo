@@ -37,9 +37,6 @@ trafficlight
 # Tests the simulation API
 simulation
 
-# Tests the simulation API
-# simulation_copy (automatically commented due to no test directory being found)
-
 # Tests the route API
 route
 
@@ -93,9 +90,6 @@ getNeighborsSublane
 
 # use changeLaneRelative to change to the opposite side and back
 changeOpposite
-
-# force driving in the opposite direction
-# changeOpposite (automatically commented due to no test directory being found)
 
 # Test for the StepListener functions
 steplistener
