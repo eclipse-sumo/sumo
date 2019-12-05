@@ -2507,8 +2507,15 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 #endif
         // check for train direction reversal
-        if (canBrakeBeforeLaneEnd && canReverse(laneMaxV)) {
-            lfLinks.push_back(DriveProcessItem(*link, vMinComfortable, vMinComfortable, false, t, vMinComfortable, 0, 0, seen));
+        if (canReverse(laneMaxV)) {
+            // reverse as soon as comfortably possible but also prevent running into a buffer stop
+            const double vReverse = MIN2(
+                    cfModel.stopSpeed(this, getSpeed(), seen - POSITION_EPS),
+                    vMinComfortable);
+#ifdef DEBUG_REVERSE_BIDI
+            if (DEBUG_COND) std::cout << SIMTIME << " seen=" << seen  << " vReverse=" << vReverse << "\n";
+#endif
+            lfLinks.push_back(DriveProcessItem(*link, vReverse, vReverse, false, t, 0, t, 0, seen));
         }
 
         // check whether we need to slow down in order to finish a continuous lane change
@@ -3531,6 +3538,7 @@ MSVehicle::canReverse(double speedThreshold) const {
     if (DEBUG_COND) std::cout << SIMTIME  << " canReverse lane=" << myLane->getID()
                                   << " pos=" << myState.myPos
                                   << " speed=" << std::setprecision(6) << getPreviousSpeed() << std::setprecision(gPrecision)
+                                  << " speedThreshold=" << speedThreshold
                                   << " isRail=" << ((getVClass() & SVC_RAIL_CLASSES) != 0)
                                   << " speedOk=" << (getPreviousSpeed() <= speedThreshold)
                                   << " posOK=" << (myState.myPos <= myLane->getLength())
