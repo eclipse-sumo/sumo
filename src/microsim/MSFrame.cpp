@@ -416,7 +416,7 @@ MSFrame::fillOptions() {
     oc.addSynonyme("duration-log.disable", "no-duration-log", false);
     oc.addDescription("duration-log.disable", "Report", "Disable performance reports for individual simulation steps");
 
-    oc.doRegister("duration-log.statistics", new Option_Bool(false));
+    oc.doRegister("duration-log.statistics", 't', new Option_Bool(false));
     oc.addDescription("duration-log.statistics", "Report", "Enable statistics on vehicle trips");
 
     oc.doRegister("no-step-log", new Option_Bool(false));
