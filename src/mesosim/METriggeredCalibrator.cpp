@@ -232,7 +232,10 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
     if (myCurrentStateInterval->end <= currentTime + myFrequency) {
         intervalEnd();
     }
-    assert(!invalidJam());
+    //assert(!invalidJam());
+    if (invalidJam()) {
+        WRITE_WARNING("DEBUG: Could not clear jam at calibrator '" + getID() + "' at time " + time2string(currentTime));
+    }
     return myFrequency;
 }
 
