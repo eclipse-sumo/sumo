@@ -233,7 +233,21 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNECrossing::getCenteringBoundary() const {
-    throw ProcessError("Crossings doesn't have a boundary");
+    Boundary b;
+    auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
+    if (crossing) {
+        if (crossing->customShape.size() > 0) {
+            b = crossing->customShape.getBoxBoundary();
+        } else if (crossing->shape.size() > 0) {
+            b = crossing->shape.getBoxBoundary();
+        } else {
+            return myParentJunction->getCenteringBoundary();
+        }
+        b.grow(10);
+        return b;
+    }
+    // in other case return boundary of parent junction
+    return myParentJunction->getCenteringBoundary();
 }
 
 
