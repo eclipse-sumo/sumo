@@ -174,7 +174,7 @@
                 {%- block content %}
                     <div class="col-md-3">
                         <div class="text-center"><a href="{{ 'index.html'|url }}" style="display: inline-block; margin-top: 5px;"><img src="{{'images/sumo-logo.png'|url}}" class="sumoLogo" alt="SUMO Logo" width="120px"></a></div>
-                      {% include "toc.html" %}</div>
+                      {% if not page.is_homepage %}{% include "toc.html" %}{% endif %}</div>
                     <div class="col-md-9" role="main" style="background:white; padding:20px; border-radius:8px; margin-top:5px;">
                         
                             {% if page and not page.is_homepage %}

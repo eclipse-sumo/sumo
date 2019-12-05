@@ -340,9 +340,10 @@ have to following meaning:
 
 - <span style="color:#808080; background:#808080">FOO</span> sidewalk (`allow="pedestrian"`)
 - <span style="color:#C0422C; background:#C0422C">FOO</span> bike lane (`allow="bicycle"`)
+- <span style="color:#5C5C5C; background:#5C5C5C">FOO</span> bus lane (`allow="bus"`)
 - <span style="color:#96C8C8; background:#96C8C8">FOO</span> waterway (`allow="ship"`)
 - <span style="color:#FF0000; background:#FF0000">FOO</span> closed lane (`allow="authority"`)
-- <span style="color:#FFFFFF; background:#FFFFFF">FOO</span> green verge (`disallow="all"`)
+- <span style="color:#C8FFC8; background:#C8FFC8">FOO</span> green verge (`disallow="all"`)
 - <span style="color:#5C5C5C; background:#5C5C5C">FOO</span> anything
   else that does not allow passenger
 - <span style="color:#000000; background:#000000">FOO</span> anything
