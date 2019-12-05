@@ -44,9 +44,9 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, 
     for pos in trace:
         newPaths = {}
         candidates = net.getNeighboringEdges(pos[0], pos[1], delta)
-        candidates = [(e,d) for e, d in candidates if e.getFunction() != "internal"]    # yp: avoid the match to links within intersections
+#        candidates = [(e,d) for e, d in candidates if e.getFunction() != "internal"]    # yp: avoid the match to links within intersections
         if debug:
-            print("pos:%s, %s\n" %(pos[0], pos[1]))
+            print("\n\npos:%s, %s" %(pos[0], pos[1]))
             print("candidates:%s\n" %candidates)
         if len(candidates) == 0 and verbose:
             print("Found no candidate edges for %s,%s" % pos)
@@ -54,30 +54,27 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, 
         for edge, d in candidates:
             base = polygonOffsetWithMinimumDistanceToPoint(pos, edge.getShape())
             if paths:
-                advance = euclidean(lastPos, pos)  # soll vecktor sein
-                advance = advance #+ max(abs(lastPos[0] - pos[0])/advance, abs(lastPos[1] - pos[1])/advance) # yp
+                advance = euclidean(lastPos, pos)  # should become a vector
                 minDist = 1e400
                 minPath = None
-                if debug:
-                    print("edge:%s\n" %(edge.getID()))
-
                 for path, (dist, lastBase) in paths.items():
                     if debug:
-                        print("*** path:%s, dist:%s, lastBase: %s, minDist: %s" %(path, dist, lastBase, minDist))
+                        print("*** extending path %s by edge '%s', base: %s, advance: %s, old dist: %s, lastBase: %s, minDist: %s" % ([e.getID() for e in path], edge.getID(), base, advance, dist, lastBase, minDist))
                     if dist < minDist:
                         if edge == path[-1]:
                             baseDiff = lastBase + advance - base
                             extension = ()
+                            if debug:
+                                print("---------- same edge")
                         elif edge in path[-1].getOutgoing():
                             baseDiff = lastBase + advance - path[-1].getLength() - base
                             extension = (edge,)
                             if debug:
-                                print("---------- extension: %s, baseDiff: %s" %(str(extension), baseDiff))
+                                print("---------- extension: %s, baseDiff: %s" % (edge.getID(), baseDiff))
                         else:
                             extension = None
                             if fillGaps:
                                 extension, cost = net.getShortestPath(path[-1], edge, airDistFactor * advance + edge.getLength() + path[-1].getLength())
-
                             if extension is None:
                                 airLineDist = euclidean(
                                     path[-1].getToNode().getCoord(),
@@ -90,9 +87,14 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, 
                             else:
                                 baseDiff = lastBase + advance - (cost - edge.getLength()) - base
                                 extension = extension[1:]
-                        if dist + baseDiff * baseDiff < minDist:
-                            minDist = dist + baseDiff * baseDiff
+                            if debug:
+                                print("---------- extension path: %s, cost: %s, baseDiff: %s" % (extension, cost, baseDiff))
+                        dist += baseDiff * baseDiff
+                        if dist < minDist:
+                            minDist = dist
                             minPath = path + extension
+                        if debug:
+                            print("*** new dist: %s baseDiff: %s minDist: %s" % (dist, baseDiff, minDist))
                 if minPath:
                     newPaths[minPath] = (minDist, base)
             else:
@@ -108,5 +110,4 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, 
             for i in result + _getMinPath(paths):
                 print("path:%s" %i.getID())
         return result + _getMinPath(paths)
-        
     return result
