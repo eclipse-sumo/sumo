@@ -91,6 +91,8 @@ if __name__ == "__main__":
     optParser.add_option("--blur", type="float",
                          default=0, help="maximum random disturbance to route geometry")
     optParser.add_option("-l", "--layer", default=100, help="layer for generated polygons")
+    optParser.add_option("-b", "--debug", action="store_true",
+                         default=False, help="print out the debugging messages")
     (options, args) = optParser.parse_args()
 
     if not options.output or not options.net:
@@ -137,7 +139,7 @@ if __name__ == "__main__":
             else:
                 traces = readLines(t, net, options.geo)
             mapOpts = (options.delta, options.verbose, options.air_dist_factor,
-                       options.fill_gaps, options.gap_penalty)
+                       options.fill_gaps, options.gap_penalty, options.debug)
             for tid, trace in traces:
                 if poiOut is not None:
                     for idx, pos in enumerate(trace):
