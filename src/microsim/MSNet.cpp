@@ -501,7 +501,9 @@ MSNet::simulationStep() {
         MSStateHandler::saveState(myStateDumpFiles[dist], myStep);
     }
     if (myStateDumpPeriod > 0 && myStep % myStateDumpPeriod == 0) {
-        MSStateHandler::saveState(myStateDumpPrefix + "_" + time2string(myStep) + myStateDumpSuffix, myStep);
+        std::string timeStamp = time2string(myStep);
+        std::replace(timeStamp.begin(), timeStamp.end(), ':', '-');
+        MSStateHandler::saveState(myStateDumpPrefix + "_" + timeStamp + myStateDumpSuffix, myStep);
     }
     myBeginOfTimestepEvents->execute(myStep);
 #ifdef HAVE_FOX
