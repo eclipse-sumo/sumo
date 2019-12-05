@@ -15,6 +15,7 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+import os
 import sys
 import re
 import datetime
@@ -361,6 +362,7 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
 
 
 def writeHeader(outf, script, root=None, schemaPath=None):
+    script = os.path.basename(sys.argv[0])
     outf.write("""<?xml version="1.0" encoding="UTF-8"?>
 <!-- generated on %s by %s
   options: %s
