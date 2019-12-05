@@ -15,7 +15,9 @@ permalink: /ChangeLog/
   - Fixed invalid cooperative speed adjustment in sublane model. Issues #6266, #6267
   - Fixed crash related to parkingAreaReroute. Issue #6283
   - Fixed startup delay in railway simulation when begin time is set to a high value. Issue #6321
-
+  - Fixed invalid state file names when using human-readable times. Issue #6365
+  - Fixed invalid energy usage (battery parameters ignored) in emission-ouput, full-output, tripinfo-output and edgeData-emissions. Issue #6364, #6359
+  
 - NETEDIT
   - Fixed crash when defining walks between disconnected locations. Issue #5369
   - Fixed crash transforming trips to flows. Issue #6050
@@ -28,6 +30,7 @@ permalink: /ChangeLog/
   - Fixed invalid edge shape when using 'replace junction' ahead of junction with custom shape. Issue #5777
   - Connection mode function 'select dead starts' now correctly selects lanes without predecessor (regression in 1.0.0). Issue #6278
   - Fixed slowdown clicking over edges with high concentration of routes. Issue #6276
+  - Fixed crash when clicking in message window with invalid crossing. Issue #6368
 
 - NETCONVERT
   - Fixed bugs in classification of roundabouts. Issue #6032
@@ -40,11 +43,14 @@ permalink: /ChangeLog/
   - Fixed invalid network when using option **--geometry.split** Issue #6075
   - Fixed invalid handling of custom crossing shape when network coordinates are shifted. Issue #4621
   - Fixed invalid error message when loading .tll-file with tlLogid-programID other than '0'. Issue #6160
+  - Fixed missing bidirectional edges due to invalid geometry-manipulations. Issue #6370, #6366
+  - Avoiding superfluous nodes when using options **--geometry.remove** and **--ptline-output**
   
 - Meso
   - device.emissions now collects data. Issue #6086
   - Fixed crash when using device.btsender or device.btreceiver. Issue #6087
   - Fixed crash when loading network with internal lanes that have neighbor ('neigh') data. Issue #6205
+  - Fixed crash when saving state while using calibrators. Issue #6369
 
 - SUMO-GUI
   - Sublane-borders are no longer drawn for railways and sidewalks (where the sublane model does not apply).
@@ -55,6 +61,7 @@ permalink: /ChangeLog/
 - DUAROUTER
   - Fixed invalid mode change from car during intermodal routing. Issue #6070
   - Fixed invalid car routes during intermodal routing. Issue #6077
+  - Fixed crash when loading network imported from VISUM. Issue #6358
 
 - TraCI
   - TraaS functions *Trafficlight.getControlledJunctions*, *Edge.setEffort*, *Edge.getEffort*, *Edge.adaptTraveltime*", *Edge.getAdaptedTraveltime* are now working. Issue #6019  
@@ -76,6 +83,7 @@ permalink: /ChangeLog/
   - stopinfo-output now includes optional stop attributes 'tripId' and 'line'. Issue #6320
   - Vehicles now support the new symbolic departPos value 'stop' which lets the start at the first stop along their route. Issue #6322
   - Permissions of internal lanes (connections) are now taken into account independent of the lanes before and after the intersection. Issue #6210
+  - Option **--duration-log.statistics** can now be set with shortcut **-t**. Issue #6378
 
 - Meso
   - Vehicles that reach maximum impatience can now pass junctions from an unprioritized road regardless of foe traffic. The old behavior can be restored by disabling impatience growth via **--time-to-impatience 0**. Issue #5830
@@ -91,6 +99,9 @@ permalink: /ChangeLog/
   - Regional road names (A9, I-95) are now exported as edge params. They are also exported as Regional Name ID in dlr-navteq-output. Issue #6256
   - Added option **--offset.z** to apply a constant z-offset to a simulation network. Issue #6274
   - Added option **--tls.ignore-internal-junction-jam** to force building traffic light right-of-way rules without mutual response flags. Issue #6269
+  - Now VISUM networks in English, French and Italian can be imported (only German networks were supported previously). Issue #1767
+  - Improved handling of VISUM connector-edges. By default, no extra edges are generated anymore and instead the regular network edges are assigned to the TAZ. Issue #6356
+  - Now TAZ imported from VISUM can be written to a separate file using option **--taz-output**. Issue #6349
 
 - Netedit
   - Now additionals and routes can optionally be loaded using option "Open in SUMO-GUI"). Issue #6049
@@ -118,12 +129,16 @@ permalink: /ChangeLog/
   
 ### Other
 
-- Added ['Hello World' tutorial](Tutorials/Hello_World.md) that shows how to create a simulation by only using NETEDIT and SUMO-GUI (no command line or text editor necessary).
+- All Applications
+  - The new option **--aggregate-warnings** can be used to group warnings of the same type and give only their count after the first N warnings occured.
 - SUMO-GUI, NETEDIT
   - Zooming now centers on the mouse-position by default instead of on the screen center. As before, the behavior can be toggled using the icon in the view menu bar and persists across application restarts. Issue #5992
 - NETCONVERT
+  - By default repeated warnings of the same type are aggregated (only their number is given beyond the initial 5). To see all warnings, the option **--aggregate-warnings -1** can be used. Issue #6335
   - The default number of lanes when importing 'highway.secondary' from OSM was changed from 2 to 1. Issue #5690
-- Documentation moved from MediaWiki to MkDocs
+- Documentation 
+  - moved from MediaWiki to MkDocs
+  - Added ['Hello World' tutorial](Tutorials/Hello_World.md) that shows how to create a simulation by only using NETEDIT and SUMO-GUI (no command line or text editor necessary).
 
 ## Version 1.3.1 (27.08.2019)
 
