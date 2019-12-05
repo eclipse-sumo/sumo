@@ -900,7 +900,14 @@ NBEdge::addGeometryPoint(int index, const Position& p) {
 
 void
 NBEdge::reduceGeometry(const double minDist) {
-    myGeom.removeDoublePoints(minDist, true);
+    if (isBidiRail() && getID() < myPossibleTurnDestination->getID()) {
+        // ensure symmetrical removal
+        PositionVector reverse = myGeom.reverse();
+        reverse.removeDoublePoints(minDist, true);
+        myGeom = reverse.reverse();
+    } else {
+        myGeom.removeDoublePoints(minDist, true);
+    }
 }
 
 

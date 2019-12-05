@@ -1347,7 +1347,13 @@ PositionVector::removeDoublePoints(double minDist, bool assertLength) {
         iterator last = begin();
         for (iterator i = begin() + 1; i != end() && (!assertLength || size() > 2);) {
             if (last->almostSame(*i, minDist)) {
-                i = erase(i);
+                if (i + 1 == end()) {
+                    // special case: keep the last point and remove the next-to-last
+                    erase(last);
+                    i = end();
+                } else {
+                    i = erase(i);
+                }
             } else {
                 last = i;
                 ++i;
