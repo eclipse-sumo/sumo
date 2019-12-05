@@ -116,6 +116,9 @@ permalink: /ChangeLog/
   - The object locator dialog now allows filtering the object list by matching all ids/names that include a given text string.
   - Added option for rendering the (relative) route index for each edge when drawing a vehicles route. Issue #6199
   - Traffic light parameter dialog now includes more values describing the current phase (phase, phase name, duration, minDur, maxDur, running duration)
+  - Shift-left-clicking on a vehicle now starts tracking
+  - The speedFactor for the currently tracked vehicle can now be set via a new slider
+  - The probabilities for routeProbReroute can now be toggled between 100% and 0% by shift-clicking on the rerouter symbol or on the new route-direction arrows.
   
 - TraCI
   - Added function 'traci.trafficlight.getServedPersonCount' to return the number of pedestrians that would be served by all the crossings for a given phase index. Issue #6088
@@ -137,6 +140,7 @@ permalink: /ChangeLog/
 - Documentation 
   - moved from MediaWiki to MkDocs
   - Added ['Hello World' tutorial](Tutorials/Hello_World.md) that shows how to create a simulation by only using NETEDIT and SUMO-GUI (no command line or text editor necessary).
+  - Added new example simulation in 'docs/examples/sumo/model_railroad'. The speed of the train as well as the railroad switches can be controlled while the simulation is running. Merry Christmas!
 
 ## Version 1.3.1 (27.08.2019)
 
