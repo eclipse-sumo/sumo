@@ -4,7 +4,7 @@
 @file    runTraceMapper.py
 @author  Yun-Pang Floetteroed
 @date    2017-11-29
-@version $Id: runTraceMapper.py  $
+@version $Id$
 
 Run traceMapper.py to generate a route file which
 corresponds to the given trajectories
