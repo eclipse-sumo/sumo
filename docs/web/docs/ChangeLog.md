@@ -46,7 +46,7 @@ permalink: /ChangeLog/
   - Fixed missing bidirectional edges due to invalid geometry-manipulations. Issue #6370, #6366
   - Avoiding superfluous nodes when using options **--geometry.remove** and **--ptline-output**
   
-- Meso
+- MESO
   - device.emissions now collects data. Issue #6086
   - Fixed crash when using device.btsender or device.btreceiver. Issue #6087
   - Fixed crash when loading network with internal lanes that have neighbor ('neigh') data. Issue #6205
@@ -85,16 +85,15 @@ permalink: /ChangeLog/
   - Permissions of internal lanes (connections) are now taken into account independent of the lanes before and after the intersection. Issue #6210
   - Option **--duration-log.statistics** can now be set with shortcut **-t**. Issue #6378
 
-- Meso
+- MESO
   - Vehicles that reach maximum impatience can now pass junctions from an unprioritized road regardless of foe traffic. The old behavior can be restored by disabling impatience growth via **--time-to-impatience 0**. Issue #5830
+  
 - NETCONVERT
   - Railway network input with sharp angles along an edge is now corrected by default. (The previous behavior can be enabled with option **--geometry.min-angle.fix.railways false**). Issue #6921
   - Pedestrian paths are no longer checked for minimum turning angles (greatly reducing superfluous warnings). Issue #6022
   - The option **--opposites.guess.fix-length** is no longer required when using networks with default lengths (no user-set values). The resulting networks will automatically adapt their edge lengths when changing geometry. Issue #6028
   - When importing public transport lines (**--ptline-output**), edge permissions are now adapted to allow the respective public transport vehicle. Issue #3437
   - When importing public transport lines from OSM, stops that are not part of the road network are now mapped to the nearest line edge (previously, these stops were discarded). Issue #6114
-
-- Netconvert
   - Permissions can now be set for individual connections independent of incoming and outgoing lanes. Issue #6217
   - Regional road names (A9, I-95) are now exported as edge params. They are also exported as Regional Name ID in dlr-navteq-output. Issue #6256
   - Added option **--offset.z** to apply a constant z-offset to a simulation network. Issue #6274
@@ -103,7 +102,7 @@ permalink: /ChangeLog/
   - Improved handling of VISUM connector-edges. By default, no extra edges are generated anymore and instead the regular network edges are assigned to the TAZ. Issue #6356
   - Now TAZ imported from VISUM can be written to a separate file using option **--taz-output**. Issue #6349
 
-- Netedit
+- NETEDIT
   - Now additionals and routes can optionally be loaded using option "Open in SUMO-GUI"). Issue #6049
   - Added shortcuts (Shift F1,F2,F3) for edge templates. Issue #6033
   - VTypes can be edited in multiple selected vehicles. Issue #6051
