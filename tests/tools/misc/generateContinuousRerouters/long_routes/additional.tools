@@ -1,4 +1,8 @@
-<additional>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-12-06 08:18:21.469726 by generateContinuousRerouters.py
+  options: -n net.net.xml -o out.add.xml <doubleminus>long-routes
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <route id="B1A1_A0B0_B0B1" edges="B1A1 A1A0 A0B0 B0B1"/>
     <route id="B1A1_A0B0_B0C0" edges="B1A1 A1A0 A0B0 B0C0 C0D0"/>
     <rerouter id="rr_B1A1_A0B0" edges="B1A1">
