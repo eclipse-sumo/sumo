@@ -11,4 +11,6 @@
     <person id="p0" depart="8">
         <walk edges="e_m3 e_m4" speed="2"/>
     </person>
+
+    <vehicle id="3" depart="10" departSpeed="10" departPos="100" route="r1" type="t1"/>
 </routes>

@@ -908,16 +908,20 @@ TraCITestClient::testAPI() {
     std::vector<int> vars3;
     vars3.push_back(libsumo::VAR_SPEED);
     vehicle.subscribeContext("1", libsumo::CMD_GET_VEHICLE_VARIABLE, 1000, vars3, 0, 100);
-    //vehicle.addSubscriptionFilterTurn();
-    //vehicle.addSubscriptionFilterDownstreamDistance(1000);
-    //vehicle.addSubscriptionFilterUpstreamDistance(1000);
-    //vehicle.addSubscriptionFilterVClass(std::vector<std::string>({"passenger"}));
-    //vehicle.addSubscriptionFilterLanes(std::vector<int>({0, 1, 2}));
-    //vehicle.addSubscriptionFilterLeadFollow(std::vector<int>({0, 1, 2}));
-    //vehicle.addSubscriptionFilterLanes(std::vector<int>({0}));
-    //vehicle.addSubscriptionFilterLeadFollow(std::vector<int>({0}));
-    //vehicle.addSubscriptionFilterCFManeuver();
+    vehicle.addSubscriptionFilterLanes(std::vector<int>({0, 1, 2}));
+    vehicle.addSubscriptionFilterNoOpposite();
+    vehicle.addSubscriptionFilterDownstreamDistance(1000);
+    vehicle.addSubscriptionFilterUpstreamDistance(1000);
+    vehicle.addSubscriptionFilterCFManeuver();
+    vehicle.addSubscriptionFilterLeadFollow(std::vector<int>({0, 1, 2}));
+    vehicle.addSubscriptionFilterTurn();
+    vehicle.addSubscriptionFilterVClass(std::vector<std::string>({"passenger"}));
+    vehicle.addSubscriptionFilterVType(std::vector<std::string>({"passenger"}));
     vehicle.addSubscriptionFilterLCManeuver(1);
+
+    vehicle.subscribeContext("3", libsumo::CMD_GET_VEHICLE_VARIABLE, 200, vars3, 0, 100);
+    vehicle.addSubscriptionFilterFieldOfVision(90);
+    //
 
     simulationStep();
     answerLog << "    context subscription results:\n";
