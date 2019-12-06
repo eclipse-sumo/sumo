@@ -404,7 +404,7 @@ MSBaseVehicle::resetRoutePosition(int index, DepartLaneDefinition departLaneProc
 
 double
 MSBaseVehicle::getOdometer() const {
-    return -myDepartPos + myOdometer + getPositionOnLane();
+    return -myDepartPos + myOdometer + (hasArrived() ? myArrivalPos : getPositionOnLane());
 }
 
 
