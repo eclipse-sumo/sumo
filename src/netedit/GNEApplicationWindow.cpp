@@ -251,16 +251,16 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 // ===========================================================================
 
 GNEApplicationWindow::ToolbarsGrip::ToolbarsGrip(GNEApplicationWindow* GNEApp) :
-    myGNEApp(GNEApp),
     menu(nullptr),
     superModes(nullptr),
     saveElements(nullptr),
     navigation(nullptr),
     modes(nullptr),
     modeOptions(nullptr),
+    myGNEApp(GNEApp),
     myToolBarShellMenu(nullptr),
-    myToolBarShellSaveElements(nullptr),
     myToolBarShellSuperModes(nullptr),
+    myToolBarShellSaveElements(nullptr),
     myToolBarShellNavigation(nullptr),
     myToolBarShellModes(nullptr),
     myToolBarShellModeOptions(nullptr) {
@@ -345,6 +345,17 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     GUIMainWindow(a),
     myLoadThread(nullptr),
     myAmLoading(false),
+    myFileMenu(nullptr),
+    myFileMenuAdditionals(nullptr),
+    myFileMenuTLS(nullptr),
+    myFileMenuDemandElements(nullptr),
+    myEditMenu(nullptr),
+    myProcessingMenu(nullptr),
+    myLocatorMenu(nullptr),
+    myWindowsMenu(nullptr),
+    myHelpMenu(nullptr),
+    myMessageWindow(nullptr),
+    myMainSplitter(nullptr), 
     hadDependentBuild(false),
     myNet(nullptr),
     myUndoList(new GNEUndoList(this)),
@@ -358,19 +369,10 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myWindowsMenuCommands(this),
     mySupermodeCommands(this),
     myViewNet(nullptr),
-    myFileMenu(nullptr),
-    myFileMenuAdditionals(nullptr),
-    myFileMenuTLS(nullptr),
-    myFileMenuDemandElements(nullptr),
-    myEditMenu(nullptr),
-    myProcessingMenu(nullptr),
-    myLocatorMenu(nullptr),
-    myWindowsMenu(nullptr),
-    myHelpMenu(nullptr),
-    myMessageWindow(nullptr),
-    myMainSplitter(nullptr), 
     myTitlePrefix("NETEDIT " VERSION_STRING),
-    myMDIMenu(nullptr) {
+    myMDIMenu(nullptr)
+
+{
     // init icons
     GUIIconSubSys::initIcons(a);
     // init Textures
@@ -1070,12 +1072,13 @@ GNEApplicationWindow::MenuBarFile::buildRecentFiles(FXMenuPane* fileMenu) {
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindow::FileMenuCommands::FileMenuCommands(GNEApplicationWindow* GNEApp) :
-    myGNEApp(GNEApp),
     saveAdditionals(nullptr),
     saveAdditionalsAs(nullptr),
     saveTLSPrograms(nullptr),
     saveDemandElements(nullptr),
-    saveDemandElementsAs(nullptr) {
+    saveDemandElementsAs(nullptr),
+    myGNEApp(GNEApp)
+{
 }
 
 
@@ -1165,7 +1168,6 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindow::EditMenuCommands::NetworkMenuCommands::NetworkMenuCommands(const EditMenuCommands* editMenuCommandsParent) :
-    myEditMenuCommandsParent(editMenuCommandsParent),
     createEdgeMode(nullptr),
     moveMode(nullptr),
     deleteMode(nullptr),
@@ -1178,6 +1180,7 @@ GNEApplicationWindow::EditMenuCommands::NetworkMenuCommands::NetworkMenuCommands
     crossingMode(nullptr),
     TAZMode(nullptr),
     shapeMode(nullptr),
+    myEditMenuCommandsParent(editMenuCommandsParent),
     myHorizontalSeparator(nullptr) {
 }
 
@@ -1268,7 +1271,6 @@ GNEApplicationWindow::EditMenuCommands::NetworkMenuCommands::buildNetworkMenuCom
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindow::EditMenuCommands::DemandMenuCommands::DemandMenuCommands(const EditMenuCommands* editMenuCommandsParent) :
-    myEditMenuCommandsParent(editMenuCommandsParent),
     routeMode(nullptr),
     vehicleMode(nullptr),
     vehicleTypeMode(nullptr),
@@ -1276,6 +1278,7 @@ GNEApplicationWindow::EditMenuCommands::DemandMenuCommands::DemandMenuCommands(c
     personTypeMode(nullptr),
     personMode(nullptr),
     personPlanMode(nullptr),
+    myEditMenuCommandsParent(editMenuCommandsParent),
     myHorizontalSeparator(nullptr) {
 }
 
@@ -1404,7 +1407,6 @@ GNEApplicationWindow::EditMenuCommands::buildEditMenuCommands(FXMenuPane* editMe
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindow::ProcessingMenuCommands::ProcessingMenuCommands(GNEApplicationWindow* GNEApp) :
-    myGNEApp(GNEApp),
     computeNetwork(nullptr),
     computeNetworkVolatile(nullptr),
     cleanJunctions(nullptr),
@@ -1414,7 +1416,9 @@ GNEApplicationWindow::ProcessingMenuCommands::ProcessingMenuCommands(GNEApplicat
     cleanRoutes(nullptr),
     joinRoutes(nullptr),
     clearInvalidDemandElements(nullptr),
-    optionMenus(nullptr) {
+    optionMenus(nullptr),
+    myGNEApp(GNEApp)
+{
 }
 
 
@@ -1592,10 +1596,11 @@ GNEApplicationWindow::WindowsMenuCommands::buildWindowsMenuCommands(FXMenuPane* 
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindow::SupermodeCommands::SupermodeCommands(GNEApplicationWindow* GNEApp) :
-    myGNEApp(GNEApp),
     networkMode(nullptr),
     demandMode(nullptr),
-    myHorizontalSeparator(nullptr) {
+    myGNEApp(GNEApp),
+    myHorizontalSeparator(nullptr)
+{
 }
 
 
