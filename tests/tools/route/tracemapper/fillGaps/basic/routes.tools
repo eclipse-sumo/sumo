@@ -1,4 +1,8 @@
-<routes>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-12-06 11:01:21.416656 by tracemapper.py v1_3_1+1311-8b96af5bef
+  options: -n three_split.net.xml -t tracefile.txt -o out.rou.xml -v <doubleminus>fill-gaps
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route id="vehicle1" edges="beg middle end rend"/>
     <route id="vehicle2" edges="beg beg2left left left2end end rend"/>
 </routes>

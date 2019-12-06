@@ -29,6 +29,8 @@ from keyword import iskeyword
 from functools import reduce
 import xml.sax.saxutils
 
+from . import version
+
 DEFAULT_ATTR_CONVERSIONS = {
     # shape-like
     'shape': lambda coords: map(lambda xy: map(float, xy.split(',')), coords.split()),
@@ -361,8 +363,8 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
                     record = Record(*m.groups())
 
 
-def writeHeader(outf, script, root=None, schemaPath=None):
-    script = os.path.basename(sys.argv[0])
+def writeHeader(outf, script=None, root=None, schemaPath=None):
+    script = os.path.basename(sys.argv[0]) + " " + version.gitDescribe()
     outf.write("""<?xml version="1.0" encoding="UTF-8"?>
 <!-- generated on %s by %s
   options: %s
