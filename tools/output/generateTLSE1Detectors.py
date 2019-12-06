@@ -83,8 +83,7 @@ if __name__ == "__main__":
             logging.debug("Creating detector for lane %s" % (str(lane_id)))
 
             if lane_id in lanes_with_detectors:
-                logging.warn("Detector for lane %s already generated" %
-                             (str(lane_id)))
+                logging.warning("Detector for lane %s already generated" % lane_id)
                 continue
 
             lanes_with_detectors.add(lane_id)

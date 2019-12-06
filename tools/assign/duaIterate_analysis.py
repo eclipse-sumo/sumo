@@ -55,10 +55,10 @@ def parse_dualog(dualog, limit):
     header = ['#Inserted', 'Running', 'Waiting', 'Teleports', 'Loaded']
     step_values = []  # list of lists
     step_counts = []  # list of edge teleport counters
-    reInserted = re.compile("Inserted: (\d*)")
-    reLoaded = re.compile("Loaded: (\d*)")
-    reRunning = re.compile("Running: (\d*)")
-    reWaiting = re.compile("Waiting: (\d*)")
+    reInserted = re.compile(r"Inserted: (\d*)")
+    reLoaded = re.compile(r"Loaded: (\d*)")
+    reRunning = re.compile(r"Running: (\d*)")
+    reWaiting = re.compile(r"Waiting: (\d*)")
     reFrom = re.compile("from '([^']*)'")  # mesosim
     teleports = 0
     inserted = None
@@ -112,7 +112,7 @@ def parse_stdout(step_values, stdout):
     print("Parsing %s" % stdout)
     step_values[0] += ['routingMinutes', 'simMinutes', 'absAvgError']
     reDuration = re.compile("Duration: (.*)$")
-    reError = re.compile("Absolute Error avg:(\d*)")
+    reError = re.compile(r"Absolute Error avg:(\d*)")
 
     def get_minutes(line):
         hours, minutes, seconds = reDuration.search(line).group(1).split(':')
@@ -142,7 +142,7 @@ def gnuplot_teleport_edges(plotfile, step_counts, xlabel):
     # an edge is interesting if a large proportion of teleports happen on it
     interestingness = defaultdict(lambda: 0)
     for counts in step_counts:
-        teleports = float(sum(counts.itervalues()))
+        teleports = float(sum(counts.values()))
         if teleports == 0:
             continue
         for edge, count in counts.items():

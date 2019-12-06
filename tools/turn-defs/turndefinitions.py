@@ -59,8 +59,8 @@ class TurnDefinitions():
         self.turn_definitions[source][destination] += probability
 
         if self.turn_definitions[source][destination] > 100:
-            self.logger.warn("Turn probability overflow: %f; lowered to 100" %
-                             (self.turn_definitions[source][destination]))
+            self.logger.warning("Turn probability overflow: %f; lowered to 100" %
+                                (self.turn_definitions[source][destination]))
             self.turn_definitions[source][destination] = 100
 
     def get_sources(self):
