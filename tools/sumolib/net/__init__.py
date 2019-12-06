@@ -89,12 +89,12 @@ class TLS:
 
 class Phase:
 
-    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=[], name=""):
+    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=None, name=""):
         self.duration = duration
         self.state = state
         self.minDur = minDur  # minimum duration (only for actuated tls)
         self.maxDur = maxDur  # maximum duration (only for actuated tls)
-        self.next = next
+        self.next = [] if next is None else next
         self.name = name
 
     def __repr__(self):
@@ -113,7 +113,7 @@ class TLSProgram:
         self._phases = []
         self._params = {}
 
-    def addPhase(self, state, duration, minDur=-1, maxDur=-1, next=[], name=""):
+    def addPhase(self, state, duration, minDur=-1, maxDur=-1, next=None, name=""):
         self._phases.append(Phase(duration, state, minDur, maxDur, next, name))
 
     def toXML(self, tlsID):
@@ -679,7 +679,7 @@ class NetReader(handler.ContentHandler):
                 attrs['state'], int(attrs['duration']),
                 int(attrs['minDur']) if 'minDur' in attrs else -1,
                 int(attrs['maxDur']) if 'maxDur' in attrs else -1,
-                map(int, attrs['next'].split()) if 'next' in attrs else [],
+                list(map(int, attrs['next'].split())) if 'next' in attrs else [],
                 attrs['name'] if 'name' in attrs else ""
             )
         if name == 'roundabout':

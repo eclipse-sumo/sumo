@@ -48,7 +48,7 @@ def get_options(args=None):
         parser.print_help()
         sys.exit(1)
 
-    options.turnDefaults = map(float, options.turnDefaults.split(','))
+    options.turnDefaults = list(map(float, options.turnDefaults.split(',')))
     if len(options.turnDefaults) not in [3, 4]:
         sys.exit("turn-defaults must be defined as 3 or 4  numbers")
     if len(options.turnDefaults) == 3:

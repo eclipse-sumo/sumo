@@ -63,10 +63,10 @@ print("junctionParams", printSorted(net.getNode("C").getParams()))
 print("tlsParams",      printSorted(net.getTLS("C").getPrograms()["0"].getParams()))
 
 # functions
-print("getNeighboringEdges", sorted([e.getID() for e, d in net.getNeighboringEdges(100, 0, 10)]))
-print("getNeighboringLanes", sorted([l.getID() for l, d in net.getNeighboringLanes(100, 0, 10)]))
+print("getNeighboringEdges", ' '.join(sorted([e.getID() for e, d in net.getNeighboringEdges(100, 0, 10)])))
+print("getNeighboringLanes", ' '.join(sorted([l.getID() for l, d in net.getNeighboringLanes(100, 0, 10)])))
 print("getNeighboringNodes only for incoming edges",
-      sorted([n.getID() for n in net.getNode("N").getNeighboringNodes(False, True)]))
+      ' '.join(sorted([n.getID() for n in net.getNode("N").getNeighboringNodes(False, True)])))
 print("getNeighboringNodes only for outgoing edges",
-      sorted([n.getID() for n in net.getNode("S").getNeighboringNodes(True, False)]))
-print("getNeighboringNodes", sorted([n.getID() for n in net.getNode("C").getNeighboringNodes()]))
+      ' '.join(sorted([n.getID() for n in net.getNode("S").getNeighboringNodes(True, False)])))
+print("getNeighboringNodes", ' '.join(sorted([n.getID() for n in net.getNode("C").getNeighboringNodes()])))
