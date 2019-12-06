@@ -1262,6 +1262,11 @@ TraCIServer::addSubscriptionFilter() {
             addSubscriptionFilterFieldOfVision(angle);
         }
         break;
+        case libsumo::FILTER_TYPE_LATERAL_DIST: {
+            myInputStorage.readByte();  // read type double
+            double dist = myInputStorage.readDouble();
+            addSubscriptionFilterLateralDistance(dist);
+        } break;
         default:
             writeStatusCmd(filterType, libsumo::RTYPE_NOTIMPLEMENTED, "'" + toString(filterType) + "' is no valid filter type code.");
             success  = false;
@@ -1360,6 +1365,15 @@ TraCIServer::addSubscriptionFilterFieldOfVision(double openingAngle) {
 #endif
     myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_FIELD_OF_VISION;
     myLastContextSubscription->filterFieldOfVisionOpeningAngle = openingAngle;
+}
+
+void
+TraCIServer::addSubscriptionFilterLateralDistance(double dist) {
+#ifdef DEBUG_SUBSCRIPTION_FILTERS
+    std::cout << "Adding lateral dist filter (dist=" << toString(dist) << ")" << std::endl;
+#endif
+    myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_LATERAL_DIST;
+    myLastContextSubscription->filterLateralDist = dist;
 }
 
 void

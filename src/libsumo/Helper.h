@@ -134,15 +134,21 @@ public:
     static void collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<const Named*>& into);
     static void collectObjectIDsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into);
 
-    /// @brief Filter the given ID-Set (which was obtained from an R-Tree search)
-    ///        according to the filters set by the subscription or firstly build the object ID list if
-    ///        if the filters rather demand searching along the road network than considering a geometric range.
-    /// @param[in] s Subscription which holds the filter specification to be applied
-    /// @param[in/out] objIDs Set of object IDs that is to be filtered. Result is stored in place.
-    /// @note Currently this assumes that the objects are vehicles.
+    /** 
+     * @brief Filter the given ID-Set (which was obtained from an R-Tree search)
+     *        according to the filters set by the subscription or firstly build the object ID list if
+     *        the filters rather demand searching along the road network than considering a geometric range.
+     * @param[in] s Subscription which holds the filter specification to be applied
+     * @param[in/out] objIDs Set of object IDs that is to be filtered. Result is stored in place.
+     * @note Currently this assumes that the objects are vehicles.
+     */
     static void applySubscriptionFilters(const Subscription& s, std::set<std::string>& objIDs);
 
     static void applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std::string>& objIDs);
+
+    static void applySubscriptionFilterLateralDistanceSinglePass(std::set<std::string>& objIDs, std::set<const MSVehicle*>& vehs,
+                                                                 const std::vector<const MSLane*>& lanes, double lateralDist, double streamDist,
+                                                                 double posOnLane, bool isDownstream);
 
     static void setRemoteControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                                     int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
@@ -162,10 +168,10 @@ public:
 
     /// @name functions for moveToXY
     /// @{
-    static bool moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
-                            double speed, const ConstMSEdgeVector& currentRoute, const int routePosition, MSLane* currentLane, double currentLanePos, bool onRoad,
-                            SUMOVehicleClass vClass,
-                            double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
+    static bool moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID,
+                            const double angle, double speed, const ConstMSEdgeVector& currentRoute, const int routePosition,
+                            MSLane* currentLane, double currentLanePos, bool onRoad, SUMOVehicleClass vClass, double& bestDistance,
+                            MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
 
     static bool moveToXYMap_matchingRoutePosition(const Position& pos, const std::string& origID,
             const ConstMSEdgeVector& currentRoute, int routeIndex,

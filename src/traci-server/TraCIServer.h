@@ -421,6 +421,11 @@ private:
      * @param[in] openingAngle The opening angle of the circle sector
      */
     void addSubscriptionFilterFieldOfVision(double openingAngle);
+    /** @brief Filter only vehicles within the given lateral distance
+     *
+     * @param[in] dist The lateral distance
+     */
+    void addSubscriptionFilterLateralDistance(double dist);
     bool isVehicleToVehicleContextSubscription(const libsumo::Subscription& s);
 
     bool findObjectShape(int domain, const std::string& id, PositionVector& shape);

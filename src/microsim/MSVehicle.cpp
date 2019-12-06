@@ -5172,6 +5172,94 @@ MSVehicle::getBestLanesContinuation(const MSLane* const l) const {
     return myEmptyLaneVector;
 }
 
+const std::vector<const MSLane*>
+MSVehicle::getUpcomingLanesUntil(double distance) const {
+    std::vector<const MSLane*> lanes;
+
+    if (distance <= 0.) {
+        WRITE_WARNINGF("MSVehicle::getUpcomingLanesUntil(): distance ('%') should be greater than 0.", distance);
+        return lanes;
+    }
+
+    distance += getPositionOnLane();
+    MSLane* lane = myLane;
+    while (lane->isInternal()) {  // include internal lanes
+        lanes.insert(lanes.end(), lane);
+        distance -= lane->getLength();
+        lane = lane->getLinkCont().front()->getViaLaneOrLane();
+        // NOTE: we at least want to get off the junction, therefore, we don't check the remaining distance here
+    }
+
+    const std::vector<MSLane*>& contLanes = getBestLanesContinuation();
+    if (contLanes.empty()) {
+        return lanes;
+    }
+    auto contLanesIt = contLanes.begin();
+    MSRouteIterator routeIt = myCurrEdge;  // keep track of covered edges in myRoute
+    while (distance > 0.) {
+        MSLane* l = nullptr;
+        if (contLanesIt != contLanes.end()) {
+            l = *contLanesIt;
+            if (l != nullptr) {
+                assert(l->getEdge().getID() == (*routeIt)->getLanes().front()->getEdge().getID());
+            }
+            ++contLanesIt;
+            ++routeIt;
+            if (l == nullptr) {
+                continue;
+            }
+        } else if (routeIt != myRoute->end()) {  // bestLanes didn't get us far enough
+            // choose right-most lane as default
+            l = (*routeIt)->getLanes().front();
+            ++routeIt;
+        } else {  // the search distance goes beyond our route
+            break;
+        }
+
+        assert(l != nullptr);
+        lanes.insert(lanes.end(), l);
+        distance -= l->getLength();
+    }
+
+    return lanes;
+}
+
+const std::vector<const MSLane*>
+MSVehicle::getPastLanesUntil(double distance) const {
+    std::vector<const MSLane*> lanes;
+
+    if (distance <= 0.) {
+        WRITE_WARNINGF("MSVehicle::getPastLanesUntil(): distance ('%') should be greater than 0.", distance);
+        return lanes;
+    }
+
+    MSRouteIterator routeIt = myCurrEdge;
+    distance += myLane->getLength() - getPositionOnLane();
+    MSLane* lane = myLane;
+    while (lane->isInternal()) {  // include internal lanes
+        lanes.insert(lanes.end(), lane);
+        distance -= lane->getLength();
+        lane = lane->getLogicalPredecessorLane();
+        // NOTE: we at least want to get off the junction, therefore, we don't check the remaining distance here
+    }
+
+    while (distance > 0.) {
+        // choose right-most lane as default
+        MSLane* l = (*routeIt)->getLanes().front();
+        lanes.insert(lanes.end(), l);
+        distance -= l->getLength();
+
+        // NOTE: we're going backwards with the (bi-directional) Iterator
+        // TODO: consider make reverse_iterator() when moving on to C++14 or later
+        if (routeIt != myRoute->begin()) {
+            --routeIt;
+        } else {  // we went backwards to begin() and already processed the first and final element
+            break;
+        }
+    }
+
+    return lanes;
+}
 
 int
 MSVehicle::getBestLaneOffset() const {

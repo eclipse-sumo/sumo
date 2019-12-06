@@ -53,13 +53,13 @@ enum SubscriptionFilterType {
     // Only return vehicles within field of vision in context subscription result
     // NOTE: relies on rTree, therefore incompatible with SUBS_FILTER_NO_RTREE
     SUBS_FILTER_FIELD_OF_VISION = 1 << 9,
+    // Only return vehicles within the given lateral distance in context subscription result
+    SUBS_FILTER_LATERAL_DIST = 1 << 10,
     // Filter category for measuring distances along the road network instead of using the usual rtree query
-    SUBS_FILTER_NO_RTREE = SUBS_FILTER_DOWNSTREAM_DIST | SUBS_FILTER_UPSTREAM_DIST | SUBS_FILTER_LANES | SUBS_FILTER_TURN | SUBS_FILTER_LEAD_FOLLOW,
+    SUBS_FILTER_NO_RTREE = SUBS_FILTER_LANES | SUBS_FILTER_DOWNSTREAM_DIST | SUBS_FILTER_UPSTREAM_DIST | SUBS_FILTER_LEAD_FOLLOW | SUBS_FILTER_TURN | SUBS_FILTER_LATERAL_DIST,
     // Filter category for maneuver filters
-    SUBS_FILTER_MANEUVER = SUBS_FILTER_TURN | SUBS_FILTER_LEAD_FOLLOW,
+    SUBS_FILTER_MANEUVER = SUBS_FILTER_LEAD_FOLLOW | SUBS_FILTER_TURN,
 };
-
-
 
 /** @class Subscription
  * @brief Representation of a subscription
@@ -94,7 +94,8 @@ public:
           filterUpstreamDist(-1),
           filterVTypes(),
           filterVClasses(0),
-          filterFieldOfVisionOpeningAngle(-1) {}
+          filterFieldOfVisionOpeningAngle(-1),
+          filterLateralDist(-1) {}
 
     /// @brief commandIdArg The command id of the subscription
     int commandId;
@@ -127,6 +128,8 @@ public:
     int filterVClasses;
     /// @brief Opening angle (in deg) specified by the field of vision filter
     double filterFieldOfVisionOpeningAngle;
+    /// @brief Lateral distance specified by the lateral distance filter
+    double filterLateralDist;
 };
 
 class VariableWrapper {

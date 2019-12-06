@@ -548,7 +548,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
     }
 
     // Whether vehicles on opposite lanes shall be taken into account
-    const bool disregardOppositeDirection = (s.activeFilters & SUBS_FILTER_NOOPPOSITE) != 0;
+    const bool disregardOppositeDirection = s.activeFilters & SUBS_FILTER_NOOPPOSITE;
 
     // Check filter specification consistency
     // TODO: Warn only once
@@ -562,9 +562,9 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
     // TODO: Treat case, where ego vehicle is currently on opposite lane
 
     std::set<const MSVehicle*> vehs;
-    if ((s.activeFilters & SUBS_FILTER_NO_RTREE) != 0) {
-        // Set defaults for upstream and downstream distances
-        double downstreamDist = s.range, upstreamDist = s.range;
+    if (s.activeFilters & SUBS_FILTER_NO_RTREE) {
+        // Set defaults for upstream/downstream/lateral distances
+        double downstreamDist = s.range, upstreamDist = s.range, lateralDist = s.range;
         if (s.activeFilters & SUBS_FILTER_DOWNSTREAM_DIST) {
             // Specifies maximal downstream distance for vehicles in context subscription result
             downstreamDist = s.filterDownstreamDist;
@@ -572,6 +572,10 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         if (s.activeFilters & SUBS_FILTER_UPSTREAM_DIST) {
             // Specifies maximal downstream distance for vehicles in context subscription result
             upstreamDist = s.filterUpstreamDist;
+        }
+        if (s.activeFilters & SUBS_FILTER_LATERAL_DIST) {
+            // Specifies maximal lateral distance for vehicles in context subscription result
+            lateralDist = s.filterLateralDist;
         }
         MSVehicle* v = getVehicle(s.id);
         if (!v->isOnRoad()) {
@@ -597,6 +601,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         std::cout << "Filter lanes: " << toString(filterLanes) << std::endl;
         std::cout << "Downstream distance: " << downstreamDist << std::endl;
         std::cout << "Upstream distance: " << upstreamDist << std::endl;
+        std::cout << "Lateral distance: " << lateralDist << std::endl;
 #endif
 
         if ((s.activeFilters & SUBS_FILTER_MANEUVER) != 0) {
@@ -688,8 +693,36 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                 }
             }
 #endif
+        } else if (s.activeFilters & SUBS_FILTER_LATERAL_DIST) {
+            assert(vehs.size() == 0);
+            assert(objIDs.size() == 0);
+
+            // collect all vehicles within maximum range of interest to get an upper bound
+            PositionVector vehShape;
+            findObjectShape(s.commandId, s.id, vehShape);
+            double range = MAX3(downstreamDist, upstreamDist, lateralDist);
+            collectObjectsInRange(s.contextDomain, vehShape, range, objIDs);
+
+#ifdef DEBUG_SURROUNDING
+            std::cout << "FILTER_LATERAL_DIST: collected object IDs (range " << range << "):" << std::endl;
+            for (std::string i : objIDs) {
+                std::cout << i << std::endl;
+            }
+#endif
+
+#ifdef DEBUG_SURROUNDING
+            std::cout << "FILTER_LATERAL_DIST: myLane is '" << v->getLane()->getID() << "'" << std::endl;
+#endif
+            // 1st pass: downstream
+            applySubscriptionFilterLateralDistanceSinglePass(objIDs, vehs, v->getUpcomingLanesUntil(downstreamDist), lateralDist,
+                                                             downstreamDist, v->getPositionOnLane(), true);
+            // 2nd pass: upstream
+            applySubscriptionFilterLateralDistanceSinglePass(objIDs, vehs, v->getPastLanesUntil(upstreamDist), lateralDist,
+                                                             upstreamDist, v->getPositionOnLane(), false);
+
+            objIDs.clear();
         } else {
-            // No maneuver filters requested, but only lanes filter (directly, or indirectly by specifying downstream or upstream distance)
+            // No maneuver or lateral distance filters requested, but only lanes filter (directly, or indirectly by specifying downstream or upstream distance)
             assert(filterLanes.size() > 0);
             // This is to remember the lanes checked in the driving direction of the vehicle (their opposites can be added in a second pass)
             auto checkedLanesInDrivingDir = std::make_shared<LaneCoverageInfo>();
@@ -874,6 +907,45 @@ Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std
             i = objIDs.erase(i);
         } else {
             ++i;
+        }
+    }
+}
+
+void
+Helper::applySubscriptionFilterLateralDistanceSinglePass(std::set<std::string>& objIDs, std::set<const MSVehicle*>& vehs, const std::vector<const MSLane*>& lanes, double lateralDist, double streamDist, double posOnLane, bool isDownstream) {
+    double distRemaining = streamDist;
+    bool isFirstLane = true;
+    for (const MSLane* lane : lanes) {
+#ifdef DEBUG_SURROUNDING
+        std::cout << "FILTER_LATERAL_DIST: current lane " << (isDownstream ? "down" : "up") << " is '" << lane->getID() << "', length " << lane->getLength()
+                  << ", pos " << pos << ", distRemaining " << distRemaining << std::endl;
+#endif
+        PositionVector laneShape = lane->getShape();
+        if (isFirstLane) {
+            double geometryPos = lane->interpolateLanePosToGeometryPos(posOnLane);
+            auto pair = laneShape.splitAt(geometryPos, false);
+            laneShape = isDownstream ? pair.second : pair.first;
+            isFirstLane = false;
+        }
+        double laneLength = lane->interpolateGeometryPosToLanePos(laneShape.length());
+        if (distRemaining - laneLength < 0.) {
+            double geometryPos = lane->interpolateLanePosToGeometryPos(isDownstream ? distRemaining : laneLength - distRemaining);
+            auto pair = laneShape.splitAt(geometryPos, false);
+            laneShape = isDownstream ? pair.first : pair.second;
+        }
+        distRemaining -= laneLength;
+
+        // check remaining objects' distances to this lane
+        auto i = objIDs.begin();
+        while (i != objIDs.end()) {
+            MSVehicle* veh = getVehicle(*i);
+            double minPerpendicularDist = laneShape.distance2D(veh->getPosition(), true);
+            if ((minPerpendicularDist != GeomHelper::INVALID_OFFSET) && (minPerpendicularDist <= lateralDist)) {
+                vehs.insert(veh);
+                i = objIDs.erase(i);
+            } else {
+                ++i;
+            }
         }
     }
 }
