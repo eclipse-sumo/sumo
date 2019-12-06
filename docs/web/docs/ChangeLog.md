@@ -88,6 +88,7 @@ permalink: /ChangeLog/
   - Option **--duration-log.statistics** can now be set with shortcut **-t**. Issue #6378
   - added new vType parameter *lcLaneDiscipline* to control whether vehicles will stay between lanes to drive faster (sublane model only)
   - added new vTypeParameter *lcSigma* to control lateral imperfection (sublane model and simple continuous lanechange model)
+  - Option **--lanechange-duration** can now be used together with opposite-direction-driving. Issue #6270
 
 - MESO
   - Vehicles that reach maximum impatience can now pass junctions from an unprioritized road regardless of foe traffic. The old behavior can be restored by disabling impatience growth via **--time-to-impatience 0**. Issue #5830
