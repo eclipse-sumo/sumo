@@ -3276,6 +3276,11 @@ TraCIAPI::VehicleScope::addSubscriptionFilterVType(const std::vector<std::string
 
 
 void
+TraCIAPI::VehicleScope::addSubscriptionFilterFieldOfVision(double angle) const {
+    addSubscriptionFilterFloat(libsumo::FILTER_TYPE_FIELD_OF_VISION, angle);
+}
+
+void
 TraCIAPI::VehicleScope::addSubscriptionFilterEmpty(int filterType) const {
     myParent.createFilterCommand(libsumo::CMD_ADD_SUBSCRIPTION_FILTER, filterType);
     myParent.processSet(libsumo::CMD_ADD_SUBSCRIPTION_FILTER);

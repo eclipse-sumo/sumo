@@ -853,6 +853,9 @@ public:
         /* @brief Restricts returned vehicles to the given types */
         void addSubscriptionFilterVType(const std::vector<std::string>& vTypes) const;
 
+        /* @brief Restricts returned vehicles to the givening FOV-angle */
+        void addSubscriptionFilterFieldOfVision(double angle) const;
+
         /// @}
 
     private:
