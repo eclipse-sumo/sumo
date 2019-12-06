@@ -1607,7 +1607,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         stop.busstop = "";
         stop.containerstop = "";
         stop.chargingStation = "";
-		stop.overheadWireSegment = "";
+        stop.overheadWireSegment = "";
         stop.parkingarea = "";
         stop.until = 0;
         stop.triggered = false;
@@ -2650,8 +2650,7 @@ MSLane::getOutgoingViaLanes() const {
 
 std::vector<const MSLane*>
 MSLane::getNormalIncomingLanes() const {
-    std::vector<const MSLane*> result;
-    result.clear();
+    std::vector<const MSLane*> result = {};
     for (std::map<MSEdge*, std::vector<MSLane*> >::const_iterator it = myApproachingLanes.begin(); it != myApproachingLanes.end(); ++it) {
         for (std::vector<MSLane*>::const_iterator it_lane = (*it).second.begin(); it_lane != (*it).second.end(); ++it_lane) {
             if (!((*it_lane)->isInternal())) {

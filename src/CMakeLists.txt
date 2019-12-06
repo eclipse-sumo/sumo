@@ -36,18 +36,6 @@ if (FOX_FOUND)
     add_subdirectory(netedit)
 endif ()
 
-
-# set(sumoguiexec
-#            guisim_main.cpp
-#            microsim/MSMoveReminder.cpp microsim/MSMoveReminder.h
-#            gui/GUIManipulator.h gui/GUIManipulator.cpp
-#            gui/GUITLLogicPhasesTrackerWindow.h gui/GUITLLogicPhasesTrackerWindow.cpp
-#            mesosim/MEVehicleControl.h mesosim/MEVehicleControl.cpp)
-#
-# add_executable(sumo version.h sumo_main.cpp
-#         microsim/MSMoveReminder.cpp microsim/MSMoveReminder.h)
-# set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumoD)
-# target_link_libraries(sumo utils_traction_wire ${sumolibs})
 add_executable(sumo sumo_main.cpp)
 set_target_properties(sumo PROPERTIES OUTPUT_NAME sumo${BINARY_SUFFIX})
 set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumo${BINARY_SUFFIX}D)

@@ -176,7 +176,8 @@ NLTriggerBuilder::parseAndBuildOverheadWireSegment(MSNet& net, const SUMOSAXAttr
 
     // get the id, throw if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    if (!ok) {	throw ProcessError();
+    if (!ok) {
+        throw ProcessError();
     }
 
     /* The following call may either throw InvalidArgument exeption or return NULL:
@@ -184,9 +185,8 @@ NLTriggerBuilder::parseAndBuildOverheadWireSegment(MSNet& net, const SUMOSAXAttr
         ignored internal lane of an intersection, the exeption is thrown in case that
         the overhead wire segment references a non-existent lane. */
     MSLane* const lane = getLane(attrs, "overheadWireSegment", id);
-    if (lane == nullptr)
-    {
-        WRITE_MESSAGE("The overheadWireSegment '" + id + "' not built as it is attached to internal lane. It will be build automatically.");
+    if (lane == nullptr) {
+        WRITE_MESSAGE("The overheadWireSegment '" + id + "' was not created as it is attached to internal lane. It will be build automatically.");
         return;
     }
 
@@ -223,7 +223,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
         throw InvalidArgument("Traction substation '" + substationId + "' refereced by an OverheadWire Section is not known.");
     }
     else if (substation->isAnySectionPreviouslyDefined()) {
-        throw InvalidArgument("Traction substation '" + substationId + "' refereced by an OverheadWire Section is probably employed twice (a known limitation of the actual version of overhead wire simulation).");
+        throw InvalidArgument("Traction substation '" + substationId + "' refereced by an OverheadWire Section is probably referenced twice (a known limitation of the actual version of overhead wire simulation).");
     }
 
     // @todo This may be a relict of older approach to processing the attributes ...
@@ -240,9 +240,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
         /// @todo for cycle abbreviation?
         for (std::vector<std::string>::iterator i = forbiddenInnerLanesIDs.begin(); i != forbiddenInnerLanesIDs.end(); ++i) {
             MSLane* lane = MSLane::dictionary(*i);
-            if (lane == nullptr) {
-            }
-            else {
+            if (lane != nullptr) {
                 substation->addForbiddenLane(lane);
             }
         }
@@ -256,9 +254,11 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
     std::vector<std::string> segmentIDs = attrs.getStringVector(SUMO_ATTR_OVERHEAD_WIRE_SECTION);
     std::vector<MSOverheadWire*> segments;
 
-    // ----- *** adding inner overhead wire segments *** -----
+    // ----------------------------------------------
+    // Add overhead wire segments over internal lanes
+    // ----------------------------------------------
 
-    // adding inner overhead wire segments (segments on neighboring inner lanes if a connection between two regular lane with overhead wire segment exists)
+    // Adding internal overhead wire segments (segments on neighboring inner lanes if a connection between two regular lane with overhead wire segment exists)
     for (std::vector<std::string>::iterator it_segment = segmentIDs.begin(); it_segment != segmentIDs.end(); ++it_segment) {
 
         const MSLane* connection = nullptr;
@@ -350,12 +350,11 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
     }
 
     for (std::vector<std::string>::iterator it_segment = segmentIDs.begin(); it_segment != segmentIDs.end(); ++it_segment) {
-        if (*it_segment == "") { continue; }
-
+        if (*it_segment == "") {
+            continue;
+        }
         MSOverheadWire* ovrhdSegment = dynamic_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace(*it_segment, SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
-
         substation->addOverheadWireSegmentToCircuit(ovrhdSegment);
-
         segments.push_back(ovrhdSegment);
     }
 

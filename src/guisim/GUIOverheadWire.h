@@ -53,10 +53,10 @@ class GUIOverheadWireClamp;
 // ===========================================================================
 /**
 * @class GUIOverheadWire
-* @brief A lane area vehicles can halt at (gui-version)
+* @brief GUI for the overhead wire system.
 *
-* This gui-version of a bus-stop extends MSOverheadWire by methods for displaying
-*  and interaction.
+* This gui-version of the overhead wire network extends MSOverheadWire by methods for displaying
+*  and interaction. It also adds a visual representation of an overhead wire clamp.
 *
 * @see MSOverheadWire
 * @see GUIGlObject_AbstractAdd
@@ -91,11 +91,11 @@ public:
 
     /** @brief Returns an own parameter window
     *
-    * Bus stops have no parameter windows (yet).
+    * Overhead wires have parameter windows showing beginning and end position of the overhead wire.
     *
     * @param[in] app The application needed to build the parameter window
     * @param[in] parent The parent window needed to build the parameter window
-    * @return The built parameter window (always 0 in this case)
+    * @return The built parameter window.
     * @see GUIGlObject::getParameterWindow
     */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
@@ -147,22 +147,22 @@ public:
     /// @name inherited from GUIGlObject
 //@{
 
-/** @brief Returns an own popup-menu
-*
-* @param[in] app The application needed to build the popup-menu
-* @param[in] parent The parent window needed to build the popup-menu
-* @return The built popup-menu
-* @see GUIGlObject::getPopUpMenu
-*/
+    /** @brief Returns an own popup-menu
+    *
+    * @param[in] app The application needed to build the popup-menu
+    * @param[in] parent The parent window needed to build the popup-menu
+    * @return The built popup-menu
+    * @see GUIGlObject::getPopUpMenu
+    */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /** @brief Returns an own parameter window
     *
-    * Bus stops have no parameter windows (yet).
+    * Overhead wire clamps do not display anything in their parameter window yet.
     *
     * @param[in] app The application needed to build the parameter window
     * @param[in] parent The parent window needed to build the parameter window
-    * @return The built parameter window (always 0 in this case)
+    * @return The built parameter window
     * @see GUIGlObject::getParameterWindow
     */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);

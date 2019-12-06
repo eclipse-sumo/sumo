@@ -110,8 +110,8 @@ public:
     /// default value for the interval between two action points for MSVehicle (defaults to DELTA_T)
     static SUMOTime gActionStepLength;
 
-	// whether Kirchhoff's laws are used for solving overhead wire circuit
-	static bool gOverheadWireSolver;
+    // whether Kirchhoff's laws are used for solving overhead wire circuit
+    static bool gOverheadWireSolver;
 
     /// encoding of the string-option default.emergencydecel
     static double gDefaultEmergencyDecel;
