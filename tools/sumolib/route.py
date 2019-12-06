@@ -43,8 +43,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, 
         print("mapping trace with %s points" % len(trace))
     for pos in trace:
         newPaths = {}
-        candidates = net.getNeighboringEdges(pos[0], pos[1], delta)
-#        candidates = [(e,d) for e, d in candidates if e.getFunction() != "internal"]    # yp: avoid the match to links within intersections
+        candidates = net.getNeighboringEdges(pos[0], pos[1], delta, not net.hasInternal)
         if debug:
             print("\n\npos:%s, %s" %(pos[0], pos[1]))
             print("candidates:%s\n" %candidates)
@@ -66,15 +65,10 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, 
                             extension = ()
                             if debug:
                                 print("---------- same edge")
-                        elif edge in path[-1].getOutgoing():
-                            baseDiff = lastBase + advance - path[-1].getLength() - base
-                            extension = (edge,)
-                            if debug:
-                                print("---------- extension: %s, baseDiff: %s" % (edge.getID(), baseDiff))
                         else:
-                            extension = None
-                            if fillGaps:
-                                extension, cost = net.getShortestPath(path[-1], edge, airDistFactor * advance + edge.getLength() + path[-1].getLength())
+                            extension, cost = net.getShortestPath(path[-1], edge, airDistFactor * advance + edge.getLength() + path[-1].getLength())
+                            if extension is not None and not fillGaps and len(extension) > 2:
+                                extension = None
                             if extension is None:
                                 airLineDist = euclidean(
                                     path[-1].getToNode().getCoord(),
