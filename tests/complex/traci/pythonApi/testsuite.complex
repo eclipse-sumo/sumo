@@ -22,6 +22,9 @@ vehicle_asl
 # Test traci advices while action-step > simstep. The second command is triggered in between actionsteps and should take effect immediately.
 vehicle_sublane_asl
 
+# simple context subscription test (less generic than then the contextSubscriptions suite)
+vehicle_context
+
 # Tests the vehicletype API
 vehicletype
 
