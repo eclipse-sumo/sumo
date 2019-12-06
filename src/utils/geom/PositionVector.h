@@ -252,10 +252,10 @@ public:
     /// @brief get subpart of a position vector using index and a cout
     PositionVector getSubpartByIndex(int beginIndex, int count) const;
 
-    /// @brief short as polygon CV by angle
+    /// @brief sort as polygon CW by angle
     void sortAsPolyCWByAngle();
 
-    /// @brief shory by increasing X-Y Psitions
+    /// @brief sort by increasing X-Y Positions
     void sortByIncreasingXY();
 
     /// @brief extrapolate position vector
@@ -276,7 +276,7 @@ public:
     /// @brief move position vector to side using a custom offset for each geometry point
     void move2side(std::vector<double> amount, double maxExtension = 100);
 
-    /// @brief get angle  in certain position of position vector
+    /// @brief get angle in certain position of position vector
     double angleAt2D(int pos) const;
 
     /**@brief inserts p between the two closest positions
