@@ -57,6 +57,7 @@ class MSVehicleTransfer;
 class MSAbstractLaneChangeModel;
 class MSStoppingPlace;
 class MSChargingStation;
+class MSOverheadWire;
 class MSParkingArea;
 class MSPerson;
 class MSDevice;
@@ -932,6 +933,9 @@ public:
         MSParkingArea* parkingarea = nullptr;
         /// @brief (Optional) charging station if one is assigned to the stop
         MSStoppingPlace* chargingStation = nullptr;
+        /// @brief (Optional) overhead wire segment if one is assigned to the stop
+        /// @todo Check that this should really be a stopping place instance
+        MSStoppingPlace* overheadWireSegment = nullptr;
         /// @brief The stop parameter
         const SUMOVehicleParameter::Stop pars;
         /// @brief The stopping duration
@@ -1147,6 +1151,15 @@ public:
     */
     double getElectricityConsumption() const;
 
+	/** @brief Returns actual state of charge of battery (Wh)
+	* @return The actual battery state of charge of 
+	*/
+	double getStateOfCharge() const;
+
+	/** @brief Returns actual current (A) of ElecHybrid device
+	* @return The current of ElecHybrid device
+	*/
+	double getElecHybridCurrent() const;
 
     /** @brief Returns noise emissions of the current state
      * @return The noise produced

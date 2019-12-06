@@ -9,6 +9,8 @@ set(microsim_trigger_STAT_SRCS
    MSChargingStation.cpp
    MSTriggeredRerouter.cpp
    MSTriggeredRerouter.h
+   MSOverheadWire.cpp
+   MSOverheadWire.h
 )
 
 add_library(microsim_trigger STATIC ${microsim_trigger_STAT_SRCS})

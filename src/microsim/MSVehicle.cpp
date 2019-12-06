@@ -59,8 +59,11 @@
 #include <microsim/devices/MSDevice_DriverState.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
+#include <microsim/devices/MSDevice_Battery.h>
+#include <microsim/devices/MSDevice_ElecHybrid.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/trigger/MSChargingStation.h>
+#include <microsim/trigger/MSOverheadWire.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "MSEdgeControl.h"
 #include "MSVehicleControl.h"
@@ -920,6 +923,8 @@ MSVehicle::Stop::getEndPos(const SUMOVehicle& veh) const {
         return parkingarea->getLastFreePos(veh);
     } else if (chargingStation != nullptr) {
         return chargingStation->getLastFreePos(veh);
+    } else if (overheadWireSegment != 0) {
+        return overheadWireSegment->getLastFreePos(veh);
     }
     return pars.endPos;
 }
@@ -935,6 +940,8 @@ MSVehicle::Stop::getDescription() const {
         return "busStop:" + busstop->getID();
     } else if (chargingStation != nullptr) {
         return "chargingStation:" + chargingStation->getID();
+    } else if (overheadWireSegment != 0) {
+        return "overheadWireSegment:" + overheadWireSegment->getID();
     } else {
         return "lane:" + lane->getID() + " pos:" + toString(pars.endPos);
     }
@@ -1522,6 +1529,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     stop.containerstop = MSNet::getInstance()->getStoppingPlace(stopPar.containerstop, SUMO_TAG_CONTAINER_STOP);
     stop.parkingarea = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(stopPar.parkingarea, SUMO_TAG_PARKING_AREA));
     stop.chargingStation = MSNet::getInstance()->getStoppingPlace(stopPar.chargingStation, SUMO_TAG_CHARGING_STATION);
+    stop.overheadWireSegment = MSNet::getInstance()->getStoppingPlace(stopPar.overheadWireSegment, SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
     stop.duration = stopPar.duration;
     stop.triggered = stopPar.triggered;
     stop.containerTriggered = stopPar.containerTriggered;
@@ -1543,6 +1551,9 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     } else if (stop.chargingStation != nullptr) {
         stopType = "chargingStation";
         stopID = stop.chargingStation->getID();
+    } else if (stop.overheadWireSegment != nullptr) {
+        stopType = "overheadWireSegment";
+        stopID = stop.overheadWireSegment->getID();
     } else if (stop.parkingarea != nullptr) {
         stopType = "parkingArea";
         stopID = stop.parkingarea->getID();
@@ -3772,7 +3783,6 @@ MSVehicle::executeMove() {
 //    	std::cout << "vSafe = " << toString(vSafe,12) << "\n" << std::endl;
 //    }
 //#endif
-
     // Determine vNext = speed after current sim step (ballistic), resp. in current simstep (euler)
     // Call to finalizeSpeed applies speed reduction due to dawdling / lane changing but ensures minimum safe speed
     double vNext = vSafe;
@@ -3814,6 +3824,22 @@ MSVehicle::executeMove() {
 
     // Check for speed advices from the traci client
     vNext = processTraCISpeedControl(vSafe, vNext);
+
+    // the acceleration of a vehicle equipped with the elecHybrid device is restricted by the maximal power of the electric drive as well
+    MSDevice_ElecHybrid* elecHybridOfVehicle = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
+    if (elecHybridOfVehicle != nullptr) {
+        elecHybridOfVehicle->setConsum(elecHybridOfVehicle->consumption(*this, (vNext - this->getSpeed()) / TS, vNext));
+        double maxPower = elecHybridOfVehicle->getParameterDouble(toString(SUMO_ATTR_MAXIMUMPOWER))/3600;
+        if (elecHybridOfVehicle->getConsum() > maxPower) {
+            double accel = elecHybridOfVehicle->acceleration(*this, maxPower, this->getSpeed());
+            //double power = elecHybridOfVehicle->consumption(*this, accel, this->getSpeed() + accel * TS);
+            if (vNext > this->getSpeed() && accel > 0) {
+                vNext = MIN2(vNext, this->getSpeed() + accel * TS);
+                vNext = MAX2(vNext, 0.);
+                elecHybridOfVehicle->setConsum(elecHybridOfVehicle->consumption(*this, (vNext - this->getSpeed()) / TS, vNext));
+            }
+        }
+    }
 
     setBrakingSignals(vNext);
     updateWaitingTime(vNext);
@@ -4956,6 +4982,18 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     bestThisIndex = index;
                 }
             }
+
+            //vehicle with elecHybrid device prefers running under an overhead wire
+            if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
+                index = 0;
+                for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j, ++index) {
+                    std::string overheadWireSegmentID = MSNet::getInstance()->getStoppingPlaceID((*j).lane, ((*j).currentLength) / 2, SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
+                    if (overheadWireSegmentID != "") {
+                        bestThisIndex = index;
+                    }
+                }
+            }
+
 #ifdef DEBUG_BESTLANES
             if (DEBUG_COND) {
                 std::cout << "   edge=" << cE.getID() << "\n";
@@ -5004,6 +5042,17 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             } else {
                 (*j).bestLaneOffset = 0;
             }
+        }
+
+        //vehicle with elecHybrid device prefers running under an overhead wire
+        if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
+            index = 0;
+            std::string overheadWireID = MSNet::getInstance()->getStoppingPlaceID(clanes[bestThisIndex].lane, (clanes[bestThisIndex].currentLength) / 2, SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
+            if (overheadWireID != "") {
+                for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j, ++index) {
+                    (*j).bestLaneOffset = bestThisIndex - index;
+        }
+    }
         }
     }
     updateOccupancyAndCurrentBestLane(startLane);
@@ -5208,6 +5257,31 @@ MSVehicle::getElectricityConsumption() const {
     return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::ELEC, myState.speed(), myAcceleration, getSlope());
 }
 
+double
+MSVehicle::getStateOfCharge() const {
+    if (static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery))) != 0) {
+        MSDevice_Battery* batteryOfVehicle = dynamic_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery)));
+        return batteryOfVehicle->getActualBatteryCapacity();
+    }
+    else {
+        if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
+            MSDevice_ElecHybrid* batteryOfVehicle = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
+            return batteryOfVehicle->getActualBatteryCapacity();
+        }
+    }
+
+    return -1;
+}
+
+double
+MSVehicle::getElecHybridCurrent() const {
+    if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
+        MSDevice_ElecHybrid* batteryOfVehicle = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
+        return batteryOfVehicle->getCurrentFromOverheadWire();
+    }
+
+    return NAN;
+}
 
 double
 MSVehicle::getHarmonoise_NoiseEmissions() const {
@@ -5771,6 +5845,9 @@ MSVehicle::addTraciStopAtStoppingPlace(const std::string& stopId, const SUMOTime
             case SUMO_TAG_CHARGING_STATION:
                 stop = iter->chargingStation;
                 break;
+            case SUMO_TAG_OVERHEAD_WIRE_SEGMENT:
+                stop = iter->overheadWireSegment;
+                break;
             case SUMO_TAG_PARKING_AREA:
                 stop = iter->parkingarea;
                 break;
@@ -5798,6 +5875,9 @@ MSVehicle::addTraciStopAtStoppingPlace(const std::string& stopId, const SUMOTime
             break;
         case SUMO_TAG_CHARGING_STATION:
             newStop.chargingStation = stopId;
+            break;
+        case SUMO_TAG_OVERHEAD_WIRE_SEGMENT:
+            newStop.overheadWireSegment = stopId;
             break;
         case SUMO_TAG_PARKING_AREA:
             newStop.parkingarea = stopId;

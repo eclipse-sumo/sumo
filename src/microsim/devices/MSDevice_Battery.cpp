@@ -180,6 +180,15 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
             // add charge value for output to myActChargingStation
             myActChargingStation->addChargeValueForOutput(myEnergyCharged, this);
         }
+        // else disable charging vehicle
+        else {
+            cs->setChargingVehicle(false);
+        }
+        // disable charging vehicle from previous (not current) ChargingStation (reason: if there is no gap between two different chargingStations = the vehicle switches from used charging station to other one in a single timestap)
+        if (myPreviousNeighbouringChargingStation != nullptr && myPreviousNeighbouringChargingStation != cs) {
+            myPreviousNeighbouringChargingStation->setChargingVehicle(false);
+        }
+        myPreviousNeighbouringChargingStation = cs;
     }
     // In other case, vehicle will be not charged
     else {
@@ -223,6 +232,8 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myChargingInTransit(false),         // Initially vehicle don't charge in transit
     myConsum(0),                        // Initially the vehicle is stopped and therefore the consum is zero.
     myActChargingStation(nullptr),         // Initially the vehicle isn't over a Charging Station
+    myPreviousNeighbouringChargingStation(nullptr),    // Initially the vehicle wasn't over a Charging Station
+    myChargingStartTime(0),             // Initially charging start time (must be if the vehicle was launched at the charging station)
     myEnergyCharged(0),                 // Initially the energy charged is zero
     myVehicleStopped(0) {               // Initially the vehicle is stopped and the corresponding variable is 0
 

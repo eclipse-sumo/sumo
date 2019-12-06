@@ -37,6 +37,17 @@ if (FOX_FOUND)
 endif ()
 
 
+# set(sumoguiexec
+#            guisim_main.cpp
+#            microsim/MSMoveReminder.cpp microsim/MSMoveReminder.h
+#            gui/GUIManipulator.h gui/GUIManipulator.cpp
+#            gui/GUITLLogicPhasesTrackerWindow.h gui/GUITLLogicPhasesTrackerWindow.cpp
+#            mesosim/MEVehicleControl.h mesosim/MEVehicleControl.cpp)
+#
+# add_executable(sumo version.h sumo_main.cpp
+#         microsim/MSMoveReminder.cpp microsim/MSMoveReminder.h)
+# set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumoD)
+# target_link_libraries(sumo utils_traction_wire ${sumolibs})
 add_executable(sumo sumo_main.cpp)
 set_target_properties(sumo PROPERTIES OUTPUT_NAME sumo${BINARY_SUFFIX})
 set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumo${BINARY_SUFFIX}D)
@@ -49,7 +60,7 @@ if (FOX_FOUND)
     set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME_DEBUG sumo-gui${BINARY_SUFFIX}D)
     target_link_libraries(sumo-gui gui guinetload guisim gui gui_dialogs
         utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
-        utils_gui_images utils_gui_cursors utils_gui_shortcuts utils_gui_tracker utils_foxtools osgview microsim traciserver libsumostatic ${sumolibs} mesogui
+        utils_gui_images utils_gui_cursors utils_gui_shortcuts utils_gui_tracker utils_foxtools utils_traction_wire osgview microsim traciserver libsumostatic ${sumolibs} mesogui
         ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
     if (MSVC)
         set_target_properties(sumo-gui PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")

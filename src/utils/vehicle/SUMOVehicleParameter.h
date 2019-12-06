@@ -597,6 +597,9 @@ public:
         /// @brief (Optional) charging station if one is assigned to the stop
         std::string chargingStation;
 
+        /// @brief (Optional) overhead line segment if one is assigned to the stop
+		std::string overheadWireSegment;
+
         /// @brief The stopping position start
         double startPos;
 

@@ -200,6 +200,9 @@ protected:
     /// @brief Parameter, Pointer to current charging station in which vehicle is placed (by default is NULL)
     MSChargingStation* myActChargingStation;
 
+    /// @brief Parameter, Pointer to charging station neighbouring with myActChargingStation in which vehicle was placed previously (by default is NULL), i.e. auxiliar pointer for disabling charging vehicle from previous (not current) ChargingStation (if there is no gap between two different chargingStations)
+    MSChargingStation* myPreviousNeighbouringChargingStation;
+
     /// @brief Parameter, Energy charged in each timestep
     double myEnergyCharged;
 

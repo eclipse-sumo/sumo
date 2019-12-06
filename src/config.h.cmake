@@ -33,6 +33,9 @@ classname() {}
 /* Reporting string for enabled options */
 #define HAVE_ENABLED "@ENABLED_FEATURES@"
 
+/* defined if Eigen is available */
+#cmakedefine HAVE_EIGEN
+
 /* defined if ffmpeg is available */
 #cmakedefine HAVE_FFMPEG
 

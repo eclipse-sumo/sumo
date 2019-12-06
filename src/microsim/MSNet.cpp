@@ -74,8 +74,10 @@
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/devices/MSDevice_BTsender.h>
 #include <microsim/devices/MSDevice_SSM.h>
+#include <microsim/devices/MSDevice_ElecHybrid.h>
 #include <microsim/devices/MSDevice_ToC.h>
 #include <microsim/output/MSBatteryExport.h>
+#include <microsim/output/MSElecHybridExport.h>
 #include <microsim/output/MSEmissionExport.h>
 #include <microsim/output/MSFCDExport.h>
 #include <microsim/output/MSFullExport.h>
@@ -89,6 +91,7 @@
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/trigger/MSChargingStation.h>
+#include <microsim/trigger/MSOverheadWire.h>
 #include <utils/router/FareModul.h>
 
 #include "MSTransportableControl.h"
@@ -453,6 +456,12 @@ MSNet::closeSimulation(SUMOTime start) {
     if (OptionsCont::getOptions().isSet("chargingstations-output")) {
         writeChargingStationOutput();
     }
+    if (OptionsCont::getOptions().isSet("overheadWireSegments-output")) {
+        writeOverheadWireSegmentOutput();
+    }
+    if (OptionsCont::getOptions().isSet("substations-output")) {
+        writeSubstationOutput();
+    }
     if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
         writeRailSignalBlocks();
     }
@@ -703,6 +712,38 @@ MSNet::writeOutput() {
                                oc.getInt("battery-output.precision"));
     }
 
+    // elecHybrid dumps
+    if (OptionsCont::getOptions().isSet("elecHybrid-output")) {
+        std::string output = OptionsCont::getOptions().getString("elecHybrid-output");
+
+        if (oc.getBool("elecHybrid-output.aggregated")) {
+            //build an aggregated xml files
+            MSElecHybridExport::writeAggregated(OutputDevice::getDeviceByOption("elecHybrid-output"), myStep,
+                oc.getInt("elecHybrid-output.precision"));
+        }
+        else {
+            // @TODORICE a necessity of placing here in MSNet.cpp ?
+            MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+            for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
+                const SUMOVehicle* veh = it->second;
+                if (!veh->isOnRoad()) {
+                    continue;
+                }
+                if (static_cast<MSDevice_ElecHybrid*>(veh->getDevice(typeid(MSDevice_ElecHybrid))) != nullptr) {
+                    std::string vehID = veh->getID();
+                    std::string filename2 = output + "_" + vehID + ".xml";
+                    OutputDevice& dev = OutputDevice::getDevice(filename2);
+                    std::map<SumoXMLAttr, std::string> attrs;
+                    attrs[SUMO_ATTR_VEHICLE] = vehID;
+                    attrs[SUMO_ATTR_MAXIMUMBATTERYCAPACITY] = toString(dynamic_cast<MSDevice_ElecHybrid*>(veh->getDevice(typeid(MSDevice_ElecHybrid)))->getMaximumBatteryCapacity());
+                    dev.writeXMLHeader("elecHybrid-export", "", attrs);
+                    MSElecHybridExport::write(OutputDevice::getDevice(filename2), veh, myStep, oc.getInt("elecHybrid-output.precision"));
+                }
+            }
+        }
+    }
+
+
     // check full dumps
     if (OptionsCont::getOptions().isSet("full-output")) {
         MSFullExport::write(OutputDevice::getDeviceByOption("full-output"), myStep);
@@ -907,6 +948,16 @@ MSNet::addStoppingPlace(const SumoXMLTag category, MSStoppingPlace* stop) {
 }
 
 
+bool
+MSNet::addTractionSubstation(MSTractionSubstation* substation) {
+    if (find(myTractionSubstations.begin(), myTractionSubstations.end(), substation) == myTractionSubstations.end()) {
+        myTractionSubstations.push_back(substation);
+        return true;
+    }
+    return false;
+}
+
+
 MSStoppingPlace*
 MSNet::getStoppingPlace(const std::string& id, const SumoXMLTag category) const {
     if (myStoppingPlaces.count(category) > 0) {
@@ -961,6 +1012,50 @@ MSNet::writeRailSignalBlocks() const {
             rs->writeBlocks(output);
         }
     }
+}
+
+
+void
+MSNet::writeOverheadWireSegmentOutput() const {
+    if (myStoppingPlaces.count(SUMO_TAG_OVERHEAD_WIRE_SEGMENT) > 0) {
+        OutputDevice& output = OutputDevice::getDeviceByOption("overheadWireSegments-output");
+        for (const auto& it : myStoppingPlaces.find(SUMO_TAG_OVERHEAD_WIRE_SEGMENT)->second) {
+            static_cast<MSOverheadWire*>(it.second)->writeOverheadWireSegmentOutput(output);
+        }
+    }
+}
+
+
+void
+MSNet::writeSubstationOutput() const {
+    if (myStoppingPlaces.count(SUMO_TAG_OVERHEAD_WIRE_SEGMENT) > 0) {
+        OutputDevice& output = OutputDevice::getDeviceByOption("substations-output");
+        for (const auto& it : myStoppingPlaces.find(SUMO_TAG_OVERHEAD_WIRE_SEGMENT)->second) {
+            static_cast<MSOverheadWire*>(it.second)->writeOverheadWireSegmentOutput(output);
+        }
+    }
+}
+
+
+MSTractionSubstation*
+MSNet::findTractionSubstation(const std::string& substationId) {
+    for (std::vector<MSTractionSubstation*>::iterator it = myTractionSubstations.begin(); it != myTractionSubstations.end(); ++it) {
+        if ((*it)->getID() == substationId) {
+            return *it;
+        }
+    }
+    return nullptr;
+}
+
+
+bool
+MSNet::existTractionSubstation(const std::string& substationId) {
+    for (std::vector<MSTractionSubstation*>::iterator it = myTractionSubstations.begin(); it != myTractionSubstations.end(); ++it) {
+        if ((*it)->getID() == substationId) {
+            return true;
+        }
+    }
+    return false;
 }
 
 

@@ -97,6 +97,8 @@ enum GUIGlObjectType {
     GLO_ACCESS = 119,
     /// @brief a TAZ
     GLO_TAZ = 120,
+    /// @brief a segment of an overhead line 
+    GLO_OVERHEAD_WIRE_SEGMENT = 121,
 
     /// @brief reserved GLO type to pack shapes
     GLO_SHAPE = 200,

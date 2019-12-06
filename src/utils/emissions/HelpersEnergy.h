@@ -61,6 +61,17 @@ public:
      */
     double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const;
 
+    /** @brief Computes the achievable acceleartion using the given speed and amount of consumed electric power
+     *
+     * @param[in] c emission class for the function parameters to use
+     * @param[in] e the type of emission (CO, CO2, ...), only electricity gives valid results
+     * @param[in] v The vehicle's current velocity
+     * @param[in] P The vehicle's current power consumption
+     * @param[in] slope The road's slope at vehicle's position [deg]
+     * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
+     */
+    double acceleration(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double P, const double slope, const std::map<int, double>* param) const;
+
     double getDefaultParam(int paramKey) const {
         return myDefaultParameter.find(paramKey)->second;
     }
@@ -70,6 +81,28 @@ private:
     /// @brief The default parameter
     std::map<int, double> myDefaultParameter;
 
+    /** @brief Solver of quadratic equation ax^2 + bx + c = 0
+     *
+     * return only real roots
+     *
+     * @param[in] a The coefficient of the qadratic term x^2
+     * @param[in] b The coefficient of the linear term x
+     * @param[in] c The coefficient of the constant term 
+     * @return the number of real roots and these real roots
+     */
+    std::tuple<int, double, double> quadraticSolve(double a, double b, double c) const;
+
+    /** @brief Solver of cubic equation ax^3 + bx^2 + cx + d = 0
+     *
+     * return only real roots
+     *
+     * @param[in] a The coefficient of the cubic term x^3
+     * @param[in] b The coefficient of the qadratic term x^2
+     * @param[in] c The coefficient of the linear term x
+     * @param[in] d The coefficient of the constant term
+     * @return the number of real roots and these real roots
+     */
+    std::tuple<int, double, double, double> cubicSolve(double a, double b, double c, double d) const;
 };
 
 

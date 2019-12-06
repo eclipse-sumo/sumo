@@ -72,6 +72,9 @@ MELoop::simulate(SUMOTime tMax) {
             checkCar(*i);
             assert(myLeaderCars.empty() || myLeaderCars.begin()->first >= time);
         }
+#ifdef DEBUG_MELOOP
+        std::cout << "end for in while \n";
+#endif
     }
 }
 
@@ -92,7 +95,13 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
     if (toSegment->hasSpaceFor(veh, leaveTime) && (ignoreLink || veh->mayProceed())) {
         if (onSegment != nullptr) {
             onSegment->send(veh, toSegment, leaveTime, onSegment->getNextSegment() == nullptr ? MSMoveReminder::NOTIFICATION_JUNCTION : MSMoveReminder::NOTIFICATION_SEGMENT);
+#ifdef DEBUG_MELOOP
+            std::cout << "vehicle `" << veh->getID() << "` was sent to next segment \n";
+#endif
             toSegment->receive(veh, leaveTime, false, ignoreLink);
+#ifdef DEBUG_MELOOP
+            std::cout << "vehicle `" << veh->getID() << "` was received by next segment \n";
+#endif
         } else {
             WRITE_WARNING("Vehicle '" + veh->getID() + "' ends teleporting on edge '" + toSegment->getEdge().getID()
                           + "':" + toString(toSegment->getIndex()) + ", time " + time2string(leaveTime) + ".");
