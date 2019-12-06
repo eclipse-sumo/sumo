@@ -770,6 +770,8 @@ lists which parameter are used by which model(s).
 | lcTurnAlignmentDistance | Distance to an upcoming turn on the vehicles route, below which the alignment should be dynamically adapted to match the turn direction. *default: 0.0 (i.e., disabled)*                                                                                 | SL2015         |
 | lcMaxSpeedLatStanding   | Upper bound on lateral speed when standing. *default: maxSpeedLat (i.e., disabled)*   | LC2013, SL2015         |
 | lcMaxSpeedLatFactor     | Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding + lcMaxSpeedLatFactor \* getSpeed(). *default: 1.0*                                                                                                                          | LC2013, SL2015         |
+| lcLaneDiscipline     | Reluctance to perform speedGain-changes that would place the vehicle across a lane boundary. *default: 0.0*| SL2015         |
+| lcSigma     | Lateral positioning-imperfection. *default: 0.0*                                                                                                                          | LC2013, SL2015         |
 
 The parameters are set within the `<vType>`:
 
