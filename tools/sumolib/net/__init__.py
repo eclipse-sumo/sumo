@@ -486,8 +486,17 @@ class Net:
         It returns a pair of a tuple of edges and the cost. If no path is found the first element is None.
         The cost for the returned path is equal to the sum of all edge lengths in the path,
         including the internal connectors, if they are present in the network.
+        The path itself does not include internal edges except for the case
+        when the start or end edge are internal edges.
         The search may be limited using the given threshold.
         """
+        if self.hasInternal:
+            appendix = ()
+            appendixCost = 0.
+            while toEdge.getFunction() == "internal":
+                appendix = (toEdge,) + appendix
+                appendixCost += toEdge.getLength()
+                toEdge = list(toEdge.getIncoming().keys())[0]
         q = [(fromEdge.getLength(), fromEdge.getID(), fromEdge, ())]
         seen = set()
         dist = {fromEdge: fromEdge.getLength()}
@@ -498,6 +507,8 @@ class Net:
             seen.add(e1)
             path += (e1,)
             if e1 == toEdge:
+                if self.hasInternal:
+                    return path + appendix, cost + appendixCost
                 return path, cost
             if cost > maxCost:
                 return None, cost
