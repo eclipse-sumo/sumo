@@ -86,6 +86,8 @@ permalink: /ChangeLog/
   - Vehicles now support the new symbolic departPos value 'stop' which lets the start at the first stop along their route. Issue #6322
   - Permissions of internal lanes (connections) are now taken into account independent of the lanes before and after the intersection. Issue #6210
   - Option **--duration-log.statistics** can now be set with shortcut **-t**. Issue #6378
+  - added new vType parameter *lcLaneDiscipline* to control whether vehicles will stay between lanes to drive faster (sublane model only)
+  - added new vTypeParameter *lcSigma* to control lateral imperfection (sublane model and simple continuous lanechange model)
 
 - MESO
   - Vehicles that reach maximum impatience can now pass junctions from an unprioritized road regardless of foe traffic. The old behavior can be restored by disabling impatience growth via **--time-to-impatience 0**. Issue #5830
