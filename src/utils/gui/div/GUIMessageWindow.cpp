@@ -119,7 +119,7 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
                 type = "containerStop";
             } else if (type == "chargingstation") {
                 type = "chargingStation";
-            else if (type == "overheadwiresegment") {
+            } else if (type == "overheadwiresegment") {
                 type = "overheadWireSegment";
             } else if (type == "parkingarea") {
                 type = "parkingArea";
