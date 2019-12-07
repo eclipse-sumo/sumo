@@ -20,9 +20,7 @@ environment:
           configuration: Release
 
 install:
-    - git clone https://github.com/DLR-TS/SUMOLibraries
-    - git submodule init
-    - git submodule update
+    - git clone --recurse-submodules https://github.com/DLR-TS/SUMOLibraries
     - set SUMO_LIBRARIES=%CD%\SUMOLibraries
 
 build_script:
