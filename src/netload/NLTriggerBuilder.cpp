@@ -361,13 +361,14 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
     // adding overhead wire clamp
     std::string clampsString = attrs.getOpt<std::string>(SUMO_ATTR_OVERHEAD_WIRE_CLAMPS, 0, ok, "");
     if (clampsString != "" && MSGlobals::gOverheadWireSolver) {
+#ifdef HAVE_EIGEN
         std::vector<std::string> clampIDs = attrs.getStringVector(SUMO_ATTR_OVERHEAD_WIRE_CLAMPS);
         MSTractionSubstation::overheadWireClamp* clamp = nullptr;
         for (std::vector<std::string>::iterator it_clamp = clampIDs.begin(); it_clamp != clampIDs.end(); ++it_clamp) {
             clamp = substation->findClamp(*it_clamp);
             if (clamp != nullptr) {
                 if (clamp->start->getTractionSubstation() == substation && clamp->end->getTractionSubstation() == substation) {
-                    substation->addOverheadWireClampToCircuit(clamp->id,clamp->start, clamp->end);
+                    substation->addOverheadWireClampToCircuit(clamp->id, clamp->start, clamp->end);
                     buildOverheadWireClamp(net, clamp->id, const_cast<MSLane*>(&clamp->start->getLane()), const_cast<MSLane*>(&clamp->end->getLane()));
                     clamp->usage = true;
                 }
@@ -384,14 +385,21 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
                 WRITE_WARNING("The overhead wire clamp '" + (*it_clamp) + "' defined in an overhead wire section was not assigned to the substation '" + substationId + "'. Please define proper <overheadWireClamp .../> in additional files before defining overhead wire section.");
             }
         }
+#else
+        WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
+#endif
     }
 
     if (segments.size() == 0) {
         throw InvalidArgument("No segments found for overHeadWireSection '" + substationId + "'.");
     }
-    else if (MSGlobals::gOverheadWireSolver){
+    else if (MSGlobals::gOverheadWireSolver) {
+#ifdef HAVE_EIGEN
         // check that the electric circuit makes sense
         segments[0]->getCircuit()->checkCircuit(substationId);
+#else
+        WRITE_WARNING("Cannot check circuit, overhead circuit solver support (Eigen) not compiled in.");
+#endif
     }
 }
 
@@ -417,6 +425,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireClamp(MSNet& net, const SUMOSAXAttrib
 
     if (MSGlobals::gOverheadWireSolver) {
 
+#ifdef HAVE_EIGEN
         std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
         if (!ok) {
             throw ProcessError();
@@ -462,6 +471,12 @@ NLTriggerBuilder::parseAndBuildOverheadWireClamp(MSNet& net, const SUMOSAXAttrib
         else {
             WRITE_ERROR("The overhead wire clamp '" + id + "' is probably declared twice.")
         }
+#else
+        WRITE_WARNING("Not building overhead wire claps, overjhead wire solver support (Eigen) not compiled in.");
+#endif
+    }
+    else {
+        WRITE_WARNING("Ignorng overhead wire clamps, they make no sense when overhead wire circuit solver is off.");
     }
 }
 

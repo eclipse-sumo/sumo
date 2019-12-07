@@ -30,11 +30,9 @@
 #include <sstream>
 #include <microsim/MSStoppingPlace.h>
 #include <utils/common/Named.h>
-#include <utils/traction_wire/Circuit.h>
 #include <utils/vehicle/SUMOVehicle.h>
-//#include <utils/common/Named.h>
-
 #include <utils/common/WrappingCommand.h>
+#include <utils/traction_wire/Circuit.h>
 
 // Resistivity of Cu is 1.69*10^-8 Ohm*m. A cross-section S of the overhead wire used in Pilsen is 150 mm^2. So the "resistivity/S" is 0.000113 Ohm/m. 
 const double WIRE_RESISTIVITY = (double)2 * 0.000113;
@@ -306,11 +304,19 @@ private:
 public:   
     //preparation of overhead wire clamp
     struct overheadWireClamp{
+        // @todo: 'MSTractionSubstation::overheadWireClamp' : no appropriate default constructor available 
+        // provide default constructor
+        overheadWireClamp() :
+            id("undefined"),
+            start(nullptr),
+            end(nullptr),
+            usage(false) {}
+
         overheadWireClamp(const std::string _id, MSOverheadWire* _start, MSOverheadWire* _end, bool _usage ):
-        id(_id),
-        start(_start),
-        end(_end),
-        usage(_usage) {}
+            id(_id),
+            start(_start),
+            end(_end),
+            usage(_usage) {}
 
         const std::string id;
         MSOverheadWire* start;
@@ -318,6 +324,8 @@ public:
         bool usage;
     };
 private:
+    // @todo: Does this cause the "'MSTractionSubstation::overheadWireClamp' : no appropriate default 
+    // constructor available" error in MSVC2013?
     std::vector<overheadWireClamp> myOverheadWireClamps;
 public:
     overheadWireClamp* findClamp(std::string id);

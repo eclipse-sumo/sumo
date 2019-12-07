@@ -20,8 +20,10 @@
 #define CIRCUIT_H
 
 #include <vector>
+#ifdef HAVE_EIGEN
 #include "Eigen/Dense"
 #include "Eigen/Geometry"
+#endif
 #include "Node.h"
 #include "Element.h"
 
@@ -73,14 +75,17 @@ private:
     */
     void detectRemovableNodes(std::vector<int>* removable_ids);
 
+    void deployResults(double* vals, std::vector<int>* removable_ids);
+
+#ifdef HAVE_EIGEN
     /*
-    *    creates all of the equations that represent the circuit 
+    *    creates all of the equations that represent the circuit
     *    in the form Ax = B(1/x) where A and B are matricies
     *    @param eqn : A
     *    @param vals : B
     */
     bool createEquationsNRmethod(double*& eqs, double*& vals, std::vector<int>* removable_ids);
-    
+
 
     /*
     *    creates the nodal equation of the node 'node' GV = I
@@ -103,28 +108,28 @@ private:
     bool createEquation(Element* vsource, double* eqn, double& val);
 
     /*
-    *    solves the system of nonlinear equations Ax = B(1/x)
-    *    @param eqn : A
-    *    @param vals : B
-    */
+     *    removes the "colToRemove"-th column from matrix "matrix" 
+     */
+    void removeColumn(Eigen::MatrixXd& matrix, unsigned int colToRemove);
+
+    // solves the circuit and deploys the results
+
+    bool solve();
+
+    /*
+     * solves the system of nonlinear equations Ax = B(1/x)
+     * @param eqn : A
+     * @param vals : B
+     */
     bool solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>*);
 
     bool _solveNRmethod();
 
-    void deployResults(double* vals, std::vector<int>* removable_ids);
-
-    /*
-    *    removes the "colToRemove"-th column from matrix "matrix" 
-    */
-    void removeColumn(Eigen::MatrixXd& matrix, unsigned int colToRemove);
-
+#endif
 public:
 
     // a Constructor, same functionality as "init" functions
     Circuit();
-
-    // solves the circuit and deploys the results
-    bool solve();
 
     // adds an element with name "name", type "type" and value "value" to positive node "pNode" and negative node "nNode""
     Element* addElement(string name, double value, Node* pNode, Node* nNode, Element::ElementType et);

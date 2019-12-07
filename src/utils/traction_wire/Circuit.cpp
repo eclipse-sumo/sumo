@@ -26,10 +26,12 @@
 #include <ctime>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include "Element.h"
+#ifdef HAVE_EIGEN
 #include "Eigen/Dense"
 #include "Eigen/Sparse"
 #include "Eigen/Geometry"
+#endif
+#include "Element.h"
 #include "Circuit.h"
 
 using namespace std;
@@ -137,15 +139,16 @@ vector<Element*>* Circuit::getCurrentSources() {
     return vsources;
 }
 
+#ifdef HAVE_EIGEN
 void Circuit::removeColumn(Eigen::MatrixXd& matrix, unsigned int colToRemove)
 {
     unsigned int numRows = matrix.rows();
     unsigned int numCols = matrix.cols() - 1;
 
-if (colToRemove < numCols)
-    matrix.block(0, colToRemove, numRows, numCols - colToRemove) = matrix.rightCols(numCols - colToRemove);
+    if (colToRemove < numCols)
+        matrix.block(0, colToRemove, numRows, numCols - colToRemove) = matrix.rightCols(numCols - colToRemove);
 
-matrix.conservativeResize(numRows, numCols);
+    matrix.conservativeResize(numRows, numCols);
 }
 
 bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>* removable_ids) {
@@ -356,7 +359,7 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
 
     return true;
 }
-
+#endif
 
 void Circuit::deployResults(double* vals, std::vector<int>* removable_ids) {
     int n = (int)(voltageSources->size() + nodes->size() - 1);
@@ -456,6 +459,7 @@ Circuit::Circuit() {
     iscleaned = true;
 }
 
+#ifdef HAVE_EIGEN
 bool Circuit::_solveNRmethod() {
     double* eqn = nullptr;
     double* vals = nullptr;
@@ -476,32 +480,10 @@ bool Circuit::solve() {
     return this->_solveNRmethod();
 }
 
-void Circuit::detectRemovableNodes(std::vector<int>* removable_ids) {
-    for (vector<Node*>::iterator it = nodes->begin(); it != nodes->end(); it++) {
-        if ((*it)->getElements()->size() == 2 && !(*it)->isGround()) {
-            (*it)->setRemovability(true);
-            for (vector<Element*>::iterator it2 = (*it)->getElements()->begin(); it2 != (*it)->getElements()->end(); it2++) {
-                if ((*it2)->getType() != Element::ElementType::RESISTOR_traction_wire) {
-                    (*it)->setRemovability(false);
-                    break;
-                }			
-            }
-            if ((*it)->isRemovable()) {
-                removable_ids->push_back((*it)->getId());
-            }
-        }
-        else {
-            (*it)->setRemovability(false);
-        }
-    }
-    std::sort(removable_ids->begin(), removable_ids->end(), std::less<int>());
-    return;
-}
-
 bool Circuit::createEquationsNRmethod(double*& eqs, double*& vals, std::vector<int>* removable_ids) {
     // removable_ids does not include nodes with voltage source
-    int n = voltageSources->size() + nodes->size() - 1;
-    int m = n - removable_ids->size() - voltageSources->size();
+    int n = (int)(voltageSources->size() + nodes->size() - 1);
+    int m = n - (int)(removable_ids->size() - voltageSources->size());
     //cout << endl << endl << n << endl << endl;
     eqs = new double[m*n];
     vals = new double[m];
@@ -545,7 +527,7 @@ bool Circuit::createEquationsNRmethod(double*& eqs, double*& vals, std::vector<i
 }
 
 bool Circuit::createEquation(Element* vsource, double* eqn, double& val) {
-    if(!vsource->getPosNode()->isGround())
+    if (!vsource->getPosNode()->isGround())
         eqn[vsource->getPosNode()->getId()] = 1;
     if (!vsource->getNegNode()->isGround())
         eqn[vsource->getNegNode()->getId()] = -1;
@@ -608,6 +590,29 @@ bool Circuit::createEquationNRmethod(Node* node, double* eqn, double& val, std::
         }
     }
     return true;
+}
+#endif
+
+void Circuit::detectRemovableNodes(std::vector<int>* removable_ids) {
+    for (vector<Node*>::iterator it = nodes->begin(); it != nodes->end(); it++) {
+        if ((*it)->getElements()->size() == 2 && !(*it)->isGround()) {
+            (*it)->setRemovability(true);
+            for (vector<Element*>::iterator it2 = (*it)->getElements()->begin(); it2 != (*it)->getElements()->end(); it2++) {
+                if ((*it2)->getType() != Element::ElementType::RESISTOR_traction_wire) {
+                    (*it)->setRemovability(false);
+                    break;
+                }			
+            }
+            if ((*it)->isRemovable()) {
+                removable_ids->push_back((*it)->getId());
+            }
+        }
+        else {
+            (*it)->setRemovability(false);
+        }
+    }
+    std::sort(removable_ids->begin(), removable_ids->end(), std::less<int>());
+    return;
 }
 
 Element* Circuit::addElement(string name, double value, Node* pNode, Node* nNode, Element::ElementType et) {
