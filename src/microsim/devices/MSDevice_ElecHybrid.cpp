@@ -69,49 +69,50 @@ MSDevice_ElecHybrid::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDe
         // Yes, build the device.
         // Fetch the battery capacity (if present) from the vehicle descriptor.
         const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter(); 
-        
+        const SUMOVehicleParameter& vehicleParams = v.getParameter();
+
         double actualBatteryCapacity = 0;
-        if (v.getParameter().knowsParameter("actualBatteryCapacity")) {
+        if (vehicleParams.knowsParameter("actualBatteryCapacity")) {
+            const std::string abc = vehicleParams.getParameter("actualBatteryCapacity", "-1");
             try {
-                actualBatteryCapacity = StringUtils::toDouble(v.getParameter().getParameter("actualBatteryCapacity", "-1"));
+                actualBatteryCapacity = StringUtils::toDouble(abc);
             }
             catch (...) {
-                WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("actualBatteryCapacity", "-1") + "'for vehicle parameter 'actualBatteryCapacity'");
+                WRITE_WARNING("Invalid value '" + abc + "'for vehicle parameter 'actualBatteryCapacity'");
             }
-
         }
         else {
-            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'actualBatteryCapacity'. Using default of " << actualBatteryCapacity << "\n";
+            WRITE_WARNING("Vehicle '" + v.getID() + "' does not provide vehicle parameter 'actualBatteryCapacity'. Using the default of " + std::to_string(actualBatteryCapacity));
         }
 
-
-        // get custom vType parameter using example device
         // obtain maximumBatteryCapacity
         double maximumBatteryCapacity = 0;
-        if (v.getVehicleType().getParameter().knowsParameter("maximumBatteryCapacity")) {
+        if (typeParams.knowsParameter("maximumBatteryCapacity")) {
+            const std::string mbc = typeParams.getParameter("maximumBatteryCapacity", "-1");
             try {
-                maximumBatteryCapacity = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("maximumBatteryCapacity", "-1"));
+                maximumBatteryCapacity = StringUtils::toDouble(mbc);
             }
             catch (...) {
-                WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("maximumBatteryCapacity", "-1") + "'for vType parameter 'maximumBatteryCapacity'");
+                WRITE_WARNING("Invalid value '" + mbc + "'for vType parameter 'maximumBatteryCapacity'");
             }
         }
         else {
-            std::cout << "vehicle '" << v.getID() << "' does not supply vType parameter 'maximumBatteryCapacity'. Using default of " << maximumBatteryCapacity << "\n";
+            WRITE_WARNING("Vehicle '" + v.getID() + "' is missing the vType parameter 'maximumBatteryCapacity'. Using the default of " + std::to_string(maximumBatteryCapacity));
         }
 
         // obtain overheadWireChargingPower
         double overheadWireChargingPower = 0;
-        if (v.getVehicleType().getParameter().knowsParameter("overheadWireChargingPower")) {
+        if (typeParams.knowsParameter("overheadWireChargingPower")) {
+            const std::string ocp = typeParams.getParameter("overheadWireChargingPower", "-1");
             try {
-                overheadWireChargingPower = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("overheadWireChargingPower", "-1"));
+                overheadWireChargingPower = StringUtils::toDouble(ocp);
             }
             catch (...) {
-                WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("overheadWireChargingPower", "-1") + "'for vType parameter 'overheadWireChargingPower'");
+                WRITE_WARNING("Invalid value '" + ocp + "'for vType parameter 'overheadWireChargingPower'");
             }
         }
         else {
-            std::cout << "vehicle '" << v.getID() << "' does not supply vType parameter 'overheadWireChargingPower'. Using default of " << overheadWireChargingPower << "\n";
+            WRITE_WARNING("Vehicle '" + v.getID() + "' is missing the vType parameter 'overheadWireChargingPower'. Using the default of " + std::to_string(overheadWireChargingPower));
         }
 
         // get custom vType parameter using SUMOXMLDefinitions.cpp/.h
@@ -163,8 +164,7 @@ MSDevice_ElecHybrid::MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string&
     veh_elem(nullptr),
     veh_pos_tail_elem(nullptr),
     pos_veh_node(nullptr)
-    {
-    std::cout << "initialized device '" << id << "'\n";
+{
 
     if (maximumBatteryCapacity < 0) {
         WRITE_WARNING("ElecHybrid builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY) + " (" + toString(maximumBatteryCapacity) + ").")
@@ -205,7 +205,7 @@ MSDevice_ElecHybrid::~MSDevice_ElecHybrid() {
 }
 
 bool
-MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */, double /* newPos */, double newSpeed) {
+MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */, double /* newPos */, double /* newSpeed */) {
     if (!tObject.isVehicle()) {
         return false;
     }
@@ -512,26 +512,36 @@ MSDevice_ElecHybrid::deleteVehicleFromCircuit(SUMOVehicle& veh) {
     }
 }
 
-void MSDevice_ElecHybrid::notifyMoveInternal(
+void
+MSDevice_ElecHybrid::notifyMoveInternal(
     const SUMOTrafficObject& tObject,
     const double frontOnLane,
     const double timeOnLane,
     const double meanSpeedFrontOnLane,
     const double meanSpeedVehicleOnLane,
-    const double travelledDistanceFrontOnLane, 
+    const double travelledDistanceFrontOnLane,
     const double travelledDistanceVehicleOnLane,
     const double meanLengthOnLane) {
-    WRITE_DEBUG("notifyMoveInternal()");
+    UNUSED_PARAMETER(tObject);
+    UNUSED_PARAMETER(frontOnLane);
+    UNUSED_PARAMETER(timeOnLane);
+    UNUSED_PARAMETER(meanSpeedFrontOnLane);
+    UNUSED_PARAMETER(meanSpeedVehicleOnLane);
+    UNUSED_PARAMETER(travelledDistanceFrontOnLane);
+    UNUSED_PARAMETER(travelledDistanceVehicleOnLane);
+    UNUSED_PARAMETER(meanLengthOnLane);
 }
 
 bool
-MSDevice_ElecHybrid::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSDevice_ElecHybrid::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notification /* reason */, const MSLane* /* enteredLane */) {
     if (!tObject.isVehicle()) {
         return false;
     }
+#ifdef ELECHYBRID_MESOSCOPIC_DEBUG
     SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
-    /*std::cout << "device '" << getID() << "' notifyEnter: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
-    */
+    std::cout << "device '" << getID() << "' notifyEnter: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
+#endif
+
     return true; // keep the device
 }
 
@@ -541,12 +551,10 @@ MSDevice_ElecHybrid::notifyLeave(SUMOTrafficObject& tObject, double /*lastPos*/,
     if (!tObject.isVehicle()) {
         return false;
     }
+#ifdef ELECHYBRID_MESOSCOPIC_DEBUG
     SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
-    /*
     std::cout << "device '" << getID() << "' notifyLeave: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
-    */
-    /*
-    //SUMOVehicle* sumoVehicle = *veh;
+    SUMOVehicle* sumoVehicle = *veh;
     if (MSGlobals::gUseMesoSim) {
         MEVehicle& v = dynamic_cast<MEVehicle&>(veh);
         std::cout << "***************** MESO - notifyLeave*** START ****************** '" << v.getID() << "' \n";
@@ -556,7 +564,8 @@ MSDevice_ElecHybrid::notifyLeave(SUMOTrafficObject& tObject, double /*lastPos*/,
         std::cout << "getWaitingTime: '" << v.getWaitingTime() << "' | getAccumulatedWaitingTime: '" << v.getAccumulatedWaitingTime() << "' | getLastEntryTimeSeconds: '" << v.getLastEntryTimeSeconds() << "' \n";
         std::cout << "***************** MESO - notifyLeave***  END  ****************** '" << v.getID() << "' \n";
     }
-    */
+#endif
+
     if (reason < MSMoveReminder::NOTIFICATION_TELEPORT) {
         return true;
     }
@@ -738,6 +747,7 @@ MSDevice_ElecHybrid::setParameter(const std::string& key, const std::string& val
     // original customValue1
     if (key == "customValue2") {
         double myCustomValue2 = doubleValue;
+        UNUSED_PARAMETER(myCustomValue2);
     }
     else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");

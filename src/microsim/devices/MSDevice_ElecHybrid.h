@@ -109,9 +109,15 @@ public:
     /** @brief Internal notification about the vehicle moves
      *  @see MSMoveReminder::notifyMoveInternal()
      */
-    void notifyMoveInternal(const SUMOTrafficObject& tObject, const double frontOnLane,
-        double timeOnLane, const double meanSpeedFrontOnLane, const double meanSpeedVehicleOnLane,
-        const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane, const double meanLengthOnLane);
+    virtual void notifyMoveInternal(
+        const SUMOTrafficObject& tObject,
+        const double frontOnLane,
+        const double timeOnLane,
+        const double meanSpeedFrontOnLane,
+        const double meanSpeedVehicleOnLane,
+        const double travelledDistanceFrontOnLane,
+        const double travelledDistanceVehicleOnLane,
+        const double meanLengthOnLane);
     /// @}
 
     /// @brief return the name for this type of device
