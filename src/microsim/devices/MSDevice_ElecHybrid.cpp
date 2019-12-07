@@ -156,11 +156,11 @@ MSDevice_ElecHybrid::MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string&
     myConsum(0),
     myBatteryDischargedLogic(false),
     myCharging(false),              // Initially vehicle don't charge
-    myActOverheadWireSegment(nullptr),         // Initially the vehicle isn't under any overhead wire segment
-    myPreviousOverheadWireSegment(nullptr),    // Initially the vehicle wasn't under any overhead wire segment
     myEnergyCharged(0),             // Initially the energy charged is zero
     myCircuitCurrent(NAN),          // Initially the current is 100
     myCircuitVoltage(NAN),          // Initially the current is 100
+    myActOverheadWireSegment(nullptr),         // Initially the vehicle isn't under any overhead wire segment
+    myPreviousOverheadWireSegment(nullptr),    // Initially the vehicle wasn't under any overhead wire segment
     veh_elem(nullptr),
     veh_pos_tail_elem(nullptr),
     pos_veh_node(nullptr)
@@ -551,6 +551,7 @@ MSDevice_ElecHybrid::notifyLeave(SUMOTrafficObject& tObject, double /*lastPos*/,
     if (!tObject.isVehicle()) {
         return false;
     }
+    SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
 #ifdef ELECHYBRID_MESOSCOPIC_DEBUG
     SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
     std::cout << "device '" << getID() << "' notifyLeave: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
@@ -577,6 +578,7 @@ MSDevice_ElecHybrid::notifyLeave(SUMOTrafficObject& tObject, double /*lastPos*/,
         myPreviousOverheadWireSegment = nullptr;
         //TODORICE is MSDevice_ElecHybrid* erased from MSTractionSubstation?
 #else
+        UNUSED_PARAMETER(veh);
         WRITE_ERROR("Overhead wire solver is on, but the Eigen library has not been compiled in!")
 #endif
     }
