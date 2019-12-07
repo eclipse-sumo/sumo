@@ -112,10 +112,6 @@ private:
      */
     void removeColumn(Eigen::MatrixXd& matrix, unsigned int colToRemove);
 
-    // solves the circuit and deploys the results
-
-    bool solve();
-
     /*
      * solves the system of nonlinear equations Ax = B(1/x)
      * @param eqn : A
@@ -156,6 +152,11 @@ public:
 
     // checks if the circuit's connections are correct.
     bool checkCircuit(std::string substationId = "");
+
+#ifdef HAVE_EIGEN
+    // solves the circuit and deploys the results
+    bool solve();
+#endif
 
     // cleans up after superposition.
     void cleanUpSP();
