@@ -19,6 +19,7 @@ MSXMLRawOut.cpp MSXMLRawOut.h \
 MSFCDExport.cpp MSFCDExport.h \
 MSAmitranTrajectories.cpp MSAmitranTrajectories.h  \
 MSBatteryExport.cpp MSBatteryExport.h  \
+MSElecHybridExport.cpp MSElecHybridExport.h \
 MSStopOut.cpp MSStopOut.h  \
 MSEmissionExport.cpp MSEmissionExport.h  \
 MSVTKExport.cpp MSVTKExport.h \

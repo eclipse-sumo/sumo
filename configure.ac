@@ -510,6 +510,7 @@ src/utils/options/Makefile
 src/utils/router/Makefile
 src/utils/shapes/Makefile
 src/utils/traci/Makefile
+src/utils/traction_wire/Makefile
 src/utils/vehicle/Makefile
 src/utils/xml/Makefile
 unittest/Makefile

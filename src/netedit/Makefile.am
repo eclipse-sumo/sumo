@@ -39,8 +39,8 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../utils/geom/libgeom.a \
 ../utils/shapes/libshapes.a \
 ../utils/options/liboptions.a \
-../utils/common/libcommon.a \
 ../utils/emissions/libemissions.a \
+../utils/common/libcommon.a \
 ../utils/xml/libxml.a \
 ../utils/importio/libimportio.a \
 ../utils/iodevices/libiodevices.a \
@@ -53,6 +53,7 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../netedit/netelements/libneteditnetelements.a \
 ../netedit/demandelements/libneteditdemandelements.a \
 ../netedit/changes/libneteditchanges.a \
+../utils/vehicle/libvehicle.a \
 ../utils/gui/globjects/libguiutilsglobjects.a \
 ../utils/gui/div/libguiutilsdiv.a \
 ../utils/gui/settings/libguiutilssettings.a \
@@ -60,8 +61,6 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../utils/gui/cursors/libguiutilscursors.a \
 ../utils/gui/shortcuts/libguiutilsshortcuts.a \
 ../utils/gui/tracker/libguiutilstracker.a \
-../utils/vehicle/libvehicle.a \
-../utils/emissions/libemissions.a \
 ../foreign/PHEMlight/cpp/libphemlight.a \
 $(XERCES_LIBS) $(FFMPEG_LIBS) \
 $(FOX_LDFLAGS) $(XERCES_LDFLAGS) $(PROJ_LDFLAGS) $(GDAL_LDFLAGS) $(X_LDFLAGS)

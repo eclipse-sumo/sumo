@@ -4,4 +4,4 @@ endif
 
 SUBDIRS = common distribution emissions \
 geom importio iodevices options router shapes \
-traci vehicle xml $(GUI_DIRS)
+traci traction_wire vehicle xml $(GUI_DIRS)

@@ -6,11 +6,11 @@ COMMON_LIBS = ../utils/options/liboptions.a \
 ../utils/xml/libxml.a \
 ../utils/distribution/libdistribution.a \
 ../utils/vehicle/libvehicle.a \
+../utils/emissions/libemissions.a \
 ../utils/common/libcommon.a \
 ../utils/importio/libimportio.a \
 ../utils/iodevices/libiodevices.a \
 ../utils/geom/libgeom.a \
-../utils/emissions/libemissions.a \
 ../foreign/PHEMlight/cpp/libphemlight.a \
 ../foreign/tcpip/libtcpip.a \
 $(XERCES_LIBS)

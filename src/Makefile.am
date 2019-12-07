@@ -49,6 +49,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./traci-server/libtraciserver.a \
 ./libsumo/libsumostatic.a \
 ./utils/traci/libtraciclient.a \
+./utils/traction_wire/libtractionwire.a \
 $(COMMON_LIBS) \
 $(PYTHON_LIBS) \
 $(FOX_LDFLAGS) $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)
