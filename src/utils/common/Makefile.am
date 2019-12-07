@@ -7,6 +7,7 @@ MsgHandler.h MsgHandler.cpp \
 MsgRetrievingFunction.h \
 Named.h NamedObjectCont.h NamedRTree.h \
 Parameterised.cpp Parameterised.h \
+PolySolver.h PolySolver.cpp \
 RandHelper.h RandHelper.cpp \
 RGBColor.cpp RGBColor.h \
 StaticCommand.h StdDefs.h StdDefs.cpp \
