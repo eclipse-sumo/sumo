@@ -37,13 +37,10 @@
 #include <mesosim/MEVehicle.h>
 #include "MSDevice_Tripinfo.h"
 #include "MSDevice_ElecHybrid.h"
-//#include <utils/traction_wire/Circuit.h>
-//#include <utils/traction_wire/Element.h>
-//#include <utils/traction_wire/Node.h>
-
 
 //due to strncmp
 #include <string.h>
+
 //due to clock()
 #include <ctime>
 
@@ -72,47 +69,50 @@ MSDevice_ElecHybrid::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDe
         const SUMOVehicleParameter& vehicleParams = v.getParameter();
 
         double actualBatteryCapacity = 0;
-        if (vehicleParams.knowsParameter("actualBatteryCapacity")) {
-            const std::string abc = vehicleParams.getParameter("actualBatteryCapacity", "-1");
+        std::string attrName = toString(SUMO_ATTR_ACTUALBATTERYCAPACITY);
+        if (vehicleParams.knowsParameter(attrName)) {
+            const std::string abc = vehicleParams.getParameter(attrName, "-1");
             try {
                 actualBatteryCapacity = StringUtils::toDouble(abc);
             }
             catch (...) {
-                WRITE_WARNING("Invalid value '" + abc + "'for vehicle parameter 'actualBatteryCapacity'");
+                WRITE_WARNING("Invalid value '" + abc + "'for vehicle parameter '" + attrName + "'");
             }
         }
         else {
-            WRITE_WARNING("Vehicle '" + v.getID() + "' does not provide vehicle parameter 'actualBatteryCapacity'. Using the default of " + std::to_string(actualBatteryCapacity));
+            WRITE_WARNING("Vehicle '" + v.getID() + "' does not provide vehicle parameter '" + attrName + "'. Using the default of " + std::to_string(actualBatteryCapacity));
         }
 
         // obtain maximumBatteryCapacity
         double maximumBatteryCapacity = 0;
-        if (typeParams.knowsParameter("maximumBatteryCapacity")) {
-            const std::string mbc = typeParams.getParameter("maximumBatteryCapacity", "-1");
+        attrName = toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY);
+        if (typeParams.knowsParameter(attrName)) {
+            const std::string mbc = typeParams.getParameter(attrName, "-1");
             try {
                 maximumBatteryCapacity = StringUtils::toDouble(mbc);
             }
             catch (...) {
-                WRITE_WARNING("Invalid value '" + mbc + "'for vType parameter 'maximumBatteryCapacity'");
+                WRITE_WARNING("Invalid value '" + mbc + "'for vType parameter '" + attrName + "'");
             }
         }
         else {
-            WRITE_WARNING("Vehicle '" + v.getID() + "' is missing the vType parameter 'maximumBatteryCapacity'. Using the default of " + std::to_string(maximumBatteryCapacity));
+            WRITE_WARNING("Vehicle '" + v.getID() + "' is missing the vType parameter '" + attrName + "'. Using the default of " + std::to_string(maximumBatteryCapacity));
         }
 
         // obtain overheadWireChargingPower
         double overheadWireChargingPower = 0;
-        if (typeParams.knowsParameter("overheadWireChargingPower")) {
-            const std::string ocp = typeParams.getParameter("overheadWireChargingPower", "-1");
+        attrName = toString(SUMO_ATTR_OVERHEADWIRECHARGINGPOWER);
+        if (typeParams.knowsParameter(attrName)) {
+            const std::string ocp = typeParams.getParameter(attrName, "-1");
             try {
                 overheadWireChargingPower = StringUtils::toDouble(ocp);
             }
             catch (...) {
-                WRITE_WARNING("Invalid value '" + ocp + "'for vType parameter 'overheadWireChargingPower'");
+                WRITE_WARNING("Invalid value '" + ocp + "'for vType parameter '" + attrName + "'");
             }
         }
         else {
-            WRITE_WARNING("Vehicle '" + v.getID() + "' is missing the vType parameter 'overheadWireChargingPower'. Using the default of " + std::to_string(overheadWireChargingPower));
+            WRITE_WARNING("Vehicle '" + v.getID() + "' is missing the vType parameter '" + attrName + "'. Using the default of " + std::to_string(overheadWireChargingPower));
         }
 
         // get custom vType parameter using SUMOXMLDefinitions.cpp/.h
@@ -165,7 +165,6 @@ MSDevice_ElecHybrid::MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string&
     veh_pos_tail_elem(nullptr),
     pos_veh_node(nullptr)
 {
-
     if (maximumBatteryCapacity < 0) {
         WRITE_WARNING("ElecHybrid builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY) + " (" + toString(maximumBatteryCapacity) + ").")
     }
@@ -211,8 +210,8 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
     }
     SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
     // Get current consumption
-    //myParam[SUMO_ATTR_ANGLE] = myLastAngle == std::numeric_limits<double>::infinity() ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
-    //myConsum = PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, veh.getSpeed(), veh.getAcceleration(), veh.getSlope(), &myParam);
+    // myParam[SUMO_ATTR_ANGLE] = myLastAngle == std::numeric_limits<double>::infinity() ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
+    // myConsum = PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, veh.getSpeed(), veh.getAcceleration(), veh.getSlope(), &myParam);
 
     // is battery pack discharged (from previous timestep)
     if (getActualBatteryCapacity() < 0.005*getMaximumBatteryCapacity()) {
@@ -385,7 +384,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
           
             double current = 0;
             if (getActualBatteryCapacity() < 0.98*getMaximumBatteryCapacity()) {
-                //+40 000 W due to charging of battery pack
+                // `myOverheadWireChargingPower` due to charging of battery pack
                 current = -(myConsum * 3600 + myOverheadWireChargingPower * TS) / voltage;
             }
             else {
@@ -396,15 +395,15 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
 
             // Calulate energy charged [Wh]
             if (isnan(voltage) || isnan(current)) {
-                myEnergyCharged = - (myConsum);
+                myEnergyCharged = -myConsum;
             } else {
-                myEnergyCharged = (TS * voltage * -current) / 3600 - (myConsum);
+                myEnergyCharged = (TS * voltage * -current) / 3600 - myConsum;
             }
 
             // Update Battery charge
             setActualBatteryCapacity(getActualBatteryCapacity() + myEnergyCharged);
-            // add charge value for output to myActOverheadWireSegment
-            myActOverheadWireSegment->addChargeValueForOutput(myEnergyCharged + (myConsum), this);
+            // Add charge value for output to myActOverheadWireSegment
+            myActOverheadWireSegment->addChargeValueForOutput(myEnergyCharged + myConsum, this);
         }
         myPreviousOverheadWireSegment = segment;
     }
@@ -521,7 +520,8 @@ MSDevice_ElecHybrid::notifyMoveInternal(
     const double meanSpeedVehicleOnLane,
     const double travelledDistanceFrontOnLane,
     const double travelledDistanceVehicleOnLane,
-    const double meanLengthOnLane) {
+    const double meanLengthOnLane)
+{
     UNUSED_PARAMETER(tObject);
     UNUSED_PARAMETER(frontOnLane);
     UNUSED_PARAMETER(timeOnLane);
