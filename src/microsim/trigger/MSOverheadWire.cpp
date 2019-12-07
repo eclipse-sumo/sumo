@@ -23,32 +23,31 @@
 #include <config.h>
 
 #include <cassert>
+#include <tuple>
+#include <string.h>
+
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/common/ToString.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSStoppingPlace.h>
-#include <microsim/devices/MSDevice_ElecHybrid.h>
-#include <microsim/MSNet.h>
-#include <microsim/MSLane.h>
-#include <guisim/GUILane.h>
-#include "MSOverheadWire.h"
-//#include <microsim/trigger/MSChargingStation.h>
-#include "MSTrigger.h"
-#include <tuple>
-
 #include <microsim/MSJunction.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSLinkCont.h>
+#include <microsim/MSNet.h>
+#include <microsim/devices/MSDevice_ElecHybrid.h>
 
-#include <string.h>
-
-//due to gOverheadWireSolver
+// due to gOverheadWireSolver
 #include <microsim/MSGlobals.h>
 
-//due to solving circuit as endEndOfTimestepEvents
+// due to solving circuit as endEndOfTimestepEvents
 #include <utils/common/StaticCommand.h>
 #include <utils/common/WrappingCommand.h>
 #include <microsim/MSEventControl.h>
+
+#include "MSOverheadWire.h"
+#include "MSTrigger.h"
+
 
 Command* MSTractionSubstation::myCommandForSolvingCircuit = nullptr;
 
