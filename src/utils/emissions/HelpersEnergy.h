@@ -80,29 +80,6 @@ public:
 private:
     /// @brief The default parameter
     std::map<int, double> myDefaultParameter;
-
-    /** @brief Solver of quadratic equation ax^2 + bx + c = 0
-     *
-     * return only real roots
-     *
-     * @param[in] a The coefficient of the qadratic term x^2
-     * @param[in] b The coefficient of the linear term x
-     * @param[in] c The coefficient of the constant term 
-     * @return the number of real roots and these real roots
-     */
-    std::tuple<int, double, double> quadraticSolve(double a, double b, double c) const;
-
-    /** @brief Solver of cubic equation ax^3 + bx^2 + cx + d = 0
-     *
-     * return only real roots
-     *
-     * @param[in] a The coefficient of the cubic term x^3
-     * @param[in] b The coefficient of the qadratic term x^2
-     * @param[in] c The coefficient of the linear term x
-     * @param[in] d The coefficient of the constant term
-     * @return the number of real roots and these real roots
-     */
-    std::tuple<int, double, double, double> cubicSolve(double a, double b, double c, double d) const;
 };
 
 
