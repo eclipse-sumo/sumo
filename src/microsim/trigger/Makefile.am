@@ -5,4 +5,4 @@ MSLaneSpeedTrigger.cpp MSLaneSpeedTrigger.h \
 MSTrigger.h MSTrigger.cpp \
 MSChargingStation.h MSChargingStation.cpp \
 MSTriggeredRerouter.cpp MSTriggeredRerouter.h \
-MSTrolley.cpp MSTrolley.h
+MSOverheadWire.cpp MSOverheadWire.h

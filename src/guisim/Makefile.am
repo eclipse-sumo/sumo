@@ -22,7 +22,7 @@ GUIChargingStation.cpp GUIChargingStation.h \
 GUIBaseVehicle.cpp GUIBaseVehicle.h \
 GUIVehicle.cpp GUIVehicle.h GUIVehicleControl.cpp GUIVehicleControl.h \
 GUITransportableControl.cpp GUITransportableControl.h \
-GUITrolley.cpp GUITrolley.h
+GUIOverheadWire.cpp GUIOverheadWire.h
 
 EXTRA_DIST = guisim64.ico
 
