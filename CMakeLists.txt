@@ -338,7 +338,7 @@ if (CHECK_OPTIONAL_LIBS)
 
     # Eigen (for overhead wire / electric circuit simulation)
     # TODO: Probably may be used in 32bit build as well.
-    find_package(Eigen3 3.3 MODULE)
+    find_package(Eigen3 3.2 MODULE)
     if (EIGEN3_FOUND)
         include_directories(${EIGEN3_INCLUDE_DIR})
         set(HAVE_EIGEN 1)  # see config.h.cmake for #cmakedefine
