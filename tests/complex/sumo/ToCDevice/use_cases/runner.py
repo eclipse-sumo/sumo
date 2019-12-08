@@ -14,7 +14,6 @@
 # @author  Jakob Erdmann
 # @author  Leonhard Luecken
 # @date    2009-03-26
-# @version $Id$
 
 """
 -- generate *.rou.xml files according to the given parameters sets for the pre-defined scenarios

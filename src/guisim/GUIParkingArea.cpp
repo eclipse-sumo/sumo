@@ -11,7 +11,6 @@
 /// @author  Mirco Sturari
 /// @author  Jakob Erdmann
 /// @date    Tue, 19.01.2016
-/// @version $Id$
 ///
 // A area where vehicles can park next to the road (gui version)
 /****************************************************************************/

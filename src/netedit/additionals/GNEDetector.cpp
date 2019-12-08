@@ -10,7 +10,6 @@
 /// @file    GNEDetector.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -32,25 +31,25 @@
 // ===========================================================================
 
 GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-        double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
-        const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& parentLanes) :
+                         double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
+                         const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& parentLanes) :
     GNEAdditional(id, viewNet, type, tag, name, blockMovement, {}, parentLanes, {}, {}, {}, {}, {}, {}, {}, {}),
-    myPositionOverLane(pos),
-    myFreq(freq),
-    myFilename(filename),
-    myVehicleTypes(vehicleTypes),
-    myFriendlyPosition(friendlyPos) {
+              myPositionOverLane(pos),
+              myFreq(freq),
+              myFilename(filename),
+              myVehicleTypes(vehicleTypes),
+myFriendlyPosition(friendlyPos) {
 }
 
 
 GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-        double pos, SUMOTime freq, const std::string& filename, const std::string& name, bool friendlyPos, 
-        bool blockMovement, const std::vector<GNELane*>& parentLanes) :
+                         double pos, SUMOTime freq, const std::string& filename, const std::string& name, bool friendlyPos,
+                         bool blockMovement, const std::vector<GNELane*>& parentLanes) :
     GNEAdditional(additionalParent, viewNet, type, tag, name, blockMovement, {}, parentLanes, {}, {additionalParent}, {}, {}, {}, {}, {}, {}),
-    myPositionOverLane(pos),
-    myFreq(freq),
-    myFilename(filename),
-    myFriendlyPosition(friendlyPos) {
+myPositionOverLane(pos),
+myFreq(freq),
+myFilename(filename),
+myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -85,12 +84,12 @@ GNEDetector::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
     // only split geometry of E2 multilane detectors
     if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-        if ((originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) && 
-            (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+        if ((originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
+                (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE)) {
             // obtain new list of E2 lanes
             std::string newE2Lanes = getNewListOfParents(originalElement, newElement);
             // update E2 Lanes
@@ -119,7 +118,7 @@ GNEDetector::getGeometryPositionOverLane() const {
 }
 
 
-double 
+double
 GNEDetector::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
 }

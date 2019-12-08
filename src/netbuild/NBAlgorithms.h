@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    02. March 2012
-/// @version $Id$
 ///
 // Algorithms for network computation
 /****************************************************************************/

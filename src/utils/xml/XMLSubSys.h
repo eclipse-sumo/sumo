@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 1 Jul 2002
-/// @version $Id$
 ///
 // Utility methods for initialising, closing and using the XML-subsystem
 /****************************************************************************/

@@ -15,7 +15,6 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    July 2010
-/// @version $Id$
 ///
 // Contains various data, statistical values and functions from input used
 // by various objects

@@ -10,7 +10,6 @@
 /// @file    GNEDemandElement.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2018
-/// @version $Id$
 ///
 // A abstract class for demand elements
 /****************************************************************************/
@@ -397,15 +396,15 @@ GNEDemandElement::changeDemandElementID(const std::string& newID) {
 }
 
 
-void 
-GNEDemandElement::calculatePersonPlanLaneStartEndPos(double &startPos, double &endPos) const {
+void
+GNEDemandElement::calculatePersonPlanLaneStartEndPos(double& startPos, double& endPos) const {
     // obtain pointer to current busStop
-    GNEAdditional* busStop = getParentAdditionals().size() > 0? getParentAdditionals().front() : nullptr;
+    GNEAdditional* busStop = getParentAdditionals().size() > 0 ? getParentAdditionals().front() : nullptr;
     // declare pointers for previous elements
     GNEAdditional* previousBusStop = nullptr;
-    GNEDemandElement *previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
+    GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
     // declare pointer to next person plan
-    GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+    GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
     // obtain departlane throught previous element
     if (previousPersonPlan && (previousPersonPlan->getParentAdditionals().size() > 0)) {
         // set previous busStop
@@ -437,20 +436,20 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos(double &startPos, double &e
 }
 
 
-void 
-GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position &startPos, Position &endPos) const {
+void
+GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position& startPos, Position& endPos) const {
     // obtain previous demand element
-    GNEDemandElement *previousDemandElmement = getParentDemandElements().front()->getPreviousChildDemandElement(this);
+    GNEDemandElement* previousDemandElmement = getParentDemandElements().front()->getPreviousChildDemandElement(this);
     if (previousDemandElmement) {
         // update startPos
-        if ((previousDemandElmement->getParentAdditionals().size() > 0) && 
-            (previousDemandElmement->getParentAdditionals().front()->getAdditionalGeometry().getShape().size() > 0)) {
+        if ((previousDemandElmement->getParentAdditionals().size() > 0) &&
+                (previousDemandElmement->getParentAdditionals().front()->getAdditionalGeometry().getShape().size() > 0)) {
             // Previous demand element ends in an busStop
             startPos = previousDemandElmement->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
         } else if (previousDemandElmement->getTagProperty().isPersonStop() && (previousDemandElmement->getDemandElementGeometry().getShape().size() > 0)) {
             // Previous demand element ends in an Stop
             startPos = previousDemandElmement->getDemandElementGeometry().getShape().back();
-        } else if ((previousDemandElmement->getDemandElementSegmentGeometry().size() > 0) && 
+        } else if ((previousDemandElmement->getDemandElementSegmentGeometry().size() > 0) &&
                    (previousDemandElmement->getDemandElementSegmentGeometry().back().getShape().size() > 0)) {
             // add last shape segment of previous segment geometry
             startPos = previousDemandElmement->getDemandElementSegmentGeometry().back().getShape().back();
@@ -461,7 +460,7 @@ GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position &startPos, Pos
         endPos = getParentAdditionals().front()->getAdditionalGeometry().getShape().front();
     } else {
         // obtain next demand element
-        GNEDemandElement *nextDemandElmement = getParentDemandElements().front()->getNextChildDemandElement(this);
+        GNEDemandElement* nextDemandElmement = getParentDemandElements().front()->getNextChildDemandElement(this);
         if (nextDemandElmement) {
             // update end pos
             if (nextDemandElmement->getTagProperty().isPersonStop() && (nextDemandElmement->getDemandElementGeometry().getShape().size() > 0)) {
@@ -473,7 +472,7 @@ GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position &startPos, Pos
 }
 
 
-GNELane* 
+GNELane*
 GNEDemandElement::getFirstAllowedVehicleLane() const {
     // first check if current demand element has parent edges
     if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
@@ -485,7 +484,7 @@ GNEDemandElement::getFirstAllowedVehicleLane() const {
             // obtain depart lane
             std::string departLane = getAttribute(SUMO_ATTR_DEPARTLANE);
             //  check depart lane
-            if ((departLane == "random") || (departLane == "free") ||(departLane == "allowed") ||(departLane == "best") || (departLane == "first")) {
+            if ((departLane == "random") || (departLane == "free") || (departLane == "allowed") || (departLane == "best") || (departLane == "first")) {
                 return getParentEdges().front()->getLaneByAllowedVClass(getVClass());
             }
             // obtain index
@@ -509,7 +508,7 @@ GNEDemandElement::getFirstAllowedVehicleLane() const {
 }
 
 
-GNELane* 
+GNELane*
 GNEDemandElement::getLastAllowedVehicleLane() const {
     // first check if current demand element has parent edges
     if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
@@ -517,8 +516,8 @@ GNEDemandElement::getLastAllowedVehicleLane() const {
         return getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(getVClass());
     } else if (getParentEdges().size() > 0) {
         if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) ||
-            (myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) ||
-            (myTagProperty.getTag() == SUMO_TAG_RIDE_BUSSTOP)) {
+                (myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) ||
+                (myTagProperty.getTag() == SUMO_TAG_RIDE_BUSSTOP)) {
             // return busStop lane
             return getParentAdditionals().front()->getParentLanes().front();
         } else if (myTagProperty.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {

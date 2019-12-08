@@ -11,7 +11,6 @@
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
 # @date    2007-06-28
-# @version $Id$
 
 """
 This script does flow routing similar to the dfrouter.

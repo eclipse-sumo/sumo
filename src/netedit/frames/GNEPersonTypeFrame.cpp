@@ -10,7 +10,6 @@
 /// @file    GNEPersonTypeFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2019
-/// @version $Id$
 ///
 // The Widget for edit person type (pTypes with vclass='pedestrian) elements
 /****************************************************************************/

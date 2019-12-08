@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Sascha Krieg
 /// @date    Mon, 17 Dec 2001
-/// @version $Id$
 ///
 // Some typedef definitions fir containers
 /****************************************************************************/

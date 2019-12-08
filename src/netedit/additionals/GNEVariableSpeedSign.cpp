@@ -10,7 +10,6 @@
 /// @file    GNEVariableSpeedSign.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -38,7 +37,7 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_VSS, SUMO_TAG_VSS, name, blockMovement, {}, {}, {}, {}, {}, {}, lanes, {}, {}, {}),
-    myPosition(pos) {
+myPosition(pos) {
 }
 
 
@@ -82,7 +81,7 @@ GNEVariableSpeedSign::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNEVariableSpeedSign::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
@@ -199,7 +198,7 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEVariableSpeedSign::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
 }
@@ -261,7 +260,7 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNEVariableSpeedSign::isAttributeEnabled(SumoXMLAttr /* key */) const {
     return true;
 }

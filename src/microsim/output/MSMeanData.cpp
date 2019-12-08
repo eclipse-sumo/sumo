@@ -14,7 +14,6 @@
 /// @author  Laura Bieker
 /// @author  Leonhard Luecken
 /// @date    Mon, 10.05.2004
-/// @version $Id$
 ///
 // Data collector for edges/lanes
 /****************************************************************************/

@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Leonhard Luecken
 /// @date    Mon, 14.04.2008
-/// @version $Id$
 ///
 // Importer for networks stored in SUMO format
 /****************************************************************************/
@@ -759,8 +758,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, nullptr, ok, "", false);
     if (allow == "" && disallow == "") {
         conn.permissions = SVC_UNSPECIFIED;
-    }
-    else {
+    } else {
         conn.permissions = parseVehicleClasses(allow, disallow, myNetworkVersion);
     }
     conn.speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, NBEdge::UNSPECIFIED_SPEED);

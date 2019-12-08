@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Mirco Sturari
 /// @date    Mon, 25 July 2005
-/// @version $Id$
 ///
 // Reroutes vehicles passing an edge
 /****************************************************************************/

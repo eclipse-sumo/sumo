@@ -10,7 +10,6 @@
 /// @file    GNEPersonTrip.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2019
-/// @version $Id$
 ///
 // A class for visualizing person trips in Netedit
 /****************************************************************************/
@@ -42,14 +41,15 @@
 // method definitions
 // ===========================================================================
 
-GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*> &via, 
-    double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO, 
-        {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myArrivalPosition(arrivalPosition),
-    myVTypes(types),
-    myModes(modes) {
+GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
+                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO, {
+    fromEdge, toEdge
+}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
+Parameterised(),
+myArrivalPosition(arrivalPosition),
+myVTypes(types),
+myModes(modes) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
     // compute person trip
@@ -57,14 +57,15 @@ GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent
 }
 
 
-GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*> &via, 
-    const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP, 
-        {fromEdge}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myArrivalPosition(-1),
-    myVTypes(types),
-    myModes(modes) {
+GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via,
+                             const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP, {
+    fromEdge
+}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
+Parameterised(),
+myArrivalPosition(-1),
+myVTypes(types),
+myModes(modes) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
     // compute person trip
@@ -280,11 +281,11 @@ GNEPersonTrip::updateGeometry() {
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path
     if (getPathEdges().size() > 0) {
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(), 
-            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
+                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(), 
-            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
+                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
@@ -293,7 +294,7 @@ GNEPersonTrip::updateGeometry() {
 }
 
 
-void 
+void
 GNEPersonTrip::updatePartialGeometry(const GNEEdge* edge) {
     // declare depart and arrival pos lane
     double departPosLane = -1;
@@ -314,7 +315,7 @@ GNEPersonTrip::updatePartialGeometry(const GNEEdge* edge) {
 }
 
 
-void 
+void
 GNEPersonTrip::computePath() {
     if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_FROMTO) {
         // calculate route and update routeEdges
@@ -332,7 +333,7 @@ GNEPersonTrip::computePath() {
 }
 
 
-void 
+void
 GNEPersonTrip::invalidatePath() {
     if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_FROMTO) || (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP)) {
         // calculate route and update routeEdges
@@ -378,7 +379,7 @@ GNEPersonTrip::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNEPersonTrip::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }

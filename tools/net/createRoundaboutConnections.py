@@ -12,7 +12,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2007-02-21
-# @version $Id$  # noqa
 
 """
 This script reads in the network given as

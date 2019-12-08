@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2007-02-21
-# @version $Id$
 
 """
 

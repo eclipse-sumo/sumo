@@ -10,7 +10,6 @@
 /// @file    GNEChange.cpp
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id$
 ///
 // The reification of a NETEDIT editing operation (see command pattern)
 // inherits from FXCommand and is used to for undo/redo

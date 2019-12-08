@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Jun 2004
-/// @version $Id$
 ///
 // Storage for "selected" objects
 /****************************************************************************/

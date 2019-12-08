@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Tue, 22 Jul 2003
-/// @version $Id$
 ///
 // Builds detectors for guisim
 /****************************************************************************/

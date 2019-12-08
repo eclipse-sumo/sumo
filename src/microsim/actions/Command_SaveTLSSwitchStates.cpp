@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    08.05.2007
-/// @version $Id$
 ///
 // Writes the switch times of a tls into a file when the tls switches
 /****************************************************************************/

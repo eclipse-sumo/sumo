@@ -10,7 +10,6 @@
 /// @file    GNESelectorFrame.h
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id$
 ///
 // The Widget for modifying selections of network-elements
 // (some elements adapted from GUIDialog_GLChosenEditor)
@@ -73,7 +72,7 @@ public:
             /// @}
 
         protected:
-			FOX_CONSTRUCTOR(ObjectTypeEntry)
+            FOX_CONSTRUCTOR(ObjectTypeEntry)
 
         private:
             /// @brief label counter
@@ -150,7 +149,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(ModificationMode)
+        FOX_CONSTRUCTOR(ModificationMode)
 
     private:
         /// @brief add radio button
@@ -210,7 +209,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(ElementSet)
+        FOX_CONSTRUCTOR(ElementSet)
 
     private:
         /// @brief pointer to Selector Frame Parent
@@ -270,7 +269,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(MatchAttribute)
+        FOX_CONSTRUCTOR(MatchAttribute)
 
     private:
         /// @brief pointer to Selector Frame Parent
@@ -316,7 +315,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(VisualScaling)
+        FOX_CONSTRUCTOR(VisualScaling)
 
     private:
         /// @brief pointer to Selector Frame Parent
@@ -369,7 +368,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(SelectionOperation)
+        FOX_CONSTRUCTOR(SelectionOperation)
 
     private:
         /// @brief pointer to Selector Frame Parent

@@ -12,7 +12,6 @@
 # @author  Yun-Pang Floetteroed
 # @author  Michael Behrisch
 # @date    2007-03-20
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function

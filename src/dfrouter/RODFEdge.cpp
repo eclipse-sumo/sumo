@@ -13,7 +13,6 @@
 /// @author  Jakob Erdmann
 /// @author  Yun-Pang Floetteroed
 /// @date    Thu, 16.03.2006
-/// @version $Id$
 ///
 // An edge within the DFROUTER
 /****************************************************************************/

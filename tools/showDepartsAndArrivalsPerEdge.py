@@ -10,7 +10,6 @@
 # @file    showDepartsAndArrivalsPerEdge.py
 # @author  Jakob Erdmann
 # @date    2015-08-05
-# @version $Id$  # noqa
 
 from __future__ import print_function
 import sys

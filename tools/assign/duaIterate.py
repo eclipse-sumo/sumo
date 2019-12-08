@@ -14,7 +14,6 @@
 # @author  Jakob Erdmann
 # @author  Yun-Pang Floetteroed
 # @date    2008-02-13
-# @version $Id$
 
 """
 Run duarouter and sumo alternating to perform a dynamic user assignment.

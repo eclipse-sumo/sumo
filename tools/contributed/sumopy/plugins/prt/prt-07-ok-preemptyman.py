@@ -11,7 +11,6 @@
 # @file    prt-07-ok-preemptyman.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 """
 This plugin provides methods to run and analyze PRT networks.

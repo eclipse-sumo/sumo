@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    02. March 2012
-/// @version $Id$
 ///
 // Algorithms for network computation
 /****************************************************************************/
@@ -174,7 +173,7 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tl
         }
         // check whether the node was set to be unregulated by the user
         if (oc.getBool("keep-nodes-unregulated") || oc.isInStringVector("keep-nodes-unregulated.explicit", n->getID())
-            || (oc.getBool("keep-nodes-unregulated.district-nodes") && (n->isNearDistrict() || n->isDistrict()))) {
+                || (oc.getBool("keep-nodes-unregulated.district-nodes") && (n->isNearDistrict() || n->isDistrict()))) {
             n->myType = NODETYPE_NOJUNCTION;
             continue;
         }

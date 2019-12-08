@@ -10,7 +10,6 @@
 /// @file    GNENetElement.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id$
 ///
 // A abstract class for netElements
 /****************************************************************************/

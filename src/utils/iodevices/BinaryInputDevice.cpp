@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2005-09-15
-/// @version $Id$
 ///
 // Encapsulates binary reading operations on a file
 /****************************************************************************/

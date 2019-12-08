@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Leonhard Luecken
 /// @date    11.06.2013
-/// @version $Id$
 ///
 // An SSM-device logs encounters / conflicts of the carrying vehicle with other surrounding vehicles.
 // XXX: Preliminary implementation. Use with care. Especially rerouting vehicles could be problematic.

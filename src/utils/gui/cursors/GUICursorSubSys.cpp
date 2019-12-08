@@ -10,7 +10,6 @@
 /// @file    GUICursorSubSys.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2018
-/// @version $Id$
 ///
 // Helper for cursors loading and usage
 /****************************************************************************/

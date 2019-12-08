@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Sept 2009
-/// @version $Id$
 ///
 // Tests the class RGBColor
 /****************************************************************************/

@@ -10,7 +10,6 @@
 # @file    configTemplateToWiki.py
 # @author  Michael Behrisch
 # @date    2012-01-26
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function

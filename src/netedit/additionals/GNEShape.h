@@ -10,7 +10,6 @@
 /// @file    GNEShape.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2017
-/// @version $Id$
 ///
 // Abstract class for Shapes uses in netedit
 /****************************************************************************/

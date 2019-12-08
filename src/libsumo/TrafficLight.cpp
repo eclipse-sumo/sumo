@@ -13,7 +13,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    30.05.2012
-/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
@@ -285,9 +284,9 @@ TrafficLight::setCompleteRedYellowGreenDefinition(const std::string& tlsID, cons
                 break;
             case TLTYPE_STATIC:
                 tlLogic = new MSSimpleTrafficLightLogic(tlc,
-                        tlsID, logic.programID, TLTYPE_STATIC,
-                        phases, step, nextSwitch,
-                        logic.subParameter);
+                                                        tlsID, logic.programID, TLTYPE_STATIC,
+                                                        phases, step, nextSwitch,
+                                                        logic.subParameter);
                 break;
             default:
                 throw TraCIException("Unsupported traffic light type '" + toString(logic.type) + "'");

@@ -10,7 +10,6 @@
 /// @file    GNEDialogACChooser.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Apr 2018
-/// @version $Id$
 ///
 // Class for the window that allows to choose a street, junction or vehicle
 /****************************************************************************/

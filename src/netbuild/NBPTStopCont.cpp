@@ -10,7 +10,6 @@
 /// @file    NBPTStopCont.cpp
 /// @author  Gregor Laemmel
 /// @date    Tue, 20 Mar 2017
-/// @version $Id$
 ///
 // Container for pt stops during the netbuilding process
 /****************************************************************************/
@@ -98,8 +97,8 @@ void NBPTStopCont::assignLanes(NBEdgeCont& cont) {
         NBPTStop* stop = i->second;
 
         if (!stop->findLaneAndComputeBusStopExtent(cont)) {
-            WRITE_WARNING("Could not find corresponding edge or compatible lane for pt stop '" + i->first 
-                    + "' (" + i->second->getName() + "). Thus, it will be removed!");
+            WRITE_WARNING("Could not find corresponding edge or compatible lane for pt stop '" + i->first
+                          + "' (" + i->second->getName() + "). Thus, it will be removed!");
             EdgeVector edgeVector = cont.getGeneratedFrom((*i).second->getOrigEdgeId());
             //std::cout << edgeVector.size() << std::endl;
             myPTStops.erase(i++);

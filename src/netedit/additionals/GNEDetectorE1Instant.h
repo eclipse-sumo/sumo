@@ -10,7 +10,6 @@
 /// @file    GNEDetectorE1Instant.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2018
-/// @version $Id$
 ///
 //
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    GUIIconSubSys.h
 /// @author  Daniel Krajzewicz
 /// @date    Jul 2003
-/// @version $Id$
 ///
 // A class to manage icons of SUMO
 /****************************************************************************/

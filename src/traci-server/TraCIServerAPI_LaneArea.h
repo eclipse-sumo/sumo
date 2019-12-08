@@ -11,7 +11,6 @@
 /// @author  Mario Krumnow
 /// @author  Michael Behrisch
 /// @date    15.09.2013
-/// @version $Id$
 ///
 // APIs for getting/setting areal detector values via TraCI
 /****************************************************************************/

@@ -12,7 +12,6 @@
 /// @author  Andreas Kendziorra
 /// @author  Michael Behrisch
 /// @date    Thu, 12 Jun 2014
-/// @version $Id$
 ///
 // The common superclass for modelling transportable objects like persons and containers
 /****************************************************************************/

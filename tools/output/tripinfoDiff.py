@@ -11,7 +11,6 @@
 # @file    tripinfoDiff.py
 # @author  Jakob Erdmann
 # @date    2016-15-04
-# @version $Id$
 
 """
 Compare differences between tripinfo files that contain the same vehicles

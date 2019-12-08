@@ -10,7 +10,6 @@
 /// @file    PedestrianRouter.h
 /// @author  Jakob Erdmann
 /// @date    Mon, 03 March 2014
-/// @version $Id$
 ///
 // The Pedestrian Router builds a special network and delegates to a SUMOAbstractRouter.
 /****************************************************************************/

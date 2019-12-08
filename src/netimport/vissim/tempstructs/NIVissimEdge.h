@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    End of 2002
-/// @version $Id$
 ///
 // A temporary storage for edges imported from Vissim
 /****************************************************************************/

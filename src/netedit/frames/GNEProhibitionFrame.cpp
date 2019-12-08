@@ -10,7 +10,6 @@
 /// @file    GNEProhibitionFrame.cpp
 /// @author  Mirko Barthauer (Technische Universitaet Braunschweig)
 /// @date    May 2018
-/// @version $Id$
 ///
 // The Widget for editing connection prohibits
 /****************************************************************************/

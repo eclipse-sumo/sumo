@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // An actuated (adaptive) traffic light logic
 /****************************************************************************/
@@ -399,9 +398,9 @@ MSActuatedTrafficLightLogic::trySwitch() {
     const double detectionGap = gapControl();
     const bool multiTarget = myPhases[myStep]->nextPhases.size() > 1 && myPhases[myStep]->nextPhases.front() >= 0;
 #ifdef DEBUG_PHASE_SELECTION
-        if (DEBUG_COND) {
-            std::cout << SIMTIME << " p=" << myStep << " trySwitch dGap=" << detectionGap << " multi=" << multiTarget << "\n";
-        }
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " p=" << myStep << " trySwitch dGap=" << detectionGap << " multi=" << multiTarget << "\n";
+    }
 #endif
     if (detectionGap < std::numeric_limits<double>::max() && !multiTarget) {
         return duration(detectionGap);
@@ -545,8 +544,8 @@ MSActuatedTrafficLightLogic::decideNextPhase() {
             result = cands.front();
             if (result == myStep) {
                 WRITE_WARNING("At actuated tlLogic '" + getID()
-                        + "', starvation at e1Detector '" + loopInfo.loop->getID()
-                        + "' which cannot be reached from the default phase " + toString(myStep) + ".");
+                              + "', starvation at e1Detector '" + loopInfo.loop->getID()
+                              + "' which cannot be reached from the default phase " + toString(myStep) + ".");
             }
             // use default phase to reach other phases
 #ifdef DEBUG_PHASE_SELECTION
@@ -593,7 +592,7 @@ MSActuatedTrafficLightLogic::getDetectorPriority(const InductLoopInfo& loopInfo)
 #ifdef DEBUG_PHASE_SELECTION
             if (DEBUG_COND) {
                 std::cout << "    loop=" << loop->getID() << " gap=" << loop->getTimeSinceLastDetection() << " lastGreen=" << STEPS2TIME(loopInfo.lastGreenTime)
-                   << " lastDetection=" << STEPS2TIME(loop->getLastDetectionTime()) << " inactive=" << STEPS2TIME(inactiveTime) << "\n";
+                          << " lastDetection=" << STEPS2TIME(loop->getLastDetectionTime()) << " inactive=" << STEPS2TIME(inactiveTime) << "\n";
             }
 #endif
             return (int)STEPS2TIME(inactiveTime);

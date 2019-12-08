@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Thu, 17 Oct 2002
-/// @version $Id$
 ///
 // Builds trigger objects for microsim
 /****************************************************************************/

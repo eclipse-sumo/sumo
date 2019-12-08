@@ -10,7 +10,6 @@
 /// @file    MSTransportable.h
 /// @author  Michael Behrisch
 /// @date    Tue, 21 Apr 2015
-/// @version $Id$
 ///
 // The common superclass for modelling transportable objects like persons and containers
 /****************************************************************************/

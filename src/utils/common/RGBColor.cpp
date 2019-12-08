@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A RGB-color definition
 /****************************************************************************/

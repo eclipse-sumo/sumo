@@ -10,7 +10,6 @@
 /// @file    NIVissimConflictArea.cpp
 /// @author  Lukas Grohmann
 /// @date    Aug 2015
-/// @version $Id$
 ///
 // A temporary storage for conflict areas imported from Vissim
 /****************************************************************************/

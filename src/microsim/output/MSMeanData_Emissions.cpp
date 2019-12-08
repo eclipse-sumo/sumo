@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 10.05.2004
-/// @version $Id$
 ///
 // Emission data collector for edges/lanes that
 /****************************************************************************/
@@ -75,9 +74,9 @@ MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(const SUMOTraffic
         travelledDistance += travelledDistanceVehicleOnLane;
         const double a = veh.getAcceleration();
         myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(),
-                    // XXX: recheck, which value to use here for the speed. (Leo) Refs. #2579
-                    meanSpeedVehicleOnLane, a, veh.getSlope(),
-                    static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), timeOnLane);
+                              // XXX: recheck, which value to use here for the speed. (Leo) Refs. #2579
+                              meanSpeedVehicleOnLane, a, veh.getSlope(),
+                              static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), timeOnLane);
     }
 }
 

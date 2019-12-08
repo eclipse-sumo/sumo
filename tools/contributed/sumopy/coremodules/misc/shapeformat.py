@@ -11,7 +11,6 @@
 # @file    shapeformat.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 
 import time

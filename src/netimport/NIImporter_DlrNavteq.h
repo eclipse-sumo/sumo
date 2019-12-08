@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mon, 14.04.2008
-/// @version $Id$
 ///
 // Importer for networks stored in Elmar's format
 /****************************************************************************/

@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    15 Feb 2004
-/// @version $Id$
 ///
 // Helpers for link vector
 /****************************************************************************/

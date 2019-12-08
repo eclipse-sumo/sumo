@@ -13,7 +13,6 @@
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A position in the 2D- or 3D-world
 /****************************************************************************/

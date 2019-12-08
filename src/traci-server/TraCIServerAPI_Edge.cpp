@@ -16,7 +16,6 @@
 /// @author  Mario Krumnow
 /// @author  Gregor Laemmel
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // APIs for getting/setting edge values via TraCI
 /****************************************************************************/

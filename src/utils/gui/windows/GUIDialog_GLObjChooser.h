@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Class for the window that allows to choose a street, junction or vehicle
 /****************************************************************************/
@@ -153,7 +152,7 @@ private:
     bool myLocateByName;
 
 protected:
-	FOX_CONSTRUCTOR(GUIDialog_GLObjChooser)
+    FOX_CONSTRUCTOR(GUIDialog_GLObjChooser)
 
 };
 

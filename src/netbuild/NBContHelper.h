@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 17 Dec 2001
-/// @version $Id$
 ///
 // Some methods for traversing lists of edges
 /****************************************************************************/

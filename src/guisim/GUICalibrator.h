@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 26.04.2004
-/// @version $Id$
 ///
 // Changes flow and speed on a set of lanes (gui version)
 /****************************************************************************/

@@ -10,7 +10,6 @@
 # @author  Daniel Krajzewicz
 # @author  Laura Bieker
 # @date    2011-09-30
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function

@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A MSNet extended by some values for usage within the gui
 /****************************************************************************/

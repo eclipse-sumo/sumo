@@ -11,7 +11,6 @@
 /// @author  Gianfilippo Slager
 /// @author  Federico Caselli
 /// @date    Feb 2010
-/// @version $Id$
 ///
 // The class for SOTL Phase logics
 /****************************************************************************/

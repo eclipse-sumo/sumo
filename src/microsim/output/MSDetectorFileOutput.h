@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    2004-11-23
-/// @version $Id$
 ///
 // Base of value-generating classes (detectors)
 /****************************************************************************/

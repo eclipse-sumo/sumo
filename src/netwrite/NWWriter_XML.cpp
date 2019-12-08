@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Leonhard Luecken
 /// @date    Tue, 11.05.2011
-/// @version $Id$
 ///
 // Exporter writing networks using XML (native input) format
 /****************************************************************************/
@@ -450,7 +449,7 @@ NWWriter_XML::writeDistricts(const OptionsCont& oc, NBDistrictCont& dc) {
     }
 }
 
-void 
+void
 NWWriter_XML::writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVector shape, SumoXMLAttr attr, bool useGeo, bool geoAccuracy) {
     if (useGeo) {
         for (int i = 0; i < (int) shape.size(); i++) {

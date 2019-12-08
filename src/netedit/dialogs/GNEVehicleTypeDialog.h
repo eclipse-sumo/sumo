@@ -10,7 +10,6 @@
 /// @file    GNEVehicleTypeDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
-/// @version $Id$
 ///
 // Dialog for edit vehicleTypes
 /****************************************************************************/
@@ -413,7 +412,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(CarFollowingModelParameters)
+        FOX_CONSTRUCTOR(CarFollowingModelParameters)
 
         /// @brief class used for represent rows with Car Following Model parameters
         class CarFollowingModelRow : public FXHorizontalFrame {

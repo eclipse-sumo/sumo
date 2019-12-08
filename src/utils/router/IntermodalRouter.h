@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 03 March 2014
-/// @version $Id$
 ///
 // The IntermodalRouter builds a special network and (delegates to a SUMOAbstractRouter)
 /****************************************************************************/

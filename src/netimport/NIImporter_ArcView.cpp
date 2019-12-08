@@ -14,7 +14,6 @@
 /// @author  Thimor Bohn
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Importer for networks stored in ArcView-shape format
 /****************************************************************************/

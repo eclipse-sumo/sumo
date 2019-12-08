@@ -15,7 +15,6 @@
 /// @author  Jakob Erdmann
 /// @author  Leonhard Luecken
 /// @date    Fri, 29.04.2005
-/// @version $Id$
 ///
 // Interface for lane-change models
 /****************************************************************************/
@@ -549,7 +548,7 @@ public:
     void setSpeedLat(double speedLat) {
         mySpeedLat = speedLat;
     }
-    
+
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
     ///        and updates maneuverDist according to lateral safety constraints.
     virtual double computeSpeedLat(double latDist, double& maneuverDist);

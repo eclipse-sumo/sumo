@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    11.06.2013
-/// @version $Id$
 ///
 // A device which stands as an implementation FCD and which outputs movereminder calls
 /****************************************************************************/

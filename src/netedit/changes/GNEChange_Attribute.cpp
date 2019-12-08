@@ -10,7 +10,6 @@
 /// @file    GNEChange_Attribute.cpp
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id$
 ///
 // A network change in which something is changed (for undo/redo)
 /****************************************************************************/

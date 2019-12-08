@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Melanie Knocke
 /// @date    Wed, 19.11.2008
-/// @version $Id$
 ///
 // A reader of pois and polygons stored in OSM-format
 /****************************************************************************/

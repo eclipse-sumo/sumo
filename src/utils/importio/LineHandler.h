@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Fri, 19 Jul 2002
-/// @version $Id$
 ///
 // Interface definition for a class which retrieves lines from a LineHandler
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    GNETAZFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2018
-/// @version $Id$
 ///
 // The Widget for add TAZ elements
 /****************************************************************************/

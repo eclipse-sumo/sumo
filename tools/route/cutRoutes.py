@@ -12,7 +12,6 @@
 # @author  Michael Behrisch
 # @author  Leonhard Luecken
 # @date    2017-04-11
-# @version $Id$
 
 """
 Cut down routes from a large scenario to a sub-scenario optionally using exitTimes

@@ -11,7 +11,6 @@
 # @file    xmlman.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 #import classman as cm
 #XMLTAG = 'xmltag'

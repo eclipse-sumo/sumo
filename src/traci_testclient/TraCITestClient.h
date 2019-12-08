@@ -13,7 +13,6 @@
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
 /// @date    2008/04/07
-/// @version $Id$
 ///
 // A test execution class
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    GNETAZSourceSink.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Apr 2017
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -33,8 +32,10 @@
 // ===========================================================================
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
-    GNEAdditional(TAZParent, TAZParent->getViewNet(), GLO_TAZ, sourceSinkTag, "", false, {edge}, {}, {}, {TAZParent}, {}, {}, {}, {}, {}, {}),
-    myDepartWeight(departWeight) {
+    GNEAdditional(TAZParent, TAZParent->getViewNet(), GLO_TAZ, sourceSinkTag, "", false, {
+    edge
+}, {}, {}, {TAZParent}, {}, {}, {}, {}, {}, {}),
+myDepartWeight(departWeight) {
     //check that this is a TAZ Source OR a TAZ Sink
     if ((sourceSinkTag != SUMO_TAG_TAZSOURCE) && (sourceSinkTag != SUMO_TAG_TAZSINK)) {
         throw InvalidArgument("Invalid TAZ Child Tag");
@@ -81,7 +82,7 @@ GNETAZSourceSink::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNETAZSourceSink::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
@@ -137,7 +138,7 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
     }
 }
 
-double 
+double
 GNETAZSourceSink::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_WEIGHT:

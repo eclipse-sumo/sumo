@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    15 Feb 2004
-/// @version $Id$
 ///
 // Writes e2 state on each tls switch
 /****************************************************************************/

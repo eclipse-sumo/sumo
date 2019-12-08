@@ -10,7 +10,6 @@
 /// @file    GNETLSEditorFrame.cpp
 /// @author  Jakob Erdmann
 /// @date    May 2011
-/// @version $Id$
 ///
 // The Widget for modifying traffic lights
 /****************************************************************************/
@@ -127,7 +126,7 @@ GNETLSEditorFrame::~GNETLSEditorFrame() {
 }
 
 
-void 
+void
 GNETLSEditorFrame::show() {
     // hide myOverlappedInspection
     myOverlappedInspection->hideOverlappedInspection();
@@ -135,7 +134,7 @@ GNETLSEditorFrame::show() {
 }
 
 void
-GNETLSEditorFrame::editTLS(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor &objectsUnderCursor) {
+GNETLSEditorFrame::editTLS(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if in objectsUnderCursor there is a junction
     if (objectsUnderCursor.getJunctionFront()) {
         // show objects under cursor
@@ -450,8 +449,8 @@ GNETLSEditorFrame::fixedDuration() const {
 }
 
 
-void 
-GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier *AC) {
+void
+GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
     editJunction(dynamic_cast<GNEJunction*>(AC));
 }
 

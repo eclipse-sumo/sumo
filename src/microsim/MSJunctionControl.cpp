@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Tue, 06 Mar 2001
-/// @version $Id$
 ///
 // Container for junctions; performs operations on all stored junctions
 /****************************************************************************/

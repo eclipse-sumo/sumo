@@ -10,7 +10,6 @@
 /// @file    MSSOTLDefinitions.h
 /// @author  Gianfilippo Slager
 /// @date    Mar 2010
-/// @version $Id$
 ///
 // The repository for definitions about SOTL and Swarm-based logics
 /****************************************************************************/

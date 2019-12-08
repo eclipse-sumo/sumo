@@ -18,7 +18,6 @@
 /// @author  Mario Krumnow
 /// @author  Leonhard Luecken
 /// @date    Mon, 05 Mar 2001
-/// @version $Id$
 ///
 // Representation of a lane in the micro simulation
 /****************************************************************************/

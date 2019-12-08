@@ -10,7 +10,6 @@
 /// @file    MSCFModel_CC.cpp
 /// @author  Michele Segata
 /// @date    Wed, 18 Apr 2012
-/// @version $Id$
 ///
 // A series of automatic Cruise Controllers (CC, ACC, CACC)
 /****************************************************************************/

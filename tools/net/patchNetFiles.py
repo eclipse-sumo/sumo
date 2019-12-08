@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2008-08-13
-# @version $Id$
 
 """
 Reads in a file where junctions controlled by

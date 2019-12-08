@@ -14,7 +14,6 @@
 # @author  Daniel Krajzewicz
 # @author  Jakob Erdmann
 # @date    2008-10-09
-# @version $Id$
 
 # pylint: disable=E1101
 

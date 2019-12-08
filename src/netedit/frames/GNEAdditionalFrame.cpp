@@ -10,7 +10,6 @@
 /// @file    GNEAdditionalFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2015
-/// @version $Id$
 ///
 // The Widget for add additional elements
 /****************************************************************************/

@@ -12,7 +12,6 @@
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2013-08-16
-# @version $Id$
 
 """
 import sumo network then export to the given format and import again

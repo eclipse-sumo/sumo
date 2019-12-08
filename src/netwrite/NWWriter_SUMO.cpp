@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Leonhard Luecken
 /// @date    Tue, 04.05.2011
-/// @version $Id$
 ///
 // Exporter writing networks using the SUMO format
 /****************************************************************************/
@@ -361,7 +360,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     into.openTag(SUMO_TAG_EDGE);
                     into.writeAttr(SUMO_ATTR_ID, (*k).viaID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
-                    SVCPermissions permissions = ((*k).permissions != SVC_UNSPECIFIED)? (*k).permissions : successor.permissions;
+                    SVCPermissions permissions = ((*k).permissions != SVC_UNSPECIFIED) ? (*k).permissions : successor.permissions;
                     writeLane(into, (*k).viaID + "_0", (*k).vmax, permissions, successor.preferred,
                               NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                               std::map<int, double>(), successor.width, (*k).viaShape, &(*k),

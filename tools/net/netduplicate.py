@@ -11,7 +11,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2013-04-01
-# @version $Id$
 
 """
 Reads a sumo network and duplication descriptors (prefix:x-offset:y-offset)

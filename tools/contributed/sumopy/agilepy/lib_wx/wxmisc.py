@@ -11,7 +11,6 @@
 # @file    wxmisc.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 
 import sys

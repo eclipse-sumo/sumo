@@ -11,7 +11,6 @@
 # @author  Jakob Erdmann
 # @author  Camillo Fillinger
 # @date    2019-09-27
-# @version $Id: matsim_importPlans.py
 
 """
 Import person plans from MATSim
@@ -50,7 +49,7 @@ def get_options(args=None):
 
 def main(options):
     with open(options.outfile, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
+        sumolib.writeXMLHeader(outf, "$Id: matsim_importPlans.py v1_3_1+0713-63b241ac79 michael.behrisch@dlr.de 2019-10-20 15:41:56 +0200 $", "routes")  # noqa
         for person in sumolib.output.parse(options.planfile, 'person'):
             vehIndex = 0
             plan = person.plan[0]

@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
 ///
 // This class computes the logic of a junction
 /****************************************************************************/
@@ -669,7 +668,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                             || mergeConflict(from, queryCon, *i, connected[k], false)
                             || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
                             || myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
-                            || (myJunction->tlsContConflict(from, c, *i, connected[k]) && hasLaneConflict 
+                            || (myJunction->tlsContConflict(from, c, *i, connected[k]) && hasLaneConflict
                                 && !OptionsCont::getOptions().getBool("tls.ignore-internal-junction-jam"))
                        ) {
                         result += '1';

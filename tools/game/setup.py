@@ -11,7 +11,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2010-05-23
-# @version $Id$
 
 from __future__ import absolute_import
 

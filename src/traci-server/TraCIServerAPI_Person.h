@@ -10,7 +10,6 @@
 /// @file    TraCIServerAPI_Person.h
 /// @author  Daniel Krajzewicz
 /// @date    26.05.2014
-/// @version $Id$
 ///
 // APIs for getting/setting person values via TraCI
 /****************************************************************************/

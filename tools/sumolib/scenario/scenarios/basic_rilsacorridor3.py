@@ -9,7 +9,6 @@
 # @file    basic_rilsacorridor3.py
 # @author  Daniel Krajzewicz
 # @date    2014-09-01
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function

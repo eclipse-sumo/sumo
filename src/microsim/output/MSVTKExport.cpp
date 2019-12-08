@@ -13,7 +13,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    2012-04-26
-/// @version $Id$
 ///
 // Realises VTK Export
 /****************************************************************************/

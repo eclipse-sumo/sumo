@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Thr, 08 May 2003
-/// @version $Id$
 ///
 // Intermediate class for storing visum traffic lights during their import
 /****************************************************************************/

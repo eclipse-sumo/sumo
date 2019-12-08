@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2011
-/// @version $Id$
 ///
 // The Widget for modifying network-element attributes (i.e. lane speed)
 /****************************************************************************/
@@ -70,7 +69,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(NeteditAttributesEditor)
+        FOX_CONSTRUCTOR(NeteditAttributesEditor)
 
     private:
         /// @brief pointer to inspector frame parent
@@ -151,7 +150,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(GEOAttributesEditor)
+        FOX_CONSTRUCTOR(GEOAttributesEditor)
 
     private:
         /// @brief current GNEInspectorFrame parent
@@ -214,7 +213,7 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        
+
         /// @brief set current edge as new template
         long onCmdSetTemplate(FXObject*, FXSelector, void*);
 
@@ -226,7 +225,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(TemplateEditor)
+        FOX_CONSTRUCTOR(TemplateEditor)
 
         /// @brief seh the template edge (we assume shared responsibility via reference counting)
         void setEdgeTemplate(GNEEdge* tpl);
@@ -315,10 +314,10 @@ public:
     void updateFrameAfterUndoRedo();
 
     /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
-    void selectedOverlappedElement(GNEAttributeCarrier *AC);
+    void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
 protected:
-	FOX_CONSTRUCTOR(GNEInspectorFrame)
+    FOX_CONSTRUCTOR(GNEInspectorFrame)
 
     /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor
     void inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition);

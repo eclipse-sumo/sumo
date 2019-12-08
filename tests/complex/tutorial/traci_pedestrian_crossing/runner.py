@@ -13,7 +13,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2009-03-26
-# @version $Id$
 
 """
 Tutorial for traffic light control via the TraCI interface.

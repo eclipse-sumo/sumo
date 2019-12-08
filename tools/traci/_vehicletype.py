@@ -11,7 +11,6 @@
 # @author  Michael Behrisch
 # @author  Lena Kalleske
 # @date    2008-10-09
-# @version $Id$
 
 from __future__ import absolute_import
 from .domain import Domain

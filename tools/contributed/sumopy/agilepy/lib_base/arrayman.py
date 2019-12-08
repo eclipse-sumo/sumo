@@ -11,7 +11,6 @@
 # @file    arrayman.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 from classman import *
 import numpy as np

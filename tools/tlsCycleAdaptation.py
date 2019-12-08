@@ -10,7 +10,6 @@
 # @file    tlsCycleAdaptation.py
 # @author  Yun-Pang Floetteroed
 # @date    2017-05-10
-# @version $Id: tlsCycleAdaptation.py
 
 """
 - The Webster's equation is used to optimize the cycle length

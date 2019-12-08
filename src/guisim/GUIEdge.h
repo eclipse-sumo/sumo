@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A road/street connecting two junctions (gui-version)
 /****************************************************************************/

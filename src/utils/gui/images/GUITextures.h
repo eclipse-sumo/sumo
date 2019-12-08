@@ -10,7 +10,6 @@
 /// @file    GUITextures.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2016
-/// @version $Id$
 ///
 // An enumeration of gifs used by the gui applications
 /****************************************************************************/

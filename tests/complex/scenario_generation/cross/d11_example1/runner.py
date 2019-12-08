@@ -11,7 +11,6 @@
 # @file    runner.py
 # @author  Daniel Krajzewicz
 # @date    2013-10-23
-# @version $Id$
 
 # import osm network
 

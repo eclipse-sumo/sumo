@@ -11,7 +11,6 @@
 /// @author  Michael Behrisch
 /// @author  Gilles Filippini
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Xerces InputSource reading from arbitrary std::istream
 // reimplementation inspired by https://marc.info/?l=xerces-dev&m=86952133511623

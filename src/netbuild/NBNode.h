@@ -13,7 +13,6 @@
 /// @author  Yun-Pang Floetteroed
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
 ///
 // The representation of a single node
 /****************************************************************************/

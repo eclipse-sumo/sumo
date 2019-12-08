@@ -10,7 +10,6 @@
 /// @file    GNEHierarchicalChildElements.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2015
-/// @version $Id$
 ///
 // A abstract class for representation of additional elements
 /****************************************************************************/
@@ -140,13 +139,13 @@ GNEHierarchicalChildElements::sortChildAdditionals() {
         // we need to sort Entry/Exits due additional.xds model
         std::vector<GNEAdditional*> sortedEntryExits;
         // obtain all entrys
-        for (const auto &additional : myChildAdditionals) {
+        for (const auto& additional : myChildAdditionals) {
             if (additional->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
                 sortedEntryExits.push_back(additional);
             }
         }
         // obtain all exits
-        for (const auto &additional : myChildAdditionals) {
+        for (const auto& additional : myChildAdditionals) {
             if (additional->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
                 sortedEntryExits.push_back(additional);
             }
@@ -161,13 +160,13 @@ GNEHierarchicalChildElements::sortChildAdditionals() {
         // we need to sort Entry/Exits due additional.xds model
         std::vector<GNEAdditional*> sortedTAZSourceSink;
         // obtain all TAZSources
-        for (const auto &additional : myChildAdditionals) {
+        for (const auto& additional : myChildAdditionals) {
             if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
                 sortedTAZSourceSink.push_back(additional);
             }
         }
         // obtain all TAZSinks
-        for (const auto &additional : myChildAdditionals) {
+        for (const auto& additional : myChildAdditionals) {
             if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
                 sortedTAZSourceSink.push_back(additional);
             }
@@ -182,7 +181,7 @@ GNEHierarchicalChildElements::sortChildAdditionals() {
         // declare a vector to keep sorted children
         std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChildren;
         // iterate over child additional
-        for (const auto &additional : myChildAdditionals) {
+        for (const auto& additional : myChildAdditionals) {
             sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), additional));
             // set begin/start attribute
             if (additional->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_TIME))) {
@@ -217,7 +216,7 @@ GNEHierarchicalChildElements::checkChildAdditionalsOverlapping() const {
     // declare a vector to keep sorted children
     std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChildren;
     // iterate over child additional
-    for (const auto &additional : myChildAdditionals) {
+    for (const auto& additional : myChildAdditionals) {
         sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), additional));
         // set begin/start attribute
         if (additional->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_TIME))) {
@@ -462,13 +461,13 @@ GNEHierarchicalChildElements::updateParentDemandElement() {
 void
 GNEHierarchicalChildElements::changeChildEdges(GNEAdditional* elementChild, const std::string& newEdgeIDs) {
     // remove demandElement of child edges
-    for (const auto &edge : myChildEdges) {
+    for (const auto& edge : myChildEdges) {
         edge->removeParentAdditional(elementChild);
     }
     // obtain new child edges (note: it can be empty)
     myChildEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getViewNet()->getNet(), newEdgeIDs);
     // add demandElement into parent edges
-    for (const auto &edge : myChildEdges) {
+    for (const auto& edge : myChildEdges) {
         edge->addParentAdditional(elementChild);
     }
     // update connections geometry
@@ -479,13 +478,13 @@ GNEHierarchicalChildElements::changeChildEdges(GNEAdditional* elementChild, cons
 void
 GNEHierarchicalChildElements::changeChildLanes(GNEAdditional* elementChild, const std::string& newLaneIDs) {
     // remove demandElement of child lanes
-    for (const auto &lane : myChildLanes) {
+    for (const auto& lane : myChildLanes) {
         lane->removeParentAdditional(elementChild);
     }
     // obtain new child lanes (note: it can be empty)
     myChildLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getViewNet()->getNet(), newLaneIDs);
     // add demandElement into parent lanes
-    for (const auto &lane : myChildLanes) {
+    for (const auto& lane : myChildLanes) {
         lane->addParentAdditional(elementChild);
     }
     // update connections geometry
@@ -520,8 +519,8 @@ GNEHierarchicalChildElements::ChildConnections::update() {
     connectionPositions.clear();
     symbolsPositionAndRotation.clear();
     // calculate position and rotation of every simbol for every edge
-    for (const auto &edge : myHierarchicalElement->myChildEdges) {
-        for (const auto &lane : edge->getLanes()) {
+    for (const auto& edge : myHierarchicalElement->myChildEdges) {
+        for (const auto& lane : edge->getLanes()) {
             Position pos;
             double rot;
             // set position and length depending of shape's lengt
@@ -536,7 +535,7 @@ GNEHierarchicalChildElements::ChildConnections::update() {
         }
     }
     // calculate position and rotation of every symbol for every lane
-    for (const auto &lane : myHierarchicalElement->myChildLanes) {
+    for (const auto& lane : myHierarchicalElement->myChildLanes) {
         Position pos;
         double rot;
         // set position and length depending of shape's lengt
@@ -550,7 +549,7 @@ GNEHierarchicalChildElements::ChildConnections::update() {
         symbolsPositionAndRotation.push_back(ConnectionGeometry(lane, pos, rot));
     }
     // calculate position for every child additional
-    for (const auto &additional : myHierarchicalElement->myChildAdditionals) {
+    for (const auto& additional : myHierarchicalElement->myChildAdditionals) {
         // check that position is different of position
         if (additional->getPositionInView() != myHierarchicalElement->getPositionInView()) {
             std::vector<Position> posConnection;
@@ -576,7 +575,7 @@ GNEHierarchicalChildElements::ChildConnections::update() {
         }
     }
     // calculate geometry for connections between parent and children
-    for (const auto &symbol : symbolsPositionAndRotation) {
+    for (const auto& symbol : symbolsPositionAndRotation) {
         std::vector<Position> posConnection;
         double A = std::abs(symbol.pos.x() - myHierarchicalElement->getPositionInView().x());
         double B = std::abs(symbol.pos.y() - myHierarchicalElement->getPositionInView().y());
@@ -606,7 +605,7 @@ GNEHierarchicalChildElements::ChildConnections::draw(const GUIVisualizationSetti
     // first check if connections can be drawn
     if (!s.drawForRectangleSelection) {
         // Iterate over myConnectionPositions
-        for (const auto &connection : connectionPositions) {
+        for (const auto& connection : connectionPositions) {
             // Add a draw matrix
             glPushMatrix();
             // traslate in the Z axis

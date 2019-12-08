@@ -11,7 +11,6 @@
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2012-11-15
-# @version $Id$
 
 """
 From a sumo network and a route file, this script generates a polygon (polyline) for every route

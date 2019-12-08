@@ -10,7 +10,6 @@
 /// @file    ODAmitranHandler.cpp
 /// @author  Michael Behrisch
 /// @date    27.03.2014
-/// @version $Id$
 ///
 // An XML-Handler for Amitran OD matrices
 /****************************************************************************/

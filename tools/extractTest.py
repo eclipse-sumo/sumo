@@ -12,7 +12,6 @@
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2009-07-08
-# @version $Id$
 
 """
 Extract all files for a test case into a new dir.

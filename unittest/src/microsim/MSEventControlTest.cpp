@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2009-11-23
-/// @version $Id$
 ///
 // Tests the class MSEventControl
 /****************************************************************************/

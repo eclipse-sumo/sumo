@@ -15,7 +15,6 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    July 2010
-/// @version $Id$
 ///
 // Time manager: able to manipulate the time using Sumo's format (seconds)
 /****************************************************************************/

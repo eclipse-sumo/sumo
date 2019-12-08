@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2009-10-24
-/// @version $Id$
 ///
 // Tests the class NBTrafficLightLogic
 /****************************************************************************/

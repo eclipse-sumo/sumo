@@ -10,7 +10,6 @@
 /// @file    GNEVariableSpeedSignStep.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Apr 2017
-/// @version $Id$
 ///
 //
 /****************************************************************************/

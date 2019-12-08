@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    25.Jan 2006
-/// @version $Id$
 ///
 // An abstract router base class
 /****************************************************************************/
@@ -129,7 +128,7 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
      * if from == to, return the shortest looped route */
     inline bool computeLooped(const E* from, const E* to, const V* const vehicle,
-                       SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
+                              SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         if (from != to) {
             return compute(from, to, vehicle, msTime, into, silent);
         }

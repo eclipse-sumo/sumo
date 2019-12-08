@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Tue, 04 Dec 2007
-/// @version $Id$
 ///
 // A device that performs vehicle rerouting based on current edge speeds
 /****************************************************************************/
@@ -82,7 +81,7 @@ public:
     /// @brief return the cached route or nullptr on miss
     static const MSRoute* getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& key);
 
-    static void initRouter(SUMOVehicle* vehicle=nullptr);
+    static void initRouter(SUMOVehicle* vehicle = nullptr);
 
     /// @brief initiate the rerouting, create router / thread pool on first use
     static void reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const std::string& info,
@@ -101,7 +100,7 @@ public:
 
     /// @brief return the router instance
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex,
-        const MSEdgeVector& prohibited = MSEdgeVector());
+            const MSEdgeVector& prohibited = MSEdgeVector());
 
     /** @brief Returns the effort to pass an edge
     *

@@ -13,7 +13,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Thu, 16.03.2006
-/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

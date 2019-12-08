@@ -13,7 +13,6 @@
 /// @author  Mario Krumnow
 /// @author  Michael Behrisch
 /// @date    2012-04-26
-/// @version $Id$
 ///
 // Realises dumping Floating Car Data (FCD) Data
 /****************************************************************************/

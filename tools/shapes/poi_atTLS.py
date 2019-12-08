@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2010-02-20
-# @version $Id$
 
 """
 Generates a PoI-file containing a PoI for each tls controlled intersection

@@ -13,7 +13,6 @@
 /// @author  Martin Dippold
 /// @author  Michael Behrisch
 /// @date    July 2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/

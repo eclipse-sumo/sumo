@@ -10,7 +10,6 @@
 /// @file    GUIShortcutsSubSys.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2019
-/// @version $Id$
 ///
 // Helper for Shortcuts
 /****************************************************************************/

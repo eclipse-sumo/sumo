@@ -10,7 +10,6 @@
 /// @file    GNEChange_DemandElement.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
-/// @version $Id$
 ///
 // A network change in which a busStop is created or deleted
 /****************************************************************************/
@@ -68,7 +67,7 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
         // make sure that element isn't in net before removing
         if (myNet->demandElementExist(myDemandElement)) {
             myNet->deleteDemandElement(myDemandElement, false);
-        // remove element from path
+            // remove element from path
             for (const auto& i : myEdgePath) {
                 i->removePathElement(myDemandElement);
             }

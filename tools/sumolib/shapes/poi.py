@@ -12,7 +12,6 @@
 # @author  Jakob Erdmann
 # @author  Melanie Knocke
 # @date    2010-02-18
-# @version $Id$
 
 from __future__ import absolute_import
 

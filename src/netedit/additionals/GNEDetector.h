@@ -10,7 +10,6 @@
 /// @file    GNEDetector.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 // A abstract class to define common parameters of detectors placed over lanes
 /****************************************************************************/

@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 10.05.2004
-/// @version $Id$
 ///
 // Helper methods for HBEFA-based emission computation
 /****************************************************************************/
@@ -121,7 +120,7 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
             // Power-based electric vehicle energy consumption model: Model
             // development and validation. Applied Energy. 168. 257-268.
             // 10.1016/j.apenergy.2016.01.097.
-            // 
+            //
             // Insaf Sagaama, Amine Kchiche, Wassim Trojet, Farouk Kamoun
             // Improving The Accuracy of The Energy Consumption Model for
             // Electric Vehicle in SUMO Considering The Ambient Temperature

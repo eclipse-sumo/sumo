@@ -12,7 +12,6 @@
 /// @author  Andreas Kendziorra
 /// @author  Michael Behrisch
 /// @date    Thu, 12 Jun 2014
-/// @version $Id$
 ///
 // The common superclass for modelling transportable objects like persons and containers
 /****************************************************************************/
@@ -265,7 +264,7 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
         std::vector<MSNet::MSIntermodalRouter::TripItem> result;
         int stageIndex = 1;
         if (net->getIntermodalRouter(0).compute(myOrigin, myDestination, previous->getArrivalPos(), myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
-                                               transportable->getMaxSpeed() * myWalkFactor, vehicle, myModeSet, time, result)) {
+                                                transportable->getMaxSpeed() * myWalkFactor, vehicle, myModeSet, time, result)) {
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                 if (!it->edges.empty()) {
                     MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
@@ -566,7 +565,7 @@ MSTransportable::Stage_Driving::isWaitingFor(const SUMOVehicle* vehicle) const {
     return (myLines.count(vehicle->getID()) > 0
             || myLines.count(vehicle->getParameter().line) > 0
             || (myLines.count("ANY") > 0 && (
-                    myDestinationStop == nullptr 
+                    myDestinationStop == nullptr
                     ? vehicle->stopsAtEdge(myDestination)
                     : vehicle->stopsAt(myDestinationStop))));
 }

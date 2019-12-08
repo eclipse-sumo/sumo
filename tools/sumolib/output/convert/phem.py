@@ -11,7 +11,6 @@
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2013-01-15
-# @version $Id$
 
 """
 This module includes functions for converting SUMO's fcd-output into

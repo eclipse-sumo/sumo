@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2007-04-03
-# @version $Id$
 
 from __future__ import print_function
 import os

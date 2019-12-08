@@ -10,7 +10,6 @@
 # @file    csv2vss.py
 # @author  Michael Behrisch
 # @date    2013-06-04
-# @version $Id$
 
 from __future__ import absolute_import
 

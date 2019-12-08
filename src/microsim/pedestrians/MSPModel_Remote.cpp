@@ -10,7 +10,6 @@
 /// @file    MSPModel_Remote.cpp
 /// @author  Gregor Laemmel
 /// @date    Mon, 13 Jan 2014
-/// @version $Id$
 ///
 // The pedestrian following model for remote controlled pedestrian movement
 /****************************************************************************/

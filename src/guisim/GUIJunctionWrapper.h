@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 1 Jul 2003
-/// @version $Id$
 ///
 // Holds geometrical values for a junction
 /****************************************************************************/

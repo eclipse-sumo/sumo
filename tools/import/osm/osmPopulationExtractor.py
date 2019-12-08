@@ -12,7 +12,6 @@
 # @author  Melanie Knocke
 # @author  Michael Behrisch
 # @date    2013-02-08
-# @version $Id$
 
 """
 This script is to

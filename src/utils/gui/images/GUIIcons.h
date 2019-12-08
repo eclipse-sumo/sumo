@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Andreas Gaubatz
 /// @date    2004
-/// @version $Id$
 ///
 // An enumeration of icons used by the gui applications
 /****************************************************************************/

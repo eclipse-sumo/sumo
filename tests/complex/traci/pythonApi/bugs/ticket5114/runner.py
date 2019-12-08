@@ -11,7 +11,6 @@
 # @file    runner.py
 # @author  Jakob Erdmann
 # @date    2018-09-27
-# @version $Id$
 
 from __future__ import print_function
 from __future__ import absolute_import

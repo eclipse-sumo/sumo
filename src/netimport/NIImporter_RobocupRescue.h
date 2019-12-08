@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 14.04.2008
-/// @version $Id$
 ///
 // Importer for networks stored in robocup rescue league format
 /****************************************************************************/

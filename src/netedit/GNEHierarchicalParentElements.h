@@ -10,7 +10,6 @@
 /// @file    GNEHierarchicalParentElements.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
-/// @version $Id$
 ///
 // A abstract class for representation of Hierarchical Elements
 /****************************************************************************/
@@ -96,7 +95,7 @@ public:
     std::vector<GNEEdge*> getMiddleParentEdges() const;
 
     /// @brief get path edges
-    const std::vector<GNEEdge*> &getPathEdges() const;
+    const std::vector<GNEEdge*>& getPathEdges() const;
 
     /// @}
 
@@ -153,7 +152,7 @@ public:
     /// @}
 
     /// @brief if use edge/parent lanes as a list of consecutive elements, obtain a list of IDs of elements after insert a new element
-    std::string getNewListOfParents(const GNENetElement *currentElement, const GNENetElement *newNextElement) const;
+    std::string getNewListOfParents(const GNENetElement* currentElement, const GNENetElement* newNextElement) const;
 
 protected:
     /// @name members and functions relative to changing parents
@@ -181,7 +180,7 @@ protected:
     void replaceLastParentEdge(GNEDemandElement* elementChild, GNEEdge* newLastEdge);
 
     /// @brief replace edge route Parents
-    void replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*> &routeEdges);
+    void replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& routeEdges);
 
     /// @brief replace the parent edges of a shape
     void replaceParentLanes(GNEShape* elementChild, const std::string& newLaneIDs);

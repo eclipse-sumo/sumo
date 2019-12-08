@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 04 Feb 2008
-/// @version $Id$
 ///
 // Stores time-dependant events and executes them at the proper time (guisim)
 /****************************************************************************/

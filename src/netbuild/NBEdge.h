@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
 ///
 // The representation of a single edge during network building
 /****************************************************************************/
@@ -986,7 +985,7 @@ public:
     void removeFromConnections(NBEdge* toEdge, int fromLane = -1, int toLane = -1, bool tryLater = false, const bool adaptToLaneRemoval = false, const bool keepPossibleTurns = false);
 
     /// @brief remove an existent connection of edge
-    bool removeFromConnections(const NBEdge::Connection &connectionToRemove);
+    bool removeFromConnections(const NBEdge::Connection& connectionToRemove);
 
     /// @brief invalidate current connections of edge
     void invalidateConnections(bool reallowSetting = false);

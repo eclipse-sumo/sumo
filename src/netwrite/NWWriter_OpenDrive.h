@@ -10,7 +10,6 @@
 /// @file    NWWriter_OpenDrive.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 04.05.2011
-/// @version $Id$
 ///
 // Exporter writing networks using the openDRIVE format
 /****************************************************************************/

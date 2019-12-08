@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Tue, 29.05.2005
-/// @version $Id$
 ///
 // A few system-specific functions
 /****************************************************************************/

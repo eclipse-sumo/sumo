@@ -10,7 +10,6 @@
 # @file    generateContinuousRerouters.py
 # @author  Jakob Erdmann
 # @date    2019-11-23
-# @version $Id$  # noqa
 
 """
 This script generates rerrouters ahead of every intersection with routes to each of

@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Mario Krumnow
 /// @date    2004
-/// @version $Id$
 ///
 // Static storage of an output device and its base (abstract) implementation
 /****************************************************************************/

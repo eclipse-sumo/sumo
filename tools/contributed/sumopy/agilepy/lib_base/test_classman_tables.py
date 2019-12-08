@@ -11,7 +11,6 @@
 # @file    test_classman_tables.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 #from classman import *
 

@@ -10,7 +10,6 @@
 /// @file    GNECalibratorFlow.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 // Flow used by GNECalibrators
 /****************************************************************************/

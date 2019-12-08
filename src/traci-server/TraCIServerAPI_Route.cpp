@@ -12,7 +12,6 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    07.05.2009
-/// @version $Id$
 ///
 // APIs for getting/setting route values via TraCI
 /****************************************************************************/

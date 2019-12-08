@@ -15,7 +15,6 @@
 /// @author  Christoph Sommer
 /// @author  Gregor L\"ammel
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // APIs for getting/setting polygon values via TraCI
 /****************************************************************************/

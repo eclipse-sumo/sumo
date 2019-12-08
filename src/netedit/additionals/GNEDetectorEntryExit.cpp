@@ -10,7 +10,6 @@
 /// @file    GNEDetectorEntryExit.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -327,7 +326,7 @@ GNEDetectorEntryExit::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNEDetectorEntryExit::isAttributeEnabled(SumoXMLAttr /* key */) const {
     return true;
 }

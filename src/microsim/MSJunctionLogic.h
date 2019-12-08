@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Sascha Krieg
 /// @date    Wed, 12 Dez 2001
-/// @version $Id$
 ///
 // kinds of logic-implementations.
 /****************************************************************************/

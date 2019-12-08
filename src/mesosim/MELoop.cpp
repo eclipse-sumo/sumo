@@ -10,7 +10,6 @@
 /// @file    MELoop.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, May 2005
-/// @version $Id$
 ///
 // The main mesocopic simulation loop
 /****************************************************************************/

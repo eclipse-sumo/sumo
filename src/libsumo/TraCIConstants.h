@@ -20,7 +20,6 @@
 /// @author  Jakob Erdmann
 /// @author  Laura Bieker
 /// @date    2007/10/24
-/// @version $Id$
 ///
 // holds codes used for TraCI
 /****************************************************************************/

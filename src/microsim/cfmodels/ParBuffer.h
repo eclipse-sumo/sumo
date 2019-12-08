@@ -10,7 +10,6 @@
 /// @file    ParBuffer.h
 /// @author  Michele Segata
 /// @date    Wed, 18 Apr 2012
-/// @version $Id$
 ///
 // Class for the string serialization and deserialization of parameters
 /****************************************************************************/

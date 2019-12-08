@@ -10,7 +10,6 @@
 /// @file    GNEStopFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
-/// @version $Id$
 ///
 // The Widget for add Stops elements
 /****************************************************************************/
@@ -85,7 +84,7 @@ public:
     bool addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool shiftPressed);
 
     /// @brief get stop parameters
-    static bool getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTag stopTag, GNEViewNet* viewNet, 
+    static bool getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTag stopTag, GNEViewNet* viewNet,
                                  GNEFrameAttributesModuls::AttributesCreator* stopAttributes,
                                  const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes,
                                  const GNELane* lane, const GNEAdditional* stoppingPlace);

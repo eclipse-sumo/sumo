@@ -11,7 +11,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2010-02-18
-# @version $Id$
 
 """
 Library for reading and storing Inductive Loop detector representations and

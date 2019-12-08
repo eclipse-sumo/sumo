@@ -15,7 +15,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    July 2010
-/// @version $Id$
 ///
 // Parent object of every person, contains age and any natural characteristic
 /****************************************************************************/

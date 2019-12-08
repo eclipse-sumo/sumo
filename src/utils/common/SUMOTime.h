@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Fri, 29.04.2005
-/// @version $Id$
 ///
 // Variables, methods, and tools for internal time representation
 /****************************************************************************/
@@ -68,7 +67,7 @@ extern SUMOTime DELTA_T;
 // ===========================================================================
 SUMOTime string2time(const std::string& r);
 std::string time2string(SUMOTime t);
-bool checkStepLengthMultiple(const SUMOTime t, const std::string& error="");
+bool checkStepLengthMultiple(const SUMOTime t, const std::string& error = "");
 
 #endif
 

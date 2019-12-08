@@ -18,7 +18,6 @@
 /// @author  Michael Behrisch
 /// @author  Leonhard Luecken
 /// @date    2007/10/24
-/// @version $Id$
 ///
 // TraCI server used to control sumo by a remote TraCI client
 /****************************************************************************/

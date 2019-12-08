@@ -10,7 +10,6 @@
 /// @file    DistributionCont.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A container for distributions
 /****************************************************************************/

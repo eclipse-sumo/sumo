@@ -10,7 +10,6 @@
 /// @file    GUIMEInductLoop.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 21.07.2005
-/// @version $Id$
 ///
 // The gui-version of the MEInductLoop
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    GNEViewNetHelper.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2019
-/// @version $Id$
 ///
 // A file used to reduce the size of GNEViewNet.h grouping structs and classes
 /****************************************************************************/

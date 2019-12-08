@@ -15,7 +15,6 @@
 /// @author  Robert Hilbrich
 /// @author  Gregor Laemmel
 /// @date    07.05.2009
-/// @version $Id$
 ///
 // APIs for getting/setting vehicle type values via TraCI
 /****************************************************************************/

@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Thu, 02.11.2006
-/// @version $Id$
 ///
 // A reader of pois and polygons stored in DLR-Navteq (Elmar)-format
 /****************************************************************************/

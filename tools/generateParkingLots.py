@@ -10,7 +10,6 @@
 # @file    generateParkingLots.py
 # @author  Yun-Pang Floetteroed
 # @date    2017-10-13
-# @version $Id$
 
 """
 generate parking lots

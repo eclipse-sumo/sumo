@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Fri, 29.04.2005
-/// @version $Id$
 ///
 //  Function type template
 /****************************************************************************/

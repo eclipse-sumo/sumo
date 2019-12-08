@@ -13,7 +13,6 @@
 /// @author  Christian Roessel
 /// @author  Michael Behrisch
 /// @date    Mon, 15 Apr 2002
-/// @version $Id$
 ///
 // Builds detectors for microsim
 /****************************************************************************/

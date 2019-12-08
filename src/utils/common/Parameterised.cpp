@@ -10,7 +10,6 @@
 /// @file    Parameterised.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A super class for objects with additional parameters
 /****************************************************************************/
@@ -109,11 +108,11 @@ Parameterised::getParametersMap() const {
 }
 
 
-std::string 
+std::string
 Parameterised::getParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...|keyN=valueN"
-    for (const auto &i : myMap) {
+    for (const auto& i : myMap) {
         result += i.first + "=" + i.second + "|";
     }
     // remove the last "|"
@@ -124,26 +123,26 @@ Parameterised::getParametersStr() const {
 }
 
 
-void 
+void
 Parameterised::setParameters(const Parameterised& params) {
     myMap = params.getParametersMap();
 }
 
 
-void 
+void
 Parameterised::setParametersMap(const std::map<std::string, std::string>& paramsMap) {
     myMap = paramsMap;
 }
 
 
-void 
+void
 Parameterised::setParametersStr(const std::string& paramsString) {
     // clear parameters
     myMap.clear();
     // separate value in a vector of string using | as separator
     std::vector<std::string> parameters = StringTokenizer(paramsString, "|", true).getVector();
     // iterate over all values
-    for (const auto &i : parameters) {
+    for (const auto& i : parameters) {
         // obtain key and value and save it in myParameters
         std::vector<std::string> keyValue = StringTokenizer(i, "=", true).getVector();
         myMap[keyValue.front()] = keyValue.back();
@@ -163,12 +162,12 @@ Parameterised::writeParams(OutputDevice& device) const {
 }
 
 
-bool 
+bool
 Parameterised::areParametersValid(const std::string& value, bool report) {
     // obtain vector of strings using '|' as delimiter
     std::vector<std::string> parameters = StringTokenizer(value, "|", true).getVector();
     // first check if parsed parameters are valid
-    for (const auto &i : parameters) {
+    for (const auto& i : parameters) {
         // check if parameter is valid
         if (!isParameterValid(i, report)) {
             // report depending of flag

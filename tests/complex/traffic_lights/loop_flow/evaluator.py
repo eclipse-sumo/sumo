@@ -9,7 +9,6 @@
 # @file    evaluator.py
 # @author  Daniel Krajzewicz
 # @date    13-06-07
-# @version $Id$
 
 
 from __future__ import absolute_import

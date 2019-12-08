@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Peter Wagner
 /// @date    Tue, 05 Jun 2012
-/// @version $Id$
 ///
 // A smarter SK
 /****************************************************************************/

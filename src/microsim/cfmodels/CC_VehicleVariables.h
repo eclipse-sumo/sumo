@@ -10,7 +10,6 @@
 /// @file    CC_VehicleVariables.h
 /// @author  Michele Segata
 /// @date    Mon, 7 Mar 2016
-/// @version $Id$
 ///
 /****************************************************************************/
 #ifndef CC_VEHICLEVARIABLES_H

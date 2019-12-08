@@ -10,7 +10,6 @@
 /// @file    GNERoute.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
-/// @version $Id$
 ///
 // A class for visualizing routes in Netedit
 /****************************************************************************/
@@ -143,7 +142,7 @@ public:
     void updateGeometry();
 
     /// @brief partial update pre-computed geometry information
-    void updatePartialGeometry(const GNEEdge *edge);
+    void updatePartialGeometry(const GNEEdge* edge);
 
     /// @brief compute path
     void computePath();

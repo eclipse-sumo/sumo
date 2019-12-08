@@ -10,7 +10,6 @@
 /// @file    GNEPersonTypeFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2019
-/// @version $Id$
 ///
 // The Widget for edit person type (VTypes with vclass='pedestrian) elements
 /****************************************************************************/
@@ -70,7 +69,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(PersonTypeSelector)
+        FOX_CONSTRUCTOR(PersonTypeSelector)
 
     private:
         /// @brief pointer to Frame Parent
@@ -123,7 +122,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(PersonTypeEditor)
+        FOX_CONSTRUCTOR(PersonTypeEditor)
 
     private:
         /// @brief pointer to person type Frame Parent

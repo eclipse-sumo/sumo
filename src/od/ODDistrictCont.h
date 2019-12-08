@@ -12,7 +12,6 @@
 /// @author  Yun-Pang Floetteroed
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A container for districts
 /****************************************************************************/

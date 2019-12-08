@@ -10,7 +10,6 @@
 /// @file    GNEHierarchicalParentElements.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2015
-/// @version $Id$
 ///
 // A abstract class for representation of additional elements
 /****************************************************************************/
@@ -117,14 +116,14 @@ GNEHierarchicalParentElements::getParentDemandElements() const {
 }
 
 
-std::string 
-GNEHierarchicalParentElements::getNewListOfParents(const GNENetElement *currentElement, const GNENetElement *newNextElement) const {
+std::string
+GNEHierarchicalParentElements::getNewListOfParents(const GNENetElement* currentElement, const GNENetElement* newNextElement) const {
     std::vector<std::string> solution;
     if ((currentElement->getTagProperty().getTag() == SUMO_TAG_EDGE) && (newNextElement->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
         // reserve solution
         solution.reserve(myParentEdges.size());
         // iterate over edges
-        for (const auto &edge: myParentEdges) {
+        for (const auto& edge : myParentEdges) {
             // add edge ID
             solution.push_back(edge->getID());
             // if current edge is the current element, then insert newNextElement ID
@@ -136,7 +135,7 @@ GNEHierarchicalParentElements::getNewListOfParents(const GNENetElement *currentE
         // reserve solution
         solution.reserve(myParentLanes.size());
         // iterate over lanes
-        for (const auto &lane: myParentLanes) {
+        for (const auto& lane : myParentLanes) {
             // add lane ID
             solution.push_back(lane->getID());
             // if current lane is the current element, then insert newNextElement ID
@@ -184,15 +183,15 @@ GNEHierarchicalParentElements::getParentEdges() const {
 }
 
 
-std::vector<GNEEdge*> 
+std::vector<GNEEdge*>
 GNEHierarchicalParentElements::getMiddleParentEdges() const {
     std::vector<GNEEdge*> middleEdges;
     // there are only middle edges if there is more than two edges
     if (middleEdges.size() > 2) {
         // resize middleEdges
-        middleEdges.resize(myParentEdges.size()-2);
+        middleEdges.resize(myParentEdges.size() - 2);
         // iterate over second and previous last parent edge
-        for (auto i = (myParentEdges.begin() + 1); i !=(myParentEdges.end() - 1); i++) {
+        for (auto i = (myParentEdges.begin() + 1); i != (myParentEdges.end() - 1); i++) {
             middleEdges.push_back(*i);
         }
     }
@@ -353,7 +352,7 @@ GNEHierarchicalParentElements::replaceParentEdges(GNEDemandElement* elementChild
 }
 
 
-void 
+void
 GNEHierarchicalParentElements::replaceFirstParentEdge(GNEDemandElement* elementChild, GNEEdge* newFirstEdge) {
     // first check that at least there is two edges
     if (myParentEdges.size() < 2) {
@@ -361,7 +360,7 @@ GNEHierarchicalParentElements::replaceFirstParentEdge(GNEDemandElement* elementC
     } else {
         // remove demandElement of parent edges
         myParentEdges.front()->removeChildDemandElement(elementChild);
-        // replace first edge 
+        // replace first edge
         myParentEdges[0] = newFirstEdge;
         // add demandElement into parent edges
         myParentEdges.front()->addChildDemandElement(elementChild);
@@ -369,7 +368,7 @@ GNEHierarchicalParentElements::replaceFirstParentEdge(GNEDemandElement* elementC
 }
 
 
-void 
+void
 GNEHierarchicalParentElements::replaceMiddleParentEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newMiddleEdges, const bool updateChildReferences) {
     // declare a vector for new parent edges
     std::vector<GNEEdge*> newEdges;
@@ -378,14 +377,14 @@ GNEHierarchicalParentElements::replaceMiddleParentEdges(GNEDemandElement* elemen
         newEdges.push_back(myParentEdges.front());
     }
     // add newMiddleEdges
-    for (const auto &edge : newMiddleEdges) {
+    for (const auto& edge : newMiddleEdges) {
         newEdges.push_back(edge);
     }
     // check if add last edge
     if (myParentEdges.size() > 1) {
         newEdges.push_back(myParentEdges.back());
     }
-    // check if we have to update references in all childs, or simply update parent edges vector 
+    // check if we have to update references in all childs, or simply update parent edges vector
     if (updateChildReferences) {
         replaceParentEdges(elementChild, newEdges);
     } else {
@@ -394,7 +393,7 @@ GNEHierarchicalParentElements::replaceMiddleParentEdges(GNEDemandElement* elemen
 }
 
 
-void 
+void
 GNEHierarchicalParentElements::replaceLastParentEdge(GNEDemandElement* elementChild, GNEEdge* newLastEdge) {
     // first check that at least there is two edges
     if (myParentEdges.size() < 2) {
@@ -402,7 +401,7 @@ GNEHierarchicalParentElements::replaceLastParentEdge(GNEDemandElement* elementCh
     } else {
         // remove demandElement of parent edges
         myParentEdges.back()->removeChildDemandElement(elementChild);
-        // replace last edge 
+        // replace last edge
         myParentEdges.pop_back();
         myParentEdges.push_back(newLastEdge);
         // add demandElement into parent edges
@@ -411,8 +410,8 @@ GNEHierarchicalParentElements::replaceLastParentEdge(GNEDemandElement* elementCh
 }
 
 
-void 
-GNEHierarchicalParentElements::replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*> &routeEdges) {
+void
+GNEHierarchicalParentElements::replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& routeEdges) {
     // remove demandElement of parent edges
     for (const auto& edge : myRouteEdges) {
         edge->removePathElement(elementChild);

@@ -11,7 +11,6 @@
 # @file    virtualpop.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import numpy as np
 from numpy import random

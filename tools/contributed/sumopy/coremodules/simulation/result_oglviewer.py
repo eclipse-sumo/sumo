@@ -11,7 +11,6 @@
 # @file    result_oglviewer.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import os
 import sys

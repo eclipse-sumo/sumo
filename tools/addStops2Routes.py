@@ -10,7 +10,6 @@
 # @file    addStops2Routes.py
 # @author  Yun-Pang Floetteroed
 # @date    2019-04-25
-# @version $Id: generateTurnRatios.py
 
 """
 - calculate the turn ratios or turn movements at each node
@@ -73,7 +72,7 @@ def main(options):
     with open(options.outfile, 'w') as outf:
         net = sumolib.net.readNet(options.netfile)
         vtypes = readTypes(options)
-        sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
+        sumolib.writeXMLHeader(outf, "$Id: addStops2Routes.py v1_3_1+0411-36956f96df michael.behrisch@dlr.de 2019-09-21 21:10:12 +0200 $", "routes")  # noqa
         for file in options.routefiles.split(','):
             for veh in sumolib.output.parse(file, 'vehicle'):
                 edgesList = veh.route[0].edges.split()

@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Andreas Gaubatz
 /// @date    Mon, 08.03.2004
-/// @version $Id$
 ///
 // Helper for icons loading and usage
 /****************************************************************************/

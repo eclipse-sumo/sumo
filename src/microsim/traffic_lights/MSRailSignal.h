@@ -11,7 +11,6 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Jan 2015
-/// @version $Id$
 ///
 // A rail signal logic
 /****************************************************************************/

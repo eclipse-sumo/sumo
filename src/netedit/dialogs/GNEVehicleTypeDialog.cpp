@@ -10,7 +10,6 @@
 /// @file    GNEVehicleTypeDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
-/// @version $Id$
 ///
 // Dialog for edit vehicleTypes
 /****************************************************************************/

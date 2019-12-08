@@ -10,7 +10,6 @@
 /// @file    GNEVariableSpeedSignDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    April 2016
-/// @version $Id$
 ///
 // A class for edit phases of Variable Speed Signals
 /****************************************************************************/

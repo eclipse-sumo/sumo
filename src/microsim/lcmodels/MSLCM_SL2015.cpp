@@ -10,7 +10,6 @@
 /// @file    MSLCM_SL2015.cpp
 /// @author  Jakob Erdmann
 /// @date    Tue, 06.10.2015
-/// @version $Id$
 ///
 // A lane change model for heterogeneous traffic (based on sub-lanes)
 /****************************************************************************/
@@ -147,8 +146,7 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)),
     mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)),
     myLaneDiscipline(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LANE_DISCIPLINE, 0.0)),
-    mySigmaState(0)
-{
+    mySigmaState(0) {
     initDerivedParameters();
 }
 
@@ -925,9 +923,9 @@ MSLCM_SL2015::prepareStep() {
 double
 MSLCM_SL2015::getLateralDrift() {
     //OUProcess::step(double state, double dt, double timeScale, double noiseIntensity)
-    const double deltaState = OUProcess::step(mySigmaState, 
-            myVehicle.getActionStepLengthSecs(),
-            MAX2(NUMERICAL_EPS, (1 - mySigma) * 100), mySigma) - mySigmaState;
+    const double deltaState = OUProcess::step(mySigmaState,
+                              myVehicle.getActionStepLengthSecs(),
+                              MAX2(NUMERICAL_EPS, (1 - mySigma) * 100), mySigma) - mySigmaState;
     const double scaledDelta = deltaState * myVehicle.getSpeed() / myVehicle.getLane()->getSpeedLimit();
     return scaledDelta;
 }
@@ -1576,7 +1574,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             if (neighLead.first != 0 && neighLead.first->getSpeed() < vMax) {
                 fullSpeedGap = MAX2(0., MIN2(fullSpeedGap,
                                              neighLead.second - myVehicle.getCarFollowModel().getSecureGap(&myVehicle, neighLead.first,
-                                                 vMax, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())));
+                                                     vMax, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())));
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - neighLead.first->getSpeed()));
             }
             const double deltaProb = (myChangeProbThresholdRight * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
@@ -1591,7 +1589,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                           << " brakeGap=" << myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed())
                           << " leaderSpeed=" << (neighLead.first == 0 ? -1 : neighLead.first->getSpeed())
                           << " secGap=" << (neighLead.first == 0 ? -1 : myVehicle.getCarFollowModel().getSecureGap(&myVehicle, neighLead.first,
-                                      myVehicle.getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()))
+                                            myVehicle.getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()))
                           << " acceptanceTime=" << acceptanceTime
                           << " fullSpeedGap=" << fullSpeedGap
                           << " fullSpeedDrivingSeconds=" << fullSpeedDrivingSeconds

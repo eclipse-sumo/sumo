@@ -11,7 +11,6 @@
 # @file    findMinDiffModel.py
 # @author  Michael Behrisch
 # @date    2016-08-24
-# @version $Id$
 
 """
 This script takes the output file of the emission tests and tries to

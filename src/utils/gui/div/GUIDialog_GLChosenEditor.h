@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Thu, 11.03.2004
-/// @version $Id$
 ///
 // Editor for the list of chosen objects
 /****************************************************************************/

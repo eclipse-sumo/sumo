@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Wed, 10. Dec 2003
-/// @version $Id$
 ///
 // The class responsible for building and deletion of vehicles (gui-version)
 /****************************************************************************/

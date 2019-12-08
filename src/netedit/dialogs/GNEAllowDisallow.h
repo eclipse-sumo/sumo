@@ -10,7 +10,6 @@
 /// @file    GNEAllowDisallow.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2017
-/// @version $Id$
 ///
 // Dialog for edit allow and disallow attributes
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    GNERouteProbe.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -38,11 +37,13 @@
 // ===========================================================================
 
 GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string& frequency, const std::string& name, const std::string& filename, SUMOTime begin) :
-    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false, {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myFrequency(frequency),
-    myFilename(filename),
-    myBegin(begin),
-    myRelativePositionY(0) {
+    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false, {
+    edge
+}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+myFrequency(frequency),
+myFilename(filename),
+myBegin(begin),
+myRelativePositionY(0) {
 }
 
 
@@ -60,7 +61,7 @@ GNERouteProbe::updateGeometry() {
 
     // Get shape of parent lane
     const double offset = firstLane->getLaneShape().length() < 0.5 ? firstLane->getLaneShape().length() : 0.5;
-    
+
     // update geometry
     myAdditionalGeometry.updateGeometryPosition(firstLane, offset);
 
@@ -94,7 +95,7 @@ GNERouteProbe::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNERouteProbe::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
@@ -228,7 +229,7 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNERouteProbe::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_BEGIN:
@@ -261,7 +262,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
 }
 
 
-bool 
+bool
 GNERouteProbe::isAttributeEnabled(SumoXMLAttr /* key */) const {
     return true;
 }

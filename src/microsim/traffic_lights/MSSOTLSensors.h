@@ -11,7 +11,6 @@
 /// @author  Gianfilippo Slager
 /// @author  Anna Chiara Bellini
 /// @date    Feb 2010
-/// @version $Id$
 ///
 // The base abstract class for SOTL sensors
 /****************************************************************************/

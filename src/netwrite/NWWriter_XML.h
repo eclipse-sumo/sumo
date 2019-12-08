@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 11.05.2011
-/// @version $Id$
 ///
 // Exporter writing networks using XML (native input) format
 /****************************************************************************/

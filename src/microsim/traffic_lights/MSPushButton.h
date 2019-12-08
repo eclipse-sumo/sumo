@@ -10,7 +10,6 @@
 /// @file    MSPushButton.h
 /// @author  Federico Caselli
 /// @date    May 2015
-/// @version $Id$
 ///
 // The class for a PushButton
 /****************************************************************************/

@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Thu, 17 Jun 2004
-/// @version $Id$
 ///
 // Editor for simulation breakpoints
 /****************************************************************************/

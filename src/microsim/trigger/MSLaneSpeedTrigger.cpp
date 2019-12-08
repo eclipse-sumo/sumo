@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Changes the speed allowed on a set of lanes
 /****************************************************************************/

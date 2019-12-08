@@ -10,7 +10,6 @@
 /// @file    MSDynamicShapeUpdater.h
 /// @author  Leonhard Luecken
 /// @date    08 Apr 2019
-/// @version $Id$
 ///
 //
 /****************************************************************************/

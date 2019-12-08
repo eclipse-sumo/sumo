@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2004-11-23
-/// @version $Id$
 ///
 // The folder used as last
 /****************************************************************************/

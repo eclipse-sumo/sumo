@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Okt 2003
-/// @version $Id$
 ///
 // The gui-version of the MSE2Collector
 /****************************************************************************/

@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Fri, 24. Apr 2009
-/// @version $Id$
 ///
 // The handler for parsing gui settings from xml.
 /****************************************************************************/

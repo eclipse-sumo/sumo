@@ -10,7 +10,6 @@
 # @file    jtcrouter.py
 # @author  Jakob Erdmann
 # @date    2019-11-07
-# @version $Id$
 
 """
 Generate routes like jtrrouter but bas on count parameters at connections

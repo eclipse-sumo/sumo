@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 14.04.2008
-/// @version $Id$
 ///
 // Importer for networks stored in SUMO format
 /****************************************************************************/

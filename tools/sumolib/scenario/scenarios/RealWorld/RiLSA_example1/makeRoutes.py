@@ -10,7 +10,6 @@
 # @file    makeRoutes.py
 # @author  Daniel Krajzewicz
 # @date    2014-10-06
-# @version $Id$
 
 from __future__ import print_function
 

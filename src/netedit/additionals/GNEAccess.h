@@ -10,7 +10,6 @@
 /// @file    GNEAccess.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2018
-/// @version $Id$
 ///
 //
 /****************************************************************************/

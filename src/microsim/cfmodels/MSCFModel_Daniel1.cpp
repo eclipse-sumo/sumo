@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 05 Jun 2012
-/// @version $Id$
 ///
 // The original Krauss (1998) car-following model and parameter
 /****************************************************************************/

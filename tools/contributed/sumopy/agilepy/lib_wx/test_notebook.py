@@ -11,7 +11,6 @@
 # @file    test_notebook.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 
 #import images

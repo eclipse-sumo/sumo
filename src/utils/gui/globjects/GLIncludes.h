@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    2012
-/// @version $Id$
 ///
 // collection of includes for GL usage
 /****************************************************************************/

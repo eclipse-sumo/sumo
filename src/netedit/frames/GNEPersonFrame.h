@@ -10,7 +10,6 @@
 /// @file    GNEPersonFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2019
-/// @version $Id$
 ///
 // The Widget for add person elements
 /****************************************************************************/

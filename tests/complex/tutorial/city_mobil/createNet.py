@@ -12,7 +12,6 @@
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
 # @date    2008-07-04
-# @version $Id$
 
 """
 Create the XML input files for the generation of the SUMO network

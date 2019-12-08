@@ -10,7 +10,6 @@
 /// @file    GNEPoly.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2017
-/// @version $Id$
 ///
 // A class for visualizing and editing POIS in netedit (adapted from
 // GUIPolygon and NLHandler)
@@ -45,14 +44,14 @@ const double GNEPoly::myHintSize = 0.8;
 // method definitions
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
-    const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
+                 const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
     GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
     GNEShape(net, SUMO_TAG_POLY, movementBlocked, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myNetElementShapeEdited(nullptr),
-    myBlockShape(shapeBlocked),
-    myClosedShape(shape.front() == shape.back()),
-    mySimplifiedShape(false),
-    myCurrentMovingVertexIndex(-1) {
+         myNetElementShapeEdited(nullptr),
+         myBlockShape(shapeBlocked),
+         myClosedShape(shape.front() == shape.back()),
+         mySimplifiedShape(false),
+myCurrentMovingVertexIndex(-1) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
         setShapeImgFile("");
@@ -327,7 +326,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(0, 0, GLO_POLYGON + 0.01);
                 GLHelper::setColor(darkerColor);
                 if (s.drawForPositionSelection) {
-                    if (positionOverLane.distanceSquaredTo2D(mousePosition) <= (contourWidth*contourWidth)) {
+                    if (positionOverLane.distanceSquaredTo2D(mousePosition) <= (contourWidth * contourWidth)) {
                         // push matrix
                         glPushMatrix();
                         // translate to position over lane
@@ -337,7 +336,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                         // pop draw matrix
                         glPopMatrix();
                     }
-                } else if (!s.drawForPositionSelection){
+                } else if (!s.drawForPositionSelection) {
                     GLHelper::drawBoxLines(myShape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
                 }
                 glPopMatrix();
@@ -366,14 +365,14 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                                 GLHelper::drawText(toString(vertex.z()), Position(), .1, 0.7, RGBColor::BLUE);
                                 // pop matrix
                                 glPopMatrix();
-                            } else if ((vertex == myShape.front()) && !s.drawForRectangleSelection && 
+                            } else if ((vertex == myShape.front()) && !s.drawForRectangleSelection &&
                                        s.drawDetail(s.detailSettings.geometryPointsText, polyExaggeration)) {
                                 // draw a "s" over first point
                                 glPushMatrix();
                                 glTranslated(vertex.x(), vertex.y(), GLO_POLYGON + 0.03);
                                 GLHelper::drawText("S", Position(), .1, 2 * vertexWidth, invertedColor);
                                 glPopMatrix();
-                            } else if ((vertex == myShape.back()) && (myClosedShape == false) && !s.drawForRectangleSelection && 
+                            } else if ((vertex == myShape.back()) && (myClosedShape == false) && !s.drawForRectangleSelection &&
                                        s.drawDetail(s.detailSettings.geometryPointsText, polyExaggeration)) {
                                 // draw a "e" over last point if polygon isn't closed
                                 glPushMatrix();
@@ -384,8 +383,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                         }
                     }
                     // check if draw moving hint has to be drawed
-                    if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_MOVE) && (distanceToShape < vertexWidth) && 
-                        (mouseOverVertex == false) && (myBlockMovement == false)) {
+                    if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_MOVE) && (distanceToShape < vertexWidth) &&
+                            (mouseOverVertex == false) && (myBlockMovement == false)) {
                         // push matrix
                         glPushMatrix();
                         const Position hintPos = myShape.size() > 1 ? positionOverLane : myShape[0];
@@ -763,7 +762,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-bool 
+bool
 GNEPoly::isAttributeEnabled(SumoXMLAttr /* key */) const {
     // check if we're in supermode Network
     if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {

@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Jan 2004
-/// @version $Id$
 ///
 // The gui-version of a MSE3Collector
 /****************************************************************************/

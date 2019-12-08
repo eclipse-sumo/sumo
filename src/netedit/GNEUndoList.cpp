@@ -10,7 +10,6 @@
 /// @file    GNEUndoList.cpp
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id$
 ///
 // FXUndoList is pretty dandy but some features are missing:
 //   - we cannot find out wether we have currently begun an undo-group and

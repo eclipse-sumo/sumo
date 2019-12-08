@@ -10,7 +10,6 @@
 /// @file    GNEStoppingPlace.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2015
-/// @version $Id$
 ///
 // A abstract class to define common parameters of lane area in which vehicles can halt (GNE version)
 /****************************************************************************/
@@ -54,7 +53,7 @@ public:
      * @param[in] block movement enable or disable additional movement
      */
     GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double startPos, double endPos,
-                    int parametersSet, const std::string& name, bool friendlyPosition, bool blockMovement);
+                     int parametersSet, const std::string& name, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor
     ~GNEStoppingPlace();

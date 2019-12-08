@@ -14,7 +14,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2010-09-15
-# @version $Id$
 
 """
 Run cadyts to calibrate the simulation with given routes and traffic measurements.

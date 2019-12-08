@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Robert Hilbrich
 /// @date    unknown
-/// @version $Id$
 ///
 // Some static methods for string processing
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    NBParking.cpp
 /// @author  Jakob Erdmann
 /// @date    Tue, 14 Nov 2017
-/// @version $Id$
 ///
 // The representation of an imported parking area
 /****************************************************************************/

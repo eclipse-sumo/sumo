@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Melanie Weber
 /// @date    29. March 2018
-/// @version $Id$
 ///
 // Algorithms for railways
 /****************************************************************************/

@@ -10,7 +10,6 @@
 # @file    makeSumolympicWalkers.py
 # @author  Leonhard Luecken
 # @date    2016-11-25
-# @version $Id$
 
 outfile = "sumolympicWalks.rou.xml"
 startEdge = "beg"

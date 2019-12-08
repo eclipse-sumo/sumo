@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    08.10.2009
-/// @version $Id$
 ///
 // Storage for geometrical objects extended by mutexes
 /****************************************************************************/

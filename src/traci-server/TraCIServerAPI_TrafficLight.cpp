@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    07.05.2009
-/// @version $Id$
 ///
 // APIs for getting/setting traffic light values via TraCI
 /****************************************************************************/

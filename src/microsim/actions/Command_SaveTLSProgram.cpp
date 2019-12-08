@@ -10,7 +10,6 @@
 /// @file    Command_SaveTLSProgram.cpp
 /// @author  Jakob Erdmann
 /// @date    18.09.2019
-/// @version $Id$
 ///
 // Writes the switch times of a tls into a file when the tls switches
 /****************************************************************************/
@@ -32,9 +31,8 @@
 // method definitions
 // ===========================================================================
 Command_SaveTLSProgram::Command_SaveTLSProgram(const MSTLLogicControl::TLSLogicVariants& logics, OutputDevice& od):
-    myOutputDevice(od), 
-    myLogics(logics)
-{
+    myOutputDevice(od),
+    myLogics(logics) {
     MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(this);
     myOutputDevice.writeXMLHeader("additional", "additional_file.xsd");
 }

@@ -10,7 +10,6 @@
 /// @file    GUIDesigns.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2016
-/// @version $Id$
 ///
 // File with the definitions of standard style of FXObjects in SUMO
 /****************************************************************************/

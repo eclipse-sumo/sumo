@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    Mon, 17 Dec 2001
-/// @version $Id$
 ///
 // A storage for options (typed value containers)
 /****************************************************************************/

@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date
-/// @version $Id$
 ///
 // A single line in a parameter window
 /****************************************************************************/

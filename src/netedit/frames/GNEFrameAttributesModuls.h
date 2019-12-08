@@ -10,7 +10,6 @@
 /// @file    GNEFrameAttributesModuls.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
-/// @version $Id$
 ///
 // Auxiliar class for GNEFrame Moduls (only for attributes edition)
 /****************************************************************************/
@@ -141,7 +140,7 @@ public:
         /// @brief check button to enable/disable the value of boolean parameters
         FXCheckButton* myValueCheckButton = nullptr;
     };
-    
+
     // ===========================================================================
     // class AttributesCreator
     // ===========================================================================
@@ -164,7 +163,7 @@ public:
          * @param tagProperties GNEAttributeCarrier::TagProperties which contain all attributes
          * @param hiddenAttributes list of attributes contained in tagProperties but not shown
          */
-        void showAttributesCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties, const std::vector<SumoXMLAttr> &hiddenAttributes);
+        void showAttributesCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties, const std::vector<SumoXMLAttr>& hiddenAttributes);
 
         /// @brief hide group box
         void hideAttributesCreatorModul();
@@ -238,7 +237,7 @@ public:
         void refreshAttributesCreatorFlow();
 
         /// @brief set parameters
-        void setFlowParameters(std::map<SumoXMLAttr, std::string> &parameters);
+        void setFlowParameters(std::map<SumoXMLAttr, std::string>& parameters);
 
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
@@ -259,7 +258,7 @@ public:
         FOX_CONSTRUCTOR(AttributesCreatorFlow);
 
     private:
-        /// @brief pointer to Attributes Creator Parent 
+        /// @brief pointer to Attributes Creator Parent
         AttributesCreator* myAttributesCreatorParent;
 
         /// @brief Radio button for 'end' attribute
@@ -331,7 +330,7 @@ public:
         /// @}
 
     protected:
-		AttributesEditorRow();
+        AttributesEditorRow();
 
         /// @brief removed invalid spaces of Positions and shapes
         std::string stripWhitespaceAfterComma(const std::string& stringValue);
@@ -367,7 +366,7 @@ public:
         /// @brief pointer to menu check
         FXCheckButton* myValueCheckButton = nullptr;
     };
-    
+
     // ===========================================================================
     // class AttributesEditor
     // ===========================================================================
@@ -405,7 +404,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(AttributesEditor)
+        FOX_CONSTRUCTOR(AttributesEditor)
 
     private:
         /// @brief pointer to GNEFrame parent
@@ -461,7 +460,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(AttributesEditorFlow)
+        FOX_CONSTRUCTOR(AttributesEditorFlow)
 
         /// @brief refresh end
         void refreshEnd();
@@ -541,7 +540,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(AttributesEditorExtended)
+        FOX_CONSTRUCTOR(AttributesEditorExtended)
 
     private:
         /// @brief pointer to Frame Parent
@@ -576,7 +575,7 @@ public:
         void refreshParametersEditor();
 
         /// @brief get parameters as map
-        const std::map<std::string, std::string> &getParametersMap() const;
+        const std::map<std::string, std::string>& getParametersMap() const;
 
         /// @brief get parameters as string
         std::string getParametersStr() const;
@@ -585,7 +584,7 @@ public:
         std::vector<std::pair<std::string, std::string> > getParametersVectorStr() const;
 
         /// @brief set parameters
-        void setParameters(const std::vector<std::pair<std::string, std::string> > &parameters);
+        void setParameters(const std::vector<std::pair<std::string, std::string> >& parameters);
 
         /// @brief pointer to frame parent
         GNEFrame* getFrameParent() const;
@@ -600,7 +599,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(ParametersEditor)
+        FOX_CONSTRUCTOR(ParametersEditor)
 
     private:
         /// @brief pointer to frame parent
@@ -683,7 +682,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(DrawingShape)
+        FOX_CONSTRUCTOR(DrawingShape)
 
     private:
         /// @brief pointer to frame parent
@@ -742,7 +741,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(NeteditAttributes)
+        FOX_CONSTRUCTOR(NeteditAttributes)
 
     private:
         /// @brief list of the reference points

@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Tue, 04 Dec 2007
-/// @version $Id$
 ///
 // Abstract in-vehicle device
 /****************************************************************************/
@@ -238,8 +237,8 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
         parameterGiven = true;
         haveByParameter = StringUtils::toBool(v.getVehicleType().getParameter().getParameter(key, "false"));
     }
-    //std::cout << " deviceName=" << deviceName << " holder=" << v.getID() 
-    //    << " nameGiven=" << nameGiven << " haveByName=" << haveByName 
+    //std::cout << " deviceName=" << deviceName << " holder=" << v.getID()
+    //    << " nameGiven=" << nameGiven << " haveByName=" << haveByName
     //    << " parameterGiven=" << parameterGiven << " haveByParameter=" << haveByParameter
     //    << " numberGiven=" << numberGiven << " haveByNumber=" << haveByNumber
     //    << " outputOptionSet=" << outputOptionSet << "\n";

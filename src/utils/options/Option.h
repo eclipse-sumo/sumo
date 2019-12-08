@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mon, 17 Dec 2001
-/// @version $Id$
 ///
 // Classes representing a single program option (with different types)
 /****************************************************************************/
@@ -811,7 +810,7 @@ public:
     bool isFileName() const;
 
     /** @brief Legacy method that returns the stored filenames as a comma-separated string.
-     * 
+     *
      * @see std::string Option::getString()
      * @see std::string StringVector::getValueString()
      * @return Returns comma-separated string of the stored filenames

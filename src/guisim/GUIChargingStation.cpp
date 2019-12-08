@@ -14,7 +14,6 @@
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
 /// @date    20-12-13
-/// @version $Id$
 ///
 // A lane area vehicles can halt at (gui-version)
 /****************************************************************************/

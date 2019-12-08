@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    29. March 2012
-/// @version $Id$
 ///
 // Algorithms for highway on-/off-ramps computation
 /****************************************************************************/

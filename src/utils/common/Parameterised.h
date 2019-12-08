@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Melanie Knocke
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A super class for objects with additional parameters
 /****************************************************************************/

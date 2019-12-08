@@ -10,7 +10,6 @@
 # @file    plot_csv_bars.py
 # @author  Daniel Krajzewicz
 # @date    2014-01-27
-# @version $Id$
 
 """
 

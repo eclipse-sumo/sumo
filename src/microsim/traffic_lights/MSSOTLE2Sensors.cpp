@@ -12,7 +12,6 @@
 /// @author  Alessio Bonfietti
 /// @author  Federico Caselli
 /// @date    2010-02-25
-/// @version $Id$
 ///
 // The class for SOTL sensors of "E2" type
 /****************************************************************************/

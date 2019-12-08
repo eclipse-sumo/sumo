@@ -12,7 +12,6 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    02.11.2009
-/// @version $Id$
 ///
 // A storage for edge travel times and efforts
 /****************************************************************************/

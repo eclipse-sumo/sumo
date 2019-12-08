@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2009-08-01
-# @version $Id$
 
 """
 Verifies the traffic lights in the given network.

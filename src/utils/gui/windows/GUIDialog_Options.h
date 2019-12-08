@@ -10,7 +10,6 @@
 /// @file    GUIDialog_Options.h
 /// @author  Jakob Erdmann
 /// @date    July 2011
-/// @version $Id$
 ///
 // A Dialog for setting options (see OptionsCont)
 /****************************************************************************/
@@ -62,7 +61,7 @@ public:
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
-		FOX_CONSTRUCTOR(InputString)
+        FOX_CONSTRUCTOR(InputString)
 
     private:
         /// @brief name
@@ -84,7 +83,7 @@ public:
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
-		FOX_CONSTRUCTOR(InputBool)
+        FOX_CONSTRUCTOR(InputBool)
 
     private:
         /// @brief name
@@ -106,7 +105,7 @@ public:
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
-		FOX_CONSTRUCTOR(InputInt)
+        FOX_CONSTRUCTOR(InputInt)
 
     private:
         /// @brief name
@@ -128,7 +127,7 @@ public:
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
-		FOX_CONSTRUCTOR(InputFloat)
+        FOX_CONSTRUCTOR(InputFloat)
 
     private:
         /// @brief name

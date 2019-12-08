@@ -10,7 +10,6 @@
 /// @file    InstancePool.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 29.04.2005
-/// @version $Id$
 ///
 // A pool of resuable instances
 /****************************************************************************/

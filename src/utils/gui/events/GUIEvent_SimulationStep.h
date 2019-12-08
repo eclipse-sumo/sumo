@@ -10,7 +10,6 @@
 /// @file    GUIEvent_SimulationStep.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Event send when the a simulation step has been performed by GUIRunThread
 /****************************************************************************/

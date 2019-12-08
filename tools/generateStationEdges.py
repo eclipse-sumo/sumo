@@ -10,7 +10,6 @@
 # @file    generateStationEdges.py
 # @author  Jakob Erdmann
 # @date    2018-08-07
-# @version $Id$
 
 """
 Generate pedestrian edges for every public transport stop to serve as access

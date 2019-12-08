@@ -12,7 +12,6 @@
 /// @file    SumoRoadPosition.java
 /// @author  Jakob Erdmann
 /// @date    2019
-/// @version $Id$
 ///
 //
 /****************************************************************************/

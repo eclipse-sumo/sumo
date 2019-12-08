@@ -12,7 +12,6 @@
 /// @author	 Anna Chiara Bellini
 /// @author  Federico Caselli
 /// @date    Apr 2013
-/// @version $Id$
 ///
 // The base abstract class for SOTL logics
 /****************************************************************************/

@@ -15,7 +15,6 @@
 /// @author  Walter Bamberger
 /// @author  Michael Behrisch
 /// @date    July 2010
-/// @version $Id$
 ///
 // A household contains the people and cars of the city: roughly represents
 // families with their address, cars, adults and possibly children

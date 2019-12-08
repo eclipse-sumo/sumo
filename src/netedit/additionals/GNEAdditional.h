@@ -10,7 +10,6 @@
 /// @file    GNEAdditional.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2016
-/// @version $Id$
 ///
 // A abstract class for representation of additional elements
 /****************************************************************************/
@@ -206,7 +205,7 @@ public:
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /// @brief Returns the additional name
-    const std::string &getOptionalAdditionalName() const;
+    const std::string& getOptionalAdditionalName() const;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -296,7 +295,7 @@ protected:
 
         /// @brief value for saving second original position over lane before moving
         std::string secondOriginalPosition;
-    
+
     private:
         /// @brief Invalidated assignment operator
         AdditionalMove& operator=(const AdditionalMove& other) = delete;

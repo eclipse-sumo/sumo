@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 24 Oct 2003
-/// @version $Id$
 ///
 // Encapsulates an object's method for using it as a message retriever
 /****************************************************************************/

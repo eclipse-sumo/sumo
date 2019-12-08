@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    January 2012
-/// @version $Id$
 ///
 // A* Algorithm using euclidean distance heuristic.
 // Based on DijkstraRouter. For routing by effort a novel heuristic would be needed.
@@ -98,7 +97,7 @@ public:
 
     /// Constructor
     AStarRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation, const std::shared_ptr<const LookupTable> lookup = nullptr,
-        const bool havePermissions = false, const bool haveRestrictions = false) :
+                const bool havePermissions = false, const bool haveRestrictions = false) :
         SUMOAbstractRouter<E, V>("AStarRouter", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
         myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS) {
@@ -109,7 +108,7 @@ public:
     }
 
     AStarRouter(const std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo>& edgeInfos, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation, const std::shared_ptr<const LookupTable> lookup = nullptr,
-        const bool havePermissions = false, const bool haveRestrictions = false) :
+                const bool havePermissions = false, const bool haveRestrictions = false) :
         SUMOAbstractRouter<E, V>("AStarRouter", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
         myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS) {

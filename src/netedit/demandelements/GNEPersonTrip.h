@@ -10,7 +10,6 @@
 /// @file    GNEPersonTrip.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2019
-/// @version $Id$
 ///
 // A class for visualizing person trips in Netedit
 /****************************************************************************/
@@ -47,9 +46,9 @@ public:
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
      */
-    GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
-        const std::vector<GNEEdge*> &via, double arrivalPosition, const std::vector<std::string>& types, 
-        const std::vector<std::string>& modes);
+    GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+                  const std::vector<GNEEdge*>& via, double arrivalPosition, const std::vector<std::string>& types,
+                  const std::vector<std::string>& modes);
 
     /**@brief parameter constructor for person tripBusStop
      * @param[in] viewNet view in which this PersonTrip is placed
@@ -59,8 +58,8 @@ public:
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
      */
-    GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, 
-        const std::vector<GNEEdge*> &via, const std::vector<std::string>& types, const std::vector<std::string>& modes);
+    GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
+                  const std::vector<GNEEdge*>& via, const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief destructor
     ~GNEPersonTrip();
@@ -117,7 +116,7 @@ public:
     void updateGeometry();
 
     /// @brief partial update pre-computed geometry information
-    void updatePartialGeometry(const GNEEdge *edge);
+    void updatePartialGeometry(const GNEEdge* edge);
 
     /// @brief compute path
     void computePath();

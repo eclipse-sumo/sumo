@@ -10,7 +10,6 @@
 /// @file    GNEPolygonFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2017
-/// @version $Id$
 ///
 // The Widget for add polygons
 /****************************************************************************/
@@ -383,7 +382,7 @@ GNEPolygonFrame::shapeDrawed() {
         // obtain geo (by default false)
         valuesMap[SUMO_ATTR_GEO] = "false";
         // return true if polygon was successfully created
-        if(addPolygon(valuesMap)) {
+        if (addPolygon(valuesMap)) {
             // refresh shape attributes
             myShapeAttributes->refreshRows();
             return true;

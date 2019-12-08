@@ -10,7 +10,6 @@
 # @file    nefz.py
 # @author  daniel.krajzewicz@dlr.de
 # @date    2014-01-14
-# @version $Id$
 
 """
 Generates a ';'-separated file that contains the time line of the NEFZ

@@ -10,7 +10,6 @@
 /// @file    GNERouteProbe.h
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/

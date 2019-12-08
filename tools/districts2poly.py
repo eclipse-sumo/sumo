@@ -10,7 +10,6 @@
 # @file    districts2poly.py
 # @author  Jakob Erdmann
 # @date    2015-07-31
-# @version $Id$
 
 """
 From a sumo network and a taz (district) file, this script colors each district

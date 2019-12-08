@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Thu, 17 Oct 2002
-/// @version $Id$
 ///
 // Importer for edge connections stored in XML
 /****************************************************************************/

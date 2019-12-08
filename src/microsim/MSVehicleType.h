@@ -13,7 +13,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 12 Mar 2001
-/// @version $Id$
 ///
 // The car-following model and parameter
 /****************************************************************************/

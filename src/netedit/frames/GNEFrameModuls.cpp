@@ -10,7 +10,6 @@
 /// @file    GNEFrameModuls.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
-/// @version $Id$
 ///
 // Auxiliar class for GNEFrame Moduls
 /****************************************************************************/
@@ -980,9 +979,9 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector
             return 1;
         } else if (myClickedDemandElement->getTagProperty().isPersonPlan() && (myClickedDemandElement->getParentDemandElements().front()->getChildDemandElements().size() == 1)) {
             // we need to check if we're removing the last person plan of a person.
-            myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement->getParentDemandElements().front(), myFrameParent->myViewNet->getUndoList()); 
+            myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement->getParentDemandElements().front(), myFrameParent->myViewNet->getUndoList());
         } else {
-            myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement, myFrameParent->myViewNet->getUndoList());        
+            myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement, myFrameParent->myViewNet->getUndoList());
         }
     }
     // update viewNet
@@ -1832,7 +1831,7 @@ GNEFrameModuls::OverlappedInspection::showOverlappedInspection(const GNEViewNetH
         myOverlappedACs = objectsUnderCursor.getClickedAttributeCarriers();
     } else {
         // filter objects under cursor
-        for (const auto &i : objectsUnderCursor.getClickedAttributeCarriers()) {
+        for (const auto& i : objectsUnderCursor.getClickedAttributeCarriers()) {
             if (i->getTagProperty().getTag() == myFilteredTag) {
                 myOverlappedACs.push_back(i);
             }
@@ -1870,7 +1869,7 @@ GNEFrameModuls::OverlappedInspection::overlappedInspectionShown() const {
 }
 
 
-int 
+int
 GNEFrameModuls::OverlappedInspection::getNumberOfOverlappedACs() const {
     return (int)myOverlappedACs.size();
 }
@@ -1920,7 +1919,7 @@ GNEFrameModuls::OverlappedInspection::previousElement(const Position& clickedPos
 
 long
 GNEFrameModuls::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
-     // check if there is items
+    // check if there is items
     if (myOverlappedElementList->getNumItems() > 0) {
         // unselect current list element
         myOverlappedElementList->getItem((int)myItemIndex)->setSelected(FALSE);
@@ -2022,7 +2021,7 @@ GNEFrameModuls::OverlappedInspection::OverlappedInspection() :
 }
 
 
-void 
+void
 GNEFrameModuls::OverlappedInspection::buildFXElements() {
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // Create previous Item Button

@@ -14,7 +14,6 @@
 /// @author  Walter Bamberger
 /// @author  Daniel Krajzewicz
 /// @date    July 2010
-/// @version $Id$
 ///
 // Parent object of every person, contains age and any natural characteristic
 /****************************************************************************/

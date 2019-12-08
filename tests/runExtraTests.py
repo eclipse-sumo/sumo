@@ -10,7 +10,6 @@
 # @file    runExtraTests.py
 # @author  Michael Behrisch
 # @date    2012-03-29
-# @version $Id$
 
 
 import optparse

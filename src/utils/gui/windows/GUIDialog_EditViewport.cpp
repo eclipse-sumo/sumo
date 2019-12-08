@@ -12,7 +12,6 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Mon, 25.04.2005
-/// @version $Id$
 ///
 // A dialog to change the viewport
 /****************************************************************************/

@@ -9,7 +9,6 @@
 # @file    _platoonmanager.py
 # @author Leonhard Luecken
 # @date   2017-04-09
-# @version $Id$
 
 
 # TODO: For CATCHUP_FOLLOWER mode could also be set active if intra-platoon gap becomes too large

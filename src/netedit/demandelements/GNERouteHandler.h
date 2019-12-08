@@ -10,7 +10,6 @@
 /// @file    GNERouteHandler.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
-/// @version $Id$
 ///
 // Builds demand objects for netedit
 /****************************************************************************/
@@ -111,10 +110,10 @@ public:
     static void buildFlowWithEmbeddedRoute(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embeddedRouteCopy);
 
     /// @brief build trip
-    static void buildTrip(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*> &via);
+    static void buildTrip(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via);
 
     /// @brief build flow
-    static void buildFlow(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*> &via);
+    static void buildFlow(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via);
 
     /// @brief build stop
     static void buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop& stopParameters, GNEDemandElement* stopParent);
@@ -130,7 +129,7 @@ public:
                                       const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief build trip using a from edge and a busStop
-    static void buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, 
+    static void buildPersonTripBusStop(GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
                                        const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief build walk using a list of consecutive edges
@@ -182,7 +181,7 @@ public:
     /// @}
 
     /// @brief configure flow parameters
-    static void setFlowParameters(const SumoXMLAttr attribute, int &parameters);
+    static void setFlowParameters(const SumoXMLAttr attribute, int& parameters);
 
 protected:
     /// @brief embebbe route within a vehicle

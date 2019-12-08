@@ -13,7 +13,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2011-11-28
-# @version $Id$
 
 from .connection import Connection
 from .lane import addJunctionPos

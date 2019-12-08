@@ -11,7 +11,6 @@
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
 /// @date    20-12-13
-/// @version $Id$
 ///
 // The Battery parameters for the vehicle
 /****************************************************************************/
@@ -166,7 +165,7 @@ public:
     const std::map<int, double>& getEnergyParams() const {
         return myParam;
     }
-    
+
 protected:
     /// @brief Parameter, The actual vehicles's Battery Capacity in kWh, [myActualBatteryCapacity <= myMaximumBatteryCapacity]
     double myActualBatteryCapacity;

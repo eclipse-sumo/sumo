@@ -10,7 +10,6 @@
 /// @file    GNEFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id$
 ///
 // The Widget for add additional elements
 /****************************************************************************/
@@ -193,7 +192,7 @@ GNEFrame::attributesEditorExtendedDialogOpened()  {
 }
 
 
-void 
+void
 GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
     // this function has to be reimplemente in all child frames that uses a OverlappedInspection
 }

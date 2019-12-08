@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2004-03-19
-/// @version $Id$
 ///
 //
 /****************************************************************************/

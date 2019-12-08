@@ -10,7 +10,6 @@
 # @file    runner.py
 # @author  Daniel Krajzewicz
 # @date    2007-07-26
-# @version $Id$
 
 
 from __future__ import absolute_import

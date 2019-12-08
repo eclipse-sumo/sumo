@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Thu, 13 Dec 2012
-/// @version $Id$
 ///
 // Parser and output filter for routes and vehicles state saving and loading
 /****************************************************************************/

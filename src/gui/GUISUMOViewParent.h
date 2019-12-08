@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Andreas Gaubatz
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A single child window which contains a view of the simulation area
 /****************************************************************************/

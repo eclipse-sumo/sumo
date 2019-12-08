@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2007-11-25
-# @version $Id$
 
 """
 This script is for executing traffic assignment according to the required assignment model.

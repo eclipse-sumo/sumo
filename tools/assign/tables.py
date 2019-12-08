@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2008-03-18
-# @version $Id$
 
 """
 This file defines global tables used to:

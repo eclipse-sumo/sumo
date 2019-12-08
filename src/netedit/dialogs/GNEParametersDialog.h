@@ -10,7 +10,6 @@
 /// @file    GNEParametersDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2018
-/// @version $Id$
 ///
 // Dialog for edit parameters
 /****************************************************************************/
@@ -58,7 +57,7 @@ public:
 
     public:
         /// @brief constructor
-        ParametersValues(FXHorizontalFrame* frame, GNEParametersDialog *ParameterDialogParent);
+        ParametersValues(FXHorizontalFrame* frame, GNEParametersDialog* ParameterDialogParent);
 
         /// @brief destructor
         ~ParametersValues();
@@ -140,7 +139,7 @@ public:
         std::vector<ParameterRow*> myParameterRows;
 
         /// @brief pointer to ParameterDialog parent
-        GNEParametersDialog *myParameterDialogParent;
+        GNEParametersDialog* myParameterDialogParent;
     };
 
     // ===========================================================================
@@ -153,7 +152,7 @@ public:
 
     public:
         /// @brief constructor
-        ParametersOptions(FXHorizontalFrame* frame, GNEParametersDialog *ParameterDialogParent);
+        ParametersOptions(FXHorizontalFrame* frame, GNEParametersDialog* ParameterDialogParent);
 
         /// @brief destructor
         ~ParametersOptions();
@@ -227,7 +226,7 @@ public:
     };
 
     /// @brief Constructor
-    GNEParametersDialog(GNEFrameAttributesModuls::ParametersEditor *ParametersEditor);
+    GNEParametersDialog(GNEFrameAttributesModuls::ParametersEditor* ParametersEditor);
 
     /// @brief destructor
     ~GNEParametersDialog();
@@ -248,7 +247,7 @@ protected:
     FOX_CONSTRUCTOR(GNEParametersDialog)
 
     /// @brief pointer to ParametersEditor
-    GNEFrameAttributesModuls::ParametersEditor *myParametersEditor;
+    GNEFrameAttributesModuls::ParametersEditor* myParametersEditor;
 
     /// @brief pointer to  parameters values
     ParametersValues* myParametersValues;

@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // An actuated (adaptive) traffic light logic
 /****************************************************************************/
@@ -91,7 +90,7 @@ public:
 
     /// @brief called when switching programs
     void activateProgram();
-    void deactivateProgram(); 
+    void deactivateProgram();
 
     bool showDetectors() const {
         return myShowDetectors;
@@ -101,7 +100,7 @@ public:
 
 protected:
     struct InductLoopInfo {
-        InductLoopInfo(MSInductLoop* _loop, int numPhases): 
+        InductLoopInfo(MSInductLoop* _loop, int numPhases):
             loop(_loop),
             servedPhase(numPhases, false)
         {}

@@ -11,7 +11,6 @@
 # @file    processes.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 
 import subprocess

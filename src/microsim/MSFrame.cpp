@@ -16,7 +16,6 @@
 /// @author  Mario Krumnow
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Sets and checks options for microsim; inits global outputs and settings
 /****************************************************************************/

@@ -17,7 +17,6 @@
 /// @author  Michael Behrisch
 /// @author  Leonhard Luecken
 /// @date    Mon, 12 Mar 2001
-/// @version $Id$
 ///
 // The simulated network and simulation performer
 /****************************************************************************/
@@ -631,9 +630,9 @@ public:
      * @param[in] prohibited The vector of forbidden edges (optional)
      */
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex,
-        const MSEdgeVector& prohibited = MSEdgeVector()) const;
+            const MSEdgeVector& prohibited = MSEdgeVector()) const;
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(const int rngIndex,
-        const MSEdgeVector& prohibited = MSEdgeVector()) const;
+            const MSEdgeVector& prohibited = MSEdgeVector()) const;
     MSPedestrianRouter& getPedestrianRouter(const int rngIndex, const MSEdgeVector& prohibited = MSEdgeVector()) const;
     MSIntermodalRouter& getIntermodalRouter(const int rngIndex, const int routingMode = 0, const MSEdgeVector& prohibited = MSEdgeVector()) const;
 

@@ -12,7 +12,6 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Feb 2013
-/// @version $Id$
 ///
 // Assignment methods
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    GNENet.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id$
 ///
 // A visual container for GNE-network-components such as GNEEdge and GNEJunction.
 // GNE components wrap netbuild-components and supply visualisation and editing
@@ -656,7 +655,7 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
         // we need an special case for person
         if (demandElement->getTagProperty().isPersonPlan() && (demandElement->getParentDemandElements().front()->getChildDemandElements().size() == 1)) {
             // obtain person
-            GNEDemandElement *person = demandElement->getParentDemandElements().front();
+            GNEDemandElement* person = demandElement->getParentDemandElements().front();
             // remove demandElement
             undoList->add(new GNEChange_DemandElement(demandElement, false), true);
             // und now remove person
@@ -720,7 +719,7 @@ GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoLi
 bool
 GNENet::addRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, int index, GNEUndoList* undoList) {
     // First check that edge don't have a restricted lane of the given vclass
-    for (const auto &lane : edge->getLanes()) {
+    for (const auto& lane : edge->getLanes()) {
         if (lane->isRestricted(vclass)) {
             return false;
         }
@@ -756,7 +755,7 @@ GNENet::addRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, int index, GNE
 bool
 GNENet::removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, GNEUndoList* undoList) {
     // iterate over lanes of edge
-    for (const auto &lane : edge->getLanes()) {
+    for (const auto& lane : edge->getLanes()) {
         if (lane->isRestricted(vclass)) {
             // Delete lane
             deleteLane(lane, undoList, true);
@@ -778,7 +777,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     // obtain edge geometry and split position
     const PositionVector& oldEdgeGeometry = edge->getNBEdge()->getGeometry();
     const double edgeSplitPosition = oldEdgeGeometry.nearest_offset_to_point2D(pos, false);
-   // obtain lane geometry and split position (needed for adjust additional and demand childs)
+    // obtain lane geometry and split position (needed for adjust additional and demand childs)
     const PositionVector& oldLaneGeometry = edge->getLanes().front()->getLaneShape();
     const double laneSplitPosition = oldLaneGeometry.nearest_offset_to_point2D(pos, false);
     // split edge geometry in two new geometries using edgeSplitPosition
@@ -792,9 +791,10 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     if (edge->wasSplit()) {
         const std::string::size_type sep_index = baseName.rfind('.');
         // edge may have been renamed in between
-        if (sep_index != std::string::npos) { 
+        if (sep_index != std::string::npos) {
             std::string posString = baseName.substr(sep_index + 1);
-            if (GNEAttributeCarrier::canParse<int>(posString.c_str())) {;
+            if (GNEAttributeCarrier::canParse<int>(posString.c_str())) {
+                ;
                 posBase = GNEAttributeCarrier::parse<int>(posString.c_str());
                 baseName = baseName.substr(0, sep_index); // includes the .
             }
@@ -845,22 +845,22 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
         undoList->add(new GNEChange_Crossing(secondPart->getGNEJunctionDestiny(), nbC, true), true);
     }
     // Split geometry of all child additional
-    for (const auto &additional : edge->getChildAdditionals()) {
+    for (const auto& additional : edge->getChildAdditionals()) {
         additional->splitEdgeGeometry(edgeSplitPosition, edge, secondPart, undoList);
     }
     // Split geometry of all child lane additional
     for (int i = 0; i < (int)edge->getLanes().size(); i++) {
-        for (const auto &additional : edge->getLanes().at(i)->getChildAdditionals()) {
+        for (const auto& additional : edge->getLanes().at(i)->getChildAdditionals()) {
             additional->splitEdgeGeometry(laneSplitPosition, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
         }
     }
     // Split geometry of all child demand elements
-    for (const auto &demandElement : edge->getChildDemandElements()) {
+    for (const auto& demandElement : edge->getChildDemandElements()) {
         demandElement->splitEdgeGeometry(edgeSplitPosition, edge, secondPart, undoList);
     }
     // Split geometry of all child lane demand elements
     for (int i = 0; i < (int)edge->getLanes().size(); i++) {
-        for (const auto &demandElement : edge->getLanes().at(i)->getChildDemandElements()) {
+        for (const auto& demandElement : edge->getLanes().at(i)->getChildDemandElements()) {
             demandElement->splitEdgeGeometry(laneSplitPosition, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
         }
     }
@@ -2874,8 +2874,8 @@ GNENet::initJunctionsAndEdges() {
     }
 
     // recalculate all lane2lane connections
-    for (const auto &i : myAttributeCarriers.edges) {
-        for (const auto&j : i.second->getLanes()) {
+    for (const auto& i : myAttributeCarriers.edges) {
+        for (const auto& j : i.second->getLanes()) {
             j->updateGeometry();
         }
     }

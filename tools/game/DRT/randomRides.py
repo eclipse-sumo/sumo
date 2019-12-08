@@ -10,7 +10,6 @@
 # @file    randomRides.py
 # @author  Jakob Erdmann
 # @date    2019-02-24
-# @version $Id$
 
 from __future__ import print_function
 from __future__ import absolute_import

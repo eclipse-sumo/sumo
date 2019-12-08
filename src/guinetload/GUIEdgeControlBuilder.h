@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Derivation of NLEdgeControlBuilder which builds gui-edges
 /****************************************************************************/

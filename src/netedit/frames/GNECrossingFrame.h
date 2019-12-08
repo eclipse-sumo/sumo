@@ -10,7 +10,6 @@
 /// @file    GNECrossingFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2016
-/// @version $Id$
 ///
 // The Widget for add Crossing elements
 /****************************************************************************/

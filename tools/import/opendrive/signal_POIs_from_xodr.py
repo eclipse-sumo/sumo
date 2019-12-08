@@ -11,7 +11,6 @@
 # @file    signal_POIs_from_xodr.py
 # @author  Gerald Richter; gerald.richter@ait.ac.at
 # @date    2017-08-06
-# @version $Id$
 
 """
 # what does it do:

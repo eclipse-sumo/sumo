@@ -10,7 +10,6 @@
 /// @file    MSSOTLPolicyDesirability.cpp
 /// @author  Riccardo Belletti
 /// @date    2014-03-20
-/// @version $Id$
 ///
 // The class for Swarm-based low-level policy
 /****************************************************************************/

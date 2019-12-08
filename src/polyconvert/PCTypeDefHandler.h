@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Thu, 16.03.2006
-/// @version $Id$
 ///
 // A handler for loading polygon type maps
 /****************************************************************************/

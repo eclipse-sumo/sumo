@@ -11,7 +11,6 @@
 # @file    logger.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import types
 from time import gmtime, strftime

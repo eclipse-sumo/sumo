@@ -15,7 +15,6 @@
 /// @author  Mario Krumnow
 /// @author  Leonhard Luecken
 /// @date    07.05.2009
-/// @version $Id$
 ///
 // APIs for getting/setting lane values via TraCI
 /****************************************************************************/

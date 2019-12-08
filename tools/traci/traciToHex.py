@@ -11,7 +11,6 @@
 # @file    traciToHex.py
 # @author  Michael Behrisch
 # @date    2010-09-08
-# @version $Id$
 
 
 from __future__ import print_function

@@ -10,7 +10,6 @@
 /// @file    GNEChange_EnableAttribute.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
-/// @version $Id$
 ///
 // A network change in which the attribute of some object is modified
 /****************************************************************************/

@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Tue Dec 02 2003 22:17 CET
-/// @version $Id$
 ///
 // A detector of vehicles passing an area between entry/exit points
 /****************************************************************************/

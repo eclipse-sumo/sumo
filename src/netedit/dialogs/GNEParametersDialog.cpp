@@ -10,7 +10,6 @@
 /// @file    GNEParametersDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2018
-/// @version $Id$
 ///
 // Dialog for edit parameters
 /****************************************************************************/
@@ -70,7 +69,7 @@ FXIMPLEMENT(GNEParametersDialog::ParametersOptions, FXGroupBox,     ParametersOp
 // GNEParametersDialog::ParametersValues - methods
 // ---------------------------------------------------------------------------
 
-GNEParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame, GNEParametersDialog *ParameterDialogParent) :
+GNEParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame, GNEParametersDialog* ParameterDialogParent) :
     FXGroupBox(frame, " Parameters", GUIDesignGroupBoxFrameFill),
     myParameterDialogParent(ParameterDialogParent) {
     // create labels for keys and values
@@ -482,7 +481,7 @@ GNEParametersDialog::ParametersOptions::GNEParameterHandler::myStartElement(int 
 // GNEParametersDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEParametersDialog::GNEParametersDialog(GNEFrameAttributesModuls::ParametersEditor *ParametersEditor) :
+GNEParametersDialog::GNEParametersDialog(GNEFrameAttributesModuls::ParametersEditor* ParametersEditor) :
     FXDialogBox(ParametersEditor->getFrameParent()->getViewNet()->getApp(), "Edit  parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myParametersEditor(ParametersEditor),
     myEditedParameters(ParametersEditor->getParametersVectorStr()),
@@ -515,7 +514,7 @@ GNEParametersDialog::~GNEParametersDialog() {}
 long
 GNEParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // check if all edited  parameters are valid
-    for (const auto &i : myEditedParameters) {
+    for (const auto& i : myEditedParameters) {
         if (i.first.empty()) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");

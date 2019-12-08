@@ -10,7 +10,6 @@
 /// @file    ShapeHandler.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2015
-/// @version $Id$
 ///
 // The XML-Handler for network loading
 /****************************************************************************/
@@ -221,7 +220,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
         const GeoConvHelper* gch;
         if (myGeoConvHelper != nullptr) {
             gch = myGeoConvHelper;
-        } else { 
+        } else {
             gch = &GeoConvHelper::getFinal();
         }
         // check if poly use geo coordinates
@@ -272,7 +271,7 @@ ShapeHandler::getLastParameterised() const {
 
 bool
 ShapeHandler::loadFiles(const std::vector<std::string>& files, ShapeHandler& sh) {
-    for (const auto &fileIt : files) {
+    for (const auto& fileIt : files) {
         if (!XMLSubSys::runParser(sh, fileIt, false)) {
             WRITE_MESSAGE("Loading of shapes from " + fileIt + " failed.");
             return false;

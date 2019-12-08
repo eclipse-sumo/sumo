@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Christian Roessel
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Loader for networks and route imports
 /****************************************************************************/

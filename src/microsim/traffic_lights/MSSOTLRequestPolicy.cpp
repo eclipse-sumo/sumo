@@ -11,7 +11,6 @@
 /// @author  Gianfilippo Slager
 /// @author  Anna Chiara Bellini
 /// @date    Apr 2013
-/// @version $Id$
 ///
 // The class for SOTL Request logics
 /****************************************************************************/

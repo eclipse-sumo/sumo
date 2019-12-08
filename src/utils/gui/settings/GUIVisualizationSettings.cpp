@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Stores the information about how to visualize structures
 /****************************************************************************/
@@ -1660,7 +1659,7 @@ GUIVisualizationSettings::getTextAngle(double objectAngle) const {
 }
 
 
-bool 
+bool
 GUIVisualizationSettings::drawAdditionals(const double exaggeration) const {
     return (scale * exaggeration) > 1.;
 }

@@ -11,7 +11,6 @@
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
 # @date    2010-10-15
-# @version $Id$
 
 """
 This script executes a config repeatedly and measures the execution time,

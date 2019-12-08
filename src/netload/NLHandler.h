@@ -13,7 +13,6 @@
 /// @author  Clemens Honomichl
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The XML-Handler for network loading
 /****************************************************************************/

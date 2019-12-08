@@ -14,7 +14,6 @@
 /// @author  Thimor Bohn
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
 ///
 // Main for SUMO
 /****************************************************************************/

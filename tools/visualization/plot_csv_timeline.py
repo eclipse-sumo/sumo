@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Laura Bieker
 # @date    2014-01-14
-# @version $Id$
 
 """
 

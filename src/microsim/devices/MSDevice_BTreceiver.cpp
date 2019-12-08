@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    14.08.2013
-/// @version $Id$
 ///
 // A BT Receiver
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    NBPTLineCont.h
 /// @author  Gregor Laemmel
 /// @date    Tue, 20 Mar 2017
-/// @version $Id$
 ///
 // Container for NBPTLine during netbuild
 /****************************************************************************/
@@ -62,7 +61,7 @@ private:
 
     /* @brief find way element corresponding to the stop
      * @note: if the edge id is updated, the stop extent is recomputed */
-    NBPTStop* findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPTStopCont& sc) const; 
+    NBPTStop* findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPTStopCont& sc) const;
 
     void constructRoute(NBPTLine* myPTLine, NBEdgeCont& cont);
 
@@ -71,7 +70,7 @@ private:
     static double getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBRouterEdge, NBVehicle>& router,
                           const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh);
 
-    static std::string getWayID(const std::string& edgeID); 
+    static std::string getWayID(const std::string& edgeID);
 };
 
 

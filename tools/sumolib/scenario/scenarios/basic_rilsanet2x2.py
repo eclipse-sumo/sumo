@@ -9,7 +9,6 @@
 # @file    basic_rilsanet2x2.py
 # @author  Daniel Krajzewicz
 # @date    2014-09-01
-# @version $Id$
 
 
 from __future__ import absolute_import

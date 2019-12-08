@@ -12,7 +12,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    03.12.2009
-# @version $Id$
 
 """
 Checks schema for files matching certain file names using either

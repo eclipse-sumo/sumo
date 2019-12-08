@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 17 Dec 2001
-/// @version $Id$
 ///
 // A class representing a single program option
 /****************************************************************************/
@@ -100,7 +99,7 @@ Option::getIntVector() const {
     throw InvalidArgument("This is not an int vector-option");
 }
 
-const StringVector& 
+const StringVector&
 Option::getStringVector() const {
     throw InvalidArgument("This is not a string vector-option");
 }
@@ -519,7 +518,9 @@ Option_IntVector::getValueString() const {
 /* -------------------------------------------------------------------------
  * Option_StringVector - methods
  * ----------------------------------------------------------------------- */
-Option_StringVector::Option_StringVector() : Option() { myTypeName = "STR[]"; }
+Option_StringVector::Option_StringVector() : Option() {
+    myTypeName = "STR[]";
+}
 
 Option_StringVector::Option_StringVector(const StringVector& value)
     : Option(true), myValue(value) {
@@ -539,7 +540,9 @@ Option_StringVector::operator=(const Option_StringVector& s) {
 }
 
 const StringVector&
-Option_StringVector::getStringVector() const { return myValue; }
+Option_StringVector::getStringVector() const {
+    return myValue;
+}
 
 bool
 Option_StringVector::set(const std::string& v) {
@@ -588,7 +591,9 @@ Option_FileName& Option_FileName::operator=(const Option_FileName& s) {
     return (*this);
 }
 
-bool Option_FileName::isFileName() const { return true; }
+bool Option_FileName::isFileName() const {
+    return true;
+}
 
 std::string
 Option_FileName::getString() const {

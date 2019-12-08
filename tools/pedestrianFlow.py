@@ -10,7 +10,6 @@
 # @file    pedestrianFlow.py
 # @author  Jakob Erdmann
 # @date    2014-01-16
-# @version $Id$
 
 from __future__ import absolute_import
 import os

@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Sep 2003
-/// @version $Id$
 ///
 // A mover of vehicles that got stucked due to grid locks
 // This class also serves as container for parking vehicles

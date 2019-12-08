@@ -10,7 +10,6 @@
 /// @file    GNEProhibitionFrame.h
 /// @author  Mirko Barthauer (Technische Universitaet Braunschweig)
 /// @date    May 2018
-/// @version $Id$
 ///
 // The Widget for remove network-elements
 /****************************************************************************/
@@ -170,7 +169,7 @@ public:
     /// @}
 
 protected:
-	FOX_CONSTRUCTOR(GNEProhibitionFrame)
+    FOX_CONSTRUCTOR(GNEProhibitionFrame)
 
     /// @brief build prohibition
     void buildProhibition(GNEConnection* conn, bool mayDefinitelyPass, bool allowConflict, bool toggle);

@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Tino Morenz
 /// @date    Thu, 04.12.2008
-/// @version $Id$
 ///
 // Writes route distributions at a certain edge
 /****************************************************************************/

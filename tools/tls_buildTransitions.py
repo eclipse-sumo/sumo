@@ -10,7 +10,6 @@
 # @file    tls_buildTransitions.py
 # @author  Jakob Erdmann
 # @date    2019-11-09
-# @version $Id$
 
 """
 Create tlLogiic definitions with branching signal plans based on a simplified

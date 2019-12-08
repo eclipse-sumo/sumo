@@ -14,7 +14,6 @@
 /// @author  Thimor Bohn
 /// @author  Michael Behrisch
 /// @date    Tue, 06 Mar 2001
-/// @version $Id$
 ///
 // The car-following model and parameter
 /****************************************************************************/
@@ -351,14 +350,12 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
 }
 
 SUMOTime
-MSVehicleType::getEntryManoeuvreTime(const int angle) const
-{
+MSVehicleType::getEntryManoeuvreTime(const int angle) const {
     return (getParameter().getEntryManoeuvreTime(angle));
 }
 
 SUMOTime
-MSVehicleType::getExitManoeuvreTime(const int angle) const
-{
+MSVehicleType::getExitManoeuvreTime(const int angle) const {
     return (getParameter().getExitManoeuvreTime(angle));
 }
 

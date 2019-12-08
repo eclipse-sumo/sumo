@@ -10,7 +10,6 @@
 /// @file    GUIOSGBuilder.h
 /// @author  Daniel Krajzewicz
 /// @date    19.01.2012
-/// @version $Id$
 ///
 // Builds OSG nodes from microsim objects
 /****************************************************************************/

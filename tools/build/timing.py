@@ -10,7 +10,6 @@
 # @file    timing.py
 # @author  Michael Behrisch
 # @date    2018-11-30
-# @version $Id$
 
 """
 This script uses either a directory with historic sumo versions

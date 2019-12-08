@@ -11,7 +11,6 @@
 # @file    virtualpop_wxgui-01.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import wx
 

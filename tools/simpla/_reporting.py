@@ -9,7 +9,6 @@
 # @file    _reporting.py
 # @author Leonhard Luecken
 # @date   2017-04-09
-# @version $Id$
 
 from collections import deque
 import sys

@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A road/street connecting two junctions (gui-version)
 /****************************************************************************/
@@ -274,8 +273,8 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                 } else {
                     // use numerical value value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
                     const double doubleValue = (MSGlobals::gUseMesoSim
-                            ? getColorValue(s, activeScheme)
-                            : lane2->getColorValue(s, activeScheme));
+                                                ? getColorValue(s, activeScheme)
+                                                : lane2->getColorValue(s, activeScheme));
                     const RGBColor color = (MSGlobals::gUseMesoSim ? s.edgeColorer : s.laneColorer).getScheme().getColor(doubleValue);
                     value = color.alpha() == 0 ? "" : toString(doubleValue);
                 }

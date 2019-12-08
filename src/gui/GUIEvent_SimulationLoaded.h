@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Event send when the simulation has been loaded by GUILadThread
 /****************************************************************************/

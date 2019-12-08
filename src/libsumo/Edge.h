@@ -10,7 +10,6 @@
 /// @file    Edge.h
 /// @author  Gregor Laemmel
 /// @date    15.09.2017
-/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

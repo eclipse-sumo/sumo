@@ -10,7 +10,6 @@
 /// @file    Command_SaveTLSProgram.h
 /// @author  Jakob Erdmann
 /// @date    18.09.2019
-/// @version $Id$
 ///
 // Writes the switch times of a tls into a file when the tls switches
 /****************************************************************************/
@@ -54,7 +53,7 @@ public:
      * @param[in] od The output device to write the state into
      */
     Command_SaveTLSProgram(const MSTLLogicControl::TLSLogicVariants& logics,
-                                OutputDevice& od);
+                           OutputDevice& od);
 
 
     /// @brief Destructor
@@ -79,7 +78,7 @@ public:
 
 private:
     /// @brief Write the current program
-    void writeCurrent(); 
+    void writeCurrent();
 
 private:
     /// @brief The device to write to

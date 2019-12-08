@@ -15,7 +15,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Thu, 17 Oct 2002
-/// @version $Id$
 ///
 // Builds trigger objects for microsim
 /****************************************************************************/

@@ -10,7 +10,6 @@
 # @file    _trafficlight.py
 # @author  Michael Behrisch
 # @date    2011-03-16
-# @version $Id$
 
 from __future__ import absolute_import
 import struct

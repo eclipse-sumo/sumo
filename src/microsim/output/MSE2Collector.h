@@ -16,7 +16,6 @@
 /// @author  Jakob Erdmann
 /// @author  Leonhard Luecken
 /// @date    Mon Feb 03 2014 14:13 CET
-/// @version $Id$
 ///
 // An areal detector covering to a sequence of consecutive lanes
 /****************************************************************************/

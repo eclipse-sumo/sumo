@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Leonhard Luecken
 /// @date    Mon, 9 Jul 2001
-/// @version $Id$
 ///
 // Interface for building edges
 /****************************************************************************/

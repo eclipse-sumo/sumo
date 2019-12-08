@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Sascha Krieg
 /// @date    Fri, 19 Jul 2002
-/// @version $Id$
 ///
 // A helper class which computes the lane number from given capacity
 /****************************************************************************/

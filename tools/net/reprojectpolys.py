@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2008-03-27
-# @version $Id$
 
 """
 This script computes projection needed to make net2 (-2) fit

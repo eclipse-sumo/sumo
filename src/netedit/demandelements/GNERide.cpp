@@ -10,7 +10,6 @@
 /// @file    GNERide.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2019
-/// @version $Id$
 ///
 // A class for visualizing rides in Netedit
 /****************************************************************************/
@@ -41,13 +40,14 @@
 // method definitions
 // ===========================================================================
 
-GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*> &via, 
-    double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE_FROMTO), viewNet, GLO_RIDE, SUMO_TAG_RIDE_FROMTO, 
-        {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myArrivalPosition(arrivalPosition),
-    myLines(lines) {
+GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
+                 double arrivalPosition, const std::vector<std::string>& lines) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE_FROMTO), viewNet, GLO_RIDE, SUMO_TAG_RIDE_FROMTO, {
+    fromEdge, toEdge
+}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}),
+Parameterised(),
+myArrivalPosition(arrivalPosition),
+myLines(lines) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
     // compute ride
@@ -55,13 +55,14 @@ GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
 }
 
 
-GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*> &via,
-    const std::vector<std::string>& lines) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE_BUSSTOP), viewNet, GLO_RIDE, SUMO_TAG_RIDE_BUSSTOP, 
-        {fromEdge}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myArrivalPosition(-1),
-    myLines(lines) {
+GNERide::GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via,
+                 const std::vector<std::string>& lines) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_RIDE_BUSSTOP), viewNet, GLO_RIDE, SUMO_TAG_RIDE_BUSSTOP, {
+    fromEdge
+}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}),
+Parameterised(),
+myArrivalPosition(-1),
+myLines(lines) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
     // compute ride
@@ -269,11 +270,11 @@ GNERide::updateGeometry() {
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path
     if (getPathEdges().size() > 0) {
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(), 
-            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
+                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(), 
-            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
+                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
@@ -282,7 +283,7 @@ GNERide::updateGeometry() {
 }
 
 
-void 
+void
 GNERide::updatePartialGeometry(const GNEEdge* edge) {
     // declare depart and arrival pos lane
     double departPosLane = -1;
@@ -303,7 +304,7 @@ GNERide::updatePartialGeometry(const GNEEdge* edge) {
 }
 
 
-void 
+void
 GNERide::computePath() {
     if (myTagProperty.getTag() == SUMO_TAG_RIDE_FROMTO) {
         // calculate route and update routeEdges
@@ -321,7 +322,7 @@ GNERide::computePath() {
 }
 
 
-void 
+void
 GNERide::invalidatePath() {
     if (myTagProperty.getTag() == SUMO_TAG_RIDE_FROMTO) {
         // calculate route and update routeEdges
@@ -367,7 +368,7 @@ GNERide::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNERide::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }

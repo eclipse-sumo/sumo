@@ -9,7 +9,6 @@
 # @file    costFunction.py
 # @author  Michael Behrisch
 # @date    2009-09-08
-# @version $Id$
 
 
 def constant(edge, weight):

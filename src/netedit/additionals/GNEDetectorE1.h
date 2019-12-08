@@ -10,7 +10,6 @@
 /// @file    GNEDetectorE1.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 //
 /****************************************************************************/

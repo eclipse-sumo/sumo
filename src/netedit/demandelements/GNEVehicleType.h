@@ -10,7 +10,6 @@
 /// @file    GNEVehicleType.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2018
-/// @version $Id$
 ///
 // Definition of Vehicle Types in NETEDIT
 /****************************************************************************/
@@ -92,7 +91,7 @@ public:
     void updateGeometry();
 
     /// @brief partial update pre-computed geometry information
-    void updatePartialGeometry(const GNEEdge *edge);
+    void updatePartialGeometry(const GNEEdge* edge);
 
     /// @brief compute path
     void computePath();

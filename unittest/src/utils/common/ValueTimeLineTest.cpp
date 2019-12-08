@@ -12,7 +12,6 @@
 /// @author  Matthias Heppner
 /// @author  Michael Behrisch
 /// @date    Sept 2009
-/// @version $Id$
 ///
 // Tests ValueTimeLine class from <SUMO>/src/utils/common
 /****************************************************************************/

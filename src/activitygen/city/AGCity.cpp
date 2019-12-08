@@ -16,7 +16,6 @@
 /// @author  Walter Bamberger
 /// @author  Jakob Erdmann
 /// @date    July 2010
-/// @version $Id$
 ///
 // City class that contains all other objects of the city: in particular
 // streets, households, bus lines, work positions and school

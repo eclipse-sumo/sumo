@@ -15,7 +15,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mo, 13 Sept 2010
-/// @version $Id$
 ///
 // Configuration of the options of ActivityGen
 /****************************************************************************/

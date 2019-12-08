@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Sascha Krieg
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The class holds a description of a connection between two edges
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    NBPTStopCont.h
 /// @author  Gregor Laemmel
 /// @date    Tue, 20 Mar 2017
-/// @version $Id$
 ///
 // Container for pt stops during the netbuilding process
 /****************************************************************************/
@@ -84,7 +83,7 @@ public:
     /// @brief add edges that must be kept
     void addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into);
 
-    NBPTStop* findStop(const std::string& origEdgeID, Position pos, double threshold=1) const;
+    NBPTStop* findStop(const std::string& origEdgeID, Position pos, double threshold = 1) const;
 
 private:
     /// @brief Definition of the map of names to pt stops

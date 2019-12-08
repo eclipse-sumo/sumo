@@ -10,7 +10,6 @@
 /// @file    StackTraceUtil.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/

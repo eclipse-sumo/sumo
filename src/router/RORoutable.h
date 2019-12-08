@@ -10,7 +10,6 @@
 /// @file    RORoutable.h
 /// @author  Michael Behrisch
 /// @date    Oct 2015
-/// @version $Id$
 ///
 // A routable thing such as a vehicle or person
 /****************************************************************************/

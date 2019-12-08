@@ -11,7 +11,6 @@
 # @author  Yun-Pang Floetteroed
 # @author  Michael Behrisch
 # @date    2007-02-27
-# @version $Id$
 
 """
 This script is to calculate the route choice probabilities based on different methods.

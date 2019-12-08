@@ -16,7 +16,6 @@
 /// @author  Michael Behrisch
 /// @author  Sascha Krieg
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A class that stores and controls tls and switching of their programs
 /****************************************************************************/

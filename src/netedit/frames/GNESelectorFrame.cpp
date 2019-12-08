@@ -10,7 +10,6 @@
 /// @file    GNESelectorFrame.cpp
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id$
 ///
 // The Widget for modifying selections of network-elements
 /****************************************************************************/

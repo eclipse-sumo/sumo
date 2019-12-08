@@ -10,7 +10,6 @@
 /// @file    GNECalibratorFlow.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -35,38 +34,38 @@
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent) :
     GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW_CALIBRATOR, "", false,
-    {}, {}, {}, {calibratorParent}, {}, {}, {}, {}, {}, {}),
-    myVehicleType(calibratorParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID)),
-    myRoute(calibratorParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).begin()->second) {
+{}, {}, {}, {calibratorParent}, {}, {}, {}, {}, {}, {}),
+myVehicleType(calibratorParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID)),
+myRoute(calibratorParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).begin()->second) {
     // fill calibrator flows with default values
     setDefaultValues();
 }
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const std::string& vehsPerHour, const std::string& speed,
-        const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
-        const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
-        const std::string& departPosLat, const std::string& arrivalPosLat, SUMOTime begin, SUMOTime end) :
+                                     const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
+                                     const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
+                                     const std::string& departPosLat, const std::string& arrivalPosLat, SUMOTime begin, SUMOTime end) :
     GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW_CALIBRATOR, "", false, {}, {}, {}, {calibratorParent}, {}, {}, {}, {}, {}, {}),
-    myVehicleType(vehicleType),
-    myRoute(route),
-    myVehsPerHour(vehsPerHour),
-    mySpeed(speed),
-    myColor(color),
-    myDepartLane(departLane),
-    myDepartPos(departPos),
-    myDepartSpeed(departSpeed),
-    myArrivalLane(arrivalLane),
-    myArrivalPos(arrivalPos),
-    myArrivalSpeed(arrivalSpeed),
-    myLine(line),
-    myPersonNumber(personNumber),
-    myContainerNumber(containerNumber),
-    myReroute(reroute),
-    myDepartPosLat(departPosLat),
-    myArrivalPosLat(arrivalPosLat),
-    myBegin(begin),
-    myEnd(end) {
+myVehicleType(vehicleType),
+myRoute(route),
+myVehsPerHour(vehsPerHour),
+mySpeed(speed),
+myColor(color),
+myDepartLane(departLane),
+myDepartPos(departPos),
+myDepartSpeed(departSpeed),
+myArrivalLane(arrivalLane),
+myArrivalPos(arrivalPos),
+myArrivalSpeed(arrivalSpeed),
+myLine(line),
+myPersonNumber(personNumber),
+myContainerNumber(containerNumber),
+myReroute(reroute),
+myDepartPosLat(departPosLat),
+myArrivalPosLat(arrivalPosLat),
+myBegin(begin),
+myEnd(end) {
 }
 
 
@@ -103,7 +102,7 @@ GNECalibratorFlow::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNECalibratorFlow::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
@@ -174,7 +173,7 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNECalibratorFlow::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_BEGIN:
@@ -319,7 +318,7 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNECalibratorFlow::isAttributeEnabled(SumoXMLAttr /* key */) const {
     return true;
 }

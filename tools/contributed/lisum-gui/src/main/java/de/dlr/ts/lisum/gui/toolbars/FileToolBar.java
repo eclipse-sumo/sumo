@@ -10,7 +10,6 @@
 /// @file    FileToolBar.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/

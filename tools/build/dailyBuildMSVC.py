@@ -12,7 +12,6 @@
 # @author  Jakob Erdmann
 # @author  Laura Bieker
 # @date    2008
-# @version $Id$
 
 """
 Does the nightly git pull on the windows server and the visual

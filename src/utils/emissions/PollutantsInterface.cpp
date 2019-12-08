@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 19.08.2013
-/// @version $Id$
 ///
 // Interface to capsulate different emission models
 /****************************************************************************/

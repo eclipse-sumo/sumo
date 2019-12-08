@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 13 Jan 2014
-/// @version $Id$
 ///
 // The pedestrian following model (prototype)
 /****************************************************************************/
@@ -1870,7 +1869,7 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
     //    << " routeOffset=" << routeOffset
     //    << " edges=" << toString(edges)
     //    << "\n";
-    if (lane != nullptr && 
+    if (lane != nullptr &&
             fabs(lanePosLat) < (0.5 * (lane->getWidth() + p->getVehicleType().getWidth()) + SIDEWALK_OFFSET)) {
         myRemoteXYPos = Position::INVALID;
         const MSLane* sidewalk = getSidewalk<MSEdge, MSLane>(&lane->getEdge());

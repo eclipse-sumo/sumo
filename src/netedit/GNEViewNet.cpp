@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2011
-/// @version $Id$
 ///
 // A view on the network being edited (adapted from GUIViewTraffic)
 /****************************************************************************/
@@ -403,7 +402,7 @@ GNEViewNet::openObjectDialog() {
 }
 
 
-void 
+void
 GNEViewNet::saveVisualizationSettings() const {
     // first check if we have to save gui settings in a file (only used for testing purposes)
     OptionsCont& oc = OptionsCont::getOptions();
@@ -437,7 +436,7 @@ GNEViewNet::getEditModes() const {
 }
 
 
-const GNEViewNetHelper::TestingMode& 
+const GNEViewNetHelper::TestingMode&
 GNEViewNet::getTestingMode() const {
     return myTestingMode;
 }
@@ -1858,7 +1857,7 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
             // begin undo operation
             myUndoList->p_begin("Add restrictions for " + toString(vclass));
             // iterate over set of edges
-            for (const auto &edge : setOfEdges) {
+            for (const auto& edge : setOfEdges) {
                 // add restricted lane (guess target)
                 myNet->addRestrictedLane(vclass, edge, -1, myUndoList);
             }
@@ -1943,7 +1942,7 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
             // begin undo operation
             myUndoList->p_begin("Remove restrictions for " + toString(vclass));
             // iterate over set of edges
-            for (const auto &edge : setOfEdges) {
+            for (const auto& edge : setOfEdges) {
                 // add Sidewalk
                 myNet->removeRestrictedLane(vclass, edge, myUndoList);
             }
@@ -3191,10 +3190,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // make sure that Control key isn't pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 // process left click in create edge frame Frame
-                myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(), 
-                    myObjectsUnderCursor, myObjectsUnderGrippedCursor,
-                    (myNetworkViewOptions.menuCheckAutoOppositeEdge->getCheck() == TRUE),
-                    (myNetworkViewOptions.menuCheckChainEdges->getCheck() == TRUE));
+                myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(),
+                        myObjectsUnderCursor, myObjectsUnderGrippedCursor,
+                        (myNetworkViewOptions.menuCheckAutoOppositeEdge->getCheck() == TRUE),
+                        (myNetworkViewOptions.menuCheckChainEdges->getCheck() == TRUE));
             }
             // process click
             processClick(eventData);

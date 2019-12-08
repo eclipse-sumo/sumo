@@ -10,7 +10,6 @@
 /// @file    GNEGeometry.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2019
-/// @version $Id$
 ///
 // File for geometry classes and functions
 /****************************************************************************/
@@ -65,32 +64,32 @@ struct GNEGeometry {
          * @param extraLastPosition if is different of Position::INVALID, add it in shape last position (after cut)
          * @note lengths and rotations wil be updated
          */
-        void updateGeometryShape(const PositionVector &shape, double startPos = -1, double endPos = -1, 
-                            const Position &extraFirstPosition = Position::INVALID, 
-                            const Position &extraLastPosition = Position::INVALID);
+        void updateGeometryShape(const PositionVector& shape, double startPos = -1, double endPos = -1,
+                                 const Position& extraFirstPosition = Position::INVALID,
+                                 const Position& extraLastPosition = Position::INVALID);
 
         /// @brief update position and rotation
-        void updateGeometryPosition(const GNELane *lane, const double posOverLane);
+        void updateGeometryPosition(const GNELane* lane, const double posOverLane);
 
         /// @brief update geometry (using geometry of another additional)
-        void updateGeometry(const GNEAdditional *additional);
+        void updateGeometry(const GNEAdditional* additional);
 
         /// @brief get Position
-        const Position &getPosition() const;
+        const Position& getPosition() const;
 
         /// @brief get rotation
         double getRotation() const;
 
         /// @brief The shape of the additional element
-        const PositionVector &getShape() const;
+        const PositionVector& getShape() const;
 
         /// @brief The rotations of the single shape parts
-        const std::vector<double> &getShapeRotations() const;
+        const std::vector<double>& getShapeRotations() const;
 
         /// @brief The lengths of the single shape parts
-        const std::vector<double> &getShapeLengths() const;
-    
-    private:   
+        const std::vector<double>& getShapeLengths() const;
+
+    private:
         /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
 
@@ -123,22 +122,22 @@ struct GNEGeometry {
 
             /// @brief parameter constructor for segments which geometry will be storaged in segment
             Segment(const GNEAttributeCarrier* _AC, const GNELane* _lane,
-                    const PositionVector& shape, const std::vector<double> &shapeRotations, const std::vector<double> &shapeLengths, const bool _valid);
+                    const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths, const bool _valid);
 
             /// @brief parameter constructor for lane2lane connections
             Segment(const GNEAttributeCarrier* _AC, const GNELane* currentLane, const GNELane* nextLane, const bool _valid);
 
             /// @brief update segment
-            void update(const PositionVector& shape, const std::vector<double> &shapeRotations, const std::vector<double> &shapeLengths);
+            void update(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths);
 
             /// @brief get lane/lane2lane shape
-            const PositionVector &getShape() const;
+            const PositionVector& getShape() const;
 
             /// @brief get lane/lane2lane shape rotations
-            const std::vector<double> &getShapeRotations() const;
-            
+            const std::vector<double>& getShapeRotations() const;
+
             /// @brief get lane/lane2lane shape lengths
-            const std::vector<double> &getShapeLengths() const;
+            const std::vector<double>& getShapeLengths() const;
 
             /// @brief element
             const GNEAttributeCarrier* AC;
@@ -167,7 +166,7 @@ struct GNEGeometry {
 
             /// @brief segment rotation
             std::vector<double> mySegmentRotations;
-            
+
             /// @brief segment lengths
             std::vector<double> mySegmentLengths;
 
@@ -201,15 +200,15 @@ struct GNEGeometry {
         /// @brief insert entire lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
         void insertLaneSegment(const GNEAttributeCarrier* AC, const GNELane* lane, const bool valid);
 
-        /// @brief insert custom segment 
+        /// @brief insert custom segment
         void insertCustomSegment(const GNEAttributeCarrier* AC, const GNELane* lane,
-                                 const PositionVector& laneShape, const std::vector<double> &laneShapeRotations, const std::vector<double> &laneShapeLengths, const bool valid);
+                                 const PositionVector& laneShape, const std::vector<double>& laneShapeRotations, const std::vector<double>& laneShapeLengths, const bool valid);
 
         /// @brief insert entire lane2lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
         void insertLane2LaneSegment(const GNEAttributeCarrier* AC, const GNELane* currentLane, const GNELane* nextLane, const bool valid);
 
         /// @brief update custom segment
-        void updateCustomSegment(const int segmentIndex, const PositionVector& newLaneShape, const std::vector<double> &newLaneShapeRotations, const std::vector<double> &newLaneShapeLengths);
+        void updateCustomSegment(const int segmentIndex, const PositionVector& newLaneShape, const std::vector<double>& newLaneShapeRotations, const std::vector<double>& newLaneShapeLengths);
 
         /// @brief update lane2Lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
         void updateLane2LaneSegment(const int segmentIndex, const GNELane* lane, const GNELane* nextLane);
@@ -218,14 +217,14 @@ struct GNEGeometry {
         void clearSegmentGeometry();
 
         /// @brief get first position (or Invalid position if segments are empty)
-        const Position &getFirstPosition() const;
+        const Position& getFirstPosition() const;
 
         /// @brief get first position (or Invalid position if segments are empty)
-        const Position &getLastPosition() const;
+        const Position& getLastPosition() const;
 
         /// @brief get first rotation (or Invalid position if segments are empty)
         double getFirstRotation() const;
-        
+
         /// @brief Returns a boundary enclosing all segments
         Boundary getBoxBoundary() const;
 
@@ -236,10 +235,10 @@ struct GNEGeometry {
         std::vector<Segment>::const_iterator end() const;
 
         /// @brief front segment
-        const Segment &front() const;
+        const Segment& front() const;
 
         /// @brief back segment
-        const Segment &back() const;
+        const Segment& back() const;
 
         /// @brief number of segments
         int size() const;
@@ -267,7 +266,7 @@ struct GNEGeometry {
     private:
         /// @brief origin lane
         const GNELane* myOriginLane = nullptr;
-        
+
         /// @brief Invalidated assignment operator
         Lane2laneConnection& operator=(const Lane2laneConnection& other) = delete;
     };
@@ -301,21 +300,21 @@ struct GNEGeometry {
     static double calculateLength(const Position& first, const Position& second);
 
     /// @brief adjust start and end positions in geometric path
-    static void adjustStartPosGeometricPath(double &startPos, const GNELane* startLane, double &endPos, const GNELane* endLane);
+    static void adjustStartPosGeometricPath(double& startPos, const GNELane* startLane, double& endPos, const GNELane* endLane);
 
     /**@brief calculate route between edges
      * @brief AC attribute carrier's segment
      * @brief segmentGeometry segment geometry to be updated
      * @brief edges list of edges
-     * 
+     *
      * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
      * @param endPos end position in the last lane (if -1, then ends at the end of lane)
      * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
      * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
      */
-    static void calculateEdgeGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry &segmentGeometry, const std::vector<GNEEdge*> &edges, 
-                                           const SUMOVehicleClass vClass, GNELane *fromLane, GNELane *toLane, double startPos = -1, double endPos = -1, 
-                                           const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
+    static void calculateEdgeGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry& segmentGeometry, const std::vector<GNEEdge*>& edges,
+                                           const SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane, double startPos = -1, double endPos = -1,
+                                           const Position& extraFirstPosition = Position::INVALID, const Position& extraLastPosition = Position::INVALID);
 
     /**@brief calculate route between lanes
      * @brief AC attribute carrier's segment
@@ -326,9 +325,9 @@ struct GNEGeometry {
      * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
      * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
      */
-    static void calculateLaneGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry &segmentGeometry, const std::vector<GNELane*> &lanes, 
-                                           double startPos = -1, double endPos = -1, const Position &extraFirstPosition = Position::INVALID, 
-                                           const Position &extraLastPosition = Position::INVALID);
+    static void calculateLaneGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry& segmentGeometry, const std::vector<GNELane*>& lanes,
+                                           double startPos = -1, double endPos = -1, const Position& extraFirstPosition = Position::INVALID,
+                                           const Position& extraLastPosition = Position::INVALID);
 
     /**@brief calculate route between edges
      * @brief segmentGeometry segment geometry to be updated
@@ -338,18 +337,18 @@ struct GNEGeometry {
      * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
      * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
      */
-    static void updateGeometricPath(GNEGeometry::SegmentGeometry &segmentGeometry, const GNEEdge* edge, double startPos = -1, double endPos = -1, 
-                                    const Position &extraFirstPosition = Position::INVALID, const Position &extraLastPosition = Position::INVALID);
+    static void updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const GNEEdge* edge, double startPos = -1, double endPos = -1,
+                                    const Position& extraFirstPosition = Position::INVALID, const Position& extraLastPosition = Position::INVALID);
 
     /// @brief draw lane geometry (use their own function due colors)
-    static void drawLaneGeometry(const GNEViewNet *viewNet, const PositionVector& shape, const std::vector<double>& rotations, 
+    static void drawLaneGeometry(const GNEViewNet* viewNet, const PositionVector& shape, const std::vector<double>& rotations,
                                  const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width);
 
-     /// @brief draw geometry
-    static void drawGeometry(const GNEViewNet *viewNet, const Geometry& geometry, const double width);
+    /// @brief draw geometry
+    static void drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width);
 
     /// @brief draw geometry segment
-    static void drawSegmentGeometry(const GNEViewNet *viewNet, const SegmentGeometry::Segment& segment, const double width);
+    static void drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometry::Segment& segment, const double width);
 };
 
 #endif

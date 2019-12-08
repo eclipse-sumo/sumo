@@ -10,7 +10,6 @@
 /// @file    GUICursors.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2018
-/// @version $Id$
 ///
 // An enumeration of icons used by the gui applications
 /****************************************************************************/

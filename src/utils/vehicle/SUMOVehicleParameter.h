@@ -13,7 +13,6 @@
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
 /// @date    2006-01-24
-/// @version $Id$
 ///
 // Structure representing possible vehicle parameter
 /****************************************************************************/

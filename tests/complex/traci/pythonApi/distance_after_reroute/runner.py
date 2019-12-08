@@ -11,7 +11,6 @@
 # @author  Laura Bieker
 # @author  Michael Behrisch
 # @date    2014-08-28
-# @version $Id$
 
 
 from __future__ import print_function
@@ -44,12 +43,12 @@ def main(args):
             traci.vehicle.setRouteID('Stapler_00', "short")
             print(traci.vehicle.getRoute('Stapler_00'))
             print(traci.vehicle.getDistance('Stapler_00'))
-		# We assume, that we reach an internal lane at step 130, 
-		# if distance calc is correct, there should be a 
-		# 10m distance difference between the
-		# output of step 129 and 130
-        if step in (129,130): 
-            print(step, round(traci.vehicle.getDistance('Stapler_00'),2))
+            # We assume, that we reach an internal lane at step 130,
+            # if distance calc is correct, there should be a
+            # 10m distance difference between the
+            # output of step 129 and 130
+        if step in (129, 130):
+            print(step, round(traci.vehicle.getDistance('Stapler_00'), 2))
     traci.close()
 
 

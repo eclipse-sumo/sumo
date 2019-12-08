@@ -12,7 +12,6 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    2011-12-12
-/// @version $Id$
 ///
 // Tests the class GeomHelper
 /****************************************************************************/

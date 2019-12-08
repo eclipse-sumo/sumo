@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Thu, 11.03.2004
-/// @version $Id$
 ///
 // Editor for the list of chosen objects
 /****************************************************************************/

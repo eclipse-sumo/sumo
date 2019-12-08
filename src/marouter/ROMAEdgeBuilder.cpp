@@ -12,7 +12,6 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Jan 2004
-/// @version $Id$
 ///
 // Interface for building instances of duarouter-edges
 /****************************************************************************/

@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Andreas Gaubatz
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A view on the simulation; this view is a microscopic one
 /****************************************************************************/

@@ -15,7 +15,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2008/04/07
-/// @version $Id$
 ///
 // A test execution class
 /****************************************************************************/
@@ -658,7 +657,7 @@ TraCITestClient::testAPI() {
     answerLog << "    laneNumber: " << edge.getLaneNumber(edgeID) << "\n";
     answerLog << "    streetName: " << edge.getStreetName(edgeID) << "\n";
     edge.setMaxSpeed(edgeID, 42);
-    answerLog << "    maxSpeed: " << lane.getMaxSpeed(edgeID+"_0") << "\n";
+    answerLog << "    maxSpeed: " << lane.getMaxSpeed(edgeID + "_0") << "\n";
 
     // lane
     answerLog << "  lane:\n";

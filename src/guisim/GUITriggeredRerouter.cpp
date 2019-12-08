@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 25.07.2005
-/// @version $Id$
 ///
 // Reroutes vehicles passing an edge (gui version)
 /****************************************************************************/
@@ -137,8 +136,8 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
                     : 0;
 
     FXGroupBox* gp2 = new FXGroupBox(f1, "Change Route Probability",
-                                    GROUPBOX_TITLE_LEFT | FRAME_SUNKEN | FRAME_RIDGE,
-                                    0, 0, 0, 0,  4, 4, 1, 1, 2, 0);
+                                     GROUPBOX_TITLE_LEFT | FRAME_SUNKEN | FRAME_RIDGE,
+                                     0, 0, 0, 0,  4, 4, 1, 1, 2, 0);
     new FXButton(gp2, "Shift", nullptr, this, MID_SHIFT_PROBS,
                  BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
 
@@ -237,8 +236,7 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string& id, const MSEdgeVe
         const std::string& aXMLFilename, bool off, SUMOTime timeThreshold, const std::string& vTypes, SUMORTree& rtree) :
     MSTriggeredRerouter(id, edges, prob, aXMLFilename, off, timeThreshold, vTypes),
     GUIGlObject_AbstractAdd(GLO_REROUTER, id),
-    myShiftProbDistIndex(0)
-{
+    myShiftProbDistIndex(0) {
     // add visualisation objects for edges which trigger the rerouter
     for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
         myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, REROUTER_TRIGGER_EDGE));
@@ -386,8 +384,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge
     myParent(parent),
     myEdge(edge),
     myEdgeType(edgeType),
-    myDistIndex(distIndex)
-{
+    myDistIndex(distIndex) {
     const std::vector<MSLane*>& lanes = edge->getLanes();
     myFGPositions.reserve(lanes.size());
     myFGRotations.reserve(lanes.size());

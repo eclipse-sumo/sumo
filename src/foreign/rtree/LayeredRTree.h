@@ -10,7 +10,6 @@
 /// @file    LayeredRTree.h
 /// @author  Jakob Erdmann
 /// @date    16.10.2012
-/// @version $Id$
 ///
 // A wrapper around RT-trees for for efficient storing of SUMO's GL-objects and
 // accessing them ordered by their layer

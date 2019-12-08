@@ -11,7 +11,6 @@
 # @file    tripinfoByTAZ.py
 # @author  Jakob Erdmann
 # @date    2019-01-03
-# @version $Id$
 
 """
 Aggregate tripinfo statistics for TAZ-pairs. The relationship between tripinfos

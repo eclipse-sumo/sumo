@@ -11,7 +11,6 @@
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
 # @date    2008-03-19
-# @version $Id$
 
 """
 This script converts SUMO routes back into SUMO trips which serve

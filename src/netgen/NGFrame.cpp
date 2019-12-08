@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    06.05.2011
-/// @version $Id$
 ///
 // Sets and checks options for netgen
 /****************************************************************************/

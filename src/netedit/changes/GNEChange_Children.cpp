@@ -10,7 +10,6 @@
 /// @file    GNEChange_Children.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2019
-/// @version $Id$
 ///
 // A network change used to modify sorting of hierarchical element childrens
 /****************************************************************************/

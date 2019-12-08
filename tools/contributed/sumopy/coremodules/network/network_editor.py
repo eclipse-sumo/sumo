@@ -11,7 +11,6 @@
 # @file    network_editor.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 
 import os

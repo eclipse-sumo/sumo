@@ -10,7 +10,6 @@
 /// @file    GNERouteFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2016
-/// @version $Id$
 ///
 // The Widget for create route elements
 /****************************************************************************/
@@ -77,7 +76,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(RouteModeSelector)
+        FOX_CONSTRUCTOR(RouteModeSelector)
 
     private:
         /// @brief pointer to Frame Parent
@@ -148,7 +147,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(ConsecutiveEdges)
+        FOX_CONSTRUCTOR(ConsecutiveEdges)
 
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();
@@ -222,7 +221,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(NonConsecutiveEdges)
+        FOX_CONSTRUCTOR(NonConsecutiveEdges)
 
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();

@@ -14,7 +14,6 @@
 # @author  Jakob Erdmann
 # @author  Greg Albiston
 # @date    2007-03-20
-# @version $Id$
 
 """
 This script does simple check for the network.

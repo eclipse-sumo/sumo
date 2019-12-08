@@ -10,7 +10,6 @@
 /// @file    PublicTransportEdge.h
 /// @author  Michael Behrisch
 /// @date    Mon, 03 March 2014
-/// @version $Id$
 ///
 // The PublicTransportEdge is a special intermodal edge connecting the stop edges with scheduled traffic
 /****************************************************************************/

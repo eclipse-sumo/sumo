@@ -10,7 +10,6 @@
 /// @file    GUIGlobalSelection.cpp
 /// @author  Daniel Krajzewicz
 /// @date    2004
-/// @version $Id$
 ///
 // A global holder of selected objects
 /****************************************************************************/

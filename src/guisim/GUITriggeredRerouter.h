@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 25.07.2005
-/// @version $Id$
 ///
 // Reroutes vehicles passing an edge (gui-version)
 /****************************************************************************/
@@ -138,7 +137,7 @@ public:
     class GUITriggeredRerouterEdge : public GUIGlObject {
 
     public:
-        GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, RerouterEdgeType edgeType, int distIndex=-1);
+        GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, RerouterEdgeType edgeType, int distIndex = -1);
 
         virtual ~GUITriggeredRerouterEdge();
 

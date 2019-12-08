@@ -12,7 +12,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2011-10-04
-# @version $Id$
 
 """
 Reads two networks (source, dest) and tries to produce the minimal plain-xml input

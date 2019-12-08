@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2015-02-03
-# @version $Id$
 
 
 from __future__ import print_function
@@ -92,7 +91,7 @@ elif args[0] == "jtrrouter":
     call = [checkBinary('jtrrouter'), "--no-step-log",
             "-o", "dummy.xml", "-a", "input_additional.add.xml"]
 else:
-    print >> sys.stderr, "Unsupported application defined"
+    print("Unsupported application defined", file=sys.stderr)
 call += args[1:]
 
 elements = {'vehicle': 'depart="0"',

@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    15.06.2018
-/// @version $Id$
 ///
 /// The Driver State Device mainly provides a configuration and interaction interface for the vehicle's driver state.
 /// @see microsim/MSDriverState.h

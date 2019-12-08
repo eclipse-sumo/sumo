@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Yun-Pang Floetteroed
 /// @date    Thu, 16.03.2006
-/// @version $Id$
 ///
 // Interface for building instances of dfrouter-edges
 /****************************************************************************/

@@ -15,7 +15,6 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Fri, 30.01.2009
-/// @version $Id$
 ///
 // A device which is used to keep track of persons and containers riding with a vehicle
 /****************************************************************************/

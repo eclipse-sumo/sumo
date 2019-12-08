@@ -10,7 +10,6 @@
 /// @file    NIVissimSingleTypeParser_SimRate.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 30 Apr 2003
-/// @version $Id$
 ///
 //
 /****************************************************************************/

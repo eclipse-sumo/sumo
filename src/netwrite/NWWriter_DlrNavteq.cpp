@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    26.10.2012
-/// @version $Id$
 ///
 // Exporter writing networks using DlrNavteq (Elmar) format
 /****************************************************************************/
@@ -235,7 +234,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
                << getNavteqLaneCode(e->getNumLanes()) << "\t"
                << getSpeedCategoryUpperBound(kph) << "\t"
                << kph << "\t"
-               << nameIDRegional << "\t" 
+               << nameIDRegional << "\t"
                << nameID << "\t" // NAME_ID2_LOCAL
                << UNDEFINED << "\t" // housenumbers_right
                << UNDEFINED << "\t" // housenumbers_left

@@ -10,7 +10,6 @@
 /// @file    Subscription.h
 /// @author  Michael Behrisch
 /// @date    2007/10/24
-/// @version $Id$
 ///
 // Subscription representation for libsumo and TraCI
 /****************************************************************************/

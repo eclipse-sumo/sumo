@@ -10,7 +10,6 @@
 /// @file    MFXUtils.h
 /// @author  Daniel Krajzewicz
 /// @date    2006-01-09
-/// @version $Id$
 ///
 // Some helper functions for FOX
 /****************************************************************************/

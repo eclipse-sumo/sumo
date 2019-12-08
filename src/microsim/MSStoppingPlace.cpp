@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 13.12.2005
-/// @version $Id$
 ///
 // A lane area vehicles can halt at
 /****************************************************************************/

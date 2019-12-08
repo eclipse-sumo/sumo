@@ -18,7 +18,6 @@
 /// @author  Mario Krumnow
 /// @author  Christoph Sommer
 /// @date    Tue, 06 Mar 2001
-/// @version $Id$
 ///
 // The simulated network and simulation perfomer
 /****************************************************************************/

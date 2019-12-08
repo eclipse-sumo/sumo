@@ -16,7 +16,6 @@
 /// @author  Michael Behrisch
 /// @author  Sascha Krieg
 /// @date    Tue, 06 Mar 2001
-/// @version $Id$
 ///
 // A road/street connecting two junctions
 /****************************************************************************/
@@ -1132,14 +1131,14 @@ MSEdge::getWaitingVehicle(MSTransportable* transportable, const double position)
     for (SUMOVehicle* const vehicle : myWaiting) {
         if (transportable->isWaitingFor(vehicle)) {
             if (vehicle->isStoppedInRange(position, MSGlobals::gStopTolerance) ||
-                (!vehicle->hasDeparted() &&
-                (vehicle->getParameter().departProcedure == DEPART_TRIGGERED ||
-                    vehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED))) {
+                    (!vehicle->hasDeparted() &&
+                     (vehicle->getParameter().departProcedure == DEPART_TRIGGERED ||
+                      vehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED))) {
                 return vehicle;
             }
             // !!! this gives false warnings when there are two stops on the same edge
             WRITE_WARNING(transportable->getID() + " at edge '" + getID() + "' position " + toString(position) + " cannot use waiting vehicle '"
-                + vehicle->getID() + "' at position " + toString(vehicle->getPositionOnLane()) + " because it is too far away.");
+                          + vehicle->getID() + "' at position " + toString(vehicle->getPositionOnLane()) + " because it is too far away.");
         }
     }
     return nullptr;

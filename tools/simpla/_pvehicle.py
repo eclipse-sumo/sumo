@@ -9,7 +9,6 @@
 # @file    _pvehicle.py
 # @author Leonhard Luecken
 # @date   2017-04-09
-# @version $Id$
 
 import os
 import sys

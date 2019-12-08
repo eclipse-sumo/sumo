@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 12 Mar 2001
-/// @version $Id$
 ///
 // vehicles sorted by their departures
 /****************************************************************************/

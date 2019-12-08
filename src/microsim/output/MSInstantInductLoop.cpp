@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    2011-09.08
-/// @version $Id$
 ///
 // An instantaneous induction loop
 /****************************************************************************/

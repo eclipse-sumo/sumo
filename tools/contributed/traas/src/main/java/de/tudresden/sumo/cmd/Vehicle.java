@@ -13,7 +13,6 @@
 /// @author  Mario Krumnow
 /// @author  Evamarie Wiessner
 /// @date    2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/

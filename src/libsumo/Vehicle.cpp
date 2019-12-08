@@ -10,7 +10,6 @@
 /// @file    Vehicle.cpp
 /// @author  Jakob Erdmann
 /// @date    15.03.2017
-/// @version $Id$
 ///
 // C++ Vehicle API
 /****************************************************************************/
@@ -492,7 +491,7 @@ double
 Vehicle::getDistance(const std::string& vehicleID) {
     MSVehicle* veh = Helper::getVehicle(vehicleID);
     if (veh->isOnRoad()) {
-       return veh->getOdometer();
+        return veh->getOdometer();
     } else {
         return INVALID_DOUBLE_VALUE;
     }

@@ -10,7 +10,6 @@
 /// @file    OutputDevice_String.cpp
 /// @author  Michael Behrisch
 /// @date    2009
-/// @version $Id$
 ///
 // An output device that encapsulates a stringstream
 /****************************************************************************/

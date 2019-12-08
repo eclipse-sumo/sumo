@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2003
-/// @version $Id$
 ///
 // Some helping functions for geometry parsing
 /****************************************************************************/

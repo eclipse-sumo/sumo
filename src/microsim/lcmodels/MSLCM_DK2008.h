@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Fri, 29.04.2005
-/// @version $Id$
 ///
 // A lane change model developed by D. Krajzewicz between 2004 and 2010
 /****************************************************************************/

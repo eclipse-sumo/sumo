@@ -10,7 +10,6 @@
 /// @file    GNEAttributeCarrier.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id$
 ///
 // Abstract Base class for gui objects which carry attributes
 /****************************************************************************/
@@ -904,7 +903,7 @@ GNEAttributeCarrier::TagProperties::canMaskXYZPositions() const {
 }
 
 
-bool 
+bool
 GNEAttributeCarrier::TagProperties::canCenterCameraAfterCreation() const {
     return (myTagProperty & TAGPROPERTY_CENTERAFTERCREATION) != 0;
 }
@@ -1164,7 +1163,7 @@ GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
 }
 
 
-std::string 
+std::string
 GNEAttributeCarrier::getAlternativeValueForDisabledAttributes(SumoXMLAttr key) const {
     switch (key) {
         // Crossings
@@ -1176,11 +1175,11 @@ GNEAttributeCarrier::getAlternativeValueForDisabledAttributes(SumoXMLAttr key) c
             // special case for connection directions
             std::string direction = getAttribute(key);
             if (direction == "s") {
-                return "Straight (s)"; 
+                return "Straight (s)";
             } else if (direction ==  "t") {
-                return "Turn (t))"; 
+                return "Turn (t))";
             } else if (direction ==  "l") {
-                return "Left (l)"; 
+                return "Left (l)";
             } else if (direction ==  "r") {
                 return "Right (r)";
             } else if (direction ==  "L") {

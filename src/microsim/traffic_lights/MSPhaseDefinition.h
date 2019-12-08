@@ -14,7 +14,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Jan 2004
-/// @version $Id$
 ///
 // The definition of a single phase of a tls logic
 /****************************************************************************/

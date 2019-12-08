@@ -11,7 +11,6 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    2014-09-09
-/// @version $Id$
 ///
 // Tests the class NBHeightMapper
 /****************************************************************************/

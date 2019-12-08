@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Laura Bieker
 # @date    2013-11-11
-# @version $Id$  # noqa
 
 """
 This script plots measures from the tripinfo output, classified into bins

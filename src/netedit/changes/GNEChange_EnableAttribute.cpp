@@ -10,7 +10,6 @@
 /// @file    GNEChange_EnableAttribute.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
-/// @version $Id$
 ///
 // A network change in which something is changed (for undo/redo)
 /****************************************************************************/

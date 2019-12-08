@@ -10,7 +10,6 @@
 /// @file    MFXImageHelper.h
 /// @author  Daniel Krajzewicz
 /// @date    2005-05-04
-/// @version $Id$
 ///
 // static helpers for loading and saving images in various formats
 /****************************************************************************/

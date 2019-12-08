@@ -11,7 +11,6 @@
 /// @author  Mirco Sturari
 /// @author  Jakob Erdmann
 /// @date    Tue, 19.01.2016
-/// @version $Id$
 ///
 // A area where vehicles can park next to the road
 /****************************************************************************/
@@ -111,29 +110,30 @@ MSParkingArea::addLotEntry(double x, double y, double z,
     //    enter the space and re-enter at the end of the parking area.)
     if (MSGlobals::gModelParkingManoeuver) {
         const double offset = this->getLane().getShape().nearest_offset_to_point2D(lsd.myPosition);
-        if (offset <  getBeginLanePosition())
+        if (offset <  getBeginLanePosition()) {
             lsd.myEndPos =  getBeginLanePosition() + POSITION_EPS;
-        else
-        {
-            if (this->getLane().getLength() > offset)
+        } else {
+            if (this->getLane().getLength() > offset) {
                 lsd.myEndPos = offset;
-            else
+            } else {
                 lsd.myEndPos = this->getLane().getLength() - POSITION_EPS;
+            }
         }
         // Work out the angle of the lot relative to the lane  (+90 parallels the way the bay is drawn )
         int relativeAngle = static_cast<int>(lsd.myRotation + 90. - RAD2DEG(this->getLane().getShape().rotationAtOffset(lsd.myEndPos)));
-        if (relativeAngle < 0) relativeAngle += 360;
-      
+        if (relativeAngle < 0) {
+            relativeAngle += 360;
+        }
+
         // use this to set the manoeuver angle - real life manoeuver will always be < 180 degrees - hence the modulus
         //   if p2.y is -ve the lot is on LHS of lane relative to lane direction
         Position p2 = this->getLane().getShape().transformToVectorCoordinates(lsd.myPosition);
-        if (p2.y() < (0. + POSITION_EPS)) 
+        if (p2.y() < (0. + POSITION_EPS)) {
             lsd.myManoeuverAngle = abs(relativeAngle) % 180;
-        else  // lot is on RHS of lane
+        } else { // lot is on RHS of lane
             lsd.myManoeuverAngle = abs(abs(relativeAngle) % 180 - 180) % 180;
-    }
-    else
-    {
+        }
+    } else {
         lsd.myEndPos = myEndPos;
         lsd.myManoeuverAngle = int(angle); // unused unless gModelParkingManoeuver is true
     }

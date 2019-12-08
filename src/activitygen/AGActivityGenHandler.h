@@ -15,7 +15,6 @@
 /// @author  Jakob Erdmann
 /// @author  Walter Bamberger
 /// @date    July 2010
-/// @version $Id$
 ///
 // The handler for parsing the statistics file.
 /****************************************************************************/

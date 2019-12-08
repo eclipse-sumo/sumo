@@ -15,7 +15,6 @@
 /// @author  Laura Bieker
 /// @author  Leonhard Lücken
 /// @date    Mon, 27 Jul 2009
-/// @version $Id$
 ///
 // The car-following model abstraction
 /****************************************************************************/

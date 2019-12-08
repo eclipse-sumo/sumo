@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Sascha Krieg
 /// @date    Tue Nov 25 15:23:28 2003
-/// @version $Id$
 ///
 // A simple description of a position on a lane (crossing of a lane)
 /****************************************************************************/

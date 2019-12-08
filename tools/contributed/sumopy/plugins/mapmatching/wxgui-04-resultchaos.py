@@ -11,7 +11,6 @@
 # @file    wxgui-04-resultchaos.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import os
 import wx

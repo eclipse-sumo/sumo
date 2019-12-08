@@ -15,7 +15,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    July 2010
-/// @version $Id$
 ///
 // Person in working age: can be linked to a work position.
 /****************************************************************************/

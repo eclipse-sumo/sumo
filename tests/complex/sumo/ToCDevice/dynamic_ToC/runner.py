@@ -14,7 +14,6 @@
 # @author  Jakob Erdmann
 # @author  Leonhard Luecken
 # @date    2009-03-26
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function

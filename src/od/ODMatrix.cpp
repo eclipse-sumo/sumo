@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Yun-Pang Floetteroed
 /// @date    05 Apr. 2006
-/// @version $Id$
 ///
 // An O/D (origin/destination) matrix
 /****************************************************************************/

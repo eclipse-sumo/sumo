@@ -12,7 +12,6 @@
 /// @author  Anna Chiara Bellini
 /// @author  Federico Caselli
 /// @date    Jun 2013
-/// @version $Id$
 ///
 // The class for low-level policy
 /****************************************************************************/

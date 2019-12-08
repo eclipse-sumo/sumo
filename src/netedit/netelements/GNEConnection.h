@@ -10,7 +10,6 @@
 /// @file    GNEConnection.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id$
 ///
 // A class for represent connections between Lanes
 /****************************************************************************/
@@ -187,7 +186,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief manage change of tlLinkindices
-    void changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndoList* undoList); 
+    void changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEConnection(const GNEConnection&) = delete;

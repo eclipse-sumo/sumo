@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker-Walz
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
@@ -238,8 +237,7 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdRemoveObject(FXObject*, FXSelector
 GUIBaseVehicle::GUIBaseVehicle(MSBaseVehicle& vehicle) :
     GUIGlObject(GLO_VEHICLE, vehicle.getID()),
     myVehicle(vehicle),
-    myPopup(nullptr)
-{
+    myPopup(nullptr) {
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     myRoutes = MSDevice_Vehroutes::buildVehicleDevices(myVehicle, myVehicle.myDevices, 5);
     myVehicle.myMoveReminders.push_back(std::make_pair(myRoutes, 0.));

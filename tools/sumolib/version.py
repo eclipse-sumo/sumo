@@ -12,7 +12,6 @@
 # @author  Daniel Krajzewicz
 # @author  Jakob Erdmann
 # @date    2007
-# @version $Id$
 
 """
 This script rebuilds "../../src/version.h", the file which

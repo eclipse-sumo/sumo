@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The class holds a description of a connection between two edges
 /****************************************************************************/
@@ -64,8 +63,7 @@ NBConnection::NBConnection(NBEdge* from, int fromLane,
     myFrom(from), myTo(to),
     myFromLane(fromLane), myToLane(toLane),
     myTlIndex(tlIndex),
-    myTlIndex2(tlIndex2)
-{
+    myTlIndex2(tlIndex2) {
     /* @todo what should we assert here?
     assert(myFromLane<0||from->getNumLanes()>(int) myFromLane);
     assert(myToLane<0||to->getNumLanes()>(int) myToLane);
@@ -82,7 +80,7 @@ NBConnection::NBConnection(const NBConnection& c) :
     myFrom(c.myFrom), myTo(c.myTo),
     myFromID(c.myFromID), myToID(c.myToID),
     myFromLane(c.myFromLane), myToLane(c.myToLane),
-    myTlIndex(c.myTlIndex), 
+    myTlIndex(c.myTlIndex),
     myTlIndex2(c.myTlIndex2) {
 }
 

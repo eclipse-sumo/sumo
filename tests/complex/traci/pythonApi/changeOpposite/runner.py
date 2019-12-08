@@ -11,7 +11,6 @@
 # @file    runner.py
 # @author  Jakob Erdmann
 # @date    2018-09-27
-# @version $Id$
 
 import os
 import sys

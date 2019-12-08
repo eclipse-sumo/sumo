@@ -10,7 +10,6 @@
 /// @file    GNEDetectorE2.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -39,14 +38,16 @@
 // ===========================================================================
 
 GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
-        const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {lane}),
-    myLength(length),
-    myEndPositionOverLane(0.),
-    myTimeThreshold(timeThreshold),
-    mySpeedThreshold(speedThreshold),
-    myJamThreshold(jamThreshold),
-    myE2valid(true) {
+                             const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
+    GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {
+    lane
+}),
+myLength(length),
+myEndPositionOverLane(0.),
+myTimeThreshold(timeThreshold),
+mySpeedThreshold(speedThreshold),
+myJamThreshold(jamThreshold),
+myE2valid(true) {
 }
 
 
@@ -375,7 +376,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
                 // move to logo position
                 glTranslated(-0.75, 0, 0);
                 // scale text
-            glScaled(exaggeration, exaggeration, 1);
+                glScaled(exaggeration, exaggeration, 1);
                 // draw E2 logo
                 if (drawUsingSelectColor()) {
                     GLHelper::drawText("E2", Position(), .1, 1.5, s.colorSettings.selectionColor);
@@ -565,7 +566,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNEDetectorE2::isAttributeEnabled(SumoXMLAttr /* key */) const {
     return true;
 }

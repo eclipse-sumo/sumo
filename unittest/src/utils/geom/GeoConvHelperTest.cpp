@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Laura Bieker
 /// @date    2011-09-23
-/// @version $Id$
 ///
 // Tests the class RandHelper
 /****************************************************************************/

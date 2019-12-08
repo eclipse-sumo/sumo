@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Wed, 10. Dec 2003
-/// @version $Id$
 ///
 // The class responsible for building and deletion of vehicles
 /****************************************************************************/
@@ -91,7 +90,7 @@ MSVehicleControl::~MSVehicleControl() {
     myVTypeDistDict.clear();
     // delete vehicle types
     for (VTypeDictType::iterator i = myVTypeDict.begin(); i != myVTypeDict.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
     myVTypeDict.clear();
 }

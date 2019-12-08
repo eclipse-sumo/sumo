@@ -10,7 +10,6 @@
 /// @file    GNEProhibition.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id$
 ///
 // A class for represent prohibitions between edges
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    GUIShortcuts.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2019
-/// @version $Id$
 ///
 // An enumeration of shortcuts used by the gui applications
 /****************************************************************************/

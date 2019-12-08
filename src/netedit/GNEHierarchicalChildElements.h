@@ -10,7 +10,6 @@
 /// @file    GNEHierarchicalChildElements.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
-/// @version $Id$
 ///
 // A abstract class for representation of Hierarchical Elements
 /****************************************************************************/

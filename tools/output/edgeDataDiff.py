@@ -11,7 +11,6 @@
 # @file    edgeDataDiff.py
 # @author  Jakob Erdmann
 # @date    2015-08-14
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function

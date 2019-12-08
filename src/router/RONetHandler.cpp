@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Yun-Pang Floetteroed
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The handler for SUMO-Networks
 /****************************************************************************/

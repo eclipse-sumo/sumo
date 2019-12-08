@@ -10,7 +10,6 @@
 # @file    texttestDiff.py
 # @author  Jakob Erdmann
 # @date    2015-11-03
-# @version $Id$
 
 """
 This is meant to be used as a diff tool for the sumo public and internal tests by adding the line

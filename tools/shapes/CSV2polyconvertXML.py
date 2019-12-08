@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2008-07-17
-# @version $Id$
 
 """
 Converts a given CSV-file that contains a list of pois to

@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2009-08-01
-# @version $Id$
 
 """
 Reads edge id replacements from "edgemap.txt"; the format of this file is

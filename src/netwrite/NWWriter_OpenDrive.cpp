@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Tue, 04.05.2011
-/// @version $Id$
 ///
 // Exporter writing networks using the openDRIVE format
 /****************************************************************************/

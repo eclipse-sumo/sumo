@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Fri, 30 Mar 2007
-/// @version $Id$
 ///
 // Encapsulated xml-attributes that are retrieved from the sumo-binary-xml format (already typed)
 /****************************************************************************/

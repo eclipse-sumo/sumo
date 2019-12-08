@@ -10,7 +10,6 @@
 /// @file    FXWorkerThreadTest.cpp
 /// @author  Michael Behrisch
 /// @date    Oct 2010
-/// @version $Id$
 ///
 // Tests the class FXWorkerThread
 /****************************************************************************/

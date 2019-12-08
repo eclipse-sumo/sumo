@@ -11,7 +11,6 @@
 # @file    test_classman_save.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 #from classman import *
 

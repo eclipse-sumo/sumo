@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Tue, 29.05.2005
-/// @version $Id$
 ///
 // A lane change model developed by D. Krajzewicz between 2004 and 2010
 /****************************************************************************/
@@ -612,8 +611,8 @@ MSLCM_DK2008::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             neighFollow.second
             + SPEED2DIST(myVehicle.getSpeed()) * (double) 2.0
             - MAX2(nv->getSpeed() - (double) ACCEL2DIST(nv->getCarFollowModel().getMaxDecel()) * (double) 2.0, (double) 0);
-        if (neighFollow.second > 0 && decelGap > 0 && decelGap >= nv->getCarFollowModel().getSecureGap(nv, &myVehicle, 
-                    nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel())) {
+        if (neighFollow.second > 0 && decelGap > 0 && decelGap >= nv->getCarFollowModel().getSecureGap(nv, &myVehicle,
+                nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel())) {
             double vsafe = myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), neighFollow.second, neighFollow.first->getSpeed(), neighFollow.first->getCarFollowModel().getMaxDecel());
             msgPass.informNeighFollower(new Info(vsafe, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
         } else {

@@ -12,7 +12,6 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    February 2012
-/// @version $Id$
 ///
 // Contraction Hierarchy Builder for the shortest path search
 /****************************************************************************/

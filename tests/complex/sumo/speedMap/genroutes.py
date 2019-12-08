@@ -11,7 +11,6 @@
 # @file    genroutes.py
 # @author  Michael Behrisch
 # @date    2014-12-16
-# @version $Id$
 
 from __future__ import print_function
 from __future__ import absolute_import

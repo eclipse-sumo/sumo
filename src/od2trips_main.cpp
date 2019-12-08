@@ -14,7 +14,6 @@
 /// @author  Laura Bieker
 /// @author  Yun-Pang Floetteroed
 /// @date    Thu, 12 September 2002
-/// @version $Id$
 ///
 // Main for OD2TRIPS
 /****************************************************************************/

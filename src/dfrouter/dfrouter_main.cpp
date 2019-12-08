@@ -15,7 +15,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Thu, 16.03.2006
-/// @version $Id$
 ///
 // Main for the DFROUTER
 /****************************************************************************/

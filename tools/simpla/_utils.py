@@ -9,7 +9,6 @@
 # @file    _utils.py
 # @author Leonhard Luecken
 # @date   2018-06-26
-# @version $Id$
 
 '''
 Utility functions and classes for simpla

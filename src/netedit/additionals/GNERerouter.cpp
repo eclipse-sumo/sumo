@@ -10,7 +10,6 @@
 /// @file    GNERerouter.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -37,12 +36,12 @@
 
 GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNEEdge*>& edges, const std::string& name, const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement, {}, {}, {}, {}, {}, edges, {}, {}, {}, {}),
-    myPosition(pos),
-    myFilename(filename),
-    myProbability(probability),
-    myOff(off),
-    myTimeThreshold(timeThreshold),
-    myVTypes(vTypes) {
+              myPosition(pos),
+              myFilename(filename),
+              myProbability(probability),
+              myOff(off),
+              myTimeThreshold(timeThreshold),
+myVTypes(vTypes) {
 }
 
 
@@ -86,7 +85,7 @@ GNERerouter::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNERerouter::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
@@ -210,7 +209,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNERerouter::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
 }
@@ -291,7 +290,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNERerouter::isAttributeEnabled(SumoXMLAttr /* key */) const {
     return true;
 }

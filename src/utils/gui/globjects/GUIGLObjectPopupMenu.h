@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The popup menu of a globject.
 /****************************************************************************/
@@ -103,7 +102,7 @@ public:
     /// @}
 
 protected:
-	FOX_CONSTRUCTOR(GUIGLObjectPopupMenu)
+    FOX_CONSTRUCTOR(GUIGLObjectPopupMenu)
 
     /// @brief The parent window
     GUISUMOAbstractView* myParent;

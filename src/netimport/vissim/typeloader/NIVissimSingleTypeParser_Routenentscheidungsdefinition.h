@@ -10,7 +10,6 @@
 /// @file    NIVissimSingleTypeParser_Routenentscheidungsdefinition.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 18 Dec 2002
-/// @version $Id$
 ///
 //
 /****************************************************************************/

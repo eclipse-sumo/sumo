@@ -14,7 +14,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Walter Bamberger
 /// @date    July 2010
-/// @version $Id$
 ///
 // Main class that manages activities taken in account and generates the
 // inhabitants' trip list.

@@ -9,7 +9,6 @@
 # @file    __init__.py
 # @author  Michael Behrisch
 # @date    2015-12-02
-# @version $Id$
 
 from __future__ import absolute_import
 

@@ -10,7 +10,6 @@
 /// @file    GNEAccess.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2018
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -38,9 +37,9 @@
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNEViewNet* viewNet, double pos, const std::string& length, bool friendlyPos, bool blockMovement) :
     GNEAdditional(busStop, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement, {}, {lane}, {}, {busStop}, {}, {}, {}, {}, {}, {}),
-    myPositionOverLane(pos),
-    myLength(length),
-    myFriendlyPosition(friendlyPos) {
+              myPositionOverLane(pos),
+              myLength(length),
+myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -118,7 +117,7 @@ GNEAccess::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNEAccess::splitEdgeGeometry(const double splitPosition, const GNENetElement* /*originalElement*/, const GNENetElement* newElement, GNEUndoList* undoList) {
     if (splitPosition < myPositionOverLane) {
         // change lane
@@ -218,7 +217,7 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEAccess::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
 }
@@ -289,7 +288,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNEAccess::isAttributeEnabled(SumoXMLAttr /* key */) const {
     return true;
 }

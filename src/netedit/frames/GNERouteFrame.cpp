@@ -10,7 +10,6 @@
 /// @file    GNERouteFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2018
-/// @version $Id$
 ///
 // The Widget for remove network-elements
 /****************************************************************************/

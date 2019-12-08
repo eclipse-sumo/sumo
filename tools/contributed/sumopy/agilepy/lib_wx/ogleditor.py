@@ -11,7 +11,6 @@
 # @file    ogleditor.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 #!/usr/bin/env python;
 """OpenGL editor"""

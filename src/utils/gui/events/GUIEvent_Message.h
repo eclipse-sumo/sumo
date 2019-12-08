@@ -10,7 +10,6 @@
 /// @file    GUIEvent_Message.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed 18 Jun 2003
-/// @version $Id$
 ///
 // Event send when a message (message, warning, error) has to besubmitted
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    GNEAdditionalHandler.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 // Builds trigger objects for netedit
 /****************************************************************************/
@@ -238,8 +237,8 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet, 
-        const std::string& name, const std::vector<std::string>& lines, int personCapacity, bool friendlyPosition, bool blockMovement) {
+GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet,
+                                   const std::string& name, const std::vector<std::string>& lines, int personCapacity, bool friendlyPosition, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, id, false) == nullptr) {
         GNEBusStop* busStop = new GNEBusStop(id, lane, viewNet, startPos, endPos, parametersSet, name, lines, personCapacity, friendlyPosition, blockMovement);
         if (allowUndoRedo) {
@@ -285,7 +284,7 @@ GNEAdditionalHandler::buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, GNEAd
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet, 
+GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet,
         const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, id, false) == nullptr) {
         GNEContainerStop* containerStop = new GNEContainerStop(id, lane, viewNet, startPos, endPos, parametersSet, name, lines, friendlyPosition, blockMovement);
@@ -306,7 +305,7 @@ GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet, 
+GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet,
         const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, bool friendlyPosition, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, id, false) == nullptr) {
         GNEChargingStation* chargingStation = new GNEChargingStation(id, lane, viewNet, startPos, endPos, parametersSet, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, blockMovement);
@@ -327,8 +326,8 @@ GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, bool allowUndoRe
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet, 
-        const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const std::string& length, double angle, bool blockMovement) {
+GNEAdditionalHandler::buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet,
+                                       const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const std::string& length, double angle, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, id, false) == nullptr) {
         GNEParkingArea* parkingArea = new GNEParkingArea(id, lane, viewNet, startPos, endPos, parametersSet, name, friendlyPosition, roadSideCapacity, onRoad, width, length, angle, blockMovement);
         if (allowUndoRedo) {
@@ -1744,7 +1743,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(GNEViewNet* viewNet, bool allowUndoRe
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_BUS_STOP) + " '" + id + "' is not known.");
-        } else { 
+        } else {
             // declare variables for start and end position
             double startPosDouble = 0;
             double endPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength();
@@ -1774,8 +1773,8 @@ GNEAdditionalHandler::parseAndBuildBusStop(GNEViewNet* viewNet, bool allowUndoRe
                 return false;
             }
             // save ID of last created element
-            GNEAdditional* additionalCreated = buildBusStop(viewNet, allowUndoRedo, id, lane, startPosDouble, endPosDouble, parametersSet, 
-                                                            name, lines, personCapacity, friendlyPosition, blockMovement);
+            GNEAdditional* additionalCreated = buildBusStop(viewNet, allowUndoRedo, id, lane, startPosDouble, endPosDouble, parametersSet,
+                                               name, lines, personCapacity, friendlyPosition, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
                 insertedAdditionals->commitElementInsertion(additionalCreated);
@@ -1813,7 +1812,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(GNEViewNet* viewNet, bool allow
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_CONTAINER_STOP) + " '" + id + "' is not known.");
-        } else { 
+        } else {
             // declare variables for start and end position
             double startPosDouble = 0;
             double endPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength();
@@ -1843,8 +1842,8 @@ GNEAdditionalHandler::parseAndBuildContainerStop(GNEViewNet* viewNet, bool allow
                 return false;
             }
             // save ID of last created element
-            GNEAdditional* additionalCreated = buildContainerStop(viewNet, allowUndoRedo, id, lane, startPosDouble, endPosDouble, parametersSet, 
-                                                                  name, lines, friendlyPosition, blockMovement);
+            GNEAdditional* additionalCreated = buildContainerStop(viewNet, allowUndoRedo, id, lane, startPosDouble, endPosDouble, parametersSet,
+                                               name, lines, friendlyPosition, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
                 insertedAdditionals->commitElementInsertion(additionalCreated);
@@ -1934,7 +1933,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(GNEViewNet* viewNet, bool all
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_CHARGING_STATION) + " '" + id + "' is not known.");
-        } else { 
+        } else {
             // declare variables for start and end position
             double startPosDouble = 0;
             double endPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength();
@@ -1964,8 +1963,8 @@ GNEAdditionalHandler::parseAndBuildChargingStation(GNEViewNet* viewNet, bool all
                 return false;
             }
             // save ID of last created element
-            GNEAdditional* additionalCreated = buildChargingStation(viewNet, allowUndoRedo, id, lane, startPosDouble, endPosDouble, parametersSet, 
-                                                                    name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, blockMovement);
+            GNEAdditional* additionalCreated = buildChargingStation(viewNet, allowUndoRedo, id, lane, startPosDouble, endPosDouble, parametersSet,
+                                               name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
                 insertedAdditionals->commitElementInsertion(additionalCreated);
@@ -2007,7 +2006,7 @@ GNEAdditionalHandler::parseAndBuildParkingArea(GNEViewNet* viewNet, bool allowUn
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_PARKING_AREA) + " '" + id + "' is not known.");
-        } else { 
+        } else {
             // declare variables for start and end position
             double startPosDouble = 0;
             double endPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength();
@@ -2037,8 +2036,8 @@ GNEAdditionalHandler::parseAndBuildParkingArea(GNEViewNet* viewNet, bool allowUn
                 return false;
             }
             // save ID of last created element
-            GNEAdditional* additionalCreated = buildParkingArea(viewNet, allowUndoRedo, id, lane, startPosDouble, endPosDouble, parametersSet, 
-                                                                name, friendlyPosition, roadSideCapacity, onRoad, width, length, angle, blockMovement);
+            GNEAdditional* additionalCreated = buildParkingArea(viewNet, allowUndoRedo, id, lane, startPosDouble, endPosDouble, parametersSet,
+                                               name, friendlyPosition, roadSideCapacity, onRoad, width, length, angle, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
                 insertedAdditionals->commitElementInsertion(additionalCreated);

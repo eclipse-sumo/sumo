@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Sascha Krieg
 /// @date    Jun 2004
-/// @version $Id$
 ///
 // Abstract GUI manipulation class
 /****************************************************************************/

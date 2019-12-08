@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Wed, 13.02.2008
-/// @version $Id$
 ///
 // A wrapper for a Command function
 /****************************************************************************/

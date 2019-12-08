@@ -11,7 +11,6 @@
 /// @author  Matthias Heppner
 /// @author  Michael Behrisch
 /// @date    2009-03-24
-/// @version $Id$
 ///
 //
 /****************************************************************************/

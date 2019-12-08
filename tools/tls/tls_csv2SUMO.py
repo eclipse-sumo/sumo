@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2009-08-01
-# @version $Id$
 
 """
 Converts a csv-tls-description into one SUMO can read as additional file.

@@ -10,7 +10,6 @@
 /// @file    GNEParkingAreaReroute.h
 /// @author  Jakob Erdmann
 /// @date    May 2018
-/// @version $Id$
 ///
 //
 /****************************************************************************/

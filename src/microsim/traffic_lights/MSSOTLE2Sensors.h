@@ -11,7 +11,6 @@
 /// @author  Gianfilippo Slager
 /// @author  Federico Caselli
 /// @date    Feb 2010
-/// @version $Id$
 ///
 // The class for SOTL sensors of "E2" type
 // XXX: Not tested with MSMultiLaneE2Collector (Generalization of MSE2Collector). If this is to be used in the future and you run into problems,

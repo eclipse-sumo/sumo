@@ -12,7 +12,6 @@
 # @file    sumopy_gui.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 """SUMOPy is intended to expand the user-base of the traffic micro-simulator SUMO (Simulation of Urban MObility) by providing a user-friendly, yet flexible simulation suite.
 

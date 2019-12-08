@@ -12,7 +12,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    2004
-/// @version $Id$
 ///
 // Some global variables (yep)
 /****************************************************************************/

@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Jun 2004
-/// @version $Id$
 ///
 // A 2D-polygon
 /****************************************************************************/

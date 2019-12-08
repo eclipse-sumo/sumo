@@ -11,7 +11,6 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Thu, 12 Jun 2014
-/// @version $Id$
 ///
 // The class for modelling container-movements
 /****************************************************************************/

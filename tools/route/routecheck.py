@@ -12,7 +12,6 @@
 # @author  Jakob Erdmann
 # @author  Yun-Pang Floetteroed
 # @date    2007-03-09
-# @version $Id$
 
 """
 This script does simple checks for the routes on a given network.

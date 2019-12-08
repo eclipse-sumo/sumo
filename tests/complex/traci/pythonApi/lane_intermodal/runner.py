@@ -12,7 +12,6 @@
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
 # @date    2011-03-04
-# @version $Id$
 
 from __future__ import print_function
 from __future__ import absolute_import
@@ -25,7 +24,7 @@ import traci  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'), "-n", "input_net3.net.xml",
-    "--no-step-log"])
+             "--no-step-log"])
 traci.simulationStep()
 
 print("foes", traci.lane.getFoes("SC_3", "CN_3"))

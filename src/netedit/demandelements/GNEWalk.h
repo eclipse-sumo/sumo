@@ -10,7 +10,6 @@
 /// @file    GNEWalk.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2019
-/// @version $Id$
 ///
 // A class for visualizing walks in Netedit
 /****************************************************************************/
@@ -53,8 +52,8 @@ public:
      * @param[in] edges list of consecutive edges of this walk
      * @param[in] arrivalPosition arrival position on the destination edge
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
-        const std::vector<GNEEdge*> &via, double arrivalPosition);
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+            const std::vector<GNEEdge*>& via, double arrivalPosition);
 
     /**@brief parameter constructor for walkBusStop
      * @param[in] viewNet view in which this Walk is placed
@@ -62,8 +61,8 @@ public:
      * @param[in] edges list of consecutive edges of this walk
      * @param[in] busStop destination busStop
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, 
-        const std::vector<GNEEdge*> &via);
+    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
+            const std::vector<GNEEdge*>& via);
 
     /**@brief parameter constructor for walkRoute
      * @param[in] viewNet view in which this Walk is placed
@@ -128,7 +127,7 @@ public:
     void updateGeometry();
 
     /// @brief partial update pre-computed geometry information
-    void updatePartialGeometry(const GNEEdge *edge);
+    void updatePartialGeometry(const GNEEdge* edge);
 
     /// @brief compute path
     void computePath();

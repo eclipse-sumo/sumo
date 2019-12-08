@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    11.06.2013
-/// @version $Id$
 ///
 // A device which records floating car data
 /****************************************************************************/

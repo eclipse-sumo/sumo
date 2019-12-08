@@ -10,7 +10,6 @@
 /// @file    MSDeterministicHiLevelTrafficLightLogic.h
 /// @author  Riccardo Belletti
 /// @date    Mar 2014
-/// @version $Id$
 ///
 // The class for deterministic high level traffic light logic
 /****************************************************************************/

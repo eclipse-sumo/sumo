@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Sept 2012
-/// @version $Id$
 ///
 // An abstract device that changes the state of the micro simulation
 /****************************************************************************/

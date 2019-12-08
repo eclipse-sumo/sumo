@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    09.05.2011
-/// @version $Id$
 ///
 // Sets and checks options for netbuild
 /****************************************************************************/

@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Wed, 21.08.2013
-/// @version $Id$
 ///
 // Main for an emissions calculator
 /****************************************************************************/

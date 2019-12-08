@@ -11,7 +11,6 @@
 /// @author  Riccardo Belletti
 /// @author  Anna Chiara Bellini
 /// @date    Sep 2013
-/// @version $Id$
 ///
 // The class for SOTL Platoon logics
 /****************************************************************************/

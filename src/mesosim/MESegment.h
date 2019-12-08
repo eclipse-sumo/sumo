@@ -10,7 +10,6 @@
 /// @file    MESegment.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, May 2005
-/// @version $Id$
 ///
 // A single mesoscopic segment (cell)
 /****************************************************************************/

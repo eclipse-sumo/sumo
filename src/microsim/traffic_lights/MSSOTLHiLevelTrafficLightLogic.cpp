@@ -10,7 +10,6 @@
 /// @file    MSSOTLHiLevelTrafficLightLogic.cpp
 /// @author  Alessio Bonfietti
 /// @date    Jun 2013
-/// @version $Id$
 ///
 /****************************************************************************/
 #include "MSSOTLHiLevelTrafficLightLogic.h"

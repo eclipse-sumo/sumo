@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2012
-/// @version $Id$
 ///
 // Output formatter for plain XML output
 /****************************************************************************/

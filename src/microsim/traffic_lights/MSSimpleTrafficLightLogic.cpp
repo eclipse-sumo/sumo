@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Friedemann Wesner
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A fixed traffic light logic
 /****************************************************************************/

@@ -15,7 +15,6 @@
 /// @author  Friedemann Wesner
 /// @author  Jakob Erdmann
 /// @date    Fri, 01 Feb 2002
-/// @version $Id$
 ///
 // Performs lane changing of vehicles
 /****************************************************************************/
@@ -1543,8 +1542,8 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
             }
         } else {
             const double requiredSpace = safetyFactor * (requiredSpaceAfterLeader
-                    + vehicle->getCarFollowModel().getSecureGap(vehicle, leadLead.first, 
-                        overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel()));
+                                         + vehicle->getCarFollowModel().getSecureGap(vehicle, leadLead.first,
+                                                 overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel()));
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
                 std::cout << "   leader's leader " << leadLead.first->getID() << " space=" << leadLead.second

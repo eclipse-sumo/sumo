@@ -15,7 +15,6 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Definitions of elements and attributes known by SUMO
 /****************************************************************************/

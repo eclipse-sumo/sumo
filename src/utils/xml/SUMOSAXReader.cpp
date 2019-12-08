@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Nov 2012
-/// @version $Id$
 ///
 // SAX-reader encapsulation containing binary reader
 /****************************************************************************/

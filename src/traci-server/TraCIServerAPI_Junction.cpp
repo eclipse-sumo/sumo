@@ -14,7 +14,6 @@
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann
 /// @date    07.05.2009
-/// @version $Id$
 ///
 // APIs for getting/setting junction values via TraCI
 /****************************************************************************/

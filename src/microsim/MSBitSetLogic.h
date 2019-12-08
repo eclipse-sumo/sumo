@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Wed, 12 Dez 2001
-/// @version $Id$
 ///
 // Container for holding a right-of-way matrix
 /****************************************************************************/

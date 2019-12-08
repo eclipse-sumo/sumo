@@ -11,7 +11,6 @@
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
 # @date    2008-03-25
-# @version $Id$
 
 """
 This script compares two route sets by calculating

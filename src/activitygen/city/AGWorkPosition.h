@@ -15,7 +15,6 @@
 /// @author  Walter Bamberger
 /// @author  Michael Behrisch
 /// @date    July 2010
-/// @version $Id$
 ///
 // Location and schedules of a work position: linked with one adult
 /****************************************************************************/

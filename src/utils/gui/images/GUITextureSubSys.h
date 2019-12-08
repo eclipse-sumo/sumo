@@ -10,7 +10,6 @@
 /// @file    GUITextureSubSys.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2016
-/// @version $Id$
 ///
 // A class to manage gifs of SUMO
 /****************************************************************************/

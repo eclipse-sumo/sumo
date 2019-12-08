@@ -10,7 +10,6 @@
 /// @file    GNERerouter.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 //
 /****************************************************************************/

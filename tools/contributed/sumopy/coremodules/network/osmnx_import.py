@@ -11,7 +11,6 @@
 # @file    osmnx_import.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 
 import os

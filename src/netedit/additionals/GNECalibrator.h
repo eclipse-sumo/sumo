@@ -10,7 +10,6 @@
 /// @file    GNECalibrator.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -169,7 +168,7 @@ protected:
     /// @brief ID to current RouteProbe
     std::string myRouteProbe;
 
-    /// @brief extra calibrator geometries 
+    /// @brief extra calibrator geometries
     std::vector<GNEGeometry::Geometry> myEdgeCalibratorGeometries;
 
 private:

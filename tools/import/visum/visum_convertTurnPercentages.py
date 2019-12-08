@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2009-06-12
-# @version $Id$  # noqa
 
 """
 Converts VISUM turning percentages into

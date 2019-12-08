@@ -15,7 +15,6 @@
 /// @author  Laura Bieker
 /// @author  Leonhard Luecken
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
 ///
 // Methods for the representation of a single edge
 /****************************************************************************/
@@ -127,7 +126,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     vmax(UNSPECIFIED_SPEED),
     haveVia(haveVia_),
     internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX),
-    uncontrolled(uncontrolled_) 
+    uncontrolled(uncontrolled_)
 { }
 
 
@@ -1319,7 +1318,7 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool try
 
 
 bool
-NBEdge::removeFromConnections(const NBEdge::Connection &connectionToRemove) {
+NBEdge::removeFromConnections(const NBEdge::Connection& connectionToRemove) {
     // iterate over connections
     for (auto i = myConnections.begin(); i !=  myConnections.end(); i++) {
         if ((i->toEdge == connectionToRemove.toEdge) && (i->fromLane == connectionToRemove.fromLane) && (i->toLane == connectionToRemove.toLane)) {

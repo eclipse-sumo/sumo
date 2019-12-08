@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Sascha Krieg
 /// @date    Tue, 29.05.2005
-/// @version $Id$
 ///
 // A traffic light logics which must be computed (only nodes/edges are given)
 /****************************************************************************/

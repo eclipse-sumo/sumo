@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    26.10.2012
-/// @version $Id$
 ///
 // Exporter writing networks using DlrNavteq (Elmar) format
 /****************************************************************************/

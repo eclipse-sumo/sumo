@@ -10,7 +10,6 @@
 /// @file    MSSOTLPolicy3DStimulus.h
 /// @author  Riccardo Belletti
 /// @date    Mar 2014
-/// @version $Id$
 ///
 // The class the low-level policy stimulus
 /****************************************************************************/

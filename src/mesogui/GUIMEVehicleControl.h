@@ -10,7 +10,6 @@
 /// @file    GUIMEVehicleControl.h
 /// @author  Jakob Erdmann
 /// @date    Okt 2012
-/// @version $Id$
 ///
 // The class responsible for building and deletion of meso vehicles (gui-version)
 /****************************************************************************/

@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    June 2006
-/// @version $Id$
 ///
 // The GUI-version of a point of interest
 /****************************************************************************/

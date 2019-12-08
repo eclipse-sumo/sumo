@@ -10,7 +10,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2013-05-06
-# @version $Id$
 
 
 def read(file, lanes2edges=True):

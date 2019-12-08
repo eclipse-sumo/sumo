@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Sept 2006
-/// @version $Id$
 ///
 // Global storage for textures; manages and draws them
 /****************************************************************************/

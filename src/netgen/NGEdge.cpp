@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mar, 2003
-/// @version $Id$
 ///
 // A netgen-representation of an edge
 /****************************************************************************/
@@ -78,12 +77,12 @@ NGEdge::buildNBEdge(NBNetBuilder& nb, const std::string& type) const {
         lsf = LANESPREAD_CENTER;
     }
     NBEdge* result = new NBEdge(
-            myID,
-            nb.getNodeCont().retrieve(myStartNode->getID()), // from
-            nb.getNodeCont().retrieve(myEndNode->getID()), // to
-            type, nb.getTypeCont().getSpeed(type), lanenumber,
-            priority, nb.getTypeCont().getWidth(type), NBEdge::UNSPECIFIED_OFFSET,
-            "", lsf);
+        myID,
+        nb.getNodeCont().retrieve(myStartNode->getID()), // from
+        nb.getNodeCont().retrieve(myEndNode->getID()), // to
+        type, nb.getTypeCont().getSpeed(type), lanenumber,
+        priority, nb.getTypeCont().getWidth(type), NBEdge::UNSPECIFIED_OFFSET,
+        "", lsf);
     result->setPermissions(permissions);
     return result;
 }

@@ -10,7 +10,6 @@
 # @file    addParkingAreaStops2Routes.py
 # @author  Evamarie Wiessner
 # @date    2017-01-09
-# @version $Id$
 
 """
 add stops to vehicle routes

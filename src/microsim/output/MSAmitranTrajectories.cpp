@@ -10,7 +10,6 @@
 /// @file    MSAmitranTrajectories.cpp
 /// @author  Michael Behrisch
 /// @date    13.03.2014
-/// @version $Id$
 ///
 // Realises dumping the complete network state
 /****************************************************************************/

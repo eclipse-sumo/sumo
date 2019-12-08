@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Fri, 30 Mar 2007
-/// @version $Id$
 ///
 // Encapsulated Xerces-SAX-attributes
 /****************************************************************************/

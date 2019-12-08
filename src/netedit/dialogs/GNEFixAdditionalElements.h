@@ -10,7 +10,6 @@
 /// @file    GNEFixAdditionalElements.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2017
-/// @version $Id$
 ///
 // Dialog used to fix additional elements
 /****************************************************************************/

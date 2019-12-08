@@ -10,7 +10,6 @@
 /// @file    FareModul.h
 /// @author  Ricardo Euler
 /// @date    Thu, 17 August 2018
-/// @version $Id$
 ///
 // Fare Modul for calculating prices during intermodal routing
 /****************************************************************************/

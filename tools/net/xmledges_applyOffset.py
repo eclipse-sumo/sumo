@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2009-08-01
-# @version $Id$
 
 """
 Applies a given offset to edges given in an xml-edge-file.

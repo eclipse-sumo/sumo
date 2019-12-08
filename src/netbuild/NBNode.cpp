@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
 ///
 // The representation of a single node
 /****************************************************************************/
@@ -2421,7 +2420,7 @@ NBNode::buildCrossingsAndWalkingAreas() {
         if (crossing->prevWalkingArea == "" || crossing->nextWalkingArea == "" || !crossing->valid) {
             if (crossing->valid) {
                 WRITE_WARNINGF("Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).",
-                crossing->id, getID(), toString(crossing->edges));
+                               crossing->id, getID(), toString(crossing->edges));
             }
             for (WalkingArea& wa : myWalkingAreas) {
                 std::vector<std::string>::iterator it_nc = std::find(wa.nextCrossings.begin(), wa.nextCrossings.end(), crossing->id);

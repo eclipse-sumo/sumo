@@ -10,7 +10,6 @@
 /// @file    GNEFixDemandElements.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
-/// @version $Id$
 ///
 // Dialog used to fix demand elements during saving
 /****************************************************************************/

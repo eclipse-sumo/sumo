@@ -14,7 +14,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    2005-09-15
-/// @version $Id$
 ///
 // Detectors container; responsible for string and output generation
 /****************************************************************************/

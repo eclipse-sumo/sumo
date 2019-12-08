@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2003-05-21
-/// @version $Id$
 ///
 // Something on a lane to be noticed about vehicle movement
 /****************************************************************************/

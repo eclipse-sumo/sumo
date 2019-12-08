@@ -10,7 +10,6 @@
 /// @file    MSCFModel_W99.h
 /// @author  Jakob Erdmann
 /// @date    June 2019
-/// @version $Id$
 ///
 // The psycho-physical model of Wiedemann (10-Parameter version from 1999)
 // code adapted from https://github.com/glgh/w99-demo

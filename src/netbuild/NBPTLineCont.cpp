@@ -11,7 +11,6 @@
 /// @author  Gregor Laemmel
 /// @author  Nikita Cherednychek
 /// @date    Tue, 20 Mar 2017
-/// @version $Id$
 ///
 // Container for NBPTLine during netbuild
 /****************************************************************************/
@@ -71,7 +70,7 @@ void NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCon
     const std::vector<std::string>& waysIds = line->getMyWays();
     if (waysIds.size() <= 1) {
         WRITE_WARNING("Cannot revise pt stop localization for pt line: " + line->getLineID() + ", which consist of one way only. Ignoring!");
-        return; 
+        return;
     }
     if (line->getRoute().size() == 0) {
         WRITE_WARNING("Cannot revise pt stop localization for pt line: " + line->getLineID() + ", which has no route edges. Ignoring!");
@@ -150,7 +149,9 @@ NBPTStop*
 NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPTStopCont& sc) const {
     const std::vector<std::string>& waysIds = line->getMyWays();
 #ifdef DEBUG_FIND_WAY
-    if (stop->getID() == DEBUGSTOPID) std::cout << " stop=" << stop->getID() << " line=" << line->getLineID() << " edgeID=" << stop->getEdgeId() << " origID=" << stop->getOrigEdgeId() << "\n";
+    if (stop->getID() == DEBUGSTOPID) {
+        std::cout << " stop=" << stop->getID() << " line=" << line->getLineID() << " edgeID=" << stop->getEdgeId() << " origID=" << stop->getOrigEdgeId() << "\n";
+    }
 #endif
     if (stop->isLoose()) {
         // find closest edge in route
@@ -165,15 +166,15 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
         }
 #ifdef DEBUG_FIND_WAY
         if (stop->getID() == DEBUGSTOPID) {
-            std::cout << "   best=" << Named::getIDSecure(best) << " minDist=" << minDist << " wayID=" << getWayID(best->getID()) 
-                << " found=" << (std::find(waysIds.begin(), waysIds.end(), getWayID(best->getID())) != waysIds.end()) 
-                << " wayIDs=" << toString(waysIds) << "\n";
+            std::cout << "   best=" << Named::getIDSecure(best) << " minDist=" << minDist << " wayID=" << getWayID(best->getID())
+                      << " found=" << (std::find(waysIds.begin(), waysIds.end(), getWayID(best->getID())) != waysIds.end())
+                      << " wayIDs=" << toString(waysIds) << "\n";
         }
 #endif
         if (minDist < OptionsCont::getOptions().getFloat("ptline.match-dist")) {
             const std::string wayID = getWayID(best->getID());
             if (stop->getEdgeId() == "") {
-                stop->setEdgeId(best->getID(), ec); 
+                stop->setEdgeId(best->getID(), ec);
                 stop->setMyOrigEdgeId(wayID);
             } else if (stop->getEdgeId() != best->getID()) {
                 // stop is used by multiple lines and mapped to different edges.
@@ -188,8 +189,8 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
                 stop = newStop;
             }
         } else {
-            WRITE_WARNING("Could not assign stop '" + stop->getID() + "' to pt line '" + line->getLineID() 
-                    + "' (closest edge '" + best->getID() + "', distance " + toString(minDist) + "). Ignoring!");
+            WRITE_WARNING("Could not assign stop '" + stop->getID() + "' to pt line '" + line->getLineID()
+                          + "' (closest edge '" + best->getID() + "', distance " + toString(minDist) + "). Ignoring!");
         }
     } else {
         // if the stop is part of an edge, find that edge among the line edges
@@ -308,8 +309,8 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
             }
         } else {
             if (it3 != pTLine->getMyWays().begin()) {
-                WRITE_WARNING("Incomplete route for ptline '" + toString(pTLine->getLineID()) + 
-                        (pTLine->getName() != "" ? "' (" + pTLine->getName() + ")" : ""));
+                WRITE_WARNING("Incomplete route for ptline '" + toString(pTLine->getLineID()) +
+                              (pTLine->getName() != "" ? "' (" + pTLine->getName() + ")" : ""));
             }
             prevWayEdges = currentWayEdges;
             prevWayMinusEdges = currentWayMinusEdges;

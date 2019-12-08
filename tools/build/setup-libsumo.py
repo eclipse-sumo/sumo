@@ -11,7 +11,6 @@
 # @author  Benjamin Striner
 # @author  Michael Behrisch
 # @date    2017-01-26
-# @version $Id$
 
 
 from setuptools import setup

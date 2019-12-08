@@ -11,7 +11,6 @@
 # @author  Michael Behrisch
 # @author  Laura Bieker
 # @date    2011-07-22
-# @version $Id$
 
 from __future__ import absolute_import
 

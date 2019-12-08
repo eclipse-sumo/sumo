@@ -10,7 +10,6 @@
 /// @file    GNEDeleteFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2016
-/// @version $Id$
 ///
 // The Widget for remove network-elements
 /****************************************************************************/

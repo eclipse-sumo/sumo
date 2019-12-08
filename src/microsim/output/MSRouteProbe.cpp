@@ -13,7 +13,6 @@
 /// @author  Tino Morenz
 /// @author  Jakob Erdmann
 /// @date    Thu, 04.12.2008
-/// @version $Id$
 ///
 // Writes route distributions at a certain edge
 /****************************************************************************/

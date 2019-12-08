@@ -11,7 +11,6 @@
 # @file    shapefile.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 """
 shapefile.py

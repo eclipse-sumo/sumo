@@ -10,7 +10,6 @@
 /// @file    GUICursorSubSys.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2018
-/// @version $Id$
 ///
 // A class to manage icons of SUMO
 /****************************************************************************/

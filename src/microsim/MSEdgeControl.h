@@ -15,7 +15,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Mon, 09 Apr 2001
-/// @version $Id$
 ///
 // Stores edges and lanes, performs moving of vehicle
 /****************************************************************************/

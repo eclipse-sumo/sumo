@@ -13,7 +13,6 @@
 /// @author  Jakob Erdmann
 /// @author  Melanie Knocke
 /// @date    Jun 2004
-/// @version $Id$
 ///
 // A 2D- or 3D-polygon
 /****************************************************************************/

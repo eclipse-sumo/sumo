@@ -10,7 +10,6 @@
 /// @file    GUIParam_PopupMenu.h
 /// @author  Daniel Krajzewicz
 /// @date    Mai 2003
-/// @version $Id$
 ///
 // A popup-menu for dynamic patameter table entries
 /****************************************************************************/
@@ -95,7 +94,7 @@ protected:
     ValueSource<double>* mySource;
 
 protected:
-	FOX_CONSTRUCTOR(GUIParam_PopupMenuInterface)
+    FOX_CONSTRUCTOR(GUIParam_PopupMenuInterface)
 
 };
 

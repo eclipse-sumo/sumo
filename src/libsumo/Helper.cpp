@@ -12,7 +12,6 @@
 /// @author  Robert Hilbrich
 /// @author  Leonhard Luecken
 /// @date    15.09.2017
-/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
@@ -995,7 +994,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             // add some slack to avoid issues from tiny gaps between consecutive lanes
             const double slack = POSITION_EPS;
             PositionVector laneShape = l->getShape();
-			laneShape.extrapolate2D(slack);
+            laneShape.extrapolate2D(slack);
             double off = laneShape.nearest_offset_to_point2D(pos, true);
             if (off != GeomHelper::INVALID_OFFSET) {
                 perpendicularDist = laneShape.distance2D(pos, true);

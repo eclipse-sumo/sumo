@@ -11,7 +11,6 @@
 # @file    processdialog.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 
 import wx

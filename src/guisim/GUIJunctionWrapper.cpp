@@ -14,7 +14,6 @@
 /// @author  Laura Bieker
 /// @author  Andreas Gaubatz
 /// @date    Mon, 1 Jul 2003
-/// @version $Id$
 ///
 // }
 /****************************************************************************/

@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
 ///
 // A storage for available types of edges
 /****************************************************************************/

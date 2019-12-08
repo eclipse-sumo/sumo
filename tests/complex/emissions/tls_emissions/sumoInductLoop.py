@@ -9,7 +9,6 @@
 # @file    sumoInductLoop.py
 # @author  Daniel Krajzewicz
 # @date    2013-10-19
-# @version $Id$
 
 
 from __future__ import absolute_import

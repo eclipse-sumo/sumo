@@ -10,7 +10,6 @@
 /// @file    GNEVehicleFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2018
-/// @version $Id$
 ///
 // The Widget for add Vehicles/Flows/Trips/etc. elements
 /****************************************************************************/

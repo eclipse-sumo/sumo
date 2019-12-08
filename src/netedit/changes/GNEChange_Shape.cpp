@@ -10,7 +10,6 @@
 /// @file    GNEChange_Shape.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2017
-/// @version $Id$
 ///
 // A network change in which a single poly is created or deleted
 /****************************************************************************/

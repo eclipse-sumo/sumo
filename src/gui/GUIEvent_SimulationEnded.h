@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Thu, 19 Jun 2003
-/// @version $Id$
 ///
 // Event sent when the the simulation is over
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    MSSOTLSensors.cpp
 /// @author  Gianfilippo Slager
 /// @date    Feb 2010
-/// @version $Id$
 ///
 // The base abstract class for SOTL sensors
 /****************************************************************************/

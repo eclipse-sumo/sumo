@@ -10,7 +10,6 @@
 /// @file    GUITextureSubSys.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2016
-/// @version $Id$
 ///
 // Helper for Gifs loading and usage
 /****************************************************************************/

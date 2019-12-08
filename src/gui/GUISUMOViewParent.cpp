@@ -14,7 +14,6 @@
 /// @author  Laura Bieker
 /// @author  Andreas Gaubatz
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A single child window which contains a view of the simulation area
 /****************************************************************************/
@@ -98,8 +97,7 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
                                      GUIMainWindow* parentWindow,
                                      FXIcon* ic, FXuint opts,
                                      FXint x, FXint y, FXint w, FXint h) :
-    GUIGlChildWindow(p, parentWindow, mdimenu, name, nullptr, ic, opts, x, y, w, h)
-{
+    GUIGlChildWindow(p, parentWindow, mdimenu, name, nullptr, ic, opts, x, y, w, h) {
     buildSpeedControlToolbar();
     myParent->addGLChild(this);
 }

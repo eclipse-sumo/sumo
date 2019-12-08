@@ -10,7 +10,6 @@
 /// @file    ShapeHandler.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2015
-/// @version $Id$
 ///
 // The XML-Handler for network loading
 /****************************************************************************/

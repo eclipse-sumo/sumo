@@ -10,7 +10,6 @@
 /// @file    GenericEngineModel.cpp
 /// @author  Michele Segata
 /// @date    4 Feb 2015
-/// @version $Id$
 ///
 // Generic interface for an engine model
 /****************************************************************************/

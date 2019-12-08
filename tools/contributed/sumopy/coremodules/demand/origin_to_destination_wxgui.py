@@ -11,7 +11,6 @@
 # @file    origin_to_destination_wxgui.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import wx
 

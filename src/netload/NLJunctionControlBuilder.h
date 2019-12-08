@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 9 Jul 2001
-/// @version $Id$
 ///
 // Builder of microsim-junctions and tls
 /****************************************************************************/

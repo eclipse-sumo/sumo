@@ -11,7 +11,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    15.03.2017
-/// @version $Id$
 ///
 // C++ Vehicle API
 /****************************************************************************/

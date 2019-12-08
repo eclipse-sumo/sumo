@@ -12,7 +12,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2007-10-25
-# @version $Id$
 
 """
 

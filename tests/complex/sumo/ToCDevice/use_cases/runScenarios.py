@@ -10,7 +10,6 @@
 # @file    runScenarios.py
 # @author  Yun-Pang Floetteroed
 # @date    2018-05-30
-# @version $Id$
 
 from __future__ import print_function
 import os

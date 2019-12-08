@@ -10,7 +10,6 @@
 /// @file    MFXAddEditTypedTable.cpp
 /// @author  Daniel Krajzewicz
 /// @date    2004-07-02
-/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

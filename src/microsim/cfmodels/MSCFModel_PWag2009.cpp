@@ -13,7 +13,6 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    03.04.2010
-/// @version $Id$
 ///
 // Scalable model based on Krauss by Peter Wagner
 /****************************************************************************/

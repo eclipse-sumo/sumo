@@ -13,7 +13,6 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Thu, 06 Jun 2002
-/// @version $Id$
 ///
 // Main for MAROUTER
 /****************************************************************************/

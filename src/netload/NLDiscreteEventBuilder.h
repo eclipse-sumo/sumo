@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Sep, 2003
-/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

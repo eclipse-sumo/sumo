@@ -10,7 +10,6 @@
 /// @file    MSSOTLPhaseTrafficLightLogic.h
 /// @author  Gianfilippo Slager
 /// @date    Feb 2010
-/// @version $Id$
 ///
 // The class for SOTL Phase logics
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    InductionLoop.h
 /// @author  Michael Behrisch
 /// @date    15.03.2017
-/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

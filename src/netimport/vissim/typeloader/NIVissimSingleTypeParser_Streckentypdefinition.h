@@ -10,7 +10,6 @@
 /// @file    NIVissimSingleTypeParser_Streckentypdefinition.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 6 Mar 2003
-/// @version $Id$
 ///
 //
 /****************************************************************************/

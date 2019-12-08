@@ -12,7 +12,6 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    March 2012
-/// @version $Id$
 ///
 // Wraps multiple CHRouters for different vehicle types
 /****************************************************************************/
@@ -100,7 +99,7 @@ public:
             // create new router for the given permissions and maximum speed
             // XXX a new router may also be needed if vehicles differ in speed factor
             myRouters[svc] = new CHRouterType(
-                    myEdges, myIgnoreErrors, &E::getTravelTimeStatic, svc.first, myWeightPeriod, false, false);
+                myEdges, myIgnoreErrors, &E::getTravelTimeStatic, svc.first, myWeightPeriod, false, false);
         }
         return myRouters[svc]->compute(from, to, vehicle, msTime, into, silent);
     }

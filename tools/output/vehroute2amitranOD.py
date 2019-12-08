@@ -11,7 +11,6 @@
 # @file    vehroute2amitranOD.py
 # @author  Michael Behrisch
 # @date    2014-04-08
-# @version $Id$
 
 from __future__ import absolute_import
 import os

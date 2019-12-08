@@ -10,7 +10,6 @@
 /// @file    MFXCheckableButton.h
 /// @author  Daniel Krajzewicz
 /// @date    2004-03-19
-/// @version $Id$
 ///
 // Checkable button similar to a FXButton but mainntain the check
 /****************************************************************************/

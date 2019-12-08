@@ -10,7 +10,6 @@
 # @file    test.py
 # @author  Leonhard Luecken
 # @date    2017
-# @version $Id$
 
 import unittest as ut
 import os

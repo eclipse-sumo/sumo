@@ -10,7 +10,6 @@
 /// @file    GNEChange_Connection.cpp
 /// @author  Jakob Erdmann
 /// @date    May 2011
-/// @version $Id$
 ///
 // A network change in which a single connection is created or deleted
 /****************************************************************************/

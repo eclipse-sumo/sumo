@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Fri, 01 Feb 2002
-/// @version $Id$
 ///
 // Performs lane changing of vehicles
 /****************************************************************************/

@@ -16,7 +16,6 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    July 2010
-/// @version $Id$
 ///
 // Bus line of the city: contains all the buses of this line
 /****************************************************************************/

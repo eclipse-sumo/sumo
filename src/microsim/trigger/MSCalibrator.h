@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, May 2005
-/// @version $Id$
 ///
 // Calibrates the flow on an edge by removing an inserting vehicles
 /****************************************************************************/

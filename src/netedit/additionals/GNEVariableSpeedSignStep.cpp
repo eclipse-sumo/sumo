@@ -10,7 +10,6 @@
 /// @file    GNEVariableSpeedSignStep.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Apr 2017
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -34,7 +33,7 @@
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* variableSpeedSignDialog) :
     GNEAdditional(variableSpeedSignDialog->getEditedAdditional(), variableSpeedSignDialog->getEditedAdditional()->getViewNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
-        {}, {}, {}, {variableSpeedSignDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}) {
+{}, {}, {}, {variableSpeedSignDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}) {
     // fill VSS Step with default values
     setDefaultValues();
     // set time Attribute manually
@@ -48,9 +47,9 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* v
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, double time, double speed) :
     GNEAdditional(variableSpeedSignParent, variableSpeedSignParent->getViewNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
-        {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}, {}, {}),
-    myTime(time),
-    mySpeed(speed) {
+{}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}, {}, {}),
+myTime(time),
+mySpeed(speed) {
 }
 
 
@@ -93,7 +92,7 @@ GNEVariableSpeedSignStep::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNEVariableSpeedSignStep::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
@@ -130,7 +129,7 @@ GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEVariableSpeedSignStep::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_TIME:
@@ -193,7 +192,7 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNEVariableSpeedSignStep::isAttributeEnabled(SumoXMLAttr /* key */) const {
     return true;
 }

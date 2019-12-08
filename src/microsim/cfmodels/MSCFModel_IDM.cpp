@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Thu, 03 Sep 2009
-/// @version $Id$
 ///
 // The Intelligent Driver Model (IDM) car-following model
 /****************************************************************************/
@@ -69,7 +68,7 @@ MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, 
         // accelerate
         vSafe = _v(veh, 1e6, speed, maxSpeed, veh->getLane()->getVehicleMaxSpeed(veh), false);
     } else {
-        // decelerate 
+        // decelerate
         // @note relax gap to avoid emergency braking
         // @note since the transition point does not move we set the leader speed to 0
         vSafe = _v(veh, MAX2(seen, secGap), speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
@@ -78,7 +77,7 @@ MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, 
         // avoid overshoot when close to change in speed limit
         vSafe = MIN2(vSafe, maxSpeed);
     }
-    //std::cout << SIMTIME << " speed=" << speed << " maxSpeed=" << maxSpeed << " seen=" << seen << " secGap=" << secGap << " vSafe=" << vSafe << "\n"; 
+    //std::cout << SIMTIME << " speed=" << speed << " maxSpeed=" << maxSpeed << " seen=" << seen << " secGap=" << secGap << " vSafe=" << vSafe << "\n";
     return vSafe;
 }
 

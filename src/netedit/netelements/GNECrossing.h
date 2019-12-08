@@ -10,7 +10,6 @@
 /// @file    GNECrossing.h
 /// @author  Jakob Erdmann
 /// @date    June 2011
-/// @version $Id$
 ///
 // A class for visualizing Inner Lanes (used when editing traffic lights)
 /****************************************************************************/

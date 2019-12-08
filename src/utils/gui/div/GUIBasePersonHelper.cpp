@@ -10,7 +10,6 @@
 /// @file    GUIBasePersonHelper.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2018
-/// @version $Id$
 ///
 // Functions used in GUIPerson and GNEPerson
 /****************************************************************************/

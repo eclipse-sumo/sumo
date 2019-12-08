@@ -10,7 +10,6 @@
 /// @file    GUIBaseVehicleHelper.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2018
-/// @version $Id$
 ///
 // Functions used in GUIBaseVehicleHelper and GNEVehicle
 /****************************************************************************/

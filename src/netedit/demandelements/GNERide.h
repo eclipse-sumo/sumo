@@ -10,7 +10,6 @@
 /// @file    GNERide.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2019
-/// @version $Id$
 ///
 // A class for visualizing rides in Netedit
 /****************************************************************************/
@@ -45,8 +44,8 @@ public:
      * @param[in] edges list of consecutive edges of this ride
      * @param[in] arrivalPosition arrival position on the destination edge
      */
-    GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
-        const std::vector<GNEEdge*> &via, double arrivalPosition, const std::vector<std::string>& lines);
+    GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+            const std::vector<GNEEdge*>& via, double arrivalPosition, const std::vector<std::string>& lines);
 
     /**@brief parameter constructor for rideBusStop
      * @param[in] viewNet view in which this Ride is placed
@@ -54,8 +53,8 @@ public:
      * @param[in] edges list of consecutive edges of this ride
      * @param[in] busStop destination busStop
      */
-    GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, 
-        const std::vector<GNEEdge*> &via, const std::vector<std::string>& lines);
+    GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
+            const std::vector<GNEEdge*>& via, const std::vector<std::string>& lines);
 
     /// @brief destructor
     ~GNERide();
@@ -112,7 +111,7 @@ public:
     void updateGeometry();
 
     /// @brief partial update pre-computed geometry information
-    void updatePartialGeometry(const GNEEdge *edge);
+    void updatePartialGeometry(const GNEEdge* edge);
 
     /// @brief compute path
     void computePath();

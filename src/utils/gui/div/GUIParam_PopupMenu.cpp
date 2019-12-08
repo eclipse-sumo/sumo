@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mai 2003
-/// @version $Id$
 ///
 // A popup-menu for dynamic patameter table entries
 /****************************************************************************/

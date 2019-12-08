@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Aug 2003
-/// @version $Id$
 ///
 // The gui-version of the MSInductLoop, together with the according
 /****************************************************************************/

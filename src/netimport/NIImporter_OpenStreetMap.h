@@ -14,7 +14,6 @@
 /// @author  Walter Bamberger
 /// @author  Gregor Laemmel
 /// @date    Mon, 14.04.2008
-/// @version $Id$
 ///
 // Importer for networks stored in OpenStreetMap format
 /****************************************************************************/
@@ -127,7 +126,7 @@ protected:
 
 public:
     /// @brief translate osm transport designations into sumo vehicle class
-    static SUMOVehicleClass interpretTransportType(const std::string& type, NIOSMNode* toSet=nullptr);
+    static SUMOVehicleClass interpretTransportType(const std::string& type, NIOSMNode* toSet = nullptr);
 
 protected:
 

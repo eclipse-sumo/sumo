@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id$
 ///
 // A complete traffic light logic loaded from a sumo-net. (opted to reimplement
 // since NBLoadedTLDef is quite vissim specific)

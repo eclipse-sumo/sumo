@@ -11,7 +11,6 @@
 /// @author  Riccardo Belletti
 /// @author  Simone Bacchilega
 /// @date    2014-09-30
-/// @version $Id$
 ///
 // The class for Swarm-based low-level policy
 /****************************************************************************/

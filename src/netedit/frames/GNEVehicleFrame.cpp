@@ -10,7 +10,6 @@
 /// @file    GNEVehicleFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2018
-/// @version $Id$
 ///
 // The Widget for add Vehicles/Flows/Trips/etc. elements
 /****************************************************************************/
@@ -311,7 +310,7 @@ GNEVehicleFrame::edgePathCreated() {
         valuesMap[SUMO_ATTR_TYPE] = myVTypeSelector->getCurrentDemandElement()->getID();
         // extract via attribute
         std::vector<GNEEdge*> viaEdges;
-        for (int i = 1; i < ((int)myEdgePathCreator->getClickedEdges().size()-1); i++) {
+        for (int i = 1; i < ((int)myEdgePathCreator->getClickedEdges().size() - 1); i++) {
             viaEdges.push_back(myEdgePathCreator->getClickedEdges().at(i));
         }
         // check if we're creating a trip or flow

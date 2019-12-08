@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Oct/Nov 2003
-/// @version $Id$
 ///
 // A window displaying the phase diagram of a tl-logic
 /****************************************************************************/

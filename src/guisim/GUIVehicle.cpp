@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
@@ -229,7 +228,9 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     for (auto item : myType->getParameter().jmParameter) {
         ret->mkItem(toString(item.first).c_str(), false, toString(item.second));
     }
-    if(MSGlobals::gModelParkingManoeuver) ret->mkItem("manoeuver Angle vs Times",false, myType->getParameter().getManoeuverAngleTimesS());
+    if (MSGlobals::gModelParkingManoeuver) {
+        ret->mkItem("manoeuver Angle vs Times", false, myType->getParameter().getManoeuverAngleTimesS());
+    }
 
     // close building
     ret->closeBuilding(&(myType->getParameter()));

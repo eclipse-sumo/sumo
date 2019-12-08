@@ -10,7 +10,6 @@
 # @file    debug.py
 # @author  Jakob Erdmann
 # @date    2017
-# @version $Id$
 
 import os
 import sys

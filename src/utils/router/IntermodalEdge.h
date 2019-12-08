@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Robert Hilbrich
 /// @date    Mon, 03 March 2014
-/// @version $Id$
 ///
 // The Edge definition for the Intermodal Router
 /****************************************************************************/

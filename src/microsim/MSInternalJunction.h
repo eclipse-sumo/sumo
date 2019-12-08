@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Wed, 12 Dez 2001
-/// @version $Id$
 ///
 // junction.
 /****************************************************************************/

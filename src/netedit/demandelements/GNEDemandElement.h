@@ -10,7 +10,6 @@
 /// @file    GNEDemandElement.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2018
-/// @version $Id$
 ///
 // A abstract class for demand elements
 /****************************************************************************/
@@ -235,7 +234,7 @@ public:
     virtual void updateGeometry() = 0;
 
     /// @brief partial update pre-computed geometry information
-    virtual void updatePartialGeometry(const GNEEdge *edge) = 0;
+    virtual void updatePartialGeometry(const GNEEdge* edge) = 0;
 
     /// @brief compute path
     virtual void computePath() = 0;
@@ -400,10 +399,10 @@ protected:
     /// @}
 
     /// @brief calculate personPlan start and end positions over lanes
-    void calculatePersonPlanLaneStartEndPos(double &startPos, double &endPos) const;
+    void calculatePersonPlanLaneStartEndPos(double& startPos, double& endPos) const;
 
     /// @brief calculate personPlan start and end positions
-    void calculatePersonPlanPositionStartEndPos(Position &startPos, Position &endPos) const;
+    void calculatePersonPlanPositionStartEndPos(Position& startPos, Position& endPos) const;
 
     /// @brief get first allowed vehicle lane
     GNELane* getFirstAllowedVehicleLane() const;

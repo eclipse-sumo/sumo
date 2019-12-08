@@ -10,7 +10,6 @@
 /// @file    GNEViewParent.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id$
 ///
 // A single child window which contains a view of the edited network (adapted
 // from GUISUMOViewParent)
@@ -200,7 +199,7 @@ public:
     /// @}
 
 protected:
-	FOX_CONSTRUCTOR(GNEViewParent)
+    FOX_CONSTRUCTOR(GNEViewParent)
 
 private:
     /// @brief struct for Frames
@@ -327,10 +326,10 @@ private:
     FXHorizontalFrame* myFramesArea;
 
     /// @brief toolbar undo button
-    FXButton *myUndoButton;
+    FXButton* myUndoButton;
 
     /// @brief toolbar redo button
-    FXButton *myRedoButton;
+    FXButton* myRedoButton;
 
     /// @brief Splitter to divide ViewNet und GNEFrames
     FXSplitter* myFramesSplitter;

@@ -16,7 +16,6 @@
 /// @author  Laura Bieker
 /// @author  Melanie Knocke
 /// @date    Thu, 16.03.2006
-/// @version $Id$
 ///
 // Class representing a detector within the DFROUTER
 /****************************************************************************/

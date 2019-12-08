@@ -15,7 +15,6 @@
 /// @author  Walter Bamberger
 /// @author  Michael Behrisch
 /// @date    July 2010
-/// @version $Id$
 ///
 // Cars owned by people of the city: included in households.
 /****************************************************************************/

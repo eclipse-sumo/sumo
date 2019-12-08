@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Fri, 07 Jun 2002
-/// @version $Id$
 ///
 // A class to realise a uniform n:m - relationship using the
 /****************************************************************************/

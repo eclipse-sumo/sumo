@@ -13,7 +13,6 @@
 /// @author  Walter Bamberger
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 13 Sept 2010
-/// @version $Id$
 ///
 // Configuration of the options of ActivityGen
 /****************************************************************************/

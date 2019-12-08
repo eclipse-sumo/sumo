@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Yun-Pang Floetteroed
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A single O/D-matrix cell
 /****************************************************************************/

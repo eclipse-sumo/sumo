@@ -10,7 +10,6 @@
 /// @file    GNECalibrator.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -37,20 +36,22 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
-    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false, {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myRouteProbe(routeprobe) {
+    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false, {
+    edge
+}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myRouteProbe(routeprobe) {
 }
 
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
     GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false, {}, {lane}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myRouteProbe(routeprobe) {
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myRouteProbe(routeprobe) {
 }
 
 
@@ -112,7 +113,7 @@ GNECalibrator::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNECalibrator::splitEdgeGeometry(const double splitPosition, const GNENetElement* /*originalElement*/, const GNENetElement* newElement, GNEUndoList* undoList) {
     if (splitPosition < myPositionOverLane) {
         // change lane or edge
@@ -152,7 +153,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         // draw first symbol
         drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getPosition(), myAdditionalGeometry.getRotation());
         // continue with the other symbols
-        for (const auto & edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
+        for (const auto& edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
             drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getPosition(), edgeCalibratorGeometry.getRotation());
         }
         // draw name
@@ -199,7 +200,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNECalibrator::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
 }
@@ -278,7 +279,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNECalibrator::isAttributeEnabled(SumoXMLAttr /* key */) const {
     return true;
 }

@@ -10,7 +10,6 @@
 # @file    runner.py
 # @author  Michael Behrisch
 # @date    2011-06-15
-# @version $Id$
 
 
 from __future__ import print_function

@@ -10,7 +10,6 @@
 # @file    checkStyle.py
 # @author  Michael Behrisch
 # @date    2010-08-29
-# @version $Id$
 
 """
 Checks svn property settings for all files and pep8 for python
@@ -103,10 +102,6 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             s = lines[idx].split()
             if s[:2] != [comment, "@date"]:
                 print(self._file, "broken @date reference", s)
-            idx += 1
-            s = lines[idx].split()
-            if s[:2] != [comment, "@version"]:
-                print(self._file, "broken @version reference", s)
             idx += 1
             if lines[idx] not in (comment + "\n", "\n"):
                 print(self._file, "missing empty line", idx, lines[idx].rstrip())

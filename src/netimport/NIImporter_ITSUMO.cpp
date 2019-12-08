@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    2011-09-16
-/// @version $Id$
 ///
 // Importer for networks stored in ITSUMO format
 /****************************************************************************/

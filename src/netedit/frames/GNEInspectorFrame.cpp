@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2011
-/// @version $Id$
 ///
 // The Widget for modifying network-element attributes (i.e. lane speed)
 /****************************************************************************/
@@ -372,8 +371,8 @@ GNEInspectorFrame::updateFrameAfterUndoRedo() {
 }
 
 
-void 
-GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier *AC) {
+void
+GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
     // if AC is a lane but selectEdges checkBox is enabled, then inspect their parent edge
     if (AC->getTagProperty().getTag() == SUMO_TAG_LANE && myViewNet->getNetworkViewOptions().selectEdges()) {
         inspectSingleElement(dynamic_cast<GNELane*>(AC)->getParentEdge());
@@ -905,7 +904,7 @@ void
 GNEInspectorFrame::TemplateEditor::showTemplateEditor() {
     // show template editor only if we're editing an edge in Network mode
     if ((myInspectorFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) &&
-        (myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
+            (myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
         // show "Set As Template"
         if (myInspectorFrameParent->myAttributesEditor->getEditedACs().size() == 1) {
             mySetTemplateButton->show();
@@ -932,7 +931,7 @@ GNEInspectorFrame::TemplateEditor::getEdgeTemplate() const {
 }
 
 
-void 
+void
 GNEInspectorFrame::TemplateEditor::setTemplate() {
     // check if template editor AND mySetTemplateButton is enabled
     if (shown() && mySetTemplateButton->isEnabled()) {
@@ -1024,7 +1023,7 @@ GNEInspectorFrame::TemplateEditor::setEdgeTemplate(GNEEdge* tpl) {
 }
 
 
-void 
+void
 GNEInspectorFrame::TemplateEditor::updateButtons() {
     // enable or disable clear buttons depending of myEdgeTemplate
     if (myEdgeTemplate) {

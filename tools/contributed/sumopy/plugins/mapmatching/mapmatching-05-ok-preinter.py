@@ -11,7 +11,6 @@
 # @file    mapmatching-05-ok-preinter.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 """
 This plugin provides methods to match GPS traces to a SUMO road network and to generate routes.

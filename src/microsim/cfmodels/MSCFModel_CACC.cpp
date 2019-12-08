@@ -10,7 +10,6 @@
 /// @file    MSCFModel_CACC.cpp
 /// @author  Kallirroi Porfyri
 /// @date    Nov 2018
-/// @version $Id$
 ///
 // CACC car-following model based on [1], [2].
 // [1] Milanes, V., and S. E. Shladover. Handling Cut-In Vehicles in Strings
@@ -138,8 +137,8 @@ MSCFModel_CACC::getSecureGap(const MSVehicle* const veh, const MSVehicle* const 
     };
     const double desSpacingDefault = MSCFModel::getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel);
 #if DEBUG_CACC_SECURE_GAP == 1
-    std::cout << SIMTIME << "MSCFModel_ACC::getSecureGap speed=" << speed << " leaderSpeed=" << leaderSpeed 
-        << " desSpacing=" << desSpacing << " desSpacingDefault=" << desSpacingDefault << "\n";
+    std::cout << SIMTIME << "MSCFModel_ACC::getSecureGap speed=" << speed << " leaderSpeed=" << leaderSpeed
+              << " desSpacing=" << desSpacing << " desSpacingDefault=" << desSpacingDefault << "\n";
 #endif
     return MAX2(desSpacing, desSpacingDefault);
 }

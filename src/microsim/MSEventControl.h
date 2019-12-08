@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Matthias Heppner
 /// @date    Mon, 12 Mar 2001
-/// @version $Id$
 ///
 // Stores time-dependant events and executes them at the proper time
 /****************************************************************************/

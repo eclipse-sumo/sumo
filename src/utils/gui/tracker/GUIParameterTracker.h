@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A window which displays the time line of one (or more) value(s)
 /****************************************************************************/
@@ -166,7 +165,7 @@ public:
         GUIMainWindow* myApplication;
 
     protected:
-		FOX_CONSTRUCTOR(GUIParameterTrackerPanel)
+        FOX_CONSTRUCTOR(GUIParameterTrackerPanel)
     };
 
 public:
@@ -204,7 +203,7 @@ protected:
     FXToolBar* myToolBar;
 
 protected:
-	FOX_CONSTRUCTOR(GUIParameterTracker)
+    FOX_CONSTRUCTOR(GUIParameterTracker)
 
 };
 

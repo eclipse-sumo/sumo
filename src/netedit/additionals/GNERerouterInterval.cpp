@@ -10,7 +10,6 @@
 /// @file    GNERerouterInterval.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2017
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -33,7 +32,7 @@
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     GNEAdditional(rerouterDialog->getEditedAdditional(), rerouterDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
-        {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}) {
+{}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}) {
     // fill reroute interval with default values
     setDefaultValues();
 }
@@ -41,9 +40,9 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
     GNEAdditional(rerouterParent, rerouterParent->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
-        {}, {}, {}, {rerouterParent}, {}, {}, {}, {}, {}, {}),
-    myBegin(begin),
-    myEnd(end) {
+{}, {}, {}, {rerouterParent}, {}, {}, {}, {}, {}, {}),
+myBegin(begin),
+myEnd(end) {
 }
 
 
@@ -79,7 +78,7 @@ GNERerouterInterval::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNERerouterInterval::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
@@ -116,7 +115,7 @@ GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNERerouterInterval::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_BEGIN:
@@ -172,7 +171,7 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNERerouterInterval::isAttributeEnabled(SumoXMLAttr /* key */) const {
     return true;
 }

@@ -12,7 +12,6 @@
 # @author  Daniel Krajzewicz
 # @author  Lena Kalleske
 # @date    2008-07-21
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function

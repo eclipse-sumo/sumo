@@ -10,7 +10,6 @@
 # @file    implausibleRoutes.py
 # @author  Jakob Erdmann
 # @date    2017-03-28
-# @version $Id$
 
 """
 Find routes that are implausible due to:

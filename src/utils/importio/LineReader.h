@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Fri, 19 Jul 2002
-/// @version $Id$
 ///
 // Retrieves a file linewise and reports the lines to a handler.
 /****************************************************************************/

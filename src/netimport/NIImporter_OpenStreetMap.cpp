@@ -14,7 +14,6 @@
 /// @author  Walter Bamberger
 /// @author  Gregor Laemmel
 /// @date    Mon, 14.04.2008
-/// @version $Id$
 ///
 // Importer for networks stored in OpenStreetMap format
 /****************************************************************************/

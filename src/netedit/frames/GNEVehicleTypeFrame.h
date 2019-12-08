@@ -10,7 +10,6 @@
 /// @file    GNEVehicleTypeFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2018
-/// @version $Id$
 ///
 // The Widget for edit Vehicle Type elements
 /****************************************************************************/
@@ -73,7 +72,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(VehicleTypeSelector)
+        FOX_CONSTRUCTOR(VehicleTypeSelector)
 
     private:
         /// @brief pointer to Frame Parent
@@ -126,7 +125,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(VehicleTypeEditor)
+        FOX_CONSTRUCTOR(VehicleTypeEditor)
 
     private:
         /// @brief pointer to vehicle type Frame Parent

@@ -10,7 +10,6 @@
 /// @file    RealisticEngineModel.h
 /// @author  Michele Segata, Antonio Saverio Valente
 /// @date    4 Feb 2015
-/// @version $Id$
 ///
 // A detailed engine model
 /****************************************************************************/

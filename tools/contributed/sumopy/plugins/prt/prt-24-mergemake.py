@@ -11,7 +11,6 @@
 # @file    prt-24-mergemake.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 """
 This plugin provides methods to run and analyze PRT networks.

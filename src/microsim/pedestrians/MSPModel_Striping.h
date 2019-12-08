@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 13 Jan 2014
-/// @version $Id$
 ///
 // The pedestrian following model (prototype)
 /****************************************************************************/

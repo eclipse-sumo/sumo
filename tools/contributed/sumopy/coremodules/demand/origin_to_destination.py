@@ -11,7 +11,6 @@
 # @file    origin_to_destination.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 
 import numpy as np

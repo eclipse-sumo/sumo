@@ -12,7 +12,6 @@
 /// @author  Riccardo Belletti
 /// @author  Federico Caselli
 /// @date    2014-03-20
-/// @version $Id$
 ///
 // The class for SOTL Marching logics
 /****************************************************************************/

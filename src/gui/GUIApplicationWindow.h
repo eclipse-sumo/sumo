@@ -13,7 +13,6 @@
 /// @author  Christian Roessel
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The main window of the SUMO-gui.
 /****************************************************************************/
@@ -348,7 +347,7 @@ protected:
     /// @brief the submenus
     FXMenuPane* myFileMenu = nullptr, *myEditMenu = nullptr, *mySelectByPermissions = nullptr, *mySettingsMenu = nullptr,
                 *myLocatorMenu, *myControlMenu = nullptr,
-                *myWindowsMenu, *myHelpMenu = nullptr;
+                                 *myWindowsMenu, *myHelpMenu = nullptr;
 
     /// @brief the menu cascades
     FXMenuCascade* mySelectLanesMenuCascade = nullptr;
@@ -365,7 +364,7 @@ protected:
     /// @brief for some menu detaching fun
     FXToolBarShell* myToolBarDrag1 = nullptr, *myToolBarDrag2 = nullptr, *myToolBarDrag3 = nullptr,
                     *myToolBarDrag4 = nullptr, *myToolBarDrag5 = nullptr, *myMenuBarDrag = nullptr,
-                    *myToolBarDrag8 = nullptr;
+                     *myToolBarDrag8 = nullptr;
 
     /// @brief the simulation delay in milliseconds
     double mySimDelay = 0.;

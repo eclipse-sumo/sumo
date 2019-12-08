@@ -10,7 +10,6 @@
 /// @file    MSCFModel_Rail.h
 /// @author  Gregor L\"ammel
 /// @date    Tue, 08 Feb 2017
-/// @version $Id$
 ///
 // <description missing>
 /****************************************************************************/

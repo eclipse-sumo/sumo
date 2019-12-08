@@ -10,7 +10,6 @@
 /// @file    VehicleEngineHandler.h
 /// @author  Michele Segata
 /// @date    4 Feb 2015
-/// @version $Id$
 ///
 /****************************************************************************/
 

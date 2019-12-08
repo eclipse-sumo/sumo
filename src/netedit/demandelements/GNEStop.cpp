@@ -10,7 +10,6 @@
 /// @file    GNEStop.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
-/// @version $Id$
 ///
 // Representation of Stops in NETEDIT
 /****************************************************************************/
@@ -44,8 +43,8 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP, tag,
-    {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
@@ -53,8 +52,8 @@ GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopPara
     GNEDemandElement(stopParent, viewNet,
                      stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP,
                      stopParent->getTagProperty().isPerson() ? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
-    {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
@@ -283,11 +282,11 @@ GNEStop::updateGeometry() {
         getParentDemandElements().front()->updateGeometry();
     } else if (getParentDemandElements().front()->getTagProperty().isPerson()) {
         // compute previous and next person plan
-        GNEDemandElement *previousDemandElement = getParentDemandElements().front()->getPreviousChildDemandElement(this);
+        GNEDemandElement* previousDemandElement = getParentDemandElements().front()->getPreviousChildDemandElement(this);
         if (previousDemandElement) {
             previousDemandElement->updateGeometry();
         }
-        GNEDemandElement *nextDemandElement = getParentDemandElements().front()->getNextChildDemandElement(this);
+        GNEDemandElement* nextDemandElement = getParentDemandElements().front()->getNextChildDemandElement(this);
         if (nextDemandElement) {
             nextDemandElement->updateGeometry();
         }
@@ -295,7 +294,7 @@ GNEStop::updateGeometry() {
 }
 
 
-void 
+void
 GNEStop::updatePartialGeometry(const GNEEdge* edge) {
     //only update Stops over lanes, because other uses the geometry of stopping place parent
     if (getParentLanes().size() > 0) {
@@ -310,11 +309,11 @@ GNEStop::updatePartialGeometry(const GNEEdge* edge) {
         getParentDemandElements().front()->updatePartialGeometry(edge);
     } else if (getParentDemandElements().front()->getTagProperty().isPerson()) {
         // compute previous and next person plan
-        GNEDemandElement *previousDemandElement = getParentDemandElements().front()->getPreviousChildDemandElement(this);
+        GNEDemandElement* previousDemandElement = getParentDemandElements().front()->getPreviousChildDemandElement(this);
         if (previousDemandElement) {
             previousDemandElement->updatePartialGeometry(edge);
         }
-        GNEDemandElement *nextDemandElement = getParentDemandElements().front()->getNextChildDemandElement(this);
+        GNEDemandElement* nextDemandElement = getParentDemandElements().front()->getNextChildDemandElement(this);
         if (nextDemandElement) {
             nextDemandElement->updatePartialGeometry(edge);
         }
@@ -322,13 +321,13 @@ GNEStop::updatePartialGeometry(const GNEEdge* edge) {
 }
 
 
-void 
+void
 GNEStop::computePath() {
     // nothing to compute
 }
 
 
-void 
+void
 GNEStop::invalidatePath() {
     // nothing to invalidate
 }
@@ -389,7 +388,7 @@ GNEStop::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNEStop::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
@@ -613,13 +612,13 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_STARTPOS:
-            if (parametersSet & STOP_START_SET) {    
+            if (parametersSet & STOP_START_SET) {
                 return toString(startPos);
             } else {
                 return "";
             }
         case SUMO_ATTR_ENDPOS:
-            if (parametersSet & STOP_END_SET) {    
+            if (parametersSet & STOP_END_SET) {
                 return toString(endPos);
             } else {
                 return "";
@@ -729,7 +728,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else {
                 std::vector<std::string> IDs = parse<std::vector<std::string>>(value);
-                for (const auto &i : IDs) {
+                for (const auto& i : IDs) {
                     if (SUMOXMLDefinitions::isValidVehicleID(i) == false) {
                         return false;
                     }

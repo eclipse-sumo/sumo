@@ -11,7 +11,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2008-03-29
-# @version $Id$
 
 import os
 import subprocess

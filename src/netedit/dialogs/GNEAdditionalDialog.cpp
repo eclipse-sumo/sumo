@@ -10,7 +10,6 @@
 /// @file    GNEAdditionalDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    April 2016
-/// @version $Id$
 ///
 // A abstract class for editing additional elements
 /****************************************************************************/

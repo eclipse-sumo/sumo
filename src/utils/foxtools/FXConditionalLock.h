@@ -10,7 +10,6 @@
 /// @file    FXConditionalLock.h
 /// @author  Michael Behrisch
 /// @date    2018-11-14
-/// @version $Id$
 ///
 // A scoped lock which only triggers on condition
 /****************************************************************************/

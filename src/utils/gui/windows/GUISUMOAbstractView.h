@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Andreas Gaubatz
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The base class for a view
 /****************************************************************************/
@@ -430,7 +429,7 @@ protected:
     void showToolTipFor(const GUIGlID id);
 
 protected:
-	FOX_CONSTRUCTOR(GUISUMOAbstractView)
+    FOX_CONSTRUCTOR(GUISUMOAbstractView)
 
     /// @brief check whether we can read image data or position with gdal
     FXImage* checkGDALImage(Decal& d);

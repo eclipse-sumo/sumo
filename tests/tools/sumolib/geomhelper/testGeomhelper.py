@@ -11,7 +11,6 @@
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2013-02-25
-# @version $Id$
 
 import os
 import sys

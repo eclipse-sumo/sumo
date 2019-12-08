@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2012-04-26
-/// @version $Id$
 ///
 // Realises dumping Emission Data
 /****************************************************************************/
@@ -49,7 +48,7 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
             std::string fclass = veh->getVehicleType().getID();
             fclass = fclass.substr(0, fclass.find_first_of("@"));
             PollutantsInterface::Emissions emiss = PollutantsInterface::computeAll(
-                    veh->getVehicleType().getEmissionClass(), 
+                    veh->getVehicleType().getEmissionClass(),
                     veh->getSpeed(), veh->getAcceleration(), veh->getSlope(),
                     veh->getEmissionParameters());
             of.openTag("vehicle").writeAttr("id", veh->getID()).writeAttr("eclass", PollutantsInterface::getName(veh->getVehicleType().getEmissionClass()));

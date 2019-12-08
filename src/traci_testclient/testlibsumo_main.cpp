@@ -10,7 +10,6 @@
 /// @file    testlibsumo_main.cpp
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
 ///
 // Testing libsumo for C++
 /****************************************************************************/

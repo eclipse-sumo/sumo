@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 03 March 2014
-/// @version $Id$
 ///
 // The RouterProvider provides car, pedestrian and intermodal routing in one object
 /****************************************************************************/

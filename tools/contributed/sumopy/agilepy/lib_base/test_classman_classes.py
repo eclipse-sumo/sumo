@@ -11,7 +11,6 @@
 # @file    test_classman_classes.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 """
 Test for callsman

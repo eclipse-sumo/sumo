@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Fri, 29.04.2005
-/// @version $Id$
 ///
 // Class passing values from a GUIGlObject to another object
 /****************************************************************************/

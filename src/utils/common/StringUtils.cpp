@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Robert Hilbrich
 /// @date    unknown
-/// @version $Id$
 ///
 // Some static methods for string processing
 /****************************************************************************/
@@ -120,14 +119,13 @@ StringUtils::replace(std::string str, const char* what,
 }
 
 
-std::string StringUtils::substituteEnvironment(std::string str)
-{
+std::string StringUtils::substituteEnvironment(std::string str) {
     // Expression for an environment variables, e.g. ${NAME}
     // Note: - R"(...)" is a raw string literal syntax to simplify a regex declaration
     //       - .+? looks for the shortest match (non-greedy)
-    //       - (.+?) defines a "subgroup" which is already stripped of the $ and {, }  
+    //       - (.+?) defines a "subgroup" which is already stripped of the $ and {, }
     std::regex envVarExpr(R"(\$\{(.+?)\})");
-    
+
     // Are there any variables in this string?
     std::smatch match;
     std::string strIter = str;

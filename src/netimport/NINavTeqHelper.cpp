@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Jul 2006
-/// @version $Id$
 ///
 // Some parser methods shared around several formats containing NavTeq-Nets
 /****************************************************************************/

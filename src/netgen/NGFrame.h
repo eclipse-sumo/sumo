@@ -10,7 +10,6 @@
 /// @file    NGFrame.h
 /// @author  Daniel Krajzewicz
 /// @date    06.05.2011
-/// @version $Id$
 ///
 // Sets and checks options for netgen
 /****************************************************************************/

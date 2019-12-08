@@ -10,7 +10,6 @@
 # @file    cutTrips.py
 # @author  Jakob Erdmann
 # @date    2017-04-11
-# @version $Id$
 
 """
 Cut down trips from a large scenario to a sub-scenario.

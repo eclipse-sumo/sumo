@@ -10,7 +10,6 @@
 # @file    vehicle2flow.py
 # @author  Michael Behrisch
 # @date    2012-11-15
-# @version $Id$
 
 """
 This script replaces all vehicle definitions in a route file by

@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2007-10-25
-# @version $Id$
 
 """
 This script reads two network dumps,

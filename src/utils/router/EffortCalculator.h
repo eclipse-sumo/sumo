@@ -10,7 +10,6 @@
 /// @file    EffortCalculator.h
 /// @author  Michael Behrisch
 /// @date    2018-08-21
-/// @version $Id$
 ///
 // The EffortCalculator is an interface for additional edge effort calculators
 /****************************************************************************/

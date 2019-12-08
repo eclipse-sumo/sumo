@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2019
-/// @version $Id$
 ///
 // A file used to reduce the size of GNEViewNet.h grouping structs and classes
 /****************************************************************************/
@@ -1267,7 +1266,7 @@ GNEViewNetHelper::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
 }
 
 
-bool 
+bool
 GNEViewNetHelper::TestingMode::isTestingEnabled() const {
     return myTestingEnabled;
 }

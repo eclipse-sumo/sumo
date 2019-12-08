@@ -10,7 +10,6 @@
 # @author  Evamarie Wiessner
 # @author  Michael Behrisch
 # @date    2017-08-15
-# @version $Id$
 
 from __future__ import print_function
 from __future__ import absolute_import

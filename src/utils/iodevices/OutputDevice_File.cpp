@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2004
-/// @version $Id$
 ///
 // An output device that encapsulates an ofstream
 /****************************************************************************/

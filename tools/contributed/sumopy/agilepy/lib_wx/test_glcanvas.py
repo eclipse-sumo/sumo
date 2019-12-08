@@ -11,7 +11,6 @@
 # @file    test_glcanvas.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 '''
 @author: Stou Sandalski (stou@icapsid.net)

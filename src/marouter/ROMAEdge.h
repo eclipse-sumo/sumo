@@ -14,7 +14,6 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A basic edge for routing applications
 /****************************************************************************/

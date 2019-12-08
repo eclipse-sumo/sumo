@@ -11,7 +11,6 @@
 # @file    netgenerate.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import subprocess
 import os

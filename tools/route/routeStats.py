@@ -10,7 +10,6 @@
 # @file    routeStats.py
 # @author  Jakob Erdmann
 # @date    2014-12-18
-# @version $Id$
 
 """
 compute statistics on route lengths for a single route or

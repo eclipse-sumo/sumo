@@ -10,7 +10,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2008-09-01
-# @version $Id$
 
 """
 

@@ -9,7 +9,6 @@
 # @file    __init__.py
 # @author  Daniel Krajzewicz
 # @date    2014-07-01
-# @version $Id$
 
 
 from __future__ import absolute_import

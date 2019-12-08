@@ -10,7 +10,6 @@
 /// @file    GNEChange_Additional.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 // A network change in which a additional element is created or deleted
 /****************************************************************************/

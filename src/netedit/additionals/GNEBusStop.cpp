@@ -10,7 +10,6 @@
 /// @file    GNEBusStop.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 // A lane area vehicles can halt at (GNE version)
 /****************************************************************************/
@@ -39,8 +38,8 @@
 // method definitions
 // ===========================================================================
 
-GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const double startPos, const double endPos, const int parametersSet, 
-    const std::string& name, const std::vector<std::string>& lines, int personCapacity, bool friendlyPosition, bool blockMovement) :
+GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const double startPos, const double endPos, const int parametersSet,
+                       const std::string& name, const std::vector<std::string>& lines, int personCapacity, bool friendlyPosition, bool blockMovement) :
     GNEStoppingPlace(id, viewNet, GLO_BUS_STOP, SUMO_TAG_BUS_STOP, lane, startPos, endPos, parametersSet, name, friendlyPosition, blockMovement),
     myLines(lines),
     myPersonCapacity(personCapacity) {
@@ -72,20 +71,20 @@ GNEBusStop::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for sign
     myBlockIcon.setRotation(getParentLanes().front());
-    
+
     // obtain parent edge
-    const GNEEdge *edge = getParentLanes().front()->getParentEdge();
+    const GNEEdge* edge = getParentLanes().front()->getParentEdge();
 
     // update child demand elements geometry
     for (const auto& i : getChildDemandElements()) {
         // special case for person trips
         if (i->getTagProperty().isPersonTrip()) {
             // update previous and next person plan
-            GNEDemandElement *previousDemandElement = i->getParentDemandElements().front()->getPreviousChildDemandElement(i);
+            GNEDemandElement* previousDemandElement = i->getParentDemandElements().front()->getPreviousChildDemandElement(i);
             if (previousDemandElement) {
                 previousDemandElement->updatePartialGeometry(edge);
             }
-            GNEDemandElement *nextDemandElement = i->getParentDemandElements().front()->getNextChildDemandElement(i);
+            GNEDemandElement* nextDemandElement = i->getParentDemandElements().front()->getNextChildDemandElement(i);
             if (nextDemandElement) {
                 nextDemandElement->updatePartialGeometry(edge);
             }
@@ -143,8 +142,8 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
             // draw lines between BusStops and Acces
             for (auto i : getChildAdditionals()) {
-                GLHelper::drawBoxLine(i->getAdditionalGeometry().getPosition(), 
-                    RAD2DEG(mySignPos.angleTo2D(i->getAdditionalGeometry().getPosition())) - 90, mySignPos.distanceTo2D(i->getAdditionalGeometry().getPosition()), .05);
+                GLHelper::drawBoxLine(i->getAdditionalGeometry().getPosition(),
+                                      RAD2DEG(mySignPos.angleTo2D(i->getAdditionalGeometry().getPosition())) - 90, mySignPos.distanceTo2D(i->getAdditionalGeometry().getPosition()), .05);
             }
             // Add a draw matrix for details
             glPushMatrix();

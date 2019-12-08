@@ -10,7 +10,6 @@
 /// @file    GNERoute.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
-/// @version $Id$
 ///
 // A class for visualizing routes in Netedit
 /****************************************************************************/
@@ -79,37 +78,37 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 
 GNERoute::GNERoute(GNEViewNet* viewNet) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
-                     {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myColor(RGBColor::YELLOW),
-    myVClass(SVC_PASSENGER) {
+{}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+Parameterised(),
+myColor(RGBColor::YELLOW),
+myVClass(SVC_PASSENGER) {
 }
 
 
 GNERoute::GNERoute(GNEViewNet* viewNet, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(routeParameters.routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
                      routeParameters.edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(routeParameters.parameters),
-    myColor(routeParameters.color),
-    myVClass(routeParameters.vClass) {
+Parameterised(routeParameters.parameters),
+myColor(routeParameters.color),
+myVClass(routeParameters.vClass) {
 }
 
 
 GNERoute::GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_EMBEDDEDROUTE), viewNet, GLO_EMBEDDEDROUTE, SUMO_TAG_EMBEDDEDROUTE,
                      routeParameters.edges, {}, {}, {}, {vehicleParent}, {}, {}, {}, {}, {}),
-    Parameterised(routeParameters.parameters),
-    myColor(routeParameters.color),
-    myVClass(routeParameters.vClass) {
+Parameterised(routeParameters.parameters),
+myColor(routeParameters.color),
+myVClass(routeParameters.vClass) {
 }
 
 
 GNERoute::GNERoute(GNEDemandElement* route) :
     GNEDemandElement(route->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), route->getViewNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
                      route->getParentEdges(), {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myColor(route->getColor()),
-    myVClass(route->getVClass()) {
+Parameterised(),
+myColor(route->getColor()),
+myVClass(route->getVClass()) {
 }
 
 
@@ -258,8 +257,8 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 void
 GNERoute::updateGeometry() {
     // calculate geometry path
-    GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), 
-        getVClass(), getFirstAllowedVehicleLane(), getLastAllowedVehicleLane());
+    GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(),
+                                            getVClass(), getFirstAllowedVehicleLane(), getLastAllowedVehicleLane());
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
@@ -269,10 +268,10 @@ GNERoute::updateGeometry() {
 }
 
 
-void 
+void
 GNERoute::updatePartialGeometry(const GNEEdge* edge) {
     // calculate geometry path
-    GNEGeometry::updateGeometricPath( myDemandElementSegmentGeometry, edge);
+    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
@@ -282,13 +281,13 @@ GNERoute::updatePartialGeometry(const GNEEdge* edge) {
 }
 
 
-void 
+void
 GNERoute::computePath() {
     // nothing to compute
 }
 
 
-void 
+void
 GNERoute::invalidatePath() {
     // nothing to invalidate
 }
@@ -322,11 +321,11 @@ GNERoute::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNERoute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
     // check that both net elementes are edges
-    if ((originalElement->getTagProperty().getTag() == SUMO_TAG_EDGE) && 
-        (originalElement->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
+    if ((originalElement->getTagProperty().getTag() == SUMO_TAG_EDGE) &&
+            (originalElement->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
         // obtain new list of route edges
         std::string newRouteEdges = getNewListOfParents(originalElement, newElement);
         // update route edges

@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Melanie Knocke
 /// @date    2005-09-15
-/// @version $Id$
 ///
 // A point-of-interest (2D)
 /****************************************************************************/

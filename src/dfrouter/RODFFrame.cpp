@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Melanie Knocke
 /// @date    Thu, 16.03.2006
-/// @version $Id$
 ///
 // Sets and checks options for df-routing
 /****************************************************************************/

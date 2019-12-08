@@ -10,7 +10,6 @@
 # @file    typemap.py
 # @author  Michael Behrisch
 # @date    2015-07-06
-# @version $Id$
 
 """
 This script rebuilds "src/netimport/typemap.h" and "src/polyconvert/pc_typemap.h", the files

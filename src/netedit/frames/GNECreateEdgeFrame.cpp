@@ -10,7 +10,6 @@
 /// @file    GNECreateEdgeFrame.cpp
 /// @author  Mirko Barthauer (Technische Universitaet Braunschweig)
 /// @date    May 2018
-/// @version $Id$
 ///
 // The Widget for editing connection prohibits
 /****************************************************************************/
@@ -64,8 +63,8 @@ GNECreateEdgeFrame::~GNECreateEdgeFrame() {}
 
 
 void
-GNECreateEdgeFrame::processClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, 
-        GNEViewNetHelper::ObjectsUnderCursor& objectsUnderGrippedCursor, const bool oppositeEdge, const bool chainEdge) {
+GNECreateEdgeFrame::processClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor,
+                                 GNEViewNetHelper::ObjectsUnderCursor& objectsUnderGrippedCursor, const bool oppositeEdge, const bool chainEdge) {
     // obtain junction depending of gridEnabled
     GNEJunction* junction = nullptr;
     if (objectsUnderCursor.getJunctionFront()) {
@@ -90,14 +89,14 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, GNEViewNetHelp
         // make sure that junctions source and destiny are different
         if (myCreateEdgeSource != junction) {
             // may fail to prevent double edges
-            GNEEdge* newEdge = myViewNet->getNet()->createEdge(myCreateEdgeSource, junction, 
-                myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
+            GNEEdge* newEdge = myViewNet->getNet()->createEdge(myCreateEdgeSource, junction,
+                               myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
             // check if edge was sucesfully created
             if (newEdge) {
                 // create another edge, if create opposite edge is enabled
                 if (oppositeEdge) {
-                    myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), 
-                        myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
+                    myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(),
+                                                    myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
                 }
                 // edge created, then unmark as create edge source
                 myCreateEdgeSource->unMarkAsCreateEdgeSource();

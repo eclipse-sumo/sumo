@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Jan 2004
-/// @version $Id$
 ///
 // Loader for the of turning percentages and source/sink definitions
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    GUIManipulator.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Jun 2004
-/// @version $Id$
 ///
 // Abstract GUI manipulation class
 /****************************************************************************/

@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mon, 12 Mar 2001
-/// @version $Id$
 ///
 // Inserts vehicles into the network when their departure time is reached
 /****************************************************************************/

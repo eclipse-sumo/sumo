@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Tue, 04 Dec 2007
-/// @version $Id$
 ///
 // Abstract in-vehicle device
 /****************************************************************************/

@@ -12,7 +12,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2010-01-30
-# @version $Id$
 
 """
 This script runs the gaming GUI for the LNdW traffic light game.

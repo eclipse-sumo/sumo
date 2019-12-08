@@ -10,7 +10,6 @@
 # @file    transportationTestProblems.py
 # @author  Michael Behrisch
 # @date    2015-02-24
-# @version $Id$
 
 
 from __future__ import print_function

@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A vector of links
 /****************************************************************************/

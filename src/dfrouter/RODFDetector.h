@@ -12,7 +12,6 @@
 /// @author  Eric Nicolay
 /// @author  Michael Behrisch
 /// @date    Thu, 16.03.2006
-/// @version $Id$
 ///
 // Class representing a detector within the DFROUTER
 /****************************************************************************/

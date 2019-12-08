@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2012
-/// @version $Id$
 ///
 // Abstract base class for output formatters
 /****************************************************************************/

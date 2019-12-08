@@ -10,7 +10,6 @@
 # @file    plot_trajectories.py
 # @author  Jakob Erdmann
 # @date    2018-08-18
-# @version $Id$
 
 """
 This script plots fcd data for each vehicle using either

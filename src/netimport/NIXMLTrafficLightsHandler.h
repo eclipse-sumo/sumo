@@ -10,7 +10,6 @@
 /// @file    NIXMLTrafficLightsHandler.h
 /// @author  Jakob Erdmann
 /// @date    2011-10-05
-/// @version $Id$
 ///
 // Importer for traffic lights stored in XML
 /****************************************************************************/

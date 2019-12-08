@@ -11,7 +11,6 @@
 /// @author  Gregor Laemmel
 /// @author  Nikita Cherednychek
 /// @date    Tue, 20 Mar 2017
-/// @version $Id$
 ///
 // The representation of one direction of a single pt line
 /****************************************************************************/
@@ -26,7 +25,7 @@
 #include "NBPTStop.h"
 
 NBPTLine::NBPTLine(const std::string& id, const std::string& name, const std::string& type, const std::string& ref, int interval, const std::string& nightService,
-        SUMOVehicleClass vClass) :
+                   SUMOVehicleClass vClass) :
     myName(name),
     myType(type),
     myPTLineId(id),
@@ -107,12 +106,12 @@ std::vector<long long int>* NBPTLine::getWaysNodes(std::string wayId) {
     return nullptr;
 }
 
-void 
+void
 NBPTLine::setEdges(const std::vector<NBEdge*>& edges) {
     myRoute = edges;
     // ensure permissions
-    for (NBEdge* e: edges) {
-        SVCPermissions permissions = e->getPermissions(); 
+    for (NBEdge* e : edges) {
+        SVCPermissions permissions = e->getPermissions();
         if ((permissions & myVClass) != myVClass) {
             SVCPermissions nVuln = ~(SVC_PEDESTRIAN | SVC_BICYCLE);
             if (permissions != 0 && (permissions & nVuln) == 0) {
@@ -138,7 +137,7 @@ const std::vector<NBEdge*>& NBPTLine::getRoute() const {
     return myRoute;
 }
 
-std::vector<NBEdge*> 
+std::vector<NBEdge*>
 NBPTLine::getStopEdges(const NBEdgeCont& ec) const {
     std::vector<NBEdge*> result;
     for (NBPTStop* stop : myPTStops) {
@@ -150,7 +149,7 @@ NBPTLine::getStopEdges(const NBEdgeCont& ec) const {
     return result;
 }
 
-NBEdge* 
+NBEdge*
 NBPTLine::getRouteStart(const NBEdgeCont& ec) const {
     std::vector<NBEdge*> validEdges;
     // filter out edges that have been removed due to joining junctions
@@ -179,7 +178,7 @@ NBPTLine::getRouteStart(const NBEdgeCont& ec) const {
     return validEdges.front();
 }
 
-NBEdge* 
+NBEdge*
 NBPTLine::getRouteEnd(const NBEdgeCont& ec) const {
     std::vector<NBEdge*> validEdges;
     // filter out edges that have been removed due to joining junctions

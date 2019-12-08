@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    2004-01-12
-/// @version $Id$
 ///
 // This class computes shapes of junctions
 /****************************************************************************/

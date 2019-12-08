@@ -12,7 +12,6 @@
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2016-06-09
-# @version $Id$  # noqa
 
 """
 Creates a vehicle type distribution with a number of representative car-following parameter sets.

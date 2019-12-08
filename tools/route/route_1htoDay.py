@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    11.09.2009
-# @version $Id$
 
 """
 Uses "route_departOffset.py" for building 24 route files which describe

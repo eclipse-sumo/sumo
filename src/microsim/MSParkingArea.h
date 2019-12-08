@@ -10,7 +10,6 @@
 /// @file    MSParkingArea.h
 /// @author  Mirco Sturari
 /// @date    Tue, 19.01.2016
-/// @version $Id$
 ///
 // A area where vehicles can park next to the road
 /****************************************************************************/
@@ -188,11 +187,11 @@ public:
      */
     double getVehicleAngle(const SUMOVehicle& forVehicle) const;
 
-/** @brief Return the angle of myLastFreeLot - the next parking lot
- *         only expected to be called after we have established there is space in the parking area
- *
- * @return The angle of the lot in degrees
- */
+    /** @brief Return the angle of myLastFreeLot - the next parking lot
+     *         only expected to be called after we have established there is space in the parking area
+     *
+     * @return The angle of the lot in degrees
+     */
     int getLastFreeLotAngle() const;
 
     /** @brief Add a lot entry to parking area

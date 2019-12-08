@@ -10,7 +10,6 @@
 /// @file    GNEFrameModuls.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
-/// @version $Id$
 ///
 // Auxiliar class for GNEFrame Moduls
 /****************************************************************************/
@@ -81,7 +80,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(TagSelector)
+        FOX_CONSTRUCTOR(TagSelector)
 
     private:
         /// @brief pointer to Frame Parent
@@ -152,7 +151,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(DemandElementSelector)
+        FOX_CONSTRUCTOR(DemandElementSelector)
 
     private:
         /// @brief pointer to frame Parent
@@ -247,7 +246,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(EdgePathCreator)
+        FOX_CONSTRUCTOR(EdgePathCreator)
 
     private:
         /// @brief pointer to GNEFrame Parent
@@ -327,7 +326,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(AttributeCarrierHierarchy)
+        FOX_CONSTRUCTOR(AttributeCarrierHierarchy)
 
         // @brief create pop-up menu in the positions X-Y for the clicked attribute carrier
         void createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC);
@@ -448,7 +447,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(DrawingShape)
+        FOX_CONSTRUCTOR(DrawingShape)
 
     private:
         /// @brief pointer to frame parent

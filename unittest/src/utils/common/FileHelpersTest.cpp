@@ -11,7 +11,6 @@
 /// @author  Matthias Heppner
 /// @author  Michael Behrisch
 /// @date    2009
-/// @version $Id$
 ///
 // Tests FileHelpers class from <SUMO>/src/utils/common
 /****************************************************************************/

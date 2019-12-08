@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    03.04.2010
-/// @version $Id$
 ///
 // car-following model by B. Kerner
 /****************************************************************************/

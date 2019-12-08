@@ -10,7 +10,6 @@
 # @file    generateBidiDistricts.py
 # @author  Jakob Erdmann
 # @date    2015-07-31
-# @version $Id$
 
 """
 Generate a taz (district) file which groups edges in opposite directions

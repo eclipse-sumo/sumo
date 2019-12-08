@@ -15,7 +15,6 @@
 /// @author  Robert Hilbrich
 /// @author  Leonhard Luecken
 /// @date    30.05.2012
-/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

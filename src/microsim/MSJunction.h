@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Wed, 12 Dez 2001
-/// @version $Id$
 ///
 // The base class for an intersection
 /****************************************************************************/

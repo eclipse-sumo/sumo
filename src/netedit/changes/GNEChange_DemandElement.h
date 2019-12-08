@@ -10,7 +10,6 @@
 /// @file    GNEChange_DemandElement.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
-/// @version $Id$
 ///
 // A network change in which a demand element element is created or deleted
 /****************************************************************************/

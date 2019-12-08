@@ -15,7 +15,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    July 2010
-/// @version $Id$
 ///
 // References a street of the city and defines a position in this street
 /****************************************************************************/

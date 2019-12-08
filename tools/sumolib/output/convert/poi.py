@@ -10,7 +10,6 @@
 # @author  Jakob Erdmann
 # @author  Laura Bieker
 # @date    2014-02-13
-# @version $Id$
 
 """
 This module includes functions for converting SUMO's fcd-output into

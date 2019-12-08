@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Felix Brack
 /// @date    2006
-/// @version $Id$
 ///
 // An output device for TCP/IP Network connections
 /****************************************************************************/

@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2004-03-19
-/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/
@@ -41,12 +40,12 @@
 template<class T, class Container = std::list<T> >
 class FXSynchQue {
 public:
-    FXSynchQue(const bool condition = true): 
+    FXSynchQue(const bool condition = true):
 #ifdef HAVE_FOX
         myMutex(true),
 #endif
-        myCondition(condition) 
-        {}
+        myCondition(condition)
+    {}
 
     T top() {
         assert(myItems.size() != 0);

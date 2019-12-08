@@ -11,7 +11,6 @@
 # @file    results_mpl-02-iddesaster.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import os
 import numpy as np

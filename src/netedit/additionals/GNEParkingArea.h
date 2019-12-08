@@ -10,7 +10,6 @@
 /// @file    GNEParkingArea.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2018
-/// @version $Id$
 ///
 // A class for visualizing ParkingArea geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
@@ -49,8 +48,8 @@ public:
      * @param[in] angle ParkingArea's angle
      * @param[in] block movement enable or disable additional movement
      */
-    GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const double startPos, const double endPos, const int parametersSet, 
-                   const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const std::string& length, 
+    GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const double startPos, const double endPos, const int parametersSet,
+                   const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const std::string& length,
                    double angle, bool blockMovement);
 
     /// @brief Destructor

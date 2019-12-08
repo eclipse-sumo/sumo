@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Yun-Pang Floetteroed
 /// @date    Wed, 21 Jan 2004
-/// @version $Id$
 ///
 // Interface for building instances of router-edges
 /****************************************************************************/

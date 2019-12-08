@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    15 Feb 2004
-/// @version $Id$
 ///
 // Writes e2 state of a link for the time the link has yellow/red
 /****************************************************************************/

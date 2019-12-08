@@ -10,7 +10,6 @@
 /// @file    CC_VehicleVariables.cpp
 /// @author  Michele Segata
 /// @date    Mon, 7 Mar 2016
-/// @version $Id$
 ///
 /****************************************************************************/
 #include "CC_VehicleVariables.h"

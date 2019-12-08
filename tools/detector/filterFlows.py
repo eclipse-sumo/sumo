@@ -10,7 +10,6 @@
 # @file    filterFlows.py
 # @author  Jakob Erdmann
 # @date    2017-09-06
-# @version $Id$
 
 from __future__ import print_function
 from __future__ import absolute_import

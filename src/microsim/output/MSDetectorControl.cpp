@@ -15,7 +15,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    2005-09-15
-/// @version $Id$
 ///
 // Detectors container; responsible for string and output generation
 /****************************************************************************/

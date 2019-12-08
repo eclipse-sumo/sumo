@@ -10,7 +10,6 @@
 /// @file    GUIVideoEncoder.h
 /// @author  Michael Behrisch
 /// @date    Dec 2015
-/// @version $Id$
 ///
 // A simple video encoder from RGBA pics to anything ffmpeg can handle.
 // Tested with h264 only.

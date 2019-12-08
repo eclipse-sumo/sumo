@@ -10,7 +10,6 @@
 /// @file    GNEVehicleTypeFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2018
-/// @version $Id$
 ///
 // The Widget for edit Vehicle Type elements
 /****************************************************************************/

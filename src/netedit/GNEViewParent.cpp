@@ -10,7 +10,6 @@
 /// @file    GNEViewParent.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id$
 ///
 // A single child window which contains a view of the edited network (adapted
 // from GUISUMOViewParent)
@@ -349,7 +348,7 @@ GNEViewParent::eraseACChooserDialog(GNEDialogACChooser* chooserDialog) {
 }
 
 
-void 
+void
 GNEViewParent::updateUndoRedoButtons() {
     myGNEAppWindows->getUndoList()->p_onUpdUndo(myUndoButton, 0, nullptr);
     myGNEAppWindows->getUndoList()->p_onUpdRedo(myRedoButton, 0, nullptr);

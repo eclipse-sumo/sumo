@@ -11,7 +11,6 @@
 # @file    simulationbase.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 
 import numpy as np

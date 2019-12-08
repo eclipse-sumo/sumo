@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Tue, 17 Jun 2003
-/// @version $Id$
 ///
 // Retrieves messages about the process and gives them further to output
 /****************************************************************************/

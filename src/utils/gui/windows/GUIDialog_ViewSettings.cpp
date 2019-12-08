@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Wed, 21. Dec 2005
-/// @version $Id$
 ///
 // The dialog to change the view (gui) settings.
 /****************************************************************************/

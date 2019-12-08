@@ -11,7 +11,6 @@
 /// @author  Gregor L\"ammel
 /// @author  Leander Flamm
 /// @date    Tue, 08 Feb 2017
-/// @version $Id$
 ///
 // <description missing>
 /****************************************************************************/

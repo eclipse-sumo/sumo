@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A list of object types which may be displayed within the gui
 // each type has an associated string which will be prefefixed to an object id

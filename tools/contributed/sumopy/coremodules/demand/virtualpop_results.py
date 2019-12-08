@@ -11,7 +11,6 @@
 # @file    virtualpop_results.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import os
 import sys

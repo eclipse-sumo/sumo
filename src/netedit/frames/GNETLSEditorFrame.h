@@ -10,7 +10,6 @@
 /// @file    GNETLSEditorFrame.h
 /// @author  Jakob Erdmann
 /// @date    May 2011
-/// @version $Id$
 ///
 // The Widget for modifying traffic lights
 /****************************************************************************/
@@ -281,7 +280,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(TLSFile)
+        FOX_CONSTRUCTOR(TLSFile)
 
     private:
         /// @brief pointer to TLSEditor Parent
@@ -314,7 +313,7 @@ public:
      * @param[in] clickedPosition clicked position
      * @param[in] objectsUnderCursor The clicked objects under cursor
      */
-    void editTLS(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor &objectsUnderCursor);
+    void editTLS(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief check if modifications in TLS was saved
     bool isTLSSaved();
@@ -409,10 +408,10 @@ public:
     bool fixedDuration() const;
 
     /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
-    void selectedOverlappedElement(GNEAttributeCarrier *AC);
+    void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
 protected:
-	FOX_CONSTRUCTOR(GNETLSEditorFrame)
+    FOX_CONSTRUCTOR(GNETLSEditorFrame)
 
     /**@brief edits the traffic light for the given junction
      * @param[in] junction The junction of which the traffic light shall be edited

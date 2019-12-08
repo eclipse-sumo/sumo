@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Tue, 29.05.2005
-/// @version $Id$
 ///
 // A loaded (complete) traffic light logic
 /****************************************************************************/

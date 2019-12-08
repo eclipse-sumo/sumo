@@ -13,7 +13,6 @@
 /// @author  Lukas Grohmann (AIT)
 /// @author  Gerald Richter (AIT)
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Importer for networks stored in Vissim format
 /****************************************************************************/

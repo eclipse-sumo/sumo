@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Oct 2012
-/// @version $Id$
 ///
 // A 2D- or 3D-Shape
 /****************************************************************************/

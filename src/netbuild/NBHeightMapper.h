@@ -12,7 +12,6 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Sept 2011
-/// @version $Id$
 ///
 // Set z-values for all network positions based on data from a height map
 /****************************************************************************/

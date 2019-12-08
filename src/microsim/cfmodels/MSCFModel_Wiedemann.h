@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    June 2011
-/// @version $Id$
 ///
 // The psycho-physical model of Wiedemann
 /****************************************************************************/

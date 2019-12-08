@@ -12,7 +12,6 @@
 # @author  Mario Krumnow
 # @author  Jakob Erdmann
 # @date    2011-03-17
-# @version $Id$
 
 from __future__ import absolute_import
 from .domain import Domain

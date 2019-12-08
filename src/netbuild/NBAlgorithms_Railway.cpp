@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Melanie Weber
 /// @date    29. March 2018
-/// @version $Id$
 ///
 // Algorithms for highway on-/off-ramps computation
 /****************************************************************************/
@@ -990,7 +989,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBNetBuilder& nb,
         // check whether there is a straight edge pointing away from this one at the from-node
         // and there is no straight incoming edge at the from-node
         bool haveStraight = false;
-        bool haveStraightReverse = false; 
+        bool haveStraightReverse = false;
         if (!geometryLike || outRailFrom.size() + inRailFrom.size() == 2) {
             for (const NBEdge* fromStraightCand : outRailFrom) {
                 if (fromStraightCand != e.second && isStraight(from, fromStraightCand, e.second)) {
@@ -1002,7 +1001,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBNetBuilder& nb,
             if (haveStraightReverse) {
                 for (const NBEdge* fromStraightCand : inRailFrom) {
                     if (fromStraightCand != e.second && isStraight(from, fromStraightCand, e.second)) {
-                        haveStraight= true;
+                        haveStraight = true;
                         //std::cout << " haveStraight inRailFrom=" << fromStraightCand->getID() << "\n";
                         break;
                     }
@@ -1013,7 +1012,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBNetBuilder& nb,
             // check whether there is a straight edge pointing towards this one at the to-node
             // and there is no straight outoing edge at the to-node
             haveStraight = false;
-            haveStraightReverse = false; 
+            haveStraightReverse = false;
             for (const NBEdge* toStraightCand : inRailTo) {
                 if (toStraightCand != e.second && isStraight(to, toStraightCand, e.second)) {
                     haveStraightReverse = true;
@@ -1024,7 +1023,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBNetBuilder& nb,
             if (haveStraightReverse) {
                 for (const NBEdge* toStraightCand : outRailTo) {
                     if (toStraightCand != e.second && isStraight(to, toStraightCand, e.second)) {
-                        haveStraight= true;
+                        haveStraight = true;
                         //std::cout << " haveStraightReverse outRailTo=" << toStraightCand->getID() << "\n";
                         break;
                     }

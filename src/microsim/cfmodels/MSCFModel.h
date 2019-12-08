@@ -13,7 +13,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 27 Jul 2009
-/// @version $Id$
 ///
 // The car-following model abstraction
 /****************************************************************************/

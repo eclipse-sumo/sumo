@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Gregor Laemmel
 /// @date    Fri, 29.04.2005
-/// @version $Id$
 ///
 // Instance responsible for building networks
 /****************************************************************************/

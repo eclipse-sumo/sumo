@@ -11,7 +11,6 @@
 # @file    runner.py
 # @author  Jakob Erdmann
 # @date    2011-03-04
-# @version $Id$
 
 
 from __future__ import print_function

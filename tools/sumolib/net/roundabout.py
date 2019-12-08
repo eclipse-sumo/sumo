@@ -12,7 +12,6 @@
 # @author  Karol Stosiek
 # @author  Michael Behrisch
 # @date    2011-11-28
-# @version $Id$
 
 
 class Roundabout:

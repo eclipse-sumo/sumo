@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Mon, 9 Jul 2001
-/// @version $Id$
 ///
 // The class for modelling person-movements
 /****************************************************************************/
@@ -418,8 +417,8 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SU
                                     ? previous->getOriginStop()
                                     : previous->getDestinationStop());
     myWaitingSince = now;
-    if (person->getParameter().departProcedure == DEPART_TRIGGERED 
-            && person->getNumRemainingStages() == person->getNumStages() - 1) { 
+    if (person->getParameter().departProcedure == DEPART_TRIGGERED
+            && person->getNumRemainingStages() == person->getNumStages() - 1) {
         // we are the first real stage (stage 0 is WAITING_FOR_DEPART)
         const std::string vehID = *myLines.begin();
         SUMOVehicle* startVeh = net->getVehicleControl().getVehicle(vehID);

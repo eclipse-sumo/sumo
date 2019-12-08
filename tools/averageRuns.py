@@ -10,7 +10,6 @@
 # @file    averageRuns.py
 # @author  Jakob Erdmann
 # @date    2018-08-24
-# @version $Id$
 
 """
 This runs the given configuration multiple times with different random seeds and

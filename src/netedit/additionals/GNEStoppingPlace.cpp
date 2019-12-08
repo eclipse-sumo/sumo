@@ -10,7 +10,6 @@
 /// @file    GNEStoppingPlace.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2015
-/// @version $Id$
 ///
 // A abstract class to define common parameters of lane area in which vehicles can halt (GNE version)
 /****************************************************************************/
@@ -45,12 +44,12 @@ const double GNEStoppingPlace::myCircleInText = 1.6;
 // ===========================================================================
 
 GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double startPos, double endPos,
-        int parametersSet, const std::string& name, bool friendlyPosition, bool blockMovement) :
+                                   int parametersSet, const std::string& name, bool friendlyPosition, bool blockMovement) :
     GNEAdditional(id, viewNet, type, tag, name, blockMovement, {}, {lane}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myStartPosition(startPos),
-    myEndPosition(endPos),
-    myParametersSet(parametersSet),
-    myFriendlyPosition(friendlyPosition) {
+              myStartPosition(startPos),
+              myEndPosition(endPos),
+              myParametersSet(parametersSet),
+myFriendlyPosition(friendlyPosition) {
 }
 
 
@@ -155,12 +154,12 @@ GNEStoppingPlace::getPositionInView() const {
 }
 
 
-void 
+void
 GNEStoppingPlace::splitEdgeGeometry(const double splitPosition, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
     // first check tat both net elements are lanes and originalElement correspond to stoppingPlace lane
-    if ((originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) && 
-        (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
-        (getParentLanes().front() == originalElement)) {
+    if ((originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
+            (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
+            (getParentLanes().front() == originalElement)) {
         // check if we have to change additional lane depending of split position
         if ((myParametersSet & STOPPINGPLACE_STARTPOS_SET) && (myParametersSet & STOPPINGPLACE_ENDPOS_SET)) {
             // calculate middle position
@@ -329,7 +328,7 @@ GNEStoppingPlace::getEndGeometryPositionOverLane() const {
 }
 
 
-double 
+double
 GNEStoppingPlace::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_STARTPOS:
@@ -350,7 +349,7 @@ GNEStoppingPlace::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-bool 
+bool
 GNEStoppingPlace::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     // all stopping place attributes are always enabled
     return true;

@@ -13,7 +13,6 @@
 /// @author  Jakob Erdmann
 /// @author  Laura Bieker
 /// @date    Fri, 24. Apr 2009
-/// @version $Id$
 ///
 // The dialog to change the view (gui) settings.
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    GNERouteDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2017
-/// @version $Id$
 ///
 // Dialog for edit calibrator routes
 /****************************************************************************/

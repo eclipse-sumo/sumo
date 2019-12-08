@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Okt 2003
-/// @version $Id$
 ///
 // The gui-version of the MS_E2_ZS_Collector
 /****************************************************************************/

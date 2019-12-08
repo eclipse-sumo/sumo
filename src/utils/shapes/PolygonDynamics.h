@@ -10,7 +10,6 @@
 /// @file    PolygonDynamics.h
 /// @author  Leonhard Luecken
 /// @date    Apr 2019
-/// @version $Id$
 ///
 // A polygon, which holds a timeSpan for displaying dynamic properties
 /****************************************************************************/

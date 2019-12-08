@@ -11,7 +11,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2011
-# @version $Id$
 
 from __future__ import absolute_import
 import optparse

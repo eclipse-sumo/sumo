@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A list of positions
 /****************************************************************************/
@@ -975,7 +974,7 @@ PositionVector::insertAtClosest(const Position& p, bool interpolateZ) {
     // check if we have to adjust Position Z
     if (interpolateZ) {
         // obtain previous and next Z
-        const double previousZ = (begin() + (insertionIndex-1))->z();
+        const double previousZ = (begin() + (insertionIndex - 1))->z();
         const double nextZ = (begin() + insertionIndex)->z();
         // insert new position using x and y of p, and the new z
         insert(begin() + insertionIndex, Position(p.x(), p.y(), ((previousZ + nextZ) / 2.0)));
@@ -1272,7 +1271,7 @@ PositionVector::distance2D(const Position& p, bool perpendicular) const {
 }
 
 
-void 
+void
 PositionVector::push_front(const Position& p) {
     if (empty()) {
         push_back(p);
@@ -1282,7 +1281,7 @@ PositionVector::push_front(const Position& p) {
 }
 
 
-void 
+void
 PositionVector::pop_front() {
     if (empty()) {
         throw ProcessError("PositionVector is empty");

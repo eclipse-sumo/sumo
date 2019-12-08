@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Wed, 12 Dez 2001
-/// @version $Id$
 ///
 // with one ore more logics.
 /****************************************************************************/

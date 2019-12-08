@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Andreas Gaubatz
 /// @date    Mon, 08.03.2004
-/// @version $Id$
 ///
 // Message and object IDs used by the FOX-version of the gui
 /****************************************************************************/

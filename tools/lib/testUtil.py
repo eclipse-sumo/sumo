@@ -10,7 +10,6 @@
 # @file    testUtil.py
 # @author  Michael Behrisch
 # @date    2010-10-26
-# @version $Id$
 
 """
 This library wraps useful functions for the complex tests

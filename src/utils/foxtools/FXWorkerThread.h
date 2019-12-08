@@ -10,7 +10,6 @@
 /// @file    FXWorkerThread.h
 /// @author  Michael Behrisch
 /// @date    2014-07-13
-/// @version $Id$
 ///
 // A thread class together with a pool and a task for parallelized computation
 /****************************************************************************/

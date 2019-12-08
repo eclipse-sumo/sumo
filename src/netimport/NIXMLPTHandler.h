@@ -10,7 +10,6 @@
 /// @file    NIXMLPTHandler.h
 /// @author  Jakob Erdmann
 /// @date    Sat, 28 Jul 2018
-/// @version $Id$
 ///
 // Importer for static public transport information
 /****************************************************************************/

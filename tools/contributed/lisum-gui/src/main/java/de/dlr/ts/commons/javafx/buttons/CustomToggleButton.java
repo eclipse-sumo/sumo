@@ -10,7 +10,6 @@
 /// @file    CustomToggleButton.java
 /// @author  Maximiliano Bottazzi
 /// @date    2014
-/// @version $Id$
 ///
 //
 /****************************************************************************/

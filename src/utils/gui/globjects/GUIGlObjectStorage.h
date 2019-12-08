@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Oct 2002
-/// @version $Id$
 ///
 // A storage for displayed objects via their numerical id
 /****************************************************************************/

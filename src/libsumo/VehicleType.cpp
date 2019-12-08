@@ -10,7 +10,6 @@
 /// @file    VehicleType.cpp
 /// @author  Gregor Laemmel
 /// @date    04.04.2017
-/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

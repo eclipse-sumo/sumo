@@ -10,7 +10,6 @@
 /// @file    GNEProhibition.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id$
 ///
 // A class for visualizing prohibitions between edges
 /****************************************************************************/

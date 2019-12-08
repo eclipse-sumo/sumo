@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    ?
-/// @version $Id$
 ///
 // A java-style StringTokenizer for c++ (stl)
 /****************************************************************************/

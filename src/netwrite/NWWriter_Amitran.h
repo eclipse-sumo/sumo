@@ -10,7 +10,6 @@
 /// @file    NWWriter_Amitran.h
 /// @author  Michael Behrisch
 /// @date    13.03.2014
-/// @version $Id$
 ///
 // Exporter writing networks using the Amitran format
 /****************************************************************************/

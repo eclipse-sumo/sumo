@@ -10,7 +10,6 @@
 /// @file    GNEStopFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
-/// @version $Id$
 ///
 // The Widget for add Stops elements
 /****************************************************************************/
@@ -203,8 +202,8 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 }
 
 bool
-GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTag stopTag, GNEViewNet* viewNet, 
-                               GNEFrameAttributesModuls::AttributesCreator* stopAttributes, 
+GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTag stopTag, GNEViewNet* viewNet,
+                               GNEFrameAttributesModuls::AttributesCreator* stopAttributes,
                                const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes,
                                const GNELane* lane, const GNEAdditional* stoppingPlace) {
     // first check that current selected Stop is valid
@@ -381,7 +380,7 @@ GNEStopFrame::tagSelected() {
 }
 
 
-void 
+void
 GNEStopFrame::demandElementSelected() {
     // show or hidde moduls depending if current selected stop parent is valid
     if (myStopParentSelector->getCurrentDemandElement()) {

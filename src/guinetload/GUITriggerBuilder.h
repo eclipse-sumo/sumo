@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mon, 26.04.2004
-/// @version $Id$
 ///
 // Builds trigger objects for guisim
 /****************************************************************************/

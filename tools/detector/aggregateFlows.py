@@ -10,7 +10,6 @@
 # @file    aggregateFlows.py
 # @author  Michael Behrisch
 # @date    2007-06-28
-# @version $Id$
 
 """
 This script aggregates flows as they come from the Datenverteiler

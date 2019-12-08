@@ -10,7 +10,6 @@
 # @file    attributeStats.py
 # @author  Jakob Erdmann
 # @date    2019-04-11
-# @version $Id$
 
 """
 compute statistics for a specific xml attribute (e.g. timeLoss in tripinfo-output)

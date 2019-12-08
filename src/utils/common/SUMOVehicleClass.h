@@ -14,7 +14,6 @@
 /// @author  Walter Bamberger
 /// @author  Laura Bieker
 /// @date    2006-01-24
-/// @version $Id$
 ///
 // Definitions of SUMO vehicle classes and helper functions
 /****************************************************************************/

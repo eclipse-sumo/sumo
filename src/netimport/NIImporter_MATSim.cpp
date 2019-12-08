@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 26.04.2011
-/// @version $Id$
 ///
 // Importer for networks stored in MATSim format
 /****************************************************************************/

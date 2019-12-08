@@ -10,7 +10,6 @@
 /// @file    GNERerouterIntervalDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2017
-/// @version $Id$
 ///
 // Dialog for edit rerouter intervals
 /****************************************************************************/

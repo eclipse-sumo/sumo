@@ -14,7 +14,6 @@
 # @author  Jakob Erdmann
 # @author  Robert Hilbrich
 # @date    2008-03-27
-# @version $Id$
 
 """
 This file contains a content handler for parsing sumo network xml files.

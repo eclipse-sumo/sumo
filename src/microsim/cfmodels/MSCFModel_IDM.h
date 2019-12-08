@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Thu, 03 Sep 2009
-/// @version $Id$
 ///
 // The Intelligent Driver Model (IDM) car-following model
 /****************************************************************************/

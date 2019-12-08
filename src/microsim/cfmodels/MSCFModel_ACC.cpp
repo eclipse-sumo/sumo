@@ -10,7 +10,6 @@
 /// @file    MSCFModel_ACC.cpp
 /// @author  Kallirroi Porfyri
 /// @date    Feb 2018
-/// @version $Id$
 ///
 // ACC car-following model based on [1], [2].
 // [1] Milanes, V., and S. E. Shladover. Handling Cut-In Vehicles in Strings

@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Wed, 6 Nov 2002
-/// @version $Id$
 ///
 // A class that performs the loading of routes
 /****************************************************************************/

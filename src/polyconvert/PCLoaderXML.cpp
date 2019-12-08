@@ -13,7 +13,6 @@
 /// @author  Christoph Sommer
 /// @author  Michael Behrisch
 /// @date    Thu, 02.11.2006
-/// @version $Id$
 ///
 // A reader for polygons and pois stored in XML-format
 /****************************************************************************/

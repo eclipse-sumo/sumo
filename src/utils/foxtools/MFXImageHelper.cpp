@@ -10,7 +10,6 @@
 /// @file    MFXImageHelper.cpp
 /// @author  Daniel Krajzewicz
 /// @date    2005-05-04
-/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

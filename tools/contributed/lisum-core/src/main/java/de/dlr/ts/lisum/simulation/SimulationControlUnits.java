@@ -11,7 +11,6 @@
 /// @author  Maximiliano Bottazzi
 /// @author  Jakob Erdmann
 /// @date    2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/

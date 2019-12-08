@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Sascha Krieg
 /// @date    Fri, 29.04.2005
-/// @version $Id$
 ///
 //  Function type template
 /****************************************************************************/

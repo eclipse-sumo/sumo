@@ -10,7 +10,6 @@
 /// @file    GNEPersonFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2019
-/// @version $Id$
 ///
 // The Widget for add Person elements
 /****************************************************************************/
@@ -337,7 +336,7 @@ GNEPersonFrame::demandElementSelected() {
             }
             // check if myEdgePathCreator has to be show
             if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_WALK_ROUTE) ||
-                (myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop())) {
+                    (myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop())) {
                 // hide edge path creator modul
                 myEdgePathCreator->hideEdgePathCreator();
                 // show Netedit attributes modul

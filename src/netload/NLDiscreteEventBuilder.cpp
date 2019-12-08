@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Sep, 2003
-/// @version $Id$
 ///
 // }
 /****************************************************************************/

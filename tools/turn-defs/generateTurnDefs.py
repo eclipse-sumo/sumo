@@ -11,7 +11,6 @@
 # @file    generateTurnDefs.py
 # @author  Karol Stosiek
 # @date    2011-10-26
-# @version $Id$
 
 from __future__ import absolute_import
 

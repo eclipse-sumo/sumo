@@ -11,7 +11,6 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Tue, 29 July 2014
-/// @version $Id$
 ///
 // The container following model for tranship (prototype)
 /****************************************************************************/

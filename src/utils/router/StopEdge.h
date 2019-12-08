@@ -10,7 +10,6 @@
 /// @file    StopEdge.h
 /// @author  Michael Behrisch
 /// @date    Mon, 03 March 2014
-/// @version $Id$
 ///
 // The StopEdge is a special intermodal edge representing bus and train stops
 /****************************************************************************/

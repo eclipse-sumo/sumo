@@ -10,7 +10,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2008-03-31
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function

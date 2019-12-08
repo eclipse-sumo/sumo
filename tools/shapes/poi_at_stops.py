@@ -10,7 +10,6 @@
 # @file    poi_at_stops.py
 # @author  Jakob Erdmann
 # @date    2018-08-31
-# @version $Id$
 
 """
 Generates a PoI-file containing a PoI for each bus stop in the given net.

@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Mon, 9 Jul 2001
-/// @version $Id$
 ///
 // Parser and container for routes during their loading
 /****************************************************************************/
@@ -52,8 +51,7 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(nullptr),
     myCurrentRouteDistribution(nullptr),
-    myAmLoadingState(false)
-{
+    myAmLoadingState(false) {
     myActiveRoute.reserve(100);
 }
 
@@ -136,7 +134,7 @@ MSRouteHandler::myStartElement(int element,
     if (myActivePlan != nullptr && myActivePlan->empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED
             && (element == SUMO_TAG_WALK || element == SUMO_TAG_PERSONTRIP || element == SUMO_TAG_STOP)) {
         throw ProcessError("Triggered departure for person '" + myVehicleParameter->id + "' requires starting with a ride.");
-    } 
+    }
     SUMORouteHandler::myStartElement(element, attrs);
     try {
         switch (element) {

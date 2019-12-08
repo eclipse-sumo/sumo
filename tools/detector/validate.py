@@ -10,7 +10,6 @@
 # @file    validate.py
 # @author  Michael Behrisch
 # @date    2013-06-12
-# @version $Id$
 
 """
 This script validates detector data resulting from dfrouter

@@ -10,7 +10,6 @@
 /// @file    AStarLookupTable.h
 /// @author  Jakob Erdmann
 /// @date    July 2017
-/// @version $Id$
 ///
 // Precomputed landmark distances to speed up the A* routing algorithm
 /****************************************************************************/

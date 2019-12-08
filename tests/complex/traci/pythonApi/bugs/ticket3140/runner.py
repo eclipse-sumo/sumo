@@ -11,7 +11,6 @@
 # @file    runner.py
 # @author  Laura Bieker
 # @date    2017-05-23
-# @version $Id$
 
 
 from __future__ import print_function

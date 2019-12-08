@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Mon, 14.04.2008
-/// @version $Id$
 ///
 // Importer for networks stored in openDrive format
 /****************************************************************************/

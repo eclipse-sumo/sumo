@@ -11,7 +11,6 @@
 # @file    classman.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 
 # python classman.py

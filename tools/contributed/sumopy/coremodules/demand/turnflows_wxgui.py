@@ -11,7 +11,6 @@
 # @file    turnflows_wxgui.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import wx
 import agilepy.lib_base.classman as cm

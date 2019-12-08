@@ -10,7 +10,6 @@
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2011-10-04
-# @version $Id$
 
 """
 multi set with insertion-order iteration

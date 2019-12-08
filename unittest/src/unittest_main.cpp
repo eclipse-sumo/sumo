@@ -11,7 +11,6 @@
 /// @author  Matthias Heppner
 /// @author  Michael Behrisch
 /// @date    Sept 2009
-/// @version $Id$
 ///
 // main for the unit tests
 /****************************************************************************/

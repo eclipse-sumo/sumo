@@ -10,7 +10,6 @@
 /// @file    MSDevice_Bluelight.h
 /// @author  Laura Bieker-Walz
 /// @date    01.06.2017
-/// @version $Id$
 ///
 // A device which stands as an implementation example and which outputs movereminder calls
 /****************************************************************************/

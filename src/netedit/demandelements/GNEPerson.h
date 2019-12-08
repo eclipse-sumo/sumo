@@ -10,7 +10,6 @@
 /// @file    GNEPerson.h
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2019
-/// @version $Id$
 ///
 // Representation of persons in NETEDIT
 /****************************************************************************/
@@ -171,7 +170,7 @@ public:
     void updateGeometry();
 
     /// @brief partial update pre-computed geometry information
-    void updatePartialGeometry(const GNEEdge *edge);
+    void updatePartialGeometry(const GNEEdge* edge);
 
     /// @brief compute path
     void computePath();

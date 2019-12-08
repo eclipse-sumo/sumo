@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    2006-08-01
-/// @version $Id$
 ///
 // static methods for processing the coordinates conversion for the current net
 /****************************************************************************/

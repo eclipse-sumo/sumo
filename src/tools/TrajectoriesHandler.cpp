@@ -10,7 +10,6 @@
 /// @file    TrajectoriesHandler.cpp
 /// @author  Michael Behrisch
 /// @date    14.03.2014
-/// @version $Id$
 ///
 // An XML-Handler for amitran and netstate trajectories
 /****************************************************************************/

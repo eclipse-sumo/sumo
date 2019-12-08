@@ -10,7 +10,6 @@
 /// @file    CarEdge.h
 /// @author  Michael Behrisch
 /// @date    Mon, 03 March 2014
-/// @version $Id$
 ///
 // The CarEdge is a special intermodal edge representing the SUMO network edge
 /****************************************************************************/

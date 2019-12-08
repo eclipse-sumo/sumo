@@ -11,7 +11,6 @@
 # @file    networkxtools.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import sys
 reload(sys)

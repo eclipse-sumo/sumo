@@ -16,7 +16,6 @@
 /// @author  Walter Bamberger
 /// @author  Michael Behrisch
 /// @date    July 2010
-/// @version $Id$
 ///
 // Person in age to go to school: linked to a school object
 /****************************************************************************/

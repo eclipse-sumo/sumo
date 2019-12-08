@@ -14,7 +14,6 @@
 /// @author  Christoph Sommer
 /// @author  Jakob Erdmann
 /// @date    Tue, 04 Dec 2007
-/// @version $Id$
 ///
 // A device that performs vehicle rerouting based on current edge speeds
 /****************************************************************************/
@@ -220,8 +219,8 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
     OptionsCont& oc = OptionsCont::getOptions();
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
     myEffortFunc = (gWeightsRandomFactor != 1 || MSNet::getInstance()->hasBidiEdges()
-        ? &MSRoutingEngine::getEffortExtra
-        : &MSRoutingEngine::getEffort);
+                    ? &MSRoutingEngine::getEffortExtra
+                    : &MSRoutingEngine::getEffort);
     if (routingAlgorithm == "dijkstra") {
         myRouter = new DijkstraRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, myEffortFunc, nullptr, false, nullptr, true);
     } else if (routingAlgorithm == "astar") {
@@ -284,8 +283,7 @@ MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const
     }
     try {
         vehicle.reroute(currentTime, info, *myRouter, onInit, myWithTaz, silent);
-    }
-    catch (ProcessError&) {
+    } catch (ProcessError&) {
         if (!silent) {
             if (!prohibited.empty()) {
                 myRouter->prohibit(MSEdgeVector());
@@ -369,8 +367,7 @@ MSRoutingEngine::RoutingTask::run(FXWorkerThread* context) {
     }
     try {
         myVehicle.reroute(myTime, myInfo, router, myOnInit, myWithTaz, mySilent);
-    }
-    catch (ProcessError&) {
+    } catch (ProcessError&) {
         if (!mySilent) {
             if (!myProhibited.empty()) {
                 router.prohibit(MSEdgeVector());

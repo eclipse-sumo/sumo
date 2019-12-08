@@ -14,7 +14,6 @@
 /// @author  Laura Bieker
 /// @author  Andreas Gaubatz
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The base class for a view
 /****************************************************************************/

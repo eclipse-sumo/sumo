@@ -13,7 +13,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mar, 2003
-/// @version $Id$
 ///
 // A netgen-representation of a node
 /****************************************************************************/

@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 23.06.2003
-/// @version $Id$
 ///
 // A set of actions common to all applications
 /****************************************************************************/

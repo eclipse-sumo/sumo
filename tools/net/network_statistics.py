@@ -12,7 +12,6 @@
 # @author  Ronald Nippold
 # @author  Michael Behrisch
 # @date    2009-10-06
-# @version $Id$
 
 """
 Usage: python network_statistics.py network-file-to-be-analyzed.net.xml

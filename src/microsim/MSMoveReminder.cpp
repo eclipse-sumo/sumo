@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2008-10-27
-/// @version $Id$
 ///
 // Something on a lane to be noticed about vehicle movement
 /****************************************************************************/
@@ -34,7 +33,7 @@ MSMoveReminder::MSMoveReminder(const std::string& description, MSLane* const lan
     myLane(lane),
     myDescription(description)
 #ifdef HAVE_FOX
-    ,myNotificationMutex(true)
+    , myNotificationMutex(true)
 #endif
 {
     if (myLane != nullptr && doAdd) {

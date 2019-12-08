@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
 ///
 // Perfoms network import
 /****************************************************************************/
@@ -42,11 +41,11 @@ class PositionVector;
 
 
 class NITypeLoader {
-/**
- * @class NITypeLoader
- * @brief loads a specificy type of xml file. 
- * @note Extra class to simplify import * from netgenerate
- */
+    /**
+     * @class NITypeLoader
+     * @brief loads a specificy type of xml file.
+     * @note Extra class to simplify import * from netgenerate
+     */
 public:
     /** loads data from the list of xml-files of certain type */
     static void load(SUMOSAXHandler* handler, const std::vector<std::string>& files,

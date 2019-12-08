@@ -15,7 +15,6 @@
 /// @author  Michael Behrisch
 /// @author  Felix Brack
 /// @date    Mon, 9 Jul 2001
-/// @version $Id$
 ///
 // The XML-Handler for network loading
 /****************************************************************************/
@@ -729,9 +728,9 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
     const SUMOTime minDuration = attrs.getOptSUMOTimeReporting(
-                               SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
+                                     SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
     const SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(
-                               SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
+                                     SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
 
 
     const std::vector<int> nextPhases = attrs.getOptIntVector(SUMO_ATTR_NEXT, nullptr, ok);

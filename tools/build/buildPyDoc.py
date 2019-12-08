@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2011-10-20
-# @version $Id$
 
 """
 Generates pydoc files for all python libraries.

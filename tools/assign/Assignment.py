@@ -12,7 +12,6 @@
 # @author  Yun-Pang Floetteroed
 # @author  Michael Behrisch
 # @date    2008-03-28
-# @version $Id$
 
 """
 This script is for executing the traffic assignment.
@@ -154,7 +153,7 @@ def main():
         net.getDetectedEdges(options.outputdir)
     else:
         foutroute = open('routes.rou.xml', 'w')
-        print('<?xml version="1.0"?>\n<!-- generated on %s by $Id$ -->\n<routes>' % starttime, file=foutroute)  # noqa
+        print('<?xml version="1.0"?>\n<!-- generated on %s by $Id: Assignment.py v1_3_1+0411-36956f96df michael.behrisch@dlr.de 2019-01-23 11:12:48 +0000 $ -->\n<routes>' % starttime, file=foutroute)  # noqa
 
     # for counter in range (0, len(matrices)):
     for counter, matrix in enumerate(matrices):

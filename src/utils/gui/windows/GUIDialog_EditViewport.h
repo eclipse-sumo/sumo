@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2005-05-04
-/// @version $Id$
 ///
 // A dialog to change the viewport
 /****************************************************************************/
@@ -115,7 +114,7 @@ public:
     bool haveGrabbed() const;
 
 protected:
-	FOX_CONSTRUCTOR(GUIDialog_EditViewport)
+    FOX_CONSTRUCTOR(GUIDialog_EditViewport)
 
     /// @brief save window position to the registry
     void saveWindowPos();

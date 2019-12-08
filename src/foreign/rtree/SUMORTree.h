@@ -10,7 +10,6 @@
 /// @file    SUMORTree.h
 /// @author  Daniel Krajzewicz
 /// @date    27.10.2008
-/// @version $Id$
 ///
 // A RT-tree for efficient storing of SUMO's GL-objects
 /****************************************************************************/

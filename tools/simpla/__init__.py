@@ -9,7 +9,6 @@
 # @file    __init__.py
 # @author Leonhard Luecken
 # @date   2017-04-09
-# @version $Id$
 
 """
 simpla - A simple platooning plugin for TraCI

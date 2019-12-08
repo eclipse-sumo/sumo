@@ -12,7 +12,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2007-07-26
-# @version $Id$
 
 """
 Maps the geometry of the districts of two networks by calculating

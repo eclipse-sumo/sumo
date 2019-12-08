@@ -12,7 +12,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2012-08-10
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function

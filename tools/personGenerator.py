@@ -10,7 +10,6 @@
 # @file    personGenerator.py
 # @author  tarek chouaki
 # @date    2019-03-22
-# @version $Id$
 
 """
 This tool allows to generate flows of persons for a SUMO simulation which is currently not possible in SUMO route files.

@@ -10,7 +10,6 @@
 /// @file    MSDriverState.h
 /// @author  Michael Behrisch
 /// @date    Tue, 21 Apr 2015
-/// @version $Id$
 ///
 // A class representing a vehicle driver's current mental state
 /****************************************************************************/

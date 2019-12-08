@@ -14,7 +14,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Mon, 12 Mar 2001
-/// @version $Id$
 ///
 // A road/street connecting two junctions
 /****************************************************************************/

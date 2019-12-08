@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2005-09-15
-/// @version $Id$
 ///
 // Represents a generic random distribution
 /****************************************************************************/

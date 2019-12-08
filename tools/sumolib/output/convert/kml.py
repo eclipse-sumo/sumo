@@ -11,7 +11,6 @@
 # @author  Laura Bieker
 # @author  Ronald Nippold
 # @date    2019-08-20
-# @version $Id$
 
 """
 This module includes functions for converting SUMO's FCD output into Google's

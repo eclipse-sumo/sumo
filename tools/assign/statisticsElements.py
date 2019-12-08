@@ -11,7 +11,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2008-07-10
-# @version $Id$
 
 """
 This script is to define classes, functions, parse-reader and output files/format for

@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 08.03.2004
-/// @version $Id$
 ///
 // The application-settings dialog
 /****************************************************************************/

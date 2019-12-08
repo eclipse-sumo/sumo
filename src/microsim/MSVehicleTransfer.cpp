@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sep 2003
-/// @version $Id$
 ///
 // A mover of vehicles that got stucked due to grid locks
 /****************************************************************************/
@@ -126,7 +125,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_PARKING);
                 desc.myVeh->getLane()->removeParking(desc.myVeh);
                 // at this point we are in the lane, blocking traffic & if required we configure the exit manoeuvre
-                if (MSGlobals::gModelParkingManoeuver && desc.myVeh->setExitManoeuvre() ) {
+                if (MSGlobals::gModelParkingManoeuver && desc.myVeh->setExitManoeuvre()) {
                     MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_MANEUVERING);
                 }
                 i = vehInfos.erase(i);

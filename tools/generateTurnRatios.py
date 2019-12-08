@@ -10,7 +10,6 @@
 # @file    generateTurnRatios.py
 # @author  Yun-Pang Floetteroed
 # @date    2019-04-25
-# @version $Id: generateTurnRatios.py
 
 """
 - calculate the turn ratios or turn movements at each node

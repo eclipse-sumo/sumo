@@ -12,7 +12,6 @@
 # @author  Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
 # @author  Gerald Richter <Gerald.Richter@ait.ac.at>
 # @date    Jun 09 2015
-# @version $Id$  # noqa
 
 """
 Parses flows and static routes from a VISSIM .inpx file

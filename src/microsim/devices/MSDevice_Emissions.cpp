@@ -12,7 +12,6 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Fri, 30.01.2009
-/// @version $Id$
 ///
 // A device which collects vehicular emissions
 /****************************************************************************/
@@ -71,25 +70,25 @@ MSDevice_Emissions::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, double
     const double a = veh.getAcceleration();
     const double slope = veh.getSlope();
     myEmissions.addScaled(PollutantsInterface::computeAll(c, newSpeed, a, slope,
-                static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), TS);
+                          static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), TS);
     return true;
 }
 
 
 void
 MSDevice_Emissions::notifyMoveInternal(const SUMOTrafficObject& veh,
-                                      const double /* frontOnLane */,
-                                      const double timeOnLane,
-                                      const double /* meanSpeedFrontOnLane */,
-                                      const double meanSpeedVehicleOnLane,
-                                      const double /* travelledDistanceFrontOnLane */,
-                                      const double /* travelledDistanceVehicleOnLane */,
-                                      const double /* meanLengthOnLane */) {
+                                       const double /* frontOnLane */,
+                                       const double timeOnLane,
+                                       const double /* meanSpeedFrontOnLane */,
+                                       const double meanSpeedVehicleOnLane,
+                                       const double /* travelledDistanceFrontOnLane */,
+                                       const double /* travelledDistanceVehicleOnLane */,
+                                       const double /* meanLengthOnLane */) {
 
     // called by meso (see MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal)
     const double a = veh.getAcceleration();
     myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(),
-                          meanSpeedVehicleOnLane, a, veh.getSlope(), 
+                          meanSpeedVehicleOnLane, a, veh.getSlope(),
                           static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), timeOnLane);
 }
 

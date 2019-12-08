@@ -15,7 +15,6 @@
 /// @author  Jakob Erdmann
 /// @author  Leonhard Luecken
 /// @date    Fri, 29.04.2005
-/// @version $Id$
 ///
 // Interface for lane-change models
 /****************************************************************************/
@@ -312,7 +311,9 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
     if (&source->getEdge() != &target->getEdge()) {
         changedToOpposite();
 #ifdef DEBUG_OPPOSITE
-        if (debugVehicle())  std::cout << SIMTIME << " veh=" << myVehicle.getID() << " primaryLaneChanged nowOpposite=" << myAmOpposite << "\n";
+        if (debugVehicle()) {
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " primaryLaneChanged nowOpposite=" << myAmOpposite << "\n";
+        }
 #endif
         myVehicle.setTentativeLaneAndPosition(target, source->getOppositePos(myVehicle.getPositionOnLane()), -myVehicle.getLateralPositionOnLane());
         target->forceVehicleInsertion(&myVehicle, myVehicle.getPositionOnLane(), MSMoveReminder::NOTIFICATION_LANE_CHANGE, myVehicle.getLateralPositionOnLane());
@@ -408,7 +409,9 @@ MSAbstractLaneChangeModel::endLaneChangeManeuver(const MSMoveReminder::Notificat
     if (myAmOpposite && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         // aborted maneuver
 #ifdef DEBUG_OPPOSITE
-        if (debugVehicle())  std::cout << SIMTIME << " veh=" << myVehicle.getID() << " aborted maneuver (no longer opposite)\n";
+        if (debugVehicle()) {
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " aborted maneuver (no longer opposite)\n";
+        }
 #endif
         changedToOpposite();
     }

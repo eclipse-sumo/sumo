@@ -10,7 +10,6 @@
 # @file    unittests_shapes_coords_3d.py
 # @author  Marek Heinrich
 # @date    2016
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function

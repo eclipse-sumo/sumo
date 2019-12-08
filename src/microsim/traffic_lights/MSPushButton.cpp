@@ -10,7 +10,6 @@
 /// @file    MSPushButton.cpp
 /// @author  Federico Caselli
 /// @date    2015-07-15
-/// @version $Id$
 ///
 // The class for a PushButton
 /****************************************************************************/

@@ -10,7 +10,6 @@
 /// @file    MSPhasedTrafficLightLogic.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The base class for traffic light logic with phases
 /****************************************************************************/

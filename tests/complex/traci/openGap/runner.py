@@ -10,7 +10,6 @@
 # @file    runner.py
 # @author  Leonhard Luecken
 # @date    2018-11-02
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function
@@ -63,7 +62,7 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
     while not testCompleted:
         traci.simulationStep()
         results = traci.vehicle.getSubscriptionResults(followerID)
-        if refVehID is "":
+        if refVehID == "":
             leader = results[tc.VAR_LEADER][0]
             leaderDist = results[tc.VAR_LEADER][1]
         elif not leaderArrived:
@@ -93,7 +92,7 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
             sys.stdout.flush()
             print("(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate) = %s" %
                   str((followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate)))
-            if refVehID is "":
+            if refVehID == "":
                 if maxDecel == -1:
                     traci.vehicle.openGap(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate)
                 else:

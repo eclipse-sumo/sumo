@@ -11,7 +11,6 @@
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
 # @date    2008-07-21
-# @version $Id$
 
 from __future__ import absolute_import
 import os

@@ -11,7 +11,6 @@
 # @file    results_mpl-01-preimportlib.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import os
 import numpy as np

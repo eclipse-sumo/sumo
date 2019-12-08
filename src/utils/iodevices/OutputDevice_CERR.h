@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2004
-/// @version $Id$
 ///
 // An output device that encapsulates cerr
 /****************************************************************************/

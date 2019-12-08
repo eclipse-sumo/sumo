@@ -10,7 +10,6 @@
 # @file    neteditTestFunctions.py
 # @author  Pablo Alvarez Lopez
 # @date    2016-11-25
-# @version $Id$
 
 # Import libraries
 from __future__ import print_function

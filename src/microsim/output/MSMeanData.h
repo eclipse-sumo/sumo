@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Tue, 17.11.2009
-/// @version $Id$
 ///
 // Data collector for edges/lanes
 /****************************************************************************/

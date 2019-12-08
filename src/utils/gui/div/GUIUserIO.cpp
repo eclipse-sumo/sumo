@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2006-10-12
-/// @version $Id$
 ///
 // Some OS-dependant functions to ease cliboard manipulation
 /****************************************************************************/

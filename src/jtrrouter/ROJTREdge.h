@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Yun-Pang Floetteroed
 /// @date    Tue, 20 Jan 2004
-/// @version $Id$
 ///
 // An edge the jtr-router may route through
 /****************************************************************************/

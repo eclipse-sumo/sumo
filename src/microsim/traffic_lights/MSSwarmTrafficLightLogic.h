@@ -11,7 +11,6 @@
 /// @author  Gianfilippo Slager
 /// @author  Federico Caselli
 /// @date    Mar 2010
-/// @version $Id$
 ///
 // The class for Swarm-based logics
 /****************************************************************************/

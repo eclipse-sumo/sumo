@@ -10,7 +10,6 @@
 /// @file    GNEPolygonFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2017
-/// @version $Id$
 ///
 // The Widget for add polygons
 /****************************************************************************/
@@ -77,7 +76,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(GEOPOICreator)
+        FOX_CONSTRUCTOR(GEOPOICreator)
 
     private:
         /// @brief pointer to Shape frame parent

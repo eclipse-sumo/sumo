@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 25 July 2005
-/// @version $Id$
 ///
 // Dijkstra shortest path algorithm using travel time or other values
 /****************************************************************************/

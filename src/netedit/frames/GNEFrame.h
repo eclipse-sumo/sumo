@@ -10,7 +10,6 @@
 /// @file    GNEFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id$
 ///
 // Abstract class for lateral frames in NetEdit
 /****************************************************************************/
@@ -102,7 +101,7 @@ protected:
     virtual void attributesEditorExtendedDialogOpened();
 
     /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
-    virtual void selectedOverlappedElement(GNEAttributeCarrier *AC);
+    virtual void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
     /// @}
 

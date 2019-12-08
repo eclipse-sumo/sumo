@@ -15,7 +15,6 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    July 2010
-/// @version $Id$
 ///
 // Generates trips to work and to school
 /****************************************************************************/

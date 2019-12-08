@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    2013-06-05
-/// @version $Id$
 ///
 // Tests the cfmodel functions
 /****************************************************************************/

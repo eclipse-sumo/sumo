@@ -11,7 +11,6 @@
 # @file    objpanel.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 # cd /home/joerg/projects/sumopy/tools/sumopy/wxpython
 # python objpanel.py

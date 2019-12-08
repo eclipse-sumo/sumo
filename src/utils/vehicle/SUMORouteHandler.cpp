@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Mon, 9 Jul 2001
-/// @version $Id$
 ///
 // Parser for routes during their loading
 /****************************************************************************/
@@ -317,10 +316,10 @@ SUMORouteHandler::checkStopPos(double& startPos, double& endPos, const double la
 }
 
 
-bool 
+bool
 SUMORouteHandler::isStopPosValid(const double startPos, const double endPos, const double laneLength, const double minLength, const bool friendlyPos) {
     // declare dummy start and end positions
-    double dummyStartPos = startPos; 
+    double dummyStartPos = startPos;
     double dummyEndPos = endPos;
     // return checkStopPos
     return (checkStopPos(dummyStartPos, dummyEndPos, laneLength, minLength, friendlyPos) == STOPPOS_VALID);

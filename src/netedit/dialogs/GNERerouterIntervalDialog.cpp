@@ -10,7 +10,6 @@
 /// @file    GNERerouterIntervalDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    eb 2017
-/// @version $Id$
 ///
 // Dialog for edit rerouter intervals
 /****************************************************************************/

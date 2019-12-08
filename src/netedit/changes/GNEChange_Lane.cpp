@@ -10,7 +10,6 @@
 /// @file    GNEChange_Lane.cpp
 /// @author  Jakob Erdmann
 /// @date    April 2011
-/// @version $Id$
 ///
 // A network change in which a single lane is created or deleted
 /****************************************************************************/

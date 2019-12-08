@@ -13,7 +13,6 @@
 /// @author  Jakob Erdmann
 /// @author  Yun-Pang Floetteroed
 /// @date    Tue, 20 Jan 2004
-/// @version $Id$
 ///
 // Interface for building instances of duarouter-edges
 /****************************************************************************/

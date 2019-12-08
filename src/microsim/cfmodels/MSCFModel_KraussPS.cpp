@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Mon, 04 Aug 2009
-/// @version $Id$
 ///
 // Krauss car-following model, changing accel and speed by slope
 /****************************************************************************/

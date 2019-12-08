@@ -10,7 +10,6 @@
 /// @file    MSSOTLPolicy3DStimulus.cpp
 /// @author  Riccardo Belletti
 /// @date    Mar 2014
-/// @version $Id$
 ///
 // The class for Swarm-based low-level policy
 /****************************************************************************/

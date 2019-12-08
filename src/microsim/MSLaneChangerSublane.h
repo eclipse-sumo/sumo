@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Leonhard Luecken
 /// @date    Oct 2015
-/// @version $Id$
 ///
 // Performs sub-lane changing of vehicles
 /****************************************************************************/

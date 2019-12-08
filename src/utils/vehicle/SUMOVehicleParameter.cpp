@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 31.03.2009
-/// @version $Id$
 ///
 // Structure representing possible vehicle parameter
 /****************************************************************************/

@@ -11,7 +11,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Fri, 30.01.2009
-/// @version $Id$
 ///
 // A device which collects vehicular emissions
 /****************************************************************************/

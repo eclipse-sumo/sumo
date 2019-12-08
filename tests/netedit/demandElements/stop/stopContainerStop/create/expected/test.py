@@ -10,7 +10,6 @@
 # @file    test.py
 # @author  Pablo Alvarez Lopez
 # @date    2019-07-16
-# @version $Id$
 
 # import common functions for netedit tests
 import os

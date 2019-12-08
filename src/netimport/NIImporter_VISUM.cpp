@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Fri, 19 Jul 2002
-/// @version $Id$
 ///
 // A VISUM network importer
 /****************************************************************************/
@@ -1193,11 +1192,11 @@ NIImporter_VISUM::getPermissions(const std::string& name, bool warn, SVCPermissi
     SVCPermissions result = 0;
     for (std::string v : StringTokenizer(myLineParser.get(name), ",").getVector()) {
         // common values in english and german
-       // || v == "funiculaire-telecabine" ---> no matching
+        // || v == "funiculaire-telecabine" ---> no matching
         std::transform(v.begin(), v.end(), v.begin(), tolower);
         if (v == "bus" || v == "tcsp" || v == "acces tc" || v == "Accès tc" || v == "accès tc") {
             result |= SVC_BUS;
-        } else if (v == "walk" || v == "w" || v == "f" || v == "ped" || v == "map" ) {
+        } else if (v == "walk" || v == "w" || v == "f" || v == "ped" || v == "map") {
             result |= SVC_PEDESTRIAN;
         } else if (v == "l" || v == "lkw" || v == "h" || v == "hgv" || v == "lw" || v == "truck" || v == "tru" || v == "pl") {
             result |= SVC_TRUCK;

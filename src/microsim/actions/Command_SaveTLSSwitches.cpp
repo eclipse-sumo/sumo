@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    06 Jul 2006
-/// @version $Id$
 ///
 // Writes information about the green durations of a tls
 /****************************************************************************/

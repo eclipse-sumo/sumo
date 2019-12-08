@@ -10,7 +10,6 @@
 /// @file    MFXCheckableButton.cpp
 /// @author  Daniel Krajzewicz
 /// @date    2004-03-19
-/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

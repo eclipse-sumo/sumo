@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Melanie Knocke
 /// @date    Mon, 05 Dec 2005
-/// @version $Id$
 ///
 // A storage for loaded polygons and pois
 /****************************************************************************/

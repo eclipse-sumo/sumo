@@ -10,7 +10,6 @@
 # @file    analyzePersonPlans.py
 # @author  Jakob Erdmann
 # @date    2019-09-13
-# @version $Id$
 
 """
 Count the number of different person plans in a route file

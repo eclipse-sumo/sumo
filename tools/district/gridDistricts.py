@@ -10,7 +10,6 @@
 # @file    gridDistricts.py
 # @author  Jakob Erdmann
 # @date    2019-01-02
-# @version $Id$
 
 """
 Generate a grid-based TAZ file

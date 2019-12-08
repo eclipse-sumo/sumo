@@ -11,7 +11,6 @@
 # @file    check_constants.py
 # @author  Jakob Erdmann
 # @date    2019-06-08
-# @version $Id$
 
 
 from __future__ import print_function

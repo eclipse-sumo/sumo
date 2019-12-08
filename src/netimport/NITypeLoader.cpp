@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Robert Hilbrich
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
 ///
 // Perfoms network import
 /****************************************************************************/
@@ -42,7 +41,7 @@
 
 void
 NITypeLoader::load(SUMOSAXHandler* handler, const std::vector<std::string>& files,
-                      const std::string& type, const bool stringParse) {
+                   const std::string& type, const bool stringParse) {
     // build parser
     std::string exceptMsg = "";
     // start the parsing

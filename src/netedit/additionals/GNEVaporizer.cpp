@@ -10,7 +10,6 @@
 /// @file    GNEVaporizer.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -37,9 +36,11 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name) :
-    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myBegin(begin),
-    myEnd(end) {
+    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, {
+    edge
+}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+myBegin(begin),
+myEnd(end) {
 }
 
 
@@ -54,7 +55,7 @@ GNEVaporizer::updateGeometry() {
 
     // Get shape of parent lane
     const double offset = firstLane->getLaneShape().length() < 2.5 ? firstLane->getLaneShape().length() : 2.5;
-    
+
     // update geometry
     myAdditionalGeometry.updateGeometryPosition(firstLane, offset);
 
@@ -89,7 +90,7 @@ GNEVaporizer::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNEVaporizer::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
@@ -220,7 +221,7 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEVaporizer::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_BEGIN:
@@ -288,7 +289,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNEVaporizer::isAttributeEnabled(SumoXMLAttr /* key */) const {
     return true;
 }

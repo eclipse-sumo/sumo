@@ -10,7 +10,6 @@
 /// @file    AccessEdge.h
 /// @author  Michael Behrisch
 /// @date    Mon, 03 March 2014
-/// @version $Id$
 ///
 // The AccessEdge is a special intermodal edge connecting different modes
 /****************************************************************************/

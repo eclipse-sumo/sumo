@@ -10,7 +10,6 @@
 /// @file    GNEChange_Crossing.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2016
-/// @version $Id$
 ///
 // A network change in which a single junction is created or deleted
 /****************************************************************************/

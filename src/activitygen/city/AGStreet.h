@@ -15,7 +15,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    July 2010
-/// @version $Id$
 ///
 // Represents a SUMO edge and contains people and work densities
 /****************************************************************************/

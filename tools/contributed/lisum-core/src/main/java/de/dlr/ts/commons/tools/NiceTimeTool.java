@@ -10,7 +10,6 @@
 /// @file    NiceTimeTool.java
 /// @author  Maximiliano Bottazzi
 /// @date    2018
-/// @version $Id$
 ///
 //
 /****************************************************************************/

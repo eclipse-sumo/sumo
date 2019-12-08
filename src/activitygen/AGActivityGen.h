@@ -15,7 +15,6 @@
 /// @author  Walter Bamberger
 /// @author  Michael Behrisch
 /// @date    July 2010
-/// @version $Id$
 ///
 // Main class that handles City, Activities and Trips
 /****************************************************************************/

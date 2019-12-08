@@ -11,7 +11,6 @@
 # @file    results_mpl.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import os
 import numpy as np

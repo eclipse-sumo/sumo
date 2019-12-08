@@ -13,7 +13,6 @@
 /// @author  Jakob Erdmann
 /// @author  Yun-Pang Floetteroed
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A complete router's route
 /****************************************************************************/

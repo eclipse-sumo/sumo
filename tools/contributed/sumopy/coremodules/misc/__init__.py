@@ -11,7 +11,6 @@
 # @file    __init__.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 __version__ = "0.0"
 

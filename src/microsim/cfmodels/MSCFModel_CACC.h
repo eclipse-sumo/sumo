@@ -10,7 +10,6 @@
 /// @file    MSCFModel_CACC.h
 /// @author  Kallirroi Porfyri
 /// @date    Nov 2018
-/// @version $Id$
 ///
 // CACC car-following model based on [1], [2].
 // [1] Milanes, V., and S. E. Shladover. Handling Cut-In Vehicles in Strings

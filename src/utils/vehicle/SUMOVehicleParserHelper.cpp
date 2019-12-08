@@ -14,7 +14,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Mon, 07.04.2008
-/// @version $Id$
 ///
 // Helper methods for parsing vehicle attributes
 /****************************************************************************/
@@ -849,12 +848,13 @@ SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter& vtype, const std
         } else {
             try {
                 int angle = StringUtils::toInt(pos.next());
-                SUMOTime t1 = static_cast<SUMOTime>(StringUtils::toDouble(pos.next())); t1 = TIME2STEPS(t1);
-                SUMOTime t2 = static_cast<SUMOTime>(StringUtils::toDouble(pos.next())); t2 = TIME2STEPS(t2);
+                SUMOTime t1 = static_cast<SUMOTime>(StringUtils::toDouble(pos.next()));
+                t1 = TIME2STEPS(t1);
+                SUMOTime t2 = static_cast<SUMOTime>(StringUtils::toDouble(pos.next()));
+                t2 = TIME2STEPS(t2);
 
                 angleTimesMap.insert((std::pair<int, std::pair<SUMOTime, SUMOTime>>(angle, std::pair< SUMOTime, SUMOTime>(t1, t2))));
-            }
-            catch (...) {
+            } catch (...) {
                 WRITE_ERROR("Triplet '" + st.get(tripletCount) + "' for vType '" + vtype.id + "' manoeuverAngleTimes cannot be parsed as 'int double double'");
             }
             tripletCount++;
@@ -863,8 +863,9 @@ SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter& vtype, const std
 
     if (angleTimesMap.size() > 0) {
         vtype.myManoeuverAngleTimes.clear();
-        for (std::pair<int, std::pair<SUMOTime, SUMOTime>> angleTime : angleTimesMap)
+        for (std::pair<int, std::pair<SUMOTime, SUMOTime>> angleTime : angleTimesMap) {
             vtype.myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(angleTime));
+        }
         angleTimesMap.clear();
         return true;
     } else {

@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Wed, 13.06.2012
-/// @version $Id$
 ///
 // GUI-version of the transportable control for building gui persons and containers
 /****************************************************************************/

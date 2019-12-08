@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Wed, 07.12.2005
-/// @version $Id$
 ///
 // A lane area vehicles can halt at (gui-version)
 /****************************************************************************/

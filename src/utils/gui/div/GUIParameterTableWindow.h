@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The window that holds the table of an object's parameter
 /****************************************************************************/
@@ -238,7 +237,7 @@ private:
     static int numParams(const GUIGlObject* obj);
 
 protected:
-	FOX_CONSTRUCTOR(GUIParameterTableWindow)
+    FOX_CONSTRUCTOR(GUIParameterTableWindow)
 
 };
 

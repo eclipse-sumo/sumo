@@ -10,7 +10,6 @@
 /// @file    GNEDestProbReroute.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2017
-/// @version $Id$
 ///
 //
 /****************************************************************************/

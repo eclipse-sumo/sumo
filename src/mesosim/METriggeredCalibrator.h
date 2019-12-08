@@ -10,7 +10,6 @@
 /// @file    METriggeredCalibrator.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, May 2005
-/// @version $Id$
 ///
 // Calibrates the flow on a segment to a specified one
 /****************************************************************************/

@@ -11,7 +11,6 @@
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
 # @date    2011-03-09
-# @version $Id$
 
 from __future__ import absolute_import
 import struct

@@ -10,7 +10,6 @@
 /// @file    ParametrisedWrappingCommand.h
 /// @author  Leonhard Luecken
 /// @date    Apr 2019
-/// @version $Id$
 ///
 // A wrapper for a Command function with parameter
 /****************************************************************************/

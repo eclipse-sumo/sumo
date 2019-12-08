@@ -15,7 +15,6 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Definitions of elements and attributes known by SUMO
 /****************************************************************************/
@@ -1024,7 +1023,7 @@ SUMOXMLDefinitions::isValidListOfTypeID(const std::string& value) {
         return false;
     } else {
         // check that gives IDs are valid
-        for (const auto &i : typeIDs) {
+        for (const auto& i : typeIDs) {
             if (!SUMOXMLDefinitions::isValidTypeID(i)) {
                 return false;
             }

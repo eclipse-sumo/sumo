@@ -10,7 +10,6 @@
 /// @file    GNEAllowDisallow.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    April 2016
-/// @version $Id$
 ///
 // Dialog for edit rerouters
 /****************************************************************************/

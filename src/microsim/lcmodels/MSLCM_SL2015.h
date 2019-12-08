@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Leonhard Luecken
 /// @date    Tue, 06.10.2015
-/// @version $Id$
 ///
 // A lane change model for heterogeneous traffic (based on sub-lanes)
 /****************************************************************************/

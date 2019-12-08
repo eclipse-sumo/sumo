@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Nikolaus Furian
 /// @date    Sat, 20.04.2013
-/// @version $Id$
 ///
 // Helper methods for PHEMlight-based emission computation
 /****************************************************************************/

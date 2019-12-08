@@ -11,7 +11,6 @@
 # @file    demand-o1-prefstar.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import os
 import sys

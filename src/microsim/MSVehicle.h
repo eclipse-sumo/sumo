@@ -19,7 +19,6 @@
 /// @author  Axel Wegener
 /// @author  Leonhard Luecken
 /// @date    Mon, 12 Mar 2001
-/// @version $Id$
 ///
 // Representation of a vehicle in the micro simulation
 /****************************************************************************/
@@ -953,7 +952,7 @@ public:
         SUMOTime timeToLoadNextContainer = 0;
         /// @brief Whether this stop was triggered by a collision
         bool collision = false;
-        /// @brief the maximum time at which persons may board this vehicle 
+        /// @brief the maximum time at which persons may board this vehicle
         SUMOTime endBoarding = SUMOTime_MAX;
 
         /// @brief Write the current stop configuration (used for state saving)
@@ -1015,7 +1014,7 @@ public:
 
     /** @brief Returns whether the vehicle stops at the given stopping place */
     bool stopsAt(MSStoppingPlace* stop) const;
-    
+
     /** @brief Returns whether the vehicle stops at the given edge */
     bool stopsAtEdge(const MSEdge* edge) const;
 
@@ -1358,7 +1357,7 @@ public:
         /// @brief not manouevring
         MANOEUVRE_NONE
     };
-    
+
     /// @brief accessor function to myManoeuvre equivalent
     /// @note Setup of exit manoeuvre is invoked from MSVehicleTransfer
     bool setExitManoeuvre();
@@ -1370,7 +1369,7 @@ public:
     /// @brief accessor function to myManoeuvre equivalent
     MSVehicle::ManoeuvreType getManoeuvreType() const;
 
-   
+
     /** @class Manoeuvre
       * @brief  Container for manouevering time associated with stopping.
       *
@@ -1398,12 +1397,12 @@ public:
         /// @brief Setup the myManoeuvre for exiting (Sets completion time and manoeuvre type)
         bool configureExitManoeuvre(MSVehicle* veh);
 
-         /// @brief Configure an entry manoeuvre if nothing is configured - otherwise check if complete
+        /// @brief Configure an entry manoeuvre if nothing is configured - otherwise check if complete
         bool entryManoeuvreIsComplete(MSVehicle* veh);
 
         /// @brief Check if specific manoeuver is ongoing and whether the completion time is beyond currentTime
         bool
-        manoeuvreIsComplete(const ManoeuvreType checkType ) const;
+        manoeuvreIsComplete(const ManoeuvreType checkType) const;
 
         /// @brief Check if any manoeuver is ongoing and whether the completion time is beyond currentTime
         bool
@@ -1441,18 +1440,18 @@ public:
     // Current or previous (completed) manoeuvre
     Manoeuvre myManoeuvre;
 
-   /** @class Influencer
-     * @brief Changes the wished vehicle speed / lanes
-     *
-     * The class is used for passing velocities or velocity profiles obtained via TraCI to the vehicle.
-     * The speed adaptation is controlled by the stored speedTimeLine
-     * Additionally, the variables myConsiderSafeVelocity, myConsiderMaxAcceleration, and myConsiderMaxDeceleration
-     * control whether the safe velocity, the maximum acceleration, and the maximum deceleration
-     * have to be regarded.
-     *
-     * Furthermore this class is used to affect lane changing decisions according to
-     * LaneChangeMode and any given laneTimeLine
-     */
+    /** @class Influencer
+      * @brief Changes the wished vehicle speed / lanes
+      *
+      * The class is used for passing velocities or velocity profiles obtained via TraCI to the vehicle.
+      * The speed adaptation is controlled by the stored speedTimeLine
+      * Additionally, the variables myConsiderSafeVelocity, myConsiderMaxAcceleration, and myConsiderMaxDeceleration
+      * control whether the safe velocity, the maximum acceleration, and the maximum deceleration
+      * have to be regarded.
+      *
+      * Furthermore this class is used to affect lane changing decisions according to
+      * LaneChangeMode and any given laneTimeLine
+      */
     class Influencer {
     private:
 

@@ -10,7 +10,6 @@
 /// @file    GNEClosingLaneReroute.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2017
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -37,8 +36,8 @@
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, "", false,
-        {}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}),
-    myClosedLane(rerouterIntervalDialog->getEditedAdditional()->getParentAdditionals().at(0)->getChildEdges().at(0)->getLanes().at(0)) {
+{}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}),
+myClosedLane(rerouterIntervalDialog->getEditedAdditional()->getParentAdditionals().at(0)->getChildEdges().at(0)->getLanes().at(0)) {
     // fill closing lane reroute interval with default values
     setDefaultValues();
 }
@@ -46,9 +45,9 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouter
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, "", false,
-        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}, {}, {}),
-    myClosedLane(closedLane),
-    myPermissions(permissions) {
+{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}, {}, {}),
+myClosedLane(closedLane),
+myPermissions(permissions) {
 }
 
 
@@ -85,7 +84,7 @@ GNEClosingLaneReroute::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNEClosingLaneReroute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* /*originalElement*/, const GNENetElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
@@ -124,7 +123,7 @@ GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEClosingLaneReroute::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
 }
@@ -167,7 +166,7 @@ GNEClosingLaneReroute::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNEClosingLaneReroute::isAttributeEnabled(SumoXMLAttr /* key */) const {
     return true;
 }

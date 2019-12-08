@@ -10,7 +10,6 @@
 /// @file    netedit_main.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id$
 ///
 // Main for NETEDIT (adapted from guisim_main)
 /****************************************************************************/

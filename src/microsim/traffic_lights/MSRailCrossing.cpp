@@ -10,7 +10,6 @@
 /// @file    MSRailCrossing.cpp
 /// @author  Jakob Erdmann
 /// @date    Dez 2015
-/// @version $Id$
 ///
 // A rail signal logic
 /****************************************************************************/

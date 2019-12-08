@@ -11,7 +11,6 @@
 # @file    network.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 # size limit at 1280x1280
 # http://maps.googleapis.com/maps/api/staticmap?size=500x500&path=color:0x000000|weight:10|44.35789,11.3093|44.4378,11.3935&format=GIF&maptype=satellite&scale=2

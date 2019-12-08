@@ -16,7 +16,6 @@
 /// @author  Michael Behrisch
 /// @author  Sascha Krieg
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
 ///
 // Container for nodes during the netbuilding process
 /****************************************************************************/

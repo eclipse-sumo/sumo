@@ -10,6 +10,5 @@
 # @author  Benjamin Striner
 # @author  Michael Behrisch
 # @date    2018-06-05
-# @version $Id$
 
 from .libsumo import *  # noqa

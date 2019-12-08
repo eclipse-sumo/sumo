@@ -10,7 +10,6 @@
 /// @file    GNEPersonPlanFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2019
-/// @version $Id$
 ///
 // The Widget for add PersonPlan elements
 /****************************************************************************/
@@ -125,7 +124,7 @@ public:
         /// @}
 
     protected:
-		FOX_CONSTRUCTOR(PersonPlanCreator)
+        FOX_CONSTRUCTOR(PersonPlanCreator)
 
     private:
         /// @brief pointer to Person Plan Frame Parent

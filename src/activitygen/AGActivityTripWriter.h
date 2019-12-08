@@ -15,7 +15,6 @@
 /// @author  Walter Bamberger
 /// @author  Michael Behrisch
 /// @date    July 2010
-/// @version $Id$
 ///
 // Class for writing Trip objects in a SUMO-route file.
 /****************************************************************************/

@@ -15,7 +15,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    2004-11-23
-/// @version $Id$
 ///
 // An unextended detector measuring at a fixed position on a fixed lane.
 /****************************************************************************/

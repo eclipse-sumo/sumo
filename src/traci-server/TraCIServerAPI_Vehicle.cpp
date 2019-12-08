@@ -19,7 +19,6 @@
 /// @author  Robert Hilbrich
 /// @author  Lara Codeca
 /// @date    07.05.2009
-/// @version $Id$
 ///
 // APIs for getting/setting vehicle values via TraCI
 /****************************************************************************/

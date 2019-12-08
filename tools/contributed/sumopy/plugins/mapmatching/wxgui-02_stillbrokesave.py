@@ -11,7 +11,6 @@
 # @file    wxgui-02_stillbrokesave.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import os
 import wx

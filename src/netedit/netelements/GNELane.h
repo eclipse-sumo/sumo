@@ -10,7 +10,6 @@
 /// @file    GNELane.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id$
 ///
 // A class for visualizing Lane geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
@@ -67,10 +66,10 @@ public:
     const PositionVector& getLaneShape() const;
 
     /// @brief get rotations of the single shape parts
-    const std::vector<double> &getShapeRotations() const;
+    const std::vector<double>& getShapeRotations() const;
 
     /// @brief get lengths of the single shape parts
-    const std::vector<double> &getShapeLengths() const;
+    const std::vector<double>& getShapeLengths() const;
 
     /// @brief update pre-computed geometry information
     void updateGeometry();
@@ -158,7 +157,7 @@ public:
     bool isRestricted(SUMOVehicleClass vclass) const;
 
     /// @brief get Lane2laneConnection struct
-    const GNEGeometry::Lane2laneConnection &getLane2laneConnections() const;
+    const GNEGeometry::Lane2laneConnection& getLane2laneConnections() const;
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -199,7 +198,7 @@ public:
 
     /// @brief whether to draw this lane as a railway
     bool drawAsRailway(const GUIVisualizationSettings& s) const;
-    
+
     /// @brief draw partial E2 detector plan
     void drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEAdditional* E2Detector, const GNEJunction* junction) const;
 

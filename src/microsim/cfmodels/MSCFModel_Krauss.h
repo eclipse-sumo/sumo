@@ -13,7 +13,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 28 Jul 2009
-/// @version $Id$
 ///
 // Krauss car-following model, with acceleration decrease and faster start
 /****************************************************************************/

@@ -13,7 +13,6 @@
 # @author  Laura Bieker
 # @author  Michael Behrisch
 # @date    2011-05-27
-# @version $Id$
 
 """
 import osm network

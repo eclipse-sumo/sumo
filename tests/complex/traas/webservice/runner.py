@@ -10,7 +10,6 @@
 # @file    runner.py
 # @author  Michael Behrisch
 # @date    2019-05-01
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function

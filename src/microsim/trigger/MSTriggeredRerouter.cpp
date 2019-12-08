@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Mirco Sturari
 /// @date    Mon, 25 July 2005
-/// @version $Id$
 ///
 // Reroutes vehicles passing an edge
 /****************************************************************************/
@@ -426,8 +425,8 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
             const double previousCost = router.recomputeCosts(prevEdges, &veh, MSNet::getInstance()->getCurrentTimeStep());
             const double savings = previousCost - routeCost;
             hasReroutingDevice
-                ? MSRoutingEngine::getRouterTT(veh.getRNGIndex())
-                : MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
+            ? MSRoutingEngine::getRouterTT(veh.getRNGIndex())
+            : MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
             //if (getID() == "ego") std::cout << SIMTIME << " pCost=" << previousCost << " cost=" << routeCost
             //        << " prevEdges=" << toString(prevEdges)
             //        << " newEdges=" << toString(edges)
@@ -494,8 +493,8 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
     if (rerouteDef->closed.size() == 0 || destUnreachable || veh.getRoute().containsAnyOf(rerouteDef->closed)) {
         ConstMSEdgeVector edges;
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
-            ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), rerouteDef->closed)
-            : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
+                ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), rerouteDef->closed)
+                : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
         router.compute(veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
         if (edges.size() == 0 && !keepDestination && rerouteDef->edgeProbs.getOverallProb() > 0) {
             // destination unreachable due to closed intermediate edges. pick among alternative targets
@@ -519,8 +518,8 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
         }
         const double routeCost = router.recomputeCosts(edges, &veh, MSNet::getInstance()->getCurrentTimeStep());
         hasReroutingDevice
-            ? MSRoutingEngine::getRouterTT(veh.getRNGIndex())
-            : MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
+        ? MSRoutingEngine::getRouterTT(veh.getRNGIndex())
+        : MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
         const bool useNewRoute = veh.replaceRouteEdges(edges, routeCost, 0, getID());
 #ifdef DEBUG_REROUTER
         if (DEBUGCOND) std::cout << "   rerouting:  newDest=" << newEdge->getID()

@@ -10,7 +10,6 @@
 /// @file    GNEAdditional.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2015
-/// @version $Id$
 ///
 // A abstract class for representation of additional elements
 /****************************************************************************/
@@ -43,16 +42,16 @@
 // ===========================================================================
 
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEEdge*>& parentEdges,
-        const std::vector<GNELane*>& parentLanes,
-        const std::vector<GNEShape*>& parentShapes,
-        const std::vector<GNEAdditional*>& parentAdditionals,
-        const std::vector<GNEDemandElement*>& parentDemandElements,
-        const std::vector<GNEEdge*>& childEdges,
-        const std::vector<GNELane*>& childLanes,
-        const std::vector<GNEShape*>& childShapes,
-        const std::vector<GNEAdditional*>& childAdditionals,
-        const std::vector<GNEDemandElement*>& childDemandElements) :
+                             const std::vector<GNEEdge*>& parentEdges,
+                             const std::vector<GNELane*>& parentLanes,
+                             const std::vector<GNEShape*>& parentShapes,
+                             const std::vector<GNEAdditional*>& parentAdditionals,
+                             const std::vector<GNEDemandElement*>& parentDemandElements,
+                             const std::vector<GNEEdge*>& childEdges,
+                             const std::vector<GNELane*>& childLanes,
+                             const std::vector<GNEShape*>& childShapes,
+                             const std::vector<GNEAdditional*>& childAdditionals,
+                             const std::vector<GNEDemandElement*>& childDemandElements) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     Parameterised(),
@@ -67,16 +66,16 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 
 
 GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEEdge*>& parentEdges,
-        const std::vector<GNELane*>& parentLanes,
-        const std::vector<GNEShape*>& parentShapes,
-        const std::vector<GNEAdditional*>& parentAdditionals,
-        const std::vector<GNEDemandElement*>& parentDemandElements,
-        const std::vector<GNEEdge*>& childEdges,
-        const std::vector<GNELane*>& childLanes,
-        const std::vector<GNEShape*>& childShapes,
-        const std::vector<GNEAdditional*>& childAdditionals,
-        const std::vector<GNEDemandElement*>& childDemandElements) :
+                             const std::vector<GNEEdge*>& parentEdges,
+                             const std::vector<GNELane*>& parentLanes,
+                             const std::vector<GNEShape*>& parentShapes,
+                             const std::vector<GNEAdditional*>& parentAdditionals,
+                             const std::vector<GNEDemandElement*>& parentDemandElements,
+                             const std::vector<GNEEdge*>& childEdges,
+                             const std::vector<GNELane*>& childLanes,
+                             const std::vector<GNEShape*>& childShapes,
+                             const std::vector<GNEAdditional*>& childAdditionals,
+                             const std::vector<GNEDemandElement*>& childDemandElements) :
     GUIGlObject(type, additionalParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     Parameterised(),
@@ -383,7 +382,7 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 }
 
 
-const std::string &
+const std::string&
 GNEAdditional::getOptionalAdditionalName() const {
     return myAdditionalName;
 }

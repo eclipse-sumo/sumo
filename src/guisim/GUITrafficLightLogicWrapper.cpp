@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Oct/Nov 2003
-/// @version $Id$
 ///
 // A wrapper for tl-logics to allow their visualisation and interaction
 /****************************************************************************/

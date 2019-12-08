@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Jan 2004
-/// @version $Id$
 ///
 // Computes routes using junction turning percentages
 /****************************************************************************/

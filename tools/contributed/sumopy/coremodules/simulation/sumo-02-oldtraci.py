@@ -11,7 +11,6 @@
 # @file    sumo-02-oldtraci.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import os
 import sys

@@ -10,7 +10,6 @@
 /// @file    GNEDetectorE1.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -37,7 +36,9 @@
 // ===========================================================================
 
 GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {lane}) {
+    GNEDetector(id, viewNet, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {
+    lane
+}) {
 }
 
 
@@ -325,7 +326,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNEDetectorE1::isAttributeEnabled(SumoXMLAttr /* key */) const {
     return true;
 }

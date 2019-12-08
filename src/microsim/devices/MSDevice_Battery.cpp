@@ -11,7 +11,6 @@
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
 /// @date    20.12.2013
-/// @version $Id$
 ///
 // The Battery parameters for the vehicle
 /****************************************************************************/

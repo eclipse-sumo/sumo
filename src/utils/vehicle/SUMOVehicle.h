@@ -12,7 +12,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Tue, 17 Feb 2009
-/// @version $Id$
 ///
 // Abstract base class for vehicle representations
 /****************************************************************************/

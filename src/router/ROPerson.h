@@ -11,7 +11,6 @@
 /// @author  Robert Hilbrich
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A person as used by router
 /****************************************************************************/

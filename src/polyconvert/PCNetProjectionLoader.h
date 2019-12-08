@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Thu, 02.11.2006
-/// @version $Id$
 ///
 // A reader for a SUMO network's projection description
 /****************************************************************************/

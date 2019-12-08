@@ -10,7 +10,6 @@
 /// @file    MFXMenuHeader.h
 /// @author  Daniel Krajzewicz
 /// @date    2004-07-02
-/// @version $Id$
 ///
 // Header for menu commands
 /****************************************************************************/

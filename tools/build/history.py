@@ -10,7 +10,6 @@
 # @file    history.py
 # @author  Michael Behrisch
 # @date    2014-06-21
-# @version $Id$
 
 """
 This script builds all sumo versions in a certain revision range

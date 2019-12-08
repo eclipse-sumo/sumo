@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    June 2006
-/// @version $Id$
 ///
 // The GUI-version of a polygon
 /****************************************************************************/
@@ -94,8 +93,7 @@ GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
     GUIGlObject_AbstractAdd(GLO_POLYGON, id),
     myDisplayList(0),
-    myRotatedShape(nullptr)
-{
+    myRotatedShape(nullptr) {
     if (angle != 0.) {
         setShape(shape);
     }

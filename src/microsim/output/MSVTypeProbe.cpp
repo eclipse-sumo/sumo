@@ -13,7 +13,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Wed, 24.10.2007
-/// @version $Id$
 ///
 // Writes positions of vehicles that have a certain (named) type
 /****************************************************************************/

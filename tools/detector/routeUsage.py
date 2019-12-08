@@ -10,7 +10,6 @@
 # @file    routeUsage.py
 # @author  Jakob Erdmann
 # @date    2017-03-30
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function

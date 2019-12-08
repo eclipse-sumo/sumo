@@ -10,7 +10,6 @@
 /// @file    MainApp.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/

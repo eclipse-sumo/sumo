@@ -11,7 +11,6 @@
 # @file    modules_common.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import os
 

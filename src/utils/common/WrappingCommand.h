@@ -11,7 +11,6 @@
 /// @author  Christian Roessel
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 20 Dec 2001
-/// @version $Id$
 ///
 // A wrapper for a Command function
 /****************************************************************************/

@@ -16,7 +16,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    July 2010
-/// @version $Id$
 ///
 // Class containing all information of a given trip (car, bus)
 /****************************************************************************/

@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Felix Brack
 /// @date    Mon, 17 Dec 2001
-/// @version $Id$
 ///
 // Exceptions for used by some utility classes
 /****************************************************************************/

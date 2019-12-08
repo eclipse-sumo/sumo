@@ -10,7 +10,6 @@
 /// @file    GNEContainerStop.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id$
 ///
 // A class for visualizing busStop geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
@@ -46,7 +45,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] block movement enable or disable additional movement
      */
-    GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const double startPos, const double endPos, const int parametersSet, 
+    GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const double startPos, const double endPos, const int parametersSet,
                      const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor

@@ -15,7 +15,6 @@
 /// @author  Christian Roessel
 /// @author  Jakob Erdmann
 /// @date    Mon, 15 Apr 2002
-/// @version $Id$
 ///
 // Builds detectors for microsim
 /****************************************************************************/

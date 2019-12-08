@@ -11,7 +11,6 @@
 # @author  Laura Bieker
 # @author  Michael Behrisch
 # @date    2014-08-28
-# @version $Id$
 
 
 from __future__ import print_function

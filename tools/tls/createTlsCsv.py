@@ -11,7 +11,6 @@
 # @author  Harald Schaefer
 # @author  Michael Behrisch
 # @date    2017-04-22
-# @version $Id$
 
 """
 Create tls links from sumo net as needed by tls_csv2SUMO.py.

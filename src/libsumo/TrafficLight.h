@@ -12,7 +12,6 @@
 /// @author  Mario Krumnow
 /// @author  Michael Behrisch
 /// @date    30.05.2012
-/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

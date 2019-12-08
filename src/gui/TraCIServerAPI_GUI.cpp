@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    07.05.2009
-/// @version $Id$
 ///
 // APIs for getting/setting GUI values via TraCI
 /****************************************************************************/

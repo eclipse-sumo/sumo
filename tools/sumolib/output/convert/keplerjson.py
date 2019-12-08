@@ -9,7 +9,6 @@
 # @file    keplerjson.py
 # @author  Michael Behrisch
 # @date    2019-11-01
-# @version $Id$
 
 """
 This module includes functions for converting SUMO's fcd-output into

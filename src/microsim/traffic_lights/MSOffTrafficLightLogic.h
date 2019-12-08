@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    08.05.2007
-/// @version $Id$
 ///
 // A traffic lights logic which represents a tls in an off-mode
 /****************************************************************************/

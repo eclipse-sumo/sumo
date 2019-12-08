@@ -10,7 +10,6 @@
 /// @file    GNEAttributeCarrier.h
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id$
 ///
 // Abstract Base class for gui objects which carry attributes
 /****************************************************************************/
@@ -640,7 +639,7 @@ public:
         } catch (NumberFormatException&) {
             return false;
         } catch (TimeFormatException&) {
-                return false;
+            return false;
         } catch (EmptyData&) {
             return false;
         } catch (BoolFormatException&) {
@@ -848,11 +847,11 @@ private:
 
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
     static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute,
-        std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
+                                     std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief parse and check masked  (note: This function is only to improve legilibility)
     static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const TagProperties& tagProperties,
-        const AttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
+            const AttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, TagProperties> myTagProperties;

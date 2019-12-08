@@ -11,7 +11,6 @@
 /// @author  Gregor Laemmel
 /// @author  Nikita Cherednychek
 /// @date    Tue, 20 Mar 2017
-/// @version $Id$
 ///
 // The representation of one direction of a single pt line
 /****************************************************************************/
@@ -76,7 +75,7 @@ public:
     NBEdge* getRouteEnd(const NBEdgeCont& ec) const;
 
     /// @brief replace the given stop
-    void replaceStop(NBPTStop* oldStop, NBPTStop* newStop); 
+    void replaceStop(NBPTStop* oldStop, NBPTStop* newStop);
 
 private:
     std::string myName;

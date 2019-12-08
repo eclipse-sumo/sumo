@@ -16,7 +16,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Jul 2010
-/// @version $Id$
 ///
 // Main object of the ActivityGen application
 /****************************************************************************/

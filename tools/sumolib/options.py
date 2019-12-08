@@ -10,7 +10,6 @@
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2012-03-15
-# @version $Id$
 
 
 from __future__ import print_function

@@ -9,7 +9,6 @@
 # @file    demand.py
 # @author  Daniel Krajzewicz
 # @date    2013-10-10
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function

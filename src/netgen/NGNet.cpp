@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mar, 2003
-/// @version $Id$
 ///
 // The class storing the generated network
 /****************************************************************************/

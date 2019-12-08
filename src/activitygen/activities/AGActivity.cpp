@@ -14,7 +14,6 @@
 /// @author  Daniel Krajzewicz
 /// @author  Walter Bamberger
 /// @date    July 2010
-/// @version $Id$
 ///
 // Parent object for all activities. Derived classes generate trips for each
 // household.

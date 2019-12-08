@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    2006-01-09
-/// @version $Id$
 ///
 // Storage for available visualization settings
 /****************************************************************************/

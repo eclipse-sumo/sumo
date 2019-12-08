@@ -15,7 +15,6 @@
 /// @author  Melanie Knocke
 /// @author  Yun-Pang Floetteroed
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A basic edge for routing applications
 /****************************************************************************/

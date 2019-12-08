@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Tue, 25 Nov 2003
-/// @version $Id$
 ///
 // A logging window for the gui
 /****************************************************************************/

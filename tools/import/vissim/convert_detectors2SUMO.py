@@ -11,7 +11,6 @@
 # @file    convert_detectors2SUMO.py
 # @author  Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
 # @date    Aug 14 2015
-# @version $Id$
 
 """
 Parses induction loops and travel time measurements from a VISSIM .inpx file

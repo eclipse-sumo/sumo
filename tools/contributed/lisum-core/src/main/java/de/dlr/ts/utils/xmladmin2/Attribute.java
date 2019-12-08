@@ -10,7 +10,6 @@
 /// @file    Attribute.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/

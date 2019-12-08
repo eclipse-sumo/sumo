@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 05 Dec 2005
-/// @version $Id$
 ///
 // A storage for type mappings
 /****************************************************************************/

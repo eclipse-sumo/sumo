@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2005-09-15
-/// @version $Id$
 ///
 // Encapsulates binary reading operations on a file
 /****************************************************************************/

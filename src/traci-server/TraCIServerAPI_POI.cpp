@@ -14,7 +14,6 @@
 /// @author  Jakob Erdmann
 /// @author  Robert Hilbrich
 /// @date    07.05.2009
-/// @version $Id$
 ///
 // APIs for getting/setting POI values via TraCI
 /****************************************************************************/

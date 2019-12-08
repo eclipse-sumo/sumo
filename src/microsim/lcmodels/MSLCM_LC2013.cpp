@@ -16,7 +16,6 @@
 /// @author  Laura Bieker
 /// @author  Leonhard Luecken
 /// @date    Fri, 08.10.2013
-/// @version $Id$
 ///
 // A lane change model developed by J. Erdmann
 // based on the model of D. Krajzewicz developed between 2004 and 2011 (MSLCM_DK2004)
@@ -113,8 +112,7 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)),
     myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1)),
     myOvertakeRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_OVERTAKE_RIGHT, 0)),
-    myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0))
-{
+    myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)) {
     initDerivedParameters();
 #ifdef DEBUG_CONSTRUCTOR
     if (DEBUG_COND) {
@@ -1032,9 +1030,9 @@ MSLCM_LC2013::prepareStep() {
     if (mySigma > 0 && MSGlobals::gLaneChangeDuration > DELTA_T && !isChangingLanes()) {
         // disturb lateral position directly
         const double oldPosLat = myVehicle.getLateralPositionOnLane();
-        const double deltaPosLat = OUProcess::step(oldPosLat, 
-                    myVehicle.getActionStepLengthSecs(),
-                    MAX2(NUMERICAL_EPS, (1 - mySigma) * 100), mySigma) - oldPosLat;
+        const double deltaPosLat = OUProcess::step(oldPosLat,
+                                   myVehicle.getActionStepLengthSecs(),
+                                   MAX2(NUMERICAL_EPS, (1 - mySigma) * 100), mySigma) - oldPosLat;
         const double scaledDelta = deltaPosLat * myVehicle.getSpeed() / myVehicle.getLane()->getSpeedLimit();
         myVehicle.setLateralPositionOnLane(oldPosLat + scaledDelta);
     }
@@ -1647,7 +1645,7 @@ MSLCM_LC2013::_wantsChange(
             if (neighLead.first != 0 && neighLead.first->getSpeed() < vMax) {
                 fullSpeedGap = MAX2(0., MIN2(fullSpeedGap,
                                              neighLead.second - myVehicle.getCarFollowModel().getSecureGap(&myVehicle, neighLead.first,
-                                                 vMax, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())));
+                                                     vMax, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())));
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - neighLead.first->getSpeed()));
             }
             // stay on the current lane if we cannot overtake a slow leader on the right
@@ -1673,7 +1671,7 @@ MSLCM_LC2013::_wantsChange(
                           << " brakeGap=" << myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed())
                           << " leaderSpeed=" << (neighLead.first == 0 ? -1 : neighLead.first->getSpeed())
                           << " secGap=" << (neighLead.first == 0 ? -1 : myVehicle.getCarFollowModel().getSecureGap(&myVehicle, neighLead.first,
-                                      myVehicle.getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()))
+                                            myVehicle.getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()))
                           << " acceptanceTime=" << acceptanceTime
                           << " fullSpeedGap=" << fullSpeedGap
                           << " fullSpeedDrivingSeconds=" << fullSpeedDrivingSeconds

@@ -10,7 +10,6 @@
 /// @file    SUMOTrafficObject.h
 /// @author  Jakob Erdmann
 /// @date    Mon, 25 Mar 2019
-/// @version $Id$
 ///
 // Abstract base class for vehicle and person representations
 /****************************************************************************/

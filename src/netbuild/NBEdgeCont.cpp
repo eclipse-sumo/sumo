@@ -13,7 +13,6 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
 ///
 // Storage for edges, including some functionality operating on multiple edges
 /****************************************************************************/
@@ -1168,8 +1167,8 @@ NBEdgeCont::guessRoundabouts() {
     for (EdgeCont::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         NBEdge* e = (*i).second;
         NBNode* const to = e->getToNode();
-        if (e->getTurnDestination() == nullptr 
-                && to->getConnectionTo(e->getFromNode()) == nullptr 
+        if (e->getTurnDestination() == nullptr
+                && to->getConnectionTo(e->getFromNode()) == nullptr
                 && loadedRoundaboutEdges.count(e) == 0
                 && (e->getPermissions() & valid) != 0) {
             candidates.insert(e);
@@ -1194,7 +1193,7 @@ NBEdgeCont::guessRoundabouts() {
 #ifdef DEBUG_GUESS_ROUNDABOUT
         gDebugFlag1 = false;
 #endif
-        do { 
+        do {
 #ifdef DEBUG_GUESS_ROUNDABOUT
             if (e->getID() == DEBUG_EDGE_ID || gDebugFlag1) {
                 std::cout << " e=" << e->getID() << " loopEdges=" << toString(loopEdges) << "\n";
@@ -1206,14 +1205,20 @@ NBEdgeCont::guessRoundabouts() {
             if (e->getToNode()->getType() == NODETYPE_RIGHT_BEFORE_LEFT && !e->getToNode()->typeWasGuessed()) {
                 doLoop = false;
 #ifdef DEBUG_GUESS_ROUNDABOUT
-                if (gDebugFlag1) std::cout << " rbl\n"; gDebugFlag1 = false;
+                if (gDebugFlag1) {
+                    std::cout << " rbl\n";
+                }
+                gDebugFlag1 = false;
 #endif
                 break;
             }
             if (edges.size() < 2) {
                 doLoop = false;
 #ifdef DEBUG_GUESS_ROUNDABOUT
-                if (gDebugFlag1) std::cout << " deadend\n"; gDebugFlag1 = false;
+                if (gDebugFlag1) {
+                    std::cout << " deadend\n";
+                }
+                gDebugFlag1 = false;
 #endif
                 break;
             }
@@ -1221,7 +1226,10 @@ NBEdgeCont::guessRoundabouts() {
                 // do not follow turn-arounds while in a (tentative) loop
                 doLoop = false;
 #ifdef DEBUG_GUESS_ROUNDABOUT
-                if (gDebugFlag1) std::cout << " turn\n"; gDebugFlag1 = false;
+                if (gDebugFlag1) {
+                    std::cout << " turn\n";
+                }
+                gDebugFlag1 = false;
 #endif
                 break;
             }
@@ -1236,7 +1244,10 @@ NBEdgeCont::guessRoundabouts() {
                 // no usable continuation edge found
                 doLoop = false;
 #ifdef DEBUG_GUESS_ROUNDABOUT
-                if (gDebugFlag1) std::cout << " noContinuation\n"; gDebugFlag1 = false;
+                if (gDebugFlag1) {
+                    std::cout << " noContinuation\n";
+                }
+                gDebugFlag1 = false;
 #endif
                 break;
             }
@@ -1245,21 +1256,26 @@ NBEdgeCont::guessRoundabouts() {
             double angle = fabs(NBHelpers::relAngle(e->getAngleAtNode(e->getToNode()), left->getAngleAtNode(e->getToNode())));
             double nextAngle = nextLeft == e ? 180 : fabs(NBHelpers::relAngle(e->getAngleAtNode(e->getToNode()), nextLeft->getAngleAtNode(e->getToNode())));
 #ifdef DEBUG_GUESS_ROUNDABOUT
-            if (gDebugFlag1) std::cout << "   angle=" << angle << " nextAngle=" << nextAngle << "\n";
+            if (gDebugFlag1) {
+                std::cout << "   angle=" << angle << " nextAngle=" << nextAngle << "\n";
+            }
 #endif
-            if (angle >= 120 
-                    || (angle >= 90 && 
+            if (angle >= 120
+                    || (angle >= 90 &&
                         // if the edges are long or the junction shape is small we should expect roundness (low angles)
-                        (MAX2(e->getLength(), left->getLength()) > 5 
+                        (MAX2(e->getLength(), left->getLength()) > 5
                          || e->getLaneShape(0).back().distanceTo2D(left->getLaneShape(0).front()) < 10
                          // there should be no straigher edge further left
                          || (nextAngle < 45)
-                         ))) {
+                        ))) {
                 // roundabouts do not have sharp turns (or they wouldn't be called 'round')
                 // however, if the roundabout is very small then most of the roundness may be in the junction so the angle may be as high as 120
                 doLoop = false;
 #ifdef DEBUG_GUESS_ROUNDABOUT
-                if (gDebugFlag1) std::cout << " angle=" << angle << "\n"; gDebugFlag1 = false;
+                if (gDebugFlag1) {
+                    std::cout << " angle=" << angle << "\n";
+                }
+                gDebugFlag1 = false;
 #endif
                 break;
             }
@@ -1283,7 +1299,10 @@ NBEdgeCont::guessRoundabouts() {
                 if (attachments < 3) {
                     doLoop = false;
 #ifdef DEBUG_GUESS_ROUNDABOUT
-                    if (gDebugFlag1) std::cout << " attachments=" << attachments << "\n"; gDebugFlag1 = false;
+                    if (gDebugFlag1) {
+                        std::cout << " attachments=" << attachments << "\n";
+                    }
+                    gDebugFlag1 = false;
 #endif
                 }
                 break;

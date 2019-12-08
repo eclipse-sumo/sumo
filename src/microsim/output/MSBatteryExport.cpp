@@ -12,7 +12,6 @@
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
 /// @date    20-12-13
-/// @version $Id$
 ///
 // Realises dumping Battery Data
 /****************************************************************************/

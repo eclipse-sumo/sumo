@@ -10,7 +10,6 @@
 /// @file    GNEDemandElementDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2018
-/// @version $Id$
 ///
 // A abstract class for editing additional elements
 /****************************************************************************/

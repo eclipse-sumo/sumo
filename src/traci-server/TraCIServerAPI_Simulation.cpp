@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // APIs for getting/setting edge values via TraCI
 /****************************************************************************/
@@ -299,7 +298,7 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
     if (variable != libsumo::CMD_CLEAR_PENDING_VEHICLES
             && variable != libsumo::CMD_SAVE_SIMSTATE
             && variable != libsumo::CMD_MESSAGE
-            ) {
+       ) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "Set Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id

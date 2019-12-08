@@ -11,7 +11,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Nov 2012
-/// @version $Id$
 ///
 // A class representing a street sign
 /****************************************************************************/

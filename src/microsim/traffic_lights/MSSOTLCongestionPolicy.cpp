@@ -11,7 +11,6 @@
 /// @author  Alessio Bonfietti
 /// @author  Riccardo Belletti
 /// @date    Feb 2014
-/// @version $Id$
 ///
 // The class for SOTL Congestion logics
 /****************************************************************************/

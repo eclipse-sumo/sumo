@@ -11,7 +11,6 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Wed, 01.08.2014
-/// @version $Id$
 ///
 // A lane area vehicles can halt at (gui-version)
 /****************************************************************************/

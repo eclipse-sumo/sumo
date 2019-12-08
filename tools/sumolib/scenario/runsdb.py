@@ -9,7 +9,6 @@
 # @file    runsdb.py
 # @author  Daniel Krajzewicz
 # @date    2014-07-21
-# @version $Id$
 
 
 from __future__ import absolute_import

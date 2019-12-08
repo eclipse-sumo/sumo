@@ -10,7 +10,6 @@
 /// @file    CC_Const.h
 /// @author  Michele Segata
 /// @date    Fri, 11 Apr 2014
-/// @version $Id$
 ///
 // File defining constants, structs, and enums for cruise controllers
 /****************************************************************************/

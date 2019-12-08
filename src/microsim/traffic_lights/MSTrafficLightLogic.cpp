@@ -12,7 +12,6 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The parent class for traffic light logics
 /****************************************************************************/
@@ -106,8 +105,7 @@ MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl& tlcontrol, const std:
     myLogicType(logicType),
     myCurrentDurationIncrement(-1),
     myDefaultCycleTime(0),
-    myAmActive(true)
-{
+    myAmActive(true) {
     mySwitchCommand = new SwitchCommand(tlcontrol, this, delay);
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(mySwitchCommand, delay);
 }

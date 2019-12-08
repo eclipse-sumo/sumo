@@ -10,7 +10,6 @@
 /// @file    GNECreateEdgeFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2018
-/// @version $Id$
 ///
 // The Widget for create edges (and junctions)
 /****************************************************************************/
@@ -51,8 +50,8 @@ public:
      * @param oppositeEdge automatically create an opposite edge
      * @param chainEdge create edges in chain mode
      */
-    void processClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, 
-        GNEViewNetHelper::ObjectsUnderCursor& objectsUnderGrippedCursor, const bool oppositeEdge, const bool chainEdge);
+    void processClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor,
+                      GNEViewNetHelper::ObjectsUnderCursor& objectsUnderGrippedCursor, const bool oppositeEdge, const bool chainEdge);
 
     /// @brief abort current edge creation
     void abortEdgeCreation();

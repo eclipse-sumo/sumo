@@ -10,7 +10,6 @@
 /// @file    GUIInstantInductLoop.h
 /// @author  Daniel Krajzewicz
 /// @date    Aug 2003
-/// @version $Id$
 ///
 // The gui-version of the MSInstantInductLoop
 /****************************************************************************/

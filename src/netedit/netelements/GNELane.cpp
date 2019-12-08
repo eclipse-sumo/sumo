@@ -10,7 +10,6 @@
 /// @file    GNELane.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id$
 ///
 // A class for visualizing Lane geometry (adapted from GNELaneWrapper)
 /****************************************************************************/
@@ -812,7 +811,7 @@ GNELane::isRestricted(SUMOVehicleClass vclass) const {
 }
 
 
-const GNEGeometry::Lane2laneConnection &
+const GNEGeometry::Lane2laneConnection&
 GNELane::getLane2laneConnections() const {
     return myLane2laneConnections;
 }
@@ -919,7 +918,7 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNELane::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
@@ -938,7 +937,7 @@ GNELane::setSpecialColor(const RGBColor* color, double colorValue) {
 }
 
 
-void 
+void
 GNELane::drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEAdditional* E2Detector, const GNEJunction* junction) const {
     // calculate E2Detector width
     //double E2DetectorWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.E2Detector;
@@ -959,7 +958,7 @@ GNELane::drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEA
     // draw E2Detector
     if (junction) {
         // iterate over segments
-        for (const auto &segment : E2Detector->getAdditionalSegmentGeometry()) {
+        for (const auto& segment : E2Detector->getAdditionalSegmentGeometry()) {
             // draw partial segment
             if ((segment.junction == junction) && (segment.AC == E2Detector)) {
                 // Set E2Detector color (needed due drawShapeDottedContour)
@@ -974,7 +973,7 @@ GNELane::drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEA
         }
     } else {
         // iterate over segments
-        for (const auto &segment : E2Detector->getAdditionalSegmentGeometry()) {
+        for (const auto& segment : E2Detector->getAdditionalSegmentGeometry()) {
             // draw partial segment
             if ((segment.lane == this) && (segment.AC == E2Detector)) {
                 // Set E2Detector color (needed due drawShapeDottedContour)
@@ -1224,7 +1223,7 @@ GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
     return isRailway(myParentEdge->getNBEdge()->getPermissions(myIndex)) && s.showRails && (!s.drawForRectangleSelection || s.spreadSuperposed);
 }
 
- 
+
 bool
 GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
     return isWaterway(myParentEdge->getNBEdge()->getPermissions(myIndex)) && s.showRails && !s.drawForRectangleSelection; // reusing the showRails setting

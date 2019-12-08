@@ -12,7 +12,6 @@
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2017-06-23
-# @version $Id$
 
 from __future__ import print_function
 import os
@@ -121,7 +120,7 @@ def createTrips(options):
     trpMap = {}
     with codecs.open(options.trips, 'w', encoding="UTF8") as fouttrips:
         sumolib.writeXMLHeader(
-            fouttrips, "$Id$",
+            fouttrips, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
             "routes")
         writeTypes(fouttrips, options.vtypeprefix)
 
@@ -283,7 +282,7 @@ def createRoutes(options, trpMap, stopNames):
         flows = []
         actualDepart = {}  # departure may be delayed when the edge is not yet empty
         sumolib.writeXMLHeader(
-            foutflows, "$Id$",
+            foutflows, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
             "routes")
         if not options.novtypes:
             writeTypes(foutflows, options.vtypeprefix)

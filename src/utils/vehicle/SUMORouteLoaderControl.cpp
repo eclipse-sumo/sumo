@@ -12,7 +12,6 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Wed, 06 Nov 2002
-/// @version $Id$
 ///
 // Class responsible for loading of routes from some files
 /****************************************************************************/

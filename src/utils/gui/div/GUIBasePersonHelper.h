@@ -10,7 +10,6 @@
 /// @file    GUIBasePersonHelper.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2019
-/// @version $Id$
 ///
 // Functions used in GUIPerson and GNEPerson for drawing persons
 /****************************************************************************/

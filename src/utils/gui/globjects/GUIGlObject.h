@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Oct 2002
-/// @version $Id$
 ///
 // Base class for all objects that may be displayed within the openGL-gui
 /****************************************************************************/

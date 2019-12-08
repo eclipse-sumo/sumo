@@ -10,7 +10,6 @@
 /// @file    GNEAbout.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id$
 ///
 // The "About" - dialog for NETEDIT, (adapted from GUIDialog_AboutSUMO)
 /****************************************************************************/
