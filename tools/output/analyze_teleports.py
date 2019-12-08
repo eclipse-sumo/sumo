@@ -24,8 +24,8 @@ def parse_log(logfile, edges=True, aggregate=3600):
     print("Parsing %s" % logfile)
     reFrom = re.compile("lane='([^']*)'")
     reFromMeso = re.compile("edge '([^']*)'")
-    reTime = re.compile("time.(\d*)\.")
-    reHRTime = re.compile("time.(\d):(\d\d):(\d\d):(\d*).")
+    reTime = re.compile(r"time.(\d*)\.")
+    reHRTime = re.compile(r"time.(\d):(\d\d):(\d\d):(\d*).")
     # counts per lane
     waitingCounts = defaultdict(lambda: 0)
     collisionCounts = defaultdict(lambda: 0)

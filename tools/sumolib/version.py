@@ -24,7 +24,6 @@ determined any exisitng vershion.h is kept
 from __future__ import absolute_import
 from __future__ import print_function
 
-import sys
 import subprocess
 from os.path import dirname, exists, join
 

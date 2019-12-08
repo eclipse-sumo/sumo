@@ -57,8 +57,9 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, 
                 minPath = None
                 for path, (dist, lastBase) in paths.items():
                     if debug:
-                        print("*** extending path %s by edge '%s', base: %s, advance: %s, old dist: %s, lastBase: %s, minDist: %s" %
-                              ([e.getID() for e in path], edge.getID(), base, advance, dist, lastBase, minDist))
+                        print("*** extending path %s by edge '%s'" % ([e.getID() for e in path], edge.getID()))
+                        print("              lastBase: %s, base: %s, advance: %s, old dist: %s, minDist: %s" %
+                              (lastBase, base, advance, dist, minDist))
                     if dist < minDist:
                         if edge == path[-1]:
                             baseDiff = lastBase + advance - base

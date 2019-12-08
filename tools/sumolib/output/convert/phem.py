@@ -90,8 +90,7 @@ def fcd2fzp(inpFCD, outSTRM, further):
     """
     sIDm = further["phemStreetMap"]
     if outSTRM is not None:
-        print(
-            "t,WeltX,WeltY,Veh. No,v,Gradient,veh.Typ-Id,Str-Id", file=outSTRM)
+        print("t,WeltX,WeltY,Veh. No,v,Gradient,veh.Typ-Id,Str-Id", file=outSTRM)
     vIDm = sumolib._Running(further["orig-ids"], True)
     vtIDm = sumolib._Running()
     vtIDm.g("PKW")
@@ -123,4 +122,4 @@ def vehicleTypes2flt(outSTRM, vtIDm):
     """
     for q in sorted(vtIDm._m):
         print("%s,%s,%s" %
-              (vtIDm.g(q), "<VEHDIR>\PC\PC_%s.GEN" % q, 1.), file=outSTRM)
+              (vtIDm.g(q), r"<VEHDIR>\PC\PC_%s.GEN" % q, 1.), file=outSTRM)
