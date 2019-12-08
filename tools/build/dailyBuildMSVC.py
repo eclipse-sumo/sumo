@@ -35,6 +35,9 @@ import status
 import version
 import wix
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib  # noqa
+
 BINARIES = ("activitygen", "emissionsDrivingCycle", "emissionsMap",
             "dfrouter", "duarouter", "jtrrouter", "marouter",
             "netconvert", "netedit", "netgenerate",
@@ -55,7 +58,7 @@ def repositoryUpdate(options, log):
         subprocess.call(["git", "pull"], stdout=log, stderr=subprocess.STDOUT)
         subprocess.call(["git", "submodule", "update"], stdout=log, stderr=subprocess.STDOUT)
         if gitrev == "":
-            gitrev = version.gitDescribe()
+            gitrev = sumolib.version.gitDescribe()
     os.chdir(cwd)
     return gitrev
 
