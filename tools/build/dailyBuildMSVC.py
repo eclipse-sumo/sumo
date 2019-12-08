@@ -32,7 +32,6 @@ import shutil
 import sys
 
 import status
-import version
 import wix
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
