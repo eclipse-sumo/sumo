@@ -10,7 +10,6 @@
 /// @file    MSDelayBasedTrafficLightLogic.h
 /// @author  Leonhard Luecken
 /// @date    Feb 2017
-/// @version
 ///
 // An actuated traffic light logic based on time delay of approaching vehicles
 /****************************************************************************/

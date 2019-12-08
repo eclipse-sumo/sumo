@@ -11,7 +11,6 @@
 /// @author  Nikolaus Furian
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 13.06.2013
-/// @version $$
 ///
 // Holds constants and data version info for PHEM Light
 /****************************************************************************/

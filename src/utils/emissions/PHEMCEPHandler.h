@@ -13,7 +13,6 @@
 /// @author  Michael Behrisch
 /// @author  Marek Heinrich
 /// @date    Thu, 13.06.2013
-/// @version $$
 ///
 // Helper singleton class for PHEM Light, holds CEP data for emission computation
 /****************************************************************************/

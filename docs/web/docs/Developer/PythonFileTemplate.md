@@ -19,7 +19,6 @@ permalink: /Developer/PythonFileTemplate/
 # @author  <AUTHOR'S NAME, ONE SEPARATE LINE FOR EACH AUTHOR>
 # @author  <AUTHOR'S NAME 2>
 # @date    <FILE CREATION DATE>
-# @version $Id: $
 
 """
 <A BRIEF DESCRIPTION OF THE FILE'S CONTENTS>

@@ -19,7 +19,6 @@ permalink: /Developer/HFileTemplate/
 /// @author  <AUTHOR'S NAME 2>
 /// @author  <AUTHOR'S NAME 3>
 /// @date    <FILE CREATION DATE>
-/// @version $Id: $
 ///
 // <A BRIEF DESCRIPTION OF THE FILE'S CONTENTS>
 /****************************************************************************/
