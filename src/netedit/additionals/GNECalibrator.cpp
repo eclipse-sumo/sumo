@@ -268,7 +268,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OUTPUT:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_ROUTEPROBE:
-            return SUMOXMLDefinitions::isValidNetID(value);
+            return SUMOXMLDefinitions::isValidAdditionalID(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:

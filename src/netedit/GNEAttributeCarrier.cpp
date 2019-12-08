@@ -4514,7 +4514,7 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
             if (SUMOXMLDefinitions::isValidVehicleID(parsedAttribute) == false) {
                 errorFormat = "Demand Element ID contains invalid characters; ";
             }
-        } else if (SUMOXMLDefinitions::isValidNetID(parsedAttribute) == false) {
+        } else if (SUMOXMLDefinitions::isValidAdditionalID(parsedAttribute) == false) {
             errorFormat = "ID contains invalid characters; ";
         }
     }
@@ -4631,7 +4631,7 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
         }
     }
     // set extra check for RouteProbes
-    if ((attribute == SUMO_ATTR_ROUTEPROBE) && !SUMOXMLDefinitions::isValidNetID(parsedAttribute)) {
+    if ((attribute == SUMO_ATTR_ROUTEPROBE) && !SUMOXMLDefinitions::isValidAdditionalID(parsedAttribute)) {
         errorFormat = "RouteProbe ID contains invalid characters; ";
     }
     // set extra check for list of edges
@@ -4647,7 +4647,7 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
         errorFormat = "List of vTypes contains invalid characters; ";
     }
     // set extra check for list of RouteProbe
-    if ((attribute == SUMO_ATTR_ROUTEPROBE) && !parsedAttribute.empty() && !SUMOXMLDefinitions::isValidNetID(parsedAttribute)) {
+    if ((attribute == SUMO_ATTR_ROUTEPROBE) && !parsedAttribute.empty() && !SUMOXMLDefinitions::isValidAdditionalID(parsedAttribute)) {
         errorFormat = "RouteProbe ID contains invalid characters; ";
     }
     // If attribute has an invalid format

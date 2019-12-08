@@ -480,7 +480,7 @@ GNEAdditional::getAdditionalID() const {
 
 bool
 GNEAdditional::isValidAdditionalID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidNetID(newID) && (myViewNet->getNet()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
+    if (SUMOXMLDefinitions::isValidAdditionalID(newID) && (myViewNet->getNet()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
         return true;
     } else {
         return false;

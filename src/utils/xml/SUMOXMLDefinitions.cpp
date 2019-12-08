@@ -980,16 +980,20 @@ SUMOXMLDefinitions::isValidTypeID(const std::string& value) {
     return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,<>&*?") == std::string::npos;
 }
 
+bool
+SUMOXMLDefinitions::isValidAdditionalID(const std::string& value) {
+    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,!<>&*?") == std::string::npos;
+}
 
 bool
 SUMOXMLDefinitions::isValidDetectorID(const std::string& value) {
-    return (value.size() > 0) && value.find_first_of("\t\n\r|\\'\";,:!<>&*?") == std::string::npos;
+    // special case: ' ' allowed
+    return (value.size() > 0) && value.find_first_of("\t\n\r|\\'\";,!<>&*?") == std::string::npos;
 }
-
 
 bool
 SUMOXMLDefinitions::isValidAttribute(const std::string& value) {
-    return value.find_first_of("\t\n\r@$%^&/|\\{}*'\";:<>") == std::string::npos;
+    return value.find_first_of("\t\n\r@$%^&/|\\{}*'\";<>") == std::string::npos;
 }
 
 
