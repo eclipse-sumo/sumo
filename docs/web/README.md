@@ -12,13 +12,7 @@ You can read the Documentation online at: <https://sumo.dlr.de/docs/>
 ### Installation
 First step is to install MkDocs and some MkDocs plugins:
 ```
-pip install mkdocs
-
-pip install mkdocs-macros-plugin
-pip install mdx_gh_links
-pip install pymdown-extensions
-pip install mkdocs-git-revision-date-plugin
-pip install mdx_truly_sane_lists
+pip install mkdocs mkdocs-macros-plugin==0.2.4 mdx_gh_links pymdown-extensions mkdocs-git-revision-date-plugin mdx_truly_sane_lists
 ```
 
 Next step is to clone this repository (if not already done):
