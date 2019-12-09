@@ -58,10 +58,10 @@ classname() {}
 #cmakedefine HAVE_PYTHON
 
 /* Define if auto-generated version.h should be used. */
-#define HAVE_VERSION_H
+//#define HAVE_VERSION_H
 #ifndef HAVE_VERSION_H
 /* Define if auto-generated version.h is unavailable. */
-#define VERSION_STRING "1.3.1"
+#define VERSION_STRING "1.4.0"
 #endif
 
 /* defines the epsilon to use on general floating point comparison */

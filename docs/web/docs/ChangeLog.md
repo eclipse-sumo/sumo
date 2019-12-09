@@ -3,7 +3,7 @@ title: ChangeLog
 permalink: /ChangeLog/
 ---
 
-## Git Master
+## Version 1.4.0 (10.12.2019)
 
 ### Bugfixes
 
