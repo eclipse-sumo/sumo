@@ -205,7 +205,6 @@ if (SUMO_LIBRARIES AND WIN32)
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
-                                 "${GDAL_PATH}/bin/*.dll"
                                  "${FOX_PATH}/lib/*.dll" # used by old SUMOLibraries versions
                                  "${FOX_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
@@ -243,7 +242,7 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${GL2PS_PATH}/Release;${GL2PS_PATH}/lib") # "Release" used by old versions of SUMOLibraries
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH}")
-    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${PROJ_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/Release/*.dll" "${GL2PS_PATH}/bin/*.dll")  # "Release" used by old versions of SUMOLibraries
+    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/Release/*.dll" "${GL2PS_PATH}/bin/*.dll")  # "Release" used by old versions of SUMOLibraries
     # set SWIG
     set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
     # set GRPC
@@ -388,20 +387,19 @@ endif ()
 if (SUMO_LIBRARIES AND WIN32)
     string(REPLACE "${SUMO_LIBRARIES}" "" SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL}")
     # copy common dlls
-    set(COMMON_DLLS "and installing common dlls")
-    add_custom_command(OUTPUT ${COMMON_DLLS}
+    add_custom_command(OUTPUT ${SUMO_LIBRARIES_DLL}
                        COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${SUMO_LIBRARIES_DLL}'.split(';')]"
                        DEPENDS ${SUMO_LIBRARIES})
     # copy OSG dlls
     if (HAVE_OSG)
-        set(OSG_DLLS "and installing OSG dlls")
-        add_custom_command(OUTPUT ${OSG_DLLS}
+        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/osg130-osg.dll)
+        add_custom_command(OUTPUT ${OSG_TARGET}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin
                            DEPENDS ${OSG_PATH})
     endif (HAVE_OSG)
     # proj 6 needs to copy "share/proj" folder in SUMO_HOME/data
     if (PROJ_6)
-        set(PROJ_DATA "and installing proj data")
+        set(PROJ_DATA  ${CMAKE_SOURCE_DIR}/data/proj/proj.db)
         add_custom_command(OUTPUT ${PROJ_DATA}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/data/proj
                            DEPENDS ${PROJ_PATH})
@@ -410,13 +408,12 @@ if (SUMO_LIBRARIES AND WIN32)
     if (INSTALL_DLL_RUNTIMES)
         string(REPLACE "${SUMO_LIBRARIES}" "" MSVC_DLLS "${MSVC_DLLS}")
         # copy MSVC140 dlls
-        set(MSVC_RUNTIMES "and installing MSVC dlls")
-        add_custom_command(OUTPUT ${MSVC_RUNTIMES}
+        add_custom_command(OUTPUT ${MSVC_DLLS}
                            COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${MSVC_DLLS}'.split(';')]"
                            DEPENDS ${SUMO_LIBRARIES})
     endif(INSTALL_DLL_RUNTIMES)
     # set install_dll target
-    add_custom_target(install_dll ALL DEPENDS ${COMMON_DLLS} ${OSG_DLLS} ${PROJ_DATA} ${MSVC_RUNTIMES})
+    add_custom_target(install_dll ALL DEPENDS ${SUMO_LIBRARIES_DLL} ${OSG_TARGET} ${PROJ_DATA} ${MSVC_DLLS})
     set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 endif ()
 
