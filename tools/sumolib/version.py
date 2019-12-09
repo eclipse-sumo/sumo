@@ -31,22 +31,33 @@ UNKNOWN_REVISION = "UNKNOWN"
 GITDIR = join(dirname(__file__), '..', '..', '.git')
 
 
+def _findVersion():
+    # try to find the version in the config.h
+    versionFile = join(dirname(__file__), '..', '..', 'include', 'version.h')
+    if exists(versionFile):
+        version = open(versionFile).read().split()
+        if len(version) > 2:
+            return version[2][1:-1]
+    configFile = join(dirname(__file__), '..', '..', 'src', 'config.h.cmake')
+    if exists(configFile):
+        config = open(configFile).read()
+        if "//#define HAVE_VERSION_H" in config:
+            version = config.find("VERSION_STRING") + 16
+            if version > 16:
+                return "v" + config[version:config.find('"\n', version)] + "-" + (10 * "0")
+    return UNKNOWN_REVISION
+
+
 def gitDescribe(commit="HEAD", gitDir=GITDIR, commitPrefix="+", padZero=True):
     command = ["git", "describe", "--long", "--always", commit]
     if gitDir:
         command[1:1] = ["--git-dir=" + gitDir]
+        if not exists(gitDir):
+            return _findVersion()
     try:
         d = subprocess.check_output(command, universal_newlines=True).strip()
     except subprocess.CalledProcessError:
-        # try to find the version in the config.h
-        configFile = join(dirname(__file__), '..', '..', 'src', 'config.h.cmake')
-        if exists(configFile):
-            config = open(configFile).read()
-            if "//#define HAVE_VERSION_H" in config:
-                version = config.find("VERSION_STRING") + 16
-                if version > 16:
-                    return "v" + config[version:config.find('"\n', version)] + "-" + (10 * "0")
-        return UNKNOWN_REVISION
+        return _findVersion()
     if "-" in d:
         # remove the "g" in describe output
         d = d.replace("-g", "-")

@@ -21,7 +21,7 @@ import tempfile
 import glob
 import shutil
 
-INPUT_DEFAULT = r"O:\Daten\Sumo\daily\sumo-win32-svn.zip"
+INPUT_DEFAULT = r"S:\daily\sumo-win64-git.zip"
 OUTPUT_DEFAULT = "sumo.msi"
 WIX_DEFAULT = "%sbin" % os.environ.get(
     "WIX", r"D:\Programme\Windows Installer XML v3.5\\")
@@ -63,7 +63,7 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
     zipfile.ZipFile(sourceZip).extractall(tmpDir)
     sumoRoot = glob.glob(os.path.join(tmpDir, "sumo-*"))[0]
     fragments = [buildFragment(wixBin, os.path.join(
-        sumoRoot, d), "INSTALLDIR", tmpDir, log) for d in ["bin", "data", "tools"]]
+        sumoRoot, d), "INSTALLDIR", tmpDir, log) for d in ["bin", "data", "include", "tools"]]
     for d in ["userdoc", "pydoc", "javadoc", "tutorial", "examples"]:
         docDir = os.path.join(sumoRoot, "docs", d)
         if os.path.exists(docDir):
