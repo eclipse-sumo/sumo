@@ -32,6 +32,10 @@
             <xsd:element name="trainStop" type="busStopType" minOccurs="0"/>
             <xsd:element name="containerStop" type="containerStopType" minOccurs="0"/>
             <xsd:element name="chargingStation" type="chargingStationType" minOccurs="0"/>
+            <xsd:element name="overheadWireSegment" type="overheadWireSegmentType" minOccurs="0"/>
+            <xsd:element name="tractionSubstation" type="tractionSubstationType" minOccurs="0"/>
+            <xsd:element name="overheadWireClamp" type="overheadWireClampType" minOccurs="0"/>
+            <xsd:element name="overheadWire" type="overheadWireType" minOccurs="0"/>
             <xsd:element name="parkingArea" type="parkingAreaType" minOccurs="0"/>
             <xsd:element name="calibrator" type="calibratorType" minOccurs="0"/>
             <xsd:element name="vaporizer" type="vaporizerType" minOccurs="0"/>
@@ -399,6 +403,47 @@
         <xsd:attribute name="chargeDelay" type="xsd:float" use="optional"/>
     </xsd:complexType>
 
+    <xsd:complexType name="overheadWireSegmentType">
+        <xsd:sequence>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="idType" use="required"/>
+        <xsd:attribute name="lane" type="xsd:string" use="required"/>
+        <xsd:attribute name="voltageSource" type="boolType" use="optional"/>
+        <xsd:attribute name="startPos" type="xsd:float" use="optional"/>
+        <xsd:attribute name="endPos" type="xsd:float" use="optional"/>
+        <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
+    </xsd:complexType>
+    
+    <xsd:complexType name="tractionSubstationType">
+        <xsd:sequence>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="idType" use="required"/>
+        <xsd:attribute name="voltage" type="xsd:float" use="optional"/>
+        <xsd:attribute name="currentLimit" type="xsd:float" use="optional"/>
+    </xsd:complexType>
+    
+    <xsd:complexType name="overheadWireClampType">
+        <xsd:sequence>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="idType" use="required"/>
+        <xsd:attribute name="substationId" type="xsd:string" use="required"/>
+        <xsd:attribute name="idSegmentStartClamp" type="xsd:string" use="required"/>
+        <xsd:attribute name="idSegmentEndClamp" type="xsd:string" use="required"/>
+    </xsd:complexType>
+    
+    <xsd:complexType name="overheadWireType">
+        <xsd:sequence>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="segments" type="xsd:string" use="required"/>
+        <xsd:attribute name="substationId" type="xsd:string" use="required"/>
+        <xsd:attribute name="clamps" type="xsd:string" use="optional"/>
+        <xsd:attribute name="forbiddenInnerLanes" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    
     <xsd:complexType name="accessType">
         <xsd:sequence>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>

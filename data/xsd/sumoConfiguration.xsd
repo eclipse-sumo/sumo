@@ -20,6 +20,7 @@
             <xsd:element name="communication" type="communicationTopicType" minOccurs="0"/>
             <xsd:element name="battery" type="batteryTopicType" minOccurs="0"/>
             <xsd:element name="example_device" type="example_deviceTopicType" minOccurs="0"/>
+            <xsd:element name="elecHybrid_device" type="elecHybrid_deviceTopicType" minOccurs="0"/>
             <xsd:element name="ssm_device" type="ssm_deviceTopicType" minOccurs="0"/>
             <xsd:element name="toc_device" type="toc_deviceTopicType" minOccurs="0"/>
             <xsd:element name="driver_state_device" type="driver_state_deviceTopicType" minOccurs="0"/>
@@ -61,6 +62,11 @@
             <xsd:element name="battery-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="battery-output.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="chargingstations-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="elecHybrid-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="elecHybrid-output.precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="elecHybrid-output.aggregated" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="overheadWireSegments-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="substations-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.geo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.signals" type="boolOptionType" minOccurs="0"/>
@@ -150,6 +156,7 @@
             <xsd:element name="pedestrian.striping.jamtime.crossing" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.remote.address" type="strOptionType" minOccurs="0"/>
             <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="overhead-wire-solver" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -229,6 +236,14 @@
             <xsd:element name="device.battery.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.deterministic" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+    
+    <xsd:complexType name="elecHybrid_deviceTopicType">
+        <xsd:all>
+            <xsd:element name="device.elecHybrid.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.elecHybrid.explicit" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.elecHybrid.deterministic" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
