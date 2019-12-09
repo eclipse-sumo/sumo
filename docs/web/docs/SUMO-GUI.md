@@ -244,7 +244,7 @@ shall be listed in the object locator dialog.
 
 # Influencing the simulation
 
-Currently, there is only very little interaction that can be done from
+Currently, there is only limited interaction that can be done from
 the GUI. This will change in the future (see below)
 
 ## Switching Traffic Lights
@@ -263,6 +263,19 @@ be closed for all traffic (except vClass *authority* and *ignoring*) by
 selecting the option *Close lane* or *Close edge*. In the same way lanes
 or edges can be reopened for traffic by selecting *Reopen lane* or
 *Reopen edge*.
+
+## Scaling the amount of Traffic
+
+The 'Scale Traffic' input in the top menu bar allows scaling the amount of traffic up and down. This works as for the sumo option **--scale**. The frequency / probability of any loaded flows is scaled in proportion and any newly loaded vehicles will be scaled as well.
+
+## Setting Vehicle Speed Factor
+
+When tracking a vehicle (Shift-Click on Vehicle or Vehicle context menu option 'Start Tracking'), a new speedFactor slider is shown.
+This slider allows setting the speedFactor to values between 0 and 2.
+
+## Setting Rerouter Probabilities
+
+When loading [Rerouters with routeProbReroute definitions](Simulation/Rerouter.md#assigning_a_new_route), directional arrows will be shown where the available routes diverge. Shift-Clicking on the rerouter icon or the directional arrows will set 100% probability to one of the available routes. Clicking repeatedly will cycle through the routes and again set 100% to a route.
 
 ## Planned Interactions
 
