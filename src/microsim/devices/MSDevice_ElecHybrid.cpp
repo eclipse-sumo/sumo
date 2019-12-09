@@ -375,14 +375,14 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
 #endif
         } else {
             double voltage = 0;
+            double current = 0;
             if (myActOverheadWireSegment->getTractionSubstation() != nullptr) {
                 voltage = myActOverheadWireSegment->getTractionSubstation()->getSubstationVoltage();
                 if (isnan(voltage)) {
                     voltage = 0;
                 }
             }
-          
-            double current = 0;
+
             if (getActualBatteryCapacity() < 0.98*getMaximumBatteryCapacity()) {
                 // `myOverheadWireChargingPower` due to charging of battery pack
                 current = -(myConsum * 3600 + myOverheadWireChargingPower * TS) / voltage;

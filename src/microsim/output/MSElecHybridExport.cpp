@@ -170,17 +170,27 @@ MSElecHybridExport::write(OutputDevice& of, const SUMOVehicle* veh, SUMOTime tim
         of.writeAttr(SUMO_ATTR_ACCELERATION, veh->getAcceleration());
         // Write Distance
         double distance;
-        if (veh->getLane()->isInternal()) {
-            // route edge still points to the edge before the intersection
-            const double normalEnd = (*veh->getCurrentRouteEdge())->getLength();
-            distance = (veh->getRoute().getDistanceBetween(veh->getDepartPos(), normalEnd,
-                veh->getRoute().begin(), veh->getCurrentRouteEdge())
-                + veh->getRoute().getDistanceBetween(normalEnd, veh->getPositionOnLane(),
-                *veh->getCurrentRouteEdge(), &veh->getLane()->getEdge()));
+        const MSLane *vehLane = veh->getLane();
+        if (vehLane)
+        {
+            if (vehLane->isInternal()) {
+                // route edge still points to the edge before the intersection
+                const double normalEnd = (*veh->getCurrentRouteEdge())->getLength();
+                distance = (veh->getRoute().getDistanceBetween(veh->getDepartPos(), normalEnd,
+                    veh->getRoute().begin(), veh->getCurrentRouteEdge())
+                    + veh->getRoute().getDistanceBetween(normalEnd, veh->getPositionOnLane(),
+                        *veh->getCurrentRouteEdge(), vehLane->getEdge()));
+            }
+            else {
+                distance = veh->getRoute().getDistanceBetween(veh->getDepartPos(), veh->getPositionOnLane(),
+                    veh->getRoute().begin(), veh->getCurrentRouteEdge());
+            }
         }
         else {
-            distance = veh->getRoute().getDistanceBetween(veh->getDepartPos(), veh->getPositionOnLane(),
-                veh->getRoute().begin(), veh->getCurrentRouteEdge());
+            // typically a case of macroscopic simulation
+            // @todo Probably we should interpolate the vehicle position here?
+            // @todo Or write out something only in the case that the vehicle leaves the actual segment?
+            distance = NAN;
         }
         of.writeAttr(SUMO_ATTR_DISTANCE, distance);
         // Write pos x

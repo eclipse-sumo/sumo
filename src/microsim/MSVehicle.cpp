@@ -3832,12 +3832,9 @@ MSVehicle::executeMove() {
         double maxPower = elecHybridOfVehicle->getParameterDouble(toString(SUMO_ATTR_MAXIMUMPOWER))/3600;
         if (elecHybridOfVehicle->getConsum() > maxPower) {
             double accel = elecHybridOfVehicle->acceleration(*this, maxPower, this->getSpeed());
-            //double power = elecHybridOfVehicle->consumption(*this, accel, this->getSpeed() + accel * TS);
-            if (vNext > this->getSpeed() && accel > 0) {
-                vNext = MIN2(vNext, this->getSpeed() + accel * TS);
-                vNext = MAX2(vNext, 0.);
-                elecHybridOfVehicle->setConsum(elecHybridOfVehicle->consumption(*this, (vNext - this->getSpeed()) / TS, vNext));
-            }
+            vNext = MIN2(vNext, this->getSpeed() + accel * TS);
+            vNext = MAX2(vNext, 0.);
+            elecHybridOfVehicle->setConsum(elecHybridOfVehicle->consumption(*this, (vNext - this->getSpeed()) / TS, vNext));
         }
     }
 
