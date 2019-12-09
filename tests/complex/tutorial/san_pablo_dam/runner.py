@@ -61,8 +61,12 @@ def genDemand(inputFile, outputFile):
 
 
 def gof(p):
-    para = [('vMax', p[0]), ('aMax', p[1]), ('bMax', p[2]),
-            ('lCar', p[3]), ('sigA', p[4]), ('tTau', p[5])]
+    para = [('vMax', p[0]),
+            ('aMax', p[1]),
+            ('bMax', p[2]),
+            ('lCar', p[3]),
+            ('sigA', max(0, min(1, p[4]))),
+            ('tTau', p[5])]
     print('# simulation with:', *["%s:%.3f" % i for i in para])
     fType = open('data/input_types.add.xml', 'w')
     fType.write(('<routes>\n    <vType accel="%(aMax)s" decel="%(bMax)s" id="pass"' +
