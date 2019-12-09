@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 19 13:19:31 2019 by Eclipse SUMO jtrrouter Version v1_2_0+1645-e8f20614e1
+<!-- generated on Mon Dec  9 19:02:57 2019 by Eclipse SUMO jtrrouter Version v1_3_1+1345-8af262fa61
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -60,9 +60,10 @@
             <xsd:element name="with-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="bulk-routing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="restriction-params" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="max-edges-factor" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="turn-defaults" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="sink-edges" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="turn-defaults" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="sink-edges" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="accept-all-destinations" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore-vclasses" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="allow-loops" type="boolOptionType" minOccurs="0"/>
@@ -97,6 +98,7 @@
             <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
             <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="aggregate-warnings" type="intOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>

@@ -881,6 +881,9 @@ OptionsCont::writeSchema(std::ostream& os) {
             if (type == "int[]") {
                 type = "intArray";
             }
+            if (type == "str[]") {
+                type = "strArray";
+            }
             os << "            <xsd:element name=\"" << *j << "\" type=\"" << type << "OptionType\" minOccurs=\"0\"/>\n";
         }
         os << "        </xsd:all>\n";

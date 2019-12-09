@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  3 18:20:14 2018 by Eclipse SUMO od2trips Version 854346cdd7
+<!-- generated on Mon Dec  9 19:02:57 2019 by Eclipse SUMO od2trips Version v1_3_1+1345-8af262fa61
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -58,7 +58,7 @@
             <xsd:element name="different-source-sink" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vtype" type="strOptionType" minOccurs="0"/>
             <xsd:element name="prefix" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="timeline" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="timeline" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="timeline.day-in-hours" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-step-log" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
@@ -84,6 +84,7 @@
             <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
             <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="aggregate-warnings" type="intOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>

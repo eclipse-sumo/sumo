@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 15 15:26:44 2019 by Eclipse SUMO duarouter Version 1.2.0
+<!-- generated on Mon Dec  9 19:02:57 2019 by Eclipse SUMO duarouter Version v1_3_1+1345-8af262fa61
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -25,10 +25,10 @@
             <xsd:element name="net-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="route-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-path" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="lane-weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-attribute" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="phemlight-path" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -67,6 +67,7 @@
             <xsd:element name="with-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="bulk-routing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="restriction-params" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="weights.expand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.random-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
@@ -85,7 +86,7 @@
             <xsd:element name="logit.gamma" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="logit.theta" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.walkfactor" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="persontrip.transfer.car-walk" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.transfer.car-walk" type="strArrayOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -117,6 +118,7 @@
             <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
             <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="aggregate-warnings" type="intOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
