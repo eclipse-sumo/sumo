@@ -232,7 +232,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                     nameInZip = os.path.join(includeDir, "libsumo", base)
                     if base != "Helper.h":
                         zipf.write(f, nameInZip)
-                zipf.write(os.path.join("src", "version.h"), os.path.join(includeDir, "version.h"))
+                zipf.write(os.path.join(buildDir, "src", "version.h"), os.path.join(includeDir, "version.h"))
                 zipf.close()
                 if options.suffix == "":
                     # installers only for the vanilla build

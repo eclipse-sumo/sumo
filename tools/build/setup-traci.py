@@ -17,13 +17,13 @@ from setuptools import setup
 import os
 import version
 
-SUMO_VERSION = version.gitDescribe(commitPrefix=".", padZero=False)[1:-11].replace("_", ".")
+SUMO_VERSION = version.sumolib.version.gitDescribe(commitPrefix=".", padZero=False)[1:-11].replace("_", ".")
 package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 setup(
     name='traci',
     version=SUMO_VERSION,
-    url='https://sumo.dlr.de/wiki/TraCI/Interfacing_TraCI_from_Python',
+    url='https://sumo.dlr.de/docs/TraCI/Interfacing_TraCI_from_Python.html',
     author='DLR and contributors',
     author_email='sumo@dlr.de',
     license='EPL-2.0',

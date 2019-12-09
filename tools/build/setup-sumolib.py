@@ -17,13 +17,13 @@ from setuptools import setup, find_packages
 import os
 import version
 
-SUMO_VERSION = version.gitDescribe(commitPrefix=".", padZero=False)[1:-11].replace("_", ".")
+SUMO_VERSION = version.sumolib.version.gitDescribe(commitPrefix=".", padZero=False)[1:-11].replace("_", ".")
 package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 setup(
     name='sumolib',
     version=SUMO_VERSION,
-    url='https://sumo.dlr.de/wiki/Tools/Sumolib',
+    url='https://sumo.dlr.de/docs/Tools/Sumolib.html',
     author='DLR and contributors',
     author_email='sumo@dlr.de',
     license='EPL-2.0',

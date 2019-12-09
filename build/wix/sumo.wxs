@@ -126,6 +126,10 @@
       <Feature Id='Data' Title='Data' Description='Additional data like XML schemata and edge type maps.' Level='1'>
         <ComponentGroupRef Id='data' />
       </Feature>
+
+      <Feature Id='Includes' Title='Includes' Description='Include files for libsumo.' Level='1'>
+        <ComponentGroupRef Id='include' />
+      </Feature>
     </Feature>
 
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
