@@ -10,6 +10,8 @@ permalink: /ChangeLog/
 ### Enhancements
   
 ### Other
+- Build
+  - removed autotools build
 
 ## Version 1.4.0 (10.12.2019)
 
