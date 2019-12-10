@@ -80,6 +80,9 @@ Debug: Adding connection 'gneE2_0->gneE2.16_0' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_0togneE2.16_0' in retrieveGNEConnection()
 Debug: Adding crossing into junction 'gneJ3'
 Debug: Created crossing ':gneJ3_c1' in retrieveGNECrossing()
+Debug: Setting new attribute lane 'gneE2.16_0' into busStop 'busStop3'
+Debug: Setting new attribute startPos '23.23' into busStop 'busStop3'
+Debug: Setting new attribute endPos '29.83' into busStop 'busStop3'
 Debug: Adding edge '-gneE2.33' from net
 GLDebug: 	Inserted edge:-gneE2.33 into SUMORTree with boundary -10.00,10.00,26.97,31.60
 Debug: Removing crossing from junction 'gneJ2'
@@ -154,6 +157,9 @@ Debug: Adding crossing into junction 'gneJ2'
 Debug: Created crossing ':gneJ2_c1' in retrieveGNECrossing()
 Debug: Removing edge '-gneE2.33' from net
 GLDebug: 	Removed object edge:-gneE2.33 from SUMORTree with boundary -10.00,10.00,26.97,31.60
+Debug: Setting previous attribute endPos '43.60' into busStop 'busStop3'
+Debug: Setting previous attribute startPos '37.00' into busStop 'busStop3'
+Debug: Setting previous attribute lane 'gneE2_0' into busStop 'busStop3'
 Debug: removing crossing from junction 'gneJ3'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Removing connection 'gneE2_0->gneE2.16_0' from edge 'gneE2'
@@ -221,6 +227,9 @@ Debug: Adding connection 'gneE2_0->gneE2.16_0' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_0togneE2.16_0' in retrieveGNEConnection()
 Debug: Adding crossing into junction 'gneJ3'
 Debug: Created crossing ':gneJ3_c1' in retrieveGNECrossing()
+Debug: Setting new attribute lane 'gneE2.16_0' into busStop 'busStop3'
+Debug: Setting new attribute startPos '23.23' into busStop 'busStop3'
+Debug: Setting new attribute endPos '29.83' into busStop 'busStop3'
 Debug: Adding edge '-gneE2.33' from net
 GLDebug: 	Inserted edge:-gneE2.33 into SUMORTree with boundary -10.00,10.00,26.97,31.60
 Debug: Removing crossing from junction 'gneJ2'
