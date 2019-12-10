@@ -1,6 +1,8 @@
+bugs
+
 # test connection between client and server
 connection
-pythonApi
+misc
 
 # Tests for context subscriptions
 contextSubscriptions
