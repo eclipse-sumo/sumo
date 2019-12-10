@@ -28,7 +28,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
   - run [checkStyle](../Developer/CodeStyle.md) and commit
     changed files
   - check the calendar to update copyright statements
-  - check whether the TraCI version [needs to be incremented](../TraCI/Control-related_commands.md#response_0x00_version)
+  - check whether the TraCI version needs to be incremented
     and rebuild TraCI constants in python
     (tools/traci/rebuildConstants.py)
   - check whether the network version needs to be incremented and
@@ -81,16 +81,16 @@ All scenarios should be fixed by now.
 
 - patch the version information
   - in src/config.h.cmake, also disable the HAVE_VERSION_H macro
-  - in CMakeLists.txt, configure.ac and build/wix/sumo.wxs
+  - in CMakeLists.txt and build/wix/sumo.wxs
   - commit the changes
 - recheck whether submodules changed by doing `git submodule update --remote`
 and committing the changes after careful inspection
 - check the documentation
   - update the [change log](../ChangeLog.md) again and include
     version and release date
-  - modify the version template (Version) [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) and
-    the release date (ReleaseDate) [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) in the **extra:** section at the end on *mkdocs.yml* to update
-    [download links](../Downloads.md).
+  - modify the version number (Version) and the release date (ReleaseDate)
+    [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) in the **extra:** section at the end
+    to update the [download links](../Downloads.md).
 
 ### Release day
 
