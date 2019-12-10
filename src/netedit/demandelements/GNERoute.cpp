@@ -166,19 +166,14 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
 
 bool
 GNERoute::isDemandElementValid() const {
-    if (getParentEdges().size() == 0) {
-        return false;
-    } else if (getParentEdges().size() == 1) {
+    if ((getParentEdges().size() == 2) && (getParentEdges().at(0) == getParentEdges().at(1))) {
+        // from and to are the same edges, then return true
         return true;
+    } else if (getParentEdges().size() > 0) {
+        // check that exist a connection between every edge
+        return isRouteValid(getParentEdges(), false);
     } else {
-        // check if exist at least a connection between every edge
-        for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(myVClass, getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
-                return false;
-            }
-        }
-        // there is connections bewteen all edges, then return true
-        return true;
+        return false;
     }
 }
 

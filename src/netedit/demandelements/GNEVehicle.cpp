@@ -408,14 +408,12 @@ GNEVehicle::isDemandElementValid() const {
         // check if from and to are the same edges
         if ((getParentEdges().size() == 2) && (getParentEdges().at(0) == getParentEdges().at(1))) {
             return true;
+        } else if (getPathEdges().size() > 0) {
+            // if path edges isn't empty, then there is a valid route
+            return true;
+        } else {
+            return false;
         }
-        // check if exist at least a connection between every edge
-        for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(getParentDemandElements().at(0)->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
-                return false;
-            }
-        }
-        // there is connections bewteen all edges, then return true
         return true;
     } else {
         return true;
