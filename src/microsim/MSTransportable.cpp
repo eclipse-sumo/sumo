@@ -49,7 +49,7 @@ const double MSTransportable::ROADSIDE_OFFSET(3);
  * MSTransportable::Stage - methods
  * ----------------------------------------------------------------------- */
 MSTransportable::Stage::Stage(const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos, StageType type)
-    : myDestination(destination), myDestinationStop(toStop), myArrivalPos(arrivalPos), myDeparted(-1), myArrived(-1), myType(type) {}
+    : myDestination(destination), myDestinationStop(toStop), myReachedStop(nullptr), myArrivalPos(arrivalPos), myDeparted(-1), myArrived(-1), myType(type) {}
 
 MSTransportable::Stage::~Stage() {}
 
@@ -401,6 +401,7 @@ MSTransportable::Stage_Waiting::proceed(MSNet* net, MSTransportable* transportab
     const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
     if (myDestinationStop != nullptr) {
         myDestinationStop->addTransportable(transportable);
+        myReachedStop = myDestinationStop;
     }
     if (dynamic_cast<MSPerson*>(transportable) != nullptr) {
         previous->getEdge()->addPerson(transportable);

@@ -341,6 +341,7 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
     if (arrived) {
         if (myDestinationStop != nullptr) {
             myDestinationStop->addTransportable(person);
+            myReachedStop = myDestinationStop;
         }
         if (!person->proceed(MSNet::getInstance(), currentTime)) {
             MSNet::getInstance()->getPersonControl().erase(person);
@@ -413,9 +414,10 @@ MSPerson::MSPersonStage_Driving::clone() const {
 
 void
 MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
-    const MSStoppingPlace* start = (previous->getStageType() == TRIP
-                                    ? previous->getOriginStop()
-                                    : previous->getDestinationStop());
+    //const MSStoppingPlace* start = (previous->getStageType() == TRIP
+    //                                ? previous->getOriginStop()
+    //                                : previous->getDestinationStop());
+    const MSStoppingPlace* start = previous->getReachedStop();
     myWaitingSince = now;
     if (person->getParameter().departProcedure == DEPART_TRIGGERED
             && person->getNumRemainingStages() == person->getNumStages() - 1) {
@@ -550,6 +552,7 @@ MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUM
     myEstimatedArrival = now + TIME2STEPS(myDist / person->getVehicleType().getMaxSpeed());
     net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person, &myDestinationStop->getLane().getEdge()), myEstimatedArrival);
     myDestinationStop->getLane().getEdge().addPerson(person);
+    myReachedStop = myDestinationStop;
 }
 
 

@@ -86,6 +86,11 @@ public:
             return myDestinationStop;
         }
 
+        /// returns the actual reached stop (if any)
+        MSStoppingPlace* getReachedStop() const {
+            return myReachedStop;
+        }
+
         /// returns the origin stop (if any). only needed for Stage_Trip
         virtual const MSStoppingPlace* getOriginStop() const {
             return nullptr;
@@ -204,6 +209,9 @@ public:
 
         /// the stop to reach by getting transported (if any)
         MSStoppingPlace* myDestinationStop;
+
+        /// The actual stop reached during the stage (if any)
+        MSStoppingPlace* myReachedStop;
 
         /// the position at which we want to arrive
         double myArrivalPos;
