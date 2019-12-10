@@ -106,7 +106,7 @@ You can check that SUMO_HOME was successfully set if you type
 echo $SUMO_HOME
 ```
 
-and console shows "/home/<user>/sumo-<version>"
+and console shows "/home/<user\>/sumo-<version\>"
 
 ## Building the SUMO binaries with cmake (recommended)
 
