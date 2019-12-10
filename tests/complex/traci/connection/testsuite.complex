@@ -12,3 +12,6 @@ clientCloses
 
 # Tests whether outputs are closed
 closingOutput
+
+# test setting up multiple connections
+multiconnect

@@ -1,15 +1,22 @@
 # test connection between client and server
 connection
-
-# Tests the new python API
 pythonApi
 
 # Tests for context subscriptions
 contextSubscriptions
 ContextSubscriptionFilters
-
-# Tests the openGap() method.
-openGap
-
-# Test for many screenshots
-b50
+lane
+edge
+vehicle
+vehicletype
+person
+junction
+trafficlight
+route
+inductionloop
+lanearea
+multientryexit
+poi
+polygon
+simulation
+gui
