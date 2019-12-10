@@ -343,6 +343,11 @@ public:
     /// @brief whether this logic is selected in the GUI
     bool isSelected() const;
 
+    /// @brief whether this logic is the active program
+    bool isActive() const {
+        return myAmActive;
+    }
+
 protected:
     /**
      * @class SwitchCommand
