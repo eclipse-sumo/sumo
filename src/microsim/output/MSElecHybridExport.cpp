@@ -179,7 +179,7 @@ MSElecHybridExport::write(OutputDevice& of, const SUMOVehicle* veh, SUMOTime tim
                 distance = (veh->getRoute().getDistanceBetween(veh->getDepartPos(), normalEnd,
                     veh->getRoute().begin(), veh->getCurrentRouteEdge())
                     + veh->getRoute().getDistanceBetween(normalEnd, veh->getPositionOnLane(),
-                        *veh->getCurrentRouteEdge(), vehLane->getEdge()));
+                        *veh->getCurrentRouteEdge(), &vehLane->getEdge()));
             }
             else {
                 distance = veh->getRoute().getDistanceBetween(veh->getDepartPos(), veh->getPositionOnLane(),
