@@ -87,7 +87,7 @@ All scenarios should be fixed by now.
 - recheck whether submodules changed by doing `git submodule update --remote`
 and committing the changes after careful inspection
 - check the documentation
-  - update the [change log](../ChangeLog.md) again and include
+  - update the [ChangeLog](../ChangeLog.md) again and include
     version and release date
   - modify the version number (Version) and the release date (ReleaseDate)
     [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) in the **extra:** section at the end
@@ -151,6 +151,6 @@ The trunk is now open for changes again.
 
 - reenable HAVE_VERSION_H in src/config.h.cmake
 - rename version to "git" in configure.ac and CMakeLists.txt
-- insert a new empty "Git master" section at the top of the [change log](../ChangeLog.md)
+- insert a new empty "Git master" section at the top of the [ChangeLog](../ChangeLog.md)
 - commit changes
 - drink your favorite beverage
