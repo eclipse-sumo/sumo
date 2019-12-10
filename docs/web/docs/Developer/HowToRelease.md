@@ -20,6 +20,7 @@ Major changes to the SUMO trunk should end about two weeks before the
 release data. This refers especially to merges of project branches into
 the trunk. It is also a good idea to inform the developers of dependent
 software (Veins, VSimRTI, flow etc.) at this stage.
+- send out mail to sumo-dev informing about the upcoming release so that 'contributed'-authors can check their stuff for compatibility
 
 ### Freeze phase (Release day - 7)
 
