@@ -17,7 +17,7 @@ own may refer to #563.
 ### Merge phase
 
 Major changes to the SUMO trunk should end about two weeks before the
-release data. This refers especially to merges of project branches into
+release date. This refers especially to merges of project branches into
 the trunk. It is also a good idea to inform the developers of dependent
 software (Veins, VSimRTI, flow etc.) at this stage.
 - send out mail to sumo-dev informing about the upcoming release so that 'contributed'-authors can check their stuff for compatibility
@@ -48,7 +48,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
     netconvert changes)
   - check the tests again
 - check the documentation
-  - update the [change log](../ChangeLog.md)
+  - update the [ChangeLog](../ChangeLog.md)
   - generate options documentation from configuration templates
     using configTemplateToWiki.py (for instance
     `tools/build/configTemplateToWiki.py activitygen | xclip` which
