@@ -3,6 +3,9 @@ title: Tutorials/Hello World
 permalink: /Tutorials/Hello_World/
 ---
 
+!!! caution
+    Make sure to have (at least) SUMO 1.4.0 installed to be able to use all the features shown in this tutorial
+
 ## Introduction
 
 This tutorial is for first-time [SUMO](../SUMO.md) users. We are going to build the
