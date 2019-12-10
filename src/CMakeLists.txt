@@ -3,8 +3,7 @@ set(netconvertlibs
 
 set(sumolibs
         traciserver netload microsim_cfmodels microsim_engine microsim_lcmodels microsim_devices microsim_trigger microsim_output microsim_pedestrians microsim_actions
-        microsim_traffic_lights microsim mesosim ${commonvehiclelibs} ${GRPC_LIBS}
-        ${PYTHON_LIBRARIES})
+        microsim_traffic_lights microsim mesosim ${commonvehiclelibs} ${PYTHON_LIBRARIES})
 
 add_subdirectory(activitygen)
 add_subdirectory(dfrouter)
