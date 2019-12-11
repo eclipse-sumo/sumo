@@ -285,7 +285,9 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                 }
             } else if (veh != nullptr && it->line == veh->getID()) {
                 trip->addTripItem(new Ride(it->edges.front(), it->edges.back(), veh->getID(), it->cost, trip->getArrivalPos(), it->destStop));
-                veh->getRouteDefinition()->addLoadedAlternative(new RORoute(veh->getID() + "_RouteDef", it->edges));
+                RORoute* route = new RORoute(veh->getID() + "_RouteDef", it->edges);
+                route->setProbability(1);
+                veh->getRouteDefinition()->addLoadedAlternative(route);
                 carUsed = true;
             } else {
                 trip->addTripItem(new Ride(nullptr, nullptr, it->line, it->cost, trip->getArrivalPos(), it->destStop, it->intended, TIME2STEPS(it->depart)));
