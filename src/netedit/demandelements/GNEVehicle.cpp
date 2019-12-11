@@ -259,8 +259,8 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
-{}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter() {
+        {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -270,8 +270,8 @@ SUMOVehicleParameter() {
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
-{}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter(vehicleParameters) {
+        {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // set manually vtypeID (needed for saving)
@@ -281,8 +281,8 @@ SUMOVehicleParameter(vehicleParameters) {
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
-{}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter(vehicleParameters) {
+        {}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // reset routeid
@@ -294,10 +294,9 @@ SUMOVehicleParameter(vehicleParameters) {
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge,
                        const std::vector<GNEEdge*>& via) :
-    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag, {
-    fromEdge, toEdge
-}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter() {
+    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag, 
+        {fromEdge, toEdge}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter() {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
     // compute vehicle
@@ -307,10 +306,9 @@ SUMOVehicleParameter() {
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
                        const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag, {
-    fromEdge, toEdge
-}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter(vehicleParameters) {
+    GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag, 
+        {fromEdge, toEdge}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter(vehicleParameters) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
     // compute vehicle
@@ -414,9 +412,22 @@ GNEVehicle::isDemandElementValid() const {
         } else {
             return false;
         }
-        return true;
+    } else if (getParentDemandElements().size() == 2) {
+        // check if exist a valid path using route parent edges
+        if (getRouteCalculatorInstance()->calculateDijkstraRoute(getParentDemandElements().at(0)->getVClass(), getParentDemandElements().at(1)->getParentEdges()).size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == SUMO_TAG_EMBEDDEDROUTE)) {
+        // check if exist a valid path using embebbed route edges
+        if (getRouteCalculatorInstance()->calculateDijkstraRoute(getParentDemandElements().at(0)->getVClass(), getChildDemandElements().front()->getParentEdges()).size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     } else {
-        return true;
+        return false;
     }
 }
 
@@ -428,7 +439,29 @@ GNEVehicle::getDemandElementProblem() const {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getParentEdges().size(); i++) {
             if (getRouteCalculatorInstance()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
-                return ("Edge '" + getParentEdges().at((int)i - 1)->getID() + "' and edge '" + getParentEdges().at(i)->getID() + "' aren't consecutives");
+                return ("There is no valid path between edges '" + getParentEdges().at((int)i - 1)->getID() + "' and '" + getParentEdges().at(i)->getID() + "'");
+            }
+        }
+        // there is connections bewteen all edges, then all ok
+        return "";
+    } else if (getParentDemandElements().size() == 2) {
+        // get route parent edges
+        const std::vector<GNEEdge*>& routeEdges = getParentDemandElements().at(1)->getParentEdges();
+        // check if exist at least a connection between every edge
+        for (int i = 1; i < (int)routeEdges.size(); i++) {
+            if (getRouteCalculatorInstance()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
+                return ("There is no valid path between route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
+            }
+        }
+        // there is connections bewteen all edges, then all ok
+        return "";
+    } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == SUMO_TAG_EMBEDDEDROUTE)) {
+        // get embebbed route edges
+        const std::vector<GNEEdge*>& routeEdges = getChildDemandElements().front()->getParentEdges();
+        // check if exist at least a connection between every edge
+        for (int i = 1; i < (int)routeEdges.size(); i++) {
+            if (getRouteCalculatorInstance()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
+                return ("There is no valid path between embebbed route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
             }
         }
         // there is connections bewteen all edges, then all ok
@@ -448,7 +481,7 @@ GNEVehicle::fixDemandElementProblem() {
 GNEEdge*
 GNEVehicle::getFromEdge() const {
     if (getParentDemandElements().size() == 2) {
-        // oobtain edge of route
+        // obtain edge of route
         return getParentDemandElements().at(1)->getFromEdge();
     } else if (getParentEdges().size() > 0) {
         return getParentEdges().front();
