@@ -57,6 +57,7 @@ class MSVehicleTransfer;
 class MSAbstractLaneChangeModel;
 class MSStoppingPlace;
 class MSChargingStation;
+class MSOverheadWire;
 class MSParkingArea;
 class MSPerson;
 class MSDevice;
@@ -932,6 +933,9 @@ public:
         MSParkingArea* parkingarea = nullptr;
         /// @brief (Optional) charging station if one is assigned to the stop
         MSStoppingPlace* chargingStation = nullptr;
+        /// @brief (Optional) overhead wire segment if one is assigned to the stop
+        /// @todo Check that this should really be a stopping place instance
+        MSStoppingPlace* overheadWireSegment = nullptr;
         /// @brief The stop parameter
         const SUMOVehicleParameter::Stop pars;
         /// @brief The stopping duration
@@ -1147,6 +1151,17 @@ public:
     */
     double getElectricityConsumption() const;
 
+    /** @brief Returns actual state of charge of battery (Wh)
+    * RICE_CHECK: This may be a misnomer, SOC is typically percentage of the maximum battery capacity.
+    * @return The actual battery state of charge
+    */
+    double getStateOfCharge() const;
+
+    /** @brief Returns actual current (A) of ElecHybrid device
+    * RICE_CHECK: Is this the current consumed from the overhead wire or the current driving the poweertrain of the vehicle?
+    * @return The current of ElecHybrid device
+    */
+    double getElecHybridCurrent() const;
 
     /** @brief Returns noise emissions of the current state
      * @return The noise produced

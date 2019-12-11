@@ -157,6 +157,32 @@ protected:
                                       double chargingPower, double efficiency,
                                       bool chargeInTransit, double chargeDelay);
 
+    /** @brief Builds an overhead wire segment
+    *
+    * Simply calls the GUIOverheadWire constructor and adds the result to the network.
+    *
+    * @param[in] net The net the overhead wire segment belongs to
+    * @param[in] id The id of the overhead wire segment
+    * @param[in] lane The lane the overhead wire segment is placed on
+    * @param[in] frompos Begin position of the overhead wire segment on the lane
+    * @param[in] topos End position of the overhead wire segment  on the lane
+    * @param[in] voltageSource If the segment is the place of the connection of a traction substation
+    * @exception InvalidArgument If the overhead wire segment can not be added to the net (is duplicate according to the id)
+    */
+    virtual void buildOverheadWireSegment(MSNet& net, const std::string& id, MSLane* lane,
+        double frompos, double topos, bool voltageSource);
+
+    /** @brief Builds an overhead wire clamp
+    *
+    * Simply calls the GUIOverheadWireClamp constructor and adds the result to the network.
+    *
+    * @param[in] net The net the overhead wire clamp belongs to
+    * @param[in] id The id of the overhead wire clamp
+    * @param[in] lane_start The lane, where is the overhead wire segment placed, to the start of which the overhead wire clamp is connected
+    * @param[in] lane_end The lane, where is the overhead wire segment placed, to the end of which the overhead wire clamp is connected
+    */
+    virtual void buildOverheadWireClamp(MSNet& net, const std::string& id, MSLane* lane_start, MSLane* lane_end);
+
     /** @brief builds a microscopic calibrator
      *
      * Simply calls the MSCalibrator constructor.

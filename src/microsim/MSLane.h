@@ -972,6 +972,9 @@ public:
     /// @brief get the list of outgoing lanes
     const std::vector<std::pair<const MSLane*, const MSEdge*> > getOutgoingViaLanes() const;
 
+    /// @brief get the list of all direct (disregarding internal predecessors) non-internal predecessor lanes of this lane
+    std::vector<const MSLane*> getNormalIncomingLanes() const;
+
     /// @name Current state retrieval
     //@{
 

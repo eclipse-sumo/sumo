@@ -175,6 +175,18 @@ NLHandler::myStartElement(int element,
                 myTriggerBuilder.parseAndBuildChargingStation(myNet, attrs);
                 myLastParameterised.push_back(myTriggerBuilder.getCurrentStop());
                 break;
+            case SUMO_TAG_OVERHEAD_WIRE_SEGMENT:
+                myTriggerBuilder.parseAndBuildOverheadWireSegment(myNet, attrs);
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_SECTION:
+                myTriggerBuilder.parseAndBuildOverheadWireSection(myNet, attrs);
+                break;
+            case SUMO_TAG_TRACTION_SUBSTATION:
+                myTriggerBuilder.parseAndBuildTractionSubstation(myNet, attrs);
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
+                myTriggerBuilder.parseAndBuildOverheadWireClamp(myNet, attrs);
+                break;
             case SUMO_TAG_VTYPEPROBE:
                 addVTypeProbeDetector(attrs);
                 break;

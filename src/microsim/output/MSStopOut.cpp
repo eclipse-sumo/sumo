@@ -28,6 +28,7 @@
 #include <microsim/MSParkingArea.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/trigger/MSChargingStation.h>
+#include <microsim/trigger/MSOverheadWire.h>
 #include "MSStopOut.h"
 
 
@@ -137,6 +138,9 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     }
     if (stop.chargingStation != "") {
         myDevice.writeAttr(SUMO_ATTR_CHARGING_STATION, stop.chargingStation);
+    }
+    if (stop.overheadWireSegment != "") {
+        myDevice.writeAttr(SUMO_ATTR_OVERHEAD_WIRE_SEGMENT, stop.overheadWireSegment);
     }
     if (stop.tripId != "") {
         myDevice.writeAttr(SUMO_ATTR_TRIP_ID, stop.tripId);

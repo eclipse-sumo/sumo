@@ -61,6 +61,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"taz",                 GLO_TAZ},
     {"containerStop",       GLO_CONTAINER_STOP},
     {"chargingStation",     GLO_CHARGING_STATION},
+    {"overheadWireSegment", GLO_OVERHEAD_WIRE_SEGMENT},
     {"parkingArea",         GLO_PARKING_AREA},
     {"parkingSpace",        GLO_PARKING_SPACE},
     {"e1Detector",          GLO_E1DETECTOR},

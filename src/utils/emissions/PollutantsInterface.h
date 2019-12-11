@@ -23,6 +23,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <cctype>  // defines std::tolower
 #include <vector>
 #include <limits>
 #include <cmath>
@@ -128,7 +129,22 @@ public:
                 return myEmissionClassStrings.get(eClass);
             }
             std::string eclower = eClass;
-            std::transform(eclower.begin(), eclower.end(), eclower.begin(), tolower);
+            /*
+               For some compilers, std::tolower cannot be resolved correctly, resulting in error messages
+               like "No matching function found ... unresolved overloaded function type.", see e.g.
+               https://stackoverflow.com/questions/5539249. The problem may be fixed by specifying ::tolower,
+               the global namespace version of the function that has no overloads.
+
+               Similarly, https://en.cppreference.com/w/cpp/string/byte/tolower suggests that one should not
+               use any of the functions defined in <cctype> with standard algorithms (like `transform`) when
+               the iterator type is `char` or `signed char` -- we shall convert the value to `unsigned char`
+               first:
+
+               std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c){ return std::tolower(c); });
+
+               This, however, still generates an ugly warning in VS2017. Go figure ...
+            */
+            std::transform(eclower.begin(), eclower.end(), eclower.begin(), [](unsigned char c) { return std::tolower(c); });
             return myEmissionClassStrings.get(eclower);
         }
 
