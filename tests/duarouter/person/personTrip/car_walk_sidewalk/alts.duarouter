@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 11 21:39:07 2019 by Eclipse SUMO duarouter Version v1_4_0+0047-a1ff2bfce7
+<!-- generated on Wed Dec 11 23:04:43 2019 by Eclipse SUMO duarouter Version v1_4_0+0051-3f8840f55f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,9 +34,9 @@ SPDX-License-Identifier: EPL-2.0
         </routeDistribution>
     </vehicle>
     <person id="p0" depart="0.00">
-        <ride cost="89.93" from="beg" to="end" lines="p0_0"/>
+        <personTrip from="beg" to="end" modes="car" walkFactor="0.75" costs="89.93"/>
     </person>
     <person id="p1" depart="0.00">
-        <walk cost="1440.00" edges="end middle beg"/>
+        <personTrip from="end" to="beg" modes="car" walkFactor="0.75" costs="1440.00"/>
     </person>
 </routes>
