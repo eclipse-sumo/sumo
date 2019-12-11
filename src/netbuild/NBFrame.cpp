@@ -193,6 +193,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("railway.topology.all-bidi", new Option_Bool(false));
         oc.addDescription("railway.topology.all-bidi", "Railway", "Make all rails usable in both direction");
 
+        oc.doRegister("railway.topology.all-bidi.input-file", new Option_FileName());
+        oc.addDescription("railway.topology.all-bidi.input-file", "Railway", "Make all rails edge ids from FILE usable in both direction");
+
         oc.doRegister("railway.access-distance", new Option_Float(150.f));
         oc.addDescription("railway.access-distance", "Railway", "The search radius for finding suitable road accesses for rail stops");
         oc.addSynonyme("railway.access-distance", "osm.stop-output.footway-access-distance", true);
@@ -638,6 +641,9 @@ NBFrame::checkOptions() {
     }
     if (oc.isDefault("railway.topology.repair") && oc.getBool("railway.topology.repair.connect-straight")) {
         oc.set("railway.topology.repair", "true");
+    }
+    if (oc.isDefault("railway.topology.all-bidi") && !oc.isDefault("railway.topology.all-bidi.input-file")) {
+        oc.set("railway.topology.all-bidi", "true");
     }
     return ok;
 }
