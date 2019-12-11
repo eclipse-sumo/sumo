@@ -542,6 +542,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="triggered"/>
                     <xsd:enumeration value="containerTriggered"/>
+                    <xsd:enumeration value="split"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>
@@ -580,6 +581,7 @@
                     <xsd:enumeration value="free"/>
                     <xsd:enumeration value="base"/>
                     <xsd:enumeration value="last"/>
+                    <xsd:enumeration value="stop"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>
@@ -705,6 +707,7 @@
         <xsd:attribute name="expectedContainers" type="xsd:string"/>
         <xsd:attribute name="actType" type="xsd:string"/>
         <xsd:attribute name="tripId" type="xsd:string"/>
+        <xsd:attribute name="split" type="xsd:string"/>
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="speed" type="nonNegativeFloatType"/>
     </xsd:complexType>

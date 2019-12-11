@@ -84,6 +84,7 @@ const int STOP_EXPECTED_CONTAINERS_SET = 2 << 8;
 const int STOP_TRIP_ID_SET = 2 << 9;
 const int STOP_LINE_SET = 2 << 10;
 const int STOP_SPEED_SET = 2 << 11;
+const int STOP_SPLIT_SET = 2 << 12;
 
 const double MIN_STOP_LENGTH = 2 * POSITION_EPS;
 
@@ -104,6 +105,8 @@ enum DepartDefinition {
     DEPART_CONTAINER_TRIGGERED,
     /// @brief The vehicle is discarded if emission fails (not fully implemented yet)
     DEPART_NOW,
+    /// @brief The departure is triggered by a train split
+    DEPART_SPLIT,
     /// @brief Tag for the last element in the enum for safe int casting
     DEPART_DEF_MAX
 };
@@ -638,6 +641,9 @@ public:
 
         /// @brief the new line id of the trip within a cyclical public transport route
         std::string line;
+
+        /// @brief the id of the vehicle (train portion) that splits of upon reaching this stop
+        std::string split;
 
         /// @brief the speed at which this stop counts as reached (waypoint mode)
         double speed;

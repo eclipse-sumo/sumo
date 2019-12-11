@@ -225,6 +225,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
     if ((parametersSet & STOP_LINE_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_LINE, line);
     }
+    if ((parametersSet & STOP_SPLIT_SET) != 0) {
+        dev.writeAttr(SUMO_ATTR_SPLIT, split);
+    }
     if ((parametersSet & STOP_SPEED_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_SPEED, speed);
     }
@@ -247,6 +250,8 @@ SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& ele
         dd = DEPART_TRIGGERED;
     } else if (val == "containerTriggered") {
         dd = DEPART_CONTAINER_TRIGGERED;
+    } else if (val == "split") {
+        dd = DEPART_SPLIT;
     } else if (val == "now") {
         // only used via TraCI. depart must be set by the calling code
         dd = DEPART_NOW;
@@ -576,6 +581,8 @@ SUMOVehicleParameter::getDepart() const {
         return "triggered";
     } else if (departProcedure == DEPART_CONTAINER_TRIGGERED) {
         return "containerTriggered";
+    } else if (departProcedure == DEPART_SPLIT) {
+        return "split";
     } else {
         return time2string(depart);
     }

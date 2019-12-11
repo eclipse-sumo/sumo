@@ -144,6 +144,9 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     if (stop.line != "") {
         myDevice.writeAttr(SUMO_ATTR_LINE, stop.line);
     }
+    if (stop.split != "") {
+        myDevice.writeAttr(SUMO_ATTR_SPLIT, stop.split);
+    }
     myDevice.closeTag();
     myStopped.erase(veh);
 }

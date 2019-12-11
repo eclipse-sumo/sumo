@@ -64,6 +64,7 @@
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "MSEdgeControl.h"
 #include "MSVehicleControl.h"
+#include "MSInsertionControl.h"
 #include "MSVehicleTransfer.h"
 #include "MSGlobals.h"
 #include "MSJunctionLogic.h"
@@ -2018,6 +2019,20 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
                 if (stop.pars.line != "") {
                     ((SUMOVehicleParameter&)getParameter()).line = stop.pars.line;
+                }
+                if (stop.pars.split != "") {
+                    // split the train
+                    MSVehicle* splitVeh = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(stop.pars.split));
+                    if (splitVeh == nullptr) {
+                        WRITE_WARNINGF("Vehicle '%' to split is not known", stop.pars.split)
+                    } else {
+                        MSNet::getInstance()->getInsertionControl().add(splitVeh);
+                        splitVeh->getRoute().getEdges()[0]->removeWaiting(splitVeh);
+                        MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(false);
+                        const double newLength = MAX2( myType->getLength() - splitVeh->getVehicleType().getLength(),
+                                myType->getParameter().locomotiveLength);
+                        getSingularType().setLength(newLength);
+                    }
                 }
             }
         }
