@@ -332,6 +332,8 @@ follows:
   merging](https://en.wikipedia.org/wiki/Merge_%28traffic%29)
 - <span style="color:#000000; background:#000000">FOO</span> dead-end,
   vehicle may not drive there
+- <span style="color:#FF00FF; background:#000000">FOO</span> suspicious dead-end,
+  there are outgoing edges but the vehicle may not continue anywhere
 
 !!! note
     If a vehicle is braking in the simulation, the responsible foe vehicle (if any) can also be identified directly by taking the following steps:
