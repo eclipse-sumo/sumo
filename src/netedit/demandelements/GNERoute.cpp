@@ -29,6 +29,7 @@
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEJunction.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -78,37 +79,37 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 
 GNERoute::GNERoute(GNEViewNet* viewNet) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-Parameterised(),
-myColor(RGBColor::YELLOW),
-myVClass(SVC_PASSENGER) {
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myColor(RGBColor::YELLOW),
+    myVClass(SVC_PASSENGER) {
 }
 
 
 GNERoute::GNERoute(GNEViewNet* viewNet, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(routeParameters.routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
-                     routeParameters.edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-Parameterised(routeParameters.parameters),
-myColor(routeParameters.color),
-myVClass(routeParameters.vClass) {
+        routeParameters.edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    Parameterised(routeParameters.parameters),
+    myColor(routeParameters.color),
+    myVClass(routeParameters.vClass) {
 }
 
 
 GNERoute::GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_EMBEDDEDROUTE), viewNet, GLO_EMBEDDEDROUTE, SUMO_TAG_EMBEDDEDROUTE,
-                     routeParameters.edges, {}, {}, {}, {vehicleParent}, {}, {}, {}, {}, {}),
-Parameterised(routeParameters.parameters),
-myColor(routeParameters.color),
-myVClass(routeParameters.vClass) {
+        routeParameters.edges, {}, {}, {}, {vehicleParent}, {}, {}, {}, {}, {}),
+    Parameterised(routeParameters.parameters),
+    myColor(routeParameters.color),
+    myVClass(routeParameters.vClass) {
 }
 
 
 GNERoute::GNERoute(GNEDemandElement* route) :
     GNEDemandElement(route->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), route->getViewNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
-                     route->getParentEdges(), {}, {}, {}, {}, {}, {}, {}, {}, {}),
-Parameterised(),
-myColor(route->getColor()),
-myVClass(route->getVClass()) {
+        route->getParentEdges(), {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myColor(route->getColor()),
+    myVClass(route->getVClass()) {
 }
 
 
@@ -151,9 +152,9 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
         device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
         // write stops associated to this route
-        for (const auto& i : getChildDemandElements()) {
-            if (i->getTagProperty().isStop()) {
-                i->writeDemandElement(device);
+        for (const auto& stop : getChildDemandElements()) {
+            if (stop->getTagProperty().isStop()) {
+                stop->writeDemandElement(device);
             }
         }
     }
@@ -185,7 +186,7 @@ GNERoute::getDemandElementProblem() const {
     } else {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(myVClass, getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
+            if (getRouteCalculatorInstance()->consecutiveEdgesConnected(myVClass, getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
                 return ("Edge '" + getParentEdges().at((int)i - 1)->getID() + "' and edge '" + getParentEdges().at(i)->getID() + "' aren't consecutives");
             }
         }
@@ -420,7 +421,7 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_EDGES:
             if (canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false)) {
                 // all edges exist, then check if compounds a valid route
-                return GNEDemandElement::isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), false);
+                return isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), false);
             } else {
                 return false;
             }
@@ -463,6 +464,41 @@ GNERoute::getPopUpID() const {
 std::string
 GNERoute::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
+}
+
+
+bool
+GNERoute::isRouteValid(const std::vector<GNEEdge*>& edges, const bool report) {
+    if (edges.size() == 0) {
+        // routes cannot be empty
+        return false;
+    } else if (edges.size() == 1) {
+        // routes with a single edge are valid
+        return true;
+    } else {
+        // iterate over edges to check that compounds a chain
+        auto it = edges.begin();
+        while (it != edges.end() - 1) {
+            const GNEEdge* currentEdge = *it;
+            const GNEEdge* nextEdge = *(it + 1);
+            // same consecutive edges aren't allowed
+            if (currentEdge->getID() == nextEdge->getID()) {
+                return false;
+            }
+            // obtain outgoing edges of currentEdge
+            const std::vector<GNEEdge*>& outgoingEdges = currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges();
+            // check if nextEdge is in outgoingEdges
+            if (std::find(outgoingEdges.begin(), outgoingEdges.end(), nextEdge) == outgoingEdges.end()) {
+                if (report) {
+                    WRITE_WARNING("Parameter 'Route' invalid. Edges '" + currentEdge->getID() + "' and '" + nextEdge->getID() + "' aren't consecutives");
+                }
+                return false;
+            }
+            it++;
+        }
+        // all edges consecutives, then return true
+        return true;
+    }
 }
 
 // ===========================================================================

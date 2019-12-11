@@ -87,10 +87,10 @@ public:
         std::vector<GNEEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
 
         /// @brief calculate Dijkstra route between a list of partial edges (in string format)
-        std::vector<GNEEdge*> calculateDijkstraRoute(GNENet* net, SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const;
+        std::vector<GNEEdge*> calculateDijkstraRoute(const GNENet* net, const SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const;
 
-        /// @brief check if exist a route between the two given consecutives edges
-        bool areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge* to) const;
+        /// @brief check if exist a route between the two given consecutives edges for the given VClass
+        bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
 
     private:
         /// @brief pointer to net
@@ -364,12 +364,6 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     virtual std::string getHierarchyName() const = 0;
     /// @}
-
-    /** @brief check if a route is valid
-     * @param[in] edges vector with the route's edges
-     * @param[in] report enable or disable writting warnings if route isn't valid
-     */
-    static bool isRouteValid(const std::vector<GNEEdge*>& edges, bool report);
 
 protected:
     /// @brief The GNEViewNet this demand element element belongs
