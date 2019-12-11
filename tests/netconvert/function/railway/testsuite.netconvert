@@ -6,8 +6,8 @@ topology.output
 # make all tracks usable in both directions
 all-bidi
 
-# make all tracks usable in both directions
-all-bidi_simplifyGeometry
+# make all tracks listed in file usable in both directions
+all-bidi.input-file
 
 # make all tracks usable in both directions and duplicate loaded stops
 all-bidi_stops
