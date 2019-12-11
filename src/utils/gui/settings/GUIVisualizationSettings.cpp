@@ -54,6 +54,7 @@ const RGBColor SUMO_color_STOP(128, 0, 128);
 const RGBColor SUMO_color_ALLWAY_STOP(0, 0, 192);
 const RGBColor SUMO_color_ZIPPER(192, 128, 64);
 const RGBColor SUMO_color_DEADEND(0, 0, 0);
+const RGBColor GUIVisualizationColorSettings::SUMO_color_DEADEND_SHOW(255, 0, 255);
 
 // -------------------------------------------------------------------------
 // color constants for other objects
