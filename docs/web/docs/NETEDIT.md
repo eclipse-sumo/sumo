@@ -1369,6 +1369,9 @@ left-clicking anywhere on the outline and dragging. Shift-clicking a geometry po
 ![](images/NetEditShowParameters.png)Showing of parameters of charging
 Stations
 
+## Route
+- *Apply distance along route*: Sets the 'distance' attribute of all edges along the route for linear referencing. The distance attribute value of the first edge in the route is take as the start and the remaining edges are assigned a distance value that is counting upwards along the route. If the distance value should decrease along the route, the first edge must have a negative distance value.
+
 # Usage Examples
 
 ## Reducing the extent of the network

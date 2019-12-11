@@ -3,6 +3,16 @@ title: ChangeLog
 permalink: /ChangeLog/
 ---
 
+## Git Master
+
+### Bugfixes
+
+### Enhancements
+  
+### Other
+- Build
+  - removed autotools build
+
 ## Version 1.4.0 (10.12.2019)
 
 ### Bugfixes
@@ -127,6 +137,7 @@ permalink: /ChangeLog/
   - Added function 'traci.trafficlight.getServedPersonCount' to return the number of pedestrians that would be served by all the crossings for a given phase index. Issue #6088
   - Can now access vehicle device parameters 'device.ssm.minTTC', 'device.ssm.maxDRAC', 'device.ssm.minPET'. Issue #4983
   - Added function 'traci.simulation.writeMessage' to append a custom message to the log file (and sumo-gui message window). Issue #6249
+  - Added context subscription filter for viewing angle 'traci.vehicle.addSubscriptionFilterFieldOfVision'. Issue #6273
   
 - Tools
   - When importing public transport traffic with osmWebWizard, vehicles from incomplete lines now start and end their routes at the network border instead of starting at the first stop. Issue #6025
@@ -136,6 +147,7 @@ permalink: /ChangeLog/
   
 ### Other
 - SUMO-GUI, NETEDIT
+  - The hotkey for 'Edit Visualization' was changed to 'F9' to avoid conflicts when pasting clipboard.
   - Zooming now centers on the mouse-position by default instead of on the screen center. As before, the behavior can be toggled using the icon in the view menu bar and persists across application restarts. Issue #5992
 - NETCONVERT
   - By default repeated warnings of the same type are aggregated (only their number is given beyond the initial 5). To see all warnings, the option **--aggregate-warnings -1** can be used. Issue #6335

@@ -2414,11 +2414,13 @@ GNENet::saveDemandElements(const std::string& filename) {
     // obtain invalid demandElements depending of number of their parent lanes
     std::vector<GNEDemandElement*> invalidSingleLaneDemandElements;
     // iterate over demandElements and obtain invalids
-    for (auto i : myAttributeCarriers.demandElements) {
-        for (auto j : i.second) {
+    for (const auto &demandElementSet : myAttributeCarriers.demandElements) {
+        for (const auto &demandElement : demandElementSet.second) {
+            // compute before check if demand element is valid
+            demandElement.second->computePath();
             // check if has to be fixed
-            if (!j.second->isDemandElementValid()) {
-                invalidSingleLaneDemandElements.push_back(j.second);
+            if (!demandElement.second->isDemandElementValid()) {
+                invalidSingleLaneDemandElements.push_back(demandElement.second);
             }
         }
     }

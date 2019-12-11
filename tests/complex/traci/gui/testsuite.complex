@@ -1,0 +1,8 @@
+# Tests the gui API
+gui
+
+# Tests adding polygon dynamics with gui enabled
+polygon_dynamics_gui
+
+# Test for many screenshots
+b50

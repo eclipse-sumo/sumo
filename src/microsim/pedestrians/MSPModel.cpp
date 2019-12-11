@@ -30,9 +30,6 @@
 #include "MSPModel_Striping.h"
 #include "MSPModel_NonInteracting.h"
 #include "MSPModel.h"
-#ifdef BUILD_GRPC
-#include "MSPModel_Remote.h"
-#endif
 
 
 // ===========================================================================
@@ -72,11 +69,6 @@ MSPModel::getModel() {
             myModel = new MSPModel_Striping(oc, net);
         } else if (model == "nonInteracting") {
             myModel = new MSPModel_NonInteracting(oc, net);
-#ifdef BUILD_GRPC
-        } else if (model == "remote") {
-            myModel = new MSPModel_Remote(oc, net);
-//            std::cout << " remote model loaded" << std::endl;
-#endif
         } else {
             throw ProcessError("Unknown pedestrian model '" + model + "'");
         }

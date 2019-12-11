@@ -65,13 +65,11 @@ MSTrafficLightLogic::SwitchCommand::execute(SUMOTime t) {
     if (!myAmValid) {
         return 0;
     }
-    //
-    const bool isActive = myTLControl.isActive(myTLLogic);
     int step1 = myTLLogic->getCurrentPhaseIndex();
     SUMOTime next = myTLLogic->trySwitch();
     int step2 = myTLLogic->getCurrentPhaseIndex();
     if (step1 != step2) {
-        if (isActive) {
+        if (myTLLogic->isActive()) {
             // execute any action connected to this tls
             const MSTLLogicControl::TLSLogicVariants& vars = myTLControl.get(myTLLogic->getID());
             // set link priorities

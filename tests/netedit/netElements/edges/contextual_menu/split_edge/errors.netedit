@@ -76,6 +76,9 @@ Debug: Adding connection 'gneE2_0->gneE2.16_0' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_0togneE2.16_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE2_1->gneE2.16_1' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_1togneE2.16_1' in retrieveGNEConnection()
+Debug: Setting new attribute lane 'gneE2.16_0' into busStop 'busStop3'
+Debug: Setting new attribute startPos '25.73' into busStop 'busStop3'
+Debug: Setting new attribute endPos '25.83' into busStop 'busStop3'
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
@@ -111,6 +114,9 @@ Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute endPos '35.60' into busStop 'busStop3'
+Debug: Setting previous attribute startPos '35.50' into busStop 'busStop3'
+Debug: Setting previous attribute lane 'gneE2_0' into busStop 'busStop3'
 Debug: Removing connection 'gneE2_1->gneE2.16_1' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_1togneE2.16_1' in removeConnection()
 Debug: Removing connection 'gneE2_0->gneE2.16_0' from edge 'gneE2'
@@ -183,6 +189,9 @@ Debug: Adding connection 'gneE2_0->gneE2.16_0' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_0togneE2.16_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE2_1->gneE2.16_1' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_1togneE2.16_1' in retrieveGNEConnection()
+Debug: Setting new attribute lane 'gneE2.16_0' into busStop 'busStop3'
+Debug: Setting new attribute startPos '25.73' into busStop 'busStop3'
+Debug: Setting new attribute endPos '25.83' into busStop 'busStop3'
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20

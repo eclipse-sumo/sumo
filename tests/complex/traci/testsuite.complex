@@ -1,27 +1,24 @@
-# Tests whether repeated execution of client/server connections work (for both the client and the server being the one who ends first)
-repeatedConnection
+bugs
 
-# Defines test cases for multiple TraCI clients connecting to a SUMO TraCI server
-multipleConnections
-
-# Tests whether the connection is not closed by SUMO
-clientCloses
-
-# Tests the new python API
-pythonApi
-
-# Tests whether busy sockets are reported
-busySocket
-
-# Tests whether outputs are closed
-closingOutput
+# test connection between client and server
+connection
+misc
 
 # Tests for context subscriptions
 contextSubscriptions
 ContextSubscriptionFilters
-
-# Tests the openGap() method.
-openGap
-
-# Test for many screenshots
-b50
+lane
+edge
+vehicle
+vehicletype
+person
+junction
+trafficlight
+route
+inductionloop
+lanearea
+multientryexit
+poi
+polygon
+simulation
+gui

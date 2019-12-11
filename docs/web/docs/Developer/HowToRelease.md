@@ -17,9 +17,10 @@ own may refer to #563.
 ### Merge phase
 
 Major changes to the SUMO trunk should end about two weeks before the
-release data. This refers especially to merges of project branches into
+release date. This refers especially to merges of project branches into
 the trunk. It is also a good idea to inform the developers of dependent
 software (Veins, VSimRTI, flow etc.) at this stage.
+- send out mail to sumo-dev informing about the upcoming release so that 'contributed'-authors can check their stuff for compatibility
 
 ### Freeze phase (Release day - 7)
 
@@ -28,7 +29,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
   - run [checkStyle](../Developer/CodeStyle.md) and commit
     changed files
   - check the calendar to update copyright statements
-  - check whether the TraCI version [needs to be incremented](../TraCI/Control-related_commands.md#response_0x00_version)
+  - check whether the TraCI version needs to be incremented
     and rebuild TraCI constants in python
     (tools/traci/rebuildConstants.py)
   - check whether the network version needs to be incremented and
@@ -47,7 +48,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
     netconvert changes)
   - check the tests again
 - check the documentation
-  - update the [change log](../ChangeLog.md)
+  - update the [ChangeLog](../ChangeLog.md)
   - generate options documentation from configuration templates
     using configTemplateToWiki.py (for instance
     `tools/build/configTemplateToWiki.py activitygen | xclip` which
@@ -81,16 +82,16 @@ All scenarios should be fixed by now.
 
 - patch the version information
   - in src/config.h.cmake, also disable the HAVE_VERSION_H macro
-  - in CMakeLists.txt, configure.ac and build/wix/sumo.wxs
+  - in CMakeLists.txt and build/wix/sumo.wxs
   - commit the changes
 - recheck whether submodules changed by doing `git submodule update --remote`
 and committing the changes after careful inspection
 - check the documentation
-  - update the [change log](../ChangeLog.md) again and include
+  - update the [ChangeLog](../ChangeLog.md) again and include
     version and release date
-  - modify the version template (Version) [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) and
-    the release date (ReleaseDate) [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) in the **extra:** section at the end on *mkdocs.yml* to update
-    [download links](../Downloads.md).
+  - modify the version number (Version) and the release date (ReleaseDate)
+    [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) in the **extra:** section at the end
+    to update the [download links](../Downloads.md).
 
 ### Release day
 
@@ -150,6 +151,6 @@ The trunk is now open for changes again.
 
 - reenable HAVE_VERSION_H in src/config.h.cmake
 - rename version to "git" in configure.ac and CMakeLists.txt
-- insert a new empty "Git master" section at the top of the [change log](../ChangeLog.md)
+- insert a new empty "Git master" section at the top of the [ChangeLog](../ChangeLog.md)
 - commit changes
 - drink your favorite beverage

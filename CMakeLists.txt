@@ -24,7 +24,7 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif ()
 
 project(SUMO)
-set(PACKAGE_VERSION "1.4.0")
+set(PACKAGE_VERSION "git")
 cmake_minimum_required(VERSION 3.1)
 
 set(CMAKE_COLOR_MAKEFILE ON)
@@ -247,12 +247,6 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/Release/*.dll" "${GL2PS_PATH}/bin/*.dll")  # "Release" used by old versions of SUMOLibraries
     # set SWIG
     set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
-    # set GRPC
-    if (EXISTS "${SUMO_LIBRARIES}/grpc-1.24.2")
-        set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/grpc-1.24.2")
-        set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/grpc-1.24.2/lib")
-        set(GRPC_CPP_PLUGIN "${SUMO_LIBRARIES}/grpc-1.24.2/bin/grpc_cpp_plugin.exe")
-    endif ()
     # set protobuf
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.9.1")
     set(Protobuf_PROTOC_EXECUTABLE "${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.9.1/bin/protoc.exe")

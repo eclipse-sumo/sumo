@@ -54,7 +54,6 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="person_0" depart="0.00" color="cyan">
-		<walk edges="gneE0 gneE1"/>
-	</person>
+    <route edges="gneE0 gneE1" color="yellow" id="route_0"/>
+    <flow id="routeFlow" begin="0.00" route="route_0" end="3600.00" number="1800"/>
 </routes>

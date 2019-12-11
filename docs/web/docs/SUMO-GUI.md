@@ -136,7 +136,10 @@ are listed below:
 - Shift + PageUp / PageDow: move the view left/right (a lot)
 - \+/-, Keypad +/-: zoom in/out
 - Home/Keypad Home: recenter view
-- Ctrl + v: open view settings dialog
+- F9: open view settings dialog
+- Shift-LeftClick: 
+  - vehicle: start tracking
+  - rerouter: change routeProbReroute probabilities
 
 ## Object Properties / Right-Click-Functions
 
