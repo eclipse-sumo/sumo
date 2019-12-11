@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xsd:include schemaLocation="baseTypes.xsd"/>
+
+    <xsd:element name="viewsettings">
+        <xsd:complexType>
+            <xsd:choice maxOccurs="unbounded">
+                <xsd:element name="decal" type="decalType" minOccurs="0"/>
+            </xsd:choice>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name = "decalType">
+        <xsd:attribute name="filename" use="required" type="xsd:string"/>
+        <xsd:attribute name="centerX" type="xsd:float" use="required"/>
+        <xsd:attribute name="centerY" type="xsd:float" use="required"/>
+        <xsd:attribute name="width" type="xsd:float" use="optional"/>
+        <xsd:attribute name="height" type="xsd:float" use="optional"/>
+        <xsd:attribute name="rotation" type="xsd:float" use="optional"/>
+    </xsd:complexType>
+</xsd:schema>
