@@ -332,7 +332,7 @@ follows:
   merging](https://en.wikipedia.org/wiki/Merge_%28traffic%29)
 - <span style="color:#000000; background:#000000">FOO</span> dead-end,
   vehicle may not drive there
-- <span style="color:#FF00FF; background:#000000">FOO</span> suspicious dead-end,
+- <span style="color:#000000; background:#FF00FF">FOO</span> suspicious dead-end,
   there are outgoing edges but the vehicle may not continue anywhere
 
 !!! note
