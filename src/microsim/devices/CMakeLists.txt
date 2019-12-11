@@ -29,6 +29,8 @@ set(microsim_devices_STAT_SRCS
    MSDevice_Bluelight.h
    MSDevice_FCD.cpp
    MSDevice_FCD.h
+   MSDevice_ElecHybrid.cpp
+   MSDevice_ElecHybrid.h
    MSTransportableDevice.h
    MSTransportableDevice_Routing.cpp
    MSTransportableDevice_Routing.h

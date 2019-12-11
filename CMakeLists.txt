@@ -200,8 +200,10 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     # set fox
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/fox-?.?.??")
+    # set eigen (no version in directory name as it is a submodule)
+    file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen")
     # set all paths in prefix
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${ZLIB_PATH}/bin;${ZLIB_PATH}/lib;${PROJ_PATH};${GDAL_PATH};${FOX_PATH}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${ZLIB_PATH}/bin;${ZLIB_PATH}/lib;${PROJ_PATH};${GDAL_PATH};${FOX_PATH}")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
@@ -328,6 +330,24 @@ if (CHECK_OPTIONAL_LIBS)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} SWIG")
     endif ()
 
+    # Eigen (for overhead wire / electric circuit simulation)
+    # TODO: Probably may be used in 32bit build as well.
+    find_package(Eigen3 3.2 MODULE)
+    if (EIGEN3_FOUND)
+        include_directories(${EIGEN3_INCLUDE_DIR})
+        set(HAVE_EIGEN 1)  # see config.h.cmake for #cmakedefine
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
+    endif (EIGEN3_FOUND)
+
+    #if (NOT ${MSVC_VERSION} STREQUAL "1800")
+    #    find_package(GRPC)
+    #    find_package(Protobuf)
+    #    if (GRPC_FOUND AND Protobuf_FOUND)
+    #        include_directories(${Protobuf_INCLUDE_DIRS} ${GRPC_INCLUDE_DIRS})
+    #        set(ENABLED_FEATURES "${ENABLED_FEATURES} GRPC")
+    #    endif (GRPC_FOUND AND Protobuf_FOUND)
+    #endif ()
+
     set(SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL};${SUMO_OPTIONAL_LIBRARIES_DLL}")
 endif (CHECK_OPTIONAL_LIBS)
 
@@ -336,7 +356,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 set(commonlibs
         utils_distribution utils_shapes utils_options
-        utils_xml utils_geom utils_common utils_importio utils_iodevices foreign_tcpip
+        utils_xml utils_geom utils_common utils_importio utils_iodevices utils_traction_wire foreign_tcpip
         ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY})
 if (MSVC)
     set(commonlibs ${commonlibs} ws2_32)
@@ -532,6 +552,7 @@ add_custom_target(examples
 add_dependencies(examples sumo netconvert dfrouter duarouter jtrrouter)
 set_property(TARGET examples PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET examples PROPERTY FOLDER "doc")
+
 add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
 find_package(Git)
 if (GIT_FOUND)

@@ -61,6 +61,17 @@ public:
      */
     double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const;
 
+    /** @brief Computes the achievable acceleartion using the given speed and amount of consumed electric power
+     *
+     * @param[in] c emission class for the function parameters to use
+     * @param[in] e the type of emission (CO, CO2, ...), only electricity gives valid results
+     * @param[in] v The vehicle's current velocity
+     * @param[in] P The vehicle's current power consumption
+     * @param[in] slope The road's slope at vehicle's position [deg]
+     * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
+     */
+    double acceleration(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double P, const double slope, const std::map<int, double>* param) const;
+
     double getDefaultParam(int paramKey) const {
         return myDefaultParameter.find(paramKey)->second;
     }
@@ -69,7 +80,6 @@ public:
 private:
     /// @brief The default parameter
     std::map<int, double> myDefaultParameter;
-
 };
 
 
