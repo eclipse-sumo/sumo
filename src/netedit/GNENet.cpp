@@ -1047,7 +1047,7 @@ GNENet::setViewNet(GNEViewNet* viewNet) {
 
 
 GNEJunction*
-GNENet::retrieveJunction(const std::string& id, bool failHard) {
+GNENet::retrieveJunction(const std::string& id, bool failHard) const {
     if (myAttributeCarriers.junctions.count(id)) {
         return myAttributeCarriers.junctions[id];
     } else if (failHard) {
@@ -1066,7 +1066,7 @@ GNENet::getAttributeCarriers() const {
 
 
 GNEEdge*
-GNENet::retrieveEdge(const std::string& id, bool failHard) {
+GNENet::retrieveEdge(const std::string& id, bool failHard) const {
     auto i = myAttributeCarriers.edges.find(id);
     // If edge was found
     if (i != myAttributeCarriers.edges.end()) {
@@ -1081,7 +1081,7 @@ GNENet::retrieveEdge(const std::string& id, bool failHard) {
 
 
 GNEEdge*
-GNENet::retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard) {
+GNENet::retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard) const {
     assert((from != nullptr) && (to != nullptr));
     // iterate over Junctions of net
     for (auto i : myAttributeCarriers.edges) {

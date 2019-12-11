@@ -355,21 +355,21 @@ public:
      * @param[in] failHard Whether attempts to retrieve a nonexisting junction should result in an exception
      * @throws UnknownElement
      */
-    GNEJunction* retrieveJunction(const std::string& id, bool failHard = true);
+    GNEJunction* retrieveJunction(const std::string& id, bool failHard = true) const;
 
     /**@brief get edge by id
      * @param[in] id The id of the desired edge
      * @param[in] failHard Whether attempts to retrieve a nonexisting edge should result in an exception
      * @throws UnknownElement
      */
-    GNEEdge* retrieveEdge(const std::string& id, bool failHard = true);
+    GNEEdge* retrieveEdge(const std::string& id, bool failHard = true) const;
 
     /**@brief get edge by from and to GNEJunction
      * @param[in] id The id of the desired edge
      * @param[in] failHard Whether attempts to retrieve a nonexisting edge should result in an exception
      * @throws UnknownElement
      */
-    GNEEdge* retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard = true);
+    GNEEdge* retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard = true) const;
 
     /**@brief get Polygon by id
     * @param[in] id The id of the desired polygon
