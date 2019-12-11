@@ -8,6 +8,8 @@ permalink: /ChangeLog/
 ### Bugfixes
 
 ### Enhancements
+- SUMO-GUI
+  - dead-end links in the middle of a road are now highlighed in magenta to highlight connectivity problems. Issue #6391
   
 ### Other
 - Build
