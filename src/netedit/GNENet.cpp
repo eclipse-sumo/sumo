@@ -1049,7 +1049,7 @@ GNENet::setViewNet(GNEViewNet* viewNet) {
 GNEJunction*
 GNENet::retrieveJunction(const std::string& id, bool failHard) const {
     if (myAttributeCarriers.junctions.count(id)) {
-        return myAttributeCarriers.junctions[id];
+        return myAttributeCarriers.junctions.at(id);
     } else if (failHard) {
         // If junction wasn't found, throw exception
         throw UnknownElement("Junction " + id);
