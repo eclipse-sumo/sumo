@@ -775,6 +775,7 @@
                     <xsd:attribute name="departPos" type="departPosType"/>
                     <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
                     <xsd:attribute name="walkFactor" type="positiveFloatType"/>
+                    <xsd:attribute name="costs" type="xsd:string"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="ride">
