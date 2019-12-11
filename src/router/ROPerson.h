@@ -164,6 +164,10 @@ public:
         SUMOTime getDuration() const {
             return TIME2STEPS(cost);
         }
+
+        double getCost() const {
+            return cost;
+        }
     protected:
         double cost;
     };

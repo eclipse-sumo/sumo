@@ -308,6 +308,8 @@ public:
      */
     virtual bool addVehicle(const std::string& id, ROVehicle* veh);
 
+    /// @brief returns whether a vehicle with the given id was already loaded
+    bool knowsVehicle(const std::string& id);
 
     /* @brief Adds a flow of vehicles to the network
      *
