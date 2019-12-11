@@ -7,14 +7,14 @@
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
 
-# @file    osmGet.py
-# @author  Daniel Krajzewicz
-# @author  Jakob Erdmann
+# @file    tileGet.py
 # @author  Michael Behrisch
-# @date    2009-08-01
+# @date    2019-12-11
 
 from __future__ import absolute_import
 from __future__ import print_function
+from __future__ import division
+import math
 import os
 try:
     # python3
@@ -25,6 +25,30 @@ except ImportError:
 import optparse
 
 import sumolib  # noqa
+
+MERCATOR_RANGE = 256
+MAX_TILE_SIZE = 640
+
+def fromLatLngToPoint(lat, lng) :
+    # inspired by https://stackoverflow.com/questions/12507274/how-to-get-bounds-of-a-google-static-map
+    x = lng * MERCATOR_RANGE / 360
+    siny = math.sin(lat / 180. * math.pi)
+    y = 0.5 * math.log((1 + siny) / (1 - siny)) * -MERCATOR_RANGE / (2 * math.pi)
+    return x, y
+
+
+def getZoomWidthHeight(south, west, north, east):
+    center = ((north + south) / 2, (east + west) / 2)
+    centerPx = fromLatLngToPoint(*center)
+    nePx = fromLatLngToPoint(north, east)
+    zoom = 20
+    width = (nePx[0] - centerPx[0]) * 2**zoom * 2
+    height = (centerPx[1] - nePx[1]) * 2**zoom * 2
+    while width > MAX_TILE_SIZE or height > MAX_TILE_SIZE:
+        zoom -= 1
+        width /= 2
+        height /= 2
+    return center, zoom, width, height
 
 
 optParser = optparse.OptionParser()
@@ -44,7 +68,7 @@ optParser.add_option("-u", "--url", default="maps.googleapis.com/maps/api/static
 
 
 def get(args=None):
-    (options, args) = optParser.parse_args(args=args)
+    options, _ = optParser.parse_args(args=args)
     if not options.bbox and not options.net and not options.polygon:
         optParser.error("At least one of 'bbox' and 'net' and 'polygon' has to be set.")
     bbox = ((0,0),(0,0))
@@ -72,30 +96,21 @@ def get(args=None):
         east, north = net.convertXY2LonLat(*bbox[1])
 
     prefix = os.path.join(options.output_dir, options.prefix)
-    print ("retrieving", west, south, east, north)
-    size_x = size_y = 320
     scale = 2
     with open(os.path.join(options.output_dir, options.decals_file), "w") as decals:
         sumolib.xml.writeHeader(decals, root="viewsettings")
-        if options.tiles == 1:
-            urllib.urlretrieve("http://%s?size=%dx%d&visible=%.6f,%.6f|%.6f,%.6f&scale=%s&maptype=%s&key=%s"
-                               % (options.url, size_x, size_y, south, west, north, east,
-                                  scale, options.maptype, options.key), prefix+".png")
-            print('    <decal filename="%s.png" centerX="%s" centerY="%s" width="%s" height="%s"/>'
-                  % (prefix, (bbox[0][0] + bbox[1][0]) / 2, (bbox[0][1] + bbox[1][1]) / 2,
-                     (bbox[1][0] - bbox[0][0]) / scale, (bbox[1][1] - bbox[0][1]) / scale), file=decals)
-        else:
-            num = options.tiles
-            b = west
-            for i in range(num):
-                e = b + (east - west) / float(num)
-                urllib.urlretrieve("http://%s?size=%dx%d&visible=%.6f,%.6f|%.6f,%.6f&scale=%s&maptype=%s&key=%s"
-                                   % (options.url, size_x, size_y, south, west, north, east,
-                                      scale, options.maptype, options.key), "%s%s_%s.png" % (prefix, i, num))
-                b = e
-                print('    <decal filename="%s%s_%s.png" centerX="%s" centerY="%s" width="%s" height="%s"/>'
-                      % (prefix, i, num, (bbox[0][0] + bbox[1][0]) / 2, (bbox[0][1] + bbox[1][1]) / 2,
-                         (bbox[1][0] - bbox[0][0]) / scale, (bbox[1][1] - bbox[0][1]) / scale), file=decals)
+        b = west
+        for i in range(options.tiles):
+            e = b + (east - west) / options.tiles
+            offset = (bbox[1][0] - bbox[0][0]) / options.tiles
+            c, z, w, h = getZoomWidthHeight(south, b, north, e)
+            urllib.urlretrieve("http://%s?size=%dx%d&center=%.6f,%.6f&zoom=%s&scale=%s&maptype=%s&key=%s"
+                               % (options.url, w, h, c[0], c[1], z,
+                                  scale, options.maptype, options.key), "%s%s.png" % (prefix, i))
+            print('    <decal filename="%s%s.png" centerX="%s" centerY="%s" width="%s" height="%s"/>'
+                  % (prefix, i, bbox[0][0] + (i + 0.5) * offset, (bbox[0][1] + bbox[1][1]) / 2,
+                     offset, bbox[1][1] - bbox[0][1]), file=decals)
+            b = e
         print("</viewsettings>", file=decals)
 
 
