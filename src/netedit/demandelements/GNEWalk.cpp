@@ -540,7 +540,7 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_EDGES:
             if (canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false)) {
                 // all edges exist, then check if compounds a valid route
-                return GNERoute::isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), false);
+                return GNERoute::isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value)).empty();
             } else {
                 return false;
             }

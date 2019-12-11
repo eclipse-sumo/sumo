@@ -172,7 +172,7 @@ GNERoute::isDemandElementValid() const {
         return true;
     } else if (getParentEdges().size() > 0) {
         // check that exist a connection between every edge
-        return isRouteValid(getParentEdges(), false);
+        return isRouteValid(getParentEdges()).empty();
     } else {
         return false;
     }
@@ -181,18 +181,8 @@ GNERoute::isDemandElementValid() const {
 
 std::string
 GNERoute::getDemandElementProblem() const {
-    if (getParentEdges().size() == 0) {
-        return ("A route need at least one edge");
-    } else {
-        // check if exist at least a connection between every edge
-        for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (getRouteCalculatorInstance()->consecutiveEdgesConnected(myVClass, getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
-                return ("Edge '" + getParentEdges().at((int)i - 1)->getID() + "' and edge '" + getParentEdges().at(i)->getID() + "' aren't consecutives");
-            }
-        }
-        // there is connections bewteen all edges, then all ok
-        return "";
-    }
+    // return string with the problem obtained from isRouteValid
+    return isRouteValid(getParentEdges());
 }
 
 
@@ -421,7 +411,7 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_EDGES:
             if (canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false)) {
                 // all edges exist, then check if compounds a valid route
-                return isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), false);
+                return isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value)).empty();
             } else {
                 return false;
             }
@@ -467,14 +457,14 @@ GNERoute::getHierarchyName() const {
 }
 
 
-bool
-GNERoute::isRouteValid(const std::vector<GNEEdge*>& edges, const bool report) {
+std::string
+GNERoute::isRouteValid(const std::vector<GNEEdge*>& edges) {
     if (edges.size() == 0) {
         // routes cannot be empty
-        return false;
+        return ("list of route edges cannot be empty");
     } else if (edges.size() == 1) {
-        // routes with a single edge are valid
-        return true;
+        // routes with a single edge are valid, then return an empty string
+        return ("");
     } else {
         // iterate over edges to check that compounds a chain
         auto it = edges.begin();
@@ -483,21 +473,18 @@ GNERoute::isRouteValid(const std::vector<GNEEdge*>& edges, const bool report) {
             const GNEEdge* nextEdge = *(it + 1);
             // same consecutive edges aren't allowed
             if (currentEdge->getID() == nextEdge->getID()) {
-                return false;
+                return ("consecutive duplicated edges (" + currentEdge->getID() + ") aren't allowed in a route");
             }
             // obtain outgoing edges of currentEdge
             const std::vector<GNEEdge*>& outgoingEdges = currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges();
             // check if nextEdge is in outgoingEdges
             if (std::find(outgoingEdges.begin(), outgoingEdges.end(), nextEdge) == outgoingEdges.end()) {
-                if (report) {
-                    WRITE_WARNING("Parameter 'Route' invalid. Edges '" + currentEdge->getID() + "' and '" + nextEdge->getID() + "' aren't consecutives");
-                }
-                return false;
+                return ("Edges '" + currentEdge->getID() + "' and '" + nextEdge->getID() + "' aren't consecutives");
             }
             it++;
         }
-        // all edges consecutives, then return true
-        return true;
+        // all edges consecutives, then return an empty string
+        return ("");
     }
 }
 
