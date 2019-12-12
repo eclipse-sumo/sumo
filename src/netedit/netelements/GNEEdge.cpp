@@ -1189,8 +1189,6 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
     for (const auto& i : route->getChildDemandElements()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
             drawPartialPersonPlan(s, i, junction);
-        } else {
-            i->drawGL(s);
         }
     }
     // special case for embedded routes
@@ -1360,10 +1358,6 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
                     glPopMatrix();
                 }
             }
-        }
-        // draw personPlan children
-        for (const auto& i : personPlan->getChildDemandElements()) {
-            i->drawGL(s);
         }
     }
     // draw person if this edge correspond to the first edge of first Person's person plan
