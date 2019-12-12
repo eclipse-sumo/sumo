@@ -28,6 +28,7 @@ import sumolib  # noqa
 
 MERCATOR_RANGE = 256
 MAX_TILE_SIZE = 640
+MAPQUEST_TYPES = {"roadmap": "map", "satellite": "sat", "hybrid": "hyb", "terrain": "sat"}
 
 def fromLatLngToPoint(lat, lng) :
     # inspired by https://stackoverflow.com/questions/12507274/how-to-get-bounds-of-a-google-static-map
@@ -64,7 +65,7 @@ optParser.add_option("-k", "--key", help="API key to use")
 optParser.add_option("-m", "--maptype", default="satellite", help="map type (roadmap, satellite, hybrid, terrain)")
 optParser.add_option("-u", "--url", default="maps.googleapis.com/maps/api/staticmap",
                      help="Download from the given tile server")
-# alternatives: ???
+# alternatives: open.mapquestapi.com/staticmap/v4/getmap
 
 
 def get(args=None):
@@ -96,7 +97,6 @@ def get(args=None):
         east, north = net.convertXY2LonLat(*bbox[1])
 
     prefix = os.path.join(options.output_dir, options.prefix)
-    scale = 2
     with open(os.path.join(options.output_dir, options.decals_file), "w") as decals:
         sumolib.xml.writeHeader(decals, root="viewsettings")
         b = west
@@ -104,9 +104,16 @@ def get(args=None):
             e = b + (east - west) / options.tiles
             offset = (bbox[1][0] - bbox[0][0]) / options.tiles
             c, z, w, h = getZoomWidthHeight(south, b, north, e)
-            urllib.urlretrieve("http://%s?size=%dx%d&center=%.6f,%.6f&zoom=%s&scale=%s&maptype=%s&key=%s"
-                               % (options.url, w, h, c[0], c[1], z,
-                                  scale, options.maptype, options.key), "%s%s.png" % (prefix, i))
+            if "mapquest" in options.url:
+                size = "size=%d,%d" % (w, h)
+                maptype = 'type=' + MAPQUEST_TYPES[options.maptype]
+            else:
+                size = "size=%dx%d" % (w, h)
+                maptype = 'maptype=' + options.maptype
+            request = "https://%s?%s&center=%.6f,%.6f&zoom=%s&scale=2&%s&key=%s" % (
+                      options.url, size, c[0], c[1], z, maptype, options.key)
+#            print(request)
+            urllib.urlretrieve(request, "%s%s.png" % (prefix, i))
             print('    <decal filename="%s%s.png" centerX="%s" centerY="%s" width="%s" height="%s"/>'
                   % (prefix, i, bbox[0][0] + (i + 0.5) * offset, (bbox[0][1] + bbox[1][1]) / 2,
                      offset, bbox[1][1] - bbox[0][1]), file=decals)
