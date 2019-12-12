@@ -92,7 +92,8 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
     if (toSegment->hasSpaceFor(veh, leaveTime) && (ignoreLink || veh->mayProceed())) {
         if (onSegment != nullptr) {
             onSegment->send(veh, toSegment, leaveTime, onSegment->getNextSegment() == nullptr ? MSMoveReminder::NOTIFICATION_JUNCTION : MSMoveReminder::NOTIFICATION_SEGMENT);
-            toSegment->receive(veh, leaveTime, false, ignoreLink);
+            bool teleportToNewEdge = ignoreLink && &onSegment->getEdge() != &toSegment->getEdge();
+            toSegment->receive(veh, leaveTime, false, teleportToNewEdge);
         } else {
             WRITE_WARNING("Vehicle '" + veh->getID() + "' ends teleporting on edge '" + toSegment->getEdge().getID()
                           + "':" + toString(toSegment->getIndex()) + ", time " + time2string(leaveTime) + ".");
