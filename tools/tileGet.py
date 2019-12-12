@@ -38,14 +38,14 @@ def fromLatLngToPoint(lat, lng) :
     return x, y
 
 
-def getZoomWidthHeight(south, west, north, east):
+def getZoomWidthHeight(south, west, north, east, maxTileSize):
     center = ((north + south) / 2, (east + west) / 2)
     centerPx = fromLatLngToPoint(*center)
     nePx = fromLatLngToPoint(north, east)
     zoom = 20
     width = (nePx[0] - centerPx[0]) * 2**zoom * 2
     height = (centerPx[1] - nePx[1]) * 2**zoom * 2
-    while width > MAX_TILE_SIZE or height > MAX_TILE_SIZE:
+    while width > maxTileSize or height > maxTileSize:
         zoom -= 1
         width /= 2
         height /= 2
@@ -97,20 +97,21 @@ def get(args=None):
         east, north = net.convertXY2LonLat(*bbox[1])
 
     prefix = os.path.join(options.output_dir, options.prefix)
+    mapQuest = "mapquest" in options.url
     with open(os.path.join(options.output_dir, options.decals_file), "w") as decals:
         sumolib.xml.writeHeader(decals, root="viewsettings")
         b = west
         for i in range(options.tiles):
             e = b + (east - west) / options.tiles
             offset = (bbox[1][0] - bbox[0][0]) / options.tiles
-            c, z, w, h = getZoomWidthHeight(south, b, north, e)
-            if "mapquest" in options.url:
+            c, z, w, h = getZoomWidthHeight(south, b, north, e, 2560 if mapQuest else 640)
+            if mapQuest:
                 size = "size=%d,%d" % (w, h)
-                maptype = 'type=' + MAPQUEST_TYPES[options.maptype]
+                maptype = 'imagetype=png&type=' + MAPQUEST_TYPES[options.maptype]
             else:
                 size = "size=%dx%d" % (w, h)
                 maptype = 'maptype=' + options.maptype
-            request = "https://%s?%s&center=%.6f,%.6f&zoom=%s&scale=2&%s&key=%s" % (
+            request = "https://%s?%s&center=%.6f,%.6f&zoom=%s&%s&key=%s" % (
                       options.url, size, c[0], c[1], z, maptype, options.key)
 #            print(request)
             urllib.urlretrieve(request, "%s%s.png" % (prefix, i))
