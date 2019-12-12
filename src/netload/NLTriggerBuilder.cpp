@@ -426,7 +426,7 @@ NLTriggerBuilder::parseAndBuildTractionSubstation(MSNet& net, const SUMOSAXAttri
 }
 
 void
-NLTriggerBuilder::parseAndBuildOverheadWireClamp(MSNet& net, const SUMOSAXAttributes& attrs) {
+NLTriggerBuilder::parseAndBuildOverheadWireClamp(MSNet& /*net*/, const SUMOSAXAttributes& attrs) {
     if (MSGlobals::gOverheadWireSolver) {
 #ifdef HAVE_EIGEN
         bool ok = true;
@@ -476,7 +476,6 @@ NLTriggerBuilder::parseAndBuildOverheadWireClamp(MSNet& net, const SUMOSAXAttrib
             WRITE_ERROR("The overhead wire clamp '" + id + "' is probably declared twice.")
         }
 #else
-        UNUSED_PARAMETER(net);
         UNUSED_PARAMETER(attrs);
         WRITE_WARNING("Not building overhead wire claps, overjhead wire solver support (Eigen) not compiled in.");
 #endif
