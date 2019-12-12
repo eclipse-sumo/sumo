@@ -1267,7 +1267,7 @@ GNEJunction::drawDemandElements(const GUIVisualizationSettings& s, const GNEEdge
             }
         }
         if (edge->getChildDemandElementsByType(SUMO_TAG_EMBEDDEDROUTE).size() > 0) {
-            const auto& embeddedRoute = getChildDemandElementsByType(SUMO_TAG_EMBEDDEDROUTE).front();
+            const auto& embeddedRoute = edge->getChildDemandElementsByType(SUMO_TAG_EMBEDDEDROUTE).front();
             if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(embeddedRoute)) {
                  edge->drawPartialRoute(s, embeddedRoute, this);
             }
