@@ -147,7 +147,7 @@ The distance value along an edge is computed as:
   |edgeDistance + vehiclePos|
 ```
 
-Edge distance is imported from OSM and can also be be set along a route in [NETEDIT](NETEDIT.md#route)
+Edge distance is imported from OSM and can also be be set along a route in [NETEDIT](../NETEDIT.md#route)
 
 !!! note
     Negative distance values are not currently supported (pending introduction of another attribute)
