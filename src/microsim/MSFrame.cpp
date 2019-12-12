@@ -764,12 +764,6 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gWaitingTimeMemory = string2time(oc.getString("waiting-time-memory"));
     MSAbstractLaneChangeModel::initGlobalOptions(oc);
     MSGlobals::gOverheadWireSolver = oc.getBool("overhead-wire-solver");
-#ifndef HAVE_EIGEN
-    if (MSGlobals::gOverheadWireSolver)
-    {
-        WRITE_WARNING("Overhead wire solver (Eigen) not compiled in, expect errors if you have overhead wires.")
-    }
-#endif // !HAVE_EIGEN
 
     MSLane::initCollisionOptions(oc);
 

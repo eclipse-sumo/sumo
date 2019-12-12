@@ -485,6 +485,8 @@ protected:
     MSParkingArea* myParkingArea;
     /// @brief The currently parsed stop to add access points to
     MSStoppingPlace* myCurrentStop;
+
+    bool myHaveWarnedAboutEigen = false;
 };
 
 

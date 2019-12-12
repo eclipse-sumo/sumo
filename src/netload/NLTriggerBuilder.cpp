@@ -208,6 +208,12 @@ NLTriggerBuilder::parseAndBuildOverheadWireSegment(MSNet& net, const SUMOSAXAttr
     }
 
     buildOverheadWireSegment(net, id, lane, frompos, topos, voltageSource);
+#ifndef HAVE_EIGEN
+    if (MSGlobals::gOverheadWireSolver && !myHaveWarnedAboutEigen) {
+        myHaveWarnedAboutEigen = true;
+        WRITE_WARNING("Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire simulation")
+    }
+#endif // !HAVE_EIGEN
 }
 
 void
@@ -421,11 +427,9 @@ NLTriggerBuilder::parseAndBuildTractionSubstation(MSNet& net, const SUMOSAXAttri
 
 void
 NLTriggerBuilder::parseAndBuildOverheadWireClamp(MSNet& net, const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-
     if (MSGlobals::gOverheadWireSolver) {
-
 #ifdef HAVE_EIGEN
+        bool ok = true;
         std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
         if (!ok) {
             throw ProcessError();
@@ -472,11 +476,13 @@ NLTriggerBuilder::parseAndBuildOverheadWireClamp(MSNet& net, const SUMOSAXAttrib
             WRITE_ERROR("The overhead wire clamp '" + id + "' is probably declared twice.")
         }
 #else
+        UNUSED_PARAMETER(net);
+        UNUSED_PARAMETER(attrs);
         WRITE_WARNING("Not building overhead wire claps, overjhead wire solver support (Eigen) not compiled in.");
 #endif
     }
     else {
-        WRITE_WARNING("Ignorng overhead wire clamps, they make no sense when overhead wire circuit solver is off.");
+        WRITE_WARNING("Ignoring overhead wire clamps, they make no sense when overhead wire circuit solver is off.");
     }
 }
 
@@ -857,7 +863,7 @@ NLTriggerBuilder::buildTractionSubstation(MSNet& net, std::string id, double vol
 }
 
 void
-NLTriggerBuilder::buildOverheadWireClamp(MSNet& net, const std::string& id, MSLane* lane_start, MSLane* lane_end) {
+NLTriggerBuilder::buildOverheadWireClamp(MSNet& /*net*/, const std::string& /*id*/, MSLane* /*lane_start*/, MSLane* /*lane_end*/) {
 }
 
 std::string
