@@ -339,16 +339,7 @@ if (CHECK_OPTIONAL_LIBS)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
     endif (EIGEN3_FOUND)
 
-    #if (NOT ${MSVC_VERSION} STREQUAL "1800")
-    #    find_package(GRPC)
-    #    find_package(Protobuf)
-    #    if (GRPC_FOUND AND Protobuf_FOUND)
-    #        include_directories(${Protobuf_INCLUDE_DIRS} ${GRPC_INCLUDE_DIRS})
-    #        set(ENABLED_FEATURES "${ENABLED_FEATURES} GRPC")
-    #    endif (GRPC_FOUND AND Protobuf_FOUND)
-    #endif ()
-
-    set(SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL};${SUMO_OPTIONAL_LIBRARIES_DLL}")
+    list(APPEND SUMO_LIBRARIES_DLL ${SUMO_OPTIONAL_LIBRARIES_DLL})
 endif (CHECK_OPTIONAL_LIBS)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
@@ -390,35 +381,35 @@ if (NOT ${SETUPTOOLS_MISSING})
 endif ()
 
 if (SUMO_LIBRARIES AND WIN32)
-    string(REPLACE "${SUMO_LIBRARIES}" "" SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL}")
+    # check if MSVC dll runtimes have to be copied
+    if (INSTALL_DLL_RUNTIMES)
+        list(APPEND SUMO_LIBRARIES_DLL ${MSVC_DLLS})
+    endif(INSTALL_DLL_RUNTIMES)
     # copy common dlls
-    add_custom_command(OUTPUT ${SUMO_LIBRARIES_DLL}
-                       COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${SUMO_LIBRARIES_DLL}'.split(';')]"
-                       DEPENDS ${SUMO_LIBRARIES})
+    foreach(DLL ${SUMO_LIBRARIES_DLL})
+        get_filename_component(DLL_BASENAME ${DLL} NAME)
+        set(TARGET_DLL ${CMAKE_SOURCE_DIR}/bin/${DLL_BASENAME})
+        add_custom_command(OUTPUT ${TARGET_DLL}
+                           COMMAND ${CMAKE_COMMAND} -E copy ${DLL} ${TARGET_DLL}
+                           DEPENDS ${DLL})
+        list(APPEND TARGET_DLLS ${TARGET_DLL})
+    endforeach(DLL)
     # copy OSG dlls
     if (HAVE_OSG)
-        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/osg130-osg.dll)
+        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/osg.dll)
         add_custom_command(OUTPUT ${OSG_TARGET}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin
                            DEPENDS ${OSG_PATH})
     endif (HAVE_OSG)
     # proj 6 needs to copy "share/proj" folder in SUMO_HOME/data
     if (PROJ_6)
-        set(PROJ_DATA  ${CMAKE_SOURCE_DIR}/data/proj/proj.db)
+        set(PROJ_DATA ${CMAKE_SOURCE_DIR}/data/proj/proj.db)
         add_custom_command(OUTPUT ${PROJ_DATA}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/data/proj
                            DEPENDS ${PROJ_PATH})
     endif (PROJ_6)
-    # check if MSVC dll runtimes has to be copied
-    if (INSTALL_DLL_RUNTIMES)
-        string(REPLACE "${SUMO_LIBRARIES}" "" MSVC_DLLS "${MSVC_DLLS}")
-        # copy MSVC140 dlls
-        add_custom_command(OUTPUT ${MSVC_DLLS}
-                           COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${MSVC_DLLS}'.split(';')]"
-                           DEPENDS ${SUMO_LIBRARIES})
-    endif(INSTALL_DLL_RUNTIMES)
     # set install_dll target
-    add_custom_target(install_dll ALL DEPENDS ${SUMO_LIBRARIES_DLL} ${OSG_TARGET} ${PROJ_DATA} ${MSVC_DLLS})
+    add_custom_target(install_dll ALL DEPENDS ${TARGET_DLLS} ${OSG_TARGET} ${PROJ_DATA})
     set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 endif ()
 
