@@ -96,10 +96,14 @@ this repository and define an environment variable `SUMO_LIBRARIES`
 pointing to the resulting directory. They are built with Visual Studio
 2017, but may be used with earlier and later versions as well. You may
 need to install the Visual C++ 2017 Runtime Distributable for running
-SUMO then (tested with Visual Studio 2013). For details on building your
+SUMO then (tested with Visual Studio 2013). 
+
+!!! Caution
+    When cloning SUMOLibraries you must initialized all submodules with `git submoudle update --init`
+
+For details on building your
 own and also on how to use different versions and additional libraries
-see
-[Installing/Windows_Libraries](../Installing/Windows_Libraries.md).
+see [Installing/Windows_Libraries](../Installing/Windows_Libraries.md).
 Make sure that the subdirectories `fox-1.6.54/lib`, `proj_gdal-1911/bin`
 and `xerces-c-3.2.0/bin` are in PATH. Note: for 32 bits compilations
 folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
