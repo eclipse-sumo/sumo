@@ -5,7 +5,7 @@ permalink: /Models/ElectricHybrid/
 
 # Overview
 
-Since version 1.4.0 SUMO extends the original [electric](Electric.md) vehicle model with a model that simulates
+Since version 1.5.0 SUMO extends the original [electric](Electric.md) vehicle model with a model that simulates
 also internal electric parameters of an partial trolleybus, i.e. a vehicle that is being powered by overhead wires and
 has also a battery pack installed, that is being charged from the overhead wires. The model allows not only for vehicle 
 simulation, but the simulation may also include detialed electrical simulation of the overhead wire circuit behaviour.
