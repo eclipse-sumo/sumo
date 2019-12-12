@@ -174,7 +174,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // Draw internt sign
             GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
             // Draw sign 'C'
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration) && !s.drawForPositionSelection) {
                 if (drawUsingSelectColor()) {
                     GLHelper::drawText("P", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
                 } else {
@@ -190,7 +190,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // Draw name if isn't being drawn for selecting
         drawName(getPositionInView(), s.scale, s.addName);
-        if (s.addFullName.show && (myAdditionalName != "") && !s.drawForRectangleSelection) {
+        if (s.addFullName.show && (myAdditionalName != "") && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
             GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
         }
         // check if dotted contour has to be drawn

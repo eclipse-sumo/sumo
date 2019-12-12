@@ -148,7 +148,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // Add a draw matrix for details
             glPushMatrix();
             // draw lines depending of detailSettings
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration) && !s.drawForPositionSelection) {
                 // Iterate over every line
                 for (int i = 0; i < (int)myLines.size(); ++i) {
                     // push a new matrix for every line
@@ -189,7 +189,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw another circle in the same position, but a little bit more small
             GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
             // draw H depending of detailSettings
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration) && !s.drawForPositionSelection) {
                 if (drawUsingSelectColor()) {
                     GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
                 } else {
@@ -205,7 +205,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // Draw name if isn't being drawn for selecting
         drawName(getPositionInView(), s.scale, s.addName);
-        if (s.addFullName.show && (myAdditionalName != "") && !s.drawForRectangleSelection) {
+        if (s.addFullName.show && (myAdditionalName != "") && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
             GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
         }
         // check if dotted contour has to be drawn

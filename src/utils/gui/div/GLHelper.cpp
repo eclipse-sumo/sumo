@@ -460,7 +460,7 @@ GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2,
 void
 GLHelper::drawShapeDottedContourAroundShape(const GUIVisualizationSettings& s, const int type, const PositionVector& shape, const double width) {
     // first check that given shape isn't empty
-    if (!s.drawForRectangleSelection && (shape.size() > 0)) {
+    if (!s.drawForRectangleSelection && !s.drawForPositionSelection && (shape.size() > 0)) {
         // build contour using shapes of first and last lane shapes
         PositionVector contourFront = shape;
         // only add an contourback if width is greather of 0
@@ -495,7 +495,7 @@ GLHelper::drawShapeDottedContourAroundShape(const GUIVisualizationSettings& s, c
 void
 GLHelper::drawShapeDottedContourAroundClosedShape(const GUIVisualizationSettings& s, const int type, const PositionVector& shape) {
     // first check that given shape isn't empty
-    if (!s.drawForRectangleSelection && (shape.size() > 0)) {
+    if (!s.drawForRectangleSelection && !s.drawForPositionSelection && (shape.size() > 0)) {
         // close shape
         PositionVector closedShape = shape;
         if (closedShape.front() != closedShape.back()) {
@@ -522,7 +522,7 @@ GLHelper::drawShapeDottedContourAroundClosedShape(const GUIVisualizationSettings
 void
 GLHelper::drawShapeDottedContourBetweenLanes(const GUIVisualizationSettings& s, const int type, const PositionVector& frontLaneShape, const double offsetFrontLaneShape, const PositionVector& backLaneShape, const double offsetBackLaneShape) {
     // first check that given shape isn't empty
-    if (!s.drawForRectangleSelection && (frontLaneShape.size() > 0) && (backLaneShape.size() > 0)) {
+    if (!s.drawForRectangleSelection && !s.drawForPositionSelection && (frontLaneShape.size() > 0) && (backLaneShape.size() > 0)) {
         // build contour using shapes of first and last lane shapes
         PositionVector contourFront = frontLaneShape;
         PositionVector contourback = backLaneShape;
@@ -559,7 +559,7 @@ GLHelper::drawShapeDottedContourBetweenLanes(const GUIVisualizationSettings& s, 
 void
 GLHelper::drawShapeDottedContourRectangle(const GUIVisualizationSettings& s, const int type, const Position& center, const double width, const double height, const double rotation, const double offsetX, const double offsetY) {
     // first check that given width and height is valid
-    if (!s.drawForRectangleSelection && (width > 0) && (height > 0)) {
+    if (!s.drawForRectangleSelection && !s.drawForPositionSelection && (width > 0) && (height > 0)) {
         // create shaperectangle around center
         PositionVector shape;
         shape.push_back(Position(width / 2, height / 2));
@@ -592,7 +592,7 @@ GLHelper::drawShapeDottedContourRectangle(const GUIVisualizationSettings& s, con
 void
 GLHelper::drawShapeDottedContourPartialShapes(const GUIVisualizationSettings& s, const int type, const Position& begin, const Position& end, const double width) {
     // check that both positions are valid and differents
-    if (!s.drawForRectangleSelection && (begin != Position::INVALID) && (end != Position::INVALID) && (begin != end)) {
+    if (!s.drawForRectangleSelection && !s.drawForPositionSelection && (begin != Position::INVALID) && (end != Position::INVALID) && (begin != end)) {
         // calculate and resample shape
         PositionVector shape{begin, end};
         shape.move2side(width);

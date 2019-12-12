@@ -204,7 +204,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             // scale
             glScaled(exaggeration, exaggeration, 1);
             // draw Entry or Exit logo if isn't being drawn for selecting
-            if (s.drawForRectangleSelection) {
+            if (s.drawForRectangleSelection || s.drawForPositionSelection) {
                 GLHelper::setColor(s.colorSettings.E3Entry);
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
             } else if (drawUsingSelectColor()) {
@@ -219,7 +219,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             // Rotate depending of myBlockIcon.rotation
             glRotated(90, 0, 0, 1);
             // draw Entry or Exit text if isn't being drawn for selecting
-            if (s.drawForRectangleSelection) {
+            if (s.drawForRectangleSelection || s.drawForPositionSelection) {
                 GLHelper::setColor(s.colorSettings.E3Entry);
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
             } else if (drawUsingSelectColor()) {
