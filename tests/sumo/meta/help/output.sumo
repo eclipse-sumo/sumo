@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_3_1+1288-abda92d
+Eclipse SUMO Version v1_4_0+0061-33eea1f
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -50,7 +50,16 @@ Output Options:
   --battery-output FILE                Save the battery values of each vehicle
   --battery-output.precision INT       Write battery values with the given
                                          precision (default 2)
+  --elecHybrid-output FILE             Save the elecHybrid values of each
+                                         vehicle
+  --elecHybrid-output.precision INT    Write elecHybrid values with the given
+                                         precision (default 2)
+  --elecHybrid-output.aggregated       Write elecHybrid values into one
+                                         aggregated file
   --chargingstations-output FILE       Write data of charging stations
+  --overheadWireSegments-output FILE   Write data of overhead wire segments
+  --substations-output FILE            Write data of electrical substation
+                                         stations
   --fcd-output FILE                    Save the Floating Car Data
   --fcd-output.geo                     Save the Floating Car Data using
                                          geo-coordinates (lon/lat)
@@ -210,6 +219,8 @@ Processing Options:
                                          the deceleration value, a vClass-class
                                          specific default or the given FLOAT in
                                          m/s^2
+  --overhead-wire-solver               Use Kirchhoff's laws for solving
+                                         overhead wire circuit
   --emergencydecel.warning-threshold FLOAT  Sets the fraction of emergency
                                          decel capability that must be used to
                                          trigger a warning.
@@ -506,6 +517,14 @@ FCD Device Options:
   --person-device.fcd.deterministic    The 'fcd' devices are set deterministic
                                          using a fraction of 1000
   --person-device.fcd.period STR       Recording period for FCD-data
+
+ElecHybrid Device Options:
+  --device.elecHybrid.probability FLOAT  The probability for a vehicle to have
+                                         a 'elecHybrid' device
+  --device.elecHybrid.explicit STR[]   Assign a 'elecHybrid' device to named
+                                         vehicles
+  --device.elecHybrid.deterministic    The 'elecHybrid' devices are set
+                                         deterministic using a fraction of 1000
 
 Tripinfo Device Options:
   --device.tripinfo.probability FLOAT  The probability for a vehicle to have a
