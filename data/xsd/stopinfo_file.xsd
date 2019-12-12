@@ -34,6 +34,7 @@
             <xsd:attribute name="chargingStation" use="optional" type="xsd:string"/>
             <xsd:attribute name="tripId" use="optional" type="xsd:string"/>
             <xsd:attribute name="line" use="optional" type="xsd:string"/>
+            <xsd:attribute name="split" use="optional" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 
