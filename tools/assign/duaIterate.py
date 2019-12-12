@@ -79,7 +79,7 @@ def addGenericOptions(argParser):
     argParser.add_argument("--time-to-teleport.highways", dest="timetoteleport_highways", type=float, default=0,
                            help="Delay before blocked vehicles are teleported on wrong highway lanes")
     argParser.add_argument("--measure-vtypes", dest="measureVTypes",
-            help="Restrict edgeData measurements to the given vehicle types")
+                           help="Restrict edgeData measurements to the given vehicle types")
     argParser.add_argument("-7", "--zip", action="store_true",
                            default=False, help="zip old iterations using 7zip")
 

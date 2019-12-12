@@ -30,7 +30,8 @@ MERCATOR_RANGE = 256
 MAX_TILE_SIZE = 640
 MAPQUEST_TYPES = {"roadmap": "map", "satellite": "sat", "hybrid": "hyb", "terrain": "sat"}
 
-def fromLatLngToPoint(lat, lng) :
+
+def fromLatLngToPoint(lat, lng):
     # inspired by https://stackoverflow.com/questions/12507274/how-to-get-bounds-of-a-google-static-map
     x = lng * MERCATOR_RANGE / 360
     siny = math.sin(lat / 180. * math.pi)
@@ -72,7 +73,7 @@ def get(args=None):
     options, _ = optParser.parse_args(args=args)
     if not options.bbox and not options.net and not options.polygon:
         optParser.error("At least one of 'bbox' and 'net' and 'polygon' has to be set.")
-    bbox = ((0,0),(0,0))
+    bbox = ((0, 0), (0, 0))
     if options.polygon:
         west = 1e400
         south = 1e400

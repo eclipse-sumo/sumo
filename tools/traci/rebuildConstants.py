@@ -100,7 +100,7 @@ This script contains TraCI constant definitions from <SUMO_HOME>/src/libsumo/Tra
 
 outputs = [(options.output if options.output else os.path.join(dirname, "constants.py"), None)]
 if options.output is None:
-     outputs.append((dirname + "/../contributed/traas/src/main/java/de/tudresden/sumo/config/Constants.java",
+    outputs.append((dirname + "/../contributed/traas/src/main/java/de/tudresden/sumo/config/Constants.java",
                     options.java if options.java else "de.tudresden.sumo.config.Constants"))
 for out, className in outputs:
     fdo = open(out, "w")

@@ -303,7 +303,7 @@ class PVehicle(object):
         '''isSwitchSafe(PlatoonMode, double) -> bool
 
         Checks whether it is safe for this vehicle to continue in the target mode.
-        The parameter switchImpatience \in [0,1] indicates the emergency of the switch
+        The parameter switchImpatience in [0,1] indicates the emergency of the switch
         and controls to which degree the vehicle is disposed to break harder than
         its preferred decel.
         '''
