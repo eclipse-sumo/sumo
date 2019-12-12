@@ -128,49 +128,37 @@ NBRailwayTopologyAnalyzer::makeAllBidi(NBNetBuilder& nb) {
     int numNotCenterEdges = 0;
     int numAddedBidiEdges = 0;
     std::string inputfile = OptionsCont::getOptions().getString("railway.topology.all-bidi.input-file");
+    std::vector<NBEdge*> edges;
     if (inputfile == "") {
         for (NBEdge* edge : nb.getEdgeCont().getAllEdges()) {
-            if ((edge->getPermissions() & SVC_RAIL_CLASSES) != 0) {
-                numRailEdges++;
-                // rebuild connections if given from an earlier network
-                edge->invalidateConnections(true);
-                if (!edge->isBidiRail()) {
-                    if (edge->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                        NBEdge* e2 = addBidiEdge(nb, edge, false);
-                        if (e2 != nullptr) {
-                            numAddedBidiEdges++;
-                        }
-                    } else {
-                        numNotCenterEdges++;
-                    }
-                } else {
-                    numBidiEdges++;
-                }
-            }
+            edges.push_back(edge);
         }
     } else {
-        std::set<std::string> edges;
-        NBHelpers::loadEdgesFromFile(inputfile, edges);
-        for (const std::string& edgeID : edges) {
+        std::set<std::string> edgeIDs;
+        NBHelpers::loadEdgesFromFile(inputfile, edgeIDs);
+        for (const std::string& edgeID : edgeIDs) {
             NBEdge* edge = nb.getEdgeCont().retrieve(edgeID);
             if (edge != nullptr) {
-                if ((edge->getPermissions() & SVC_RAIL_CLASSES) != 0) {
-                    numRailEdges++;
-                    // rebuild connections if given from an earlier network
-                    edge->invalidateConnections(true);
-                    if (!edge->isBidiRail()) {
-                        if (edge->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                            NBEdge* e2 = addBidiEdge(nb, edge, false);
-                            if (e2 != nullptr) {
-                                numAddedBidiEdges++;
-                            }
-                        } else {
-                            numNotCenterEdges++;
-                        }
-                    } else {
-                        numBidiEdges++;
+                edges.push_back(edge);
+            }
+        }
+    }
+    for (NBEdge* edge : edges) {
+        if ((edge->getPermissions() & SVC_RAIL_CLASSES) != 0) {
+            numRailEdges++;
+            // rebuild connections if given from an earlier network
+            edge->invalidateConnections(true);
+            if (!edge->isBidiRail()) {
+                if (edge->getLaneSpreadFunction() == LANESPREAD_CENTER) {
+                    NBEdge* e2 = addBidiEdge(nb, edge, false);
+                    if (e2 != nullptr) {
+                        numAddedBidiEdges++;
                     }
+                } else {
+                    numNotCenterEdges++;
                 }
+            } else {
+                numBidiEdges++;
             }
         }
     }
