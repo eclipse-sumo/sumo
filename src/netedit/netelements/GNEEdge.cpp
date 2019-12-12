@@ -508,104 +508,23 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
     // draw lanes
-    for (auto i : myLanes) {
-        i->drawGL(s);
+    for (const auto &lane : myLanes) {
+        lane->drawGL(s);
     }
     // draw parent additionals
-    for (const auto& i : getParentAdditionals()) {
-        if (i->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
+    for (const auto& additional : getParentAdditionals()) {
+        if (additional->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
             // draw rerouter symbol
-            drawRerouterSymbol(s, i);
+            drawRerouterSymbol(s, additional);
         }
     }
     // draw child additional
-    for (const auto& i : getChildAdditionals()) {
-        i->drawGL(s);
+    for (const auto& additional : getChildAdditionals()) {
+        additional->drawGL(s);
     }
     // draw child edge
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
-        // certain demand elements children can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
-        for (const auto& route : getChildDemandElementsSortedByType(SUMO_TAG_ROUTE)) {
-            // first check if route can be drawn
-            if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(route)) {
-                // draw partial route
-                drawPartialRoute(s, route, nullptr);
-            }
-        }
-        for (const auto& embeddedRoute : getChildDemandElementsSortedByType(SUMO_TAG_EMBEDDEDROUTE)) {
-            // first check if embedded route can be drawn
-            if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(embeddedRoute)) {
-                // draw partial route
-                drawPartialRoute(s, embeddedRoute, nullptr);
-            }
-        }
-        for (const auto& trip : getChildDemandElementsSortedByType(SUMO_TAG_TRIP)) {
-            // Start drawing adding an gl identificator
-            glPushName(trip->getGlID());
-            // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
-            if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == trip) || trip->isAttributeCarrierSelected())) {
-                drawPartialTripFromTo(s, trip, nullptr);
-            }
-            // only draw trip in the first edge
-            if (trip->getAttribute(SUMO_ATTR_FROM) == getID()) {
-                trip->drawGL(s);
-            }
-            // Pop name
-            glPopName();
-        }
-        for (const auto& flow : getChildDemandElementsSortedByType(SUMO_TAG_FLOW)) {
-            // Start drawing adding an gl identificator
-            glPushName(flow->getGlID());
-            // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
-            if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == flow) || flow->isAttributeCarrierSelected())) {
-                drawPartialTripFromTo(s, flow, nullptr);
-            }
-            // only draw flow in the first edge
-            if (flow->getAttribute(SUMO_ATTR_FROM) == getID()) {
-                flow->drawGL(s);
-            }
-            // Pop name
-            glPopName();
-        }
-        for (const auto& personTripFromTo : getChildDemandElementsSortedByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
-            drawPartialPersonPlan(s, personTripFromTo, nullptr);
-        }
-        for (const auto& personTripBusStop : getChildDemandElementsSortedByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
-            drawPartialPersonPlan(s, personTripBusStop, nullptr);
-        }
-        for (const auto& walkEdges : getChildDemandElementsSortedByType(SUMO_TAG_WALK_EDGES)) {
-            drawPartialPersonPlan(s, walkEdges, nullptr);
-        }
-        for (const auto& walkFromTo : getChildDemandElementsSortedByType(SUMO_TAG_WALK_FROMTO)) {
-            drawPartialPersonPlan(s, walkFromTo, nullptr);
-        }
-        for (const auto& walkBusStop : getChildDemandElementsSortedByType(SUMO_TAG_WALK_BUSSTOP)) {
-            drawPartialPersonPlan(s, walkBusStop, nullptr);
-        }
-        for (const auto& walkRoute : getChildDemandElementsSortedByType(SUMO_TAG_WALK_ROUTE)) {
-            drawPartialPersonPlan(s, walkRoute, nullptr);
-        }
-        for (const auto& rideFromTo : getChildDemandElementsSortedByType(SUMO_TAG_RIDE_FROMTO)) {
-            drawPartialPersonPlan(s, rideFromTo, nullptr);
-        }
-        for (const auto& rideBusStop : getChildDemandElementsSortedByType(SUMO_TAG_RIDE_BUSSTOP)) {
-            drawPartialPersonPlan(s, rideBusStop, nullptr);
-        }
-        // draw path element childs
-        for (const auto& elementChild : myPathElementChilds) {
-            if (elementChild->getTagProperty().isVehicle()) {
-                // Start drawing adding an gl identificator
-                glPushName(elementChild->getGlID());
-                // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
-                if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == elementChild) || elementChild->isAttributeCarrierSelected())) {
-                    drawPartialTripFromTo(s, elementChild, nullptr);
-                }
-                // Pop name
-                glPopName();
-            } else if (elementChild->getTagProperty().isPersonPlan()) {
-                drawPartialPersonPlan(s, elementChild, nullptr);
-            }
-        }
+        drawDemandElements(s);
     }
     // draw geometry points if isnt's too small and
     if ((s.scale > 8.0) && (myNet->getViewNet()->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND)) {
@@ -2254,6 +2173,142 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* re
     glPopName();
     // Draw connections
     rerouter->drawChildConnections(s, getType());
+}
+
+
+void 
+GNEEdge::drawDemandElements(const GUIVisualizationSettings& s) const {
+    // certain demand elements children can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
+    if (s.drawForPositionSelection) {
+        // draw routes
+        for (const auto& route : getChildDemandElementsSortedByType(SUMO_TAG_ROUTE)) {
+            // first check if route can be drawn
+            if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(route)) {
+                // draw partial route
+                drawPartialRoute(s, route, nullptr);
+            }
+        }
+        // draw embedded routes
+        for (const auto& embeddedRoute : getChildDemandElementsSortedByType(SUMO_TAG_EMBEDDEDROUTE)) {
+            // first check if embedded route can be drawn
+            if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(embeddedRoute)) {
+                // draw partial route
+                drawPartialRoute(s, embeddedRoute, nullptr);
+            }
+        }
+    } else {
+        // if drawForPositionSelection is disabled, only draw the first element
+        if (getChildDemandElementsSortedByType(SUMO_TAG_ROUTE).size() > 0) {
+            const auto& route = *(getChildDemandElementsSortedByType(SUMO_TAG_ROUTE).begin());
+            if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(route)) {
+                drawPartialRoute(s, route, nullptr);
+            }
+        }
+        if (getChildDemandElementsSortedByType(SUMO_TAG_EMBEDDEDROUTE).size() > 0) {
+            const auto& embeddedRoute = *(getChildDemandElementsSortedByType(SUMO_TAG_EMBEDDEDROUTE).begin());
+            if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(embeddedRoute)) {
+                drawPartialRoute(s, embeddedRoute, nullptr);
+            }
+        }
+    }
+    // draw trips
+    for (const auto& trip : getChildDemandElementsSortedByType(SUMO_TAG_TRIP)) {
+        // Start drawing adding an gl identificator
+        glPushName(trip->getGlID());
+        // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
+        if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == trip) || trip->isAttributeCarrierSelected())) {
+            drawPartialTripFromTo(s, trip, nullptr);
+        }
+        // only draw trip in the first edge
+        if (trip->getAttribute(SUMO_ATTR_FROM) == getID()) {
+            trip->drawGL(s);
+        }
+        // Pop name
+        glPopName();
+    }
+    // draw flows
+    for (const auto& flow : getChildDemandElementsSortedByType(SUMO_TAG_FLOW)) {
+        // Start drawing adding an gl identificator
+        glPushName(flow->getGlID());
+        // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
+        if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == flow) || flow->isAttributeCarrierSelected())) {
+            drawPartialTripFromTo(s, flow, nullptr);
+        }
+        // only draw flow in the first edge
+        if (flow->getAttribute(SUMO_ATTR_FROM) == getID()) {
+            flow->drawGL(s);
+        }
+        // Pop name
+        glPopName();
+    }
+    // draw person plans
+    if (s.drawForPositionSelection) {
+        for (const auto& personTripFromTo : getChildDemandElementsSortedByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
+            drawPartialPersonPlan(s, personTripFromTo, nullptr);
+        }
+        for (const auto& personTripBusStop : getChildDemandElementsSortedByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+            drawPartialPersonPlan(s, personTripBusStop, nullptr);
+        }
+        for (const auto& walkEdges : getChildDemandElementsSortedByType(SUMO_TAG_WALK_EDGES)) {
+            drawPartialPersonPlan(s, walkEdges, nullptr);
+        }
+        for (const auto& walkFromTo : getChildDemandElementsSortedByType(SUMO_TAG_WALK_FROMTO)) {
+            drawPartialPersonPlan(s, walkFromTo, nullptr);
+        }
+        for (const auto& walkBusStop : getChildDemandElementsSortedByType(SUMO_TAG_WALK_BUSSTOP)) {
+            drawPartialPersonPlan(s, walkBusStop, nullptr);
+        }
+        for (const auto& walkRoute : getChildDemandElementsSortedByType(SUMO_TAG_WALK_ROUTE)) {
+            drawPartialPersonPlan(s, walkRoute, nullptr);
+        }
+        for (const auto& rideFromTo : getChildDemandElementsSortedByType(SUMO_TAG_RIDE_FROMTO)) {
+            drawPartialPersonPlan(s, rideFromTo, nullptr);
+        }
+        for (const auto& rideBusStop : getChildDemandElementsSortedByType(SUMO_TAG_RIDE_BUSSTOP)) {
+            drawPartialPersonPlan(s, rideBusStop, nullptr);
+        }
+    } else {
+        // if drawForPositionSelection is disabled, only draw the first element
+        if (getChildDemandElementsSortedByType(SUMO_TAG_PERSONTRIP_FROMTO).size() > 0) {
+            drawPartialPersonPlan(s, (*getChildDemandElementsSortedByType(SUMO_TAG_PERSONTRIP_FROMTO).begin()), nullptr);
+        }
+        if (getChildDemandElementsSortedByType(SUMO_TAG_PERSONTRIP_BUSSTOP).size() > 0) {
+            drawPartialPersonPlan(s, (*getChildDemandElementsSortedByType(SUMO_TAG_PERSONTRIP_BUSSTOP).begin()), nullptr);
+        }
+        if (getChildDemandElementsSortedByType(SUMO_TAG_WALK_EDGES).size() > 0) {
+            drawPartialPersonPlan(s, (*getChildDemandElementsSortedByType(SUMO_TAG_WALK_EDGES).begin()), nullptr);
+        }
+        if (getChildDemandElementsSortedByType(SUMO_TAG_WALK_FROMTO).size() > 0) {
+            drawPartialPersonPlan(s, (*getChildDemandElementsSortedByType(SUMO_TAG_WALK_FROMTO).begin()), nullptr);
+        }
+        if (getChildDemandElementsSortedByType(SUMO_TAG_WALK_BUSSTOP).size() > 0) {
+            drawPartialPersonPlan(s, (*getChildDemandElementsSortedByType(SUMO_TAG_WALK_BUSSTOP).begin()), nullptr);
+        }
+        if (getChildDemandElementsSortedByType(SUMO_TAG_WALK_ROUTE).size() > 0) {
+            drawPartialPersonPlan(s, (*getChildDemandElementsSortedByType(SUMO_TAG_WALK_ROUTE).begin()), nullptr);
+        }
+        if (getChildDemandElementsSortedByType(SUMO_TAG_RIDE_FROMTO).size() > 0) {
+            drawPartialPersonPlan(s, (*getChildDemandElementsSortedByType(SUMO_TAG_RIDE_FROMTO).begin()), nullptr);
+        }
+        if (getChildDemandElementsSortedByType(SUMO_TAG_RIDE_BUSSTOP).size() > 0) {
+            drawPartialPersonPlan(s, (*getChildDemandElementsSortedByType(SUMO_TAG_RIDE_BUSSTOP).begin()), nullptr);
+        }
+    }
+    // draw path element childs
+    for (const auto& elementChild : myPathElementChilds) {
+        if (elementChild->getTagProperty().isVehicle()) {
+            // Start drawing adding an gl identificator
+            glPushName(elementChild->getGlID());
+            // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
+            if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == elementChild) || elementChild->isAttributeCarrierSelected())) {
+                drawPartialTripFromTo(s, elementChild, nullptr);
+            }
+            // Pop name
+            glPopName();
+        } else if (elementChild->getTagProperty().isPersonPlan()) {
+            drawPartialPersonPlan(s, elementChild, nullptr);
+        }
+    }
 }
 
 /****************************************************************************/

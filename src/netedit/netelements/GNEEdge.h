@@ -396,6 +396,9 @@ private:
     /// @brief draw Rerouter symbols
     void drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* rerouter) const;
 
+    /// @brief draw demand elements
+    void drawDemandElements(const GUIVisualizationSettings& s) const;
+
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;
 
