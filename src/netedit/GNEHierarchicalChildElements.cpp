@@ -49,7 +49,7 @@ GNEHierarchicalChildElements::GNEHierarchicalChildElements(GNEAttributeCarrier* 
     // fill SortedChildDemandElementsByType with all demand element tags (it's needed because getChildDemandElementsSortedByType(...) function is constant
     auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_DEMANDELEMENT, false);
     for (const auto& tag : listOfTags) {
-        mySortedChildDemandElementsByType[tag];
+        myDemandElementsByType[tag] = {};
     }
 }
 
@@ -261,7 +261,7 @@ GNEHierarchicalChildElements::addChildDemandElement(GNEDemandElement* demandElem
         // add it in demandElement child container
         myChildDemandElements.push_back(demandElement);
         // add it also in SortedChildDemandElementsByType container
-        mySortedChildDemandElementsByType.at(demandElement->getTagProperty().getTag()).insert(demandElement);
+        myDemandElementsByType.at(demandElement->getTagProperty().getTag()).push_back(demandElement);
         // Check if children has to be sorted automatically
         if (myAC->getTagProperty().canAutomaticSortChildren()) {
             sortChildDemandElements();
@@ -274,6 +274,7 @@ void
 GNEHierarchicalChildElements::removeChildDemandElement(GNEDemandElement* demandElement) {
     // First check that demandElement was already inserted
     auto it = std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement);
+    auto itByType = std::find(myDemandElementsByType.at(demandElement->getTagProperty().getTag()).begin(), myDemandElementsByType.at(demandElement->getTagProperty().getTag()).end(), demandElement);
     if (it == myChildDemandElements.end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
@@ -281,8 +282,8 @@ GNEHierarchicalChildElements::removeChildDemandElement(GNEDemandElement* demandE
         bool singleElement = std::count(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement) == 1;
         myChildDemandElements.erase(it);
         // only remove it from mySortedChildDemandElementsByType if is a single element
-        if (singleElement) {
-            mySortedChildDemandElementsByType.at(demandElement->getTagProperty().getTag()).erase(demandElement);
+        if (singleElement && (itByType != myDemandElementsByType.at(demandElement->getTagProperty().getTag()).end())) {
+            myDemandElementsByType.at(demandElement->getTagProperty().getTag()).erase(itByType);
         }
         // Check if children has to be sorted automatically
         if (myAC->getTagProperty().canAutomaticSortChildren()) {
@@ -298,9 +299,9 @@ GNEHierarchicalChildElements::getChildDemandElements() const {
 }
 
 
-const std::set<GNEDemandElement*>&
-GNEHierarchicalChildElements::getChildDemandElementsSortedByType(SumoXMLTag tag) const {
-    return mySortedChildDemandElementsByType.at(tag);
+const std::vector<GNEDemandElement*>&
+GNEHierarchicalChildElements::getChildDemandElementsByType(SumoXMLTag tag) const {
+    return myDemandElementsByType.at(tag);
 }
 
 
