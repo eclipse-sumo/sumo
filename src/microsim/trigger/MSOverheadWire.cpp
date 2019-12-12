@@ -551,7 +551,7 @@ MSTractionSubstation::solveCircuit(SUMOTime currentTime) {
     getCircuit()->solve();
 
     for (vector<Element*>::iterator it = elecHybridSources->begin(); it != elecHybridSources->end(); it++) {
-        if (!isnan((*it)->getPowerWanted())) {
+        if (!ISNAN((*it)->getPowerWanted())) {
             err = MAX2(abs(getCircuit()->alphaBest*(*it)->getPowerWanted() - -(*it)->getCurrent()*(*it)->getVoltage()), err);
         }
     }

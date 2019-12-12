@@ -381,7 +381,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 /// @todo The voltage in the solver should never exceed or drop below some limits.
                 /// @todo Why 10 and 1500? Should be a parameter of the traction substation.
                 /// @todo Maximum allowed voltage is typicallty 800 V
-                if (voltage < 10 || voltage > 1500 || isnan(voltage)) {
+                if (voltage < 10 || voltage > 1500 || ISNAN(voltage)) {
                     voltage = 600;
                 }
                 //init for solving
@@ -409,7 +409,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
             double current = 0;
             if (myActOverheadWireSegment->getTractionSubstation() != nullptr) {
                 voltage = myActOverheadWireSegment->getTractionSubstation()->getSubstationVoltage();
-                if (isnan(voltage)) {
+                if (ISNAN(voltage)) {
                     voltage = 0;
                 }
             }
@@ -425,7 +425,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
             myCircuitVoltage = voltage;
 
             // Calulate energy charged [Wh]
-            if (isnan(voltage) || isnan(current)) {
+            if (ISNAN(voltage) || ISNAN(current)) {
                 myEnergyCharged = -myConsum;
             } else {
                 myEnergyCharged = (TS * voltage * -current) / 3600 - myConsum;
@@ -815,13 +815,13 @@ MSDevice_ElecHybrid::setParameter(const std::string& key, const std::string& val
 
 double
 MSDevice_ElecHybrid::acceleration(SUMOVehicle& veh, double power, double oldSpeed) {
-    myParam[SUMO_ATTR_ANGLE] = isnan(myLastAngle) ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
+    myParam[SUMO_ATTR_ANGLE] = ISNAN(myLastAngle) ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
     return PollutantsInterface::getEnergyHelper().acceleration(0, PollutantsInterface::ELEC, oldSpeed, power, veh.getSlope(), &myParam);
 }
 
 double
 MSDevice_ElecHybrid::consumption(SUMOVehicle& veh, double a, double newSpeed) {
-    myParam[SUMO_ATTR_ANGLE] =  isnan(myLastAngle) ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
+    myParam[SUMO_ATTR_ANGLE] =  ISNAN(myLastAngle) ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
     return PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, newSpeed, a, veh.getSlope(), &myParam);
 }
 /****************************************************************************/
