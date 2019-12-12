@@ -144,8 +144,6 @@ GNEDemandElement::RouteCalculator::consecutiveEdgesConnected(const SUMOVehicleCl
     } else {
         // declare temporal vehicle
         NBVehicle tmpVehicle("temporalNBVehicle", vClass);
-        // obtain pointer to GNENet
-        GNENet* net = from->getNet();
         // declare a temporal route in which save route between two last edges
         std::vector<const NBRouterEdge*> solution;
         // calculate route betwen from and to edge
