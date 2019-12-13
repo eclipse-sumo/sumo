@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_4_0+0061-33eea1f
+Eclipse SUMO Version v1_4_0+0088-6f165c5
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -511,6 +511,8 @@ FCD Device Options:
   --device.fcd.deterministic           The 'fcd' devices are set deterministic
                                          using a fraction of 1000
   --device.fcd.period STR              Recording period for FCD-data
+  --device.fcd.radius FLOAT            Record objects in a radius around
+                                         equipped vehicles
   --person-device.fcd.probability FLOAT  The probability for a person to have a
                                          'fcd' device
   --person-device.fcd.explicit STR[]   Assign a 'fcd' device to named persons
