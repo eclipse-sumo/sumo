@@ -4,6 +4,9 @@ rail_signal
 # trams driving in a loop servicing stops
 tramwayLoop
 
+# splitting and joining train parts
+portion_working
+
 # Two trains approaching conflicting block simultaneously causing a head-on conflict
 headonconflict
 

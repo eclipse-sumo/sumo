@@ -1,0 +1,5 @@
+# split a train into two parts
+split
+
+# join two train parts into a single train
+join
