@@ -456,7 +456,7 @@ MSNet::closeSimulation(SUMOTime start) {
     if (OptionsCont::getOptions().isSet("chargingstations-output")) {
         writeChargingStationOutput();
     }
-    if (OptionsCont::getOptions().isSet("overheadWireSegments-output")) {
+    if (OptionsCont::getOptions().isSet("overheadwiresegments-output")) {
         writeOverheadWireSegmentOutput();
     }
     if (OptionsCont::getOptions().isSet("substations-output")) {
@@ -713,13 +713,13 @@ MSNet::writeOutput() {
     }
 
     // elecHybrid dumps
-    if (OptionsCont::getOptions().isSet("elecHybrid-output")) {
-        std::string output = OptionsCont::getOptions().getString("elecHybrid-output");
+    if (OptionsCont::getOptions().isSet("elechybrid-output")) {
+        std::string output = OptionsCont::getOptions().getString("elechybrid-output");
 
-        if (oc.getBool("elecHybrid-output.aggregated")) {
+        if (oc.getBool("elechybrid-output.aggregated")) {
             //build an aggregated xml files
-            MSElecHybridExport::writeAggregated(OutputDevice::getDeviceByOption("elecHybrid-output"), myStep,
-                oc.getInt("elecHybrid-output.precision"));
+            MSElecHybridExport::writeAggregated(OutputDevice::getDeviceByOption("elechybrid-output"), myStep,
+                oc.getInt("elechybrid-output.precision"));
         }
         else {
             // @TODORICE a necessity of placing here in MSNet.cpp ?
@@ -737,7 +737,7 @@ MSNet::writeOutput() {
                     attrs[SUMO_ATTR_VEHICLE] = vehID;
                     attrs[SUMO_ATTR_MAXIMUMBATTERYCAPACITY] = toString(dynamic_cast<MSDevice_ElecHybrid*>(veh->getDevice(typeid(MSDevice_ElecHybrid)))->getMaximumBatteryCapacity());
                     dev.writeXMLHeader("elecHybrid-export", "", attrs);
-                    MSElecHybridExport::write(OutputDevice::getDevice(filename2), veh, myStep, oc.getInt("elecHybrid-output.precision"));
+                    MSElecHybridExport::write(OutputDevice::getDevice(filename2), veh, myStep, oc.getInt("elechybrid-output.precision"));
                 }
             }
         }
@@ -1018,7 +1018,7 @@ MSNet::writeRailSignalBlocks() const {
 void
 MSNet::writeOverheadWireSegmentOutput() const {
     if (myStoppingPlaces.count(SUMO_TAG_OVERHEAD_WIRE_SEGMENT) > 0) {
-        OutputDevice& output = OutputDevice::getDeviceByOption("overheadWireSegments-output");
+        OutputDevice& output = OutputDevice::getDeviceByOption("overheadwiresegments-output");
         for (const auto& it : myStoppingPlaces.find(SUMO_TAG_OVERHEAD_WIRE_SEGMENT)->second) {
             static_cast<MSOverheadWire*>(it.second)->writeOverheadWireSegmentOutput(output);
         }

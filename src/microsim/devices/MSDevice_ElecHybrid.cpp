@@ -54,7 +54,7 @@
 void
 MSDevice_ElecHybrid::insertOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("ElecHybrid Device");
-    insertDefaultAssignmentOptions("elecHybrid", "ElecHybrid Device", oc);
+    insertDefaultAssignmentOptions("elechybrid", "ElecHybrid Device", oc);
 }
 
 
@@ -62,7 +62,7 @@ void
 MSDevice_ElecHybrid::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     // Check if vehicle should get an 'elecHybrid' device.
     OptionsCont& oc = OptionsCont::getOptions();
-    if (equippedByDefaultAssignmentOptions(oc, "elecHybrid", v, false)) {
+    if (equippedByDefaultAssignmentOptions(oc, "elechybrid", v, false)) {
         // Yes, build the device.
         // Fetch the battery capacity (if present) from the vehicle descriptor.
         const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter(); 

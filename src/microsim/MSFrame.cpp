@@ -130,18 +130,18 @@ MSFrame::fillOptions() {
     oc.doRegister("battery-output.precision", new Option_Integer(2));
     oc.addDescription("battery-output.precision", "Output", "Write battery values with the given precision (default 2)");
 
-    oc.doRegister("elecHybrid-output", new Option_FileName());
-    oc.addDescription("elecHybrid-output", "Output", "Save the elecHybrid values of each vehicle");
-    oc.doRegister("elecHybrid-output.precision", new Option_Integer(2));
-    oc.addDescription("elecHybrid-output.precision", "Output", "Write elecHybrid values with the given precision (default 2)");
-    oc.doRegister("elecHybrid-output.aggregated", new Option_Bool(false));
-    oc.addDescription("elecHybrid-output.aggregated", "Output", "Write elecHybrid values into one aggregated file");
+    oc.doRegister("elechybrid-output", new Option_FileName());
+    oc.addDescription("elechybrid-output", "Output", "Save the elecHybrid values of each vehicle");
+    oc.doRegister("elechybrid-output.precision", new Option_Integer(2));
+    oc.addDescription("elechybrid-output.precision", "Output", "Write elecHybrid values with the given precision (default 2)");
+    oc.doRegister("elechybrid-output.aggregated", new Option_Bool(false));
+    oc.addDescription("elechybrid-output.aggregated", "Output", "Write elecHybrid values into one aggregated file");
 
     oc.doRegister("chargingstations-output", new Option_FileName());
     oc.addDescription("chargingstations-output", "Output", "Write data of charging stations");
 
-    oc.doRegister("overheadWireSegments-output", new Option_FileName());
-    oc.addDescription("overheadWireSegments-output", "Output", "Write data of overhead wire segments");
+    oc.doRegister("overheadwiresegments-output", new Option_FileName());
+    oc.addDescription("overheadwiresegments-output", "Output", "Write data of overhead wire segments");
 
     oc.doRegister("substations-output", new Option_FileName());
     oc.addDescription("substations-output", "Output", "Write data of electrical substation stations");
@@ -556,12 +556,12 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("fcd-output", "fcd-export", "fcd_file.xsd");
     OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
     OutputDevice::createDeviceByOption("battery-output", "battery-export");
-    if (OptionsCont::getOptions().getBool("elecHybrid-output.aggregated")) {
-        OutputDevice::createDeviceByOption("elecHybrid-output", "elecHybrid-export-aggregated");
+    if (OptionsCont::getOptions().getBool("elechybrid-output.aggregated")) {
+        OutputDevice::createDeviceByOption("elechybrid-output", "elecHybrid-export-aggregated");
     }
     //OutputDevice::createDeviceByOption("elecHybrid-output", "elecHybrid-export");
     OutputDevice::createDeviceByOption("chargingstations-output", "chargingstations-export");
-    OutputDevice::createDeviceByOption("overheadWireSegments-output", "overheadWireSegments-export");
+    OutputDevice::createDeviceByOption("overheadwiresegments-output", "overheadWireSegments-export");
     OutputDevice::createDeviceByOption("substations-output", "substations-export");
     OutputDevice::createDeviceByOption("full-output", "full-export", "full_file.xsd");
     OutputDevice::createDeviceByOption("queue-output", "queue-export", "queue_file.xsd");
@@ -678,8 +678,8 @@ MSFrame::checkOptions() {
         if (oc.isDefault("battery-output.precision")) {
             oc.set("battery-output.precision", toString(oc.getInt("precision")));
         }
-        if (oc.isDefault("elecHybrid-output.precision")) {
-            oc.set("elecHybrid-output.precision", toString(oc.getInt("precision")));
+        if (oc.isDefault("elechybrid-output.precision")) {
+            oc.set("elechybrid-output.precision", toString(oc.getInt("precision")));
         }
     }
     if (!SUMOXMLDefinitions::CarFollowModels.hasString(oc.getString("carfollow.model"))) {
