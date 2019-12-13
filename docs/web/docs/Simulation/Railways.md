@@ -231,7 +231,7 @@ To join two trains, the following input definition can be used. The front half o
     </trip>
 ```
 The rear part of the train will be joined to the front part if the followign conditions are met:
-- the rear part has spent fulfilled is stopping duration
+- the rear part has fulfilled its stopping duration
 - the front part the train is present and it's back is on the same lane as the front of the rear part
 - the gap between the trains is less than 5 meters
 After being joined to the front part, the rear part will no longer be part of the simulation.
