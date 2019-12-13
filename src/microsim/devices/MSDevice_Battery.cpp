@@ -230,10 +230,10 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myLastAngle(std::numeric_limits<double>::infinity()),
     myChargingStopped(false),           // Initially vehicle don't charge stopped
     myChargingInTransit(false),         // Initially vehicle don't charge in transit
+    myChargingStartTime(0),             // Initially charging start time (must be if the vehicle was launched at the charging station)
     myConsum(0),                        // Initially the vehicle is stopped and therefore the consum is zero.
     myActChargingStation(nullptr),         // Initially the vehicle isn't over a Charging Station
     myPreviousNeighbouringChargingStation(nullptr),    // Initially the vehicle wasn't over a Charging Station
-    myChargingStartTime(0),             // Initially charging start time (must be if the vehicle was launched at the charging station)
     myEnergyCharged(0),                 // Initially the energy charged is zero
     myVehicleStopped(0) {               // Initially the vehicle is stopped and the corresponding variable is 0
 

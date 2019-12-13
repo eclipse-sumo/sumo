@@ -120,7 +120,7 @@ MSTractionSubstation::MSTractionSubstation(const std::string& substationId, doub
 void
 MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverheadWireSegment) {
     MSLane& lane = const_cast<MSLane&>(newOverheadWireSegment->getLane());
-    if (lane.isInternal()) { return; };
+    if (lane.isInternal()) { return; }
 
     myOverheadWireSegments.push_back(newOverheadWireSegment);
     newOverheadWireSegment->setTractionSubstation(this);
@@ -251,7 +251,7 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
         WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
 #endif
     }
-};
+}
 
 
 void 
@@ -383,14 +383,14 @@ void
 MSTractionSubstation::eraseOverheadWireSegmentFromCircuit(MSOverheadWire* oldSegment) {
     //myOverheadWireSegments.push_back(static_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace(overheadWireSegmentID, SUMO_TAG_OVERHEAD_WIRE_SEGMENT)));
     myOverheadWireSegments.erase(std::remove(myOverheadWireSegments.begin(), myOverheadWireSegments.end(), oldSegment), myOverheadWireSegments.end());
-};
+}
 
 void
 MSOverheadWire::addVehicle(SUMOVehicle& veh) {
     setChargingVehicle(true);
     myChargingVehicles.push_back(&veh);
     sort(myChargingVehicles.begin(), myChargingVehicles.end(), vehicle_position_sorter());
-};
+}
 
 void
 MSOverheadWire::eraseVehicle(SUMOVehicle& veh) {
@@ -399,17 +399,17 @@ MSOverheadWire::eraseVehicle(SUMOVehicle& veh) {
         setChargingVehicle(false);
     }
     //sort(myChargingVehicles.begin(), myChargingVehicles.end(), vehicle_position_sorter());
-};
+}
 
 void
 MSTractionSubstation::addVehicle(MSDevice_ElecHybrid* elecHybrid) {
     myElecHybrid.push_back(elecHybrid);
-};
+}
 
 void
 MSTractionSubstation::eraseVehicle(MSDevice_ElecHybrid* veh) {
     myElecHybrid.erase(std::remove(myElecHybrid.begin(), myElecHybrid.end(), veh), myElecHybrid.end());
-};
+}
 
 void
 MSTractionSubstation::writeOut() {
@@ -434,7 +434,7 @@ MSOverheadWire::getCircuit() const {
         return getTractionSubstation()->getCircuit();
     }
     return nullptr;
-};
+}
 
 double
 MSOverheadWire::getVoltage() const {

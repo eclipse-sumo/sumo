@@ -102,9 +102,6 @@ public:
     /// @brief write charging station values
     void writeOverheadWireSegmentOutput(OutputDevice& output);
 
-    /// @brief Parameter, Pointer to the electrical substation (by default is nullptr)
-    MSTractionSubstation* myTractionSubstation;
-
     std::string getOverheadWireSegmentName();
 
     MSTractionSubstation* getTractionSubstation() const {
@@ -143,6 +140,10 @@ public:
 
     bool isThereVoltageSource() {
         return myVoltageSource;
+    }
+
+    MSTractionSubstation* getTractionSubstation() {
+        return myTractionSubstation;
     }
 
 protected:
@@ -213,6 +214,9 @@ protected:
     std::vector<charge> myChargeValues;
 
     std::vector<SUMOVehicle*> myChargingVehicles;
+
+    /// @brief Parameter, Pointer to the electrical substation (by default is nullptr)
+    MSTractionSubstation* myTractionSubstation;
 
     bool myVoltageSource;
 

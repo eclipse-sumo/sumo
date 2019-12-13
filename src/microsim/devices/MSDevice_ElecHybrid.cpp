@@ -275,16 +275,16 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
             if (myPreviousOverheadWireSegment != nullptr) {
                 /* Remove the vehicle from the list of vehicles powered by the previous segment. */
                 myPreviousOverheadWireSegment->eraseVehicle(veh);
-                if (myPreviousOverheadWireSegment->myTractionSubstation != nullptr) {
-                    myPreviousOverheadWireSegment->myTractionSubstation->decreaseElecHybridCount();
-                    myPreviousOverheadWireSegment->myTractionSubstation->eraseVehicle(this);
+                if (myPreviousOverheadWireSegment->getTractionSubstation() != nullptr) {
+                    myPreviousOverheadWireSegment->getTractionSubstation()->decreaseElecHybridCount();
+                    myPreviousOverheadWireSegment->getTractionSubstation()->eraseVehicle(this);
                 }
             }
             /* Add the vehicle reference to the current segment. */
             myActOverheadWireSegment->addVehicle(veh);
-            if (myActOverheadWireSegment->myTractionSubstation != nullptr) {
-                myActOverheadWireSegment->myTractionSubstation->increaseElecHybridCount();
-                myActOverheadWireSegment->myTractionSubstation->addVehicle(this);
+            if (myActOverheadWireSegment->getTractionSubstation() != nullptr) {
+                myActOverheadWireSegment->getTractionSubstation()->increaseElecHybridCount();
+                myActOverheadWireSegment->getTractionSubstation()->addVehicle(this);
             }
         }
 
@@ -299,7 +299,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
 
             /* Add the vehicle to the circuit in case that there is a substation that provides
                power to it. */
-            if (segment->myTractionSubstation != nullptr) {
+            if (segment->getTractionSubstation() != nullptr) {
                 /* Add a resistor (voltage source in the future?) representing trolleybus
                    vehicle to the circuit.
                    pos/neg_veh_node elements
@@ -314,7 +314,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 }
 
                 // create pos and veh_elem	
-                pos_veh_node = segment->myTractionSubstation->getCircuit()->addNode("pos_" + veh.getID());
+                pos_veh_node = segment->getTractionSubstation()->getCircuit()->addNode("pos_" + veh.getID());
                 /// RICE_CHECK: QUESTION Why 10 here?
                 veh_elem = segment->getCircuit()->addElement("resistance_" + veh.getID(), 10,
                     pos_veh_node, segment->getCircuit()->getNode("negNode_ground"),
@@ -449,9 +449,9 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
         myActOverheadWireSegment = nullptr;
         if (myPreviousOverheadWireSegment != myActOverheadWireSegment) {
             myPreviousOverheadWireSegment->eraseVehicle(veh);
-            if (myPreviousOverheadWireSegment->myTractionSubstation != nullptr) {
-                myPreviousOverheadWireSegment->myTractionSubstation->decreaseElecHybridCount();
-                myPreviousOverheadWireSegment->myTractionSubstation->eraseVehicle(this);
+            if (myPreviousOverheadWireSegment->getTractionSubstation() != nullptr) {
+                myPreviousOverheadWireSegment->getTractionSubstation()->decreaseElecHybridCount();
+                myPreviousOverheadWireSegment->getTractionSubstation()->eraseVehicle(this);
             }
         }
         if (MSGlobals::gOverheadWireSolver) {
@@ -502,7 +502,7 @@ MSDevice_ElecHybrid::notifyMoveInternal(
 void
 MSDevice_ElecHybrid::deleteVehicleFromCircuit(SUMOVehicle& veh) {
     if (myPreviousOverheadWireSegment != nullptr) {
-        if (myPreviousOverheadWireSegment->myTractionSubstation != nullptr) {
+        if (myPreviousOverheadWireSegment->getTractionSubstation() != nullptr) {
             //check if all pointers to vehicle elements and nodes are not nullptr
             if (veh_elem == nullptr || veh_pos_tail_elem == nullptr || pos_veh_node == nullptr) {
                 WRITE_ERROR("During deleting vehicle '" + veh.getID() + "' from circuit some init previous Nodes or Elements was not assigned.");
