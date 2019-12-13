@@ -61,7 +61,7 @@ public:
 
 private:
     /// @brief write transportable
-    static void writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, SumoXMLTag tag, bool useGeo, bool elevation);
+    static void writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, bool inRadius, SumoXMLTag tag, bool useGeo, bool elevation);
 
 private:
     /// @brief Invalidated copy constructor.
