@@ -200,6 +200,43 @@ met:
   !!! note
       When importing public transport stops with option **--ptstop-output**, all bidirectional edges with a public transport stop will have the necessary turn-around connection and thus be eligible for reversing.
 
+# Portion working
+Trains can be split and joined (divided and coupled) at stops.
+
+## Splitting a train
+To split a train, the following input definition can be used. The rear half of the train is defined as a new vehicle which depart value **split**. The train train that is being split must define the 'split' attribute in its stop definition referencing the id of the rear half.
+```
+<vType id="train" vClass="rail"/>
+    <vType id="splitTrain" vClass="rail" length="50"/>
+    <trip id="t0" type="train" depart="0.00" from="a" to="c">
+        <stop busStop="B" duration="60.00" split="t1"/>
+    </trip>
+    <trip id="t1" type="splitTrain" depart="split" departPos="last" from="b" to="e">
+        <stop busStop="B" duration="60.00"/>
+    </trip>
+```
+When defined this way, The rear part of the train will be created as a new simulation vehicle once the first part has reached the stop. After stopping, The front half of the train will continue with reduced length.
+
+## Joining two trains
+To join two trains, the following input definition can be used. The front half of the train must define a stop trigger with value **join**. The rear half othe train must define attribute 'join' referencing the id of the front half.
+
+```
+<vType id="train" vClass="rail"/>
+    <vType id="splitTrain" vClass="rail" length="50"/>
+    <trip id="t0" type="splitTrain" depart="0.00" from="a" to="c">
+        <stop busStop="B" duration="60.00" triggered="join"/>
+    </trip>
+    <trip id="t1" type="splitTrain" depart="30" from="d" to="b">
+        <stop busStop="B" duration="5.00" join="t0"/>
+    </trip>
+```
+The rear part of the train will be joined to the front part if the followign conditions are met:
+- the rear part has spent fulfilled is stopping duration
+- the front part the train is present and it's back is on the same lane as the front of the rear part
+- the gap between the trains is less than 5 meters
+After being joined to the front part, the rear part will no longer be part of the simulation.
+The front half of the train will stop until the rear part is joined to it. Afterwards it will continue with increased length. 
+
 # TraCI
 
 Rail signals and rail crossings can be controlled with function *traci.trafficlight.setRedYellowGreenState*. They can also be switched off with *traci.trafficlight.setProgram(tlsID, "off")*. In either case, normal operations can be resumed by reactivating the default program "0": *traci.trafficlight.setProgram(tlsID, "0")*.
