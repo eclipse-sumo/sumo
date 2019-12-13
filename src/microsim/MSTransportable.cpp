@@ -664,8 +664,10 @@ MSTransportable::Stage_Driving::endEventOutput(const MSTransportable& p, SUMOTim
 /* -------------------------------------------------------------------------
  * MSTransportable - methods
  * ----------------------------------------------------------------------- */
-MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportablePlan* plan)
-    : myParameter(pars), myVType(vtype), myPlan(plan) {
+MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportablePlan* plan) :
+    SUMOTrafficObject(pars->id),
+    myParameter(pars), myVType(vtype), myPlan(plan) 
+{
     myStep = myPlan->begin();
     // init devices
     MSDevice::buildTransportableDevices(*this, myDevices);
@@ -695,9 +697,9 @@ MSTransportable::~MSTransportable() {
     }
 }
 
-const std::string&
-MSTransportable::getID() const {
-    return myParameter->id;
+void
+MSTransportable::setID(const std::string& /*newID*/) {
+    throw ProcessError("Changing a transportable ID is not permitted");
 }
 
 SUMOTime

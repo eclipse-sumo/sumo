@@ -596,8 +596,8 @@ public:
      * @return Whether the transportables plan continues  */
     virtual bool proceed(MSNet* net, SUMOTime time) = 0;
 
-    /// returns the id of the transportable
-    const std::string& getID() const;
+    /// @brief set the id (inherited from Named but forbidden for transportables)
+    void setID(const std::string& newID); 
 
     inline const SUMOVehicleParameter& getParameter() const {
         return *myParameter;

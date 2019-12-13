@@ -79,8 +79,8 @@ public:
         return true;
     }
 
-    /// Returns the name of the vehicle
-    const std::string& getID() const;
+    /// @brief set the id (inherited from Named but forbidden for vehicles)
+    void setID(const std::string& newID); 
 
     /** @brief Returns the vehicle's parameter (including departure definition)
      *

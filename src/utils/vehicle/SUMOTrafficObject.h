@@ -44,8 +44,12 @@ class Position;
  * @class SUMOTrafficObject
  * @brief Representation of a vehicle or person
  */
-class SUMOTrafficObject {
+class SUMOTrafficObject : public Named {
 public:
+
+    /// @brief Constructor
+    SUMOTrafficObject(const std::string& id) : Named(id) {}
+
     /// @brief Destructor
     virtual ~SUMOTrafficObject() {}
 
@@ -53,11 +57,6 @@ public:
      * @return The the ID of the vehicle
      */
     virtual bool isVehicle() const = 0;
-
-    /** @brief Get the vehicle's ID
-     * @return The the ID of the vehicle
-     */
-    virtual const std::string& getID() const = 0;
 
     /** @brief Returns the vehicle's type
      * @return The vehicle's type

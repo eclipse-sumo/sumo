@@ -1068,7 +1068,7 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
         if ((s.activeFilters & libsumo::SUBS_FILTER_NO_RTREE) == 0) {
             PositionVector shape;
             libsumo::Helper::findObjectShape(s.commandId, s.id, shape);
-            libsumo::Helper::collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
+            libsumo::Helper::collectObjectIDsInRange(s.contextDomain, shape, s.range, objIDs);
         }
         libsumo::Helper::applySubscriptionFilters(s, objIDs);
     } else {

@@ -61,6 +61,9 @@ class SUMOVehicle : public SUMOTrafficObject {
 public:
     typedef long long int NumericalID;
 
+    /// @brief Constructor
+    SUMOVehicle(const std::string& id) : SUMOTrafficObject(id) {}
+
     /// @brief Destructor
     virtual ~SUMOVehicle() {}
 
