@@ -13,6 +13,8 @@ permalink: /ChangeLog/
 - Simulation
   - Added new [model for electric hybrid vehicles and overhead lines and power substations](Models/ElectricHybrid.md). 
   - Railway simulation now supports [splitting and joining trains, also known as portion working](Simulation/Railways.md#portion_working). Issue #6398
+  - Added option **--device.fcd.radius** which allows fcd output for persons and vehicles that are within the given range around equipped vehicles. Issue #6410
+  
 - SUMO-GUI
   - dead-end links in the middle of a road are now highlighed in magenta to highlight connectivity problems. Issue #6391
   
