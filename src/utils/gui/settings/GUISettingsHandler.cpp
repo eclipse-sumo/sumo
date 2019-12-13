@@ -65,17 +65,16 @@ GUISettingsHandler::~GUISettingsHandler() {
 
 
 void
-GUISettingsHandler::myStartElement(int element,
-                                   const SUMOSAXAttributes& attrs) {
+GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     bool ok = true;
     switch (element) {
-        case SUMO_TAG_BREAKPOINTS_FILE: {
-            std::string file = attrs.get<std::string>(SUMO_ATTR_VALUE, nullptr, ok);
-            myBreakpoints = loadBreakpoints(file);
-        }
-        break;
         case SUMO_TAG_BREAKPOINT:
-            myBreakpoints.push_back(attrs.getSUMOTimeReporting(SUMO_ATTR_VALUE, nullptr, ok));
+            if (attrs.hasAttribute(SUMO_ATTR_TIME)) {
+                myBreakpoints.push_back(attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, nullptr, ok));
+            } else {
+                myBreakpoints.push_back(attrs.getSUMOTimeReporting(SUMO_ATTR_VALUE, nullptr, ok));
+                WRITE_WARNING("The 'value' attribute is deprecated for breakpoints. Please use 'time'.");
+            }
             break;
         case SUMO_TAG_VIEWSETTINGS:
             myViewType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, nullptr, ok, "default");
@@ -118,13 +117,12 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.forceDrawForRectangleSelection = StringUtils::toBool(attrs.getStringSecure("forceDrawRectangleSelection", toString(mySettings.forceDrawForRectangleSelection)));
             mySettings.forceDrawForPositionSelection = StringUtils::toBool(attrs.getStringSecure("forceDrawPositionSelection", toString(mySettings.forceDrawForPositionSelection)));
             break;
-        case SUMO_TAG_VIEWSETTINGS_BACKGROUND: {
+        case SUMO_TAG_VIEWSETTINGS_BACKGROUND:
             mySettings.backgroundColor = RGBColor::parseColorReporting(attrs.getStringSecure("backgroundColor", toString(mySettings.backgroundColor)), "background", nullptr, true, ok);
             mySettings.showGrid = StringUtils::toBool(attrs.getStringSecure("showGrid", toString(mySettings.showGrid)));
             mySettings.gridXSize = StringUtils::toDouble(attrs.getStringSecure("gridXSize", toString(mySettings.gridXSize)));
             mySettings.gridYSize = StringUtils::toDouble(attrs.getStringSecure("gridYSize", toString(mySettings.gridYSize)));
-        }
-        break;
+            break;
         case SUMO_TAG_VIEWSETTINGS_EDGES: {
             int laneEdgeMode = StringUtils::toInt(attrs.getStringSecure("laneEdgeMode", "0"));
             int laneEdgeScaleMode = StringUtils::toInt(attrs.getStringSecure("scaleMode", "0"));
@@ -199,7 +197,6 @@ GUISettingsHandler::myStartElement(int element,
                 myCurrentScaleScheme->clear();
             }
             break;
-
         case SUMO_TAG_ENTRY:
             if (myCurrentScheme != nullptr) {
                 RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, nullptr, ok);
@@ -286,7 +283,12 @@ GUISettingsHandler::myStartElement(int element,
             break;
         case SUMO_TAG_VIEWSETTINGS_DECAL: {
             GUISUMOAbstractView::Decal d;
-            d.filename = attrs.getStringSecure("filename", d.filename);
+            if (attrs.hasAttribute(SUMO_ATTR_FILE)) {
+                d.filename = attrs.get<std::string>(SUMO_ATTR_FILE, nullptr, ok);
+            } else {
+                d.filename = attrs.getStringSecure("filename", d.filename);
+                WRITE_WARNING("The 'filename' attribute is deprecated for decals. Please use 'file'.");
+            }
             if (d.filename != "" && !FileHelpers::isAbsolute(d.filename)) {
                 d.filename = FileHelpers::getConfigurationRelative(getFileName(), d.filename);
             }
