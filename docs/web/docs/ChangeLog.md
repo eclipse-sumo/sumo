@@ -23,6 +23,9 @@ permalink: /ChangeLog/
 ### Other
 - Build
   - removed autotools build 
+- SUMO-GUI
+  - the settings file no longer accepts the element breakpoints-file (command line option is still there)
+  - renamed attributes in the settings (breakpoint.value to breakpoint.time and decal.filename to decal.file)
 
 ## Version 1.4.0 (10.12.2019)
 
