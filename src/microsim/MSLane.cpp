@@ -738,7 +738,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 // no sense in trying later
                 errorMsg = "unpriorised junction too close";
             }
-            if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, seen),
+            const double remaining = seen - currentLane->getStopOffset(aVehicle);
+            if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, remaining),
                              patchSpeed, errorMsg)) {
                 // we may not drive with the given velocity - we cannot stop at the junction in time
                 return false;
