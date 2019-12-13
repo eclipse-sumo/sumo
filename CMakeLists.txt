@@ -213,14 +213,15 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/bzip2-?.?.?/*.dll" # used by old versions of SUMOLibraries
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/bzip2-?.?.?/bin/*.dll"
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libpng-?.?.??/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/tiff-?.?.?/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/zlib-?.?.??/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-?.?.?/*.dll")
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/tiff-?.?.?/bin/*.dll")
     # set MSVC dlls
     if ("${MSVC_VERSION}" STREQUAL "1800")
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}${LIB_VERSION}/runtimes/*.dll" "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/runtimes/*.dll")
     else()
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}${LIB_VERSION}/runtimes/*.dll")
+        file(GLOB MORE_SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/zlib-?.?.??/bin/*.dll"
+                                          "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-?.?.?/*.dll")
+        list(APPEND SUMO_LIBRARIES_DLL ${MORE_SUMO_LIBRARIES_DLL})
     endif ()
     # set google test root
     file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.?.?/googletest")
@@ -389,10 +390,13 @@ if (SUMO_LIBRARIES AND WIN32)
     foreach(DLL ${SUMO_LIBRARIES_DLL})
         get_filename_component(DLL_BASENAME ${DLL} NAME)
         set(TARGET_DLL ${CMAKE_SOURCE_DIR}/bin/${DLL_BASENAME})
-        add_custom_command(OUTPUT ${TARGET_DLL}
-                           COMMAND ${CMAKE_COMMAND} -E copy ${DLL} ${TARGET_DLL}
-                           DEPENDS ${DLL})
-        list(APPEND TARGET_DLLS ${TARGET_DLL})
+        list(FIND TARGET_DLLS ${TARGET_DLL} DLL_KNOWN)
+        if (DLL_KNOWN EQUAL -1)
+            add_custom_command(OUTPUT ${TARGET_DLL}
+                               COMMAND ${CMAKE_COMMAND} -E copy ${DLL} ${TARGET_DLL}
+                               DEPENDS ${DLL})
+            list(APPEND TARGET_DLLS ${TARGET_DLL})
+        endif()
     endforeach(DLL)
     # copy OSG dlls
     if (HAVE_OSG)
