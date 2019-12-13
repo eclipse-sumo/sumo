@@ -96,27 +96,24 @@ vehicle.
 
 ## Filtering / Restricting Output
 
-- output can be restricted to specific vehicle types or vehicle ids by
-  [controlling the set of vehicles that are
-  equipped](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
-  with the **fcd**-device. The following example restricts output to a
+### Restricting the set of vehicles that generate output
+Output can be restricted to specific vehicle types or vehicle ids by [controlling the set of vehicles that are equipped](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)   with the **fcd**-device. The following example restricts output to a
   single vehicle called *ego*:
-
 ```
 --device.fcd.explicit ego
 ```
 
-
-- output can be restricted to a specific set of edges by loading a
-  selecting of edges from a file with option **--fcd-output.filter-edges.input-file** {{DT_FILE}}. The file format for
-  this is the same as the one when saving selections in
-  [NETEDIT](../../NETEDIT.md):
-
+### Restricting the locations
+Output can be restricted to a specific set of edges by loading a list of edges from a file with option **--fcd-output.filter-edges.input-file** {{DT_FILE}}. The file format for
+this is the same as the one when saving selections in  [NETEDIT](../../NETEDIT.md):
 ```
 edge:id1
 edge:id2
 ...
 ```
+
+### Restricting output by sensor range
+When not all vehicles are equipped with an **fcd**-device, vother ehicles and persons in a radius around the equipped vehicles can be included in the output by setting option **--device.fcd.radius** to the desired range in m.
 
 ## Further Options
 
