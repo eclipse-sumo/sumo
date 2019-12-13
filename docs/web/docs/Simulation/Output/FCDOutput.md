@@ -113,7 +113,7 @@ edge:id2
 ```
 
 ### Restricting output by sensor range
-When not all vehicles are equipped with an **fcd**-device, vother ehicles and persons in a radius around the equipped vehicles can be included in the output by setting option **--device.fcd.radius** to the desired range in m.
+When not all vehicles are equipped with an **fcd**-device, other ehicles and persons in a radius around the equipped vehicles can be included in the output by setting option **--device.fcd.radius** to the desired range in m.
 
 ## Further Options
 
