@@ -12,6 +12,7 @@ permalink: /ChangeLog/
 ### Enhancements
 - Simulation
   - Added new [model for electric hybrid vehicles and overhead lines and power substations](Models/ElectricHybrid.md). 
+  - Railway simulation now supports [splitting and joining trains, also known as portion working](Simulation/Railways.md#portion_working). Issue #6398
 - SUMO-GUI
   - dead-end links in the middle of a road are now highlighed in magenta to highlight connectivity problems. Issue #6391
   
@@ -21,7 +22,7 @@ permalink: /ChangeLog/
   
 ### Other
 - Build
-  - removed autotools build
+  - removed autotools build 
 
 ## Version 1.4.0 (10.12.2019)
 
