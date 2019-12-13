@@ -655,6 +655,27 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
 #ifdef _DEBUG
         label += " (" + toString(stop.edge - myCurrEdge) + "e)";
 #endif
+        if (isStoppedTriggered()) {
+            label += " triggered:";
+            if (stop.triggered) {
+                label += "person";
+                if (stop.numExpectedPerson > 0) {
+                    label += "(" + toString(stop.numExpectedPerson) + ")";
+                }
+            }
+            if (stop.containerTriggered) {
+                label += "container";
+                if (stop.numExpectedContainer > 0) {
+                    label += "(" + toString(stop.numExpectedContainer) + ")";
+                }
+            }
+            if (stop.joinTriggered) {
+                label += "join";
+                if (stop.pars.join != "") {
+                    label += "(" + stop.pars.join + ")";
+                }
+            }
+        }
         if (stop.pars.until >= 0) {
             label += " until:" + time2string(stop.pars.until);
         }

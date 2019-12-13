@@ -944,6 +944,8 @@ public:
         bool triggered = false;
         /// @brief whether an arriving container lets the vehicle continue
         bool containerTriggered = false;
+        /// @brief whether coupling another vehicle (train) the vehicle continue
+        bool joinTriggered = false;
         /// @brief Information whether the stop has been reached
         bool reached = false;
         /// @brief The number of still expected persons
@@ -1089,6 +1091,10 @@ public:
      * @see MSStoppingPlace
      */
     double processNextStop(double currentVelocity);
+
+
+    /// @brief handle joining of another vehicle to this one (to resolve joinTriggered)
+    bool joinTrainPart(MSVehicle* veh);
 
     /** @brief Returns the leader of the vehicle looking for a fixed distance.
      *
@@ -1814,6 +1820,9 @@ public:
 
     // @brief get the position of the back bumper;
     const Position getBackPosition() const;
+
+    /// @brief whether this vehicle is except from collision checks
+    bool ignoreCollision();
 
     /// @name state io
     //@{

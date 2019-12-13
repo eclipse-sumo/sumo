@@ -701,13 +701,14 @@
         <xsd:attribute name="extension" type="timeType"/>
         <xsd:attribute name="index" type="xsd:string"/>
         <xsd:attribute name="parking" type="boolType"/>
-        <xsd:attribute name="triggered" type="boolType"/>
+        <xsd:attribute name="triggered" type="xsd:string"/>
         <xsd:attribute name="containerTriggered" type="boolType"/>
         <xsd:attribute name="expected" type="xsd:string"/>
         <xsd:attribute name="expectedContainers" type="xsd:string"/>
         <xsd:attribute name="actType" type="xsd:string"/>
         <xsd:attribute name="tripId" type="xsd:string"/>
         <xsd:attribute name="split" type="xsd:string"/>
+        <xsd:attribute name="join" type="xsd:string"/>
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="speed" type="nonNegativeFloatType"/>
     </xsd:complexType>

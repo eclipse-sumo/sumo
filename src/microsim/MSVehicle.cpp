@@ -970,12 +970,7 @@ MSVehicle::Stop::write(OutputDevice& dev) const {
     if (pars.until >= 0) {
         dev.writeAttr(SUMO_ATTR_UNTIL, time2string(pars.until));
     }
-    if (pars.triggered) {
-        dev.writeAttr(SUMO_ATTR_TRIGGERED, pars.triggered);
-    }
-    if (pars.containerTriggered) {
-        dev.writeAttr(SUMO_ATTR_CONTAINER_TRIGGERED, pars.containerTriggered);
-    }
+    pars.writeTriggers(dev);
     if (pars.parking) {
         dev.writeAttr(SUMO_ATTR_PARKING, pars.parking);
     }
@@ -1534,6 +1529,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     stop.duration = stopPar.duration;
     stop.triggered = stopPar.triggered;
     stop.containerTriggered = stopPar.containerTriggered;
+    stop.joinTriggered = stopPar.joinTriggered || stopPar.join != "";
     if (stopPar.until != -1) {
         // !!! it would be much cleaner to invent a constructor for stops which takes "until" as an argument
         const_cast<SUMOVehicleParameter::Stop&>(stop.pars).until += untilOffset;
@@ -1789,6 +1785,11 @@ MSVehicle::collisionStopTime() const {
 
 
 bool
+MSVehicle::ignoreCollision() {
+    return myCollisionImmunity > 0;
+}
+
+bool
 MSVehicle::isParking() const {
     return isStopped() && myStops.begin()->pars.parking && (
                myStops.begin()->parkingarea == nullptr || !myStops.begin()->parkingarea->parkOnRoad());
@@ -1797,7 +1798,7 @@ MSVehicle::isParking() const {
 
 bool
 MSVehicle::isStoppedTriggered() const {
-    return isStopped() && (myStops.begin()->triggered || myStops.begin()->containerTriggered);
+    return isStopped() && (myStops.begin()->triggered || myStops.begin()->containerTriggered || myStops.begin()->joinTriggered);
 }
 
 
@@ -1889,6 +1890,17 @@ MSVehicle::processNextStop(double currentVelocity) {
                     std::cout << SIMTIME << " vehicle '" << getID() << "' unregisters as waiting for container." << std::endl;
                 }
 #endif
+            }
+        }
+        if (stop.duration <= 0 && stop.pars.join != "") {
+            // join this train (part) to another one
+            MSVehicle* joinVeh = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(stop.pars.join));
+            if (joinVeh && joinVeh->joinTrainPart(this)) {
+                stop.joinTriggered = false;
+                // avoid collision warning before this vehicle is removed (joinVeh was already made longer)
+                myCollisionImmunity = TIME2STEPS(100);
+                // mark this vehicle as arrived
+                myArrivalPos = getPositionOnLane();
             }
         }
         if (!keepStopping() && isOnRoad()) {
@@ -2035,7 +2047,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     // split the train
                     MSVehicle* splitVeh = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(stop.pars.split));
                     if (splitVeh == nullptr) {
-                        WRITE_WARNINGF("Vehicle '%' to split is not known", stop.pars.split)
+                        WRITE_WARNINGF("Vehicle '%' to split from vehicle '%' is not known. time=%.", stop.pars.split, getID(), SIMTIME)
                     } else {
                         MSNet::getInstance()->getInsertionControl().add(splitVeh);
                         splitVeh->getRoute().getEdges()[0]->removeWaiting(splitVeh);
@@ -2045,12 +2057,28 @@ MSVehicle::processNextStop(double currentVelocity) {
                         getSingularType().setLength(newLength);
                     }
                 }
+
             }
         }
     }
     return currentVelocity;
 }
 
+bool
+MSVehicle::joinTrainPart(MSVehicle* veh) {
+    // check if veh is close enough to be joined
+    MSLane* backLane = myFurtherLanes.size() == 0 ? myLane : myFurtherLanes.back();
+    double gap = getBackPositionOnLane() - veh->getPositionOnLane();
+    if (isStopped() && myStops.begin()->joinTriggered && backLane == veh->getLane()
+            && gap >= 0 && gap < 5) {
+        const double newLength = myType->getLength() + veh->getVehicleType().getLength();
+        getSingularType().setLength(newLength);
+        myStops.begin()->joinTriggered = false;
+        return true;
+    } else {
+        return false;
+    }
+}
 
 const ConstMSEdgeVector
 MSVehicle::getStopEdges(double& firstPos, double& lastPos) const {

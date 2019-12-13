@@ -1589,6 +1589,9 @@ void
 MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                double gap, double latGap, std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const {
+    if (collider->ignoreCollision() || victim->ignoreCollision()) {
+        return;
+    }
     std::string collisionType = ((collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite()
                                   || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()))
                                  ?  "frontal collision" : "collision");

@@ -546,6 +546,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lines",                  SUMO_ATTR_LINES },
     { "tripId",                 SUMO_ATTR_TRIP_ID },
     { "split",                  SUMO_ATTR_SPLIT },
+    { "join",                   SUMO_ATTR_JOIN },
     { "intended",               SUMO_ATTR_INTENDED },
     { "value",                  SUMO_ATTR_VALUE },
     { "prohibitor",             SUMO_ATTR_PROHIBITOR },
