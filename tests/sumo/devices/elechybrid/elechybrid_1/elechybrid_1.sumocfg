@@ -17,14 +17,14 @@
     </processing>
     
     <elecHybrid_device>
-         <device.elecHybrid.explicit value="test1,test3"/>
+         <device.elechybrid.explicit value="test1,test3"/>
     </elecHybrid_device>
     
     <output>
-        <elecHybrid-output value="elechybrid_out.xml"/>
-        <elecHybrid-output.aggregated value="true"/>
-        <elecHybrid-output.precision value="4"/>
-        <overheadWireSegments-output value="overheadwires_out.xml"/>
+        <elechybrid-output value="elechybrid_out.xml"/>
+        <elechybrid-output.aggregated value="true"/>
+        <elechybrid-output.precision value="4"/>
+        <overheadwiresegments-output value="overheadwires_out.xml"/>
         <substations-output value="substation_out.xml"/>      
     </output>
     

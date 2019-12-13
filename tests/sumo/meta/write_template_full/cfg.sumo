@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 13 13:43:17 2019 by Eclipse SUMO Version v1_4_0+0088-6f165c5
+<!-- generated on Fri Dec 13 14:11:49 2019 by Eclipse SUMO Version v1_4_0+0096-07dfa07
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -37,11 +37,11 @@
         <emission-output.precision value="2" type="INT" help="Write emission values with the given precision (default 2)"/>
         <battery-output value="" type="FILE" help="Save the battery values of each vehicle"/>
         <battery-output.precision value="2" type="INT" help="Write battery values with the given precision (default 2)"/>
-        <elecHybrid-output value="" type="FILE" help="Save the elecHybrid values of each vehicle"/>
-        <elecHybrid-output.precision value="2" type="INT" help="Write elecHybrid values with the given precision (default 2)"/>
-        <elecHybrid-output.aggregated value="false" type="BOOL" help="Write elecHybrid values into one aggregated file"/>
+        <elechybrid-output value="" type="FILE" help="Save the elecHybrid values of each vehicle"/>
+        <elechybrid-output.precision value="2" type="INT" help="Write elecHybrid values with the given precision (default 2)"/>
+        <elechybrid-output.aggregated value="false" type="BOOL" help="Write elecHybrid values into one aggregated file"/>
         <chargingstations-output value="" type="FILE" help="Write data of charging stations"/>
-        <overheadWireSegments-output value="" type="FILE" help="Write data of overhead wire segments"/>
+        <overheadwiresegments-output value="" type="FILE" help="Write data of overhead wire segments"/>
         <substations-output value="" type="FILE" help="Write data of electrical substation stations"/>
         <fcd-output value="" type="FILE" help="Save the Floating Car Data"/>
         <fcd-output.geo value="false" type="BOOL" help="Save the Floating Car Data using geo-coordinates (lon/lat)"/>
@@ -280,9 +280,9 @@
     </fcd_device>
 
     <elechybrid_device>
-        <device.elecHybrid.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;elecHybrid&apos; device"/>
-        <device.elecHybrid.explicit value="" synonymes="device.elecHybrid.knownveh" type="STR[]" help="Assign a &apos;elecHybrid&apos; device to named vehicles"/>
-        <device.elecHybrid.deterministic value="false" type="BOOL" help="The &apos;elecHybrid&apos; devices are set deterministic using a fraction of 1000"/>
+        <device.elechybrid.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;elechybrid&apos; device"/>
+        <device.elechybrid.explicit value="" synonymes="device.elechybrid.knownveh" type="STR[]" help="Assign a &apos;elechybrid&apos; device to named vehicles"/>
+        <device.elechybrid.deterministic value="false" type="BOOL" help="The &apos;elechybrid&apos; devices are set deterministic using a fraction of 1000"/>
     </elechybrid_device>
 
     <tripinfo_device>

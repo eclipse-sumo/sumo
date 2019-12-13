@@ -19,7 +19,7 @@
     </time>
     
     <elecHybrid_device>
-         <device.elecHybrid.explicit value="test1,test2"/>
+         <device.elechybrid.explicit value="test1,test2"/>
     </elecHybrid_device>
     
     <battery>
@@ -31,10 +31,10 @@
         <stop-output value="stopinfo_out.xml"/>
         <!-- Note: For disaggregated output we have a separate file for every 
              vehicle, and the `value` attribute works as a prefix ... -->
-        <elecHybrid-output value="elechybrid_out"/>
-        <elecHybrid-output.aggregated value="false"/>
-        <elecHybrid-output.precision value="4"/>
-        <overheadWireSegments-output value="overheadwires_out.xml"/>
+        <elechybrid-output value="elechybrid_out"/>
+        <elechybrid-output.aggregated value="false"/>
+        <elechybrid-output.precision value="4"/>
+        <overheadwiresegments-output value="overheadwires_out.xml"/>
         <substations-output value="substation_out.xml"/>
     </output> 
     

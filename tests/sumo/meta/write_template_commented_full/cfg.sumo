@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 13 13:43:17 2019 by Eclipse SUMO Version v1_4_0+0088-6f165c5
+<!-- generated on Fri Dec 13 14:11:49 2019 by Eclipse SUMO Version v1_4_0+0096-07dfa07
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -88,19 +88,19 @@
         <battery-output.precision value="2" type="INT"/>
 
         <!-- Save the elecHybrid values of each vehicle -->
-        <elecHybrid-output value="" type="FILE"/>
+        <elechybrid-output value="" type="FILE"/>
 
         <!-- Write elecHybrid values with the given precision (default 2) -->
-        <elecHybrid-output.precision value="2" type="INT"/>
+        <elechybrid-output.precision value="2" type="INT"/>
 
         <!-- Write elecHybrid values into one aggregated file -->
-        <elecHybrid-output.aggregated value="false" type="BOOL"/>
+        <elechybrid-output.aggregated value="false" type="BOOL"/>
 
         <!-- Write data of charging stations -->
         <chargingstations-output value="" type="FILE"/>
 
         <!-- Write data of overhead wire segments -->
-        <overheadWireSegments-output value="" type="FILE"/>
+        <overheadwiresegments-output value="" type="FILE"/>
 
         <!-- Write data of electrical substation stations -->
         <substations-output value="" type="FILE"/>
@@ -732,14 +732,14 @@
     </fcd_device>
 
     <elechybrid_device>
-        <!-- The probability for a vehicle to have a &apos;elecHybrid&apos; device -->
-        <device.elecHybrid.probability value="-1" type="FLOAT"/>
+        <!-- The probability for a vehicle to have a &apos;elechybrid&apos; device -->
+        <device.elechybrid.probability value="-1" type="FLOAT"/>
 
-        <!-- Assign a &apos;elecHybrid&apos; device to named vehicles -->
-        <device.elecHybrid.explicit value="" synonymes="device.elecHybrid.knownveh" type="STR[]"/>
+        <!-- Assign a &apos;elechybrid&apos; device to named vehicles -->
+        <device.elechybrid.explicit value="" synonymes="device.elechybrid.knownveh" type="STR[]"/>
 
-        <!-- The &apos;elecHybrid&apos; devices are set deterministic using a fraction of 1000 -->
-        <device.elecHybrid.deterministic value="false" type="BOOL"/>
+        <!-- The &apos;elechybrid&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.elechybrid.deterministic value="false" type="BOOL"/>
 
     </elechybrid_device>
 

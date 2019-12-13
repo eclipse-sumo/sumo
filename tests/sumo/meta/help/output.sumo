@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_4_0+0088-6f165c5
+Eclipse SUMO Version v1_4_0+0096-07dfa07
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -50,14 +50,14 @@ Output Options:
   --battery-output FILE                Save the battery values of each vehicle
   --battery-output.precision INT       Write battery values with the given
                                          precision (default 2)
-  --elecHybrid-output FILE             Save the elecHybrid values of each
+  --elechybrid-output FILE             Save the elecHybrid values of each
                                          vehicle
-  --elecHybrid-output.precision INT    Write elecHybrid values with the given
+  --elechybrid-output.precision INT    Write elecHybrid values with the given
                                          precision (default 2)
-  --elecHybrid-output.aggregated       Write elecHybrid values into one
+  --elechybrid-output.aggregated       Write elecHybrid values into one
                                          aggregated file
   --chargingstations-output FILE       Write data of charging stations
-  --overheadWireSegments-output FILE   Write data of overhead wire segments
+  --overheadwiresegments-output FILE   Write data of overhead wire segments
   --substations-output FILE            Write data of electrical substation
                                          stations
   --fcd-output FILE                    Save the Floating Car Data
@@ -521,11 +521,11 @@ FCD Device Options:
   --person-device.fcd.period STR       Recording period for FCD-data
 
 ElecHybrid Device Options:
-  --device.elecHybrid.probability FLOAT  The probability for a vehicle to have
-                                         a 'elecHybrid' device
-  --device.elecHybrid.explicit STR[]   Assign a 'elecHybrid' device to named
+  --device.elechybrid.probability FLOAT  The probability for a vehicle to have
+                                         a 'elechybrid' device
+  --device.elechybrid.explicit STR[]   Assign a 'elechybrid' device to named
                                          vehicles
-  --device.elecHybrid.deterministic    The 'elecHybrid' devices are set
+  --device.elechybrid.deterministic    The 'elechybrid' devices are set
                                          deterministic using a fraction of 1000
 
 Tripinfo Device Options:
