@@ -7,6 +7,10 @@ half_equipped
 # Vehicle taking different chargingStations and busstops, every with a different configuration 
 chargingStations
 
+# usually loaded from vehicle parameter,
+# default taken from vType parameter
+actualBatteryCapacity
+
 # Vehicle taking different chargingStations and busstops, every with a different configuration with charging station output
 chargingStations_output
 
