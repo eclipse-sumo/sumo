@@ -185,18 +185,6 @@ public:
          */
         virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const = 0;
 
-        /** @brief Called for writing the events output (begin of an action)
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void beginEventOutput(const MSTransportable& transportable, SUMOTime t, OutputDevice& os) const = 0;
-
-        /** @brief Called for writing the events output (end of an action)
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void endEventOutput(const MSTransportable& transportable, SUMOTime t, OutputDevice& os) const = 0;
-
         virtual Stage* clone() const = 0;
 
     protected:
@@ -292,18 +280,6 @@ public:
         */
         virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
 
-        /** @brief Called for writing the events output
-        * @param[in] os The stream to write the information into
-        * @exception IOError not yet implemented
-        */
-        virtual void beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
-
-        /** @brief Called for writing the events output (end of an action)
-        * @param[in] os The stream to write the information into
-        * @exception IOError not yet implemented
-        */
-        virtual void endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
-
     private:
         /// the origin edge
         const MSEdge* myOrigin;
@@ -398,18 +374,6 @@ public:
         */
         virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
 
-        /** @brief Called for writing the events output
-        * @param[in] os The stream to write the information into
-        * @exception IOError not yet implemented
-        */
-        virtual void beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
-
-        /** @brief Called for writing the events output (end of an action)
-        * @param[in] os The stream to write the information into
-        * @exception IOError not yet implemented
-        */
-        virtual void endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
-
     private:
         /// the time the person is waiting
         SUMOTime myWaitingDuration;
@@ -485,18 +449,6 @@ public:
 
         /// @brief marks arrival time and records driven distance
         void setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
-
-        /** @brief Called for writing the events output
-        * @param[in] os The stream to write the information into
-        * @exception IOError not yet implemented
-        */
-        virtual void beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
-
-        /** @brief Called for writing the events output (end of an action)
-        * @param[in] os The stream to write the information into
-        * @exception IOError not yet implemented
-        */
-        virtual void endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
 
         const std::set<std::string>& getLines() const {
             return myLines;
@@ -599,7 +551,12 @@ public:
 
     /* @brief proceeds to the next step of the route,
      * @return Whether the transportables plan continues  */
-    virtual bool proceed(MSNet* net, SUMOTime time) = 0;
+    bool proceed(MSNet* net, SUMOTime time);
+
+    virtual void checkAccess(const Stage* const prior, const bool isDisembark=true) {
+        UNUSED_PARAMETER(prior);
+        UNUSED_PARAMETER(isDisembark);
+    }
 
     /// @brief set the id (inherited from Named but forbidden for transportables)
     void setID(const std::string& newID); 

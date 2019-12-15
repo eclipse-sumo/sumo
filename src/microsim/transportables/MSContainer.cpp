@@ -253,19 +253,6 @@ MSContainer::MSContainerStage_Tranship::routeOutput(OutputDevice& os, const bool
 }
 
 
-void
-MSContainer::MSContainerStage_Tranship::beginEventOutput(const MSTransportable& c, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "departure")
-    .writeAttr("agent", c.getID()).writeAttr("link", myRoute.front()->getID()).closeTag();
-}
-
-
-void
-MSContainer::MSContainerStage_Tranship::endEventOutput(const MSTransportable& c, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival")
-    .writeAttr("agent", c.getID()).writeAttr("link", myRoute.back()->getID()).closeTag();
-}
-
 bool
 MSContainer::MSContainerStage_Tranship::moveToNextEdge(MSTransportable* container, SUMOTime currentTime, MSEdge* nextInternal) {
     ((MSEdge*)getEdge())->removeContainer(container);
@@ -306,26 +293,6 @@ MSContainer::MSContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype,
 
 
 MSContainer::~MSContainer() {
-}
-
-
-bool
-MSContainer::proceed(MSNet* net, SUMOTime time) {
-    Stage* prior = *myStep;
-    prior->setArrived(net, this, time);
-    // must be done before increasing myStep to avoid invalid state for rendering
-    prior->getEdge()->removeContainer(this);
-    myStep++;
-    if (myStep != myPlan->end()) {
-        (*myStep)->proceed(net, this, time, prior);
-        return true;
-    } else {
-        // cleanup
-        if (prior->getDestinationStop() != nullptr) {
-            prior->getDestinationStop()->removeTransportable(this);
-        }
-        return false;
-    }
 }
 
 

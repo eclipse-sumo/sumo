@@ -167,18 +167,6 @@ public:
          */
         virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
 
-        /** @brief Called for writing the events output
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void beginEventOutput(const MSTransportable& c, SUMOTime t, OutputDevice& os) const;
-
-        /** @brief Called for writing the events output (end of an action)
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void endEventOutput(const MSTransportable& c, SUMOTime t, OutputDevice& os) const;
-
         /// @brief move forward and return whether the container arrived
         bool moveToNextEdge(MSTransportable* container, SUMOTime currentTime, MSEdge* nextInternal = 0);
 
@@ -238,10 +226,6 @@ public:
 
     /// destructor
     virtual ~MSContainer();
-
-    /* @brief proceeds to the next step of the route,
-     * @return Whether the persons plan continues  */
-    virtual bool proceed(MSNet* net, SUMOTime time);
 
 private:
     /// @brief Invalidated copy constructor.

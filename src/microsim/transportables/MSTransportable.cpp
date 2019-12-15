@@ -338,16 +338,6 @@ MSTransportable::Stage_Trip::routeOutput(OutputDevice&, const bool /* withRouteL
 }
 
 
-void
-MSTransportable::Stage_Trip::beginEventOutput(const MSTransportable&, SUMOTime, OutputDevice&) const {
-}
-
-
-void
-MSTransportable::Stage_Trip::endEventOutput(const MSTransportable&, SUMOTime, OutputDevice&) const {
-}
-
-
 std::string
 MSTransportable::Stage_Trip::getStageSummary() const {
     return "trip from '" + myOrigin->getID() + "' to '" + getDestination()->getID() + "'";
@@ -439,20 +429,6 @@ MSTransportable::Stage_Waiting::routeOutput(OutputDevice& os, const bool /* with
         }
         os.closeTag();
     }
-}
-
-
-void
-MSTransportable::Stage_Waiting::beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "actstart " + myActType)
-    .writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
-}
-
-
-void
-MSTransportable::Stage_Waiting::endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "actend " + myActType).writeAttr("agent", p.getID())
-    .writeAttr("link", getEdge()->getID()).closeTag();
 }
 
 
@@ -649,18 +625,6 @@ MSTransportable::Stage_Driving::getWaitingDescription() const {
 }
 
 
-void
-MSTransportable::Stage_Driving::beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival").writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
-}
-
-
-void
-MSTransportable::Stage_Driving::endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival").writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
-}
-
-
 
 /* -------------------------------------------------------------------------
  * MSTransportable - methods
@@ -697,6 +661,33 @@ MSTransportable::~MSTransportable() {
         MSNet::getInstance()->getVehicleControl().removeVType(myVType);
     }
 }
+
+
+bool
+MSTransportable::proceed(MSNet* net, SUMOTime time) {
+    MSTransportable::Stage* prior = *myStep;
+    prior->setArrived(net, this, time);
+    // must be done before increasing myStep to avoid invalid state for rendering
+    prior->getEdge()->removePerson(this);
+    myStep++;
+    if (prior->getStageType() == StageType::WALKING) {
+        checkAccess(prior);
+    }
+    if (myStep != myPlan->end()) {
+        if ((*myStep)->getStageType() == StageType::WALKING && (prior->getStageType() != StageType::ACCESS || prior->getDestination() != (*myStep)->getFromEdge())) {
+            checkAccess(prior, false);
+        }
+        (*myStep)->proceed(net, this, time, prior);
+        return true;
+    } else {
+        // cleanup
+        if (prior->getDestinationStop() != nullptr) {
+            prior->getDestinationStop()->removeTransportable(this);
+        }
+        return false;
+    }
+}
+
 
 void
 MSTransportable::setID(const std::string& /*newID*/) {

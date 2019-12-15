@@ -309,20 +309,6 @@ MSPerson::MSPersonStage_Walking::routeOutput(OutputDevice& os, const bool withRo
 }
 
 
-void
-MSPerson::MSPersonStage_Walking::beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "departure")
-    .writeAttr("agent", p.getID()).writeAttr("link", myRoute.front()->getID()).closeTag();
-}
-
-
-void
-MSPerson::MSPersonStage_Walking::endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival")
-    .writeAttr("agent", p.getID()).writeAttr("link", myRoute.back()->getID()).closeTag();
-}
-
-
 bool
 MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal) {
     ((MSEdge*)getEdge())->removePerson(person);
@@ -610,54 +596,24 @@ MSPerson::~MSPerson() {
 }
 
 
-bool
-MSPerson::proceed(MSNet* net, SUMOTime time) {
-    MSTransportable::Stage* prior = *myStep;
-    prior->setArrived(net, this, time);
-    /*
-    if(myWriteEvents) {
-        (*myStep)->endEventOutput(*this, time, OutputDevice::getDeviceByOption("person-event-output"));
-    }
-    */
-    //if (getID() == "ego") {
-    //    std::cout << time2string(time) << " person=" << getID() << " proceed priorStep=" << myStep - myPlan->begin() << " planSize=" << myPlan->size() << "\n";
-    //}
-    // must be done before increasing myStep to avoid invalid state for rendering
-    prior->getEdge()->removePerson(this);
-    myStep++;
-    if (prior->getStageType() == StageType::WALKING) {
-        MSStoppingPlace* const bs = prior->getDestinationStop();
-        if (bs != nullptr) {
-            const double accessDist = bs->getAccessDistance(prior->getDestination());
+void
+MSPerson::checkAccess(const Stage* const prior, const bool isDisembark) {
+    MSStoppingPlace* const prevStop = prior->getDestinationStop();
+    if (prevStop != nullptr) {
+        if (isDisembark) {
+            const double accessDist = prevStop->getAccessDistance(prior->getDestination());
             if (accessDist > 0.) {
-                const double arrivalAtBs = (bs->getBeginLanePosition() + bs->getEndLanePosition()) / 2;
-                myStep = myPlan->insert(myStep, new MSPersonStage_Access(prior->getDestination(), bs, arrivalAtBs, accessDist, false));
+                const double arrivalAtBs = (prevStop->getBeginLanePosition() + prevStop->getEndLanePosition()) / 2;
+                myStep = myPlan->insert(myStep, new MSPersonStage_Access(prior->getDestination(), prevStop, arrivalAtBs, accessDist, false));
             }
-        }
-    }
-    if (myStep != myPlan->end()) {
-        if ((*myStep)->getStageType() == StageType::WALKING && (prior->getStageType() != StageType::ACCESS || prior->getDestination() != (*myStep)->getFromEdge())) {
-            MSStoppingPlace* const prevStop = prior->getDestinationStop();
-            if (prevStop != nullptr && prior->getStageType() != StageType::TRIP) {
+        } else {
+            if (prior->getStageType() != StageType::TRIP) {
                 const double accessDist = prevStop->getAccessDistance((*myStep)->getFromEdge());
                 if (accessDist > 0.) {
                     myStep = myPlan->insert(myStep, new MSPersonStage_Access((*myStep)->getFromEdge(), prevStop, prevStop->getAccessPos((*myStep)->getFromEdge()), accessDist, true));
                 }
             }
         }
-        (*myStep)->proceed(net, this, time, prior);
-        /*
-        if(myWriteEvents) {
-            (*myStep)->beginEventOutput(*this, time, OutputDevice::getDeviceByOption("person-event-output"));
-        }
-        */
-        return true;
-    } else {
-        // cleanup
-        if (prior->getDestinationStop() != nullptr) {
-            prior->getDestinationStop()->removeTransportable(this);
-        }
-        return false;
     }
 }
 

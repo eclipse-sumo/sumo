@@ -127,18 +127,6 @@ public:
          */
         virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
 
-        /** @brief Called for writing the events output
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
-
-        /** @brief Called for writing the events output (end of an action)
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
-
         /// @brief move forward and return whether the person arrived
         bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = nullptr);
 
@@ -320,12 +308,6 @@ public:
         /// @brief Called on writing vehroute output. Currently does nothing.
         void routeOutput(OutputDevice&, const bool) const {};
 
-        /// @brief Called on writing events output (begin of an action). Currently does nothing.
-        void beginEventOutput(const MSTransportable&, SUMOTime, OutputDevice&) const {};
-
-        /// @brief Called on writing events output (end of an action). Currently does nothing.
-        void endEventOutput(const MSTransportable&, SUMOTime, OutputDevice&) const {};
-
     private:
         class ProceedCmd : public Command {
         public:
@@ -354,9 +336,7 @@ public:
     /// destructor
     virtual ~MSPerson();
 
-    /* @brief proceeds to the next step of the route,
-     * @return Whether the persons plan continues  */
-    bool proceed(MSNet* net, SUMOTime time);
+    void checkAccess(const Stage* const prior, const bool isDisembark=true);
 
     /// @brief return the list of internal edges if this person is walking and the pedestrian model allows it
     const std::string& getNextEdge() const;
