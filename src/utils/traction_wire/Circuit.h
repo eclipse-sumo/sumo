@@ -11,10 +11,9 @@
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-11-25
-/// @version $Id$
-/// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 ///
 // Representation of electric circuit of overhead wires
+// based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
 #ifndef CIRCUIT_H
 #define CIRCUIT_H
@@ -110,7 +109,7 @@ private:
     /*
      *    removes the "colToRemove"-th column from matrix "matrix" 
      */
-    void removeColumn(Eigen::MatrixXd& matrix, unsigned int colToRemove);
+    void removeColumn(Eigen::MatrixXd& matrix, const int colToRemove);
 
     /*
      * solves the system of nonlinear equations Ax = B(1/x)

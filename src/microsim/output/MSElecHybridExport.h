@@ -7,11 +7,10 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    MSEmissionExport.h
+/// @file    MSElecHybridExport.h
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-11-25
-/// @version $Id$
 ///
 // Realises dumping Electric hybrid vehicle data
 /****************************************************************************/
@@ -58,7 +57,7 @@ public:
      */
     static void write(OutputDevice& of, const SUMOVehicle* veh, SUMOTime timestep, int precision);
 
-	static void writeAggregated(OutputDevice& of, SUMOTime timestep, int precision);
+    static void writeAggregated(OutputDevice& of, SUMOTime timestep, int precision);
 
 private:
     /// @brief Invalidated copy constructor.

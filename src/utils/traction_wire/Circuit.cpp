@@ -11,10 +11,9 @@
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-11-25
-/// @version $Id$
-/// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 ///
 // Representation of electric circuit of overhead wires
+// based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
 
 // ===========================================================================
@@ -140,10 +139,10 @@ vector<Element*>* Circuit::getCurrentSources() {
 }
 
 #ifdef HAVE_EIGEN
-void Circuit::removeColumn(Eigen::MatrixXd& matrix, unsigned int colToRemove)
+void Circuit::removeColumn(Eigen::MatrixXd& matrix, const int colToRemove)
 {
-    unsigned int numRows = matrix.rows();
-    unsigned int numCols = matrix.cols() - 1;
+    const int numRows = (int)matrix.rows();
+    const int numCols = (int)matrix.cols() - 1;
 
     if (colToRemove < numCols)
         matrix.block(0, colToRemove, numRows, numCols - colToRemove) = matrix.rightCols(numCols - colToRemove);

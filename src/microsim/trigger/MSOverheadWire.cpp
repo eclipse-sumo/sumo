@@ -11,7 +11,6 @@
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-11-25
-/// @version $Id$
 ///
 // Overhead wires for Electric (equipped with elecHybrid device) vehicles (Overhead wire segments, overhead wire sections, traction substations)
 /****************************************************************************/

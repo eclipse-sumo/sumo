@@ -11,7 +11,6 @@
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    Fri, 06.12.2019
-/// @version $Id$
 ///
 //
 /****************************************************************************/

@@ -11,7 +11,6 @@
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-11-25
-/// @version $Id$
 ///
 // A device ElecHybrid ===description here===
 /****************************************************************************/
