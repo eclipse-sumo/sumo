@@ -62,7 +62,8 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         // obtain actualBatteryCapacity
         double actualBatteryCapacity = 0;
         if (v.getParameter().getParameter(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY), "-") == "-") {
-            actualBatteryCapacity = maximumBatteryCapacity * DEFAULT_CHARGE_RATIO;
+            actualBatteryCapacity = typeParams.getDouble(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY),
+                    maximumBatteryCapacity * DEFAULT_CHARGE_RATIO);
         } else {
             actualBatteryCapacity = StringUtils::toDouble(v.getParameter().getParameter(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY), "0"));
         }
