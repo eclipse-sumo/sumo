@@ -1,2 +1,5 @@
 # check reachability when rerouting to a parkingArea on the same edge
 ticket6283
+
+# collision on junction
+ticket6415
