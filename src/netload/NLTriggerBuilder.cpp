@@ -369,7 +369,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
     if (clampsString != "" && MSGlobals::gOverheadWireSolver) {
 #ifdef HAVE_EIGEN
         std::vector<std::string> clampIDs = attrs.getStringVector(SUMO_ATTR_OVERHEAD_WIRE_CLAMPS);
-        MSTractionSubstation::overheadWireClamp* clamp = nullptr;
+        MSTractionSubstation::OverheadWireClamp* clamp = nullptr;
         for (std::vector<std::string>::iterator it_clamp = clampIDs.begin(); it_clamp != clampIDs.end(); ++it_clamp) {
             clamp = substation->findClamp(*it_clamp);
             if (clamp != nullptr) {
@@ -441,7 +441,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireClamp(MSNet& /*net*/, const SUMOSAXAt
         }
         MSTractionSubstation* substation = MSNet::getInstance()->findTractionSubstation(substationId);
         if (substation == nullptr) {
-            throw InvalidArgument("Traction substation '" + substationId + "' using within an OverheadWireClamp '" + id + "' is not known.");
+            throw InvalidArgument("Traction substation '" + substationId + "' using within an overheadWireClamp '" + id + "' is not known.");
         }
 
         std::string overhead_fromItsStart = attrs.get<std::string>(SUMO_ATTR_OVERHEAD_WIRE_CLAMP_START, 0, ok);
@@ -477,7 +477,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireClamp(MSNet& /*net*/, const SUMOSAXAt
         }
 #else
         UNUSED_PARAMETER(attrs);
-        WRITE_WARNING("Not building overhead wire claps, overjhead wire solver support (Eigen) not compiled in.");
+        WRITE_WARNING("Not building overhead wire clamps, overhead wire solver support (Eigen) not compiled in.");
 #endif
     }
     else {

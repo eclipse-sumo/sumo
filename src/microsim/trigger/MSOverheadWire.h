@@ -287,35 +287,36 @@ public:
     void addSolvingCirucitToEndOfTimestepEvents();
     SUMOTime solveCircuit(SUMOTime currentTime);
 
-    //void addOverheadWireClamp();
+private:
+    void addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incomingSegment, MSOverheadWire* outgoingSegment, const MSLane* connection, const MSLane* frontConnection, const MSLane* behindConnection);
+
+private:
+    double mySubstationVoltage;
+    double myCurrentLimit;
+
 protected:
     /// @brief Check if in the current TimeStep substation (overhead wire section) is charging a vehicle
     bool myChargingVehicle;
     int myElecHybridCount;
 
 private:
-
     std::vector<MSOverheadWire*> myOverheadWireSegments;
     std::vector<MSDevice_ElecHybrid*> myElecHybrid;
-    std::vector<MSLane*> myForbiddenLanes;
     Circuit* myCircuit;
-    double mySubstationVoltage;
-    double myCurrentLimit;
-    void addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incomingSegment, MSOverheadWire* outgoingSegment, const MSLane* connection, const MSLane*  frontConnection, const MSLane* behindConnection);
+    std::vector<MSLane*> myForbiddenLanes;
     static Command* myCommandForSolvingCircuit;
 
 public:   
     //preparation of overhead wire clamp
-    struct overheadWireClamp{
-        // @todo: 'MSTractionSubstation::overheadWireClamp' : no appropriate default constructor available 
-        // provide default constructor
-        overheadWireClamp() :
+    struct OverheadWireClamp{
+        // provide default constructor for vector construction below
+        OverheadWireClamp() :
             id("undefined"),
             start(nullptr),
             end(nullptr),
             usage(false) {}
 
-        overheadWireClamp(const std::string _id, MSOverheadWire* _start, MSOverheadWire* _end, bool _usage ):
+        OverheadWireClamp(const std::string _id, MSOverheadWire* _start, MSOverheadWire* _end, bool _usage ):
             id(_id),
             start(_start),
             end(_end),
@@ -325,13 +326,15 @@ public:
         MSOverheadWire* start;
         MSOverheadWire* end; 
         bool usage;
+
+        OverheadWireClamp& operator=(const OverheadWireClamp&) = delete;
     };
+
 private:
-    // @todo: Does this cause the "'MSTractionSubstation::overheadWireClamp' : no appropriate default 
-    // constructor available" error in MSVC2013?
-    std::vector<overheadWireClamp> myOverheadWireClamps;
+    std::vector<OverheadWireClamp> myOverheadWireClamps;
+
 public:
-    overheadWireClamp* findClamp(std::string id);
+    OverheadWireClamp* findClamp(std::string id);
     //bool findClamp(std::string id);
 };
 #endif

@@ -36,6 +36,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSDriverState.h>
+#include <microsim/MSStoppingPlace.h>
 #include "MSDevice_ToC.h"
 
 

@@ -30,6 +30,7 @@
 #include "MSEdge.h"
 #include "MSLane.h"
 #include "MSNet.h"
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/devices/MSTransportableDevice.h>
 #include "MSVehicleControl.h"

@@ -106,13 +106,11 @@ MSTractionSubstation::MSTractionSubstation(const std::string& substationId, doub
     myCurrentLimit(currentLimit),
     myChargingVehicle(false),
     myElecHybridCount(0),
-    myOverheadWireSegments({}),
+    myOverheadWireSegments(),
     myElecHybrid({}),
-    myCircuit(nullptr),
-    myForbiddenLanes({}),
-    myOverheadWireClamps({})
-    { 
-    myCircuit = new Circuit();
+    myCircuit(new Circuit()),
+    myForbiddenLanes(),
+    myOverheadWireClamps() {
 }
 
 
@@ -140,8 +138,6 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
     }
 
     const MSLane* connection = nullptr;
-    const MSLane* frontConnection = nullptr;
-    const MSLane* behindConnection = nullptr;
     std::string ovrhdSegmentID = ""; //ID of outgoing or incoming overhead wire segment
     MSOverheadWire* ovrhdSegment = nullptr; //pointer to outgoing or incoming overhead wire segment
 
@@ -254,7 +250,7 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
 
 
 void 
-MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incomingSegment, MSOverheadWire* outgoingSegment, const MSLane* connection, const MSLane*  frontConnection, const MSLane* behindConnection) {
+MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incomingSegment, MSOverheadWire* outgoingSegment, const MSLane* connection, const MSLane* frontConnection, const MSLane* behindConnection) {
     if (frontConnection == nullptr && behindConnection == nullptr) {
         //addOverheadWire from nNode of newOverheadWireSegment to pNode
         //TODORICE
@@ -507,11 +503,11 @@ bool MSTractionSubstation::isForbidden(const MSLane* lane) {
 
 void
 MSTractionSubstation::addClamp(const std::string& id, MSOverheadWire* startPos, MSOverheadWire* endPos) {
-    overheadWireClamp clamp(id,startPos,endPos,false);
+    OverheadWireClamp clamp(id,startPos,endPos,false);
     myOverheadWireClamps.push_back(clamp);
 }
 
-MSTractionSubstation::overheadWireClamp*
+MSTractionSubstation::OverheadWireClamp*
 MSTractionSubstation::findClamp(std::string clampId) {
     for (auto it = myOverheadWireClamps.begin(); it != myOverheadWireClamps.end(); it++) {
         if (it->id == clampId) {

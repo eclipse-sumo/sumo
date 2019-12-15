@@ -42,6 +42,8 @@
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSParkingArea.h>
 #include <microsim/devices/MSRoutingEngine.h>
+#include <microsim/trigger/MSChargingStation.h>
+#include <microsim/trigger/MSOverheadWire.h>
 #include <netload/NLBuilder.h>
 #include <libsumo/TraCIConstants.h>
 #include "Simulation.h"

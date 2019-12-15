@@ -41,6 +41,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSJunctionControl.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <utils/common/RGBColor.h>

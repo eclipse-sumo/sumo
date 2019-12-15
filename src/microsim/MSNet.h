@@ -43,8 +43,6 @@
 #include <utils/common/NamedObjectCont.h>
 #include <utils/common/NamedRTree.h>
 #include <utils/router/SUMOAbstractRouter.h>
-#include <microsim/trigger/MSChargingStation.h>
-#include <microsim/trigger/MSOverheadWire.h>
 #include "MSJunction.h"
 
 #ifdef HAVE_FOX
@@ -81,6 +79,7 @@ template<class E, class L, class N, class V>
 class IntermodalRouter;
 template<class E, class L, class N, class V>
 class PedestrianRouter;
+class OptionsCont;
 
 
 // ===========================================================================

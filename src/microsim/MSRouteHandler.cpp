@@ -27,6 +27,7 @@
 #include "MSTransportableControl.h"
 #include <microsim/MSEdge.h>
 #include <microsim/MSInsertionControl.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>

@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include <gui/GUIApplicationWindow.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/MSTransportableControl.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/pedestrians/MSPModel_Striping.h>
