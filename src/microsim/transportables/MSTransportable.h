@@ -60,10 +60,11 @@ public:
     enum StageType {
         WAITING_FOR_DEPART = 0,
         WAITING = 1,
-        MOVING_WITHOUT_VEHICLE = 2, // walking for persons, tranship for containers
+        WALKING = 2, // only for persons
         DRIVING = 3,
         ACCESS = 4,
-        TRIP = 5
+        TRIP = 5,
+        TRANSHIP = 6
     };
 
     /**
@@ -551,7 +552,7 @@ public:
     }
 
     bool isStopped() const {
-        return getCurrentStageType() == WAITING;
+        return getCurrentStageType() == StageType::WAITING;
     }
 
     double getSlope() const;

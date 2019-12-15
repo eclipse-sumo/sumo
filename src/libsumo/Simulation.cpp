@@ -579,8 +579,8 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
                 if (!it->edges.empty()) {
                     resultCand.push_back(TraCIStage(it->line == ""
-                                                    ? MSTransportable::MOVING_WITHOUT_VEHICLE
-                                                    : MSTransportable::DRIVING));
+                                                    ? MSTransportable::StageType::WALKING
+                                                    : MSTransportable::StageType::DRIVING));
                     resultCand.back().vType = it->vType;
                     resultCand.back().line = it->line;
                     resultCand.back().destStop = it->destStop;

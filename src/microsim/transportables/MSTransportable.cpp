@@ -155,7 +155,7 @@ MSTransportable::Stage_Trip::Stage_Trip(const MSEdge* origin, MSStoppingPlace* f
                                         const SUMOTime duration, const SVCPermissions modeSet,
                                         const std::string& vTypes, const double speed, const double walkFactor,
                                         const double departPosLat, const bool hasArrivalPos, const double arrivalPos):
-    MSTransportable::Stage(destination, toStop, arrivalPos, TRIP),
+    MSTransportable::Stage(destination, toStop, arrivalPos, StageType::TRIP),
     myOrigin(origin),
     myOriginStop(fromStop),
     myDuration(duration),
@@ -363,7 +363,7 @@ MSTransportable::Stage_Waiting::Stage_Waiting(const MSEdge* destination, MSStopp
         const bool initial) :
     MSTransportable::Stage(destination, toStop, SUMOVehicleParameter::interpretEdgePos(
                                pos, destination->getLength(), SUMO_ATTR_DEPARTPOS, "stopping at " + destination->getID()),
-                           initial ? WAITING_FOR_DEPART : WAITING),
+                           initial ? StageType::WAITING_FOR_DEPART : StageType::WAITING),
     myWaitingDuration(duration),
     myWaitingUntil(until),
     myActType(actType) {
@@ -374,7 +374,7 @@ MSTransportable::Stage_Waiting::~Stage_Waiting() {}
 
 MSTransportable::Stage*
 MSTransportable::Stage_Waiting::clone() const {
-    return new Stage_Waiting(myDestination, myDestinationStop, myWaitingDuration, myWaitingUntil, myArrivalPos, myActType, myType == WAITING_FOR_DEPART);
+    return new Stage_Waiting(myDestination, myDestinationStop, myWaitingDuration, myWaitingUntil, myArrivalPos, myActType, myType == StageType::WAITING_FOR_DEPART);
 }
 
 SUMOTime
@@ -415,7 +415,7 @@ MSTransportable::Stage_Waiting::proceed(MSNet* net, MSTransportable* transportab
 
 void
 MSTransportable::Stage_Waiting::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
-    if (myType != WAITING_FOR_DEPART) {
+    if (myType != StageType::WAITING_FOR_DEPART) {
         os.openTag("stop");
         os.writeAttr("duration", time2string(myArrived - myDeparted));
         os.writeAttr("arrival", time2string(myArrived));
@@ -428,7 +428,7 @@ MSTransportable::Stage_Waiting::tripInfoOutput(OutputDevice& os, const MSTranspo
 
 void
 MSTransportable::Stage_Waiting::routeOutput(OutputDevice& os, const bool /* withRouteLength */) const {
-    if (myType != WAITING_FOR_DEPART) {
+    if (myType != StageType::WAITING_FOR_DEPART) {
         // lane index is arbitrary
         os.openTag("stop").writeAttr(SUMO_ATTR_LANE, getDestination()->getID() + "_0");
         if (myWaitingDuration >= 0) {
@@ -490,7 +490,7 @@ MSTransportable::Stage_Waiting::getStageSummary() const {
 MSTransportable::Stage_Driving::Stage_Driving(const MSEdge* destination,
         MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
         const std::string& intendedVeh, SUMOTime intendedDepart) :
-    MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING),
+    MSTransportable::Stage(destination, toStop, arrivalPos, StageType::DRIVING),
     myLines(lines.begin(), lines.end()),
     myVehicle(nullptr),
     myVehicleID("NULL"),
@@ -676,7 +676,7 @@ MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType
 
 
 MSTransportable::~MSTransportable() {
-    if (myStep != myPlan->end() && getCurrentStageType() == DRIVING) {
+    if (myStep != myPlan->end() && getCurrentStageType() == StageType::DRIVING) {
         Stage_Driving* const stage = dynamic_cast<Stage_Driving*>(*myStep);
         if (stage->getVehicle() != nullptr) {
             stage->getVehicle()->removeTransportable(this);
@@ -886,7 +886,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
     // check whether the transportable was riding to the orignal stop
     // @note: parkingArea can currently not be set as myDestinationStop so we
     // check for stops on the edge instead
-    assert(getCurrentStageType() == DRIVING);
+    assert(getCurrentStageType() == StageType::DRIVING);
     if (dynamic_cast<MSPerson*>(this) == nullptr) {
         WRITE_WARNING("parkingAreaReroute not support for containers");
         return;
@@ -902,9 +902,9 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
         }
         // if the next step is a walk, adapt the route
         Stage* nextStage = *(myStep + 1);
-        if (nextStage->getStageType() == TRIP) {
+        if (nextStage->getStageType() == StageType::TRIP) {
             dynamic_cast<MSTransportable::Stage_Trip*>(nextStage)->setOrigin(stage->getDestination());
-        } else if (nextStage->getStageType() == MOVING_WITHOUT_VEHICLE) {
+        } else if (nextStage->getStageType() == StageType::WALKING) {
             Stage_Trip* newStage = new Stage_Trip(stage->getDestination(), nullptr, nextStage->getDestination(),
                                                   nextStage->getDestinationStop(), -1, 0, "", -1, 1, 0, true, nextStage->getArrivalPos());
             removeStage(1);
@@ -916,13 +916,13 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
         for (auto it = myStep + 2; it != myPlan->end(); it++) {
             const Stage* const futureStage = *it;
             Stage* const prevStage = *(it - 1);
-            if (futureStage->getStageType() == DRIVING) {
+            if (futureStage->getStageType() == StageType::DRIVING) {
                 const MSPerson::MSPersonStage_Driving* const ds = dynamic_cast<const MSPerson::MSPersonStage_Driving* const>(futureStage);
                 if (ds->getLines() == stage->getLines()
                         && prevStage->getDestination() == &orig->getLane().getEdge()) {
-                    if (prevStage->getStageType() == TRIP) {
+                    if (prevStage->getStageType() == StageType::TRIP) {
                         dynamic_cast<MSTransportable::Stage_Trip*>(prevStage)->setDestination(stage->getDestination(), replacement);
-                    } else if (prevStage->getStageType() == MOVING_WITHOUT_VEHICLE) {
+                    } else if (prevStage->getStageType() == StageType::WALKING) {
                         Stage_Trip* newStage = new Stage_Trip(prevStage->getFromEdge(), nullptr, stage->getDestination(),
                                                               replacement, -1, 0, "", -1, 1, 0, true, stage->getArrivalPos());
                         int prevStageRelIndex = (int)(it - 1 - myStep);

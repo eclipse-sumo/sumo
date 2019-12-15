@@ -341,7 +341,7 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
         drawAction_drawWalkingareaPath(s);
     }
     if (hasActiveAddVisualisation(parent, VO_SHOW_ROUTE)) {
-        if (getCurrentStageType() == MOVING_WITHOUT_VEHICLE) {
+        if (getCurrentStageType() == StageType::WALKING) {
             setColor(s);
             RGBColor current = GLHelper::getColor();
             RGBColor darker = current.changedBrightness(-51);
