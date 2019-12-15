@@ -27,7 +27,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <mesosim/MEVehicle.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>

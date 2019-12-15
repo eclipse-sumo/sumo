@@ -24,7 +24,7 @@
 #include <config.h>
 
 #include "MSRouteHandler.h"
-#include "MSTransportableControl.h"
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSStoppingPlace.h>

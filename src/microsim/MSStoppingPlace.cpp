@@ -28,7 +28,7 @@
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSNet.h>
 #include "MSLane.h"
-#include "MSTransportable.h"
+#include <microsim/transportables/MSTransportable.h>
 #include "MSStoppingPlace.h"
 
 // ===========================================================================

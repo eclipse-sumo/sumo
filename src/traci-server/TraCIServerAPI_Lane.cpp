@@ -30,7 +30,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
-#include <microsim/MSTransportable.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <libsumo/Lane.h>
 #include <libsumo/TraCIConstants.h>
 #include "TraCIServer.h"

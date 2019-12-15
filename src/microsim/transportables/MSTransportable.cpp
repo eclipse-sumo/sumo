@@ -27,15 +27,15 @@
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/router/PedestrianRouter.h>
 #include <utils/router/IntermodalRouter.h>
-#include "MSEdge.h"
-#include "MSLane.h"
-#include "MSNet.h"
+#include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSNet.h>
 #include <microsim/MSStoppingPlace.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSPerson.h>
 #include <microsim/devices/MSTransportableDevice.h>
-#include "MSVehicleControl.h"
-#include "MSTransportableControl.h"
-#include "MSTransportable.h"
+#include <microsim/MSVehicleControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportable.h>
 
 /* -------------------------------------------------------------------------
 * static member definitions
@@ -665,9 +665,9 @@ MSTransportable::Stage_Driving::endEventOutput(const MSTransportable& p, SUMOTim
 /* -------------------------------------------------------------------------
  * MSTransportable - methods
  * ----------------------------------------------------------------------- */
-MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportablePlan* plan) :
+MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportablePlan* plan, const bool isPerson) :
     SUMOTrafficObject(pars->id),
-    myParameter(pars), myVType(vtype), myPlan(plan) 
+    myParameter(pars), myVType(vtype), myPlan(plan), myAmPerson(isPerson)
 {
     myStep = myPlan->begin();
     // init devices
@@ -744,10 +744,40 @@ MSTransportable::getNumRemainingStages() const {
     return (int)(myPlan->end() - myStep);
 }
 
+
 int
 MSTransportable::getNumStages() const {
     return (int)myPlan->size();
 }
+
+
+void
+MSTransportable::tripInfoOutput(OutputDevice& os) const {
+    os.openTag(isPerson() ? "personinfo" : "containerinfo");
+    os.writeAttr("id", getID());
+    os.writeAttr("depart", time2string(getDesiredDepart()));
+    os.writeAttr("type", getVehicleType().getID());
+    for (MSTransportable::Stage* const i : *myPlan) {
+        i->tripInfoOutput(os, this);
+    }
+    os.closeTag();
+}
+
+
+void
+MSTransportable::routeOutput(OutputDevice& os, const bool withRouteLength) const {
+    const std::string typeID = (isContainer() || getVehicleType().getID() != DEFAULT_PEDTYPE_ID) ? getVehicleType().getID() : "";
+    myParameter->write(os, OptionsCont::getOptions(), isPerson() ? SUMO_TAG_PERSON : SUMO_TAG_CONTAINER, typeID);
+    if (hasArrived()) {
+        os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
+    }
+    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
+        (*i)->routeOutput(os, withRouteLength);
+    }
+    os.closeTag();
+    os.lf();
+}
+
 
 void
 MSTransportable::appendStage(Stage* stage, int next) {

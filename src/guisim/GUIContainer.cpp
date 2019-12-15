@@ -24,7 +24,7 @@
 #include <cmath>
 #include <vector>
 #include <string>
-#include <microsim/MSContainer.h>
+#include <microsim/transportables/MSContainer.h>
 #include <microsim/MSCModel_NonInteracting.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>

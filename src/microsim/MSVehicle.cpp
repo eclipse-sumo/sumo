@@ -53,8 +53,8 @@
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
-#include <microsim/pedestrians/MSPerson.h>
-#include <microsim/pedestrians/MSPModel.h>
+#include <microsim/transportables/MSPerson.h>
+#include <microsim/transportables/MSPModel.h>
 #include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/devices/MSDevice_DriverState.h>
 #include <microsim/devices/MSRoutingEngine.h>
@@ -77,7 +77,7 @@
 #include "MSEdgeWeightsStorage.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSMoveReminder.h"
-#include "MSTransportableControl.h"
+#include <microsim/transportables/MSTransportableControl.h>
 #include "MSLane.h"
 #include "MSJunction.h"
 #include "MSVehicle.h"

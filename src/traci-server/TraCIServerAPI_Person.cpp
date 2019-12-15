@@ -21,9 +21,9 @@
 #include <config.h>
 
 #include <utils/common/StringTokenizer.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSPerson.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <libsumo/Person.h>

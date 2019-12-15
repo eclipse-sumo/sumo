@@ -20,12 +20,12 @@
 // ===========================================================================
 #include <config.h>
 
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSStoppingPlace.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSPerson.h>
 #include <libsumo/TraCIConstants.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringTokenizer.h>

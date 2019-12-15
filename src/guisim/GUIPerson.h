@@ -31,7 +31,7 @@
 #include <fx.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/RGBColor.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSPerson.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/settings/GUIPropertySchemeStorage.h>
 

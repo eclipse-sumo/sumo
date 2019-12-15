@@ -23,7 +23,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/StringUtils.h>
 #include <microsim/MSVehicle.h>
-#include <microsim/MSTransportable.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <microsim/MSVehicleControl.h>
 #include "MSDevice.h"
 #include "MSDevice_Vehroutes.h"

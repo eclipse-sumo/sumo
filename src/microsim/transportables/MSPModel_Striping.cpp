@@ -32,7 +32,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSGlobals.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include "MSPModel_Striping.h"
 
 

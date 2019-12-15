@@ -30,10 +30,10 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
-#include <microsim/pedestrians/MSPModel.h>
+#include <microsim/transportables/MSPModel.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/MSGlobals.h>
-#include <microsim/MSContainer.h>
+#include <microsim/transportables/MSContainer.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSXMLRawOut.h"
 

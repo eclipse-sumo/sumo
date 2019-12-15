@@ -48,7 +48,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/geom/GeomHelper.h>
-#include <microsim/pedestrians/MSPModel.h>
+#include <microsim/transportables/MSPModel.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSNet.h"

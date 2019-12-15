@@ -27,7 +27,7 @@
 #include <utils/common/Command.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/GeomHelper.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSPerson.h>
 #ifdef HAVE_FOX
 #include <fx.h>
 #endif

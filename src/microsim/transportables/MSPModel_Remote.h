@@ -20,7 +20,7 @@
 
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>
-#include <microsim/pedestrians/hybridsim.grpc.pb.h>
+#include <microsim/transportables/hybridsim.grpc.pb.h>
 #include <utils/geom/Boundary.h>
 #include "MSPModel.h"
 class MSPModel_Remote : public MSPModel {

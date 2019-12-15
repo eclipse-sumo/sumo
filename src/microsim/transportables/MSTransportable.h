@@ -542,8 +542,12 @@ public:
 
     /// @name inherited from SUMOTrafficObject
     /// @{
-    bool isVehicle() const {
-        return false;
+    bool isPerson() const {
+        return myAmPerson;
+    }
+
+    bool isContainer() const {
+        return !myAmPerson;
     }
 
     bool isStopped() const {
@@ -587,7 +591,7 @@ public:
     typedef std::vector<MSTransportable::Stage*> MSTransportablePlan;
 
     /// constructor
-    MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportablePlan* plan);
+    MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportablePlan* plan, const bool isPerson);
 
     /// destructor
     virtual ~MSTransportable();
@@ -703,14 +707,14 @@ public:
      * @param[in] os The stream to write the information into
      * @exception IOError not yet implemented
      */
-    virtual void tripInfoOutput(OutputDevice& os) const = 0;
+    void tripInfoOutput(OutputDevice& os) const;
 
     /** @brief Called on writing vehroute output
      *
      * @param[in] os The stream to write the information into
      * @exception IOError not yet implemented
      */
-    virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const = 0;
+    void routeOutput(OutputDevice& os, const bool withRouteLength) const;
 
     /// Whether the transportable waits for the given vehicle in the current step
     bool isWaitingFor(const SUMOVehicle* vehicle) const {
@@ -811,6 +815,9 @@ protected:
 
     /// @brief The devices this transportable has
     std::vector<MSTransportableDevice*> myDevices;
+
+private:
+    const bool myAmPerson;
 
 private:
     /// @brief Invalidated copy constructor.

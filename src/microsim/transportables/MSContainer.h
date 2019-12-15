@@ -29,7 +29,7 @@
 #include <utils/common/Command.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
-#include <microsim/MSTransportable.h>
+#include <microsim/transportables/MSTransportable.h>
 
 
 // ===========================================================================
@@ -242,21 +242,6 @@ public:
     /* @brief proceeds to the next step of the route,
      * @return Whether the persons plan continues  */
     virtual bool proceed(MSNet* net, SUMOTime time);
-
-    /** @brief Called on writing tripinfo output
-    *
-    * @param[in] os The stream to write the information into
-    * @exception IOError not yet implemented
-    */
-    virtual void tripInfoOutput(OutputDevice& os) const;
-
-    /** @brief Called on writing vehroute output
-    *
-    * @param[in] os The stream to write the information into
-    * @param[in] withRouteLength whether route length shall be written
-    * @exception IOError not yet implemented
-    */
-    virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
 
 private:
     /// @brief Invalidated copy constructor.

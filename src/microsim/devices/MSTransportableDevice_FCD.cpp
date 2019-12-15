@@ -27,7 +27,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
-#include <microsim/MSTransportable.h>
+#include <microsim/transportables/MSTransportable.h>
 #include "MSTransportableDevice_FCD.h"
 
 // ===========================================================================

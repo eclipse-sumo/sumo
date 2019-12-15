@@ -35,7 +35,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include "MSPerson.h"
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSVehicle.h>
@@ -601,7 +601,7 @@ MSPerson::MSPersonStage_Access::ProceedCmd::execute(SUMOTime currentTime) {
  * MSPerson - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor) :
-    MSTransportable(pars, vtype, plan),
+    MSTransportable(pars, vtype, plan, true),
     myInfluencer(nullptr), myChosenSpeedFactor(speedFactor) {
 }
 
@@ -692,34 +692,6 @@ MSPerson::getNextEdgePtr() const {
     return nullptr;
 }
 
-
-
-void
-MSPerson::tripInfoOutput(OutputDevice& os) const {
-    os.openTag("personinfo");
-    os.writeAttr("id", getID());
-    os.writeAttr("depart", time2string(getDesiredDepart()));
-    os.writeAttr("type", getVehicleType().getID());
-    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        (*i)->tripInfoOutput(os, this);
-    }
-    os.closeTag();
-}
-
-
-void
-MSPerson::routeOutput(OutputDevice& os, const bool withRouteLength) const {
-    const std::string typeID = getVehicleType().getID() != DEFAULT_PEDTYPE_ID ? getVehicleType().getID() : "";
-    myParameter->write(os, OptionsCont::getOptions(), SUMO_TAG_PERSON, typeID);
-    if (hasArrived()) {
-        os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
-    }
-    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        (*i)->routeOutput(os, withRouteLength);
-    }
-    os.closeTag();
-    os.lf();
-}
 
 
 void

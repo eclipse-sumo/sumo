@@ -35,7 +35,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
-#include <microsim/pedestrians/MSPModel.h>
+#include <microsim/transportables/MSPModel.h>
 #include <utils/common/MsgHandler.h>
 
 #define OPPOSITE_OVERTAKING_SAFE_TIMEGAP 0.0

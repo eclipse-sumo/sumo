@@ -27,8 +27,8 @@
 #include <string>
 #include <utils/common/SUMOTime.h>
 #include <utils/vehicle/SUMORouteHandler.h>
-#include <microsim/pedestrians/MSPerson.h>
-#include "MSContainer.h"
+#include <microsim/transportables/MSPerson.h>
+#include <microsim/transportables/MSContainer.h>
 #include "MSVehicle.h"
 
 

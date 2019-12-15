@@ -25,14 +25,14 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleControl.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
-#include <microsim/MSTransportable.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSTransportable.h>
+#include <microsim/transportables/MSPerson.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/Edge.h>
 #include <libsumo/InductionLoop.h>

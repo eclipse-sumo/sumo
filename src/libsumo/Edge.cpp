@@ -18,7 +18,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdgeWeightsStorage.h>
-#include <microsim/MSTransportable.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <microsim/MSVehicle.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>

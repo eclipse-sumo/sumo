@@ -32,7 +32,7 @@
 #include <utils/common/Command.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
-#include <microsim/MSTransportable.h>
+#include <microsim/transportables/MSTransportable.h>
 
 
 // ===========================================================================
@@ -363,20 +363,6 @@ public:
 
     /// @brief returns the next edge ptr if this person is walking and the pedestrian model allows it
     const MSEdge* getNextEdgePtr() const;
-
-    /** @brief Called on writing tripinfo output
-    *
-    * @param[in] os The stream to write the information into
-    * @exception IOError not yet implemented
-    */
-    virtual void tripInfoOutput(OutputDevice& os) const;
-
-    /** @brief Called on writing vehroute output
-    *
-    * @param[in] os The stream to write the information into
-    * @exception IOError not yet implemented
-    */
-    virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
 
     /// @brief whether this person is selected in the GUI
     virtual bool isSelected() const {

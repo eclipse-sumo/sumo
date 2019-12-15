@@ -25,15 +25,15 @@
 
 #include <vector>
 #include <algorithm>
-#include "MSNet.h"
-#include "MSEdge.h"
-#include <microsim/pedestrians/MSPerson.h>
-#include "MSContainer.h"
-#include "MSVehicle.h"
-#include "MSTransportableControl.h"
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/OutputDevice_String.h>
 #include <utils/options/OptionsCont.h>
+#include <microsim/MSNet.h>
+#include <microsim/MSEdge.h>
+#include <microsim/transportables/MSPerson.h>
+#include <microsim/transportables/MSContainer.h>
+#include <microsim/MSVehicle.h>
+#include <microsim/transportables/MSTransportableControl.h>
 
 
 // ===========================================================================

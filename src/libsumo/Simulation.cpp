@@ -37,7 +37,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSParkingArea.h>

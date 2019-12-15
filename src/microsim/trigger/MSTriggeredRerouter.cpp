@@ -46,7 +46,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSParkingArea.h>
-#include <microsim/MSTransportable.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include "MSTriggeredRerouter.h"

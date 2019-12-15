@@ -27,16 +27,17 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
-#include "MSNet.h"
-#include "MSEdge.h"
-#include "MSLane.h"
+#include <microsim/MSNet.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSStoppingPlace.h>
+#include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/MSInsertionControl.h>
+#include <microsim/MSVehicle.h>
+#include <microsim/MSVehicleControl.h>
+#include <microsim/MSCModel_NonInteracting.h>
 #include "MSContainer.h"
-#include "microsim/MSStoppingPlace.h"
-#include "MSTransportableControl.h"
-#include "MSInsertionControl.h"
-#include "MSVehicle.h"
-#include "MSVehicleControl.h"
-#include "MSCModel_NonInteracting.h"
+
 
 // ===========================================================================
 // method definitions
@@ -300,7 +301,7 @@ MSContainer::MSContainerStage_Tranship::getStageSummary() const {
  * MSContainer - methods
  * ----------------------------------------------------------------------- */
 MSContainer::MSContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportablePlan* plan)
-    : MSTransportable(pars, vtype, plan) {
+    : MSTransportable(pars, vtype, plan, false) {
 }
 
 
@@ -325,30 +326,6 @@ MSContainer::proceed(MSNet* net, SUMOTime time) {
         }
         return false;
     }
-}
-
-
-void
-MSContainer::tripInfoOutput(OutputDevice& os) const {
-    os.openTag("containerinfo").writeAttr("id", getID()).writeAttr("depart", time2string(getDesiredDepart()));
-    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        (*i)->tripInfoOutput(os, this);
-    }
-    os.closeTag();
-}
-
-
-void
-MSContainer::routeOutput(OutputDevice& os, const bool withRouteLength) const {
-    os.openTag(SUMO_TAG_CONTAINER).writeAttr(SUMO_ATTR_ID, getID()).writeAttr(SUMO_ATTR_DEPART, time2string(getDesiredDepart()));
-    if (myStep == myPlan->end()) {
-        os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
-    }
-    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        (*i)->routeOutput(os, withRouteLength);
-    }
-    os.closeTag();
-    os.lf();
 }
 
 

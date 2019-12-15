@@ -27,9 +27,9 @@
 #include <microsim/output/MSStopOut.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
-#include <microsim/pedestrians/MSPerson.h>
-#include <microsim/MSTransportableControl.h>
-#include <microsim/MSContainer.h>
+#include <microsim/transportables/MSPerson.h>
+#include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/transportables/MSContainer.h>
 #include "MSDevice_Transportable.h"
 
 

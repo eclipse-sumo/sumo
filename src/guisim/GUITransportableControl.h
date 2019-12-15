@@ -25,7 +25,7 @@
 #include <config.h>
 
 #include <vector>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 
 
 // ===========================================================================

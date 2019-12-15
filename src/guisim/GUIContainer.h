@@ -29,7 +29,7 @@
 #include <fx.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/RGBColor.h>
-#include <microsim/MSContainer.h>
+#include <microsim/transportables/MSContainer.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/settings/GUIPropertySchemeStorage.h>
 

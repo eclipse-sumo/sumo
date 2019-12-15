@@ -53,7 +53,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunctionControl.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSLane.h>

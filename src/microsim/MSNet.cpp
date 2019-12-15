@@ -86,15 +86,15 @@
 #include <microsim/output/MSXMLRawOut.h>
 #include <microsim/output/MSAmitranTrajectories.h>
 #include <microsim/output/MSStopOut.h>
-#include <microsim/pedestrians/MSPModel.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSPModel.h>
+#include <microsim/transportables/MSPerson.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
 #include <utils/router/FareModul.h>
 
-#include "MSTransportableControl.h"
+#include <microsim/transportables/MSTransportableControl.h>
 #include "MSEdgeControl.h"
 #include "MSJunctionControl.h"
 #include "MSInsertionControl.h"
@@ -107,7 +107,7 @@
 #include "MSVehicleTransfer.h"
 #include "MSRoute.h"
 #include "MSGlobals.h"
-#include "MSContainer.h"
+#include <microsim/transportables/MSContainer.h>
 #include "MSEdgeWeightsStorage.h"
 #include "MSStateHandler.h"
 #include "MSFrame.h"

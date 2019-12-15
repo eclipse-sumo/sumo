@@ -24,9 +24,9 @@
 
 #include <gui/GUIApplicationWindow.h>
 #include <microsim/MSStoppingPlace.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/logging/FunctionBinding.h>
-#include <microsim/pedestrians/MSPModel_Striping.h>
+#include <microsim/transportables/MSPModel_Striping.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>

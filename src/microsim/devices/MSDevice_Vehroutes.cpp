@@ -29,7 +29,7 @@
 #include <microsim/MSRoute.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice_String.h>

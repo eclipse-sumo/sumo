@@ -26,7 +26,7 @@
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/VehicleType.h>
 #include <libsumo/TraCIConstants.h>
-#include <microsim/MSTransportable.h>
+#include <microsim/transportables/MSTransportable.h>
 
 
 // ===========================================================================

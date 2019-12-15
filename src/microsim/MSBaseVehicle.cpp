@@ -28,9 +28,8 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSPerson.h>
 #include "MSGlobals.h"
-#include "MSTransportable.h"
 #include "MSVehicleControl.h"
 #include "MSVehicleType.h"
 #include "MSEdge.h"
