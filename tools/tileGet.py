@@ -31,18 +31,33 @@ MAX_TILE_SIZE = 640
 MAPQUEST_TYPES = {"roadmap": "map", "satellite": "sat", "hybrid": "hyb", "terrain": "sat"}
 
 
-def fromLatLngToPoint(lat, lng):
+def fromLatLonToPoint(lat, lon):
     # inspired by https://stackoverflow.com/questions/12507274/how-to-get-bounds-of-a-google-static-map
-    x = lng * MERCATOR_RANGE / 360
-    siny = math.sin(lat / 180. * math.pi)
+    x = lon * MERCATOR_RANGE / 360
+    siny = math.sin(math.radians(lat))
     y = 0.5 * math.log((1 + siny) / (1 - siny)) * -MERCATOR_RANGE / (2 * math.pi)
     return x, y
 
 
+def fromLatLonToTile(lat, lon, zoom):
+    # inspired by https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Python
+    n = 2.0 ** zoom
+    xtile = int((lon + 180.0) / 360.0 * n)
+    ytile = int((1.0 - math.asinh(math.tan(math.radians(lat))) / math.pi) / 2.0 * n)
+    return xtile, ytile
+
+
+def fromTileToLatLon(xtile, ytile, zoom):
+    n = 2.0 ** zoom
+    lon = xtile / n * 360.0 - 180.0
+    lat = math.degrees(math.atan(math.sinh(math.pi * (1 - 2 * ytile / n))))
+    return lat, lon
+
+
 def getZoomWidthHeight(south, west, north, east, maxTileSize):
     center = ((north + south) / 2, (east + west) / 2)
-    centerPx = fromLatLngToPoint(*center)
-    nePx = fromLatLngToPoint(north, east)
+    centerPx = fromLatLonToPoint(*center)
+    nePx = fromLatLonToPoint(north, east)
     zoom = 20
     width = (nePx[0] - centerPx[0]) * 2**zoom * 2
     height = (centerPx[1] - nePx[1]) * 2**zoom * 2
@@ -53,26 +68,50 @@ def getZoomWidthHeight(south, west, north, east, maxTileSize):
     return center, zoom, width, height
 
 
+def retrieveMapServerTiles(url, tiles, west, south, east, north, decals, prefix, net):
+    zoom = 20
+    numTiles = tiles + 1
+    while numTiles > tiles:
+        zoom -= 1
+        sx, sy = fromLatLonToTile(north, west, zoom)
+        ex, ey = fromLatLonToTile(south, east, zoom)
+        numTiles = (ex - sx + 1) * (ey - sy + 1)
+    for x in range(sx, ex + 1):
+        for y in range(sy, ey + 1):
+            request = "%s/%s/%s/%s" % (url, zoom, y, x)
+#            print(request)
+            urllib.urlretrieve(request, "%s%s_%s.jpeg" % (prefix, x, y))
+            lat, lon = fromTileToLatLon(x, y, zoom)
+            upperLeft = net.convertLonLat2XY(lon, lat)
+            lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
+            center = net.convertLonLat2XY(lon, lat)
+            print('    <decal file="%s%s_%s.jpeg" centerX="%s" centerY="%s" width="%s" height="%s"/>' %
+                  (prefix, x, y, center[0], center[1],
+                   2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1])), file=decals)
+
+
 optParser = optparse.OptionParser()
 optParser.add_option("-p", "--prefix", default="tile", help="for output file")
 optParser.add_option("-b", "--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north")
 optParser.add_option("-t", "--tiles", type="int",
-                     default=1, help="number of tiles the output gets split into")
+                     default=1, help="maximum number of tiles the output gets split into")
 optParser.add_option("-d", "--output-dir", default=".", help="optional output directory (must already exist)")
 optParser.add_option("-s", "--decals-file", default="settings.xml", help="name of decals settings file")
 optParser.add_option("-x", "--polygon", help="calculate bounding box from polygon data in file")
-optParser.add_option("-n", "--net", help="calculate bounding box from net file")
+optParser.add_option("-n", "--net", help="get bounding box from net file")
 optParser.add_option("-k", "--key", help="API key to use")
 optParser.add_option("-m", "--maptype", default="satellite", help="map type (roadmap, satellite, hybrid, terrain)")
-optParser.add_option("-u", "--url", default="maps.googleapis.com/maps/api/staticmap",
+optParser.add_option("-u", "--url",
+                     default="services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
                      help="Download from the given tile server")
-# alternatives: open.mapquestapi.com/staticmap/v4/getmap
-
+# alternatives: open.mapquestapi.com/staticmap/v4/getmap, maps.googleapis.com/maps/api/staticmap
 
 def get(args=None):
     options, _ = optParser.parse_args(args=args)
     if not options.bbox and not options.net and not options.polygon:
         optParser.error("At least one of 'bbox' and 'net' and 'polygon' has to be set.")
+    if not options.url.startswith("http"):
+        options.url = "https://" + options.url
     bbox = ((0, 0), (0, 0))
     if options.polygon:
         west = 1e400
@@ -91,6 +130,7 @@ def get(args=None):
         west, south, east, north = [float(v) for v in options.bbox.split(',')]
         if south > north or west > east:
             optParser.error("Invalid geocoordinates in bbox.")
+    net = None
     if options.net:
         net = sumolib.net.readNet(options.net)
         bbox = net.getBBoxXY()
@@ -101,25 +141,29 @@ def get(args=None):
     mapQuest = "mapquest" in options.url
     with open(os.path.join(options.output_dir, options.decals_file), "w") as decals:
         sumolib.xml.writeHeader(decals, root="viewsettings")
-        b = west
-        for i in range(options.tiles):
-            e = b + (east - west) / options.tiles
-            offset = (bbox[1][0] - bbox[0][0]) / options.tiles
-            c, z, w, h = getZoomWidthHeight(south, b, north, e, 2560 if mapQuest else 640)
-            if mapQuest:
-                size = "size=%d,%d" % (w, h)
-                maptype = 'imagetype=png&type=' + MAPQUEST_TYPES[options.maptype]
-            else:
-                size = "size=%dx%d" % (w, h)
-                maptype = 'maptype=' + options.maptype
-            request = "https://%s?%s&center=%.6f,%.6f&zoom=%s&%s&key=%s" % (
-                      options.url, size, c[0], c[1], z, maptype, options.key)
-#            print(request)
-            urllib.urlretrieve(request, "%s%s.png" % (prefix, i))
-            print('    <decal filename="%s%s.png" centerX="%s" centerY="%s" width="%s" height="%s"/>'
-                  % (prefix, i, bbox[0][0] + (i + 0.5) * offset, (bbox[0][1] + bbox[1][1]) / 2,
-                     offset, bbox[1][1] - bbox[0][1]), file=decals)
-            b = e
+        if "MapServer" in options.url:
+            retrieveMapServerTiles(options.url, options.tiles, west, south, east, north,
+                                   decals, options.prefix, net)
+        else:
+            b = west
+            for i in range(options.tiles):
+                e = b + (east - west) / options.tiles
+                offset = (bbox[1][0] - bbox[0][0]) / options.tiles
+                c, z, w, h = getZoomWidthHeight(south, b, north, e, 2560 if mapQuest else 640)
+                if mapQuest:
+                    size = "size=%d,%d" % (w, h)
+                    maptype = 'imagetype=png&type=' + MAPQUEST_TYPES[options.maptype]
+                else:
+                    size = "size=%dx%d" % (w, h)
+                    maptype = 'maptype=' + options.maptype
+                request = ("%s?%s&center=%.6f,%.6f&zoom=%s&%s&key=%s" %
+                           (options.url, size, c[0], c[1], z, maptype, options.key))
+    #            print(request)
+                urllib.urlretrieve(request, "%s%s.png" % (prefix, i))
+                print('    <decal file="%s%s.png" centerX="%s" centerY="%s" width="%s" height="%s"/>' %
+                      (options.prefix, i, bbox[0][0] + (i + 0.5) * offset, (bbox[0][1] + bbox[1][1]) / 2,
+                       offset, bbox[1][1] - bbox[0][1]), file=decals)
+                b = e
         print("</viewsettings>", file=decals)
 
 
