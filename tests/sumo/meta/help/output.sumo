@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_4_0+0096-07dfa07
+Eclipse SUMO Version v1_4_0+0122-6806fa5
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -112,6 +112,10 @@ Output Options:
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                         vehicles into FILE
+  --movereminder-output.vehicles STR[]  List of vehicle ids which shall save
+                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -527,6 +531,16 @@ ElecHybrid Device Options:
                                          vehicles
   --device.elechybrid.deterministic    The 'elechybrid' devices are set
                                          deterministic using a fraction of 1000
+
+Taxi Device Options:
+  --device.taxi.probability FLOAT      The probability for a vehicle to have a
+                                         'taxi' device
+  --device.taxi.explicit STR[]         Assign a 'taxi' device to named vehicles
+  --device.taxi.deterministic          The 'taxi' devices are set deterministic
+                                         using a fraction of 1000
+  --device.taxi.dispatch-algorithm STR  The dispatch algorithm [greedy]
+  --device.taxi.dispatch-period TIME   The period between successive calls to
+                                         the dispatcher
 
 Tripinfo Device Options:
   --device.tripinfo.probability FLOAT  The probability for a vehicle to have a
