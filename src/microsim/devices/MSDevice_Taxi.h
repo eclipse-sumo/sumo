@@ -7,15 +7,14 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    MSDevice_Example.h
-/// @author  Daniel Krajzewicz
+/// @file    MSDevice_Taxi.h
 /// @author  Jakob Erdmann
-/// @date    11.06.2013
+/// @date    16.12.2019
 ///
-// A device which stands as an implementation example and which outputs movereminder calls
+// A device which controls a taxi
 /****************************************************************************/
-#ifndef MSDevice_Example_h
-#define MSDevice_Example_h
+#ifndef MSDevice_Taxi_h
+#define MSDevice_Taxi_h
 
 
 // ===========================================================================
@@ -23,30 +22,40 @@
 // ===========================================================================
 #include <config.h>
 
-#include "MSVehicleDevice.h"
 #include <utils/common/SUMOTime.h>
+#include <utils/common/WrappingCommand.h>
+#include "MSVehicleDevice.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class SUMOTrafficObject;
+class MSDispatch;
+struct Reservation;
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class MSDevice_Example
+ * @class MSDevice_Taxi
  * @brief A device which collects info on the vehicle trip (mainly on departure and arrival)
  *
  * Each device collects departure time, lane and speed and the same for arrival.
  *
  * @see MSDevice
  */
-class MSDevice_Example : public MSVehicleDevice {
+class MSDevice_Taxi : public MSVehicleDevice {
 public:
-    /** @brief Inserts MSDevice_Example-options
+
+    enum TaxiState {
+        EMPTY = 0, // available for servicing customers
+        PICKUP = 1, // driving to pick up customer
+        OCCUPIED = 2 // occupied with customer
+    };
+
+    /** @brief Inserts MSDevice_Taxi-options
      * @param[filled] oc The options container to add the options to
      */
     static void insertOptions(OptionsCont& oc);
@@ -54,7 +63,7 @@ public:
 
     /** @brief Build devices for the given vehicle, if needed
      *
-     * The options are read and evaluated whether a example-device shall be built
+     * The options are read and evaluated whether a Taxi-device shall be built
      *  for the given vehicle.
      *
      * The built device is stored in the given vector.
@@ -64,14 +73,22 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
+    /// add new reservation
+    static void addReservation(MSTransportable* person,
+            SUMOTime reservationTime, 
+            SUMOTime pickupTime,
+            const MSEdge* from, double fromPos,
+            const MSEdge* to, double toPos);
+    
+    /// @brief period command to trigger the dispatch algorithm
+    static SUMOTime triggerDispatch(SUMOTime currentTime); 
+
     /// @brief resets counters
     static void cleanup();
 
 public:
     /// @brief Destructor.
-    ~MSDevice_Example();
-
-
+    ~MSDevice_Taxi();
 
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{
@@ -115,8 +132,21 @@ public:
 
     /// @brief return the name for this type of device
     const std::string deviceName() const {
-        return "example";
+        return "taxi";
     }
+
+    TaxiState getState() const {
+        return myState;
+    }
+
+    /// @brief service the given reservation
+    void dispatch(const Reservation& res);
+
+    /// @brief called by MSDevice_Transportable upon loading a person
+    void customerEntered();
+
+    /// @brief called by MSDevice_Transportable upon unloading a person
+    void customerArrived();
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const;
@@ -140,31 +170,40 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_Example(SUMOVehicle& holder, const std::string& id, double customValue1,
-                     double customValue2, double customValue3);
+    MSDevice_Taxi(SUMOVehicle& holder, const std::string& id);
 
 
+    /// @brief determine stopping lane for taxi
+    MSLane* getStopLane(const MSEdge* edge);
+
+    /// @brief initialize the dispatch algorithm
+    static void initDispatch();
 
 private:
-    // private state members of the Example device
 
-    /// @brief a value which is initialised based on a commandline/configuration option
-    double myCustomValue1;
+    TaxiState myState = EMPTY;
+    /// @brief number of customers that were served
+    int myCustomersServed = 0;
+    /// @brief distance driven with customers
+    double myOccupiedDistance = 0;
+    /// @brief time spent driving with customers
+    SUMOTime myOccupiedTime = 0;
 
-    /// @brief a value which is initialised based on a vehicle parameter
-    double myCustomValue2;
-
-    /// @brief a value which is initialised based on a vType parameter
-    double myCustomValue3;
-
-
+    /// @brief the time between successive calls to the dispatcher
+    static SUMOTime myDispatchPeriod;
+    /// @brief the dispatch algorithm
+    static MSDispatch* myDispatcher;
+    /// @brief The repeated call to the dispatcher
+    static Command* myDispatchCommand;
+    // @brief the list of available taxis
+    static std::vector<MSDevice_Taxi*> myFleet;
 
 private:
     /// @brief Invalidated copy constructor.
-    MSDevice_Example(const MSDevice_Example&);
+    MSDevice_Taxi(const MSDevice_Taxi&);
 
     /// @brief Invalidated assignment operator.
-    MSDevice_Example& operator=(const MSDevice_Example&);
+    MSDevice_Taxi& operator=(const MSDevice_Taxi&);
 
 
 };

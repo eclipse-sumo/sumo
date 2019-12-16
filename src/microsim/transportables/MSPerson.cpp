@@ -42,6 +42,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
+#include <microsim/devices/MSDevice_Taxi.h>
 #include "MSPModel.h"
 
 // ===========================================================================
@@ -435,6 +436,9 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SU
     } else {
         net->getPersonControl().addWaiting(myWaitingEdge, person);
         myWaitingEdge->addPerson(person);
+        if (getLines().size() == 1 && *getLines().begin() == "taxi") {
+            MSDevice_Taxi::addReservation(person, now, now, myWaitingEdge, myWaitingPos, getDestination(), myArrivalPos);
+        }
     }
 }
 

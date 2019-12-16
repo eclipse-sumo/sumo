@@ -86,6 +86,10 @@ MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
     }
 }
 
+void
+MSDevice_Example::cleanup() {
+    // cleaning up global state (if any)
+}
 
 // ---------------------------------------------------------------------------
 // MSDevice_Example-methods

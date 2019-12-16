@@ -6012,6 +6012,17 @@ MSVehicle::getNextStop() {
     return myStops.front();
 }
 
+void
+MSVehicle::abortNextStop() {
+    if (hasStops()) {
+        if (isStopped()) {
+            resumeFromStopping();
+        } else {
+            myStops.erase(myStops.begin());
+        }
+    } 
+}
+
 std::list<MSVehicle::Stop>
 MSVehicle::getMyStops() {
     return myStops;

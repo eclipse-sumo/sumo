@@ -1355,6 +1355,8 @@ public:
     */
     bool resumeFromStopping();
 
+    /// @brief deletes the next stop if it exists
+    void abortNextStop();
 
     /// @brief update a vector of further lanes and return the new backPos
     double updateFurtherLanes(std::vector<MSLane*>& furtherLanes,
