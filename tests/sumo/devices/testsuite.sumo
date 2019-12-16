@@ -24,3 +24,6 @@ rerouting
 
 # tests for the driverstate device
 driverstate
+
+# tests for the taxi device
+taxi
