@@ -11,6 +11,8 @@ set(netedit_SRCS
    GNEApplicationWindow.cpp
    GNELoadThread.h
    GNELoadThread.cpp
+   GNEDottedContourThread.h
+   GNEDottedContourThread.cpp
    GNENet.h
    GNENet.cpp
    GNEViewNet.h
