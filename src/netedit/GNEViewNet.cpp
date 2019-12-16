@@ -64,6 +64,7 @@
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
 #include "GNEApplicationWindow.h"
+#include "GNEDottedContourThread.h"
 
 
 // ===========================================================================
@@ -189,7 +190,8 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myViewParent(viewParent),
     myNet(net),
     myCurrentFrame(nullptr),
-    myUndoList(undoList) {
+    myUndoList(undoList),
+    myDottedContourThread(new GNEDottedContourThread(this)) {
     // view must be the final member of actualParent
     reparent(actualParent);
     // Build edit modes
@@ -198,19 +200,18 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myUndoList->mark();
     // set this viewNet in Net
     myNet->setViewNet(this);
-
     // set drag delay
     ((GUIDanielPerspectiveChanger*)myChanger)->setDragDelay(100000000); // 100 milliseconds
-
     // Reset textures
     GUITextureSubSys::resetTextures();
-
     // init testing mode
     myTestingMode.initTestingMode();
 }
 
 
-GNEViewNet::~GNEViewNet() {}
+GNEViewNet::~GNEViewNet() {
+    delete myDottedContourThread;
+}
 
 
 void
