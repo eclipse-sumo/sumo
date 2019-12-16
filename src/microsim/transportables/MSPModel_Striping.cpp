@@ -134,7 +134,7 @@ MSPModel_Striping::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage,
         net->getBeginOfTimestepEvents()->addEvent(new MovePedestrians(this), net->getCurrentTimeStep() + DELTA_T);
         myAmActive = true;
     }
-    assert(person->getCurrentStageType() == MSTransportable::MOVING_WITHOUT_VEHICLE);
+    assert(person->getCurrentStageType() == MSTransportable::WALKING);
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(person->getEdge());
     if (lane == nullptr) {
         std::string error = "Person '" + person->getID() + "' could not find sidewalk on edge '" + person->getEdge()->getID() + "', time="
