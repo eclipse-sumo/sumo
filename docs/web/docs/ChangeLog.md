@@ -6,7 +6,10 @@ permalink: /ChangeLog/
 ## Git Master
 
 ### Bugfixes
- - MESO
+- Simulation
+  - Fixed unsafe insertion speed when using 'stopOffset'. Issue #6411
+
+- MESO
   - Fixed invalid simulation state when vehicles are teleporting. Issue #6408
 
 ### Enhancements
