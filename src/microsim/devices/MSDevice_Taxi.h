@@ -50,7 +50,7 @@ class MSDevice_Taxi : public MSVehicleDevice {
 public:
 
     enum TaxiState {
-        EMPTY = 0, // available for servicing customers
+        EMPTY = 0, // empty (available for servicing customers)
         PICKUP = 1, // driving to pick up customer
         OCCUPIED = 2 // occupied with customer
     };
@@ -82,6 +82,9 @@ public:
     
     /// @brief period command to trigger the dispatch algorithm
     static SUMOTime triggerDispatch(SUMOTime currentTime); 
+
+    /// @brief check whether there are still (servable) reservations in the system
+    static bool hasServableReservations();
 
     /// @brief resets counters
     static void cleanup();
@@ -134,6 +137,9 @@ public:
     const std::string deviceName() const {
         return "taxi";
     }
+
+    /// @brief whether the taxi is empty
+    bool isEmpty();
 
     TaxiState getState() const {
         return myState;

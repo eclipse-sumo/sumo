@@ -94,8 +94,16 @@ public:
     /// @brief computes dispatch and updates reservations
     virtual void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet) = 0;
 
+    /// @brief check whether there are still (servable) reservations in the system
+    bool hasServableReservations() {
+        return myHasServableReservations;
+    }
+
 protected:
     std::vector<Reservation> myReservations;
+
+    /// @brief whether the last call to computeDispatch has left servable reservations
+    bool myHasServableReservations = false;
 
 };
 

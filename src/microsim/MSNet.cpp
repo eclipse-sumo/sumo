@@ -76,6 +76,7 @@
 #include <microsim/devices/MSDevice_SSM.h>
 #include <microsim/devices/MSDevice_ElecHybrid.h>
 #include <microsim/devices/MSDevice_ToC.h>
+#include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/output/MSBatteryExport.h>
 #include <microsim/output/MSElecHybridExport.h>
 #include <microsim/output/MSEmissionExport.h>
@@ -609,7 +610,8 @@ MSNet::simulationState(SUMOTime stopTime) const {
         if ((myVehicleControl->getActiveVehicleCount() == 0)
                 && (myInserter->getPendingFlowCount() == 0)
                 && (myPersonControl == nullptr || !myPersonControl->hasNonWaiting())
-                && (myContainerControl == nullptr || !myContainerControl->hasNonWaiting())) {
+                && (myContainerControl == nullptr || !myContainerControl->hasNonWaiting())
+                && !MSDevice_Taxi::hasServableReservations()) {
             if (myPersonControl) {
                 myPersonControl->abortAnyWaitingForVehicle();
             }

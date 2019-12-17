@@ -110,6 +110,11 @@ MSDevice_Taxi::triggerDispatch(SUMOTime currentTime) {
     return currentTime + myDispatchPeriod;
 }
 
+bool
+MSDevice_Taxi::hasServableReservations() {
+    return myDispatcher != nullptr && myDispatcher->hasServableReservations();
+}
+
 void
 MSDevice_Taxi::cleanup() {
     if (myDispatcher != nullptr) {
@@ -135,7 +140,7 @@ MSDevice_Taxi::~MSDevice_Taxi() {
 
 void
 MSDevice_Taxi::dispatch(const Reservation& res) {
-    if (myState == EMPTY) {
+    if (isEmpty()) {
         if (MSGlobals::gUseMesoSim) {
             throw ProcessError("Dispatch for meso not yet implemented");
         }
@@ -195,6 +200,10 @@ MSDevice_Taxi::getStopLane(const MSEdge* edge) {
     return allowedLanes->front();
 }
 
+bool
+MSDevice_Taxi::isEmpty() {
+    return myState == EMPTY;
+}
 
 bool
 MSDevice_Taxi::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
