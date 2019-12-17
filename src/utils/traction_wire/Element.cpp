@@ -10,10 +10,10 @@
 /// @file    Element.cpp
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
-/// @date    2019-11-25
+/// @date    2019-12-15
+/// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 ///
 // Representation of electric circuit elements: resistors, voltage and current sources
-// based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
 
 // ===========================================================================

@@ -10,7 +10,7 @@
 /// @file    MSOverheadWire.h
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
-/// @date    2019-11-25
+/// @date    2019-12-15
 ///
 // Overhead wires for Electric (equipped with elecHybrid device) vehicles (Overhead wire segments, overhead wire sections, traction substations)
 /****************************************************************************/
@@ -141,9 +141,8 @@ public:
         return myVoltageSource;
     }
 
-    MSTractionSubstation* getTractionSubstation() {
-        return myTractionSubstation;
-    }
+    void lock() const;
+    void unlock() const;
 
 protected:
 
@@ -309,6 +308,7 @@ private:
 public:   
     //preparation of overhead wire clamp
     struct OverheadWireClamp{
+        // @todo: 'MSTractionSubstation::overheadWireClamp' : no appropriate default constructor available 
         // provide default constructor for vector construction below
         OverheadWireClamp() :
             id("undefined"),

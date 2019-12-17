@@ -10,7 +10,7 @@
 /// @file    MSOverheadWire.cpp
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
-/// @date    2019-11-25
+/// @date    2019-12-15
 ///
 // Overhead wires for Electric (equipped with elecHybrid device) vehicles (Overhead wire segments, overhead wire sections, traction substations)
 /****************************************************************************/
@@ -23,6 +23,7 @@
 
 #include <cassert>
 #include <tuple>
+#include <mutex>
 #include <string.h>
 
 #include <utils/vehicle/SUMOVehicle.h>
@@ -49,6 +50,7 @@
 
 
 Command* MSTractionSubstation::myCommandForSolvingCircuit = nullptr;
+std::mutex ow_mutex;
 
 // ===========================================================================
 // member method definitions
@@ -111,6 +113,7 @@ MSTractionSubstation::MSTractionSubstation(const std::string& substationId, doub
     myCircuit(new Circuit()),
     myForbiddenLanes(),
     myOverheadWireClamps() {
+    // RICE_CHECK: ({}) instead of () for vectors?
 }
 
 
@@ -370,7 +373,7 @@ void MSTractionSubstation::addOverheadWireClampToCircuit(const std::string id, M
     double distance = pos_start[0].distanceTo2D(pos_end.back());
 
     if (distance > 10) {
-        WRITE_WARNING("The distance between two overhead wires during adding overhead wire clamp '" + id + "' is " + toString(distance) + " m.")
+        WRITE_WARNING("The distance between two overhead wires during adding overhead wire clamp '" + id + "' defined for traction substation '" + startSegment->getTractionSubstation()->getID() + "' is " + toString(distance) + " m.")
     }
     getCircuit()->addElement(id, distance*WIRE_RESISTIVITY, startSegment->getCircuitStartNode_pos(), endSegment->getCircuitEndNode_pos(), Element::ElementType::RESISTOR_traction_wire);
 }
@@ -383,6 +386,7 @@ MSTractionSubstation::eraseOverheadWireSegmentFromCircuit(MSOverheadWire* oldSeg
 
 void
 MSOverheadWire::addVehicle(SUMOVehicle& veh) {
+    std::lock_guard<std::mutex> guard(ow_mutex);
     setChargingVehicle(true);
     myChargingVehicles.push_back(&veh);
     sort(myChargingVehicles.begin(), myChargingVehicles.end(), vehicle_position_sorter());
@@ -390,11 +394,22 @@ MSOverheadWire::addVehicle(SUMOVehicle& veh) {
 
 void
 MSOverheadWire::eraseVehicle(SUMOVehicle& veh) {
+    std::lock_guard<std::mutex> guard(ow_mutex);
     myChargingVehicles.erase(std::remove(myChargingVehicles.begin(), myChargingVehicles.end(), &veh), myChargingVehicles.end());
     if (myChargingVehicles.size() == 0) {
         setChargingVehicle(false);
     }
     //sort(myChargingVehicles.begin(), myChargingVehicles.end(), vehicle_position_sorter());
+}
+
+void
+MSOverheadWire::lock() const {
+    ow_mutex.lock();
+}
+
+void
+MSOverheadWire::unlock() const {
+    ow_mutex.unlock();
 }
 
 void
@@ -413,7 +428,6 @@ MSTractionSubstation::writeOut() {
     for (std::vector<MSOverheadWire*>::iterator it = myOverheadWireSegments.begin(); it != myOverheadWireSegments.end(); ++it) {
         std::cout << "        " << (*it)->getOverheadWireSegmentName() << "\n";
     }
-    
 }
 
 
