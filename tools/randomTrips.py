@@ -59,6 +59,7 @@ def get_options(args=None):
                          default=False, help="create a person file with pedestrian trips instead of vehicle trips")
     optParser.add_option("--persontrips", action="store_true",
                          default=False, help="create a person file with person trips instead of vehicle trips")
+    optParser.add_option("--personrides", help="create a person file with rides using STR as lines attribute")
     optParser.add_option("--persontrip.transfer.car-walk", dest="carWalkMode",
                          help="Where are mode changes from car to walking allowed " +
                          "(possible values: 'ptStops', 'allJunctions' and combinations)")
@@ -133,7 +134,7 @@ def get_options(args=None):
         optParser.print_help()
         sys.exit(1)
 
-    if options.persontrips:
+    if options.persontrips or options.personrides:
         options.pedestrians = True
 
     if options.pedestrians:
@@ -458,6 +459,10 @@ def main(options):
                     fouttrips.write(
                         '        <personTrip from="%s" to="%s"%s/>\n' % (
                             source_edge.getID(), sink_edge.getID(), otherattrs))
+                elif options.personrides:
+                    fouttrips.write(
+                        '        <ride from="%s" to="%s" lines="%s"%s/>\n' % (
+                            source_edge.getID(), sink_edge.getID(), options.personrides, otherattrs))
                 else:
                     fouttrips.write(
                         '        <walk from="%s" to="%s"%s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
