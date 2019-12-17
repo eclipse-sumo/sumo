@@ -184,6 +184,9 @@ protected:
                             const double travelledDistanceVehicleOnLane,
                             const double /* meanLengthOnLane */);
 
+    /// @brief update stopping time after parking
+    void updateParkingStopTime();
+
 private:
     /// @brief The lane the vehicle departed at
     std::string myDepartLane;

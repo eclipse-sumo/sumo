@@ -102,7 +102,7 @@ MSDevice_Tripinfo::MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id)
     myAmWaiting(false),
     myWaitingCount(0),
     myStoppingTime(0),
-    myParkingStarted(0),
+    myParkingStarted(-1),
     myArrivalTime(NOT_ARRIVED),
     myArrivalLane(""),
     myArrivalPos(-1),
@@ -182,6 +182,13 @@ MSDevice_Tripinfo::notifyMoveInternal(const SUMOTrafficObject& veh,
     myStoppingTime += TIME2STEPS(mesoVeh->getCurrentStoppingTimeSeconds());
 }
 
+void
+MSDevice_Tripinfo::updateParkingStopTime() {
+    if (myParkingStarted >= 0) {
+        myStoppingTime += (MSNet::getInstance()->getCurrentTimeStep() - myParkingStarted);
+        myParkingStarted = -1;
+    }
+}
 
 bool
 MSDevice_Tripinfo::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
@@ -195,7 +202,7 @@ MSDevice_Tripinfo::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notificat
     } else if (reason == MSMoveReminder::NOTIFICATION_PARKING) {
         // notifyMove is not called while parking
         // @note insertion delay when resuming after parking is included
-        myStoppingTime += (MSNet::getInstance()->getCurrentTimeStep() - myParkingStarted);
+        updateParkingStopTime();
     }
     return true;
 }
@@ -219,6 +226,7 @@ MSDevice_Tripinfo::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
             myArrivalPos = myHolder.getArrivalPos();
         }
         myArrivalSpeed = veh.getSpeed();
+        updateParkingStopTime();
     } else if (reason == MSMoveReminder::NOTIFICATION_PARKING) {
         myParkingStarted = MSNet::getInstance()->getCurrentTimeStep();
     } else if (reason == NOTIFICATION_JUNCTION || reason == NOTIFICATION_TELEPORT) {
@@ -248,7 +256,6 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     if (tripinfoOut == nullptr) {
         return;
     }
-
     // write
     OutputDevice& os = *tripinfoOut;
     os.openTag("tripinfo").writeAttr("id", myHolder.getID());
@@ -295,6 +302,7 @@ MSDevice_Tripinfo::generateOutputForUnfinished() {
         const MSDevice_Tripinfo* d = *myPendingOutput.begin();
         if (d->myHolder.hasDeparted()) {
             departed++;
+            const_cast<MSDevice_Tripinfo*>(d)->updateParkingStopTime();
             d->generateOutput(tripinfoOut);
             if (tripinfoOut != nullptr) {
                 for (MSVehicleDevice* const dev : d->myHolder.getDevices()) {
