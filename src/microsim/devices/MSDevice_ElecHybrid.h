@@ -133,11 +133,11 @@ public:
     void setParameter(const std::string& key, const std::string& value);
 
     /** @brief Called on writing tripinfo output
-    *
-    * @param[in] os The stream to write the information into
-    * @exception IOError not yet implemented
-    * @see MSDevice::generateOutput
-    */
+     *
+     * @param[in] tripinfoOut The output device to write the information into
+     * @exception IOError not yet implemented
+     * @see MSDevice::tripInfoOutput
+     */
     void generateOutput(OutputDevice* tripinfoOut) const;
 
     /// @brief Get the actual vehicle's Battery Capacity in kWh
@@ -231,13 +231,35 @@ protected:
     /// @brief Parameter, Flag: Vehicle is charging (by default is false)
     bool myCharging;
 
-    /// @brief Parameter, Energy charged in each timestep
+    /// @brief Energy flowing into (+) or from (-) the battery pack in the given timestep
     double myEnergyCharged;
 
     /// @brief Parameter, Current wanted at overhead wire in next timestep
     double myCircuitCurrent;
 
     double myCircuitVoltage;
+
+    /// @name Tripinfo statistics
+    /// @{
+    double myMaxBatteryPower;
+    double myMinBatteryPower;
+    double myTotalPowerConsumed;
+    double myTotalPowerRegenerated;
+    
+    /// @brief Energy that could not be stored back to the battery or traction station
+    /// and was wasted on resistors. This is approximate, we ignore the use of classical
+    /// brakes in lower speeds.
+    double myTotalPowerWasted;
+    /// @}
+
+    /// @name Power management parameters
+    /// @{
+    /// @brief Minimal SOC of the battery pack, below this value the battery is assumed discharged
+    double mySOCMin;
+    /// @brief Maximal SOC of the battery pack, battery will not be charged above this level.
+    /// (But the buffer may still be used for regenerative braking).
+    double mySOCMax;
+    /// @}
 
     /// @brief Parameter, Pointer to the actual overhead wire segment in which vehicle is placed (by default is nullptr)
     MSOverheadWire* myActOverheadWireSegment;
