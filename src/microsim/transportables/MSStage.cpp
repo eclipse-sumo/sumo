@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    MSTransportable.cpp
+/// @file    MSStage.cpp
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @author  Michael Behrisch
@@ -157,10 +157,10 @@ MSStage::setDestination(const MSEdge* newDestination, MSStoppingPlace* newDestSt
 * MSStageTrip - methods
 * ----------------------------------------------------------------------- */
 MSStageTrip::MSStageTrip(const MSEdge* origin, MSStoppingPlace* fromStop,
-                                        const MSEdge* destination, MSStoppingPlace* toStop,
-                                        const SUMOTime duration, const SVCPermissions modeSet,
-                                        const std::string& vTypes, const double speed, const double walkFactor,
-                                        const double departPosLat, const bool hasArrivalPos, const double arrivalPos):
+                         const MSEdge* destination, MSStoppingPlace* toStop,
+                         const SUMOTime duration, const SVCPermissions modeSet,
+                         const std::string& vTypes, const double speed, const double walkFactor,
+                         const double departPosLat, const bool hasArrivalPos, const double arrivalPos):
     MSStage(destination, toStop, arrivalPos, MSStageType::TRIP),
     myOrigin(origin),
     myOriginStop(fromStop),
@@ -352,11 +352,11 @@ MSStageTrip::getStageSummary(const bool) const {
 * MSStageWaiting - methods
 * ----------------------------------------------------------------------- */
 MSStageWaiting::MSStageWaiting(const MSEdge* destination, MSStoppingPlace* toStop,
-        SUMOTime duration, SUMOTime until, double pos, const std::string& actType,
-        const bool initial) :
+                               SUMOTime duration, SUMOTime until, double pos, const std::string& actType,
+                               const bool initial) :
     MSStage(destination, toStop, SUMOVehicleParameter::interpretEdgePos(
-                               pos, destination->getLength(), SUMO_ATTR_DEPARTPOS, "stopping at " + destination->getID()),
-                           initial ? MSStageType::WAITING_FOR_DEPART : MSStageType::WAITING),
+                pos, destination->getLength(), SUMO_ATTR_DEPARTPOS, "stopping at " + destination->getID()),
+            initial ? MSStageType::WAITING_FOR_DEPART : MSStageType::WAITING),
     myWaitingDuration(duration),
     myWaitingUntil(until),
     myActType(actType) {

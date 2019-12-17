@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    MSContainer.cpp
+/// @file    MSStageTranship.cpp
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Thu, 12 Jun 2014
@@ -43,13 +43,13 @@
 // method definitions
 // ===========================================================================
 MSStageTranship::MSStageTranship(const std::vector<const MSEdge*>& route,
-        MSStoppingPlace* toStop,
-        double speed,
-        double departPos, double arrivalPos) :
+                                 MSStoppingPlace* toStop,
+                                 double speed,
+                                 double departPos, double arrivalPos) :
     MSStage(route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
-                               arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,
-                               "container getting transhipped to " + route.back()->getID()),
-                           MSStageType::TRANSHIP), myRoute(route),
+                arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,
+                "container getting transhipped to " + route.back()->getID()),
+            MSStageType::TRANSHIP), myRoute(route),
     mySpeed(speed), myContainerState(nullptr), myCurrentInternalEdge(nullptr) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
                       departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS,

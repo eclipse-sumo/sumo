@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    MSTransportable.cpp
+/// @file    MSStageDriving.cpp
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @author  Michael Behrisch
@@ -45,8 +45,8 @@
 // method definitions
 // ===========================================================================
 MSStageDriving::MSStageDriving(const MSEdge* destination,
-        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
-        const std::string& intendedVeh, SUMOTime intendedDepart) :
+                               MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
+                               const std::string& intendedVeh, SUMOTime intendedDepart) :
     MSStage(destination, toStop, arrivalPos, MSStageType::DRIVING),
     myLines(lines.begin(), lines.end()),
     myVehicle(nullptr),

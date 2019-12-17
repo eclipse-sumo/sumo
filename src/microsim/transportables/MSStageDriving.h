@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    MSTransportable.h
+/// @file    MSStageDriving.h
 /// @author  Michael Behrisch
 /// @date    Tue, 21 Apr 2015
 ///

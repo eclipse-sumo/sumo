@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    MSTransportable.h
+/// @file    MSStage.h
 /// @author  Michael Behrisch
 /// @date    Tue, 21 Apr 2015
 ///
@@ -324,7 +324,7 @@ class MSStageWaiting : public MSStage {
 public:
     /// constructor
     MSStageWaiting(const MSEdge* destination, MSStoppingPlace* toStop, SUMOTime duration, SUMOTime until,
-                    double pos, const std::string& actType, const bool initial);
+                   double pos, const std::string& actType, const bool initial);
 
     /// destructor
     virtual ~MSStageWaiting();

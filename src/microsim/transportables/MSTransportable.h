@@ -118,13 +118,13 @@ public:
      * @return Whether the transportables plan continues  */
     bool proceed(MSNet* net, SUMOTime time);
 
-    virtual void checkAccess(const MSStage* const prior, const bool isDisembark=true) {
+    virtual void checkAccess(const MSStage* const prior, const bool isDisembark = true) {
         UNUSED_PARAMETER(prior);
         UNUSED_PARAMETER(isDisembark);
     }
 
     /// @brief set the id (inherited from Named but forbidden for transportables)
-    void setID(const std::string& newID); 
+    void setID(const std::string& newID);
 
     inline const SUMOVehicleParameter& getParameter() const {
         return *myParameter;
