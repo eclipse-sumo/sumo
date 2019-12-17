@@ -64,7 +64,6 @@
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
 #include "GNEApplicationWindow.h"
-#include "GNEDottedContourThread.h"
 
 
 // ===========================================================================
@@ -190,8 +189,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myViewParent(viewParent),
     myNet(net),
     myCurrentFrame(nullptr),
-    myUndoList(undoList),
-    myDottedContourThread(new GNEDottedContourThread(this)) {
+    myUndoList(undoList) {
     // view must be the final member of actualParent
     reparent(actualParent);
     // Build edit modes
@@ -209,9 +207,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
 }
 
 
-GNEViewNet::~GNEViewNet() {
-    delete myDottedContourThread;
-}
+GNEViewNet::~GNEViewNet() {}
 
 
 void

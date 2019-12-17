@@ -62,6 +62,7 @@
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNEApplicationWindow.h"
+#include "GNEDottedContourThread.h"
 #include "GNENet.h"
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
@@ -97,7 +98,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myTLSProgramsSaved(true),
     myDemandElementsSaved(true),
     myUpdateGeometryEnabled(true),
-    myAllowUndoShapes(true) {
+    myAllowUndoShapes(true),
+    myDottedContourThread(new GNEDottedContourThread(this)) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
     // Write GL debug information
@@ -131,6 +133,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
 
 
 GNENet::~GNENet() {
+    // delete dotted contour thread
+    delete myDottedContourThread;
     // Decrease reference of Polys (needed after volatile recomputing)
     for (auto i : myPolygons) {
         dynamic_cast<GNEAttributeCarrier*>(i.second)->decRef("GNENet::~GNENet");
@@ -2176,6 +2180,12 @@ GNENet::addExplicitTurnaround(std::string id) {
 void
 GNENet::removeExplicitTurnaround(std::string id) {
     myExplicitTurnarounds.erase(id);
+}
+
+
+GNEDottedContourThread*
+GNENet::getDottedContourThread() const {
+    return myDottedContourThread;
 }
 
 

@@ -450,9 +450,6 @@ private:
      */
     const GNEAttributeCarrier* myDottedAC;
 
-    /// @brief dotted contour thread
-    const GNEDottedContourThread *myDottedContourThread;
-
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
 
