@@ -10,10 +10,10 @@
 /// @file    Circuit.h
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
-/// @date    2019-11-25
+/// @date    2019-12-15
+/// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 ///
 // Representation of electric circuit of overhead wires
-// based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
 #ifndef CIRCUIT_H
 #define CIRCUIT_H
@@ -49,6 +49,9 @@ public:
     Node* getNode(int id);
     Element* getVoltageSource(int id);
     vector<Element*> *getCurrentSources();
+
+    void lock();
+    void unlock();
     
     /**
      * @brief Best alpha scaling value.
@@ -109,7 +112,7 @@ private:
     /*
      *    removes the "colToRemove"-th column from matrix "matrix" 
      */
-    void removeColumn(Eigen::MatrixXd& matrix, const int colToRemove);
+    void removeColumn(Eigen::MatrixXd& matrix, const unsigned int colToRemove);
 
     /*
      * solves the system of nonlinear equations Ax = B(1/x)

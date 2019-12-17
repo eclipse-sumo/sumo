@@ -10,10 +10,10 @@
 /// @file    Node.h
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
-/// @date    2019-11-25
+/// @date    2019-12-15
+/// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 ///
 // Representation of electric circuit nodes, i.e. wire junctions and connection points.
-// based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
 #ifndef NODE_H
 #define NODE_H
@@ -52,7 +52,7 @@ public:
     int getNumOfElements();
     // iterates through the vector of the node's elements and returns the first, which is not equal to "element" in the argument of the function
     Element* getAnOtherElement(Element* element);
-    string getName();
+    string& getName();
     bool isGround();
     bool isRemovable() { return isremovable; };
     void setGround(bool isground);

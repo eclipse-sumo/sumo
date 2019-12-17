@@ -10,10 +10,10 @@
 /// @file    Circuit.cpp
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
-/// @date    2019-11-25
+/// @date    2019-12-15
+/// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 ///
 // Representation of electric circuit of overhead wires
-// based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
 
 // ===========================================================================
@@ -23,6 +23,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <ctime>
+#include <mutex>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #ifdef HAVE_EIGEN
@@ -34,6 +35,8 @@
 #include "Circuit.h"
 
 using namespace std;
+
+std::mutex circuit_lock;
 
 Node* Circuit::addNode(string name) {
     if (getNode(name) != nullptr) {
@@ -50,12 +53,16 @@ Node* Circuit::addNode(string name) {
         tNode->setGround(true);
     }
     this->lastId++;
+    circuit_lock.lock();
     this->nodes->push_back(tNode);
+    circuit_lock.unlock();
     return tNode;
 }
 
 void Circuit::eraseNode(Node* node) {
+    circuit_lock.lock();
     this->nodes->erase(std::remove(this->nodes->begin(), this->nodes->end(), node), this->nodes->end());
+    circuit_lock.unlock();
 }
 
 double Circuit::getCurrent(string name) {
@@ -138,8 +145,16 @@ vector<Element*>* Circuit::getCurrentSources() {
     return vsources;
 }
 
+void Circuit::lock() {
+    circuit_lock.lock();
+}
+
+void Circuit::unlock() {
+    circuit_lock.unlock();
+}
+
 #ifdef HAVE_EIGEN
-void Circuit::removeColumn(Eigen::MatrixXd& matrix, const int colToRemove)
+void Circuit::removeColumn(Eigen::MatrixXd& matrix, unsigned int colToRemove)
 {
     const int numRows = (int)matrix.rows();
     const int numCols = (int)matrix.cols() - 1;
@@ -631,10 +646,14 @@ Element* Circuit::addElement(string name, double value, Node* pNode, Node* nNode
     if (e->getType() == Element::ElementType::VOLTAGE_SOURCE_traction_wire) {
         e->setId(lastId);
         lastId++;
+        circuit_lock.lock();
         this->voltageSources->push_back(e);
+        circuit_lock.unlock();
     }
     else {
+        circuit_lock.lock();
         this->elements->push_back(e);
+        circuit_lock.unlock();
     }
     
     e->setPosNode(pNode);
@@ -648,7 +667,9 @@ Element* Circuit::addElement(string name, double value, Node* pNode, Node* nNode
 void Circuit::eraseElement(Element* element) {
     //element->getPosNode()->eraseElement(element);
     //element->getNegNode()->eraseElement(element);
+    circuit_lock.lock();
     this->elements->erase(std::remove(this->elements->begin(), this->elements->end(), element), this->elements->end());
+    circuit_lock.unlock();
 }
 
 void Circuit::replaceAndDeleteNode(Node* unusedNode, Node* newNode) {
