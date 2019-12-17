@@ -40,6 +40,7 @@
 #include <utils/importio/LineReader.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/XMLSubSys.h>
+#include <router/RORoute.h>
 #include "ODAmitranHandler.h"
 #include "ODMatrix.h"
 
