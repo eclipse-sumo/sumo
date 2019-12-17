@@ -53,6 +53,9 @@ pedestrians
 # generate random persontrips
 persontrips
 
+# generate random taxi rides
+taxirides
+
 # use binomially distributed arrivals
 binomial
 
