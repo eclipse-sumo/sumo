@@ -1,0 +1,8 @@
+MSLane*, const MSLane*, const MSLane*)’:                                                          
+/home/kobo/dlr/sumoD/src/microsim/trigger/MSOverheadWire.cpp:253:109: warning: unused parameter ‘outgoingSegment’ [-Wunused-parameter]
+ MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incomingSegment, MSOverheadWire* outgoingSegment, const MSLane* connection, const MSLane* frontConnection, const MSLane* behindConnection) {                                                                                       
+                                                                                                             ^~~~~~~~~~~~~~~
+/home/kobo/dlr/sumoD/src/microsim/trigger/MSOverheadWire.cpp: In member function ‘SUMOTime MSTractionSubstation::solveCircuit(SUMOTime)’:
+/home/kobo/dlr/sumoD/src/microsim/trigger/MSOverheadWire.cpp:541:12: warning: unused variable ‘err’ [-Wunused-variable]
+     double err = 0;                                                                     
+            ^~~                                    

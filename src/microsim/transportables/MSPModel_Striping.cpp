@@ -32,6 +32,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/transportables/MSStage.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include "MSPModel_Striping.h"
 
@@ -134,7 +135,7 @@ MSPModel_Striping::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage,
         net->getBeginOfTimestepEvents()->addEvent(new MovePedestrians(this), net->getCurrentTimeStep() + DELTA_T);
         myAmActive = true;
     }
-    assert(person->getCurrentStageType() == MSTransportable::WALKING);
+    assert(person->getCurrentStageType() == MSStageType::WALKING);
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(person->getEdge());
     if (lane == nullptr) {
         std::string error = "Person '" + person->getID() + "' could not find sidewalk on edge '" + person->getEdge()->getID() + "', time="
