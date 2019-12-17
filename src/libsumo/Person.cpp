@@ -57,7 +57,7 @@ Person::getIDList() {
     MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
     std::vector<std::string> ids;
     for (MSTransportableControl::constVehIt i = c.loadedBegin(); i != c.loadedEnd(); ++i) {
-        if (i->second->getCurrentStageType() != MSTransportable::StageType::WAITING_FOR_DEPART) {
+        if (i->second->getCurrentStageType() != MSStageType::WAITING_FOR_DEPART) {
             ids.push_back(i->first);
         }
     }
@@ -180,7 +180,7 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
         throw TraCIException("The negative stage index must refer to a valid previous stage.");
     }
     //stageType, arrivalPos, edges, destStop, vType, and description can be retrieved directly from the base Stage class.
-    MSTransportable::Stage* stage = p->getNextStage(nextStageIndex);
+    MSStage* stage = p->getNextStage(nextStageIndex);
     result.type = (int)stage->getStageType();
     result.arrivalPos = stage->getArrivalPos();
     for (auto e : stage->getEdges()) {
@@ -203,8 +203,8 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
     result.travelTime = -1;
     // Some stage type dependant attributes
     switch (stage->getStageType()) {
-        case MSTransportable::StageType::DRIVING: {
-            auto* drivingStage = (MSTransportable::Stage_Driving*) stage;
+        case MSStageType::DRIVING: {
+            MSStageDriving* const drivingStage = static_cast<MSStageDriving*>(stage);
             result.intended = drivingStage->getIntendedVehicleID();
             result.depart = STEPS2TIME(drivingStage->getIntendedDepart());
             const std::set<std::string> lines = drivingStage->getLines();
@@ -216,7 +216,7 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
             }
             break;
         }
-        case MSTransportable::StageType::WALKING: {
+        case MSStageType::WALKING: {
             auto* walkingStage = (MSPerson::MSPersonStage_Walking*) stage;
             result.departPos = walkingStage->getDepartPos();
             break;
@@ -443,7 +443,7 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
 
     SUMOVehicleParameter* params = new SUMOVehicleParameter(vehicleParams);
     MSTransportable::MSTransportablePlan* plan = new MSTransportable::MSTransportablePlan();
-    plan->push_back(new MSTransportable::Stage_Waiting(edge, nullptr, 0, depart, pos, "awaiting departure", true));
+    plan->push_back(new MSStageWaiting(edge, nullptr, 0, depart, pos, "awaiting departure", true));
 
     try {
         MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(params, vehicleType, plan, nullptr);
@@ -455,7 +455,7 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
     }
 }
 
-MSTransportable::Stage*
+MSStage*
 Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
     switch (stage.type) {
         case STAGE_DRIVING: {
@@ -521,7 +521,7 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
                     throw TraCIException("Invalid stopping place id '" + stage.destStop + "' for person: '" + personID + "'");
                 }
             }
-            return new MSTransportable::Stage_Waiting(p->getArrivalEdge(), nullptr, TIME2STEPS(stage.travelTime), 0, p->getArrivalPos(), stage.description, false);
+            return new MSStageWaiting(p->getArrivalEdge(), nullptr, TIME2STEPS(stage.travelTime), 0, p->getArrivalPos(), stage.description, false);
         }
         default:
             return nullptr;
@@ -532,7 +532,7 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
 void
 Person::appendStage(const TraCIStage& stage, const std::string& personID) {
     MSTransportable* p = getPerson(personID);
-    MSTransportable::Stage* personStage = convertTraCIStage(stage, personID);
+    MSStage* personStage = convertTraCIStage(stage, personID);
     p->appendStage(personStage);
 }
 
@@ -542,7 +542,7 @@ Person::replaceStage(const std::string& personID, const int stageIndex, const Tr
     if (stageIndex >= p->getNumRemainingStages()) {
         throw TraCIException("Specified stage index:  is not valid for person " + personID);
     }
-    MSTransportable::Stage* personStage = convertTraCIStage(stage, personID);
+    MSStage* personStage = convertTraCIStage(stage, personID);
     // removing the current stage triggers abort+proceed so the replacement
     // stage must be ready beforehand
     p->appendStage(personStage, stageIndex + 1);
@@ -584,7 +584,7 @@ Person::appendWaitingStage(const std::string& personID, double duration, const s
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }
     }
-    p->appendStage(new MSTransportable::Stage_Waiting(p->getArrivalEdge(), nullptr, TIME2STEPS(duration), 0, p->getArrivalPos(), description, false));
+    p->appendStage(new MSStageWaiting(p->getArrivalEdge(), nullptr, TIME2STEPS(duration), 0, p->getArrivalPos(), description, false));
 }
 
 
@@ -643,23 +643,23 @@ Person::rerouteTraveltime(const std::string& personID) {
     double  departPos = p->getEdgePos();
     // reroute to the start of the next-non-walking stage
     int firstIndex;
-    if (p->getCurrentStageType() == MSTransportable::StageType::WALKING) {
+    if (p->getCurrentStageType() == MSStageType::WALKING) {
         firstIndex = 0;
-    } else if (p->getCurrentStageType() == MSTransportable::StageType::WAITING) {
-        if (p->getNumRemainingStages() < 2 || p->getStageType(1) != MSTransportable::StageType::WALKING) {
+    } else if (p->getCurrentStageType() == MSStageType::WAITING) {
+        if (p->getNumRemainingStages() < 2 || p->getStageType(1) != MSStageType::WALKING) {
             throw TraCIException("Person '" + personID + "' cannot reroute after the current stop.");
         }
         firstIndex = 1;
     } else {
-        throw TraCIException("Person '" + personID + "' cannot reroute in stage type '" + toString(p->getCurrentStageType()) + "'.");
+        throw TraCIException("Person '" + personID + "' cannot reroute in stage type '" + toString((int)p->getCurrentStageType()) + "'.");
     }
     int nextIndex = firstIndex + 1;
     for (; nextIndex < p->getNumRemainingStages(); nextIndex++) {
-        if (p->getStageType(nextIndex) != MSTransportable::StageType::WALKING) {
+        if (p->getStageType(nextIndex) != MSStageType::WALKING) {
             break;
         }
     }
-    MSTransportable::Stage* destStage = p->getNextStage(nextIndex - 1);
+    MSStage* destStage = p->getNextStage(nextIndex - 1);
     const MSEdge* to = destStage->getEdges().back();
     double arrivalPos = destStage->getArrivalPos();
     double speed = p->getVehicleType().getMaxSpeed();
@@ -751,7 +751,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
     int routeIndex = 0;
     MSLane* currentLane = const_cast<MSLane*>(getSidewalk<MSEdge, MSLane>(p->getEdge()));
     switch (p->getStageType(0)) {
-        case MSTransportable::StageType::WALKING: {
+        case MSStageType::WALKING: {
             MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
             assert(s != 0);
             ev = s->getEdges();
@@ -811,7 +811,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
             }
         }
         switch (p->getStageType(0)) {
-            case MSTransportable::StageType::WALKING: {
+            case MSStageType::WALKING: {
                 Helper::setRemoteControlled(p, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
                 break;
             }

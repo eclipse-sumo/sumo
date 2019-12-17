@@ -178,7 +178,7 @@ MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, cons
                     }
                 }
 
-                static_cast<MSTransportable::Stage_Driving*>((*i)->getCurrentStage())->setVehicle(vehicle);
+                static_cast<MSStageDriving*>((*i)->getCurrentStage())->setVehicle(vehicle);
                 i = wait.erase(i);
                 myWaitingForVehicleNumber--;
                 ret = true;
@@ -266,7 +266,7 @@ MSTransportableControl::abortAnyWaitingForVehicle() {
                 transportableType = "Container";
                 edge->removeContainer(p);
             }
-            MSTransportable::Stage_Driving* stage = dynamic_cast<MSTransportable::Stage_Driving*>(p->getCurrentStage());
+            MSStageDriving* stage = dynamic_cast<MSStageDriving*>(p->getCurrentStage());
             const std::string waitDescription = stage == nullptr ? "waiting" : stage->getWaitingDescription();
             WRITE_WARNING(transportableType + " '" + p->getID() + "' aborted " + waitDescription + ".");
             erase(p);

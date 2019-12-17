@@ -9,6 +9,8 @@ set(microsim_transportables_STAT_SRCS
         MSPModel_Striping.h
         MSPModel_NonInteracting.cpp
         MSPModel_NonInteracting.h
+        MSStage.cpp
+        MSStage.h
         MSTransportable.cpp
         MSTransportable.h
         MSTransportableControl.cpp

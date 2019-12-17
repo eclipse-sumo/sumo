@@ -438,7 +438,7 @@ Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::
 
 TraCIStage
 Simulation::findRoute(const std::string& from, const std::string& to, const std::string& typeID, const double depart, const int routingMode) {
-    TraCIStage result(MSTransportable::DRIVING);
+    TraCIStage result = STAGE_DRIVING;
     const MSEdge* const fromEdge = MSEdge::dictionary(from);
     if (fromEdge == nullptr) {
         throw TraCIException("Unknown from edge '" + from + "'.");
@@ -578,9 +578,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             double cost = 0;
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
                 if (!it->edges.empty()) {
-                    resultCand.push_back(TraCIStage(it->line == ""
-                                                    ? MSTransportable::StageType::WALKING
-                                                    : MSTransportable::StageType::DRIVING));
+                    resultCand.push_back(TraCIStage(it->line == "" ? STAGE_WALKING : STAGE_DRIVING));
                     resultCand.back().vType = it->vType;
                     resultCand.back().line = it->line;
                     resultCand.back().destStop = it->destStop;

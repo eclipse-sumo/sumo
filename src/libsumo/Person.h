@@ -99,7 +99,7 @@ public:
 
 private:
     static MSPerson* getPerson(const std::string& id);
-    static MSTransportable::Stage* convertTraCIStage(const TraCIStage& stage, const std::string personID);
+    static MSStage* convertTraCIStage(const TraCIStage& stage, const std::string personID);
 
 private:
     static SubscriptionResults mySubscriptionResults;

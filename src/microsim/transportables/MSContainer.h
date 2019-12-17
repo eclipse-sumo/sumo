@@ -66,7 +66,7 @@ public:
      * A container is in this stage if it is on a ride or if its waiting for a ride.
      * The given route will be chosen. The travel time is computed by the simulation
      */
-    class MSContainerStage_Driving : public MSTransportable::Stage_Driving {
+    class MSContainerStage_Driving : public MSStageDriving {
     public:
         /// constructor
         MSContainerStage_Driving(const MSEdge* destination, MSStoppingPlace* toStop,
@@ -75,10 +75,10 @@ public:
         /// destructor
         ~MSContainerStage_Driving();
 
-        Stage* clone() const;
+        MSStage* clone() const;
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous);
+        virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, MSStage* previous);
 
         /// @brief returns the stage description as a string
         std::string getStageDescription() const;
@@ -104,7 +104,7 @@ public:
     * A container is in this stage if it gets transhipred between two stops that are
     * assumed to be connected.
     */
-    class MSContainerStage_Tranship : public MSTransportable::Stage {
+    class MSContainerStage_Tranship : public MSStage {
         friend class MSCModel_NonInteracting;
 
     public:
@@ -114,10 +114,10 @@ public:
         /// destructor
         ~MSContainerStage_Tranship();
 
-        Stage* clone() const;
+        MSStage* clone() const;
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous);
+        virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, MSStage* previous);
 
         /// Returns the current edge
         const MSEdge* getEdge() const;

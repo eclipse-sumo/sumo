@@ -148,7 +148,7 @@ GUIPerson::GUIPersonPopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*) {
 long
 GUIPerson::GUIPersonPopupMenu::onCmdRemoveObject(FXObject*, FXSelector, void*) {
     GUIPerson* person = static_cast<GUIPerson*>(myObject);
-    MSTransportable::Stage* stage = person->getCurrentStage();
+    MSStage* stage = person->getCurrentStage();
     stage->abort(person);
     stage->getEdge()->removePerson(person);
     if (stage->getDestinationStop() != nullptr) {
@@ -341,7 +341,7 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
         drawAction_drawWalkingareaPath(s);
     }
     if (hasActiveAddVisualisation(parent, VO_SHOW_ROUTE)) {
-        if (getCurrentStageType() == StageType::WALKING) {
+        if (getCurrentStageType() == MSStageType::WALKING) {
             setColor(s);
             RGBColor current = GLHelper::getColor();
             RGBColor darker = current.changedBrightness(-51);
@@ -458,7 +458,7 @@ GUIPerson::getPosition() const {
 Position
 GUIPerson::getGUIPosition() const {
     FXMutexLock locker(myLock);
-    if (getCurrentStageType() == DRIVING && !isWaiting4Vehicle() && myPositionInVehicle != Position::INVALID) {
+    if (getCurrentStageType() == MSStageType::DRIVING && !isWaiting4Vehicle() && myPositionInVehicle != Position::INVALID) {
         return myPositionInVehicle;
     } else {
         return MSPerson::getPosition();

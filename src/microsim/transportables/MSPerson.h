@@ -67,7 +67,7 @@ public:
      * The walking does not need any route as it is not simulated.
      * Only the duration is needed
      */
-    class MSPersonStage_Walking : public MSTransportable::Stage {
+    class MSPersonStage_Walking : public MSStage {
     public:
         /// constructor
         MSPersonStage_Walking(const std::string& personID, const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime,
@@ -76,10 +76,10 @@ public:
         /// destructor
         ~MSPersonStage_Walking();
 
-        Stage* clone() const;
+        MSStage* clone() const;
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous);
+        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous);
 
         /// abort this stage (TraCI)
         void abort(MSTransportable*);
@@ -230,7 +230,7 @@ public:
     * A "real" stage performing the travelling by a transport system
     * The given route will be chosen. The travel time is computed by the simulation
     */
-    class MSPersonStage_Driving : public MSTransportable::Stage_Driving {
+    class MSPersonStage_Driving : public MSStageDriving {
     public:
         /// constructor
         MSPersonStage_Driving(const MSEdge* destination, MSStoppingPlace* toStop,
@@ -240,10 +240,10 @@ public:
         /// destructor
         ~MSPersonStage_Driving();
 
-        Stage* clone() const;
+        MSStage* clone() const;
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous);
+        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous);
 
         /// @brief returns the stage description as a string
         std::string getStageDescription() const;
@@ -270,7 +270,7 @@ public:
      * An intermediate stage performing the access from or to public transport as given
      * by the access elements of the public transport stop. The travel time is computed by the simulation
      */
-    class MSPersonStage_Access : public MSTransportable::Stage {
+    class MSPersonStage_Access : public MSStage {
     public:
         /// constructor
         MSPersonStage_Access(const MSEdge* destination, MSStoppingPlace* toStop,
@@ -279,10 +279,10 @@ public:
         /// destructor
         ~MSPersonStage_Access();
 
-        Stage* clone() const;
+        MSStage* clone() const;
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous);
+        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous);
 
         /// @brief returns the stage description as a string
         std::string getStageDescription() const;
@@ -336,7 +336,7 @@ public:
     /// destructor
     virtual ~MSPerson();
 
-    void checkAccess(const Stage* const prior, const bool isDisembark=true);
+    void checkAccess(const MSStage* const prior, const bool isDisembark=true);
 
     /// @brief return the list of internal edges if this person is walking and the pedestrian model allows it
     const std::string& getNextEdge() const;

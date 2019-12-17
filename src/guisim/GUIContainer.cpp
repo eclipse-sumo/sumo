@@ -214,7 +214,7 @@ GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     Position p1 = getPosition();
-    if (getCurrentStageType() == DRIVING && !isWaiting4Vehicle()) {
+    if (getCurrentStageType() == MSStageType::DRIVING && !isWaiting4Vehicle()) {
         p1 = myPositionInVehicle;
     }
     glTranslated(p1.x(), p1.y(), getType());
@@ -374,7 +374,7 @@ GUIContainer::getEdgePos() const {
 Position
 GUIContainer::getPosition() const {
     FXMutexLock locker(myLock);
-    if (getCurrentStageType() == WAITING && getEdge()->getPermissions() == SVC_SHIP) {
+    if (getCurrentStageType() == MSStageType::WAITING && getEdge()->getPermissions() == SVC_SHIP) {
         MSLane* lane = getEdge()->getLanes().front();   //the most right lane of the water way
         PositionVector laneShape = lane->getShape();
         return laneShape.positionAtOffset2D(getEdgePos(), WATER_WAY_OFFSET);

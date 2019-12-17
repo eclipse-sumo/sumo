@@ -58,10 +58,10 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
         MSStoppingPlace* toStop,
         SUMOTime walkingTime, double speed,
         double departPos, double arrivalPos, double departPosLat) :
-    MSTransportable::Stage(route.back(), toStop,
+    MSStage(route.back(), toStop,
                            SUMOVehicleParameter::interpretEdgePos(arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,
                                    "person '" + personID + "' walking to " + route.back()->getID()),
-                           StageType::WALKING),
+                           MSStageType::WALKING),
     myWalkingTime(walkingTime),
     myRoute(route),
     myCurrentInternalEdge(nullptr),
@@ -83,7 +83,7 @@ MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {
     }
 }
 
-MSTransportable::Stage*
+MSStage*
 MSPerson::MSPersonStage_Walking::clone() const {
     return new MSPersonStage_Walking("dummyID", myRoute, myDestinationStop, myWalkingTime, mySpeed, myDepartPos, myArrivalPos, myDepartPosLat);
 }
@@ -141,7 +141,7 @@ MSPerson::MSPersonStage_Walking::getEdges() const {
 
 
 void
-MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
+MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous) {
     myDeparted = now;
     myRouteStep = myRoute.begin();
     myLastEdgeEntryTime = now;
@@ -382,7 +382,7 @@ MSPerson::MSPersonStage_Walking::getStageSummary() const {
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge* destination,
         MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
         const std::string& intendedVeh, SUMOTime intendedDepart) :
-    MSTransportable::Stage_Driving(destination, toStop,
+    MSStageDriving(destination, toStop,
                                    SUMOVehicleParameter::interpretEdgePos(
                                        arrivalPos, destination->getLength(), SUMO_ATTR_ARRIVALPOS, "person riding to " + destination->getID()),
                                    lines,
@@ -392,15 +392,15 @@ MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge* destination
 
 MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
 
-MSTransportable::Stage*
+MSStage*
 MSPerson::MSPersonStage_Driving::clone() const {
     return new MSPersonStage_Driving(myDestination, myDestinationStop, myArrivalPos, std::vector<std::string>(myLines.begin(), myLines.end()),
                                      myIntendedVehicleID, myIntendedDepart);
 }
 
 void
-MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
-    const MSStoppingPlace* start = (previous->getStageType() == StageType::TRIP
+MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous) {
+    const MSStoppingPlace* start = (previous->getStageType() == MSStageType::TRIP
                                     ? previous->getOriginStop()
                                     : previous->getDestinationStop());
     myWaitingSince = now;
@@ -517,7 +517,7 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os, const bool withRo
 * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Access::MSPersonStage_Access(const MSEdge* destination, MSStoppingPlace* toStop,
         const double arrivalPos, const double dist, const bool isExit) :
-    MSTransportable::Stage(destination, toStop, arrivalPos, ACCESS),
+    MSStage(destination, toStop, arrivalPos, MSStageType::ACCESS),
     myDist(dist), myAmExit(isExit) {
     myPath.push_back(destination->getLanes()[0]->geometryPositionAtOffset(myDestinationStop->getAccessPos(destination)));
     myPath.push_back(toStop->getLane().geometryPositionAtOffset((toStop->getEndLanePosition() + toStop->getBeginLanePosition()) / 2));
@@ -529,13 +529,13 @@ MSPerson::MSPersonStage_Access::MSPersonStage_Access(const MSEdge* destination, 
 
 MSPerson::MSPersonStage_Access::~MSPersonStage_Access() {}
 
-MSTransportable::Stage*
+MSStage*
 MSPerson::MSPersonStage_Access::clone() const {
     return new MSPersonStage_Access(myDestination, myDestinationStop, myArrivalPos, myDist, myAmExit);
 }
 
 void
-MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* /* previous */) {
+MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* /* previous */) {
     myDeparted = now;
     myEstimatedArrival = now + TIME2STEPS(myDist / person->getVehicleType().getMaxSpeed());
     net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person, &myDestinationStop->getLane().getEdge()), myEstimatedArrival);
@@ -601,7 +601,7 @@ MSPerson::~MSPerson() {
 
 
 void
-MSPerson::checkAccess(const Stage* const prior, const bool isDisembark) {
+MSPerson::checkAccess(const MSStage* const prior, const bool isDisembark) {
     MSStoppingPlace* const prevStop = prior->getDestinationStop();
     if (prevStop != nullptr) {
         if (isDisembark) {
@@ -611,7 +611,7 @@ MSPerson::checkAccess(const Stage* const prior, const bool isDisembark) {
                 myStep = myPlan->insert(myStep, new MSPersonStage_Access(prior->getDestination(), prevStop, arrivalAtBs, accessDist, false));
             }
         } else {
-            if (prior->getStageType() != StageType::TRIP) {
+            if (prior->getStageType() != MSStageType::TRIP) {
                 const double accessDist = prevStop->getAccessDistance((*myStep)->getFromEdge());
                 if (accessDist > 0.) {
                     myStep = myPlan->insert(myStep, new MSPersonStage_Access((*myStep)->getFromEdge(), prevStop, prevStop->getAccessPos((*myStep)->getFromEdge()), accessDist, true));
@@ -643,7 +643,7 @@ MSPerson::getNextEdge() const {
 
 const MSEdge*
 MSPerson::getNextEdgePtr() const {
-    if (getCurrentStageType() == StageType::WALKING) {
+    if (getCurrentStageType() == MSStageType::WALKING) {
         MSPersonStage_Walking* walkingStage =  dynamic_cast<MSPersonStage_Walking*>(*myStep);
         assert(walkingStage != 0);
         return walkingStage->getPedestrianState()->getNextEdge(*walkingStage);
@@ -744,7 +744,7 @@ MSPerson::Influencer::postProcessRemoteControl(MSPerson* p) {
         << "\n";
         */
     switch (p->getStageType(0)) {
-        case StageType::WALKING: {
+        case MSStageType::WALKING: {
             MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
             assert(s != 0);
             s->getPedestrianState()->moveToXY(p, myRemoteXYPos, myRemoteLane, myRemotePos, myRemotePosLat, myRemoteAngle, myRemoteEdgeOffset, myRemoteRoute,

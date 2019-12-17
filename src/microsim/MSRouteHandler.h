@@ -165,7 +165,7 @@ protected:
     void parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
                             const MSEdge* fromEdge, const MSEdge*& toEdge,
                             double& departPos, double& arrivalPos, MSStoppingPlace*& bs,
-                            const MSTransportable::Stage* const lastStage, bool& ok);
+                            const MSStage* const lastStage, bool& ok);
 
 protected:
     /// @brief The current route

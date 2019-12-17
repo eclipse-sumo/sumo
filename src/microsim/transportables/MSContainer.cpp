@@ -47,7 +47,7 @@
  * ----------------------------------------------------------------------- */
 MSContainer::MSContainerStage_Driving::MSContainerStage_Driving(const MSEdge* destination,
         MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines) :
-    MSTransportable::Stage_Driving(destination, toStop,
+    MSStageDriving(destination, toStop,
                                    SUMOVehicleParameter::interpretEdgePos(
                                        arrivalPos, destination->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transported to " + destination->getID()),
                                    lines) {
@@ -56,13 +56,13 @@ MSContainer::MSContainerStage_Driving::MSContainerStage_Driving(const MSEdge* de
 
 MSContainer::MSContainerStage_Driving::~MSContainerStage_Driving() {}
 
-MSTransportable::Stage*
+MSStage*
 MSContainer::MSContainerStage_Driving::clone() const {
     return new MSContainerStage_Driving(myDestination, myDestinationStop, myArrivalPos, std::vector<std::string>(myLines.begin(), myLines.end()));
 }
 
 void
-MSContainer::MSContainerStage_Driving::proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous) {
+MSContainer::MSContainerStage_Driving::proceed(MSNet* net, MSTransportable* container, SUMOTime now, MSStage* previous) {
     if (previous->getDestinationStop() != nullptr) {
         // the arrival stop may have an access point
         myWaitingEdge = &previous->getDestinationStop()->getLane().getEdge();
@@ -138,10 +138,10 @@ MSContainer::MSContainerStage_Tranship::MSContainerStage_Tranship(const std::vec
         MSStoppingPlace* toStop,
         double speed,
         double departPos, double arrivalPos) :
-    MSTransportable::Stage(route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
+    MSStage(route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
                                arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,
                                "container getting transhipped to " + route.back()->getID()),
-                           StageType::TRANSHIP), myRoute(route),
+                           MSStageType::TRANSHIP), myRoute(route),
     mySpeed(speed), myContainerState(nullptr), myCurrentInternalEdge(nullptr) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
                       departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS,
@@ -151,13 +151,13 @@ MSContainer::MSContainerStage_Tranship::MSContainerStage_Tranship(const std::vec
 MSContainer::MSContainerStage_Tranship::~MSContainerStage_Tranship() {
 }
 
-MSTransportable::Stage*
+MSStage*
 MSContainer::MSContainerStage_Tranship::clone() const {
     return new MSContainerStage_Tranship(myRoute, myDestinationStop, mySpeed, myDepartPos, myArrivalPos);
 }
 
 void
-MSContainer::MSContainerStage_Tranship::proceed(MSNet* /* net */, MSTransportable* container, SUMOTime now, Stage* previous) {
+MSContainer::MSContainerStage_Tranship::proceed(MSNet* /* net */, MSTransportable* container, SUMOTime now, MSStage* previous) {
     myDeparted = now;
     //MSCModel_NonInteracting moves the container straight from start to end in
     //a single step and assumes that moveToNextEdge is only called once)

@@ -189,7 +189,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     if (!server.readTypeCheckingInt(inputStorage, stageType)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first parameter for adding a stage must be the stage type given as int.", outputStorage);
                     }
-                    if (stageType == MSTransportable::DRIVING) {
+                    if (stageType == libsumo::STAGE_DRIVING) {
                         // append driving stage
                         if (numParameters != 4) {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a driving stage needs four parameters.", outputStorage);
@@ -207,7 +207,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
                         }
                         libsumo::Person::appendDrivingStage(id, edgeID, lines, stopID);
-                    } else if (stageType == MSTransportable::WAITING) {
+                    } else if (stageType == libsumo::STAGE_WAITING) {
                         // append waiting stage
                         if (numParameters != 4) {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a waiting stage needs four parameters.", outputStorage);
@@ -225,7 +225,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
                         }
                         libsumo::Person::appendWaitingStage(id, duration, description, stopID);
-                    } else if (stageType == MSTransportable::StageType::WALKING) {
+                    } else if (stageType == libsumo::STAGE_WALKING) {
                         // append walking stage
                         if (numParameters != 6) {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a walking stage needs six parameters.", outputStorage);
