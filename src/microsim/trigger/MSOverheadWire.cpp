@@ -267,6 +267,7 @@ MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incom
             innerSegment->setCircuitStartNode_pos(incomingSegment->getCircuitEndNode_pos());
             innerSegment->setCircuitEndNode_pos(outgoingSegment->getCircuitStartNode_pos());
 #else
+            UNUSED_PARAMETER(outgoingSegment);
             WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
 #endif
         }
@@ -538,10 +539,10 @@ MSTractionSubstation::addSolvingCirucitToEndOfTimestepEvents() {
 SUMOTime
 MSTractionSubstation::solveCircuit(SUMOTime /*currentTime*/) {
     /*Circuit evaluation*/
-    double err = 0;
     setChargingVehicle(false);
 
 #ifdef HAVE_EIGEN
+    double err = 0;
     vector<Element*>* elecHybridSources = getCircuit()->getCurrentSources();
     getCircuit()->solve();
 
