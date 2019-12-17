@@ -424,6 +424,17 @@ public:
 
     /// @name Methods for retrieving values from options
     /// @{
+    /** @brief Returns the string-value of the named option (all options)
+     *
+     * This method returns the string-value of an existing option.
+     * If the named option does not exist, an
+     *  InvalidArgument is thrown.
+     *
+     * @param[in] name The name of the option to return the string-value of
+     * @return The string-value of the named, existing option
+     * @exception InvalidArgument If the option does not exist
+     */
+    std::string getValueString(const std::string& name) const;
 
     /** @brief Returns the string-value of the named option (only for Option_String)
      *

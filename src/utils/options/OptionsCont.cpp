@@ -198,6 +198,13 @@ OptionsCont::getSecure(const std::string& name) const {
 
 
 std::string
+OptionsCont::getValueString(const std::string& name) const {
+    Option* o = getSecure(name);
+    return o->getValueString();
+}
+
+
+std::string
 OptionsCont::getString(const std::string& name) const {
     Option* o = getSecure(name);
     return o->getString();
