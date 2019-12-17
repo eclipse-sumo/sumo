@@ -33,7 +33,7 @@
 #include <microsim/transportables/MSPModel.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/MSGlobals.h>
-#include <microsim/transportables/MSContainer.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSXMLRawOut.h"
 

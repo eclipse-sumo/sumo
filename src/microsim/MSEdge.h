@@ -56,7 +56,6 @@ class MSLaneChanger;
 class MSPerson;
 class MSJunction;
 class MSEdge;
-class MSContainer;
 class MSTransportable;
 
 

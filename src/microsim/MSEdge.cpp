@@ -44,7 +44,7 @@
 #include "MSNet.h"
 #include "MSVehicle.h"
 #include "MSLeaderInfo.h"
-#include <microsim/transportables/MSContainer.h>
+#include <microsim/transportables/MSTransportable.h>
 #include "MSEdgeWeightsStorage.h"
 #include "MSEdge.h"
 

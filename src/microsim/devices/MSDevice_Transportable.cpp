@@ -29,7 +29,6 @@
 #include <microsim/MSEdge.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSTransportableControl.h>
-#include <microsim/transportables/MSContainer.h>
 #include "MSDevice_Transportable.h"
 #include "MSDevice_Taxi.h"
 

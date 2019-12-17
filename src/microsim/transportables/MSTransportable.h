@@ -197,7 +197,7 @@ public:
 
     /// Returns the current stage description as a string
     std::string getCurrentStageDescription() const {
-        return (*myStep)->getStageDescription();
+        return (*myStep)->getStageDescription(myAmPerson);
     }
 
     /// @brief Return the current stage

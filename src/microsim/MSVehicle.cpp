@@ -5331,18 +5331,18 @@ MSVehicle::getHarmonoise_NoiseEmissions() const {
 
 
 void
-MSVehicle::addPerson(MSTransportable* person) {
-    MSBaseVehicle::addPerson(person);
-    if (myStops.size() > 0 && myStops.front().reached && myStops.front().triggered && myStops.front().numExpectedPerson > 0) {
-        myStops.front().numExpectedPerson -= (int)myStops.front().pars.awaitedPersons.count(person->getID());
-    }
-}
-
-void
-MSVehicle::addContainer(MSTransportable* container) {
-    MSBaseVehicle::addContainer(container);
-    if (myStops.size() > 0 && myStops.front().reached && myStops.front().pars.containerTriggered && myStops.front().numExpectedContainer > 0) {
-        myStops.front().numExpectedContainer -= (int)myStops.front().pars.awaitedContainers.count(container->getID());
+MSVehicle::addTransportable(MSTransportable* transportable) {
+    MSBaseVehicle::addTransportable(transportable);
+    if (myStops.size() > 0 && myStops.front().reached) {
+        if (transportable->isPerson()) {
+            if (myStops.front().triggered && myStops.front().numExpectedPerson > 0) {
+                myStops.front().numExpectedPerson -= (int)myStops.front().pars.awaitedPersons.count(transportable->getID());
+            }
+        } else {
+            if (myStops.front().pars.containerTriggered && myStops.front().numExpectedContainer > 0) {
+                myStops.front().numExpectedContainer -= (int)myStops.front().pars.awaitedContainers.count(transportable->getID());
+            }
+        }
     }
 }
 

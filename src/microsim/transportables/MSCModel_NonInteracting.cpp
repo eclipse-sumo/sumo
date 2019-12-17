@@ -19,7 +19,7 @@
 // included modules
 // ===========================================================================
 #include <config.h>
-//
+
 #include <cmath>
 #include <algorithm>
 #include <utils/common/RandHelper.h>
@@ -30,6 +30,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSEventControl.h>
+#include <microsim/transportables/MSStageTranship.h>
 #include "MSCModel_NonInteracting.h"
 
 // ===========================================================================
@@ -67,7 +68,7 @@ MSCModel_NonInteracting::getModel() {
 }
 
 CState*
-MSCModel_NonInteracting::add(MSTransportable* container, MSContainer::MSContainerStage_Tranship* stage, SUMOTime now) {
+MSCModel_NonInteracting::add(MSTransportable* container, MSStageTranship* stage, SUMOTime now) {
     CState* state = new CState();
     const SUMOTime firstEdgeDuration = state->computeTranshipTime(nullptr, *stage, now);
     myNet->getBeginOfTimestepEvents()->addEvent(new MoveToNextEdge(container, *stage), now + firstEdgeDuration);
@@ -100,13 +101,13 @@ MSCModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
 
 
 double
-CState::getEdgePos(const MSContainer::MSContainerStage_Tranship&, SUMOTime now) const {
+CState::getEdgePos(const MSStageTranship&, SUMOTime now) const {
     return myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime);
 }
 
 
 Position
-CState::getPosition(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const {
+CState::getPosition(const MSStageTranship& stage, SUMOTime now) const {
     const double dist = myCurrentBeginPosition.distanceTo2D(myCurrentEndPosition);    //distance between begin and end position of this tranship stage
     double pos = MIN2(STEPS2TIME(now - myLastEntryTime) *  stage.getMaxSpeed(), dist);    //the containerd shall not go beyond its end position
     return PositionVector::positionAtOffset2D(myCurrentBeginPosition, myCurrentEndPosition, pos, 0);
@@ -114,7 +115,7 @@ CState::getPosition(const MSContainer::MSContainerStage_Tranship& stage, SUMOTim
 
 
 double
-CState::getAngle(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const {
+CState::getAngle(const MSStageTranship& stage, SUMOTime now) const {
     double angle = stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? 1.5 * M_PI : 0.5 * M_PI);
     if (angle > M_PI) {
         angle -= 2 * M_PI;
@@ -124,13 +125,13 @@ CState::getAngle(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime n
 
 
 double
-CState::getSpeed(const MSContainer::MSContainerStage_Tranship& stage) const {
+CState::getSpeed(const MSStageTranship& stage) const {
     return stage.getMaxSpeed();
 }
 
 
 SUMOTime
-CState::computeTranshipTime(const MSEdge* /* prev */, const MSContainer::MSContainerStage_Tranship& stage, SUMOTime currentTime) {
+CState::computeTranshipTime(const MSEdge* /* prev */, const MSStageTranship& stage, SUMOTime currentTime) {
     myLastEntryTime = currentTime;
 
     myCurrentBeginPos = stage.getDepartPos();
@@ -144,7 +145,6 @@ CState::computeTranshipTime(const MSEdge* /* prev */, const MSContainer::MSConta
     myCurrentDuration = MAX2((SUMOTime)1, TIME2STEPS(fabs(myCurrentEndPosition.distanceTo(myCurrentBeginPosition)) / stage.getMaxSpeed()));
     return myCurrentDuration;
 }
-
 
 
 /****************************************************************************/

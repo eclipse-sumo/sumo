@@ -55,15 +55,14 @@ int MSDevice_Tripinfo::myWalkCount(0);
 double MSDevice_Tripinfo::myTotalWalkRouteLength(0);
 SUMOTime MSDevice_Tripinfo::myTotalWalkDuration(0);
 SUMOTime MSDevice_Tripinfo::myTotalWalkTimeLoss(0);
-
-int MSDevice_Tripinfo::myRideCount(0);
-int MSDevice_Tripinfo::myRideBusCount(0);
-int MSDevice_Tripinfo::myRideRailCount(0);
-int MSDevice_Tripinfo::myRideBikeCount(0);
-int MSDevice_Tripinfo::myRideAbortCount(0);
-double MSDevice_Tripinfo::myTotalRideWaitingTime(0);
-double MSDevice_Tripinfo::myTotalRideRouteLength(0);
-SUMOTime MSDevice_Tripinfo::myTotalRideDuration(0);
+std::vector<int> MSDevice_Tripinfo::myRideCount({0,0});
+std::vector<int> MSDevice_Tripinfo::myRideBusCount({0,0});
+std::vector<int> MSDevice_Tripinfo::myRideRailCount({0,0});
+std::vector<int> MSDevice_Tripinfo::myRideBikeCount({0,0});
+std::vector<int> MSDevice_Tripinfo::myRideAbortCount({0,0});
+std::vector<double> MSDevice_Tripinfo::myTotalRideWaitingTime({0.,0.});
+std::vector<double> MSDevice_Tripinfo::myTotalRideRouteLength({0.,0.});
+std::vector<SUMOTime> MSDevice_Tripinfo::myTotalRideDuration({0,0});
 
 // ===========================================================================
 // method definitions
@@ -133,14 +132,14 @@ MSDevice_Tripinfo::cleanup() {
     myTotalWalkDuration = 0;
     myTotalWalkTimeLoss = 0;
 
-    myRideCount = 0;
-    myRideBusCount = 0;
-    myRideRailCount = 0;
-    myRideBikeCount = 0;
-    myRideAbortCount = 0;
-    myTotalRideWaitingTime = 0;
-    myTotalRideRouteLength = 0;
-    myTotalRideDuration = 0;
+    myRideCount = {0,0};
+    myRideBusCount = {0,0};
+    myRideRailCount = {0,0};
+    myRideBikeCount = {0,0};
+    myRideAbortCount = {0,0};
+    myTotalRideWaitingTime = {0.,0.};
+    myTotalRideRouteLength = {0.,0.};
+    myTotalRideDuration = {0,0};
 }
 
 bool
@@ -344,24 +343,26 @@ MSDevice_Tripinfo::addPedestrianData(double walkLength, SUMOTime walkDuration, S
 
 
 void
-MSDevice_Tripinfo::addRideData(double rideLength, SUMOTime rideDuration, SUMOVehicleClass vClass, const std::string& line, SUMOTime waitingTime) {
-    myRideCount++;
-    if (rideDuration > 0) {
-        myTotalRideWaitingTime += waitingTime;
-        myTotalRideRouteLength += rideLength;
-        myTotalRideDuration += rideDuration;
+MSDevice_Tripinfo::addRideTransportData(const bool isPerson, const double distance, const SUMOTime duration,
+                                        const SUMOVehicleClass vClass, const std::string& line, const SUMOTime waitingTime) {
+    const int index = isPerson ? 0 : 1;
+    myRideCount[index]++;
+    if (duration > 0) {
+        myTotalRideWaitingTime[index] += waitingTime;
+        myTotalRideRouteLength[index] += distance;
+        myTotalRideDuration[index] += duration;
         if (vClass == SVC_BICYCLE) {
-            myRideBikeCount++;
+            myRideBikeCount[index]++;
         } else if (!line.empty()) {
             if (isRailway(vClass)) {
-                myRideRailCount++;
+                myRideRailCount[index]++;
             } else {
                 // some kind of road vehicle
-                myRideBusCount++;
+                myRideBusCount[index]++;
             }
         }
     } else {
-        myRideAbortCount++;
+        myRideAbortCount[index]++;
     }
 }
 
@@ -386,15 +387,25 @@ MSDevice_Tripinfo::printStatistics() {
             << " Duration: " << getAvgWalkDuration() << "\n"
             << " TimeLoss: " << getAvgWalkTimeLoss() << "\n";
     }
-    if (myRideCount > 0) {
-        msg << "Ride Statistics (avg of " << myRideCount << " rides):\n"
+    if (myRideCount[0] > 0) {
+        msg << "Ride Statistics (avg of " << myRideCount[0] << " rides):\n"
             << " WaitingTime: " << getAvgRideWaitingTime() << "\n"
             << " RouteLength: " << getAvgRideRouteLength() << "\n"
             << " Duration: " << getAvgRideDuration() << "\n"
-            << " Bus: " << myRideBusCount << "\n"
-            << " Train: " << myRideRailCount << "\n"
-            << " Bike: " << myRideBikeCount << "\n"
-            << " Aborted: " << myRideAbortCount << "\n";
+            << " Bus: " << myRideBusCount[0] << "\n"
+            << " Train: " << myRideRailCount[0] << "\n"
+            << " Bike: " << myRideBikeCount[0] << "\n"
+            << " Aborted: " << myRideAbortCount[0] << "\n";
+    }
+    if (myRideCount[1] > 0) {
+        msg << "Transport Statistics (avg of " << myRideCount[1] << " transports):\n"
+            << " WaitingTime: " << STEPS2TIME(myTotalRideWaitingTime[1] / myRideCount[1]) << "\n"
+            << " RouteLength: " << STEPS2TIME(myTotalRideRouteLength[1] / myRideCount[1]) << "\n"
+            << " Duration: " << STEPS2TIME(myTotalRideDuration[1] / myRideCount[1]) << "\n"
+            << " Bus: " << myRideBusCount[1] << "\n"
+            << " Train: " << myRideRailCount[1] << "\n"
+            << " Bike: " << myRideBikeCount[1] << "\n"
+            << " Aborted: " << myRideAbortCount[1] << "\n";
     }
     return msg.str();
 }
@@ -479,8 +490,8 @@ MSDevice_Tripinfo::getAvgWalkTimeLoss() {
 
 double
 MSDevice_Tripinfo::getAvgRideDuration() {
-    if (myRideCount > 0) {
-        return STEPS2TIME(myTotalRideDuration / myRideCount);
+    if (myRideCount[0] > 0) {
+        return STEPS2TIME(myTotalRideDuration[0] / myRideCount[0]);
     } else {
         return 0;
     }
@@ -488,8 +499,8 @@ MSDevice_Tripinfo::getAvgRideDuration() {
 
 double
 MSDevice_Tripinfo::getAvgRideWaitingTime() {
-    if (myRideCount > 0) {
-        return STEPS2TIME(myTotalRideWaitingTime / myRideCount);
+    if (myRideCount[0] > 0) {
+        return STEPS2TIME(myTotalRideWaitingTime[0] / myRideCount[0]);
     } else {
         return 0;
     }
@@ -497,8 +508,8 @@ MSDevice_Tripinfo::getAvgRideWaitingTime() {
 
 double
 MSDevice_Tripinfo::getAvgRideRouteLength() {
-    if (myRideCount > 0) {
-        return myTotalRideRouteLength / myRideCount;
+    if (myRideCount[0] > 0) {
+        return myTotalRideRouteLength[0] / myRideCount[0];
     } else {
         return 0;
     }

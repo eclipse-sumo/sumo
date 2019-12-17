@@ -13,8 +13,6 @@ set(microsim_STAT_SRCS
    MSBitSetLogic.h
    MSBaseVehicle.cpp
    MSBaseVehicle.h
-   MSCModel_NonInteracting.h
-   MSCModel_NonInteracting.cpp
    MSEdge.cpp
    MSEdge.h
    MSEdgeControl.cpp

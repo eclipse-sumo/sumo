@@ -106,10 +106,10 @@ public:
     }
 
     /// @brief return (brief) string representation of the current stage
-    virtual std::string getStageDescription() const = 0;
+    virtual std::string getStageDescription(const bool isPerson) const = 0;
 
     /// @brief return string summary of the current stage
-    virtual std::string getStageSummary() const = 0;
+    virtual std::string getStageSummary(const bool isPerson) const = 0;
 
     /// proceeds to this stage
     virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) = 0;
@@ -127,7 +127,7 @@ public:
     void setDeparted(SUMOTime now);
 
     /// logs end of the step
-    virtual const std::string& setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
+    virtual const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
 
     /// Whether the transportable waits for the given vehicle
     virtual bool isWaitingFor(const SUMOVehicle* vehicle) const;
@@ -176,7 +176,7 @@ public:
      * @param[in] withRouteLength whether route length shall be written
      * @exception IOError not yet implemented
      */
-    virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const = 0;
+    virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const = 0;
 
     virtual MSStage* clone() const = 0;
 
@@ -245,14 +245,15 @@ public:
         return -1;
     }
 
-    std::string getStageDescription() const {
+    std::string getStageDescription(const bool isPerson) const {
+        UNUSED_PARAMETER(isPerson);
         return "trip";
     }
 
-    std::string getStageSummary() const;
+    std::string getStageSummary(const bool isPerson) const;
 
     /// logs end of the step
-    virtual const std::string& setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
+    virtual const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
 
     /// change origin for parking area rerouting
     void setOrigin(const MSEdge* origin) {
@@ -274,7 +275,7 @@ public:
     * @param[in] os The stream to write the information into
     * @exception IOError not yet implemented
     */
-    virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
+    virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const;
 
 private:
     /// the origin edge
@@ -347,11 +348,12 @@ public:
 
     SUMOTime getWaitingTime(SUMOTime now) const;
 
-    std::string getStageDescription() const {
+    std::string getStageDescription(const bool isPerson) const {
+        UNUSED_PARAMETER(isPerson);
         return "waiting (" + myActType + ")";
     }
 
-    std::string getStageSummary() const;
+    std::string getStageSummary(const bool isPerson) const;
 
     /// proceeds to the next step
     virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous);
@@ -368,7 +370,7 @@ public:
     * @param[in] os The stream to write the information into
     * @exception IOError not yet implemented
     */
-    virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
+    virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const;
 
 private:
     /// the time the person is waiting
@@ -386,106 +388,6 @@ private:
 
     /// @brief Invalidated assignment operator.
     MSStageWaiting& operator=(const MSStageWaiting&);
-
-};
-
-/**
-* A "real" stage performing the travelling by a transport system
-* The given route will be chosen. The travel time is computed by the simulation
-*/
-class MSStageDriving : public MSStage {
-public:
-    /// constructor
-    MSStageDriving(const MSEdge* destination, MSStoppingPlace* toStop,
-                   const double arrivalPos, const std::vector<std::string>& lines,
-                   const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
-
-    /// destructor
-    virtual ~MSStageDriving();
-
-    /// abort this stage (TraCI)
-    void abort(MSTransportable*);
-
-    /// Returns the current edge
-    const MSEdge* getEdge() const;
-    const MSEdge* getFromEdge() const;
-    double getEdgePos(SUMOTime now) const;
-
-    ///
-    Position getPosition(SUMOTime now) const;
-
-    double getAngle(SUMOTime now) const;
-
-    /// @brief get travel distance in this stage
-    double getDistance() const {
-        return myVehicleDistance;
-    }
-
-    /// Whether the person waits for the given vehicle
-    bool isWaitingFor(const SUMOVehicle* vehicle) const;
-
-    /// @brief Whether the person waits for a vehicle
-    bool isWaiting4Vehicle() const;
-
-    /// @brief Return where the person waits and for what
-    std::string getWaitingDescription() const;
-
-    SUMOVehicle* getVehicle() const {
-        return myVehicle;
-    }
-
-    /// @brief time spent waiting for a ride
-    SUMOTime getWaitingTime(SUMOTime now) const;
-
-    double getSpeed() const;
-
-    ConstMSEdgeVector getEdges() const;
-
-    void setVehicle(SUMOVehicle* v);
-
-    /// @brief marks arrival time and records driven distance
-    const std::string& setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
-
-    const std::set<std::string>& getLines() const {
-        return myLines;
-    }
-
-    std::string getIntendedVehicleID() const {
-        return myIntendedVehicleID;
-    }
-
-    SUMOTime getIntendedDepart() const {
-        return myIntendedDepart;
-    }
-
-protected:
-    /// the lines  to choose from
-    const std::set<std::string> myLines;
-
-    /// @brief The taken vehicle
-    SUMOVehicle* myVehicle;
-    /// @brief cached vehicle data for output after the vehicle has been removed
-    std::string myVehicleID;
-    std::string myVehicleLine;
-
-    SUMOVehicleClass myVehicleVClass;
-    double myVehicleDistance;
-
-    double myWaitingPos;
-    /// @brief The time since which this person is waiting for a ride
-    SUMOTime myWaitingSince;
-    const MSEdge* myWaitingEdge;
-    Position myStopWaitPos;
-
-    std::string myIntendedVehicleID;
-    SUMOTime myIntendedDepart;
-
-private:
-    /// @brief Invalidated copy constructor.
-    MSStageDriving(const MSStageDriving&);
-
-    /// @brief Invalidated assignment operator.
-    MSStageDriving& operator=(const MSStageDriving&) = delete;
 
 };
 

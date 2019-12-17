@@ -1,6 +1,6 @@
 set(microsim_transportables_STAT_SRCS
-        MSContainer.cpp
-        MSContainer.h
+        MSCModel_NonInteracting.h
+        MSCModel_NonInteracting.cpp
         MSPerson.cpp
         MSPerson.h
         MSPModel.cpp
@@ -11,6 +11,10 @@ set(microsim_transportables_STAT_SRCS
         MSPModel_NonInteracting.h
         MSStage.cpp
         MSStage.h
+        MSStageDriving.cpp
+        MSStageDriving.h
+        MSStageTranship.cpp
+        MSStageTranship.h
         MSTransportable.cpp
         MSTransportable.h
         MSTransportableControl.cpp

@@ -64,7 +64,6 @@ class MSDevice;
 class MSEdgeWeightsStorage;
 class OutputDevice;
 class Position;
-class MSContainer;
 class MSJunction;
 class MSLeaderInfo;
 class MSDevice_DriverState;
@@ -1175,21 +1174,11 @@ public:
     double getHarmonoise_NoiseEmissions() const;
     //@}
 
-    /// @name Interaction with persons
-    //@{
-
-    /** @brief Adds a passenger
-     * @param[in] person The person to add
+    /** @brief Adds a person or container to this vehicle
+     *
+     * @param[in] transportable The person/container to add
      */
-    void addPerson(MSTransportable* person);
-
-    /// @name Interaction with containers
-    //@{
-
-    /** @brief Adds a container
-     * @param[in] container The container to add
-     */
-    void addContainer(MSTransportable* container);
+    void addTransportable(MSTransportable* transportable);
 
     /// @name Access to bool signals
     /// @{

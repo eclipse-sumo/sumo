@@ -345,22 +345,11 @@ public:
     /// @brief whether the given transportable is allowed to board this vehicle
     bool allowsBoarding(MSTransportable* t) const;
 
-    /** @brief Adds a person to this vehicle
+    /** @brief Adds a person or container to this vehicle
      *
-     * The default implementation does nothing since persons are not supported by default
-     *
-     * @param[in] person The person to add
+     * @param[in] transportable The person/container to add
      */
-    virtual void addPerson(MSTransportable* person);
-
-
-    /** @brief Adds a container to this vehicle
-     *
-     * The default implementation does nothing since containers are not supported by default
-     *
-     * @param[in] container The container to add
-     */
-    virtual void addContainer(MSTransportable* container);
+    virtual void addTransportable(MSTransportable* transportable);
 
     /// @brief removes a person or container
     void removeTransportable(MSTransportable* t);

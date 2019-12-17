@@ -29,7 +29,7 @@
 #include <fx.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/RGBColor.h>
-#include <microsim/transportables/MSContainer.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/settings/GUIPropertySchemeStorage.h>
 
@@ -48,7 +48,7 @@ class MSDevice_Vehroutes;
 /**
  * @class GUIContainer
  */
-class GUIContainer : public MSContainer, public GUIGlObject {
+class GUIContainer : public MSTransportable, public GUIGlObject {
 public:
     /** @brief Constructor
      */

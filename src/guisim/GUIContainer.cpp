@@ -24,8 +24,6 @@
 #include <cmath>
 #include <vector>
 #include <string>
-#include <microsim/transportables/MSContainer.h>
-#include <microsim/MSCModel_NonInteracting.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
@@ -121,7 +119,7 @@ GUIContainer::GUIContainerPopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*
  * GUIContainer - methods
  * ----------------------------------------------------------------------- */
 GUIContainer::GUIContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) :
-    MSContainer(pars, vtype, plan),
+    MSTransportable(pars, vtype, plan, false),
     GUIGlObject(GLO_CONTAINER, pars->id) {
 }
 
@@ -367,7 +365,7 @@ GUIContainer::getColorValue(const GUIVisualizationSettings& /* s */, int activeS
 double
 GUIContainer::getEdgePos() const {
     FXMutexLock locker(myLock);
-    return MSContainer::getEdgePos();
+    return MSTransportable::getEdgePos();
 }
 
 
@@ -379,28 +377,28 @@ GUIContainer::getPosition() const {
         PositionVector laneShape = lane->getShape();
         return laneShape.positionAtOffset2D(getEdgePos(), WATER_WAY_OFFSET);
     }
-    return MSContainer::getPosition();
+    return MSTransportable::getPosition();
 }
 
 
 double
 GUIContainer::getAngle() const {
     FXMutexLock locker(myLock);
-    return MSContainer::getAngle();
+    return MSTransportable::getAngle();
 }
 
 
 double
 GUIContainer::getWaitingSeconds() const {
     FXMutexLock locker(myLock);
-    return MSContainer::getWaitingSeconds();
+    return MSTransportable::getWaitingSeconds();
 }
 
 
 double
 GUIContainer::getSpeed() const {
     FXMutexLock locker(myLock);
-    return MSContainer::getSpeed();
+    return MSTransportable::getSpeed();
 }
 
 

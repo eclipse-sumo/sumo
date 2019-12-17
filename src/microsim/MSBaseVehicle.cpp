@@ -418,29 +418,30 @@ MSBaseVehicle::allowsBoarding(MSTransportable* t) const {
     return true;
 }
 
-void
-MSBaseVehicle::addPerson(MSTransportable* person) {
-    if (myPersonDevice == nullptr) {
-        myPersonDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, false);
-        myMoveReminders.push_back(std::make_pair(myPersonDevice, 0.));
-        if (myParameter->departProcedure == DEPART_TRIGGERED && myParameter->depart == -1) {
-            const_cast<SUMOVehicleParameter*>(myParameter)->depart = MSNet::getInstance()->getCurrentTimeStep();
-        }
-    }
-    myPersonDevice->addTransportable(person);
-}
 
 void
-MSBaseVehicle::addContainer(MSTransportable* container) {
-    if (myContainerDevice == nullptr) {
-        myContainerDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, true);
-        myMoveReminders.push_back(std::make_pair(myContainerDevice, 0.));
-        if (myParameter->departProcedure == DEPART_TRIGGERED && myParameter->depart == -1) {
-            const_cast<SUMOVehicleParameter*>(myParameter)->depart = MSNet::getInstance()->getCurrentTimeStep();
+MSBaseVehicle::addTransportable(MSTransportable* transportable) {
+    if (transportable->isPerson()) {
+        if (myPersonDevice == nullptr) {
+            myPersonDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, false);
+            myMoveReminders.push_back(std::make_pair(myPersonDevice, 0.));
+            if (myParameter->departProcedure == DEPART_TRIGGERED && myParameter->depart == -1) {
+                const_cast<SUMOVehicleParameter*>(myParameter)->depart = MSNet::getInstance()->getCurrentTimeStep();
+            }
         }
+        myPersonDevice->addTransportable(transportable);
+    } else {
+        if (myContainerDevice == nullptr) {
+            myContainerDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, true);
+            myMoveReminders.push_back(std::make_pair(myContainerDevice, 0.));
+            if (myParameter->departProcedure == DEPART_CONTAINER_TRIGGERED && myParameter->depart == -1) {
+                const_cast<SUMOVehicleParameter*>(myParameter)->depart = MSNet::getInstance()->getCurrentTimeStep();
+            }
+        }
+        myContainerDevice->addTransportable(transportable);
     }
-    myContainerDevice->addTransportable(container);
 }
+
 
 bool
 MSBaseVehicle::hasValidRoute(std::string& msg, const MSRoute* route) const {

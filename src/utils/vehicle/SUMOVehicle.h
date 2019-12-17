@@ -219,21 +219,11 @@ public:
     /// @brief whether the given transportable is allowed to board this vehicle
     virtual bool allowsBoarding(MSTransportable* t) const = 0;
 
-    /** @brief Adds a person to this vehicle
+    /** @brief Adds a person or container to this vehicle
      *
-     * May do nothing since persons are not supported by default
-     *
-     * @param[in] person The person to add
+     * @param[in] transportable The person/container to add
      */
-    virtual void addPerson(MSTransportable* person) = 0;
-
-    /** @brief Adds a container to this vehicle
-     *
-     * May do nothing since containers are not supported by default
-     *
-     * @param[in] container The container to add
-     */
-    virtual void addContainer(MSTransportable* container) = 0;
+    virtual void addTransportable(MSTransportable* transportable) = 0;
 
     /** @brief Returns the number of persons
      * @return The number of passengers on-board

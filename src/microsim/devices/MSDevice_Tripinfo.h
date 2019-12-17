@@ -69,8 +69,9 @@ public:
     /// @brief record tripinfo data for pedestrians
     static void addPedestrianData(double walkLength, SUMOTime walkDuration, SUMOTime walkTimeLoss);
 
-    /// @brief record tripinfo data for rides
-    static void addRideData(double rideLength, SUMOTime rideDuration, SUMOVehicleClass vClass, const std::string& line, SUMOTime waitingTime);
+    /// @brief record tripinfo data for rides and transports
+    static void addRideTransportData(const bool isPerson, const double distance, const SUMOTime duration,
+                                     const SUMOVehicleClass vClass, const std::string& line, const SUMOTime waitingTime);
 
     /// @brief get statistics for printing to stdout
     static std::string printStatistics();
@@ -250,14 +251,14 @@ private:
     static SUMOTime myTotalWalkDuration;
     static SUMOTime myTotalWalkTimeLoss;
 
-    static int myRideCount;
-    static int myRideBusCount;
-    static int myRideRailCount;
-    static int myRideBikeCount;
-    static int myRideAbortCount;
-    static double myTotalRideWaitingTime;
-    static double myTotalRideRouteLength;
-    static SUMOTime myTotalRideDuration;
+    static std::vector<int> myRideCount;
+    static std::vector<int> myRideBusCount;
+    static std::vector<int> myRideRailCount;
+    static std::vector<int> myRideBikeCount;
+    static std::vector<int> myRideAbortCount;
+    static std::vector<double> myTotalRideWaitingTime;
+    static std::vector<double> myTotalRideRouteLength;
+    static std::vector<SUMOTime> myTotalRideDuration;
 
 private:
     /// @brief Invalidated copy constructor.

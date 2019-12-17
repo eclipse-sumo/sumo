@@ -32,6 +32,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/transportables/MSPerson.h>
+#include <microsim/transportables/MSStageDriving.h>
 #include <microsim/devices/MSTransportableDevice.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/transportables/MSTransportableControl.h>
@@ -178,7 +179,7 @@ MSTransportable::routeOutput(OutputDevice& os, const bool withRouteLength) const
         os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
     }
     for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        (*i)->routeOutput(os, withRouteLength);
+        (*i)->routeOutput(myAmPerson, os, withRouteLength);
     }
     os.closeTag();
     os.lf();
@@ -272,7 +273,7 @@ std::string
 MSTransportable::getStageSummary(int stageIndex) const {
     assert(stageIndex < (int)myPlan->size());
     assert(stageIndex >= 0);
-    return (*myPlan)[stageIndex]->getStageSummary();
+    return (*myPlan)[stageIndex]->getStageSummary(myAmPerson);
 }
 
 
@@ -323,7 +324,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
             const MSStage* const futureStage = *it;
             MSStage* const prevStage = *(it - 1);
             if (futureStage->getStageType() == MSStageType::DRIVING) {
-                const MSPerson::MSPersonStage_Driving* const ds = dynamic_cast<const MSPerson::MSPersonStage_Driving* const>(futureStage);
+                const MSStageDriving* const ds = static_cast<const MSStageDriving* const>(futureStage);
                 if (ds->getLines() == stage->getLines()
                         && prevStage->getDestination() == &orig->getLane().getEdge()) {
                     if (prevStage->getStageType() == MSStageType::TRIP) {

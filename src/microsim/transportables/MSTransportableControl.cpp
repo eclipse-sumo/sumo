@@ -31,7 +31,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/transportables/MSPerson.h>
-#include <microsim/transportables/MSContainer.h>
+#include <microsim/transportables/MSStageDriving.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/transportables/MSTransportableControl.h>
 
@@ -162,7 +162,7 @@ MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, cons
                     && stop.startPos <= (*i)->getEdgePos()
                     && (*i)->getEdgePos() <= stop.endPos) {
                 edge->removePerson(*i);
-                vehicle->addPerson(*i);
+                vehicle->addTransportable(*i);
                 if (timeToBoardNextPerson >= 0) { // meso does not have boarding times
                     //if the time a person needs to enter the vehicle extends the duration of the stop of the vehicle extend
                     //the duration by setting it to the boarding duration of the person
@@ -207,7 +207,7 @@ MSTransportableControl::loadAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, const
                     && stop.startPos <= (*i)->getEdgePos()
                     && (*i)->getEdgePos() <= stop.endPos) {
                 edge->removeContainer(*i);
-                vehicle->addContainer(*i);
+                vehicle->addTransportable(*i);
                 //if the time a container needs to get loaded on the vehicle extends the duration of the stop of the vehicle extend
                 //the duration by setting it to the loading duration of the container
                 const SUMOTime loadingDuration = vehicle->getVehicleType().getLoadingDuration();
@@ -217,7 +217,7 @@ MSTransportableControl::loadAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, const
                 //update the time point at which the next container can be loaded on the vehicle
                 timeToLoadNextContainer = currentTime + loadingDuration;
 
-                static_cast<MSContainer::MSContainerStage_Driving*>((*i)->getCurrentStage())->setVehicle(vehicle);
+                static_cast<MSStageDriving*>((*i)->getCurrentStage())->setVehicle(vehicle);
                 i = waitContainers.erase(i);
                 myWaitingForVehicleNumber--;
                 ret = true;
@@ -316,7 +316,7 @@ MSTransportableControl::buildPerson(const SUMOVehicleParameter* pars, MSVehicleT
 
 MSTransportable*
 MSTransportableControl::buildContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
-    return new MSContainer(pars, vtype, plan);
+    return new MSTransportable(pars, vtype, plan, false);
 }
 
 

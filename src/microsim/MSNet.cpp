@@ -67,7 +67,7 @@
 #include <libsumo/Simulation.h>
 #include <mesosim/MELoop.h>
 #include <microsim/output/MSDetectorControl.h>
-#include <microsim/MSCModel_NonInteracting.h>
+#include <microsim/transportables/MSCModel_NonInteracting.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
@@ -108,7 +108,6 @@
 #include "MSVehicleTransfer.h"
 #include "MSRoute.h"
 #include "MSGlobals.h"
-#include <microsim/transportables/MSContainer.h>
 #include "MSEdgeWeightsStorage.h"
 #include "MSStateHandler.h"
 #include "MSFrame.h"

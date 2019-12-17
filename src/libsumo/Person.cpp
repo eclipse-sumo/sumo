@@ -26,6 +26,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/transportables/MSPerson.h>
+#include <microsim/transportables/MSStageDriving.h>
 #include <libsumo/TraCIConstants.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringTokenizer.h>
@@ -196,7 +197,7 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
     if (vehicle != nullptr) {
         result.vType = vehicle->getVehicleType().getID();
     }
-    result.description = stage->getStageDescription();
+    result.description = stage->getStageDescription(p->isPerson());
     result.length = stage->getDistance();
     // negative values indicate that the information is not available
     result.cost = -1;
@@ -477,7 +478,7 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
             if (stage.line.empty()) {
                 throw TraCIException("Empty lines parameter for person: '" + personID + "'");
             }
-            return new MSPerson::MSPersonStage_Driving(edge, bs, -NUMERICAL_EPS, StringTokenizer(stage.line).getVector());
+            return new MSStageDriving(edge, bs, edge->getLength()-NUMERICAL_EPS, StringTokenizer(stage.line).getVector());
         }
 
         case STAGE_WALKING: {
@@ -567,7 +568,7 @@ Person::appendDrivingStage(const std::string& personID, const std::string& toEdg
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }
     }
-    p->appendStage(new MSPerson::MSPersonStage_Driving(edge, bs, -NUMERICAL_EPS, StringTokenizer(lines).getVector()));
+    p->appendStage(new MSStageDriving(edge, bs, edge->getLength()-NUMERICAL_EPS, StringTokenizer(lines).getVector()));
 }
 
 

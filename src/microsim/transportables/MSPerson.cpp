@@ -289,7 +289,7 @@ MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os, const MSTransp
 
 
 void
-MSPerson::MSPersonStage_Walking::routeOutput(OutputDevice& os, const bool withRouteLength) const {
+MSPerson::MSPersonStage_Walking::routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const {
     os.openTag("walk").writeAttr(SUMO_ATTR_EDGES, myRoute);
     std::string comment = "";
     if (myDestinationStop != nullptr) {
@@ -367,148 +367,12 @@ MSPerson::MSPersonStage_Walking::getMaxSpeed(const MSTransportable* const person
 }
 
 std::string
-MSPerson::MSPersonStage_Walking::getStageSummary() const {
+MSPerson::MSPersonStage_Walking::getStageSummary(const bool isPerson) const {
     const std::string dest = (getDestinationStop() == nullptr ?
                               " edge '" + getDestination()->getID() + "'" :
                               " stop '" + getDestinationStop()->getID() + "'" + (
                                   getDestinationStop()->getMyName() != "" ? " (" + getDestinationStop()->getMyName() + ")" : ""));
     return "walking to " + dest;
-}
-
-
-/* -------------------------------------------------------------------------
-* MSPerson::MSPersonStage_Driving - methods
-* ----------------------------------------------------------------------- */
-MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge* destination,
-        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
-        const std::string& intendedVeh, SUMOTime intendedDepart) :
-    MSStageDriving(destination, toStop,
-                                   SUMOVehicleParameter::interpretEdgePos(
-                                       arrivalPos, destination->getLength(), SUMO_ATTR_ARRIVALPOS, "person riding to " + destination->getID()),
-                                   lines,
-                                   intendedVeh, intendedDepart) {
-}
-
-
-MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
-
-MSStage*
-MSPerson::MSPersonStage_Driving::clone() const {
-    return new MSPersonStage_Driving(myDestination, myDestinationStop, myArrivalPos, std::vector<std::string>(myLines.begin(), myLines.end()),
-                                     myIntendedVehicleID, myIntendedDepart);
-}
-
-void
-MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous) {
-    const MSStoppingPlace* start = (previous->getStageType() == MSStageType::TRIP
-                                    ? previous->getOriginStop()
-                                    : previous->getDestinationStop());
-    myWaitingSince = now;
-    if (person->getParameter().departProcedure == DEPART_TRIGGERED
-            && person->getNumRemainingStages() == person->getNumStages() - 1) {
-        // we are the first real stage (stage 0 is WAITING_FOR_DEPART)
-        const std::string vehID = *myLines.begin();
-        SUMOVehicle* startVeh = net->getVehicleControl().getVehicle(vehID);
-        if (startVeh == nullptr) {
-            throw ProcessError("Vehicle '" + vehID + "' not found for triggered departure of person '" + person->getID() + "'.");
-        }
-        setVehicle(startVeh);
-        myVehicle->addPerson(person);
-        return;
-    }
-    if (start != nullptr) {
-        // the arrival stop may have an access point
-        myWaitingEdge = &start->getLane().getEdge();
-        myStopWaitPos = start->getWaitPosition(person);
-        myWaitingPos = start->getWaitingPositionOnLane(person);
-    } else {
-        myWaitingEdge = previous->getEdge();
-        myStopWaitPos = Position::INVALID;
-        myWaitingPos = previous->getEdgePos(now);
-    }
-    SUMOVehicle* availableVehicle = myWaitingEdge->getWaitingVehicle(person, myWaitingPos);
-    if (availableVehicle != nullptr && availableVehicle->getParameter().departProcedure == DEPART_TRIGGERED && !availableVehicle->hasDeparted()) {
-        setVehicle(availableVehicle);
-        myVehicle->addPerson(person);
-        net->getInsertionControl().add(myVehicle);
-        myWaitingEdge->removeWaiting(myVehicle);
-        net->getVehicleControl().unregisterOneWaiting(true);
-    } else {
-        net->getPersonControl().addWaiting(myWaitingEdge, person);
-        myWaitingEdge->addPerson(person);
-        if (getLines().size() == 1 && *getLines().begin() == "taxi") {
-            MSDevice_Taxi::addReservation(person, now, now, myWaitingEdge, myWaitingPos, getDestination(), myArrivalPos);
-        }
-    }
-}
-
-
-std::string
-MSPerson::MSPersonStage_Driving::getStageDescription() const {
-    return isWaiting4Vehicle() ? "waiting for " + joinToString(myLines, ",") : "driving";
-}
-
-
-std::string
-MSPerson::MSPersonStage_Driving::getStageSummary() const {
-    const std::string dest = (getDestinationStop() == nullptr ?
-                              " edge '" + getDestination()->getID() + "'" :
-                              " stop '" + getDestinationStop()->getID() + "'" + (
-                                  getDestinationStop()->getMyName() != "" ? " (" + getDestinationStop()->getMyName() + ")" : ""));
-    const std::string intended = myIntendedVehicleID != "" ?
-                                 " (vehicle " + myIntendedVehicleID + " at time " + time2string(myIntendedDepart) + ")" :
-                                 "";
-    return isWaiting4Vehicle() ?
-           "waiting for " + joinToString(myLines, ",") + intended + " then drive to " + dest :
-           "driving to " + dest;
-}
-
-
-void
-MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
-    const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-    const SUMOTime departed = myDeparted >= 0 ? myDeparted : now;
-    const SUMOTime waitingTime = myWaitingSince >= 0 && myDeparted >= 0 ? departed - myWaitingSince : -1;
-    const SUMOTime duration = myArrived - myDeparted;
-    MSDevice_Tripinfo::addRideData(myVehicleDistance, duration, myVehicleVClass, myVehicleLine, waitingTime);
-    os.openTag("ride");
-    os.writeAttr("waitingTime", waitingTime >= 0 ? time2string(waitingTime) : "-1");
-    os.writeAttr("vehicle", myVehicleID);
-    os.writeAttr("depart", myDeparted >= 0 ? time2string(myDeparted) : "-1");
-    os.writeAttr("arrival", myArrived >= 0 ? time2string(myArrived) : "-1");
-    os.writeAttr("arrivalPos", toString(myArrivalPos));
-    os.writeAttr("duration", myArrived >= 0 ? time2string(duration) :
-                 (myDeparted >= 0 ? time2string(now - myDeparted) : "-1"));
-    os.writeAttr("routeLength", myVehicleDistance);
-    os.closeTag();
-}
-
-
-void
-MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os, const bool withRouteLength) const {
-    os.openTag("ride");
-    if (getFromEdge() != nullptr) {
-        os.writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID());
-    }
-    os.writeAttr(SUMO_ATTR_TO, getDestination()->getID());
-    std::string comment = "";
-    if (myDestinationStop != nullptr) {
-        os.writeAttr(SUMO_ATTR_BUS_STOP, myDestinationStop->getID());
-        if (myDestinationStop->getMyName() != "") {
-            comment = " <!-- " + StringUtils::escapeXML(myDestinationStop->getMyName(), true) + " -->";
-        }
-    }
-    os.writeAttr(SUMO_ATTR_LINES, myLines);
-    if (myIntendedVehicleID != "") {
-        os.writeAttr(SUMO_ATTR_INTENDED, myIntendedVehicleID);
-    }
-    if (myIntendedDepart >= 0) {
-        os.writeAttr(SUMO_ATTR_DEPART, time2string(myIntendedDepart));
-    }
-    if (withRouteLength) {
-        os.writeAttr("routeLength", myVehicleDistance);
-    }
-    os.closeTag(comment);
 }
 
 
@@ -544,13 +408,13 @@ MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUM
 
 
 std::string
-MSPerson::MSPersonStage_Access::getStageDescription() const {
+MSPerson::MSPersonStage_Access::getStageDescription(const bool isPerson) const {
     return "access";
 }
 
 
 std::string
-MSPerson::MSPersonStage_Access::getStageSummary() const {
+MSPerson::MSPersonStage_Access::getStageSummary(const bool isPerson) const {
     return (myAmExit ? "access from stop '" : "access to stop '") + getDestinationStop()->getID() + "'";
 }
 

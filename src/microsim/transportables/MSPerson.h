@@ -109,10 +109,12 @@ public:
         /// @brief the edges of the current stage
         ConstMSEdgeVector getEdges() const;
 
-        std::string getStageDescription() const {
+        std::string getStageDescription(const bool isPerson) const {
+            UNUSED_PARAMETER(isPerson);
             return "walking";
         }
-        std::string getStageSummary() const;
+
+        std::string getStageSummary(const bool isPerson) const;
 
         /** @brief Called on writing tripinfo output
          * @param[in] os The stream to write the information into
@@ -125,7 +127,7 @@ public:
          * @param[in] withRouteLength whether route length shall be written
          * @exception IOError not yet implemented
          */
-        virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
+        virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const;
 
         /// @brief move forward and return whether the person arrived
         bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = nullptr);
@@ -227,46 +229,6 @@ public:
     };
 
     /**
-    * A "real" stage performing the travelling by a transport system
-    * The given route will be chosen. The travel time is computed by the simulation
-    */
-    class MSPersonStage_Driving : public MSStageDriving {
-    public:
-        /// constructor
-        MSPersonStage_Driving(const MSEdge* destination, MSStoppingPlace* toStop,
-                              const double arrivalPos, const std::vector<std::string>& lines,
-                              const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
-
-        /// destructor
-        ~MSPersonStage_Driving();
-
-        MSStage* clone() const;
-
-        /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous);
-
-        /// @brief returns the stage description as a string
-        std::string getStageDescription() const;
-        std::string getStageSummary() const;
-
-        /** @brief Called on writing tripinfo output
-        *
-        * @param[in] os The stream to write the information into
-        * @param[in] transportable The person to write information about
-        * @exception IOError not yet implemented
-        */
-        virtual void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
-
-        /** @brief Called on writing vehroute output
-         *
-         * @param[in] os The stream to write the information into
-         * @param[in] withRouteLength whether route length shall be written
-         * @exception IOError not yet implemented
-         */
-        virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
-    };
-
-    /**
      * An intermediate stage performing the access from or to public transport as given
      * by the access elements of the public transport stop. The travel time is computed by the simulation
      */
@@ -285,8 +247,8 @@ public:
         virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous);
 
         /// @brief returns the stage description as a string
-        std::string getStageDescription() const;
-        std::string getStageSummary() const;
+        std::string getStageDescription(const bool isPerson) const;
+        std::string getStageSummary(const bool isPerson) const;
 
         Position getPosition(SUMOTime now) const;
 
@@ -306,7 +268,7 @@ public:
         void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
 
         /// @brief Called on writing vehroute output. Currently does nothing.
-        void routeOutput(OutputDevice&, const bool) const {};
+        void routeOutput(const bool, OutputDevice&, const bool) const {};
 
     private:
         class ProceedCmd : public Command {

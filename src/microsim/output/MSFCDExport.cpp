@@ -38,7 +38,6 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSTransportableControl.h>
-#include <microsim/transportables/MSContainer.h>
 #include <microsim/MSVehicleControl.h>
 #include "MSFCDExport.h"
 
