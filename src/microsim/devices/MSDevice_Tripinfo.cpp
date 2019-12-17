@@ -32,6 +32,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include "MSDevice_Vehroutes.h"
 #include "MSDevice_Tripinfo.h"
 
 #define NOT_ARRIVED TIME2STEPS(-1)
@@ -296,7 +297,13 @@ MSDevice_Tripinfo::generateOutputForUnfinished() {
             departed++;
             d->generateOutput(tripinfoOut);
             if (tripinfoOut != nullptr) {
-                // @todo also generate emission output if holder has a device
+                for (MSVehicleDevice* const dev : d->myHolder.getDevices()) {
+                    if (typeid(*dev) == typeid(MSDevice_Tripinfo) || typeid(*dev) == typeid(MSDevice_Vehroutes)) {
+                        // tripinfo is special and vehroute has it's own write-unfinished option
+                        continue;
+                    }
+                    dev->generateOutput(tripinfoOut);
+                }
                 OutputDevice::getDeviceByOption("tripinfo-output").closeTag();
             }
         } else {
