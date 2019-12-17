@@ -53,7 +53,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunctionControl.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSLane.h>
@@ -1068,7 +1068,7 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
         if ((s.activeFilters & libsumo::SUBS_FILTER_NO_RTREE) == 0) {
             PositionVector shape;
             libsumo::Helper::findObjectShape(s.commandId, s.id, shape);
-            libsumo::Helper::collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
+            libsumo::Helper::collectObjectIDsInRange(s.contextDomain, shape, s.range, objIDs);
         }
         libsumo::Helper::applySubscriptionFilters(s, objIDs);
     } else {

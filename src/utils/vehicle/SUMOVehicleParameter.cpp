@@ -160,11 +160,12 @@ SUMOVehicleParameter::Stop::Stop() :
     Parameterised(),
     startPos(0),
     endPos(0),
-    duration(0),
-    until(0),
+    duration(-1),
+    until(-1),
     extension(-1),
     triggered(false),
     containerTriggered(false),
+    joinTriggered(false),
     parking(false),
     friendlyPos(false),
     speed(0) {
@@ -204,12 +205,7 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
     if ((parametersSet & STOP_EXTENSION_SET) && (extension >= 0)) {
         dev.writeAttr(SUMO_ATTR_EXTENSION, time2string(extension));
     }
-    if ((parametersSet & STOP_TRIGGER_SET) != 0) {
-        dev.writeAttr(SUMO_ATTR_TRIGGERED, triggered);
-    }
-    if ((parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0) {
-        dev.writeAttr(SUMO_ATTR_CONTAINER_TRIGGERED, containerTriggered);
-    }
+    writeTriggers(dev);
     if ((parametersSet & STOP_PARKING_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_PARKING, parking);
     }
@@ -224,6 +220,12 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
     }
     if ((parametersSet & STOP_LINE_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_LINE, line);
+    }
+    if ((parametersSet & STOP_SPLIT_SET) != 0) {
+        dev.writeAttr(SUMO_ATTR_SPLIT, split);
+    }
+    if ((parametersSet & STOP_JOIN_SET) != 0) {
+        dev.writeAttr(SUMO_ATTR_JOIN, join);
     }
     if ((parametersSet & STOP_SPEED_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_SPEED, speed);
@@ -247,6 +249,8 @@ SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& ele
         dd = DEPART_TRIGGERED;
     } else if (val == "containerTriggered") {
         dd = DEPART_CONTAINER_TRIGGERED;
+    } else if (val == "split") {
+        dd = DEPART_SPLIT;
     } else if (val == "now") {
         // only used via TraCI. depart must be set by the calling code
         dd = DEPART_NOW;
@@ -570,12 +574,55 @@ SUMOVehicleParameter::parsePersonModes(const std::string& modes, const std::stri
 }
 
 
+void
+SUMOVehicleParameter::parseStopTriggers(const std::vector<std::string>& triggers, bool expectTrigger, Stop& stop) {
+    if (triggers.size() == 0 && expectTrigger) {
+        stop.triggered = true;
+    }
+    for (std::string val : triggers) {
+        if (val == toString(SUMO_TAG_PERSON)) {
+            stop.triggered = true;
+        } else if (val == toString(SUMO_TAG_CONTAINER)) {
+            stop.containerTriggered = true;
+        } else if (val == toString(SUMO_ATTR_JOIN)) {
+            stop.joinTriggered = true;
+        } else {
+            try {
+                stop.triggered = StringUtils::toBool(val);
+            } catch (BoolFormatException&) {
+                WRITE_ERROR("Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean");
+            }
+        }
+    }
+}
+
+
+void
+SUMOVehicleParameter::Stop::writeTriggers(OutputDevice& dev) const {
+    if ((parametersSet & STOP_TRIGGER_SET) != 0) {
+        std::vector<std::string> triggers;
+        if (triggered) {
+            triggers.push_back(toString(SUMO_TAG_PERSON));
+        }
+        if (containerTriggered) {
+            triggers.push_back(toString(SUMO_TAG_CONTAINER));
+        }
+        if (joinTriggered) {
+            triggers.push_back(toString(SUMO_ATTR_JOIN));
+        }
+        dev.writeAttr(SUMO_ATTR_TRIGGERED, triggers);
+    }
+}
+
+
 std::string
 SUMOVehicleParameter::getDepart() const {
     if (departProcedure == DEPART_TRIGGERED) {
         return "triggered";
     } else if (departProcedure == DEPART_CONTAINER_TRIGGERED) {
         return "containerTriggered";
+    } else if (departProcedure == DEPART_SPLIT) {
+        return "split";
     } else {
         return time2string(depart);
     }

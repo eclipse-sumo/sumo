@@ -371,15 +371,15 @@ NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, in
         //std::cout << "findAccessEdgesForRailStops edge=" << stopEdgeID << " exists=" << (stopEdge != 0) << "\n";
         if (stopEdge != nullptr && (stopEdge->getPermissions() & SVC_PEDESTRIAN) == 0) {
             //if (stopEdge != 0 && isRailway(stopEdge->getPermissions())) {
-            std::set<std::string> ids;
-            Named::StoringVisitor visitor(ids);
+            std::set<const Named*> edges;
+            Named::StoringVisitor visitor(edges);
             const Position& pos = ptStop.second->getPosition();
             float min[2] = {static_cast<float>(pos.x() - maxRadius), static_cast<float>(pos.y() - maxRadius)};
             float max[2] = {static_cast<float>(pos.x() + maxRadius), static_cast<float>(pos.y() + maxRadius)};
             r.Search(min, max, visitor);
             std::vector<NBEdge*> edgCants;
-            for (const auto& id : ids) {
-                NBEdge* e = cont.getByID(id);
+            for (const Named* namedEdge : edges) {
+                NBEdge* e = const_cast<NBEdge*>(dynamic_cast<const NBEdge*>(namedEdge));
                 edgCants.push_back(e);
             }
             std::sort(edgCants.begin(), edgCants.end(), [pos](NBEdge * a, NBEdge * b) {

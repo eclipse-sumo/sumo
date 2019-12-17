@@ -43,7 +43,7 @@ def getOptions(args=None):
 
 
 def build_retriever(key):
-    reString = " %s: ([\d.]*)" % key
+    reString = r" %s: ([\d.]*)" % key
     regex = re.compile(reString)
     # values should all be positive so -1 is a suitable flag
     invalidResult = -1

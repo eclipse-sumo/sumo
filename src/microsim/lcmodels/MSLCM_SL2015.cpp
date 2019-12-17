@@ -28,7 +28,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSDriverState.h>
 #include <microsim/MSGlobals.h>
-#include <microsim/pedestrians/MSPModel.h>
+#include <microsim/transportables/MSPModel.h>
 #include "MSLCM_SL2015.h"
 
 // ===========================================================================

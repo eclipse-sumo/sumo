@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  3 13:05:59 2019 by Eclipse SUMO netconvert Version v1_3_1+1239-421211f533
+<!-- generated on Wed Dec 11 13:13:30 2019 by Eclipse SUMO netconvert Version v1_4_0+0037-97da602
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -665,6 +665,9 @@
 
         <!-- Make all rails usable in both direction -->
         <railway.topology.all-bidi value="false" type="BOOL"/>
+
+        <!-- Make all rails edge ids from FILE usable in both direction -->
+        <railway.topology.all-bidi.input-file value="" type="FILE"/>
 
         <!-- The search radius for finding suitable road accesses for rail stops -->
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT"/>

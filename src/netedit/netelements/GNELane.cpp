@@ -350,7 +350,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     const RGBColor color = setLaneColor(s);
     // start drawing lane checking whether it is not too small
     const double selectionScale = isAttributeCarrierSelected() || myParentEdge->isAttributeCarrierSelected() ? s.selectionScale : 1;
-    double exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
+    const double exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     // XXX apply usefull scale values
     //exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     // recognize full transparency and simply don't draw
@@ -378,8 +378,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw child shapes
-        for (const auto& i : getChildShapes()) {
-            i->drawGL(s);
+        for (const auto& POILane : getChildShapes()) {
+            POILane->drawGL(s);
         }
         // draw child additional
         for (const auto& additional : getChildAdditionals()) {
@@ -449,7 +449,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop draw matrix 1
         glPopMatrix();
         // only draw details depending of the scale and if isn't being drawn for selecting
-        if ((s.scale >= 10) && !s.drawForRectangleSelection) {
+        if ((s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
             // if exaggeration is 1, draw drawMarkings
             if (s.laneShowBorders && exaggeration == 1 && !drawAsRailway(s)) {
                 drawMarkings(s, exaggeration);
@@ -476,7 +476,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // If there are texture of restricted lanes to draw, check if icons can be drawn
-        if (!s.drawForRectangleSelection && !s.disableLaneIcons && (myLaneRestrictedTexturePositions.size() > 0) && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        if (!s.drawForRectangleSelection && !s.drawForPositionSelection && !s.disableLaneIcons && 
+            (myLaneRestrictedTexturePositions.size() > 0) && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
             // Declare default width of icon (3)
             double iconWidth = 1;
             // Obtain width of icon, if width of lane is different
@@ -513,15 +514,15 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop Lane Name
         glPopName();
         // draw parents
-        for (const auto& i : getParentAdditionals()) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_VSS) {
+        for (const auto& VSS : getParentAdditionals()) {
+            if (VSS->getTagProperty().getTag() == SUMO_TAG_VSS) {
                 // draw VSS Symbol
-                drawVSSSymbol(s, i);
+                drawVSSSymbol(s, VSS);
             }
         }
         // draw child shapes
-        for (const auto& i : getChildShapes()) {
-            i->drawGL(s);
+        for (const auto& POILane : getChildShapes()) {
+            POILane->drawGL(s);
         }
         // draw child additional
         for (const auto& additional : getChildAdditionals()) {
@@ -1326,8 +1327,10 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         glTranslated(customShape.front().x(), customShape.front().y(), GLO_JUNCTION + 0.01);
         GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
-        glTranslated(0, 0, 0.01);
-        GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
+        if (!s.drawForPositionSelection) {
+            glTranslated(0, 0, 0.01);
+            GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
+        }
         glPopMatrix();
     }
     // draw line between Junction and point
@@ -1341,8 +1344,10 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         glTranslated(customShape.back().x(), customShape.back().y(), GLO_JUNCTION + 0.01);
         GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
-        glTranslated(0, 0, 0.01);
-        GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
+        if (!s.drawForPositionSelection) {
+            glTranslated(0, 0, 0.01);
+            GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
+        }
         glPopMatrix();
     }
     // draw line between Junction and point

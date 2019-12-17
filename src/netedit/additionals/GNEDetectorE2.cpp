@@ -364,7 +364,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         // Pop last matrix
         glPopMatrix();
         // Check if the distance is enougth to draw details and isn't being drawn for selecting
-        if ((s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) && !s.drawForRectangleSelection) {
+        if ((s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
             // draw logo depending if this is an Multilane E2 detector
             if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
                 // Push matrix

@@ -84,6 +84,8 @@ const int STOP_EXPECTED_CONTAINERS_SET = 2 << 8;
 const int STOP_TRIP_ID_SET = 2 << 9;
 const int STOP_LINE_SET = 2 << 10;
 const int STOP_SPEED_SET = 2 << 11;
+const int STOP_SPLIT_SET = 2 << 12;
+const int STOP_JOIN_SET = 2 << 13;
 
 const double MIN_STOP_LENGTH = 2 * POSITION_EPS;
 
@@ -104,6 +106,8 @@ enum DepartDefinition {
     DEPART_CONTAINER_TRIGGERED,
     /// @brief The vehicle is discarded if emission fails (not fully implemented yet)
     DEPART_NOW,
+    /// @brief The departure is triggered by a train split
+    DEPART_SPLIT,
     /// @brief Tag for the last element in the enum for safe int casting
     DEPART_DEF_MAX
 };
@@ -305,6 +309,109 @@ public:
     /// @brief Destructor
     virtual ~SUMOVehicleParameter();
 
+    /** @struct Stop
+     * @brief Definition of vehicle stop (position and duration)
+     */
+    class Stop : public Parameterised {
+
+    public:
+        /// @brief constructor
+        Stop();
+
+        /** @brief Writes the stop as XML
+         *
+         * @param[in, out] dev The device to write into
+         * @exception IOError not yet implemented
+         */
+        void write(OutputDevice& dev) const;
+
+        /// @brief write trigger attribute
+        void writeTriggers(OutputDevice& dev) const;
+
+        /// @brief The lane to stop at
+        std::string lane;
+
+        /// @brief (Optional) bus stop if one is assigned to the stop
+        std::string busstop;
+
+        /// @brief (Optional) container stop if one is assigned to the stop
+        std::string containerstop;
+
+        /// @brief (Optional) parking area if one is assigned to the stop
+        std::string parkingarea;
+
+        /// @brief (Optional) charging station if one is assigned to the stop
+        std::string chargingStation;
+
+        /// @brief (Optional) overhead line segment if one is assigned to the stop
+        std::string overheadWireSegment;
+
+        /// @brief The stopping position start
+        double startPos;
+
+        /// @brief The stopping position end
+        double endPos;
+
+        /// @brief The stopping duration
+        SUMOTime duration;
+
+        /// @brief The time at which the vehicle may continue its journey
+        SUMOTime until;
+
+        /// @brief The maximum time extension for boarding / loading
+        SUMOTime extension;
+
+        /// @brief whether an arriving person lets the vehicle continue
+        bool triggered;
+
+        /// @brief whether an arriving container lets the vehicle continue
+        bool containerTriggered;
+
+        /// @brief whether an joined vehicle lets this vehicle continue
+        bool joinTriggered;
+
+        /// @brief whether the vehicle is removed from the net while stopping
+        bool parking;
+
+        /// @brief IDs of persons the vehicle has to wait for until departing
+        std::set<std::string> awaitedPersons;
+
+        /// @brief IDs of containers the vehicle has to wait for until departing
+        std::set<std::string> awaitedContainers;
+
+        /// @brief enable or disable friendly position (used by NETEDIT)
+        bool friendlyPos;
+
+        /// @brief act Type (only used by Persons) (used by NETEDIT)
+        std::string actType;
+
+        /// @brief id of the trip within a cyclical public transport route
+        std::string tripId;
+
+        /// @brief the new line id of the trip within a cyclical public transport route
+        std::string line;
+
+        /// @brief the id of the vehicle (train portion) that splits of upon reaching this stop
+        std::string split;
+
+        /// @brief the id of the vehicle (train portion) to which this vehicle shall be joined
+        std::string join;
+
+        /// @brief the speed at which this stop counts as reached (waypoint mode)
+        double speed;
+
+        /// @brief lanes and positions connected to this stop (only used by duarouter where Stop is used to store stopping places)
+        std::vector<std::tuple<std::string, double, double> > accessPos;
+
+        /// @brief at which position in the stops list
+        int index;
+
+        /// @brief Information for the output which parameter were set
+        int parametersSet = 0;
+
+    };
+
+
     /** @brief Returns whether the given parameter was set
      * @param[in] what The parameter which one asks for
      * @return Whether the given parameter was set
@@ -461,6 +568,9 @@ public:
      */
     static bool parsePersonModes(const std::string& modes, const std::string& element, const std::string& id, SVCPermissions& modeSet, std::string& error);
 
+    /// @brief parses stop trigger values
+    static void parseStopTriggers(const std::vector<std::string>& triggers, bool expectTrigger, Stop& stop); 
+
     /// @brief The vehicle tag
     SumoXMLTag tag;
 
@@ -565,92 +675,6 @@ public:
 
     /// @brief The vehicle's destination zone (district)
     std::string toTaz;
-
-    /** @struct Stop
-     * @brief Definition of vehicle stop (position and duration)
-     */
-    class Stop : public Parameterised {
-
-    public:
-        /// @brief constructor
-        Stop();
-
-        /** @brief Writes the stop as XML
-         *
-         * @param[in, out] dev The device to write into
-         * @exception IOError not yet implemented
-         */
-        void write(OutputDevice& dev) const;
-
-        /// @brief The lane to stop at
-        std::string lane;
-
-        /// @brief (Optional) bus stop if one is assigned to the stop
-        std::string busstop;
-
-        /// @brief (Optional) container stop if one is assigned to the stop
-        std::string containerstop;
-
-        /// @brief (Optional) parking area if one is assigned to the stop
-        std::string parkingarea;
-
-        /// @brief (Optional) charging station if one is assigned to the stop
-        std::string chargingStation;
-
-        /// @brief The stopping position start
-        double startPos;
-
-        /// @brief The stopping position end
-        double endPos;
-
-        /// @brief The stopping duration
-        SUMOTime duration;
-
-        /// @brief The time at which the vehicle may continue its journey
-        SUMOTime until;
-
-        /// @brief The maximum time extension for boarding / loading
-        SUMOTime extension;
-
-        /// @brief whether an arriving person lets the vehicle continue
-        bool triggered;
-
-        /// @brief whether an arriving container lets the vehicle continue
-        bool containerTriggered;
-
-        /// @brief whether the vehicle is removed from the net while stopping
-        bool parking;
-
-        /// @brief IDs of persons the vehicle has to wait for until departing
-        std::set<std::string> awaitedPersons;
-
-        /// @brief IDs of containers the vehicle has to wait for until departing
-        std::set<std::string> awaitedContainers;
-
-        /// @brief enable or disable friendly position (used by NETEDIT)
-        bool friendlyPos;
-
-        /// @brief act Type (only used by Persons) (used by NETEDIT)
-        std::string actType;
-
-        /// @brief id of the trip within a cyclical public transport route
-        std::string tripId;
-
-        /// @brief the new line id of the trip within a cyclical public transport route
-        std::string line;
-
-        /// @brief the speed at which this stop counts as reached (waypoint mode)
-        double speed;
-
-        /// @brief lanes and positions connected to this stop (only used by duarouter where Stop is used to store stopping places)
-        std::vector<std::tuple<std::string, double, double> > accessPos;
-
-        /// @brief at which position in the stops list
-        int index;
-
-        /// @brief Information for the output which parameter were set
-        int parametersSet = 0;
-    };
 
     /// @brief List of the stops the vehicle will make, TraCI may add entries here
     mutable std::vector<Stop> stops;

@@ -53,6 +53,8 @@ double MSGlobals::gMesoTLSPenalty;
 SUMOTime MSGlobals::gMesoMinorPenalty;
 MELoop* MSGlobals::gMesoNet;
 
+bool MSGlobals::gOverheadWireSolver;
+
 bool MSGlobals::gSemiImplicitEulerUpdate;
 
 SUMOTime MSGlobals::gWaitingTimeMemory;

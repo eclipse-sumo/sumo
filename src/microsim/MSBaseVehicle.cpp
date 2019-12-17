@@ -28,9 +28,8 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSPerson.h>
 #include "MSGlobals.h"
-#include "MSTransportable.h"
 #include "MSVehicleControl.h"
 #include "MSVehicleType.h"
 #include "MSEdge.h"
@@ -72,6 +71,7 @@ MSBaseVehicle::getPreviousSpeed() const {
 
 MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                              MSVehicleType* type, const double speedFactor) :
+    SUMOVehicle(pars->id),
     myParameter(pars),
     myRoute(route),
     myType(type),
@@ -134,11 +134,10 @@ MSBaseVehicle::~MSBaseVehicle() {
 }
 
 
-const std::string&
-MSBaseVehicle::getID() const {
-    return myParameter->id;
+void
+MSBaseVehicle::setID(const std::string& /*newID*/) {
+    throw ProcessError("Changing a vehicle ID is not permitted");
 }
-
 
 const SUMOVehicleParameter&
 MSBaseVehicle::getParameter() const {

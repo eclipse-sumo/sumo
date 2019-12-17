@@ -136,19 +136,14 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
 
 bool
 GNEPersonTrip::isDemandElementValid() const {
-    if (getParentEdges().size() == 0) {
-        return false;
-    } else if (getParentEdges().size() == 1) {
+    if ((getParentEdges().size() == 2) && (getParentEdges().at(0) == getParentEdges().at(1))) {
+        // from and to are the same edges
+        return true;
+    } else if (getPathEdges().size() > 0) {
+        // if path edges isn't empty, then there is a valid route
         return true;
     } else {
-        // check if exist at least a connection between every edge
-        for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
-                return false;
-            }
-        }
-        // there is connections bewteen all edges, then return true
-        return true;
+        return false;
     }
 }
 
@@ -160,7 +155,7 @@ GNEPersonTrip::getDemandElementProblem() const {
     } else {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
+            if (getRouteCalculatorInstance()->consecutiveEdgesConnected(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
                 return ("Edge '" + getParentEdges().at((int)i - 1)->getID() + "' and edge '" + getParentEdges().at(i)->getID() + "' aren't consecutives");
             }
         }

@@ -85,22 +85,22 @@ if __name__ == "__main__":
         for app in ("activitygen", "dfrouter", "duarouter", "jtrrouter", "marouter",
                     "od2trips", "polyconvert", "netgenerate", "netconvert", "sumo"):
             if app == "netgenerate":
-                cfg = os.path.join(os.path.dirname(__file__), "..", "..", 
+                cfg = os.path.join(os.path.dirname(__file__), "..", "..",
                                    "tests", "netgen", "meta", "write_template_full", "cfg.netgen")
             else:
-                cfg = os.path.join(os.path.dirname(__file__), "..", "..", 
+                cfg = os.path.join(os.path.dirname(__file__), "..", "..",
                                    "tests", app, "meta", "write_template_full", "cfg." + app)
-            docs = os.path.join(os.path.dirname(__file__), "..", "..", 
+            docs = os.path.join(os.path.dirname(__file__), "..", "..",
                                 "docs", "web", "docs", app.upper() + ".md")
             parse(cfg, ConfigReader(open(docs).readlines(), docs))
     elif len(sys.argv) == 2:
         app = sys.argv[1].lower()
         if app == "netgenerate":
             app = "netgen"
-        cfg = os.path.join(os.path.dirname(__file__), "..", "..", 
+        cfg = os.path.join(os.path.dirname(__file__), "..", "..",
                            "tests", app, "meta", "write_template_full", "cfg." + app)
-        docs = os.path.join(os.path.dirname(__file__), "..", "..", 
-                           "docs", "web", "docs", sys.argv[1].upper() + ".md")
+        docs = os.path.join(os.path.dirname(__file__), "..", "..",
+                            "docs", "web", "docs", sys.argv[1].upper() + ".md")
         parse(cfg, ConfigReader(open(docs).readlines()))
     elif len(sys.argv) == 3:
         parse(sys.argv[1], ConfigReader(open(sys.argv[2]).readlines()))

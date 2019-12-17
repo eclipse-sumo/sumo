@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on mer. 04 déc. 2019 18:25:21 CET by Eclipse SUMO netedit Version v1_3_1+0589-198a208d32
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/azise/ThesisAD/MySimulations/Intermodal_Demand/intermodalRoadNet.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/azise/ThesisAD/MySimulations/Intermodal_Demand/intermodalRoadNet.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="/home/azise/ThesisAD/MySimulations/Intermodal_Demand/busStop.add.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop_-begin_2_1" lane="-begin_2" startPos="59.57" endPos="69.57"/>
+    <busStop id="busStop_-e3_2_3" lane="-e3_2" startPos="143.75" endPos="153.75"/>
+    <busStop id="busStop_-end_2_5" lane="-end_2" startPos="44.62" endPos="54.62"/>
+    <busStop id="busStop_begin_2_0" lane="begin_2" startPos="55.62" endPos="65.62"/>
+    <busStop id="busStop_e3_2_2" lane="e3_2" startPos="105.79" endPos="115.79"/>
+    <busStop id="busStop_eDev1_2_6" lane="eDev1_2" startPos="93.10" endPos="103.10"/>
+    <busStop id="busStop_end_2_4" lane="end_2" startPos="50.00" endPos="60.00"/>
+
+	<vType id="bus" vClass="bus" length="15" accel="1.5" decel="2" sigma="1.0" maxSpeed="7"/>
+	
+	
+	<flow id="bus" type="bus" from = "begin" to ="end" line="bus" begin="0" end="3600" period="300">
+		<route edges="begin e2 eDev1 eDev2 end"/>
+		<stop busStop="busStop_begin_2_0" until="10"/>
+		<stop busStop="busStop_eDev1_2_6" until="85"/>
+		<stop busStop="busStop_end_2_4" until="150"/>
+    </flow>
+	
+</additional>

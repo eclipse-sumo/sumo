@@ -26,7 +26,7 @@ may also [download pre-built Windows binaries](../Downloads.md).
   - if it does not or you want to reconfigure choose Project->"Generate Cache" (if this option is not there you may need to wait a little longer until Visual Studio has picked up everything)
 - build all
 - set SUMO_HOME
-- Install Texttest https://ci.appveyor.com/project/behrisch/texttest/builds/27281341/job/gb7f6opi6npcvbxf/artifacts
+- Install Texttest https://ci.appveyor.com/project/behrisch/texttest/builds/29385437/job/04q4i1p60276g82u/artifacts
 
 ### optional but still recommended steps
 
@@ -96,10 +96,14 @@ this repository and define an environment variable `SUMO_LIBRARIES`
 pointing to the resulting directory. They are built with Visual Studio
 2017, but may be used with earlier and later versions as well. You may
 need to install the Visual C++ 2017 Runtime Distributable for running
-SUMO then (tested with Visual Studio 2013). For details on building your
+SUMO then (tested with Visual Studio 2013). 
+
+!!! Caution
+    When cloning SUMOLibraries you must initialized all submodules with `git submoudle update --init`
+
+For details on building your
 own and also on how to use different versions and additional libraries
-see
-[Installing/Windows_Libraries](../Installing/Windows_Libraries.md).
+see [Installing/Windows_Libraries](../Installing/Windows_Libraries.md).
 Make sure that the subdirectories `fox-1.6.54/lib`, `proj_gdal-1911/bin`
 and `xerces-c-3.2.0/bin` are in PATH. Note: for 32 bits compilations
 folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and

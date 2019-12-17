@@ -28,6 +28,9 @@ period
 # output not from every vehicle
 explicit_assignment
 
+# output in range around equipped vehicles
+radius
+
 # disable output for all vehicles via option
 disable_all
 

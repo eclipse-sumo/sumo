@@ -132,17 +132,17 @@ MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
         b.grow(vi->range);
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-        std::set<std::string> surroundingVehicles;
+        std::set<const Named*> surroundingVehicles;
         Named::StoringVisitor sv(surroundingVehicles);
         rt.Search(cmin, cmax, sv);
 
         // loop over surrounding vehicles, check visibility status
-        for (std::set<std::string>::const_iterator j = surroundingVehicles.begin(); j != surroundingVehicles.end(); ++j) {
-            if ((*i).first == *j) {
+        for (const Named* vehicle : surroundingVehicles) {
+            if ((*i).first == vehicle->getID()) {
                 // seeing oneself? skip
                 continue;
             }
-            updateVisibility(*vi, *MSDevice_BTsender::sVehicles.find(*j)->second);
+            updateVisibility(*vi, *MSDevice_BTsender::sVehicles.find(vehicle->getID())->second);
         }
 
         if (vi->haveArrived) {

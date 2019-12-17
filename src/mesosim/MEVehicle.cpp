@@ -37,7 +37,7 @@
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSVehicleControl.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/devices/MSDevice.h>
 #include "MELoop.h"
 #include "MEVehicle.h"

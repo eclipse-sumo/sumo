@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_3_1+1288-abda92d
+Eclipse SUMO Version v1_4_0+0122-6806fa5
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -50,7 +50,16 @@ Output Options:
   --battery-output FILE                Save the battery values of each vehicle
   --battery-output.precision INT       Write battery values with the given
                                          precision (default 2)
+  --elechybrid-output FILE             Save the elecHybrid values of each
+                                         vehicle
+  --elechybrid-output.precision INT    Write elecHybrid values with the given
+                                         precision (default 2)
+  --elechybrid-output.aggregated       Write elecHybrid values into one
+                                         aggregated file
   --chargingstations-output FILE       Write data of charging stations
+  --overheadwiresegments-output FILE   Write data of overhead wire segments
+  --substations-output FILE            Write data of electrical substation
+                                         stations
   --fcd-output FILE                    Save the Floating Car Data
   --fcd-output.geo                     Save the Floating Car Data using
                                          geo-coordinates (lon/lat)
@@ -103,6 +112,10 @@ Output Options:
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                         vehicles into FILE
+  --movereminder-output.vehicles STR[]  List of vehicle ids which shall save
+                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -210,6 +223,8 @@ Processing Options:
                                          the deceleration value, a vClass-class
                                          specific default or the given FLOAT in
                                          m/s^2
+  --overhead-wire-solver               Use Kirchhoff's laws for solving
+                                         overhead wire circuit
   --emergencydecel.warning-threshold FLOAT  Sets the fraction of emergency
                                          decel capability that must be used to
                                          trigger a warning.
@@ -500,12 +515,32 @@ FCD Device Options:
   --device.fcd.deterministic           The 'fcd' devices are set deterministic
                                          using a fraction of 1000
   --device.fcd.period STR              Recording period for FCD-data
+  --device.fcd.radius FLOAT            Record objects in a radius around
+                                         equipped vehicles
   --person-device.fcd.probability FLOAT  The probability for a person to have a
                                          'fcd' device
   --person-device.fcd.explicit STR[]   Assign a 'fcd' device to named persons
   --person-device.fcd.deterministic    The 'fcd' devices are set deterministic
                                          using a fraction of 1000
   --person-device.fcd.period STR       Recording period for FCD-data
+
+ElecHybrid Device Options:
+  --device.elechybrid.probability FLOAT  The probability for a vehicle to have
+                                         a 'elechybrid' device
+  --device.elechybrid.explicit STR[]   Assign a 'elechybrid' device to named
+                                         vehicles
+  --device.elechybrid.deterministic    The 'elechybrid' devices are set
+                                         deterministic using a fraction of 1000
+
+Taxi Device Options:
+  --device.taxi.probability FLOAT      The probability for a vehicle to have a
+                                         'taxi' device
+  --device.taxi.explicit STR[]         Assign a 'taxi' device to named vehicles
+  --device.taxi.deterministic          The 'taxi' devices are set deterministic
+                                         using a fraction of 1000
+  --device.taxi.dispatch-algorithm STR  The dispatch algorithm [greedy]
+  --device.taxi.dispatch-period TIME   The period between successive calls to
+                                         the dispatcher
 
 Tripinfo Device Options:
   --device.tripinfo.probability FLOAT  The probability for a vehicle to have a

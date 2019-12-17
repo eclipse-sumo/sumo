@@ -396,7 +396,7 @@ TRACI_CONST int REMOVE_TELEPORT_ARRIVED = 0x04;
 TRACI_CONST int STAGE_WAITING_FOR_DEPART = 0x00;
 // person / container stopping
 TRACI_CONST int STAGE_WAITING = 0x01;
-// person walking / container transhiping
+// person walking
 TRACI_CONST int STAGE_WALKING = 0x02;
 // person riding / container being transported
 TRACI_CONST int STAGE_DRIVING = 0x03;
@@ -404,6 +404,8 @@ TRACI_CONST int STAGE_DRIVING = 0x03;
 TRACI_CONST int STAGE_ACCESS = 0x04;
 // stage for encoding abstract travel demand
 TRACI_CONST int STAGE_TRIP = 0x05;
+// person / container transhiping
+TRACI_CONST int STAGE_TRANSHIP = 0x06;
 
 // ****************************************
 // Stop Flags

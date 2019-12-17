@@ -30,7 +30,7 @@
 #include <iostream>
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringUtils.h>
-#include <microsim/pedestrians/MSPModel.h>
+#include <microsim/transportables/MSPModel.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSDriverState.h>

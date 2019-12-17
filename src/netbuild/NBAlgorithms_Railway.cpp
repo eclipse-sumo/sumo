@@ -127,7 +127,23 @@ NBRailwayTopologyAnalyzer::makeAllBidi(NBNetBuilder& nb) {
     int numBidiEdges = 0;
     int numNotCenterEdges = 0;
     int numAddedBidiEdges = 0;
-    for (NBEdge* edge : nb.getEdgeCont().getAllEdges()) {
+    std::string inputfile = OptionsCont::getOptions().getString("railway.topology.all-bidi.input-file");
+    std::vector<NBEdge*> edges;
+    if (inputfile == "") {
+        for (NBEdge* edge : nb.getEdgeCont().getAllEdges()) {
+            edges.push_back(edge);
+        }
+    } else {
+        std::set<std::string> edgeIDs;
+        NBHelpers::loadEdgesFromFile(inputfile, edgeIDs);
+        for (const std::string& edgeID : edgeIDs) {
+            NBEdge* edge = nb.getEdgeCont().retrieve(edgeID);
+            if (edge != nullptr) {
+                edges.push_back(edge);
+            }
+        }
+    }
+    for (NBEdge* edge : edges) {
         if ((edge->getPermissions() & SVC_RAIL_CLASSES) != 0) {
             numRailEdges++;
             // rebuild connections if given from an earlier network

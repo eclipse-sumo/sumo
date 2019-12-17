@@ -4,6 +4,9 @@ rail_signal
 # trams driving in a loop servicing stops
 tramwayLoop
 
+# splitting and joining train parts
+portion_working
+
 # Two trains approaching conflicting block simultaneously causing a head-on conflict
 headonconflict
 
@@ -49,6 +52,9 @@ alternativeRoute
 
 # a train that circles endlessly, switches can be controlled in sumo-gui
 model_railroad
+
+# a train that splits into 2 parts
+split
 
 # railway-specific bugs
 bugs

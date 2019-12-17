@@ -27,6 +27,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomHelper.h>
+#include <libsumo/Helper.h>
 #include <microsim/devices/MSDevice_FCD.h>
 #include <microsim/devices/MSTransportableDevice_FCD.h>
 #include <microsim/MSEdgeControl.h>
@@ -35,9 +36,9 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
-#include <microsim/pedestrians/MSPerson.h>
-#include <microsim/MSTransportableControl.h>
-#include <microsim/MSContainer.h>
+#include <microsim/transportables/MSPerson.h>
+#include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/transportables/MSContainer.h>
 #include <microsim/MSVehicleControl.h>
 #include "MSFCDExport.h"
 
@@ -55,16 +56,34 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     if (period > 0 && (timestep - begin) % period != 0) {
         return;
     }
-    of.openTag("timestep").writeAttr(SUMO_ATTR_TIME, time2string(timestep));
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    const double radius = OptionsCont::getOptions().getFloat("device.fcd.radius");
     const bool filter = MSDevice_FCD::getEdgeFilter().size() > 0;
+    std::set<const Named*> inRadius;
+    if (radius > 0) {
+        // collect all vehicles in radius around equipped vehicles
+        for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
+            const SUMOVehicle* veh = it->second;
+            MSDevice_FCD* fcdDevice = (MSDevice_FCD*)veh->getDevice(typeid(MSDevice_FCD));
+            if (fcdDevice != nullptr 
+                    && (veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
+                    && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)) {
+                PositionVector shape;
+                shape.push_back(veh->getPosition());
+                libsumo::Helper::collectObjectsInRange(libsumo::CMD_GET_VEHICLE_VARIABLE, shape, radius, inRadius);
+                libsumo::Helper::collectObjectsInRange(libsumo::CMD_GET_PERSON_VARIABLE, shape, radius, inRadius);
+            }
+        }
+    }
+
+    of.openTag("timestep").writeAttr(SUMO_ATTR_TIME, time2string(timestep));
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
         const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
         if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
-                && veh->getDevice(typeid(MSDevice_FCD)) != nullptr
                 // only filter on normal edges
-                && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)) {
+                && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0) 
+                && (veh->getDevice(typeid(MSDevice_FCD)) != nullptr || (radius > 0 && inRadius.count(veh) > 0))) {
             Position pos = veh->getPosition();
             if (useGeo) {
                 of.setPrecision(gPrecisionGeo);
@@ -106,12 +125,12 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             const MSEdge* edge = microVeh == nullptr ? veh->getEdge() : &veh->getLane()->getEdge();
 
             const std::vector<MSTransportable*>& persons = veh->getPersons();
-            for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
-                writeTransportable(of, edge, *it_p, SUMO_TAG_PERSON, useGeo, elevation);
+            for (MSTransportable* person : persons) {
+                writeTransportable(of, edge, person, true, SUMO_TAG_PERSON, useGeo, elevation);
             }
             const std::vector<MSTransportable*>& containers = veh->getContainers();
-            for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
-                writeTransportable(of, edge, *it_c, SUMO_TAG_CONTAINER, useGeo, elevation);
+            for (MSTransportable* container : containers) {
+                writeTransportable(of, edge, container, true, SUMO_TAG_CONTAINER, useGeo, elevation);
             }
         }
     }
@@ -124,8 +143,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 continue;
             }
             const std::vector<MSTransportable*>& persons = (*e)->getSortedPersons(timestep);
-            for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
-                writeTransportable(of, *e, *it_p, SUMO_TAG_PERSON, useGeo, elevation);
+            for (MSTransportable* person : persons) {
+                writeTransportable(of, *e, person, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, elevation);
             }
         }
     }
@@ -138,8 +157,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 continue;
             }
             const std::vector<MSTransportable*>& containers = (*e)->getSortedContainers(timestep);
-            for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
-                writeTransportable(of, *e, *it_c, SUMO_TAG_CONTAINER, useGeo, elevation);
+            for (MSTransportable* container : containers) {
+                writeTransportable(of, *e, container, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, elevation);
             }
         }
     }
@@ -148,8 +167,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
 
 
 void
-MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, SumoXMLTag tag, bool useGeo, bool elevation) {
-    if (p->getDevice(typeid(MSTransportableDevice_FCD)) == nullptr) {
+MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, bool inRadius, SumoXMLTag tag, bool useGeo, bool elevation) {
+    if (p->getDevice(typeid(MSTransportableDevice_FCD)) == nullptr && !inRadius) {
         return;
     }
     Position pos = p->getPosition();

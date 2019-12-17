@@ -24,9 +24,10 @@
 #include <config.h>
 
 #include "MSRouteHandler.h"
-#include "MSTransportableControl.h"
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSInsertionControl.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
@@ -972,6 +973,19 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.endPos = cs->getEndLanePosition();
         stop.startPos = cs->getBeginLanePosition();
         edge = &l.getEdge();
+    } else if (stop.overheadWireSegment != "") {
+        // ok, we have an overhead wire segment
+        MSStoppingPlace* ows = MSNet::getInstance()->getStoppingPlace(stop.overheadWireSegment, SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
+        if (ows == nullptr) {
+            WRITE_ERROR("The overhead wire segment '" + stop.overheadWireSegment + "' is not known" + errorSuffix);
+            return;
+        }
+        toStop = ows;
+        const MSLane& l = ows->getLane();
+        stop.lane = l.getID();
+        stop.endPos = ows->getEndLanePosition();
+        stop.startPos = ows->getBeginLanePosition();
+        edge = &l.getEdge();
     } else {
         // no, the lane and the position should be given
         // get the lane
@@ -996,7 +1010,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     stop.startPos = MAX2(0., stop.endPos - MIN_STOP_LENGTH);
                 }
             } else {
-                WRITE_ERROR("A stop must be placed on a busStop, a chargingStation, a containerStop a parkingArea or a lane" + errorSuffix);
+                WRITE_ERROR("A stop must be placed on a busStop, a chargingStation, an overheadWireSegment, a containerStop, a parkingArea or a lane" + errorSuffix);
                 return;
             }
         }

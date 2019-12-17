@@ -1414,13 +1414,13 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                         showAttributeCarrierChildren(i, edgeItem);
                     }
                     // insert demand elements children (note: use getChildDemandElementsSortedByType to avoid duplicated elements)
-                    for (const auto& i : edge->getChildDemandElementsSortedByType(SUMO_TAG_ROUTE)) {
+                    for (const auto& i : edge->getChildDemandElementsByType(SUMO_TAG_ROUTE)) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
-                    for (const auto& i : edge->getChildDemandElementsSortedByType(SUMO_TAG_TRIP)) {
+                    for (const auto& i : edge->getChildDemandElementsByType(SUMO_TAG_TRIP)) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
-                    for (const auto& i : edge->getChildDemandElementsSortedByType(SUMO_TAG_FLOW)) {
+                    for (const auto& i : edge->getChildDemandElementsByType(SUMO_TAG_FLOW)) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
                 }

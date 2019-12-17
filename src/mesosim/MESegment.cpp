@@ -506,6 +506,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return;
     }
+    assert(veh->getEdge() == &getEdge());
     // route continues
     const double maxSpeedOnEdge = veh->getEdge()->getVehicleMaxSpeed(veh);
     const double uspeed = MAX2(maxSpeedOnEdge, MESO_MIN_SPEED);

@@ -122,7 +122,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // Push matrix for details
             glPushMatrix();
             // draw power depending of detailSettings
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration) && !s.drawForPositionSelection) {
                 // push a new matrix for charging power
                 glPushMatrix();
                 // draw line with a color depending of the selection status
@@ -157,7 +157,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // Draw internt sign
             GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
             // Draw sign 'C' depending of detail settings
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration) && !s.drawForPositionSelection) {
                 if (drawUsingSelectColor()) {
                     GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
                 } else {
@@ -173,7 +173,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // Draw name if isn't being drawn for selecting
         drawName(getPositionInView(), s.scale, s.addName);
-        if (s.addFullName.show && (myAdditionalName != "") && !s.drawForRectangleSelection) {
+        if (s.addFullName.show && (myAdditionalName != "") && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
             GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
         }
         // check if dotted contour has to be drawn

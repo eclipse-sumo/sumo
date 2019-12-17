@@ -247,6 +247,12 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
+    /** @brief check if a route is valid
+     * @param[in] edges vector with the route's edges
+     * @return an empty string if route is valid, or a string with the problem
+     */
+    static std::string isRouteValid(const std::vector<GNEEdge*>& edges);
+
 protected:
     /// @brief route color
     RGBColor myColor;

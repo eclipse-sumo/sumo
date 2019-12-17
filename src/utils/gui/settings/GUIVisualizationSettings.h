@@ -158,6 +158,9 @@ struct GUIVisualizationColorSettings {
     /// @brief person plan selection color (Rides, Walks, personStops...)
     RGBColor selectedPersonPlanColor;
 
+    /// @brief color for highlighthing deadends
+    static const RGBColor SUMO_color_DEADEND_SHOW;
+
     /// @brief color for child connections between parents and child elements
     static const RGBColor childConnections;
 

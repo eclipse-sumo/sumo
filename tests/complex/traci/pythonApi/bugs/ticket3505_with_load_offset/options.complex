@@ -1,1 +1,0 @@
--c sumo.sumocfg tests/complex/traci/pythonApi/bugs/ticket3505_with_load_offset/runner.py

@@ -25,7 +25,7 @@
 
 #include <microsim/MSNet.h>
 #include <microsim/MSEventControl.h>
-#include <microsim/MSTransportable.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include "MSRoutingEngine.h"

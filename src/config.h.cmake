@@ -33,6 +33,9 @@ classname() {}
 /* Reporting string for enabled options */
 #define HAVE_ENABLED "@ENABLED_FEATURES@"
 
+/* defined if Eigen is available */
+#cmakedefine HAVE_EIGEN
+
 /* defined if ffmpeg is available */
 #cmakedefine HAVE_FFMPEG
 
@@ -58,7 +61,7 @@ classname() {}
 #cmakedefine HAVE_PYTHON
 
 /* Define if auto-generated version.h should be used. */
-//#define HAVE_VERSION_H
+#define HAVE_VERSION_H
 #ifndef HAVE_VERSION_H
 /* Define if auto-generated version.h is unavailable. */
 #define VERSION_STRING "1.4.0"

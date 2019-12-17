@@ -379,8 +379,9 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     if (attrs.hasAttribute(SUMO_ATTR_TRIGGERED)) {
         stop.parametersSet |= STOP_TRIGGER_SET;
     }
+    // legacy attribute
     if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
-        stop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+        stop.parametersSet |= STOP_TRIGGER_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_PARKING)) {
         stop.parametersSet |= STOP_PARKING_SET;
@@ -394,6 +395,12 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     if (attrs.hasAttribute(SUMO_ATTR_TRIP_ID)) {
         stop.parametersSet |= STOP_TRIP_ID_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_SPLIT)) {
+        stop.parametersSet |= STOP_SPLIT_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_JOIN)) {
+        stop.parametersSet |= STOP_JOIN_SET;
+    }
     if (attrs.hasAttribute(SUMO_ATTR_LINE)) {
         stop.parametersSet |= STOP_LINE_SET;
     }
@@ -403,12 +410,15 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     bool ok = true;
     stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
     stop.chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, nullptr, ok, "");
+    stop.overheadWireSegment = attrs.getOpt<std::string>(SUMO_ATTR_OVERHEAD_WIRE_SEGMENT, nullptr, ok, "");
     stop.containerstop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, nullptr, ok, "");
     stop.parkingarea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, nullptr, ok, "");
     if (stop.busstop != "") {
         errorSuffix = " at '" + stop.busstop + "'" + errorSuffix;
     } else if (stop.chargingStation != "") {
         errorSuffix = " at '" + stop.chargingStation + "'" + errorSuffix;
+    } else if (stop.overheadWireSegment != "") {
+        errorSuffix = " at '" + stop.overheadWireSegment + "'" + errorSuffix;
     } else if (stop.containerstop != "") {
         errorSuffix = " at '" + stop.containerstop + "'" + errorSuffix;
     } else if (stop.parkingarea != "") {
@@ -424,25 +434,18 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     }
 
     // get the standing duration
-    if (!attrs.hasAttribute(SUMO_ATTR_DURATION) && !attrs.hasAttribute(SUMO_ATTR_UNTIL) && !attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-        if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
-            stop.containerTriggered = attrs.getOpt<bool>(SUMO_ATTR_CONTAINER_TRIGGERED, nullptr, ok, true);
-            stop.triggered = attrs.getOpt<bool>(SUMO_ATTR_TRIGGERED, nullptr, ok, false);
-        } else {
-            stop.triggered = attrs.getOpt<bool>(SUMO_ATTR_TRIGGERED, nullptr, ok, true);
-            stop.containerTriggered = attrs.getOpt<bool>(SUMO_ATTR_CONTAINER_TRIGGERED, nullptr, ok, false);
-        }
-        stop.duration = -1;
-        stop.until = -1;
-    } else {
-        stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);
-        stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, -1);
-        if (!ok || (stop.duration < 0 && stop.until < 0 && stop.speed == 0)) {
-            errorOutput->inform("Invalid duration or end time is given for a stop" + errorSuffix);
-            return false;
-        }
-        stop.triggered = attrs.getOpt<bool>(SUMO_ATTR_TRIGGERED, nullptr, ok, false);
-        stop.containerTriggered = attrs.getOpt<bool>(SUMO_ATTR_CONTAINER_TRIGGERED, nullptr, ok, false);
+    bool expectTrigger = !attrs.hasAttribute(SUMO_ATTR_DURATION) && !attrs.hasAttribute(SUMO_ATTR_UNTIL) && !attrs.hasAttribute(SUMO_ATTR_SPEED);
+    std::vector<std::string> triggers = attrs.getOptStringVector(SUMO_ATTR_TRIGGERED, nullptr, ok);
+    // legacy
+    if (attrs.getOpt<bool>(SUMO_ATTR_CONTAINER_TRIGGERED, nullptr, ok, false)) {
+        triggers.push_back(toString(SUMO_TAG_CONTAINER));
+    };
+    SUMOVehicleParameter::parseStopTriggers(triggers, expectTrigger, stop);
+    stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);
+    stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, -1);
+    if (!expectTrigger && (!ok || (stop.duration < 0 && stop.until < 0 && stop.speed == 0))) {
+        errorOutput->inform("Invalid duration or end time is given for a stop" + errorSuffix);
+        return false;
     }
     stop.extension = attrs.getOptSUMOTimeReporting(SUMO_ATTR_EXTENSION, nullptr, ok, -1);
     stop.parking = attrs.getOpt<bool>(SUMO_ATTR_PARKING, nullptr, ok, stop.triggered || stop.containerTriggered || stop.parkingarea != "");
@@ -476,6 +479,8 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     }
     // public transport trip id
     stop.tripId = attrs.getOpt<std::string>(SUMO_ATTR_TRIP_ID, nullptr, ok, "");
+    stop.split = attrs.getOpt<std::string>(SUMO_ATTR_SPLIT, nullptr, ok, "");
+    stop.join = attrs.getOpt<std::string>(SUMO_ATTR_JOIN, nullptr, ok, "");
     stop.line = attrs.getOpt<std::string>(SUMO_ATTR_LINE, nullptr, ok, "");
 
     const std::string idx = attrs.getOpt<std::string>(SUMO_ATTR_INDEX, nullptr, ok, "end");

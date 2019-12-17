@@ -91,6 +91,8 @@ This Documentation is continuously updated and always refers to the latest devel
 - [iTetris](https://www.ict-itetris.eu/)
 
     connects SUMO to ns3, available here.
+    
+ - [ocit2SUMO](https://github.com/DLR-TS/sumo-ocit) Generate traffic light signal plans from OCIT® data.
 
 **Commercial Extensions**
 

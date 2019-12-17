@@ -501,5 +501,5 @@
     </scheme>
     <viewport zoom="176.38" x="64.71" y="15"/>
     <delay value="60.00"/>
-    <decal filename="dlr.gif" centerX="104.00" centerY="15" centerZ="0.00" width="20.00" height="20.00" altitude="0.00" rotation="0.00" tilt="0.00" roll="0.00" layer="0.00"/>
+    <decal file="dlr.gif" centerX="104.00" centerY="15" centerZ="0.00" width="20.00" height="20.00" altitude="0.00" rotation="0.00" tilt="0.00" roll="0.00" layer="0.00"/>
 </viewsettings>

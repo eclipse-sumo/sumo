@@ -78,6 +78,8 @@ def addGenericOptions(argParser):
                            help="Delay before blocked vehicles are teleported (negative value disables teleporting)")
     argParser.add_argument("--time-to-teleport.highways", dest="timetoteleport_highways", type=float, default=0,
                            help="Delay before blocked vehicles are teleported on wrong highway lanes")
+    argParser.add_argument("--measure-vtypes", dest="measureVTypes",
+                           help="Restrict edgeData measurements to the given vehicle types")
     argParser.add_argument("-7", "--zip", action="store_true",
                            default=False, help="zip old iterations using 7zip")
 
@@ -347,14 +349,15 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
 
     # write detectorfile
     with open(detectorfile, 'w') as fd:
+        vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
         suffix = "_%03i_%s" % (step, options.aggregation)
         print("<a>", file=fd)
-        print('    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"/>' % (
-            suffix, options.aggregation, get_dumpfilename(options, step, "dump")), file=fd)
+        print('    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s/>' % (
+            suffix, options.aggregation, get_dumpfilename(options, step, "dump"), vTypes), file=fd)
         if options.eco_measure:
             print(('    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml" ' +
-                   'excludeEmpty="true" minSamples="1"/>') %
-                  (suffix, options.aggregation, suffix), file=fd)
+                   'excludeEmpty="true" minSamples="1"%s/>') %
+                  (suffix, options.aggregation, suffix, vTypes), file=fd)
         print("</a>", file=fd)
 
 

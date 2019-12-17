@@ -118,21 +118,24 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
             // Add a draw matrix for details
             glPushMatrix();
-            // Iterate over every line
-            for (int i = 0; i < (int)myLines.size(); ++i) {
-                // push a new matrix for every line
-                glPushMatrix();
-                // Rotate and traslaste
-                glTranslated(mySignPos.x(), mySignPos.y(), 0);
-                glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
-                // draw line with a color depending of the selection status
-                if (drawUsingSelectColor()) {
-                    GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.selectionColor, 0, FONS_ALIGN_LEFT);
-                } else {
-                    GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.containerStop, 0, FONS_ALIGN_LEFT);
+            // only draw lines if we aren't in draw for position selection
+            if (!s.drawForPositionSelection) {
+                // Iterate over every line
+                for (int i = 0; i < (int)myLines.size(); ++i) {
+                    // push a new matrix for every line
+                    glPushMatrix();
+                    // Rotate and traslaste
+                    glTranslated(mySignPos.x(), mySignPos.y(), 0);
+                    glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
+                    // draw line with a color depending of the selection status
+                    if (drawUsingSelectColor()) {
+                        GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.selectionColor, 0, FONS_ALIGN_LEFT);
+                    } else {
+                        GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.containerStop, 0, FONS_ALIGN_LEFT);
+                    }
+                    // pop matrix for every line
+                    glPopMatrix();
                 }
-                // pop matrix for every line
-                glPopMatrix();
             }
             // Start drawing sign traslating matrix to signal position
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
@@ -157,7 +160,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw another circle in the same position, but a little bit more small
             GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
             // draw text depending of detail settings
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration) && !s.drawForPositionSelection) {
                 if (drawUsingSelectColor()) {
                     GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
                 } else {

@@ -73,7 +73,7 @@ GNEDemandElement::RouteCalculator::updateDijkstraRouter() {
 
 
 std::vector<GNEEdge*>
-GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const {
+GNEDemandElement::RouteCalculator::calculateDijkstraRoute(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const {
     // declare a solution vector
     std::vector<GNEEdge*> solution;
     // calculate route depending of number of partial edges
@@ -116,7 +116,7 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClas
 
 
 std::vector<GNEEdge*>
-GNEDemandElement::RouteCalculator::calculateDijkstraRoute(GNENet* net, SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const {
+GNEDemandElement::RouteCalculator::calculateDijkstraRoute(const GNENet* net, const SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const {
     // declare a vector of GNEEdges
     std::vector<GNEEdge*> partialEdges;
     partialEdges.reserve(partialEdgesStr.size());
@@ -130,26 +130,44 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(GNENet* net, SUMOVehic
 
 
 bool
-GNEDemandElement::RouteCalculator::areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge* to) const {
-    // the same edge cannot be consecutive of itself
-    if (from == to) {
+GNEDemandElement::RouteCalculator::consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const {
+    // check conditions
+    if ((from == nullptr) || (to == nullptr)) {
+        // edges cannot be null
         return false;
-    }
-    // for pedestrian edges are always consecutives
-    if (vClass == SVC_PEDESTRIAN) {
+    } else if (from == to) {
+        // the same edge cannot be consecutive of itself
+        return false;
+    } else if (vClass == SVC_PEDESTRIAN) {
+        // for pedestrians consecutive edges are always connected
         return true;
-    }
-    // obtain NBEdges from both edges
-    NBEdge* nbFrom = from->getNBEdge();
-    NBEdge* nbTo = to->getNBEdge();
-    // iterate over all connections of NBFrom
-    for (NBEdge::Connection c : nbFrom->getConnectionsFromLane(-1, nbTo, -1)) {
-        //check if given VClass is allowed for from and to lanes
-        if ((nbFrom->getPermissions(c.fromLane) & nbTo->getPermissions(c.toLane) & vClass) == vClass) {
+    } else {
+        // declare temporal vehicle
+        NBVehicle tmpVehicle("temporalNBVehicle", vClass);
+        // declare a temporal route in which save route between two last edges
+        std::vector<const NBRouterEdge*> solution;
+        // calculate route betwen from and to edge
+        myDijkstraRouter->compute(from->getNBEdge(), to->getNBEdge(), &tmpVehicle, 10, solution);
+        // check if soultion is enmpty
+        if (solution.size() == 2) {
             return true;
+        } else {
+            return false;
         }
+        /*
+        // obtain NBEdges from both edges
+        NBEdge* nbFrom = from->getNBEdge();
+        NBEdge* nbTo = to->getNBEdge();
+        // iterate over all connections of NBFrom
+        for (NBEdge::Connection c : nbFrom->getConnectionsFromLane(-1, nbTo, -1)) {
+            //check if given VClass is allowed for from and to lanes
+            if ((nbFrom->getPermissions(c.fromLane) & nbTo->getPermissions(c.toLane) & vClass) == vClass) {
+                return true;
+            }
+        }
+        return false;
+        */
     }
-    return false;
 }
 
 // ---------------------------------------------------------------------------
@@ -327,41 +345,6 @@ GNEDemandElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // close building
     ret->closeBuilding();
     return ret;
-}
-
-
-bool
-GNEDemandElement::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) {
-    if (edges.size() == 0) {
-        // routes cannot be empty
-        return false;
-    } else if (edges.size() == 1) {
-        // routes with a single edge are valid
-        return true;
-    } else {
-        // iterate over edges to check that compounds a chain
-        auto it = edges.begin();
-        while (it != edges.end() - 1) {
-            GNEEdge* currentEdge = *it;
-            GNEEdge* nextEdge = *(it + 1);
-            // consecutive edges aren't allowed
-            if (currentEdge->getID() == nextEdge->getID()) {
-                return false;
-            }
-            // make sure that edges are consecutives
-            if (std::find(currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().begin(),
-                          currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end(),
-                          nextEdge) == currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end()) {
-                if (report) {
-                    WRITE_WARNING("Parameter 'Route' invalid. " + currentEdge->getTagStr() + " '" + currentEdge->getID() +
-                                  "' ins't consecutive to " + nextEdge->getTagStr() + " '" + nextEdge->getID() + "'");
-                }
-                return false;
-            }
-            it++;
-        }
-    }
-    return true;
 }
 
 

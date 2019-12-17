@@ -305,7 +305,7 @@ GNERouteFrame::ConsecutiveEdges::addEdge(GNEEdge* edge) {
     } else {
         // check if clicked edge is in the candidate edges
         for (const auto& i : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
-            if ((i == edge) && GNEDemandElement::getRouteCalculatorInstance()->areEdgesConsecutives(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), myRouteEdges.back(), edge)) {
+            if ((i == edge) && GNEDemandElement::getRouteCalculatorInstance()->consecutiveEdgesConnected(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), myRouteEdges.back(), edge)) {
                 // restore colors of outgoing edges
                 for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
                     for (const auto& k : j->getLanes()) {
@@ -341,7 +341,7 @@ GNERouteFrame::ConsecutiveEdges::refreshEdgeCandidates() {
         // set new candidate colors
         for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
             // check if exist a connection between both edges
-            if (GNEDemandElement::getRouteCalculatorInstance()->areEdgesConsecutives(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), myRouteEdges.back(), j)) {
+            if (GNEDemandElement::getRouteCalculatorInstance()->consecutiveEdgesConnected(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), myRouteEdges.back(), j)) {
                 for (const auto& k : j->getLanes()) {
                     k->setSpecialColor(&myRouteFrameParent->getEdgeCandidateSelectedColor());
                 }

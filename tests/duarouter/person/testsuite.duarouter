@@ -14,5 +14,11 @@ unconnected_ignored
 
 # handle networks with pedestrian junction structures
 crossings_and_walkingareas
+
+# Copy of basic
+walk_write-trips
+
+# load person ride with option write-trips
+ride_write-trips
 unknown_from
 unknown_to

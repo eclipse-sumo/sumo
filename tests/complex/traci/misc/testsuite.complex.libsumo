@@ -1,0 +1,11 @@
+# test setting and getting of params to all objects which support it
+params
+
+# test various functions and options for influencing the behavior of rerouting functions
+rerouting
+
+# tests for vehicle mapping
+moveToXY
+
+# Tests for lateral collisions
+lateralCollision

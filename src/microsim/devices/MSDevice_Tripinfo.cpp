@@ -27,11 +27,12 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <mesosim/MEVehicle.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include "MSDevice_Vehroutes.h"
 #include "MSDevice_Tripinfo.h"
 
 #define NOT_ARRIVED TIME2STEPS(-1)
@@ -232,7 +233,7 @@ MSDevice_Tripinfo::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
 
 
 void
-MSDevice_Tripinfo::generateOutput() const {
+MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     const SUMOTime timeLoss = MSGlobals::gUseMesoSim ? myMesoTimeLoss : static_cast<MSVehicle&>(myHolder).getTimeLoss();
     const double routeLength = myRouteLength + (myArrivalTime == NOT_ARRIVED ? myHolder.getPositionOnLane() : myArrivalPos);
     const SUMOTime duration = (myArrivalTime == NOT_ARRIVED ? SIMSTEP : myArrivalTime) - myHolder.getDeparture();
@@ -243,13 +244,13 @@ MSDevice_Tripinfo::generateOutput() const {
     myTotalWaitingTime += myWaitingTime;
     myTotalTimeLoss += timeLoss;
     myTotalDepartDelay += myHolder.getDepartDelay();
-    if (!OptionsCont::getOptions().isSet("tripinfo-output")) {
+    myPendingOutput.erase(this);
+    if (tripinfoOut == nullptr) {
         return;
     }
-    myPendingOutput.erase(this);
 
     // write
-    OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
+    OutputDevice& os = *tripinfoOut;
     os.openTag("tripinfo").writeAttr("id", myHolder.getID());
     os.writeAttr("depart", time2string(myHolder.getDeparture()));
     os.writeAttr("departLane", myDepartLane);
@@ -284,7 +285,8 @@ MSDevice_Tripinfo::generateOutput() const {
 void
 MSDevice_Tripinfo::generateOutputForUnfinished() {
     MSNet* net = MSNet::getInstance();
-    const bool writeTripinfos = OptionsCont::getOptions().isSet("tripinfo-output");
+    OutputDevice* tripinfoOut = (OptionsCont::getOptions().isSet("tripinfo-output") ?
+        &OutputDevice::getDeviceByOption("tripinfo-output") : nullptr);
     myWaitingDepartDelay = 0;
     int undeparted = 0;
     int departed = 0;
@@ -293,12 +295,16 @@ MSDevice_Tripinfo::generateOutputForUnfinished() {
         const MSDevice_Tripinfo* d = *myPendingOutput.begin();
         if (d->myHolder.hasDeparted()) {
             departed++;
-            d->generateOutput();
-            if (writeTripinfos) {
-                // @todo also generate emission output if holder has a device
+            d->generateOutput(tripinfoOut);
+            if (tripinfoOut != nullptr) {
+                for (MSVehicleDevice* const dev : d->myHolder.getDevices()) {
+                    if (typeid(*dev) == typeid(MSDevice_Tripinfo) || typeid(*dev) == typeid(MSDevice_Vehroutes)) {
+                        // tripinfo is special and vehroute has it's own write-unfinished option
+                        continue;
+                    }
+                    dev->generateOutput(tripinfoOut);
+                }
                 OutputDevice::getDeviceByOption("tripinfo-output").closeTag();
-            } else {
-                myPendingOutput.erase(d);
             }
         } else {
             undeparted++;

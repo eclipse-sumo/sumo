@@ -37,11 +37,13 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSParkingArea.h>
 #include <microsim/devices/MSRoutingEngine.h>
+#include <microsim/trigger/MSChargingStation.h>
+#include <microsim/trigger/MSOverheadWire.h>
 #include <netload/NLBuilder.h>
 #include <libsumo/TraCIConstants.h>
 #include "Simulation.h"
@@ -577,8 +579,8 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
                 if (!it->edges.empty()) {
                     resultCand.push_back(TraCIStage(it->line == ""
-                                                    ? MSTransportable::MOVING_WITHOUT_VEHICLE
-                                                    : MSTransportable::DRIVING));
+                                                    ? MSTransportable::StageType::WALKING
+                                                    : MSTransportable::StageType::DRIVING));
                     resultCand.back().vType = it->vType;
                     resultCand.back().line = it->line;
                     resultCand.back().destStop = it->destStop;
@@ -628,6 +630,19 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         } else {
             throw TraCIException("Invalid chargingStation parameter '" + attrName + "'");
         }
+	} else if (StringUtils::startsWith(key, "overheadWire.")) {
+		const std::string attrName = key.substr(16);
+		MSOverheadWire* cs = static_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
+		if (cs == 0) {
+			throw TraCIException("Invalid overhead wire '" + objectID + "'");
+		}
+		if (attrName == toString(SUMO_ATTR_TOTALENERGYCHARGED)) {
+			return toString(cs->getTotalCharged());
+        } else if (attrName == toString(SUMO_ATTR_NAME)) {
+            return toString(cs->getMyName());
+		} else {
+			throw TraCIException("Invalid overhead wire parameter '" + attrName + "'");
+		}
     } else if (StringUtils::startsWith(key, "parkingArea.")) {
         const std::string attrName = key.substr(12);
         MSParkingArea* pa = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_PARKING_AREA));

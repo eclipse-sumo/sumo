@@ -181,7 +181,7 @@ class Launcher:
 
 def parse_help(app):
     binary = os.path.join(BINDIR, app)
-    reOpt = re.compile("--([^ ]*) (\w*) (.*$)")
+    reOpt = re.compile(r"--([^ ]*) (\w*) (.*$)")
     helpstring = subprocess.check_output([binary, '--help'])
     options = []
     optName = None

@@ -25,14 +25,14 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleControl.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
-#include <microsim/MSTransportable.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSTransportable.h>
+#include <microsim/transportables/MSPerson.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/Edge.h>
 #include <libsumo/InductionLoop.h>
@@ -65,7 +65,7 @@ LaneStoringVisitor::add(const MSLane* const l) const {
             const MSLane::VehCont& vehs = l->getVehiclesSecure();
             for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
                 if (myShape.distance2D((*j)->getPosition()) <= myRange) {
-                    myIDs.insert((*j)->getID());
+                    myObjects.insert(*j);
                 }
             }
             l->releaseVehicles();
@@ -76,7 +76,7 @@ LaneStoringVisitor::add(const MSLane* const l) const {
             std::vector<MSTransportable*> persons = l->getEdge().getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
             for (auto p : persons) {
                 if (myShape.distance2D(p->getPosition()) <= myRange) {
-                    myIDs.insert(p->getID());
+                    myObjects.insert(p);
                 }
             }
             l->releaseVehicles();
@@ -84,13 +84,13 @@ LaneStoringVisitor::add(const MSLane* const l) const {
         break;
         case libsumo::CMD_GET_EDGE_VARIABLE: {
             if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
-                myIDs.insert(l->getEdge().getID());
+                myObjects.insert(&l->getEdge());
             }
         }
         break;
         case libsumo::CMD_GET_LANE_VARIABLE: {
             if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
-                myIDs.insert(l->getID());
+                myObjects.insert(l);
             }
         }
         break;
@@ -190,7 +190,7 @@ Helper::handleSingleSubscription(const Subscription& s) {
         if ((s.activeFilters & SUBS_FILTER_NO_RTREE) == 0) {
             PositionVector shape;
             findObjectShape(s.commandId, s.id, shape);
-            collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
+            collectObjectIDsInRange(s.contextDomain, shape, s.range, objIDs);
         }
         applySubscriptionFilters(s, objIDs);
     } else {
@@ -356,11 +356,11 @@ Helper::convertCartesianToRoadMap(const Position& pos, const SUMOVehicleClass vC
     const Boundary& netBounds = GeoConvHelper::getFinal().getConvBoundary();
     const double maxRange = MAX2(1001., netBounds.getWidth() + netBounds.getHeight() + netBounds.distanceTo2D(pos));
     while (range < maxRange) {
-        std::set<std::string> laneIds;
-        collectObjectsInRange(libsumo::CMD_GET_LANE_VARIABLE, shape, range, laneIds);
+        std::set<const Named*> lanes;
+        collectObjectsInRange(libsumo::CMD_GET_LANE_VARIABLE, shape, range, lanes);
         double minDistance = std::numeric_limits<double>::max();
-        for (const std::string& laneID : laneIds) {
-            MSLane* const lane = MSLane::dictionary(laneID);
+        for (const Named* named : lanes) {
+            MSLane* lane = const_cast<MSLane*>(dynamic_cast<const MSLane*>(named));
             if (lane->allowsVehicleClass(vClass)) {
                 // @todo this may be a place where 3D is required but 2D is used
                 const double newDistance = lane->getShape().distance2D(pos);
@@ -465,9 +465,17 @@ Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape
     }
 }
 
+void
+Helper::collectObjectIDsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into) {
+    std::set<const Named*> objects;
+    collectObjectsInRange(domain, shape, range, objects);
+    for (const Named* obj : objects) {
+        into.insert(obj->getID());
+    }
+}
 
 void
-Helper::collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into) {
+Helper::collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<const Named*>& into) {
     // build the look-up tree if not yet existing
     if (myObjects.find(domain) == myObjects.end()) {
         switch (domain) {
@@ -913,15 +921,15 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                     double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
     // collect edges around the vehicle/person
     const MSEdge* const currentRouteEdge = currentRoute[routePosition];
-    std::set<std::string> into;
+    std::set<const Named*> into;
     PositionVector shape;
     shape.push_back(pos);
     collectObjectsInRange(libsumo::CMD_GET_EDGE_VARIABLE, shape, maxRouteDistance, into);
     double maxDist = 0;
     std::map<MSLane*, LaneUtility> lane2utility;
     // compute utility for all candidate edges
-    for (std::set<std::string>::const_iterator j = into.begin(); j != into.end(); ++j) {
-        const MSEdge* const e = MSEdge::dictionary(*j);
+    for (const Named* namedEdge : into) {
+        const MSEdge* e = dynamic_cast<const MSEdge*>(namedEdge);
         const MSEdge* prevEdge = nullptr;
         const MSEdge* nextEdge = nullptr;
         bool onRoute = false;

@@ -52,9 +52,9 @@ typedef std::map<const MSLane*, std::pair<double, double> >  LaneCoverageInfo; /
 class LaneStoringVisitor {
 public:
     /// @brief Constructor
-    LaneStoringVisitor(std::set<std::string>& ids, const PositionVector& shape,
+    LaneStoringVisitor(std::set<const Named*>& objects, const PositionVector& shape,
                        const double range, const int domain)
-        : myIDs(ids), myShape(shape), myRange(range), myDomain(domain) {}
+        : myObjects(objects), myShape(shape), myRange(range), myDomain(domain) {}
 
     /// @brief Destructor
     ~LaneStoringVisitor() {}
@@ -63,7 +63,7 @@ public:
     void add(const MSLane* const l) const;
 
     /// @brief The container
-    std::set<std::string>& myIDs;
+    std::set<const Named*>& myObjects;
     const PositionVector& myShape;
     const double myRange;
     const int myDomain;
@@ -131,7 +131,8 @@ public:
 
     static void findObjectShape(int domain, const std::string& id, PositionVector& shape);
 
-    static void collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into);
+    static void collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<const Named*>& into);
+    static void collectObjectIDsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into);
 
     /// @brief Filter the given ID-Set (which was obtained from an R-Tree search)
     ///        according to the filters set by the subscription or firstly build the object ID list if

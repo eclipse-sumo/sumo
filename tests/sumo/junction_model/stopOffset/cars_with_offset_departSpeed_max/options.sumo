@@ -1,0 +1,2 @@
+-c sumo.sumocfg --fcd-output fcd.xml
+--begin 10

@@ -109,6 +109,14 @@ enum SumoXMLTag {
     SUMO_TAG_PARKING_SPACE,
     /// @brief  A Charging Station
     SUMO_TAG_CHARGING_STATION,
+    /// @brief  An overhead wire segment
+    SUMO_TAG_OVERHEAD_WIRE_SEGMENT,
+    /// @brief  An overhead wire section
+    SUMO_TAG_OVERHEAD_WIRE_SECTION,
+    /// @brief  A traction substation
+    SUMO_TAG_TRACTION_SUBSTATION,
+    /// @brief  An overhead wire clamp (connection of wires in opposite directions)
+    SUMO_TAG_OVERHEAD_WIRE_CLAMP,
     /// @brief a vtypeprobe detector
     SUMO_TAG_VTYPEPROBE,
     /// @brief a routeprobe detector
@@ -258,7 +266,6 @@ enum SumoXMLTag {
     SUMO_TAG_DELAY,
     SUMO_TAG_VIEWPORT,
     SUMO_TAG_SNAPSHOT,
-    SUMO_TAG_BREAKPOINTS_FILE,
     SUMO_TAG_BREAKPOINT,
     SUMO_TAG_LOCATION,
     SUMO_TAG_COLORSCHEME,
@@ -463,6 +470,36 @@ enum SumoXMLAttr {
     SUMO_ATTR_MANEUVER_ANGLE_TIMES,
     /// @}
 
+    /// @name elecHybrid output attributes
+    /// @{
+    /// @brief power charging from overhead wire to battery if the battery SoC is not full
+    SUMO_ATTR_OVERHEADWIRECHARGINGPOWER,
+    /// @}
+
+    /// @name overheadWire attributes
+    /// @{
+    SUMO_ATTR_OVERHEAD_WIRE_SEGMENT,
+    SUMO_ATTR_OVERHEAD_WIRE_SECTION,
+    /// @brief voltage of the traction substation [V]
+    SUMO_ATTR_VOLTAGE,
+    /// @brief a voltage source on the overhead wire segment [bool]
+    SUMO_ATTR_VOLTAGESOURCE,
+    /// @brief current limit of the traction substation [A]
+    SUMO_ATTR_CURRENTLIMIT,
+    /// @brief id of a traction substation substation
+    SUMO_ATTR_SUBSTATIONID,
+    /// @brief resistivity of overhead wires
+    SUMO_ATTR_OVERHEAD_WIRE_RESISTIVITY,
+    /// @brief forbidden lanes for overhead wire segment
+    SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN,
+    /// @brief overhead wire clamps for overhead wire segment
+    SUMO_ATTR_OVERHEAD_WIRE_CLAMPS,
+    /// @brief id of the overhead wire segment, to the start of which the overhead wire clamp is connected
+    SUMO_ATTR_OVERHEAD_WIRE_CLAMP_START,
+    /// @brief id of the overhead wire segment, to the end of which the overhead wire clamp is connected
+    SUMO_ATTR_OVERHEAD_WIRE_CLAMP_END,
+    /// @}
+
     /// @name charging stations attributes
     /// @{
     /// @brief charge in W/s of the Charging Stations
@@ -505,6 +542,20 @@ enum SumoXMLAttr {
     SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION,
     /// @brief Stopping treshold
     SUMO_ATTR_STOPPINGTRESHOLD,
+    /// @}
+
+    /// @name elecHybrid device export parameters
+    /// @{
+    // @brief Overhead Wire Segment ID
+    SUMO_ATTR_OVERHEADWIREID,
+    // @brief Traction substation ID
+    SUMO_ATTR_TRACTIONSUBSTATIONID,
+    // @brief Electric current drawn from overhead wire
+    SUMO_ATTR_CURRENTFROMOVERHEADWIRE,
+    // @brief Voltage of overhead wire (above the vehicle)
+    SUMO_ATTR_VOLTAGEOFOVERHEADWIRE,
+    // @brief Circuit solver alpha parameter
+    SUMO_ATTR_ALPHACIRCUITSOLVER,
     /// @}
 
     /// @name battery export parameters
@@ -625,6 +676,7 @@ enum SumoXMLAttr {
     /// @{
     SUMO_ATTR_LAST,
     SUMO_ATTR_COST,
+    SUMO_ATTR_COSTS,
     SUMO_ATTR_SAVINGS,
     SUMO_ATTR_PROB,
     SUMO_ATTR_PROBS,
@@ -775,6 +827,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_LINE,
     SUMO_ATTR_LINES,
     SUMO_ATTR_TRIP_ID,
+    SUMO_ATTR_SPLIT,
+    SUMO_ATTR_JOIN,
     SUMO_ATTR_INTENDED,
     SUMO_ATTR_VALUE,
     SUMO_ATTR_PROHIBITOR,

@@ -57,6 +57,7 @@ class MSVehicleTransfer;
 class MSAbstractLaneChangeModel;
 class MSStoppingPlace;
 class MSChargingStation;
+class MSOverheadWire;
 class MSParkingArea;
 class MSPerson;
 class MSDevice;
@@ -932,6 +933,9 @@ public:
         MSParkingArea* parkingarea = nullptr;
         /// @brief (Optional) charging station if one is assigned to the stop
         MSStoppingPlace* chargingStation = nullptr;
+        /// @brief (Optional) overhead wire segment if one is assigned to the stop
+        /// @todo Check that this should really be a stopping place instance
+        MSStoppingPlace* overheadWireSegment = nullptr;
         /// @brief The stop parameter
         const SUMOVehicleParameter::Stop pars;
         /// @brief The stopping duration
@@ -940,6 +944,8 @@ public:
         bool triggered = false;
         /// @brief whether an arriving container lets the vehicle continue
         bool containerTriggered = false;
+        /// @brief whether coupling another vehicle (train) the vehicle continue
+        bool joinTriggered = false;
         /// @brief Information whether the stop has been reached
         bool reached = false;
         /// @brief The number of still expected persons
@@ -1086,6 +1092,10 @@ public:
      */
     double processNextStop(double currentVelocity);
 
+
+    /// @brief handle joining of another vehicle to this one (to resolve joinTriggered)
+    bool joinTrainPart(MSVehicle* veh);
+
     /** @brief Returns the leader of the vehicle looking for a fixed distance.
      *
      * If the distance is not given it is calculated from the brake gap.
@@ -1147,6 +1157,17 @@ public:
     */
     double getElectricityConsumption() const;
 
+    /** @brief Returns actual state of charge of battery (Wh)
+    * RICE_CHECK: This may be a misnomer, SOC is typically percentage of the maximum battery capacity.
+    * @return The actual battery state of charge
+    */
+    double getStateOfCharge() const;
+
+    /** @brief Returns actual current (A) of ElecHybrid device
+    * RICE_CHECK: Is this the current consumed from the overhead wire or the current driving the poweertrain of the vehicle?
+    * @return The current of ElecHybrid device
+    */
+    double getElecHybridCurrent() const;
 
     /** @brief Returns noise emissions of the current state
      * @return The noise produced
@@ -1334,6 +1355,8 @@ public:
     */
     bool resumeFromStopping();
 
+    /// @brief deletes the next stop if it exists
+    void abortNextStop();
 
     /// @brief update a vector of further lanes and return the new backPos
     double updateFurtherLanes(std::vector<MSLane*>& furtherLanes,
@@ -1799,6 +1822,9 @@ public:
 
     // @brief get the position of the back bumper;
     const Position getBackPosition() const;
+
+    /// @brief whether this vehicle is except from collision checks
+    bool ignoreCollision();
 
     /// @name state io
     //@{

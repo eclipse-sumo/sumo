@@ -145,7 +145,7 @@ MSVehicleControl::removePending() {
         myRunningVehNo--;
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_ARRIVED);
         for (MSVehicleDevice* const dev : veh->getDevices()) {
-            dev->generateOutput();
+            dev->generateOutput(tripinfoOut);
         }
         if (tripinfoOut != nullptr) {
             // close tag after tripinfo (possibly including emissions from another device) have been written
@@ -218,7 +218,7 @@ MSVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
         // id not in myVehicleDict.
         myVehicleDict[id] = v;
         const SUMOVehicleParameter& pars = v->getParameter();
-        if (pars.departProcedure == DEPART_TRIGGERED || pars.departProcedure == DEPART_CONTAINER_TRIGGERED) {
+        if (pars.departProcedure == DEPART_TRIGGERED || pars.departProcedure == DEPART_CONTAINER_TRIGGERED || pars.departProcedure == DEPART_SPLIT) {
             const MSEdge* const firstEdge = v->getRoute().getEdges()[0];
             if (!MSGlobals::gUseMesoSim) {
                 // position will be checked against person position later
@@ -393,7 +393,8 @@ MSVehicleControl::getVTypeDistributionMembership(const std::string& id) const {
 void
 MSVehicleControl::abortWaiting() {
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
-        WRITE_WARNING("Vehicle " + i->first + " aborted waiting for a person or a container that will never come.");
+        WRITE_WARNINGF("Vehicle '%' aborted waiting for a % that will never come.", i->first, 
+                i->second->getParameter().departProcedure == DEPART_SPLIT ? "split" : "person or container")
     }
 }
 

@@ -41,7 +41,7 @@
 #include <microsim/MSJunction.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSEdge.h>
-#include <microsim/pedestrians/MSPModel.h>
+#include <microsim/transportables/MSPModel.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>

@@ -41,6 +41,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSJunctionLogic.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
@@ -174,6 +175,18 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_CHARGING_STATION:
                 myTriggerBuilder.parseAndBuildChargingStation(myNet, attrs);
                 myLastParameterised.push_back(myTriggerBuilder.getCurrentStop());
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_SEGMENT:
+                myTriggerBuilder.parseAndBuildOverheadWireSegment(myNet, attrs);
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_SECTION:
+                myTriggerBuilder.parseAndBuildOverheadWireSection(myNet, attrs);
+                break;
+            case SUMO_TAG_TRACTION_SUBSTATION:
+                myTriggerBuilder.parseAndBuildTractionSubstation(myNet, attrs);
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
+                myTriggerBuilder.parseAndBuildOverheadWireClamp(myNet, attrs);
                 break;
             case SUMO_TAG_VTYPEPROBE:
                 addVTypeProbeDetector(attrs);

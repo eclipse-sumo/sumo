@@ -159,8 +159,8 @@ public:
     /// @brief return child demand elements
     const std::vector<GNEDemandElement*>& getChildDemandElements() const;
 
-    /// @brief return child demand elements sorted by type
-    const std::set<GNEDemandElement*>& getChildDemandElementsSortedByType(SumoXMLTag tag) const;
+    /// @brief return child demand elements by type
+    const std::vector<GNEDemandElement*>& getChildDemandElementsByType(SumoXMLTag tag) const;
 
     /// @brief sort child demand elements
     void sortChildDemandElements();
@@ -253,7 +253,7 @@ private:
     std::vector<GNEDemandElement*> myChildDemandElements;
 
     /// @brief vector with the demand elements children sorted by type and filtered (to avoid duplicated
-    std::map<SumoXMLTag, std::set<GNEDemandElement*> > mySortedChildDemandElementsByType;
+    std::map<SumoXMLTag, std::vector<GNEDemandElement* >> myDemandElementsByType;
 
     /// @brief pointer to AC (needed to avoid diamond problem)
     GNEAttributeCarrier* myAC;

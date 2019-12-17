@@ -542,6 +542,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="triggered"/>
                     <xsd:enumeration value="containerTriggered"/>
+                    <xsd:enumeration value="split"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>
@@ -580,6 +581,7 @@
                     <xsd:enumeration value="free"/>
                     <xsd:enumeration value="base"/>
                     <xsd:enumeration value="last"/>
+                    <xsd:enumeration value="stop"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>
@@ -699,12 +701,14 @@
         <xsd:attribute name="extension" type="timeType"/>
         <xsd:attribute name="index" type="xsd:string"/>
         <xsd:attribute name="parking" type="boolType"/>
-        <xsd:attribute name="triggered" type="boolType"/>
+        <xsd:attribute name="triggered" type="xsd:string"/>
         <xsd:attribute name="containerTriggered" type="boolType"/>
         <xsd:attribute name="expected" type="xsd:string"/>
         <xsd:attribute name="expectedContainers" type="xsd:string"/>
         <xsd:attribute name="actType" type="xsd:string"/>
         <xsd:attribute name="tripId" type="xsd:string"/>
+        <xsd:attribute name="split" type="xsd:string"/>
+        <xsd:attribute name="join" type="xsd:string"/>
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="speed" type="nonNegativeFloatType"/>
     </xsd:complexType>
@@ -772,6 +776,7 @@
                     <xsd:attribute name="departPos" type="departPosType"/>
                     <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
                     <xsd:attribute name="walkFactor" type="positiveFloatType"/>
+                    <xsd:attribute name="costs" type="xsd:string"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="ride">

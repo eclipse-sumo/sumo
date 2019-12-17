@@ -287,6 +287,9 @@ private:
     /// @brief draw junction childs
     void drawJunctionChilds(const GUIVisualizationSettings& s) const;
 
+    /// @brief draw demand elements childs
+    void drawDemandElements(const GUIVisualizationSettings& s, const GNEEdge* edge) const;
+
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

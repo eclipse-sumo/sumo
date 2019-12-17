@@ -47,5 +47,5 @@ for conn in doc.xpath('//connection'):
         # conn.attrib['linkIndex']
 
 for conn in sorted(connections):
-        # print conn, connections[conn]
+    # print conn, connections[conn]
     print("link;g;{};0".format(connections[conn]).ljust(50) + '#' + str(conn).rjust(3))

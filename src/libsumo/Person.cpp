@@ -20,11 +20,12 @@
 // ===========================================================================
 #include <config.h>
 
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSNet.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/MSStoppingPlace.h>
+#include <microsim/transportables/MSPerson.h>
 #include <libsumo/TraCIConstants.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringTokenizer.h>
@@ -56,7 +57,7 @@ Person::getIDList() {
     MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
     std::vector<std::string> ids;
     for (MSTransportableControl::constVehIt i = c.loadedBegin(); i != c.loadedEnd(); ++i) {
-        if (i->second->getCurrentStageType() != MSTransportable::WAITING_FOR_DEPART) {
+        if (i->second->getCurrentStageType() != MSTransportable::StageType::WAITING_FOR_DEPART) {
             ids.push_back(i->first);
         }
     }
@@ -180,7 +181,7 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
     }
     //stageType, arrivalPos, edges, destStop, vType, and description can be retrieved directly from the base Stage class.
     MSTransportable::Stage* stage = p->getNextStage(nextStageIndex);
-    result.type = stage->getStageType();
+    result.type = (int)stage->getStageType();
     result.arrivalPos = stage->getArrivalPos();
     for (auto e : stage->getEdges()) {
         if (e != nullptr) {
@@ -202,7 +203,7 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
     result.travelTime = -1;
     // Some stage type dependant attributes
     switch (stage->getStageType()) {
-        case STAGE_DRIVING: {
+        case MSTransportable::StageType::DRIVING: {
             auto* drivingStage = (MSTransportable::Stage_Driving*) stage;
             result.intended = drivingStage->getIntendedVehicleID();
             result.depart = STEPS2TIME(drivingStage->getIntendedDepart());
@@ -215,7 +216,7 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
             }
             break;
         }
-        case STAGE_WALKING: {
+        case MSTransportable::StageType::WALKING: {
             auto* walkingStage = (MSPerson::MSPersonStage_Walking*) stage;
             result.departPos = walkingStage->getDepartPos();
             break;
@@ -457,7 +458,7 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
 MSTransportable::Stage*
 Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
     switch (stage.type) {
-        case MSTransportable::StageType::DRIVING: {
+        case STAGE_DRIVING: {
             if (stage.edges.empty()) {
                 throw TraCIException("The stage should have at least one edge");
             }
@@ -479,7 +480,7 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
             return new MSPerson::MSPersonStage_Driving(edge, bs, -NUMERICAL_EPS, StringTokenizer(stage.line).getVector());
         }
 
-        case MSTransportable::StageType::MOVING_WITHOUT_VEHICLE: {
+        case STAGE_WALKING: {
             MSTransportable* p = getPerson(personID);
             ConstMSEdgeVector edges;
             try {
@@ -508,7 +509,7 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
             return new MSPerson::MSPersonStage_Walking(p->getID(), edges, bs, -1, speed, p->getArrivalPos(), arrivalPos, 0);
         }
 
-        case MSTransportable::StageType::WAITING: {
+        case STAGE_WAITING: {
             MSTransportable* p = getPerson(personID);
             if (stage.travelTime < 0) {
                 throw TraCIException("Duration for person: '" + personID + "' must not be negative");
@@ -642,10 +643,10 @@ Person::rerouteTraveltime(const std::string& personID) {
     double  departPos = p->getEdgePos();
     // reroute to the start of the next-non-walking stage
     int firstIndex;
-    if (p->getCurrentStageType() == MSTransportable::MOVING_WITHOUT_VEHICLE) {
+    if (p->getCurrentStageType() == MSTransportable::StageType::WALKING) {
         firstIndex = 0;
-    } else if (p->getCurrentStageType() == MSTransportable::WAITING) {
-        if (p->getNumRemainingStages() < 2 || p->getStageType(1) != MSTransportable::MOVING_WITHOUT_VEHICLE) {
+    } else if (p->getCurrentStageType() == MSTransportable::StageType::WAITING) {
+        if (p->getNumRemainingStages() < 2 || p->getStageType(1) != MSTransportable::StageType::WALKING) {
             throw TraCIException("Person '" + personID + "' cannot reroute after the current stop.");
         }
         firstIndex = 1;
@@ -654,7 +655,7 @@ Person::rerouteTraveltime(const std::string& personID) {
     }
     int nextIndex = firstIndex + 1;
     for (; nextIndex < p->getNumRemainingStages(); nextIndex++) {
-        if (p->getStageType(nextIndex) != MSTransportable::MOVING_WITHOUT_VEHICLE) {
+        if (p->getStageType(nextIndex) != MSTransportable::StageType::WALKING) {
             break;
         }
     }
@@ -750,7 +751,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
     int routeIndex = 0;
     MSLane* currentLane = const_cast<MSLane*>(getSidewalk<MSEdge, MSLane>(p->getEdge()));
     switch (p->getStageType(0)) {
-        case MSTransportable::MOVING_WITHOUT_VEHICLE: {
+        case MSTransportable::StageType::WALKING: {
             MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
             assert(s != 0);
             ev = s->getEdges();
@@ -810,7 +811,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
             }
         }
         switch (p->getStageType(0)) {
-            case MSTransportable::MOVING_WITHOUT_VEHICLE: {
+            case MSTransportable::StageType::WALKING: {
                 Helper::setRemoteControlled(p, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
                 break;
             }

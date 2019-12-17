@@ -38,6 +38,8 @@ SET(guisim_STAT_SRCS
    GUITrafficLightLogicWrapper.h
    GUITriggeredRerouter.cpp
    GUITriggeredRerouter.h
+   GUIOverheadWire.cpp
+   GUIOverheadWire.h
    GUICalibrator.cpp
    GUICalibrator.h
    GUIChargingStation.cpp

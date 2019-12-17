@@ -43,7 +43,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSInsertionControl.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 
 #include "GUISUMOViewParent.h"
 #include "GUILoadThread.h"

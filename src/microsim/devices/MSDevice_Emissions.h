@@ -108,7 +108,7 @@ public:
      * @exception IOError not yet implemented
      * @see MSDevice::tripInfoOutput
      */
-    void generateOutput() const;
+    void generateOutput(OutputDevice* tripinfoOut) const;
 
 
     /// @brief Destructor.

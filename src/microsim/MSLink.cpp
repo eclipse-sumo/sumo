@@ -31,12 +31,12 @@
 #include "MSJunction.h"
 #include "MSLink.h"
 #include "MSLane.h"
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSPerson.h>
 #include "MSEdge.h"
 #include "MSGlobals.h"
 #include "MSVehicle.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
-#include <microsim/pedestrians/MSPModel.h>
+#include <microsim/transportables/MSPModel.h>
 
 //#define MSLink_DEBUG_CROSSING_POINTS
 //#define MSLink_DEBUG_OPENED

@@ -1,11 +1,2 @@
-Warning: Splitting vector close to end (pos: 0.10, length: 50.00)
-Warning: Splitting vector close to end (pos: 49.90, length: 50.00)
-Warning: Splitting vector close to end (pos: 0.10, length: 50.00)
-Warning: Splitting vector close to end (pos: 0.10, length: 50.00)
-Warning: Splitting vector close to end (pos: 49.90, length: 50.00)
-Warning: Click over a lane to create a stop placed in a lane
-Warning: Splitting vector close to end (pos: 0.10, length: 50.00)
-Warning: Splitting vector close to end (pos: 49.90, length: 50.00)
-Warning: Splitting vector close to end (pos: 0.10, length: 50.00)
-Warning: Splitting vector close to end (pos: 0.10, length: 50.00)
-Warning: Splitting vector close to end (pos: 0.10, length: 50.00)
+Warning: Essential unique string attribute 'to' of trip with ID 'routeFlow' is missing; trip cannot be created
+Warning: Essential unique string attribute 'from' of trip with ID 'routeFlow' is missing; trip cannot be created

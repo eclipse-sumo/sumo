@@ -373,6 +373,12 @@ RONet::addVehicle(const std::string& id, ROVehicle* veh) {
 
 
 bool
+RONet::knowsVehicle(const std::string& id) {
+    return myVehIDs.find(id) != myVehIDs.end();
+}
+
+
+bool
 RONet::addFlow(SUMOVehicleParameter* flow, const bool randomize) {
     if (randomize) {
         myDepartures[flow->id].reserve(flow->repetitionNumber);

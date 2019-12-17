@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/06/18 17:30:50 by Eclipse SUMO duarouter Version UNKNOWN
+<!-- generated on Wed Dec 11 23:04:43 2019 by Eclipse SUMO duarouter Version v1_4_0+0051-3f8840f55f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,6 +20,10 @@ SPDX-License-Identifier: EPL-2.0
         <alternatives-output value="routes.rou.alt.xml"/>
     </output>
 
+    <processing>
+        <persontrip.transfer.car-walk value="ptStops"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <no-step-log value="true"/>
@@ -31,12 +35,10 @@ SPDX-License-Identifier: EPL-2.0
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="p0_0" depart="triggered">
         <routeDistribution last="0">
-            <route cost="0.00" probability="0.00000000" edges="beg beg2left"/>
+            <route cost="0.00" probability="1.00000000" edges="beg beg2left"/>
         </routeDistribution>
     </vehicle>
     <person id="p0" depart="0.00">
-        <ride cost="27.11" from="beg" to="beg2left" busStop="beg2left" lines="p0_0"/>
-        <ride cost="332.89" busStop="left2end" lines="train" intended="train.1" depart="310.00"/>
-        <walk cost="241.57" edges="left2end end"/>
+        <personTrip from="beg" to="end" modes="public car" walkFactor="0.75" costs="27.11 332.89 241.57"/>
     </person>
 </routes>

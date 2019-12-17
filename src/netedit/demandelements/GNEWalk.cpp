@@ -34,6 +34,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 
 #include "GNEWalk.h"
+#include "GNERoute.h"
 
 
 // ===========================================================================
@@ -147,20 +148,21 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
 bool
 GNEWalk::isDemandElementValid() const {
     if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
-        return true;
-    } else if (getParentEdges().size() == 0) {
-        return false;
-    } else if (getParentEdges().size() == 1) {
+        // check if route parent is valid
+        return getParentDemandElements().at(1)->isDemandElementValid();
+    } else if (getParentEdges().size() == 2) {
+        if (getParentEdges().at(0) == getParentEdges().at(1)) {
+            // from and to are the same edges, then path is valid
+            return true;
+        } else {
+            // check if exist a route between parent edges
+            return (getRouteCalculatorInstance()->calculateDijkstraRoute(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0);
+        }
+    } else if (getPathEdges().size() > 0) {
+        // if path edges isn't empty, then there is a valid route
         return true;
     } else {
-        // check if exist at least a connection between every edge
-        for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
-                return false;
-            }
-        }
-        // there is connections bewteen all edges, then return true
-        return true;
+        return false;
     }
 }
 
@@ -174,7 +176,7 @@ GNEWalk::getDemandElementProblem() const {
     } else {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
+            if (getRouteCalculatorInstance()->consecutiveEdgesConnected(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
                 return ("Edge '" + getParentEdges().at((int)i - 1)->getID() + "' and edge '" + getParentEdges().at(i)->getID() + "' aren't consecutives");
             }
         }
@@ -538,7 +540,7 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_EDGES:
             if (canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false)) {
                 // all edges exist, then check if compounds a valid route
-                return GNEDemandElement::isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), false);
+                return GNERoute::isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value)).empty();
             } else {
                 return false;
             }

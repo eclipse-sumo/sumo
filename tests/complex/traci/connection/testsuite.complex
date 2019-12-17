@@ -1,0 +1,17 @@
+# Tests whether busy sockets are reported
+busySocket
+
+# Tests whether repeated execution of client/server connections work (for both the client and the server being the one who ends first)
+repeatedConnection
+
+# Defines test cases for multiple TraCI clients connecting to a SUMO TraCI server
+multipleConnections
+
+# Tests whether the connection is not closed by SUMO
+clientCloses
+
+# Tests whether outputs are closed
+closingOutput
+
+# test setting up multiple connections
+multiconnect

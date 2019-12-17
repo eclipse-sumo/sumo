@@ -48,7 +48,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/geom/GeomHelper.h>
-#include <microsim/pedestrians/MSPModel.h>
+#include <microsim/transportables/MSPModel.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSNet.h"
@@ -738,7 +738,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 // no sense in trying later
                 errorMsg = "unpriorised junction too close";
             }
-            if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, seen),
+            const double remaining = seen - currentLane->getStopOffset(aVehicle);
+            if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, remaining),
                              patchSpeed, errorMsg)) {
                 // we may not drive with the given velocity - we cannot stop at the junction in time
                 return false;
@@ -1589,6 +1590,9 @@ void
 MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                double gap, double latGap, std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const {
+    if (collider->ignoreCollision() || victim->ignoreCollision()) {
+        return;
+    }
     std::string collisionType = ((collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite()
                                   || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()))
                                  ?  "frontal collision" : "collision");
@@ -1607,6 +1611,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         stop.busstop = "";
         stop.containerstop = "";
         stop.chargingStation = "";
+        stop.overheadWireSegment = "";
         stop.parkingarea = "";
         stop.until = 0;
         stop.triggered = false;
@@ -2643,6 +2648,19 @@ MSLane::getOutgoingViaLanes() const {
     for (const MSLink* link : myLinks) {
         assert(link->getLane() != nullptr);
         result.push_back(std::make_pair(link->getLane(), link->getViaLane() == nullptr ? nullptr : &link->getViaLane()->getEdge()));
+    }
+    return result;
+}
+
+std::vector<const MSLane*>
+MSLane::getNormalIncomingLanes() const {
+    std::vector<const MSLane*> result = {};
+    for (std::map<MSEdge*, std::vector<MSLane*> >::const_iterator it = myApproachingLanes.begin(); it != myApproachingLanes.end(); ++it) {
+        for (std::vector<MSLane*>::const_iterator it_lane = (*it).second.begin(); it_lane != (*it).second.end(); ++it_lane) {
+            if (!((*it_lane)->isInternal())) {
+                result.push_back(*it_lane);
+            }
+        }
     }
     return result;
 }

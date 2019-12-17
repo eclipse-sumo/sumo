@@ -64,7 +64,8 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
-
+    /// @brief resets counters
+    static void cleanup();
 
 public:
     /// @brief Destructor.
@@ -129,7 +130,7 @@ public:
      * @exception IOError not yet implemented
      * @see MSDevice::generateOutput
      */
-    void generateOutput() const;
+    void generateOutput(OutputDevice* tripinfoOut) const;
 
 
 

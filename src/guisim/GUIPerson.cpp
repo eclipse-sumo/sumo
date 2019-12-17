@@ -23,9 +23,10 @@
 #include <config.h>
 
 #include <gui/GUIApplicationWindow.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/MSStoppingPlace.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/logging/FunctionBinding.h>
-#include <microsim/pedestrians/MSPModel_Striping.h>
+#include <microsim/transportables/MSPModel_Striping.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -340,7 +341,7 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
         drawAction_drawWalkingareaPath(s);
     }
     if (hasActiveAddVisualisation(parent, VO_SHOW_ROUTE)) {
-        if (getCurrentStageType() == MOVING_WITHOUT_VEHICLE) {
+        if (getCurrentStageType() == StageType::WALKING) {
             setColor(s);
             RGBColor current = GLHelper::getColor();
             RGBColor darker = current.changedBrightness(-51);

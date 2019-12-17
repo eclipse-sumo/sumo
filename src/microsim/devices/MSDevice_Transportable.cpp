@@ -27,10 +27,11 @@
 #include <microsim/output/MSStopOut.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
-#include <microsim/pedestrians/MSPerson.h>
-#include <microsim/MSTransportableControl.h>
-#include <microsim/MSContainer.h>
+#include <microsim/transportables/MSPerson.h>
+#include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/transportables/MSContainer.h>
 #include "MSDevice_Transportable.h"
+#include "MSDevice_Taxi.h"
 
 
 // ===========================================================================
@@ -111,6 +112,10 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
                         } else {
                             MSStopOut::getInstance()->unloadedPersons(vehicle, 1);
                         }
+                    }
+                    MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
+                    if (taxiDevice != nullptr) {
+                        taxiDevice->customerArrived();
                     }
                 } else {
                     ++i;

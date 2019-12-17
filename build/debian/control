@@ -6,6 +6,7 @@ Testsuite: autopkgtest
 Priority: optional
 Build-Depends: cmake,
                python,
+               python3-pip,
                debhelper (>= 9),
                dh-autoreconf,
                dpkg-dev (>= 1.16.1~),

@@ -24,7 +24,7 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif ()
 
 project(SUMO)
-set(PACKAGE_VERSION "1.4.0")
+set(PACKAGE_VERSION "git")
 cmake_minimum_required(VERSION 3.1)
 
 set(CMAKE_COLOR_MAKEFILE ON)
@@ -200,8 +200,10 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     # set fox
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/fox-?.?.??")
+    # set eigen (no version in directory name as it is a submodule)
+    file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen")
     # set all paths in prefix
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${ZLIB_PATH}/bin;${ZLIB_PATH}/lib;${PROJ_PATH};${GDAL_PATH};${FOX_PATH}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${ZLIB_PATH}/bin;${ZLIB_PATH}/lib;${PROJ_PATH};${GDAL_PATH};${FOX_PATH}")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
@@ -211,14 +213,15 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/bzip2-?.?.?/*.dll" # used by old versions of SUMOLibraries
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/bzip2-?.?.?/bin/*.dll"
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libpng-?.?.??/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/tiff-?.?.?/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/zlib-?.?.??/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-?.?.?/*.dll")
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/tiff-?.?.?/bin/*.dll")
     # set MSVC dlls
     if ("${MSVC_VERSION}" STREQUAL "1800")
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}${LIB_VERSION}/runtimes/*.dll" "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/runtimes/*.dll")
     else()
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}${LIB_VERSION}/runtimes/*.dll")
+        file(GLOB MORE_SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/zlib-?.?.??/bin/*.dll"
+                                          "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-?.?.?/*.dll")
+        list(APPEND SUMO_LIBRARIES_DLL ${MORE_SUMO_LIBRARIES_DLL})
     endif ()
     # set google test root
     file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.?.?/googletest")
@@ -245,12 +248,6 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/Release/*.dll" "${GL2PS_PATH}/bin/*.dll")  # "Release" used by old versions of SUMOLibraries
     # set SWIG
     set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
-    # set GRPC
-    if (EXISTS "${SUMO_LIBRARIES}/grpc-1.24.2")
-        set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/grpc-1.24.2")
-        set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/grpc-1.24.2/lib")
-        set(GRPC_CPP_PLUGIN "${SUMO_LIBRARIES}/grpc-1.24.2/bin/grpc_cpp_plugin.exe")
-    endif ()
     # set protobuf
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.9.1")
     set(Protobuf_PROTOC_EXECUTABLE "${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.9.1/bin/protoc.exe")
@@ -334,16 +331,16 @@ if (CHECK_OPTIONAL_LIBS)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} SWIG")
     endif ()
 
-    #if (NOT ${MSVC_VERSION} STREQUAL "1800")
-    #    find_package(GRPC)
-    #    find_package(Protobuf)
-    #    if (GRPC_FOUND AND Protobuf_FOUND)
-    #        include_directories(${Protobuf_INCLUDE_DIRS} ${GRPC_INCLUDE_DIRS})
-    #        set(ENABLED_FEATURES "${ENABLED_FEATURES} GRPC")
-    #    endif (GRPC_FOUND AND Protobuf_FOUND)
-    #endif ()
+    # Eigen (for overhead wire / electric circuit simulation)
+    # TODO: Probably may be used in 32bit build as well.
+    find_package(Eigen3 3.2 MODULE)
+    if (EIGEN3_FOUND)
+        include_directories(${EIGEN3_INCLUDE_DIR})
+        set(HAVE_EIGEN 1)  # see config.h.cmake for #cmakedefine
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
+    endif (EIGEN3_FOUND)
 
-    set(SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL};${SUMO_OPTIONAL_LIBRARIES_DLL}")
+    list(APPEND SUMO_LIBRARIES_DLL ${SUMO_OPTIONAL_LIBRARIES_DLL})
 endif (CHECK_OPTIONAL_LIBS)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
@@ -351,7 +348,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 set(commonlibs
         utils_distribution utils_shapes utils_options
-        utils_xml utils_geom utils_common utils_importio utils_iodevices foreign_tcpip
+        utils_xml utils_geom utils_common utils_importio utils_iodevices utils_traction_wire foreign_tcpip
         ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY})
 if (MSVC)
     set(commonlibs ${commonlibs} ws2_32)
@@ -385,35 +382,38 @@ if (NOT ${SETUPTOOLS_MISSING})
 endif ()
 
 if (SUMO_LIBRARIES AND WIN32)
-    string(REPLACE "${SUMO_LIBRARIES}" "" SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL}")
+    # check if MSVC dll runtimes have to be copied
+    if (INSTALL_DLL_RUNTIMES)
+        list(APPEND SUMO_LIBRARIES_DLL ${MSVC_DLLS})
+    endif(INSTALL_DLL_RUNTIMES)
     # copy common dlls
-    add_custom_command(OUTPUT ${SUMO_LIBRARIES_DLL}
-                       COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${SUMO_LIBRARIES_DLL}'.split(';')]"
-                       DEPENDS ${SUMO_LIBRARIES})
+    foreach(DLL ${SUMO_LIBRARIES_DLL})
+        get_filename_component(DLL_BASENAME ${DLL} NAME)
+        set(TARGET_DLL ${CMAKE_SOURCE_DIR}/bin/${DLL_BASENAME})
+        list(FIND TARGET_DLLS ${TARGET_DLL} DLL_KNOWN)
+        if (DLL_KNOWN EQUAL -1)
+            add_custom_command(OUTPUT ${TARGET_DLL}
+                               COMMAND ${CMAKE_COMMAND} -E copy ${DLL} ${TARGET_DLL}
+                               DEPENDS ${DLL})
+            list(APPEND TARGET_DLLS ${TARGET_DLL})
+        endif()
+    endforeach(DLL)
     # copy OSG dlls
     if (HAVE_OSG)
-        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/osg130-osg.dll)
+        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/osg.dll)
         add_custom_command(OUTPUT ${OSG_TARGET}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin
                            DEPENDS ${OSG_PATH})
     endif (HAVE_OSG)
     # proj 6 needs to copy "share/proj" folder in SUMO_HOME/data
     if (PROJ_6)
-        set(PROJ_DATA  ${CMAKE_SOURCE_DIR}/data/proj/proj.db)
+        set(PROJ_DATA ${CMAKE_SOURCE_DIR}/data/proj/proj.db)
         add_custom_command(OUTPUT ${PROJ_DATA}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/data/proj
                            DEPENDS ${PROJ_PATH})
     endif (PROJ_6)
-    # check if MSVC dll runtimes has to be copied
-    if (INSTALL_DLL_RUNTIMES)
-        string(REPLACE "${SUMO_LIBRARIES}" "" MSVC_DLLS "${MSVC_DLLS}")
-        # copy MSVC140 dlls
-        add_custom_command(OUTPUT ${MSVC_DLLS}
-                           COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${MSVC_DLLS}'.split(';')]"
-                           DEPENDS ${SUMO_LIBRARIES})
-    endif(INSTALL_DLL_RUNTIMES)
     # set install_dll target
-    add_custom_target(install_dll ALL DEPENDS ${SUMO_LIBRARIES_DLL} ${OSG_TARGET} ${PROJ_DATA} ${MSVC_DLLS})
+    add_custom_target(install_dll ALL DEPENDS ${TARGET_DLLS} ${OSG_TARGET} ${PROJ_DATA})
     set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 endif ()
 
@@ -547,6 +547,7 @@ add_custom_target(examples
 add_dependencies(examples sumo netconvert dfrouter duarouter jtrrouter)
 set_property(TARGET examples PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET examples PROPERTY FOLDER "doc")
+
 add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
 find_package(Git)
 if (GIT_FOUND)

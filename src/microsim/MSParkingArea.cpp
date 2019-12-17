@@ -30,7 +30,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
 #include "MSLane.h"
-#include "MSTransportable.h"
+#include <microsim/transportables/MSTransportable.h>
 #include "MSParkingArea.h"
 #include "MSGlobals.h"
 

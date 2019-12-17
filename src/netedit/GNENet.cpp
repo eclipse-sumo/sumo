@@ -1047,9 +1047,9 @@ GNENet::setViewNet(GNEViewNet* viewNet) {
 
 
 GNEJunction*
-GNENet::retrieveJunction(const std::string& id, bool failHard) {
+GNENet::retrieveJunction(const std::string& id, bool failHard) const {
     if (myAttributeCarriers.junctions.count(id)) {
-        return myAttributeCarriers.junctions[id];
+        return myAttributeCarriers.junctions.at(id);
     } else if (failHard) {
         // If junction wasn't found, throw exception
         throw UnknownElement("Junction " + id);
@@ -1066,7 +1066,7 @@ GNENet::getAttributeCarriers() const {
 
 
 GNEEdge*
-GNENet::retrieveEdge(const std::string& id, bool failHard) {
+GNENet::retrieveEdge(const std::string& id, bool failHard) const {
     auto i = myAttributeCarriers.edges.find(id);
     // If edge was found
     if (i != myAttributeCarriers.edges.end()) {
@@ -1081,7 +1081,7 @@ GNENet::retrieveEdge(const std::string& id, bool failHard) {
 
 
 GNEEdge*
-GNENet::retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard) {
+GNENet::retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard) const {
     assert((from != nullptr) && (to != nullptr));
     // iterate over Junctions of net
     for (auto i : myAttributeCarriers.edges) {
@@ -2414,11 +2414,13 @@ GNENet::saveDemandElements(const std::string& filename) {
     // obtain invalid demandElements depending of number of their parent lanes
     std::vector<GNEDemandElement*> invalidSingleLaneDemandElements;
     // iterate over demandElements and obtain invalids
-    for (auto i : myAttributeCarriers.demandElements) {
-        for (auto j : i.second) {
+    for (const auto &demandElementSet : myAttributeCarriers.demandElements) {
+        for (const auto &demandElement : demandElementSet.second) {
+            // compute before check if demand element is valid
+            demandElement.second->computePath();
             // check if has to be fixed
-            if (!j.second->isDemandElementValid()) {
-                invalidSingleLaneDemandElements.push_back(j.second);
+            if (!demandElement.second->isDemandElementValid()) {
+                invalidSingleLaneDemandElements.push_back(demandElement.second);
             }
         }
     }

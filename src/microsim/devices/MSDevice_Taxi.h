@@ -1,0 +1,215 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    MSDevice_Taxi.h
+/// @author  Jakob Erdmann
+/// @date    16.12.2019
+///
+// A device which controls a taxi
+/****************************************************************************/
+#ifndef MSDevice_Taxi_h
+#define MSDevice_Taxi_h
+
+
+// ===========================================================================
+// included modules
+// ===========================================================================
+#include <config.h>
+
+#include <utils/common/SUMOTime.h>
+#include <utils/common/WrappingCommand.h>
+#include "MSVehicleDevice.h"
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class SUMOTrafficObject;
+class MSDispatch;
+struct Reservation;
+
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class MSDevice_Taxi
+ * @brief A device which collects info on the vehicle trip (mainly on departure and arrival)
+ *
+ * Each device collects departure time, lane and speed and the same for arrival.
+ *
+ * @see MSDevice
+ */
+class MSDevice_Taxi : public MSVehicleDevice {
+public:
+
+    enum TaxiState {
+        EMPTY = 0, // available for servicing customers
+        PICKUP = 1, // driving to pick up customer
+        OCCUPIED = 2 // occupied with customer
+    };
+
+    /** @brief Inserts MSDevice_Taxi-options
+     * @param[filled] oc The options container to add the options to
+     */
+    static void insertOptions(OptionsCont& oc);
+
+
+    /** @brief Build devices for the given vehicle, if needed
+     *
+     * The options are read and evaluated whether a Taxi-device shall be built
+     *  for the given vehicle.
+     *
+     * The built device is stored in the given vector.
+     *
+     * @param[in] v The vehicle for which a device may be built
+     * @param[filled] into The vector to store the built device in
+     */
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
+
+    /// add new reservation
+    static void addReservation(MSTransportable* person,
+            SUMOTime reservationTime, 
+            SUMOTime pickupTime,
+            const MSEdge* from, double fromPos,
+            const MSEdge* to, double toPos);
+    
+    /// @brief period command to trigger the dispatch algorithm
+    static SUMOTime triggerDispatch(SUMOTime currentTime); 
+
+    /// @brief resets counters
+    static void cleanup();
+
+public:
+    /// @brief Destructor.
+    ~MSDevice_Taxi();
+
+    /// @name Methods called on vehicle movement / state change, overwriting MSDevice
+    /// @{
+
+    /** @brief Checks for waiting steps when the vehicle moves
+     *
+     * @param[in] veh Vehicle that asks this reminder.
+     * @param[in] oldPos Position before move.
+     * @param[in] newPos Position after move with newSpeed.
+     * @param[in] newSpeed Moving speed.
+     *
+     * @return True (always).
+     */
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos,
+                    double newPos, double newSpeed);
+
+
+    /** @brief Saves departure info on insertion
+     *
+     * @param[in] veh The entering vehicle.
+     * @param[in] reason how the vehicle enters the lane
+     * @return Always true
+     * @see MSMoveReminder::notifyEnter
+     * @see MSMoveReminder::Notification
+     */
+    bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+
+
+    /** @brief Saves arrival info
+     *
+     * @param[in] veh The leaving vehicle.
+     * @param[in] lastPos Position on the lane when leaving.
+     * @param[in] isArrival whether the vehicle arrived at its destination
+     * @param[in] isLaneChange whether the vehicle changed from the lane
+     * @return True if it did not leave the net.
+     */
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos,
+                     MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+    /// @}
+
+
+    /// @brief return the name for this type of device
+    const std::string deviceName() const {
+        return "taxi";
+    }
+
+    TaxiState getState() const {
+        return myState;
+    }
+
+    /// @brief service the given reservation
+    void dispatch(const Reservation& res);
+
+    /// @brief called by MSDevice_Transportable upon loading a person
+    void customerEntered();
+
+    /// @brief called by MSDevice_Transportable upon unloading a person
+    void customerArrived();
+
+    /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
+    std::string getParameter(const std::string& key) const;
+
+    /// @brief try to set the given parameter for this device. Throw exception for unsupported key
+    void setParameter(const std::string& key, const std::string& value);
+
+    /** @brief Called on writing tripinfo output
+     *
+     * @param[in] os The stream to write the information into
+     * @exception IOError not yet implemented
+     * @see MSDevice::generateOutput
+     */
+    void generateOutput(OutputDevice* tripinfoOut) const;
+
+
+
+private:
+    /** @brief Constructor
+     *
+     * @param[in] holder The vehicle that holds this device
+     * @param[in] id The ID of the device
+     */
+    MSDevice_Taxi(SUMOVehicle& holder, const std::string& id);
+
+
+    /// @brief determine stopping lane for taxi
+    MSLane* getStopLane(const MSEdge* edge);
+
+    /// @brief initialize the dispatch algorithm
+    static void initDispatch();
+
+private:
+
+    TaxiState myState = EMPTY;
+    /// @brief number of customers that were served
+    int myCustomersServed = 0;
+    /// @brief distance driven with customers
+    double myOccupiedDistance = 0;
+    /// @brief time spent driving with customers
+    SUMOTime myOccupiedTime = 0;
+
+    /// @brief the time between successive calls to the dispatcher
+    static SUMOTime myDispatchPeriod;
+    /// @brief the dispatch algorithm
+    static MSDispatch* myDispatcher;
+    /// @brief The repeated call to the dispatcher
+    static Command* myDispatchCommand;
+    // @brief the list of available taxis
+    static std::vector<MSDevice_Taxi*> myFleet;
+
+private:
+    /// @brief Invalidated copy constructor.
+    MSDevice_Taxi(const MSDevice_Taxi&);
+
+    /// @brief Invalidated assignment operator.
+    MSDevice_Taxi& operator=(const MSDevice_Taxi&);
+
+
+};
+
+
+#endif
+
+/****************************************************************************/
+

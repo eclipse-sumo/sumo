@@ -189,14 +189,16 @@ ROPerson::PersonTrip::clone() const {
 
 void
 ROPerson::PersonTrip::saveVehicles(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
-    for (std::vector<ROVehicle*>::const_iterator it = myVehicles.begin(); it != myVehicles.end(); ++it) {
-        (*it)->saveAsXML(os, typeos, asAlternatives, options);
+    for (ROVehicle* veh : myVehicles) {
+        if (!RONet::getInstance()->knowsVehicle(veh->getID())) {
+            veh->saveAsXML(os, typeos, asAlternatives, options);
+        }
     }
 }
 
 void
 ROPerson::PersonTrip::saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, const bool writeGeoTrip) const {
-    if (asTrip) {
+    if ((asTrip || extended) && from != nullptr) {
         os.openTag(SUMO_TAG_PERSONTRIP);
         if (writeGeoTrip) {
             Position fromPos = from->getLanes()[0]->getShape().positionAtOffset2D(getDepartPos());
@@ -251,6 +253,13 @@ ROPerson::PersonTrip::saveAsXML(OutputDevice& os, const bool extended, const boo
         if (walkFactor != 1) {
             os.writeAttr(SUMO_ATTR_WALKFACTOR, walkFactor);
         }
+        if (extended && myTripItems.size() != 0) {
+            std::vector<double> costs;
+            for (TripItem* tripItem : myTripItems) {
+                costs.push_back(tripItem->getCost());
+            }
+            os.writeAttr(SUMO_ATTR_COSTS, costs);
+        }
         os.closeTag();
     } else {
         for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
@@ -285,7 +294,9 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                 }
             } else if (veh != nullptr && it->line == veh->getID()) {
                 trip->addTripItem(new Ride(it->edges.front(), it->edges.back(), veh->getID(), it->cost, trip->getArrivalPos(), it->destStop));
-                veh->getRouteDefinition()->addLoadedAlternative(new RORoute(veh->getID() + "_RouteDef", it->edges));
+                RORoute* route = new RORoute(veh->getID() + "_RouteDef", it->edges);
+                route->setProbability(1);
+                veh->getRouteDefinition()->addLoadedAlternative(route);
                 carUsed = true;
             } else {
                 trip->addTripItem(new Ride(nullptr, nullptr, it->line, it->cost, trip->getArrivalPos(), it->destStop, it->intended, TIME2STEPS(it->depart)));
