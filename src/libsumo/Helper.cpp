@@ -701,7 +701,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             PositionVector vehShape;
             findObjectShape(s.commandId, s.id, vehShape);
             double range = MAX3(downstreamDist, upstreamDist, lateralDist);
-            collectObjectsInRange(s.contextDomain, vehShape, range, objIDs);
+            collectObjectIDsInRange(s.contextDomain, vehShape, range, objIDs);
 
 #ifdef DEBUG_SURROUNDING
             std::cout << "FILTER_LATERAL_DIST: collected object IDs (range " << range << "):" << std::endl;
