@@ -107,7 +107,7 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
 SUMOTime
 MSDevice_Taxi::triggerDispatch(SUMOTime currentTime) {
     myDispatcher->computeDispatch(currentTime, myFleet);
-    return currentTime + myDispatchPeriod;
+    return myDispatchPeriod;
 }
 
 bool
