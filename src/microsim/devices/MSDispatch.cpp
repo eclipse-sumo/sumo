@@ -115,6 +115,7 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
             numPostponed++;
         } else {
             closest->dispatch(res);
+            available.erase(closest);
             it = myReservations.erase(it);
             numDispatched++; 
 #ifdef DEBUG_DISPATCH
