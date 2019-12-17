@@ -243,10 +243,10 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     myTotalWaitingTime += myWaitingTime;
     myTotalTimeLoss += timeLoss;
     myTotalDepartDelay += myHolder.getDepartDelay();
+    myPendingOutput.erase(this);
     if (tripinfoOut == nullptr) {
         return;
     }
-    myPendingOutput.erase(this);
 
     // write
     OutputDevice& os = *tripinfoOut;
@@ -298,8 +298,6 @@ MSDevice_Tripinfo::generateOutputForUnfinished() {
             if (tripinfoOut != nullptr) {
                 // @todo also generate emission output if holder has a device
                 OutputDevice::getDeviceByOption("tripinfo-output").closeTag();
-            } else {
-                myPendingOutput.erase(d);
             }
         } else {
             undeparted++;
