@@ -93,7 +93,7 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
         bool toEarly = false;
         for (auto* taxi : available) {
             ConstMSEdgeVector edges;
-            router.compute(res.from, res.to, &taxi->getHolder(), now, edges);
+            router.compute(taxi->getHolder().getEdge(), res.from, &taxi->getHolder(), now, edges);
             SUMOTime travelTime = TIME2STEPS(router.recomputeCosts(edges, &taxi->getHolder(), now));
 #ifdef DEBUG_TRAVELTIME
             if (DEBUG_COND2(person)) std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " person=" << res.person->getID() << " traveltime=" << time2string(travelTime) << "\n";
