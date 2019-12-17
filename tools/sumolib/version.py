@@ -25,15 +25,22 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import subprocess
+import os
 from os.path import dirname, exists, join
 
 UNKNOWN_REVISION = "UNKNOWN"
 GITDIR = join(dirname(__file__), '..', '..', '.git')
+verbose = False  # set to True if you want some more debug statements
 
 
 def _findVersion():
+    if verbose:
+      print('gitdir1 = %s' % GITDIR)
+      print('pwd1 = %s'    % os.getcwd())
     # try to find the version in the config.h
     versionFile = join(dirname(__file__), '..', '..', 'include', 'version.h')
+    if not exists(versionFile):
+      versionFile = join('src', 'version.h')
     if exists(versionFile):
         version = open(versionFile).read().split()
         if len(version) > 2:
@@ -49,8 +56,17 @@ def _findVersion():
 
 
 def gitDescribe(commit="HEAD", gitDir=GITDIR, commitPrefix="+", padZero=True):
+    if verbose:
+      print('gitDescribe: pwd    = %s' % os.getcwd())
+      print('gitDescribe: git    = %s' % gitDir)
     command = ["git", "describe", "--long", "--always", commit]
     if gitDir:
+        if not exists(gitDir):
+          # if sumolib is installed, GITDIR points to a location somewhere in /usr/local
+          # and not to the root of the SUMO sources
+          gitDir = join('..', '..', '..', '.git')
+          if verbose:
+            print('gitDescribe: gitdir = %s' % gitDir)
         command[1:1] = ["--git-dir=" + gitDir]
         if not exists(gitDir):
             return _findVersion()

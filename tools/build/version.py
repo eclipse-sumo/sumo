@@ -25,6 +25,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import sys
+import os
 from os.path import dirname, exists, getmtime, join, abspath
 
 sys.path.append(dirname(dirname(abspath(__file__))))
@@ -32,6 +33,7 @@ import sumolib  # noqa
 
 
 GITFILE = "index"
+verbose = False  # set to true if you want some more debug statements
 
 
 def create_version_file(versionFile, revision, vcsFile):
@@ -41,7 +43,8 @@ def create_version_file(versionFile, revision, vcsFile):
 
 
 def main():
-    sumoRoot = join(dirname(__file__), '..', '..')
+    sumoRoot = abspath(join(dirname(__file__), '..', '..'))
+    gitDir = join(sumoRoot, ".git")
     # determine output file
     if len(sys.argv) > 1:
         versionDir = sys.argv[1]
@@ -52,12 +55,16 @@ def main():
         versionDir = join(sumoRoot, "src")
     versionFile = join(versionDir, 'version.h')
 
-    vcsFile = join(sumolib.version.GITDIR, GITFILE)
+    if verbose:
+      print('pwd      = %s'    % os.getcwd())
+      print('sumoRoot = %s'    % sumoRoot)
+    vcsFile = join(gitDir, GITFILE)
     if exists(vcsFile):
         if not exists(versionFile) or getmtime(versionFile) < getmtime(vcsFile):
             # vcsFile is newer. lets update the revision number
             try:
-                create_version_file(versionFile, sumolib.version.gitDescribe(), vcsFile)
+                revision = sumolib.version.gitDescribe(gitDir=gitDir)
+                create_version_file(versionFile, revision, vcsFile)
             except Exception as e:
                 print("Error creating", versionFile, e)
     else:
