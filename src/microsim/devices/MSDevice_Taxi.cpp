@@ -57,7 +57,7 @@ MSDevice_Taxi::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("taxi", "Taxi Device", oc);
 
     oc.doRegister("device.taxi.dispatch-algorithm", new Option_String("greedy"));
-    oc.addDescription("device.taxi.dispatch-algorithm", "Taxi Device", "The dispatch algorithm [greedy]");
+    oc.addDescription("device.taxi.dispatch-algorithm", "Taxi Device", "The dispatch algorithm [greedy|greedyClosest]");
 
     oc.doRegister("device.taxi.dispatch-period", new Option_String("60", "TIME"));
     oc.addDescription("device.taxi.dispatch-period", "Taxi Device", "The period between successive calls to the dispatcher");
@@ -83,6 +83,8 @@ MSDevice_Taxi::initDispatch() {
     std::string algo = oc.getString("device.taxi.dispatch-algorithm");
     if (algo == "greedy") {
         myDispatcher = new MSDispatch_Greedy();
+    } else if (algo == "greedyClosest") {
+        myDispatcher = new MSDispatch_GreedyClosest();
     } else {
         throw ProcessError("Dispatch algorithm '" + algo + "' is not known");
     }

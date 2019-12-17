@@ -60,6 +60,16 @@ struct Reservation {
     const MSEdge* to;
     double toPos;
     SUMOTime recheck;
+
+    bool operator==(const Reservation& other) const {
+        return person == other.person
+            && reservationTime == other.reservationTime
+            && pickupTime == other.pickupTime
+            && from == other.from
+            && fromPos == other.fromPos
+            && to == other.to
+            && toPos == other.toPos;
+    }
 };
 
 /**
@@ -94,10 +104,13 @@ public:
     /// @brief computes dispatch and updates reservations
     virtual void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet) = 0;
 
+
     /// @brief check whether there are still (servable) reservations in the system
     bool hasServableReservations() {
         return myHasServableReservations;
     }
+
+    static SUMOTime computePickupTime(SUMOTime t, const MSDevice_Taxi* taxi, const Reservation& res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router);
 
 protected:
     std::vector<Reservation> myReservations;
@@ -108,6 +121,10 @@ protected:
 };
 
 
+/**
+ * @class MSDispatch_Greedy
+ * @brief A dispatch algorithm that services customers in reservation order and always sends the closest available taxi
+ */
 class MSDispatch_Greedy : public MSDispatch {
 public:
     MSDispatch_Greedy(int routingMode = 1, SUMOTime maximumWaitingTime = STEPS2TIME(300)) : 
@@ -115,9 +132,9 @@ public:
         myMaximumWaitingTime(maximumWaitingTime)
     {}
 
-    void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet);
+    virtual void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet);
 
-private:
+protected:
 
     /// @brief which router/edge weights to use
     int myRoutingMode;
@@ -128,6 +145,21 @@ private:
     /// @brief recheck interval for early reservations
     const SUMOTime myRecheckTime = TIME2STEPS(120);
     const SUMOTime myRecheckSafety = TIME2STEPS(3600);
+};
+
+
+/**
+ * @class MSDispatch_GreedyClosest
+ * @brief A dispatch algorithm that services the reservations with the shortest traveltime-to-pickup first
+ */
+class MSDispatch_GreedyClosest : public MSDispatch_Greedy {
+public:
+    MSDispatch_GreedyClosest(int routingMode = 1, SUMOTime maximumWaitingTime = STEPS2TIME(300)) : 
+        MSDispatch_Greedy(routingMode, maximumWaitingTime)
+    {}
+
+    void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet);
+
 };
 
 
