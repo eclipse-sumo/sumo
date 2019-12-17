@@ -43,11 +43,6 @@
 //due to clock()
 #include <ctime>
 
-#define WATTHR2JOULE(_x) ((_x)/3600.)
-#define JOULE2WATTHR(_x) ((_x)*3600.)
-#define WATTHR2WATT(_x) ((_x)*TS/3600.)
-#define WATT2WATTHR(_x) ((_x)*3600./TS)
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -162,24 +157,24 @@ MSDevice_ElecHybrid::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDe
 MSDevice_ElecHybrid::MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string& id,
     const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower, const std::map<int, double>& param) :
     MSVehicleDevice(holder, id),
-    myActualBatteryCapacity(0),     // [actualBatteryCapacity <= maximumBatteryCapacity]
-    myMaximumBatteryCapacity(0),    // [maximumBatteryCapacity >= 0]t
+    myActualBatteryCapacity(0),   // [actualBatteryCapacity <= maximumBatteryCapacity]
+    myMaximumBatteryCapacity(0),  // [maximumBatteryCapacity >= 0]t
     myOverheadWireChargingPower(0),
     myParam(param),
     myLastAngle(NAN),
     myConsum(0),
     myBatteryDischargedLogic(false),
-    myCharging(false),              // Initially vehicle don't charge
-    myEnergyCharged(0),             // Initially the energy charged is zero
-    myCircuitCurrent(NAN),          // Initially the current is unknown
-    myCircuitVoltage(NAN),          // Initially the voltage is unknown as well
-    myMaxBatteryPower(NAN),        // Initial maximum of the the battery energy during the simulation is unknown
-    myMinBatteryPower(NAN),        // Initial minimum of the the battery energy during the simulation is unknown
-    myTotalPowerConsumed(0),       // No energy spent yet
-    myTotalPowerRegenerated(0),    // No energy regenerated
-    myTotalPowerWasted(0),         // No energy wated on resistors
-    mySOCMin(0.005),                // Minimum SOC of the battery
-    mySOCMax(0.980),                // Maximum SOC of the battery 
+    myCharging(false),            // Initially vehicle don't charge
+    myEnergyCharged(0),           // Initially the energy charged is zero
+    myCircuitCurrent(NAN),        // Initially the current is unknown
+    myCircuitVoltage(NAN),        // Initially the voltage is unknown as well
+    myMaxBatteryPower(NAN),       // Initial maximum of the the battery energy during the simulation is unknown
+    myMinBatteryPower(NAN),       // Initial minimum of the the battery energy during the simulation is unknown
+    myTotalPowerConsumed(0),      // No energy spent yet
+    myTotalPowerRegenerated(0),   // No energy regenerated
+    myTotalPowerWasted(0),        // No energy wated on resistors
+    mySOCMin(0.005),              // Minimum SOC of the battery
+    mySOCMax(0.980),              // Maximum SOC of the battery
     myActOverheadWireSegment(nullptr),         // Initially the vehicle isn't under any overhead wire segment
     myPreviousOverheadWireSegment(nullptr),    // Initially the vehicle wasn't under any overhead wire segment
     veh_elem(nullptr),
@@ -289,11 +284,11 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
     double powerWasted = 0.0;
     /* If vehicle has access to an overhead wire (including the installation on neighbouring lanes) */
     if (overheadWireSegmentID != "") {
-        MSOverheadWire* const segment =
+        /* Update the actual overhead wire segment of this device */
+        myActOverheadWireSegment =
             static_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace(overheadWireSegmentID, SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
-
-        // get pointer to the segment
-        myActOverheadWireSegment = segment;
+        /* Store the traction substation of the actual overhead wire segment */
+        MSTractionSubstation* actualSubstation = myActOverheadWireSegment->getTractionSubstation();
 
         /* Disable charging from previous (not the actual) overhead wire segment.
            REASON:
@@ -304,16 +299,17 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
             if (myPreviousOverheadWireSegment != nullptr) {
                 /* Remove the vehicle from the list of vehicles powered by the previous segment. */
                 myPreviousOverheadWireSegment->eraseVehicle(veh);
-                if (myPreviousOverheadWireSegment->getTractionSubstation() != nullptr) {
-                    myPreviousOverheadWireSegment->getTractionSubstation()->decreaseElecHybridCount();
-                    myPreviousOverheadWireSegment->getTractionSubstation()->eraseVehicle(this);
+                MSTractionSubstation* ts = myPreviousOverheadWireSegment->getTractionSubstation();
+                if (ts != nullptr) {
+                    ts->decreaseElecHybridCount();
+                    ts->eraseVehicle(this);
                 }
             }
             /* Add the vehicle reference to the current segment. */
             myActOverheadWireSegment->addVehicle(veh);
-            if (myActOverheadWireSegment->getTractionSubstation() != nullptr) {
-                myActOverheadWireSegment->getTractionSubstation()->increaseElecHybridCount();
-                myActOverheadWireSegment->getTractionSubstation()->addVehicle(this);
+            if (actualSubstation != nullptr) {
+                actualSubstation->increaseElecHybridCount();
+                actualSubstation->addVehicle(this);
             }
         }
 
@@ -328,8 +324,8 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
 
             /* Add the vehicle to the circuit in case that there is a substation that provides
                power to it. */
-            if (segment->getTractionSubstation() != nullptr) {
-                /* Add a resistor (voltage source in the future?) representing trolleybus
+            if (actualSubstation != nullptr) {
+                /* Add a resistor (current source in the future?) representing trolleybus
                    vehicle to the circuit.
                    pos/neg_veh_node elements
                     [0] .... vehicle_resistor
@@ -343,15 +339,17 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 }
 
                 // create pos and veh_elem	
-                pos_veh_node = segment->getTractionSubstation()->getCircuit()->addNode("pos_" + veh.getID());
+                Circuit* owc = myActOverheadWireSegment->getCircuit();
+                pos_veh_node = owc->addNode("pos_" + veh.getID());
+                assert(pos_veh_node != nullptr);
                 /// RICE_CHECK: QUESTION Why 10 here?
-                veh_elem = segment->getCircuit()->addElement("resistance_" + veh.getID(), 10,
-                    pos_veh_node, segment->getCircuit()->getNode("negNode_ground"),
+                veh_elem = owc->addElement("resistance_" + veh.getID(), 10,
+                    pos_veh_node, owc->getNode("negNode_ground"),
                     Element::ElementType::CURRENT_SOURCE_traction_wire);
 
                 // Connect vehicle to an existing overhead wire segment = add elecHybridVehicle to the myActOverheadWireSegment circuit
                 // Find pos resistor element of the actual overhead line section and their end nodes
-                Element* element_pos = segment->getCircuit()->getElement("pos_" + segment->getID());
+                Element* element_pos = owc->getElement("pos_" + myActOverheadWireSegment->getID());
                 Node*  node_pos = element_pos->getNegNode();
                 double resistance = element_pos->getResistance();
 
@@ -363,7 +361,9 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 */
                 // while (resistance < (veh.getLane()->getLength() - veh.getPositionOnLane())*WIRE_RESISTIVITY) {          
                 // Immprovement: the relative complementary position of the vehicle on the vehicle's lane to the segment's lane (may be neigboring or the same as the vehicle's one)
-                double relativeComplementaryPosOnSegment = segment->getLane().getLength()*(1 - (veh.getPositionOnLane() / veh.getLane()->getLength()));
+                double relativeComplementaryPosOnSegment =
+                    myActOverheadWireSegment->getLane().getLength() * (1 -
+                        (veh.getPositionOnLane() / veh.getLane()->getLength()));
                 while (resistance < relativeComplementaryPosOnSegment*WIRE_RESISTIVITY) {
                     node_pos = element_pos->getPosNode();
                     element_pos = node_pos->getElements()->at(2);
@@ -385,10 +385,11 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 node_pos->eraseElement(element_pos);
                 pos_veh_node->addElement(element_pos);
 
-                veh_pos_tail_elem = segment->getCircuit()->addElement("pos_tail_" + veh.getID(), resistance, node_pos, pos_veh_node, Element::ElementType::RESISTOR_traction_wire);
+                veh_pos_tail_elem = owc->addElement("pos_tail_" + veh.getID(),
+                    resistance, node_pos, pos_veh_node, Element::ElementType::RESISTOR_traction_wire);
 
                 if (element_pos->getResistance() - resistance < 0) {
-                    WRITE_WARNING("the resistivity of overheadwire segment connected to vehicle " + veh.getID() + " is < 0. Set to 1e-6.");
+                    WRITE_WARNING("The resistivity of overhead wire segment connected to vehicle " + veh.getID() + " is < 0. Set to 1e-6.");
                 }
 
                 element_pos->setResistance(element_pos->getResistance() - resistance);
@@ -397,11 +398,11 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 // Set the power requirement to the consumption + charging power.
                 // RICE_TODO: The charging power id different when moving and when not
                 // RICE_TODO: The maximum battery capacity is not the upper charging limit, we need something like "charging_SOC_upper_bound" configurable, e.g. 0.9
-                if (getActualBatteryCapacity() < 0.9 * getMaximumBatteryCapacity()) {
-                    veh_elem->setPowerWanted(myConsum * 3600 + myOverheadWireChargingPower * TS);
+                if (myActualBatteryCapacity < mySOCMax * myMaximumBatteryCapacity) {
+                    veh_elem->setPowerWanted(WATTHR2WATT(myConsum) + myOverheadWireChargingPower);
                 }
                 else {
-                    veh_elem->setPowerWanted(myConsum * 3600);
+                    veh_elem->setPowerWanted(WATTHR2WATT(myConsum));
                 }
 
                 // No recuperation to overheadwire (only to the batterypack)
@@ -416,24 +417,28 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 /// @todo Why 10 and 1500? Should be a parameter of the traction substation.
                 /// @todo Maximum allowed voltage is typicallty 800 V
                 if (voltage < 10 || voltage > 1500 || ISNAN(voltage)) {
-                    voltage = segment->getTractionSubstation()->getSubstationVoltage();
+                    voltage = actualSubstation->getSubstationVoltage();
                 }
-                //init for solving
-                double current = -(veh_elem->getPowerWanted() / (TS*voltage));
-
+                // Initial value of current for the solver
+                double current = -(veh_elem->getPowerWanted() / voltage);
                 veh_elem->setCurrent(current);
 
-                // Set Flag
+                // Set the device as charging
                 myCharging = true;
-                segment->getTractionSubstation()->addSolvingCirucitToEndOfTimestepEvents();
+
+                // And register the call to solver at the end of the simulation step
+                actualSubstation->addSolvingCirucitToEndOfTimestepEvents();
             }
             else {
-                // No substation on this wire ...
+                /*
+                    No substation on this wire ...
+                */
+
                 // Energy flowing to/from the battery pack [Wh] has to completely cover vehicle consumption.
                 myEnergyCharged = -myConsum;
                 // Update Battery charge
                 myActualBatteryCapacity += myEnergyCharged;
-                // Add zero charge value for output to myActOverheadWireSegment
+                // No substation is connected to this segmenr and the charging output is therefore zero.
                 myActOverheadWireSegment->addChargeValueForOutput(0, this, false);
             }
 #else
@@ -445,10 +450,9 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
             */
             
             // First check that there is a traction substation connected to the overhead wire
-            MSTractionSubstation* ts = myActOverheadWireSegment->getTractionSubstation();
             double voltage = 0.0;
-            if (ts != nullptr) {
-                voltage = ts->getSubstationVoltage();
+            if (actualSubstation != nullptr) {
+                voltage = actualSubstation->getSubstationVoltage();
             }
             
             // At this point the volate can be (a) NAN if the substation voltage was not specified,
@@ -496,7 +500,8 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 myActOverheadWireSegment->addChargeValueForOutput(0.0, this);
             }
         }
-        myPreviousOverheadWireSegment = segment;
+        assert(myActOverheadWireSegment != nullptr);
+        myPreviousOverheadWireSegment = myActOverheadWireSegment;
     }
     else {
         /*
@@ -510,20 +515,6 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
         myCircuitCurrent = NAN;
         myCircuitVoltage = NAN;
 
-        // Vehicle is not under an overhead wire
-        myActOverheadWireSegment = nullptr;
-
-        // Remove the vehicle from overhead wire if it was under it in the previous step
-        if (myPreviousOverheadWireSegment != myActOverheadWireSegment) {
-            myPreviousOverheadWireSegment->eraseVehicle(veh);
-            MSTractionSubstation* prevSubstation = myPreviousOverheadWireSegment->getTractionSubstation();
-            if (prevSubstation != nullptr) {
-                prevSubstation->decreaseElecHybridCount();
-                prevSubstation->eraseVehicle(this);
-            }
-            myPreviousOverheadWireSegment = nullptr;
-        }
-
         // Additional bookkeeping in case that the circuit solver is used
         if (MSGlobals::gOverheadWireSolver) {
 #ifdef HAVE_EIGEN
@@ -535,6 +526,21 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
 #else
             WRITE_ERROR("Overhead wire solver is on, but the Eigen library has not been compiled in!")
 #endif
+        }
+
+        // Vehicle is not under an overhead wire
+        myActOverheadWireSegment = nullptr;
+
+        // Remove the vehicle from overhead wire if it was under it in the previous step.
+        // This has to be called afer deleteVehicleFromCircuit() as the file uses myPreviousOverheadWire.
+        if (myPreviousOverheadWireSegment != nullptr) {
+            myPreviousOverheadWireSegment->eraseVehicle(veh);
+            MSTractionSubstation* ts = myPreviousOverheadWireSegment->getTractionSubstation();
+            if (ts != nullptr) {
+                ts->decreaseElecHybridCount();
+                ts->eraseVehicle(this);
+            }
+            myPreviousOverheadWireSegment = nullptr;
         }
 
         // Energy for the powertrain is provided by the battery pack
@@ -746,7 +752,7 @@ MSDevice_ElecHybrid::generateOutput(OutputDevice* tripinfoOut) const {
         tripinfoOut->writeAttr("maxBatteryCharge", myMaxBatteryPower);
         tripinfoOut->writeAttr("minBatteryCharge", myMinBatteryPower);
         tripinfoOut->writeAttr("totalEnergyConsumed", myTotalPowerConsumed);
-        tripinfoOut->writeAttr("totalEnergyRegerated", myTotalPowerRegenerated);
+        tripinfoOut->writeAttr("totalEnergyRegenerated", myTotalPowerRegenerated);
         tripinfoOut->writeAttr("totalEnergyWasted", myTotalPowerWasted);
         tripinfoOut->closeTag();
     }
@@ -764,16 +770,32 @@ MSDevice_ElecHybrid::getMaximumBatteryCapacity() const {
     return myMaximumBatteryCapacity;
 }
 
-// example for traci ?
 std::string
 MSDevice_ElecHybrid::getParameter(const std::string& key) const {
-    if (key == toString(SUMO_ATTR_MAXIMUMPOWER)) {
-        return toString(myParam.find(SUMO_ATTR_MAXIMUMPOWER)->second);
-    } else if (key == "meaningOfLife") {
-        return toString(42);
+    if (key == toString(SUMO_ATTR_ACTUALBATTERYCAPACITY)) {
+        return toString(myActualBatteryCapacity);
+    }
+    else if (key == toString(SUMO_ATTR_ENERGYCONSUMED)) {
+        return toString(myConsum);
+    }
+    else if (key == toString(SUMO_ATTR_ENERGYCHARGED)) {
+        return toString(myEnergyCharged);
+    }
+    else if (key == toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY)) {
+        return toString(myMaximumBatteryCapacity);
+    }
+    else if (key == toString(SUMO_ATTR_OVERHEADWIREID)) {
+        return getOverheadWireSegmentID();
+    }
+    else if (key == toString(SUMO_ATTR_SUBSTATIONID)) {
+        return getTractionSubstationID();
+    }
+    else if (key == toString(SUMO_ATTR_VEHICLEMASS)) {
+        return toString(myParam.find(SUMO_ATTR_VEHICLEMASS)->second);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
+
 
 double
 MSDevice_ElecHybrid::getParameterDouble(const std::string& key) const {
@@ -782,6 +804,7 @@ MSDevice_ElecHybrid::getParameterDouble(const std::string& key) const {
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
+
 
 double
 MSDevice_ElecHybrid::getConsum() const {
@@ -807,8 +830,9 @@ double
 MSDevice_ElecHybrid::getCircuitAlpha() const {
     if (myActOverheadWireSegment != nullptr && MSGlobals::gOverheadWireSolver) {
 #ifdef HAVE_EIGEN
-        if (myActOverheadWireSegment->getCircuit() != nullptr) {
-            return myActOverheadWireSegment->getCircuit()->alphaBest ;
+        Circuit* owc = myActOverheadWireSegment->getCircuit();
+        if (owc != nullptr) {
+            return owc->alphaBest ;
         }
 #else
         WRITE_ERROR("Overhead wire solver is on, but the Eigen library has not been compiled in!")
@@ -858,8 +882,9 @@ MSDevice_ElecHybrid::getOverheadWireSegmentID() const {
 std::string
 MSDevice_ElecHybrid::getTractionSubstationID() const {
     if (myActOverheadWireSegment != nullptr) {
-        if (myActOverheadWireSegment->getTractionSubstation() != nullptr) {
-            return myActOverheadWireSegment->getTractionSubstation()->getID();
+        MSTractionSubstation *ts = myActOverheadWireSegment->getTractionSubstation();
+        if (ts != nullptr) {
+            return ts->getID();
         }
     }
     return "";
@@ -883,21 +908,26 @@ MSDevice_ElecHybrid::setActualBatteryCapacity(const double actualBatteryCapacity
     }
 }
 
-// example for traci ?
-/// @todo This can be probably safely deleted, no meaningful content
 void
 MSDevice_ElecHybrid::setParameter(const std::string& key, const std::string& value) {
     double doubleValue;
     try {
         doubleValue = StringUtils::toDouble(value);
     }
-    catch (NumberFormatException) {
+    catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }
-    // original customValue1
-    if (key == "customValue2") {
-        double myCustomValue2 = doubleValue;
-        UNUSED_PARAMETER(myCustomValue2);
+    if (key == toString(SUMO_ATTR_ACTUALBATTERYCAPACITY)) {
+        myActualBatteryCapacity = doubleValue;
+    }
+    else if (key == toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY)) {
+        myMaximumBatteryCapacity = doubleValue;
+    }
+    else if (key == toString(SUMO_ATTR_OVERHEADWIRECHARGINGPOWER)) {
+        myOverheadWireChargingPower = doubleValue;
+    }
+    else if (key == toString(SUMO_ATTR_VEHICLEMASS)) {
+        myParam[SUMO_ATTR_VEHICLEMASS] = doubleValue;
     }
     else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");

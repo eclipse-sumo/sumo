@@ -36,6 +36,12 @@
 // Resistivity of Cu is 1.69*10^-8 Ohm*m. A cross-section S of the overhead wire used in Pilsen is 150 mm^2. So the "resistivity/S" is 0.000113 Ohm/m. 
 const double WIRE_RESISTIVITY = (double)2 * 0.000113;
 
+// Conversion macros
+#define WATTHR2JOULE(_x) ((_x)*3600.0)
+#define JOULE2WATTHR(_x) ((_x)/3600.0)
+#define WATTHR2WATT(_x) ((_x)*3600.0/TS)
+#define WATT2WATTHR(_x) ((_x)*TS/3600.0)
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
