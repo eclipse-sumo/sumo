@@ -31,3 +31,6 @@ params
 
 # generate connectipn diff suitable for patching during network import (with connection guessing)
 patch_on_import
+
+# test diffing a network with invalidated <neigh> information
+invalidated_neigh
