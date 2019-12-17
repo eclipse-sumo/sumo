@@ -23,11 +23,17 @@
 #include <config.h>
 
 #include <fx.h>
+#include <queue>
+
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNEViewNet;
+class GNENet;
+class GNENetElement;
+class GNEAdditional;
+class GNEShape;
+class GNEDemandElement;
 
 // ===========================================================================
 // class definitions
@@ -39,17 +45,44 @@ class GNEDottedContourThread : protected FXThread {
 
 public:
     /// @brief constructor
-    GNEDottedContourThread(GNEViewNet *viewNet);
+    GNEDottedContourThread(GNENet *net);
 
     /// @brief destructor
     ~GNEDottedContourThread();
 
+    /// @brief add a net element into queue to update dotted contour
+    void updateNetElementDottedContour(GNENetElement *netElement);
+
+protected:
     /// @brief starts the thread
     FXint run();
 
-protected:
-    /// @brief pointer to ViewNet
-    const GNEViewNet *myViewNet;
+    /// @brief pointer to current net
+    const GNENet *myNet;
+
+    /// @brief queue for net elements
+    std::queue<GNENetElement*> myNetElements;
+
+    /// @brief queue for additionals
+    std::queue<GNEAdditional*> myAdditionals;
+
+    /// @brief queue for shapes
+    std::queue<GNEShape*> myShapes;
+
+    /// @brief queue for demand elements
+    std::queue<GNEDemandElement*> myDemandElements;
+
+    /// @brief lock netElements queue
+    bool myLockNetElementsQueue;
+
+    // @brief lock additionals queue
+    bool myLockAdditionalsQueue;
+
+    // @brief lock shapes queue
+    bool myLockShapeQueue;
+
+    // @brief lock demand elements queue
+    bool myLockDemandElementsQueue;
 
 private:
     /// @brief Invalidated copy constructor.

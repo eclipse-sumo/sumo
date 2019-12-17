@@ -32,15 +32,19 @@
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNEDottedContourThread.h"
-#include "GNEViewNet.h"
+#include "GNENet.h"
 
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GNEDottedContourThread::GNEDottedContourThread(GNEViewNet *viewNet) :
+GNEDottedContourThread::GNEDottedContourThread(GNENet *net) :
     FXThread(),
-    myViewNet(viewNet) {
+    myNet(net),
+    myLockNetElementsQueue(false),
+    myLockAdditionalsQueue(false),
+    myLockShapeQueue(false),
+    myLockDemandElementsQueue(false) {
     // start thread
     start();
 }
@@ -52,8 +56,44 @@ GNEDottedContourThread::~GNEDottedContourThread() {
 }
 
 
+void 
+GNEDottedContourThread::updateNetElementDottedContour(GNENetElement *netElement) {
+    myLockNetElementsQueue = true;
+    myNetElements.push(netElement);
+    myLockNetElementsQueue = false;
+}
+
+
 FXint
 GNEDottedContourThread::run() {
+    while (true) {
+        // check net elements
+        if (myLockNetElementsQueue == false) {
+            if (myNetElements.size() > 0) {
+                myNetElements.pop();
+            }
+        }
+        // check additionals
+        if (myLockAdditionalsQueue == false) {
+            if (myAdditionals.size() > 0) {
+                myAdditionals.pop();
+            }
+        }
+        // check shape
+        if (myLockShapeQueue == false) {
+            if (myShapes.size() > 0) {
+                myShapes.pop();
+            }
+        }
+        // check demand elements
+        if (myLockDemandElementsQueue == false) {
+            if (myDemandElements.size() > 0) {
+                myDemandElements.pop();
+            }
+        }
+        // sleep
+        sleep(100);
+    }
     return 0;
 }
 
