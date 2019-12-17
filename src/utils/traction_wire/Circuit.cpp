@@ -41,7 +41,7 @@ std::mutex circuit_lock;
 Node* Circuit::addNode(string name) {
     if (getNode(name) != nullptr) {
         //WRITE_ERROR("The node: '" + name + "' already exists.");
-        std::cout << "The node: '" + name + "' already exists.";
+        std::cout << "The node '" + name + "' already exists." << std::endl;
         return nullptr;
     }
 
@@ -156,8 +156,8 @@ void Circuit::unlock() {
 #ifdef HAVE_EIGEN
 void Circuit::removeColumn(Eigen::MatrixXd& matrix, unsigned int colToRemove)
 {
-    const int numRows = (int)matrix.rows();
-    const int numCols = (int)matrix.cols() - 1;
+    const unsigned int numRows = (unsigned int)matrix.rows();
+    const unsigned int numCols = (unsigned int)matrix.cols() - 1;
 
     if (colToRemove < numCols)
         matrix.block(0, colToRemove, numRows, numCols - colToRemove) = matrix.rightCols(numCols - colToRemove);

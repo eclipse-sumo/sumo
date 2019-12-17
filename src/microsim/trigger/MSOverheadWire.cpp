@@ -556,44 +556,53 @@ MSTractionSubstation::solveCircuit(SUMOTime /*currentTime*/) {
     setChargingVehicle(false);
 
 #ifdef HAVE_EIGEN
-    double err = 0;
-    vector<Element*>* elecHybridSources = getCircuit()->getCurrentSources();
-    getCircuit()->solve();
+    myCircuit->solve();
 
-    for (vector<Element*>::iterator it = elecHybridSources->begin(); it != elecHybridSources->end(); it++) {
-        if (!ISNAN((*it)->getPowerWanted())) {
-            err = MAX2(abs(getCircuit()->alphaBest*(*it)->getPowerWanted() - -(*it)->getCurrent()*(*it)->getVoltage()), err);
+    // RICE_TODO: This is a relict of original code without alpha scaling, shall we still keep it here?
+    vector<Element*>* elecHybridSources = myCircuit->getCurrentSources();
+    double err = 0.0;
+    for (auto *it : *elecHybridSources) {
+        if (!ISNAN(it->getPowerWanted())) {
+            err = MAX2(abs(myCircuit->alphaBest * (it->getPowerWanted() - (-it->getCurrent())*it->getVoltage())), err);
         }
     }
 
-    /*if (err > tolerance || veh_elem->getCurrent()*veh_elem->getVoltage() == NAN) {
-        WRITE_WARNING("The tolerance of circuit evaluation was not reached until 10 iteration (err = " + toString(err) + "). The tolerance " + toString(tolerance) + " was not reached in iter = " + toString(15));
-    }*/
-    if (getCircuit()->alphaBest != 1) {
+    // if (err > tolerance || veh_elem->getCurrent()*veh_elem->getVoltage() == NAN) {
+    //    WRITE_WARNING("The tolerance of circuit evaluation was not reached until 10 iteration (err = " + toString(err) + "). The tolerance " + toString(tolerance) + " was not reached in iter = " + toString(15));
+    //}
+
+    if (getCircuit()->alphaBest != 1.0) {
         WRITE_WARNING("The requested total power could not be delivered by the overhead wire. Only " + toString(getCircuit()->alphaBest) + " of originally requested power was provided.");
     }
 #endif
 
-    for (std::vector<MSDevice_ElecHybrid*>::iterator it = myElecHybrid.begin(); it != myElecHybrid.end(); it++) {
+    for (auto *it : myElecHybrid) {
       
-        double voltage = (*it)->getVehElem()->getVoltage();
-        double current = (*it)->getVehElem()->getCurrent();
+        Element* vehElem = it->getVehElem();
+        double voltage = vehElem->getVoltage();
+        double current = -vehElem->getCurrent();  // Vehicle is a power source, hence its current flows in opposite direction 
 
-        (*it)->setCurrentFromOverheadWire(-current);
-        (*it)->setVoltageOfOverheadWire(voltage);
+        it->setCurrentFromOverheadWire(current);
+        it->setVoltageOfOverheadWire(voltage);
 
         // Calulate energy charged
-        //myEnergyCharged = (TS * voltage * -current * myActOverheadWireSegment->getEfficency()) - (myConsum * 3600);
-        double energyCharged = (TS * (*it)->getVehElem()->getPowerWanted() / 3600) - ((*it)->getConsum());
-        energyCharged = (TS * voltage * -current / 3600) - ((*it)->getConsum());
+        //
+        // RICE_TODO: This does not take into account the fact that `energyIn` may be lower than the energy requested
+        // due to `alpha` scaling ...
+        //
+        // myEnergyCharged = (TS * voltage * -current * myActOverheadWireSegment->getEfficency()) - (myConsum * 3600);
+        // double energyCharged = (TS * vehElem->getPowerWanted() / 3600) - (it->getConsum());
+        //
+        double energyIn = WATT2WATTHR(voltage * current);  // [Wh]
+        double energyCharged = energyIn - it->getConsum();  // [Wh]
 
         // Convert from [Ws] to [Wh] (3600s / 1h):
-        (*it)->setEnergyCharged(energyCharged);
+        it->setEnergyCharged(energyCharged);
 
         // Update Battery charge
-        (*it)->setActualBatteryCapacity((*it)->getActualBatteryCapacity() + energyCharged);
+        it->setActualBatteryCapacity(it->getActualBatteryCapacity() + energyCharged);
         // add charge value for output to myActOverheadWireSegment
-        (*it)->getActOverheadWireSegment()->addChargeValueForOutput(energyCharged + (*it)->getConsum(), (*it));
+        it->getActOverheadWireSegment()->addChargeValueForOutput(energyCharged + it->getConsum(), it);
     }
 
     return 0;
