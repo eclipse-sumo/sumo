@@ -27,6 +27,7 @@
 #include "MSDispatch.h"
 
 //#define DEBUG_RESERVATION
+//#define DEBUG_TRAVELTIME
 //#define DEBUG_DISPATCH
 //#define DEBUG_COND2(obj) (obj->getID() == "p0")
 #define DEBUG_COND2(obj) (true)
@@ -94,6 +95,9 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
             ConstMSEdgeVector edges;
             router.compute(res.from, res.to, &taxi->getHolder(), now, edges);
             SUMOTime travelTime = TIME2STEPS(router.recomputeCosts(edges, &taxi->getHolder(), now));
+#ifdef DEBUG_TRAVELTIME
+            if (DEBUG_COND2(person)) std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " person=" << res.person->getID() << " traveltime=" << time2string(travelTime) << "\n";
+#endif
             if (travelTime < closestTime) {
                 closestTime = travelTime;
                 closest = taxi;
