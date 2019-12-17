@@ -536,7 +536,7 @@ MSTractionSubstation::addSolvingCirucitToEndOfTimestepEvents() {
 }
 
 SUMOTime
-MSTractionSubstation::solveCircuit(SUMOTime currentTime) {
+MSTractionSubstation::solveCircuit(SUMOTime /*currentTime*/) {
     /*Circuit evaluation*/
     double err = 0;
     setChargingVehicle(false);
