@@ -138,7 +138,7 @@ public:
     * @exception IOError not yet implemented
     * @see MSDevice::generateOutput
     */
-    void generateOutput() const;
+    void generateOutput(OutputDevice* tripinfoOut) const;
 
     /// @brief Get the actual vehicle's Battery Capacity in kWh
     double getActualBatteryCapacity() const;

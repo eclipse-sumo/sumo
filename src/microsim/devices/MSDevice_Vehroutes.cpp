@@ -256,7 +256,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
 
 
 void
-MSDevice_Vehroutes::generateOutput() const {
+MSDevice_Vehroutes::generateOutput(OutputDevice* /*tripinfoOut*/) const {
     writeOutput(true);
 }
 

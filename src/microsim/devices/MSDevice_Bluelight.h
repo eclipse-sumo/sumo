@@ -129,7 +129,7 @@ public:
      * @exception IOError not yet implemented
      * @see MSDevice::generateOutput
      */
-    void generateOutput() const;
+    void generateOutput(OutputDevice* tripinfoOut) const;
 
 
 

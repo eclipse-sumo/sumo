@@ -3327,7 +3327,7 @@ MSDevice_SSM::getVehiclesOnJunction(const MSJunction* junction, const MSLane* co
 
 
 void
-MSDevice_SSM::generateOutput() const {
+MSDevice_SSM::generateOutput(OutputDevice* /*tripinfoOut*/) const {
     // This is called once at vehicle removal.
     //       Also: flush myOutputFile? Or is this done automatically?
     // myOutputFile->closeTag();

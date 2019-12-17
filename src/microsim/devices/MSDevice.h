@@ -121,7 +121,7 @@ public:
      *
      * @exception IOError not yet implemented
      */
-    virtual void generateOutput() const {
+    virtual void generateOutput(OutputDevice* /*tripinfoOut*/) const {
     }
 
     /** @brief Saves the state of the device

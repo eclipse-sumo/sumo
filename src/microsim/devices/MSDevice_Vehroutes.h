@@ -118,7 +118,7 @@ public:
      *
      * @exception IOError not yet implemented
      */
-    void generateOutput() const;
+    void generateOutput(OutputDevice* tripinfoOut) const;
 
 
     /** @brief Called on route retrieval

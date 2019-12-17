@@ -232,7 +232,7 @@ MSDevice_Tripinfo::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
 
 
 void
-MSDevice_Tripinfo::generateOutput() const {
+MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     const SUMOTime timeLoss = MSGlobals::gUseMesoSim ? myMesoTimeLoss : static_cast<MSVehicle&>(myHolder).getTimeLoss();
     const double routeLength = myRouteLength + (myArrivalTime == NOT_ARRIVED ? myHolder.getPositionOnLane() : myArrivalPos);
     const SUMOTime duration = (myArrivalTime == NOT_ARRIVED ? SIMSTEP : myArrivalTime) - myHolder.getDeparture();
@@ -243,13 +243,13 @@ MSDevice_Tripinfo::generateOutput() const {
     myTotalWaitingTime += myWaitingTime;
     myTotalTimeLoss += timeLoss;
     myTotalDepartDelay += myHolder.getDepartDelay();
-    if (!OptionsCont::getOptions().isSet("tripinfo-output")) {
+    if (tripinfoOut == nullptr) {
         return;
     }
     myPendingOutput.erase(this);
 
     // write
-    OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
+    OutputDevice& os = *tripinfoOut;
     os.openTag("tripinfo").writeAttr("id", myHolder.getID());
     os.writeAttr("depart", time2string(myHolder.getDeparture()));
     os.writeAttr("departLane", myDepartLane);
@@ -284,7 +284,8 @@ MSDevice_Tripinfo::generateOutput() const {
 void
 MSDevice_Tripinfo::generateOutputForUnfinished() {
     MSNet* net = MSNet::getInstance();
-    const bool writeTripinfos = OptionsCont::getOptions().isSet("tripinfo-output");
+    OutputDevice* tripinfoOut = (OptionsCont::getOptions().isSet("tripinfo-output") ?
+        &OutputDevice::getDeviceByOption("tripinfo-output") : nullptr);
     myWaitingDepartDelay = 0;
     int undeparted = 0;
     int departed = 0;
@@ -293,8 +294,8 @@ MSDevice_Tripinfo::generateOutputForUnfinished() {
         const MSDevice_Tripinfo* d = *myPendingOutput.begin();
         if (d->myHolder.hasDeparted()) {
             departed++;
-            d->generateOutput();
-            if (writeTripinfos) {
+            d->generateOutput(tripinfoOut);
+            if (tripinfoOut != nullptr) {
                 // @todo also generate emission output if holder has a device
                 OutputDevice::getDeviceByOption("tripinfo-output").closeTag();
             } else {

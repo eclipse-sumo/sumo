@@ -145,7 +145,7 @@ MSVehicleControl::removePending() {
         myRunningVehNo--;
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_ARRIVED);
         for (MSVehicleDevice* const dev : veh->getDevices()) {
-            dev->generateOutput();
+            dev->generateOutput(tripinfoOut);
         }
         if (tripinfoOut != nullptr) {
             // close tag after tripinfo (possibly including emissions from another device) have been written

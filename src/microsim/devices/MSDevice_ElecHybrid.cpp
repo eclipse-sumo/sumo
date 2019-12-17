@@ -643,13 +643,12 @@ MSDevice_ElecHybrid::checkParam(
 
 
 void
-MSDevice_ElecHybrid::generateOutput() const {
-    if (OptionsCont::getOptions().isSet("tripinfo-output")) {
-        OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
+MSDevice_ElecHybrid::generateOutput(OutputDevice* tripinfoOut) const {
+    if (tripinfoOut != nullptr) {
         // write elecHybrid information into tripinfo output
-        os.openTag("ElecHybrid_device");
-        os.writeAttr("customValue2", "customValue2 was not defined");
-        os.closeTag();
+        tripinfoOut->openTag("ElecHybrid_device");
+        tripinfoOut->writeAttr("customValue2", "customValue2 was not defined");
+        tripinfoOut->closeTag();
     }
 }
 

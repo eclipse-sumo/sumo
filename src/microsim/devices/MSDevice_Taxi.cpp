@@ -233,14 +233,13 @@ MSDevice_Taxi::customerArrived() {
 }
 
 void
-MSDevice_Taxi::generateOutput() const {
-    if (OptionsCont::getOptions().isSet("tripinfo-output")) {
-        OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
-        os.openTag("taxi");
-        os.writeAttr("customers", toString(myCustomersServed));
-        os.writeAttr("occupiedDistance", toString(myOccupiedDistance));
-        os.writeAttr("occupiedTime", time2string(myOccupiedTime));
-        os.closeTag();
+MSDevice_Taxi::generateOutput(OutputDevice* tripinfoOut) const {
+    if (tripinfoOut != nullptr) {
+        tripinfoOut->openTag("taxi");
+        tripinfoOut->writeAttr("customers", toString(myCustomersServed));
+        tripinfoOut->writeAttr("occupiedDistance", toString(myOccupiedDistance));
+        tripinfoOut->writeAttr("occupiedTime", time2string(myOccupiedTime));
+        tripinfoOut->closeTag();
     }
 }
 
