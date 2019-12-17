@@ -8,6 +8,7 @@ permalink: /ChangeLog/
 ### Bugfixes
 - Simulation
   - Fixed unsafe insertion speed when using 'stopOffset'. Issue #6411
+  - Extra device output (emissions etc.) is now included in tripinfo-output when using option **--tripinfo-output.write-unfinished**. Issue #6422
 
 - MESO
   - Fixed invalid simulation state when vehicles are teleporting. Issue #6408
