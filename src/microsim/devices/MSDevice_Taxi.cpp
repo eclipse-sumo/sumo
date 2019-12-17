@@ -128,7 +128,8 @@ MSDevice_Taxi::cleanup() {
 // MSDevice_Taxi-methods
 // ---------------------------------------------------------------------------
 MSDevice_Taxi::MSDevice_Taxi(SUMOVehicle& holder, const std::string& id) :
-    MSVehicleDevice(holder, id)
+    MSVehicleDevice(holder, id),
+    myServiceEnd(string2time(getStringParam(holder, OptionsCont::getOptions(), "taxi.end", toString(1e15), false)))
 {
 }
 
@@ -212,6 +213,17 @@ MSDevice_Taxi::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         myOccupiedDistance += (newPos - oldPos);
         myOccupiedTime += DELTA_T;
     }
+    if (myHolder.isStopped()) {
+        if (!myIsStopped) {
+            // limit duration of stop
+            // @note: stops are not yet added to the vehicle so we can change the loaded parameters. Stops added from a route are not affected
+            if (!MSGlobals::gUseMesoSim) {
+                MSVehicle& veh = static_cast<MSVehicle&>(myHolder);
+                veh.getNextStop().endBoarding = myServiceEnd;
+            }
+        }
+    }
+    myIsStopped = myHolder.isStopped();
     return true; // keep the device
 }
 

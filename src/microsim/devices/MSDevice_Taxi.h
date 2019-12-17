@@ -194,6 +194,8 @@ private:
     double myOccupiedDistance = 0;
     /// @brief time spent driving with customers
     SUMOTime myOccupiedTime = 0;
+    /// @brief the time at which the taxi service ends (end the vehicle may leave the simulation)
+    SUMOTime myServiceEnd = SUMOTime_MAX;
 
     /// @brief the time between successive calls to the dispatcher
     static SUMOTime myDispatchPeriod;
@@ -203,6 +205,8 @@ private:
     static Command* myDispatchCommand;
     // @brief the list of available taxis
     static std::vector<MSDevice_Taxi*> myFleet;
+    // @brief whether the vehicle is currently stopped
+    bool myIsStopped = false;
 
 private:
     /// @brief Invalidated copy constructor.
