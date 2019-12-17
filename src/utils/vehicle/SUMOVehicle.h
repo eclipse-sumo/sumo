@@ -216,6 +216,9 @@ public:
      */
     virtual int getNumberReroutes() const = 0;
 
+    /// @brief whether the given transportable is allowed to board this vehicle
+    virtual bool allowsBoarding(MSTransportable* t) const = 0;
+
     /** @brief Adds a person to this vehicle
      *
      * May do nothing since persons are not supported by default

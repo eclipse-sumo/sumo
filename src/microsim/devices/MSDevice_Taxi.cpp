@@ -190,6 +190,7 @@ MSDevice_Taxi::dispatch(const Reservation& res) {
         throw ProcessError("Dispatch for busy taxis not yet implemented");
     }
     myState = PICKUP;
+    myCustomer = res.person;
 }
 
 MSLane*
@@ -205,6 +206,13 @@ bool
 MSDevice_Taxi::isEmpty() {
     return myState == EMPTY;
 }
+
+
+bool
+MSDevice_Taxi::allowsBoarding(MSTransportable* t) const {
+    return t == myCustomer;
+}
+
 
 bool
 MSDevice_Taxi::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
@@ -250,6 +258,7 @@ MSDevice_Taxi::customerArrived() {
     myCustomersServed++;
     if (myHolder.getPersonNumber() == 0) {
         myState = EMPTY;
+        myCustomer = nullptr;
     }
 }
 

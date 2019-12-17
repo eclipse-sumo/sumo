@@ -29,6 +29,7 @@
 //#define DEBUG_RESERVATION
 //#define DEBUG_TRAVELTIME
 //#define DEBUG_DISPATCH
+//#define DEBUG_SERVABLE
 //#define DEBUG_COND2(obj) (obj->getID() == "p0")
 #define DEBUG_COND2(obj) (true)
 
@@ -124,7 +125,11 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
         }
     }
     // check if any taxis are able to service the remaining requests
-    myHasServableReservations = myReservations.size() > 0 && available.size() < fleet.size() && numPostponed == 0 && numDispatched == 0;
+    myHasServableReservations = myReservations.size() > 0 || available.size() < fleet.size() || numPostponed > 0 || numDispatched > 0;
+#ifdef DEBUG_SERVABLE
+    std::cout << SIMTIME << " reservations=" << myReservations.size() << " avail=" << available.size() 
+        << " fleet=" << fleet.size() << " postponed=" << numPostponed << " dispatched=" << numDispatched << "\n";
+#endif
 }
 
 

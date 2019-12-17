@@ -342,6 +342,9 @@ public:
         return myDevices;
     }
 
+    /// @brief whether the given transportable is allowed to board this vehicle
+    bool allowsBoarding(MSTransportable* t) const;
+
     /** @brief Adds a person to this vehicle
      *
      * The default implementation does nothing since persons are not supported by default

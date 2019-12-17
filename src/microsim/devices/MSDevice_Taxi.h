@@ -148,6 +148,9 @@ public:
     /// @brief service the given reservation
     void dispatch(const Reservation& res);
 
+    /// @brief whether the given person is allowed to board this taxi
+    bool allowsBoarding(MSTransportable* t) const;
+
     /// @brief called by MSDevice_Transportable upon loading a person
     void customerEntered();
 
@@ -196,6 +199,10 @@ private:
     SUMOTime myOccupiedTime = 0;
     /// @brief the time at which the taxi service ends (end the vehicle may leave the simulation)
     SUMOTime myServiceEnd = SUMOTime_MAX;
+    /// @brief whether the vehicle is currently stopped
+    bool myIsStopped = false;
+    /// @brief the customer of the current reservation
+    const MSTransportable* myCustomer;
 
     /// @brief the time between successive calls to the dispatcher
     static SUMOTime myDispatchPeriod;
@@ -205,8 +212,6 @@ private:
     static Command* myDispatchCommand;
     // @brief the list of available taxis
     static std::vector<MSDevice_Taxi*> myFleet;
-    // @brief whether the vehicle is currently stopped
-    bool myIsStopped = false;
 
 private:
     /// @brief Invalidated copy constructor.

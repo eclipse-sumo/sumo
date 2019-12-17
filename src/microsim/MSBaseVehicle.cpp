@@ -41,6 +41,7 @@
 #include "devices/MSDevice_Routing.h"
 #include "devices/MSDevice_Battery.h"
 #include <microsim/devices/MSDevice_Transportable.h>
+#include <microsim/devices/MSDevice_Taxi.h>
 #include "MSInsertionControl.h"
 
 //#define DEBUG_REROUTE
@@ -405,6 +406,17 @@ MSBaseVehicle::getOdometer() const {
     return -myDepartPos + myOdometer + (hasArrived() ? myArrivalPos : getPositionOnLane());
 }
 
+bool
+MSBaseVehicle::allowsBoarding(MSTransportable* t) const {
+    if (getPersonNumber() >= getVehicleType().getPersonCapacity()) {
+        return false;
+    }
+    MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(getDevice(typeid(MSDevice_Taxi)));
+    if (taxiDevice != nullptr) {
+        return taxiDevice->allowsBoarding(t);
+    }
+    return true;
+}
 
 void
 MSBaseVehicle::addPerson(MSTransportable* person) {

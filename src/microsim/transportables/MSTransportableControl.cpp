@@ -157,7 +157,7 @@ MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, cons
         SUMOTime currentTime =  MSNet::getInstance()->getCurrentTimeStep();
         for (TransportableVector::iterator i = wait.begin(); i != wait.end();) {
             if ((*i)->isWaitingFor(vehicle)
-                    && vehicle->getVehicleType().getPersonCapacity() > vehicle->getPersonNumber()
+                    && vehicle->allowsBoarding(*i)
                     && timeToBoardNextPerson <= currentTime
                     && stop.startPos <= (*i)->getEdgePos()
                     && (*i)->getEdgePos() <= stop.endPos) {
