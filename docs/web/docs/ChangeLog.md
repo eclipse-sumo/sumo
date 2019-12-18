@@ -11,6 +11,9 @@ permalink: /ChangeLog/
   - Extra device output (emissions etc.) is now included in tripinfo-output when using option **--tripinfo-output.write-unfinished**. Issue #6422
   - Time spent parking is now included in tripinfo-output 'stopTime'. Issue #6423
 
+- SUMO-GUI
+  - Fixed visualisation of containers. Issue #6426
+
 - MESO
   - Fixed invalid simulation state when vehicles are teleporting. Issue #6408
 
@@ -19,6 +22,7 @@ permalink: /ChangeLog/
   - Added new [model for electric hybrid vehicles and overhead lines and power substations](Models/ElectricHybrid.md). 
   - Railway simulation now supports [splitting and joining trains, also known as portion working](Simulation/Railways.md#portion_working). Issue #6398
   - Added option **--device.fcd.radius** which allows fcd output for persons and vehicles that are within the given range around equipped vehicles. Issue #6410
+  - Added new 'taxi' device to allow simulation of demand-responsive transport. Issue #6418
   
 - SUMO-GUI
   - dead-end links in the middle of a road are now highlighed in magenta to highlight connectivity problems. Issue #6391
