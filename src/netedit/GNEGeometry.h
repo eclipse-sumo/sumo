@@ -57,22 +57,28 @@ struct GNEGeometry {
         /// @brief constructor
         Geometry();
 
+        /// @brief parameter constructor
+        Geometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths);
+
         /**@brief update geometry shape
          * @param startPos if is different of -1, then shape will be cut in these first position
          * @param endPos if is different of -1, then shape will be cut in these last position
          * @param extraFirstPosition if is different of Position::INVALID, add it in shape front position (after cut)
          * @param extraLastPosition if is different of Position::INVALID, add it in shape last position (after cut)
-         * @note lengths and rotations wil be updated
+         * @note lengths and rotations will be updated
          */
-        void updateGeometryShape(const PositionVector& shape, double startPos = -1, double endPos = -1,
-                                 const Position& extraFirstPosition = Position::INVALID,
-                                 const Position& extraLastPosition = Position::INVALID);
+        void updateGeometry(const PositionVector& shape, double startPos = -1, double endPos = -1,
+                            const Position& extraFirstPosition = Position::INVALID,
+                            const Position& extraLastPosition = Position::INVALID);
 
         /// @brief update position and rotation
-        void updateGeometryPosition(const GNELane* lane, const double posOverLane);
+        void updateGeometry(const GNELane* lane, const double posOverLane);
 
         /// @brief update geometry (using geometry of another additional)
         void updateGeometry(const GNEAdditional* additional);
+
+        /// @brief update geometry (using a new shape, rotations and lenghts)
+        void updateGeometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths);
 
         /// @brief get Position
         const Position& getPosition() const;
@@ -158,14 +164,8 @@ struct GNEGeometry {
             /// @brief flag to use lane shape
             bool myUseLaneShape;
 
-            /// @brief segment shape
-            PositionVector mySegmentShape;
-
-            /// @brief segment rotation
-            std::vector<double> mySegmentRotations;
-
-            /// @brief segment lengths
-            std::vector<double> mySegmentLengths;
+            /// @brief geometry used in segment
+            Geometry mySegmentGeometry;
 
             /// @brief Invalidated assignment operator
             Segment& operator=(const Segment& other) = delete;

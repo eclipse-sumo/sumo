@@ -85,7 +85,7 @@ GNEAccess::updateGeometry() {
         fixedPositionOverLane = myPositionOverLane;
     }
     // update geometry
-    myAdditionalGeometry.updateGeometryPosition(getParentLanes().front(), fixedPositionOverLane * getParentLanes().front()->getLengthGeometryFactor());
+    myAdditionalGeometry.updateGeometry(getParentLanes().front(), fixedPositionOverLane * getParentLanes().front()->getLengthGeometryFactor());
     // Set block icon position
     myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
     // Set offset of the block icon

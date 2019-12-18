@@ -20,15 +20,16 @@
 // ===========================================================================
 #include <config.h>
 
+#include <netedit/GNEDottedContourThread.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNENet.h>
-#include <netedit/changes/GNEChange_Attribute.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNECrossing.h"
 #include "GNEJunction.h"
@@ -71,13 +72,15 @@ GNECrossing::updateGeometry() {
     // rebuild crossing and walking areas form node parent
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     // obtain shape
-    myCrossingGeometry.updateGeometryShape(crossing->customShape.size() > 0 ?  crossing->customShape : crossing->shape);
+    myCrossingGeometry.updateGeometry(crossing->customShape.size() > 0 ?  crossing->customShape : crossing->shape);
     /*
     // only rebuild shape if junction's shape isn't in Buuble mode
     if (myParentJunction->getNBNode()->getShape().size() > 0) {
         myCrossingGeometry.calculateShapeRotationsAndLengths();
     }
     */
+    // update dotted contour
+    myNet->getDottedContourThread()->updateNetElementDottedContour(this);
 }
 
 

@@ -116,7 +116,7 @@ GNEDetectorEntryExit::commitGeometryMoving(GNEUndoList* undoList) {
 void
 GNEDetectorEntryExit::updateGeometry() {
     // update geometry
-    myAdditionalGeometry.updateGeometryPosition(getParentLanes().front(), getGeometryPositionOverLane());
+    myAdditionalGeometry.updateGeometry(getParentLanes().front(), getGeometryPositionOverLane());
 
     // Set block icon position
     myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();

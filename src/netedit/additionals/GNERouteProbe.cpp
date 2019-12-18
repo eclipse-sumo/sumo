@@ -63,7 +63,7 @@ GNERouteProbe::updateGeometry() {
     const double offset = firstLane->getLaneShape().length() < 0.5 ? firstLane->getLaneShape().length() : 0.5;
 
     // update geometry
-    myAdditionalGeometry.updateGeometryPosition(firstLane, offset);
+    myAdditionalGeometry.updateGeometry(firstLane, offset);
 
     // Set block icon position
     myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();

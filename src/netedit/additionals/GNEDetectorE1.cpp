@@ -113,7 +113,7 @@ GNEDetectorE1::commitGeometryMoving(GNEUndoList* undoList) {
 void
 GNEDetectorE1::updateGeometry() {
     // update geometry
-    myAdditionalGeometry.updateGeometryPosition(getParentLanes().front(), getGeometryPositionOverLane());
+    myAdditionalGeometry.updateGeometry(getParentLanes().front(), getGeometryPositionOverLane());
 
     // Set block icon position
     myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();

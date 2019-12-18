@@ -20,17 +20,18 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/StringTokenizer.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_TLS.h>
+#include <netedit/GNEDottedContourThread.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_TLS.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEConnection.h"
@@ -103,7 +104,7 @@ GNEConnection::updateGeometry() {
         // Calculate shape of connection depending of the size of Junction shape
         // value obtanied from GNEJunction::drawgl
         if (nbCon.customShape.size() != 0) {
-            myConnectionGeometry.updateGeometryShape(nbCon.customShape);
+            myConnectionGeometry.updateGeometry(nbCon.customShape);
         } else if (getEdgeFrom()->getNBEdge()->getToNode()->getShape().area() > 4) {
             if (nbCon.shape.size() != 0) {
                 PositionVector connectionShape = nbCon.shape;
@@ -111,17 +112,17 @@ GNEConnection::updateGeometry() {
                 if (nbCon.haveVia) {
                     connectionShape.append(nbCon.viaShape);
                 }
-                myConnectionGeometry.updateGeometryShape(connectionShape);
+                myConnectionGeometry.updateGeometry(connectionShape);
             } else {
                 // Calculate shape so something can be drawn immidiately
-                myConnectionGeometry.updateGeometryShape(getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
+                myConnectionGeometry.updateGeometry(getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
                             laneShapeFrom, laneShapeTo, NUM_POINTS,
                             getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
                             (double) 5. * (double) getEdgeFrom()->getNBEdge()->getNumLanes(),
                             (double) 5. * (double) nbCon.toEdge->getNumLanes()));
             }
         } else {
-            myConnectionGeometry.updateGeometryShape({laneShapeFrom.positionAtOffset(MAX2(0.0, laneShapeFrom.length() - 1)),
+            myConnectionGeometry.updateGeometry({laneShapeFrom.positionAtOffset(MAX2(0.0, laneShapeFrom.length() - 1)),
                     laneShapeTo.positionAtOffset(MIN2(1.0, laneShapeFrom.length()))});
         }
         // check if internal junction marker must be calculated
@@ -138,6 +139,8 @@ GNEConnection::updateGeometry() {
         }
         // mark connection as non-deprecated
         myShapeDeprecated = false;
+        // update dotted contour
+        myNet->getDottedContourThread()->updateNetElementDottedContour(this);
     }
 }
 

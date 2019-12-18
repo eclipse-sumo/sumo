@@ -20,22 +20,23 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/StringTokenizer.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/frames/GNETLSEditorFrame.h>
-#include <netedit/GNEUndoList.h>
+#include <netedit/GNEDottedContourThread.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/additionals/GNEShape.h>
 #include <netedit/additionals/GNEAdditional.h>
+#include <netedit/additionals/GNEShape.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/demandelements/GNEDemandElement.h>
-#include <utils/options/OptionsCont.h>
+#include <netedit/frames/GNETLSEditorFrame.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNELane.h"
 #include "GNEEdge.h"
@@ -108,7 +109,7 @@ GNELane::updateGeometry() {
     //double length = myParentEdge->getLength(); // @todo see ticket #448
     // may be different from length
     // Obtain lane shape of NBEdge
-    myLaneGeometry.updateGeometryShape(myParentEdge->getNBEdge()->getLaneShape(myIndex));
+    myLaneGeometry.updateGeometry(myParentEdge->getNBEdge()->getLaneShape(myIndex));
     // update connections
     myLane2laneConnections.updateLane2laneConnection();
     // update shapes parents associated with this lane
@@ -159,6 +160,8 @@ GNELane::updateGeometry() {
             }
         }
     }
+    // update dotted contour
+    myNet->getDottedContourThread()->updateNetElementDottedContour(this);
 }
 
 
