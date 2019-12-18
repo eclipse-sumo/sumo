@@ -151,7 +151,7 @@ MSStageTranship::tripInfoOutput(OutputDevice& os, const MSTransportable* const) 
 
 
 void
-MSStageTranship::routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const {
+MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool withRouteLength) const {
     os.openTag("tranship").writeAttr(SUMO_ATTR_EDGES, myRoute);
     os.writeAttr(SUMO_ATTR_SPEED, mySpeed);
     if (withRouteLength) {
@@ -185,7 +185,7 @@ MSStageTranship::moveToNextEdge(MSTransportable* container, SUMOTime currentTime
 }
 
 std::string
-MSStageTranship::getStageSummary(const bool isPerson) const {
+MSStageTranship::getStageSummary(const bool /*isPerson*/) const {
     const std::string dest = (getDestinationStop() == nullptr ?
                               " edge '" + getDestination()->getID() + "'" :
                               " stop '" + getDestinationStop()->getID() + "'");
