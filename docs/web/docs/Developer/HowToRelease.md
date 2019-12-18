@@ -92,6 +92,9 @@ and committing the changes after careful inspection
   - modify the version number (Version) and the release date (ReleaseDate)
     [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) in the **extra:** section at the end
     to update the [download links](../Downloads.md).
+- create a new Eclipse release at https://projects.eclipse.org/projects/technology.sumo (after login there should be a "Create Release" button)
+  - add an IP Log to the release
+  - send an email to the PMC at technology-pmc@eclipse.org asking for review (include links to the release and the IP log)
 
 ### Release day
 
