@@ -169,3 +169,18 @@ Example use
 ```
 python <SUMO_HOME>/tools/averageRuns.py example.sumocfg -n 100
 ```
+
+# tileGet.py
+
+This script retrieves background images from ESRI ArcGIS tile servers and other imaging APIs
+such as Google Maps and MapQuest. The simplest usage is to call it with a SUMO
+network file only. It will generate a settings file containing the coordinates which
+can be loaded with sumo-gui or netedit. The most useful options are -t for the
+(maximum) number of tiles to retrieve and -u to give the URL of the tile server.
+
+Example use (retrieving data from the public ArcGIS online instance)
+
+```
+python <SUMO_HOME>/tools/tileGet.py -n test.net.xml -t 10
+sumo-gui -n test.net.xml -g settings.xml
+```
