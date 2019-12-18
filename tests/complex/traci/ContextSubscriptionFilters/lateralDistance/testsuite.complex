@@ -1,0 +1,5 @@
+# Vehicles 'v8', 'v9' and 'v10' should be returned.
+range_50_lateralDist_50
+
+# Tries to apply fieldOfVision and lateralDistance filters. Should result in an incompatibility warning.
+incompatible_filter
