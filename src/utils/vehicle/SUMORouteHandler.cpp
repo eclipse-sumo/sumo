@@ -90,7 +90,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myVehicleParameter;
             }
             // create a new vehicle
-            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, myHardFail);
+            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, myHardFail);
             break;
         case SUMO_TAG_PERSON:
             // delete if myVehicleParameter isn't null
@@ -98,7 +98,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myVehicleParameter;
             }
             // create a new person
-            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, myHardFail, false, false, true);
+            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, myHardFail, false, false);
             addPerson(attrs);
             break;
         case SUMO_TAG_CONTAINER:
@@ -107,7 +107,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myVehicleParameter;
             }
             // create a new container
-            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, myHardFail);
+            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, myHardFail);
             addContainer(attrs);
             break;
         case SUMO_TAG_FLOW:
@@ -158,7 +158,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myVehicleParameter;
             }
             // parse vehicle parameters
-            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, myHardFail);
+            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, myHardFail);
             // check if myVehicleParameter was sucesfully created
             if (myVehicleParameter) {
                 myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;

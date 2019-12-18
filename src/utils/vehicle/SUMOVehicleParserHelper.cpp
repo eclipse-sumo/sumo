@@ -228,7 +228,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
 
 
 SUMOVehicleParameter*
-SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs, const bool hardFail, const bool optionalID, const bool skipDepart, const bool isPerson) {
+SUMOVehicleParserHelper::parseVehicleAttributes(int element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool optionalID, const bool skipDepart) {
     bool ok = true;
     std::string id, errorMsg;
     // for certain vehicles, ID can be optional
@@ -236,14 +236,16 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs, 
         id = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, "");
     } else {
         // parse ID
-        id = parseID(attrs, isPerson ? SUMO_TAG_PERSON : SUMO_TAG_VEHICLE);
+        id = parseID(attrs, (SumoXMLTag)element);
     }
     // only continue if id is valid, or if is optional
     if (optionalID || !id.empty()) {
         SUMOVehicleParameter* ret = new SUMOVehicleParameter();
         ret->id = id;
-        if (isPerson) {
+        if (element == SUMO_TAG_PERSON) {
             ret->vtypeid = DEFAULT_PEDTYPE_ID;
+        } else if (element == SUMO_TAG_CONTAINER) {
+            ret->vtypeid = DEFAULT_CONTAINERTYPE_ID;
         }
         try {
             parseCommonAttributes(attrs, hardFail, ret, "vehicle");
@@ -263,27 +265,14 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs, 
             }
         }
         // set tag
-        if (isPerson) {
-            ret->tag = SUMO_TAG_PERSON;
-        } else if (ret->routeid.empty()) {
-            ret->tag = SUMO_TAG_TRIP;
-        } else {
-            ret->tag = SUMO_TAG_VEHICLE;
-        }
+        ret->tag = (SumoXMLTag)element;
         return ret;
     } else {
+        std::string error = toString((SumoXMLTag)element) + " cannot be created";
         if (hardFail) {
-            if (isPerson) {
-                throw ProcessError("Person cannot be created");
-            } else {
-                throw ProcessError("Vehicle cannot be created");
-            }
+            throw ProcessError(error);
         } else {
-            if (isPerson) {
-                WRITE_ERROR("Person cannot be created");
-            } else {
-                WRITE_ERROR("Vehicle cannot be created");
-            }
+            WRITE_ERROR(error);
             return nullptr;
         }
     }

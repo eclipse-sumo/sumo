@@ -49,7 +49,7 @@ ROMARouteHandler::~ROMARouteHandler() {
 void
 ROMARouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_TRIP || element == SUMO_TAG_VEHICLE) {
-        myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true);
+        myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, true);
         if (!myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) && attrs.hasAttribute(SUMO_ATTR_FROM)) {
             myVehicleParameter->fromTaz = attrs.getString(SUMO_ATTR_FROM);
         }

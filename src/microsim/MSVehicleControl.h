@@ -593,6 +593,9 @@ private:
     /// @brief Whether the default pedestrian type was already used or can still be replaced
     bool myDefaultPedTypeMayBeDeleted;
 
+    /// @brief Whether the default container type was already used or can still be replaced
+    bool myDefaultContainerTypeMayBeDeleted;
+
     /// @brief Whether the default bicycle type was already used or can still be replaced
     bool myDefaultBikeTypeMayBeDeleted;
 
