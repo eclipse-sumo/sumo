@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec 17 23:04:24 2019 by Eclipse SUMO Version v1_4_0+0160-a48cafd480
+<!-- generated on Wed Dec 18 21:59:24 2019 by Eclipse SUMO Version v1_4_0+0202-cdf3fe59ef
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -173,6 +173,7 @@
         <duration-log.disable value="false" synonymes="no-duration-log" type="BOOL" help="Disable performance reports for individual simulation steps"/>
         <duration-log.statistics value="false" synonymes="t" type="BOOL" help="Enable statistics on vehicle trips"/>
         <no-step-log value="false" type="BOOL" help="Disable console output of current simulation step"/>
+        <step-log.period value="100" type="INT" help="Number of simulation steps between step-log outputs"/>
     </report>
 
     <emissions>

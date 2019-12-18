@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_4_0+0160-a48cafd480
+Eclipse SUMO Version v1_4_0+0202-cdf3fe59ef
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -328,6 +328,8 @@ Report Options:
   -t, --duration-log.statistics        Enable statistics on vehicle trips
   --no-step-log                        Disable console output of current
                                          simulation step
+  --step-log.period INT                Number of simulation steps between
+                                         step-log outputs
 
 Emissions Options:
   --phemlight-path FILE                Determines where to load PHEMlight
