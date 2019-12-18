@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_4_0+0037-97da602
+Eclipse SUMO netconvert Version v1_4_0+0197-8ad2565e4f
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -118,6 +118,10 @@ Processing Options:
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                          edges to ensure that all IDs are
                                          integers
+  --numerical-ids.node-start INT       Remaps IDs of nodes to integers starting
+                                         at INT
+  --numerical-ids.edge-start INT       Remaps IDs of edges to integers starting
+                                         at INT
   --reserved-ids FILE                  Ensures that generated ids do not
                                          included any of the typed IDs from FILE
                                          (SUMO-GUI selection file format)

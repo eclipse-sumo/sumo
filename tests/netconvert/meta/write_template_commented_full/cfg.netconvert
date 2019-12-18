@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 11 13:13:30 2019 by Eclipse SUMO netconvert Version v1_4_0+0037-97da602
+<!-- generated on Wed Dec 18 21:14:48 2019 by Eclipse SUMO netconvert Version v1_4_0+0197-8ad2565e4f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -206,6 +206,12 @@
 
         <!-- Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers -->
         <numerical-ids value="false" type="BOOL"/>
+
+        <!-- Remaps IDs of nodes to integers starting at INT -->
+        <numerical-ids.node-start value="2147483647" type="INT"/>
+
+        <!-- Remaps IDs of edges to integers starting at INT -->
+        <numerical-ids.edge-start value="2147483647" type="INT"/>
 
         <!-- Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format) -->
         <reserved-ids value="" type="FILE"/>
