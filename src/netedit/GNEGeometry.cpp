@@ -199,6 +199,61 @@ GNEGeometry::Geometry::calculateShapeRotationsAndLengths() {
 }
 
 // ---------------------------------------------------------------------------
+// GNEGeometry::DottedGeometry - methods
+// ---------------------------------------------------------------------------
+
+GNEGeometry::DottedGeometry::DottedGeometry() {
+}
+
+
+void
+GNEGeometry::DottedGeometry::updateDottedGeometry(const PositionVector& shape) {
+    // set new shape
+    myShape = shape;
+    // calculate shape rotation and lengths
+    calculateShapeRotationsAndLengths();
+}
+
+
+const PositionVector&
+GNEGeometry::DottedGeometry::getShape() const {
+    return myShape;
+}
+
+
+const std::vector<double>&
+GNEGeometry::DottedGeometry::getShapeRotations() const {
+    return myShapeRotations;
+}
+
+
+const std::vector<double>&
+GNEGeometry::DottedGeometry::getShapeLengths() const {
+    return myShapeLengths;
+}
+
+
+void
+GNEGeometry::DottedGeometry::calculateShapeRotationsAndLengths() {
+    // clear rotations and lengths
+    myShapeRotations.clear();
+    myShapeLengths.clear();
+    // Get number of parts of the shape
+    int numberOfSegments = (int)myShape.size() - 1;
+    // If number of segments is more than 0
+    if (numberOfSegments >= 0) {
+        // Reserve memory (To improve efficiency)
+        myShapeRotations.reserve(numberOfSegments);
+        myShapeLengths.reserve(numberOfSegments);
+        // Calculate lengths and rotations for every shape
+        for (int i = 0; i < numberOfSegments; i++) {
+            myShapeRotations.push_back(calculateRotation(myShape[i], myShape[i + 1]));
+            myShapeLengths.push_back(calculateLength(myShape[i], myShape[i + 1]));
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
 // GNEGeometry::SegmentGeometry::Segment - methods
 // ---------------------------------------------------------------------------
 

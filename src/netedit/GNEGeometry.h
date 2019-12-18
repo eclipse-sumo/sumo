@@ -118,6 +118,40 @@ struct GNEGeometry {
         Geometry& operator=(const Geometry& other) = delete;
     };
 
+    /// @brief struct for pack all variables related with DottedGeometry of stop
+    struct DottedGeometry {
+        /// @brief constructor
+        DottedGeometry();
+
+        /// @brief update DottedGeometry (using an existent shape)
+        void updateDottedGeometry(const PositionVector& shape);
+
+        /// @brief The shape of the additional element
+        const PositionVector& getShape() const;
+
+        /// @brief The rotations of the single shape parts
+        const std::vector<double>& getShapeRotations() const;
+
+        /// @brief The lengths of the single shape parts
+        const std::vector<double>& getShapeLengths() const;
+
+    private:
+        /// @brief calculate shape rotations and lengths
+        void calculateShapeRotationsAndLengths();
+
+        /// @brief element shape
+        PositionVector myShape;
+
+        /// @brief The rotations of the shape (note: Always size = myShape.size()-1)
+        std::vector<double> myShapeRotations;
+
+        /// @brief The lengths of the shape (note: Always size = myShape.size()-1)
+        std::vector<double> myShapeLengths;
+
+        /// @brief Invalidated assignment operator
+        DottedGeometry& operator=(const DottedGeometry& other) = delete;
+    };
+
     /// @brief struct for pack all variables related with geometry of elemements divided in segments
     struct SegmentGeometry {
 
