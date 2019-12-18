@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Dec 15 21:11:02 2019 by Eclipse SUMO Version v1_4_0+0110-a1d2a9f710
+<!-- generated on Wed Dec 18 08:33:23 2019 by Eclipse SUMO Version v1_4_0+0166-4a39c61
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,5 +41,5 @@ SPDX-License-Identifier: EPL-2.0
         <stop duration="20.00" arrival="247.00" arrivalPos="40.00" actType="waiting"/>
         <transport waitingTime="0.00" vehicle="car0" depart="247.00" arrival="291.00" arrivalPos="92.00" duration="44.00" routeLength="212.60"/>
     </containerinfo>
-    <tripinfo id="car0" depart="247.00" departLane="1/4to2/4_0" departPos="40.00" departSpeed="0.00" departDelay="247.00" arrival="291.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="44.00" routeLength="252.00" waitingTime="0.00" waitingCount="0" stopTime="21.00" timeLoss="4.76" rerouteNo="0" devices="tripinfo_car0 container_car0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="car0" depart="247.00" departLane="1/4to2/4_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="291.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="44.00" routeLength="252.00" waitingTime="0.00" waitingCount="0" stopTime="21.00" timeLoss="4.76" rerouteNo="0" devices="tripinfo_car0 container_car0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>
