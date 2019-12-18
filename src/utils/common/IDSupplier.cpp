@@ -24,6 +24,7 @@
 
 #include <string>
 #include <sstream>
+#include <iostream>
 #include "StdDefs.h"
 #include "IDSupplier.h"
 

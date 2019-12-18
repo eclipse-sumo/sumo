@@ -98,6 +98,12 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("numerical-ids", new Option_Bool(false));
     oc.addDescription("numerical-ids", "Processing", "Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers");
 
+    oc.doRegister("numerical-ids.node-start", new Option_Integer(std::numeric_limits<int>::max()));
+    oc.addDescription("numerical-ids.node-start", "Processing", "Remaps IDs of nodes to integers starting at INT");
+
+    oc.doRegister("numerical-ids.edge-start", new Option_Integer(std::numeric_limits<int>::max()));
+    oc.addDescription("numerical-ids.edge-start", "Processing", "Remaps IDs of edges to integers starting at INT");
+
     /// @todo not working for netgen
     oc.doRegister("reserved-ids", new Option_FileName());
     oc.addDescription("reserved-ids", "Processing", "Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)");

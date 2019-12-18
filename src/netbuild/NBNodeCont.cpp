@@ -1859,7 +1859,13 @@ NBNodeCont::discardRailSignals() {
 
 int
 NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix) {
-    std::vector<std::string> avoid = getAllNames();
+    bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.node-start");
+    std::vector<std::string> avoid;
+    if (startGiven) {
+        avoid.push_back(toString(OptionsCont::getOptions().getInt("numerical-ids.node-start") - 1));
+    } else {
+        avoid = getAllNames();
+    }
     std::set<std::string> reserve;
     if (reservedIDs) {
         NBHelpers::loadPrefixedIDsFomFile(OptionsCont::getOptions().getString("reserved-ids"), "node:", reserve); // backward compatibility
@@ -1869,6 +1875,10 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
     IDSupplier idSupplier("", avoid);
     NodeSet toChange;
     for (NodeCont::iterator it = myNodes.begin(); it != myNodes.end(); it++) {
+        if (startGiven) {
+            toChange.insert(it->second);
+            continue;
+        }
         if (numericaIDs) {
             try {
                 StringUtils::toLong(it->first);
@@ -1883,6 +1893,8 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
     const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
     for (NBNode* node : toChange) {
         myNodes.erase(node->getID());
+    }
+    for (NBNode* node : toChange) {
         if (origNames) {
             node->setParameter(SUMO_PARAM_ORIGID, node->getID());
         }

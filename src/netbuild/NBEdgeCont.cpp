@@ -1469,7 +1469,13 @@ NBEdgeCont::guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpee
 
 int
 NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBPTStopCont& sc) {
-    std::vector<std::string> avoid = getAllNames();
+    bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.edge-start");
+    std::vector<std::string> avoid;
+    if (startGiven) {
+        avoid.push_back(toString(OptionsCont::getOptions().getInt("numerical-ids.edge-start") - 1));
+    } else {
+        avoid = getAllNames();
+    }
     std::set<std::string> reserve;
     if (reservedIDs) {
         NBHelpers::loadPrefixedIDsFomFile(OptionsCont::getOptions().getString("reserved-ids"), "edge:", reserve);
@@ -1478,6 +1484,10 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
     IDSupplier idSupplier("", avoid);
     std::set<NBEdge*, ComparatorIdLess> toChange;
     for (EdgeCont::iterator it = myEdges.begin(); it != myEdges.end(); it++) {
+        if (startGiven) {
+            toChange.insert(it->second);
+            continue;
+        }
         if (numericaIDs) {
             try {
                 StringUtils::toLong(it->first);
@@ -1496,10 +1506,11 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
     }
 
     const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
-    for (std::set<NBEdge*, ComparatorIdLess>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
-        NBEdge* edge = *it;
+    for (NBEdge* edge : toChange) {
+        myEdges.erase(edge->getID());
+    }
+    for (NBEdge* edge : toChange) {
         const std::string origID = edge->getID();
-        myEdges.erase(origID);
         if (origNames) {
             edge->setOrigID(origID);
         }
