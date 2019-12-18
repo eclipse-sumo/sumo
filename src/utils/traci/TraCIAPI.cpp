@@ -3280,6 +3280,17 @@ TraCIAPI::VehicleScope::addSubscriptionFilterFieldOfVision(double angle) const {
 }
 
 void
+TraCIAPI::VehicleScope::addSubscriptionFilterLateralDistance(double lateralDist, double downstreamDist = -1, double upstreamDist = -1) const {
+    addSubscriptionFilterFloat(libsumo::FILTER_TYPE_LATERAL_DIST, lateralDist);
+    if (downstreamDist >= 0) {
+        addSubscriptionFilterDownstreamDistance(downstreamDist);
+    }
+    if (upstreamDist >= 0) {
+        addSubscriptionFilterUpstreamDistance(upstreamDist);
+    }
+}
+
+void
 TraCIAPI::VehicleScope::addSubscriptionFilterEmpty(int filterType) const {
     myParent.createFilterCommand(libsumo::CMD_ADD_SUBSCRIPTION_FILTER, filterType);
     myParent.processSet(libsumo::CMD_ADD_SUBSCRIPTION_FILTER);
