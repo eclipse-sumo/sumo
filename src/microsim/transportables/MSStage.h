@@ -253,7 +253,7 @@ public:
     std::string getStageSummary(const bool isPerson) const;
 
     /// logs end of the step
-    virtual const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
+    const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
 
     /// change origin for parking area rerouting
     void setOrigin(const MSEdge* origin) {
@@ -261,21 +261,28 @@ public:
     }
 
     /// proceeds to the next step
-    virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous);
+    void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous);
 
     /** @brief Called on writing tripinfo output
     *
     * @param[in] os The stream to write the information into
     * @exception IOError not yet implemented
     */
-    virtual void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
+    void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const {
+        UNUSED_PARAMETER(os);
+        UNUSED_PARAMETER(transportable);
+    }
 
     /** @brief Called on writing vehroute output
     *
     * @param[in] os The stream to write the information into
     * @exception IOError not yet implemented
     */
-    virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const;
+    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const {
+        UNUSED_PARAMETER(isPerson);
+        UNUSED_PARAMETER(os);
+        UNUSED_PARAMETER(withRouteLength);
+    }
 
 private:
     /// the origin edge
@@ -356,21 +363,21 @@ public:
     std::string getStageSummary(const bool isPerson) const;
 
     /// proceeds to the next step
-    virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous);
+    void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous);
 
     /** @brief Called on writing tripinfo output
     *
     * @param[in] os The stream to write the information into
     * @exception IOError not yet implemented
     */
-    virtual void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
+    void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
 
     /** @brief Called on writing vehroute output
     *
     * @param[in] os The stream to write the information into
     * @exception IOError not yet implemented
     */
-    virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const;
+    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const;
 
 private:
     /// the time the person is waiting

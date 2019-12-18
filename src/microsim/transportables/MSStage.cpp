@@ -331,21 +331,10 @@ MSStageTrip::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, M
 }
 
 
-void
-MSStageTrip::tripInfoOutput(OutputDevice&, const MSTransportable* const) const {
-}
-
-
-void
-MSStageTrip::routeOutput(const bool, OutputDevice&, const bool) const {
-}
-
-
 std::string
 MSStageTrip::getStageSummary(const bool) const {
     return "trip from '" + myOrigin->getID() + "' to '" + getDestination()->getID() + "'";
 }
-
 
 
 /* -------------------------------------------------------------------------
@@ -420,7 +409,7 @@ MSStageWaiting::tripInfoOutput(OutputDevice& os, const MSTransportable* const) c
 
 
 void
-MSStageWaiting::routeOutput(const bool, OutputDevice& os, const bool) const {
+MSStageWaiting::routeOutput(const bool /* isPerson */, OutputDevice& os, const bool) const {
     if (myType != MSStageType::WAITING_FOR_DEPART) {
         // lane index is arbitrary
         os.openTag("stop").writeAttr(SUMO_ATTR_LANE, getDestination()->getID() + "_0");
@@ -451,7 +440,7 @@ MSStageWaiting::abort(MSTransportable* t) {
 
 
 std::string
-MSStageWaiting::getStageSummary(const bool) const {
+MSStageWaiting::getStageSummary(const bool /* isPerson */) const {
     std::string timeInfo;
     if (myWaitingUntil >= 0) {
         timeInfo += " until " + time2string(myWaitingUntil);

@@ -289,7 +289,7 @@ MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os, const MSTransp
 
 
 void
-MSPerson::MSPersonStage_Walking::routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const {
+MSPerson::MSPersonStage_Walking::routeOutput(const bool /* isPerson */, OutputDevice& os, const bool withRouteLength) const {
     os.openTag("walk").writeAttr(SUMO_ATTR_EDGES, myRoute);
     std::string comment = "";
     if (myDestinationStop != nullptr) {
@@ -367,7 +367,7 @@ MSPerson::MSPersonStage_Walking::getMaxSpeed(const MSTransportable* const person
 }
 
 std::string
-MSPerson::MSPersonStage_Walking::getStageSummary(const bool isPerson) const {
+MSPerson::MSPersonStage_Walking::getStageSummary(const bool /* isPerson */) const {
     const std::string dest = (getDestinationStop() == nullptr ?
                               " edge '" + getDestination()->getID() + "'" :
                               " stop '" + getDestinationStop()->getID() + "'" + (
@@ -408,13 +408,13 @@ MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUM
 
 
 std::string
-MSPerson::MSPersonStage_Access::getStageDescription(const bool isPerson) const {
+MSPerson::MSPersonStage_Access::getStageDescription(const bool /* isPerson */) const {
     return "access";
 }
 
 
 std::string
-MSPerson::MSPersonStage_Access::getStageSummary(const bool isPerson) const {
+MSPerson::MSPersonStage_Access::getStageSummary(const bool /* isPerson */) const {
     return (myAmExit ? "access from stop '" : "access to stop '") + getDestinationStop()->getID() + "'";
 }
 
