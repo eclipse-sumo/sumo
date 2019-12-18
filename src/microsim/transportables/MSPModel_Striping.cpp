@@ -1826,7 +1826,8 @@ MSPModel_Striping::PState::getAngle(const MSPerson::MSPersonStage_Walking&, SUMO
         return 0;
     }
     const PositionVector& shp = myWalkingAreaPath == nullptr ? myLane->getShape() : myWalkingAreaPath->shape;
-    double angle = shp.rotationAtOffset(myRelX) + (myDir == MSPModel::BACKWARD ? M_PI : 0);
+    double geomX = myWalkingAreaPath == nullptr ? myLane->interpolateLanePosToGeometryPos(myRelX) : myRelX;
+    double angle = shp.rotationAtOffset(geomX) + (myDir == MSPModel::BACKWARD ? M_PI : 0);
     if (angle > M_PI) {
         angle -= 2 * M_PI;
     }
