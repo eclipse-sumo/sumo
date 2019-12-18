@@ -437,6 +437,9 @@ MSFrame::fillOptions() {
     oc.doRegister("no-step-log", new Option_Bool(false));
     oc.addDescription("no-step-log", "Report", "Disable console output of current simulation step");
 
+    oc.doRegister("step-log.period", new Option_Integer(100));
+    oc.addDescription("step-log.period", "Report", "Number of simulation steps between step-log outputs");
+
     //remote port 0 if not used
     oc.addOptionSubTopic("TraCI Server");
     oc.doRegister("remote-port", new Option_Integer(0));

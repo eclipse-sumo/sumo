@@ -773,6 +773,8 @@ protected:
 
     /// @brief Information whether the number of the simulation step shall be logged
     bool myLogStepNumber;
+    /// @brief Period between successive step-log outputs
+    int myLogStepPeriod;
 
     /// @brief The last simulation step duration
     long myTraCIStepDuration = 0, mySimStepDuration = 0;

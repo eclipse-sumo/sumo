@@ -211,6 +211,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myMaxTeleports = oc.getInt("max-num-teleports");
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
+    myLogStepPeriod = oc.getInt("step-log.period");
     myInserter = new MSInsertionControl(*vc, string2time(oc.getString("max-depart-delay")), oc.getBool("eager-insert"), oc.getInt("max-num-vehicles"),
                                         string2time(oc.getString("random-depart-offset")));
     myVehicleControl = vc;
@@ -347,12 +348,15 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     SimulationState state = SIMSTATE_RUNNING;
     // state loading may have changed the start time so we need to reinit it
     myStep = start;
+    int numSteps = 0;
+    bool doStepLog = false;
     while (state == SIMSTATE_RUNNING) {
-        if (myLogStepNumber) {
+        doStepLog = myLogStepNumber && (numSteps % myLogStepPeriod == 0);
+        if (doStepLog) {
             preSimStepOutput();
         }
         simulationStep();
-        if (myLogStepNumber) {
+        if (doStepLog) {
             postSimStepOutput();
         }
         state = simulationState(stop);
@@ -370,6 +374,12 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
                 state = SIMSTATE_RUNNING;
             }
         }
+        numSteps++;
+    }
+    if (myLogStepNumber && !doStepLog) {
+        // ensure some output on the last step
+        preSimStepOutput();
+        postSimStepOutput();
     }
     // report the end when wished
     WRITE_MESSAGE("Simulation ended at time: " + time2string(getCurrentTimeStep()));
