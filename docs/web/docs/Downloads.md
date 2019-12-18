@@ -35,10 +35,10 @@ listed in the table below.
 
 |   | bin  | build  | src (source code)  | user docs  |  developer docs (doxygen) | data  | examples  | tutorials  | tests  | tools (except jars)  | jars  |
 |---|------|--------|--------------------|------------|---------------------------|-------|-----------|------------|--------|----------------------|-------|
-| sumo-src-*XXX*.tar.gz sumo-src-*XXX*.zip  |   | X | X |   |   | X | X | X |   | X |   |
-|  sumo-win??-*XXX*.zip sumo-win??-*XXX*.msi | X |   |   | X |   | X | X | X |   | X | X |
-| sumo-all-*XXX*.tar.gz sumo-all-*XXX*.zip  |   | X | X | X |   | X | X | X | X | X | X |
-| rpm  | (X) |   |   | X |   | X | X | X |   | X |   |
+| sumo-src-*XXX*.tar.gz<br>sumo-src-*XXX*.zip  |   | &#10004; | &#10004; |   |   | &#10004; | &#10004; | &#10004; |   | &#10004; |   |
+|  sumo-win??-*XXX*.zip<br>sumo-win??-*XXX*.msi | &#10004; |   |   | &#10004; |   | &#10004; | &#10004; | &#10004; |   | &#10004; | &#10004; |
+| sumo-all-*XXX*.tar.gz<br>sumo-all-*XXX*.zip  |   | &#10004; | &#10004; | &#10004; |   | &#10004; | &#10004; | &#10004; | &#10004; | &#10004; | &#10004; |
+| rpm  | (&#10004;) |   |   | &#10004; |   | &#10004; | &#10004; | &#10004; |   | &#10004; |   |
 
 ### Repositories
 
