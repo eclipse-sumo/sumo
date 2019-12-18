@@ -241,7 +241,8 @@ GUIBaseVehicle::GUIBaseVehicle(MSBaseVehicle& vehicle) :
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     myRoutes = MSDevice_Vehroutes::buildVehicleDevices(myVehicle, myVehicle.myDevices, 5);
     myVehicle.myMoveReminders.push_back(std::make_pair(myRoutes, 0.));
-    mySeatPositions.push_back(Position(0, 0)); // ensure length 1
+    mySeatPositions.push_back(Seat()); // ensure length 1
+    myContainerPositions.push_back(Seat()); // ensure length 1
 }
 
 
@@ -519,10 +520,12 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
 
     if (!drawCarriages) {
         mySeatPositions.clear();
-        int requiredSeats = getNumPassengers() + getNumContainers();
-        const int totalSeats = getVType().getPersonCapacity() + getVType().getContainerCapacity();
+        myContainerPositions.clear();
+        int requiredSeats = getNumPassengers();
+        int requiredContainerPostions = getNumContainers();
         const Position back = (p1 + Position(-length * upscaleLength, 0)).rotateAround2D(angle, p1);
-        computeSeats(p1, back, totalSeats, upscale, requiredSeats);
+        computeSeats(p1, back, SUMO_const_waitingPersonWidth, getVType().getPersonCapacity(), upscale, requiredSeats, mySeatPositions);
+        computeSeats(p1, back, SUMO_const_waitingContainerWidth, getVType().getContainerCapacity(), upscale, requiredContainerPostions, myContainerPositions);
     }
 
     glPopMatrix();
@@ -732,10 +735,16 @@ GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double
 }
 
 
-const Position&
+const GUIBaseVehicle::Seat&
 GUIBaseVehicle::getSeatPosition(int personIndex) const {
     /// if there are not enough seats in the vehicle people have to squeeze onto the last seat
     return mySeatPositions[MIN2(personIndex, (int)mySeatPositions.size() - 1)];
+}
+
+const GUIBaseVehicle::Seat&
+GUIBaseVehicle::getContainerPosition(int containerIndex) const {
+    /// if there are not enough positions in the vehicle containers have to squeeze onto the last position
+    return myContainerPositions[MIN2(containerIndex, (int)myContainerPositions.size() - 1)];
 }
 
 
@@ -757,7 +766,7 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
         for (std::vector<MSTransportable*>::const_iterator i = cs.begin(); i != cs.end(); ++i) {
             GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
             assert(container != 0);
-            container->setPositionInVehicle(getSeatPosition(containerIndex++));
+            container->setPositionInVehicle(getContainerPosition(containerIndex++));
             container->drawGL(s);
         }
     }
@@ -814,28 +823,28 @@ GUIBaseVehicle::getNumContainers() const {
 
 
 void
-GUIBaseVehicle::computeSeats(const Position& front, const Position& back, int maxSeats, double exaggeration, int& requiredSeats) const {
+GUIBaseVehicle::computeSeats(const Position& front, const Position& back, double seatOffset, int maxSeats, double exaggeration, int& requiredSeats, Seats& into) const {
     if (requiredSeats <= 0) {
-        return; // save some work
+        return;
     }
+    maxSeats = MAX2(maxSeats, 1); // compute at least one seat
+    seatOffset *= exaggeration;
     const double vehWidth = getVType().getWidth() * exaggeration;
     const double length = front.distanceTo2D(back);
-    const double seatOffset = SUMO_const_waitingPersonWidth * exaggeration;
     const int rowSize = MAX2(1, (int)floor(vehWidth / seatOffset));
     const double rowOffset = (length - 1) / ceil((double)maxSeats / rowSize);
-    const double sideOffset = (rowSize - 1) / 2 * seatOffset;
+    const double sideOffset = (rowSize - 1) / 2.0 * seatOffset;
     double rowPos = 1 - rowOffset;
+    double angle = back.angleTo2D(front);
+    //if (myVehicle.getID() == "v0") std::cout << SIMTIME << " seatOffset=" << seatOffset << " max=" << maxSeats << " ex=" << exaggeration << " req=" << requiredSeats << " rowSize=" << rowSize << " sideOffset=" << sideOffset << " front=" << front << " back=" << back << " a=" << angle << " da=" << RAD2DEG(angle) << "\n";
     for (int i = 0; requiredSeats > 0 && i < maxSeats; i++) {
         int seat = (i % rowSize);
         if (seat == 0) {
             rowPos += rowOffset;
         }
-        mySeatPositions.push_back(PositionVector::positionAtOffset2D(front, back, rowPos,
-                                  seat * seatOffset - sideOffset));
+        into.push_back(Seat(PositionVector::positionAtOffset2D(front, back, rowPos, seat * seatOffset - sideOffset), angle));
         requiredSeats--;
     }
 }
-
-
 
 /****************************************************************************/

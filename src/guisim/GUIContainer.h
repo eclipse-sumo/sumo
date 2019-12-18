@@ -32,6 +32,7 @@
 #include <microsim/transportables/MSTransportable.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/settings/GUIPropertySchemeStorage.h>
+#include "GUIBaseVehicle.h"
 
 
 // ===========================================================================
@@ -114,7 +115,7 @@ public:
 
     /* @brief set the position of a container while being transported by a vehicle
      * @note This must be called by the vehicle before the call to drawGl */
-    void setPositionInVehicle(const Position& pos) {
+    void setPositionInVehicle(const GUIBaseVehicle::Seat& pos) {
         myPositionInVehicle = pos;
     }
 
@@ -185,7 +186,7 @@ private:
     mutable FXMutex myLock;
 
     /// The position of a container while riding a vehicle
-    Position myPositionInVehicle;
+    GUIBaseVehicle::Seat myPositionInVehicle;
 
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;

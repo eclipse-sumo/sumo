@@ -59,6 +59,7 @@ MSVehicleControl::MSVehicleControl() :
     myTotalTravelTime(0),
     myDefaultVTypeMayBeDeleted(true),
     myDefaultPedTypeMayBeDeleted(true),
+    myDefaultContainerTypeMayBeDeleted(true),
     myDefaultBikeTypeMayBeDeleted(true),
     myWaitingForPerson(0),
     myWaitingForContainer(0),
@@ -78,6 +79,10 @@ MSVehicleControl::MSVehicleControl() :
     myVTypeDict[DEFAULT_BIKETYPE_ID] = MSVehicleType::build(defBikeType);
 
     SUMOVTypeParameter defContainerType(DEFAULT_CONTAINERTYPE_ID, SVC_IGNORING);
+    // ISO Container TEU (cannot set this based on vClass)
+    defContainerType.length = 6.1;
+    defContainerType.width = 2.4;
+    defContainerType.height = 2.6;
     defContainerType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_CONTAINERTYPE_ID] = MSVehicleType::build(defContainerType);
 

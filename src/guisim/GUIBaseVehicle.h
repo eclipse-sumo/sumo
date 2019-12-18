@@ -66,6 +66,16 @@ public:
     /// @brief destructor
     ~GUIBaseVehicle();
 
+    struct Seat {
+        Seat(): pos(Position::INVALID), angle(0) {}
+
+        Seat(const Position& _pos, double _angle):
+            pos(_pos), angle(_angle) {}
+
+        Position pos;
+        double angle;
+    };
+    typedef std::vector<Seat> Seats;
 
     /** @brief Return current position (x/y, cartesian)
      *
@@ -317,11 +327,13 @@ public:
     static bool setFunctionalColor(int activeScheme, const MSBaseVehicle* veh, RGBColor& col);
 
 protected:
+
     /// @brief sets the color according to the currente settings
     RGBColor setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief returns the seat position for the person with the given index
-    const Position& getSeatPosition(int personIndex) const;
+    const Seat& getSeatPosition(int personIndex) const;
+    const Seat& getContainerPosition(int containerIndex) const;
 
     static void drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime leaveTime, double exagerate);
 
@@ -334,7 +346,7 @@ protected:
     bool drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, bool asImage = false) const;
 
     /// @brief add seats to mySeatPositions and update requiredSeats
-    void computeSeats(const Position& front, const Position& back, int maxSeats, double exaggeration, int& requiredSeats) const;
+    void computeSeats(const Position& front, const Position& back, double seatOffset, int maxSeats, double exaggeration, int& requiredSeats, Seats& into) const;
 
 
 protected:
@@ -342,7 +354,8 @@ protected:
     mutable FXMutex myLock;
 
     /// @brief positions of seats in the vehicle (updated at every drawing step)
-    mutable PositionVector mySeatPositions;
+    mutable Seats mySeatPositions;
+    mutable Seats myContainerPositions;
 
 private:
     /// @brief The vehicle to which all calls should be delegated

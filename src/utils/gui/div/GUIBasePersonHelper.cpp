@@ -34,20 +34,20 @@
 void
 GUIBasePersonHelper::drawAction_drawAsTriangle(const double angle, const double length, const double width) {
     // draw triangle pointing forward
-    glRotated(RAD2DEG(angle + M_PI / 2.), 0, 0, 1);
+    glRotated(RAD2DEG(angle), 0, 0, 1);
     glScaled(length, width, 1);
     glBegin(GL_TRIANGLES);
     glVertex2d(0., 0.);
-    glVertex2d(1, -0.5);
-    glVertex2d(1, 0.5);
+    glVertex2d(-1, -0.5);
+    glVertex2d(-1, 0.5);
     glEnd();
     // draw a smaller triangle to indicate facing
     GLHelper::setColor(GLHelper::getColor().changedBrightness(-64));
     glTranslated(0, 0, .045);
     glBegin(GL_TRIANGLES);
     glVertex2d(0., 0.);
-    glVertex2d(0.5, -0.25);
-    glVertex2d(0.5, 0.25);
+    glVertex2d(-0.5, -0.25);
+    glVertex2d(-0.5, 0.25);
     glEnd();
     glTranslated(0, 0, -.045);
 }
@@ -63,7 +63,7 @@ GUIBasePersonHelper::drawAction_drawAsCircle(const double length, const double w
 void
 GUIBasePersonHelper::drawAction_drawAsPoly(const double angle, const double length, const double width) {
     // draw pedestrian shape
-    glRotated(GeomHelper::naviDegree(angle) - 180, 0, 0, -1);
+    glRotated(RAD2DEG(angle), 0, 0, 1);
     glScaled(length, width, 1);
     RGBColor lighter = GLHelper::getColor().changedBrightness(51);
     glTranslated(0, 0, .045);
@@ -74,7 +74,7 @@ GUIBasePersonHelper::drawAction_drawAsPoly(const double angle, const double leng
     glBegin(GL_TRIANGLES);
     glVertex2d(0.0, -0.2);
     glVertex2d(0.0, 0.2);
-    glVertex2d(-0.6, 0.0);
+    glVertex2d(0.6, 0.0);
     glEnd();
     glTranslated(0, 0, -.045);
     // body

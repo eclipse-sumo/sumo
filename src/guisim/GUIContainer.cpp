@@ -212,11 +212,13 @@ GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     Position p1 = getPosition();
+    double angle = getAngle();
     if (getCurrentStageType() == MSStageType::DRIVING && !isWaiting4Vehicle()) {
-        p1 = myPositionInVehicle;
+        p1 = myPositionInVehicle.pos;
+        angle = myPositionInVehicle.angle;
     }
     glTranslated(p1.x(), p1.y(), getType());
-    glRotated(90, 0, 0, 1);
+    glRotated(RAD2DEG(angle), 0, 0, 1);
     // set container color
     setColor(s);
     // scale
@@ -405,7 +407,6 @@ GUIContainer::getSpeed() const {
 void
 GUIContainer::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const {
     // draw pedestrian shape
-    glRotated(RAD2DEG(getAngle() + M_PI / 2.), 0, 0, 1);
     glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
     glBegin(GL_QUADS);
     glVertex2d(0, 0.5);

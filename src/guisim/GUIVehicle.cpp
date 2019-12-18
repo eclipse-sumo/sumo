@@ -311,9 +311,10 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         carriageLengthWithGap = (length - locomotiveLength) / (numCarriages - 1);
         carriageLength = carriageLengthWithGap - carriageGap;
     }
-    const int firstPassengerCarriage = defaultLength == locomotiveLength || numCarriages == 1 ? 0 : 1;
-    const int totalSeats = getVType().getPersonCapacity() + getVType().getContainerCapacity();
-    const int seatsPerCarriage = (int)ceil(totalSeats / (numCarriages - firstPassengerCarriage));
+    const int firstPassengerCarriage = defaultLength == locomotiveLength || numCarriages == 1 || (getVClass() & SVC_RAIL_CLASSES) == 0 ? 0 : 1;
+    const int firstContainerCarriage = numCarriages == 1 || getVehicleType().getGuiShape() == SVS_TRUCK_1TRAILER ? 0 : 1;
+    const int seatsPerCarriage = (int)ceil(getVType().getPersonCapacity() / (numCarriages - firstPassengerCarriage));
+    const int containersPerCarriage = (int)ceil(getVType().getContainerCapacity() / (numCarriages - firstContainerCarriage));
     // lane on which the carriage front is situated
     MSLane* lane = myLane;
     int furtherIndex = 0;
@@ -324,9 +325,13 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     double carriageOffset = myState.pos();
     double carriageBackOffset = myState.pos() - firstCarriageLength;
     // handle seats
-    int requiredSeats = getNumPassengers() + getNumContainers();
+    int requiredSeats = getNumPassengers();
+    int requiredPositions = getNumContainers();
     if (requiredSeats > 0) {
         mySeatPositions.clear();
+    }
+    if (requiredPositions > 0) {
+        myContainerPositions.clear();
     }
     Position front, back;
     double angle = 0.;
@@ -366,7 +371,10 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         const double drawnCarriageLength = front.distanceTo2D(back);
         angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (double) 180.0 / (double) M_PI;
         if (i >= firstPassengerCarriage) {
-            computeSeats(front, back, seatsPerCarriage, exaggeration, requiredSeats);
+            computeSeats(front, back, SUMO_const_waitingPersonWidth, seatsPerCarriage, exaggeration, requiredSeats, mySeatPositions);
+        }
+        if (i >= firstContainerCarriage) {
+            computeSeats(front, back, SUMO_const_waitingContainerWidth, containersPerCarriage, exaggeration, requiredPositions, myContainerPositions);
         }
         glPushMatrix();
         glTranslated(front.x(), front.y(), getType());
@@ -422,7 +430,10 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     glRotated(degAngle, 0, 0, 1);
     glScaled(exaggeration, upscaleLength, 1);
     if (mySeatPositions.size() == 0) {
-        mySeatPositions.push_back(back);
+        mySeatPositions.push_back(Seat(back, DEG2RAD(angle)));
+    }
+    if (myContainerPositions.size() == 0) {
+        myContainerPositions.push_back(Seat(back, DEG2RAD(angle)));
     }
 }
 
