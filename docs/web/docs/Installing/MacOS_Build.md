@@ -33,6 +33,17 @@ brew tap dlr-ts/sumo
 brew install sumo
 ```
 
+Set the **SUMO_HOME** environment variable. To do so, open .bash_profile in TextEdit: 
+
+```
+touch ~/.bash_profile; open ~/.bash_profile
+```
+Just insert the following new line at the end: `export SUMO_HOME=/your/path/to/sumo`
+Restart the Terminal and test the newly added variable:
+```
+echo $SUMO_HOME
+```
+
 After the installation you need to log out/in in order to let X11 start
 automatically, when calling a gui-based application like "sumo-gui".
 (Alternatively, you may start X11 manually by pressing *cmd-space* and
