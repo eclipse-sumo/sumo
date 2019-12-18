@@ -27,6 +27,8 @@ permalink: /ChangeLog/
 - SUMO-GUI
   - dead-end links in the middle of a road are now highlighed in magenta to highlight connectivity problems. Issue #6391
 
+- NETCONVERT
+  - added options **--numerical-ids.edge-start INT**, **--numerical-ids.node-start INT** to relabel network elements with numbers starting at the given value. Issue #6372
 - TraCI
   - Added context subscription filter that filters in a given range around the vehicles route 'addSubscriptionFilterLateralDistance'. Issue #6287
 
