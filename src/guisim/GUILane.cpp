@@ -331,6 +331,7 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLi
     const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
     if (link == nullptr) {
         if (myEdge->getNumSuccessors() == 0 && myEdge->getToJunction()->getOutgoing().size() > 0
+                && (myEdge->getPermissions() & ~SVC_PEDESTRIAN) != 0
                 && (myEdge->getToJunction()->getOutgoing().size() > 1 || 
                     myEdge->getToJunction()->getOutgoing().front()->getToJunction() != myEdge->getFromJunction())) {
             GLHelper::setColor(GUIVisualizationColorSettings::SUMO_color_DEADEND_SHOW);
