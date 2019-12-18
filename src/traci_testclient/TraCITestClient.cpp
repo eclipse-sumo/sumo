@@ -920,6 +920,9 @@ TraCITestClient::testAPI() {
 
     vehicle.subscribeContext("3", libsumo::CMD_GET_VEHICLE_VARIABLE, 200, vars3, 0, 100);
     vehicle.addSubscriptionFilterFieldOfVision(90);
+
+    vehicle.subscribeContext("4", libsumo::CMD_GET_VEHICLE_VARIABLE, 200, vars3, 0, 100);
+    vehicle.addSubscriptionFilterLateralDistance(50);
     //
 
     simulationStep();
