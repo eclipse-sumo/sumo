@@ -18,6 +18,7 @@
             <xsd:choice maxOccurs="unbounded">
                 <xsd:element minOccurs="0" ref="example_device"/>
                 <xsd:element minOccurs="0" ref="emissions"/>
+                <xsd:element minOccurs="0" ref="taxi"/>
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
@@ -71,6 +72,14 @@
         </xsd:complexType>
     </xsd:element>
 
+    <xsd:element name="taxi">
+        <xsd:complexType>
+            <xsd:attribute name="customers" use="required" type="xsd:nonNegativeInteger"/>
+            <xsd:attribute name="occupiedDistance" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="occupiedTime" use="required" type="nonNegativeFloatType"/>
+        </xsd:complexType>
+    </xsd:element>
+
     <xsd:element name="personinfo">
         <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">
@@ -94,6 +103,7 @@
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="type" use="required" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 

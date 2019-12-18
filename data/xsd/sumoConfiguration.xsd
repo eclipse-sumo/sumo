@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec  9 19:02:57 2019 by Eclipse SUMO Version v1_3_1+1345-8af262fa61
+<!-- generated on Wed Dec 18 09:23:30 2019 by Eclipse SUMO Version v1_4_0+0167-fcd7e0e
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -20,12 +20,13 @@
             <xsd:element name="communication" type="communicationTopicType" minOccurs="0"/>
             <xsd:element name="battery" type="batteryTopicType" minOccurs="0"/>
             <xsd:element name="example_device" type="example_deviceTopicType" minOccurs="0"/>
-            <xsd:element name="elecHybrid_device" type="elecHybrid_deviceTopicType" minOccurs="0"/>
             <xsd:element name="ssm_device" type="ssm_deviceTopicType" minOccurs="0"/>
             <xsd:element name="toc_device" type="toc_deviceTopicType" minOccurs="0"/>
             <xsd:element name="driver_state_device" type="driver_state_deviceTopicType" minOccurs="0"/>
             <xsd:element name="bluelight_device" type="bluelight_deviceTopicType" minOccurs="0"/>
             <xsd:element name="fcd_device" type="fcd_deviceTopicType" minOccurs="0"/>
+            <xsd:element name="elechybrid_device" type="elechybrid_deviceTopicType" minOccurs="0"/>
+            <xsd:element name="taxi_device" type="taxi_deviceTopicType" minOccurs="0"/>
             <xsd:element name="tripinfo_device" type="tripinfo_deviceTopicType" minOccurs="0"/>
             <xsd:element name="traci_server" type="traci_serverTopicType" minOccurs="0"/>
             <xsd:element name="mesoscopic" type="mesoscopicTopicType" minOccurs="0"/>
@@ -61,11 +62,11 @@
             <xsd:element name="emission-output.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="battery-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="battery-output.precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="elechybrid-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="elechybrid-output.precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="elechybrid-output.aggregated" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="chargingstations-output" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="elecHybrid-output" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="elecHybrid-output.precision" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="elecHybrid-output.aggregated" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="overheadWireSegments-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="overheadwiresegments-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="substations-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.geo" type="boolOptionType" minOccurs="0"/>
@@ -147,6 +148,7 @@
             <xsd:element name="default.carfollowmodel" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.speeddev" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.emergencydecel" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="overhead-wire-solver" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="emergencydecel.warning-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="parking.maneuver" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.model" type="strOptionType" minOccurs="0"/>
@@ -156,7 +158,6 @@
             <xsd:element name="pedestrian.striping.jamtime.crossing" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.remote.address" type="strOptionType" minOccurs="0"/>
             <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="overhead-wire-solver" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -236,14 +237,6 @@
             <xsd:element name="device.battery.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.deterministic" type="boolOptionType" minOccurs="0"/>
-        </xsd:all>
-    </xsd:complexType>
-
-    <xsd:complexType name="elecHybrid_deviceTopicType">
-        <xsd:all>
-            <xsd:element name="device.elecHybrid.probability" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="device.elecHybrid.explicit" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="device.elecHybrid.deterministic" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -330,10 +323,29 @@
             <xsd:element name="device.fcd.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.fcd.deterministic" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.fcd.period" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.fcd.radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="person-device.fcd.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="person-device.fcd.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="person-device.fcd.deterministic" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="person-device.fcd.period" type="strOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="elechybrid_deviceTopicType">
+        <xsd:all>
+            <xsd:element name="device.elechybrid.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.elechybrid.explicit" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="device.elechybrid.deterministic" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="taxi_deviceTopicType">
+        <xsd:all>
+            <xsd:element name="device.taxi.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.taxi.explicit" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="device.taxi.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.taxi.dispatch-algorithm" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.taxi.dispatch-period" type="timeOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -393,8 +405,8 @@
             <xsd:element name="registry-viewport" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="window-size" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="window-pos" type="strArrayOptionType" minOccurs="0"/>
-            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tracker-interval" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing-debug" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing.setting-output" type="fileOptionType" minOccurs="0"/>
