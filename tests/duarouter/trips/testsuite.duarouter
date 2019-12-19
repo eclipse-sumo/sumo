@@ -97,6 +97,9 @@ write-trips.geo
 # test reading trips with geo-coordinates
 geoTrips
 
+# test reading trips with geo-coordinates
+geoTrips_distance
+
 # test trip with intermediate container stop
 containerStop
 
