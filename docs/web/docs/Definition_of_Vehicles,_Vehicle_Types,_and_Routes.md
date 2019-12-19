@@ -998,17 +998,19 @@ as output (device.fcd) or behavior (device.rerouting).
 The following device names are supported and can be used for the
 placeholder `<DEVICENAME>` below
 
-- emission
-- battery
-- btreiver
-- btsender
-- bluelight
-- rerouting
+- [emission](Models/Emissions.md)
+- [battery](Models/Electric.md)
+- [elechybrid](Models/ElectricHybrid.md)
+- [btreiver](Simulation/Bluetooth.md)
+- [btsender](Simulation/Bluetooth.md)
+- [bluelight](Simulation/Emergency.md)
+- [rerouting](Demand/Automatic_Routing.md)
 - [ssm](Simulation/Output/SSM_Device.md)
 - [toc](ToC_Device.md)
 - [driverstate](Driver_State.md)
-- fcd
-- example
+- [fcd](Simulation/Output/FCDOutput.md)
+- [Demand Responsive Transport (Taxis)](Simulation/Taxi.md)
+- [example](Developer/How_To/Device.md)
 
 ## Automatic assignment
 
