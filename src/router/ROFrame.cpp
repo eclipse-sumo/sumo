@@ -127,6 +127,9 @@ ROFrame::fillOptions(OptionsCont& oc) {
     oc.doRegister("with-taz", new Option_Bool(false));
     oc.addDescription("with-taz", "Processing", "Use origin and destination zones (districts) for in- and output");
 
+    oc.doRegister("mapmatch.distance", new Option_Float(100));
+    oc.addDescription("mapmatch.distance", "Processing", "Maximum distance when mapping input coordinates (fromXY etc.) to the road network");
+
     oc.doRegister("bulk-routing", new Option_Bool(false));
     oc.addDescription("bulk-routing", "Processing", "Aggregate routing queries with the same origin");
 

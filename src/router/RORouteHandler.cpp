@@ -65,6 +65,7 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myErrorOutput(ignoreErrors ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
     myBegin(string2time(OptionsCont::getOptions().getString("begin"))),
     myKeepVTypeDist(OptionsCont::getOptions().getBool("keep-vtype-distributions")),
+    myMapMatchingDistance(OptionsCont::getOptions().getFloat("mapmatch.distance")),
     myCurrentVTypeDistribution(nullptr),
     myCurrentAlternatives(nullptr),
     myLaneTree(nullptr) {
@@ -794,7 +795,6 @@ RORouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
 void
 RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo,
                               ConstROEdgeVector& into, const std::string& rid) {
-    const double range = 100;
     NamedRTree* t = getLaneTree();
     if (geo && !GeoConvHelper::getFinal().usingGeoProjection()) {
         WRITE_ERROR("Cannot convert geo-positions because the network has no geo-reference");
@@ -812,7 +812,7 @@ RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo,
         }
         Boundary b;
         b.add(pos);
-        b.grow(range);
+        b.grow(myMapMatchingDistance);
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         std::set<const Named*> lanes;
