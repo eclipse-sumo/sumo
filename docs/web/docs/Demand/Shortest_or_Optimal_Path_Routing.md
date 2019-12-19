@@ -49,7 +49,7 @@ the router using an XML-file. The syntax of a single trip definition is:
 | viaLonLat   | float, float [float,float]    | The network position to pass along the way in geo-coordinates  [note](#Mapmatching)   |
 
 ## Mapmatching
-Since version 1.2 DUAROUTER supports mapping positions to roads using attributes that end with 'XY' or 'LonLat'. The latter only works in networks that are geo-referenced. The maximum distance for map-matching can be configure using option **--mapmatch.distance** (since version 1.5)
+Since version 1.2 DUAROUTER supports mapping positions to roads using attributes that end with 'XY' or 'LonLat'. The latter only works in networks that are geo-referenced. The maximum distance for map-matching can be configured using option **--mapmatch.distance** (since version 1.5)
 
 !!! caution
     SUMO does not yet support these mapping attributes.
