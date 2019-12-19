@@ -60,7 +60,7 @@ Different types of encounters, e.g. crossing, merging, or lead/follow situations
 
 The following table lists the different encounter types along with their codes, which will appear in the output file. 
 
-| Code | Name                       | Description           | [Space Gap](#space_gap_definitions) | [Speed Difference] | [Conflict Entry Point](#conflict_definitions) |
+| Code | Name                       | Description           | [Space Gap](#space_gap_definitions) | Speed Difference | [Conflict Entry Point](#conflict_definitions) |
 |------|----------------------------|-----------------------|-------------------------------------|--------------------|-----------------------------------------------|
 | 0    | NOCONFLICT_AHEAD           | Foe vehicle is closer than range, but not on a lane conflicting with the ego's route ahead.                                                                                                                               ||||
 | <font color="lightgray">1    | <font color="lightgray">FOLLOWING                  | <font color="lightgray">General follow/lead situation (incomplete type, used only internally).                                                                            ||||
