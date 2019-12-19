@@ -803,10 +803,13 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
         std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
         const std::vector<std::string>& entries = mySubTopicEntries.find(*i)->second;
         bool hadOne = false;
-        for (std::vector<std::string>::const_iterator j = entries.begin(); j != entries.end(); ++j) {
-            Option* o = getSecure(*j);
+        for (const std::string& name : entries) {
+            Option* o = getSecure(name);
             bool write = complete || (filled && !o->isDefault());
             if (!write) {
+                continue;
+            }
+            if (name == "registry-viewport" && !complete) {
                 continue;
             }
             if (!hadOne) {
@@ -817,12 +820,12 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 os << "        <!-- " << StringUtils::escapeXML(o->getDescription(), inComment) << " -->" << std::endl;
             }
             // write the option and the value (if given)
-            os << "        <" << *j << " value=\"";
+            os << "        <" << name << " value=\"";
             if (o->isSet() && (filled || o->isDefault())) {
                 os << StringUtils::escapeXML(o->getValueString(), inComment);
             }
             if (complete) {
-                std::vector<std::string> synonymes = getSynonymes(*j);
+                std::vector<std::string> synonymes = getSynonymes(name);
                 if (!synonymes.empty()) {
                     os << "\" synonymes=\"";
                     for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
