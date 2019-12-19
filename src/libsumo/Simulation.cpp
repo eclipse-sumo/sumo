@@ -670,6 +670,10 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
             return toString(bs->getMyName());
         } else if (attrName == "lane") {
             return bs->getLane().getID();
+        } else if (attrName == "beginPosition"){
+            return toString(bs->getBeginLanePosition());
+        } else if (attrName == "endPosition"){
+            return toString(bs->getEndLanePosition());
         } else if (bs->knowsParameter(attrName)) {
             return bs->getParameter(attrName);
         } else {
