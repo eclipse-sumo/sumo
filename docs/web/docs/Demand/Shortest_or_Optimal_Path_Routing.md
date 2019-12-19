@@ -41,6 +41,19 @@ the router using an XML-file. The syntax of a single trip definition is:
 | arrivalLane    | int/string (≥0,"current")                               | The lane at which the vehicle shall leave the network<br><br>**Note:** see [Definition of Vehicles, Vehicle Types, and Routes#Vehicles and Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes)          |
 | arrivalPos     | float(m)/string (≥0<sup>(1)</sup>,"random","max")       | The position at which the vehicle shall leave the network<br><br>**Note:** see [Definition of Vehicles, Vehicle Types, and Routes#Vehicles and Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes)       |
 | arrivalSpeed   | float(m/s)/string (≥0,"current")                        | The speed with which the vehicle shall leave the network<br><br>**Note:** see [Definition of Vehicles, Vehicle Types, and Routes#Vehicles and Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes)         |
+| fromXY   | float, float    | The network position from which to depart [note](#Mapmatching)    |
+| toXY   | float, float    | The network position from which to depart [note](#Mapmatching)    |
+| viaXY   | float, float [float,float]    | The network positions to pass along the way [note](#Mapmatching)   |
+| fromLonLat   | float, float    | The network position from which to depart in geo-coordinates [note](#Mapmatching)    |
+| toLonLat   | float, float    | The network position from which to depart in geo-coordinates [note](#Mapmatching)    |
+| viaLonLat   | float, float [float,float]    | The network position to pass along the way in geo-coordinates  [note](#Mapmatching)   |
+
+## Mapmatching
+Since version 1.2 DUAROUTER supports mapping positions to roads using attributes that end with 'XY' or 'LonLat'. The latter only works in networks that are geo-referenced. The maximum distance for map-matching can be configure using option **--mapmatch.distance** (since version 1.5)
+
+!!! caution
+    SUMO does not yet support these mapping attributes.
+## Vehicle Types
 
 If any trips use the `type` attribute, the
 referenced `vType` element must be put into
