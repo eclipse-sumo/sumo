@@ -5,7 +5,10 @@ permalink: /Simulation/Taxi
 # Introduction
 Since version 1.5 SUMO supports simulation of demand responsive transport (DRT)
 via the taxi device. This allows a fleet of taxis to service customer requests
-based on a configurable dispatch algorithm
+based on a configurable dispatch algorithm.
+
+!!! note
+    While the taxi capabilities are under development, their status can be checked via Issue #6418.
 
 # Equipping vehicles
 A vehicle can be equipped with an Taxi device to make it part of the taxi fleet.
@@ -27,7 +30,7 @@ simulation until the first dispatch is received.
 # Taxi requests
 
 ## Direct ride hailing
-A person can be defined as taxi customr with the following definition
+A person can be defined as taxi customer with the following definition:
 
 ```
     <person id="p0" depart="0.00">
@@ -40,14 +43,14 @@ The dispatch algorithm assigns taxis to waiting customers. The algorithm is
 selected using option **--device.taxi.dispatch-algorithm ALGONAME**. The following
 algorithms are available
 - greedy: Assigns taxis to customers in the order of their reservations. The
-  closest taxi (in terms of travel time) is assigned. If the reservation data is
+  closest taxi (in terms of travel time) is assigned. If the reservation date is
   too far in the future, the customr is postponed
 
 - greedyClosest: For each available taxi, the closest customer (in terms of
-  travel time) is assigned. If the reservation data is too far in the future,
+  travel time) is assigned. If the reservation date is too far in the future,
   the customr is postponed.
 
-!!! Note:
+!!! note:
     User-contributed dispatch algorithms are welcome.
 
 # Outputs
