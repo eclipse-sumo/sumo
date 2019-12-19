@@ -60,30 +60,50 @@ Different types of encounters, e.g. crossing, merging, or lead/follow situations
 
 The following table lists the different encounter types along with their codes, which will appear in the output file. 
 
-| Code | Name                       | Description                                                                                                                              |
-|------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| 0    | NOCONFLICT_AHEAD           | Foe vehicle is closer than range, but not on a lane conflicting with the ego's route ahead.                                                                                                            |
-| <font color="lightgray">1    | <font color="lightgray">FOLLOWING                  | <font color="lightgray">General follow/lead situation (incomplete type, used only internally).                                                                                                                                 |
-| 2    | FOLLOWING_FOLLOWER         | Ego vehicle is following the foe vehicle.                                                                                                                                                              |
-| 3    | FOLLOWING_LEADER           | Foe vehicle is following the ego vehicle.                                                                                                                                                              |
-| 4    | ON_ADJACENT_LANES          | Foe vehicle is on a neighboring lane of the ego vehicle's lane, driving in the same direction.                                                                                                         |
-| <font color="lightgray">5    | <font color="lightgray">MERGING                    | <font color="lightgray">Ego and foe share an upcoming edge of their routes while the merging point for the routes is still ahead (incomplete type, only used internally).                                                      |
-| 6    | MERGING_LEADER             | As 5. The estimated arrival at the merge point is earlier for the foe than for the ego vehicle.                                                                                                        |
-| 7    | MERGING_FOLLOWER           | As 5. The estimated arrival at the merge point is earlier for the ego than for the foe vehicle.                                                                                                        |
-| 8    | MERGING_ADJACENT           | As 5. The Vehicles' current routes lead to adjacent lanes on the same edge.                                                                                                                            |
-| <font color="lightgray">9    | <font color="lightgray">CROSSING                   | <font color="lightgray">Ego's and foe's routes have crossing edges (incomplete type, only used internally)                                                                                                                     |
-| 10   | CROSSING_LEADER            | As 6. The estimated arrival of the ego at the conflict point is earlier than for the foe vehicle.                                                                                                      |
-| 11   | CROSSING_FOLLOWER          | As 6. The estimated arrival of the foe at the conflict point is earlier than for the ego vehicle.                                                                                                      |
-| <font color="lightgray">12   | <font color="lightgray">EGO_ENTERED_CONFLICT_AREA  | <font color="lightgray">The encounter is a possible crossing conflict, and the ego vehicle has entered the conflict area. (Is currently not logged -> TODO)                                                                    |
-| <font color="lightgray">13   | <font color="lightgray">FOE_ENTERED_CONFLICT_AREA  | <font color="lightgray">The encounter is a possible crossing conflict, and the foe vehicle has entered the conflict area. (Is currently not logged -> TODO)                                                                    |
-| 14   | EGO_LEFT_CONFLICT_AREA     | The encounter has been a possible crossing conflict, but the ego vehicle has left the conflict area.                                                                                                   |
-| 15   | FOE_LEFT_CONFLICT_AREA     | The encounter has been a possible crossing conflict, but the foe vehicle has left the conflict area.                                                                                                   |
-| <font color="lightgray">16   | <font color="lightgray">BOTH_ENTERED_CONFLICT_AREA | <font color="lightgray">The encounter has been a possible crossing conflict, and both vehicles have entered the conflict area (auxiliary type, only used internally, is evaluated to BOTH_LEFT_CONFLICT_AREA or to COLLISION). |
-| 17   | BOTH_LEFT_CONFLICT_AREA    | The encounter has been a possible crossing conflict, but both vehicle have left the conflict area.                                                                                                     |
-| 18   | FOLLOWING_PASSED           | The encounter has been a following situation, but is not active any more.                                                                                                                              |
-| 19   | MERGING_PASSED             | The encounter has been a merging situation, but is not active any more.                                                                                                                                |
-| 20   | ONCOMING                   | The vehicles are driving [towards each other on the same lane](../../Simulation/OppositeDirectionDriving.md).                                                                                                                                          |
-| <font color="lightgray">111  | <font color="lightgray">COLLISION                  | <font color="lightgray">Collision (currently not implemented, might be differentiated further).                                                                                                                                |
+| Code | Name                       | Description           | [Space Gap](#space_gap_definitions) | [Speed Difference] | [Conflict Entry Point](#conflict_definitions) |
+|------|----------------------------|-----------------------|-------------------------------------|--------------------|-----------------------------------------------|
+| 0    | NOCONFLICT_AHEAD           | Foe vehicle is closer than range, but not on a lane conflicting with the ego's route ahead.                                                                                                                               ||||
+| <font color="lightgray">1    | <font color="lightgray">FOLLOWING                  | <font color="lightgray">General follow/lead situation (incomplete type, used only internally).                                                                            ||||
+| 2    | FOLLOWING_FOLLOWER         | Ego vehicle is following the foe vehicle.                                                                                                                                                                                 | foeBack - egoFront | egoSpeed - foeSpeed | foeBack |
+| 3    | FOLLOWING_LEADER           | Foe vehicle is following the ego vehicle.                                                                                                                                                                                 | egoBack - foeFront | foeSpeed - egoSpeed | egoBack |
+| 4    | ON_ADJACENT_LANES          | Foe vehicle is on a neighboring lane of the ego vehicle's lane, driving in the same direction.                                                                                                                            ||||
+| <font color="lightgray">5    | <font color="lightgray">MERGING                    | <font color="lightgray">Ego and foe share an upcoming edge of their routes while the merging point for the routes is still ahead (incomplete type, only used internally). ||||
+| 6    | MERGING_LEADER             | As 5. The estimated arrival at the merge point is earlier for the foe than for the ego vehicle.                                                                                                                           | foeEntryDist | foeSpeed | mergePoint|
+| 7    | MERGING_FOLLOWER           | As 5. The estimated arrival at the merge point is earlier for the ego than for the foe vehicle.                                                                                                                           | egoEntryDist | egoSpeed | mergePoint|
+| 8    | MERGING_ADJACENT           | As 5. The Vehicles' current routes lead to adjacent lanes on the same edge.                                                                                                                                               ||||
+| <font color="lightgray">9    | <font color="lightgray">CROSSING                   | <font color="lightgray">Ego's and foe's routes have crossing edges (incomplete type, only used internally)                                                                ||||
+| 10   | CROSSING_LEADER            | As 6. The estimated arrival of the ego at the conflict point is earlier than for the foe vehicle.                                                                                                                         | foeEntryDist | foeSpeed | foeCrossingPoint|
+| 11   | CROSSING_FOLLOWER          | As 6. The estimated arrival of the foe at the conflict point is earlier than for the ego vehicle.                                                                                                                         | egoEntryDist | egoSpeed | egoCrossingPoint|
+| <font color="lightgray">12   | <font color="lightgray">EGO_ENTERED_CONFLICT_AREA  | <font color="lightgray">The encounter is a possible crossing conflict, and the ego vehicle has entered the conflict area. (Is currently not logged -> TODO)               | foeEntryDist | foeSpeed | foeCrossingPoint|
+| <font color="lightgray">13   | <font color="lightgray">FOE_ENTERED_CONFLICT_AREA  | <font color="lightgray">The encounter is a possible crossing conflict, and the foe vehicle has entered the conflict area. (Is currently not logged -> TODO)               | egoEntryDist | egoSpeed | egoCrossingPoint|
+| 14   | EGO_LEFT_CONFLICT_AREA     | The encounter has been a possible crossing conflict, but the ego vehicle has left the conflict area.                                                                                                                      ||||
+| 15   | FOE_LEFT_CONFLICT_AREA     | The encounter has been a possible crossing conflict, but the foe vehicle has left the conflict area.                                                                                                                      ||||
+| <font color="lightgray">16   | <font color="lightgray">BOTH_ENTERED_CONFLICT_AREA | <font color="lightgray">The encounter has been a possible crossing conflict, and both vehicles have entered the conflict area (auxiliary type, only used internally, is evaluated to BOTH_LEFT_CONFLICT_AREA or to COLLISION). ||||
+| 17   | BOTH_LEFT_CONFLICT_AREA    | The encounter has been a possible crossing conflict, but both vehicle have left the conflict area.                                                                                                                        ||||
+| 18   | FOLLOWING_PASSED           | The encounter has been a following situation, but is not active any more.                                                                                                                                                 ||||
+| 19   | MERGING_PASSED             | The encounter has been a merging situation, but is not active any more.                                                                                                                                                   ||||
+| 20   | ONCOMING                   | The vehicles are driving [towards each other on the same lane](../../Simulation/OppositeDirectionDriving.md).                                                                                                             | foeFront - egoFront | egoSpeed + foeSpeed | midpoint between vehicles|
+| <font color="lightgray">111  | <font color="lightgray">COLLISION                  | <font color="lightgray">Collision (currently not implemented, might be differentiated further).                                                                           ||||
+
+
+## Space Gap Definitions
+- front: position of front bumper of the vehicle as offset from the start of its lane
+- back: position of back bumper of the vehicle as offset from the start of its lane
+
+!!! note
+    When ego and foe vehicles are on subsequent lanes, the gaps are computed by adding the distances of the intermediate lanes
+
+## Conflict Definitions
+For each conflict there is an entry point. For merging and crossing conflicts there is also an exit poin
+The points may be slightly different for both ego and foe vehicle because the point is computed in reference to the vehicle front or rear bumper whereas a collision could happen with another part of the vehicle.
+
+- entryDist: distance between the front bumper of the vehicle and the entry point along the lane sequence
+- exitDist for merging and oncoming encounters: entryDist + vehicleLength
+- exitDist for crossing encounters: entryDist + followerLength + leaderWidth
+- mergePoint: start of the first common lane of ego and foe vehicle
+- crossingPoint: point where the lane geometry sequence (center lines) of both vehicles intersects
+- egoCrossingPoint: crossing point shifted upstream along the ego lanes by half of the foe vehicle width
+- foeCrossingPoint: crossing point shifted upstream along the foe lanes by half of the ego vehicle width
 
 ## Available SSMs
 Currently, the following safety surrogate measures are implemented:
