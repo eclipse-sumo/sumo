@@ -195,7 +195,7 @@ behavior. For a description see
 
 # Safety-Related Outputs
 
-- [Surrogate Safety Measures](../Simulation/Output/SSM_Device.md)
+- [Surrogate Safety Measures (SSM)](../Simulation/Output/SSM_Device.md)
   (headway, brake rates, time to collision etc.)
 - The [Instant Induction
   Loop](../Simulation/Output/Instantaneous_Induction_Loops_Detectors.md)
