@@ -41,7 +41,7 @@ class AGChild : public AGPerson {
 public:
     AGChild(int age) :
         AGPerson(age),
-        school(NULL) {};
+        mySchool(nullptr) {};
     void print() const;
     bool setSchool(AGSchool* school);
     /**
@@ -60,7 +60,7 @@ public:
     int getSchoolClosing() const;
 
 private:
-    AGSchool* school;
+    AGSchool* mySchool;
 };
 
 #endif

@@ -33,22 +33,22 @@
 // method definitions
 // ===========================================================================
 void AGBus::setName(std::string name) {
-    this->name = name;
+    myName = name;
 }
 
 int
 AGBus::getDeparture() {
-    return departureTime;
+    return myDepartureTime;
 }
 
 std::string
 AGBus::getName() {
-    return name;
+    return myName;
 }
 
 void
 AGBus::print() const {
-    std::cout << "- Bus:" << " name=" << name << " depTime=" << departureTime << std::endl;
+    std::cout << "- Bus:" << " name=" << myName << " depTime=" << myDepartureTime << std::endl;
 }
 
 /****************************************************************************/

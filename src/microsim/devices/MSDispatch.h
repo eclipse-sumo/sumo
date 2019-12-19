@@ -135,7 +135,6 @@ public:
     virtual void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet);
 
 protected:
-
     /// @brief which router/edge weights to use
     int myRoutingMode;
 
@@ -145,6 +144,11 @@ protected:
     /// @brief recheck interval for early reservations
     const SUMOTime myRecheckTime = TIME2STEPS(120);
     const SUMOTime myRecheckSafety = TIME2STEPS(3600);
+
+private:
+    /// @brief Invalidated assignment operator.
+    MSDispatch_Greedy& operator=(const MSDispatch_Greedy&) = delete;
+
 };
 
 

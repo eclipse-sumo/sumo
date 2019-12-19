@@ -157,8 +157,8 @@ AGTime::setSecond(int s) {
 }
 
 void
-AGTime::setTime(int mySeconds) {
-    this->mySeconds = mySeconds;
+AGTime::setTime(int seconds) {
+    mySeconds = seconds;
 }
 
 void
