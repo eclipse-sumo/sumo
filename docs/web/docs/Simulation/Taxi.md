@@ -42,6 +42,7 @@ A person can be defined as taxi customer with the following definition:
 The dispatch algorithm assigns taxis to waiting customers. The algorithm is
 selected using option **--device.taxi.dispatch-algorithm ALGONAME**. The following
 algorithms are available
+
 - greedy: Assigns taxis to customers in the order of their reservations. The
   closest taxi (in terms of travel time) is assigned. If the reservation date is
   too far in the future, the customr is postponed
