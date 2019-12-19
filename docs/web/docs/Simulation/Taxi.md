@@ -50,7 +50,7 @@ algorithms are available
   travel time) is assigned. If the reservation date is too far in the future,
   the customr is postponed.
 
-!!! note:
+!!! note
     User-contributed dispatch algorithms are welcome.
 
 # Outputs
