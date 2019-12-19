@@ -126,6 +126,7 @@ documentation, submission of code, or other results.
 - [Wireless Device Detection](Simulation/Bluetooth.md)
 - [Emergency Vehicles](Simulation/Emergency.md)
 - [Simple Platooning (Simpla)](Simpla.md)
+- [Demand Responsive Transport (Taxis)](Simulation/Taxi.md)
 
 ## Model details
 
