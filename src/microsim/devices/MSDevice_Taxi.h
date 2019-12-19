@@ -75,6 +75,7 @@ public:
 
     /// add new reservation
     static void addReservation(MSTransportable* person,
+            const std::set<std::string>& lines,
             SUMOTime reservationTime, 
             SUMOTime pickupTime,
             const MSEdge* from, double fromPos,

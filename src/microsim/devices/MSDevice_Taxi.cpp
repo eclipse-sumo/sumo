@@ -45,6 +45,8 @@ Command* MSDevice_Taxi::myDispatchCommand(nullptr);
 // @brief the list of available taxis
 std::vector<MSDevice_Taxi*> MSDevice_Taxi::myFleet;
 
+#define TAXI_SERVICE "taxi"
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -94,15 +96,18 @@ MSDevice_Taxi::initDispatch() {
 
 void
 MSDevice_Taxi::addReservation(MSTransportable* person,
+        const std::set<std::string>& lines,
         SUMOTime reservationTime, 
         SUMOTime pickupTime,
         const MSEdge* from, double fromPos,
         const MSEdge* to, double toPos) 
 {
-    if (myDispatchCommand == nullptr) {
-        initDispatch();
+    if (lines.size() == 1 && *lines.begin() == TAXI_SERVICE) {
+        if (myDispatchCommand == nullptr) {
+            initDispatch();
+        }
+        myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos);
     }
-    myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos);
 }
 
 
