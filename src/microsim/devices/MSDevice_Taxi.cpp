@@ -74,6 +74,11 @@ MSDevice_Taxi::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>
         MSDevice_Taxi* device = new MSDevice_Taxi(v, "taxi_" + v.getID());
         into.push_back(device);
         myFleet.push_back(device);
+        if (v.getParameter().line == "") {
+            // automatically set the line so that persons are willing to enter
+            // (see MSStageDriving::isWaitingFor)
+            const_cast<SUMOVehicleParameter&>(v.getParameter()).line = TAXI_SERVICE;
+        }
     }
 }
 
