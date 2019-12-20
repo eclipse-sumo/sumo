@@ -6259,8 +6259,8 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh) const {
             SUMOTime egoET = myJunctionConflictEntryTime;
             SUMOTime foeET = veh->myJunctionEntryTime;
             // check relationship between link and foeLane
-            if (foeLane->getEdge().getNormalBefore() == link->getInternalLaneBefore()->getEdge().getNormalBefore()) {
-                // we are entering the junction from the same edge
+            if (foeLane->getNormalPredecessorLane() == link->getInternalLaneBefore()->getNormalPredecessorLane()) {
+                // we are entering the junction from the same lane
                 egoET = myJunctionEntryTimeNeverYield;
                 foeET = veh->myJunctionEntryTimeNeverYield;
             } else {
