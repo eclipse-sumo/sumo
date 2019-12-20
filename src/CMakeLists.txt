@@ -69,7 +69,7 @@ add_dependencies(netconvert generate-version-h)
 add_executable(od2trips od2trips_main.cpp)
 set_target_properties(od2trips PROPERTIES OUTPUT_NAME od2trips${BINARY_SUFFIX})
 set_target_properties(od2trips PROPERTIES OUTPUT_NAME_DEBUG od2trips${BINARY_SUFFIX}D)
-target_link_libraries(od2trips od utils_vehicle ${commonlibs})
+target_link_libraries(od2trips od router ${commonvehiclelibs})
 add_dependencies(od2trips generate-version-h)
 
 install(TARGETS sumo netconvert od2trips RUNTIME DESTINATION bin)
