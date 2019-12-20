@@ -135,6 +135,9 @@ struct GNEGeometry {
         /// @brief The lengths of the single shape parts
         const std::vector<double>& getShapeLengths() const;
 
+        /// @brief The colors of the single shape parts
+        const std::vector<RGBColor>& getShapeColors() const;
+
     private:
         /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
@@ -142,11 +145,14 @@ struct GNEGeometry {
         /// @brief element shape
         PositionVector myShape;
 
-        /// @brief The rotations of the shape (note: Always size = myShape.size()-1)
+        /// @brief The rotations of the dotted shape
         std::vector<double> myShapeRotations;
 
-        /// @brief The lengths of the shape (note: Always size = myShape.size()-1)
+        /// @brief The lengths of the dotted shape
         std::vector<double> myShapeLengths;
+    
+        /// @brief The colors  of the dotted shape
+        std::vector<RGBColor> myShapeColors; 
 
         /// @brief Invalidated assignment operator
         DottedGeometry& operator=(const DottedGeometry& other) = delete;
@@ -380,6 +386,9 @@ struct GNEGeometry {
 
     /// @brief draw geometry segment
     static void drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometry::Segment& segment, const double width);
+
+    /// @brief draw a dotted contour around the given Non closed shape with certain width
+    static void drawShapeDottedContour(const GUIVisualizationSettings& s, const int type, const DottedGeometry& dottedGeometry);
 };
 
 #endif

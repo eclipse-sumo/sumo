@@ -208,8 +208,17 @@ GNEGeometry::DottedGeometry::DottedGeometry() {
 
 void
 GNEGeometry::DottedGeometry::updateDottedGeometry(const PositionVector& shape) {
-    // set new shape
-    myShape = shape;
+    // set new resampled shape
+    myShape = shape.resample(2 /*s.widthSettings.dottedContourSegmentLength*/);
+    // resize shapeColors
+    myShapeColors.resize(myShape.size());
+    for (int i = 0; i < (int)myShapeColors.size(); i++) {
+        if (i%2 == 0) {
+            myShapeColors.at(i)=RGBColor::WHITE;
+        } else {
+            myShapeColors.at(i)=RGBColor::BLACK;
+        }
+    }
     // calculate shape rotation and lengths
     calculateShapeRotationsAndLengths();
 }
@@ -230,6 +239,12 @@ GNEGeometry::DottedGeometry::getShapeRotations() const {
 const std::vector<double>&
 GNEGeometry::DottedGeometry::getShapeLengths() const {
     return myShapeLengths;
+}
+
+
+const std::vector<RGBColor>& 
+GNEGeometry::DottedGeometry::getShapeColors() const {
+    return myShapeColors;
 }
 
 
@@ -933,6 +948,26 @@ GNEGeometry::drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometr
     } else {
         // draw a boxline as usual
         GLHelper::drawBoxLines(segment.getShape(), segment.getShapeRotations(), segment.getShapeLengths(), width);
+    }
+}
+
+
+void
+GNEGeometry::drawShapeDottedContour(const GUIVisualizationSettings& s, const int type, const DottedGeometry& dottedGeometry) {
+    // first check that given shape isn't empty
+    if (!s.drawForRectangleSelection && !s.drawForPositionSelection && (dottedGeometry.getShape().size() > 0)) {
+        // push matrix
+        glPushMatrix();
+        // draw contour over shape
+        glTranslated(0, 0, type + 2);
+        // set custom line width
+        glLineWidth((GLfloat)s.widthSettings.dottedContour);
+        // draw contour
+        GLHelper::drawLine(dottedGeometry.getShape(), dottedGeometry.getShapeColors());
+        //restore line width
+        glLineWidth(1);
+        // pop matrix
+        glPopMatrix();
     }
 }
 
