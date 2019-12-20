@@ -60,8 +60,13 @@ int MSVehicleType::myNextIndex = 0;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSVehicleType::MSVehicleType(const SUMOVTypeParameter& parameter)
-    : myParameter(parameter), myWarnedActionStepLengthTauOnce(false), myIndex(myNextIndex++), myCarFollowModel(nullptr), myOriginalType(nullptr) {
+MSVehicleType::MSVehicleType(const SUMOVTypeParameter& parameter) :
+    myParameter(parameter),
+    myWarnedActionStepLengthTauOnce(false),
+    myWarnedActionStepLengthBallisticOnce(false),
+    myIndex(myNextIndex++),
+    myCarFollowModel(nullptr),
+    myOriginalType(nullptr) {
     assert(getLength() > 0);
     assert(getMaxSpeed() > 0);
 
@@ -391,6 +396,20 @@ MSVehicleType::check() {
           << "' is larger than its parameter tau (=" << getCarFollowModel().getHeadwayTime() << ")!"
           << " This may lead to collisions. (This warning is only issued once per vehicle type).";
         WRITE_WARNING(s.str());
+    }
+    if (!myWarnedActionStepLengthBallisticOnce
+            && myParameter.actionStepLength != DELTA_T
+            && MSGlobals::gSemiImplicitEulerUpdate) {
+        myWarnedActionStepLengthBallisticOnce = true;
+        std::string warning2;
+        if (OptionsCont::getOptions().isDefault("step-method.ballistic")) {
+            warning2 = " Setting it now to avoid collisions.";
+            MSGlobals::gSemiImplicitEulerUpdate = false;
+        } else {
+            warning2 = " This may cause collisions.";
+        }
+        WRITE_WARNINGF("Action step length '%' is used for vehicle type '%' but step-method.ballistic was not set." + warning2
+                , STEPS2TIME(myParameter.actionStepLength), getID())
     }
 }
 
