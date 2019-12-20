@@ -1,6 +1,4 @@
 set(microsim_transportables_STAT_SRCS
-        MSCModel_NonInteracting.h
-        MSCModel_NonInteracting.cpp
         MSPerson.cpp
         MSPerson.h
         MSPModel.cpp

@@ -67,7 +67,6 @@
 #include <libsumo/Simulation.h>
 #include <mesosim/MELoop.h>
 #include <microsim/output/MSDetectorControl.h>
-#include <microsim/transportables/MSCModel_NonInteracting.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
@@ -679,7 +678,6 @@ MSNet::clearAll() {
     MSDevice::cleanupAll();
     MSTrigger::cleanup();
     MSCalibrator::cleanup();
-    MSCModel_NonInteracting::cleanup();
     MSDevice_BTsender::cleanup();
     MSDevice_SSM::cleanup();
     MSDevice_ToC::cleanup();

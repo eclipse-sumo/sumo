@@ -69,7 +69,6 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
 
 
 MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {
-    delete myState;
 }
 
 MSStage*
@@ -146,7 +145,7 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
             mySpeed = computeAverageSpeed();
         }
     }
-    MSTransportableControl& pControl = MSNet::getInstance()->getPersonControl();
+    MSTransportableControl& pControl = net->getPersonControl();
     myState = pControl.getMovementModel()->add(dynamic_cast<MSPerson*>(person), this, now);
     if (myState == nullptr) {
         pControl.erase(person);

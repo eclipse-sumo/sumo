@@ -414,7 +414,7 @@ public:
         myState(nullptr), myRoute(route), mySpeed(speed), myDepartPos(departPos), myDepartPosLat(departPosLat) {}
 
     /// destructor
-    virtual ~MSStageMoving() {}
+    virtual ~MSStageMoving();
 
     virtual const MSEdge* getNextRouteEdge() const = 0;
 

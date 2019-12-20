@@ -36,7 +36,6 @@
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
-#include "MSCModel_NonInteracting.h"
 #include "MSStageTranship.h"
 
 
@@ -68,16 +67,22 @@ MSStageTranship::clone() const {
 
 
 void
-MSStageTranship::proceed(MSNet* /* net */, MSTransportable* container, SUMOTime now, MSStage* previous) {
+MSStageTranship::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) {
     myDeparted = now;
     //MSCModel_NonInteracting moves the container straight from start to end in
     //a single step and assumes that moveToNextEdge is only called once)
     //therefor we define that the container is already on its destination edge
     myRouteStep = myRoute.end() - 1;
     myDepartPos = previous->getEdgePos(now);
-    myState = MSCModel_NonInteracting::getModel()->add(container, this, now);
-    (*myRouteStep)->addContainer(container);
+    if (transportable->isPerson()) {
+        myState = net->getPersonControl().getNonInteractingModel()->add(transportable, this, now);
+        (*myRouteStep)->addPerson(transportable);
+    } else {
+        myState = net->getContainerControl().getNonInteractingModel()->add(transportable, this, now);
+        (*myRouteStep)->addContainer(transportable);
+    }
 }
+
 
 const MSEdge*
 MSStageTranship::getEdge() const {

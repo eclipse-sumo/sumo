@@ -59,7 +59,7 @@ public:
     ~MSPModel_Striping();
 
     /// @brief register the given person as a pedestrian
-    MSTransportableStateAdapter* add(MSPerson* person, MSStageMoving* stage, SUMOTime now);
+    MSTransportableStateAdapter* add(MSTransportable* transportable, MSStageMoving* stage, SUMOTime now);
 
     /// @brief remove the specified person from the pedestrian simulation
     void remove(MSTransportableStateAdapter* state);

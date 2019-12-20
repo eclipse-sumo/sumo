@@ -53,8 +53,8 @@ public:
 
     ~MSPModel_NonInteracting();
 
-    /// @brief register the given person as a pedestrian
-    MSTransportableStateAdapter* add(MSPerson* person, MSStageMoving* stage, SUMOTime now);
+    /// @brief register the given transportable
+    MSTransportableStateAdapter* add(MSTransportable* transportable, MSStageMoving* stage, SUMOTime now);
 
     /// @brief remove the specified person from the pedestrian simulation
     void remove(MSTransportableStateAdapter* state);
@@ -67,34 +67,36 @@ public:
 private:
     class MoveToNextEdge : public Command {
     public:
-        MoveToNextEdge(MSPerson* person, MSStageMoving& walk) : myParent(walk), myPerson(person) {}
+        MoveToNextEdge(MSTransportable* transportable, MSStageMoving& walk) : myParent(walk), myTransportable(transportable) {}
         ~MoveToNextEdge() {}
         SUMOTime execute(SUMOTime currentTime);
         void abortWalk() {
-            myPerson = 0;
+            myTransportable = nullptr;
         }
-        const MSPerson* getPerson() const {
-            return myPerson;
+        const MSTransportable* getTransportable() const {
+            return myTransportable;
         }
 
     private:
         MSStageMoving& myParent;
-        MSPerson* myPerson;
+        MSTransportable* myTransportable;
     private:
         /// @brief Invalidated assignment operator.
         MoveToNextEdge& operator=(const MoveToNextEdge&);
     };
 
-    /// @brief abstract base class for managing callbacks to retrieve various state information from the model
+
+    /// @brief implementation of callbacks to retrieve various state information from the model
     class PState : public MSTransportableStateAdapter {
     public:
         PState(MoveToNextEdge* cmd): myCommand(cmd) {};
 
         /// @brief abstract methods inherited from PedestrianState
         /// @{
+        /// @brief return the offset from the start of the current edge measured in its natural direction
         double getEdgePos(const MSStageMoving& stage, SUMOTime now) const;
-        Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
-        double getAngle(const MSStageMoving& stage, SUMOTime now) const;
+        virtual Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
+        virtual double getAngle(const MSStageMoving& stage, SUMOTime now) const;
         SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
         double getSpeed(const MSStageMoving& stage) const;
         const MSEdge* getNextEdge(const MSStageMoving& stage) const;
@@ -106,13 +108,32 @@ private:
             return myCommand;
         }
 
-    private:
+    protected:
         SUMOTime myLastEntryTime;
         SUMOTime myCurrentDuration;
         double myCurrentBeginPos;
         double myCurrentEndPos;
         MoveToNextEdge* myCommand;
+    };
 
+
+    class CState : public PState {
+    public:
+        CState(MoveToNextEdge* cmd) : PState(cmd) {};
+
+        /// @brief the offset for computing container positions when being transhiped
+        static const double LATERAL_OFFSET;
+
+        /// @brief return the network coordinate of the container
+        Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
+        /// @brief return the direction in which the container heading to
+        double getAngle(const MSStageMoving& stage, SUMOTime now) const;
+        /// @brief compute tranship time on edge and update state members
+        SUMOTime computeTranshipTime(const MSEdge* prev, const MSStageMoving& stage, SUMOTime currentTime);
+
+    private:
+        Position myCurrentBeginPosition;  //the position the container is moving from during its tranship stage
+        Position myCurrentEndPosition;  //the position the container is moving to during its tranship stage
     };
 
 private:

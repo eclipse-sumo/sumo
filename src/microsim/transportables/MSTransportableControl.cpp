@@ -33,7 +33,6 @@
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/MSVehicle.h>
-#include <microsim/transportables/MSCModel_NonInteracting.h>
 #include <microsim/transportables/MSPModel_NonInteracting.h>
 #include <microsim/transportables/MSPModel_Striping.h>
 #include <microsim/transportables/MSTransportableControl.h>

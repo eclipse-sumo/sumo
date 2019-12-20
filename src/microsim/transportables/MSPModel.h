@@ -54,7 +54,7 @@ public:
     virtual ~MSPModel() {};
 
     /// @brief register the given person as a pedestrian
-    virtual MSTransportableStateAdapter* add(MSPerson* person, MSStageMoving* stage, SUMOTime now) = 0;
+    virtual MSTransportableStateAdapter* add(MSTransportable* transportable, MSStageMoving* stage, SUMOTime now) = 0;
 
     /// @brief remove the specified person from the pedestrian simulation
     virtual void remove(MSTransportableStateAdapter* state) = 0;
@@ -90,7 +90,7 @@ public:
         UNUSED_PARAMETER(minRight);
         UNUSED_PARAMETER(maxLeft);
         UNUSED_PARAMETER(stopTime);
-        return PersonDist((const MSPerson*)0, -1);
+        return PersonDist(nullptr, -1);
     }
 
     // @brief walking directions

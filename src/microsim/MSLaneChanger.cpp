@@ -813,7 +813,7 @@ MSLaneChanger::checkChange(
         }
     }
     if (blocked == 0 && targetLane->hasPedestrians()) {
-        PersonDist leader = MSNet::getInstance()->getPersonControl().getMovementModel()->nextBlocking(targetLane, vehicle->getBackPositionOnLane(),
+        PersonDist leader = targetLane->nextBlocking(vehicle->getBackPositionOnLane(),
                             vehicle->getRightSideOnLane(), vehicle->getRightSideOnLane() + vehicle->getVehicleType().getWidth(),
                             ceil(vehicle->getSpeed() / vehicle->getCarFollowModel().getMaxDecel()));
         if (leader.first != 0) {

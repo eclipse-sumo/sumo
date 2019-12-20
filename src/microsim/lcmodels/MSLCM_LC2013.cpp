@@ -2046,7 +2046,7 @@ MSLCM_LC2013::adaptSpeedToPedestrians(const MSLane* lane, double& v) {
             std::cout << SIMTIME << " adapt to pedestrians on lane=" << lane->getID() << "\n";
         }
 #endif
-        PersonDist leader = MSNet::getInstance()->getPersonControl().getMovementModel()->nextBlocking(lane, myVehicle.getPositionOnLane(),
+        PersonDist leader = lane->nextBlocking(myVehicle.getPositionOnLane(),
                             myVehicle.getRightSideOnLane(), myVehicle.getRightSideOnLane() + myVehicle.getVehicleType().getWidth(),
                             ceil(myVehicle.getSpeed() / myVehicle.getCarFollowModel().getMaxDecel()));
         if (leader.first != 0) {

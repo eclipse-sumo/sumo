@@ -134,7 +134,12 @@ MSPModel_Striping::~MSPModel_Striping() {
 
 
 MSTransportableStateAdapter*
-MSPModel_Striping::add(MSPerson* person, MSStageMoving* stage, SUMOTime) {
+MSPModel_Striping::add(MSTransportable* transportable, MSStageMoving* stage, SUMOTime) {
+    if (!transportable->isPerson()) {
+        // containers are not supported (TODO add a warning here?)
+        return nullptr;
+    }
+    MSPerson* person = static_cast<MSPerson*>(transportable);
     MSNet* net = MSNet::getInstance();
     if (!myAmActive) {
         net->getBeginOfTimestepEvents()->addEvent(new MovePedestrians(this), net->getCurrentTimeStep() + DELTA_T);
@@ -1264,8 +1269,6 @@ MSPModel_Striping::Obstacle::Obstacle(const PState& ped) :
 // ===========================================================================
 // MSPModel_Striping::PState method definitions
 // ===========================================================================
-
-
 MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, const MSLane* lane):
     myPerson(person),
     myStage(stage),

@@ -66,7 +66,7 @@ public:
     MSStage* clone() const;
 
     /// proceeds to the next step
-    virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, MSStage* previous);
+    virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous);
 
     /// Returns the current edge
     const MSEdge* getEdge() const;

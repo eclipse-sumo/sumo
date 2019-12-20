@@ -1448,7 +1448,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             const double back = v->getBackPositionOnLane(this);
             const double length = v->getVehicleType().getLength();
             const double right = v->getRightSideOnEdge(this) - getRightSideOnEdge();
-            PersonDist leader = MSNet::getInstance()->getPersonControl().getMovementModel()->nextBlocking(this, back, right, right + v->getVehicleType().getWidth());
+            PersonDist leader = nextBlocking(back, right, right + v->getVehicleType().getWidth());
 #ifdef DEBUG_PEDESTRIAN_COLLISIONS
             if (DEBUG_COND && DEBUG_COND2(v)) {
                 std::cout << SIMTIME << " back=" << back << " right=" << right << " person=" << Named::getIDSecure(leader.first) << " dist=" << leader.second << "\n";
@@ -3679,6 +3679,12 @@ MSLane::hasPedestrians() const {
 }
 
 
+PersonDist
+MSLane::nextBlocking(double minPos, double minRight, double maxLeft, double stopTime) const {
+    return MSNet::getInstance()->getPersonControl().getMovementModel()->nextBlocking(this, minPos, minRight, maxLeft, stopTime);
+}
+
+
 bool
 MSLane::checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& dist,  double pos, bool patchSpeed) const {
     if (getEdge().getPersons().size() > 0 && hasPedestrians()) {
@@ -3687,7 +3693,7 @@ MSLane::checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& di
             std::cout << SIMTIME << " check for pedestrians on lane=" << getID() << " pos=" << pos << "\n";
         }
 #endif
-        PersonDist leader = MSNet::getInstance()->getPersonControl().getMovementModel()->nextBlocking(this, pos - aVehicle->getVehicleType().getLength(),
+        PersonDist leader = nextBlocking(pos - aVehicle->getVehicleType().getLength(),
                             aVehicle->getRightSideOnLane(), aVehicle->getRightSideOnLane() + aVehicle->getVehicleType().getWidth(), ceil(speed / aVehicle->getCarFollowModel().getMaxDecel()));
         if (leader.first != 0) {
             const double gap = leader.second - aVehicle->getVehicleType().getLengthWithGap();

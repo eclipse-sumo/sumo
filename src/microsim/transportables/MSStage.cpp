@@ -455,6 +455,11 @@ MSStageWaiting::getStageSummary(const bool /* isPerson */) const {
 /* -------------------------------------------------------------------------
 * MSStageMoving - methods
 * ----------------------------------------------------------------------- */
+MSStageMoving::~MSStageMoving() {
+    delete myState;
+}
+
+
 void
 MSStageMoving::setRouteIndex(MSTransportable* const transportable, int routeOffset) {
     assert(routeOffset >= 0);

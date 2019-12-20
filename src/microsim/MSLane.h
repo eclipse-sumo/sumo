@@ -63,6 +63,7 @@ class MSVehicleControl;
 class OutputDevice;
 class MSLeaderInfo;
 
+
 // ===========================================================================
 // type definitions
 // ===========================================================================
@@ -1197,6 +1198,9 @@ public:
 
     /// @brief whether the lane has pedestrians on it
     bool hasPedestrians() const;
+
+    /// This is just a wrapper around MSPModel::nextBlocking. You should always check using hasPedestrians before calling this method.
+    std::pair<const MSPerson*, double> nextBlocking(double minPos, double minRight, double maxLeft, double stopTime = 0) const;
 
     static void initCollisionOptions(const OptionsCont& oc);
 
