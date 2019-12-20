@@ -2275,6 +2275,12 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                     } else {
                         foeInternalLaneLengthsBeforeCrossing += foeConflictLane->getLength();
                     }
+                    if (!foeConflictLane->getCanonicalSuccessorLane()->isInternal()) {
+                        // intersection has wierd geometry and the intersection was found
+                        egoDistToConflictFromJunctionEntry = 0;
+                        WRITE_WARNINGF("Cannot compute SSM due to bad junction geometry at junction '%'.", egoEntryLink->getJunction()->getID())
+                        break;
+                    }
                     foeConflictLane = foeConflictLane->getCanonicalSuccessorLane();
                     assert(foeConflictLane != 0 && foeConflictLane->isInternal()); // this loop should be ended by the break! Otherwise the lanes do not cross, which should be the case here.
                 }
@@ -2291,6 +2297,12 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                         foeDistToConflictFromJunctionEntry += 0.5 * (egoConflictLane->getWidth() - e->ego->getVehicleType().getWidth());
                         break;
                     } else {
+                        if (!egoConflictLane->getCanonicalSuccessorLane()->isInternal()) {
+                            // intersection has wierd geometry and the intersection was found
+                            foeDistToConflictFromJunctionEntry = 0;
+                            WRITE_WARNINGF("Cannot compute SSM due to bad junction geometry at junction '%'.", foeEntryLink->getJunction()->getID())
+                            break;
+                        }
                         egoInternalLaneLengthsBeforeCrossing += egoConflictLane->getLength();
                     }
                     egoConflictLane = egoConflictLane->getCanonicalSuccessorLane();
