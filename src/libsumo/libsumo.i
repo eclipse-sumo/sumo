@@ -2,6 +2,7 @@
 #pragma SWIG nowarn=511
 
 #ifdef SWIGPYTHON
+%naturalvar;
 %rename(edge) Edge;
 %rename(inductionloop) InductionLoop;
 %rename(junction) Junction;
@@ -346,6 +347,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %include "std_string.i"
 %include "std_vector.i"
 %template(StringVector) std::vector<std::string>;
+%template(IntVector) std::vector<int>;
 
 // exception handling
 %include "exception.i"
