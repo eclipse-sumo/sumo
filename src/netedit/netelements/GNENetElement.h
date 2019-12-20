@@ -53,6 +53,12 @@ public:
 
     /// @brief Destructor
     ~GNENetElement();
+    
+    /// @brief get dotted geometry
+    const GNEGeometry::DottedGeometry &getDottedGeometry() const;
+
+    /// @brief updated dotted geometry
+    void updateDottedGeometry(const PositionVector &shape);
 
     /// @brief gererate a new ID for an element child
     virtual std::string generateChildID(SumoXMLTag childTag) = 0;
@@ -167,6 +173,9 @@ protected:
 
     /// @brief boundary used during moving of elements
     Boundary myMovingGeometryBoundary;
+
+    /// @brief dotted geometry
+    GNEGeometry::DottedGeometry myDottedGeometry;
 
 private:
     /// @brief set attribute after validation

@@ -39,13 +39,25 @@ GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     GNEHierarchicalParentElements(this, {}, {}, {}, {}, {}),
-                              GNEHierarchicalChildElements(this, {}, {}, {}, {}, {}),
-                              myNet(net),
-myMovingGeometryBoundary() {
+    GNEHierarchicalChildElements(this, {}, {}, {}, {}, {}),
+    myNet(net),
+    myMovingGeometryBoundary() {
 }
 
 
 GNENetElement::~GNENetElement() {}
+
+
+const GNEGeometry::DottedGeometry&
+GNENetElement::getDottedGeometry() const {
+    return myDottedGeometry;
+}
+
+
+void
+GNENetElement::updateDottedGeometry(const PositionVector &shape) {
+    myDottedGeometry.updateDottedGeometry(shape);
+}
 
 
 std::string
