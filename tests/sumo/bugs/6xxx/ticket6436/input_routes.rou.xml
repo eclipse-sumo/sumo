@@ -1,0 +1,13 @@
+<routes>
+
+    <vType accel="0.5" decel="1.0" id="Car" length="5.0" maxSpeed="100.0" minGap="2.5" guiShape="passenger" osgFile="vw_golf.3ds" probability="20" sigma="0.0" />
+    <vType accel="0.1" decel="1.0" vClass="bicycle" id="bike" length="3.0" maxSpeed="10.0" minGap="2.5" guiShape="bicycle" probability="7" sigma="0.0" actionStepLength="0.6" />
+
+    <route id="route0" edges="gneE0 gneE1 -gneE1 gneE3 -gneE3 -gneE0"/>
+    <vehicle depart="6" id="veh2" route="route0" type="bike" />
+
+    <route id="route1" edges="gneE0 gneE1 -gneE1 gneE3 -gneE3 -gneE0"/>
+    <vehicle depart="10" id="veh1" route="route1" type="bike" />
+
+</routes>
+
