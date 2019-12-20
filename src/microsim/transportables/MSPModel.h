@@ -45,7 +45,7 @@ typedef std::pair<const MSPerson*, double> PersonDist;
 // ===========================================================================
 /**
  * @class MSPModel
- * @brief The pedestrian following model
+ * @brief The pedestrian (and also sometimes container) movement model
  *
  */
 class MSPModel {

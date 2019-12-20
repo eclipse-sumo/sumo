@@ -40,6 +40,7 @@
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSStageDriving.h>
+#include <microsim/transportables/MSPModel.h>
 
 
 /* -------------------------------------------------------------------------
