@@ -1,0 +1,4 @@
+--no-step-log -n net.net.xml
+--route-files=input_routes.rou.xml
+--collision.check-junctions
+--step-length 0.2
