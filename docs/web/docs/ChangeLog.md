@@ -7,6 +7,7 @@ permalink: /ChangeLog/
 
 ### Bugfixes
 - Simulation
+  - Fixed bug that was causing unsafe situations between bicycles and turning cars. Issue #6437, #6438
   - Fixed unsafe insertion speed when using 'stopOffset'. Issue #6411
   - Extra device output (emissions etc.) is now included in tripinfo-output when using option **--tripinfo-output.write-unfinished**. Issue #6422
   - Time spent parking is now included in tripinfo-output 'stopTime'. Issue #6423
