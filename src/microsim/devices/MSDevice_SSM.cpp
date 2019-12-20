@@ -330,7 +330,7 @@ MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position ego
         minTTC.value = ttc;
         minTTC.time = time;
         minTTC.pos = conflictPoint;
-        minTTC.type = type;
+        minTTC.type = ttc <= 0 ? ENCOUNTER_TYPE_COLLISION :  type;
     }
 
     DRACspan.push_back(drac);
@@ -345,7 +345,7 @@ MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position ego
         PET.value = pet.second;
         PET.time = pet.first;
         PET.pos = conflictPoint;
-        PET.type = type;
+        PET.type = PET.value <= 0 ? ENCOUNTER_TYPE_COLLISION : type;
     }
 }
 
@@ -1110,14 +1110,11 @@ MSDevice_SSM::determinePET(EncounterApproachInfo& eInfo) const {
         } else {
 #ifdef DEBUG_SSM
             if (DEBUG_COND(myHolderMS))
-                std::cout << "Unexpected branch in determinePET: Both passed conflict area in the same step."
+                std::cout << "determinePET: Both passed conflict area in the same step. Assume collision"
                           << std::endl;
 #endif
-            pet.first = INVALID;
-            pet.second = INVALID;
-            assert(prevType != ENCOUNTER_TYPE_EGO_LEFT_CONFLICT_AREA
-                   && prevType != ENCOUNTER_TYPE_FOE_LEFT_CONFLICT_AREA);
-            assert(false); // let this fail for debug build
+            pet.first = e->egoConflictEntryTime;
+            pet.second = 0;
         }
 
         // Reset entry and exit times two allow an eventual subsequent re-use
