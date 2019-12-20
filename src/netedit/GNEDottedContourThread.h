@@ -85,6 +85,9 @@ protected:
     bool myLockDemandElementsQueue;
 
 private:
+    /// @brief calculate junction dotted contour
+    void calculateJunctionDottedContour(GNENetElement* junction);
+
     /// @brief Invalidated copy constructor.
     GNEDottedContourThread(const GNEDottedContourThread&) = delete;
 

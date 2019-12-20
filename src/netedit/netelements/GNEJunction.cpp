@@ -109,8 +109,6 @@ GNEJunction::getJunctionShape() const {
 void
 GNEJunction::updateGeometry() {
     updateGeometryAfterNetbuild(true);
-    // update dotted contour
-    myNet->getDottedContourThread()->updateNetElementDottedContour(this);
 }
 
 
@@ -118,6 +116,8 @@ void
 GNEJunction::updateGeometryAfterNetbuild(bool rebuildNBNodeCrossings) {
     myMaxSize = MAX2(getCenteringBoundary().getWidth(), getCenteringBoundary().getHeight());
     rebuildGNECrossings(rebuildNBNodeCrossings);
+    // update dotted contour
+    myNet->getDottedContourThread()->updateNetElementDottedContour(this);
 }
 
 
@@ -342,7 +342,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     }
                     // check if dotted contour has to be drawn
                     if ((myNet->getViewNet()->getDottedAC() == this) && !drawBubble) {
-                        GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), junctionShape);
+                        GNEGeometry::drawShapeDottedContour(s, getType(), myDottedGeometry);
                     }
                     glPopMatrix();
                 }
@@ -361,7 +361,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                         std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, s.getCircleResolution());
                         // check if dotted contour has to be drawn
                         if (myNet->getViewNet()->getDottedAC() == this) {
-                            GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), vertices);
+                            GNEGeometry::drawShapeDottedContour(s, getType(), myDottedGeometry);
                         }
                     }
                     glPopMatrix();
@@ -594,11 +594,11 @@ GNEJunction::endGeometryMoving(bool extendToNeighbors) {
         }
         // Iterate over affected Junctions
         if (extendToNeighbors) {
-            for (const auto& affectedJunction : affectedJunctions) {
+            for (const auto& junction : affectedJunctions) {
                 // don't include this junction (to avoid end it more than one times)
-                if (affectedJunction != this) {
+                if (junction != this) {
                     // end geometry moving in edges
-                    affectedJunction->endGeometryMoving(false);
+                    junction->endGeometryMoving(false);
                 }
             }
         }
@@ -609,6 +609,12 @@ GNEJunction::endGeometryMoving(bool extendToNeighbors) {
         }
         // add object into grid again (using the new centering boundary)
         myNet->addGLObjectIntoGrid(this);
+        // update geometry of affected junctions
+        if (extendToNeighbors) {
+            for (const auto& junction : affectedJunctions) {
+                junction->updateGeometry();
+            }
+        }
     }
 }
 

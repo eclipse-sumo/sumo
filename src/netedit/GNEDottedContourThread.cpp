@@ -19,20 +19,10 @@
 // included modules
 // ===========================================================================
 #include <netbuild/NBFrame.h>
-#include <netbuild/NBNetBuilder.h>
-#include <netimport/NIFrame.h>
-#include <netimport/NILoader.h>
-#include <netwrite/NWFrame.h>
-#include <utils/common/MsgRetrievingFunction.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SystemFrame.h>
-#include <utils/gui/events/GUIEvent_Message.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsIO.h>
-#include <utils/xml/XMLSubSys.h>
+#include <netedit/netelements/GNEJunction.h>
+#include <utils/gui/div/GLHelper.h>
 
 #include "GNEDottedContourThread.h"
-#include "GNENet.h"
 
 
 // ===========================================================================
@@ -70,6 +60,10 @@ GNEDottedContourThread::run() {
         // check net elements
         if (myLockNetElementsQueue == false) {
             if (myNetElements.size() > 0) {
+                GNENetElement *netElementFront = myNetElements.front();
+                if (netElementFront->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+                    calculateJunctionDottedContour(netElementFront);
+                }
                 myNetElements.pop();
             }
         }
@@ -97,5 +91,20 @@ GNEDottedContourThread::run() {
     return 0;
 }
 
+
+void 
+GNEDottedContourThread::calculateJunctionDottedContour(GNENetElement* junction) {
+    // obtain pos and junction shape
+    Position pos = GNEAttributeCarrier::parse<Position>(junction->getAttribute(SUMO_ATTR_POSITION));
+    PositionVector shape = GNEAttributeCarrier::parse<PositionVector>(junction->getAttribute(SUMO_ATTR_SHAPE));
+    // check if we have to calculate buuble or shape
+    if (shape.area() < 4) {
+        junction->updateDottedGeometry(GLHelper::drawFilledCircleReturnVertices(4, 32));
+    } else {
+        // close polygon
+        shape.closePolygon();
+        junction->updateDottedGeometry(shape);
+    }
+}
 
 /****************************************************************************/
