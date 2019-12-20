@@ -54,10 +54,10 @@ public:
     ~MSPModel_NonInteracting();
 
     /// @brief register the given person as a pedestrian
-    PedestrianState* add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now);
+    MSTransportableStateAdapter* add(MSPerson* person, MSStageMoving* stage, SUMOTime now);
 
     /// @brief remove the specified person from the pedestrian simulation
-    void remove(PedestrianState* state);
+    void remove(MSTransportableStateAdapter* state);
 
     /// @brief whether movements on intersections are modelled
     bool usingInternalLanes() {
@@ -67,7 +67,7 @@ public:
 private:
     class MoveToNextEdge : public Command {
     public:
-        MoveToNextEdge(MSPerson* person, MSPerson::MSPersonStage_Walking& walk) : myParent(walk), myPerson(person) {}
+        MoveToNextEdge(MSPerson* person, MSStageMoving& walk) : myParent(walk), myPerson(person) {}
         ~MoveToNextEdge() {}
         SUMOTime execute(SUMOTime currentTime);
         void abortWalk() {
@@ -78,7 +78,7 @@ private:
         }
 
     private:
-        MSPerson::MSPersonStage_Walking& myParent;
+        MSStageMoving& myParent;
         MSPerson* myPerson;
     private:
         /// @brief Invalidated assignment operator.
@@ -86,22 +86,22 @@ private:
     };
 
     /// @brief abstract base class for managing callbacks to retrieve various state information from the model
-    class PState : public PedestrianState {
+    class PState : public MSTransportableStateAdapter {
     public:
         PState(MoveToNextEdge* cmd): myCommand(cmd) {};
 
         /// @brief abstract methods inherited from PedestrianState
         /// @{
-        double getEdgePos(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
-        Position getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
-        double getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
-        SUMOTime getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
-        double getSpeed(const MSPerson::MSPersonStage_Walking& stage) const;
-        const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const;
+        double getEdgePos(const MSStageMoving& stage, SUMOTime now) const;
+        Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
+        double getAngle(const MSStageMoving& stage, SUMOTime now) const;
+        SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
+        double getSpeed(const MSStageMoving& stage) const;
+        const MSEdge* getNextEdge(const MSStageMoving& stage) const;
         /// @}
 
         /// @brief compute walking time on edge and update state members
-        SUMOTime computeWalkingTime(const MSEdge* prev, const MSPerson::MSPersonStage_Walking& stage, SUMOTime currentTime);
+        SUMOTime computeWalkingTime(const MSEdge* prev, const MSStageMoving& stage, SUMOTime currentTime);
         MoveToNextEdge* getCommand() {
             return myCommand;
         }

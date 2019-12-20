@@ -46,10 +46,8 @@
 #include "MSPModel.h"
 
 // ===========================================================================
-// static value definitions
+// method definitions
 // ===========================================================================
-DummyState MSPerson::myDummyState;
-
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Walking - methods
  * ----------------------------------------------------------------------- */
@@ -58,19 +56,12 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
         MSStoppingPlace* toStop,
         SUMOTime walkingTime, double speed,
         double departPos, double arrivalPos, double departPosLat) :
-    MSStage(route.back(), toStop,
-            SUMOVehicleParameter::interpretEdgePos(arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,
-                    "person '" + personID + "' walking to " + route.back()->getID()),
-            MSStageType::WALKING),
-    myWalkingTime(walkingTime),
-    myRoute(route),
-    myCurrentInternalEdge(nullptr),
-    myDepartPos(departPos),
-    myDepartPosLat(departPosLat),
-    mySpeed(speed),
-    myPedestrianState(&myDummyState) {
+    MSStageMoving(route, toStop, speed, departPos, arrivalPos, departPosLat, MSStageType::WALKING),
+    myWalkingTime(walkingTime) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(departPos, route.front()->getLength(), SUMO_ATTR_DEPARTPOS,
                   "person '" + personID + "' walking from " + route.front()->getID());
+    myArrivalPos = SUMOVehicleParameter::interpretEdgePos(arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,
+                   "person '" + personID + "' walking to " + route.back()->getID());
     if (walkingTime > 0) {
         mySpeed = computeAverageSpeed();
     }
@@ -78,9 +69,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
 
 
 MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {
-    if (myPedestrianState != &myDummyState) {
-        delete myPedestrianState;
-    }
+    delete myState;
 }
 
 MSStage*
@@ -106,31 +95,31 @@ MSPerson::MSPersonStage_Walking::getFromEdge() const {
 
 double
 MSPerson::MSPersonStage_Walking::getEdgePos(SUMOTime now) const {
-    return myPedestrianState == nullptr ? -1 : myPedestrianState->getEdgePos(*this, now);
+    return myState == nullptr ? 0. : myState->getEdgePos(*this, now);
 }
 
 
 Position
 MSPerson::MSPersonStage_Walking::getPosition(SUMOTime now) const {
-    return myPedestrianState->getPosition(*this, now);
+    return myState == nullptr ? Position::INVALID : myState->getPosition(*this, now);
 }
 
 
 double
 MSPerson::MSPersonStage_Walking::getAngle(SUMOTime now) const {
-    return myPedestrianState->getAngle(*this, now);
+    return myState == nullptr ? 0. : myState->getAngle(*this, now);
 }
 
 
 SUMOTime
 MSPerson::MSPersonStage_Walking::getWaitingTime(SUMOTime now) const {
-    return myPedestrianState->getWaitingTime(*this, now);
+    return myState == nullptr ? 0 : myState->getWaitingTime(*this, now);
 }
 
 
 double
 MSPerson::MSPersonStage_Walking::getSpeed() const {
-    return myPedestrianState->getSpeed(*this);
+    return myState == nullptr ? 0. : myState->getSpeed(*this);
 }
 
 
@@ -157,9 +146,10 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
             mySpeed = computeAverageSpeed();
         }
     }
-    myPedestrianState = MSPModel::getModel()->add(dynamic_cast<MSPerson*>(person), this, now);
-    if (myPedestrianState == nullptr) {
-        MSNet::getInstance()->getPersonControl().erase(person);
+    MSTransportableControl& pControl = MSNet::getInstance()->getPersonControl();
+    myState = pControl.getMovementModel()->add(dynamic_cast<MSPerson*>(person), this, now);
+    if (myState == nullptr) {
+        pControl.erase(person);
         return;
     }
     const MSEdge* edge = *myRouteStep;
@@ -175,7 +165,7 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
 
 void
 MSPerson::MSPersonStage_Walking::abort(MSTransportable*) {
-    MSPModel::getModel()->remove(myPedestrianState);
+    MSNet::getInstance()->getPersonControl().getMovementModel()->remove(myState);
 }
 
 
@@ -197,7 +187,7 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
     for (const MSEdge* edge : myRoute) {
         length += edge->getLength();
     }
-    if (myRoute.size() > 1 && MSPModel::getModel()->usingInternalLanes()) {
+    if (myRoute.size() > 1 && MSNet::getInstance()->getPersonControl().getMovementModel()->usingInternalLanes()) {
         // use lower bound for distance to pass the intersection
         for (ConstMSEdgeVector::const_iterator i = myRoute.begin(); i != myRoute.end() - 1; ++i) {
             const MSEdge* fromEdge = *i;
@@ -311,7 +301,7 @@ MSPerson::MSPersonStage_Walking::routeOutput(const bool /* isPerson */, OutputDe
 
 
 bool
-MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal) {
+MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, MSEdge* nextInternal) {
     ((MSEdge*)getEdge())->removePerson(person);
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(getEdge());
     const bool arrived = myRouteStep == myRoute.end() - 1;
@@ -350,15 +340,6 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
         ((MSEdge*) getEdge())->addPerson(person);
         return false;
     }
-}
-
-void
-MSPerson::MSPersonStage_Walking::setRouteIndex(MSPerson* person, int routeOffset) {
-    assert(routeOffset >= 0);
-    assert(routeOffset < (int)myRoute.size());
-    ((MSEdge*)getEdge())->removePerson(person);
-    myRouteStep = myRoute.begin() + routeOffset;
-    ((MSEdge*)getEdge())->addPerson(person);
 }
 
 double
@@ -509,9 +490,8 @@ const MSEdge*
 MSPerson::getNextEdgePtr() const {
     if (getCurrentStageType() == MSStageType::WALKING) {
         MSPersonStage_Walking* walkingStage =  dynamic_cast<MSPersonStage_Walking*>(*myStep);
-        assert(walkingStage != 0);
-        return walkingStage->getPedestrianState()->getNextEdge(*walkingStage);
-
+        assert(walkingStage != nullptr);
+        return walkingStage->getState()->getNextEdge(*walkingStage);
     }
     return nullptr;
 }
@@ -610,8 +590,8 @@ MSPerson::Influencer::postProcessRemoteControl(MSPerson* p) {
     switch (p->getStageType(0)) {
         case MSStageType::WALKING: {
             MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
-            assert(s != 0);
-            s->getPedestrianState()->moveToXY(p, myRemoteXYPos, myRemoteLane, myRemotePos, myRemotePosLat, myRemoteAngle, myRemoteEdgeOffset, myRemoteRoute,
+            assert(s != nullptr);
+            s->getState()->moveToXY(p, myRemoteXYPos, myRemoteLane, myRemotePos, myRemotePosLat, myRemoteAngle, myRemoteEdgeOffset, myRemoteRoute,
                                               MSNet::getInstance()->getCurrentTimeStep());
         }
         break;

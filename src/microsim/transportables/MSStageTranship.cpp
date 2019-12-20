@@ -31,6 +31,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/transportables/MSPModel.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicle.h>
@@ -46,23 +47,25 @@ MSStageTranship::MSStageTranship(const std::vector<const MSEdge*>& route,
                                  MSStoppingPlace* toStop,
                                  double speed,
                                  double departPos, double arrivalPos) :
-    MSStage(route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
-                arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,
-                "container getting transhipped to " + route.back()->getID()),
-            MSStageType::TRANSHIP), myRoute(route),
-    mySpeed(speed), myContainerState(nullptr), myCurrentInternalEdge(nullptr) {
+    MSStageMoving(route, toStop, speed, departPos, arrivalPos, 0., MSStageType::TRANSHIP) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
-                      departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS,
-                      "container getting transhipped from " + myRoute.front()->getID());
+                  departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS,
+                  "container getting transhipped from " + myRoute.front()->getID());
+    myArrivalPos = SUMOVehicleParameter::interpretEdgePos(
+                   arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,
+                   "container getting transhipped to " + route.back()->getID());
 }
+
 
 MSStageTranship::~MSStageTranship() {
 }
+
 
 MSStage*
 MSStageTranship::clone() const {
     return new MSStageTranship(myRoute, myDestinationStop, mySpeed, myDepartPos, myArrivalPos);
 }
+
 
 void
 MSStageTranship::proceed(MSNet* /* net */, MSTransportable* container, SUMOTime now, MSStage* previous) {
@@ -72,7 +75,7 @@ MSStageTranship::proceed(MSNet* /* net */, MSTransportable* container, SUMOTime 
     //therefor we define that the container is already on its destination edge
     myRouteStep = myRoute.end() - 1;
     myDepartPos = previous->getEdgePos(now);
-    myContainerState = MSCModel_NonInteracting::getModel()->add(container, this, now);
+    myState = MSCModel_NonInteracting::getModel()->add(container, this, now);
     (*myRouteStep)->addContainer(container);
 }
 
@@ -90,24 +93,19 @@ MSStageTranship::getFromEdge() const {
     return myRoute.front();
 }
 
-const MSEdge*
-MSStageTranship::getToEdge() const {
-    return myRoute.back();
-}
-
 double
 MSStageTranship::getEdgePos(SUMOTime now) const {
-    return myContainerState->getEdgePos(*this, now);
+    return myState->getEdgePos(*this, now);
 }
 
 Position
 MSStageTranship::getPosition(SUMOTime now) const {
-    return myContainerState->getPosition(*this, now);
+    return myState->getPosition(*this, now);
 }
 
 double
 MSStageTranship::getAngle(SUMOTime now) const {
-    return myContainerState->getAngle(*this, now);
+    return myState->getAngle(*this, now);
 }
 
 SUMOTime
@@ -117,7 +115,7 @@ MSStageTranship::getWaitingTime(SUMOTime /* now */) const {
 
 double
 MSStageTranship::getSpeed() const {
-    return myContainerState->getSpeed(*this);
+    return myState->getSpeed(*this);
 }
 
 

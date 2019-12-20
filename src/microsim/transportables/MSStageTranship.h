@@ -54,7 +54,7 @@ class CState;
  * A container is in this stage if it gets transhiped between two stops that are
  * assumed to be connected.
  */
-class MSStageTranship : public MSStage {
+class MSStageTranship : public MSStageMoving {
 
 public:
     /// constructor
@@ -73,9 +73,6 @@ public:
 
     /// Returns first edge of the containers route
     const MSEdge* getFromEdge() const;
-
-    /// Returns last edge of the containers route
-    const MSEdge* getToEdge() const;
 
     /// Returns the offset from the start of the current edge measured in its natural direction
     double getEdgePos(SUMOTime now) const;
@@ -121,13 +118,9 @@ public:
     bool moveToNextEdge(MSTransportable* container, SUMOTime currentTime, MSEdge* nextInternal = 0);
 
 
-    /// @brief accessors to be used by MSCModel_NonInteracting
-    inline double getMaxSpeed() const {
+    /// @brief the maximum speed of the transportable
+    inline double getMaxSpeed(const MSTransportable* const transportable=nullptr) const {
         return mySpeed;
-    }
-
-    inline double getDepartPos() const {
-        return myDepartPos;
     }
 
     inline double getArrivalPos() const {
@@ -138,26 +131,7 @@ public:
         return myRouteStep == myRoute.end() - 1 ? 0 : *(myRouteStep + 1);
     }
 
-    CState* getContainerState() const {
-        return myContainerState;
-    }
-
 private:
-    /// @brief The route of the container
-    std::vector<const MSEdge*> myRoute;
-
-    /// @brief current step
-    std::vector<const MSEdge*>::iterator myRouteStep;
-
-    /// @brief the depart position
-    double myDepartPos;
-
-    /// @brief the speed of the container
-    double mySpeed;
-
-    /// @brief state that is to be manipulated by MSCModel
-    CState* myContainerState;
-
     /// @brief The current internal edge this container is on or 0
     MSEdge* myCurrentInternalEdge;
 

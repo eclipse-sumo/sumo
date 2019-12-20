@@ -30,7 +30,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSEventControl.h>
-#include <microsim/transportables/MSStageTranship.h>
+#include <microsim/transportables/MSStage.h>
 #include "MSCModel_NonInteracting.h"
 
 // ===========================================================================
@@ -68,7 +68,7 @@ MSCModel_NonInteracting::getModel() {
 }
 
 CState*
-MSCModel_NonInteracting::add(MSTransportable* container, MSStageTranship* stage, SUMOTime now) {
+MSCModel_NonInteracting::add(MSTransportable* container, MSStageMoving* stage, SUMOTime now) {
     CState* state = new CState();
     const SUMOTime firstEdgeDuration = state->computeTranshipTime(nullptr, *stage, now);
     myNet->getBeginOfTimestepEvents()->addEvent(new MoveToNextEdge(container, *stage), now + firstEdgeDuration);
@@ -87,7 +87,7 @@ MSCModel_NonInteracting::cleanup() {
 
 SUMOTime
 MSCModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
-    CState* state = myParent.getContainerState();
+    CState* state = dynamic_cast<CState*>(myParent.getState());
     const MSEdge* old = myParent.getEdge();
     const bool arrived = myParent.moveToNextEdge(myContainer, currentTime);
     if (arrived) {
@@ -101,13 +101,13 @@ MSCModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
 
 
 double
-CState::getEdgePos(const MSStageTranship&, SUMOTime now) const {
+CState::getEdgePos(const MSStageMoving&, SUMOTime now) const {
     return myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime);
 }
 
 
 Position
-CState::getPosition(const MSStageTranship& stage, SUMOTime now) const {
+CState::getPosition(const MSStageMoving& stage, SUMOTime now) const {
     const double dist = myCurrentBeginPosition.distanceTo2D(myCurrentEndPosition);    //distance between begin and end position of this tranship stage
     double pos = MIN2(STEPS2TIME(now - myLastEntryTime) *  stage.getMaxSpeed(), dist);    //the containerd shall not go beyond its end position
     return PositionVector::positionAtOffset2D(myCurrentBeginPosition, myCurrentEndPosition, pos, 0);
@@ -115,7 +115,7 @@ CState::getPosition(const MSStageTranship& stage, SUMOTime now) const {
 
 
 double
-CState::getAngle(const MSStageTranship& stage, SUMOTime now) const {
+CState::getAngle(const MSStageMoving& stage, SUMOTime now) const {
     double angle = stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? 1.5 * M_PI : 0.5 * M_PI);
     if (angle > M_PI) {
         angle -= 2 * M_PI;
@@ -125,13 +125,13 @@ CState::getAngle(const MSStageTranship& stage, SUMOTime now) const {
 
 
 double
-CState::getSpeed(const MSStageTranship& stage) const {
+CState::getSpeed(const MSStageMoving& stage) const {
     return stage.getMaxSpeed();
 }
 
 
 SUMOTime
-CState::computeTranshipTime(const MSEdge* /* prev */, const MSStageTranship& stage, SUMOTime currentTime) {
+CState::computeTranshipTime(const MSEdge* /* prev */, const MSStageMoving& stage, SUMOTime currentTime) {
     myLastEntryTime = currentTime;
 
     myCurrentBeginPos = stage.getDepartPos();
@@ -139,11 +139,23 @@ CState::computeTranshipTime(const MSEdge* /* prev */, const MSStageTranship& sta
 
     const MSLane* fromLane = stage.getFromEdge()->getLanes().front(); //the lane the container starts from during its tranship stage
     myCurrentBeginPosition = stage.getLanePosition(fromLane, myCurrentBeginPos, LATERAL_OFFSET);
-    const MSLane* toLane = stage.getToEdge()->getLanes().front(); //the lane the container ends during its tranship stage
+    const MSLane* toLane = stage.getEdges().back()->getLanes().front(); //the lane the container ends during its tranship stage
     myCurrentEndPosition = stage.getLanePosition(toLane, myCurrentEndPos, LATERAL_OFFSET);
 
     myCurrentDuration = MAX2((SUMOTime)1, TIME2STEPS(fabs(myCurrentEndPosition.distanceTo(myCurrentBeginPosition)) / stage.getMaxSpeed()));
     return myCurrentDuration;
+}
+
+
+SUMOTime
+CState::getWaitingTime(const MSStageMoving&, SUMOTime) const {
+    return 0;
+}
+
+
+const MSEdge*
+CState::getNextEdge(const MSStageMoving& stage) const {
+    return stage.getNextRouteEdge();
 }
 
 

@@ -35,6 +35,7 @@
 // class declarations
 // ===========================================================================
 class MSNet;
+class MSPModel;
 
 
 // ===========================================================================
@@ -59,7 +60,7 @@ public:
 
 public:
     /// @brief Constructor
-    MSTransportableControl();
+    MSTransportableControl(const bool isPerson);
 
 
     /// @brief Destructor
@@ -204,6 +205,21 @@ public:
 
     /// @}
 
+    /** @brief Returns the default movement model for this kind of transportables
+     * @return The movement model
+     */
+    inline MSPModel* getMovementModel() {
+        return myMovementModel;
+    }
+
+    /** @brief Returns the non interacting movement model (for tranship and "beaming")
+     * @return The non interacting movement model
+     */
+    inline MSPModel* getNonInteractingModel() {
+        return myNonInteractingModel;
+    }
+
+
 protected:
     /// all currently created transportables by id
     std::map<std::string, MSTransportable*> myTransportables;
@@ -231,6 +247,11 @@ protected:
 
     /// @brief whether a new transportable waiting for a vehicle has been added in the last step
     bool myHaveNewWaiting;
+
+private:
+    MSPModel* myMovementModel;
+
+    MSPModel* myNonInteractingModel;
 
 };
 

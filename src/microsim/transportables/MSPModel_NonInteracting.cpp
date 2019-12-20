@@ -57,8 +57,8 @@ MSPModel_NonInteracting::~MSPModel_NonInteracting() {
 }
 
 
-PedestrianState*
-MSPModel_NonInteracting::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now) {
+MSTransportableStateAdapter*
+MSPModel_NonInteracting::add(MSPerson* person, MSStageMoving* stage, SUMOTime now) {
     MoveToNextEdge* cmd = new MoveToNextEdge(person, *stage);
     PState* state = new PState(cmd);
     const SUMOTime firstEdgeDuration = state->computeWalkingTime(nullptr, *stage, now);
@@ -70,7 +70,7 @@ MSPModel_NonInteracting::add(MSPerson* person, MSPerson::MSPersonStage_Walking* 
 
 
 void
-MSPModel_NonInteracting::remove(PedestrianState* state) {
+MSPModel_NonInteracting::remove(MSTransportableStateAdapter* state) {
     dynamic_cast<PState*>(state)->getCommand()->abortWalk();
 }
 
@@ -80,7 +80,7 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
     if (myPerson == nullptr) {
         return 0; // descheduled
     }
-    PState* state = dynamic_cast<PState*>(myParent.getPedestrianState());
+    PState* state = dynamic_cast<PState*>(myParent.getState());
     const MSEdge* old = myParent.getEdge();
     const bool arrived = myParent.moveToNextEdge(myPerson, currentTime);
     if (arrived) {
@@ -95,7 +95,7 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
 
 
 SUMOTime
-MSPModel_NonInteracting::PState::computeWalkingTime(const MSEdge* prev, const MSPerson::MSPersonStage_Walking& stage, SUMOTime currentTime) {
+MSPModel_NonInteracting::PState::computeWalkingTime(const MSEdge* prev, const MSStageMoving& stage, SUMOTime currentTime) {
     myLastEntryTime = currentTime;
     const MSEdge* edge = stage.getEdge();
     const MSEdge* next = stage.getNextRouteEdge();
@@ -129,14 +129,14 @@ MSPModel_NonInteracting::PState::computeWalkingTime(const MSEdge* prev, const MS
 
 
 double
-MSPModel_NonInteracting::PState::getEdgePos(const MSPerson::MSPersonStage_Walking&, SUMOTime now) const {
+MSPModel_NonInteracting::PState::getEdgePos(const MSStageMoving&, SUMOTime now) const {
     //std::cout << SIMTIME << " lastEntryTime=" << myLastEntryTime << " pos=" << (myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime)) << "\n";
     return myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime);
 }
 
 
 Position
-MSPModel_NonInteracting::PState::getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
+MSPModel_NonInteracting::PState::getPosition(const MSStageMoving& stage, SUMOTime now) const {
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(stage.getEdge());
     if (lane == nullptr) {
         //std::string error = "Pedestrian '" + myCommand->myPerson->getID() + "' could not find sidewalk on edge '" + state.getEdge()->getID() + "', time="
@@ -153,7 +153,7 @@ MSPModel_NonInteracting::PState::getPosition(const MSPerson::MSPersonStage_Walki
 
 
 double
-MSPModel_NonInteracting::PState::getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
+MSPModel_NonInteracting::PState::getAngle(const MSStageMoving& stage, SUMOTime now) const {
     //std::cout << SIMTIME << " rawAngle=" << stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) << " angle=" << stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? 180 : 0) << "\n";
     double angle = stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? M_PI : 0);
     if (angle > M_PI) {
@@ -164,19 +164,19 @@ MSPModel_NonInteracting::PState::getAngle(const MSPerson::MSPersonStage_Walking&
 
 
 SUMOTime
-MSPModel_NonInteracting::PState::getWaitingTime(const MSPerson::MSPersonStage_Walking&, SUMOTime) const {
+MSPModel_NonInteracting::PState::getWaitingTime(const MSStageMoving&, SUMOTime) const {
     return 0;
 }
 
 
 double
-MSPModel_NonInteracting::PState::getSpeed(const MSPerson::MSPersonStage_Walking& stage) const {
+MSPModel_NonInteracting::PState::getSpeed(const MSStageMoving& stage) const {
     return stage.getMaxSpeed(myCommand->getPerson());
 }
 
 
 const MSEdge*
-MSPModel_NonInteracting::PState::getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const {
+MSPModel_NonInteracting::PState::getNextEdge(const MSStageMoving& stage) const {
     return stage.getNextRouteEdge();
 }
 

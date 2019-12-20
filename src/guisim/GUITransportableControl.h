@@ -37,7 +37,7 @@
 class GUITransportableControl : public MSTransportableControl {
 public:
     /// constructor
-    GUITransportableControl();
+    GUITransportableControl(const bool isPerson);
 
 
     /// destructor

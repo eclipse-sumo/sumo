@@ -27,6 +27,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Command.h>
 #include <microsim/transportables/MSTransportable.h>
+#include <microsim/transportables/MSPModel.h>
 
 
 // ===========================================================================
@@ -36,7 +37,7 @@ class MSNet;
 class MSLink;
 class MSLane;
 class MSJunction;
-class MSStageTranship;
+class MSStageMoving;
 class CState;
 
 
@@ -62,7 +63,7 @@ public:
     static void cleanup();
 
     /// @brief register the given container as a transhiped container
-    CState* add(MSTransportable* container, MSStageTranship* stage, SUMOTime now);
+    CState* add(MSTransportable* container, MSStageMoving* stage, SUMOTime now);
 
 private:
     static MSCModel_NonInteracting* myModel;
@@ -70,12 +71,12 @@ private:
 private:
     class MoveToNextEdge : public Command {
     public:
-        MoveToNextEdge(MSTransportable* container, MSStageTranship& tranship) : myParent(tranship), myContainer(container) {}
+        MoveToNextEdge(MSTransportable* container, MSStageMoving& tranship) : myParent(tranship), myContainer(container) {}
         ~MoveToNextEdge() {}
         SUMOTime execute(SUMOTime currentTime);
 
     private:
-        MSStageTranship& myParent;
+        MSStageMoving& myParent;
         MSTransportable* myContainer;
     private:
         /// @brief Invalidated assignment operator.
@@ -89,7 +90,7 @@ private:
 
 };
 
-class CState {
+class CState : public MSTransportableStateAdapter {
 public:
     CState() {};
 
@@ -104,15 +105,20 @@ public:
     static const double LATERAL_OFFSET;
 
     /// @brief return the offset from the start of the current edge measured in its natural direction
-    double getEdgePos(const MSStageTranship& stage, SUMOTime now) const;
+    double getEdgePos(const MSStageMoving& stage, SUMOTime now) const;
     /// @brief return the network coordinate of the container
-    Position getPosition(const MSStageTranship& stage, SUMOTime now) const;
+    Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
     /// @brief return the direction in which the container heading to
-    double getAngle(const MSStageTranship& stage, SUMOTime now) const;
+    double getAngle(const MSStageMoving& stage, SUMOTime now) const;
     /// @brief return the current speed of the container
-    double getSpeed(const MSStageTranship& stage) const;
+    double getSpeed(const MSStageMoving& stage) const;
     /// @brief compute tranship time on edge and update state members
-    SUMOTime computeTranshipTime(const MSEdge* prev, const MSStageTranship& stage, SUMOTime currentTime);
+    SUMOTime computeTranshipTime(const MSEdge* prev, const MSStageMoving& stage, SUMOTime currentTime);
+    /// @brief return the time the transportable spent standing
+    SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
+    /// @brief return the list of internal edges if the transportable is on an intersection
+    const MSEdge* getNextEdge(const MSStageMoving& stage) const;
+
 
 
 private:

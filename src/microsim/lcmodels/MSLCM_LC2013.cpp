@@ -31,6 +31,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringUtils.h>
 #include <microsim/transportables/MSPModel.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSDriverState.h>
@@ -2039,13 +2040,13 @@ MSLCM_LC2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
 
 void
 MSLCM_LC2013::adaptSpeedToPedestrians(const MSLane* lane, double& v) {
-    if (MSPModel::getModel()->hasPedestrians(lane)) {
+    if (lane->hasPedestrians()) {
 #ifdef DEBUG_WANTS_CHANGE
         if (DEBUG_COND) {
             std::cout << SIMTIME << " adapt to pedestrians on lane=" << lane->getID() << "\n";
         }
 #endif
-        PersonDist leader = MSPModel::getModel()->nextBlocking(lane, myVehicle.getPositionOnLane(),
+        PersonDist leader = MSNet::getInstance()->getPersonControl().getMovementModel()->nextBlocking(lane, myVehicle.getPositionOnLane(),
                             myVehicle.getRightSideOnLane(), myVehicle.getRightSideOnLane() + myVehicle.getVehicleType().getWidth(),
                             ceil(myVehicle.getSpeed() / myVehicle.getCarFollowModel().getMaxDecel()));
         if (leader.first != 0) {

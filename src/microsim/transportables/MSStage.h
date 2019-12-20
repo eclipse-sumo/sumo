@@ -44,6 +44,7 @@ class SUMOVehicleParameter;
 class SUMOVehicle;
 class MSTransportableDevice;
 class MSTransportable;
+class MSTransportableStateAdapter;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
@@ -211,6 +212,7 @@ private:
 
 };
 
+
 /**
 * A "placeholder" stage storing routing info which will result in real stages when routed
 */
@@ -324,6 +326,7 @@ private:
 
 };
 
+
 /**
 * A "real" stage performing a waiting over the specified time
 */
@@ -394,8 +397,77 @@ private:
     MSStageWaiting(const MSStageWaiting&);
 
     /// @brief Invalidated assignment operator.
-    MSStageWaiting& operator=(const MSStageWaiting&);
+    MSStageWaiting& operator=(const MSStageWaiting&) = delete;
 
+};
+
+
+/**
+* An abstract stage providing additional interface for the movement models
+*/
+class MSStageMoving : public MSStage {
+public:
+    /// constructor
+    MSStageMoving(const std::vector<const MSEdge*>& route, MSStoppingPlace* toStop, const double speed,
+                  const double departPos, const double arrivalPos, const double departPosLat, MSStageType type) :
+        MSStage(route.back(), toStop, arrivalPos, type),
+        myState(nullptr), myRoute(route), mySpeed(speed), myDepartPos(departPos), myDepartPosLat(departPosLat) {}
+
+    /// destructor
+    virtual ~MSStageMoving() {}
+
+    virtual const MSEdge* getNextRouteEdge() const = 0;
+
+    virtual MSTransportableStateAdapter* getState() const {
+        return myState;
+    }
+
+    /// @brief the maximum speed of the transportable
+    virtual double getMaxSpeed(const MSTransportable* const transportable=nullptr) const = 0;
+
+    /// @brief move forward and return whether the transportable arrived
+    virtual bool moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, MSEdge* nextInternal = 0) = 0;
+
+    /// @brief place transportable on a previously passed edge
+    virtual void setRouteIndex(MSTransportable* const transportable, int routeOffset);
+
+    inline const std::vector<const MSEdge*>& getRoute() const {
+        return myRoute;
+    }
+
+    inline const std::vector<const MSEdge*>::iterator getRouteStep() const {
+        return myRouteStep;
+    }
+
+    inline double getDepartPos() const {
+        return myDepartPos;
+    }
+
+    inline double getDepartPosLat() const {
+        return myDepartPosLat;
+    }
+
+protected:
+    /// @brief state that is to be manipulated by MSPModel
+    MSTransportableStateAdapter* myState;
+
+    /// @brief The route of the container
+    std::vector<const MSEdge*> myRoute;
+
+    /// @brief current step
+    std::vector<const MSEdge*>::iterator myRouteStep;
+
+    /// @brief The current internal edge this transportable is on or nullptr
+    MSEdge* myCurrentInternalEdge = nullptr;
+
+    /// @brief the speed of the transportable
+    double mySpeed;
+
+    /// @brief the depart position
+    double myDepartPos;
+
+    /// @brief the lateral depart position
+    double myDepartPosLat;
 };
 
 

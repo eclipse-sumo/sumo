@@ -118,7 +118,7 @@ GUINet::getBoundary() const {
 MSTransportableControl&
 GUINet::getPersonControl() {
     if (myPersonControl == nullptr) {
-        myPersonControl = new GUITransportableControl();
+        myPersonControl = new GUITransportableControl(true);
     }
     return *myPersonControl;
 }
@@ -127,7 +127,7 @@ GUINet::getPersonControl() {
 MSTransportableControl&
 GUINet::getContainerControl() {
     if (myContainerControl == nullptr) {
-        myContainerControl = new GUITransportableControl();
+        myContainerControl = new GUITransportableControl(false);
     }
     return *myContainerControl;
 }

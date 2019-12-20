@@ -59,13 +59,10 @@ public:
     ~MSPModel_Striping();
 
     /// @brief register the given person as a pedestrian
-    PedestrianState* add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now);
-
-    /// @brief put the given state on lane
-    void add(PedestrianState* pState, const MSLane* lane);
+    MSTransportableStateAdapter* add(MSPerson* person, MSStageMoving* stage, SUMOTime now);
 
     /// @brief remove the specified person from the pedestrian simulation
-    void remove(PedestrianState* state);
+    void remove(MSTransportableStateAdapter* state);
 
     /** @brief whether a pedestrian is blocking the crossing of lane for the given vehicle bondaries
      * @param[in] lane The crossing to check
@@ -87,9 +84,6 @@ public:
 
     /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
     PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0);
-
-    /// @brief remove state at simulation end
-    void cleanupHelper();
 
     /// @brief model parameters
     ///@{
@@ -261,29 +255,29 @@ protected:
      * @class PState
      * @brief Container for pedestrian state and individual position update function
      */
-    class PState : public PedestrianState {
+    class PState : public MSTransportableStateAdapter {
     public:
 
         /// @brief abstract methods inherited from PedestrianState
         /// @{
-        double getEdgePos(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
-        Position getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
-        double getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
-        SUMOTime getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
-        double getSpeed(const MSPerson::MSPersonStage_Walking& stage) const;
-        const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const;
+        double getEdgePos(const MSStageMoving& stage, SUMOTime now) const;
+        Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
+        double getAngle(const MSStageMoving& stage, SUMOTime now) const;
+        SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
+        double getSpeed(const MSStageMoving& stage) const;
+        const MSEdge* getNextEdge(const MSStageMoving& stage) const;
         void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
                       double lanePosLat, double angle, int routeOffset,
                       const ConstMSEdgeVector& edges, SUMOTime t);
 
         /// @}
 
-        PState(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, const MSLane* lane);
+        PState(MSPerson* person, MSStageMoving* stage, const MSLane* lane);
 
 
         ~PState() {};
         MSPerson* myPerson;
-        MSPerson::MSPersonStage_Walking* myStage;
+        MSStageMoving* myStage;
         /// @brief the current lane of this pedestrian
         const MSLane* myLane;
         /// @brief the advancement along the current lane

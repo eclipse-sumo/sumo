@@ -452,4 +452,17 @@ MSStageWaiting::getStageSummary(const bool /* isPerson */) const {
 }
 
 
+/* -------------------------------------------------------------------------
+* MSStageMoving - methods
+* ----------------------------------------------------------------------- */
+void
+MSStageMoving::setRouteIndex(MSTransportable* const transportable, int routeOffset) {
+    assert(routeOffset >= 0);
+    assert(routeOffset < (int)myRoute.size());
+    getEdge()->removePerson(transportable);
+    myRouteStep = myRoute.begin() + routeOffset;
+    getEdge()->addPerson(transportable);
+}
+
+
 /****************************************************************************/

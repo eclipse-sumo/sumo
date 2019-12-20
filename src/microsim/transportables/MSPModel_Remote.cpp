@@ -212,10 +212,6 @@ void MSPModel_Remote::remove(PedestrianState* state) {
 
 }
 
-void MSPModel_Remote::cleanupHelper() {
-    MSPModel::cleanupHelper();
-}
-
 void MSPModel_Remote::initialize() {
     hybridsim::Scenario req;
 

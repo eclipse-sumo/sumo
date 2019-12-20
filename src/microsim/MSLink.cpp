@@ -32,6 +32,7 @@
 #include "MSLink.h"
 #include "MSLane.h"
 #include <microsim/transportables/MSPerson.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include "MSEdge.h"
 #include "MSGlobals.h"
 #include "MSVehicle.h"
@@ -1093,7 +1094,8 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 const bool wayIn = myLengthsBehindCrossing[i].first < myLaneBefore->getLength() * 0.5;
                 const double vehSideOffset = (foeDistToCrossing + myLaneBefore->getWidth() * 0.5 - vehWidth * 0.5
                                               + ego->getLateralPositionOnLane() * (wayIn ? -1 : 1));
-                if (distToPeds >= -MSPModel::SAFETY_GAP && MSPModel::getModel()->blockedAtDist(foeLane, vehSideOffset, vehWidth,
+                // can access the movement model here since we already checked for existing persons above
+                if (distToPeds >= -MSPModel::SAFETY_GAP && MSNet::getInstance()->getPersonControl().getMovementModel()->blockedAtDist(foeLane, vehSideOffset, vehWidth,
                         ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_CROSSING_GAP, JM_CROSSING_GAP_DEFAULT),
                         collectBlockers)) {
                     result.push_back(LinkLeader((MSVehicle*)nullptr, -1, distToPeds));

@@ -125,11 +125,16 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
 
 
 MSPModel_Striping::~MSPModel_Striping() {
+    myActiveLanes.clear();
+    myNumActivePedestrians = 0;
+    myWalkingAreaPaths.clear(); // need to recompute when lane pointers change
+    myWalkingAreaFoes.clear();
+    myMinNextLengths.clear();
 }
 
 
-PedestrianState*
-MSPModel_Striping::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime) {
+MSTransportableStateAdapter*
+MSPModel_Striping::add(MSPerson* person, MSStageMoving* stage, SUMOTime) {
     MSNet* net = MSNet::getInstance();
     if (!myAmActive) {
         net->getBeginOfTimestepEvents()->addEvent(new MovePedestrians(this), net->getCurrentTimeStep() + DELTA_T);
@@ -155,15 +160,7 @@ MSPModel_Striping::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage,
 
 
 void
-MSPModel_Striping::add(PedestrianState* pState, const MSLane* lane) {
-    PState* ped = dynamic_cast<PState*>(pState);
-    assert(ped != 0);
-    myActiveLanes[lane].push_back(ped);
-}
-
-
-void
-MSPModel_Striping::remove(PedestrianState* state) {
+MSPModel_Striping::remove(MSTransportableStateAdapter* state) {
     const MSLane* lane = dynamic_cast<PState*>(state)->myLane;
     Pedestrians& pedestrians = myActiveLanes[lane];
     for (Pedestrians::iterator it = pedestrians.begin(); it != pedestrians.end(); ++it) {
@@ -274,16 +271,6 @@ MSPModel_Striping::getPedestrians(const MSLane* lane) {
     } else {
         return noPedestrians;
     }
-}
-
-
-void
-MSPModel_Striping::cleanupHelper() {
-    myActiveLanes.clear();
-    myNumActivePedestrians = 0;
-    myWalkingAreaPaths.clear(); // need to recompute when lane pointers change
-    myWalkingAreaFoes.clear();
-    myMinNextLengths.clear();
 }
 
 
@@ -1279,7 +1266,7 @@ MSPModel_Striping::Obstacle::Obstacle(const PState& ped) :
 // ===========================================================================
 
 
-MSPModel_Striping::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, const MSLane* lane):
+MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, const MSLane* lane):
     myPerson(person),
     myStage(stage),
     myLane(lane),
@@ -1498,7 +1485,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                     // disconnnected route. move to the next edge
                     if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
                         // try to determine direction from topology, otherwise maintain current direction
-                        const MSEdge* currRouteEdge = myStage->getRouteEdge();
+                        const MSEdge* currRouteEdge = *myStage->getRouteStep();
                         const MSEdge* nextRouteEdge = myStage->getNextRouteEdge();
                         if ((nextRouteEdge->getToJunction() == currRouteEdge->getFromJunction())
                                 || nextRouteEdge->getToJunction() == currRouteEdge->getToJunction()) {
@@ -1782,13 +1769,13 @@ MSPModel_Striping::PState::getImpatience(SUMOTime now) const {
 
 
 double
-MSPModel_Striping::PState::getEdgePos(const MSPerson::MSPersonStage_Walking&, SUMOTime) const {
+MSPModel_Striping::PState::getEdgePos(const MSStageMoving&, SUMOTime) const {
     return myRelX;
 }
 
 
 Position
-MSPModel_Striping::PState::getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime) const {
+MSPModel_Striping::PState::getPosition(const MSStageMoving& stage, SUMOTime) const {
     if (myRemoteXYPos != Position::INVALID) {
         return myRemoteXYPos;
     }
@@ -1817,7 +1804,7 @@ MSPModel_Striping::PState::getPosition(const MSPerson::MSPersonStage_Walking& st
 
 
 double
-MSPModel_Striping::PState::getAngle(const MSPerson::MSPersonStage_Walking&, SUMOTime) const {
+MSPModel_Striping::PState::getAngle(const MSStageMoving&, SUMOTime) const {
     if (myAngle != std::numeric_limits<double>::max()) {
         return myAngle;
     }
@@ -1837,19 +1824,19 @@ MSPModel_Striping::PState::getAngle(const MSPerson::MSPersonStage_Walking&, SUMO
 
 
 SUMOTime
-MSPModel_Striping::PState::getWaitingTime(const MSPerson::MSPersonStage_Walking&, SUMOTime) const {
+MSPModel_Striping::PState::getWaitingTime(const MSStageMoving&, SUMOTime) const {
     return myWaitingTime;
 }
 
 
 double
-MSPModel_Striping::PState::getSpeed(const MSPerson::MSPersonStage_Walking&) const {
+MSPModel_Striping::PState::getSpeed(const MSStageMoving&) const {
     return mySpeed;
 }
 
 
 const MSEdge*
-MSPModel_Striping::PState::getNextEdge(const MSPerson::MSPersonStage_Walking&) const {
+MSPModel_Striping::PState::getNextEdge(const MSStageMoving&) const {
     return myNLI.lane == nullptr ? nullptr : &myNLI.lane->getEdge();
 }
 
@@ -1876,11 +1863,11 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
         myRemoteXYPos = Position::INVALID;
         const MSLane* sidewalk = getSidewalk<MSEdge, MSLane>(&lane->getEdge());
         if (lane != sidewalk) {
-            MSPModel_Striping* pm = dynamic_cast<MSPModel_Striping*>(MSPModel::getModel());
-            assert(pm != 0);
+            MSPModel_Striping* pm = dynamic_cast<MSPModel_Striping*>(MSNet::getInstance()->getPersonControl().getMovementModel());
+            assert(pm != nullptr);
             // add a new active lane
             pm->remove(this);
-            pm->add(this, lane);
+            pm->myActiveLanes[lane].push_back(this);
         }
         if (edges.empty()) {
             // map within route

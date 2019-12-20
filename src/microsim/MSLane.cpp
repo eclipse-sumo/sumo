@@ -49,6 +49,7 @@
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/geom/GeomHelper.h>
 #include <microsim/transportables/MSPModel.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSNet.h"
@@ -1435,7 +1436,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     }
 
 
-    if (myEdge->getPersons().size() > 0 && MSPModel::getModel()->hasPedestrians(this)) {
+    if (myEdge->getPersons().size() > 0 && hasPedestrians()) {
 #ifdef DEBUG_PEDESTRIAN_COLLISIONS
         if (DEBUG_COND) {
             std::cout << SIMTIME << " detect pedestrian collisions stage=" << stage << " lane=" << getID() << "\n";
@@ -1447,7 +1448,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             const double back = v->getBackPositionOnLane(this);
             const double length = v->getVehicleType().getLength();
             const double right = v->getRightSideOnEdge(this) - getRightSideOnEdge();
-            PersonDist leader = MSPModel::getModel()->nextBlocking(this, back, right, right + v->getVehicleType().getWidth());
+            PersonDist leader = MSNet::getInstance()->getPersonControl().getMovementModel()->nextBlocking(this, back, right, right + v->getVehicleType().getWidth());
 #ifdef DEBUG_PEDESTRIAN_COLLISIONS
             if (DEBUG_COND && DEBUG_COND2(v)) {
                 std::cout << SIMTIME << " back=" << back << " right=" << right << " person=" << Named::getIDSecure(leader.first) << " dist=" << leader.second << "\n";
@@ -1484,7 +1485,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
 void
 MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const PositionVector& colliderBoundary, const MSLane* foeLane,
         SUMOTime timestep, const std::string& stage) {
-    if (foeLane->getEdge().getPersons().size() > 0 && MSPModel::getModel()->hasPedestrians(foeLane)) {
+    if (foeLane->getEdge().getPersons().size() > 0 && foeLane->hasPedestrians()) {
 #ifdef DEBUG_PEDESTRIAN_COLLISIONS
         if (DEBUG_COND) {
             std::cout << SIMTIME << " detect pedestrian junction collisions stage=" << stage << " lane=" << getID() << " foeLane=" << foeLane->getID() << "\n";
@@ -3672,14 +3673,21 @@ MSLane::resetPermissions(long long transientID) {
 
 
 bool
+MSLane::hasPedestrians() const {
+    MSNet* const net = MSNet::getInstance();
+    return net->hasPersons() && net->getPersonControl().getMovementModel()->hasPedestrians(this);
+}
+
+
+bool
 MSLane::checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& dist,  double pos, bool patchSpeed) const {
-    if (getEdge().getPersons().size() > 0 && MSPModel::getModel()->hasPedestrians(this)) {
+    if (getEdge().getPersons().size() > 0 && hasPedestrians()) {
 #ifdef DEBUG_INSERTION
         if (DEBUG_COND2(aVehicle)) {
             std::cout << SIMTIME << " check for pedestrians on lane=" << getID() << " pos=" << pos << "\n";
         }
 #endif
-        PersonDist leader = MSPModel::getModel()->nextBlocking(this, pos - aVehicle->getVehicleType().getLength(),
+        PersonDist leader = MSNet::getInstance()->getPersonControl().getMovementModel()->nextBlocking(this, pos - aVehicle->getVehicleType().getLength(),
                             aVehicle->getRightSideOnLane(), aVehicle->getRightSideOnLane() + aVehicle->getVehicleType().getWidth(), ceil(speed / aVehicle->getCarFollowModel().getMaxDecel()));
         if (leader.first != 0) {
             const double gap = leader.second - aVehicle->getVehicleType().getLengthWithGap();

@@ -679,7 +679,6 @@ MSNet::clearAll() {
     MSDevice::cleanupAll();
     MSTrigger::cleanup();
     MSCalibrator::cleanup();
-    MSPModel::cleanup();
     MSCModel_NonInteracting::cleanup();
     MSDevice_BTsender::cleanup();
     MSDevice_SSM::cleanup();
@@ -861,22 +860,23 @@ MSNet::logSimulationDuration() const {
 MSTransportableControl&
 MSNet::getPersonControl() {
     if (myPersonControl == nullptr) {
-        myPersonControl = new MSTransportableControl();
+        myPersonControl = new MSTransportableControl(true);
     }
     return *myPersonControl;
 }
 
+
 MSTransportableControl&
 MSNet::getContainerControl() {
     if (myContainerControl == nullptr) {
-        myContainerControl = new MSTransportableControl();
+        myContainerControl = new MSTransportableControl(false);
     }
     return *myContainerControl;
 }
 
 MSDynamicShapeUpdater*
 MSNet::makeDynamicShapeUpdater() {
-    myDynamicShapeUpdater = std::unique_ptr<MSDynamicShapeUpdater> (new MSDynamicShapeUpdater(MSNet::getInstance()->getShapeContainer()));
+    myDynamicShapeUpdater = std::unique_ptr<MSDynamicShapeUpdater> (new MSDynamicShapeUpdater(*myShapeContainer));
     return myDynamicShapeUpdater.get();
 }
 

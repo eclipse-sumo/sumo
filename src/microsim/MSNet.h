@@ -352,7 +352,7 @@ public:
     /** @brief Returns whether persons are simulated
      */
     bool hasPersons() const {
-        return myPersonControl != 0;
+        return myPersonControl != nullptr;
     }
 
     /** @brief Returns the container control
@@ -368,7 +368,7 @@ public:
     /** @brief Returns whether containers are simulated
     */
     bool hasContainers() const {
-        return myContainerControl != 0;
+        return myContainerControl != nullptr;
     }
 
 

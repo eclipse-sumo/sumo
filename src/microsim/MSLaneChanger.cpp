@@ -35,6 +35,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSPModel.h>
 #include <utils/common/MsgHandler.h>
 
@@ -811,8 +812,8 @@ MSLaneChanger::checkChange(
             blocked |= blockedByLeader;
         }
     }
-    if (blocked == 0 && MSPModel::getModel()->hasPedestrians(targetLane)) {
-        PersonDist leader = MSPModel::getModel()->nextBlocking(targetLane, vehicle->getBackPositionOnLane(),
+    if (blocked == 0 && targetLane->hasPedestrians()) {
+        PersonDist leader = MSNet::getInstance()->getPersonControl().getMovementModel()->nextBlocking(targetLane, vehicle->getBackPositionOnLane(),
                             vehicle->getRightSideOnLane(), vehicle->getRightSideOnLane() + vehicle->getVehicleType().getWidth(),
                             ceil(vehicle->getSpeed() / vehicle->getCarFollowModel().getMaxDecel()));
         if (leader.first != 0) {

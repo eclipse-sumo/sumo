@@ -1195,6 +1195,9 @@ public:
         cont.add(this);
     }
 
+    /// @brief whether the lane has pedestrians on it
+    bool hasPedestrians() const;
+
     static void initCollisionOptions(const OptionsCont& oc);
 
     static bool teleportOnCollision() {

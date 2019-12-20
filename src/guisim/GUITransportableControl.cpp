@@ -33,7 +33,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUITransportableControl::GUITransportableControl() {}
+GUITransportableControl::GUITransportableControl(const bool isPerson) : MSTransportableControl(isPerson) {}
 
 
 GUITransportableControl::~GUITransportableControl() {

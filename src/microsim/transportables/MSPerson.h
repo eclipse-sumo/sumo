@@ -47,8 +47,7 @@ class MSStoppingPlace;
 class SUMOVehicle;
 class MSVehicleType;
 class MSPModel;
-class PedestrianState;
-class DummyState;
+class MSTransportableStateAdapter;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
@@ -67,7 +66,7 @@ public:
      * The walking does not need any route as it is not simulated.
      * Only the duration is needed
      */
-    class MSPersonStage_Walking : public MSStage {
+    class MSPersonStage_Walking : public MSStageMoving {
     public:
         /// constructor
         MSPersonStage_Walking(const std::string& personID, const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime,
@@ -130,43 +129,18 @@ public:
         virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const;
 
         /// @brief move forward and return whether the person arrived
-        bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = nullptr);
-
-        /// @brief place person on a previously passed edge
-        void setRouteIndex(MSPerson* person, int routeOffset);
+        bool moveToNextEdge(MSTransportable* person, SUMOTime currentTime, MSEdge* nextInternal = nullptr);
 
         /// @brief accessors to be used by MSPModel
         //@{
         double getMaxSpeed(const MSTransportable* const person) const;
 
-        inline double getDepartPos() const {
-            return myDepartPos;
-        }
-
-        inline double getDepartPosLat() const {
-            return myDepartPosLat;
-        }
-
         inline double getArrivalPos() const {
             return myArrivalPos;
         }
 
-        inline const std::vector<const MSEdge*>::iterator getRouteStep() const {
-            return myRouteStep;
-        }
-
-        inline const MSEdge* getRouteEdge() const {
-            return *myRouteStep;
-        }
         inline const MSEdge* getNextRouteEdge() const {
-            return myRouteStep == myRoute.end() - 1 ? 0 : *(myRouteStep + 1);
-        }
-        inline const ConstMSEdgeVector& getRoute() const {
-            return myRoute;
-        }
-
-        PedestrianState* getPedestrianState() const {
-            return myPedestrianState;
+            return myRouteStep == myRoute.end() - 1 ? nullptr : *(myRouteStep + 1);
         }
         //@}
 
@@ -187,22 +161,6 @@ public:
 
         /// the time the person entered the edge
         SUMOTime myLastEdgeEntryTime;
-
-        /// @brief The route of the person
-        ConstMSEdgeVector myRoute;
-
-
-        ConstMSEdgeVector::iterator myRouteStep;
-
-        /// @brief The current internal edge this person is on or 0
-        MSEdge* myCurrentInternalEdge;
-
-        double myDepartPos;
-        double myDepartPosLat;
-        double mySpeed;
-
-        /// @brief state that is to be manipulated by MSPModel
-        PedestrianState* myPedestrianState;
 
         class arrival_finder {
         public:
@@ -379,8 +337,6 @@ private:
     Influencer* myInfluencer;
 
     const double myChosenSpeedFactor;
-
-    static DummyState myDummyState;
 
 private:
     /// @brief Invalidated copy constructor.

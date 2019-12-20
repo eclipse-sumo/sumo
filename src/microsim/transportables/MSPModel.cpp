@@ -35,8 +35,6 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-MSPModel* MSPModel::myModel(nullptr);
-
 // named constants
 const int MSPModel::FORWARD(1);
 const int MSPModel::BACKWARD(-1);
@@ -44,49 +42,12 @@ const int MSPModel::UNDEFINED_DIRECTION(0);
 
 // parameters shared by all models
 const double MSPModel::SAFETY_GAP(1.0);
-
 const double MSPModel::SIDEWALK_OFFSET(3);
 
-#ifdef HAVE_FOX
-FXMutex MSPModel::myInitializationMutex(true);
-#endif
 
 // ===========================================================================
 // MSPModel method definitions
 // ===========================================================================
-
-
-MSPModel*
-MSPModel::getModel() {
-#ifdef HAVE_FOX
-    FXConditionalLock lock(myInitializationMutex, MSGlobals::gNumSimThreads > 1);
-#endif
-    if (myModel == nullptr) {
-        const OptionsCont& oc = OptionsCont::getOptions();
-        MSNet* net = MSNet::getInstance();
-        const std::string model = oc.getString("pedestrian.model");
-        if (model == "striping") {
-            myModel = new MSPModel_Striping(oc, net);
-        } else if (model == "nonInteracting") {
-            myModel = new MSPModel_NonInteracting(oc, net);
-        } else {
-            throw ProcessError("Unknown pedestrian model '" + model + "'");
-        }
-    }
-    return myModel;
-}
-
-
-void
-MSPModel::cleanup() {
-    if (myModel != nullptr) {
-        myModel->cleanupHelper();
-        delete myModel;
-        myModel = nullptr;
-    }
-}
-
-
 int
 MSPModel::canTraverse(int dir, const ConstMSEdgeVector& route) {
     const MSJunction* junction = nullptr;
@@ -106,5 +67,6 @@ MSPModel::canTraverse(int dir, const ConstMSEdgeVector& route) {
     }
     return dir;
 }
+
 
 /****************************************************************************/

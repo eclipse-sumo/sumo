@@ -2368,14 +2368,14 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
         }
         // adapt to pedestrians on the same lane
-        if (lane->getEdge().getPersons().size() > 0 && MSPModel::getModel()->hasPedestrians(lane)) {
+        if (lane->getEdge().getPersons().size() > 0 && lane->hasPedestrians()) {
             const double relativePos = lane->getLength() - seen;
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " adapt to pedestrians on lane=" << lane->getID() << " relPos=" << relativePos << "\n";
             }
 #endif
-            PersonDist leader = MSPModel::getModel()->nextBlocking(lane, relativePos,
+            PersonDist leader = MSNet::getInstance()->getPersonControl().getMovementModel()->nextBlocking(lane, relativePos,
                                 getRightSideOnLane(), getRightSideOnLane() + getVehicleType().getWidth(), ceil(getSpeed() / cfModel.getMaxDecel()));
             if (leader.first != 0) {
                 const double stopSpeed = cfModel.stopSpeed(this, getSpeed(), leader.second - getVehicleType().getMinGap());

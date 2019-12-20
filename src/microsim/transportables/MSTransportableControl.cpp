@@ -33,18 +33,36 @@
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/transportables/MSCModel_NonInteracting.h>
+#include <microsim/transportables/MSPModel_NonInteracting.h>
+#include <microsim/transportables/MSPModel_Striping.h>
 #include <microsim/transportables/MSTransportableControl.h>
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSTransportableControl::MSTransportableControl():
+MSTransportableControl::MSTransportableControl(const bool isPerson):
     myLoadedNumber(0),
     myRunningNumber(0),
     myJammedNumber(0),
     myWaitingForVehicleNumber(0),
     myHaveNewWaiting(false) {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    MSNet* const net = MSNet::getInstance();
+    if (isPerson) {
+        const std::string model = oc.getString("pedestrian.model");
+        myNonInteractingModel = new MSPModel_NonInteracting(oc, net);
+        if (model == "striping") {
+            myMovementModel = new MSPModel_Striping(oc, net);
+        } else if (model == "nonInteracting") {
+            myMovementModel = myNonInteractingModel;
+        } else {
+            throw ProcessError("Unknown pedestrian model '" + model + "'");
+        }
+    } else {
+        myMovementModel = myNonInteractingModel = new MSPModel_NonInteracting(oc, net);
+    }
 }
 
 
@@ -54,6 +72,10 @@ MSTransportableControl::~MSTransportableControl() {
     }
     myTransportables.clear();
     myWaiting4Vehicle.clear();
+    if (myMovementModel != myNonInteractingModel) {
+        delete myMovementModel;
+    }
+    delete myNonInteractingModel;
 }
 
 
