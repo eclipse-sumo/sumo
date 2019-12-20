@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 20 12:26:47 2019 by Eclipse SUMO Version v1_4_0+0244-fdd41c3
+<!-- generated on Fri Dec 20 12:33:44 2019 by Eclipse SUMO Version v1_4_0+0246-7c27edc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,13 +33,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="ego" depart="0.00" arrival="23.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="rerouter_0:parkingAreaReroute" replacedAtTime="8.00" probability="0" edges="gneE0 gneE1"/>
-            <route edges="gneE0 gneE1"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="occupyPA" depart="0.00" departSpeed="13.89" arrival="75.00">
         <route edges="gneE1"/>
         <stop parkingArea="p3" duration="60.00"/>
@@ -48,6 +41,11 @@ SPDX-License-Identifier: EPL-2.0
     <vehicle id="blocker" depart="0.00" departPos="30.00" arrival="75.00">
         <route edges="gneE0"/>
         <stop lane="gneE0_0" endPos="50.00" duration="60.00"/>
+    </vehicle>
+
+    <vehicle id="ego" depart="0.00" arrival="143.00">
+        <route edges="gneE0 gneE1"/>
+        <stop parkingArea="p3" duration="60.00"/>
     </vehicle>
 
 </routes>
