@@ -870,6 +870,16 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
                   << ", foe speed=" << e->foe->getSpeed()
                   << std::endl;
 #endif
+    if (type == ENCOUNTER_TYPE_COLLISION) {
+#ifdef DEBUG_SSM
+        eInfo.egoEstimatedConflictEntryTime = 0;
+        eInfo.foeEstimatedConflictEntryTime = 0;
+        if (DEBUG_COND(e->ego))
+            std::cout << "    encouter type " << type << " -> no exit times to be calculated."
+                      << std::endl;
+#endif
+        return;
+    }
 
     if (type == ENCOUNTER_TYPE_FOLLOWING_FOLLOWER || type == ENCOUNTER_TYPE_FOLLOWING_LEADER || type == ENCOUNTER_TYPE_MERGING_ADJACENT || type == ENCOUNTER_TYPE_ON_ADJACENT_LANES) {
         // No need to know the times until ...ConflictDistEntry, currently. They would correspond to an estimated time headway or similar.
@@ -902,14 +912,14 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
     }
 
     // Estimate entry times to stipulate a leader / follower relation for the encounter.
-    if (eInfo.egoConflictEntryDist > 0.) {
+    if (eInfo.egoConflictEntryDist > NUMERICAL_EPS) {
         eInfo.egoEstimatedConflictEntryTime = e->ego->getCarFollowModel().estimateArrivalTime(eInfo.egoConflictEntryDist, e->ego->getSpeed(), e->ego->getMaxSpeedOnLane(), MIN2(0., e->ego->getAcceleration()));
         assert(eInfo.egoEstimatedConflictEntryTime > 0.);
     } else {
         // ego already entered conflict area
         eInfo.egoEstimatedConflictEntryTime = 0.;
     }
-    if (eInfo.foeConflictEntryDist > 0.) {
+    if (eInfo.foeConflictEntryDist > NUMERICAL_EPS) {
         eInfo.foeEstimatedConflictEntryTime = e->foe->getCarFollowModel().estimateArrivalTime(eInfo.foeConflictEntryDist, e->foe->getSpeed(), e->foe->getMaxSpeedOnLane(), MIN2(0., e->foe->getAcceleration()));
         assert(eInfo.foeEstimatedConflictEntryTime > 0.);
     } else {
@@ -2278,7 +2288,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                     if (!foeConflictLane->getCanonicalSuccessorLane()->isInternal()) {
                         // intersection has wierd geometry and the intersection was found
                         egoDistToConflictFromJunctionEntry = 0;
-                        WRITE_WARNINGF("Cannot compute SSM due to bad junction geometry at junction '%'.", egoEntryLink->getJunction()->getID())
+                        WRITE_WARNINGF("Cannot compute SSM due to bad internal lane geometry at junction '%'.", egoEntryLink->getJunction()->getID())
                         break;
                     }
                     foeConflictLane = foeConflictLane->getCanonicalSuccessorLane();
@@ -2300,7 +2310,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                         if (!egoConflictLane->getCanonicalSuccessorLane()->isInternal()) {
                             // intersection has wierd geometry and the intersection was found
                             foeDistToConflictFromJunctionEntry = 0;
-                            WRITE_WARNINGF("Cannot compute SSM due to bad junction geometry at junction '%'.", foeEntryLink->getJunction()->getID())
+                            WRITE_WARNINGF("Cannot compute SSM due to bad internal lane geometry at junction '%'.", foeEntryLink->getJunction()->getID())
                             break;
                         }
                         egoInternalLaneLengthsBeforeCrossing += egoConflictLane->getLength();
