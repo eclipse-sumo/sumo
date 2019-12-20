@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 19 Nov 2019 09:55:26 PM CET by Eclipse SUMO netedit Version v1_3_1+0961-6994639b97
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/debug/parkingRerouteCrash/net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <netedit>
+        <additional-files value="/home/kobo/dlr/debug/parkingRerouteCrash/add.xml"/>
+        <route-files value="/home/kobo/dlr/debug/parkingRerouteCrash/vehs.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="ego" depart="0">
+        <route edges="gneE0 gneE1"/>
+        <stop parkingArea="p3" duration="60"/>
+    </vehicle>
+
+    <vehicle id="occupyPA" depart="0" departSpeed="max">
+        <route edges="gneE1"/>
+        <stop parkingArea="p3" duration="60"/>
+    </vehicle>
+
+    <!-- trigger ego lane change -->
+    <vehicle id="blocker" depart="0" departPos="30">
+        <route edges="gneE0"/>
+        <stop lane="gneE0_0" duration="60" endPos="50"/>
+    </vehicle>
+</routes>
