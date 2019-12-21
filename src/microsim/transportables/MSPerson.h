@@ -86,27 +86,10 @@ public:
         /// sets the walking speed (ignored in other stages)
         void setSpeed(double speed);
 
-        /// Returns the current edge
-        const MSEdge* getEdge() const;
-        const MSEdge* getFromEdge() const;
-        double getEdgePos(SUMOTime now) const;
-
-        ///
-        Position getPosition(SUMOTime now) const;
-
-        double getAngle(SUMOTime now) const;
-
         /// @brief get travel distance in this stage
         double getDistance() const {
             return walkDistance();
         }
-
-        SUMOTime getWaitingTime(SUMOTime now) const;
-
-        double getSpeed() const;
-
-        /// @brief the edges of the current stage
-        ConstMSEdgeVector getEdges() const;
 
         std::string getStageDescription(const bool isPerson) const {
             UNUSED_PARAMETER(isPerson);

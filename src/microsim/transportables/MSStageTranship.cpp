@@ -84,51 +84,6 @@ MSStageTranship::proceed(MSNet* net, MSTransportable* transportable, SUMOTime no
 }
 
 
-const MSEdge*
-MSStageTranship::getEdge() const {
-    if (myCurrentInternalEdge != nullptr) {
-        return myCurrentInternalEdge;
-    } else {
-        return *myRouteStep;
-    }
-}
-
-const MSEdge*
-MSStageTranship::getFromEdge() const {
-    return myRoute.front();
-}
-
-double
-MSStageTranship::getEdgePos(SUMOTime now) const {
-    return myState == nullptr ? 0. : myState->getEdgePos(*this, now);
-}
-
-Position
-MSStageTranship::getPosition(SUMOTime now) const {
-    return myState == nullptr ? Position::INVALID : myState->getPosition(*this, now);
-}
-
-double
-MSStageTranship::getAngle(SUMOTime now) const {
-    return myState == nullptr ? 0. : myState->getAngle(*this, now);
-}
-
-SUMOTime
-MSStageTranship::getWaitingTime(SUMOTime /* now */) const {
-    return 0;
-}
-
-double
-MSStageTranship::getSpeed() const {
-    return myState == nullptr ? 0. : myState->getSpeed(*this);
-}
-
-
-ConstMSEdgeVector
-MSStageTranship::getEdges() const {
-    return myRoute;
-}
-
 double
 MSStageTranship::getDistance() const {
     if (myArrived >= 0) {

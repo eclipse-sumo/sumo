@@ -71,60 +71,10 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
 MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {
 }
 
+
 MSStage*
 MSPerson::MSPersonStage_Walking::clone() const {
     return new MSPersonStage_Walking("dummyID", myRoute, myDestinationStop, myWalkingTime, mySpeed, myDepartPos, myArrivalPos, myDepartPosLat);
-}
-
-const MSEdge*
-MSPerson::MSPersonStage_Walking::getEdge() const {
-    if (myCurrentInternalEdge != nullptr) {
-        return myCurrentInternalEdge;
-    } else {
-        return *myRouteStep;
-    }
-}
-
-
-const MSEdge*
-MSPerson::MSPersonStage_Walking::getFromEdge() const {
-    return myRoute.front();
-}
-
-
-double
-MSPerson::MSPersonStage_Walking::getEdgePos(SUMOTime now) const {
-    return myState == nullptr ? 0. : myState->getEdgePos(*this, now);
-}
-
-
-Position
-MSPerson::MSPersonStage_Walking::getPosition(SUMOTime now) const {
-    return myState == nullptr ? Position::INVALID : myState->getPosition(*this, now);
-}
-
-
-double
-MSPerson::MSPersonStage_Walking::getAngle(SUMOTime now) const {
-    return myState == nullptr ? 0. : myState->getAngle(*this, now);
-}
-
-
-SUMOTime
-MSPerson::MSPersonStage_Walking::getWaitingTime(SUMOTime now) const {
-    return myState == nullptr ? 0 : myState->getWaitingTime(*this, now);
-}
-
-
-double
-MSPerson::MSPersonStage_Walking::getSpeed() const {
-    return myState == nullptr ? 0. : myState->getSpeed(*this);
-}
-
-
-ConstMSEdgeVector
-MSPerson::MSPersonStage_Walking::getEdges() const {
-    return myRoute;
 }
 
 

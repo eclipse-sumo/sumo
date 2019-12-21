@@ -68,32 +68,8 @@ public:
     /// proceeds to the next step
     virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous);
 
-    /// Returns the current edge
-    const MSEdge* getEdge() const;
-
-    /// Returns first edge of the containers route
-    const MSEdge* getFromEdge() const;
-
-    /// Returns the offset from the start of the current edge measured in its natural direction
-    double getEdgePos(SUMOTime now) const;
-
-    /// Returns the position of the container
-    Position getPosition(SUMOTime now) const;
-
-    /// Returns the angle of the container
-    double getAngle(SUMOTime now) const;
-
     /// @brief get travel distance in this stage
     double getDistance() const;
-
-    /// Returns the time the container spent waiting
-    SUMOTime getWaitingTime(SUMOTime now) const;
-
-    /// Returns the speed of the container
-    double getSpeed() const;
-
-    /// @brief the edges of the current stage
-    ConstMSEdgeVector getEdges() const;
 
     /// Returns the current stage description as a string
     std::string getStageDescription(const bool isPerson) const {

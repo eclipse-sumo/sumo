@@ -461,6 +461,51 @@ MSStageMoving::~MSStageMoving() {
     delete myState;
 }
 
+const MSEdge*
+MSStageMoving::getEdge() const {
+    if (myCurrentInternalEdge != nullptr) {
+        return myCurrentInternalEdge;
+    } else {
+        return *myRouteStep;
+    }
+}
+
+const MSEdge*
+MSStageMoving::getFromEdge() const {
+    return myRoute.front();
+}
+
+ConstMSEdgeVector
+MSStageMoving::getEdges() const {
+    return myRoute;
+}
+
+
+double
+MSStageMoving::getEdgePos(SUMOTime now) const {
+    return myState == nullptr ? 0. : myState->getEdgePos(*this, now);
+}
+
+Position
+MSStageMoving::getPosition(SUMOTime now) const {
+    return myState == nullptr ? Position::INVALID : myState->getPosition(*this, now);
+}
+
+double
+MSStageMoving::getAngle(SUMOTime now) const {
+    return myState == nullptr ? 0. : myState->getAngle(*this, now);
+}
+
+SUMOTime
+MSStageMoving::getWaitingTime(SUMOTime now) const {
+    return myState == nullptr ? 0 : myState->getWaitingTime(*this, now);
+}
+
+double
+MSStageMoving::getSpeed() const {
+    return myState == nullptr ? 0. : myState->getSpeed(*this);
+}
+
 
 void
 MSStageMoving::setRouteIndex(MSTransportable* const transportable, int routeOffset) {
