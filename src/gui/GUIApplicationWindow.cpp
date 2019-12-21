@@ -1777,7 +1777,9 @@ GUIApplicationWindow::closeAllWindows() {
     while (!myGLWindows.empty()) {
         delete myGLWindows.front();
     }
-    for (FXMainWindow* const window : myTrackerWindows) {
+    // make a copy because deleting modifyes the vector;
+    std::vector<FXMainWindow*> trackerWindows = myTrackerWindows;;
+    for (FXMainWindow* const window : trackerWindows) {
         delete window;
     }
     myTrackerWindows.clear();
