@@ -219,12 +219,12 @@ Helper::handleSingleSubscription(const Subscription& s) {
     std::shared_ptr<VariableWrapper> handler = wrapper->second;
     VariableWrapper* container = handler.get();
     if (s.contextDomain > 0) {
-        handler->setContext(s.id);
         auto containerWrapper = myWrapper.find(s.commandId + 0x20);
         if (containerWrapper == myWrapper.end()) {
             throw TraCIException("Unsupported domain specified");
         }
         container = containerWrapper->second.get();
+        container->setContext(s.id);
     } else {
         handler->setContext("");
     }
