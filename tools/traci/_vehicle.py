@@ -31,15 +31,13 @@ def _readBestLanes(result):
     result.read("!iB")
     nbLanes = result.read("!i")[0]  # Length
     lanes = []
-    for i in range(nbLanes):
+    for _ in range(nbLanes):
         result.read("!B")
         laneID = result.readString()
         length, occupation, offset = result.read("!BdBdBb")[1::2]
         allowsContinuation = bool(result.read("!BB")[1])
-        nextLanesNo = result.read("!Bi")[1]
-        nextLanes = []
-        for j in range(nextLanesNo):
-            nextLanes.append(result.readString())
+        numNextLanes = result.read("!Bi")[1]
+        nextLanes = [result.readString() for __ in range(numNextLanes)]
         lanes.append((laneID, length, occupation, offset, allowsContinuation, tuple(nextLanes)))
     return tuple(lanes)
 
@@ -60,7 +58,7 @@ def _readNeighbors(result):
     """
     N = result.readInt()  # length of the vehicle list
     neighs = []
-    for i in range(N):
+    for _ in range(N):
         vehID = result.readString()
         dist = result.readDouble()
         neighs.append((vehID, dist))
@@ -71,7 +69,7 @@ def _readNextTLS(result):
     result.read("!iB")  # numCompounds, TYPE_INT
     numTLS = result.read("!i")[0]
     nextTLS = []
-    for i in range(numTLS):
+    for _ in range(numTLS):
         result.read("!B")
         tlsID = result.readString()
         tlsIndex, dist, state = result.read("!BiBdBB")[1::2]
@@ -83,7 +81,7 @@ def _readNextStops(result):
     result.read("!iB")  # numCompounds, TYPE_INT
     numStops = result.read("!i")[0]
     nextStop = []
-    for i in range(numStops):
+    for _ in range(numStops):
         result.read("!B")
         lane = result.readString()
         result.read("!B")

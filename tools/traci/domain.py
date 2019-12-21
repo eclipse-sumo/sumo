@@ -137,8 +137,7 @@ class Domain:
                 varIDs = (tc.LAST_STEP_VEHICLE_NUMBER,)
             else:
                 varIDs = (tc.TRACI_ID_LIST,)
-        self._connection._subscribe(
-            self._subscribeID, begin, end, objectID, varIDs)
+        self._connection._subscribe(self._subscribeID, begin, end, objectID, varIDs)
 
     def unsubscribe(self, objectID):
         """unsubscribe(string) -> None
