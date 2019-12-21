@@ -137,6 +137,7 @@ MSStage::getLanePosition(const MSLane* lane, double at, double offset) const {
     return lane->getShape().positionAtOffset(lane->interpolateLanePosToGeometryPos(at), offset);
 }
 
+
 double
 MSStage::getEdgeAngle(const MSEdge* e, double at) const {
     return e->getLanes()[0]->getShape().rotationAtOffset(at);

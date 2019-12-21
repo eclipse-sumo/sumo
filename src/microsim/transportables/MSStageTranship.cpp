@@ -12,7 +12,7 @@
 /// @author  Andreas Kendziorra
 /// @date    Thu, 12 Jun 2014
 ///
-// The class for modelling container-movements
+// The class for modelling transportable movements without interaction
 /****************************************************************************/
 
 
@@ -69,9 +69,9 @@ MSStageTranship::clone() const {
 void
 MSStageTranship::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) {
     myDeparted = now;
-    //MSCModel_NonInteracting moves the container straight from start to end in
+    //MSPModel_NonInteracting moves the transportable straight from start to end in
     //a single step and assumes that moveToNextEdge is only called once)
-    //therefor we define that the container is already on its destination edge
+    //therefore we define that the transportable is already on its destination edge
     myRouteStep = myRoute.end() - 1;
     myDepartPos = previous->getEdgePos(now);
     if (transportable->isPerson()) {
@@ -100,17 +100,17 @@ MSStageTranship::getFromEdge() const {
 
 double
 MSStageTranship::getEdgePos(SUMOTime now) const {
-    return myState->getEdgePos(*this, now);
+    return myState == nullptr ? 0. : myState->getEdgePos(*this, now);
 }
 
 Position
 MSStageTranship::getPosition(SUMOTime now) const {
-    return myState->getPosition(*this, now);
+    return myState == nullptr ? Position::INVALID : myState->getPosition(*this, now);
 }
 
 double
 MSStageTranship::getAngle(SUMOTime now) const {
-    return myState->getAngle(*this, now);
+    return myState == nullptr ? 0. : myState->getAngle(*this, now);
 }
 
 SUMOTime
@@ -120,7 +120,7 @@ MSStageTranship::getWaitingTime(SUMOTime /* now */) const {
 
 double
 MSStageTranship::getSpeed() const {
-    return myState->getSpeed(*this);
+    return myState == nullptr ? 0. : myState->getSpeed(*this);
 }
 
 
@@ -165,14 +165,22 @@ MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bo
 
 
 bool
-MSStageTranship::moveToNextEdge(MSTransportable* container, SUMOTime currentTime, MSEdge* nextInternal) {
-    ((MSEdge*)getEdge())->removeContainer(container);
+MSStageTranship::moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, MSEdge* nextInternal) {
+    if (transportable->isPerson()) {
+        getEdge()->removePerson(transportable);
+    } else {
+        getEdge()->removeContainer(transportable);
+    }
     if (myRouteStep == myRoute.end() - 1) {
         if (myDestinationStop != nullptr) {
-            myDestinationStop->addTransportable(container);    //jakob
+            myDestinationStop->addTransportable(transportable);    //jakob
         }
-        if (!container->proceed(MSNet::getInstance(), currentTime)) {
-            MSNet::getInstance()->getContainerControl().erase(container);
+        if (!transportable->proceed(MSNet::getInstance(), currentTime)) {
+            if (transportable->isPerson()) {
+                MSNet::getInstance()->getPersonControl().erase(transportable);
+            } else {
+                MSNet::getInstance()->getContainerControl().erase(transportable);
+            }
         }
         return true;
     } else {
@@ -182,10 +190,15 @@ MSStageTranship::moveToNextEdge(MSTransportable* container, SUMOTime currentTime
         } else {
             myCurrentInternalEdge = nextInternal;
         }
-        ((MSEdge*) getEdge())->addContainer(container);
+        if (transportable->isPerson()) {
+            getEdge()->addPerson(transportable);
+        } else {
+            getEdge()->addContainer(transportable);
+        }
         return false;
     }
 }
+
 
 std::string
 MSStageTranship::getStageSummary(const bool /*isPerson*/) const {

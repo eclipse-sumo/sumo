@@ -133,10 +133,6 @@ public:
     }
 
 private:
-    /// @brief The current internal edge this container is on or 0
-    MSEdge* myCurrentInternalEdge;
-
-private:
     /// @brief Invalidated copy constructor.
     MSStageTranship(const MSStageTranship&);
 
