@@ -72,8 +72,8 @@ def _readLogics(result):
         programID = result.readTypedString()
         type = result.readTypedInt()
         currentPhaseIndex = result.readTypedInt()
-        logic = Logic(programID, type, currentPhaseIndex)
         numPhases = result.readCompound()
+        phases = []
         for __ in range(numPhases):
             result.readCompound(6)
             duration = result.readTypedDouble()
@@ -83,7 +83,8 @@ def _readLogics(result):
             numNext = result.readCompound()
             next = tuple([result.readTypedInt() for ___ in range(numNext)])
             name = result.readTypedString()
-            logic.phases.append(Phase(duration, state, minDur, maxDur, next, name))
+            phases.append(Phase(duration, state, minDur, maxDur, next, name))
+        logic = Logic(programID, type, currentPhaseIndex, tuple(phases))
         numParams = result.readCompound()
         for __ in range(numParams):
             key, value = result.readTypedStringList()

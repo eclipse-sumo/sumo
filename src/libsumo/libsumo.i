@@ -20,7 +20,7 @@
 
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
-from traci import constants, exceptions, _vehicle, _person, _trafficlight
+from traci import constants, exceptions, _vehicle, _person, _trafficlight, _simulation
 
 def isLibsumo():
     return True
@@ -312,22 +312,20 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 
 %extend libsumo::TraCIStage {
   %pythoncode %{
-    def __repr__(self):
-        return "Stage(%s)" % (", ".join(["%s=%s" % (attr, repr(getter(self))) for attr, getter in self.__swig_getmethods__.items()]))
+    __attr_repr__ = _simulation.Stage.__attr_repr__
+    __repr__ = _simulation.Stage.__repr__
   %}
 };
 
 %extend libsumo::TraCILogic {
   %pythoncode %{
-    def __repr__(self):
-        return "Logic(%s)" % (", ".join(["%s=%s" % (attr, repr(getter(self))) for attr, getter in self.__swig_getmethods__.items()]))
+    __repr__ = _trafficlight.Logic.__repr__
   %}
 };
 
 %extend libsumo::TraCIPhase {
   %pythoncode %{
-    def __repr__(self):
-        return "Phase(%s)" % (", ".join(["%s=%s" % (attr, repr(getter(self))) for attr, getter in self.__swig_getmethods__.items()]))
+    __repr__ = _trafficlight.Phase.__repr__
   %}
 };
 
