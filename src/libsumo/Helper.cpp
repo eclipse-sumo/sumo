@@ -127,11 +127,15 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
                 ++j;
             }
         }
+        return;
     }
     std::vector<std::vector<unsigned char> > parameters;
     const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
     const SUMOTime end = endTime == INVALID_DOUBLE_VALUE || endTime > STEPS2TIME(SUMOTime_MAX) ? SUMOTime_MAX : TIME2STEPS(endTime);
     libsumo::Subscription s(commandId, id, variables, parameters, begin, end, contextDomain, range);
+    if (s.variables.size() == 1 && s.variables.front() == -1) {
+        s.variables.clear();
+    }
     handleSingleSubscription(s);
     libsumo::Subscription* modifiedSubscription = nullptr;
     if (needNewSubscription(s, mySubscriptions, modifiedSubscription)) {

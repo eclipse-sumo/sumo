@@ -56,13 +56,13 @@ def _readNeighbors(result):
     """ result has structure:
     byte(TYPE_COMPOUND) | length(neighList) | Per list entry: string(vehID) | double(dist)
     """
-    N = result.readInt()  # length of the vehicle list
+    num = result.readInt()  # length of the vehicle list
     neighs = []
-    for _ in range(N):
+    for _ in range(num):
         vehID = result.readString()
         dist = result.readDouble()
         neighs.append((vehID, dist))
-    return neighs
+    return tuple(neighs)
 
 
 def _readNextTLS(result):

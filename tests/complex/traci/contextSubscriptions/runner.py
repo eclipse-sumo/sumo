@@ -107,7 +107,7 @@ def runSingle(traciEndTime, viewRange, module, objID):
         objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange)
     responses = traci.simulationStep()
     if responses:
-        print("Error: Unsubscribe did not work")
+        print("Error: Unsubscribe did not work", responses)
     else:
         print("Ok: Unsubscribe successful")
     print("Print ended at step %s" % traci.simulation.getTime())

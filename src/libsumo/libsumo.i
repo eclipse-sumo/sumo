@@ -43,6 +43,12 @@ def load(args):
 
 def simulationStep(step=0):
     simulation.step(step)
+    result = []
+    for domain in (edge, inductionloop, junction, lane, lanearea, multientryexit,
+                   person, poi, polygon, route, trafficlight, vehicle, vehicletype):
+        result += [(k, v) for k, v in domain.getAllSubscriptionResults().items() if v]
+        result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items() if v]
+    return result
 %}
 
 /* There is currently no TraCIPosition used as input so this is only for future usage
@@ -302,12 +308,25 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
     }
 };
 
+%typemap(out) std::vector<std::pair<std::string, double> > {
+    $result = PyTuple_New($1.size());
+    int index = 0;
+    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+        PyTuple_SetItem($result, index++, PyTuple_Pack(2, PyUnicode_FromString(iter->first.c_str()),
+                                                          PyFloat_FromDouble(iter->second)));
+    }
+};
+
 %typemap(out) std::pair<int, int> {
     $result = PyTuple_Pack(2, PyLong_FromLong($1.first), PyLong_FromLong($1.second));
 };
 
 %typemap(out) std::pair<std::string, double> {
-    $result = PyTuple_Pack(2, PyUnicode_FromString($1.first.c_str()), PyFloat_FromDouble($1.second));
+    if ($1.first == "") {
+        $result = Py_None;
+    } else {
+        $result = PyTuple_Pack(2, PyUnicode_FromString($1.first.c_str()), PyFloat_FromDouble($1.second));
+    }
 };
 
 %extend libsumo::TraCIStage {
