@@ -80,7 +80,11 @@ MSTransportable::proceed(MSNet* net, SUMOTime time) {
     MSStage* prior = *myStep;
     const std::string& error = prior->setArrived(net, this, time);
     // must be done before increasing myStep to avoid invalid state for rendering
-    prior->getEdge()->removePerson(this);
+    if (myAmPerson) {
+        prior->getEdge()->removePerson(this);
+    } else {
+        prior->getEdge()->removeContainer(this);
+    }
     myStep++;
     if (error != "") {
         throw ProcessError(error);
@@ -376,5 +380,6 @@ SUMOVehicleClass
 MSTransportable::getVClass() const {
     return getVehicleType().getVehicleClass();
 }
+
 
 /****************************************************************************/

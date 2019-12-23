@@ -94,6 +94,7 @@ MSStageTranship::getDistance() const {
     }
 }
 
+
 void
 MSStageTranship::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
     os.openTag("tranship");
@@ -120,38 +121,24 @@ MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bo
 
 
 bool
-MSStageTranship::moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, MSEdge* nextInternal) {
+MSStageTranship::moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, MSEdge* /* nextInternal */) {
     if (transportable->isPerson()) {
         getEdge()->removePerson(transportable);
     } else {
         getEdge()->removeContainer(transportable);
     }
-    if (myRouteStep == myRoute.end() - 1) {
-        if (myDestinationStop != nullptr) {
-            myDestinationStop->addTransportable(transportable);    //jakob
-        }
-        if (!transportable->proceed(MSNet::getInstance(), currentTime)) {
-            if (transportable->isPerson()) {
-                MSNet::getInstance()->getPersonControl().erase(transportable);
-            } else {
-                MSNet::getInstance()->getContainerControl().erase(transportable);
-            }
-        }
-        return true;
-    } else {
-        if (nextInternal == nullptr) {
-            ++myRouteStep;
-            myCurrentInternalEdge = nullptr;
-        } else {
-            myCurrentInternalEdge = nextInternal;
-        }
-        if (transportable->isPerson()) {
-            getEdge()->addPerson(transportable);
-        } else {
-            getEdge()->addContainer(transportable);
-        }
-        return false;
+    // transship does a direct move so we are already at our destination
+    if (myDestinationStop != nullptr) {
+        myDestinationStop->addTransportable(transportable);    //jakob
     }
+    if (!transportable->proceed(MSNet::getInstance(), currentTime)) {
+        if (transportable->isPerson()) {
+            MSNet::getInstance()->getPersonControl().erase(transportable);
+        } else {
+            MSNet::getInstance()->getContainerControl().erase(transportable);
+        }
+    }
+    return true;
 }
 
 
