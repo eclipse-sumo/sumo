@@ -552,7 +552,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
     }
 
     // Whether vehicles on opposite lanes shall be taken into account
-    const bool disregardOppositeDirection = s.activeFilters & SUBS_FILTER_NOOPPOSITE;
+    const bool disregardOppositeDirection = (s.activeFilters & SUBS_FILTER_NOOPPOSITE) != 0;
 
     // Check filter specification consistency
     // TODO: Warn only once
