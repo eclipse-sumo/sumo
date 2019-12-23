@@ -5479,6 +5479,7 @@ MSVehicle::setBlinkerInformation() {
     }
     if (myStopDist < (myLane->getLength() - getPositionOnLane())
             // signal parking stop on the current lane when within braking distance (~2 seconds before braking)
+            && hasStops()
             && myStops.begin()->pars.parking
             && myStopDist < getCarFollowModel().brakeGap(myLane->getVehicleMaxSpeed(this), getCarFollowModel().getMaxDecel(), 3)) {
         switchOnSignal(MSNet::getInstance()->lefthand() ? VEH_SIGNAL_BLINKER_LEFT : VEH_SIGNAL_BLINKER_RIGHT);
