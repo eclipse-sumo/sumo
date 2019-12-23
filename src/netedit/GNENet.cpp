@@ -1028,7 +1028,11 @@ GNENet::saveJoined(OptionsCont& oc) {
 
 void
 GNENet::setViewNet(GNEViewNet* viewNet) {
+    // set view net
     myViewNet = viewNet;
+
+    // start dottedContourThread
+    myDottedContourThread->setVisualizationSettings(myViewNet->getVisualisationSettings());
 
     // Create default vehicle Type (it has to be created here due myViewNet was previously nullptr)
     GNEVehicleType* defaultVehicleType = new GNEVehicleType(myViewNet, DEFAULT_VTYPE_ID, SVC_PASSENGER, SUMO_TAG_VTYPE);

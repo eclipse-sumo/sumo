@@ -34,6 +34,7 @@ class GNENetElement;
 class GNEAdditional;
 class GNEShape;
 class GNEDemandElement;
+class GUIVisualizationSettings;
 
 // ===========================================================================
 // class definitions
@@ -50,6 +51,9 @@ public:
     /// @brief destructor
     ~GNEDottedContourThread();
 
+    /// @brief set visualization settings and start thread
+    void setVisualizationSettings(GUIVisualizationSettings* s);
+
     /// @brief add a net element into queue to update dotted contour
     void updateNetElementDottedContour(GNENetElement *netElement);
 
@@ -59,6 +63,9 @@ protected:
 
     /// @brief pointer to current net
     const GNENet *myNet;
+
+    /// @brief visualization settings
+    GUIVisualizationSettings* myVisualizationSetting;
 
     /// @brief queue for net elements
     std::queue<GNENetElement*> myNetElements;
@@ -87,6 +94,9 @@ protected:
 private:
     /// @brief calculate junction dotted contour
     void calculateJunctionDottedContour(GNENetElement* junction);
+
+    /// @brief calculate edge dotted contour
+    void calculateEdgeDottedContour(GNENetElement* edge);
 
     /// @brief Invalidated copy constructor.
     GNEDottedContourThread(const GNEDottedContourThread&) = delete;

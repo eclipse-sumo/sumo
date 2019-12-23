@@ -74,6 +74,8 @@ GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     for (const auto& i : myLanes) {
         i->updateGeometry();
     }
+    // update dotted contour
+    myNet->getDottedContourThread()->updateNetElementDottedContour(this);
 }
 
 
@@ -539,12 +541,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     // draw dotted contor around the first and last lane if isn't being drawn for selecting
     if (myNet->getViewNet()->getDottedAC() == this) {
-        const double myHalfLaneWidthFront = myNBEdge->getLaneWidth(myLanes.front()->getIndex()) / 2;
-        const double myHalfLaneWidthBack = (s.spreadSuperposed && myLanes.back()->drawAsRailway(s) && myNBEdge->isBidiRail()) ? 0 : myNBEdge->getLaneWidth(myLanes.back()->getIndex()) / 2;
-        // obtain shapes from NBEdge
-        const PositionVector& frontShape = myLanes.front()->getParentEdge()->getNBEdge()->getLaneShape(myLanes.front()->getIndex());
-        const PositionVector& backShape = myLanes.back()->getParentEdge()->getNBEdge()->getLaneShape(myLanes.back()->getIndex());
-        GLHelper::drawShapeDottedContourBetweenLanes(s, GLO_JUNCTION, frontShape, myHalfLaneWidthFront, backShape, -1 * myHalfLaneWidthBack);
+        GNEGeometry::drawShapeDottedContour(s, GLO_JUNCTION, myDottedGeometry);
     }
 }
 

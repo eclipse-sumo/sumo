@@ -20,6 +20,8 @@
 // ===========================================================================
 #include <netbuild/NBFrame.h>
 #include <netedit/netelements/GNEJunction.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
 #include <utils/gui/div/GLHelper.h>
 
 #include "GNEDottedContourThread.h"
@@ -31,18 +33,27 @@
 GNEDottedContourThread::GNEDottedContourThread(GNENet *net) :
     FXThread(),
     myNet(net),
+    myVisualizationSetting(nullptr),
     myLockNetElementsQueue(false),
     myLockAdditionalsQueue(false),
     myLockShapeQueue(false),
     myLockDemandElementsQueue(false) {
-    // start thread
-    start();
+
 }
 
 
 GNEDottedContourThread::~GNEDottedContourThread() {
     // stop thread
     cancel();
+}
+
+
+void 
+GNEDottedContourThread::setVisualizationSettings(GUIVisualizationSettings* s) {
+    // set visualization settings
+    myVisualizationSetting = s;
+    // start thread
+    start();
 }
 
 
@@ -63,6 +74,8 @@ GNEDottedContourThread::run() {
                 GNENetElement *netElementFront = myNetElements.front();
                 if (netElementFront->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
                     calculateJunctionDottedContour(netElementFront);
+                } else if (netElementFront->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                    calculateEdgeDottedContour(netElementFront); 
                 }
                 myNetElements.pop();
             }
@@ -105,6 +118,41 @@ GNEDottedContourThread::calculateJunctionDottedContour(GNENetElement* junction) 
         shape.closePolygon();
         junction->updateDottedGeometry(shape);
     }
+}
+
+
+void 
+GNEDottedContourThread::calculateEdgeDottedContour(GNENetElement* edge) {
+    // temporal
+    GNEEdge* castedEdge = dynamic_cast<GNEEdge*>(edge);
+    // obtain lanes
+    const GNELane* frontLane = castedEdge->getLanes().front();
+    const GNELane* backLane = castedEdge->getLanes().back();
+    // obtain lane widdths
+    const double myHalfLaneWidthFront = castedEdge->getNBEdge()->getLaneWidth(frontLane->getIndex()) / 2;
+    const double myHalfLaneWidthBack = (myVisualizationSetting->spreadSuperposed && backLane->drawAsRailway(myVisualizationSetting) && 
+        castedEdge->getNBEdge()->isBidiRail()) ? 0 : castedEdge->getNBEdge()->getLaneWidth(backLane->getIndex()) / 2;
+    // obtain shapes from NBEdge
+    PositionVector mainShape = frontLane->getParentEdge()->getNBEdge()->getLaneShape(frontLane->getIndex());
+    PositionVector backShape = backLane->getParentEdge()->getNBEdge()->getLaneShape(backLane->getIndex());
+    // move to side depending of lefthand
+    if (myVisualizationSetting->lefthand) {
+        mainShape.move2side(myHalfLaneWidthFront * -1);
+        backShape.move2side(myHalfLaneWidthBack);
+    } else {
+        mainShape.move2side(myHalfLaneWidthFront);
+        backShape.move2side(myHalfLaneWidthBack * -1);
+    }
+    // reverse back shape
+    backShape = backShape.reverse();
+    // add back shape into mainShape
+    for (const auto &position : backShape) {
+        mainShape.push_back(position);
+    }
+    // close polygon
+    mainShape.closePolygon();
+    // update edge dotted geometry
+    edge->updateDottedGeometry(mainShape);
 }
 
 /****************************************************************************/
