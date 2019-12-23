@@ -103,9 +103,13 @@ class Node:
                 index = lane_id[lastUnderscore+1:]
                 edge = [e for e in self._incoming if e.getID() == edge_id][0]
                 for candidate_conn in edge.getLane(int(index)).getOutgoing():
+                    fromFunction = candidate_conn.getFromLane().getEdge().getFunction()
+                    toFunction = candidate_conn.getToLane().getEdge().getFunction()
+                    if toFunction == "walkingarea" or (fromFunction == "walkingarea" and not toFunction == "crossing"):
+                        continue
                     if candidate_conn == conn:
                         return ret
-                    ret += 1
+                    ret += 1                    
         return -1
 
     def forbids(self, possProhibitor, possProhibited):
