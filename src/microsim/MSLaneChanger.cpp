@@ -271,6 +271,7 @@ MSLaneChanger::change() {
     if (vehicle->getLaneChangeModel().isChangingLanes() && !vehicle->getLaneChangeModel().alreadyChanged()) {
         return continueChange(vehicle, myCandi);
     }
+    vehicle->getLaneChangeModel().setSpeedLat(0);
     if (!myAllowsChanging || vehicle->getLaneChangeModel().alreadyChanged() || vehicle->isStoppedOnLane()) {
         registerUnchanged(vehicle);
         return false;
