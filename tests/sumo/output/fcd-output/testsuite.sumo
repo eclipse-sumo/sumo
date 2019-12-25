@@ -20,6 +20,9 @@ distance
 
 # test kilometrage output
 distance_reverse
+
+# test acceleration output
+acceleration
 subsecond
 
 # output not in every time step
