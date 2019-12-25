@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_4_0+0202-cdf3fe59ef
+Eclipse SUMO Version v1_4_0+0276-4741719b90
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -67,6 +67,7 @@ Output Options:
                                          output (brake lights etc.)
   --fcd-output.distance                Add kilometrage to the FCD output
                                          (linear referencing)
+  --fcd-output.acceleration            Add acceleration to the FCD output
   --fcd-output.filter-edges.input-file FILE  Restrict fcd output to the edge
                                          selection from the given input file
   --full-output FILE                   Save a lot of information for each
