@@ -100,6 +100,7 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myCanceledStateCenter(LCA_NONE),
     myCanceledStateLeft(LCA_NONE),
     mySpeedLat(0),
+    myAccelerationLat(0),
     myCommittedSpeed(0),
     myLaneChangeCompletion(1.0),
     myLaneChangeDirection(0),
@@ -385,13 +386,18 @@ MSAbstractLaneChangeModel::getAssumedDecelForLaneChangeDuration() const {
     throw ProcessError("Method getAssumedDecelForLaneChangeDuration() not implemented by model " + toString(myModel));
 }
 
+void
+MSAbstractLaneChangeModel::setSpeedLat(double speedLat) {
+    myAccelerationLat = SPEED2ACCEL(speedLat - mySpeedLat);
+    mySpeedLat = speedLat;
+}
 
 bool
 MSAbstractLaneChangeModel::updateCompletion() {
     const bool pastBefore = pastMidpoint();
     // maneuverDist is not updated in the context of continuous lane changing but represents the full LC distance
     double maneuverDist = getManeuverDist();
-    mySpeedLat = computeSpeedLat(0, maneuverDist);
+    setSpeedLat(computeSpeedLat(0, maneuverDist));
     myLaneChangeCompletion += (SPEED2DIST(mySpeedLat) / myManeuverDist);
     return !pastBefore && pastMidpoint();
 }

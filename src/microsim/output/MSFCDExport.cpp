@@ -36,6 +36,7 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
@@ -49,6 +50,7 @@ void
 MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     const bool useGeo = OptionsCont::getOptions().getBool("fcd-output.geo");
     const bool signals = OptionsCont::getOptions().getBool("fcd-output.signals");
+    const bool writeAccel = OptionsCont::getOptions().getBool("fcd-output.acceleration");
     const bool writeDistance = OptionsCont::getOptions().getBool("fcd-output.distance");
     const SUMOTime period = string2time(OptionsCont::getOptions().getString("device.fcd.period"));
     const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
@@ -106,6 +108,12 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             if (microVeh != nullptr) {
                 if (signals) {
                     of.writeAttr("signals", toString(microVeh->getSignals()));
+                }
+                if (writeAccel) {
+                    of.writeAttr("acceleration", toString(microVeh->getAcceleration()));
+                    if (MSGlobals::gSublane) {
+                        of.writeAttr("accelerationLat", microVeh->getLaneChangeModel().getAccelerationLat());
+                    }
                 }
                 if (writeDistance) {
                     double distance = microVeh->getEdge()->getDistance();
