@@ -1720,9 +1720,9 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Vehicle, VEHICLE)
 
 
 void
-Vehicle::subscribeLeader(const std::string& vehicleID, double /* dist */, double beginTime, double endTime) {
-    // TODO handle dist correctly
+Vehicle::subscribeLeader(const std::string& vehicleID, double dist, double beginTime, double endTime) {
     Vehicle::subscribe(vehicleID, std::vector<int>({libsumo::VAR_LEADER}), beginTime, endTime);
+    Helper::addSubscriptionParam(dist);
 }
 
 
@@ -1832,7 +1832,13 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
         case VAR_LASTACTIONTIME:
             return wrapper->wrapDouble(objID, variable, getLastActionTime(objID));
         case VAR_LEADER: {
-            const auto& lead = getLeader(objID);
+            double dist = 0.;
+            // this fallback is needed since the very first call right on subscribing has no parameters set
+            if (wrapper->getParams() != nullptr) {
+                const std::vector<unsigned char>& param = *wrapper->getParams();
+                memcpy(&dist, param.data(), sizeof(dist));
+            }
+            const auto& lead = getLeader(objID, dist);
             TraCIRoadPosition rp;
             rp.edgeID = lead.first;
             rp.pos = lead.second;

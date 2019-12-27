@@ -129,7 +129,7 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
         }
         return;
     }
-    std::vector<std::vector<unsigned char> > parameters;
+    std::vector<std::vector<unsigned char> > parameters(variables.size());
     const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
     const SUMOTime end = endTime == INVALID_DOUBLE_VALUE || endTime > STEPS2TIME(SUMOTime_MAX) ? SUMOTime_MAX : TIME2STEPS(endTime);
     libsumo::Subscription s(commandId, id, variables, parameters, begin, end, contextDomain, range);
@@ -141,6 +141,15 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
     if (needNewSubscription(s, mySubscriptions, modifiedSubscription)) {
         mySubscriptions.push_back(s);
     }
+}
+
+
+void
+Helper::addSubscriptionParam(double param) {
+    std::vector<unsigned char> dest(sizeof(param));
+    memcpy(dest.data(), &param, sizeof(param));
+    mySubscriptions.back().parameters.pop_back();
+    mySubscriptions.back().parameters.emplace_back(dest);
 }
 
 
@@ -230,12 +239,20 @@ Helper::handleSingleSubscription(const Subscription& s) {
         container = containerWrapper->second.get();
         container->setContext(s.id);
     } else {
-        handler->setContext("");
+        container->setContext("");
     }
     for (const std::string& objID : objIDs) {
         if (!s.variables.empty()) {
+            std::vector<std::vector<unsigned char> >::const_iterator k = s.parameters.begin();
             for (const int variable : s.variables) {
+                if (!k->empty()) {
+                    container->setParams(&*k);
+                }
                 handler->handle(objID, variable, container);
+                if (!k->empty()) {
+                    container->setParams(nullptr);
+                }
+                ++k;
             }
         } else {
             if (s.contextDomain == 0 && getCommandId == libsumo::CMD_GET_VEHICLE_VARIABLE) {
@@ -1298,6 +1315,12 @@ Helper::SubscriptionWrapper::SubscriptionWrapper(VariableWrapper::SubscriptionHa
 void
 Helper::SubscriptionWrapper::setContext(const std::string& refID) {
     myActiveResults = refID == "" ? &myResults : &myContextResults[refID];
+}
+
+
+void
+Helper::SubscriptionWrapper::setParams(const std::vector<unsigned char>* params) {
+    myParams = params;
 }
 
 
