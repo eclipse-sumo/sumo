@@ -21,6 +21,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <cstring>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <microsim/MSNet.h>
@@ -147,7 +148,7 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
 void
 Helper::addSubscriptionParam(double param) {
     std::vector<unsigned char> dest(sizeof(param));
-    memcpy(dest.data(), &param, sizeof(param));
+    std::memcpy(dest.data(), &param, sizeof(param));
     mySubscriptions.back().parameters.pop_back();
     mySubscriptions.back().parameters.emplace_back(dest);
 }
