@@ -106,6 +106,7 @@ namespace libsumo {
 // static member initializations
 // ===========================================================================
 std::vector<Subscription> Helper::mySubscriptions;
+Subscription* Helper::myLastContextSubscription = nullptr;
 std::map<int, std::shared_ptr<VariableWrapper> > Helper::myWrapper;
 Helper::VehicleStateListener Helper::myVehicleStateListener;
 std::map<int, NamedRTree*> Helper::myObjects;
@@ -141,6 +142,13 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
     libsumo::Subscription* modifiedSubscription = nullptr;
     if (needNewSubscription(s, mySubscriptions, modifiedSubscription)) {
         mySubscriptions.push_back(s);
+    }
+    if (modifiedSubscription != nullptr && modifiedSubscription->isVehicleToVehicleContextSubscription()) {
+        // Set last modified vehicle context subscription active for filter modifications
+        myLastContextSubscription = modifiedSubscription;
+    } else {
+        // adding other subscriptions deactivates the activation for filter addition
+        myLastContextSubscription = nullptr;
     }
 }
 
@@ -193,6 +201,16 @@ Helper::needNewSubscription(libsumo::Subscription& s, std::vector<Subscription>&
 void
 Helper::clearSubscriptions() {
     mySubscriptions.clear();
+    myLastContextSubscription = nullptr;
+}
+
+
+Subscription*
+Helper::addSubscriptionFilter(SubscriptionFilterType filter) {
+    if (myLastContextSubscription != nullptr) {
+        myLastContextSubscription->activeFilters |= filter;
+    }
+    return myLastContextSubscription;
 }
 
 
@@ -267,6 +285,7 @@ Helper::handleSingleSubscription(const Subscription& s) {
         }
     }
 }
+
 
 
 void

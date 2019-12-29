@@ -1634,8 +1634,7 @@ class VehicleDomain(Domain):
         Subscribe to one or more object values of the given domain around the
         given objectID in a given radius
         """
-        Domain.subscribeContext(
-            self, objectID, domain, dist, varIDs, begin, end)
+        Domain.subscribeContext(self, objectID, domain, dist, varIDs, begin, end)
 
     def addSubscriptionFilterLanes(self, lanes, noOpposite=False, downstreamDist=None, upstreamDist=None):
         """addSubscriptionFilterLanes(list(integer), bool, double, double) -> None

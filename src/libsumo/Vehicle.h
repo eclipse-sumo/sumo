@@ -178,7 +178,31 @@ public:
 
     LIBSUMO_SUBSCRIPTION_API
 
-    static void subscribeLeader(const std::string& vehicleID, double dist = 0., double beginTime = libsumo::INVALID_DOUBLE_VALUE, double endTime = libsumo::INVALID_DOUBLE_VALUE);
+    static void subscribeLeader(const std::string& vehicleID, double dist = 0., double beginTime = INVALID_DOUBLE_VALUE, double endTime = INVALID_DOUBLE_VALUE);
+
+    static void addSubscriptionFilterLanes(const std::vector<int>& lanes, bool noOpposite=false, double downstreamDist=INVALID_DOUBLE_VALUE, double upstreamDist=INVALID_DOUBLE_VALUE);
+
+    static void addSubscriptionFilterNoOpposite();
+
+    static void addSubscriptionFilterDownstreamDistance(double dist);
+
+    static void addSubscriptionFilterUpstreamDistance(double dist);
+
+    static void addSubscriptionFilterCFManeuver(double downstreamDist=INVALID_DOUBLE_VALUE, double upstreamDist=INVALID_DOUBLE_VALUE);
+
+    static void addSubscriptionFilterLCManeuver(int direction=INVALID_INT_VALUE, bool noOpposite=false, double downstreamDist=INVALID_DOUBLE_VALUE, double upstreamDist=INVALID_DOUBLE_VALUE);
+
+    static void addSubscriptionFilterLeadFollow(const std::vector<int>& lanes);
+
+    static void addSubscriptionFilterTurn(double downstreamDist=INVALID_DOUBLE_VALUE, double upstreamDist=INVALID_DOUBLE_VALUE);
+
+    static void addSubscriptionFilterVClass(const std::vector<std::string>& vClasses);
+
+    static void addSubscriptionFilterVType(const std::vector<std::string>& vTypes);
+
+    static void addSubscriptionFilterFieldOfVision(double openingAngle);
+
+    static void addSubscriptionFilterLateralDistance(double lateralDist, double downstreamDist=INVALID_DOUBLE_VALUE, double upstreamDist=INVALID_DOUBLE_VALUE);
 
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the poi to retrieve

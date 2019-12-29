@@ -426,7 +426,6 @@ private:
      * @param[in] dist The lateral distance
      */
     void addSubscriptionFilterLateralDistance(double dist);
-    bool isVehicleToVehicleContextSubscription(const libsumo::Subscription& s);
 
     bool findObjectShape(int domain, const std::string& id, PositionVector& shape);
 

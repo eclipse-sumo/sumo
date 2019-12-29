@@ -115,6 +115,8 @@ public:
 
     static void clearSubscriptions();
 
+    static Subscription* addSubscriptionFilter(SubscriptionFilterType filter);
+
     /// @brief helper functions
     static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector);
     static TraCIPosition makeTraCIPosition(const Position& position, const bool includeZ = false);
@@ -248,6 +250,9 @@ private:
 
     /// @brief The list of known, still valid subscriptions
     static std::vector<Subscription> mySubscriptions;
+
+    /// @brief The last context subscription
+    static Subscription* myLastContextSubscription;
 
     /// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
     static std::map<int, std::shared_ptr<VariableWrapper> > myWrapper;
