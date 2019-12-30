@@ -55,7 +55,7 @@ def runSingle(traciEndTime, viewRange, objID):
                                            viewRange, [traci.constants.VAR_POSITION])
             sys.stdout.flush()
 
-            laneList = map(int, sys.argv[3].strip('[]').split(','))
+            laneList = list(map(int, sys.argv[3].strip('[]').split(',')))
 
             traci.vehicle.addSubscriptionFilterLanes(laneList)
             traci.vehicle.addSubscriptionFilterUpstreamDistance(float(sys.argv[4]))
