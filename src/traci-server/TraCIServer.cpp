@@ -995,8 +995,6 @@ TraCIServer::initialiseSubscription(libsumo::Subscription& s) {
             writeStatusCmd(s.commandId, libsumo::RTYPE_ERR, "Subscription has ended.");
         } else {
             if (libsumo::Helper::needNewSubscription(s, mySubscriptions, modifiedSubscription)) {
-                mySubscriptions.push_back(s);
-                modifiedSubscription = &mySubscriptions.back();
                 // Add new subscription to subscription cache (note: seems a bit inefficient)
                 if (s.beginTime < MSNet::getInstance()->getCurrentTimeStep()) {
                     // copy new subscription into cache

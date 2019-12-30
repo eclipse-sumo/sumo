@@ -140,10 +140,8 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
     }
     handleSingleSubscription(s);
     libsumo::Subscription* modifiedSubscription = nullptr;
-    if (needNewSubscription(s, mySubscriptions, modifiedSubscription)) {
-        mySubscriptions.push_back(s);
-    }
-    if (modifiedSubscription != nullptr && modifiedSubscription->isVehicleToVehicleContextSubscription()) {
+    needNewSubscription(s, mySubscriptions, modifiedSubscription);
+    if (modifiedSubscription->isVehicleToVehicleContextSubscription()) {
         // Set last modified vehicle context subscription active for filter modifications
         myLastContextSubscription = modifiedSubscription;
     } else {
@@ -194,6 +192,8 @@ Helper::needNewSubscription(libsumo::Subscription& s, std::vector<Subscription>&
             return false;
         }
     }
+    subscriptions.push_back(s);
+    modifiedSubscription = &subscriptions.back();
     return true;
 }
 
@@ -209,6 +209,8 @@ Subscription*
 Helper::addSubscriptionFilter(SubscriptionFilterType filter) {
     if (myLastContextSubscription != nullptr) {
         myLastContextSubscription->activeFilters |= filter;
+    } else {
+        WRITE_WARNING("addSubscriptionFilter: No previous vehicle context subscription exists to apply the context filter.");
     }
     return myLastContextSubscription;
 }
