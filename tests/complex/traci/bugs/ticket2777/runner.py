@@ -24,13 +24,6 @@ sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = os.environ["SUMO_BINARY"]
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumoBinary,
-                                '-c', 'sumo.sumocfg',
-                                '-S', '-Q',
-                                '--remote-port', str(PORT)], stdout=sys.stdout)
-
 
 def check(vehID, steps=1):
     for i in range(steps):
@@ -43,21 +36,23 @@ def check(vehID, steps=1):
                 traci.vehicle.getLaneID(vehID),
                 traci.vehicle.getLanePosition(vehID),
                 traci.vehicle.getSpeed(vehID)))
-        except traci.TraCIException:
-            pass
+        except traci.TraCIException as e:
+            if traci.isLibsumo():
+                print(e, file=sys.stderr)
     if steps > 1:
         print()
 
 
 vehID = "v0"
-traci.init(PORT)
+traci.start([sumolib.checkBinary("sumo"), '-c', 'sumo.sumocfg', '-S', '-Q'])
 traci.simulationStep()
 check(vehID)
 try:
     print("%s setStop for %s" % (traci.simulation.getTime(), vehID))
     traci.vehicle.setStop(vehID, "beg", pos=1.0, laneIndex=0, duration=5)
-except traci.TraCIException:
-    pass
+except traci.TraCIException as e:
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
 check(vehID, 10)
 
 traci.simulationStep(21)
@@ -66,8 +61,9 @@ check(vehID)
 try:
     print("%s setStop for %s" % (traci.simulation.getTime(), vehID))
     traci.vehicle.setStop(vehID, "end", pos=1.0, laneIndex=0, duration=5)
-except traci.TraCIException:
-    pass
+except traci.TraCIException as e:
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
 check(vehID, 10)
 
 traci.simulationStep(41)
@@ -76,8 +72,9 @@ check(vehID)
 try:
     print("%s setStop for %s" % (traci.simulation.getTime(), vehID))
     traci.vehicle.setStop(vehID, "middle", pos=1.0, laneIndex=0, duration=5)
-except traci.TraCIException:
-    pass
+except traci.TraCIException as e:
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
 check(vehID, 10)
 
 traci.simulationStep(61)
@@ -86,9 +83,9 @@ check(vehID)
 try:
     print("%s setStop for %s" % (traci.simulation.getTime(), vehID))
     traci.vehicle.setStop(vehID, "middle", pos=1.0, laneIndex=0, duration=5)
-except traci.TraCIException:
-    pass
+except traci.TraCIException as e:
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
 check(vehID, 10)
 
 traci.close()
-sumoProcess.wait()

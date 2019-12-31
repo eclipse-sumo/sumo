@@ -16,29 +16,17 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import traci  # noqa
 import sumolib  # noqa
 import traci.constants as tc  # noqa
 
-sumoBinary = os.environ["SUMO_BINARY"]
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumoBinary,
-                                '-n', 'input_net.net.xml',
-                                '-r', 'input_routes.rou.xml',
-                                '--no-step-log',
-                                '--begin', '5',
-                                # '-S', '-Q',
-                                '--remote-port', str(PORT)], stdout=sys.stdout)
 
-
-traci.init(PORT)
+traci.start([sumolib.checkBinary("sumo"), '-n', 'input_net.net.xml', '-r', 'input_routes.rou.xml', '--no-step-log', '--begin', '5', '-S', '-Q'])
 vehID = "v0"
 traci.vehicle.add(vehID, "r0")
 traci.vehicle.subscribeContext(vehID, tc.CMD_GET_VEHICLE_VARIABLE,
                                dist=20, begin=0, end=99999999)
 traci.simulationStep(10.)
 traci.close()
-sumoProcess.wait()

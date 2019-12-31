@@ -29,20 +29,20 @@ traci.start([sumoBinary,
              ])
 
 print("getDistanceRoad (no connection):",
-      traci.simulation.getDistanceRoad("gneE0", 100, "gneE1", 100, isDriving="true"))
+      traci.simulation.getDistanceRoad("gneE0", 100, "gneE1", 100, isDriving=True))
 print("getDistanceRoad (normal to normal):",
-      traci.simulation.getDistanceRoad("gneE4", 50, "-gneE2", 50, isDriving="true"))
+      traci.simulation.getDistanceRoad("gneE4", 50, "-gneE2", 50, isDriving=True))
 print("getDistanceRoad (normal to 1st internal):",
-      traci.simulation.getDistanceRoad("gneE4", 50, ":gneJ5_4", 5, isDriving="true"))
+      traci.simulation.getDistanceRoad("gneE4", 50, ":gneJ5_4", 5, isDriving=True))
 print("getDistanceRoad (normal to 2nd internal):",
-      traci.simulation.getDistanceRoad("gneE4", 50, ":gneJ5_7", 5, isDriving="true"))
+      traci.simulation.getDistanceRoad("gneE4", 50, ":gneJ5_7", 5, isDriving=True))
 print("getDistanceRoad (1st internal to normal):",
-      traci.simulation.getDistanceRoad(":gneJ5_4", 5, "-gneE2", 50, isDriving="true"))
+      traci.simulation.getDistanceRoad(":gneJ5_4", 5, "-gneE2", 50, isDriving=True))
 print("getDistanceRoad (1st internal to 2nd internal):",
-      traci.simulation.getDistanceRoad(":gneJ5_4", 5, ":gneJ5_7", 5, isDriving="true"))
+      traci.simulation.getDistanceRoad(":gneJ5_4", 5, ":gneJ5_7", 5, isDriving=True))
 print("getDistanceRoad (2nd internal to normal):",
-      traci.simulation.getDistanceRoad(":gneJ5_7", 5, "-gneE2", 50, isDriving="true"))
+      traci.simulation.getDistanceRoad(":gneJ5_7", 5, "-gneE2", 50, isDriving=True))
 print("getDistanceRoad (2nd internal to 1st internal):",
-      traci.simulation.getDistanceRoad(":gneJ5_7", 5, ":gneJ5_4", 5, isDriving="true"))
+      traci.simulation.getDistanceRoad(":gneJ5_7", 5, ":gneJ5_4", 5, isDriving=True))
 
 traci.close()

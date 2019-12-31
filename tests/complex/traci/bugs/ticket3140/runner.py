@@ -16,21 +16,13 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = os.environ["SUMO_BINARY"]
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumoBinary,
-                                '-c', 'sumo.sumocfg',
-                                '--fcd-output', 'fcd.xml',
-                                '-S', '-Q',
-                                '--remote-port', str(PORT)], stdout=sys.stdout)
 
-traci.init(PORT)
+traci.start([sumolib.checkBinary("sumo"), '-c', 'sumo.sumocfg', '--fcd-output', 'fcd.xml', '-S', '-Q'])
 traci.simulationStep()
 for i in range(45):
     traci.simulationStep()
@@ -40,4 +32,3 @@ traci.trafficlight.setRedYellowGreenState("C", "rrrrrrrrrrrrrrrrrr")
 for i in range(21):
     traci.simulationStep()
 traci.close()
-sumoProcess.wait()

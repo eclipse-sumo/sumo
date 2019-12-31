@@ -21,18 +21,18 @@ import sys
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 import traci  # noqa
-sumoBinary = sumolib.checkBinary(sys.argv[1])
 
-if sys.argv[1] == "sumo":
-    addOption = ""
-else:
-    addOption = "-S -Q"
-PORT = sumolib.miscutils.getFreeSocketPort()
+
+cmd = [sumolib.checkBinary(sys.argv[1]),
+       "-n", "input_net.net.xml",
+       "-r", "input_routes.rou.xml",
+       "-a", "input_additional.add.xml",
+       "--no-step-log", "-S", "-Q"]
 
 
 def run():
     """execute the TraCI control loop"""
-    traci.init(PORT)
+    traci.start(cmd)
     step = 0
     while traci.simulation.getMinExpectedNumber() > 0 and step < 100:
         traci.simulationStep()
@@ -43,12 +43,4 @@ def run():
     sys.stdout.flush()
 
 
-sumoProcess = subprocess.Popen([sumoBinary,
-                                "-n", "input_net.net.xml",
-                                "-r", "input_routes.rou.xml",
-                                "-a", "input_additional.add.xml",
-                                "--no-step-log",
-                                "--remote-port", str(PORT)],
-                               stdout=sys.stdout, stderr=sys.stderr)
 run()
-sumoProcess.wait()
