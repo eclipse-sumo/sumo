@@ -420,9 +420,7 @@ NLTriggerBuilder::parseAndBuildTractionSubstation(MSNet& net, const SUMOSAXAttri
     }
 
     const double voltage = attrs.getOpt<double>(SUMO_ATTR_VOLTAGE, id.c_str(), ok, 600);
-    const double currentLimit = attrs.getOpt<double>(SUMO_ATTR_CURRENTLIMIT, id.c_str(), ok, 400);
-
-    buildTractionSubstation(net, id, voltage, currentLimit);
+    buildTractionSubstation(net, id, voltage);
 }
 
 void
@@ -853,8 +851,8 @@ NLTriggerBuilder::buildInnerOverheadWireSegments(MSNet& net, const MSLane* conne
 }
 
 void
-NLTriggerBuilder::buildTractionSubstation(MSNet& net, std::string id, double voltage, double currentLimit) {
-    MSTractionSubstation* myTractionSubstation = new MSTractionSubstation(id,voltage,currentLimit);
+NLTriggerBuilder::buildTractionSubstation(MSNet& net, std::string id, double voltage) {
+    MSTractionSubstation* myTractionSubstation = new MSTractionSubstation(id, voltage);
     if (!net.addTractionSubstation(myTractionSubstation)) {
         delete myTractionSubstation;
         throw InvalidArgument("Could not build traction substation '" + id + "'; probably declared twice.");

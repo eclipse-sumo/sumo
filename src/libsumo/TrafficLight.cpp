@@ -151,6 +151,7 @@ TrafficLight::getPhaseName(const std::string& tlsID) {
     return getTLS(tlsID).getActive()->getCurrentPhaseDef().getName();
 }
 
+
 double
 TrafficLight::getPhaseDuration(const std::string& tlsID) {
     return STEPS2TIME(getTLS(tlsID).getActive()->getCurrentPhaseDef().duration);

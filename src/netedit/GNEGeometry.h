@@ -158,9 +158,6 @@ struct GNEGeometry {
             /// @brief flag to use lane shape
             bool myUseLaneShape;
 
-            /// @brief flag to use lane2lane connection
-            bool myUseLane2LaneShape;
-
             /// @brief segment shape
             PositionVector mySegmentShape;
 

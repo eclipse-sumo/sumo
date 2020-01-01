@@ -102,18 +102,16 @@ MSOverheadWire::~MSOverheadWire() {
 }
 
 
-MSTractionSubstation::MSTractionSubstation(const std::string& substationId, double voltage, double currentLimit) :
+MSTractionSubstation::MSTractionSubstation(const std::string& substationId, double voltage) :
     Named(substationId),
     mySubstationVoltage(voltage),
-    myCurrentLimit(currentLimit),
     myChargingVehicle(false),
     myElecHybridCount(0),
     myOverheadWireSegments(),
-    myElecHybrid({}),
+    myElecHybrid(),
     myCircuit(new Circuit()),
     myForbiddenLanes(),
     myOverheadWireClamps() {
-    // RICE_CHECK: ({}) instead of () for vectors?
 }
 
 

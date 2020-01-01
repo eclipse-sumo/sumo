@@ -138,8 +138,8 @@ protected:
 
     class VehicleRemover : public MSMoveReminder {
     public:
-        VehicleRemover(MSLane* lane, int laneIndex, MSCalibrator* parent) :
-            MSMoveReminder(parent->getID(), lane, true), myLaneIndex(laneIndex), myParent(parent) {}
+        VehicleRemover(MSLane* lane, MSCalibrator* parent) :
+            MSMoveReminder(parent->getID(), lane, true), myParent(parent) {}
 
         /// @name inherited from MSMoveReminder
         //@{
@@ -161,7 +161,6 @@ protected:
         }
 
     private:
-        int myLaneIndex;
         MSCalibrator* myParent;
     };
     friend class VehicleRemover;

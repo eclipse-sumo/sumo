@@ -100,7 +100,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
                 laneData->setDescription("meandata_calibrator_" + lane->getID());
                 LeftoverReminders.push_back(laneData);
                 myLaneMeanData.push_back(laneData);
-                VehicleRemover* remover = new VehicleRemover(lane, (int)i, this);
+                VehicleRemover* remover = new VehicleRemover(lane, this);
                 LeftoverReminders.push_back(remover);
                 myVehicleRemovers.push_back(remover);
             }
@@ -128,8 +128,8 @@ MSCalibrator::~MSCalibrator() {
     if (myCurrentStateInterval != myIntervals.end()) {
         intervalEnd();
     }
-    for (std::vector<VehicleRemover*>::iterator it = myVehicleRemovers.begin(); it != myVehicleRemovers.end(); ++it) {
-        (*it)->disable();
+    for (VehicleRemover* const remover : myVehicleRemovers) {
+        remover->disable();
     }
 }
 

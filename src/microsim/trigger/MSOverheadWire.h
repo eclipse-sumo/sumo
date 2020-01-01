@@ -241,7 +241,7 @@ class MSTractionSubstation : public Named {
 public:
 
     /// @brief constructor
-    MSTractionSubstation(const std::string& substationId, double voltage, double currentLimit);
+    MSTractionSubstation(const std::string& substationId, double voltage);
 
     /// @brief destructor
     ~MSTractionSubstation();
@@ -297,7 +297,6 @@ private:
 
 private:
     double mySubstationVoltage;
-    double myCurrentLimit;
 
 protected:
     /// @brief Check if in the current TimeStep substation (overhead wire section) is charging a vehicle

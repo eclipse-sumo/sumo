@@ -363,10 +363,9 @@ protected:
     * @param[in] net The net the traction substation belongs to
     * @param[in] id The id of the traction substation
     * @param[in] voltage The voltage level of the voltage source representing the traction substation
-    * @param[in] currentLimit The electric current limit (max current flowing from (through) the traction substation)
     * @exception InvalidArgument If the over can not be added to the net (is duplicate according to the id)
     */
-    void buildTractionSubstation(MSNet& net, std::string id, double voltage, double currentLimit);
+    void buildTractionSubstation(MSNet& net, std::string id, double voltage);
 
     virtual void buildOverheadWireClamp(MSNet& net, const std::string& id, MSLane* lane_start, MSLane* lane_end);
 

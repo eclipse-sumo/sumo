@@ -191,8 +191,7 @@ GNEGeometry::SegmentGeometry::Segment::Segment(const GNEAttributeCarrier* _AC, c
     lane(_lane),
     junction(nullptr),
     valid(_valid),
-    myUseLaneShape(true),
-    myUseLane2LaneShape(false) {
+    myUseLaneShape(true) {
 }
 
 
@@ -204,7 +203,6 @@ GNEGeometry::SegmentGeometry::Segment::Segment(const GNEAttributeCarrier* _AC, c
     junction(nullptr),
     valid(_valid),
     myUseLaneShape(false),
-    myUseLane2LaneShape(false),
     mySegmentShape(shape),
     mySegmentRotations(shapeRotations),
     mySegmentLengths(shapeLengths) {
@@ -218,7 +216,6 @@ GNEGeometry::SegmentGeometry::Segment::Segment(const GNEAttributeCarrier* _AC, c
     junction(currentLane->getParentEdge()->getGNEJunctionDestiny()),
     valid(_valid),
     myUseLaneShape(false),
-    myUseLane2LaneShape(true),
     mySegmentShape(currentLane->getLane2laneConnections().connectionsMap.at(nextLane).getShape()),
     mySegmentRotations(currentLane->getLane2laneConnections().connectionsMap.at(nextLane).getShapeRotations()),
     mySegmentLengths(currentLane->getLane2laneConnections().connectionsMap.at(nextLane).getShapeLengths()) {

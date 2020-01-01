@@ -39,6 +39,7 @@ def check(vehID, steps=1):
         except traci.TraCIException as e:
             if traci.isLibsumo():
                 print(e, file=sys.stderr)
+                sys.stderr.flush()
     if steps > 1:
         print()
 
@@ -53,6 +54,7 @@ try:
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 check(vehID, 10)
 
 traci.simulationStep(21)
@@ -64,6 +66,7 @@ try:
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 check(vehID, 10)
 
 traci.simulationStep(41)

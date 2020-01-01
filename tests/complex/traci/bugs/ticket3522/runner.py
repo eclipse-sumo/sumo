@@ -28,7 +28,6 @@ loadParams = sys.argv[ix + 1:]
 
 # SAVE
 
-PORT = traci.getFreeSocketPort()
 sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(
     os.path.dirname(sys.argv[0]), '..', '..', "..", '..', 'bin', 'sumo'))
 traci.start([sumoBinary] + saveParams)

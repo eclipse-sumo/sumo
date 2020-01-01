@@ -81,6 +81,7 @@ public:
     static std::vector<std::string> getInternalFoes(const std::string& laneID);
 
     // Setter
+    static void setAllowed(std::string laneID, std::string allowedClass);
     static void setAllowed(std::string laneID, std::vector<std::string> allowedClasses);
     static void setDisallowed(std::string laneID, std::vector<std::string> disallowedClasses);
     static void setMaxSpeed(std::string laneID, double speed);

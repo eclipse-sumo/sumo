@@ -303,6 +303,12 @@ Lane::getInternalFoes(const std::string& laneID) {
 
 
 void
+Lane::setAllowed(std::string laneID, std::string allowedClass) {
+    setAllowed(laneID, std::vector<std::string>({allowedClass}));
+}
+
+
+void
 Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setPermissions(parseVehicleClasses(allowedClasses), MSLane::CHANGE_PERMISSIONS_PERMANENT);
