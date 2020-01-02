@@ -7,6 +7,9 @@ cross3l_unconstrained
 # test option no-turnarounds.except-deadend
 cross3l_no-turnarounds.except-deadend
 
+# test option no-turnarounds.except-turnlane
+cross3l_no-turnarounds.except-turnlane
+
 # Test for edge2edge connections
 cross3l_edge2edge_conns
 
