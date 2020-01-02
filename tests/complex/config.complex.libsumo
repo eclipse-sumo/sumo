@@ -1,3 +1,6 @@
 [run_dependent_text]
 errors:Error: Answered with error to command 0x[0-9a-f]*: {REPLACE Error: }
 errors:UserWarning{LINES 2}
+output:***Starting server on port
+output:TraCI {REPLACE Libsumo }
+output:via Libsumo {REPLACE }

@@ -16,23 +16,15 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = os.environ["SUMO_BINARY"]
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumoBinary,
-                                '-c', 'sumo.sumocfg',
-                                '--duration-log.disable', 'false',
-                                '-v',
-                                '-S', '-Q',
-                                '--remote-port', str(PORT)], stdout=sys.stdout)
+cmd = [sumolib.checkBinary("sumo"), '-c', 'sumo.sumocfg', '--duration-log.disable', 'false', '-v', '-S', '-Q']
 
 vehID = "v0"
-traci.init(PORT)
+traci.start(cmd)
 traci.simulationStep()
 traci.route.add("beg", ["beg"])
 traci.vehicle.add(vehID, "beg")
@@ -40,4 +32,3 @@ traci.vehicle.remove(vehID)
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
 traci.close()
-sumoProcess.wait()
