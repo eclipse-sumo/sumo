@@ -46,8 +46,8 @@ def simulationStep(step=0):
     result = []
     for domain in (edge, inductionloop, junction, lane, lanearea, multientryexit,
                    person, poi, polygon, route, trafficlight, vehicle, vehicletype):
-        result += [(k, v) for k, v in domain.getAllSubscriptionResults().items() if v]
-        result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items() if v]
+        result += [(k, v) for k, v in domain.getAllSubscriptionResults().items()]
+        result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items()]
     return result
 %}
 

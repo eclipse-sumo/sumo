@@ -1030,7 +1030,7 @@ TraCIServer::removeSubscription(int commandId, const std::string& id, int domain
     bool found = false;
     std::vector<libsumo::Subscription>::iterator j;
     for (j = mySubscriptions.begin(); j != mySubscriptions.end();) {
-        if (j->id == id && j->commandId == commandId && (domain < 0 || j->contextDomain == domain)) {
+        if (j->id == id && j->commandId == commandId && j->contextDomain == domain) {
             j = mySubscriptions.erase(j);
             if (j != mySubscriptions.end() && myLastContextSubscription == &(*j)) {
                 // Remove also reference for filter additions
@@ -1173,8 +1173,8 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
         }
     }
     // check subscribe/unsubscribe
-    if (variables.size() == 0) {
-        removeSubscription(commandId, id, -1);
+    if (variables.empty()) {
+        removeSubscription(commandId, id, domain);
         return true;
     }
     // process subscription

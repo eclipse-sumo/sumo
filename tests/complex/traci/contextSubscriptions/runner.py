@@ -87,10 +87,10 @@ def runSingle(traciEndTime, viewRange, module, objID):
                     lastP = p
 
         if not subscribed:
-            module.subscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange, [
-                                    traci.constants.VAR_POSITION])
-            module.subscribeContext(objID, traci.constants.CMD_GET_PERSON_VARIABLE, viewRange, [
-                                    traci.constants.VAR_POSITION])
+            module.subscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange,
+                                    [traci.constants.VAR_POSITION])
+            module.subscribeContext(objID, traci.constants.CMD_GET_PERSON_VARIABLE, viewRange,
+                                    [traci.constants.VAR_POSITION])
             subscribed = True
         else:
             seen1 += len(near1)
@@ -103,8 +103,10 @@ def runSingle(traciEndTime, viewRange, module, objID):
                     print("timestep %s: %s is missing in subscription results" % (step, v))
 
         step += 1
-    module.unsubscribeContext(
-        objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange)
+    module.unsubscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange)
+    responses = traci.simulationStep()
+    print([r[0] for r in responses])  # person subscription should still be active
+    module.unsubscribeContext(objID, traci.constants.CMD_GET_PERSON_VARIABLE, viewRange)
     responses = traci.simulationStep()
     if responses:
         print("Error: Unsubscribe did not work", responses)

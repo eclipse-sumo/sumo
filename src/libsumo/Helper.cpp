@@ -121,9 +121,10 @@ std::map<std::string, MSPerson*> Helper::myRemoteControlledPersons;
 void
 Helper::subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
                   const double beginTime, const double endTime, const int contextDomain, const double range) {
+    myLastContextSubscription = nullptr;
     if (variables.empty()) {
         for (std::vector<libsumo::Subscription>::iterator j = mySubscriptions.begin(); j != mySubscriptions.end();) {
-            if (j->id == id && j->commandId == commandId && (contextDomain < 0 || j->contextDomain == contextDomain)) {
+            if (j->id == id && j->commandId == commandId && j->contextDomain == contextDomain) {
                 j = mySubscriptions.erase(j);
             } else {
                 ++j;
@@ -144,9 +145,6 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
     if (modifiedSubscription->isVehicleToVehicleContextSubscription()) {
         // Set last modified vehicle context subscription active for filter modifications
         myLastContextSubscription = modifiedSubscription;
-    } else {
-        // adding other subscriptions deactivates the activation for filter addition
-        myLastContextSubscription = nullptr;
     }
 }
 
