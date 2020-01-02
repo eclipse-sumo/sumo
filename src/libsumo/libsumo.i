@@ -413,7 +413,6 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 
 // Process symbols in header
 %include "TraCIDefs.h"
-%template(TraCIConnectionVector) std::vector<libsumo::TraCIConnection>;
 %template(TraCILogicVector) std::vector<libsumo::TraCILogic>;
 %template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
 %include "Edge.h"

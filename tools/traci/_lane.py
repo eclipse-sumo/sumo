@@ -124,7 +124,7 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.LANE_LINK_NUMBER, laneID)
 
-    def getLinks(self, laneID, extended=False):
+    def getLinks(self, laneID, extended=True):
         """getLinks(string) -> list((string, bool, bool, bool))
         A list containing id of successor lane together with priority, open and foe
         for each link.
