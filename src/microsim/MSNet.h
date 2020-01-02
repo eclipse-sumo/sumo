@@ -261,7 +261,7 @@ public:
      *
      * @param[in] start The step the simulation was started with
      */
-    void closeSimulation(SUMOTime start);
+    void closeSimulation(SUMOTime start, const std::string& reason="");
 
 
     /** @brief Called after a simulation step, this method returns the current simulation state

@@ -52,7 +52,7 @@ public:
     static bool isLoaded();
 
     /// @brief close simulation
-    static void close();
+    static void close(const std::string& reason="Libsumo requested termination.");
 
     /// @brief Advances by one step (or up to the given time)
     static void step(const double time = 0.);

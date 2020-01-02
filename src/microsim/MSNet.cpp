@@ -380,11 +380,8 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         preSimStepOutput();
         postSimStepOutput();
     }
-    // report the end when wished
-    WRITE_MESSAGE("Simulation ended at time: " + time2string(getCurrentTimeStep()));
-    WRITE_MESSAGE("Reason: " + getStateMessage(state));
     // exit simulation loop
-    closeSimulation(start);
+    closeSimulation(start, getStateMessage(state));
     return state;
 }
 
@@ -454,7 +451,12 @@ MSNet::generateStatistics(SUMOTime start) {
 
 
 void
-MSNet::closeSimulation(SUMOTime start) {
+MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
+    // report the end when wished
+    WRITE_MESSAGE("Simulation ended at time: " + time2string(getCurrentTimeStep()));
+    if (reason != "") {
+        WRITE_MESSAGE("Reason: " + reason);
+    }
     myDetectorControl->close(myStep);
     if (OptionsCont::getOptions().getBool("vehroute-output.write-unfinished")) {
         MSDevice_Vehroutes::generateOutputForUnfinished();

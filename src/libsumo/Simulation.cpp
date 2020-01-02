@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/options/OptionsCont.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
@@ -63,11 +64,12 @@ ContextSubscriptionResults Simulation::myContextSubscriptionResults;
 // ===========================================================================
 void
 Simulation::load(const std::vector<std::string>& args) {
-    close();
+    close("Libsumo issued load command.");
     XMLSubSys::init();
     OptionsIO::setArgs(args);
     NLBuilder::init();
     Helper::registerVehicleStateListener();
+    WRITE_MESSAGE("Simulation started via Libsumo with time: " + time2string(SIMTIME));
 }
 
 
@@ -93,10 +95,10 @@ Simulation::step(const double time) {
 
 
 void
-Simulation::close() {
+Simulation::close(const std::string& reason) {
     Helper::clearSubscriptions();
     if (MSNet::hasInstance()) {
-        MSNet::getInstance()->closeSimulation(0);
+        MSNet::getInstance()->closeSimulation(0, reason);
         delete MSNet::getInstance();
         XMLSubSys::close();
         SystemFrame::close();
