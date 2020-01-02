@@ -114,6 +114,14 @@ def simulationStep(step=0):
     $1 = PySequence_Check($input) ? 1 : 0;
 }
 
+%typemap(in) const std::vector<double>& (std::vector<double> values) {
+    const Py_ssize_t size = PySequence_Size($input);
+    for (Py_ssize_t i = 0; i < size; i++) {
+        values.push_back(PyFloat_AsDouble(PySequence_GetItem($input, i)));
+    }
+    $1 = &values;
+}
+
 
 %{
 #include <libsumo/TraCIDefs.h>
