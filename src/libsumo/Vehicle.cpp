@@ -1273,6 +1273,11 @@ Vehicle::setRouteID(const std::string& vehicleID, const std::string& routeID) {
 }
 
 void
+Vehicle::setRoute(const std::string& vehicleID, const std::string& edgeID) {
+    setRoute(vehicleID, std::vector<std::string>({edgeID}));
+}
+
+void
 Vehicle::setRoute(const std::string& vehicleID, const std::vector<std::string>& edgeIDs) {
     MSVehicle* veh = Helper::getVehicle(vehicleID);
     ConstMSEdgeVector edges;

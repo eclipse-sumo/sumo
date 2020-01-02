@@ -98,16 +98,19 @@ try:
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 try:
     print("getParameter", traci.simulation.getParameter("cs1", "chargingStation.bla"))
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 try:
     print("getParameter", traci.simulation.getParameter("foo", "chargingStation.totalEnergyCharged"))
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 print("getParameter charginStation.totalEnergyCharged",
       traci.simulation.getParameter("cs1", "chargingStation.totalEnergyCharged"))
 print("getParameter chargingStation.name", traci.simulation.getParameter("cs1", "chargingStation.name"))
@@ -129,6 +132,7 @@ try:
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 
 print("getBusStopWaiting", traci.simulation.getBusStopWaiting("bs"))
 print("getBusStopWaitingIDList", traci.simulation.getBusStopWaitingIDList("bs"))
@@ -138,6 +142,7 @@ try:
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 print("findRoute", traci.simulation.findRoute("o", "2o"))
 print("findRoute with routing mode", traci.simulation.findRoute(
     "o", "2o", routingMode=traci.constants.ROUTING_MODE_AGGREGATED))
@@ -146,18 +151,21 @@ try:
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 
 try:
     print("findIntermodalRoute", traci.simulation.findIntermodalRoute("foo", "fup"))
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 try:
     print("findIntermodalRoute", traci.simulation.findIntermodalRoute(
         "footpath", "footpath2", "bicycle", vType="DEFAULT_BIKETYPE"))
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 ppStages("findIntermodalRoute (walk)", traci.simulation.findIntermodalRoute("o", "2o"))
 ppStages("findIntermodalRoute (bike)", traci.simulation.findIntermodalRoute("o", "2o", modes="bicycle"))
 ppStages("findIntermodalRoute (car)", traci.simulation.findIntermodalRoute("o", "2o", modes="car"))

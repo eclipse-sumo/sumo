@@ -156,6 +156,7 @@ public:
     static void setRoutingMode(const std::string& vehicleID, int routingMode);
     static void setType(const std::string& vehicleID, const std::string& typeID);
     static void setRouteID(const std::string& vehicleID, const std::string& routeID);
+    static void setRoute(const std::string& vehicleID, const std::string& edgeID);
     static void setRoute(const std::string& vehicleID, const std::vector<std::string>& edgeIDs);
     static void updateBestLanes(const std::string& vehicleID);
     static void setAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID,

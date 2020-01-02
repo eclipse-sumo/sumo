@@ -348,8 +348,13 @@ struct TraCIBestLanesData {
 
 class TraCIStage {
 public:
-    TraCIStage() {} // only to make swig happy
-    TraCIStage(int type) : type(type) {}
+    TraCIStage(int type=INVALID_INT_VALUE, const std::string& vType="", const std::string& line="", const std::string& destStop="",
+               const std::vector<std::string>& edges=std::vector<std::string>(),
+               double travelTime=INVALID_DOUBLE_VALUE, double cost=INVALID_DOUBLE_VALUE, double length=INVALID_DOUBLE_VALUE,
+               const std::string& intended="", double depart=INVALID_DOUBLE_VALUE, double departPos=INVALID_DOUBLE_VALUE,
+               double arrivalPos=INVALID_DOUBLE_VALUE, const std::string& description="") :
+               type(type), vType(vType), line(line), destStop(destStop), edges(edges), travelTime(travelTime), cost(cost),
+               length(length), intended(intended), depart(depart), departPos(departPos), arrivalPos(arrivalPos), description(description) {}
     /// @brief The type of stage (walking, driving, ...)
     int type;
     /// @brief The vehicle type when using a private car or bike
@@ -365,17 +370,17 @@ public:
     /// @brief effort needed
     double cost;
     /// @brief length in m
-    double length = INVALID_DOUBLE_VALUE;
+    double length;
     /// @brief id of the intended vehicle for public transport ride
-    std::string intended = "";
+    std::string intended;
     /// @brief intended depart time for public transport ride or INVALID_DOUBLE_VALUE
-    double depart = INVALID_DOUBLE_VALUE;
+    double depart;
     /// @brief position on the lane when starting the stage
-    double departPos = INVALID_DOUBLE_VALUE;
+    double departPos;
     /// @brief position on the lane when ending the stage
-    double arrivalPos = INVALID_DOUBLE_VALUE;
+    double arrivalPos;
     /// @brief arbitrary description string
-    std::string description = "";
+    std::string description;
 };
 }
 

@@ -4,3 +4,6 @@ errors:UserWarning{LINES 2}
 output:***Starting server on port
 output:TraCI {REPLACE Libsumo }
 output:via Libsumo {REPLACE }
+log:***Starting server on port
+log:TraCI {REPLACE Libsumo }
+log:via Libsumo {REPLACE }
