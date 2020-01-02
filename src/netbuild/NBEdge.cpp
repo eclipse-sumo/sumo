@@ -2691,7 +2691,7 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing, const std::vector<int>
 
 
 void
-NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool noGeometryLike, bool checkPermissions) {
+NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool onlyTurnlane, bool noGeometryLike, bool checkPermissions) {
     // do nothing if no turnaround is known
     if (myTurnDestination == nullptr || myTo->getType() == NODETYPE_RAIL_CROSSING) {
         return;
@@ -2715,6 +2715,13 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool noGeometr
         return;
     }
     const int fromLane = (int)myLanes.size() - 1;
+    if (onlyTurnlane) {
+        for (const Connection& c : getConnectionsFromLane(fromLane)) {
+            if (myTo->getDirection(this, c.toEdge) != LINKDIR_LEFT) {
+                return;
+            }
+        }
+    }
     const int toLane = (int)myTurnDestination->getNumLanes() - 1;
     if (checkPermissions) {
         if ((getPermissions(fromLane) & myTurnDestination->getPermissions(toLane)) == 0) {

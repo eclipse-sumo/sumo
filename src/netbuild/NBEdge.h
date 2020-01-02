@@ -1118,14 +1118,13 @@ public:
     bool recheckLanes();
 
     /** @brief Add a connection to the previously computed turnaround, if wished
-     *
-     * If a turning direction exists (myTurnDestination!=0) and either the
-     *  edge is not controlled by a tls or noTLSControlled is false, a connection
-     *  to the edge stored in myTurnDestination is added (from the leftmost lane
-     *  of this edge to the leftmost lane of myTurnDestination).
-     * @param[in] noTLSControlled Whether the turnaround shall not be connected if this edge is controlled by a tls
+     * and a turning direction exists (myTurnDestination!=0)
+     * @param[in] noTLSControlled Whether the turnaround shall not be connected if the edge is controlled by a tls
+     * @param[in] onlyDeadends Whether the turnaround shall only be built at deadends
+     * @param[in] onlyTurnlane Whether the turnaround shall only be built when there is an exclusive (left) turn lane
+     * @param[in] noGeometryLike Whether the turnaround shall be built at geometry-like nodes
      */
-    void appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool noGeometryLike, bool checkPermissions);
+    void appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool onlyTurnlane, bool noGeometryLike, bool checkPermissions);
 
     /** @brief Returns the node at the given edges length (using an epsilon)
         @note When no node is existing at the given position, 0 is returned
