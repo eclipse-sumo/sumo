@@ -18,6 +18,9 @@ permalink: /ChangeLog/
 - MESO
   - Fixed invalid simulation state when vehicles are teleporting. Issue #6408
 
+- TraCI
+  - Context subscriptions can now be removed individually from the python client (before every unsubscribeContext removed all)
+
 ### Enhancements
 - Simulation
   - Added new [model for electric hybrid vehicles and overhead lines and power substations](Models/ElectricHybrid.md). 
@@ -26,7 +29,7 @@ permalink: /ChangeLog/
   - Added new ['taxi' device](Simulation/Taxi.md) to allow simulation of demand-responsive transport. Issue #6418
   - Added option **--step-log.period INT** to set the number of simulation steps between outputs. The new default is 100 which brings a major execution speedup when running sumo on windows with step-log (where command-line output is slow). Issue #6377
   - Added option **--fcd-output.acceleration** to inlcude acceleration values in fcd-output. When sublane simulation is enabled, attribute 'accelerationLat' is added as well. Issue #6448
-  
+
 - SUMO-GUI
   - dead-end links in the middle of a road are now highlighed in magenta to highlight connectivity problems. Issue #6391
 
@@ -35,21 +38,27 @@ permalink: /ChangeLog/
 
 - DUAROUTER
   - The maximum [map-matching](Demand/Shortest_or_Optimal_Path_Routing.md#mapmatching) distance is now configurable using option **--mapmatch.distance**.
-  
-- TraCI
+
+- TraCI / Libsumo
   - Added context subscription filter that filters in a given range around the vehicles route 'addSubscriptionFilterLateralDistance'. Issue #6287
+  - Libsumo now supports context subscription filters
 
 - Tools
   - [duaIterate.py](Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium) now supports intermodal scenarios. Issue #6403
   - Added [duaIterate.py](Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium) option **--measure-vtypes** to improve accuracy of measured travel times when different vehicle types can use different lanes.
   - Added [tileGet.py](Tools/Misc.md#tilegetpy) to retrieve image tiles from public servers. Issue #6279
-  
+
 ### Other
 - Build
   - removed autotools build 
+
 - SUMO-GUI
   - the settings file no longer accepts the element breakpoints-file (command line option is still there)
   - renamed attributes in the settings (breakpoint.value to breakpoint.time and decal.filename to decal.file)
+
+- TraCI
+  - traci.lane.getLinks (python) now returns the extended descriptions by default, the older behavior should not be used anymore (but is still available using a second parameter)
+
 
 ## Version 1.4.0 (10.12.2019)
 
