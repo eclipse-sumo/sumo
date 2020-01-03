@@ -392,6 +392,12 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.striping.jamtime.crossing", new Option_String("10", "TIME"));
     oc.addDescription("pedestrian.striping.jamtime.crossing", "Processing", "Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model 'striping' (non-positive values disable squeezing)");
 
+    oc.doRegister("pedestrian.striping.reserve-oncoming", new Option_Float(0.0));
+    oc.addDescription("pedestrian.striping.reserve-oncoming", "Processing", "Fraction of stripes to reserve for oncoming pedestrians");
+
+    oc.doRegister("pedestrian.striping.reserve-oncoming.junctions", new Option_Float(0.34));
+    oc.addDescription("pedestrian.striping.reserve-oncoming.junctions", "Processing", "Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas");
+
     oc.doRegister("pedestrian.remote.address", new Option_String("localhost:9000"));
     oc.addDescription("pedestrian.remote.address", "Processing", "The address (host:port) of the external simulation");
 

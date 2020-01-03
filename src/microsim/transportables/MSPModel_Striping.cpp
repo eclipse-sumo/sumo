@@ -92,8 +92,8 @@ const double MSPModel_Striping::INAPPROPRIATE_PENALTY(-20000.); // meters
 const double MSPModel_Striping::ONCOMING_CONFLICT_PENALTY(-1000.); // meters
 const double MSPModel_Striping::OBSTRUCTION_THRESHOLD(MSPModel_Striping::OBSTRUCTED_PENALTY * 0.5); // despite obstruction, additional utility may have been added
 const double MSPModel_Striping::SQUEEZE(0.7);
-const double MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR(0.0);
-const double MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS(0.34);
+double MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR(0.0);
+double MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS(0.34);
 const double MSPModel_Striping::MAX_WAIT_TOLERANCE(120.); // seconds
 const double MSPModel_Striping::LATERAL_SPEED_FACTOR(0.4);
 const double MSPModel_Striping::MIN_STARTUP_DIST(0.4); // meters
@@ -112,6 +112,8 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
     // configurable parameters
     stripeWidth = oc.getFloat("pedestrian.striping.stripe-width");
     dawdling = oc.getFloat("pedestrian.striping.dawdling");
+    RESERVE_FOR_ONCOMING_FACTOR = oc.getFloat("pedestrian.striping.reserve-oncoming");
+    RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS = oc.getFloat("pedestrian.striping.reserve-oncoming.junctions");
 
     jamTime = string2time(oc.getString("pedestrian.striping.jamtime"));
     if (jamTime <= 0) {
