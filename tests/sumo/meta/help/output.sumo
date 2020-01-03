@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_4_0+0276-4741719b90
+Eclipse SUMO Version v1_4_0+0308-61819149b5
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -245,6 +245,11 @@ Processing Options:
                                          jam while on a pedestrian crossing when
                                          using model 'striping' (non-positive
                                          values disable squeezing)
+  --pedestrian.striping.reserve-oncoming FLOAT  Fraction of stripes to reserve
+                                         for oncoming pedestrians
+  --pedestrian.striping.reserve-oncoming.junctions FLOAT  Fraction of stripes
+                                         to reserve for oncoming pedestrians on
+                                         crossings and walkingareas
   --pedestrian.remote.address STR      The address (host:port) of the external
                                          simulation
   --ride.stop-tolerance FLOAT          Tolerance to apply when matching
