@@ -47,7 +47,7 @@ def traciLoop(port, traciEndTime, i, runNr, steplength=0):
     step = 1
     vehID = ""
     traciEndStep = math.ceil(traciEndTime / steplength)
-    vehResults = traci.vehicle.getAllSubscriptionResults()
+    vehResults = sorted((k, sorted(v.items())) for k, v in traci.vehicle.getAllSubscriptionResults().items())
     simResults = traci.simulation.getSubscriptionResults()
     while not step > traciEndStep:
         message = ""
@@ -79,7 +79,7 @@ def traciLoop(port, traciEndTime, i, runNr, steplength=0):
         message = ""
         time.sleep(0.01)  # give message time to be printed
         simResults = traci.simulationStep(step * steplength)
-        vehResults = traci.vehicle.getAllSubscriptionResults()
+        vehResults = sorted((k, sorted(v.items())) for k, v in traci.vehicle.getAllSubscriptionResults().items())
         step += 1
     endTime = traci.simulation.getTime()
     traci.close()
