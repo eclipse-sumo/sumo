@@ -729,6 +729,9 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)200);
     scheme.addColor(RGBColor::RED, (double)300);
     personColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by jammed state", RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme.addColor(RGBColor::RED, (double)1);
+    personColorer.addScheme(scheme);
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     personColorer.addScheme(scheme);

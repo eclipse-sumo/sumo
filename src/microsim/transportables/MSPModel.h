@@ -154,4 +154,7 @@ public:
         WRITE_WARNING("moveToXY is ignored by the current movement model");
     }
 
+    /// @brief whether the transportable is jammed
+    virtual bool isJammed() const { return false;}
+
 };

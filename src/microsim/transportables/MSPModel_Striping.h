@@ -270,6 +270,7 @@ protected:
                       double lanePosLat, double angle, int routeOffset,
                       const ConstMSEdgeVector& edges, SUMOTime t);
 
+        bool isJammed() const;
         /// @}
 
         PState(MSPerson* person, MSStageMoving* stage, const MSLane* lane);

@@ -253,6 +253,9 @@ private:
     /// @brief draw walking area path
     void drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) const;
 
+    /// @brief whether the person is jammed as defined by the current pedestrian model
+    bool isJammed() const;
+
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable FXMutex myLock;
 

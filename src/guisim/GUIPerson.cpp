@@ -330,6 +330,15 @@ GUIPerson::drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) con
     }
 }
 
+bool
+GUIPerson::isJammed() const {
+    MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
+    if (stage != nullptr) {
+        return stage->getState()->isJammed();
+    }
+    return false;
+}
+
 
 void
 GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {
@@ -434,6 +443,8 @@ GUIPerson::getColorValue(const GUIVisualizationSettings& /* s */, int activeSche
         case 6:
             return getWaitingSeconds();
         case 7:
+            return isJammed() ? 1 : 0;
+        case 8:
             return gSelected.isSelected(GLO_PERSON, getGlID());
     }
     return 0;

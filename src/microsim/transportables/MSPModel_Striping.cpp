@@ -1895,6 +1895,10 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
 }
 
 
+bool
+MSPModel_Striping::PState::isJammed() const {
+    return myAmJammed;
+}
 
 double
 MSPModel_Striping::PState::distanceTo(const Obstacle& obs, const bool includeMinGap) const {
