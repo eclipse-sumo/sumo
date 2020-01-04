@@ -189,8 +189,6 @@ GUIRunThread::makeStep() {
             case MSNet::SIMSTATE_CONNECTION_CLOSED:
             case MSNet::SIMSTATE_TOO_MANY_TELEPORTS:
                 if (!myHaveSignaledEnd || state != MSNet::SIMSTATE_END_STEP_REACHED) {
-                    WRITE_MESSAGE("Simulation ended at time: " + time2string(myNet->getCurrentTimeStep()));
-                    WRITE_MESSAGE("Reason: " + MSNet::getStateMessage(state));
                     e = new GUIEvent_SimulationEnded(state, myNet->getCurrentTimeStep() - DELTA_T);
                     // ensure that files are closed (deleteSim is called a bit later by the gui thread)
                     // MSNet destructor may trigger MsgHandler (via routing device cleanup). Closing output devices here is not safe
@@ -285,7 +283,7 @@ GUIRunThread::deleteSim() {
     //
     mySimulationLock.lock();
     if (myNet != nullptr) {
-        myNet->closeSimulation(mySimStartTime);
+        myNet->closeSimulation(mySimStartTime, MSNet::getStateMessage(myNet->simulationState(mySimEndTime)));
     }
     while (mySimulationInProgress);
     delete myNet;
