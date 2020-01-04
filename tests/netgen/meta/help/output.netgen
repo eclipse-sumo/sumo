@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_4_0+0197-8ad2565e4f
+Eclipse SUMO netgenerate Version v1_4_0+0311-59c20cfff9
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -290,6 +290,9 @@ Junctions Options:
                                          geometry-like junctions
   --no-turnarounds.except-deadend      Disables building turnarounds except at
                                          dead end junctions
+  --no-turnarounds.except-turnlane     Disables building turnarounds except at
+                                         at junctions with a dedicated turning
+                                         lane
   --no-left-connections                Disables building connections to left
   --junctions.join                     Joins junctions that are close to each
                                          other (recommended for OSM import)
