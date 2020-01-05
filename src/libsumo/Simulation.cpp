@@ -70,7 +70,7 @@ Simulation::load(const std::vector<std::string>& args) {
     NLBuilder::init();
     Helper::registerVehicleStateListener();
     if (MSNet::hasInstance()) {
-        WRITE_MESSAGE("Simulation started via Libsumo with time: " + time2string(SIMTIME));
+        WRITE_MESSAGE("Simulation started via Libsumo with time: " + time2string(SIMSTEP));
     }
 }
 
