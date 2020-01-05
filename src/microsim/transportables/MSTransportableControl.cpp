@@ -274,11 +274,9 @@ MSTransportableControl::getActiveCount() {
 
 void
 MSTransportableControl::abortAnyWaitingForVehicle() {
-    for (std::map<const MSEdge*, TransportableVector>::const_iterator i = myWaiting4Vehicle.begin(); i != myWaiting4Vehicle.end(); ++i) {
+    for (std::map<const MSEdge*, TransportableVector>::iterator i = myWaiting4Vehicle.begin(); i != myWaiting4Vehicle.end(); ++i) {
         const MSEdge* edge = (*i).first;
-        const TransportableVector& pv = (*i).second;
-        for (TransportableVector::const_iterator j = pv.begin(); j != pv.end(); ++j) {
-            MSTransportable* p = (*j);
+        for (MSTransportable* const p : i->second) {
             std::string transportableType;
             if (dynamic_cast<MSPerson*>(p) != nullptr) {
                 edge->removePerson(p);
@@ -292,6 +290,7 @@ MSTransportableControl::abortAnyWaitingForVehicle() {
             WRITE_WARNING(transportableType + " '" + p->getID() + "' aborted " + waitDescription + ".");
             erase(p);
         }
+        i->second.clear();
     }
 }
 
