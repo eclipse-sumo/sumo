@@ -173,15 +173,7 @@ GUIRunThread::makeStep() {
         myEventThrow.signal();
 
         e = nullptr;
-        MSNet::SimulationState state = myNet->simulationState(mySimEndTime);
-        if (state == MSNet::SIMSTATE_LOADING) {
-            OptionsIO::setArgs(TraCIServer::getInstance()->getLoadArgs());
-            TraCIServer::getInstance()->getLoadArgs().clear();
-        } else if (state != MSNet::SIMSTATE_RUNNING) {
-            if (TraCIServer::getInstance() != nullptr && !TraCIServer::wasClosed()) {
-                state = MSNet::SIMSTATE_RUNNING;
-            }
-        }
+        MSNet::SimulationState state = myNet->adaptToState(myNet->simulationState(mySimEndTime));
         switch (state) {
             case MSNet::SIMSTATE_LOADING:
             case MSNet::SIMSTATE_END_STEP_REACHED:

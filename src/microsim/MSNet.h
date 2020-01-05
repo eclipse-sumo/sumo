@@ -264,12 +264,20 @@ public:
     void closeSimulation(SUMOTime start, const std::string& reason="");
 
 
-    /** @brief Called after a simulation step, this method returns the current simulation state
+    /** @brief This method returns the current simulation state. It should not modify status.
      * @param[in] stopTime The time the simulation shall stop at
      * @return The current simulation state
      * @see SimulationState
      */
     SimulationState simulationState(SUMOTime stopTime) const;
+
+
+    /** @brief Called after a simulation step, this method adapts the current simulation state if necessary
+     * @param[in] state The current simulation state
+     * @return The new simulation state
+     * @see SimulationState
+     */
+    SimulationState adaptToState(const SimulationState state) const;
 
 
     /** @brief Returns the message to show if a certain state occurs

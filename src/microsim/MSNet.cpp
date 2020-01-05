@@ -358,21 +358,12 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         if (doStepLog) {
             postSimStepOutput();
         }
-        state = simulationState(stop);
+        state = adaptToState(simulationState(stop));
 #ifdef DEBUG_SIMSTEP
         std::cout << SIMTIME << " MSNet::simulate(" << start << ", " << stop << ")"
                   << "\n simulation state: " << getStateMessage(state)
                   << std::endl;
 #endif
-        if (state == SIMSTATE_LOADING) {
-            OptionsIO::setArgs(TraCIServer::getInstance()->getLoadArgs());
-            TraCIServer::getInstance()->getLoadArgs().clear();
-        } else if (state != SIMSTATE_RUNNING) {
-            if (TraCIServer::getInstance() != nullptr && !TraCIServer::wasClosed()) {
-                // overrides SIMSTATE_END_STEP_REACHED, e.g. (TraCI ignore SUMO's --end option)
-                state = SIMSTATE_RUNNING;
-            }
-        }
         numSteps++;
     }
     if (myLogStepNumber && !doStepLog) {
@@ -622,13 +613,6 @@ MSNet::simulationState(SUMOTime stopTime) const {
                 && (myPersonControl == nullptr || !myPersonControl->hasNonWaiting())
                 && (myContainerControl == nullptr || !myContainerControl->hasNonWaiting())
                 && !MSDevice_Taxi::hasServableReservations()) {
-            if (myPersonControl) {
-                myPersonControl->abortAnyWaitingForVehicle();
-            }
-            if (myContainerControl) {
-                myContainerControl->abortAnyWaitingForVehicle();
-            }
-            myVehicleControl->abortWaiting();
             return SIMSTATE_NO_FURTHER_VEHICLES;
         }
     }
@@ -642,6 +626,27 @@ MSNet::simulationState(SUMOTime stopTime) const {
         return SIMSTATE_INTERRUPTED;
     }
     return SIMSTATE_RUNNING;
+}
+
+
+MSNet::SimulationState
+MSNet::adaptToState(MSNet::SimulationState state) const {
+    if (state == SIMSTATE_LOADING) {
+        OptionsIO::setArgs(TraCIServer::getInstance()->getLoadArgs());
+        TraCIServer::getInstance()->getLoadArgs().clear();
+    } else if (state != SIMSTATE_RUNNING && TraCIServer::getInstance() != nullptr && !TraCIServer::wasClosed()) {
+        // overrides SIMSTATE_END_STEP_REACHED, e.g. (TraCI ignore SUMO's --end option)
+        return SIMSTATE_RUNNING;
+    } else if (state == SIMSTATE_NO_FURTHER_VEHICLES) {
+        if (myPersonControl != nullptr) {
+            myPersonControl->abortAnyWaitingForVehicle();
+        }
+        if (myContainerControl != nullptr) {
+            myContainerControl->abortAnyWaitingForVehicle();
+        }
+        myVehicleControl->abortWaiting();
+    }
+    return state;
 }
 
 

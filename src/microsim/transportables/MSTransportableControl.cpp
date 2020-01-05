@@ -278,7 +278,7 @@ MSTransportableControl::abortAnyWaitingForVehicle() {
         const MSEdge* edge = (*i).first;
         for (MSTransportable* const p : i->second) {
             std::string transportableType;
-            if (dynamic_cast<MSPerson*>(p) != nullptr) {
+            if (p->isPerson()) {
                 edge->removePerson(p);
                 transportableType = "Person";
             } else {
@@ -290,8 +290,9 @@ MSTransportableControl::abortAnyWaitingForVehicle() {
             WRITE_WARNING(transportableType + " '" + p->getID() + "' aborted " + waitDescription + ".");
             erase(p);
         }
-        i->second.clear();
     }
+    myWaiting4Vehicle.clear();
+    myWaitingForVehicleNumber = 0;
 }
 
 void
