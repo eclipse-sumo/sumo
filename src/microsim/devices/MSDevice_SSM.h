@@ -677,8 +677,9 @@ private:
      * @param sep separator for values in string
      * @return String concatenation of the vector entries
      */
-    static std::string makeStringWithNAs(std::vector<double> v, double NA, std::string sep = " ");
-    static std::string makeStringWithNAs(std::vector<double> v, std::vector<double> NAs, std::string sep = " ");
+    static std::string makeStringWithNAs(const std::vector<double>& v, const double NA);
+    static std::string makeStringWithNAs(const std::vector<double>& v, const std::vector<double>& NAs);
+    static std::string makeStringWithNAs(const PositionVector& v, const double precision);
 
     /// @name parameter load helpers (introduced for readability of buildVehicleDevices())
     /// @{
