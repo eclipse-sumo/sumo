@@ -94,7 +94,7 @@ The following table lists the different encounter types along with their codes, 
     When ego and foe vehicles are on subsequent lanes, the gaps are computed by adding the distances of the intermediate lanes
 
 ## Conflict Definitions
-For each conflict there is an entry point. For merging and crossing conflicts there is also an exit poin
+For each conflict there is an entry point. For merging and crossing conflicts there is also an exit point.
 The points may be slightly different for both ego and foe vehicle because the point is computed in reference to the vehicle front or rear bumper whereas a collision could happen with another part of the vehicle.
 
 - entryDist: distance between the front bumper of the vehicle and the entry point along the lane sequence
