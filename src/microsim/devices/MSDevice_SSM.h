@@ -679,7 +679,7 @@ private:
      */
     static std::string makeStringWithNAs(const std::vector<double>& v, const double NA);
     static std::string makeStringWithNAs(const std::vector<double>& v, const std::vector<double>& NAs);
-    static std::string makeStringWithNAs(const PositionVector& v, const double precision);
+    static std::string makeStringWithNAs(const PositionVector& v, const int precision);
 
     /// @name parameter load helpers (introduced for readability of buildVehicleDevices())
     /// @{

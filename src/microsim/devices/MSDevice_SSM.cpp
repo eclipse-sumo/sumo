@@ -2732,7 +2732,7 @@ MSDevice_SSM::makeStringWithNAs(const std::vector<double>& v, const std::vector<
 }
 
 std::string
-MSDevice_SSM::makeStringWithNAs(const PositionVector& v, const double precision) {
+MSDevice_SSM::makeStringWithNAs(const PositionVector& v, const int precision) {
     std::string res = "";
     for (PositionVector::const_iterator i = v.begin(); i != v.end(); ++i) {
         res += (i == v.begin() ? "" : " ") + (*i == Position::INVALID ? "NA" : ::toString(*i, precision));
