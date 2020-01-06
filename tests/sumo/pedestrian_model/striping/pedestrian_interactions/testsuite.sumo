@@ -19,5 +19,8 @@ plaza
 # dense traffic in opposite directions on walkingarea
 walkingarea_jam
 
+# dense traffic in opposite directions on walkingarea (crossing is wider than sidewalk)
+walkingarea_jam_4m_crossing
+
 # dense traffic in opposite directions on walkingarea
 walkingarea_jam_reserve_oncoming
