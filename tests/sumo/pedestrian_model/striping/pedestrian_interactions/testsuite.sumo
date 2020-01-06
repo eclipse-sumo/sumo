@@ -18,3 +18,6 @@ plaza
 
 # dense traffic in opposite directions on walkingarea
 walkingarea_jam
+
+# dense traffic in opposite directions on walkingarea
+walkingarea_jam_reserve_oncoming
