@@ -65,12 +65,17 @@ ContextSubscriptionResults Simulation::myContextSubscriptionResults;
 void
 Simulation::load(const std::vector<std::string>& args) {
     close("Libsumo issued load command.");
-    XMLSubSys::init();
-    OptionsIO::setArgs(args);
-    NLBuilder::init();
-    Helper::registerVehicleStateListener();
-    if (MSNet::hasInstance()) {
-        WRITE_MESSAGE("Simulation started via Libsumo with time: " + time2string(SIMSTEP));
+    try {
+        XMLSubSys::init();
+        OptionsIO::setArgs(args);
+        if (NLBuilder::init() != nullptr) {
+            const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
+            MSNet::getInstance()->setCurrentTimeStep(begin); // needed for state loading
+            Helper::registerVehicleStateListener();
+            WRITE_MESSAGE("Simulation started via Libsumo with time: " + time2string(begin));
+        }
+    } catch(ProcessError& e) {
+        throw TraCIException(e.what());
     }
 }
 
