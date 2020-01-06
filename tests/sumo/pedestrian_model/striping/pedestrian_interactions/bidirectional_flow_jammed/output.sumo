@@ -1,14 +1,14 @@
-Loading net-file from 'net3.net.xml' ... done (7ms).
+Loading net-file from 'net3.net.xml' ... done (6ms).
 Loading additional-files from 'input_routes.rou.xml' ... done (2ms).
 Loading done.
-Simulation version v1_4_0+0321-34932b8 started with time: 0.00
-Simulation ended at time: 907.00
+Simulation version v1_4_0+0322-9bda350 started with time: 0.00
+Simulation ended at time: 949.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 63ms
- Real time factor: 14396.8
+ Duration: 53ms
+ Real time factor: 17905.7
  UPS: 0.000000
- UPS-Persons: 297507.936508
+ UPS-Persons: 289584.905660
 Vehicles: 
  Inserted: 0
  Running: 0
@@ -16,7 +16,7 @@ Vehicles:
 Persons: 
  Inserted: 30
  Running: 0
- Jammed: 10
+ Jammed: 11
 Statistics (avg):
  RouteLength: 0.00
  Duration: 0.00
@@ -25,6 +25,6 @@ Statistics (avg):
  DepartDelay: 0.00
 Pedestrian Statistics (avg of 30 walks):
  RouteLength: 74.45
- Duration: 624.77
- TimeLoss: 458.62
+ Duration: 511.60
+ TimeLoss: 345.46
 
