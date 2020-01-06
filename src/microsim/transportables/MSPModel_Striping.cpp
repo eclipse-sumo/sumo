@@ -620,12 +620,14 @@ MSPModel_Striping::getNextWalkingArea(const MSLane* currentLane, const int dir, 
 MSPModel_Striping::Obstacles
 MSPModel_Striping::getNeighboringObstacles(const Pedestrians& pedestrians, int egoIndex, int stripes) {
     const PState& ego = *pedestrians[egoIndex];
+    const int egoStripe = ego.stripe();
     Obstacles obs(stripes, Obstacle(ego.myDir));
     std::vector<bool> haveBlocker(stripes, false);
     for (int index = egoIndex + 1; index < (int)pedestrians.size(); index++) {
         const PState& p = *pedestrians[index];
         if DEBUGCOND(ego) {
-            std::cout << SIMTIME << " ped=" << ego.myPerson->getID() << "  checking neighbor " << p.myPerson->getID();
+            std::cout << SIMTIME << " ped=" << ego.getID() << " cur=" << egoStripe << " checking neighbor " << p.getID() 
+                << " nCur=" << p.stripe() << " nOth=" << p.otherStripe();
         }
         if (!p.myWaitingToEnter && !p.myAmJammed) {
             const Obstacle o(p);
@@ -636,16 +638,25 @@ MSPModel_Striping::getNeighboringObstacles(const Pedestrians& pedestrians, int e
                 break;
             }
             if (ego.distanceTo(o) == DIST_OVERLAP) {
-                obs[p.stripe()] = o;
-                obs[p.otherStripe()] = o;
-                haveBlocker[p.stripe()] = true;
-                haveBlocker[p.otherStripe()] = true;
-            }
-            if (!haveBlocker[p.stripe()]) {
-                obs[p.stripe()] = o;
-            }
-            if (!haveBlocker[p.otherStripe()]) {
-                obs[p.otherStripe()] = o;
+                if (p.stripe() != egoStripe || p.myDir != ego.myDir) {
+                    obs[p.stripe()] = o;
+                    haveBlocker[p.stripe()] = true;
+                } else {
+                    //std::cout << SIMTIME << "   ignoring overlap between " << ego.getID() << " and " << p.getID() << " on stripe=" << egoStripe << "\n";
+                }
+                if (p.otherStripe() != egoStripe || p.myDir != ego.myDir) {
+                    obs[p.otherStripe()] = o;
+                    haveBlocker[p.otherStripe()] = true;
+                } else {
+                    //std::cout << SIMTIME << "   ignoring overlap between " << ego.getID() << " and " << p.getID() << " on stripe2=" << egoStripe << "\n";
+                }
+            } else {
+                if (!haveBlocker[p.stripe()]) {
+                    obs[p.stripe()] = o;
+                }
+                if (!haveBlocker[p.otherStripe()]) {
+                    obs[p.otherStripe()] = o;
+                }
             }
         }
     }
@@ -1646,7 +1657,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     // select best stripe
     int chosen = current;
     for (int i = 0; i < stripes; ++i) {
-        if (utility[chosen] < utility[i]) {
+        if (utility[i] > utility[chosen] && utility[i] >= INAPPROPRIATE_PENALTY * 0.5) {
             chosen = i;
         }
     }
