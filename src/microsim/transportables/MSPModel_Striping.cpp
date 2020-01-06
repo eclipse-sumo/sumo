@@ -627,7 +627,7 @@ MSPModel_Striping::getNeighboringObstacles(const Pedestrians& pedestrians, int e
         if DEBUGCOND(ego) {
             std::cout << SIMTIME << " ped=" << ego.myPerson->getID() << "  checking neighbor " << p.myPerson->getID();
         }
-        if (!p.myWaitingToEnter) {
+        if (!p.myWaitingToEnter && !p.myAmJammed) {
             const Obstacle o(p);
             if DEBUGCOND(ego) {
                 std::cout << " dist=" << ego.distanceTo(o) << std::endl;
@@ -965,7 +965,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         //std::cout << SIMTIME << "CHECKING" << p.myPerson->getID() << "\n";
         Obstacles currentObs = obs;
         if (p.myDir != dir || changedLane.count(p.myPerson) != 0 || p.myRemoteXYPos != Position::INVALID) {
-            if (!p.myWaitingToEnter) {
+            if (!p.myWaitingToEnter && !p.myAmJammed) {
                 //if DEBUGCOND(p) {
                 //    std::cout << "   obs=" << p.myPerson->getID() << "  y=" << p.myRelY << "  stripe=" << p.stripe() << " oStripe=" << p.otherStripe() << "\n";
                 //}
