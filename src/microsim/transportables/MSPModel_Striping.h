@@ -216,11 +216,12 @@ protected:
     };
 
     struct WalkingAreaPath {
-        WalkingAreaPath(const MSLane* _from, const MSLane* _walkingArea, const MSLane* _to, const PositionVector& _shape) :
+        WalkingAreaPath(const MSLane* _from, const MSLane* _walkingArea, const MSLane* _to, const PositionVector& _shape, int _dir) :
             from(_from),
             to(_to),
             lane(_walkingArea),
             shape(_shape),
+            dir(_dir),
             length(_shape.length()) {
         }
 
@@ -230,6 +231,7 @@ protected:
         const MSLane* to;
         const MSLane* lane; // the walkingArea;
         PositionVector shape; // actually const but needs to be copyable by some stl code
+        int dir; // the direction when entring this path
         double length;
 
     };

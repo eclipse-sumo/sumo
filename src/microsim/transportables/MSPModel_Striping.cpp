@@ -378,7 +378,7 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
                             // will be walking backward on walkingArea
                             shape = shape.reverse();
                         }
-                        WalkingAreaPath wap = WalkingAreaPath(from, walkingArea, to, shape);
+                        WalkingAreaPath wap = WalkingAreaPath(from, walkingArea, to, shape, fromDir);
                         myWalkingAreaPaths[std::make_pair(from, to)] = wap;
                         myMinNextLengths[walkingArea] = MIN2(myMinNextLengths[walkingArea], wap.length);
                     }
@@ -839,6 +839,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                     }
                 }
             }
+            const double usableWidth = (numStripes(lane) - 1) * stripeWidth;
             for (std::set<const WalkingAreaPath*, walkingarea_path_sorter>::iterator it = paths.begin(); it != paths.end(); ++it) {
                 const WalkingAreaPath* path = *it;
                 Pedestrians toDelete;
@@ -846,12 +847,28 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                 transformedPeds.reserve(pedestrians.size());
                 for (Pedestrians::iterator it_p = pedestrians.begin(); it_p != pedestrians.end(); ++it_p) {
                     PState* p = *it_p;
-                    if (p->myWalkingAreaPath == path
-                            // opposite direction is already in the correct coordinate system
-                            || (p->myWalkingAreaPath->from == path->to && p->myWalkingAreaPath->to == path->from)) {
+                    if (p->myWalkingAreaPath == path) {
                         transformedPeds.push_back(p);
                         if (path == debugPath) std::cout << "  ped=" << p->myPerson->getID() << "  relX=" << p->myRelX << " relY=" << p->myRelY << " (untransformed), vecCoord="
-                                                             << path->shape.transformToVectorCoordinates(p->getPosition(*p->myStage, -1)) << "\n";
+                            << path->shape.transformToVectorCoordinates(p->getPosition(*p->myStage, -1)) << "\n";
+                    } else if (p->myWalkingAreaPath->from == path->to && p->myWalkingAreaPath->to == path->from) {
+                        if (p->myWalkingAreaPath->dir != path->dir) {
+                            // opposite direction is already in the correct coordinate system
+                            transformedPeds.push_back(p);
+                            if (path == debugPath) std::cout << "  ped=" << p->myPerson->getID() << "  relX=" << p->myRelX << " relY=" << p->myRelY << " (untransformed), vecCoord="
+                                << path->shape.transformToVectorCoordinates(p->getPosition(*p->myStage, -1)) << "\n";
+                        } else {
+                            // x position must be reversed
+                            PState* tp = new PState(*p);
+                            tp->myRelX = path->length - p->myRelX;
+                            tp->myRelY = usableWidth - p->myRelY;
+                            tp->myDir = !path->dir;
+                            tp->mySpeed = -p->mySpeed;
+                            toDelete.push_back(tp);
+                            transformedPeds.push_back(tp);
+                            if (path == debugPath) std::cout << "  ped=" << p->myPerson->getID() << "  relX=" << p->myRelX << " relY=" << p->myRelY << " (semi-transformed), vecCoord="
+                                << path->shape.transformToVectorCoordinates(p->getPosition(*p->myStage, -1)) << "\n";
+                        }
                     } else {
                         const Position relPos = path->shape.transformToVectorCoordinates(p->getPosition(*p->myStage, -1));
                         const double newY = relPos.y() + lateral_offset;
