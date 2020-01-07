@@ -159,7 +159,7 @@ Each phase is defined using the following attributes:
 | minDur         | time (int)            | The minimum duration of the phase when using type **actuated**. Optional, defaults to duration.                                                              |
 | maxDur         | time (int)            | The maximum duration of the phase when using type **actuated**. Optional, defaults to duration.                                                              |
 | name           | string                | An optional description for the phase. This can be used to establish the correspondence between SUMO-phase-indexing and traffic engineering phase names.     |
-| next           | index (int)           | The next phase in the cycle after the current. This is useful when adding extra transition phases to a traffic light plan which are not part of every cycle. |
+| next           | list of phase indices (int ...)           | The next phase in the cycle after the current. This is useful when adding extra transition phases to a traffic light plan which are not part of every cycle. Traffic lights of type 'actuated' can make use of a list of indices for selecting among alternative successor phases. |
 
 !!! caution
     In a SUMO-TLS definition, time is on the vertical axis and each phase describes all signal states that last for a fixed duration. This differs from typical traffic engineering diagrams where time is on the horizontal axis and each row describes the states for one signal. Another crucial difference is, that in SUMO a new phase is introduced whenever at least one signal changes its state. This means that transitions between green phases can be made up of multiple intermediate phases.
@@ -287,6 +287,23 @@ parameters **file** and **freq** have the same meaning as for [regular
 induction loop
 detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
 The examples values are the default values for these parameters.
+
+#### Dynamic Phase Selection (Phase Skipping)
+When a phase uses attribute 'next' with a list of indices. The next phase is chosen dynamically based on the detector status of all candidate phases according to the following algorithm:
+
+- compute the priority for each phase given in 'next'. Priority is primarily given by the number of active detectors for that phase. Active means either of:
+  - with detection gap below threshold
+  - with a detection since the last time where the signal after this detector was green
+- the current phase is implicitly available for continuation as long as it's maxDur is not reached. Detectors of the current phase get a bonus priority
+- the phase with the highest priority is used with phases coming earlier in the next list given precedence over those coming later
+- if there is no traffic, the phases will run through a default cycle defined by the first value in the 'next' attribute
+- if a particular phase should remain active indefinitely in the absence of traffic it must have its own index in the 'next' list as well as a high maxDur value
+- if an active detector was not served for a given time threshold (param **inactive-threshold**), this detector receives bonus priority according the time it was not served. This can be used to prevent starvation if other phases are consistently preferred due to serving more traffic 
+
+Examples for this type of traffic light logic can be found in [{{SUMO}}/tests/sumo/basic/tls/actuated/dualring_simple]({{Source}}tests/sumo/basic/tls/actuated/dualring_simple).
+
+The helper script [tls_buildTransitions.py] can be used to generate such logics from simplified definitions.
+
 
 #### Visualization
 By setting the sumo option **--tls.actuated.show-detectors** the default visibility of detectors can be
