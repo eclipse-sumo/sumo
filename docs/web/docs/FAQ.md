@@ -629,19 +629,6 @@ use the Linux version or download the [nightly-extra version](http://sumo.dlr.de
   There are different methods for accomplishing this. In either case
   the simulation itself should be constraint using options **--begin**, **--end**.
 
-- You can use the option **--max-num-vehicles** to set the desired number. Vehicle
-  insertions are delayed whenever this number would be exceeded. To
-  avoid a large number of delayed vehicles it is recommended to also
-  use the option **--max-depart-delay**. When using this approach you must ensure that there
-  is a sufficient number of vehicles that are ready for insertion at
-  all times. Note, that the number of distinct vehicle IDs over the
-  whole simulation is much larger the specified value because some
-  vehicles leave the simulation and new vehicles with distinct IDs are
-  inserted to replace them.
-
-!!! caution
-    Up to version 0.24.0, option **--max-num-vehicles** terminates the simulation when exceeding the specified number
-
 - You can use [rerouters](Simulation/Rerouter.md) in the
   simulation. Rerouters, assign a new route for vehicles driving
   across them and thus prevent them from leaving the network. For an
@@ -665,6 +652,20 @@ use the Linux version or download the [nightly-extra version](http://sumo.dlr.de
   - **-r** <output route file\>
 
 - You can use [JTRROUTER](JTRROUTER.md) to [generate vehicles which drive randomly around the network with configurable turning ratios](Tutorials/Manhattan.md#generating_vehicles)
+
+- You can use the option **--max-num-vehicles** to set the desired number. Vehicle
+  insertions are delayed whenever this number would be exceeded. To
+  avoid a large number of delayed vehicles it is recommended to also
+  use the option **--max-depart-delay**. When using this approach you must ensure that there
+  is a sufficient number of vehicles that are ready for insertion at
+  all times. Note, that the number of distinct vehicle IDs over the
+  whole simulation is much larger the specified value because some
+  vehicles leave the simulation and new vehicles with distinct IDs are
+  inserted to replace them.
+
+!!! caution
+    Up to version 0.24.0, option **--max-num-vehicles** terminates the simulation when exceeding the specified number
+
 
 ### A vehicle cannot reach its target or takes a circuitous route. Why?
 
