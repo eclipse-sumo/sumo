@@ -202,7 +202,8 @@ GNEGeometry::Geometry::calculateShapeRotationsAndLengths() {
 // GNEGeometry::DottedGeometry - methods
 // ---------------------------------------------------------------------------
 
-GNEGeometry::DottedGeometry::DottedGeometry() {
+GNEGeometry::DottedGeometry::DottedGeometry() :
+    myDottedGeometryDeprecated(true) {
 }
 
 
@@ -221,6 +222,20 @@ GNEGeometry::DottedGeometry::updateDottedGeometry(const PositionVector& shape) {
     }
     // calculate shape rotation and lengths
     calculateShapeRotationsAndLengths();
+    // set geometry updated
+    myDottedGeometryDeprecated = false;
+}
+
+
+void 
+GNEGeometry::DottedGeometry::markDottedGeometryDeprecated() {
+    myDottedGeometryDeprecated = true;
+}
+
+
+bool 
+GNEGeometry::DottedGeometry::isGeometryDeprecated() const {
+    return myDottedGeometryDeprecated;
 }
 
 

@@ -126,6 +126,12 @@ struct GNEGeometry {
         /// @brief update DottedGeometry (using an existent shape)
         void updateDottedGeometry(const PositionVector& shape);
 
+        /// @brief mark dotted geometry deprecated
+        void markDottedGeometryDeprecated();
+
+        /// @brief check if geometry is deprecated
+        bool isGeometryDeprecated() const;
+
         /// @brief The shape of the additional element
         const PositionVector& getShape() const;
 
@@ -153,6 +159,9 @@ struct GNEGeometry {
     
         /// @brief The colors  of the dotted shape
         std::vector<RGBColor> myShapeColors; 
+
+        /// @brief flag to mark dotted geometry depreciated
+        bool myDottedGeometryDeprecated;
 
         /// @brief Invalidated assignment operator
         DottedGeometry& operator=(const DottedGeometry& other) = delete;
