@@ -358,8 +358,8 @@ MSDevice_Tripinfo::addRideTransportData(const bool isPerson, const double distan
         } else if (!line.empty()) {
             if (isRailway(vClass)) {
                 myRideRailCount[index]++;
-            //} else if (vClass == SVC_TAXI) {
-            //    myRideTaxiCount[index]++;
+            } else if (vClass == SVC_TAXI) {
+                myRideTaxiCount[index]++;
             } else {
                 // some kind of road vehicle
                 myRideBusCount[index]++;
@@ -408,6 +408,9 @@ MSDevice_Tripinfo::printRideStatistics(std::ostringstream& msg, const std::strin
         }
         if (myRideRailCount[index] > 0) {
             msg << " Train: " << myRideRailCount[index] << "\n";
+        }
+        if (myRideTaxiCount[index] > 0) {
+            msg << " Taxi: " << myRideTaxiCount[index] << "\n";
         }
         if (myRideBikeCount[index] > 0) {
             msg << " Bike: " << myRideBikeCount[index] << "\n";
