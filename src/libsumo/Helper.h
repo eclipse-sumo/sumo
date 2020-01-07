@@ -129,6 +129,7 @@ public:
     static MSEdge* getEdge(const std::string& edgeID);
     static const MSLane* getLaneChecking(const std::string& edgeID, int laneIndex, double pos);
     static std::pair<MSLane*, double> convertCartesianToRoadMap(const Position& pos, const SUMOVehicleClass vClass);
+    static double getDrivingDistance(std::pair<const MSLane*, double>& roadPos1, std::pair<const MSLane*, double>& roadPos2);
 
     static MSVehicle* getVehicle(const std::string& id);
     static const MSVehicleType& getVehicleType(const std::string& vehicleID);

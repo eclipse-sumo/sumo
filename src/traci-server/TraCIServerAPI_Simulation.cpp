@@ -586,30 +586,11 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
     }
 
     // read distance type
-    int distType = inputStorage.readUnsignedByte();
+    const int distType = inputStorage.readUnsignedByte();
 
     double distance = 0.0;
     if (distType == libsumo::REQUEST_DRIVINGDIST) {
-        // compute driving distance
-        if ((roadPos1.first == roadPos2.first) && (roadPos1.second <= roadPos2.second)) {
-            // same edge
-            distance = roadPos2.second - roadPos1.second;
-        } else {
-            ConstMSEdgeVector newRoute;
-            while (roadPos2.first->isInternal() && roadPos2.first != roadPos1.first) {
-                distance += roadPos2.second;
-                roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
-                roadPos2.second = roadPos2.first->getLength();
-            }
-            MSNet::getInstance()->getRouterTT(0).compute(
-                &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), nullptr, MSNet::getInstance()->getCurrentTimeStep(), newRoute, true);
-            if (newRoute.size() == 0) {
-                distance = libsumo::INVALID_DOUBLE_VALUE;
-            } else {
-                MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
-                distance += route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
-            }
-        }
+        distance = libsumo::Helper::getDrivingDistance(roadPos1, roadPos2);
     } else {
         // compute air distance (default)
         distance = pos1.distanceTo(pos2);

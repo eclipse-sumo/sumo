@@ -394,22 +394,7 @@ Simulation::getDistance2D(double x1, double y1, double x2, double y2, bool isGeo
     if (isDriving) {
         std::pair<const MSLane*, double> roadPos1 = libsumo::Helper::convertCartesianToRoadMap(pos1, SVC_IGNORING);
         std::pair<const MSLane*, double> roadPos2 = libsumo::Helper::convertCartesianToRoadMap(pos2, SVC_IGNORING);
-        if ((roadPos1.first == roadPos2.first) && (roadPos1.second <= roadPos2.second)) {
-            // same edge
-            return roadPos2.second - roadPos1.second;
-        } else {
-            double distance = 0.;
-            ConstMSEdgeVector newRoute;
-            if (roadPos2.first->isInternal()) {
-                distance = roadPos2.second;
-                roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
-                roadPos2.second = roadPos2.first->getLength();
-            }
-            MSNet::getInstance()->getRouterTT(0).compute(
-                &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), nullptr, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
-            MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
-            return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
-        }
+        return Helper::getDrivingDistance(roadPos1, roadPos2);
     } else {
         return pos1.distanceTo(pos2);
     }
@@ -421,22 +406,7 @@ Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::
     std::pair<const MSLane*, double> roadPos1 = std::make_pair(libsumo::Helper::getLaneChecking(edgeID1, 0, pos1), pos1);
     std::pair<const MSLane*, double> roadPos2 = std::make_pair(libsumo::Helper::getLaneChecking(edgeID2, 0, pos2), pos2);
     if (isDriving) {
-        if ((roadPos1.first == roadPos2.first) && (roadPos1.second <= roadPos2.second)) {
-            // same edge
-            return roadPos2.second - roadPos1.second;
-        } else {
-            double distance = 0.;
-            ConstMSEdgeVector newRoute;
-            if (roadPos2.first->isInternal()) {
-                distance = roadPos2.second;
-                roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
-                roadPos2.second = roadPos2.first->getLength();
-            }
-            MSNet::getInstance()->getRouterTT(0).compute(
-                &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), nullptr, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
-            MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
-            return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
-        }
+        return Helper::getDrivingDistance(roadPos1, roadPos2);
     } else {
         const Position p1 = roadPos1.first->geometryPositionAtOffset(roadPos1.second);
         const Position p2 = roadPos2.first->geometryPositionAtOffset(roadPos2.second);

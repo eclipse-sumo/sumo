@@ -433,6 +433,28 @@ Helper::convertCartesianToRoadMap(const Position& pos, const SUMOVehicleClass vC
 }
 
 
+double
+Helper::getDrivingDistance(std::pair<const MSLane*, double>& roadPos1, std::pair<const MSLane*, double>& roadPos2) {
+    if (roadPos1.first == roadPos2.first && roadPos1.second <= roadPos2.second) {
+        // same edge
+        return roadPos2.second - roadPos1.second;
+    }
+    double distance = 0.0;
+    ConstMSEdgeVector newRoute;
+    while (roadPos2.first->isInternal() && roadPos2.first != roadPos1.first) {
+        distance += roadPos2.second;
+        roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
+        roadPos2.second = roadPos2.first->getLength();
+    }
+    MSNet::getInstance()->getRouterTT(0).compute(&roadPos1.first->getEdge(), &roadPos2.first->getEdge(), nullptr, SIMSTEP, newRoute, true);
+    if (newRoute.empty()) {
+        return libsumo::INVALID_DOUBLE_VALUE;
+    }
+    MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
+    return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
+}
+
+
 MSVehicle*
 Helper::getVehicle(const std::string& id) {
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
