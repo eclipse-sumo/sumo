@@ -45,11 +45,11 @@ GNEGeometry::Geometry::Geometry() :
 
 
 GNEGeometry::Geometry::Geometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths) :
-    myShape(shape),
-    myShapeRotations(shapeRotations),
-    myShapeLengths(shapeLengths),
     myPosition(Position::INVALID),
-    myRotation(0) {
+    myRotation(0), 
+    myShape(shape),
+    myShapeRotations(shapeRotations), 
+    myShapeLengths(shapeLengths) {
 }
 
 
