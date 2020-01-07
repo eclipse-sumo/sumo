@@ -188,6 +188,8 @@ protected:
     /// @brief update stopping time after parking
     void updateParkingStopTime();
 
+    static void printRideStatistics(std::ostringstream& msg, const std::string& category, const std::string& modeName, const int index); 
+
 private:
     /// @brief The lane the vehicle departed at
     std::string myDepartLane;
@@ -254,6 +256,7 @@ private:
     static std::vector<int> myRideCount;
     static std::vector<int> myRideBusCount;
     static std::vector<int> myRideRailCount;
+    static std::vector<int> myRideTaxiCount;
     static std::vector<int> myRideBikeCount;
     static std::vector<int> myRideAbortCount;
     static std::vector<double> myTotalRideWaitingTime;

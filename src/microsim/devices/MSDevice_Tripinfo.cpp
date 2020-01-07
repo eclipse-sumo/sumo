@@ -58,6 +58,7 @@ SUMOTime MSDevice_Tripinfo::myTotalWalkTimeLoss(0);
 std::vector<int> MSDevice_Tripinfo::myRideCount({0,0});
 std::vector<int> MSDevice_Tripinfo::myRideBusCount({0,0});
 std::vector<int> MSDevice_Tripinfo::myRideRailCount({0,0});
+std::vector<int> MSDevice_Tripinfo::myRideTaxiCount({0,0});
 std::vector<int> MSDevice_Tripinfo::myRideBikeCount({0,0});
 std::vector<int> MSDevice_Tripinfo::myRideAbortCount({0,0});
 std::vector<double> MSDevice_Tripinfo::myTotalRideWaitingTime({0.,0.});
@@ -135,6 +136,7 @@ MSDevice_Tripinfo::cleanup() {
     myRideCount = {0,0};
     myRideBusCount = {0,0};
     myRideRailCount = {0,0};
+    myRideTaxiCount = {0,0};
     myRideBikeCount = {0,0};
     myRideAbortCount = {0,0};
     myTotalRideWaitingTime = {0.,0.};
@@ -356,6 +358,8 @@ MSDevice_Tripinfo::addRideTransportData(const bool isPerson, const double distan
         } else if (!line.empty()) {
             if (isRailway(vClass)) {
                 myRideRailCount[index]++;
+            //} else if (vClass == SVC_TAXI) {
+            //    myRideTaxiCount[index]++;
             } else {
                 // some kind of road vehicle
                 myRideBusCount[index]++;
@@ -387,29 +391,25 @@ MSDevice_Tripinfo::printStatistics() {
             << " Duration: " << getAvgWalkDuration() << "\n"
             << " TimeLoss: " << getAvgWalkTimeLoss() << "\n";
     }
-    if (myRideCount[0] > 0) {
-        msg << "Ride Statistics (avg of " << myRideCount[0] << " rides):\n"
-            << " WaitingTime: " << getAvgRideWaitingTime() << "\n"
-            << " RouteLength: " << getAvgRideRouteLength() << "\n"
-            << " Duration: " << getAvgRideDuration() << "\n"
-            << " Bus: " << myRideBusCount[0] << "\n"
-            << " Train: " << myRideRailCount[0] << "\n"
-            << " Bike: " << myRideBikeCount[0] << "\n"
-            << " Aborted: " << myRideAbortCount[0] << "\n";
-    }
-    if (myRideCount[1] > 0) {
-        msg << "Transport Statistics (avg of " << myRideCount[1] << " transports):\n"
-            << " WaitingTime: " << STEPS2TIME(myTotalRideWaitingTime[1] / myRideCount[1]) << "\n"
-            << " RouteLength: " << STEPS2TIME(myTotalRideRouteLength[1] / myRideCount[1]) << "\n"
-            << " Duration: " << STEPS2TIME(myTotalRideDuration[1] / myRideCount[1]) << "\n"
-            << " Bus: " << myRideBusCount[1] << "\n"
-            << " Train: " << myRideRailCount[1] << "\n"
-            << " Bike: " << myRideBikeCount[1] << "\n"
-            << " Aborted: " << myRideAbortCount[1] << "\n";
-    }
+    printRideStatistics(msg, "Ride", "rides", 0);
+    printRideStatistics(msg, "Transport", "transports", 1);
     return msg.str();
 }
 
+void
+MSDevice_Tripinfo::printRideStatistics(std::ostringstream& msg, const std::string& category, const std::string& modeName, const int index) {
+    if (myRideCount[index] > 0) {
+        msg << category << " Statistics (avg of " << myRideCount[index] << " " << modeName << "):\n";
+        msg << " WaitingTime: " << STEPS2TIME(myTotalRideWaitingTime[index] / myRideCount[index]) << "\n";
+        msg << " RouteLength: " << myTotalRideRouteLength[index] / myRideCount[index] << "\n";
+        msg << " Duration: " << STEPS2TIME(myTotalRideDuration[index] / myRideCount[index]) << "\n";
+        msg << " Bus: " << myRideBusCount[index] << "\n";
+        msg << " Train: " << myRideRailCount[index] << "\n";
+        msg << " Bike: " << myRideBikeCount[index] << "\n";
+        msg << " Aborted: " << myRideAbortCount[index] << "\n";
+    }
+
+}
 
 double
 MSDevice_Tripinfo::getAvgRouteLength() {
