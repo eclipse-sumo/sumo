@@ -633,7 +633,7 @@ use the Linux version or download the [nightly-extra version](http://sumo.dlr.de
   simulation. Rerouters, assign a new route for vehicles driving
   across them and thus prevent them from leaving the network. For an
   example with a simple circle see [{{SUMO}}/tests/sumo/cf_model/drive_in_circles]({{Source}}tests/sumo/cf_model/drive_in_circles)
-  - The tool [generateContinuousRerouters.py](../Tools/Misc.md#generatecontinuousrerouterspy) can be used to generate
+  - The tool [generateContinuousRerouters.py](Tools/Misc.md#generatecontinuousrerouterspy) can be used to generate
     rerouters for continuous operation with configurable turning ratios.
   - If the networks is not circular to begin with (i.e a single
     road) you can make the network circular in a non-geometrical way
