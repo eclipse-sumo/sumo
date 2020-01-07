@@ -66,7 +66,6 @@ class GNEPoly;
 class GNEShape;
 class GNEUndoList;
 class GNEViewNet;
-class GNEDottedContourThread;
 
 // ===========================================================================
 // class definitions
@@ -585,9 +584,6 @@ public:
     /// @brief remove edge id from the list of explicit turnarounds
     void removeExplicitTurnaround(std::string id);
 
-    /// @brief get dotted contour thread
-    GNEDottedContourThread *getDottedContourThread() const;
-
     /// @name Functions related to Additional Items
     /// @{
 
@@ -865,9 +861,6 @@ private:
 
     /// @brief flag used to indicate if shaped created can be undo
     bool myAllowUndoShapes;
-
-    /// @brief the thread that calculates dotted contours
-    GNEDottedContourThread *myDottedContourThread;
 
     /// @brief class for GNEChange_ReplaceEdgeInTLS
     class GNEChange_ReplaceEdgeInTLS : public GNEChange {

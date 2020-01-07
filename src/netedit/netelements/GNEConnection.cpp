@@ -21,7 +21,6 @@
 #include <config.h>
 
 #include <netbuild/NBLoadedSUMOTLDef.h>
-#include <netedit/GNEDottedContourThread.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -139,8 +138,6 @@ GNEConnection::updateGeometry() {
         }
         // mark connection as non-deprecated
         myShapeDeprecated = false;
-        // update dotted contour
-        myNet->getDottedContourThread()->updateNetElementDottedContour(this);
     }
 }
 

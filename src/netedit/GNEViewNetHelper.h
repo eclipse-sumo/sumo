@@ -137,8 +137,6 @@ class GNEVehicleType;
 class GNEFlow;
 class GNEVehicle;
 class GNEtrip;
-// dotted contour thread
-class GNEDottedContourThread;
 
 // ===========================================================================
 // classes and structs definitions

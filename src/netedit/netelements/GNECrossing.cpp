@@ -20,7 +20,6 @@
 // ===========================================================================
 #include <config.h>
 
-#include <netedit/GNEDottedContourThread.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -79,8 +78,6 @@ GNECrossing::updateGeometry() {
         myCrossingGeometry.calculateShapeRotationsAndLengths();
     }
     */
-    // update dotted contour
-    myNet->getDottedContourThread()->updateNetElementDottedContour(this);
 }
 
 

@@ -21,7 +21,6 @@
 // ===========================================================================
 #include <config.h>
 
-#include <netedit/GNEDottedContourThread.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -74,8 +73,6 @@ GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     for (const auto& i : myLanes) {
         i->updateGeometry();
     }
-    // update dotted contour
-    myNet->getDottedContourThread()->updateNetElementDottedContour(this);
 }
 
 
@@ -147,8 +144,6 @@ GNEEdge::updateGeometry() {
             pathElementChild->updatePartialGeometry(this);
         }
     }
-    // update dotted contour
-    myNet->getDottedContourThread()->updateNetElementDottedContour(this);
 }
 
 
