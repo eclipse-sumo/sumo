@@ -69,7 +69,7 @@ won't be affected by further changes to the original type.
 | lateral alignment (0xb9)  | string                                                         | Sets the preferred lateral alignment for this vehicle.                                                                                                             | [setLateralAlignment](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setLateralAlignment) |
 | parameter (0x7e)          | string, string                                                 | [Sets the string value for the given string parameter](../TraCI/Change_Vehicle_State.md#setting_device_and_lanechangemodel_parameters_0x7e)                                                                                                               | [setParameter](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setParameter)        |
 | action step length (0x7d) | double (new action step length), boolean (reset action offset) | Sets the current action step length for the vehicle in s. If the boolean value resetActionOffset is true, an action step is scheduled immediately for the vehicle. | [setActionStepLength](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setActionStepLength) |
-| highlight (0xc7)          | highlight specification, see below                             | Adds a highlight to the vehicle                                                                                                                                    | [highlight](http://sumo.sourceforge.net/pydoc/traci._vehicle.html#VehicleDomain-highlight)           |
+| highlight (0x6c)          | highlight specification, see below                             | Adds a highlight to the vehicle                                                                                                                                    | [highlight](http://sumo.sourceforge.net/pydoc/traci._vehicle.html#VehicleDomain-highlight)           |
 
 
 Please note:
@@ -441,7 +441,7 @@ The following reasons may be given:
 - 3: NOTIFICATION_VAPORIZED
 - 4: NOTIFICATION_TELEPORT_ARRIVED
 
-### highlight (0xc7)
+### highlight (0x6c)
 
 |         ubyte         |               int                |       ubyte        | color |        ubyte        |       double        |       ubyte        |        ubyte        |        ubyte        |       double        |       ubyte        |                      ubyte                      |
 | :-------------------: | :------------------------------: | :----------------: | :---: | :-----------------: | :-----------------: | :----------------: | :-----------------: | :-----------------: | :-----------------: | :----------------: | :---------------------------------------------: |
