@@ -47,6 +47,5 @@ crossing_tracks_collision
 # rerouting trains that pass each other in a complex network
 alternativeRoute
 
-split
 # railway-specific bugs
 bugs

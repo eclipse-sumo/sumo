@@ -53,8 +53,5 @@ alternativeRoute
 # a train that circles endlessly, switches can be controlled in sumo-gui
 model_railroad
 
-# a train that splits into 2 parts
-split
-
 # railway-specific bugs
 bugs
