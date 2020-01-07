@@ -403,10 +403,18 @@ MSDevice_Tripinfo::printRideStatistics(std::ostringstream& msg, const std::strin
         msg << " WaitingTime: " << STEPS2TIME(myTotalRideWaitingTime[index] / myRideCount[index]) << "\n";
         msg << " RouteLength: " << myTotalRideRouteLength[index] / myRideCount[index] << "\n";
         msg << " Duration: " << STEPS2TIME(myTotalRideDuration[index] / myRideCount[index]) << "\n";
-        msg << " Bus: " << myRideBusCount[index] << "\n";
-        msg << " Train: " << myRideRailCount[index] << "\n";
-        msg << " Bike: " << myRideBikeCount[index] << "\n";
-        msg << " Aborted: " << myRideAbortCount[index] << "\n";
+        if (myRideBusCount[index] > 0) {
+            msg << " Bus: " << myRideBusCount[index] << "\n";
+        }
+        if (myRideRailCount[index] > 0) {
+            msg << " Train: " << myRideRailCount[index] << "\n";
+        }
+        if (myRideBikeCount[index] > 0) {
+            msg << " Bike: " << myRideBikeCount[index] << "\n";
+        }
+        if (myRideAbortCount[index] > 0) {
+            msg << " Aborted: " << myRideAbortCount[index] << "\n";
+        }
     }
 
 }
