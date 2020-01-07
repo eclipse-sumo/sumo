@@ -24,7 +24,8 @@
 
 #include <fx.h>
 #include <queue>
-
+#include <mutex>
+#include <set>
 
 // ===========================================================================
 // class declarations
@@ -67,8 +68,11 @@ protected:
     /// @brief visualization settings
     GUIVisualizationSettings* myVisualizationSetting;
 
+    /// @brief mutex
+    std::mutex myMutex;
+
     /// @brief queue for net elements
-    std::queue<GNENetElement*> myNetElements;
+    std::set<GNENetElement*> myNetElements;
 
     /// @brief queue for additionals
     std::queue<GNEAdditional*> myAdditionals;

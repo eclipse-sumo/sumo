@@ -59,9 +59,9 @@ GNEDottedContourThread::setVisualizationSettings(GUIVisualizationSettings* s) {
 
 void 
 GNEDottedContourThread::updateNetElementDottedContour(GNENetElement *netElement) {
-    myLockNetElementsQueue = true;
-    myNetElements.push(netElement);
-    myLockNetElementsQueue = false;
+    myMutex.lock();
+    myNetElements.insert(netElement);
+    myMutex.unlock();
 }
 
 
@@ -69,15 +69,15 @@ FXint
 GNEDottedContourThread::run() {
     while (true) {
         // check net elements
-        if (myLockNetElementsQueue == false) {
-            if (myNetElements.size() > 0) {
-                GNENetElement *netElementFront = myNetElements.front();
-                if (netElementFront->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
-                    calculateJunctionDottedContour(netElementFront);
-                } else if (netElementFront->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                    calculateEdgeDottedContour(netElementFront); 
-                }
-                myNetElements.pop();
+        if (myNetElements.size() > 0) {
+            myMutex.lock();
+            GNENetElement *netElementFront = *myNetElements.begin();
+            myNetElements.erase(myNetElements.begin());
+            myMutex.unlock();
+            if (netElementFront->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+                calculateJunctionDottedContour(netElementFront);
+            } else if (netElementFront->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                calculateEdgeDottedContour(netElementFront); 
             }
         }
         // check additionals
