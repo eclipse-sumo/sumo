@@ -108,6 +108,8 @@ GNEJunction::getJunctionShape() const {
 void
 GNEJunction::updateGeometry() {
     updateGeometryAfterNetbuild(true);
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
@@ -1445,6 +1447,21 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+void 
+GNEJunction::updateDottedContour() {
+    // obtain junction shape
+    PositionVector shape = myNBNode->getShape();
+    // check if we have to calculate buuble or shape
+    if (shape.area() < 4) {
+        updateDottedGeometry(GLHelper::drawFilledCircleReturnVertices(4, 32));
+    } else {
+        // close polygon
+        shape.closePolygon();
+        updateDottedGeometry(shape);
     }
 }
 

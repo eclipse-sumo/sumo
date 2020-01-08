@@ -27,6 +27,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/images/GUIIcons.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/xml/SUMOSAXAttributes.h>
@@ -38,6 +39,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class GNEAttributeCarrier;
 class GNELane;
 class GNEEdge;
 class GNEAdditional;

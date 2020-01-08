@@ -141,6 +141,9 @@ public:
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
+    /// @brief update dotted contour
+    void updateDottedContour();
+
     /// @brief partial update pre-computed geometry information
     void updatePartialGeometry(const GNEEdge* edge);
 

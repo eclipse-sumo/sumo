@@ -188,6 +188,13 @@ GNEPoly::updateGeometry() {
     // nothing to do
 }
 
+
+void 
+GNEPoly::updateDottedContour() {
+    //
+}
+
+
 void
 GNEPoly::writeShape(OutputDevice& device) {
     writeXML(device, myGEO);

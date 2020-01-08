@@ -149,6 +149,12 @@ GNEVehicleType::updateGeometry() {
 }
 
 
+void 
+GNEVehicleType::updateDottedContour() {
+    //
+}
+
+
 void
 GNEVehicleType::updatePartialGeometry(const GNEEdge* edge) {
     // update geometry of all childrens

@@ -177,6 +177,9 @@ public:
     virtual void splitEdgeGeometry(const double splitPosition, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) = 0;
     /// @}
 
+    /// @brief update dotted contour
+    void updateDottedContour();
+
     /// @brief Returns a pointer to GNEViewNet in which additional element is located
     GNEViewNet* getViewNet() const;
 

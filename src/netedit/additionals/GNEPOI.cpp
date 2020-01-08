@@ -149,6 +149,12 @@ GNEPOI::updateGeometry() {
 }
 
 
+void 
+GNEPOI::updateDottedContour() {
+    //
+}
+
+
 Position
 GNEPOI::getPositionInView() const {
     return Position(x(), y());

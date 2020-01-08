@@ -48,12 +48,6 @@ GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType
 GNENetElement::~GNENetElement() {}
 
 
-const GNEGeometry::DottedGeometry&
-GNENetElement::getDottedGeometry() const {
-    return myDottedGeometry;
-}
-
-
 void
 GNENetElement::updateDottedGeometry(const PositionVector &shape) {
     myDottedGeometry.updateDottedGeometry(shape);

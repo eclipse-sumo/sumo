@@ -78,6 +78,8 @@ GNECrossing::updateGeometry() {
         myCrossingGeometry.calculateShapeRotationsAndLengths();
     }
     */
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
@@ -462,6 +464,12 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
     if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_PARAMETERS) && (key != GNE_ATTR_SELECTED)) {
         myParentJunction->updateGeometry();
     }
+}
+
+
+void 
+GNECrossing::updateDottedContour() {
+
 }
 
 /****************************************************************************/

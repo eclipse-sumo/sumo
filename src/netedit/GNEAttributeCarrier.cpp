@@ -927,6 +927,12 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag) :
 GNEAttributeCarrier::~GNEAttributeCarrier() {}
 
 
+const GNEGeometry::DottedGeometry& 
+GNEAttributeCarrier::getDottedGeometry() const {
+    return myDottedGeometry;
+}
+
+
 template<> int
 GNEAttributeCarrier::parse(const std::string& string) {
     return StringUtils::toInt(string);

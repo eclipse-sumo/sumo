@@ -96,6 +96,9 @@ public:
     */
     virtual void updateGeometry() = 0;
 
+    /// @brief update dotted contour
+    virtual void updateDottedContour() = 0;
+
     /// @brief Returns position of additional in view
     virtual Position getPositionInView() const = 0;
 

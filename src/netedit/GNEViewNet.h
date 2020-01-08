@@ -325,7 +325,7 @@ public:
     const GNEAttributeCarrier* getDottedAC() const;
 
     /// @brief set attributeCarrier under cursor
-    void setDottedAC(const GNEAttributeCarrier* AC);
+    void setDottedAC(GNEAttributeCarrier* AC);
 
     /// @brief check if lock icon should be visible
     bool showLockIcon() const;
@@ -448,7 +448,7 @@ private:
     /**@brief current AttributeCarrier that is drawn using with a dotted contour
      * note: it's constant because is edited from constant functions (example: drawGL(...) const)
      */
-    const GNEAttributeCarrier* myDottedAC;
+    GNEAttributeCarrier* myDottedAC;
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();

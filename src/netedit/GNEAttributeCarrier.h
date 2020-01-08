@@ -32,6 +32,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 #include "GNEReferenceCounter.h"
+#include "GNEGeometry.h"
 
 
 // ===========================================================================
@@ -519,8 +520,14 @@ public:
     /// @brief Destructor
     virtual ~GNEAttributeCarrier();
 
+    /// @brief get dotted geometry
+    const GNEGeometry::DottedGeometry &getDottedGeometry() const;
+
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
+
+    /// @brief update dotted contour
+    virtual void updateDottedContour() = 0;
 
     /// @name This functions has to be implemented in all GNEAttributeCarriers
     /// @{
@@ -789,6 +796,9 @@ protected:
 
     /// @brief dummy TagProperty used for reference some elements (for Example, dummyEdge)
     static TagProperties dummyTagProperty;
+
+    /// @brief dotted geometry
+    GNEGeometry::DottedGeometry myDottedGeometry;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

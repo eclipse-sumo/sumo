@@ -53,9 +53,6 @@ public:
 
     /// @brief Destructor
     ~GNENetElement();
-    
-    /// @brief get dotted geometry
-    const GNEGeometry::DottedGeometry &getDottedGeometry() const;
 
     /// @brief updated dotted geometry
     void updateDottedGeometry(const PositionVector &shape);
@@ -67,6 +64,9 @@ public:
     /// @{
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
+
+    /// @brief update dotted contour
+    virtual void updateDottedContour() = 0;
 
     /// @brief Returns position of hierarchical element in view
     virtual Position getPositionInView() const = 0;
@@ -173,9 +173,6 @@ protected:
 
     /// @brief boundary used during moving of elements
     Boundary myMovingGeometryBoundary;
-
-    /// @brief dotted geometry
-    GNEGeometry::DottedGeometry myDottedGeometry;
 
 private:
     /// @brief set attribute after validation

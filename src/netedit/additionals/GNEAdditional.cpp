@@ -303,6 +303,12 @@ GNEAdditional::endGeometryMoving() {
 }
 
 
+void 
+GNEAdditional::updateDottedContour() {
+    //
+}
+
+
 GNEViewNet*
 GNEAdditional::getViewNet() const {
     return myViewNet;

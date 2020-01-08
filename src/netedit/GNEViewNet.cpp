@@ -1026,8 +1026,12 @@ GNEViewNet::getDottedAC() const {
 
 
 void
-GNEViewNet::setDottedAC(const GNEAttributeCarrier* AC) {
+GNEViewNet::setDottedAC(GNEAttributeCarrier* AC) {
     myDottedAC = AC;
+    // check if dotted geometry has to be updated
+    if (myDottedAC && myDottedAC->getDottedGeometry().isGeometryDeprecated()) {
+        myDottedAC->updateDottedContour();
+    }
 }
 
 

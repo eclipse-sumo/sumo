@@ -143,6 +143,8 @@ GNEEdge::updateGeometry() {
         for (const auto& pathElementChild : myPathElementChilds) {
             pathElementChild->updatePartialGeometry(this);
         }
+        // mark dotted geometry deprecated
+        myDottedGeometry.markDottedGeometryDeprecated();
     }
 }
 
@@ -1536,6 +1538,41 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNEEdge::updateDottedContour() {
+    // obtain lanes
+    const GNELane* frontLane = myLanes.front();
+    const GNELane* backLane = myLanes.back();
+    // obtain visualization settings
+    GUIVisualizationSettings *visualizationSetting = myNet->getViewNet()->getVisualisationSettings();
+    // obtain lane widdths
+    const double myHalfLaneWidthFront = myNBEdge->getLaneWidth(frontLane->getIndex()) / 2;
+    const double myHalfLaneWidthBack = (visualizationSetting->spreadSuperposed && backLane->drawAsRailway(visualizationSetting) && 
+        myNBEdge->isBidiRail()) ? 0 : myNBEdge->getLaneWidth(backLane->getIndex()) / 2;
+    // obtain shapes from NBEdge
+    PositionVector mainShape = frontLane->getParentEdge()->getNBEdge()->getLaneShape(frontLane->getIndex());
+    PositionVector backShape = backLane->getParentEdge()->getNBEdge()->getLaneShape(backLane->getIndex());
+    // move to side depending of lefthand
+    if (visualizationSetting->lefthand) {
+        mainShape.move2side(myHalfLaneWidthFront * -1);
+        backShape.move2side(myHalfLaneWidthBack);
+    } else {
+        mainShape.move2side(myHalfLaneWidthFront);
+        backShape.move2side(myHalfLaneWidthBack * -1);
+    }
+    // reverse back shape
+    backShape = backShape.reverse();
+    // add back shape into mainShape
+    for (const auto &position : backShape) {
+        mainShape.push_back(position);
+    }
+    // close polygon
+    mainShape.closePolygon();
+    // update edge dotted geometry
+    updateDottedGeometry(mainShape);
 }
 
 

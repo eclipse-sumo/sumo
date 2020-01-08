@@ -254,6 +254,12 @@ GNERoute::updateGeometry() {
 }
 
 
+void 
+GNERoute::updateDottedContour() {
+    //
+}
+
+
 void
 GNERoute::updatePartialGeometry(const GNEEdge* edge) {
     // calculate geometry path

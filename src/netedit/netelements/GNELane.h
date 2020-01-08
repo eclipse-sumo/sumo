@@ -241,6 +241,9 @@ private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
+    /// @brief update dotted contour
+    void updateDottedContour();
+
     /// @brief draw lane markings
     void drawMarkings(const GUIVisualizationSettings& s, double scale) const;
 

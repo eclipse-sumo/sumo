@@ -277,6 +277,11 @@ GNERide::updateGeometry() {
     }
 }
 
+void 
+GNERide::updateDottedContour() {
+    //
+}
+
 
 void
 GNERide::updatePartialGeometry(const GNEEdge* edge) {

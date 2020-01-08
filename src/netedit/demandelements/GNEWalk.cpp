@@ -314,6 +314,12 @@ GNEWalk::updateGeometry() {
 }
 
 
+void 
+GNEWalk::updateDottedContour() {
+    //
+}
+
+
 void
 GNEWalk::updatePartialGeometry(const GNEEdge* edge) {
     // declare depart and arrival pos lane

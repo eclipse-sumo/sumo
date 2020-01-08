@@ -321,6 +321,11 @@ GNEPerson::updateGeometry() {
     }
 }
 
+void 
+GNEPerson::updateDottedContour() {
+    //
+}
+
 
 void
 GNEPerson::updatePartialGeometry(const GNEEdge* edge) {

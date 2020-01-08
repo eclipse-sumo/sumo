@@ -138,6 +138,8 @@ GNEConnection::updateGeometry() {
         }
         // mark connection as non-deprecated
         myShapeDeprecated = false;
+        // mark dotted geometry deprecated
+        myDottedGeometry.markDottedGeometryDeprecated();
     }
 }
 
@@ -646,6 +648,12 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         markConnectionGeometryDeprecated();
         updateGeometry();
     }
+}
+
+
+void 
+GNEConnection::updateDottedContour() {
+    //
 }
 
 /****************************************************************************/

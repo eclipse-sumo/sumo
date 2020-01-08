@@ -289,6 +289,12 @@ GNEPersonTrip::updateGeometry() {
 }
 
 
+void 
+GNEPersonTrip::updateDottedContour() {
+    //
+}
+
+
 void
 GNEPersonTrip::updatePartialGeometry(const GNEEdge* edge) {
     // declare depart and arrival pos lane

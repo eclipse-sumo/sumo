@@ -294,6 +294,12 @@ GNEStop::updateGeometry() {
 }
 
 
+void 
+GNEStop::updateDottedContour() {
+    //
+}
+
+
 void
 GNEStop::updatePartialGeometry(const GNEEdge* edge) {
     //only update Stops over lanes, because other uses the geometry of stopping place parent
