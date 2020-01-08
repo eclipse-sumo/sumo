@@ -69,4 +69,22 @@ add_right_deadend
 
 # add a lane on the right for turning
 add_right_turn
+
+# add 2 lanes on the right for turning
+add2_right_turn
+
+# add 2 lanes and one is for turning right
+add2_right_straight
+
+# add a lane on the left for turning
+add_left_turn
+
+# add 2 lanes on the left for turning
+add2_left_turn
+
+# add 2 lanes and one is for turning left
+add2_left_straight
+
+# add a lane on the right and a lane on the left for turning
+add_right_left_turn
 ramps

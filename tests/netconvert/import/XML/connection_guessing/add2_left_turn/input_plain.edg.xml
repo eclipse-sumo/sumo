@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 08 Jan 2020 03:38:46 PM CET by Eclipse SUMO netedit Version v1_4_0+0386-07494df
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumo/tests/netconvert/import/XML/connection_guessing/add2_left_turn/net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumo/tests/netconvert/import/XML/connection_guessing/add2_left_turn/net.netconvert"/>
+        <plain-output-prefix value="/scr1/sumo/tests/netconvert/import/XML/connection_guessing/add2_left_turn/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="beg" from="gneJ0" to="W" priority="1" numLanes="2" speed="13.89"/>
+    <edge id="end" from="C" to="E" priority="1" numLanes="2" speed="13.89"/>
+    <edge id="gneE0" from="C" to="gneJ2" priority="-1" numLanes="2" speed="13.89"/>
+    <edge id="middle" from="W" to="C" priority="1" numLanes="4" speed="13.89"/>
+</edges>
