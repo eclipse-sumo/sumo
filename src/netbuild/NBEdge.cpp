@@ -2225,10 +2225,39 @@ NBEdge::recheckLanes() {
         //  using the standard algorithm.
         for (int i = 0; i < (int)myLanes.size(); i++) {
             if (connNumbersPerLane[i] == 0 && !isForbidden(getPermissions((int)i))) {
-                if (i > 0 && connNumbersPerLane[i - 1] > 1 && getPermissions(i) == getPermissions(i - 1)) {
-                    moveConnectionToLeft(i - 1);
-                } else if (i < (int)myLanes.size() - 1 && connNumbersPerLane[i + 1] > 1 && getPermissions(i) == getPermissions(i + 1)) {
-                    moveConnectionToRight(i + 1);
+                // dead-end lane found
+                bool hasDeadEnd = true;
+                // find lane with two connections or more to the right of the current lane
+                for (int i2 = i - 1; hasDeadEnd && i2 >= 0; i2--) {
+                    if (getPermissions(i) != getPermissions(i2)) {
+                        break;
+                    }
+                    if (connNumbersPerLane[i2] > 1) {
+                        connNumbersPerLane[i2]--;
+                        for (int i3 = i2; i3 != i; i3++) {
+                            moveConnectionToLeft(i3);
+                            sortOutgoingConnectionsByAngle();
+                            sortOutgoingConnectionsByIndex();
+                        }
+                        hasDeadEnd = false;
+                    }
+                }
+                if (hasDeadEnd) {
+                    // find lane with two connections or more to the left of the current lane
+                    for (int i2 = i + 1; hasDeadEnd && i2 < getNumLanes(); i2++) {
+                        if (getPermissions(i) != getPermissions(i2)) {
+                            break;
+                        }
+                        if (connNumbersPerLane[i2] > 1) {
+                            connNumbersPerLane[i2]--;
+                            for (int i3 = i2; i3 != i; i3--) {
+                                moveConnectionToRight(i3);
+                                sortOutgoingConnectionsByAngle();
+                                sortOutgoingConnectionsByIndex();
+                            }
+                            hasDeadEnd = false;
+                        }
+                    }
                 }
             }
         }
