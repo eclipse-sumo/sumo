@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jul  4 09:27:47 2019 by Eclipse SUMO Version v1_2_0+0938-014162d
+<!-- generated on Wed Jan  8 09:19:22 2020 by Eclipse SUMO Version v1_4_0+0368-f5bfa39
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -24,7 +24,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="43516"/>
+        <remote-port value="60335"/>
     </traci_server>
 
     <gui_only>
@@ -1471,25 +1471,25 @@
         <person id="tripTest2" x="959.94" y="504.95" angle="270.00" speed="1.23" pos="40.06" edge="2fi" slope="0.00"/>
     </timestep>
     <timestep time="239.00">
-        <person id="tripTest" x="489.19" y="511.48" angle="176.31" speed="0.00" pos="2.03" edge=":0_w0" slope="0.00"/>
+        <person id="tripTest" x="488.55" y="511.44" angle="176.31" speed="0.00" pos="2.03" edge=":0_w0" slope="0.00"/>
         <person id="horiz" x="488.70" y="508.87" angle="176.93" speed="1.39" pos="4.60" edge=":0_w0" slope="0.00"/>
         <person id="p3" x="2.62" y="496.33" angle="270.00" speed="1.30" pos="2.62" edge="1fi" slope="0.00"/>
         <person id="tripTest2" x="958.82" y="504.95" angle="270.00" speed="1.12" pos="41.18" edge="2fi" slope="0.00"/>
     </timestep>
     <timestep time="240.00">
-        <person id="tripTest" x="488.55" y="511.44" angle="176.31" speed="0.00" pos="2.03" edge=":0_w0" slope="0.00"/>
+        <person id="tripTest" x="487.91" y="511.40" angle="176.31" speed="0.00" pos="2.03" edge=":0_w0" slope="0.00"/>
         <person id="horiz" x="488.77" y="507.49" angle="176.93" speed="1.38" pos="5.98" edge=":0_w0" slope="0.00"/>
         <person id="p3" x="1.44" y="496.33" angle="270.00" speed="1.18" pos="1.44" edge="1fi" slope="0.00"/>
         <person id="tripTest2" x="957.54" y="504.95" angle="270.00" speed="1.28" pos="42.46" edge="2fi" slope="0.00"/>
     </timestep>
     <timestep time="241.00">
-        <person id="tripTest" x="488.08" y="510.19" angle="176.31" speed="1.22" pos="3.25" edge=":0_w0" slope="0.00"/>
+        <person id="tripTest" x="487.44" y="510.15" angle="176.31" speed="1.22" pos="3.25" edge=":0_w0" slope="0.00"/>
         <person id="horiz" x="488.84" y="506.25" angle="176.93" speed="1.24" pos="7.22" edge=":0_w0" slope="0.00"/>
         <person id="p3" x="0.18" y="496.33" angle="270.00" speed="1.25" pos="0.18" edge="1fi" slope="0.00"/>
         <person id="tripTest2" x="956.18" y="504.95" angle="270.00" speed="1.35" pos="43.82" edge="2fi" slope="0.00"/>
     </timestep>
     <timestep time="242.00">
-        <person id="tripTest" x="487.60" y="508.97" angle="176.31" speed="1.19" pos="4.44" edge=":0_w0" slope="0.00"/>
+        <person id="tripTest" x="487.43" y="508.96" angle="176.31" speed="1.19" pos="4.44" edge=":0_w0" slope="0.00"/>
         <person id="horiz" x="488.91" y="504.97" angle="176.93" speed="1.28" pos="8.50" edge=":0_w0" slope="0.00"/>
         <person id="p3" x="-0.32" y="495.82" angle="0.00" speed="1.36" pos="9.53" edge=":1_w0" slope="0.00"/>
         <person id="tripTest2" x="954.96" y="504.95" angle="270.00" speed="1.23" pos="45.04" edge="2fi" slope="0.00"/>
