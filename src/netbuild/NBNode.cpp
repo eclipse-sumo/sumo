@@ -1026,7 +1026,7 @@ NBNode::computeNodeShape(double mismatchThreshold) {
 void
 NBNode::computeLanes2Lanes() {
     // special case a):
-    //  one in, one out, the outgoing has one lane more
+    //  one in, one out, the outgoing has more lanes
     if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1) {
         NBEdge* in = myIncomingEdges[0];
         NBEdge* out = myOutgoingEdges[0];
@@ -1040,24 +1040,26 @@ NBNode::computeLanes2Lanes() {
             std::cout << "l2l node=" << getID() << " specialCase a\n";
         }
 #endif
-        const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
-        const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        int inOffset, outOffset, addedLanes;
+        getReduction(out, in, outOffset, inOffset, addedLanes);
         if (in->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES
-                && in->getNumLanes() - inOffset == out->getNumLanes() - outOffset - 1
-                && in != out
+                && addedLanes > 0 
                 && in->isConnectedTo(out)) {
-            if (addedLaneRight(out)) {
-                // connect extra lane on the right
-                for (int i = inOffset; i < in->getNumLanes(); ++i) {
-                    in->setConnection(i, out, i - inOffset + outOffset + 1, NBEdge::L2L_COMPUTED);
-                }
-                in->setConnection(inOffset, out, outOffset, NBEdge::L2L_COMPUTED);
-            } else {
-                // connect extra lane on the left
-                for (int i = inOffset; i < in->getNumLanes(); ++i) {
-                    in->setConnection(i, out, i - inOffset + outOffset, NBEdge::L2L_COMPUTED);
-                }
-                in->setConnection(in->getNumLanes() - 1, out, out->getNumLanes() - 1, NBEdge::L2L_COMPUTED);
+            const int addedRight = addedLanesRight(out, addedLanes);
+            const int addedLeft = addedLanes - addedRight;
+            // "straight" connections
+            for (int i = inOffset; i < in->getNumLanes(); ++i) {
+                in->setConnection(i, out, i - inOffset + outOffset + addedRight, NBEdge::L2L_COMPUTED);
+            }
+            // connect extra lane on the right
+            for (int i = 0; i < addedRight; ++i) {
+                in->setConnection(inOffset, out, outOffset + i, NBEdge::L2L_COMPUTED);
+            }
+            // connect extra lane on the left
+            const int inLeftMost = in->getNumLanes() - 1;
+            const int outOffset2 = outOffset + addedRight + in->getNumLanes() - inOffset;
+            for (int i = 0; i < addedLeft; ++i) {
+                in->setConnection(inLeftMost, out, outOffset2 + i, NBEdge::L2L_COMPUTED);
             }
             return;
         }
@@ -1363,10 +1365,10 @@ NBNode::getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& ou
 }
 
 
-bool
-NBNode::addedLaneRight(NBEdge* out) const {
+int
+NBNode::addedLanesRight(NBEdge* out, int addedLanes) const {
     if (out->isOffRamp()) {
-        return true;
+        return addedLanes;
     }
     NBNode* to = out->getToNode();
     // check whether a right lane ends
@@ -1375,30 +1377,38 @@ NBNode::addedLaneRight(NBEdge* out) const {
         int inOffset, outOffset, reduction;
         to->getReduction(out, to->getOutgoingEdges()[0], inOffset, outOffset, reduction);
         if (reduction > 0) {
-            return true;
+            return reduction;
         }
     }
-    // check whether there is a right turn but no left turn at the next intersection
-    if (to->getIncomingEdges().size() == 1
-            && to->getOutgoingEdges().size() == 2) {
-        const EdgeVector& toAll = to->getEdges();
-        EdgeVector::const_iterator it = std::find(toAll.begin(), toAll.end(), out);
-        NBContHelper::nextCW(toAll, it);
-        NBEdge* succCW = *it;
-        NBContHelper::nextCW(toAll, it);
-        NBEdge* succCCW = *it; // wrap-around
-        if (to->getDirection(out, succCW) == LINKDIR_STRAIGHT) {
-            int inOffset, outOffset, reduction;
-            to->getReduction(out, succCW, inOffset, outOffset, reduction);
-            if (reduction > 0) {
-                LinkDirection dirCCW = to->getDirection(out, succCCW);
-                if (dirCCW == LINKDIR_RIGHT || dirCCW == LINKDIR_PARTRIGHT) {
-                    return true;
-                }
+    // check for the presence of right and left turns at the next intersection
+    int outLanesRight = 0;
+    int outLanesLeft = 0;
+    int outLanesStraight = 0;
+    for (NBEdge* succ : to->getOutgoingEdges()) {
+        if (out->isConnectedTo(succ)) {
+            const int outOffset = MAX2(0, succ->getFirstNonPedestrianLaneIndex(FORWARD, true));
+            const int usableLanes = succ->getNumLanes() - outOffset;
+            LinkDirection dir = to->getDirection(out, succ);
+            if (dir == LINKDIR_STRAIGHT) {
+                outLanesStraight += usableLanes;
+            } else if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
+                outLanesRight += usableLanes;
+            } else {
+                outLanesLeft += usableLanes;
             }
         }
     }
-    return false;
+    const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
+    const int usableLanes = out->getNumLanes() - outOffset;
+    int addedTurnLanes = MIN3(
+            addedLanes,
+            MAX2(0, usableLanes - outLanesStraight),
+            outLanesRight + outLanesLeft);
+    if (outLanesLeft == 0) {
+        return addedTurnLanes;
+    } else {
+        return MIN2(addedTurnLanes / 2, outLanesRight);
+    }
 }
 
 

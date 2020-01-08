@@ -808,8 +808,8 @@ private:
     /// @brief get the reduction in driving lanes at this junction
     void getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& outOffset, int& reduction) const;
 
-    /// @brief check whether this edge has an extra lane on the right side
-    bool addedLaneRight(NBEdge* out) const;
+    /// @brief check whether this edge has extra lanes on the right side
+    int addedLanesRight(NBEdge* out, int addedLanes) const;
 
 private:
     /// @brief The position the node lies at
