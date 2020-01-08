@@ -1046,10 +1046,19 @@ NBNode::computeLanes2Lanes() {
                 && in->getNumLanes() - inOffset == out->getNumLanes() - outOffset - 1
                 && in != out
                 && in->isConnectedTo(out)) {
-            for (int i = inOffset; i < in->getNumLanes(); ++i) {
-                in->setConnection(i, out, i - inOffset + outOffset + 1, NBEdge::L2L_COMPUTED);
+            if (out->isOffRamp()) {
+                // connect extra lane on the right
+                for (int i = inOffset; i < in->getNumLanes(); ++i) {
+                    in->setConnection(i, out, i - inOffset + outOffset + 1, NBEdge::L2L_COMPUTED);
+                }
+                in->setConnection(inOffset, out, outOffset, NBEdge::L2L_COMPUTED);
+            } else {
+                // connect extra lane on the left
+                for (int i = inOffset; i < in->getNumLanes(); ++i) {
+                    in->setConnection(i, out, i - inOffset + outOffset, NBEdge::L2L_COMPUTED);
+                }
+                in->setConnection(in->getNumLanes() - 1, out, out->getNumLanes() - 1, NBEdge::L2L_COMPUTED);
             }
-            in->setConnection(inOffset, out, outOffset, NBEdge::L2L_COMPUTED);
             return;
         }
     }

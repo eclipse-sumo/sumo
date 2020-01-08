@@ -289,6 +289,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myStreetName(streetName),
     mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET),
     mySignalNode(nullptr),
+    myIsOffRamp(false),
     myIndex(-1) {
     init(nolanes, false, "");
 }
@@ -319,6 +320,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myStreetName(streetName),
     mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET),
     mySignalNode(nullptr),
+    myIsOffRamp(false),
     myIndex(-1) {
     init(nolanes, tryIgnoreNodePositions, origID);
 }
@@ -3369,7 +3371,6 @@ NBEdge::setAcceleration(int lane, bool accelRamp) {
     assert(lane < (int)myLanes.size());
     myLanes[lane].accelRamp = accelRamp;
 }
-
 
 void
 NBEdge::setLaneShape(int lane, const PositionVector& shape) {

@@ -283,20 +283,18 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     PROGRESS_TIME_MESSAGE(before);
 
     // guess ramps (after guessing tls because ramps should not be build at traffic lights)
-    if (mayAddOrRemove) {
-        const bool modifyRamps = (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))
-                                 || (oc.exists("ramps.set") && oc.isSet("ramps.set"));
-        if (modifyRamps
-                || (oc.exists("ramps.guess-acceleration-lanes") && oc.getBool("ramps.guess-acceleration-lanes"))) {
-            before = SysUtils::getCurrentMillis();
-            if (modifyRamps) {
-                PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
-            }
-            NBNodesEdgesSorter::sortNodesEdges(myNodeCont);
-            NBRampsComputer::computeRamps(*this, oc);
-            if (modifyRamps) {
-                PROGRESS_TIME_MESSAGE(before);
-            }
+    const bool modifyRamps = mayAddOrRemove && (
+            (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))
+            || (oc.exists("ramps.set") && oc.isSet("ramps.set")));
+    if (modifyRamps || (oc.exists("ramps.guess-acceleration-lanes") && oc.getBool("ramps.guess-acceleration-lanes"))) {
+        before = SysUtils::getCurrentMillis();
+        if (modifyRamps) {
+            PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
+        }
+        NBNodesEdgesSorter::sortNodesEdges(myNodeCont);
+        NBRampsComputer::computeRamps(*this, oc);
+        if (modifyRamps) {
+            PROGRESS_TIME_MESSAGE(before);
         }
     }
     // guess bike lanes

@@ -32,6 +32,8 @@
 #include "NBEdge.h"
 #include "NBAlgorithms_Ramps.h"
 
+#define OFFRAMP_LOOKBACK 500
+
 //#define DEBUG_RAMPS
 #define DEBUGNODEID  "260479469"
 #define DEBUGCOND(obj) ((obj != 0 && (obj)->getID() == DEBUGNODEID))
@@ -78,7 +80,11 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
     // check whether on-off ramps shall be guessed
     if (guessAndAdd || oc.getBool("ramps.guess-acceleration-lanes")) {
         NBNodeCont& nc = nb.getNodeCont();
+        NBEdgeCont& ec = nb.getEdgeCont();
         NBDistrictCont& dc = nb.getDistrictCont();
+        for (auto it = ec.begin(); it != ec.end(); ++it) {
+            it->second->markOffRamp(false);
+        }
 
         // if an edge is part of two ramps, ordering is important
         std::set<NBNode*, ComparatorIdLess> potOnRamps;
@@ -88,17 +94,15 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
             if (mayNeedOnRamp(cur, minHighwaySpeed, maxRampSpeed, noramps)) {
                 potOnRamps.insert(cur);
             }
-            if (guessAndAdd) {
-                if (mayNeedOffRamp(cur, minHighwaySpeed, maxRampSpeed, noramps)) {
-                    potOffRamps.insert(cur);
-                }
+            if (mayNeedOffRamp(cur, minHighwaySpeed, maxRampSpeed, noramps)) {
+                potOffRamps.insert(cur);
             }
         }
         for (std::set<NBNode*, ComparatorIdLess>::const_iterator i = potOnRamps.begin(); i != potOnRamps.end(); ++i) {
             buildOnRamp(*i, nc, ec, dc, rampLength, dontSplit || !guessAndAdd, guessAndAdd);
         }
         for (std::set<NBNode*, ComparatorIdLess>::const_iterator i = potOffRamps.begin(); i != potOffRamps.end(); ++i) {
-            buildOffRamp(*i, nc, ec, dc, rampLength, dontSplit);
+            buildOffRamp(*i, nc, ec, dc, rampLength, dontSplit || !guessAndAdd, guessAndAdd, potOnRamps);
         }
     }
     // check whether on-off ramps are specified
@@ -107,6 +111,7 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
         NBNodeCont& nc = nb.getNodeCont();
         NBEdgeCont& ec = nb.getEdgeCont();
         NBDistrictCont& dc = nb.getDistrictCont();
+        std::set<NBNode*, ComparatorIdLess> potOnRamps;
         for (std::vector<std::string>::iterator i = edges.begin(); i != edges.end(); ++i) {
             NBEdge* e = ec.retrieve(*i);
             if (noramps.count(*i) != 0) {
@@ -120,6 +125,7 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
             NBNode* from = e->getFromNode();
             if (from->getIncomingEdges().size() == 2 && from->getOutgoingEdges().size() == 1) {
                 buildOnRamp(from, nc, ec, dc, rampLength, dontSplit, true);
+                potOnRamps.insert(from);
             }
             // load edge again to check offramps
             e = ec.retrieve(*i);
@@ -129,7 +135,7 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
             }
             NBNode* to = e->getToNode();
             if (to->getIncomingEdges().size() == 1 && to->getOutgoingEdges().size() == 2) {
-                buildOffRamp(to, nc, ec, dc, rampLength, dontSplit);
+                buildOffRamp(to, nc, ec, dc, rampLength, dontSplit, true, potOnRamps);
             }
         }
     }
@@ -266,7 +272,9 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
 
 
 void
-NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, double rampLength, bool dontSplit) {
+NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, double rampLength, bool dontSplit, bool addLanes,
+        const std::set<NBNode*, ComparatorIdLess>& potOnRamps)
+{
     NBEdge* potHighway, *potRamp, *prev;
     getOffRampEdges(cur, &potHighway, &potRamp, &prev);
 #ifdef DEBUG_RAMPS
@@ -281,7 +289,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
     NBEdge* last = prev;
     NBEdge* curr = prev;
     std::set<NBEdge*> incremented;
-    if (toAdd > 0 && std::find(incremented.begin(), incremented.end(), prev) == incremented.end()) {
+    if (addLanes && toAdd > 0 && std::find(incremented.begin(), incremented.end(), prev) == incremented.end()) {
         double currLength = 0;
         while (curr != nullptr && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
             if (find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
@@ -339,21 +347,42 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
                 first = curr;
             }
         }
-        if (curr == prev && dontSplit) {
+        if (curr == prev && dontSplit && addLanes) {
             WRITE_WARNING("Could not build off-ramp for edge '"  + curr->getID() + "' due to option '--ramps.no-split'");
             return;
         }
     }
-    // set connections from added ramp to ramp/highway
-    if (first->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
-        if (!first->addLane2LaneConnections(potRamp->getNumLanes(), potHighway, 0, MIN2(first->getNumLanes() - 1, potHighway->getNumLanes()), NBEdge::L2L_VALIDATED, true)) {
-            throw ProcessError("Could not set connection!");
+    NBEdge* toMark = first;
+    toMark->markOffRamp(true);
+    double markedLength = toMark->getLoadedLength();
+    while (markedLength < OFFRAMP_LOOKBACK) {
+        if (toMark != first && toMark->getToNode()->getOutgoingEdges().size() != 1) {
+            break;
         }
-        if (!first->addLane2LaneConnections(0, potRamp, 0, potRamp->getNumLanes(), NBEdge::L2L_VALIDATED, false)) {
-            throw ProcessError("Could not set connection!");
+        NBNode* from = toMark->getFromNode();
+        if (from->getIncomingEdges().size() == 1) {
+            toMark = from->getIncomingEdges()[0];
+        } else if (potOnRamps.count(from) == 1) {
+            NBEdge* potOnRamp, *cont;
+            getOnRampEdges(from, &toMark, &potOnRamp, &cont);
+        } else {
+            break;
         }
+        toMark->markOffRamp(true);
+        markedLength += toMark->getLoadedLength();
     }
-    patchRampGeometry(potRamp, first, potHighway, true);
+    // set connections from added ramp to ramp/highway
+    if (addLanes) {
+        if (first->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
+            if (!first->addLane2LaneConnections(potRamp->getNumLanes(), potHighway, 0, MIN2(first->getNumLanes() - 1, potHighway->getNumLanes()), NBEdge::L2L_VALIDATED, true)) {
+                throw ProcessError("Could not set connection!");
+            }
+            if (!first->addLane2LaneConnections(0, potRamp, 0, potRamp->getNumLanes(), NBEdge::L2L_VALIDATED, false)) {
+                throw ProcessError("Could not set connection!");
+            }
+        }
+        patchRampGeometry(potRamp, first, potHighway, true);
+    }
 }
 
 

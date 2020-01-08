@@ -1265,6 +1265,15 @@ public:
     /// @brief marks one lane as acceleration lane
     void setAcceleration(int lane, bool accelRamp);
 
+    /// @brief marks this edge has being an offRamp or leading to one (used for connection computation)
+    void markOffRamp(bool isOffRamp) {
+        myIsOffRamp = isOffRamp;
+    }
+
+    bool isOffRamp() const {
+        return myIsOffRamp;
+    }
+
     /// @brief sets a custom lane shape
     void setLaneShape(int lane, const PositionVector& shape);
 
@@ -1631,6 +1640,8 @@ private:
     PositionVector myToBorder;
     /// @}
 
+    /// @brief whether this edge is an Off-Ramp or leads to one
+    bool myIsOffRamp;
 
     /// @brief the index of the edge in the list of all edges. Set by NBEdgeCont and requires re-set whenever the list of edges changes
     int myIndex;
