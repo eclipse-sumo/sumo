@@ -151,8 +151,6 @@ packages can be obtained:
 - <https://sumo.dlr.de/daily/sumo-win64-git.zip> (windows, 64bit)
 - <https://sumo.dlr.de/daily/sumo-all-git.tar.gz> (sources,
     documentation and tests)
-- <https://sumo.dlr.de/daily/sumo-game-win32-git.zip> (windows
-    32bit binaries of the sumo game)
 - <https://sumo.dlr.de/daily/sumo-game-win64-git.zip> (windows
     64bit binaries of the sumo game)
 - <https://sumo.dlr.de/daily/sumo-win32-git.msi> (windows
