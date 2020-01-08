@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:56 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Wed Jan  8 22:09:24 2020 by Eclipse SUMO netconvert Version v1_4_0+0394-fa5c62e054
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -52,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":38919945_0_0" index="0" speed="13.89" length="11.78" shape="37.75,60.41 34.58,58.91 32.70,56.92 30.93,55.09 28.12,54.07"/>
     </edge>
     <edge id=":38919945_1" function="internal">
-        <lane id=":38919945_1_0" index="0" speed="6.78" length="9.35" shape="39.29,54.20 36.99,53.26 35.50,51.76 34.80,49.72 34.90,47.12"/>
+        <lane id=":38919945_1_0" index="0" speed="7.58" length="11.94" shape="38.52,57.31 36.35,56.19 35.03,54.12 34.54,51.10 34.90,47.12"/>
     </edge>
     <edge id=":38919945_2" function="internal">
         <lane id=":38919945_2_0" index="0" speed="4.92" length="4.45" shape="40.06,51.09 39.00,50.65 38.31,49.93 37.99,48.94 38.05,47.67"/>
@@ -182,7 +183,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="27441168" to="27445015#0" fromLane="0" toLane="1" via=":56231397_3_0" tl="joinedS_0" linkIndex="11" dir="s" state="o"/>
     <connection from="27441168" to="27445003" fromLane="0" toLane="1" via=":56231397_4_0" tl="joinedS_0" linkIndex="12" dir="l" state="o"/>
     <connection from="27441189" to="27445000#0" fromLane="0" toLane="0" via=":38919945_0_0" tl="joinedS_0" linkIndex="5" dir="s" state="O"/>
-    <connection from="27441189" to="6137245" fromLane="2" toLane="0" via=":38919945_1_0" tl="joinedS_0" linkIndex="6" dir="l" state="O"/>
+    <connection from="27441189" to="6137245" fromLane="1" toLane="0" via=":38919945_1_0" tl="joinedS_0" linkIndex="6" dir="l" state="O"/>
     <connection from="27441189" to="6137245" fromLane="3" toLane="1" via=":38919945_2_0" tl="joinedS_0" linkIndex="7" dir="l" state="O"/>
     <connection from="27441289.95" to="27445015#0" fromLane="0" toLane="0" via=":56231397_0_0" tl="joinedS_0" linkIndex="8" dir="r" state="O"/>
     <connection from="27441289.95" to="27445003" fromLane="0" toLane="0" via=":56231397_1_0" tl="joinedS_0" linkIndex="9" dir="s" state="O"/>
