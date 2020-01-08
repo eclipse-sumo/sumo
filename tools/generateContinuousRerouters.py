@@ -59,7 +59,7 @@ def get_options(args=None):
 def getEdgesToIntersection(edge):
     result = [edge]
     while len(edge.getOutgoing().keys()) == 1:
-        edge = edge.getOutgoing().keys()[0]
+        edge = list(edge.getOutgoing().keys())[0]
         result.append(edge)
     return result
 
