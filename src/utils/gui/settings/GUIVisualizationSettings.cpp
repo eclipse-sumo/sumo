@@ -91,11 +91,18 @@ const RGBColor GUIVisualizationColorSettings::walk(0, 255, 0);
 const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);
 
 // -------------------------------------------------------------------------
+// Dotted contour values
+// -------------------------------------------------------------------------
+
+const double GUIVisualizationDottedContourSettings::segmentWidth(0.2);
+const double GUIVisualizationDottedContourSettings::segmentLength(2);
+const RGBColor GUIVisualizationDottedContourSettings::firstColor(255, 255, 255);
+const RGBColor GUIVisualizationDottedContourSettings::secondColor(0, 0, 0);
+
+// -------------------------------------------------------------------------
 // widths of certain NETEDIT objects
 // -------------------------------------------------------------------------
 
-const double GUIVisualizationWidthSettings::dottedContour(3);
-const double GUIVisualizationWidthSettings::dottedContourSegmentLength(1);
 const double GUIVisualizationWidthSettings::route(0.66);
 const double GUIVisualizationWidthSettings::trip(0.2);
 const double GUIVisualizationWidthSettings::personTrip(0.25);

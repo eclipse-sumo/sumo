@@ -360,7 +360,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
             // check if dotted contour has to be drawn
             if (myNet->getViewNet()->getDottedAC() == this) {
-                GNEGeometry::drawShapeDottedContour(s, getType(), myDottedGeometry);
+                GNEGeometry::drawShapeDottedContour(s, getType(), junctionExaggeration, myDottedGeometry);
             }
             // draw TLS
             drawTLSIcon(s);

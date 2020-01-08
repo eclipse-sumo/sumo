@@ -214,16 +214,24 @@ GNEGeometry::DottedGeometry::DottedGeometry() :
 
 
 void
-GNEGeometry::DottedGeometry::updateDottedGeometry(const PositionVector& shape) {
+GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& shape) {
+    // first obtain shape's centroid
+    myCentroid = shape.getCentroid();
+    // set new shape
+    myShape = shape;
+    // subs Centroid (to set myShape in 0,0. It's needed due scaling)
+    myShape.sub(myCentroid);
     // set new resampled shape
-    myShape = shape.resample(2 /*s.widthSettings.dottedContourSegmentLength*/);
+    myShape = myShape.resample(s.dottedContourSettings.segmentLength);
     // resize shapeColors
     myShapeColors.resize(myShape.size());
+    // iterate over shapeColors
     for (int i = 0; i < (int)myShapeColors.size(); i++) {
+        // set first or second contour color
         if (i%2 == 0) {
-            myShapeColors.at(i)=RGBColor::WHITE;
+            myShapeColors.at(i) = s.dottedContourSettings.firstColor;
         } else {
-            myShapeColors.at(i)=RGBColor::BLACK;
+            myShapeColors.at(i) = s.dottedContourSettings.secondColor;
         }
     }
     // calculate shape rotation and lengths
@@ -242,6 +250,12 @@ GNEGeometry::DottedGeometry::markDottedGeometryDeprecated() {
 bool 
 GNEGeometry::DottedGeometry::isGeometryDeprecated() const {
     return myDottedGeometryDeprecated;
+}
+
+
+const Position&
+GNEGeometry::DottedGeometry::getCentroid() const {
+    return myCentroid;
 }
 
 
@@ -974,19 +988,21 @@ GNEGeometry::drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometr
 
 
 void
-GNEGeometry::drawShapeDottedContour(const GUIVisualizationSettings& s, const int type, const DottedGeometry& dottedGeometry) {
+GNEGeometry::drawShapeDottedContour(const GUIVisualizationSettings& s, const int type, const double exaggeration, const DottedGeometry& dottedGeometry) {
     // first check that given shape isn't empty
     if (!s.drawForRectangleSelection && !s.drawForPositionSelection && (dottedGeometry.getShape().size() > 0)) {
         // push matrix
         glPushMatrix();
-        // draw contour over shape
-        glTranslated(0, 0, type + 2);
-        // set custom line width
-        glLineWidth((GLfloat)s.widthSettings.dottedContour);
-        // draw contour
-        GLHelper::drawLine(dottedGeometry.getShape(), dottedGeometry.getShapeColors());
-        //restore line width
-        glLineWidth(1);
+        // Move to Centroid
+        glTranslated(dottedGeometry.getCentroid().x(), dottedGeometry.getCentroid().y(), type + 2);
+        // scale matrix depending of the exaggeration
+        glScaled(exaggeration, exaggeration, 1);
+        // draw box lines
+        GLHelper::drawBoxLines(dottedGeometry.getShape(), 
+                               dottedGeometry.getShapeRotations(), 
+                               dottedGeometry.getShapeLengths(), 
+                               dottedGeometry.getShapeColors(), 
+                               s.dottedContourSettings.segmentWidth);
         // pop matrix
         glPopMatrix();
     }

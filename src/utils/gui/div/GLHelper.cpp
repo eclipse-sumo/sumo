@@ -461,13 +461,13 @@ GLHelper::drawShapeDottedContourAroundShape(const GUIVisualizationSettings& s, c
             contourFront.push_back(shape.front());
         }
         // resample shape
-        PositionVector resampledShape = contourFront.resample(s.widthSettings.dottedContourSegmentLength);
+        PositionVector resampledShape = contourFront.resample(s.dottedContourSettings.segmentLength);
         // push matrix
         glPushMatrix();
         // draw contour over shape
         glTranslated(0, 0, type + 2);
         // set custom line width
-        glLineWidth((GLfloat)s.widthSettings.dottedContour);
+        glLineWidth((GLfloat)s.dottedContourSettings.segmentWidth);
         // draw contour
         drawLine(resampledShape, getDottedcontourColors((int)resampledShape.size()));
         //restore line width
@@ -488,13 +488,13 @@ GLHelper::drawShapeDottedContourAroundClosedShape(const GUIVisualizationSettings
             closedShape.push_back(closedShape.front());
         }
         // resample junction shape
-        PositionVector resampledShape = closedShape.resample(s.widthSettings.dottedContourSegmentLength);
+        PositionVector resampledShape = closedShape.resample(s.dottedContourSettings.segmentLength);
         // push matrix
         glPushMatrix();
         // draw contour over shape
         glTranslated(0, 0, type + 0.1);
         // set custom line width
-        glLineWidth((GLfloat)s.widthSettings.dottedContour);
+        glLineWidth((GLfloat)s.dottedContourSettings.segmentWidth);
         // draw contour
         GLHelper::drawLine(resampledShape, GLHelper::getDottedcontourColors((int)resampledShape.size()));
         //restore line width
@@ -525,13 +525,13 @@ GLHelper::drawShapeDottedContourBetweenLanes(const GUIVisualizationSettings& s, 
         }
         contourFront.push_back(frontLaneShape.front());
         // resample shape
-        PositionVector resampledShape = contourFront.resample(s.widthSettings.dottedContourSegmentLength);
+        PositionVector resampledShape = contourFront.resample(s.dottedContourSettings.segmentLength);
         // push matrix
         glPushMatrix();
         // draw contour over shape
         glTranslated(0, 0, type + 2);
         // set custom line width
-        glLineWidth((GLfloat)s.widthSettings.dottedContour);
+        glLineWidth((GLfloat)s.dottedContourSettings.segmentWidth);
         // draw contour
         GLHelper::drawLine(resampledShape, getDottedcontourColors((int)resampledShape.size()));
         //restore line width
@@ -554,7 +554,7 @@ GLHelper::drawShapeDottedContourRectangle(const GUIVisualizationSettings& s, con
         shape.push_back(Position(width / 2, height / -2));
         shape.push_back(Position(width / 2, height / 2));
         // resample shape
-        shape = shape.resample(s.widthSettings.dottedContourSegmentLength);
+        shape = shape.resample(s.dottedContourSettings.segmentLength);
         // push matrix
         glPushMatrix();
         // translate to center
@@ -582,13 +582,13 @@ GLHelper::drawShapeDottedContourPartialShapes(const GUIVisualizationSettings& s,
         // calculate and resample shape
         PositionVector shape{begin, end};
         shape.move2side(width);
-        shape = shape.resample(s.widthSettings.dottedContourSegmentLength);
+        shape = shape.resample(s.dottedContourSettings.segmentLength);
         // push matrix
         glPushMatrix();
         // draw contour over shape
         glTranslated(0, 0, type + 0.1);
         // set custom line width
-        glLineWidth((GLfloat)s.widthSettings.dottedContour);
+        glLineWidth((GLfloat)s.dottedContourSettings.segmentWidth);
         // draw contour
         GLHelper::drawLine(shape, GLHelper::getDottedcontourColors((int)shape.size()));
         // move shape to other side

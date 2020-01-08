@@ -538,7 +538,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     // draw dotted contor around the first and last lane if isn't being drawn for selecting
     if (myNet->getViewNet()->getDottedAC() == this) {
-        GNEGeometry::drawShapeDottedContour(s, GLO_JUNCTION, myDottedGeometry);
+        // use GLO_JUNCTION instead GLO_EDGE
+        GNEGeometry::drawShapeDottedContour(s, GLO_JUNCTION, s.laneWidthExaggeration, myDottedGeometry);
     }
 }
 

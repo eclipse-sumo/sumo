@@ -126,13 +126,16 @@ struct GNEGeometry {
         DottedGeometry();
 
         /// @brief update DottedGeometry (using an existent shape)
-        void updateDottedGeometry(const PositionVector& shape);
+        void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& shape);
 
         /// @brief mark dotted geometry deprecated
         void markDottedGeometryDeprecated();
 
         /// @brief check if geometry is deprecated
         bool isGeometryDeprecated() const;
+
+        /// @brief get Centroid
+        const Position &getCentroid() const;
 
         /// @brief The shape of the additional element
         const PositionVector& getShape() const;
@@ -150,7 +153,10 @@ struct GNEGeometry {
         /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
 
-        /// @brief element shape
+        /// @brief Shape's centroid
+        Position myCentroid;
+
+        /// @brief dotted element shape (note: It's centered in 0,0 due scaling)
         PositionVector myShape;
 
         /// @brief The rotations of the dotted shape
@@ -164,6 +170,8 @@ struct GNEGeometry {
 
         /// @brief flag to mark dotted geometry depreciated
         bool myDottedGeometryDeprecated;
+
+
 
         /// @brief Invalidated assignment operator
         DottedGeometry& operator=(const DottedGeometry& other) = delete;
@@ -399,7 +407,7 @@ struct GNEGeometry {
     static void drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometry::Segment& segment, const double width);
 
     /// @brief draw a dotted contour around the given Non closed shape with certain width
-    static void drawShapeDottedContour(const GUIVisualizationSettings& s, const int type, const DottedGeometry& dottedGeometry);
+    static void drawShapeDottedContour(const GUIVisualizationSettings& s, const int type, const double exaggeration, const DottedGeometry& dottedGeometry);
 
     /// @brief get a circle around the given position
     static PositionVector getVertexCircleAroundPosition(const Position &pos, const double width, const int steps = 8);

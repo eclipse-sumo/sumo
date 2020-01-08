@@ -50,7 +50,7 @@ GNENetElement::~GNENetElement() {}
 
 void
 GNENetElement::updateDottedGeometry(const PositionVector &shape) {
-    myDottedGeometry.updateDottedGeometry(shape);
+    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), shape);
 }
 
 

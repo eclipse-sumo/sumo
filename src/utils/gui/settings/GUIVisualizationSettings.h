@@ -249,15 +249,24 @@ struct GUIVisualizationColorSettings {
     static const RGBColor ride;
 };
 
+/// @brief struct for dotted contour settings
+struct GUIVisualizationDottedContourSettings {
+    
+    /// @brief width of dotted contour segments
+    static const double segmentWidth;
+
+    /// @brief length of dotted contour segments
+    static const double segmentLength;
+
+    /// @brief first color of dotted contour
+    static const RGBColor firstColor;
+
+    /// @brief second color of dotted contour
+    static const RGBColor secondColor;
+};
 
 /// @brief struct for width settings
 struct GUIVisualizationWidthSettings {
-
-    /// @brief width of dotted contours (note: must be float)
-    static const double dottedContour;
-
-    /// @brief length of dotted contour segments
-    static const double dottedContourSegmentLength;
 
     /// @brief width for routes
     static const double route;
@@ -678,6 +687,9 @@ public:
 
     /// @brief color settings
     GUIVisualizationColorSettings colorSettings;
+
+    /// @brief dotted contour settings
+    GUIVisualizationDottedContourSettings dottedContourSettings;
 
     /// @brief width settings
     GUIVisualizationWidthSettings widthSettings;
