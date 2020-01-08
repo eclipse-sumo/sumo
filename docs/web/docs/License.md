@@ -1,1 +1,0 @@
-1.  REDIRECT [Libraries Licenses](Libraries_Licenses.md)
