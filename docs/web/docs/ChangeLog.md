@@ -35,7 +35,7 @@ permalink: /ChangeLog/
   - dead-end links in the middle of a road are now highlighed in magenta to highlight connectivity problems. Issue #6391
 
 - NETCONVERT
-  - Improved connection building heuristic when the number of lanes increases along a road. Issue #6295
+  - Improved connection building heuristic. Issue #6295, #6467, #6468
   - added options **--numerical-ids.edge-start INT**, **--numerical-ids.node-start INT** to relabel network elements with numbers starting at the given value. Issue #6372
   - added option **--no-turnarounds.except-turnlane** which causes turnlanes to be built only if there is an exclusive (left) turn lane. Issue #6444
 
