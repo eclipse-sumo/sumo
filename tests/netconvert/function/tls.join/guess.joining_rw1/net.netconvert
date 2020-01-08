@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jul  4 12:53:05 2019 by Eclipse SUMO netconvert Version v1_2_0+0953-a06e7e6
+<!-- generated on Tue Jan  7 15:03:59 2020 by Eclipse SUMO netconvert Version v1_4_0+0358-70c11de
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,6 +37,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
@@ -1032,14 +1033,14 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="433112084#0" to="692496092" fromLane="2" toLane="1" tl="joinedG_0" linkIndex="6" dir="s" state="O"/>
     <connection from="433112084#0" to="692496092" fromLane="3" toLane="2" tl="joinedG_0" linkIndex="7" dir="s" state="O"/>
     <connection from="433112085" to="238713931#0" fromLane="0" toLane="0" tl="joinedG_1" linkIndex="26" dir="s" state="O"/>
-    <connection from="433112085" to="238713931#0" fromLane="0" toLane="1" tl="joinedG_1" linkIndex="27" dir="s" state="O"/>
+    <connection from="433112085" to="238713931#0" fromLane="1" toLane="1" tl="joinedG_1" linkIndex="27" dir="s" state="O"/>
     <connection from="433112085" to="238713931#0" fromLane="1" toLane="2" tl="joinedG_1" linkIndex="28" dir="s" state="O"/>
     <connection from="433112087#0" to="624801641" fromLane="0" toLane="0" tl="cluster_205334989_205335651_2431065505_264059960_4291687761_4320038430_4320038433_4377396882_4377396886_988611930" linkIndex="0" dir="l" state="o"/>
     <connection from="433112087#0" to="-238713921#2" fromLane="0" toLane="1" tl="cluster_205334989_205335651_2431065505_264059960_4291687761_4320038430_4320038433_4377396882_4377396886_988611930" linkIndex="1" dir="R" state="o"/>
     <connection from="433112087#0" to="624800370#1" fromLane="0" toLane="1" tl="cluster_205334989_205335651_2431065505_264059960_4291687761_4320038430_4320038433_4377396882_4377396886_988611930" linkIndex="2" dir="s" state="o"/>
     <connection from="433112087#0" to="624800370#1" fromLane="1" toLane="2" tl="cluster_205334989_205335651_2431065505_264059960_4291687761_4320038430_4320038433_4377396882_4377396886_988611930" linkIndex="3" dir="s" state="o"/>
     <connection from="437671389" to="429696853#0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="437671389" to="429696853#0" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="437671389" to="429696853#0" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="437671389" to="429696853#0" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="440136967#0" to="-238579736" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="440136967#0" to="19789101" fromLane="0" toLane="1" dir="l" state="m"/>

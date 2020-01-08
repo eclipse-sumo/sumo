@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jul  4 14:27:38 2019 by Eclipse SUMO netconvert Version v1_2_0+0956-e335333
+<!-- generated on Tue Jan  7 15:03:59 2020 by Eclipse SUMO netconvert Version v1_4_0+0358-70c11de
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,6 +37,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
@@ -802,7 +803,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="440442065#1" to="-23636988" fromLane="1" toLane="1" tl="1120534422" linkIndex="5" dir="l" state="o"/>
     <connection from="440442065#1" to="-23636988" fromLane="1" toLane="2" tl="1120534422" linkIndex="6" dir="l" state="o"/>
     <connection from="442363908" to="440442043" fromLane="0" toLane="0" tl="4381810071" linkIndex="0" dir="s" state="O"/>
-    <connection from="442363908" to="440442043" fromLane="0" toLane="1" tl="4381810071" linkIndex="1" dir="s" state="O"/>
+    <connection from="442363908" to="440442043" fromLane="1" toLane="1" tl="4381810071" linkIndex="1" dir="s" state="O"/>
     <connection from="442363908" to="440442043" fromLane="1" toLane="2" tl="4381810071" linkIndex="2" dir="s" state="O"/>
     <connection from="442508399#0" to="442508399#1" fromLane="0" toLane="0" tl="joinedG_0" linkIndex="3" dir="s" state="O"/>
     <connection from="442508399#0" to="442508399#1" fromLane="1" toLane="1" tl="joinedG_0" linkIndex="4" dir="s" state="O"/>

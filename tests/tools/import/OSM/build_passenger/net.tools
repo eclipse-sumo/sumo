@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Nov 16 12:32:26 2019 by Eclipse SUMO netconvert Version v1_3_1+0908-f5dda21bd0
+<!-- generated on Tue Jan  7 15:14:53 2020 by Eclipse SUMO netconvert Version v1_4_0+0358-70c11de
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -43,6 +43,7 @@
 
     <report>
         <verbose value="true"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -527,9 +528,9 @@
         <lane id=":2165987550_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="8.03" shape="1006.09,459.88 1007.63,452.00"/>
     </edge>
     <edge id=":2165987554_0" function="internal">
-        <lane id=":2165987554_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="7.72" shape="921.02,530.32 923.01,529.41 924.19,528.41 925.34,527.35 927.26,526.24"/>
-        <lane id=":2165987554_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="7.72" shape="921.02,530.32 923.23,529.86 924.83,529.88 926.40,529.83 928.54,529.17"/>
-        <lane id=":2165987554_0_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="7.72" shape="922.00,533.36 924.30,532.87 925.96,532.87 927.60,532.80 929.82,532.11"/>
+        <lane id=":2165987554_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="7.77" shape="921.02,530.32 923.01,529.41 924.19,528.41 925.34,527.35 927.26,526.24"/>
+        <lane id=":2165987554_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="7.77" shape="922.00,533.36 924.08,532.42 925.32,531.40 926.54,530.31 928.54,529.17"/>
+        <lane id=":2165987554_0_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="7.77" shape="922.00,533.36 924.30,532.87 925.96,532.87 927.60,532.80 929.82,532.11"/>
     </edge>
     <edge id=":2165987556_0" function="internal">
         <lane id=":2165987556_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="7.83" shape="986.48,586.42 984.99,594.10"/>
@@ -2371,7 +2372,7 @@
     <connection from="46039050#6" to="143308532#0" fromLane="1" toLane="1" via=":cluster_1560223815_1560223847_301292612_56231397_11_0" tl="GS_cluster_1560223815_1560223847_301292612_56231397" linkIndex="11" dir="t" state="o"/>
     <connection from="46039051#0" to="-141968853" fromLane="0" toLane="0" via=":301292499_0_0" dir="s" state="M"/>
     <connection from="46150483" to="206579057" fromLane="0" toLane="0" via=":2165987554_0_0" dir="s" state="M"/>
-    <connection from="46150483" to="206579057" fromLane="0" toLane="1" via=":2165987554_0_1" dir="s" state="M"/>
+    <connection from="46150483" to="206579057" fromLane="1" toLane="1" via=":2165987554_0_1" dir="s" state="M"/>
     <connection from="46150483" to="206579057" fromLane="1" toLane="2" via=":2165987554_0_2" dir="s" state="M"/>
     <connection from="69923147" to="-69923147" fromLane="0" toLane="0" via=":2008877431_0_0" dir="t" state="M"/>
     <connection from="71028774#0" to="-142575690#0" fromLane="0" toLane="0" via=":38919880_0_0" dir="r" state="m"/>

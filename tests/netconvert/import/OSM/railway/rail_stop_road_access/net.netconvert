@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 15 14:27:35 2019 by Eclipse SUMO netconvert Version v1_3_1+0893-7aca76e
+<!-- generated on Tue Jan  7 13:56:17 2020 by Eclipse SUMO netconvert Version v1_4_0+0358-70c11de
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,6 +34,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -2868,7 +2869,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id=":2869270643_0" function="internal">
         <lane id=":2869270643_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="13.89" length="8.22" shape="343.02,3066.33 341.15,3067.83 340.12,3069.17 339.09,3070.51 337.25,3072.05"/>
-        <lane id=":2869270643_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="13.89" length="8.22" shape="343.02,3066.33 340.87,3067.42 339.22,3067.84 337.59,3068.27 335.46,3069.40"/>
+        <lane id=":2869270643_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="13.89" length="8.22" shape="341.28,3063.64 339.40,3065.16 338.36,3066.50 337.32,3067.85 335.46,3069.40"/>
         <lane id=":2869270643_0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="13.89" length="8.22" shape="341.28,3063.64 339.12,3064.74 337.46,3065.17 335.82,3065.60 333.68,3066.74"/>
     </edge>
     <edge id=":2869270644_0" function="internal">
@@ -2998,9 +2999,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":296641395_5_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="537.79,2861.30 539.01,2860.53 539.90,2860.50 540.47,2861.19 540.71,2862.61"/>
     </edge>
     <edge id=":296882980_0" function="internal">
-        <lane id=":296882980_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="13.89" length="7.06" shape="487.53,2941.57 488.91,2940.22 489.54,2938.99 490.10,2937.69 491.28,2936.10"/>
-        <lane id=":296882980_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="13.89" length="7.06" shape="487.53,2941.57 489.31,2940.54 490.71,2940.10 492.04,2939.58 493.60,2938.31"/>
-        <lane id=":296882980_0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="13.89" length="7.06" shape="489.45,2944.13 491.35,2943.01 492.84,2942.50 494.25,2941.90 495.92,2940.51"/>
+        <lane id=":296882980_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="13.89" length="7.14" shape="487.53,2941.57 488.91,2940.22 489.54,2938.99 490.10,2937.69 491.28,2936.10"/>
+        <lane id=":296882980_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="13.89" length="7.14" shape="489.45,2944.13 490.96,2942.68 491.67,2941.39 492.31,2940.01 493.60,2938.31"/>
+        <lane id=":296882980_0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="13.89" length="7.14" shape="489.45,2944.13 491.35,2943.01 492.84,2942.50 494.25,2941.90 495.92,2940.51"/>
     </edge>
     <edge id=":296940627_0" function="internal">
         <lane id=":296940627_0_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="7.81" shape="1157.77,2879.81 1158.03,2878.38 1159.12,2877.30 1161.03,2876.54 1163.77,2876.13"/>
@@ -13032,7 +13033,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="44956230#4" to="44956230#5" fromLane="1" toLane="1" via=":3523983032_0_0" dir="s" state="M"/>
     <connection from="44956230#4" to="44956230#5" fromLane="2" toLane="2" via=":3523983032_0_1" dir="s" state="M"/>
     <connection from="44956230#5" to="283006418#0" fromLane="1" toLane="1" via=":2869270643_0_0" dir="s" state="M"/>
-    <connection from="44956230#5" to="283006418#0" fromLane="1" toLane="2" via=":2869270643_0_1" dir="s" state="M"/>
+    <connection from="44956230#5" to="283006418#0" fromLane="2" toLane="2" via=":2869270643_0_1" dir="s" state="M"/>
     <connection from="44956230#5" to="283006418#0" fromLane="2" toLane="3" via=":2869270643_0_2" dir="s" state="M"/>
     <connection from="44956231" to="26708288#0" fromLane="1" toLane="1" via=":296943373_0_0" tl="296943373" linkIndex="0" dir="s" state="O"/>
     <connection from="44956231" to="26708288#0" fromLane="2" toLane="2" via=":296943373_0_1" tl="296943373" linkIndex="1" dir="s" state="O"/>
@@ -13078,7 +13079,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="514689966" to="-514689967" fromLane="0" toLane="0" via=":5027856235_1_0" dir="s" state="M"/>
     <connection from="514689967" to="-514689966" fromLane="0" toLane="0" via=":5027856235_0_0" dir="s" state="M"/>
     <connection from="516456554" to="238053686#0" fromLane="1" toLane="1" via=":296882980_0_0" dir="s" state="M"/>
-    <connection from="516456554" to="238053686#0" fromLane="1" toLane="2" via=":296882980_0_1" dir="s" state="M"/>
+    <connection from="516456554" to="238053686#0" fromLane="2" toLane="2" via=":296882980_0_1" dir="s" state="M"/>
     <connection from="516456554" to="238053686#0" fromLane="2" toLane="3" via=":296882980_0_2" dir="s" state="M"/>
     <connection from="57898976" to="57898977" fromLane="0" toLane="0" via=":639282674_0_0" dir="s" state="M"/>
     <connection from="57898977" to="10781145#1" fromLane="0" toLane="0" via=":639282676_0_0" dir="r" state="m"/>
