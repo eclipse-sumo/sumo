@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan  7 15:04:03 2020 by Eclipse SUMO netconvert Version v1_4_0+0358-70c11de
+<!-- generated on Wed Jan  8 16:42:23 2020 by Eclipse SUMO netconvert Version v1_4_0+0391-4ae33c8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -86,9 +86,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":3_0_0" index="0" speed="3.65" length="4.67" shape="498.40,0.00 499.20,-1.20 500.00,-1.60 500.80,-1.20 501.60,0.00"/>
     </edge>
     <edge id=":m1_0" function="internal">
-        <lane id=":m1_0_0" index="0" speed="12.50" length="8.54" shape="246.00,495.20 248.46,494.70 250.00,493.60 251.54,492.50 254.00,492.00"/>
-        <lane id=":m1_0_1" index="1" speed="12.50" length="8.54" shape="246.00,498.40 248.46,497.90 250.00,496.80 251.54,495.70 254.00,495.20"/>
-        <lane id=":m1_0_2" index="2" speed="12.50" length="8.54" shape="246.00,498.40 254.00,498.40"/>
+        <lane id=":m1_0_0" index="0" speed="12.50" length="8.27" shape="246.00,495.20 248.46,494.70 250.00,493.60 251.54,492.50 254.00,492.00"/>
+        <lane id=":m1_0_1" index="1" speed="12.50" length="8.27" shape="246.00,495.20 254.00,495.20"/>
+        <lane id=":m1_0_2" index="2" speed="12.50" length="8.27" shape="246.00,498.40 254.00,498.40"/>
     </edge>
     <edge id=":m2_0" function="internal">
         <lane id=":m2_0_0" index="0" speed="12.50" length="8.54" shape="754.00,504.80 751.54,505.30 750.00,506.40 748.46,507.50 746.00,508.00"/>
@@ -199,7 +199,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":0_11_0" type="internal" x="499.84" y="487.92" incLanes=":0_6_0 1si_0 4si_1" intLanes=":0_1_0 :0_7_0"/>
 
     <connection from="1fi" to="1si" fromLane="0" toLane="0" via=":m1_0_0" dir="s" state="M"/>
-    <connection from="1fi" to="1si" fromLane="1" toLane="1" via=":m1_0_1" dir="s" state="M"/>
+    <connection from="1fi" to="1si" fromLane="0" toLane="1" via=":m1_0_1" dir="s" state="M"/>
     <connection from="1fi" to="1si" fromLane="1" toLane="2" via=":m1_0_2" dir="s" state="M"/>
     <connection from="1o" to="1fi" fromLane="0" toLane="1" via=":1_0_0" dir="t" state="M"/>
     <connection from="1si" to="3o" fromLane="0" toLane="0" via=":0_7_0" dir="r" state="m"/>

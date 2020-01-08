@@ -1,36 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed 08 Jan 2020 03:40:29 PM CET by Eclipse SUMO netedit Version v1_4_0+0386-07494df
+<!-- generated on Wed Jan  8 16:16:53 2020 by Eclipse SUMO netconvert Version v1_4_0+0391-4ae33c8
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="net.netconvert"/>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="net.netconvert"/>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
     </output>
-
-    <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
 
     <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
     </junctions>
 
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
-
     <report>
+        <xml-validation value="never"/>
         <aggregate-warnings value="5"/>
     </report>
 
@@ -72,7 +66,7 @@
     <junction id="gneJ2" type="dead_end" x="200.00" y="100.00" incLanes="gneE0_0" intLanes="" shape="203.20,100.00 200.00,100.00"/>
 
     <connection from="beg" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="beg" to="middle" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="beg" to="middle" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="beg" to="middle" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="beg" to="middle" fromLane="1" toLane="3" dir="s" state="M"/>
     <connection from="middle" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
