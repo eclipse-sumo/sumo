@@ -1046,7 +1046,7 @@ NBNode::computeLanes2Lanes() {
                 && in->getNumLanes() - inOffset == out->getNumLanes() - outOffset - 1
                 && in != out
                 && in->isConnectedTo(out)) {
-            if (out->isOffRamp()) {
+            if (addedLaneRight(out)) {
                 // connect extra lane on the right
                 for (int i = inOffset; i < in->getNumLanes(); ++i) {
                     in->setConnection(i, out, i - inOffset + outOffset + 1, NBEdge::L2L_COMPUTED);
@@ -1179,9 +1179,8 @@ NBNode::computeLanes2Lanes() {
             std::cout << "l2l node=" << getID() << " specialCase f\n";
         }
 #endif
-        int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
-        const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
-        const int reduction = (in->getNumLanes() - inOffset) - (out->getNumLanes() - outOffset);
+        int inOffset, outOffset, reduction;
+        getReduction(in, out, inOffset, outOffset, reduction);
         if (in->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES
                 && reduction >= 0
                 && in != out
@@ -1354,6 +1353,54 @@ NBNode::computeLanes2Lanes() {
     }
 #endif
 }
+
+
+void
+NBNode::getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& outOffset, int& reduction) const {
+    inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
+    outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
+    reduction = (in->getNumLanes() - inOffset) - (out->getNumLanes() - outOffset);
+}
+
+
+bool
+NBNode::addedLaneRight(NBEdge* out) const {
+    if (out->isOffRamp()) {
+        return true;
+    }
+    NBNode* to = out->getToNode();
+    // check whether a right lane ends
+    if (to->getIncomingEdges().size() == 1
+            && to->getOutgoingEdges().size() == 1) {
+        int inOffset, outOffset, reduction;
+        to->getReduction(out, to->getOutgoingEdges()[0], inOffset, outOffset, reduction);
+        if (reduction > 0) {
+            return true;
+        }
+    }
+    // check whether there is a right turn but no left turn at the next intersection
+    if (to->getIncomingEdges().size() == 1
+            && to->getOutgoingEdges().size() == 2) {
+        const EdgeVector& toAll = to->getEdges();
+        EdgeVector::const_iterator it = std::find(toAll.begin(), toAll.end(), out);
+        NBContHelper::nextCW(toAll, it);
+        NBEdge* succCW = *it;
+        NBContHelper::nextCW(toAll, it);
+        NBEdge* succCCW = *it; // wrap-around
+        if (to->getDirection(out, succCW) == LINKDIR_STRAIGHT) {
+            int inOffset, outOffset, reduction;
+            to->getReduction(out, succCW, inOffset, outOffset, reduction);
+            if (reduction > 0) {
+                LinkDirection dirCCW = to->getDirection(out, succCCW);
+                if (dirCCW == LINKDIR_RIGHT || dirCCW == LINKDIR_PARTRIGHT) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
 
 bool
 NBNode::isLongEnough(NBEdge* out, double minLength) {

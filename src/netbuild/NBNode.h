@@ -805,6 +805,11 @@ private:
 
     NBEdge* getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm, EdgeVector::const_iterator start, bool clockwise) const;
 
+    /// @brief get the reduction in driving lanes at this junction
+    void getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& outOffset, int& reduction) const;
+
+    /// @brief check whether this edge has an extra lane on the right side
+    bool addedLaneRight(NBEdge* out) const;
 
 private:
     /// @brief The position the node lies at
