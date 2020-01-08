@@ -29,6 +29,12 @@
 #include "GNEGeometry.h"
 #include "GNEViewNet.h"
 
+#define CIRCLE_RESOLUTION (double)10 // inverse in degrees
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
+PositionVector GNEGeometry::myCircleCoords;
 
 // ===========================================================================
 // method definitions
@@ -984,6 +990,41 @@ GNEGeometry::drawShapeDottedContour(const GUIVisualizationSettings& s, const int
         // pop matrix
         glPopMatrix();
     }
+}
+
+
+PositionVector
+GNEGeometry::getVertexCircleAroundPosition(const Position &pos, const double width, const int steps) {
+    // first check if we have to fill myCircleCoords (only once)
+    if (myCircleCoords.size() == 0) {
+        for (int i = 0; i <= (int)(360 * CIRCLE_RESOLUTION); ++i) {
+            const double x = (double) sin(DEG2RAD(i / CIRCLE_RESOLUTION));
+            const double y = (double) cos(DEG2RAD(i / CIRCLE_RESOLUTION));
+            myCircleCoords.push_back(Position(x, y));
+        }
+    }
+    PositionVector vertexCircle;
+    const double inc = 360 / (double)steps;
+    // obtain all vertices
+    for (int i = 0; i <= steps; ++i) {
+        const Position& vertex = myCircleCoords[GNEGeometry::angleLookup(i * inc)];
+        vertexCircle.push_back(Position(vertex.x() * width, vertex.y() * width));
+    }
+    // move result using position
+    vertexCircle.add(pos);
+    return vertexCircle;
+}
+
+
+int
+GNEGeometry::angleLookup(const double angleDeg) {
+    const int numCoords = (int)myCircleCoords.size() - 1;
+    int index = ((int)(floor(angleDeg * CIRCLE_RESOLUTION + 0.5))) % numCoords;
+    if (index < 0) {
+        index += numCoords;
+    }
+    assert(index >= 0);
+    return (int)index;
 }
 
 /****************************************************************************/

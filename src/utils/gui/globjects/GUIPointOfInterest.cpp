@@ -36,13 +36,6 @@
 
 
 // ===========================================================================
-// static members
-// ===========================================================================
-
-std::vector<Position> GUIPointOfInterest::myPOIVertices;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 
@@ -95,8 +88,6 @@ GUIPointOfInterest::getCenteringBoundary() const {
 
 void
 GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
-    // first clear vertices
-    myPOIVertices.clear();
     // check if POI can be drawn
     if (checkDraw(s)) {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
@@ -157,7 +148,7 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, bool disable
             GLHelper::drawFilledCircle((double) 1.3 * exaggeration, 8);
         } else {
             // draw filled circle saving vertices
-            myPOIVertices = GLHelper::drawFilledCircleReturnVertices((double) 1.3 * exaggeration, 16);
+            GLHelper::drawFilledCircle((double) 1.3 * exaggeration, 16);
         }
     }
     glPopMatrix();

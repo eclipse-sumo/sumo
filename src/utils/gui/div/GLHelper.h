@@ -223,14 +223,6 @@ public:
      */
     static void drawFilledCircle(double width, int steps = 8);
 
-    /** @brief Draws a filled circle around (0,0) returning circle vertex
-     *
-     * The circle is drawn by calling drawFilledCircle(width, steps, 0, 360) and saving values of myCircleCoords.
-     *
-     * @param[in] width The width of the circle
-     * @param[in] steps The number of steps to divide the circle into
-     */
-    static std::vector<Position> drawFilledCircleReturnVertices(double width, int steps = 8);
 
     /** @brief Draws a filled circle around (0,0)
      *

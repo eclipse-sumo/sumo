@@ -350,20 +350,6 @@ GLHelper::drawFilledCircle(double width, int steps) {
 }
 
 
-std::vector<Position>
-GLHelper::drawFilledCircleReturnVertices(double width, int steps) {
-    drawFilledCircle(width, steps, 0, 360);
-    std::vector<Position> result;
-    const double inc = 360 / (double)steps;
-    // obtain all vertices
-    for (int i = 0; i <= steps; ++i) {
-        const std::pair<double, double>& vertex = myCircleCoords[angleLookup(i * inc)];
-        result.push_back(Position(vertex.first * width, vertex.second * width));
-    }
-    return result;
-}
-
-
 void
 GLHelper::drawFilledCircle(double width, int steps, double beg, double end) {
     if (myCircleCoords.size() == 0) {

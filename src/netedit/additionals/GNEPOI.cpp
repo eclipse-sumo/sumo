@@ -223,8 +223,6 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
         }
-        // first clear vertices
-        myPOIVertices.clear();
         // check if POI can be drawn
         if (checkDraw(s)) {
             // push name (needed for getGUIGlObjectsUnderCursor(...)
@@ -245,11 +243,13 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 if (getShapeImgFile() != DEFAULT_IMG_FILE) {
                     const double exaggeration = s.poiSize.getExaggeration(s, this);
                     GLHelper::drawShapeDottedContourRectangle(s, getType(), *this, 2 * myHalfImgWidth * exaggeration, 2 * myHalfImgHeight * exaggeration);
+/*
                 } else if (myPOIVertices.size() > 0) {
                     glPushMatrix();
                     glTranslated(x(), y(), getType() + 0.01);
                     GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), myPOIVertices);
                     glPopMatrix();
+*/
                 }
             }
             // pop name

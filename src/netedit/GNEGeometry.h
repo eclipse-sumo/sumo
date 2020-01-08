@@ -400,6 +400,16 @@ struct GNEGeometry {
 
     /// @brief draw a dotted contour around the given Non closed shape with certain width
     static void drawShapeDottedContour(const GUIVisualizationSettings& s, const int type, const DottedGeometry& dottedGeometry);
+
+    /// @brief get a circle around the given position
+    static PositionVector getVertexCircleAroundPosition(const Position &pos, const double width, const int steps = 8);
+
+private:
+    /// @brief Storage for precomputed sin/cos-values describing a circle
+    static PositionVector myCircleCoords;
+
+    /// @brief normalize angle for lookup in myCircleCoords
+    static int angleLookup(const double angleDeg);
 };
 
 #endif

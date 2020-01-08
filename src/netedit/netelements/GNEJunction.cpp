@@ -339,10 +339,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     } else {
                         GLHelper::drawFilledPolyTesselated(junctionShape, true);
                     }
-                    // check if dotted contour has to be drawn
-                    if ((myNet->getViewNet()->getDottedAC() == this) && !drawBubble) {
-                        GNEGeometry::drawShapeDottedContour(s, getType(), myDottedGeometry);
-                    }
                     glPopMatrix();
                 }
             }
@@ -357,14 +353,14 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), getType() + 0.05);
                     // only draw filled circle if we aren't in draw for selecting mode, or if distance to center is enough)
                     if (!s.drawForPositionSelection || (mousePosition.distanceSquaredTo2D(myNBNode->getPosition()) <= (circleWidthSquared + 2))) {
-                        std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, s.getCircleResolution());
-                        // check if dotted contour has to be drawn
-                        if (myNet->getViewNet()->getDottedAC() == this) {
-                            GNEGeometry::drawShapeDottedContour(s, getType(), myDottedGeometry);
-                        }
+                        GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                     }
                     glPopMatrix();
                 }
+            }
+            // check if dotted contour has to be drawn
+            if (myNet->getViewNet()->getDottedAC() == this) {
+                GNEGeometry::drawShapeDottedContour(s, getType(), myDottedGeometry);
             }
             // draw TLS
             drawTLSIcon(s);
@@ -1457,7 +1453,7 @@ GNEJunction::updateDottedContour() {
     PositionVector shape = myNBNode->getShape();
     // check if we have to calculate buuble or shape
     if (shape.area() < 4) {
-        updateDottedGeometry(GLHelper::drawFilledCircleReturnVertices(4, 32));
+        updateDottedGeometry(GNEGeometry::getVertexCircleAroundPosition(myNBNode->getPosition(), 4, 32));
     } else {
         // close polygon
         shape.closePolygon();
