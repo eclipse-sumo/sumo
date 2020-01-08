@@ -17,7 +17,7 @@ from setuptools import setup, find_packages
 import os
 import version
 
-SUMO_VERSION = version.sumolib.version.gitDescribe(commitPrefix=".", padZero=False)[1:-11].replace("_", ".")
+SUMO_VERSION = version.get_version(padZero=False)[1:-11].replace("_", ".").replace("+", ".")
 package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 setup(

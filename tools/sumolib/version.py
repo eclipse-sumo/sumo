@@ -34,6 +34,8 @@ GITDIR = join(dirname(__file__), '..', '..', '.git')
 def _findVersion():
     # try to find the version in the config.h
     versionFile = join(dirname(__file__), '..', '..', 'include', 'version.h')
+    if not exists(versionFile):
+        versionFile = join('src', 'version.h')
     if exists(versionFile):
         version = open(versionFile).read().split()
         if len(version) > 2:
@@ -48,7 +50,7 @@ def _findVersion():
     return UNKNOWN_REVISION
 
 
-def gitDescribe(commit="HEAD", gitDir=GITDIR, commitPrefix="+", padZero=True):
+def gitDescribe(commit="HEAD", gitDir=GITDIR, padZero=True):
     command = ["git", "describe", "--long", "--always", commit]
     if gitDir:
         command[1:1] = ["--git-dir=" + gitDir]
@@ -65,5 +67,5 @@ def gitDescribe(commit="HEAD", gitDir=GITDIR, commitPrefix="+", padZero=True):
         m2 = d.find("-", m1)
         diff = max(0, 4 - (m2 - m1)) if padZero else 0
         # prefix the number of commits with a "+" and pad with 0
-        d = d[:m1].replace("-", commitPrefix) + (diff * "0") + d[m1:]
+        d = d[:m1].replace("-", "+") + (diff * "0") + d[m1:]
     return d
