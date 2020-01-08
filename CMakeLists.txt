@@ -294,6 +294,12 @@ if (ZLIB_FOUND)
     include_directories(${ZLIB_INCLUDE_DIR})
 endif ()
 
+find_package(SWIG 3.0)
+if (SWIG_FOUND)
+	set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+	set(ENABLED_FEATURES "${ENABLED_FEATURES} SWIG")
+endif ()
+
 if (CHECK_OPTIONAL_LIBS)
     find_package(GDAL)
     if (GDAL_FOUND)
@@ -324,12 +330,6 @@ if (CHECK_OPTIONAL_LIBS)
         set(HAVE_GL2PS 1)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
     endif (GL2PS_FOUND)
-
-    find_package(SWIG 3.0)
-    if (SWIG_FOUND)
-        set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-        set(ENABLED_FEATURES "${ENABLED_FEATURES} SWIG")
-    endif ()
 
     # Eigen (for overhead wire / electric circuit simulation)
     # TODO: Probably may be used in 32bit build as well.

@@ -170,8 +170,10 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
     binDir = "sumo-git/bin/"
 
     toClean = [makeLog, makeAllLog]
+    toolsLibsumoDir = os.path.join(options.rootDir, options.binDir.replace("bin", "tools"), "libsumo")
     for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.lib", "*.exp", "*.jar"):
         toClean += glob.glob(os.path.join(options.rootDir, options.binDir, ext))
+    toClean += glob.glob(os.path.join(toolsLibsumoDir, "libsumo*"))
     for f in toClean:
         try:
             os.remove(f)
@@ -202,8 +204,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                     if f.count('/') == 1:
                         write = f.endswith(".md") or os.path.basename(f) in ["AUTHORS", "ChangeLog", "LICENSE"]
                     if f.endswith('/') and f.count('/') == 2:
-                        write = (f.endswith('/bin/') or
-                                 f.endswith('/tools/') or f.endswith('/data/') or f.endswith('/docs/'))
+                        write = f.endswith(('/bin/', '/tools/', '/data/', '/docs/'))
                         if f.endswith('/bin/'):
                             binDir = f
                     elif f.endswith('/') and '/docs/' in f and f.count('/') == 3:
@@ -233,10 +234,10 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                     if os.path.basename(f) != "Helper.h":
                         zipf.write(f, includeDir + f[len(srcDir):])
                 zipf.write(os.path.join(buildDir, "src", "version.h"), os.path.join(includeDir, "version.h"))
-                toolsLibsumoDir = os.path.join(options.rootDir, options.binDir.replace("bin", "tools"), "libsumo")
                 for f in glob.glob(os.path.join(toolsLibsumoDir, "*.py")) + glob.glob(os.path.join(toolsLibsumoDir, "*.pyd")):
                     nameInZip = os.path.join(binDir.replace("bin", "tools"), "libsumo", os.path.basename(f))
-                    zipf.write(f, nameInZip)
+                    if nameInZip not in zipf.namelist():
+                        zipf.write(f, nameInZip)
                 zipf.close()
                 if options.suffix == "":
                     # installers only for the vanilla build
