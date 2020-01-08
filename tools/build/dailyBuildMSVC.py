@@ -224,15 +224,19 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                             write = True
                         if write:
                             zipf.write(f, nameInZip)
+                srcDir = os.path.join(options.rootDir, options.binDir.replace("bin", "src"))
                 includeDir = binDir.replace("bin", "include")
                 printLog("Creating sumo.zip.", log)
-                for f in glob.glob(os.path.join(options.rootDir, options.binDir.replace("bin", "src"),
-                                                "libsumo", "*.h")):
-                    base = os.path.basename(f)
-                    nameInZip = os.path.join(includeDir, "libsumo", base)
-                    if base != "Helper.h":
-                        zipf.write(f, nameInZip)
+                for f in (glob.glob(os.path.join(srcDir, "libsumo", "*.h")) +
+                          glob.glob(os.path.join(srcDir, "utils", "traci", "TraCIAPI.*")) +
+                          glob.glob(os.path.join(srcDir, "foreign", "tcpip", "s*.*"))):
+                    if os.path.basename(f) != "Helper.h":
+                        zipf.write(f, includeDir + f[len(srcDir):])
                 zipf.write(os.path.join(buildDir, "src", "version.h"), os.path.join(includeDir, "version.h"))
+                toolsLibsumoDir = os.path.join(options.rootDir, options.binDir.replace("bin", "tools"), "libsumo")
+                for f in glob.glob(os.path.join(toolsLibsumoDir, "*.py")) + glob.glob(os.path.join(toolsLibsumoDir, "*.pyd")):
+                    nameInZip = os.path.join(binDir.replace("bin", "tools"), "libsumo", os.path.basename(f))
+                    zipf.write(f, nameInZip)
                 zipf.close()
                 if options.suffix == "":
                     # installers only for the vanilla build
