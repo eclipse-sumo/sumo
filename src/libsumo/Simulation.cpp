@@ -68,10 +68,9 @@ Simulation::load(const std::vector<std::string>& args) {
     try {
         XMLSubSys::init();
         OptionsIO::setArgs(args);
-        if (NLBuilder::init() != nullptr) {
+        if (NLBuilder::init(true) != nullptr) {
             const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
             MSNet::getInstance()->setCurrentTimeStep(begin); // needed for state loading
-            Helper::registerVehicleStateListener();
             WRITE_MESSAGE("Simulation started via Libsumo with time: " + time2string(begin));
         }
     } catch(ProcessError& e) {

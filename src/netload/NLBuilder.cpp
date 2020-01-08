@@ -216,7 +216,7 @@ NLBuilder::build() {
 
 
 MSNet*
-NLBuilder::init() {
+NLBuilder::init(const bool isLibsumo) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.clear();
     MSFrame::fillOptions();
@@ -247,6 +247,9 @@ NLBuilder::init() {
     MSNet* net = new MSNet(vc, new MSEventControl(), new MSEventControl(), new MSEventControl());
     // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
     TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
+    if (isLibsumo) {
+        libsumo::Helper::registerVehicleStateListener();
+    }
 
     NLEdgeControlBuilder eb;
     NLDetectorBuilder db(*net);
