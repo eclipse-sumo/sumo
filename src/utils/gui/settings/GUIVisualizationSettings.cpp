@@ -94,7 +94,7 @@ const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);
 // Dotted contour values
 // -------------------------------------------------------------------------
 
-const double GUIVisualizationDottedContourSettings::segmentWidth(0.2);
+const double GUIVisualizationDottedContourSettings::segmentWidth(0.15);
 const double GUIVisualizationDottedContourSettings::segmentLength(2);
 const RGBColor GUIVisualizationDottedContourSettings::firstColor(255, 255, 255);
 const RGBColor GUIVisualizationDottedContourSettings::secondColor(0, 0, 0);

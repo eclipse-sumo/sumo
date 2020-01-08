@@ -996,7 +996,9 @@ GNEGeometry::drawShapeDottedContour(const GUIVisualizationSettings& s, const int
         // Move to Centroid
         glTranslated(dottedGeometry.getCentroid().x(), dottedGeometry.getCentroid().y(), type + 2);
         // scale matrix depending of the exaggeration
-        glScaled(exaggeration, exaggeration, 1);
+        if (exaggeration != 1) {
+            glScaled(exaggeration, exaggeration, 1);
+        }
         // draw box lines
         GLHelper::drawBoxLines(dottedGeometry.getShape(), 
                                dottedGeometry.getShapeRotations(), 

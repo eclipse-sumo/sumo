@@ -186,7 +186,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myCrossingGeometry.getShape(), crossing->width * 0.5);
+            GNEGeometry::drawShapeDottedContour(s, getType(), 1, myDottedGeometry);
         }
     }
 }
@@ -469,7 +469,23 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void 
 GNECrossing::updateDottedContour() {
-
+    auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
+    // build contour using connection geometry
+    PositionVector contourFront = myCrossingGeometry.getShape();
+    PositionVector contourback = contourFront;
+    // move both to side
+    contourFront.move2side(crossing->width * 0.5);
+    contourback.move2side(crossing->width * -0.5);
+    // reverse contourback
+    contourback = contourback.reverse();
+    // add contour back to contourfront
+    for (const auto &position : contourback) {
+        contourFront.push_back(position);
+    }
+    // close contour front
+    contourFront.closePolygon();
+    // set as dotted contour
+    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), contourFront);
 }
 
 /****************************************************************************/
