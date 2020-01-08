@@ -66,15 +66,15 @@ def run(suffix, args, out=sys.stdout, guiTests=False, console=False, chrouter=Tr
             ttBin = 'texttestc.py'
         else:
             ttBin += "w"
-    if os.name == "nt" and subprocess.call(['where.exe', 'texttest.exe']) == 0:
+    if os.name == "nt" and subprocess.call(['where.exe', 'texttest.exe'], stdout=open(os.devnull, "w")) == 0:
         ttBin = 'texttest.exe'
     try:
-        subprocess.call(['python3', '-V'])
+        subprocess.call(['python3', '-V'], stdout=open(os.devnull, "w"), shell=True)
         apps += ',complex.python3,tools.python3,complex.libsumo.python3'
     except Exception:
         pass
     if guiTests:
-        apps += ",sumo.meso.gui"
+        apps += ",sumo.meso.gui,sumo.gui.osg"
     subprocess.call("%s %s -a %s" % (ttBin, args, apps), env=os.environ,
                     stdout=out, stderr=out, shell=True)
 
