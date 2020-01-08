@@ -45,7 +45,7 @@ listed in the table below.
 In addition to the open build service, there are a debian and an ubuntu
 launchpad project as well as an archlinux package:
 
-- <https://build.opensuse.org/project/show?project=home%3Abehrisch>
+- <https://build.opensuse.org/project/show/home:behrisch>
 - <http://anonscm.debian.org/gitweb/?p=debian-science/packages/sumo.git>
 - <https://launchpad.net/~sumo>
 - <https://aur.archlinux.org/packages/sumo/>
