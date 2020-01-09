@@ -902,6 +902,8 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         const std::string mode = st.next();
         if (mode == "car") {
             modeSet |= SVC_PASSENGER;
+        } else if (mode == "taxi") {
+            modeSet |= SVC_TAXI;
         } else if (mode == "bicycle") {
             modeSet |= SVC_BICYCLE;
         } else if (mode == "public") {

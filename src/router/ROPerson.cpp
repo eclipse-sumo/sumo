@@ -91,6 +91,12 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
             pars.parametersSet |= VEHPARS_VTYPE_SET;
             trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_BIKETYPE_ID), net));
         }
+        if ((modeSet & SVC_TAXI) != 0) {
+            // add dummy taxi for routing (never added to output)
+            pars.id = "taxi"; // id is writen as 'line'
+            pars.vtypeid = DEFAULT_TAXITYPE_ID;
+            trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_TAXITYPE_ID), net));
+        }
     }
     myPlan.push_back(trip);
 }
@@ -233,6 +239,9 @@ ROPerson::PersonTrip::saveAsXML(OutputDevice& os, const bool extended, const boo
         if ((modes & SVC_PASSENGER) != 0) {
             allowedModes.push_back("car");
         }
+        if ((modes & SVC_TAXI) != 0) {
+            allowedModes.push_back("taxi");
+        }
         if ((modes & SVC_BICYCLE) != 0) {
             allowedModes.push_back("bicycle");
         }
@@ -294,10 +303,12 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                 }
             } else if (veh != nullptr && it->line == veh->getID()) {
                 trip->addTripItem(new Ride(it->edges.front(), it->edges.back(), veh->getID(), it->cost, trip->getArrivalPos(), it->destStop));
-                RORoute* route = new RORoute(veh->getID() + "_RouteDef", it->edges);
-                route->setProbability(1);
-                veh->getRouteDefinition()->addLoadedAlternative(route);
-                carUsed = true;
+                if (veh->getVClass() != SVC_TAXI) {
+                    RORoute* route = new RORoute(veh->getID() + "_RouteDef", it->edges);
+                    route->setProbability(1);
+                    veh->getRouteDefinition()->addLoadedAlternative(route);
+                    carUsed = true;
+                }
             } else {
                 trip->addTripItem(new Ride(nullptr, nullptr, it->line, it->cost, trip->getArrivalPos(), it->destStop, it->intended, TIME2STEPS(it->depart)));
             }

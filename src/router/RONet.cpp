@@ -89,6 +89,11 @@ RONet::RONet()
     defBikeType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVehicleTypes.add(defBikeType->id, defBikeType);
 
+    SUMOVTypeParameter* defTaxiType = new SUMOVTypeParameter(DEFAULT_TAXITYPE_ID, SVC_TAXI);
+    defTaxiType->onlyReferenced = true;
+    defTaxiType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
+    myVehicleTypes.add(defTaxiType->id, defTaxiType);
+
     myInstance = this;
 }
 
