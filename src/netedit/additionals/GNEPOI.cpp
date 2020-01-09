@@ -19,6 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
+
 #include <string>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -146,12 +147,19 @@ GNEPOI::updateGeometry() {
         // set new position regarding to lane
         set(getParentLanes().at(0)->getLaneShape().positionAtOffset(fixedPositionOverLane * getParentLanes().at(0)->getLengthGeometryFactor(), -myPosLat));
     }
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
 void 
 GNEPOI::updateDottedContour() {
-    //
+    // check if we have to calculate buuble or shape
+    if (getShapeImgFile() != DEFAULT_IMG_FILE) {
+        myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), *this, getShapeNaviDegree(), getWidth(), getHeight());
+    } else {
+        myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), GNEGeometry::getVertexCircleAroundPosition(*this, 1.5, 32));
+    }
 }
 
 
@@ -225,6 +233,8 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if POI can be drawn
         if (checkDraw(s)) {
+            // obtain POIExaggeration
+            const double POIExaggeration = s.poiSize.getExaggeration(s, this);
             // push name (needed for getGUIGlObjectsUnderCursor(...)
             glPushName(getGlID());
             // draw inner polygon
@@ -240,17 +250,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             }
             // check if dotted contour has to be drawn
             if (myNet->getViewNet()->getDottedAC() == this) {
-                if (getShapeImgFile() != DEFAULT_IMG_FILE) {
-                    const double exaggeration = s.poiSize.getExaggeration(s, this);
-                    GLHelper::drawShapeDottedContourRectangle(s, getType(), *this, 2 * myHalfImgWidth * exaggeration, 2 * myHalfImgHeight * exaggeration);
-/*
-                } else if (myPOIVertices.size() > 0) {
-                    glPushMatrix();
-                    glTranslated(x(), y(), getType() + 0.01);
-                    GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), myPOIVertices);
-                    glPopMatrix();
-*/
-                }
+                GNEGeometry::drawShapeDottedContour(s, getType(), POIExaggeration, myDottedGeometry);
             }
             // pop name
             glPopName();

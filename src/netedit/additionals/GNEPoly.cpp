@@ -185,13 +185,17 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
 
 void
 GNEPoly::updateGeometry() {
-    // nothing to do
+    // Nothing to update
 }
 
 
 void 
 GNEPoly::updateDottedContour() {
-    //
+    if (myShape.isClosed()) {
+        myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myShape);
+    } else {
+        myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myShape, 0);
+    }
 }
 
 
@@ -405,7 +409,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), getShape());
+            GNEGeometry::drawShapeDottedContour(s, getType(), polyExaggeration, myDottedGeometry);
         }
         // pop name
         glPopName();
@@ -813,6 +817,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (myNetElementShapeEdited) {
                 myNetElementShapeEdited->updateGeometry();
             }
+            // mark dotted geometry deprecated
+            myDottedGeometry.markDottedGeometryDeprecated();
             break;
         }
         case SUMO_ATTR_GEOSHAPE: {
@@ -831,6 +837,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (myNetElementShapeEdited) {
                 myNetElementShapeEdited->updateGeometry();
             }
+            // mark dotted geometry deprecated
+            myDottedGeometry.markDottedGeometryDeprecated();
             break;
         }
         case SUMO_ATTR_COLOR:
@@ -883,6 +891,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // disable simplified shape flag
             mySimplifiedShape = false;
+            // mark dotted geometry deprecated
+            myDottedGeometry.markDottedGeometryDeprecated();
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
