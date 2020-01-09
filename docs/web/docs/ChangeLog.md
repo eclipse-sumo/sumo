@@ -7,6 +7,7 @@ permalink: /ChangeLog/
 
 ### Bugfixes
 - Simulation
+  - Fixed bug that could cause the simulation to freeze when vehicles approach a right_before_left junction from all directions simultaneously. Issue #6471 (regression in 1.4)
   - Fixed bug that was causing pedestrian jamming. Issue #6457
   - Fixed bug that was causing unsafe situations between bicycles and turning cars. Issue #6437, #6438
   - Fixed unsafe insertion speed when using 'stopOffset'. Issue #6411
