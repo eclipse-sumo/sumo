@@ -306,6 +306,18 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                         previous = new MSPerson::MSPersonStage_Walking(transportable->getID(), it->edges, bs, myDuration, mySpeed, depPos, localArrivalPos, myDepartPosLat);
                         transportable->appendStage(previous, stageIndex++);
                     } else if (isTaxi) {
+                        const ConstMSEdgeVector& prevEdges = previous->getEdges();
+                        if (prevEdges.size() >= 2) {
+                            // determine walking direction and let the previous
+                            // stage end after entering its final edge
+                            const MSEdge* last = prevEdges.back();
+                            const MSEdge* prev = prevEdges[prevEdges.size() - 2];
+                            if (last->getFromJunction() == prev->getToJunction() || prev->getFromJunction() == last->getFromJunction()) {
+                                previous->setArrivalPos(MIN2(last->getLength(), 10.0));
+                            } else {
+                                previous->setArrivalPos(MAX2(0.0, last->getLength() - 10));
+                            }
+                        }
                         previous = new MSStageDriving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ "taxi" }));
                         transportable->appendStage(previous, stageIndex++);
                     } else if (vehicle != nullptr && it->line == vehicle->getID()) {

@@ -628,6 +628,22 @@ public:
         }
     }
 
+    /** @brief Adds access edges for transfering from walking to vehicle use
+    * @param[in] edge The edge on which the transfer takes place
+    * @param[in] svc The permitted vehicle class for transfering
+    */
+    void addCarAccess(const E* edge, SUMOVehicleClass svc) {
+        assert(edge != nullptr);
+        assert(myCarLookup.count(edge) != 0);
+        assert(myBidiLookup.count(edge) != 0);
+        EdgePair pedestrianEdges = myBidiLookup[edge];
+        _IntermodalEdge* carEdge = myCarLookup[edge];
+        _AccessEdge* access = new _AccessEdge(myNumericalID++, pedestrianEdges.first, carEdge, 0, svc);
+        addEdge(access);
+        pedestrianEdges.first->addSuccessor(access);
+        pedestrianEdges.second->addSuccessor(access);
+        access->addSuccessor(carEdge);
+    }
 
 private:
     /** @brief Returns where to insert or use the split edge

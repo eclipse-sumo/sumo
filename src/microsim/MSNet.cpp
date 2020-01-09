@@ -1162,6 +1162,14 @@ MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
     }
     myInstance->getInsertionControl().adaptIntermodalRouter(router);
     myInstance->getVehicleControl().adaptIntermodalRouter(router);
+    // add access to transfer from walking to taxi-use
+    if (MSDevice_Taxi::getTaxi() != nullptr) {
+        for (MSEdge* edge : myInstance->getEdgeControl().getEdges()) {
+            if ((edge->getPermissions() & SVC_PEDESTRIAN) != 0 && (edge->getPermissions() & SVC_TAXI) != 0) {
+                router.getNetwork()->addCarAccess(edge, SVC_TAXI);
+            }
+        }
+    }
 }
 
 

@@ -35,16 +35,23 @@ private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
 
 public:
-    AccessEdge(int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge, const double length) :
+    AccessEdge(int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge, const double length, SVCPermissions restrictions = SVC_IGNORING) :
         _IntermodalEdge(inEdge->getID() + ":" + outEdge->getID(), numericalID, outEdge->getEdge(), "!access"),
-        myLength(length > 0. ? length : NUMERICAL_EPS) { }
+        myLength(length > 0. ? length : NUMERICAL_EPS),
+        myRestrictions(restrictions)
+        { }
 
     double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double /* time */) const {
         return myLength / trip->speed;
     }
 
+    bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
+        return (trip->modeSet & myRestrictions) != myRestrictions;
+    }
+
 private:
     const double myLength;
+    const SVCPermissions myRestrictions;
 
 };
 

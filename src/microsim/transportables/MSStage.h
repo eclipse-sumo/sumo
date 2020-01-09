@@ -90,6 +90,10 @@ public:
         return myArrivalPos;
     }
 
+    void setArrivalPos(double arrivalPos) {
+        myArrivalPos = arrivalPos;
+    }
+
     /// Returns the current edge
     virtual const MSEdge* getEdge() const;
     virtual const MSEdge* getFromEdge() const;
