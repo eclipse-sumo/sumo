@@ -4,5 +4,11 @@
 # persontrip triggers taxi call
 1persontrip
 
+# persontrip is too short so walking is used instead
+persontrip_short
+
+# walk to the next road edge and use taxi to destination
+persontrip_walk_first
+
 # test taxi device attribute end
 end_of_work
