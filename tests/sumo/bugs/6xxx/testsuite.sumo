@@ -15,3 +15,6 @@ ticket6437
 
 # collision on junction
 ticket6438
+
+# infinite loop when when trying to detect deadlock at right_before_left junction
+ticket6471
