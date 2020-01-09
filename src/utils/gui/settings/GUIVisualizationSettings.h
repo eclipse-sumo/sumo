@@ -211,11 +211,17 @@ struct GUIVisualizationDetectorSettings {
     /// @brief E1 detector widths
     static const double E1Width;
 
+    /// @brief E1 Instant detector heights
+    static const double E1Height;
+
     /// @brief color for E1 Instant detectors
     static const RGBColor E1InstantColor;
 
     /// @brief E1 Instant detector widths
     static const double E1InstantWidth;
+
+    /// @brief E1 Instant detector heights
+    static const double E1InstantHeight;
 
     /// @brief color for E2 detectors
     static const RGBColor E2Color;
@@ -223,17 +229,20 @@ struct GUIVisualizationDetectorSettings {
     /// @brief E2 detector widths
     static const double E2Width;
 
+    /// @brief E3 detector size
+    static const double E3Size;
+
     /// @brief color for Entrys
     static const RGBColor E3EntryColor;
-
-    /// @brief E3 Entry detector widths
-    static const double E3EntryWidth;
 
     /// @brief color for Exits
     static const RGBColor E3ExitColor;
 
-    /// @brief E3 Entry detector widths
-    static const double E3ExitWidth;
+    /// @brief E3 Entry/Exit detector width
+    static const double E3EntryExitWidth;
+
+    /// @brief E3 Entry/Exit detector height
+    static const double E3EntryExitHeight;
 };
 
 

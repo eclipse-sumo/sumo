@@ -293,12 +293,17 @@ GNEDetectorE2::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for draw logo
     myBlockIcon.setRotation(getParentLanes().front());
+
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
 void 
 GNEDetectorE2::updateDottedContour() {
-    //
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
+                                          myAdditionalGeometry.getShape(),
+                                          myViewNet->getVisualisationSettings()->detectorSettings.E2Width);
 }
 
 
@@ -332,9 +337,9 @@ GNEDetectorE2::checkE2MultilaneIntegrity() {
 void
 GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double E2Exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if ((myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) && s.drawAdditionals(exaggeration)) {
+    if ((myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) && s.drawAdditionals(E2Exaggeration)) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
@@ -355,22 +360,12 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         // check if we have to drawn a E2 single lane or a E2 multiLane
         if (myAdditionalGeometry.getShape().size() > 0) {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, exaggeration);
-        } else {
-            /*
-            // iterate over multishapes
-            for (int i = 0; i < (int)myAdditionalGeometry.multiShape.size(); i++) {
-                // don't draw shapes over connections if "show connections" is enabled
-                if (!myViewNet->getNetworkViewOptions().showConnections() || (i % 2 == 0)) {
-                    GLHelper::drawBoxLines(myAdditionalGeometry.multiShape.at(i), myAdditionalGeometry.multiShapeRotations.at(i), myAdditionalGeometry.multiShapeLengths.at(i), exaggeration);
-                }
-            }
-            */
+            GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
         }
         // Pop last matrix
         glPopMatrix();
         // Check if the distance is enougth to draw details and isn't being drawn for selecting
-        if ((s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+        if ((s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
             // draw logo depending if this is an Multilane E2 detector
             if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
                 // Push matrix
@@ -382,7 +377,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
                 // move to logo position
                 glTranslated(-0.75, 0, 0);
                 // scale text
-                glScaled(exaggeration, exaggeration, 1);
+                glScaled(E2Exaggeration, E2Exaggeration, 1);
                 // draw E2 logo
                 if (drawUsingSelectColor()) {
                     GLHelper::drawText("E2", Position(), .1, 1.5, s.colorSettings.selectionColor);
@@ -399,7 +394,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
                 //move to logo position
                 glTranslated(-1.5, 0, 0);
                 // scale text
-                glScaled(exaggeration, exaggeration, 1);
+                glScaled(E2Exaggeration, E2Exaggeration, 1);
                 // draw E2 logo
                 if (drawUsingSelectColor()) {
                     GLHelper::drawText("E2", Position(), .1, 1.5, s.colorSettings.selectionColor);
@@ -419,7 +414,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             // pop matrix
             glPopMatrix();
             // Show Lock icon depending of the Edit mode
-            myBlockIcon.drawIcon(s, exaggeration);
+            myBlockIcon.drawIcon(s, E2Exaggeration);
         }
         // Draw name if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
@@ -428,11 +423,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
             if (myAdditionalGeometry.getShape().size() > 0) {
-                GLHelper::drawShapeDottedContourAroundShape(s, getType(), myAdditionalGeometry.getShape(), exaggeration);
-            } else {
-                /*
-                GLHelper::drawShapeDottedContourAroundShape(s, getType(), myAdditionalGeometry.multiShapeUnified, exaggeration);
-                */
+                GNEGeometry::drawShapeDottedContour(s, getType(), E2Exaggeration, myDottedGeometry);
             }
         }
         // Pop name

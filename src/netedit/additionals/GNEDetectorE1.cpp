@@ -123,23 +123,30 @@ GNEDetectorE1::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for logo
     myBlockIcon.setRotation(getParentLanes().front());
+
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
 void
 GNEDetectorE1::updateDottedContour() {
-    //
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
+                                          myAdditionalGeometry.getPosition(),
+                                          myAdditionalGeometry.getRotation(),
+                                          myViewNet->getVisualisationSettings()->detectorSettings.E1Width,
+                                          myViewNet->getVisualisationSettings()->detectorSettings.E1Height);
 }
 
 
 void
 GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double E1Exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
-        // obtain width
-        const double width = (double) 2.0 * s.scale;
+    if (s.drawAdditionals(E1Exaggeration)) {
+        // obtain scaledSize
+        const double scaledWidth = s.detectorSettings.E1Width * 0.5 * s.scale;
         // start drawing
         glPushName(getGlID());
         glLineWidth(1.0);
@@ -154,7 +161,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, getType());
         glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
         glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
-        glScaled(exaggeration, exaggeration, 1);
+        glScaled(E1Exaggeration, E1Exaggeration, 1);
         glBegin(GL_QUADS);
         glVertex2d(-1.0,  2);
         glVertex2d(-1.0, -2);
@@ -167,7 +174,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(0, -2 + .1);
         glEnd();
         // outline if isn't being drawn for selecting
-        if ((width * exaggeration > 1) && !s.drawForRectangleSelection) {
+        if ((scaledWidth * E1Exaggeration > 1) && !s.drawForRectangleSelection) {
             // set color
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectionColor);
@@ -184,7 +191,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         }
         // position indicator if isn't being drawn for selecting
-        if ((width * exaggeration > 1) && !s.drawForRectangleSelection) {
+        if ((scaledWidth * E1Exaggeration > 1) && !s.drawForRectangleSelection) {
             // set color
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectionColor);
@@ -200,7 +207,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         // Pop shape matrix
         glPopMatrix();
         // Check if the distance is enought to draw details and isn't being drawn for selecting
-        if ((s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+        if ((s.drawDetail(s.detailSettings.detectorDetails, E1Exaggeration)) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
             // Push matrix
             glPushMatrix();
             // Traslate to center of detector
@@ -210,7 +217,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
             //move to logo position
             glTranslated(-1, 0, 0);
             // scale text
-            glScaled(exaggeration, exaggeration, 1);
+            glScaled(E1Exaggeration, E1Exaggeration, 1);
             // draw E1 logo
             if (drawUsingSelectColor()) {
                 GLHelper::drawText("E1", Position(), .1, 1.5, s.colorSettings.selectionColor);
@@ -220,7 +227,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
             // pop matrix
             glPopMatrix();
             // Show Lock icon depending of the Edit mode
-            myBlockIcon.drawIcon(s, exaggeration);
+            myBlockIcon.drawIcon(s, E1Exaggeration);
         }
         // Finish draw if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
@@ -228,7 +235,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourRectangle(s, getType(), myAdditionalGeometry.getPosition(), 2, 4, myAdditionalGeometry.getRotation());
+            GNEGeometry::drawShapeDottedContour(s, getType(), E1Exaggeration, myDottedGeometry);
         }
         // pop name
         glPopName();

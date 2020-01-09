@@ -131,6 +131,9 @@ struct GNEGeometry {
         /// @brief update DottedGeometry (using an line shape and a width)
         void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& lineShape, const double width);
 
+        /// @brief update DottedGeometry (using a position, rotation, width and height)
+        void updateDottedGeometry(const GUIVisualizationSettings& s, const Position& position, const double rotation, const double width, const double height);
+        
         /// @brief mark dotted geometry deprecated
         void markDottedGeometryDeprecated();
 
@@ -139,6 +142,9 @@ struct GNEGeometry {
 
         /// @brief get Centroid
         const Position &getCentroid() const;
+
+        /// @brief get rotation
+        double getRotation() const;
 
         /// @brief The shape of the additional element
         const PositionVector& getShape() const;
@@ -156,8 +162,11 @@ struct GNEGeometry {
         /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
 
-        /// @brief Shape's centroid
+        /// @brief shape's centroid
         Position myCentroid;
+
+        /// @brief shape's rotation (only used in certain dotted contours)
+        double myRotation;
 
         /// @brief dotted element shape (note: It's centered in 0,0 due scaling)
         PositionVector myShape;
@@ -173,8 +182,6 @@ struct GNEGeometry {
 
         /// @brief flag to mark dotted geometry depreciated
         bool myDottedGeometryDeprecated;
-
-
 
         /// @brief Invalidated assignment operator
         DottedGeometry& operator=(const DottedGeometry& other) = delete;

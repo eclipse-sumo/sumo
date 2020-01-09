@@ -209,13 +209,16 @@ GNEGeometry::Geometry::calculateShapeRotationsAndLengths() {
 // ---------------------------------------------------------------------------
 
 GNEGeometry::DottedGeometry::DottedGeometry() :
+    myRotation(0),
     myDottedGeometryDeprecated(true) {
 }
 
 
 void
 GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& contourShape) {
-    // first obtain shape's centroid
+    // disable rotation
+    myRotation = 0;
+    // obtain shape's centroid
     myCentroid = contourShape.getCentroid();
     // set new shape
     myShape = contourShape;
@@ -243,22 +246,49 @@ GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings
 
 void 
 GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& lineShape, const double width) {
-    // build contour using line shape
-    PositionVector contourFront = lineShape;
-    PositionVector contourback = contourFront;
-    // move both to side
-    contourFront.move2side(width);
-    contourback.move2side(-width);
-    // reverse contourback
-    contourback = contourback.reverse();
-    // append contourback into contourfront
-    for (auto i : contourback) {
-        contourFront.push_back(i);
+    if (width > 0) {
+        // build contour using line shape
+        PositionVector contourFront = lineShape;
+        PositionVector contourback = contourFront;
+        // move both to side
+        contourFront.move2side(width);
+        contourback.move2side(-width);
+        // reverse contourback
+        contourback = contourback.reverse();
+        // append contourback into contourfront
+        for (auto position : contourback) {
+            contourFront.push_back(position);
+        }
+        // close contourFront
+        contourFront.closePolygon();
+        // updated dotted geometry, but now with a contour shape
+        updateDottedGeometry(s, contourFront);
+    } else {
+        updateDottedGeometry(s, lineShape);
     }
-    // close contourFront
-    contourFront.closePolygon();
-    // updated dotted geometry, but now with a contour shape
-    updateDottedGeometry(s, contourFront);
+}
+
+
+void GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const Position& position, const double rotation, const double width, const double height) {
+    // declare rectangle
+    PositionVector rectangle;
+    // add four 0-0 positions
+    for (int i = 0; i < 4; i++) {
+        rectangle.push_back(Position(0,0));
+    }
+    // adjust every position using width and height in 0,0
+    rectangle[0].add(width, -height);
+    rectangle[1].add(width, height);
+    rectangle[2].add(-width, height);
+    rectangle[3].add(-width, -height);
+    // close rectangle
+    rectangle.closePolygon();
+    // move rectangle to position
+    rectangle.add(position);
+    // update dotted geometry using rectangle
+    updateDottedGeometry(s, rectangle);
+    // set rotation
+    myRotation = rotation;
 }
 
 
@@ -277,6 +307,12 @@ GNEGeometry::DottedGeometry::isGeometryDeprecated() const {
 const Position&
 GNEGeometry::DottedGeometry::getCentroid() const {
     return myCentroid;
+}
+
+
+double 
+GNEGeometry::DottedGeometry::getRotation() const {
+    return myRotation;
 }
 
 
@@ -1019,6 +1055,10 @@ GNEGeometry::drawShapeDottedContour(const GUIVisualizationSettings& s, const int
         // scale matrix depending of the exaggeration
         if (exaggeration != 1) {
             glScaled(exaggeration, exaggeration, 1);
+        }
+        // rotate depending of rotation
+        if (dottedGeometry.getRotation() != 0) {
+            glRotated(dottedGeometry.getRotation(), 0, 0, 1);
         }
         // draw box lines
         GLHelper::drawBoxLines(dottedGeometry.getShape(), 

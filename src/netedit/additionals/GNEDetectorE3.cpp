@@ -35,12 +35,12 @@
 
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name, blockMovement, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-              myPosition(pos),
-              myFreq(freq),
-              myFilename(filename),
-              myVehicleTypes(vehicleTypes),
-              myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold) {
+        myPosition(pos),
+        myFreq(freq),
+        myFilename(filename),
+        myVehicleTypes(vehicleTypes),
+        myTimeThreshold(timeThreshold),
+        mySpeedThreshold(speedThreshold) {
 }
 
 
@@ -60,12 +60,17 @@ GNEDetectorE3::updateGeometry() {
 
     // Update connection's geometry
     myChildConnections.update();
+
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
 void 
 GNEDetectorE3::updateDottedContour() {
-    //
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myPosition, 0,
+                                          myViewNet->getVisualisationSettings()->detectorSettings.E3Size,
+                                          myViewNet->getVisualisationSettings()->detectorSettings.E3Size);
 }
 
 
@@ -125,9 +130,9 @@ GNEDetectorE3::getParentName() const {
 void
 GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double E3Exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if (s.drawAdditionals(E3Exaggeration)) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
@@ -138,24 +143,24 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         glTranslated(myPosition.x(), myPosition.y(), getType());
         // scale
-        glScaled(exaggeration, exaggeration, 1);
+        glScaled(E3Exaggeration, E3Exaggeration, 1);
         // Draw icon depending of detector is selected and if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, E3Exaggeration)) {
             glColor3d(1, 1, 1);
             glRotated(180, 0, 0, 1);
             if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3SELECTED), 1);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3SELECTED), s.detectorSettings.E3Size);
             } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3), 1);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3), s.detectorSettings.E3Size);
             }
         } else {
             GLHelper::setColor(RGBColor::GREY);
-            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+            GLHelper::drawBoxLine(Position(0, s.detectorSettings.E3Size), 0, 2 * s.detectorSettings.E3Size, s.detectorSettings.E3Size);
         }
         // Pop logo matrix
         glPopMatrix();
         // Show Lock icon depending
-        myBlockIcon.drawIcon(s, exaggeration, 0.4);
+        myBlockIcon.drawIcon(s, E3Exaggeration, 0.4);
         // Draw child connections
         drawChildConnections(s, getType());
         // Draw name if isn't being drawn for selecting
@@ -164,7 +169,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, 2, 2);
+            GNEGeometry::drawShapeDottedContour(s, getType(), E3Exaggeration, myDottedGeometry);
             // draw shape dotte contour aroud alld connections between child and parents
             for (auto i : myChildConnections.connectionPositions) {
                 GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);

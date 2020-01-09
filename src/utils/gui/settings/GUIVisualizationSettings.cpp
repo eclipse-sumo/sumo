@@ -80,14 +80,17 @@ const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);
 
 const RGBColor GUIVisualizationDetectorSettings::E1Color(255, 255, 0);
 const double GUIVisualizationDetectorSettings::E1Width(1);
+const double GUIVisualizationDetectorSettings::E1Height(2);
 const RGBColor GUIVisualizationDetectorSettings::E1InstantColor(255, 0, 255);
 const double GUIVisualizationDetectorSettings::E1InstantWidth(1);
+const double GUIVisualizationDetectorSettings::E1InstantHeight(2);
 const RGBColor GUIVisualizationDetectorSettings::E2Color(0, 204, 204);
 const double GUIVisualizationDetectorSettings::E2Width(1);
+const double GUIVisualizationDetectorSettings::E3Size(1);
 const RGBColor GUIVisualizationDetectorSettings::E3EntryColor(0, 92, 64);
-const double GUIVisualizationDetectorSettings::E3EntryWidth(1);
 const RGBColor GUIVisualizationDetectorSettings::E3ExitColor(92, 0, 0);
-const double GUIVisualizationDetectorSettings::E3ExitWidth(1);
+const double GUIVisualizationDetectorSettings::E3EntryExitWidth(1.7);
+const double GUIVisualizationDetectorSettings::E3EntryExitHeight(0.5);
 
 // -------------------------------------------------------------------------
 // StoppingPlace values

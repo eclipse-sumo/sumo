@@ -129,21 +129,28 @@ GNEDetectorEntryExit::updateGeometry() {
 
     // update E3 parent children
     getParentAdditionals().at(0)->updateChildConnections();
+
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
 void 
 GNEDetectorEntryExit::updateDottedContour() {
-    //
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
+                                          myAdditionalGeometry.getPosition(),
+                                          myAdditionalGeometry.getRotation(),
+                                          myViewNet->getVisualisationSettings()->detectorSettings.E3EntryExitWidth,
+                                          myViewNet->getVisualisationSettings()->detectorSettings.E3EntryExitHeight);
 }
 
 
 void
 GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double entryExitExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if (s.drawAdditionals(entryExitExaggeration)) {
         // Start drawing adding gl identificator
         glPushName(getGlID());
         // Push detector matrix
@@ -162,7 +169,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
         glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
-        glScaled(exaggeration, exaggeration, 1);
+        glScaled(entryExitExaggeration, entryExitExaggeration, 1);
         // draw details if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
             // Draw polygon
@@ -198,7 +205,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         // Pop detector matrix
         glPopMatrix();
         // Check if the distance is enought to draw details
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.detectorDetails, exaggeration)) {
+        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.detectorDetails, entryExitExaggeration)) {
             // Push matrix
             glPushMatrix();
             // Traslate to center of detector
@@ -208,7 +215,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             //move to logo position
             glTranslated(1.9, 0, 0);
             // scale
-            glScaled(exaggeration, exaggeration, 1);
+            glScaled(entryExitExaggeration, entryExitExaggeration, 1);
             // draw Entry or Exit logo if isn't being drawn for selecting
             if (s.drawForRectangleSelection || s.drawForPositionSelection) {
                 GLHelper::setColor(s.detectorSettings.E3EntryColor);
@@ -244,7 +251,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             // pop matrix
             glPopMatrix();
             // draw lock icon
-            myBlockIcon.drawIcon(s, exaggeration, 0.4);
+            myBlockIcon.drawIcon(s, entryExitExaggeration, 0.4);
         }
         // Draw name if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
@@ -252,7 +259,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourRectangle(s, getType(), myAdditionalGeometry.getPosition(), 3.4, 5, myAdditionalGeometry.getRotation(), 0, 2);
+            GNEGeometry::drawShapeDottedContour(s, getType(), entryExitExaggeration, myDottedGeometry);
         }
         // pop gl identificator
         glPopName();
