@@ -267,8 +267,11 @@ public:
      */
     bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, double speed, double decel) const;
 
-    /// @brief get the foe vehicle that is closest to the intersection or nullptr along with the foe link
-    std::pair<const SUMOVehicle*, const MSLink*>  getFirstApproachingFoe() const;
+    /** @brief get the foe vehicle that is closest to the intersection or nullptr along with the foe link
+     * This function is used for finding circular deadlock at right_before_left junctions
+     * @param[in] wrapAround The vehicle that shall be returned even when it has yielded its request
+    */
+    std::pair<const SUMOVehicle*, const MSLink*>  getFirstApproachingFoe(const SUMOVehicle* wrapAround) const;
 
     MSJunction* getJunction() const {
         return myJunction;

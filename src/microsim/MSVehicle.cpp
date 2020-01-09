@@ -2695,10 +2695,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         } else if ((*link)->getState() == LINKSTATE_EQUAL && myWaitingTime > 0) {
             // check for deadlock (circular yielding)
             //std::cout << SIMTIME << " veh=" << getID() << " check rbl-deadlock\n";
-            std::pair<const SUMOVehicle*, const MSLink*> blocker = (*link)->getFirstApproachingFoe();
+            std::pair<const SUMOVehicle*, const MSLink*> blocker = (*link)->getFirstApproachingFoe(this);
             //std::cout << "   blocker=" << Named::getIDSecure(blocker.first) << "\n";
             while (blocker.second != nullptr && blocker.second != *link) {
-                blocker = blocker.second->getFirstApproachingFoe();
+                blocker = blocker.second->getFirstApproachingFoe(this);
                 //std::cout << "   blocker=" << Named::getIDSecure(blocker.first) << "\n";
             }
             //std::cout << "   blockerLink=" << blocker.second << " link=" << *link << "\n";
