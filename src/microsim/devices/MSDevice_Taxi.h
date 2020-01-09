@@ -146,6 +146,9 @@ public:
         return myState;
     }
 
+    /// @brief returns a taxi if any exist or nullptr
+    static SUMOVehicle* getTaxi();
+
     /// @brief service the given reservation
     void dispatch(const Reservation& res);
 

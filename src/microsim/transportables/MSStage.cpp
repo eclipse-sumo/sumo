@@ -229,6 +229,11 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->id = transportable->getID() + "_0";
             pars.back()->departProcedure = DEPART_TRIGGERED;
+        } else if ((myModeSet & SVC_TAXI) != 0) {
+            pars.push_back(new SUMOVehicleParameter());
+            pars.back()->vtypeid = DEFAULT_TAXITYPE_ID;
+            pars.back()->id = transportable->getID() + "_taxi";
+            pars.back()->line = "taxi";
         } else if ((myModeSet & SVC_BICYCLE) != 0) {
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->vtypeid = DEFAULT_BIKETYPE_ID;
@@ -255,18 +260,24 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
     // TODO This works currently only for a single vehicle type
     for (SUMOVehicleParameter* vehPar : pars) {
         SUMOVehicle* vehicle = nullptr;
+        bool isTaxi = false;
         if (vehPar != nullptr) {
+            isTaxi = vehPar->vtypeid == DEFAULT_TAXITYPE_ID && vehPar->line == "taxi";
             if (myDepartPos != 0) {
                 vehPar->departPosProcedure = DEPART_POS_GIVEN;
                 vehPar->departPos = myDepartPos;
                 vehPar->parametersSet |= VEHPARS_DEPARTPOS_SET;
             }
-            MSVehicleType* type = vehControl.getVType(vehPar->vtypeid);
-            if (type->getVehicleClass() != SVC_IGNORING && (myOrigin->getPermissions() & type->getVehicleClass()) == 0) {
-                WRITE_WARNING("Ignoring vehicle type '" + type->getID() + "' when routing person '" + transportable->getID() + "' because it is not allowed on the start edge.");
+            if (isTaxi) {
+                vehicle = MSDevice_Taxi::getTaxi();
             } else {
-                const MSRoute* const routeDummy = new MSRoute(vehPar->id, ConstMSEdgeVector({ myOrigin }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
-                vehicle = vehControl.buildVehicle(vehPar, routeDummy, type, !MSGlobals::gCheckRoutes);
+                MSVehicleType* type = vehControl.getVType(vehPar->vtypeid);
+                if (type->getVehicleClass() != SVC_IGNORING && (myOrigin->getPermissions() & type->getVehicleClass()) == 0) {
+                    WRITE_WARNING("Ignoring vehicle type '" + type->getID() + "' when routing person '" + transportable->getID() + "' because it is not allowed on the start edge.");
+                } else {
+                    const MSRoute* const routeDummy = new MSRoute(vehPar->id, ConstMSEdgeVector({ myOrigin }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
+                    vehicle = vehControl.buildVehicle(vehPar, routeDummy, type, !MSGlobals::gCheckRoutes);
+                }
             }
         }
         bool carUsed = false;
@@ -294,6 +305,9 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                         }
                         previous = new MSPerson::MSPersonStage_Walking(transportable->getID(), it->edges, bs, myDuration, mySpeed, depPos, localArrivalPos, myDepartPosLat);
                         transportable->appendStage(previous, stageIndex++);
+                    } else if (isTaxi) {
+                        previous = new MSStageDriving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ "taxi" }));
+                        transportable->appendStage(previous, stageIndex++);
                     } else if (vehicle != nullptr && it->line == vehicle->getID()) {
                         if (bs == nullptr && it + 1 != result.end()) {
                             // we have no defined endpoint and are in the middle of the trip, drive as far as possible
@@ -318,7 +332,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                 return "No connection found between edge '" + myOrigin->getID() + "' and edge '" + (myDestinationStop != nullptr ? myDestinationStop->getID() : myDestination->getID()) + "' for person '" + transportable->getID() + "'.";
             }
         }
-        if (vehicle != nullptr && !carUsed) {
+        if (vehicle != nullptr && !isTaxi && !carUsed) {
             vehControl.deleteVehicle(vehicle, true);
         }
     }

@@ -151,6 +151,16 @@ MSDevice_Taxi::~MSDevice_Taxi() {
 }
 
 
+SUMOVehicle*
+MSDevice_Taxi::getTaxi() {
+    if (myFleet.size() > 0) {
+        return &myFleet[0]->getHolder();
+    } else {
+        return nullptr;
+    }
+}
+
+
 void
 MSDevice_Taxi::dispatch(const Reservation& res) {
     if (isEmpty()) {

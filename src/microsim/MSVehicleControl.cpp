@@ -240,7 +240,7 @@ MSVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
             firstEdge->addWaiting(v);
             registerOneWaiting(pars.departProcedure == DEPART_TRIGGERED);
         }
-        if (pars.line != "" && pars.repetitionNumber < 0) {
+        if (v->getVClass() != SVC_TAXI && pars.line != "" && pars.repetitionNumber < 0) {
             myPTVehicles.push_back(v);
         }
         return true;
