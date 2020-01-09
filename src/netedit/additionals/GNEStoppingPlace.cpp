@@ -56,12 +56,6 @@ myFriendlyPosition(friendlyPosition) {
 GNEStoppingPlace::~GNEStoppingPlace() {}
 
 
-void 
-GNEStoppingPlace::updateDottedContour() {
-
-}
-
-
 bool
 GNEStoppingPlace::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"
@@ -291,7 +285,7 @@ GNEStoppingPlace::getParentName() const {
 void
 GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     // Get value of option "lefthand"
-    double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+    const double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // obtain laneShape
     PositionVector laneShape = getParentLanes().front()->getLaneShape();

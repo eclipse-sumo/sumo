@@ -58,9 +58,6 @@ public:
     /// @brief Destructor
     ~GNEStoppingPlace();
 
-    /// @brief update dotted contour
-    void updateDottedContour();
-
     /// @name members and functions relative to write additionals into XML
     /// @{
     /// @brief check if current additional is valid to be writed into XML
@@ -93,6 +90,9 @@ public:
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
+
+    /// @brief update dotted contour
+    virtual void updateDottedContour() = 0;
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;

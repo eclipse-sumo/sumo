@@ -126,7 +126,10 @@ struct GNEGeometry {
         DottedGeometry();
 
         /// @brief update DottedGeometry (using an existent shape)
-        void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& shape);
+        void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& contourShape);
+
+        /// @brief update DottedGeometry (using an line shape and a width)
+        void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& lineShape, const double width);
 
         /// @brief mark dotted geometry deprecated
         void markDottedGeometryDeprecated();

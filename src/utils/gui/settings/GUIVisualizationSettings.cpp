@@ -84,6 +84,7 @@ const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);
 // -------------------------------------------------------------------------
 
 const double GUIVisualizationStoppingPlaceSettings::stoppingPlaceSignOffset(1.5);
+const double GUIVisualizationStoppingPlaceSettings::busStopWidth(1);
 const RGBColor GUIVisualizationStoppingPlaceSettings::busStopColor(76, 170, 50);
 const RGBColor GUIVisualizationStoppingPlaceSettings::busStopColorSign(255, 235, 0);
 const double GUIVisualizationStoppingPlaceSettings::containerStopWidth(1);

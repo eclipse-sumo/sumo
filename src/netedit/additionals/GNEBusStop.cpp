@@ -94,6 +94,14 @@ GNEBusStop::updateGeometry() {
 }
 
 
+void 
+GNEBusStop::updateDottedContour() {
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
+                                          myAdditionalGeometry.getShape(),
+                                          myViewNet->getVisualisationSettings()->stoppingPlaceSettings.busStopWidth);
+}
+
+
 Boundary
 GNEBusStop::getCenteringBoundary() const {
     return myAdditionalGeometry.getShape().getBoxBoundary().grow(10);
@@ -103,9 +111,9 @@ GNEBusStop::getCenteringBoundary() const {
 void
 GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double busStopExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if (s.drawAdditionals(busStopExaggeration)) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
@@ -121,7 +129,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
         }
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, exaggeration);
+        GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, s.stoppingPlaceSettings.busStopWidth * busStopExaggeration);
         // Check if the distance is enought to draw details and if is being drawn for selecting
         if (s.drawForRectangleSelection) {
             // only draw circle depending of distance between sign and mouse cursor
@@ -131,7 +139,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 // Start drawing sign traslating matrix to signal position
                 glTranslated(mySignPos.x(), mySignPos.y(), 0);
                 // scale matrix depending of the exaggeration
-                glScaled(exaggeration, exaggeration, 1);
+                glScaled(busStopExaggeration, busStopExaggeration, 1);
                 // set color
                 GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
                 // Draw circle
@@ -139,7 +147,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 // pop draw matrix
                 glPopMatrix();
             }
-        } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
+        } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, busStopExaggeration)) {
             // draw lines between BusStops and Acces
             for (auto i : getChildAdditionals()) {
                 GLHelper::drawBoxLine(i->getAdditionalGeometry().getPosition(),
@@ -148,7 +156,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // Add a draw matrix for details
             glPushMatrix();
             // draw lines depending of detailSettings
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration) && !s.drawForPositionSelection) {
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, busStopExaggeration) && !s.drawForPositionSelection) {
                 // Iterate over every line
                 for (int i = 0; i < (int)myLines.size(); ++i) {
                     // push a new matrix for every line
@@ -169,7 +177,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // Start drawing sign traslating matrix to signal position
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             // scale matrix depending of the exaggeration
-            glScaled(exaggeration, exaggeration, 1);
+            glScaled(busStopExaggeration, busStopExaggeration, 1);
             // Set color of the externe circle
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
@@ -189,7 +197,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw another circle in the same position, but a little bit more small
             GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
             // draw H depending of detailSettings
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration) && !s.drawForPositionSelection) {
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, busStopExaggeration) && !s.drawForPositionSelection) {
                 if (drawUsingSelectColor()) {
                     GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
                 } else {
@@ -199,7 +207,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // pop draw matrix
             glPopMatrix();
             // Show Lock icon depending of the Edit mode
-            myBlockIcon.drawIcon(s, exaggeration);
+            myBlockIcon.drawIcon(s, busStopExaggeration);
         }
         // pop draw matrix
         glPopMatrix();
@@ -210,7 +218,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myAdditionalGeometry.getShape(), exaggeration);
+            GNEGeometry::drawShapeDottedContour(s, getType(), busStopExaggeration, myDottedGeometry);
         }
         // Pop name
         glPopName();

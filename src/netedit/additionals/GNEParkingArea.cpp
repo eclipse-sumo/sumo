@@ -86,6 +86,12 @@ GNEParkingArea::updateGeometry() {
 }
 
 
+void 
+GNEParkingArea::updateDottedContour() {
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myAdditionalGeometry.getShape(), myWidth);
+}
+
+
 Boundary
 GNEParkingArea::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
@@ -110,9 +116,9 @@ GNEParkingArea::splitEdgeGeometry(const double /*splitPosition*/, const GNENetEl
 void
 GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double parkingAreaExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if (s.drawAdditionals(parkingAreaExaggeration)) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
@@ -130,7 +136,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.stoppingPlaceSettings.parkingAreaColor);
         }
         // Draw base
-        GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, myWidth * exaggeration);
+        GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, myWidth * parkingAreaExaggeration);
         // Check if the distance is enought to draw details and if is being drawn for selecting
         if (s.drawForRectangleSelection) {
             // only draw circle depending of distance between sign and mouse cursor
@@ -140,7 +146,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 // Start drawing sign traslating matrix to signal position
                 glTranslated(mySignPos.x(), mySignPos.y(), 0);
                 // scale matrix depending of the exaggeration
-                glScaled(exaggeration, exaggeration, 1);
+                glScaled(parkingAreaExaggeration, parkingAreaExaggeration, 1);
                 // set color
                 GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
                 // Draw circle
@@ -148,13 +154,13 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 // pop draw matrix
                 glPopMatrix();
             }
-        } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
+        } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, parkingAreaExaggeration)) {
             // Push matrix for details
             glPushMatrix();
             // Set position over sign
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             // Scale matrix
-            glScaled(exaggeration, exaggeration, 1);
+            glScaled(parkingAreaExaggeration, parkingAreaExaggeration, 1);
             // Set base color
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
@@ -174,7 +180,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // Draw internt sign
             GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
             // Draw sign 'C'
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration) && !s.drawForPositionSelection) {
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, parkingAreaExaggeration) && !s.drawForPositionSelection) {
                 if (drawUsingSelectColor()) {
                     GLHelper::drawText("P", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
                 } else {
@@ -184,7 +190,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // Pop sign matrix
             glPopMatrix();
             // Draw icon
-            myBlockIcon.drawIcon(s, exaggeration);
+            myBlockIcon.drawIcon(s, parkingAreaExaggeration);
         }
         // Pop base matrix
         glPopMatrix();
@@ -195,7 +201,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myAdditionalGeometry.getShape(), myWidth * exaggeration);
+            GNEGeometry::drawShapeDottedContour(s, getType(), parkingAreaExaggeration, myDottedGeometry);
         }
         // Pop name matrix
         glPopName();

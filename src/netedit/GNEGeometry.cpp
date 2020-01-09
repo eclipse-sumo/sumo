@@ -214,11 +214,11 @@ GNEGeometry::DottedGeometry::DottedGeometry() :
 
 
 void
-GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& shape) {
+GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& contourShape) {
     // first obtain shape's centroid
-    myCentroid = shape.getCentroid();
+    myCentroid = contourShape.getCentroid();
     // set new shape
-    myShape = shape;
+    myShape = contourShape;
     // subs Centroid (to set myShape in 0,0. It's needed due scaling)
     myShape.sub(myCentroid);
     // set new resampled shape
@@ -238,6 +238,27 @@ GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings
     calculateShapeRotationsAndLengths();
     // set geometry updated
     myDottedGeometryDeprecated = false;
+}
+
+
+void 
+GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& lineShape, const double width) {
+    // build contour using line shape
+    PositionVector contourFront = lineShape;
+    PositionVector contourback = contourFront;
+    // move both to side
+    contourFront.move2side(width);
+    contourback.move2side(-width);
+    // reverse contourback
+    contourback = contourback.reverse();
+    // append contourback into contourfront
+    for (auto i : contourback) {
+        contourFront.push_back(i);
+    }
+    // close contourFront
+    contourFront.closePolygon();
+    // updated dotted geometry, but now with a contour shape
+    updateDottedGeometry(s, contourFront);
 }
 
 

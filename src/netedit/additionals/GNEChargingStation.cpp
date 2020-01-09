@@ -53,7 +53,7 @@ GNEChargingStation::~GNEChargingStation() {}
 void
 GNEChargingStation::updateGeometry() {
     // Get value of option "lefthand"
-    double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+    const double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Update common geometry of stopping place
     setStoppingPlaceGeometry(0);
@@ -75,6 +75,14 @@ GNEChargingStation::updateGeometry() {
 }
 
 
+void 
+GNEChargingStation::updateDottedContour() {
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
+                                          myAdditionalGeometry.getShape(),
+                                          myViewNet->getVisualisationSettings()->stoppingPlaceSettings.chargingStationWidth);
+}
+
+
 Boundary
 GNEChargingStation::getCenteringBoundary() const {
     return myAdditionalGeometry.getShape().getBoxBoundary().grow(10);
@@ -84,9 +92,9 @@ GNEChargingStation::getCenteringBoundary() const {
 void
 GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Get exaggeration
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double chargingStationExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if (s.drawAdditionals(chargingStationExaggeration)) {
         // Push name
         glPushName(getGlID());
         // Push base matrix
@@ -100,7 +108,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.stoppingPlaceSettings.chargingStationColor);
         }
         // Draw base
-        GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, exaggeration);
+        GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, s.stoppingPlaceSettings.chargingStationWidth * chargingStationExaggeration);
         // Check if the distance is enought to draw details and if is being drawn for selecting
         if (s.drawForRectangleSelection) {
             // only draw circle depending of distance between sign and mouse cursor
@@ -110,7 +118,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                 // Start drawing sign traslating matrix to signal position
                 glTranslated(mySignPos.x(), mySignPos.y(), 0);
                 // scale matrix depending of the exaggeration
-                glScaled(exaggeration, exaggeration, 1);
+                glScaled(chargingStationExaggeration, chargingStationExaggeration, 1);
                 // set color
                 GLHelper::setColor(s.stoppingPlaceSettings.chargingStationColor);
                 // Draw circle
@@ -118,11 +126,11 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                 // pop draw matrix
                 glPopMatrix();
             }
-        } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
+        } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, chargingStationExaggeration)) {
             // Push matrix for details
             glPushMatrix();
             // draw power depending of detailSettings
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration) && !s.drawForPositionSelection) {
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, chargingStationExaggeration) && !s.drawForPositionSelection) {
                 // push a new matrix for charging power
                 glPushMatrix();
                 // draw line with a color depending of the selection status
@@ -137,7 +145,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // Set position over sign
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             // Scale matrix
-            glScaled(exaggeration, exaggeration, 1);
+            glScaled(chargingStationExaggeration, chargingStationExaggeration, 1);
             // Set base color
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
@@ -157,7 +165,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // Draw internt sign
             GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
             // Draw sign 'C' depending of detail settings
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration) && !s.drawForPositionSelection) {
+            if (s.drawDetail(s.detailSettings.stoppingPlaceText, chargingStationExaggeration) && !s.drawForPositionSelection) {
                 if (drawUsingSelectColor()) {
                     GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
                 } else {
@@ -167,7 +175,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // Pop sign matrix
             glPopMatrix();
             // Draw icon
-            myBlockIcon.drawIcon(s, exaggeration);
+            myBlockIcon.drawIcon(s, chargingStationExaggeration);
         }
         // Pop base matrix
         glPopMatrix();
@@ -178,7 +186,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myAdditionalGeometry.getShape(), exaggeration);
+            GNEGeometry::drawShapeDottedContour(s, getType(), chargingStationExaggeration, myDottedGeometry);
         }
         // Pop name matrix
         glPopName();
