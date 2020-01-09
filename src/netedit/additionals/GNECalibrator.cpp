@@ -94,6 +94,11 @@ GNECalibrator::updateGeometry() {
 }
 
 
+void GNECalibrator::updateDottedContour() {
+    //
+}
+
+
 Position
 GNECalibrator::getPositionInView() const {
     PositionVector shape = (getParentLanes().size() > 0) ? getParentLanes().front()->getLaneShape() : getParentEdges().front()->getLanes().at(0)->getLaneShape();

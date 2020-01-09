@@ -178,7 +178,7 @@ public:
     /// @}
 
     /// @brief update dotted contour
-    void updateDottedContour();
+    virtual void updateDottedContour() = 0;
 
     /// @brief Returns a pointer to GNEViewNet in which additional element is located
     GNEViewNet* getViewNet() const;

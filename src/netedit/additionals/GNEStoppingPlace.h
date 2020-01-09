@@ -58,6 +58,9 @@ public:
     /// @brief Destructor
     ~GNEStoppingPlace();
 
+    /// @brief update dotted contour
+    void updateDottedContour();
+
     /// @name members and functions relative to write additionals into XML
     /// @{
     /// @brief check if current additional is valid to be writed into XML

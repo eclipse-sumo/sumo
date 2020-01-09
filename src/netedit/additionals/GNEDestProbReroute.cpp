@@ -65,7 +65,13 @@ GNEDestProbReroute::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEDestProbReroute::updateGeometry() {
-    // Currently this additional doesn't own a Geometry
+    // This additional doesn't own a geometry
+}
+
+
+void 
+GNEDestProbReroute::updateDottedContour() {
+    // This additional doesn't own a dotted contour
 }
 
 

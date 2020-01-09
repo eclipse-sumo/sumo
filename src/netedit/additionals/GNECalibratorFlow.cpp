@@ -86,7 +86,12 @@ GNECalibratorFlow::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNECalibratorFlow::updateGeometry() {
-    // Currently this additional doesn't own a Geometry
+    // This additional doesn't own a geometry
+}
+
+
+void GNECalibratorFlow::updateDottedContour() {
+    // This additional doesn't own a dotted contour
 }
 
 

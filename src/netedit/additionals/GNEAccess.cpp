@@ -95,6 +95,12 @@ GNEAccess::updateGeometry() {
 }
 
 
+void 
+GNEAccess::updateDottedContour() {
+    //
+}
+
+
 Position
 GNEAccess::getPositionInView() const {
     if (myPositionOverLane == -1) {

@@ -67,7 +67,12 @@ GNEClosingReroute::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEClosingReroute::updateGeometry() {
-    // Currently this additional doesn't own a Geometry
+    // This additional doesn't own a geometry
+}
+
+
+void GNEClosingReroute::updateDottedContour() {
+    // This additional doesn't own a dotted contour
 }
 
 

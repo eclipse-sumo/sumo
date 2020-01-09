@@ -70,6 +70,12 @@ GNETAZ::updateGeometry() {
 }
 
 
+void 
+GNETAZ::updateDottedContour() {
+    //
+}
+
+
 Position
 GNETAZ::getPositionInView() const {
     return myTAZShape.getCentroid();

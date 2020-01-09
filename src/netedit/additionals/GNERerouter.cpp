@@ -65,6 +65,11 @@ GNERerouter::updateGeometry() {
 }
 
 
+void GNERerouter::updateDottedContour() {
+    //
+}
+
+
 Position
 GNERerouter::getPositionInView() const {
     return myPosition;

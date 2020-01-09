@@ -76,6 +76,12 @@ GNERouteProbe::updateGeometry() {
 }
 
 
+void 
+GNERouteProbe::updateDottedContour() {
+    //
+}
+
+
 Position
 GNERouteProbe::getPositionInView() const {
     if (getParentEdges().front()->getLanes().front()->getLaneShape().length() < 0.5) {

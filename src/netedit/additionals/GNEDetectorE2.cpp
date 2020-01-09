@@ -296,6 +296,12 @@ GNEDetectorE2::updateGeometry() {
 }
 
 
+void 
+GNEDetectorE2::updateDottedContour() {
+    //
+}
+
+
 double
 GNEDetectorE2::getLength() const {
     return myLength;

@@ -64,7 +64,13 @@ GNEParkingAreaReroute::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEParkingAreaReroute::updateGeometry() {
-    // Currently this additional doesn't own a Geometry
+    // This additional doesn't own a geometry
+}
+
+
+void 
+GNEParkingAreaReroute::updateDottedContour() {
+    // This additional doesn't own a dotted contour
 }
 
 

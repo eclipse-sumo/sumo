@@ -61,6 +61,12 @@ GNEVariableSpeedSign::updateGeometry() {
 }
 
 
+void 
+GNEVariableSpeedSign::updateDottedContour() {
+    //
+}
+
+
 Position
 GNEVariableSpeedSign::getPositionInView() const {
     return myPosition;

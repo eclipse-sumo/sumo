@@ -70,6 +70,12 @@ GNEVaporizer::updateGeometry() {
 }
 
 
+void 
+GNEVaporizer::updateDottedContour() {
+    //
+}
+
+
 Position
 GNEVaporizer::getPositionInView() const {
     if (getParentEdges().front()->getLanes().front()->getLaneShape().length() < 2.5) {

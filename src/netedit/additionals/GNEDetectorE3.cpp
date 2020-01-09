@@ -63,6 +63,12 @@ GNEDetectorE3::updateGeometry() {
 }
 
 
+void 
+GNEDetectorE3::updateDottedContour() {
+    //
+}
+
+
 Position
 GNEDetectorE3::getPositionInView() const {
     return myPosition;

@@ -132,6 +132,12 @@ GNEDetectorEntryExit::updateGeometry() {
 }
 
 
+void 
+GNEDetectorEntryExit::updateDottedContour() {
+    //
+}
+
+
 void
 GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values

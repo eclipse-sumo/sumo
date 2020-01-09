@@ -56,6 +56,12 @@ myFriendlyPosition(friendlyPosition) {
 GNEStoppingPlace::~GNEStoppingPlace() {}
 
 
+void 
+GNEStoppingPlace::updateDottedContour() {
+
+}
+
+
 bool
 GNEStoppingPlace::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"

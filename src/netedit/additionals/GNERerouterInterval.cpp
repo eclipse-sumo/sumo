@@ -62,7 +62,12 @@ GNERerouterInterval::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNERerouterInterval::updateGeometry() {
-    // Currently this additional doesn't own a Geometry
+    // This additional doesn't own a geometry
+}
+
+
+void GNERerouterInterval::updateDottedContour() {
+    // This additional doesn't own a dotted contour
 }
 
 

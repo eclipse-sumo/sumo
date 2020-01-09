@@ -66,7 +66,12 @@ GNETAZSourceSink::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNETAZSourceSink::updateGeometry() {
-    // Currently this additional doesn't own a Geometry
+    // This additional doesn't own a geometry
+}
+
+void 
+GNETAZSourceSink::updateDottedContour() {
+    // This additional doesn't own a dotted contour
 }
 
 

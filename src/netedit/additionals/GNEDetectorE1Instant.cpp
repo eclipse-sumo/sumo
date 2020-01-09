@@ -126,6 +126,11 @@ GNEDetectorE1Instant::updateGeometry() {
 }
 
 
+void GNEDetectorE1Instant::updateDottedContour() {
+    //
+}
+
+
 void
 GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw

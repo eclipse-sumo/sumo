@@ -70,6 +70,12 @@ GNEParkingSpace::updateGeometry() {
 }
 
 
+void 
+GNEParkingSpace::updateDottedContour() {
+    //
+}
+
+
 Position
 GNEParkingSpace::getPositionInView() const {
     return myPosition;
