@@ -12,3 +12,6 @@ ticket3981
 
 # invalid tls link index in output network
 ticket5513
+
+# connection from patch file is missing
+ticket6470
