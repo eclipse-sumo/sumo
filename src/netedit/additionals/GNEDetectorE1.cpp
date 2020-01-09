@@ -147,7 +147,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(s.colorSettings.E1);
+            GLHelper::setColor(s.detectorSettings.E1Color);
         }
         // draw shape
         glPushMatrix();

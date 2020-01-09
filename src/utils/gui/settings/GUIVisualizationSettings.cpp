@@ -64,11 +64,6 @@ const RGBColor GUIVisualizationColorSettings::childConnections(255, 235, 0);
 const RGBColor GUIVisualizationColorSettings::crossing(25, 25, 25);
 const RGBColor GUIVisualizationColorSettings::crossingPriority(229, 229, 229);
 const RGBColor GUIVisualizationColorSettings::crossingInvalid(255, 25, 25);
-const RGBColor GUIVisualizationColorSettings::E1(255, 255, 0);
-const RGBColor GUIVisualizationColorSettings::E1Instant(255, 0, 255);
-const RGBColor GUIVisualizationColorSettings::E2(0, 204, 204);
-const RGBColor GUIVisualizationColorSettings::E3Entry(0, 92, 64);
-const RGBColor GUIVisualizationColorSettings::E3Exit(92, 0, 0);
 const RGBColor GUIVisualizationColorSettings::calibrator(255, 204, 0);
 const RGBColor GUIVisualizationColorSettings::routeProbe(255, 216, 0);
 const RGBColor GUIVisualizationColorSettings::vaporizer(120, 216, 0);
@@ -78,6 +73,21 @@ const RGBColor GUIVisualizationColorSettings::personStops(255, 0, 0);
 const RGBColor GUIVisualizationColorSettings::personTrip(200, 0, 255);
 const RGBColor GUIVisualizationColorSettings::walk(0, 255, 0);
 const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);
+
+// -------------------------------------------------------------------------
+// detector values
+// -------------------------------------------------------------------------
+
+const RGBColor GUIVisualizationDetectorSettings::E1Color(255, 255, 0);
+const double GUIVisualizationDetectorSettings::E1Width(1);
+const RGBColor GUIVisualizationDetectorSettings::E1InstantColor(255, 0, 255);
+const double GUIVisualizationDetectorSettings::E1InstantWidth(1);
+const RGBColor GUIVisualizationDetectorSettings::E2Color(0, 204, 204);
+const double GUIVisualizationDetectorSettings::E2Width(1);
+const RGBColor GUIVisualizationDetectorSettings::E3EntryColor(0, 92, 64);
+const double GUIVisualizationDetectorSettings::E3EntryWidth(1);
+const RGBColor GUIVisualizationDetectorSettings::E3ExitColor(92, 0, 0);
+const double GUIVisualizationDetectorSettings::E3ExitWidth(1);
 
 // -------------------------------------------------------------------------
 // StoppingPlace values
@@ -96,8 +106,8 @@ const RGBColor GUIVisualizationStoppingPlaceSettings::chargingStationColorSign(2
 const RGBColor GUIVisualizationStoppingPlaceSettings::chargingStationColorCharge(255, 180, 0);
 const RGBColor GUIVisualizationStoppingPlaceSettings::parkingAreaColor(83, 89, 172);
 const RGBColor GUIVisualizationStoppingPlaceSettings::parkingAreaColorSign(177, 184, 186);
-const RGBColor GUIVisualizationStoppingPlaceSettings::parkingSpaceColor(0, 255, 0);
-const RGBColor GUIVisualizationStoppingPlaceSettings::parkingSpaceColorInnen(255, 200, 200);
+const RGBColor GUIVisualizationStoppingPlaceSettings::parkingSpaceColorContour(0, 255, 0);
+const RGBColor GUIVisualizationStoppingPlaceSettings::parkingSpaceColor(255, 200, 200);
 
 // -------------------------------------------------------------------------
 // Dotted contour values

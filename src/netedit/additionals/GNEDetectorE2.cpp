@@ -347,7 +347,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             // set color depending if is or isn't valid
             if (myE2valid) {
-                GLHelper::setColor(s.colorSettings.E2);
+                GLHelper::setColor(s.detectorSettings.E2Color);
             } else {
                 GLHelper::setColor(RGBColor::RED);
             }

@@ -950,7 +950,7 @@ GNELane::drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEA
     if (E2Detector->drawUsingSelectColor()) {
         E2DetectorColor = s.colorSettings.selectedRouteColor;
     } else {
-        E2DetectorColor = s.colorSettings.E2;
+        E2DetectorColor = s.detectorSettings.E2Color;
     }
     // Start drawing adding an gl identificator
     glPushName(E2Detector->getGlID());

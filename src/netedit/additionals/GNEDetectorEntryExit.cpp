@@ -153,9 +153,9 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-            GLHelper::setColor(s.colorSettings.E3Entry);
+            GLHelper::setColor(s.detectorSettings.E3EntryColor);
         } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-            GLHelper::setColor(s.colorSettings.E3Exit);
+            GLHelper::setColor(s.detectorSettings.E3ExitColor);
         }
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         // Push polygon matrix
@@ -211,14 +211,14 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             glScaled(exaggeration, exaggeration, 1);
             // draw Entry or Exit logo if isn't being drawn for selecting
             if (s.drawForRectangleSelection || s.drawForPositionSelection) {
-                GLHelper::setColor(s.colorSettings.E3Entry);
+                GLHelper::setColor(s.detectorSettings.E3EntryColor);
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
             } else if (drawUsingSelectColor()) {
                 GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.selectedAdditionalColor);
             } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.E3Entry);
+                GLHelper::drawText("E3", Position(), .1, 2.8, s.detectorSettings.E3EntryColor);
             } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.E3Exit);
+                GLHelper::drawText("E3", Position(), .1, 2.8, s.detectorSettings.E3ExitColor);
             }
             //move to logo position
             glTranslated(1.7, 0, 0);
@@ -226,7 +226,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             glRotated(90, 0, 0, 1);
             // draw Entry or Exit text if isn't being drawn for selecting
             if (s.drawForRectangleSelection || s.drawForPositionSelection) {
-                GLHelper::setColor(s.colorSettings.E3Entry);
+                GLHelper::setColor(s.detectorSettings.E3EntryColor);
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
             } else if (drawUsingSelectColor()) {
                 if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
@@ -236,9 +236,9 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
                 }
             } else {
                 if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                    GLHelper::drawText("Entry", Position(), .1, 1, s.colorSettings.E3Entry);
+                    GLHelper::drawText("Entry", Position(), .1, 1, s.detectorSettings.E3EntryColor);
                 } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                    GLHelper::drawText("Exit", Position(), .1, 1, s.colorSettings.E3Exit);
+                    GLHelper::drawText("Exit", Position(), .1, 1, s.detectorSettings.E3ExitColor);
                 }
             }
             // pop matrix

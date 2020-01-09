@@ -173,21 +173,6 @@ struct GUIVisualizationColorSettings {
     /// @brief color for invalid crossing
     static const RGBColor crossingInvalid;
 
-    /// @brief color for E1 detectors
-    static const RGBColor E1;
-
-    /// @brief color for E1 Instant detectors
-    static const RGBColor E1Instant;
-
-    /// @brief color for E2 detectors
-    static const RGBColor E2;
-
-    /// @brief color for Entrys
-    static const RGBColor E3Entry;
-
-    /// @brief color for Exits
-    static const RGBColor E3Exit;
-
     /// @brief color for Calibrators
     static const RGBColor calibrator;
 
@@ -214,6 +199,41 @@ struct GUIVisualizationColorSettings {
 
     /// @brief color for rides
     static const RGBColor ride;
+};
+
+
+/// @brief struct for color settings
+struct GUIVisualizationDetectorSettings {
+
+    /// @brief color for E1 detectors
+    static const RGBColor E1Color;
+
+    /// @brief E1 detector widths
+    static const double E1Width;
+
+    /// @brief color for E1 Instant detectors
+    static const RGBColor E1InstantColor;
+
+    /// @brief E1 Instant detector widths
+    static const double E1InstantWidth;
+
+    /// @brief color for E2 detectors
+    static const RGBColor E2Color;
+
+    /// @brief E2 detector widths
+    static const double E2Width;
+
+    /// @brief color for Entrys
+    static const RGBColor E3EntryColor;
+
+    /// @brief E3 Entry detector widths
+    static const double E3EntryWidth;
+
+    /// @brief color for Exits
+    static const RGBColor E3ExitColor;
+
+    /// @brief E3 Entry detector widths
+    static const double E3ExitWidth;
 };
 
 
@@ -259,11 +279,11 @@ struct GUIVisualizationStoppingPlaceSettings {
     /// @brief color for parkingArea sign
     static const RGBColor parkingAreaColorSign;
 
-    /// @brief color for parkingArea sign
-    static const RGBColor parkingSpaceColor;
+    /// @brief color for parkingSpace contour
+    static const RGBColor parkingSpaceColorContour;
 
-    /// @brief color for parkingArea innen
-    static const RGBColor parkingSpaceColorInnen;
+    /// @brief color for parkingSpace innen
+    static const RGBColor parkingSpaceColor;
 };
 
 
@@ -706,6 +726,9 @@ public:
 
     /// @brief color settings
     GUIVisualizationColorSettings colorSettings;
+
+    /// @brief Detector settings
+    GUIVisualizationDetectorSettings detectorSettings;
 
     /// @brief StoppingPlace settings
     GUIVisualizationStoppingPlaceSettings stoppingPlaceSettings;
