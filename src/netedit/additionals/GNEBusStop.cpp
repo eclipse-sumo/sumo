@@ -61,7 +61,7 @@ GNEBusStop::updateGeometry() {
     PositionVector tmpShape = myAdditionalGeometry.getShape();
 
     // Move shape to side
-    tmpShape.move2side(1.5 * offsetSign);
+    tmpShape.move2side(myViewNet->getVisualisationSettings()->stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);
 
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
@@ -118,7 +118,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         } else if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(s.colorSettings.busStop);
+            GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
         }
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
         GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, exaggeration);
@@ -133,7 +133,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 // scale matrix depending of the exaggeration
                 glScaled(exaggeration, exaggeration, 1);
                 // set color
-                GLHelper::setColor(s.colorSettings.busStop);
+                GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
                 // Draw circle
                 GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
                 // pop draw matrix
@@ -160,7 +160,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                     if (drawUsingSelectColor()) {
                         GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.selectionColor, 0, FONS_ALIGN_LEFT);
                     } else {
-                        GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.busStop, 0, FONS_ALIGN_LEFT);
+                        GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.stoppingPlaceSettings.busStopColor, 0, FONS_ALIGN_LEFT);
                     }
                     // pop matrix for every line
                     glPopMatrix();
@@ -174,7 +174,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
             } else {
-                GLHelper::setColor(s.colorSettings.busStop);
+                GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
             }
             // Draw circle
             GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
@@ -184,7 +184,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectionColor);
             } else {
-                GLHelper::setColor(s.colorSettings.busStop_sign);
+                GLHelper::setColor(s.stoppingPlaceSettings.busStopColorSign);
             }
             // draw another circle in the same position, but a little bit more small
             GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
@@ -193,7 +193,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 if (drawUsingSelectColor()) {
                     GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
                 } else {
-                    GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.busStop, myBlockIcon.rotation);
+                    GLHelper::drawText("H", Position(), .1, myCircleInText, s.stoppingPlaceSettings.busStopColor, myBlockIcon.rotation);
                 }
             }
             // pop draw matrix

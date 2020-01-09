@@ -175,7 +175,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(s.colorSettings.busStop);
+            GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
         }
         glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), GLO_ACCESS);
         // draw circle

@@ -127,7 +127,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(s.colorSettings.parkingArea);
+            GLHelper::setColor(s.stoppingPlaceSettings.parkingAreaColor);
         }
         // Draw base
         GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, myWidth * exaggeration);
@@ -142,7 +142,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 // scale matrix depending of the exaggeration
                 glScaled(exaggeration, exaggeration, 1);
                 // set color
-                GLHelper::setColor(s.colorSettings.busStop);
+                GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
                 // Draw circle
                 GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
                 // pop draw matrix
@@ -159,7 +159,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
             } else {
-                GLHelper::setColor(s.colorSettings.parkingArea);
+                GLHelper::setColor(s.stoppingPlaceSettings.parkingAreaColor);
             }
             // Draw extern
             GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
@@ -169,7 +169,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectionColor);
             } else {
-                GLHelper::setColor(s.colorSettings.parkingAreaSign);
+                GLHelper::setColor(s.stoppingPlaceSettings.parkingAreaColorSign);
             }
             // Draw internt sign
             GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
@@ -178,7 +178,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 if (drawUsingSelectColor()) {
                     GLHelper::drawText("P", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
                 } else {
-                    GLHelper::drawText("P", Position(), .1, myCircleInText, s.colorSettings.parkingArea, myBlockIcon.rotation);
+                    GLHelper::drawText("P", Position(), .1, myCircleInText, s.stoppingPlaceSettings.parkingAreaColor, myBlockIcon.rotation);
                 }
             }
             // Pop sign matrix

@@ -121,7 +121,7 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     // draw the area
     glTranslated(0, 0, getType());
-    GLHelper::setColor(s.colorSettings.containerStop);
+    GLHelper::setColor(s.stoppingPlaceSettings.containerStopColor);
     const double exaggeration = s.addSize.getExaggeration(s, this);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
     // draw details unless zoomed out to far
@@ -137,7 +137,7 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
             glRotated(rotSign * myFGSignRot, 0, 0, 1);
             // draw line
-            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.containerStop, 0, FONS_ALIGN_LEFT);
+            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.stoppingPlaceSettings.containerStopColor, 0, FONS_ALIGN_LEFT);
             // pop matrix for every line
             glPopMatrix();
         }
@@ -150,10 +150,10 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         GLHelper::drawFilledCircle((double) 1.1, noPoints);
         glTranslated(0, 0, .1);
-        GLHelper::setColor(s.colorSettings.containerStop_sign);
+        GLHelper::setColor(s.stoppingPlaceSettings.containerStopColorSign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
         if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
-            GLHelper::drawText("C", Position(), .1, 1.6, s.colorSettings.containerStop, myFGSignRot);
+            GLHelper::drawText("C", Position(), .1, 1.6, s.stoppingPlaceSettings.containerStopColor, myFGSignRot);
         }
         glPopMatrix();
     }

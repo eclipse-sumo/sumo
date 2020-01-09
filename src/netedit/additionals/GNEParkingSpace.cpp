@@ -139,7 +139,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
             } else {
-                GLHelper::setColor(s.colorSettings.parkingSpace);
+                GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColor);
             }
             GLHelper::drawBoxLine(Position(0, myLength + 0.05), 0, myLength + 0.1, (myWidth / 2) + 0.05);
         }
@@ -149,7 +149,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(s.colorSettings.parkingSpaceInnen);
+            GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColorInnen);
         }
         GLHelper::drawBoxLine(Position(0, myLength), 0, myLength, myWidth / 2);
         // Traslate matrix and draw lock icon if isn't being drawn for selecting

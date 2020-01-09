@@ -62,7 +62,7 @@ GNEChargingStation::updateGeometry() {
     PositionVector tmpShape = myAdditionalGeometry.getShape();
 
     // Move shape to side
-    tmpShape.move2side(1.5 * offsetSign);
+    tmpShape.move2side(myViewNet->getVisualisationSettings()->stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);
 
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
@@ -97,7 +97,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(s.colorSettings.chargingStation);
+            GLHelper::setColor(s.stoppingPlaceSettings.chargingStationColor);
         }
         // Draw base
         GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, exaggeration);
@@ -112,7 +112,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                 // scale matrix depending of the exaggeration
                 glScaled(exaggeration, exaggeration, 1);
                 // set color
-                GLHelper::setColor(s.colorSettings.chargingStation);
+                GLHelper::setColor(s.stoppingPlaceSettings.chargingStationColor);
                 // Draw circle
                 GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
                 // pop draw matrix
@@ -129,7 +129,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                 if (drawUsingSelectColor()) {
                     GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.colorSettings.selectionColor, myBlockIcon.rotation, FONS_ALIGN_LEFT);
                 } else {
-                    GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.colorSettings.chargingStation, myBlockIcon.rotation, FONS_ALIGN_LEFT);
+                    GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.stoppingPlaceSettings.chargingStationColor, myBlockIcon.rotation, FONS_ALIGN_LEFT);
                 }
                 // pop matrix for charging power
                 glPopMatrix();
@@ -142,7 +142,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
             } else {
-                GLHelper::setColor(s.colorSettings.chargingStation);
+                GLHelper::setColor(s.stoppingPlaceSettings.chargingStationColor);
             }
             // Draw extern
             GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
@@ -152,7 +152,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectionColor);
             } else {
-                GLHelper::setColor(s.colorSettings.chargingStation_sign);
+                GLHelper::setColor(s.stoppingPlaceSettings.chargingStationColorSign);
             }
             // Draw internt sign
             GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
@@ -161,7 +161,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                 if (drawUsingSelectColor()) {
                     GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
                 } else {
-                    GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.chargingStation, myBlockIcon.rotation);
+                    GLHelper::drawText("C", Position(), .1, myCircleInText, s.stoppingPlaceSettings.chargingStationColor, myBlockIcon.rotation);
                 }
             }
             // Pop sign matrix

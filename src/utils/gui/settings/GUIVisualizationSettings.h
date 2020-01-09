@@ -173,39 +173,6 @@ struct GUIVisualizationColorSettings {
     /// @brief color for invalid crossing
     static const RGBColor crossingInvalid;
 
-    /// @brief color for busStops
-    static const RGBColor busStop;
-
-    /// @brief color for busStops signs
-    static const RGBColor busStop_sign;
-
-    /// @brief color for containerStops
-    static const RGBColor containerStop;
-
-    /// @brief color for containerStop signs
-    static const RGBColor containerStop_sign;
-
-    /// @brief color for chargingStations
-    static const RGBColor chargingStation;
-
-    /// @brief color for chargingStation sign
-    static const RGBColor chargingStation_sign;
-
-    /// @brief color for chargingStation during charging
-    static const RGBColor chargingStation_charge;
-
-    /// @brief color for parkingAreas
-    static const RGBColor parkingArea;
-
-    /// @brief color for parkingArea sign
-    static const RGBColor parkingAreaSign;
-
-    /// @brief color for parkingArea sign
-    static const RGBColor parkingSpace;
-
-    /// @brief color for parkingArea innen
-    static const RGBColor parkingSpaceInnen;
-
     /// @brief color for E1 detectors
     static const RGBColor E1;
 
@@ -249,6 +216,57 @@ struct GUIVisualizationColorSettings {
     static const RGBColor ride;
 };
 
+
+/// @brief struct for color settings
+struct GUIVisualizationStoppingPlaceSettings {
+
+    /// @brief busStop offset
+    static const double stoppingPlaceSignOffset;
+
+    /// @brief busStop width
+    static const double busStopWidth;
+
+    /// @brief color for busStops
+    static const RGBColor busStopColor;
+
+    /// @brief color for busStops signs
+    static const RGBColor busStopColorSign;
+
+    /// @brief containerStop width
+    static const double containerStopWidth;
+
+    /// @brief color for containerStops
+    static const RGBColor containerStopColor;
+
+    /// @brief color for containerStop signs
+    static const RGBColor containerStopColorSign;
+
+    /// @brief chargingStation width
+    static const double chargingStationWidth;
+
+    /// @brief color for chargingStations
+    static const RGBColor chargingStationColor;
+
+    /// @brief color for chargingStation sign
+    static const RGBColor chargingStationColorSign;
+
+    /// @brief color for chargingStation during charging
+    static const RGBColor chargingStationColorCharge;
+
+    /// @brief color for parkingAreas
+    static const RGBColor parkingAreaColor;
+
+    /// @brief color for parkingArea sign
+    static const RGBColor parkingAreaColorSign;
+
+    /// @brief color for parkingArea sign
+    static const RGBColor parkingSpaceColor;
+
+    /// @brief color for parkingArea innen
+    static const RGBColor parkingSpaceColorInnen;
+};
+
+
 /// @brief struct for dotted contour settings
 struct GUIVisualizationDottedContourSettings {
     
@@ -264,6 +282,7 @@ struct GUIVisualizationDottedContourSettings {
     /// @brief second color of dotted contour
     static const RGBColor secondColor;
 };
+
 
 /// @brief struct for width settings
 struct GUIVisualizationWidthSettings {
@@ -687,6 +706,9 @@ public:
 
     /// @brief color settings
     GUIVisualizationColorSettings colorSettings;
+
+    /// @brief StoppingPlace settings
+    GUIVisualizationStoppingPlaceSettings stoppingPlaceSettings;
 
     /// @brief dotted contour settings
     GUIVisualizationDottedContourSettings dottedContourSettings;
