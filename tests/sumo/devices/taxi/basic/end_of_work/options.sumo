@@ -1,4 +1,4 @@
 --no-step-log --no-duration-log --net-file=net.net.xml
 -r input_routes.rou.xml
 --tripinfo-output tripinfos.xml
--e 300
+-e 1000

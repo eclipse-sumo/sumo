@@ -10,6 +10,7 @@
     </trip>
     <trip id="trip_1" type="taxi" depart="0.00" from="A2B2" to="B2C2">
         <stop lane="A2B2_1" triggered="person"/>
+        <param key="device.taxi.end" value="500"/>
     </trip>
 
     <person id="p0" depart="0.00">
