@@ -839,7 +839,8 @@ public:
                                 double speed = UNSPECIFIED_SPEED,
                                 const PositionVector& customShape = PositionVector::EMPTY,
                                 const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
-                                SVCPermissions = SVC_UNSPECIFIED);
+                                SVCPermissions = SVC_UNSPECIFIED,
+                                bool postProcess = false);
 
     /** @brief Builds no connections starting at the given lanes
      *
@@ -884,7 +885,8 @@ public:
                        double speed = UNSPECIFIED_SPEED,
                        const PositionVector& customShape = PositionVector::EMPTY,
                        const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
-                       SVCPermissions permissions = SVC_UNSPECIFIED);
+                       SVCPermissions permissions = SVC_UNSPECIFIED,
+                       bool postProcess = false);
 
     /** @brief Returns connections from a given lane
      *

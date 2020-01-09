@@ -994,7 +994,8 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                double speed,
                                const PositionVector& customShape,
                                bool uncontrolled,
-                               SVCPermissions permissions) {
+                               SVCPermissions permissions,
+                               bool postProcess) {
     if (myStep == EdgeBuildingStep::INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -1007,7 +1008,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape, uncontrolled, permissions);
+    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape, uncontrolled, permissions, postProcess);
 }
 
 
@@ -1039,7 +1040,8 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       double speed,
                       const PositionVector& customShape,
                       bool uncontrolled,
-                      SVCPermissions permissions) {
+                      SVCPermissions permissions,
+                      bool postProcess) {
     if (myStep == EdgeBuildingStep::INIT_REJECT_CONNECTIONS) {
         return false;
     }
@@ -1092,6 +1094,18 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
             // ok, let's only not recheck it if we did no add something that has to be rechecked
             if (myStep != EdgeBuildingStep::LANES2LANES_RECHECK) {
                 myStep = EdgeBuildingStep::LANES2LANES_DONE;
+            }
+        }
+    }
+    if (postProcess) {
+        // override earlier delete decision
+        for (std::vector<Connection>::iterator it = myConnectionsToDelete.begin(); it != myConnectionsToDelete.end();) {
+            if ((it->fromLane < 0 || it->fromLane == lane)
+                    && (it->toEdge == nullptr || it->toEdge == destEdge)
+                    && (it->toLane < 0 || it->toLane == destLane)) {
+                it = myConnectionsToDelete.erase(it);
+            } else {
+                it++;
             }
         }
     }
