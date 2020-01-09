@@ -38,6 +38,15 @@ A person can be defined as taxi customer with the following definition:
     </person>
 ```
 
+## Intermodal Routing
+A person can also use a taxi by including it as a personTrip mode:
+
+```
+    <person id="p0" depart="0.00">
+        <personTrip from="B2C2" to="A0B0" modes="taxi"/>
+    </person>
+```
+
 # Dispatch
 The dispatch algorithm assigns taxis to waiting customers. The algorithm is
 selected using option **--device.taxi.dispatch-algorithm ALGONAME**. The following
@@ -53,6 +62,19 @@ algorithms are available
 
 !!! note
     User-contributed dispatch algorithms are welcome.
+
+# Taxi Behavior
+To make a taxi stay in the simulation it receives a stop with attribute ```triggered="person"``` after servicing a customer.
+It is recommended to also define such a stop in the xml input so that the taxi can wait for the first customer.
+
+By default, taxis will remain in the simulation until all persons have left. To make them leave the simulation at an erliert time, the end time can be defined using a generic parameter in their ```vType``` or ```vehicle```-definition:
+
+```
+    <vType id="taxi" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+        <param key="device.taxi.end" value="3600"/>
+    </vType>
+ ```
 
 # Outputs
 
