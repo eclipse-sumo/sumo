@@ -154,4 +154,7 @@ ride_trip
 ride_trip_access
 trip_output
 trip_output_geo
+
+# use mode taxi
+taxi
 errors
