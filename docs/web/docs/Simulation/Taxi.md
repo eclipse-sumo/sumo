@@ -39,7 +39,7 @@ A person can be defined as taxi customer with the following definition:
 ```
 
 ## Intermodal Routing
-A person can also use a taxi by including it as a personTrip mode:
+A person can also use a taxi by including it as a [personTrip](../Specification/Persons.md#persontrips) mode:
 
 ```
     <person id="p0" depart="0.00">
