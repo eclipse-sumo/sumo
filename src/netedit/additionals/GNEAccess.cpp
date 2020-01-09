@@ -92,6 +92,8 @@ GNEAccess::updateGeometry() {
     myBlockIcon.offset = Position(-1, 0);
     // Set block icon rotation, and using their rotation for logo
     myBlockIcon.setRotation(getParentLanes().front());
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 

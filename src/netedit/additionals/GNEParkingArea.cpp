@@ -83,6 +83,9 @@ GNEParkingArea::updateGeometry() {
     if (!myMove.movingGeometryBoundary.isInitialised()) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
+
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 

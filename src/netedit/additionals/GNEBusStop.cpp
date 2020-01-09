@@ -91,6 +91,9 @@ GNEBusStop::updateGeometry() {
         }
         i->updatePartialGeometry(edge);
     }
+
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 

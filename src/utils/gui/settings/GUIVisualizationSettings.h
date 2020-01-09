@@ -173,15 +173,6 @@ struct GUIVisualizationColorSettings {
     /// @brief color for invalid crossing
     static const RGBColor crossingInvalid;
 
-    /// @brief color for Calibrators
-    static const RGBColor calibrator;
-
-    /// @brief color for route probes
-    static const RGBColor routeProbe;
-
-    /// @brief color for vaporizers
-    static const RGBColor vaporizer;
-
     /// @brief color for Stops
     static const RGBColor stops;
 
@@ -202,7 +193,45 @@ struct GUIVisualizationColorSettings {
 };
 
 
-/// @brief struct for color settings
+/// @brief struct for additional settings
+struct GUIVisualizationAdditionalSettings {
+
+    /// @brief color for rerouters
+    static const RGBColor rerouterColor;
+
+    /// @brief rerouter size
+    static const double rerouterSize;
+
+    /// @brief color for VSS
+    static const RGBColor VSSColor;
+
+    /// @brief VSS size
+    static const double VSSSize;
+
+    /// @brief color for Calibrators
+    static const RGBColor calibratorColor;
+
+    /// @brief Calibrator width
+    static const double calibratorWidth;
+
+    /// @brief Calibrator height
+    static const double calibratorHeight;
+
+    /// @brief color for route probes
+    static const RGBColor routeProbeColor;
+
+    /// @brief RouteProbe size
+    static const double routeProbeSize;
+
+    /// @brief color for vaporizers
+    static const RGBColor vaporizerColor;
+
+    /// @brief Vaporizer size
+    static const double vaporizerSize;
+};
+
+
+/// @brief struct for detector settings
 struct GUIVisualizationDetectorSettings {
 
     /// @brief color for E1 detectors
@@ -246,7 +275,7 @@ struct GUIVisualizationDetectorSettings {
 };
 
 
-/// @brief struct for color settings
+/// @brief struct for stoppingPlace settings
 struct GUIVisualizationStoppingPlaceSettings {
 
     /// @brief busStop offset
@@ -735,6 +764,9 @@ public:
 
     /// @brief color settings
     GUIVisualizationColorSettings colorSettings;
+
+    /// @brief Additional settings
+    GUIVisualizationAdditionalSettings additionalSettings;
 
     /// @brief Detector settings
     GUIVisualizationDetectorSettings detectorSettings;

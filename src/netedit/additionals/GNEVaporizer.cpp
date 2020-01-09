@@ -38,9 +38,9 @@
 GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name) :
     GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, {
     edge
-}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myBegin(begin),
-myEnd(end) {
+    }, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myBegin(begin),
+    myEnd(end) {
 }
 
 
@@ -67,12 +67,19 @@ GNEVaporizer::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for logo
     myBlockIcon.setRotation(firstLane);
+
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
 void 
 GNEVaporizer::updateDottedContour() {
-    //
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
+                                          myAdditionalGeometry.getPosition(), 
+                                          myAdditionalGeometry.getRotation(),
+                                          myViewNet->getVisualisationSettings()->additionalSettings.vaporizerSize,
+                                          myViewNet->getVisualisationSettings()->additionalSettings.vaporizerSize);
 }
 
 
@@ -123,9 +130,9 @@ GNEVaporizer::getParentName() const {
 void
 GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double vaporizerExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if (s.drawAdditionals(vaporizerExaggeration)) {
         // get values
         const int numberOfLanes = int(getParentEdges().front()->getLanes().size());
         const double width = (double) 2.0 * s.scale;
@@ -136,14 +143,14 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(s.colorSettings.vaporizer);
+            GLHelper::setColor(s.additionalSettings.vaporizerColor);
         }
         // draw shape
         glPushMatrix();
         glTranslated(0, 0, getType());
         glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
         glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
-        glScaled(exaggeration, exaggeration, 1);
+        glScaled(vaporizerExaggeration, vaporizerExaggeration, 1);
         glTranslated(-1.6, -1.6, 0);
         glBegin(GL_QUADS);
         glVertex2d(0,  0.25);
@@ -157,7 +164,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(0, -0.25 + .1);
         glEnd();
         // draw position indicator (White) if isn't being drawn for selecting
-        if ((width * exaggeration > 1) && !s.drawForRectangleSelection) {
+        if ((width * vaporizerExaggeration > 1) && !s.drawForRectangleSelection) {
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectionColor);
             } else {
@@ -177,27 +184,27 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
         glTranslated((-2.56), (-1.6), 0);
         // Draw icon depending of Vaporizer is selected and if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, vaporizerExaggeration)) {
             glColor3d(1, 1, 1);
             glRotated(-90, 0, 0, 1);
             if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZERSELECTED), 1);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZERSELECTED), s.additionalSettings.vaporizerSize);
             } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZER), 1);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZER), s.additionalSettings.vaporizerSize);
             }
         } else {
-            GLHelper::setColor(s.colorSettings.vaporizer);
-            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+            GLHelper::setColor(s.additionalSettings.vaporizerColor);
+            GLHelper::drawBoxLine(Position(0, s.additionalSettings.vaporizerSize), 0, 2 * s.additionalSettings.vaporizerSize, s.additionalSettings.vaporizerSize);
         }
         // Pop logo matrix
         glPopMatrix();
         // Show Lock icon
-        myBlockIcon.drawIcon(s, exaggeration, 0.4);
+        myBlockIcon.drawIcon(s, vaporizerExaggeration, 0.4);
         // draw name
         drawName(getPositionInView(), s.scale, s.addName);
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourRectangle(s, getType(), myAdditionalGeometry.getPosition(), 2, 2, myAdditionalGeometry.getRotation(), -2.56, -1.6);
+            GNEGeometry::drawShapeDottedContour(s, getType(), vaporizerExaggeration, myDottedGeometry);
         }
         // pop name
         glPopName();

@@ -62,11 +62,19 @@ GNERerouter::updateGeometry() {
 
     // update connection positions
     myChildConnections.update();
+    
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
-void GNERerouter::updateDottedContour() {
-    //
+void 
+GNERerouter::updateDottedContour() {
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
+                                          myAdditionalGeometry.getPosition(), 
+                                          myAdditionalGeometry.getRotation(),
+                                          myViewNet->getVisualisationSettings()->additionalSettings.rerouterSize,
+                                          myViewNet->getVisualisationSettings()->additionalSettings.rerouterSize);
 }
 
 
@@ -132,9 +140,9 @@ GNERerouter::getParentName() const {
 void
 GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double rerouterExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if (s.drawAdditionals(rerouterExaggeration)) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
@@ -145,9 +153,9 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         glTranslated(myPosition.x(), myPosition.y(), getType());
         // scale
-        glScaled(exaggeration, exaggeration, 1);
+        glScaled(rerouterExaggeration, rerouterExaggeration, 1);
         // Draw icon depending of detector is selected and if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, rerouterExaggeration)) {
             glColor3d(1, 1, 1);
             glRotated(180, 0, 0, 1);
             if (drawUsingSelectColor()) {
@@ -162,11 +170,12 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         // Pop draw matrix
         glPopMatrix();
         // Show Lock icon
-        myBlockIcon.drawIcon(s, exaggeration, 0.4);
+        myBlockIcon.drawIcon(s, rerouterExaggeration, 0.4);
         // Draw child connections
         drawChildConnections(s, getType());
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
+            GNEGeometry::drawShapeDottedContour(s, getType(), rerouterExaggeration, myDottedGeometry);
             GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, 2, 2);
             // draw shape dotte contour aroud alld connections between child and parents
             for (auto i : myChildConnections.connectionPositions) {

@@ -91,11 +91,14 @@ GNECalibrator::updateGeometry() {
     } else {
         throw ProcessError("Both edges and lanes aren't defined");
     }
+
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
 void GNECalibrator::updateDottedContour() {
-    //
+    //GLHelper::drawShapeDottedContourRectangle(s, getType(), pos, 2.8, 6, rot, 0, 3);
 }
 
 
@@ -316,16 +319,16 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     if (drawUsingSelectColor()) {
         GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(s.colorSettings.calibrator);
+        GLHelper::setColor(s.additionalSettings.calibratorColor);
     }
     // base
     glBegin(GL_TRIANGLES);
-    glVertex2d(0 - 1.4, 0);
-    glVertex2d(0 - 1.4, 6);
-    glVertex2d(0 + 1.4, 6);
-    glVertex2d(0 + 1.4, 0);
-    glVertex2d(0 - 1.4, 0);
-    glVertex2d(0 + 1.4, 6);
+    glVertex2d(0 - s.additionalSettings.calibratorWidth, 0);
+    glVertex2d(0 - s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight);
+    glVertex2d(0 + s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight);
+    glVertex2d(0 + s.additionalSettings.calibratorWidth, 0);
+    glVertex2d(0 - s.additionalSettings.calibratorWidth, 0);
+    glVertex2d(0 + s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight);
     glEnd();
     // draw text if isn't being drawn for selecting
     if (!s.drawForRectangleSelection && !s.drawForPositionSelection && s.drawDetail(s.detailSettings.calibratorText, exaggeration)) {
@@ -345,7 +348,7 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     glPopMatrix();
     // check if dotted contour has to be drawn
     if (myViewNet->getDottedAC() == this) {
-        GLHelper::drawShapeDottedContourRectangle(s, getType(), pos, 2.8, 6, rot, 0, 3);
+        GNEGeometry::drawShapeDottedContour(s, getType(), exaggeration, myDottedGeometry);
     }
 }
 

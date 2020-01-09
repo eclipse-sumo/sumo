@@ -64,15 +64,28 @@ const RGBColor GUIVisualizationColorSettings::childConnections(255, 235, 0);
 const RGBColor GUIVisualizationColorSettings::crossing(25, 25, 25);
 const RGBColor GUIVisualizationColorSettings::crossingPriority(229, 229, 229);
 const RGBColor GUIVisualizationColorSettings::crossingInvalid(255, 25, 25);
-const RGBColor GUIVisualizationColorSettings::calibrator(255, 204, 0);
-const RGBColor GUIVisualizationColorSettings::routeProbe(255, 216, 0);
-const RGBColor GUIVisualizationColorSettings::vaporizer(120, 216, 0);
 const RGBColor GUIVisualizationColorSettings::stops(220, 20, 30);
 const RGBColor GUIVisualizationColorSettings::vehicleTrips(255, 128, 0);
 const RGBColor GUIVisualizationColorSettings::personStops(255, 0, 0);
 const RGBColor GUIVisualizationColorSettings::personTrip(200, 0, 255);
 const RGBColor GUIVisualizationColorSettings::walk(0, 255, 0);
 const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);
+
+// -------------------------------------------------------------------------
+// additional values
+// -------------------------------------------------------------------------
+
+const RGBColor GUIVisualizationAdditionalSettings::rerouterColor(255, 0, 0);
+const double GUIVisualizationAdditionalSettings::rerouterSize(1);
+const RGBColor GUIVisualizationAdditionalSettings::VSSColor(255, 255, 255);
+const double GUIVisualizationAdditionalSettings::VSSSize(1);
+const RGBColor GUIVisualizationAdditionalSettings::calibratorColor(255, 204, 0);
+const double GUIVisualizationAdditionalSettings::calibratorWidth(1.4);
+const double GUIVisualizationAdditionalSettings::calibratorHeight(6);
+const RGBColor GUIVisualizationAdditionalSettings::routeProbeColor(255, 216, 0);
+const double GUIVisualizationAdditionalSettings::routeProbeSize(1);
+const RGBColor GUIVisualizationAdditionalSettings::vaporizerColor(120, 216, 0);
+const double GUIVisualizationAdditionalSettings::vaporizerSize(1);
 
 // -------------------------------------------------------------------------
 // detector values

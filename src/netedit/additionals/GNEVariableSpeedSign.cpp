@@ -58,12 +58,17 @@ GNEVariableSpeedSign::updateGeometry() {
 
     // update child connections
     myChildConnections.update();
+
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
 void 
 GNEVariableSpeedSign::updateDottedContour() {
-    //
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myPosition, 0,
+                                          myViewNet->getVisualisationSettings()->detectorSettings.E3Size,
+                                          myViewNet->getVisualisationSettings()->detectorSettings.E3Size);
 }
 
 

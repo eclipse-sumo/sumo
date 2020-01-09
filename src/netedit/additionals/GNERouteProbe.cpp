@@ -73,12 +73,19 @@ GNERouteProbe::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for logo
     myBlockIcon.setRotation(firstLane);
+
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
 void 
 GNERouteProbe::updateDottedContour() {
-    //
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
+                                          myAdditionalGeometry.getPosition(), 
+                                          myAdditionalGeometry.getRotation(),
+                                          myViewNet->getVisualisationSettings()->additionalSettings.routeProbeSize,
+                                          myViewNet->getVisualisationSettings()->additionalSettings.routeProbeSize);
 }
 
 
@@ -128,9 +135,9 @@ GNERouteProbe::getParentName() const {
 void
 GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double routeProbeExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if (s.drawAdditionals(routeProbeExaggeration)) {
         // get values
         const double width = (double) 2.0 * s.scale;
         const int numberOfLanes = int(getParentEdges().front()->getLanes().size());
@@ -141,14 +148,14 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(s.colorSettings.routeProbe);
+            GLHelper::setColor(s.additionalSettings.routeProbeColor);
         }
         // draw shape
         glPushMatrix();
         glTranslated(0, 0, getType());
         glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
         glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
-        glScaled(exaggeration, exaggeration, 1);
+        glScaled(routeProbeExaggeration, routeProbeExaggeration, 1);
         glTranslated(-1.6, -1.6, 0);
         glBegin(GL_QUADS);
         glVertex2d(0,  0.25);
@@ -162,7 +169,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(0, -0.25 + .1);
         glEnd();
         // position indicator (White)
-        if ((width * exaggeration > 1) && !s.drawForRectangleSelection) {
+        if ((width * routeProbeExaggeration > 1) && !s.drawForRectangleSelection) {
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectionColor);
             } else {
@@ -182,27 +189,27 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
         glTranslated((-2.56) - myRelativePositionY, (-1.6), 0);
         // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, routeProbeExaggeration)) {
             glColor3d(1, 1, 1);
             glRotated(-90, 0, 0, 1);
             if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBESELECTED), 1);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBESELECTED), s.additionalSettings.routeProbeSize);
             } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBE), 1);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBE), s.additionalSettings.routeProbeSize);
             }
         } else {
-            GLHelper::setColor(s.colorSettings.routeProbe);
-            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+            GLHelper::setColor(s.additionalSettings.routeProbeColor);
+            GLHelper::drawBoxLine(Position(0, s.additionalSettings.routeProbeSize), 0, 2 * s.additionalSettings.routeProbeSize, s.additionalSettings.routeProbeSize);
         }
         // Pop logo matrix
         glPopMatrix();
         // Show Lock icon depending of the Edit mode
-        myBlockIcon.drawIcon(s, exaggeration, 0.4);
+        myBlockIcon.drawIcon(s, routeProbeExaggeration, 0.4);
         // draw name
         drawName(getPositionInView(), s.scale, s.addName);
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourRectangle(s, getType(), myAdditionalGeometry.getPosition(), 2, 2, myAdditionalGeometry.getRotation(), (-2.56) - myRelativePositionY, -1.6);
+            GNEGeometry::drawShapeDottedContour(s, getType(), routeProbeExaggeration, myDottedGeometry);
         }
         // pop name
         glPopName();
