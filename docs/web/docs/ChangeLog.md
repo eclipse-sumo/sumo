@@ -18,6 +18,9 @@ permalink: /ChangeLog/
 
 - MESO
   - Fixed invalid simulation state when vehicles are teleporting. Issue #6408
+  
+- NETCONVERT
+  - Fixed bug where loaded connection was not created. Issue #6470
 
 - TraCI
   - Context subscriptions can now be removed individually from the python client (before every unsubscribeContext removed all)
