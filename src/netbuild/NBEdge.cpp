@@ -51,9 +51,10 @@
 //#define DEBUG_ANGLES
 //#define DEBUG_NODE_BORDER
 //#define DEBUG_REPLACECONNECTION
-#define DEBUGCOND (getID() == "71746014#2")
+#define DEBUGID "-27143339"
+#define DEBUGCOND (getID() == DEBUGID)
 //#define DEBUGCOND (getID() == "22762377#1" || getID() == "146511467")
-#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == "71746014#2"))
+#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == DEBUGID))
 
 // ===========================================================================
 // static members
@@ -2135,7 +2136,7 @@ bool
 NBEdge::computeEdge2Edges(bool noLeftMovers) {
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) {
-        std::cout << "computeEdge2Edges  edge=" << getID() << " step=" << myStep << "\n";
+        std::cout << "computeEdge2Edges  edge=" << getID() << " step=" << (int)myStep << "\n";
         for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
             std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
         }
@@ -2168,7 +2169,7 @@ bool
 NBEdge::computeLanes2Edges() {
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) {
-        std::cout << "computeLanes2Edges edge=" << getID() << " step=" << myStep << "\n";
+        std::cout << "computeLanes2Edges edge=" << getID() << " step=" << (int)myStep << "\n";
         for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
             std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
         }
