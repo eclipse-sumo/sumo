@@ -227,7 +227,7 @@ possible to switch to a car or bicycle after a different mode.
 | via        | string   | valid edge ids                                | \-      | ids of the intermediate edges (not implemented yet)           |
 | busStop    | string   | valid bus stop ids                            | \-      | id of the destination stop                                    |
 | vTypes     | list     | valid vType ids                               | \-      | list of possible vehicle types to take                        |
-| modes      | list     | any combination of "public", "car", "bicycle" | \-      | list of possible traffic modes (separated by ' '). Walking is always possible regardless of this value.     |
+| modes      | list     | any combination of "public", "car", "bicycle", ["taxi"](../Simulation/Taxi.md) | \-      | list of possible traffic modes (separated by ' '). Walking is always possible regardless of this value.     |
 | departPos  | float(m) |                                               | 0       | initial position on the starting edge (deprecated, determined by the departPos of the person or the arrival pos of the previous step) |
 | arrivalPos | float(m) |                                               | \-eps   | arrival position on the destination edge                      |
 
