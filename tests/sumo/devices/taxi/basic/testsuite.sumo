@@ -1,4 +1,8 @@
+# use a ride definition to call a taxi
 1person
+
+# persontrip triggers taxi call
+1persontrip
 
 # test taxi device attribute end
 end_of_work
