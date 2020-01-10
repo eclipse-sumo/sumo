@@ -1,0 +1,9 @@
+set(netedit_elements_data_SRCS
+   GNEDataSet.h
+   GNEDataSet.cpp
+   GNEDataInterval.h
+   GNEDataInterval.cpp
+   )
+
+add_library(netedit_elements_data STATIC ${netedit_elements_data_SRCS})
+set_property(TARGET netedit_elements_data PROPERTY PROJECT_LABEL "z_netedit_elements_data")

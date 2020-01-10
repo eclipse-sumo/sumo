@@ -1,6 +1,7 @@
 add_subdirectory(net)
 add_subdirectory(additional)
 add_subdirectory(demand)
+add_subdirectory(data)
 
 set(netedit_elements_SRCS
    GNEAttributeCarrier.h

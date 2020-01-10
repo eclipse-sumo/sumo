@@ -717,6 +717,12 @@ GNEAttributeCarrier::TagProperties::isDemandElement() const {
 
 
 bool
+GNEAttributeCarrier::TagProperties::isDataElement() const {
+    return (myTagType & TAGTYPE_DATAELEMENT) != 0;
+}
+
+
+bool
 GNEAttributeCarrier::TagProperties::isStoppingPlace() const {
     return (myTagType & TAGTYPE_STOPPINGPLACE) != 0;
 }
@@ -1472,6 +1478,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     fillStopElements();
     fillPersonElements();
     fillPersonStopElements();
+    fillDataElements();
     // check integrity of all Tags (function checkTagIntegrity() throw an exception if there is an inconsistency)
     for (const auto& i : myTagProperties) {
         i.second.checkTagIntegrity();
@@ -4502,6 +4509,12 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
                                        "Value used for trips that uses this stop");
     myTagProperties[currentTag].addAttribute(attrProperty);
     */
+}
+
+
+void 
+GNEAttributeCarrier::fillDataElements() {
+    //
 }
 
 

@@ -273,19 +273,20 @@ public:
         TAGTYPE_ADDITIONAL =    1 << 1,   // Bus Stops, Charging Stations, Detectors...
         TAGTYPE_SHAPE =         1 << 2,   // POIs, Polygons
         TAGTYPE_DEMANDELEMENT = 1 << 3,   // Routes, Vehicles, Trips...
-        TAGTYPE_TAZ =           1 << 4,   // Traffic Assignment Zones
-        TAGTYPE_STOPPINGPLACE = 1 << 5,   // StoppingPlaces (BusStops, ChargingStations...)
-        TAGTYPE_DETECTOR =      1 << 6,   // Detectors (E1, E2...)
-        TAGTYPE_VTYPE =         1 << 7,   // Vehicle types (vType and pTye)
-        TAGTYPE_VEHICLE =       1 << 8,   // Vehicles (Flows, trips...)
-        TAGTYPE_ROUTE =         1 << 9,   // Routes and embedded routes
-        TAGTYPE_STOP =          1 << 10,  // Stops
-        TAGTYPE_PERSON =        1 << 11,  // Persons
-        TAGTYPE_PERSONPLAN =    1 << 12,  // Person plans (Walks, rides, ...)
-        TAGTYPE_PERSONTRIP =    1 << 13,  // Walks
-        TAGTYPE_WALK =          1 << 14,  // Walks
-        TAGTYPE_RIDE =          1 << 15,  // Rides
-        TAGTYPE_PERSONSTOP =    1 << 16,  // Person stops
+        TAGTYPE_DATAELEMENT =   1 << 4,   // EdgeData, LaneData...
+        TAGTYPE_TAZ =           1 << 5,   // Traffic Assignment Zones
+        TAGTYPE_STOPPINGPLACE = 1 << 6,   // StoppingPlaces (BusStops, ChargingStations...)
+        TAGTYPE_DETECTOR =      1 << 7,   // Detectors (E1, E2...)
+        TAGTYPE_VTYPE =         1 << 8,   // Vehicle types (vType and pTye)
+        TAGTYPE_VEHICLE =       1 << 9,   // Vehicles (Flows, trips...)
+        TAGTYPE_ROUTE =         1 << 10,  // Routes and embedded routes
+        TAGTYPE_STOP =          1 << 11,  // Stops
+        TAGTYPE_PERSON =        1 << 12,  // Persons
+        TAGTYPE_PERSONPLAN =    1 << 13,  // Person plans (Walks, rides, ...)
+        TAGTYPE_PERSONTRIP =    1 << 14,  // Walks
+        TAGTYPE_WALK =          1 << 15,  // Walks
+        TAGTYPE_RIDE =          1 << 16,  // Rides
+        TAGTYPE_PERSONSTOP =    1 << 17,  // Person stops
     };
 
     enum TAGProperty {
@@ -379,6 +380,9 @@ public:
 
         /// @brief return true if tag correspond to a demand element
         bool isDemandElement() const;
+
+        /// @brief return true if tag correspond to a data element
+        bool isDataElement() const;
 
         /// @brief return true if tag correspond to a detector (Only used to group all stoppingPlaces in the output XML)
         bool isStoppingPlace() const;
@@ -851,6 +855,9 @@ private:
 
     /// @brief fill stop person attributes (used by stops and personStps)
     static void fillCommonStopAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill Data elements
+    static void fillDataElements();
 
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
     static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute,
