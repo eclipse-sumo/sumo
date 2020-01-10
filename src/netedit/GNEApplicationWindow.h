@@ -750,6 +750,9 @@ private:
         /// @brief FXMenuCommand for demand supermode
         FXMenuCommand* demandMode;
 
+        /// @brief FXMenuCommand for data supermode
+        FXMenuCommand* dataMode;
+
     private:
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;

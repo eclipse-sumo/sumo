@@ -357,7 +357,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                             glPushMatrix();
                             glTranslated(vertex.x(), vertex.y(), GLO_POLYGON + 0.02);
                             // Change color of vertex and flag mouseOverVertex if mouse is over vertex
-                            if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_MOVE) && (vertex.distanceSquaredTo2D(mousePosition) < vertexWidthSquared)) {
+                            if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_MOVE) && (vertex.distanceSquaredTo2D(mousePosition) < vertexWidthSquared)) {
                                 mouseOverVertex = true;
                                 GLHelper::setColor(invertedColor);
                             } else {
@@ -393,7 +393,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                         }
                     }
                     // check if draw moving hint has to be drawed
-                    if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_MOVE) && (distanceToShape < vertexWidth) &&
+                    if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_MOVE) && (distanceToShape < vertexWidth) &&
                             (mouseOverVertex == false) && (myBlockMovement == false)) {
                         // push matrix
                         glPushMatrix();

@@ -262,7 +262,7 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         // check if menu commands has to be disabled
         NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
         // check if we're in the correct edit mode
-        if ((editMode == GNE_NMODE_CONNECT) || (editMode == GNE_NMODE_TLS) || (editMode == GNE_NMODE_CREATE_EDGE)) {
+        if ((editMode == GNE_NETWORKMODE_CONNECT) || (editMode == GNE_NETWORKMODE_TLS) || (editMode == GNE_NETWORKMODE_CREATE_EDGE)) {
             mcCustomShape->disable();
         }
     }

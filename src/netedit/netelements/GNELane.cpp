@@ -135,7 +135,7 @@ GNELane::updateGeometry() {
         i->updatePartialGeometry(myParentEdge);
     }
     // In Move mode, connections aren't updated
-    if (myNet->getViewNet() && myNet->getViewNet()->getEditModes().networkEditMode != GNE_NMODE_MOVE) {
+    if (myNet->getViewNet() && myNet->getViewNet()->getEditModes().networkEditMode != GNE_NETWORKMODE_MOVE) {
         // Update incoming connections of this lane
         auto incomingConnections = getGNEIncomingConnections();
         for (auto i : incomingConnections) {
@@ -590,13 +590,13 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     // build copy names entry
-    if (editMode != GNE_NMODE_TLS) {
+    if (editMode != GNE_NETWORKMODE_TLS) {
         new FXMenuCommand(ret, "Copy parent edge name to clipboard", nullptr, ret, MID_COPY_EDGE_NAME);
         buildNameCopyPopupEntry(ret);
     }
     // build selection
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    if (editMode != GNE_NMODE_TLS) {
+    if (editMode != GNE_NETWORKMODE_TLS) {
         // build show parameters menu
         buildShowParamsPopupEntry(ret);
         // build position copy entry
@@ -604,7 +604,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     }
     // check if we're in supermode network
     if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
-        if (editMode != GNE_NMODE_CONNECT && editMode != GNE_NMODE_TLS && editMode != GNE_NMODE_CREATE_EDGE) {
+        if (editMode != GNE_NETWORKMODE_CONNECT && editMode != GNE_NETWORKMODE_TLS && editMode != GNE_NETWORKMODE_CREATE_EDGE) {
             // Get icons
             FXIcon* pedestrianIcon = GUIIconSubSys::getIcon(ICON_LANEPEDESTRIAN);
             FXIcon* bikeIcon = GUIIconSubSys::getIcon(ICON_LANEBIKE);
@@ -730,7 +730,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             if (!edgeHasSidewalk && !edgeHasBikelane && !edgeHasBuslane && !edgeHasGreenVerge) {
                 cascadeRemoveSpecialLane->disable();
             }
-        } else if (editMode == GNE_NMODE_TLS) {
+        } else if (editMode == GNE_NETWORKMODE_TLS) {
             if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->controlsEdge(myParentEdge)) {
                 new FXMenuCommand(ret, "Select state for all links from this edge:", nullptr, nullptr, 0);
                 const std::vector<std::string> names = GNEInternalLane::LinkStateNames.getStrings();
@@ -747,7 +747,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         }
         // buildShowParamsPopupEntry(ret, false);
         // build shape positions menu
-        if (editMode != GNE_NMODE_TLS) {
+        if (editMode != GNE_NETWORKMODE_TLS) {
             new FXMenuSeparator(ret);
             const double pos = myLaneGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation());
             const double height = myLaneGeometry.getShape().positionAtOffset2D(myLaneGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation())).z();

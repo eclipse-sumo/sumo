@@ -207,9 +207,9 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         // check if we're handling a selection
         bool handlingSelection = isAttributeCarrierSelected() && (myNet->retrieveJunctions(true).size() > 1);
         // check if menu commands has to be disabled
-        const bool wrongMode = (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_CONNECT) ||
-                               (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) ||
-                               (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_CREATE_EDGE);
+        const bool wrongMode = (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_CONNECT) ||
+                               (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_TLS) ||
+                               (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_CREATE_EDGE);
         // create menu commands
         FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom junction shape", nullptr, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
         FXMenuCommand* mcResetCustomShape = new FXMenuCommand(ret, "Reset junction shape", nullptr, &parent, MID_GNE_JUNCTION_RESET_SHAPE);
@@ -1208,7 +1208,7 @@ GNEJunction::setResponsible(bool newVal) {
 void
 GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s) const {
     // draw TLS icon if isn't being drawn for selecting
-    if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) &&
+    if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_TLS) &&
             (myNBNode->isTLControlled()) && !myAmTLSSelected && !s.drawForRectangleSelection) {
         glPushMatrix();
         Position pos = myNBNode->getPosition();

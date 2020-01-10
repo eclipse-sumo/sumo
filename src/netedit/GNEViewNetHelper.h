@@ -42,66 +42,80 @@ enum Supermode {
     GNE_SUPERMODE_NONE,
     /// @brief Network mode (Edges, junctions, etc..)
     GNE_SUPERMODE_NETWORK,
-    ///@brief Demanding mode (Routes, Vehicles etc..)
-    GNE_SUPERMODE_DEMAND
+    ///@brief Demand mode (Routes, Vehicles etc..)
+    GNE_SUPERMODE_DEMAND,
+    ///@brief Data mode (edgeData, LaneData etc..)
+    GNE_SUPERMODE_DATA
 };
 
 /// @brie enum for network edit modes
 enum NetworkEditMode {
     /// @brief empty Network mode
-    GNE_NMODE_NONE,
+    GNE_NETWORKMODE_NONE,
     ///@brief mode for inspecting network elements
-    GNE_NMODE_INSPECT,
+    GNE_NETWORKMODE_INSPECT,
     ///@brief mode for deleting network elements
-    GNE_NMODE_DELETE,
+    GNE_NETWORKMODE_DELETE,
     ///@brief mode for selecting network elements
-    GNE_NMODE_SELECT,
+    GNE_NETWORKMODE_SELECT,
     ///@brief mode for moving network elements
-    GNE_NMODE_MOVE,
+    GNE_NETWORKMODE_MOVE,
     ///@brief mode for creating new edges
-    GNE_NMODE_CREATE_EDGE,
+    GNE_NETWORKMODE_CREATE_EDGE,
     ///@brief mode for connecting lanes
-    GNE_NMODE_CONNECT,
+    GNE_NETWORKMODE_CONNECT,
     ///@brief mode for editing tls
-    GNE_NMODE_TLS,
+    GNE_NETWORKMODE_TLS,
     ///@brief Mode for editing additionals
-    GNE_NMODE_ADDITIONAL,
+    GNE_NETWORKMODE_ADDITIONAL,
     ///@brief Mode for editing crossing
-    GNE_NMODE_CROSSING,
+    GNE_NETWORKMODE_CROSSING,
     ///@brief Mode for editing TAZ
-    GNE_NMODE_TAZ,
+    GNE_NETWORKMODE_TAZ,
     ///@brief Mode for editing Polygons
-    GNE_NMODE_POLYGON,
+    GNE_NETWORKMODE_POLYGON,
     ///@brief Mode for editing connection prohibitions
-    GNE_NMODE_PROHIBITION
+    GNE_NETWORKMODE_PROHIBITION
 };
 
 /// @brie enum for demand edit modes
 enum DemandEditMode {
     /// @brief empty Demand mode
-    GNE_DMODE_NONE,
+    GNE_DEMANDMODE_NONE,
     ///@brief mode for inspecting demand elements
-    GNE_DMODE_INSPECT,
+    GNE_DEMANDMODE_INSPECT,
     ///@brief mode for deleting demand elements
-    GNE_DMODE_DELETE,
+    GNE_DEMANDMODE_DELETE,
     ///@brief mode for selecting demand elements
-    GNE_DMODE_SELECT,
+    GNE_DEMANDMODE_SELECT,
     ///@brief mode for moving demand elements
-    GNE_DMODE_MOVE,
+    GNE_DEMANDMODE_MOVE,
     ///@brief Mode for editing routes
-    GNE_DMODE_ROUTE,
+    GNE_DEMANDMODE_ROUTE,
     ///@brief Mode for editing vehicles
-    GNE_DMODE_VEHICLE,
+    GNE_DEMANDMODE_VEHICLE,
     ///@brief Mode for editing vehicle types
-    GNE_DMODE_VEHICLETYPES,
+    GNE_DEMANDMODE_VEHICLETYPES,
     ///@brief Mode for editing stops
-    GNE_DMODE_STOP,
+    GNE_DEMANDMODE_STOP,
     ///@brief Mode for editing person types
-    GNE_DMODE_PERSONTYPES,
+    GNE_DEMANDMODE_PERSONTYPES,
     ///@brief Mode for editing person
-    GNE_DMODE_PERSON,
+    GNE_DEMANDMODE_PERSON,
     ///@brief Mode for editing person plan
-    GNE_DMODE_PERSONPLAN
+    GNE_DEMANDMODE_PERSONPLAN
+};
+
+/// @brie enum for data edit modes
+enum DataEditMode {
+    /// @brief empty Data mode
+    GNE_DATAMODE_NONE,
+    ///@brief mode for inspecting data elements
+    GNE_DATAMODE_INSPECT,
+    ///@brief mode for deleting data elements
+    GNE_DATAMODE_DELETE,
+    ///@brief mode for selecting data elements
+    GNE_DATAMODE_SELECT,
 };
 
 // ===========================================================================
@@ -328,6 +342,9 @@ struct GNEViewNetHelper {
         /// @brief set Demand edit mode
         void setDemandEditMode(DemandEditMode demandMode, bool force = false);
 
+        /// @brief set Data edit mode
+        void setDataEditMode(DataEditMode dataMode, bool force = false);
+
         /// @brief the current supermode
         Supermode currentSupermode;
 
@@ -337,11 +354,17 @@ struct GNEViewNetHelper {
         /// @brief the current Demand edit mode
         DemandEditMode demandEditMode;
 
+        /// @brief the current Data edit mode
+        DataEditMode dataEditMode;
+
         /// @brief chekable button for supermode Network
         MFXCheckableButton* networkButton;
 
         /// @brief chekable button for supermode Demand
         MFXCheckableButton* demandButton;
+
+        /// @brief chekable button for supermode Data
+        MFXCheckableButton* dataButton;
 
     private:
         /// @brief pointer to viewNet
@@ -513,6 +536,32 @@ struct GNEViewNetHelper {
 
         /// @brief Invalidated assignment operator.
         DemandViewOptions& operator=(const DemandViewOptions&) = delete;
+    };
+
+    /// @brief struct used to group all variables related to view options in supermode Data
+    struct DataViewOptions {
+
+        /// @brief default constructor
+        DataViewOptions(GNEViewNet* viewNet);
+
+        /// @brief build menu checks
+        void buildDataViewOptionsMenuChecks();
+
+        /// @brief hide all options menu checks
+        void hideDataViewOptionsMenuChecks();
+
+        /// @brief get visible demand menu commands
+        void getVisibleDataMenuCommands(std::vector<FXMenuCheck*>& commands) const;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        DataViewOptions(const DataViewOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        DataViewOptions& operator=(const DataViewOptions&) = delete;
     };
 
     /// @brief struct used to group all variables related with movement of single elements
@@ -822,7 +871,7 @@ struct GNEViewNetHelper {
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
     };
-
+    
     /// @brief struct used to group all variables related with Demand checkable Buttons
     struct DemandCheckableButtons {
 
@@ -864,6 +913,32 @@ struct GNEViewNetHelper {
 
         /// @brief chekable button for edit mode create person plans
         MFXCheckableButton* personPlanButton;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+    };
+
+    /// @brief struct used to group all variables related with Data checkable Buttons
+    struct DataCheckableButtons {
+
+        /// @brief default constructor
+        DataCheckableButtons(GNEViewNet* viewNet);
+
+        /// @brief build checkable buttons
+        void buildDataCheckableButtons();
+
+        /// @brief show all Data Checkable Buttons
+        void showDataCheckableButtons();
+
+        /// @brief hide all Data Checkable Buttons
+        void hideDataCheckableButtons();
+
+        /// @brief hide all options menu checks
+        void disableDataCheckableButtons();
+
+        /// @brief update Data checkable buttons
+        void updateDataCheckableButtons();
 
     private:
         /// @brief pointer to viewNet

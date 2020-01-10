@@ -165,6 +165,8 @@ enum {
     MID_HOTKEY_F2_SUPERMODE_NETWORK,
     /// @brief select demand supermode in NETEDIT
     MID_HOTKEY_F3_SUPERMODE_DEMAND,
+    /// @brief select data supermode in NETEDIT
+    MID_HOTKEY_F4_SUPERMODE_DATA,
     /// @brief compute Network in network mode and Demand elements in demand mode
     MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND,
     /// @brief clean junctions without edges in network mode and unused routes in demand mode

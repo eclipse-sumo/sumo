@@ -118,6 +118,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // Toolbar supermode
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F2_SUPERMODE_NETWORK,    GNEApplicationWindow::onCmdSetSuperMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F3_SUPERMODE_DEMAND,     GNEApplicationWindow::onCmdSetSuperMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F4_SUPERMODE_DATA,       GNEApplicationWindow::onCmdSetSuperMode),
 
     // Toolbar edit
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_E_EDGEMODE,                          GNEApplicationWindow::onCmdSetMode),
@@ -1595,6 +1596,7 @@ GNEApplicationWindow::WindowsMenuCommands::buildWindowsMenuCommands(FXMenuPane* 
 GNEApplicationWindow::SupermodeCommands::SupermodeCommands(GNEApplicationWindow* GNEApp) :
     networkMode(nullptr),
     demandMode(nullptr),
+    dataMode(nullptr),
     myGNEApp(GNEApp),
     myHorizontalSeparator(nullptr) {
 }
@@ -1604,6 +1606,7 @@ void
 GNEApplicationWindow::SupermodeCommands::showSupermodeCommands() {
     networkMode->show();
     demandMode->show();
+    dataMode->show();
     // also show separator
     myHorizontalSeparator->show();
 }
@@ -1613,6 +1616,7 @@ void
 GNEApplicationWindow::SupermodeCommands::hideSupermodeCommands() {
     networkMode->hide();
     demandMode->hide();
+    dataMode->hide();
     // also hide separator
     myHorizontalSeparator->hide();
 }
@@ -1625,6 +1629,8 @@ GNEApplicationWindow::SupermodeCommands::buildSupermodeCommands(FXMenuPane* edit
                                     GUIIconSubSys::getIcon(ICON_SUPERMODENETWORK), myGNEApp, MID_HOTKEY_F2_SUPERMODE_NETWORK);
     demandMode = new FXMenuCommand(editMenu, "&Demand mode\tF3\tSelect demand mode.",
                                    GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myGNEApp, MID_HOTKEY_F3_SUPERMODE_DEMAND);
+    dataMode = new FXMenuCommand(editMenu, "&Data mode\tF4\tSelect data mode.",
+                                 GUIIconSubSys::getIcon(ICON_SUPERMODEDATA), myGNEApp, MID_HOTKEY_F4_SUPERMODE_DATA);
     // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }
