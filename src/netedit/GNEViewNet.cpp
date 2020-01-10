@@ -70,8 +70,8 @@
 
 FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Super Modes
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_NETWORK,                 GNEViewNet::onCmdSetSupermode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DEMAND,                  GNEViewNet::onCmdSetSupermode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F2_SUPERMODE_NETWORK,                 GNEViewNet::onCmdSetSupermode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND,                  GNEViewNet::onCmdSetSupermode),
     // Modes
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_E_EDGEMODE,                           GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_M_MOVEMODE,                           GNEViewNet::onCmdSetMode),
@@ -1190,10 +1190,10 @@ long
 GNEViewNet::onCmdSetSupermode(FXObject*, FXSelector sel, void*) {
     // check what network mode will be set
     switch (FXSELID(sel)) {
-        case MID_HOTKEY_F3_SUPERMODE_NETWORK:
+        case MID_HOTKEY_F2_SUPERMODE_NETWORK:
             myEditModes.setSupermode(GNE_SUPERMODE_NETWORK);
             break;
-        case MID_HOTKEY_F4_SUPERMODE_DEMAND:
+        case MID_HOTKEY_F3_SUPERMODE_DEMAND:
             myEditModes.setSupermode(GNE_SUPERMODE_DEMAND);
             break;
         default:

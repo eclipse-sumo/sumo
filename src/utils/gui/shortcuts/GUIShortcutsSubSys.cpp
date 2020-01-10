@@ -259,8 +259,8 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
     // Function Hotkeys
 
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_F1),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F1_ONLINEDOCUMENTATION));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F3),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_NETWORK));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F4),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DEMAND));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F2),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F2_SUPERMODE_NETWORK));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F3),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_F5),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_F6),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_F7),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES));

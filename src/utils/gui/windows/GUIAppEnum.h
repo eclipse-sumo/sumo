@@ -159,12 +159,12 @@ enum {
     /// @name Functional hotkeys
     /// @{
 
-    /// @brief hot key <F1> open online documentation
+    /// @brief open online documentation
     MID_HOTKEY_F1_ONLINEDOCUMENTATION,
-    /// @brief hot key <F3> set network mode in NETEDIT
-    MID_HOTKEY_F3_SUPERMODE_NETWORK,
-    /// @brief hot key <F4> set demand mode in NETEDIT
-    MID_HOTKEY_F4_SUPERMODE_DEMAND,
+    /// @brief select network supermode in NETEDIT
+    MID_HOTKEY_F2_SUPERMODE_NETWORK,
+    /// @brief select demand supermode in NETEDIT
+    MID_HOTKEY_F3_SUPERMODE_DEMAND,
     /// @brief compute Network in network mode and Demand elements in demand mode
     MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND,
     /// @brief clean junctions without edges in network mode and unused routes in demand mode

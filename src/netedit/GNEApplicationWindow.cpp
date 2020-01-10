@@ -116,8 +116,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_W_CLOSESIMULATION,                  GNEApplicationWindow::onUpdNeedsNetwork),
 
     // Toolbar supermode
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F3_SUPERMODE_NETWORK,    GNEApplicationWindow::onCmdSetSuperMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F4_SUPERMODE_DEMAND,     GNEApplicationWindow::onCmdSetSuperMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F2_SUPERMODE_NETWORK,    GNEApplicationWindow::onCmdSetSuperMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F3_SUPERMODE_DEMAND,     GNEApplicationWindow::onCmdSetSuperMode),
 
     // Toolbar edit
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_E_EDGEMODE,                          GNEApplicationWindow::onCmdSetMode),
@@ -939,7 +939,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->myFile.c_str()));
         // set supermode network
         if (myViewNet) {
-            myViewNet->onCmdSetSupermode(0, MID_HOTKEY_F3_SUPERMODE_NETWORK, 0);
+            myViewNet->onCmdSetSupermode(0, MID_HOTKEY_F2_SUPERMODE_NETWORK, 0);
         }
         if (myViewNet && ec->myViewportFromRegistry) {
             Position off;
@@ -1621,10 +1621,10 @@ GNEApplicationWindow::SupermodeCommands::hideSupermodeCommands() {
 void
 GNEApplicationWindow::SupermodeCommands::buildSupermodeCommands(FXMenuPane* editMenu) {
     // build supermode menu commands
-    networkMode = new FXMenuCommand(editMenu, "&Network mode\tF3\tSelect network mode.",
-                                    GUIIconSubSys::getIcon(ICON_SUPERMODENETWORK), myGNEApp, MID_HOTKEY_F3_SUPERMODE_NETWORK);
-    demandMode = new FXMenuCommand(editMenu, "&Demand mode\tF4\tSelect demand mode.",
-                                   GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myGNEApp, MID_HOTKEY_F4_SUPERMODE_DEMAND);
+    networkMode = new FXMenuCommand(editMenu, "&Network mode\tF2\tSelect network mode.",
+                                    GUIIconSubSys::getIcon(ICON_SUPERMODENETWORK), myGNEApp, MID_HOTKEY_F2_SUPERMODE_NETWORK);
+    demandMode = new FXMenuCommand(editMenu, "&Demand mode\tF3\tSelect demand mode.",
+                                   GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myGNEApp, MID_HOTKEY_F3_SUPERMODE_DEMAND);
     // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }
