@@ -356,9 +356,6 @@ public:
     /// @brief add decals
     void addDecals(const std::vector<Decal>& decals);
 
-    /// @brief get visualisation settings
-    GUIVisualizationSettings* getVisualisationSettings();
-
     /// @brief Returns the delay of the parent application
     double getDelay() const;
 
