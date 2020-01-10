@@ -143,6 +143,7 @@
 
 #include "supermodenetwork.xpm"
 #include "supermodedemand.xpm"
+#include "supermodedata.xpm"
 
 #include "modeadditional.xpm"
 #include "modeconnection.xpm"
@@ -428,6 +429,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     myIcons[ICON_SUPERMODENETWORK] = new FXXPMIcon(a, supermodenetwork_xpm);
     myIcons[ICON_SUPERMODEDEMAND] = new FXXPMIcon(a, supermodedemand_xpm);
+    myIcons[ICON_SUPERMODEDATA] = new FXXPMIcon(a, supermodedata_xpm);
 
     myIcons[ICON_MODEADDITIONAL] = new FXXPMIcon(a, modeadditional_xpm);
     myIcons[ICON_MODECONNECTION] = new FXXPMIcon(a, modeconnection_xpm);

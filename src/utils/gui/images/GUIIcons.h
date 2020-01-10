@@ -212,6 +212,7 @@ enum GUIIcon {
     /// @{
     ICON_SUPERMODENETWORK,
     ICON_SUPERMODEDEMAND,
+    ICON_SUPERMODEDATA,
     /// @}
 
     /// @name NETEDIT Network modes icons
