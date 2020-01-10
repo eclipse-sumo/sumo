@@ -269,9 +269,9 @@ public:
 
     /** @brief get the foe vehicle that is closest to the intersection or nullptr along with the foe link
      * This function is used for finding circular deadlock at right_before_left junctions
-     * @param[in] wrapAround The vehicle that shall be returned even when it has yielded its request
+     * @param[in] wrapAround The link on which the ego vehicle wants to enter the junction
     */
-    std::pair<const SUMOVehicle*, const MSLink*>  getFirstApproachingFoe(const SUMOVehicle* wrapAround) const;
+    std::pair<const SUMOVehicle*, const MSLink*>  getFirstApproachingFoe(const MSLink* wrapAround) const;
 
     MSJunction* getJunction() const {
         return myJunction;
