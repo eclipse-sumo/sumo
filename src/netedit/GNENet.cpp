@@ -44,7 +44,7 @@
 #include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/dialogs/GNEFixAdditionalElements.h>
 #include <netedit/dialogs/GNEFixDemandElements.h>
-#include <netedit/frames/commonframes/GNEInspectorFrame.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/netelements/GNEConnection.h>
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/netelements/GNEEdge.h>

@@ -1,6 +1,6 @@
-add_subdirectory(commonframes)
-add_subdirectory(netframes)
-add_subdirectory(demandframes)
+add_subdirectory(common)
+add_subdirectory(network)
+add_subdirectory(demand)
 
 set(netedit_frames_SRCS
    GNEFrame.h

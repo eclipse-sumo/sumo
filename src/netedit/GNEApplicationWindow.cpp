@@ -21,9 +21,9 @@
 #include <netedit/additionals/GNEAdditionalHandler.h>
 #include <netedit/demandelements/GNERouteHandler.h>
 #include <netedit/dialogs/GNEAbout.h>
-#include <netedit/frames/netframes/GNETAZFrame.h>
-#include <netedit/frames/netframes/GNETLSEditorFrame.h>
-#include <netedit/frames/commonframes/GNEInspectorFrame.h>
+#include <netedit/frames/network/GNETAZFrame.h>
+#include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netimport/NIFrame.h>
 #include <netwrite/NWFrame.h>
 #include <utils/common/SysUtils.h>

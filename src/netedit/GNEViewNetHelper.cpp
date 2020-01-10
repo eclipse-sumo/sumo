@@ -22,8 +22,8 @@
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/additionals/GNETAZ.h>
 #include <netedit/demandelements/GNEDemandElement.h>
-#include <netedit/frames/commonframes/GNESelectorFrame.h>
-#include <netedit/frames/netframes/GNETLSEditorFrame.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/netelements/GNEConnection.h>
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/netelements/GNEEdge.h>

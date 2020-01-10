@@ -26,7 +26,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_EnableAttribute.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/frames/commonframes/GNESelectorFrame.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
