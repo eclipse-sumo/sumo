@@ -72,7 +72,21 @@ GNEParkingSpace::updateGeometry() {
 
 void 
 GNEParkingSpace::updateDottedContour() {
-    //
+    // calculate shape using a Position vector as reference
+    PositionVector shape({
+        {-(myWidth / 2), 0},
+        { (myWidth / 2), 0},
+        { (myWidth / 2), myLength},
+        {-(myWidth / 2), myLength},
+    });
+    // close shape
+    shape.closePolygon();
+    // rotate position vector (note: convert from degree to rads
+    shape.rotate2D(myAngle * PI / 180.0);
+    // move to space position
+    shape.add(myPosition);
+    // set dotted geometry
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), shape);
 }
 
 
@@ -120,9 +134,9 @@ GNEParkingSpace::getParentName() const {
 void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double parkingAreaExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if (s.drawAdditionals(parkingAreaExaggeration)) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
@@ -154,12 +168,12 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoxLine(Position(0, myLength), 0, myLength, myWidth / 2);
         // Traslate matrix and draw lock icon if isn't being drawn for selecting
         glTranslated(0, myLength / 2, 0.1);
-        myBlockIcon.drawIcon(s, exaggeration);
+        myBlockIcon.drawIcon(s, parkingAreaExaggeration);
         // pop draw matrix
         glPopMatrix();
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, myWidth, myLength, myAngle, 0, myLength / 2);
+            GNEGeometry::drawShapeDottedContour(s, getType(), parkingAreaExaggeration, myDottedGeometry);
         }
         // pop name
         glPopName();
@@ -316,6 +330,8 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 

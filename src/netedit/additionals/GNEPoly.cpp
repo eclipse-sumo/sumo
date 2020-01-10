@@ -817,8 +817,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (myNetElementShapeEdited) {
                 myNetElementShapeEdited->updateGeometry();
             }
-            // mark dotted geometry deprecated
-            myDottedGeometry.markDottedGeometryDeprecated();
             break;
         }
         case SUMO_ATTR_GEOSHAPE: {
@@ -837,8 +835,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (myNetElementShapeEdited) {
                 myNetElementShapeEdited->updateGeometry();
             }
-            // mark dotted geometry deprecated
-            myDottedGeometry.markDottedGeometryDeprecated();
             break;
         }
         case SUMO_ATTR_COLOR:
@@ -891,8 +887,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // disable simplified shape flag
             mySimplifiedShape = false;
-            // mark dotted geometry deprecated
-            myDottedGeometry.markDottedGeometryDeprecated();
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
@@ -911,6 +905,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_PARAMETERS) && (key != GNE_ATTR_SELECTED)) {
         myNet->addGLObjectIntoGrid(this);
     }
+    // mark dotted geometry deprecated
+    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 

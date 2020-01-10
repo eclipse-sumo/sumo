@@ -70,9 +70,7 @@ GNERerouter::updateGeometry() {
 
 void 
 GNERerouter::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
-                                          myAdditionalGeometry.getPosition(), 
-                                          myAdditionalGeometry.getRotation(),
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myPosition, 0,
                                           myViewNet->getVisualisationSettings()->additionalSettings.rerouterSize,
                                           myViewNet->getVisualisationSettings()->additionalSettings.rerouterSize);
 }
@@ -159,13 +157,13 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
             glColor3d(1, 1, 1);
             glRotated(180, 0, 0, 1);
             if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTERSELECTED), 1);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTERSELECTED), s.additionalSettings.rerouterSize);
             } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTER), 1);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTER), s.additionalSettings.rerouterSize);
             }
         } else {
             GLHelper::setColor(RGBColor::RED);
-            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+            GLHelper::drawBoxLine(Position(0, s.additionalSettings.rerouterSize), 0, 2 * s.additionalSettings.rerouterSize, s.additionalSettings.rerouterSize);
         }
         // Pop draw matrix
         glPopMatrix();
@@ -176,7 +174,6 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
             GNEGeometry::drawShapeDottedContour(s, getType(), rerouterExaggeration, myDottedGeometry);
-            GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, 2, 2);
             // draw shape dotte contour aroud alld connections between child and parents
             for (auto i : myChildConnections.connectionPositions) {
                 GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);

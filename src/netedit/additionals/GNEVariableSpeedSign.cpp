@@ -67,8 +67,8 @@ GNEVariableSpeedSign::updateGeometry() {
 void 
 GNEVariableSpeedSign::updateDottedContour() {
     myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myPosition, 0,
-                                          myViewNet->getVisualisationSettings()->detectorSettings.E3Size,
-                                          myViewNet->getVisualisationSettings()->detectorSettings.E3Size);
+                                          myViewNet->getVisualisationSettings()->additionalSettings.VSSSize,
+                                          myViewNet->getVisualisationSettings()->additionalSettings.VSSSize);
 }
 
 
@@ -134,9 +134,9 @@ GNEVariableSpeedSign::getParentName() const {
 void
 GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     // obtain exaggeration
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double VSSExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if (s.drawAdditionals(VSSExaggeration)) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
@@ -147,25 +147,25 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         glTranslated(myPosition.x(), myPosition.y(), getType());
         // scale
-        glScaled(exaggeration, exaggeration, 1);
+        glScaled(VSSExaggeration, VSSExaggeration, 1);
         // Draw icon depending of variable speed sign is or if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, VSSExaggeration)) {
             glColor3d(1, 1, 1);
             glRotated(180, 0, 0, 1);
             if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGNSELECTED), 1);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGNSELECTED), s.additionalSettings.VSSSize);
             } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGN), 1);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGN), s.additionalSettings.VSSSize);
             }
         } else {
             GLHelper::setColor(RGBColor::WHITE);
-            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+            GLHelper::drawBoxLine(Position(0, s.additionalSettings.VSSSize), 0, 2 * s.additionalSettings.VSSSize, s.additionalSettings.VSSSize);
 
         }
         // Pop draw icon matrix
         glPopMatrix();
         // Show Lock icon
-        myBlockIcon.drawIcon(s, exaggeration, 0.4);
+        myBlockIcon.drawIcon(s, VSSExaggeration, 0.4);
         // Draw child connections
         drawChildConnections(s, getType());
         // Draw name if isn't being drawn for selecting
@@ -174,7 +174,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myViewNet->getDottedAC() == this) {
-            GLHelper::drawShapeDottedContourRectangle(s, getType(), myPosition, 2, 2);
+            GNEGeometry::drawShapeDottedContour(s, getType(), VSSExaggeration, myDottedGeometry);
             // draw shape dotte contour aroud alld connections between child and parents
             for (auto i : myChildConnections.connectionPositions) {
                 GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);

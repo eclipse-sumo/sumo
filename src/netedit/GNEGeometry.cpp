@@ -270,17 +270,13 @@ GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings
 
 
 void GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const Position& position, const double rotation, const double width, const double height) {
-    // declare rectangle
-    PositionVector rectangle;
-    // add four 0-0 positions
-    for (int i = 0; i < 4; i++) {
-        rectangle.push_back(Position(0,0));
-    }
-    // adjust every position using width and height in 0,0
-    rectangle[0].add(width, -height);
-    rectangle[1].add(width, height);
-    rectangle[2].add(-width, height);
-    rectangle[3].add(-width, -height);
+    // declare rectangle and adjust using width, height
+    PositionVector rectangle({
+        { width, -height},
+        { width,  height},
+        {-width,  height},
+        {-width, -height}
+    });
     // close rectangle
     rectangle.closePolygon();
     // move rectangle to position
