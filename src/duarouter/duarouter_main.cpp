@@ -163,6 +163,8 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             carWalk |= ROIntermodalRouter::Network::PT_STOPS;
         } else if (opt == "allJunctions") {
             carWalk |= ROIntermodalRouter::Network::ALL_JUNCTIONS;
+        } else if (opt == "taxi") {
+            carWalk |= ROIntermodalRouter::Network::ALL_JUNCTIONS_TAXI;
         }
     }
     RORouterProvider provider(router, new PedestrianRouter<ROEdge, ROLane, RONode, ROVehicle>(),

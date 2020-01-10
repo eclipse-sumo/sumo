@@ -103,6 +103,10 @@ public:
         return new IntermodalRouter<E, L, N, V>(myIntermodalNet, myCarWalkTransfer, myRoutingAlgorithm, myRoutingMode, myExternalEffort);
     }
 
+    int getCarWalkTransfer() const {
+        return myCarWalkTransfer;
+    }
+
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     bool compute(const E* from, const E* to, const double departPos, const double arrivalPos,

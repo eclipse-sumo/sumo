@@ -699,6 +699,14 @@ RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
         // no need to add route stops here, they have been added to the vehicle before
         router.getNetwork()->addSchedule(veh->getParameter());
     }
+    // add access to transfer from walking to taxi-use
+    if ((router.getCarWalkTransfer() & ROIntermodalRouter::Network::ALL_JUNCTIONS_TAXI) != 0) {
+        for (const ROEdge* edge : ROEdge::getAllEdges()) {
+            if ((edge->getPermissions() & SVC_PEDESTRIAN) != 0 && (edge->getPermissions() & SVC_TAXI) != 0) {
+                router.getNetwork()->addCarAccess(edge, SVC_TAXI);
+            }
+        }
+    }
 }
 
 
