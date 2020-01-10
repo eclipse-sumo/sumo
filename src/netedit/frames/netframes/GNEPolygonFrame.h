@@ -18,7 +18,7 @@
 // The Widget for add polygons
 /****************************************************************************/
 #pragma once
-#include "GNEFrame.h"
+#include <netedit/frames/GNEFrame.h>
 
 // ===========================================================================
 // class definitions

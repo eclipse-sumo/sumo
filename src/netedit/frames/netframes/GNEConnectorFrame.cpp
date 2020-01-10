@@ -31,9 +31,8 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/demandelements/GNEDemandElement.h>
-
-#include "GNEConnectorFrame.h"
-#include "GNESelectorFrame.h"
+#include <netedit/frames/netframes/GNEConnectorFrame.h>
+#include <netedit/frames/commonframes/GNESelectorFrame.h>
 
 
 // ===========================================================================

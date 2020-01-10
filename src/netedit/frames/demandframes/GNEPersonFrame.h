@@ -18,7 +18,8 @@
 // The Widget for add person elements
 /****************************************************************************/
 #pragma once
-#include "GNEFrame.h"
+
+#include <netedit/frames/GNEFrame.h>
 
 
 // ===========================================================================

@@ -18,7 +18,8 @@
 // The Widget for remove network-elements
 /****************************************************************************/
 #pragma once
-#include "GNEFrame.h"
+
+#include <netedit/frames/GNEFrame.h>
 
 // ===========================================================================
 // class definitions

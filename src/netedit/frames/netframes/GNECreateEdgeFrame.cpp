@@ -26,9 +26,8 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-
-#include "GNECreateEdgeFrame.h"
-#include "GNEInspectorFrame.h"
+#include <netedit/frames/netframes/GNECreateEdgeFrame.h>
+#include <netedit/frames/commonframes/GNEInspectorFrame.h>
 
 // ===========================================================================
 // FOX callback mapping

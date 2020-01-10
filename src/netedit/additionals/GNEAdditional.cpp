@@ -22,7 +22,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/frames/GNESelectorFrame.h>
+#include <netedit/frames/commonframes/GNESelectorFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>

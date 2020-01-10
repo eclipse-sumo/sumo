@@ -18,7 +18,8 @@
 // The Widget for create route elements
 /****************************************************************************/
 #pragma once
-#include "GNEFrame.h"
+
+#include <netedit/frames/GNEFrame.h>
 
 // ===========================================================================
 // class definitions

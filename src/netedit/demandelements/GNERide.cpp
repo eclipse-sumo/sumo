@@ -28,7 +28,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
-#include <netedit/frames/GNESelectorFrame.h>
+#include <netedit/frames/commonframes/GNESelectorFrame.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 

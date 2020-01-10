@@ -11,54 +11,58 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEPersonTypeFrame.h
+/// @file    GNEVehicleTypeFrame.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2019
+/// @date    Feb 2018
 ///
-// The Widget for edit person type (VTypes with vclass='pedestrian) elements
+// The Widget for edit Vehicle Type elements
 /****************************************************************************/
 #pragma once
-#include "GNEFrame.h"
+
+#include <netedit/frames/GNEFrame.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEPerson;
+class GNEVehicle;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class GNEPersonTypeFrame
+ * @class GNEVehicleTypeFrame
  */
-class GNEPersonTypeFrame : public GNEFrame {
+class GNEVehicleTypeFrame : public GNEFrame {
 
 public:
 
     // ===========================================================================
-    // class PersonTypeSelector
+    // class VehicleTypeSelector
     // ===========================================================================
 
-    class PersonTypeSelector : protected FXGroupBox {
+    class VehicleTypeSelector : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEPersonTypeFrame::PersonTypeSelector)
+        FXDECLARE(GNEVehicleTypeFrame::VehicleTypeSelector)
 
     public:
         /// @brief constructor
-        PersonTypeSelector(GNEPersonTypeFrame* personTypeFrameParent);
+        VehicleTypeSelector(GNEVehicleTypeFrame* vehicleTypeFrameParent);
 
         /// @brief destructor
-        ~PersonTypeSelector();
+        ~VehicleTypeSelector();
 
         /// @brief get current Vehicle Type
-        GNEDemandElement* getCurrentPersonType() const;
+        GNEDemandElement* getCurrentVehicleType() const;
 
         /// @brief set current Vehicle Type
-        void setCurrentPersonType(GNEDemandElement* vType);
+        void setCurrentVehicleType(GNEDemandElement* vType);
 
-        /// @brief refresh person type
-        void refreshPersonTypeSelector();
+        /// @brief refresh vehicle type selector
+        void refreshVehicleTypeSelector();
+
+        /// @brief refresh vehicle type selector (only IDs, without refreshing attributes)
+        void refreshVehicleTypeSelectorIDs();
 
         /// @name FOX-callbacks
         /// @{
@@ -67,104 +71,110 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(PersonTypeSelector)
+        FOX_CONSTRUCTOR(VehicleTypeSelector)
 
     private:
         /// @brief pointer to Frame Parent
-        GNEPersonTypeFrame* myPersonTypeFrameParent;
+        GNEVehicleTypeFrame* myVehicleTypeFrameParent;
 
-        /// @brief pointer to current person type
-        GNEDemandElement* myCurrentPersonType;
+        /// @brief pointer to current vehicle type
+        GNEDemandElement* myCurrentVehicleType;
 
         /// @brief comboBox with the list of elements type
         FXComboBox* myTypeMatchBox;
     };
 
     // ===========================================================================
-    // class PersonTypeEditor
+    // class VehicleTypeEditor
     // ===========================================================================
 
-    class PersonTypeEditor : protected FXGroupBox {
+    class VehicleTypeEditor : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEPersonTypeFrame::PersonTypeEditor)
+        FXDECLARE(GNEVehicleTypeFrame::VehicleTypeEditor)
 
     public:
         /// @brief constructor
-        PersonTypeEditor(GNEPersonTypeFrame* personTypeFrameParent);
+        VehicleTypeEditor(GNEVehicleTypeFrame* vehicleTypeFrameParent);
 
         /// @brief destructor
-        ~PersonTypeEditor();
+        ~VehicleTypeEditor();
 
-        /// @brief show PersonTypeEditor modul
-        void showPersonTypeEditorModul();
+        /// @brief show VehicleTypeEditor modul
+        void showVehicleTypeEditorModul();
 
-        /// @brief hide PersonTypeEditor box
-        void hidePersonTypeEditorModul();
+        /// @brief hide VehicleTypeEditor box
+        void hideVehicleTypeEditorModul();
 
-        /// @brief update PersonTypeEditor modul
-        void refreshPersonTypeEditorModul();
+        /// @brief update VehicleTypeEditor modul
+        void refreshVehicleTypeEditorModul();
 
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when "Vreate Vehicle Type" button is clicked
-        long onCmdCreatePersonType(FXObject*, FXSelector, void*);
+        long onCmdCreateVehicleType(FXObject*, FXSelector, void*);
 
         /// @brief Called when "Delete Vehicle Type" button is clicked
-        long onCmdDeletePersonType(FXObject*, FXSelector, void*);
+        long onCmdDeleteVehicleType(FXObject*, FXSelector, void*);
 
         /// @brief Called when "Delete Vehicle Type" button is clicked
-        long onCmdResetPersonType(FXObject*, FXSelector, void*);
+        long onCmdResetVehicleType(FXObject*, FXSelector, void*);
 
         /// @brief Called when "Copy Vehicle Type" button is clicked
-        long onCmdCopyPersonType(FXObject*, FXSelector, void*);
+        long onCmdCopyVehicleType(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(PersonTypeEditor)
+        FOX_CONSTRUCTOR(VehicleTypeEditor)
 
     private:
-        /// @brief pointer to person type Frame Parent
-        GNEPersonTypeFrame* myPersonTypeFrameParent;
+        /// @brief pointer to vehicle type Frame Parent
+        GNEVehicleTypeFrame* myVehicleTypeFrameParent;
 
-        /// @brief "create person type" button
-        FXButton* myCreatePersonTypeButton;
+        /// @brief "create vehicle type" button
+        FXButton* myCreateVehicleTypeButton;
 
-        /// @brief "delete person type" button
-        FXButton* myDeletePersonTypeButton;
+        /// @brief "delete vehicle type" button
+        FXButton* myDeleteVehicleTypeButton;
 
-        /// @brief "delete default person type" button
-        FXButton* myResetDefaultPersonTypeButton;
+        /// @brief "delete default vehicle type" button
+        FXButton* myResetDefaultVehicleTypeButton;
 
-        /// @brief "copy person type"
-        FXButton* myCopyPersonTypeButton;
+        /// @brief "copy vehicle type"
+        FXButton* myCopyVehicleTypeButton;
     };
 
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEPersonTypeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEVehicleTypeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
-    ~GNEPersonTypeFrame();
+    ~GNEVehicleTypeFrame();
 
     /// @brief show Frame
     void show();
 
-    /// @brief get person type selector
-    PersonTypeSelector* getPersonTypeSelector() const;
+    /// @brief get vehicle type selector
+    VehicleTypeSelector* getVehicleTypeSelector() const;
 
 protected:
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
     void attributeUpdated();
 
-private:
-    /// @brief person type selector
-    PersonTypeSelector* myPersonTypeSelector;
+    /// @brief open AttributesCreator extended dialog (used for editing advance attributes of Vehicle Types)
+    void attributesEditorExtendedDialogOpened();
 
-    /// @brief editorinternal person type attributes
-    GNEFrameAttributesModuls::AttributesEditor* myPersonTypeAttributesEditor;
+private:
+    /// @brief vehicle type selector
+    VehicleTypeSelector* myVehicleTypeSelector;
+
+    /// @brief editorinternal vehicle type attributes
+    GNEFrameAttributesModuls::AttributesEditor* myVehicleTypeAttributesEditor;
+
+    /// @brief modul for open extended attributes dialog
+    GNEFrameAttributesModuls::AttributesEditorExtended* myAttributesEditorExtended;
 
     /// @brief Vehicle Type editor (Create, copy, etc.)
-    PersonTypeEditor* myPersonTypeEditor;
+    VehicleTypeEditor* myVehicleTypeEditor;
 };

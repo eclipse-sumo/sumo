@@ -19,7 +19,8 @@
 // (some elements adapted from GUIDialog_GLChosenEditor)
 /****************************************************************************/
 #pragma once
-#include "GNEFrame.h"
+
+#include <netedit/frames/GNEFrame.h>
 
 // ===========================================================================
 // class definitions

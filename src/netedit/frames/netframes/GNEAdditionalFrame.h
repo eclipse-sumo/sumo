@@ -18,8 +18,8 @@
 // The Widget for add additional elements
 /****************************************************************************/
 #pragma once
-#include <config.h>
-#include "GNEFrame.h"
+
+#include <netedit/frames/GNEFrame.h>
 
 
 // ===========================================================================

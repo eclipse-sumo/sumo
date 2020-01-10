@@ -19,7 +19,8 @@
 // The Widget for modifying network-element attributes (i.e. lane speed)
 /****************************************************************************/
 #pragma once
-#include "GNEFrame.h"
+
+#include <netedit/frames/GNEFrame.h>
 
 // ===========================================================================
 // class definitions

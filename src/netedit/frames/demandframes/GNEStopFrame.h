@@ -11,23 +11,24 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEVehicleFrame.h
+/// @file    GNEStopFrame.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jan 2018
+/// @date    March 2019
 ///
-// The Widget for add Vehicles/Flows/Trips/etc. elements
+// The Widget for add Stops elements
 /****************************************************************************/
 #pragma once
-#include "GNEFrame.h"
 
+#include <netedit/frames/GNEFrame.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class GNEVehicleFrame
+ * @class GNEStopFrame
  */
-class GNEVehicleFrame : public GNEFrame {
+class GNEStopFrame : public GNEFrame {
 
 public:
 
@@ -39,7 +40,7 @@ public:
 
     public:
         /// @brief constructor
-        HelpCreation(GNEVehicleFrame* vehicleFrameParent);
+        HelpCreation(GNEStopFrame* StopFrameParent);
 
         /// @brief destructor
         ~HelpCreation();
@@ -54,8 +55,8 @@ public:
         void updateHelpCreation();
 
     private:
-        /// @brief pointer to Vehicle Frame Parent
-        GNEVehicleFrame* myVehicleFrameParent;
+        /// @brief pointer to Stop Frame Parent
+        GNEStopFrame* myStopFrameParent;
 
         /// @brief Label with creation information
         FXLabel* myInformationLabel;
@@ -65,45 +66,46 @@ public:
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
-    ~GNEVehicleFrame();
+    ~GNEStopFrame();
 
     /// @brief show Frame
     void show();
 
-    /**@brief add vehicle element
+    /**@brief add Stop element
      * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @return true if vehicle was sucesfully added
+     * @param shiftPressed flag to check if during clicking shift key was pressed
+     * @return true if Stop was sucesfully added
      */
-    bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool shiftPressed);
 
-    /// @brief get EdgePathCreator modul
-    GNEFrameModuls::EdgePathCreator* getEdgePathCreator() const;
+    /// @brief get stop parameters
+    static bool getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTag stopTag, GNEViewNet* viewNet,
+                                 GNEFrameAttributesModuls::AttributesCreator* stopAttributes,
+                                 const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes,
+                                 const GNELane* lane, const GNEAdditional* stoppingPlace);
 
 protected:
     /// @brief Tag selected in TagSelector
     void tagSelected();
 
-    /// @brief selected vehicle type in DemandElementSelector
+    /// @brief selected demand element in DemandElementSelector
     void demandElementSelected();
 
-    /// @brief finish edge path creation
-    void edgePathCreated();
-
 private:
-    /// @brief vehicle tag selector (used to select diffent kind of vehicles)
-    GNEFrameModuls::TagSelector* myVehicleTagSelector;
+    /// @brief Stop parent selectors
+    GNEFrameModuls::DemandElementSelector* myStopParentSelector;
 
-    /// @brief Vehicle Type selectors
-    GNEFrameModuls::DemandElementSelector* myVTypeSelector;
+    /// @brief stop tag selector selector (used to select diffent kind of Stops)
+    GNEFrameModuls::TagSelector* myStopTagSelector;
 
-    /// @brief internal vehicle attributes
-    GNEFrameAttributesModuls::AttributesCreator* myVehicleAttributes;
+    /// @brief internal Stop attributes
+    GNEFrameAttributesModuls::AttributesCreator* myStopAttributes;
 
-    /// @brief edge path creator (used for trips and flows)
-    GNEFrameModuls::EdgePathCreator* myEdgePathCreator;
+    /// @brief Netedit parameter
+    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

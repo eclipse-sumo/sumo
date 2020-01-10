@@ -18,7 +18,8 @@
 // The Widget for add PersonPlan elements
 /****************************************************************************/
 #pragma once
-#include "GNEFrame.h"
+
+#include <netedit/frames/GNEFrame.h>
 
 
 // ===========================================================================

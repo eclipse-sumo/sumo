@@ -25,7 +25,7 @@
 #include <netedit/additionals/GNEShape.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/demandelements/GNEDemandElement.h>
-#include <netedit/frames/GNEVehicleTypeFrame.h>
+#include <netedit/frames/demandframes/GNEVehicleTypeFrame.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEViewNet.h>
 

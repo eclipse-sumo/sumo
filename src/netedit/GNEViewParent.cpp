@@ -20,27 +20,28 @@
 // While we don't actually need MDI for netedit it is easier to adapt existing
 // structures than to write everything from scratch.
 /****************************************************************************/
+
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/dialogs/GNEDialogACChooser.h>
-#include <netedit/frames/GNEAdditionalFrame.h>
-#include <netedit/frames/GNEConnectorFrame.h>
-#include <netedit/frames/GNECreateEdgeFrame.h>
-#include <netedit/frames/GNECrossingFrame.h>
-#include <netedit/frames/GNEDeleteFrame.h>
-#include <netedit/frames/GNEInspectorFrame.h>
-#include <netedit/frames/GNEPolygonFrame.h>
-#include <netedit/frames/GNEProhibitionFrame.h>
-#include <netedit/frames/GNERouteFrame.h>
-#include <netedit/frames/GNESelectorFrame.h>
-#include <netedit/frames/GNETAZFrame.h>
-#include <netedit/frames/GNETLSEditorFrame.h>
-#include <netedit/frames/GNEVehicleFrame.h>
-#include <netedit/frames/GNEVehicleTypeFrame.h>
-#include <netedit/frames/GNEStopFrame.h>
-#include <netedit/frames/GNEPersonTypeFrame.h>
-#include <netedit/frames/GNEPersonFrame.h>
-#include <netedit/frames/GNEPersonPlanFrame.h>
+#include <netedit/frames/commonframes/GNEDeleteFrame.h>
+#include <netedit/frames/commonframes/GNEInspectorFrame.h>
+#include <netedit/frames/commonframes/GNESelectorFrame.h>
+#include <netedit/frames/demandframes/GNEPersonFrame.h>
+#include <netedit/frames/demandframes/GNEPersonPlanFrame.h>
+#include <netedit/frames/demandframes/GNEPersonTypeFrame.h>
+#include <netedit/frames/demandframes/GNERouteFrame.h>
+#include <netedit/frames/demandframes/GNEStopFrame.h>
+#include <netedit/frames/demandframes/GNEVehicleFrame.h>
+#include <netedit/frames/demandframes/GNEVehicleTypeFrame.h>
+#include <netedit/frames/netframes/GNEAdditionalFrame.h>
+#include <netedit/frames/netframes/GNEConnectorFrame.h>
+#include <netedit/frames/netframes/GNECreateEdgeFrame.h>
+#include <netedit/frames/netframes/GNECrossingFrame.h>
+#include <netedit/frames/netframes/GNEPolygonFrame.h>
+#include <netedit/frames/netframes/GNEProhibitionFrame.h>
+#include <netedit/frames/netframes/GNETAZFrame.h>
+#include <netedit/frames/netframes/GNETLSEditorFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <utils/gui/div/GUIDesigns.h>

@@ -18,9 +18,10 @@
 // The Widget for modifying lane-to-lane connections
 /****************************************************************************/
 #pragma once
+
 #include <config.h>
 #include <netbuild/NBEdge.h>
-#include "GNEFrame.h"
+#include <netedit/frames/GNEFrame.h>
 
 
 // ===========================================================================

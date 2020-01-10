@@ -18,7 +18,8 @@
 // The Widget for modifying traffic lights
 /****************************************************************************/
 #pragma once
-#include "GNEFrame.h"
+
+#include <netedit/frames/GNEFrame.h>
 #include <netbuild/NBTrafficLightLogic.h>
 
 // ===========================================================================
