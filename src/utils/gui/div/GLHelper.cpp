@@ -479,70 +479,6 @@ GLHelper::drawShapeDottedContourAroundShape(const GUIVisualizationSettings& s, c
 
 
 void
-GLHelper::drawShapeDottedContourAroundClosedShape(const GUIVisualizationSettings& s, const int type, const PositionVector& shape) {
-    // first check that given shape isn't empty
-    if (!s.drawForRectangleSelection && !s.drawForPositionSelection && (shape.size() > 0)) {
-        // close shape
-        PositionVector closedShape = shape;
-        if (closedShape.front() != closedShape.back()) {
-            closedShape.push_back(closedShape.front());
-        }
-        // resample junction shape
-        PositionVector resampledShape = closedShape.resample(s.dottedContourSettings.segmentLength);
-        // push matrix
-        glPushMatrix();
-        // draw contour over shape
-        glTranslated(0, 0, type + 0.1);
-        // set custom line width
-        glLineWidth((GLfloat)s.dottedContourSettings.segmentWidth);
-        // draw contour
-        GLHelper::drawLine(resampledShape, GLHelper::getDottedcontourColors((int)resampledShape.size()));
-        //restore line width
-        glLineWidth(1);
-        // pop matrix
-        glPopMatrix();
-    }
-}
-
-
-void
-GLHelper::drawShapeDottedContourBetweenLanes(const GUIVisualizationSettings& s, const int type, const PositionVector& frontLaneShape, const double offsetFrontLaneShape, const PositionVector& backLaneShape, const double offsetBackLaneShape) {
-    // first check that given shape isn't empty
-    if (!s.drawForRectangleSelection && !s.drawForPositionSelection && (frontLaneShape.size() > 0) && (backLaneShape.size() > 0)) {
-        // build contour using shapes of first and last lane shapes
-        PositionVector contourFront = frontLaneShape;
-        PositionVector contourback = backLaneShape;
-        if (s.lefthand) {
-            contourFront.move2side(offsetFrontLaneShape * -1);
-            contourback.move2side(offsetBackLaneShape * -1);
-        } else {
-            contourFront.move2side(offsetFrontLaneShape);
-            contourback.move2side(offsetBackLaneShape);
-        }
-        contourback = contourback.reverse();
-        for (auto i : contourback) {
-            contourFront.push_back(i);
-        }
-        contourFront.push_back(frontLaneShape.front());
-        // resample shape
-        PositionVector resampledShape = contourFront.resample(s.dottedContourSettings.segmentLength);
-        // push matrix
-        glPushMatrix();
-        // draw contour over shape
-        glTranslated(0, 0, type + 2);
-        // set custom line width
-        glLineWidth((GLfloat)s.dottedContourSettings.segmentWidth);
-        // draw contour
-        GLHelper::drawLine(resampledShape, getDottedcontourColors((int)resampledShape.size()));
-        //restore line width
-        glLineWidth(1);
-        // pop matrix
-        glPopMatrix();
-    }
-}
-
-
-void
 GLHelper::drawShapeDottedContourRectangle(const GUIVisualizationSettings& s, const int type, const Position& center, const double width, const double height, const double rotation, const double offsetX, const double offsetY) {
     // first check that given width and height is valid
     if (!s.drawForRectangleSelection && !s.drawForPositionSelection && (width > 0) && (height > 0)) {
@@ -567,34 +503,6 @@ GLHelper::drawShapeDottedContourRectangle(const GUIVisualizationSettings& s, con
         glTranslated(offsetX, offsetY, 0);
         // draw contour
         GLHelper::drawLine(shape, getDottedcontourColors((int)shape.size()));
-        //restore line width
-        glLineWidth(1);
-        // pop matrix
-        glPopMatrix();
-    }
-}
-
-
-void
-GLHelper::drawShapeDottedContourPartialShapes(const GUIVisualizationSettings& s, const int type, const Position& begin, const Position& end, const double width) {
-    // check that both positions are valid and differents
-    if (!s.drawForRectangleSelection && !s.drawForPositionSelection && (begin != Position::INVALID) && (end != Position::INVALID) && (begin != end)) {
-        // calculate and resample shape
-        PositionVector shape{begin, end};
-        shape.move2side(width);
-        shape = shape.resample(s.dottedContourSettings.segmentLength);
-        // push matrix
-        glPushMatrix();
-        // draw contour over shape
-        glTranslated(0, 0, type + 0.1);
-        // set custom line width
-        glLineWidth((GLfloat)s.dottedContourSettings.segmentWidth);
-        // draw contour
-        GLHelper::drawLine(shape, GLHelper::getDottedcontourColors((int)shape.size()));
-        // move shape to other side
-        shape.move2side(width * -2);
-        // draw contour
-        GLHelper::drawLine(shape, GLHelper::getDottedcontourColors((int)shape.size()));
         //restore line width
         glLineWidth(1);
         // pop matrix

@@ -72,7 +72,7 @@ GNETAZ::updateGeometry() {
 
 void 
 GNETAZ::updateDottedContour() {
-    //
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myTAZShape);
 }
 
 
@@ -270,88 +270,88 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
-    if (s.polySize.getExaggeration(s, this) == 0) {
-        return;
-    }
-    Boundary boundary = myTAZShape.getBoxBoundary();
-    if (s.scale * MAX2(boundary.getWidth(), boundary.getHeight()) < s.polySize.minSize) {
-        return;
-    }
-    glPushName(getGlID());
-    if (myTAZShape.size() > 1) {
-        glPushMatrix();
-        glTranslated(0, 0, 128);
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectionColor);
-        } else {
-            GLHelper::setColor(myColor);
-        }
-        GLHelper::drawLine(myTAZShape);
-        GLHelper::drawBoxLines(myTAZShape, s.polySize.getExaggeration(s, this));
-        glPopMatrix();
-        const Position namePos = myTAZShape.getPolygonCenter();
-        drawName(namePos, s.scale, s.polyName, s.angle);
-    }
-    // draw geometry details hints if is not too small and isn't in selecting mode
-    if (s.scale * myHintSize > 1.) {
-        // set values relative to mouse position regarding to shape
-        bool mouseOverVertex = false;
-        bool modeMove = myViewNet->getEditModes().networkEditMode == GNE_NMODE_MOVE;
-        Position mousePosition = myViewNet->getPositionInformation();
-        double distanceToShape = myTAZShape.distance2D(mousePosition);
-        // set colors
-        RGBColor invertedColor, darkerColor;
-        if (drawUsingSelectColor()) {
-            invertedColor = s.colorSettings.selectionColor.invertedColor();
-            darkerColor = s.colorSettings.selectionColor.changedBrightness(-32);
-        } else {
-            invertedColor = GLHelper::getColor().invertedColor();
-            darkerColor = GLHelper::getColor().changedBrightness(-32);
-        }
-        // Draw geometry hints if polygon's shape isn't blocked
-        if (myBlockShape == false) {
-            // draw a boundary for moving using darkerColor
+    // obtain Exaggeration
+    const double TAZExaggeration = s.polySize.getExaggeration(s, this);
+    const Boundary TAZBoundary = myTAZShape.getBoxBoundary();
+    // check if TAZ can be drawn
+    if ((TAZExaggeration > 0 && s.scale) * (MAX2(TAZBoundary.getWidth(), TAZBoundary.getHeight()) >= s.polySize.minSize)) {
+        // push name
+        glPushName(getGlID());
+        if (myTAZShape.size() > 1) {
             glPushMatrix();
-            glTranslated(0, 0, GLO_POLYGON + 0.01);
-            GLHelper::setColor(darkerColor);
-            GLHelper::drawBoxLines(myTAZShape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
+            glTranslated(0, 0, 128);
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectionColor);
+            } else {
+                GLHelper::setColor(myColor);
+            }
+            GLHelper::drawLine(myTAZShape);
+            GLHelper::drawBoxLines(myTAZShape, s.polySize.getExaggeration(s, this));
             glPopMatrix();
-            // draw shape points only in Network supemode
-            if (myViewNet->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND) {
-                for (auto i : myTAZShape) {
-                    if (!s.drawForRectangleSelection || (myViewNet->getPositionInformation().distanceSquaredTo2D(i) <= (myHintSizeSquared + 2))) {
-                        glPushMatrix();
-                        glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
-                        // Change color of vertex and flag mouseOverVertex if mouse is over vertex
-                        if (modeMove && (i.distanceTo2D(mousePosition) < myHintSize)) {
-                            mouseOverVertex = true;
-                            GLHelper::setColor(invertedColor);
-                        } else {
-                            GLHelper::setColor(darkerColor);
+            // draw name
+            drawName(myTAZShape.getPolygonCenter(), s.scale, s.polyName, s.angle);
+        }
+        // draw geometry details hints if is not too small and isn't in selecting mode
+        if (s.scale * myHintSize > 1.) {
+            // set values relative to mouse position regarding to shape
+            bool mouseOverVertex = false;
+            bool modeMove = myViewNet->getEditModes().networkEditMode == GNE_NMODE_MOVE;
+            Position mousePosition = myViewNet->getPositionInformation();
+            double distanceToShape = myTAZShape.distance2D(mousePosition);
+            // set colors
+            RGBColor invertedColor, darkerColor;
+            if (drawUsingSelectColor()) {
+                invertedColor = s.colorSettings.selectionColor.invertedColor();
+                darkerColor = s.colorSettings.selectionColor.changedBrightness(-32);
+            } else {
+                invertedColor = GLHelper::getColor().invertedColor();
+                darkerColor = GLHelper::getColor().changedBrightness(-32);
+            }
+            // Draw geometry hints if polygon's shape isn't blocked
+            if (myBlockShape == false) {
+                // draw a boundary for moving using darkerColor
+                glPushMatrix();
+                glTranslated(0, 0, GLO_POLYGON + 0.01);
+                GLHelper::setColor(darkerColor);
+                GLHelper::drawBoxLines(myTAZShape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
+                glPopMatrix();
+                // draw shape points only in Network supemode
+                if (myViewNet->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND) {
+                    for (const auto &TAZVertex : myTAZShape) {
+                        if (!s.drawForRectangleSelection || (myViewNet->getPositionInformation().distanceSquaredTo2D(TAZVertex) <= (myHintSizeSquared + 2))) {
+                            glPushMatrix();
+                            glTranslated(TAZVertex.x(), TAZVertex.y(), GLO_POLYGON + 0.02);
+                            // Change color of vertex and flag mouseOverVertex if mouse is over vertex
+                            if (modeMove && (TAZVertex.distanceTo2D(mousePosition) < myHintSize)) {
+                                mouseOverVertex = true;
+                                GLHelper::setColor(invertedColor);
+                            } else {
+                                GLHelper::setColor(darkerColor);
+                            }
+                            GLHelper::drawFilledCircle(myHintSize, s.getCircleResolution());
+                            glPopMatrix();
                         }
-                        GLHelper::drawFilledCircle(myHintSize, s.getCircleResolution());
+                    }
+                    // check if draw moving hint has to be drawed
+                    if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
+                        // push matrix
+                        glPushMatrix();
+                        Position hintPos = myTAZShape.size() > 1 ? myTAZShape.positionAtOffset2D(myTAZShape.nearest_offset_to_point2D(mousePosition)) : myTAZShape[0];
+                        glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
+                        GLHelper::setColor(invertedColor);
+                        GLHelper:: drawFilledCircle(myHintSize, s.getCircleResolution());
                         glPopMatrix();
                     }
                 }
-                // check if draw moving hint has to be drawed
-                if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
-                    // push matrix
-                    glPushMatrix();
-                    Position hintPos = myTAZShape.size() > 1 ? myTAZShape.positionAtOffset2D(myTAZShape.nearest_offset_to_point2D(mousePosition)) : myTAZShape[0];
-                    glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
-                    GLHelper::setColor(invertedColor);
-                    GLHelper:: drawFilledCircle(myHintSize, s.getCircleResolution());
-                    glPopMatrix();
-                }
             }
         }
+        // check if dotted contour has to be drawn
+        if ((myViewNet->getDottedAC() == this) || (myViewNet->getViewParent()->getTAZFrame()->getTAZCurrentModul()->getTAZ() == this)) {
+            GNEGeometry::drawShapeDottedContour(s, GLO_POLYGON + 1, TAZExaggeration, myDottedGeometry);
+        }
+        // pop name
+        glPopName();
     }
-    // check if dotted contour has to be drawn
-    if ((myViewNet->getDottedAC() == this) || (myViewNet->getViewParent()->getTAZFrame()->getTAZCurrentModul()->getTAZ() == this)) {
-        GLHelper::drawShapeDottedContourAroundClosedShape(s, GLO_POLYGON + 1, myTAZShape);
-    }
-    // pop name
-    glPopName();
 }
 
 
