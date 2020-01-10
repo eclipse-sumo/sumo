@@ -193,7 +193,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
 
     // toolbar help
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,  GNEApplicationWindow::onCmdHelp),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F2_ABOUT,                GNEApplicationWindow::onCmdAbout),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F12_ABOUT,               GNEApplicationWindow::onCmdAbout),
 
     // alt + <number>
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_0_TOOGLEEDITOPTION,      GNEApplicationWindow::onCmdToogleEditOptions),
@@ -235,8 +235,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR,     GNEApplicationWindow::onCmdClearTemplate),
 
     // Other
-    FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,                                  GNEApplicationWindow::onClipboardRequest),
-    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_F12_FOCUSUPPERELEMENT,   GNEApplicationWindow::onCmdFocusFrame),
+    FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,                                      GNEApplicationWindow::onClipboardRequest),
+    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, GNEApplicationWindow::onCmdFocusFrame),
 };
 
 // Object implementation
@@ -1671,8 +1671,8 @@ GNEApplicationWindow::fillMenuBar() {
                       "&Online Documentation\tF1\tOpen Online documentation.",
                       nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
     new FXMenuCommand(myHelpMenu,
-                      "&About\tF2\tAbout netedit.",
-                      GUIIconSubSys::getIcon(ICON_NETEDIT_MINI), this, MID_HOTKEY_F2_ABOUT);
+                      "&About\tF12\tAbout netedit.",
+                      GUIIconSubSys::getIcon(ICON_NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
 }
 
 

@@ -161,8 +161,6 @@ enum {
 
     /// @brief hot key <F1> open online documentation
     MID_HOTKEY_F1_ONLINEDOCUMENTATION,
-    /// @brief hot key <F2> open about dialog
-    MID_HOTKEY_F2_ABOUT,
     /// @brief hot key <F3> set network mode in NETEDIT
     MID_HOTKEY_F3_SUPERMODE_NETWORK,
     /// @brief hot key <F4> set demand mode in NETEDIT
@@ -179,8 +177,8 @@ enum {
     MID_HOTKEY_F9_EDIT_VIEWSCHEME,
     /// @brief open options menu
     MID_HOTKEY_F10_OPTIONSMENU,
-    /// @brief hot key <F12> focus upper element of current frame
-    MID_HOTKEY_F12_FOCUSUPPERELEMENT,
+    /// @brief open about dialog
+    MID_HOTKEY_F12_ABOUT,
     /// @}
 
     /// @name shift + Functional hotkeys
@@ -194,7 +192,8 @@ enum {
     MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR,
     /// @brief compute junctions with volatile options
     MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,
-
+    /// @brief focus upper element of current frame (only used in NETEDIT)
+    MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,
     /// @}
 
     /// @name Other hotkeys
