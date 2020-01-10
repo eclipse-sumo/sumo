@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_4_0+0308-61819149b5
+Eclipse SUMO Version v1_4_0+0427-e973ab2
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -276,7 +276,8 @@ Routing Options:
   --persontrip.transfer.car-walk STR[]  Where are mode changes from car to
                                          walking allowed (possible values:
                                          'parkingAreas', 'ptStops',
-                                         'allJunctions' and combinations)
+                                         'allJunctions', 'taxi' and
+                                         combinations)
   --device.rerouting.probability FLOAT  The probability for a vehicle to have a
                                          'rerouting' device
   --device.rerouting.explicit STR[]    Assign a 'rerouting' device to named
@@ -628,6 +629,8 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing

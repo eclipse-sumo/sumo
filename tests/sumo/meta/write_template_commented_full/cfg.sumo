@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan  3 19:24:35 2020 by Eclipse SUMO Version v1_4_0+0308-61819149b5
+<!-- generated on Fri Jan 10 10:16:43 2020 by Eclipse SUMO Version v1_4_0+0427-e973ab2
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -381,7 +381,7 @@
         <!-- Use FLOAT as a factor on pedestrian maximum speed during intermodal routing -->
         <persontrip.walkfactor value="0.75" type="FLOAT"/>
 
-        <!-- Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos; and combinations) -->
+        <!-- Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos;, &apos;taxi&apos; and combinations) -->
         <persontrip.transfer.car-walk value="parkingAreas" type="STR[]"/>
 
         <!-- The probability for a vehicle to have a &apos;rerouting&apos; device -->
@@ -890,6 +890,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
