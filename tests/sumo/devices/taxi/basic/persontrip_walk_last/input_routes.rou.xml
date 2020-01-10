@@ -9,11 +9,11 @@
     </trip>
 
     <person id="p0" depart="0.00">
-        <personTrip from="accessA" to="B0B1" modes="taxi"/>
+        <personTrip from="A0B0" to="accessC" modes="taxi"/>
     </person>
 
     <person id="p_mustwalk" depart="10.00">
-        <personTrip from="accessA" to="B0B1" modes="car"/>
+        <personTrip from="A0B0" to="accessC" modes="car"/>
     </person>
 
 </routes>
