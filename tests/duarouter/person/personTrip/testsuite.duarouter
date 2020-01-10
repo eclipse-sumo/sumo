@@ -155,6 +155,6 @@ ride_trip_access
 trip_output
 trip_output_geo
 
-# use mode taxi
+# test routing taxi trips
 taxi
 errors
