@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/GNEAttributeCarrier.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNetHelper.h>
 
 // ===========================================================================

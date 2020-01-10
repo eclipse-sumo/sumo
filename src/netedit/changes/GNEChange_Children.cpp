@@ -19,7 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/demandelements/GNEDemandElement.h>
+#include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 

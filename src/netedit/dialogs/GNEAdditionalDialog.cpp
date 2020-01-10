@@ -21,7 +21,7 @@
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 

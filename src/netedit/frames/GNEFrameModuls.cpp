@@ -24,15 +24,16 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNETAZ.h>
 #include <netedit/changes/GNEChange_Children.h>
-#include <netedit/demandelements/GNEDemandElement.h>
-#include <netedit/netelements/GNEConnection.h>
-#include <netedit/netelements/GNECrossing.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/netelements/GNELane.h>
+#include <netedit/elements/additional/GNEPOI.h>
+#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/demand/GNEDemandElement.h>
+#include <netedit/elements/net/GNEConnection.h>
+#include <netedit/elements/net/GNECrossing.h>
+#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/net/GNEJunction.h>
+#include <netedit/elements/net/GNELane.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -40,7 +41,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEFrameModuls.h"
-#include "GNEInspectorFrame.h"
+
 
 
 // ===========================================================================

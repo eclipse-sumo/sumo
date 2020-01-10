@@ -22,14 +22,14 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/additionals/GNEPoly.h>
-#include <netedit/additionals/GNETAZ.h>
-#include <netedit/demandelements/GNEDemandElement.h>
-#include <netedit/netelements/GNEConnection.h>
-#include <netedit/netelements/GNECrossing.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/netelements/GNELane.h>
+#include <netedit/elements/additional/GNEPoly.h>
+#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/demand/GNEDemandElement.h>
+#include <netedit/elements/net/GNEConnection.h>
+#include <netedit/elements/net/GNECrossing.h>
+#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/net/GNEJunction.h>
+#include <netedit/elements/net/GNELane.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 

@@ -22,11 +22,11 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEConnection.h>
-#include <netedit/additionals/GNEAdditional.h>
-#include <netedit/additionals/GNEAdditionalHandler.h>
+#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/net/GNELane.h>
+#include <netedit/elements/net/GNEConnection.h>
+#include <netedit/elements/additional/GNEAdditional.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 

@@ -18,8 +18,8 @@
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
 #include <netbuild/NBFrame.h>
-#include <netedit/additionals/GNEAdditionalHandler.h>
-#include <netedit/demandelements/GNERouteHandler.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/dialogs/GNEAbout.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>

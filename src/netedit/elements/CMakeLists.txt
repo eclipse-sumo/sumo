@@ -1,0 +1,15 @@
+add_subdirectory(net)
+add_subdirectory(additional)
+add_subdirectory(demand)
+
+set(netedit_elements_SRCS
+   GNEAttributeCarrier.h
+   GNEAttributeCarrier.cpp
+   GNEHierarchicalParentElements.h
+   GNEHierarchicalParentElements.cpp
+   GNEHierarchicalChildElements.h
+   GNEHierarchicalChildElements.cpp
+   )
+
+add_library(netedit_elements STATIC ${netedit_elements_SRCS})
+set_property(TARGET netedit_elements PROPERTY PROJECT_LABEL "z_netedit_elements")

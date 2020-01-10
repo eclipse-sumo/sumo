@@ -19,10 +19,10 @@
 // A view on the network being edited (adapted from GUIViewTraffic)
 /****************************************************************************/
 #include <netbuild/NBEdgeCont.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNEPoly.h>
-#include <netedit/additionals/GNETAZ.h>
-#include <netedit/demandelements/GNEDemandElement.h>
+#include <netedit/elements/additional/GNEPOI.h>
+#include <netedit/elements/additional/GNEPoly.h>
+#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
@@ -41,11 +41,11 @@
 #include <netedit/frames/network/GNEProhibitionFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <netedit/netelements/GNEConnection.h>
-#include <netedit/netelements/GNECrossing.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/netelements/GNELane.h>
+#include <netedit/elements/net/GNEConnection.h>
+#include <netedit/elements/net/GNECrossing.h>
+#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/net/GNEJunction.h>
+#include <netedit/elements/net/GNELane.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>

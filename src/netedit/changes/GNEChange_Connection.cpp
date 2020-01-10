@@ -19,7 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/netelements/GNEEdge.h>
+#include <netedit/elements/net/GNEEdge.h>
 #include <netedit/GNENet.h>
 
 #include "GNEChange_Connection.h"

@@ -27,8 +27,8 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
+#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/net/GNELane.h>
 
 #include "GNEInspectorFrame.h"
 #include "GNEDeleteFrame.h"

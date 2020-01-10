@@ -27,12 +27,12 @@
 /****************************************************************************/
 #include <netbuild/NBAlgorithms.h>
 #include <netbuild/NBNetBuilder.h>
-#include <netedit/additionals/GNEAdditionalHandler.h>
-#include <netedit/demandelements/GNEVehicleType.h>
-#include <netedit/additionals/GNEAdditional.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNEPoly.h>
-#include <netedit/demandelements/GNERouteHandler.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/elements/demand/GNEVehicleType.h>
+#include <netedit/elements/additional/GNEAdditional.h>
+#include <netedit/elements/additional/GNEPOI.h>
+#include <netedit/elements/additional/GNEPoly.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/changes/GNEChange_Crossing.h>
@@ -45,11 +45,11 @@
 #include <netedit/dialogs/GNEFixAdditionalElements.h>
 #include <netedit/dialogs/GNEFixDemandElements.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/netelements/GNEConnection.h>
-#include <netedit/netelements/GNECrossing.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/netelements/GNELane.h>
+#include <netedit/elements/net/GNEConnection.h>
+#include <netedit/elements/net/GNECrossing.h>
+#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/net/GNEJunction.h>
+#include <netedit/elements/net/GNELane.h>
 #include <netwrite/NWFrame.h>
 #include <netwrite/NWWriter_SUMO.h>
 #include <netwrite/NWWriter_XML.h>

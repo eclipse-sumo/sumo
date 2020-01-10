@@ -17,10 +17,10 @@
 ///
 // File for geometry classes and functions
 /****************************************************************************/
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/net/GNEJunction.h>
+#include <netedit/elements/net/GNELane.h>
+#include <netedit/elements/additional/GNEAdditional.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 

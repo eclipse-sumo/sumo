@@ -23,11 +23,11 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/additionals/GNEBusStop.h>
-#include <netedit/demandelements/GNEPerson.h>
-#include <netedit/demandelements/GNERouteHandler.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
+#include <netedit/elements/additional/GNEBusStop.h>
+#include <netedit/elements/demand/GNEPerson.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/net/GNELane.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GLIncludes.h>

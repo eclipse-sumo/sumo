@@ -21,9 +21,9 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/demandelements/GNERouteHandler.h>
-#include <netedit/demandelements/GNEVehicle.h>
-#include <netedit/netelements/GNEEdge.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/elements/demand/GNEVehicle.h>
+#include <netedit/elements/net/GNEEdge.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>

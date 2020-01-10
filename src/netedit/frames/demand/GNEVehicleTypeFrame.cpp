@@ -23,7 +23,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/demandelements/GNEVehicleType.h>
+#include <netedit/elements/demand/GNEVehicleType.h>
 #include <netedit/dialogs/GNEVehicleTypeDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>

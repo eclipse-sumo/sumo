@@ -23,10 +23,10 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/demandelements/GNERoute.h>
+#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/net/GNELane.h>
+#include <netedit/elements/net/GNEJunction.h>
+#include <netedit/elements/demand/GNERoute.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>

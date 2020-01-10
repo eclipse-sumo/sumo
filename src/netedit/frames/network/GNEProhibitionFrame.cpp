@@ -21,10 +21,10 @@
 
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEConnection.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
+#include <netedit/elements/net/GNELane.h>
+#include <netedit/elements/net/GNEConnection.h>
+#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/net/GNEJunction.h>
 #include <netedit/GNEViewNet.h>
 
 #include "GNEProhibitionFrame.h"

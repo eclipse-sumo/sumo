@@ -26,9 +26,9 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/additionals/GNEPoly.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/netelements/GNELane.h>
+#include <netedit/elements/additional/GNEPoly.h>
+#include <netedit/elements/additional/GNEPOI.h>
+#include <netedit/elements/net/GNELane.h>
 
 #include "GNEPolygonFrame.h"
 

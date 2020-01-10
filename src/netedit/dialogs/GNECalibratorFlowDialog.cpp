@@ -22,7 +22,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/additionals/GNECalibrator.h>
+#include <netedit/elements/additional/GNECalibrator.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 

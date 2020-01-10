@@ -25,11 +25,11 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/additionals/GNETAZ.h>
-#include <netedit/additionals/GNETAZSourceSink.h>
-#include <netedit/additionals/GNEAdditionalHandler.h>
+#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/net/GNELane.h>
+#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/additional/GNETAZSourceSink.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNETAZFrame.h"

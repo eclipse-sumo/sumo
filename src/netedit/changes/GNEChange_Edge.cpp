@@ -20,11 +20,11 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/additionals/GNEShape.h>
-#include <netedit/additionals/GNEAdditional.h>
-#include <netedit/demandelements/GNEDemandElement.h>
+#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/net/GNELane.h>
+#include <netedit/elements/additional/GNEShape.h>
+#include <netedit/elements/additional/GNEAdditional.h>
+#include <netedit/elements/demand/GNEDemandElement.h>
 
 
 #include "GNEChange_Edge.h"
