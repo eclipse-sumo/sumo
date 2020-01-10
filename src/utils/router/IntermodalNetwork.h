@@ -90,7 +90,9 @@ public:
         /// @brief public transport stops and access
         PT_STOPS = 2,
         /// @brief junctions with edges allowing the additional mode
-        ALL_JUNCTIONS = 4
+        ALL_JUNCTIONS = 4,
+        /// @brief all junctions where a taxi customer may exit
+        ALL_JUNCTIONS_TAXI = 8
     };
 
     /* @brief build the pedestrian part of the intermodal network (once)
@@ -416,6 +418,25 @@ public:
                     }
                 }
             }
+            if ((myCarWalkTransfer & ALL_JUNCTIONS) == 0 && (myCarWalkTransfer & ALL_JUNCTIONS_TAXI) != 0) {
+                // add access edges that allow exiting a taxi
+                _IntermodalEdge* const walkCon = getWalkingConnector(edgePair.first);
+                if (walkCon != 0) {
+                    addRestrictedCarExit(carEdge, walkCon, SVC_TAXI);
+                } else {
+                    // we are on an edge where pedestrians are forbidden and want to continue on an arbitrary pedestrian edge
+                    for (const E* const out : edgePair.first->getToJunction()->getOutgoing()) {
+                        if (!out->isInternal() && !out->isTazConnector() && getSidewalk<E, L>(out) != 0) {
+                            addRestrictedCarExit(carEdge, getBothDirections(out).first, SVC_TAXI);
+                        }
+                    }
+                    for (const E* const in : edgePair.first->getToJunction()->getIncoming()) {
+                        if (!in->isInternal() && !in->isTazConnector() && getSidewalk<E, L>(in) != 0) {
+                            addRestrictedCarExit(carEdge, getBothDirections(in).second, SVC_TAXI);
+                        }
+                    }
+                }
+            }
             getDepartConnector(edgePair.first)->addSuccessor(carEdge);
             carEdge->addSuccessor(getArrivalConnector(edgePair.first));
         }
@@ -643,6 +664,18 @@ public:
         pedestrianEdges.first->addSuccessor(access);
         pedestrianEdges.second->addSuccessor(access);
         access->addSuccessor(carEdge);
+    }
+
+    /** @brief Adds access edges for transfering from driving to walking tha are only usable by a particular vehicle class
+    * @param[in] from The origin edge of the transfer
+    * @param[in] to The destination edge of the transfer
+    * @param[in] svc The permitted vehicle class for transfering
+    */
+    void addRestrictedCarExit(_IntermodalEdge* from, _IntermodalEdge* to, SUMOVehicleClass vehicleRestriction) {
+        _AccessEdge* access = new _AccessEdge(myNumericalID++, from, to, 0, SVC_IGNORING, vehicleRestriction);
+        addEdge(access);
+        from->addSuccessor(access);
+        access->addSuccessor(to);
     }
 
 private:

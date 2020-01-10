@@ -35,10 +35,13 @@ private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
 
 public:
-    AccessEdge(int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge, const double length, SVCPermissions restrictions = SVC_IGNORING) :
+    AccessEdge(int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge, const double length, 
+            SVCPermissions modeRestriction = SVC_IGNORING,
+            SVCPermissions vehicleRestriction = SVC_IGNORING) :
         _IntermodalEdge(inEdge->getID() + ":" + outEdge->getID(), numericalID, outEdge->getEdge(), "!access"),
         myLength(length > 0. ? length : NUMERICAL_EPS),
-        myRestrictions(restrictions)
+        myModeRestrictions(modeRestriction),
+        myVehicleRestriction(vehicleRestriction)
         { }
 
     double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double /* time */) const {
@@ -46,12 +49,16 @@ public:
     }
 
     bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
-        return (trip->modeSet & myRestrictions) != myRestrictions;
+        return ((trip->modeSet & myModeRestrictions) != myModeRestrictions 
+                || ((trip->vehicle == nullptr ? SVC_IGNORING : trip->vehicle->getVClass()) & myVehicleRestriction) != myVehicleRestriction);
     }
 
 private:
     const double myLength;
-    const SVCPermissions myRestrictions;
+    /// @brief only allow using this edge if the modeSet matches (i.e. entering a taxi)
+    const SVCPermissions myModeRestrictions;
+    /// @brief only allow using this edge if the vehicle class matches (i.e. exiting a taxi)
+    const SVCPermissions myVehicleRestriction;
 
 };
 

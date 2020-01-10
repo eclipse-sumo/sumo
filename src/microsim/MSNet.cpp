@@ -1128,6 +1128,9 @@ MSNet::getIntermodalRouter(const int rngIndex, const int routingMode, const MSEd
                 carWalk |= MSIntermodalRouter::Network::ALL_JUNCTIONS;
             }
         }
+        if (MSDevice_Taxi::getTaxi() != nullptr) {
+            carWalk |= MSIntermodalRouter::Network::ALL_JUNCTIONS_TAXI;
+        }
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingMode == libsumo::ROUTING_MODE_COMBINED) {
             myIntermodalRouter[key] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode, new FareModul());
