@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 10 10:16:43 2020 by Eclipse SUMO Version v1_4_0+0427-e973ab2
+<!-- generated on Sat Jan 11 13:08:04 2020 by Eclipse SUMO Version v1_4_0+0439-f1d139a209
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -22,6 +22,7 @@
         <load-state value="" type="FILE" help="Loads a network state from FILE"/>
         <load-state.offset value="0" type="TIME" help="Shifts all times loaded from a saved state by the given offset"/>
         <load-state.remove-vehicles value="" type="STR[]" help="Removes vehicles with the given IDs from the loaded state"/>
+        <junction-taz value="false" type="BOOL" help="Initialize a TAZ for every junction to use attributes toJunction and fromJunction"/>
     </input>
 
     <output>
@@ -345,7 +346,6 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="FLOAT" help="The aggregation period for value tracker windows"/>
-        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable ovelay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settingsoutput file"/>

@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_4_0+0427-e973ab2
+Eclipse SUMO Version v1_4_0+0439-f1d139a209
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -25,6 +25,9 @@ Input Options:
                                          state by the given offset
   --load-state.remove-vehicles STR[]   Removes vehicles with the given IDs from
                                          the loaded state
+  --junction-taz                       Initialize a TAZ for every junction to
+                                         use attributes toJunction and
+                                         fromJunction
 
 Output Options:
   --write-license                      Include license info into every output
@@ -629,8 +632,6 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing
