@@ -102,6 +102,9 @@ MSFrame::fillOptions() {
     oc.doRegister("load-state.remove-vehicles", new Option_StringVector(StringVector({""})));
     oc.addDescription("load-state.remove-vehicles", "Input", "Removes vehicles with the given IDs from the loaded state");
 
+    oc.doRegister("junction-taz", new Option_Bool(false));
+    oc.addDescription("junction-taz", "Input", "Initialize a TAZ for every junction to use attributes toJunction and fromJunction");
+
     //  register output options
     oc.doRegister("netstate-dump", new Option_FileName());
     oc.addSynonyme("netstate-dump", "ndump");

@@ -694,6 +694,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_TOLONLAT,
     SUMO_ATTR_FROMXY,
     SUMO_ATTR_TOXY,
+    SUMO_ATTR_FROMJUNCTION,
+    SUMO_ATTR_TOJUNCTION,
     SUMO_ATTR_PERIOD,
     SUMO_ATTR_FROM_TAZ,
     SUMO_ATTR_TO_TAZ,
@@ -775,6 +777,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_VIA,
     SUMO_ATTR_VIALONLAT,
     SUMO_ATTR_VIAXY,
+    SUMO_ATTR_VIAJUNCTIONS,
     /// @brief a list of node ids, used for controlling joining
     SUMO_ATTR_NODES,
 

@@ -148,6 +148,35 @@ NLBuilder::build() {
             myNet.getEdgeControl().setAdditionalRestrictions();
         }
     }
+    if (myOptions.getBool("junction-taz")) {
+        // create a TAZ for every junction
+        const MSJunctionControl& junctions = myNet.getJunctionControl();
+        for (auto it = junctions.begin(); it != junctions.end(); it++) {
+            const std::string sinkID = it->first + "-sink";
+            const std::string sourceID = it->first + "-source";
+            MSEdge* sink = myEdgeBuilder.buildEdge(sinkID, EDGEFUNC_CONNECTOR, "", "", -1, 0);
+            MSEdge* source = myEdgeBuilder.buildEdge(sourceID, EDGEFUNC_CONNECTOR, "", "", -1, 0);
+            if (!MSEdge::dictionary(sinkID, sink) || !MSEdge::dictionary(sourceID, source)) {
+                delete sink;
+                delete source;
+                WRITE_WARNINGF("A TAZ with id '%' already exists. Not building junction TAZ.", it->first)
+            } else {
+                sink->initialize(new std::vector<MSLane*>());
+                source->initialize(new std::vector<MSLane*>());
+                const MSJunction* junction = it->second;
+                for (const MSEdge* edge : junction->getIncoming()) {
+                    if (!edge->isInternal()) {
+                        const_cast<MSEdge*>(edge)->addSuccessor(sink);
+                    }
+                }
+                for (const MSEdge* edge : junction->getOutgoing()) {
+                    if (!edge->isInternal()) {
+                        source->addSuccessor(const_cast<MSEdge*>(edge));
+                    }
+                }
+            }
+        }
+    }
     // load weights if wished
     if (myOptions.isSet("weight-files")) {
         if (!myOptions.isUsableFileList("weight-files")) {

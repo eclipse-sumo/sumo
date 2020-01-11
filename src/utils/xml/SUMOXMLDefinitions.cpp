@@ -452,6 +452,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "toLonLat",               SUMO_ATTR_TOLONLAT },
     { "fromXY",                 SUMO_ATTR_FROMXY },
     { "toXY",                   SUMO_ATTR_TOXY },
+    { "fromJunction",           SUMO_ATTR_FROMJUNCTION },
+    { "toJunction",             SUMO_ATTR_TOJUNCTION },
     { "period",                 SUMO_ATTR_PERIOD },
     { "fromTaz",                SUMO_ATTR_FROM_TAZ },
     { "toTaz",                  SUMO_ATTR_TO_TAZ },
@@ -507,6 +509,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "via",                    SUMO_ATTR_VIA },
     { "viaLonLat",              SUMO_ATTR_VIALONLAT },
     { "viaXY",                  SUMO_ATTR_VIAXY },
+    { "viaJunctions",           SUMO_ATTR_VIAJUNCTIONS },
     { "nodes",                  SUMO_ATTR_NODES },
     { "visibility",             SUMO_ATTR_VISIBILITY_DISTANCE },
 
