@@ -511,6 +511,8 @@
         <xsd:attribute name="fromXY" type="positionType"/>
         <xsd:attribute name="toXY" type="positionType"/>
         <xsd:attribute name="viaXY" type="shapeType"/>
+        <xsd:attribute name="fromJunction" type="xsd:string"/>
+        <xsd:attribute name="toJunction" type="xsd:string"/>
         <xsd:attribute name="type" type="xsd:string"/>
         <xsd:attribute name="depart" type="departType" use="required"/>
         <xsd:attribute name="color" type="colorType"/>
