@@ -71,8 +71,8 @@ GNERerouter::updateGeometry() {
 void 
 GNERerouter::updateDottedContour() {
     myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myPosition, 0,
-                                          myViewNet->getVisualisationSettings()->additionalSettings.rerouterSize,
-                                          myViewNet->getVisualisationSettings()->additionalSettings.rerouterSize);
+                                          myViewNet->getVisualisationSettings().additionalSettings.rerouterSize,
+                                          myViewNet->getVisualisationSettings().additionalSettings.rerouterSize);
 }
 
 

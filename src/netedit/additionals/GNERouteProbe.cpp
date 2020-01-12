@@ -84,8 +84,8 @@ GNERouteProbe::updateDottedContour() {
     myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
                                           myAdditionalGeometry.getPosition(), 
                                           myAdditionalGeometry.getRotation(),
-                                          myViewNet->getVisualisationSettings()->additionalSettings.routeProbeSize,
-                                          myViewNet->getVisualisationSettings()->additionalSettings.routeProbeSize);
+                                          myViewNet->getVisualisationSettings().additionalSettings.routeProbeSize,
+                                          myViewNet->getVisualisationSettings().additionalSettings.routeProbeSize);
 }
 
 

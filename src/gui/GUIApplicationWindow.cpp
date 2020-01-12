@@ -759,7 +759,7 @@ GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
                 GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
                 if (w != nullptr) {
                     // color by selection
-                    w->getView()->getVisualisationSettings()->laneColorer.setActive(1);
+                    w->getView()->getVisualisationSettings().laneColorer.setActive(1);
                 }
             }
         }
@@ -1220,7 +1220,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         return 1;
     }
     myAmGaming = !myAmGaming;
-    myGLWindows[0]->getView()->getVisualisationSettings()->gaming = myAmGaming;
+    myGLWindows[0]->getView()->getVisualisationSettings().gaming = myAmGaming;
     if (myAmGaming) {
         myMenuBar->hide();
         myStatusbar->hide();

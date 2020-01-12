@@ -79,7 +79,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 break;
             case libsumo::VAR_VIEW_SCHEMA:
                 tempMsg.writeUnsignedByte(libsumo::TYPE_STRING);
-                tempMsg.writeString(v->getVisualisationSettings()->name);
+                tempMsg.writeString(v->getVisualisationSettings().name);
                 break;
             case libsumo::VAR_VIEW_BOUNDARY: {
                 tempMsg.writeUnsignedByte(libsumo::TYPE_POLYGON);

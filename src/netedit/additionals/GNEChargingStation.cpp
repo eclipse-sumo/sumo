@@ -62,7 +62,7 @@ GNEChargingStation::updateGeometry() {
     PositionVector tmpShape = myAdditionalGeometry.getShape();
 
     // Move shape to side
-    tmpShape.move2side(myViewNet->getVisualisationSettings()->stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);
+    tmpShape.move2side(myViewNet->getVisualisationSettings().stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);
 
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
@@ -82,7 +82,7 @@ void
 GNEChargingStation::updateDottedContour() {
     myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
                                           myAdditionalGeometry.getShape(),
-                                          myViewNet->getVisualisationSettings()->stoppingPlaceSettings.chargingStationWidth);
+                                          myViewNet->getVisualisationSettings().stoppingPlaceSettings.chargingStationWidth);
 }
 
 

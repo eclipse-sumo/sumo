@@ -343,7 +343,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                         // translate to position over lane
                         glTranslated(positionOverLane.x(), positionOverLane.y(), 0);
                         // Draw circle
-                        GLHelper::drawFilledCircle(contourWidth, myNet->getViewNet()->getVisualisationSettings()->getCircleResolution());
+                        GLHelper::drawFilledCircle(contourWidth, myNet->getViewNet()->getVisualisationSettings().getCircleResolution());
                         // pop draw matrix
                         glPopMatrix();
                     }

@@ -388,7 +388,7 @@ GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
     // restore original shape into shapeToCommit
     PositionVector innerShapeToCommit = myNBEdge->getInnerGeometry();
     // first check if second and penultimate isn't in Junction's buubles
-    double buubleRadius = GNEJunction::BUBBLE_RADIUS * myNet->getViewNet()->getVisualisationSettings()->junctionSize.exaggeration;
+    double buubleRadius = GNEJunction::BUBBLE_RADIUS * myNet->getViewNet()->getVisualisationSettings().junctionSize.exaggeration;
     if (myNBEdge->getGeometry().size() > 2 && myNBEdge->getGeometry()[0].distanceTo2D(myNBEdge->getGeometry()[1]) < buubleRadius) {
         innerShapeToCommit.removeClosest(innerShapeToCommit[0]);
     }
@@ -1548,16 +1548,16 @@ GNEEdge::updateDottedContour() {
     const GNELane* frontLane = myLanes.front();
     const GNELane* backLane = myLanes.back();
     // obtain visualization settings
-    GUIVisualizationSettings *visualizationSetting = myNet->getViewNet()->getVisualisationSettings();
+    const GUIVisualizationSettings& visualizationSetting = myNet->getViewNet()->getVisualisationSettings();
     // obtain lane widdths
     const double myHalfLaneWidthFront = myNBEdge->getLaneWidth(frontLane->getIndex()) / 2;
-    const double myHalfLaneWidthBack = (visualizationSetting->spreadSuperposed && backLane->drawAsRailway(visualizationSetting) && 
+    const double myHalfLaneWidthBack = (visualizationSetting.spreadSuperposed && backLane->drawAsRailway(visualizationSetting) && 
         myNBEdge->isBidiRail()) ? 0 : myNBEdge->getLaneWidth(backLane->getIndex()) / 2;
     // obtain shapes from NBEdge
     PositionVector mainShape = frontLane->getParentEdge()->getNBEdge()->getLaneShape(frontLane->getIndex());
     PositionVector backShape = backLane->getParentEdge()->getNBEdge()->getLaneShape(backLane->getIndex());
     // move to side depending of lefthand
-    if (visualizationSetting->lefthand) {
+    if (visualizationSetting.lefthand) {
         mainShape.move2side(myHalfLaneWidthFront * -1);
         backShape.move2side(myHalfLaneWidthBack);
     } else {

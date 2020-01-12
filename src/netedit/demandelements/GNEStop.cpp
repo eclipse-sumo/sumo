@@ -177,9 +177,9 @@ GNEStop::getVClass() const {
 const RGBColor&
 GNEStop::getColor() const {
     if (myTagProperty.isPersonStop()) {
-        return myViewNet->getVisualisationSettings()->colorSettings.personStops;
+        return myViewNet->getVisualisationSettings().colorSettings.personStops;
     } else {
-        return myViewNet->getVisualisationSettings()->colorSettings.stops;
+        return myViewNet->getVisualisationSettings().colorSettings.stops;
     }
 }
 

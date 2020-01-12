@@ -1491,7 +1491,7 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
             ("Show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(),
             myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS, LAYOUT_FIX_HEIGHT);
     menuCheckShowConnections->setHeight(23);
-    menuCheckShowConnections->setCheck(myViewNet->getVisualisationSettings()->showLane2Lane);
+    menuCheckShowConnections->setCheck(myViewNet->getVisualisationSettings().showLane2Lane);
     menuCheckShowConnections->create();
 
     menuCheckHideConnections = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
@@ -1644,7 +1644,7 @@ GNEViewNetHelper::NetworkViewOptions::showConnections() const {
     } else if (menuCheckShowConnections->shown() == false) {
         return false;
     } else {
-        return (myViewNet->getVisualisationSettings()->showLane2Lane);
+        return (myViewNet->getVisualisationSettings().showLane2Lane);
     }
 }
 
@@ -2112,7 +2112,7 @@ GNEViewNetHelper::EditShapes::startEditCustomShape(GNENetElement* element, const
         // set move mode
         myViewNet->myEditModes.setNetworkEditMode(GNE_NMODE_MOVE);
         // add special GNEPoly fo edit shapes (color is taken from junction color settings)
-        RGBColor col = myViewNet->getVisualisationSettings()->junctionColorer.getSchemes()[0].getColor(3);
+        RGBColor col = myViewNet->getVisualisationSettings().junctionColorer.getSchemes()[0].getColor(3);
         editedShapePoly = myViewNet->myNet->addPolygonForEditShapes(element, shape, fill, col);
         // update view net to show the new editedShapePoly
         myViewNet->update();

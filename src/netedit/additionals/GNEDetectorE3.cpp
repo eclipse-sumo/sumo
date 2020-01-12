@@ -69,8 +69,8 @@ GNEDetectorE3::updateGeometry() {
 void 
 GNEDetectorE3::updateDottedContour() {
     myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myPosition, 0,
-                                          myViewNet->getVisualisationSettings()->detectorSettings.E3Size,
-                                          myViewNet->getVisualisationSettings()->detectorSettings.E3Size);
+                                          myViewNet->getVisualisationSettings().detectorSettings.E3Size,
+                                          myViewNet->getVisualisationSettings().detectorSettings.E3Size);
 }
 
 

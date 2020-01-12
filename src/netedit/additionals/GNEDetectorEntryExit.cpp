@@ -140,8 +140,8 @@ GNEDetectorEntryExit::updateDottedContour() {
     myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
                                           myAdditionalGeometry.getPosition(),
                                           myAdditionalGeometry.getRotation(),
-                                          myViewNet->getVisualisationSettings()->detectorSettings.E3EntryExitWidth,
-                                          myViewNet->getVisualisationSettings()->detectorSettings.E3EntryExitHeight);
+                                          myViewNet->getVisualisationSettings().detectorSettings.E3EntryExitWidth,
+                                          myViewNet->getVisualisationSettings().detectorSettings.E3EntryExitHeight);
 }
 
 

@@ -78,8 +78,8 @@ GNEVaporizer::updateDottedContour() {
     myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
                                           myAdditionalGeometry.getPosition(), 
                                           myAdditionalGeometry.getRotation(),
-                                          myViewNet->getVisualisationSettings()->additionalSettings.vaporizerSize,
-                                          myViewNet->getVisualisationSettings()->additionalSettings.vaporizerSize);
+                                          myViewNet->getVisualisationSettings().additionalSettings.vaporizerSize,
+                                          myViewNet->getVisualisationSettings().additionalSettings.vaporizerSize);
 }
 
 
