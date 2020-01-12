@@ -95,9 +95,19 @@ canvas {
 
 button {
     color: #FFF;
-    border: none;
+    border: 1.2px solid #228C3B;
     cursor: pointer;
     display: block;
+    background-color: #28A745;
+    background-image: linear-gradient(-180deg,#34D058,#228C3B 90%);
+    -webkit-appearance: none;
+    font-weight: 600;
+    padding: 6px 12px;
+    background-repeat: repeat-x;
+}
+
+button:hover {
+    background-image: linear-gradient(-180deg,#34D058,#28A745 40%);
 }
 
 .container h4 {
