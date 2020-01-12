@@ -45,6 +45,7 @@ std::set<const MSDevice_Tripinfo*, ComparatorNumericalIdLess> MSDevice_Tripinfo:
 
 double MSDevice_Tripinfo::myVehicleCount(0);
 double MSDevice_Tripinfo::myTotalRouteLength(0);
+double MSDevice_Tripinfo::myTotalSpeed(0);
 SUMOTime MSDevice_Tripinfo::myTotalDuration(0);
 SUMOTime MSDevice_Tripinfo::myTotalWaitingTime(0);
 SUMOTime MSDevice_Tripinfo::myTotalTimeLoss(0);
@@ -122,6 +123,7 @@ void
 MSDevice_Tripinfo::cleanup() {
     myVehicleCount = 0;
     myTotalRouteLength = 0;
+    myTotalSpeed = 0;
     myTotalDuration = 0;
     myTotalWaitingTime = 0;
     myTotalTimeLoss = 0;
@@ -249,6 +251,7 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
 
     myVehicleCount++;
     myTotalRouteLength += routeLength;
+    myTotalSpeed += routeLength / STEPS2TIME(duration);
     myTotalDuration += duration;
     myTotalWaitingTime += myWaitingTime;
     myTotalTimeLoss += timeLoss;
@@ -378,6 +381,7 @@ MSDevice_Tripinfo::printStatistics() {
     msg.precision(gPrecision);
     msg << "Statistics (avg):\n"
         << " RouteLength: " << getAvgRouteLength() << "\n"
+        << " Speed: " << getAvgTripSpeed() << "\n"
         << " Duration: " << getAvgDuration() << "\n"
         << " WaitingTime: " << getAvgWaitingTime() << "\n"
         << " TimeLoss: " << getAvgTimeLoss() << "\n"
@@ -426,6 +430,15 @@ double
 MSDevice_Tripinfo::getAvgRouteLength() {
     if (myVehicleCount > 0) {
         return myTotalRouteLength / myVehicleCount;
+    } else {
+        return 0;
+    }
+}
+
+double
+MSDevice_Tripinfo::getAvgTripSpeed() {
+    if (myVehicleCount > 0) {
+        return myTotalSpeed / myVehicleCount;
     } else {
         return 0;
     }

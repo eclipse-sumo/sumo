@@ -78,6 +78,7 @@ public:
 
     /// @brief accessors for GUINet-Parameters
     static double getAvgRouteLength();
+    static double getAvgTripSpeed();
     static double getAvgDuration();
     static double getAvgWaitingTime();
     static double getAvgTimeLoss();
@@ -242,6 +243,7 @@ private:
     /// @brief global tripinfo statistics
     static double myVehicleCount;
     static double myTotalRouteLength;
+    static double myTotalSpeed;
     static SUMOTime myTotalDuration;
     static SUMOTime myTotalWaitingTime;
     static SUMOTime myTotalTimeLoss;
