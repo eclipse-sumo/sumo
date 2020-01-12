@@ -110,7 +110,9 @@ def runTests(options, env, gitrev, log, debugSuffix=""):
 
 def generateCMake(generator, log, checkOptionalLibs, python):
     buildDir = os.path.join(env["SUMO_HOME"], "build", "cmake-build-" + generator.replace(" ", "-"))
-    cmakeOpt = ["-DCOMPILE_DEFINITIONS=MSVC_TEST_SERVER", "-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
+    cmakeOpt = ["-DCOMPILE_DEFINITIONS=MSVC_TEST_SERVER",
+                "-DDEFAULT_LIBSUMO_PYTHON=False",
+                "-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
     if python:
         cmakeOpt += ["-DPYTHON_EXECUTABLE=%s" % python]
     if checkOptionalLibs:
@@ -189,6 +191,8 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
         buildDir = generateCMake(generator, log, options.suffix == "extra", options.python)
         ret = subprocess.call(["cmake", "--build", ".", "--config", "Release"],
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
+        ret = subprocess.call(["cmake", "--build", ".", "--target", "_libsumo"],
+                              cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         ret = subprocess.call(["cmake", "--build", ".", "--target", "cadyts"],
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         ret = subprocess.call(["cmake", "--build", ".", "--target", "lisum-gui"],
@@ -234,9 +238,11 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                     if os.path.basename(f) != "Helper.h":
                         zipf.write(f, includeDir + f[len(srcDir):])
                 zipf.write(os.path.join(buildDir, "src", "version.h"), os.path.join(includeDir, "version.h"))
+                print(zipf.namelist())
                 for f in glob.glob(os.path.join(toolsLibsumoDir, "*.py")) + glob.glob(os.path.join(toolsLibsumoDir, "*.pyd")):
                     # no os.path.join here, since the namelist uses only "/"
                     nameInZip = "/".join([binDir.replace("bin", "tools"), "libsumo", os.path.basename(f)])
+                    print(nameInZip, nameInZip in zipf.namelist())
                     if nameInZip not in zipf.namelist():
                         zipf.write(f, nameInZip)
                 zipf.close()

@@ -47,6 +47,7 @@ set_property(TARGET libsumostatic PROPERTY FOLDER "libsumo")
 
 set(ENABLE_PYTHON_BINDINGS ON CACHE BOOL "Build Python Bindings")
 set(ENABLE_JAVA_BINDINGS ON CACHE BOOL "Build Java Bindings")
+set(DEFAULT_LIBSUMO_PYTHON ON CACHE BOOL "Include Python Bindings in the ALL target")
 
 if(SWIG_FOUND)
     include(${SWIG_USE_FILE})
@@ -117,6 +118,10 @@ if(SWIG_FOUND)
                     SWIG_ADD_LIBRARY(libsumo LANGUAGE python SOURCES libsumo.i)
                 else()
                     SWIG_ADD_MODULE(libsumo python libsumo.i)
+                endif()
+                if (NOT DEFAULT_LIBSUMO_PYTHON)
+                    # needed to selectively build the python module on the build server
+                    set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY EXCLUDE_FROM_ALL TRUE)
                 endif()
                 if (MSVC OR APPLE)
                     # disable python module for the debug build because virtually no one has a python debug dll to link against
