@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 13 10:10:43 2020 by Eclipse SUMO jtrrouter Version v1_4_0+0451-801ba53
+<!-- generated on Mon Jan 13 21:46:22 2020 by Eclipse SUMO jtrrouter Version v1_4_0+0477-e6fc36ca7d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -48,6 +48,7 @@
         <weights.minor-penalty value="1.5" type="FLOAT" help="Apply the given time penalty when computing routing costs for minor-link internal lanes"/>
         <with-taz value="false" type="BOOL" help="Use origin and destination zones (districts) for in- and output"/>
         <mapmatch.distance value="100" type="FLOAT" help="Maximum distance when mapping input coordinates (fromXY etc.) to the road network"/>
+        <mapmatch.junctions value="false" type="BOOL" help="Match postions to junctions instead of edges"/>
         <bulk-routing value="false" type="BOOL" help="Aggregate routing queries with the same origin"/>
         <routing-threads value="0" type="INT" help="The number of parallel execution threads used for routing"/>
         <restriction-params value="" type="STR[]" help="Comma separated list of param keys to compare for additional restrictions"/>

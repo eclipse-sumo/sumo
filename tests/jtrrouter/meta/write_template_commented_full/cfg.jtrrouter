@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 13 10:10:43 2020 by Eclipse SUMO jtrrouter Version v1_4_0+0451-801ba53
+<!-- generated on Mon Jan 13 21:46:22 2020 by Eclipse SUMO jtrrouter Version v1_4_0+0477-e6fc36ca7d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -113,6 +113,9 @@
 
         <!-- Maximum distance when mapping input coordinates (fromXY etc.) to the road network -->
         <mapmatch.distance value="100" type="FLOAT"/>
+
+        <!-- Match postions to junctions instead of edges -->
+        <mapmatch.junctions value="false" type="BOOL"/>
 
         <!-- Aggregate routing queries with the same origin -->
         <bulk-routing value="false" type="BOOL"/>

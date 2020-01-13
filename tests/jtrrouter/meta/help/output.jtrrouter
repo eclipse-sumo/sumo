@@ -1,4 +1,4 @@
-Eclipse SUMO jtrrouter Version v1_4_0+0451-801ba53
+Eclipse SUMO jtrrouter Version v1_4_0+0477-e6fc36ca7d
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
   junction turning ratios.
@@ -67,6 +67,7 @@ Processing Options:
   --mapmatch.distance FLOAT        Maximum distance when mapping input
                                      coordinates (fromXY etc.) to the road
                                      network
+  --mapmatch.junctions             Match postions to junctions instead of edges
   --bulk-routing                   Aggregate routing queries with the same
                                      origin
   --routing-threads INT            The number of parallel execution threads
