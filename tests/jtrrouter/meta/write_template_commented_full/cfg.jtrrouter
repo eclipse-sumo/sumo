@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 19 09:03:30 2019 by Eclipse SUMO jtrrouter Version v1_4_0+0208-2221e4e
+<!-- generated on Mon Jan 13 10:10:43 2020 by Eclipse SUMO jtrrouter Version v1_4_0+0451-801ba53
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -35,6 +35,9 @@
 
         <!-- Determines where to load PHEMlight definitions from. -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
+
+        <!-- Initialize a TAZ for every junction to use attributes toJunction and fromJunction -->
+        <junction-taz value="false" type="BOOL"/>
 
         <!-- Read turning ratios from FILE(s) -->
         <turn-ratio-files value="" synonymes="t turns" type="FILE"/>

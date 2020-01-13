@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov  8 13:16:07 2019 by Eclipse SUMO marouter Version v1_3_1+0801-355be15e4b
+<!-- generated on Mon Jan 13 10:10:33 2020 by Eclipse SUMO marouter Version v1_4_0+0451-801ba53
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -53,6 +53,9 @@
 
         <!-- Parameter key(s) defining source (and sink) taz -->
         <taz-param value="" type="STR[]"/>
+
+        <!-- Initialize a TAZ for every junction to use attributes toJunction and fromJunction -->
+        <junction-taz value="false" type="BOOL"/>
 
     </input>
 

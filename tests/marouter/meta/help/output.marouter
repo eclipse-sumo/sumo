@@ -1,4 +1,4 @@
-Eclipse SUMO marouter Version v1_3_1+0801-355be15e4b
+Eclipse SUMO marouter Version v1_4_0+0451-801ba53
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes
 
@@ -29,6 +29,8 @@ Input Options:
                                       intervals
   --taz-param STR[]                 Parameter key(s) defining source (and sink)
                                       taz
+  --junction-taz                    Initialize a TAZ for every junction to use
+                                      attributes toJunction and fromJunction
 
 Output Options:
   --write-license                   Include license info into every output file
