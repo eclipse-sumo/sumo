@@ -585,6 +585,10 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addSynonyme("ramps.ramp-length", "ramp-guess.ramp-length", true);
         oc.addDescription("ramps.ramp-length", "Ramp Guessing", "Use FLOAT as ramp-length");
 
+        //The Weaving Length Limit for Short Free Onramps, Chiu Liu, Zhongren WangPhD even suggest 70m
+        oc.doRegister("ramps.min-weave-length", new Option_Float(50));
+        oc.addDescription("ramps.min-weave-length", "Ramp Guessing", "Use FLOAT as minimum ramp-length");
+
         oc.doRegister("ramps.set", new Option_StringVector());
         oc.addSynonyme("ramps.set", "ramp-guess.explicite", true);
         oc.addDescription("ramps.set", "Ramp Guessing", "Tries to handle the given edges as ramps");

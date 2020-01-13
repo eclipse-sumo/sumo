@@ -52,10 +52,11 @@ const std::string NBRampsComputer::ADDED_ON_RAMP_EDGE("-AddedOnRampEdge");
 void
 NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
     const bool guessAndAdd = oc.getBool("ramps.guess");
-    double minHighwaySpeed = oc.getFloat("ramps.min-highway-speed");
-    double maxRampSpeed = oc.getFloat("ramps.max-ramp-speed");
-    double rampLength = oc.getFloat("ramps.ramp-length");
-    bool dontSplit = oc.getBool("ramps.no-split");
+    const double minHighwaySpeed = oc.getFloat("ramps.min-highway-speed");
+    const double maxRampSpeed = oc.getFloat("ramps.max-ramp-speed");
+    const double rampLength = oc.getFloat("ramps.ramp-length");
+    const double minWeaveLength = oc.getFloat("ramps.min-weave-length");
+    const bool dontSplit = oc.getBool("ramps.no-split");
     NBEdgeCont& ec = nb.getEdgeCont();
     std::set<NBEdge*> incremented;
     // collect join exclusions
@@ -91,7 +92,7 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
         std::set<NBNode*, ComparatorIdLess> potOffRamps;
         for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
             NBNode* cur = (*i).second;
-            if (mayNeedOnRamp(cur, minHighwaySpeed, maxRampSpeed, noramps)) {
+            if (mayNeedOnRamp(cur, minHighwaySpeed, maxRampSpeed, noramps, minWeaveLength)) {
                 potOnRamps.insert(cur);
             }
             if (mayNeedOffRamp(cur, minHighwaySpeed, maxRampSpeed, noramps)) {
@@ -143,14 +144,29 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
 
 
 bool
-NBRampsComputer::mayNeedOnRamp(NBNode* cur, double minHighwaySpeed, double maxRampSpeed, const std::set<std::string>& noramps) {
+NBRampsComputer::mayNeedOnRamp(NBNode* cur, double minHighwaySpeed, double maxRampSpeed, const std::set<std::string>& noramps, double minWeaveLength) {
     if (cur->getOutgoingEdges().size() != 1 || cur->getIncomingEdges().size() != 2) {
         return false;
     }
     NBEdge* potHighway, *potRamp, *cont;
     getOnRampEdges(cur, &potHighway, &potRamp, &cont);
     // may be an on-ramp
-    return fulfillsRampConstraints(potHighway, potRamp, cont, minHighwaySpeed, maxRampSpeed, noramps);
+    if (fulfillsRampConstraints(potHighway, potRamp, cont, minHighwaySpeed, maxRampSpeed, noramps)) {
+        // prevent short weaving section
+        double seen = cont->getLength();
+        while (seen < minWeaveLength) {
+            if (cont->getToNode()->getOutgoingEdges().size() > 1) {
+                return false;
+            } else if (cont->getToNode()->getOutgoingEdges().size() == 0) {
+                return true;
+            }
+            cont = cont->getToNode()->getOutgoingEdges().front();
+            seen += cont->getLength();
+        }
+        return true;
+    } else {
+        return false;
+    }
 }
 
 

@@ -62,10 +62,11 @@ private:
      * @param[in] minHighwaySpeed The minimum speed limit a highway must have for being a highway
      * @param[in] maxRampSpeed The maximum speed limit a ramp must have for being a ramp
      * @param[in] noramps Edges that shall not be treated as ramps
+     * @param[in] minWeaveLength The minimum length for weaving areas
      * @return Whether the node is assumed to be an on-ramp begin
      */
     static bool mayNeedOnRamp(NBNode* cur, double minHighwaySpeed, double maxRampSpeed,
-                              const std::set<std::string>& noramps);
+                              const std::set<std::string>& noramps, double minWeaveLength);
 
 
     /** @brief Determines whether the given node may be an off-ramp end
