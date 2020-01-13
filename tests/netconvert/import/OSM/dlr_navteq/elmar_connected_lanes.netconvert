@@ -1,7 +1,7 @@
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
-# <!-- generated on Wed Jan  8 16:35:39 2020 by Eclipse SUMO netconvert Version v1_4_0+0391-4ae33c8
+# <!-- generated on Mon Jan 13 14:49:33 2020 by Eclipse SUMO netconvert Version v1_4_0+0467-042e456
 # This data file and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -509,7 +509,6 @@
 4167993267	011111111111	1	1	1	415852908	415852819	
 4167993267	011111111111	1	1	1	415852908	415852941	
 4167993267	000000010011	2	1	1	415852908	415852874	
-4167993267	011111111111	2	2	1	415852908	415852909	
 4167993268	011111111111	1	1	1	415852900	415852826	
 4167993268	011111111111	1	1	1	415852900	415852901	
 4167993268	011111111111	2	2	1	415852900	415852901	
