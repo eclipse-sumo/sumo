@@ -229,8 +229,13 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     // only inform if the input is (probably) not a trip
                     WRITE_MESSAGE("Edge '" + (*(i - 1))->getID() + "' not connected to edge '" + (*i)->getID() + "' for vehicle '" + veh.getID() + "'.");
                 }
-                const ROEdge* const last = newEdges.back();
+                const ROEdge* last = newEdges.back();
                 newEdges.pop_back();
+                if (last->isTazConnector() && newEdges.size() > 1) {
+                    // assume this was a viaTaz
+                    last = newEdges.back();
+                    newEdges.pop_back();
+                }
                 if (!router.compute(last, *i, &veh, begin, newEdges)) {
                     // backtrack: try to route from last mandatory edge to next mandatory edge
                     // XXX add option for backtracking in smaller increments

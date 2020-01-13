@@ -67,6 +67,7 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myBegin(string2time(OptionsCont::getOptions().getString("begin"))),
     myKeepVTypeDist(OptionsCont::getOptions().getBool("keep-vtype-distributions")),
     myMapMatchingDistance(OptionsCont::getOptions().getFloat("mapmatch.distance")),
+    myMapMatchJunctions(OptionsCont::getOptions().getBool("mapmatch.junctions")),
     myCurrentVTypeDistribution(nullptr),
     myCurrentAlternatives(nullptr),
     myLaneTree(nullptr) {
@@ -104,9 +105,9 @@ RORouteHandler::parseFromViaTo(std::string element,
             myActiveRoute.push_back(fromTaz);
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROMXY)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMXY, myVehicleParameter->id.c_str(), ok, true), false, myActiveRoute, rid);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMXY, myVehicleParameter->id.c_str(), ok, true), false, myActiveRoute, rid, true);
     } else if (attrs.hasAttribute(SUMO_ATTR_FROMLONLAT)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMLONLAT, myVehicleParameter->id.c_str(), ok, true), true, myActiveRoute, rid);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMLONLAT, myVehicleParameter->id.c_str(), ok, true), true, myActiveRoute, rid, true);
     } else {
         parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok, "", true), myActiveRoute, rid);
     }
@@ -115,9 +116,9 @@ RORouteHandler::parseFromViaTo(std::string element,
     }
     ConstROEdgeVector viaEdges;
     if (attrs.hasAttribute(SUMO_ATTR_VIAXY)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIAXY, myVehicleParameter->id.c_str(), ok, true), false, viaEdges, rid);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIAXY, myVehicleParameter->id.c_str(), ok, true), false, viaEdges, rid, false);
     } else if (attrs.hasAttribute(SUMO_ATTR_VIALONLAT)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIALONLAT, myVehicleParameter->id.c_str(), ok, true), true, viaEdges, rid);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIALONLAT, myVehicleParameter->id.c_str(), ok, true), true, viaEdges, rid, false);
     } else {
         parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true), viaEdges, rid);
     }
@@ -141,9 +142,9 @@ RORouteHandler::parseFromViaTo(std::string element,
             myActiveRoute.push_back(toTaz);
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_TOXY)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOXY, myVehicleParameter->id.c_str(), ok, true), false, myActiveRoute, rid);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOXY, myVehicleParameter->id.c_str(), ok, true), false, myActiveRoute, rid, false);
     } else if (attrs.hasAttribute(SUMO_ATTR_TOLONLAT)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOLONLAT, myVehicleParameter->id.c_str(), ok, true), true, myActiveRoute, rid);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOLONLAT, myVehicleParameter->id.c_str(), ok, true), true, myActiveRoute, rid, false);
     } else {
         parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok, "", true), myActiveRoute, rid);
     }
@@ -805,7 +806,7 @@ RORouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
 
 void
 RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo,
-                              ConstROEdgeVector& into, const std::string& rid) {
+                              ConstROEdgeVector& into, const std::string& rid, bool isFrom) {
     if (geo && !GeoConvHelper::getFinal().usingGeoProjection()) {
         WRITE_ERROR("Cannot convert geo-positions because the network has no geo-reference");
         return;
@@ -829,7 +830,14 @@ RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo,
         if (best == nullptr) {
             myErrorOutput->inform("No edge found near position " + toString(orig, geo ? gPrecisionGeo : gPrecision) + " within the route " + rid + ".");
         } else {
-            into.push_back(best);
+            if (myMapMatchJunctions) {
+                best = getJunctionTaz(pos, best, vClass, isFrom);
+                if (best != nullptr) {
+                    into.push_back(best);
+                }
+            } else {
+                into.push_back(best);
+            }
         }
     }
 }
@@ -868,6 +876,48 @@ RORouteHandler::getClosestEdge(const Position& pos, double distance, SUMOVehicle
             bestEdge = bestEdge->getSuccessors().front();
         }
         return bestEdge;
+    }
+}
+
+
+const ROEdge*
+RORouteHandler::getJunctionTaz(const Position& pos, const ROEdge* closestEdge, SUMOVehicleClass vClass, bool isFrom) {
+    if (closestEdge == nullptr) {
+        return nullptr;
+    } else {
+        const RONode* fromJunction = closestEdge->getFromJunction();
+        const RONode* toJunction = closestEdge->getToJunction();
+        const bool fromCloser = (fromJunction->getPosition().distanceSquaredTo2D(pos) <
+                toJunction->getPosition().distanceSquaredTo2D(pos));
+        const ROEdge* fromSource = myNet.getEdge(fromJunction->getID() + "-source");
+        const ROEdge* fromSink = myNet.getEdge(fromJunction->getID() + "-sink");
+        const ROEdge* toSource = myNet.getEdge(toJunction->getID() + "-source");
+        const ROEdge* toSink = myNet.getEdge(toJunction->getID() + "-sink");
+        if (fromSource == nullptr || fromSink == nullptr) {
+            myErrorOutput->inform("Junction-taz '" + fromJunction->getID() + "' not found when mapping position " + toString(pos) + "." + JUNCTION_TAZ_MISSING_HELP);
+            return nullptr;
+        }
+        if (toSource == nullptr || toSink == nullptr) {
+            myErrorOutput->inform("Junction-taz '" + toJunction->getID() + "' not found when mapping position " + toString(pos) + "." + JUNCTION_TAZ_MISSING_HELP);
+            return nullptr;
+        }
+        const bool fromPossible = isFrom ? fromSource->getSuccessors(vClass).size() > 0 : fromSink->getPredecessors().size() > 0;
+        const bool toPossible = isFrom ? toSource->getSuccessors(vClass).size() > 0 : toSink->getPredecessors().size() > 0;
+        //std::cout << "getJunctionTaz pos=" << pos << " isFrom=" << isFrom << " closest=" << closestEdge->getID() << " fromPossible=" << fromPossible << " toPossible=" << toPossible << "\n";
+        if (fromCloser && fromPossible) {
+            // return closest if possible
+            return isFrom ? fromSource : fromSink;
+        } else if (!fromCloser && toPossible) {
+            // return closest if possible
+            return isFrom ? toSource : toSink;
+        } else {
+            // return possible
+            if (fromPossible) {
+                return isFrom ? fromSource : fromSink;
+            } else {
+                return isFrom ? toSource : toSink;
+            }
+        }
     }
 }
 

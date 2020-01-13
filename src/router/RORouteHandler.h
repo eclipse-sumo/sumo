@@ -169,10 +169,13 @@ protected:
 
     /// @brief Parse edges from coordinates
     void parseGeoEdges(const PositionVector& positions, bool geo,
-                       ConstROEdgeVector& into, const std::string& rid);
+                       ConstROEdgeVector& into, const std::string& rid, bool isFrom);
 
     /// @brief find closest edge within distance for the given position or nullptr
     const ROEdge* getClosestEdge(const Position& pos, double distance, SUMOVehicleClass vClass); 
+
+    /// @brief find closest junction taz given the closest edge
+    const ROEdge* getJunctionTaz(const Position& pos, const ROEdge* closestEdge, SUMOVehicleClass vClass, bool isFrom); 
 
     /// @brief add a routing request for a walking or intermodal person
     void addPersonTrip(const SUMOSAXAttributes& attrs);
@@ -216,6 +219,7 @@ protected:
 
     /// @brief maximum distance when map-matching
     const double myMapMatchingDistance;
+    const bool myMapMatchJunctions;
 
     /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
     RandomDistributor<SUMOVTypeParameter*>* myCurrentVTypeDistribution;
