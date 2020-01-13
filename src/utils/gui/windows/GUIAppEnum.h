@@ -73,12 +73,12 @@ enum {
 
     /// @brief Start the simulation in SUMO and open Additionals Elemements in NETEDIT
     MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,
-    /// @brief Edit simulation breakpoints
-    MID_HOTKEY_CTRL_B_EDITBREAKPOINT,
+    /// @brief Edit simulation breakpoints in SUMO and open Data Elements in NETEDIT
+    MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,
     /// @brief Copy the current selection / element
     MID_HOTKEY_CTRL_C_COPY,
     /// @brief Perform a single simulation step in SUMO and open Demand Elements in NETEDIT
-    MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMAND,
+    MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,
     /// @brief Toogle Gaming mode in SUMO and grid in NETEDIT
     MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,
     /// @brief Open viewport editor
@@ -147,6 +147,8 @@ enum {
 
     /// @brief Save Additional Elements
     MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,
+    /// @brief save Data Elements
+    MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,
     /// @brief Save Demand Elements
     MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,
     /// @brief save TLS Programs
