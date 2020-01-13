@@ -27,6 +27,7 @@
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonTypeFrame.h>
@@ -141,6 +142,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myFrames.personTypeFrame = new GNEPersonTypeFrame(myFramesArea, viewNet);
     myFrames.personFrame = new GNEPersonFrame(myFramesArea, viewNet);
     myFrames.personPlanFrame = new GNEPersonPlanFrame(myFramesArea, viewNet);
+    myFrames.edgeDataFrame = new GNEEdgeDataFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
@@ -281,6 +283,12 @@ GNEViewParent::getPersonFrame() const {
 GNEPersonPlanFrame*
 GNEViewParent::getPersonPlanFrame() const {
     return myFrames.personPlanFrame;
+}
+
+
+GNEEdgeDataFrame* 
+GNEViewParent::getEdgeDataFrame() const {
+    return myFrames.edgeDataFrame;
 }
 
 
@@ -647,7 +655,8 @@ GNEViewParent::Frames::Frames() :
     stopFrame(nullptr),
     personFrame(nullptr),
     personTypeFrame(nullptr),
-    personPlanFrame(nullptr) {
+    personPlanFrame(nullptr),
+    edgeDataFrame(nullptr) {
 }
 
 
@@ -673,6 +682,7 @@ GNEViewParent::Frames::hideFrames() {
     personTypeFrame->hide();
     personFrame->hide();
     personPlanFrame->hide();
+    edgeDataFrame->hide();
 }
 
 
@@ -699,6 +709,7 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
     personTypeFrame->setFrameWidth(frameWidth);
     personFrame->setFrameWidth(frameWidth);
     personPlanFrame->setFrameWidth(frameWidth);
+    edgeDataFrame->setFrameWidth(frameWidth);
 }
 
 
@@ -742,6 +753,8 @@ GNEViewParent::Frames::isFrameShown() const {
     } else if (personFrame->shown()) {
         return true;
     } else if (personPlanFrame->shown()) {
+        return true;
+    } else if (edgeDataFrame->shown()) {
         return true;
     } else {
         return false;
@@ -790,6 +803,8 @@ GNEViewParent::Frames::getCurrentShownFrame() const {
         return personFrame;
     } else if (personPlanFrame->shown()) {
         return personPlanFrame;
+    } else if (edgeDataFrame->shown()) {
+        return edgeDataFrame;
     } else {
         return nullptr;
     }

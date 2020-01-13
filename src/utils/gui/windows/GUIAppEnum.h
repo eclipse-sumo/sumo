@@ -45,8 +45,8 @@ enum {
     MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE,
     /// @brief hotkey for mode deleting things
     MID_HOTKEY_D_DELETEMODE,
-    /// @brief hotkey for mode adding edges
-    MID_HOTKEY_E_EDGEMODE,
+    /// @brief hotkey for mode adding edges AND edgeDatas
+    MID_HOTKEY_E_EDGEMODE_EDGEDATAMODE,
     /// @brief hotkey for mode inspecting object attributes
     MID_HOTKEY_I_INSPECTMODE,
     /// @brief hotkey for mode moving element

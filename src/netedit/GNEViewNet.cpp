@@ -26,6 +26,7 @@
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonTypeFrame.h>
@@ -74,7 +75,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND,                  GNEViewNet::onCmdSetSupermode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA,                    GNEViewNet::onCmdSetSupermode),
     // Modes
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_E_EDGEMODE,                           GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_E_EDGEMODE_EDGEDATAMODE,                           GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_M_MOVEMODE,                           GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_D_DELETEMODE,                         GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_I_INSPECTMODE,                        GNEViewNet::onCmdSetMode),
@@ -1251,7 +1252,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_M_MOVEMODE:
                 myEditModes.setNetworkEditMode(GNE_NETWORKMODE_MOVE);
                 break;
-            case MID_HOTKEY_E_EDGEMODE:
+            case MID_HOTKEY_E_EDGEMODE_EDGEDATAMODE:
                 myEditModes.setNetworkEditMode(GNE_NETWORKMODE_CREATE_EDGE);
                 break;
             case MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE:
@@ -1278,7 +1279,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             default:
                 break;
         }
-    } else {
+    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
         // check what demand mode will be set
         switch (FXSELID(sel)) {
             case MID_HOTKEY_I_INSPECTMODE:
@@ -1315,6 +1316,22 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 myEditModes.setDemandEditMode(GNE_DEMANDMODE_PERSONPLAN);
                 break;
             default:
+                break;
+        }
+    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+        // check what demand mode will be set
+        switch (FXSELID(sel)) {
+            case MID_HOTKEY_I_INSPECTMODE:
+                myEditModes.setDataEditMode(GNE_DATAMODE_INSPECT);
+                break;
+            case MID_HOTKEY_D_DELETEMODE:
+                myEditModes.setDataEditMode(GNE_DATAMODE_DELETE);
+                break;
+            case MID_HOTKEY_S_SELECTMODE:
+                myEditModes.setDataEditMode(GNE_DATAMODE_SELECT);
+                break;
+            case MID_HOTKEY_E_EDGEMODE_EDGEDATAMODE:
+                myEditModes.setDataEditMode(GNE_DATAMODE_EDGEDATA);
                 break;
         }
     }
@@ -2537,6 +2554,9 @@ GNEViewNet::buildEditModeControls() {
 
     // build menu checks of view options Demand
     myDemandViewOptions.buildDemandViewOptionsMenuChecks();
+
+    // build menu checks of view options Data
+    myDataCheckableButtons.buildDataCheckableButtons();
 }
 
 
@@ -2927,6 +2947,21 @@ GNEViewNet::updateDataModeSpecificControls() {
             myDataViewOptions.menuCheckHideShapes->show();
             myDataViewOptions.menuCheckShowAllPersonPlans->show();
             myDataViewOptions.menuCheckLockPerson->show();
+            */
+            // show toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
+            break;
+        case GNE_DATAMODE_EDGEDATA:
+            myViewParent->getEdgeDataFrame()->show();
+            myViewParent->getEdgeDataFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getEdgeDataFrame();
+            // set checkable button
+            myDataCheckableButtons.edgeDataButton->setChecked(true);
+            // show view options
+            /*
+            myDemandViewOptions.menuCheckHideShapes->show();
+            myDemandViewOptions.menuCheckShowAllEdgeDatas->show();
+            myDemandViewOptions.menuCheckLockPerson->show();
             */
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();

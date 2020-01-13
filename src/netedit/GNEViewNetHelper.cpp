@@ -1437,10 +1437,13 @@ GNEViewNetHelper::EditModes::setNetworkEditMode(NetworkEditMode mode, bool force
         // for common modes (Inspect/Delete/Select/move) change also the other supermode
         if (networkEditMode == GNE_NETWORKMODE_INSPECT) {
             demandEditMode = GNE_DEMANDMODE_INSPECT;
+            dataEditMode = GNE_DATAMODE_INSPECT;
         } else if (networkEditMode == GNE_NETWORKMODE_DELETE) {
             demandEditMode = GNE_DEMANDMODE_DELETE;
+            dataEditMode = GNE_DATAMODE_DELETE;
         } else if (networkEditMode == GNE_NETWORKMODE_SELECT) {
             demandEditMode = GNE_DEMANDMODE_SELECT;
+            dataEditMode = GNE_DATAMODE_SELECT;
         } else if (networkEditMode == GNE_NETWORKMODE_MOVE) {
             demandEditMode = GNE_DEMANDMODE_MOVE;
         }
@@ -1478,10 +1481,13 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, bool force) 
         // for common modes (Inspect/Delete/Select/Move) change also the other supermode
         if (demandEditMode == GNE_DEMANDMODE_INSPECT) {
             networkEditMode = GNE_NETWORKMODE_INSPECT;
+            dataEditMode = GNE_DATAMODE_INSPECT;
         } else if (demandEditMode == GNE_DEMANDMODE_DELETE) {
             networkEditMode = GNE_NETWORKMODE_DELETE;
+            dataEditMode = GNE_DATAMODE_DELETE;
         } else if (demandEditMode == GNE_DEMANDMODE_SELECT) {
             networkEditMode = GNE_NETWORKMODE_SELECT;
+            dataEditMode = GNE_DATAMODE_SELECT;
         } else if (demandEditMode == GNE_DEMANDMODE_MOVE) {
             networkEditMode = GNE_NETWORKMODE_MOVE;
         }
@@ -1512,12 +1518,13 @@ GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, bool force) {
         // for common modes (Inspect/Delete/Select/Move) change also the other supermode
         if (dataEditMode == GNE_DEMANDMODE_INSPECT) {
             networkEditMode = GNE_NETWORKMODE_INSPECT;
+            demandEditMode = GNE_DEMANDMODE_INSPECT;
         } else if (dataEditMode == GNE_DEMANDMODE_DELETE) {
             networkEditMode = GNE_NETWORKMODE_DELETE;
+            demandEditMode = GNE_DEMANDMODE_DELETE;
         } else if (dataEditMode == GNE_DEMANDMODE_SELECT) {
             networkEditMode = GNE_NETWORKMODE_SELECT;
-        } else if (dataEditMode == GNE_DEMANDMODE_MOVE) {
-            networkEditMode = GNE_NETWORKMODE_MOVE;
+            demandEditMode = GNE_DEMANDMODE_SELECT;
         }
         // data modes require ALWAYS a recomputing
         myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
@@ -1582,6 +1589,17 @@ GNEViewNetHelper::CommonViewOptions::drawSpreadVehicles() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::NetworkViewOptions::NetworkViewOptions(GNEViewNet* viewNet) :
+    menuCheckShowDemandElements(nullptr),
+    menuCheckSelectEdges(nullptr),
+    menuCheckShowConnections(nullptr),
+    menuCheckHideConnections(nullptr),
+    menuCheckExtendSelection(nullptr),
+    menuCheckChangeAllPhases(nullptr),
+    menuCheckWarnAboutMerge(nullptr),
+    menuCheckShowJunctionBubble(nullptr),
+    menuCheckMoveElevation(nullptr),
+    menuCheckChainEdges(nullptr),
+    menuCheckAutoOppositeEdge(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -1589,78 +1607,78 @@ GNEViewNetHelper::NetworkViewOptions::NetworkViewOptions(GNEViewNet* viewNet) :
 void
 GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
     menuCheckShowDemandElements = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-            ("Show demand elements\t\tToggle show demand elements"),
-            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS, LAYOUT_FIX_HEIGHT);
+        ("Show demand elements\t\tToggle show demand elements"),
+        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS, LAYOUT_FIX_HEIGHT);
     menuCheckShowDemandElements->setHeight(23);
     menuCheckShowDemandElements->setCheck(false);
     menuCheckShowDemandElements->create();
 
     menuCheckSelectEdges = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-                                           ("Select edges\t\tToggle whether clicking should select " + toString(SUMO_TAG_EDGE) + "s or " + toString(SUMO_TAG_LANE) + "s").c_str(),
-                                           myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES, LAYOUT_FIX_HEIGHT);
+        ("Select edges\t\tToggle whether clicking should select " + toString(SUMO_TAG_EDGE) + "s or " + toString(SUMO_TAG_LANE) + "s").c_str(),
+        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES, LAYOUT_FIX_HEIGHT);
     menuCheckSelectEdges->setHeight(23);
     menuCheckSelectEdges->setCheck(true);
     menuCheckSelectEdges->create();
 
     menuCheckShowConnections = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-            ("Show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(),
-            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS, LAYOUT_FIX_HEIGHT);
+        ("Show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(),
+        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS, LAYOUT_FIX_HEIGHT);
     menuCheckShowConnections->setHeight(23);
     menuCheckShowConnections->setCheck(myViewNet->getVisualisationSettings().showLane2Lane);
     menuCheckShowConnections->create();
 
     menuCheckHideConnections = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-            ("hide " + toString(SUMO_TAG_CONNECTION) + "s\t\tHide connections").c_str(),
-            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS, LAYOUT_FIX_HEIGHT);
+        ("hide " + toString(SUMO_TAG_CONNECTION) + "s\t\tHide connections").c_str(),
+        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS, LAYOUT_FIX_HEIGHT);
     menuCheckHideConnections->setHeight(23);
     menuCheckHideConnections->setCheck(false);
     menuCheckHideConnections->create();
 
     menuCheckExtendSelection = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-            ("Auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(),
-            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION, LAYOUT_FIX_HEIGHT);
+        ("Auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(),
+        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION, LAYOUT_FIX_HEIGHT);
     menuCheckExtendSelection->setHeight(23);
     menuCheckExtendSelection->setCheck(false);
     menuCheckExtendSelection->create();
 
     menuCheckChangeAllPhases = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-            ("Apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " plan").c_str(),
-            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES, LAYOUT_FIX_HEIGHT);
+        ("Apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " plan").c_str(),
+        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES, LAYOUT_FIX_HEIGHT);
     menuCheckChangeAllPhases->setHeight(23);
     menuCheckChangeAllPhases->setCheck(false);
     menuCheckChangeAllPhases->create();
 
     menuCheckWarnAboutMerge = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-            ("Ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(),
-            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE, LAYOUT_FIX_HEIGHT);
+        ("Ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(),
+        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE, LAYOUT_FIX_HEIGHT);
     menuCheckWarnAboutMerge->setHeight(23);
     menuCheckWarnAboutMerge->setCheck(true);
     menuCheckWarnAboutMerge->create();
 
     menuCheckShowJunctionBubble = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-            ("Bubbles\t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(),
-            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES, LAYOUT_FIX_HEIGHT);
+        ("Bubbles\t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(),
+        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES, LAYOUT_FIX_HEIGHT);
     menuCheckShowJunctionBubble->setHeight(23);
     menuCheckShowJunctionBubble->setCheck(false);
     menuCheckShowJunctionBubble->create();
 
     menuCheckMoveElevation = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-            ("Elevation\t\tApply mouse movement to elevation instead of x,y position"),
-            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION, LAYOUT_FIX_HEIGHT);
+        ("Elevation\t\tApply mouse movement to elevation instead of x,y position"),
+        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION, LAYOUT_FIX_HEIGHT);
     menuCheckMoveElevation->setHeight(23);
     menuCheckMoveElevation->setCheck(false);
     menuCheckMoveElevation->create();
 
     menuCheckChainEdges = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-                                          ("Chain\t\tCreate consecutive " + toString(SUMO_TAG_EDGE) + "s with a single click (hit ESC to cancel chain).").c_str(),
-                                          myViewNet, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES, LAYOUT_FIX_HEIGHT);
+        ("Chain\t\tCreate consecutive " + toString(SUMO_TAG_EDGE) + "s with a single click (hit ESC to cancel chain).").c_str(),
+        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES, LAYOUT_FIX_HEIGHT);
     menuCheckChainEdges->setHeight(23);
     menuCheckChainEdges->setCheck(false);
     menuCheckChainEdges->create();
 
     menuCheckAutoOppositeEdge = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-            ("Two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(),
-            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES, LAYOUT_FIX_HEIGHT);
+        ("Two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(),
+        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES, LAYOUT_FIX_HEIGHT);
     menuCheckAutoOppositeEdge->setHeight(23);
     menuCheckAutoOppositeEdge->setCheck(false);
     menuCheckAutoOppositeEdge->create();
@@ -2047,7 +2065,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     // create edge
     createEdgeButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, 
         "\tset create edge mode\tMode for creating junction and edges.",
-        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myViewNet, MID_HOTKEY_E_EDGEMODE, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myViewNet, MID_HOTKEY_E_EDGEMODE_EDGEDATAMODE, GUIDesignButtonToolbarCheckable);
     createEdgeButton->create();
     // connection mode
     connectionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, 
@@ -2264,12 +2282,18 @@ GNEViewNetHelper::DemandCheckableButtons::updateDemandCheckableButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::DataCheckableButtons::DataCheckableButtons(GNEViewNet* viewNet) :
+    edgeDataButton(nullptr),
     myViewNet(viewNet) {
 }
 
 
 void
 GNEViewNetHelper::DataCheckableButtons::buildDataCheckableButtons() {
+    // edgeData mode
+    edgeDataButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, 
+        "\tcreate edge data mode\tMode for creating edge datas.",
+        GUIIconSubSys::getIcon(ICON_MODEEDGEDATA), myViewNet, MID_HOTKEY_E_EDGEMODE_EDGEDATAMODE, GUIDesignButtonToolbarCheckable);
+    edgeDataButton->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
 }
@@ -2277,25 +2301,25 @@ GNEViewNetHelper::DataCheckableButtons::buildDataCheckableButtons() {
 
 void
 GNEViewNetHelper::DataCheckableButtons::showDataCheckableButtons() {
-
+    edgeDataButton->show();
 }
 
 
 void
 GNEViewNetHelper::DataCheckableButtons::hideDataCheckableButtons() {
-
+    edgeDataButton->hide();
 }
 
 
 void
 GNEViewNetHelper::DataCheckableButtons::disableDataCheckableButtons() {
-
+    edgeDataButton->setChecked(false);
 }
 
 
 void
 GNEViewNetHelper::DataCheckableButtons::updateDataCheckableButtons() {
-
+    edgeDataButton->update();
 }
 
 // ---------------------------------------------------------------------------

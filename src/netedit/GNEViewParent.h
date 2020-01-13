@@ -29,29 +29,36 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNEAdditionalFrame;
+
 class GNEApplicationWindow;
+class GNEDialogACChooser;
+class GNEFrame;
+class GNENet;
+class GNEUndoList;
+// common frames
+class GNEDeleteFrame;
+class GNEInspectorFrame;
+class GNESelectorFrame;
+// network frames
+class GNEAdditionalFrame;
 class GNEConnectorFrame;
 class GNECreateEdgeFrame;
 class GNECrossingFrame;
-class GNEDeleteFrame;
-class GNEDialogACChooser;
-class GNEInspectorFrame;
-class GNENet;
-class GNEFrame;
 class GNEPolygonFrame;
 class GNEProhibitionFrame;
-class GNERouteFrame;
-class GNESelectorFrame;
 class GNETAZFrame;
 class GNETLSEditorFrame;
-class GNEUndoList;
-class GNEVehicleFrame;
-class GNEVehicleTypeFrame;
-class GNEStopFrame;
-class GNEPersonTypeFrame;
+// demand frames
 class GNEPersonFrame;
 class GNEPersonPlanFrame;
+class GNEPersonTypeFrame;
+class GNERouteFrame;
+class GNEStopFrame;
+class GNEVehicleFrame;
+class GNEVehicleTypeFrame;
+// data frames
+class GNEEdgeDataFrame;
+
 
 // ===========================================================================
 // class declarations
@@ -154,6 +161,9 @@ public:
 
     /// @brief get frame for GNE_DEMANDMODE_PERSONFRAME
     GNEPersonPlanFrame* getPersonPlanFrame() const;
+
+    /// @brief get frame for GNE_DATAMODE_EDGEDATA
+    GNEEdgeDataFrame* getEdgeDataFrame() const;
 
     /// @brief show frames area if at least a GNEFrame is showed
     /// @note this function is called in GNEFrame::Show();
@@ -270,6 +280,9 @@ private:
 
         /// @brief frame for GNE_DEMANDMODE_PERSONPLAN
         GNEPersonPlanFrame* personPlanFrame;
+
+        /// @brief frame for GNE_DATAMODE_EDGEDATA
+        GNEEdgeDataFrame* edgeDataFrame;
     };
 
     /// @brief struct for ACChoosers dialog

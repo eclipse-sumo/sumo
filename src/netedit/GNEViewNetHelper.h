@@ -110,12 +110,14 @@ enum DemandEditMode {
 enum DataEditMode {
     /// @brief empty Data mode
     GNE_DATAMODE_NONE,
-    ///@brief mode for inspecting data elements
+    /// @brief mode for inspecting data elements
     GNE_DATAMODE_INSPECT,
-    ///@brief mode for deleting data elements
+    /// @brief mode for deleting data elements
     GNE_DATAMODE_DELETE,
-    ///@brief mode for selecting data elements
+    /// @brief mode for selecting data elements
     GNE_DATAMODE_SELECT,
+    /// @brief mode for create edgeData elements
+    GNE_DATAMODE_EDGEDATA
 };
 
 // ===========================================================================
@@ -950,6 +952,9 @@ struct GNEViewNetHelper {
 
         /// @brief update Data checkable buttons
         void updateDataCheckableButtons();
+
+        /// @brief chekable button for edit mode "edgeData"
+        MFXCheckableButton* edgeDataButton;
 
     private:
         /// @brief pointer to viewNet
