@@ -51,8 +51,9 @@
 //#define DEBUG_ANGLES
 //#define DEBUG_NODE_BORDER
 //#define DEBUG_REPLACECONNECTION
-#define DEBUGID "-27143339"
-#define DEBUGCOND (getID() == DEBUGID)
+#define DEBUGID "132406495"
+//#define DEBUGCOND (getID() == DEBUGID)
+//#define DEBUGCOND (StringUtils::startsWith(getID(), DEBUGID))
 //#define DEBUGCOND (getID() == "22762377#1" || getID() == "146511467")
 #define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == DEBUGID))
 
@@ -509,8 +510,11 @@ NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) {
         std::cout << "init edge=" << getID() << "\n";
-        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-            std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
+        for (Connection& c : myConnections) {
+            std::cout << "  conn " << c.getDescription(this) << "\n";
+        }
+        for (Connection& c : myConnectionsToDelete) {
+            std::cout << "  connToDelete " << c.getDescription(this) << "\n";
         }
     }
 #endif
@@ -1330,6 +1334,17 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool try
     }
     if (tryLater) {
         myConnectionsToDelete.push_back(Connection(fromLane, toEdge, toLane));
+#ifdef DEBUG_CONNECTION_GUESSING
+        if (DEBUGCOND) {
+            std::cout << "removeFromConnections " << getID() << "_" << fromLane << "->" << toEdge->getID() << "_" << toLane << "\n";
+            for (Connection& c : myConnections) {
+                std::cout << "  conn " << c.getDescription(this) << "\n";
+            }
+            for (Connection& c : myConnectionsToDelete) {
+                std::cout << "  connToDelete " << c.getDescription(this) << "\n";
+            }
+        }
+#endif
     }
 }
 
@@ -2151,8 +2166,11 @@ NBEdge::computeEdge2Edges(bool noLeftMovers) {
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) {
         std::cout << "computeEdge2Edges  edge=" << getID() << " step=" << (int)myStep << "\n";
-        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-            std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
+        for (Connection& c : myConnections) {
+            std::cout << "  conn " << c.getDescription(this) << "\n";
+        }
+        for (Connection& c : myConnectionsToDelete) {
+            std::cout << "  connToDelete " << c.getDescription(this) << "\n";
         }
     }
 #endif
@@ -2184,8 +2202,11 @@ NBEdge::computeLanes2Edges() {
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) {
         std::cout << "computeLanes2Edges edge=" << getID() << " step=" << (int)myStep << "\n";
-        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-            std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
+        for (Connection& c : myConnections) {
+            std::cout << "  conn " << c.getDescription(this) << "\n";
+        }
+        for (Connection& c : myConnectionsToDelete) {
+            std::cout << "  connToDelete " << c.getDescription(this) << "\n";
         }
     }
 #endif
@@ -2216,8 +2237,11 @@ NBEdge::recheckLanes() {
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) {
         std::cout << "recheckLanes (initial) edge=" << getID() << "\n";
-        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-            std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
+        for (Connection& c : myConnections) {
+            std::cout << "  conn " << c.getDescription(this) << "\n";
+        }
+        for (Connection& c : myConnectionsToDelete) {
+            std::cout << "  connToDelete " << c.getDescription(this) << "\n";
         }
     }
 #endif
@@ -2376,8 +2400,8 @@ NBEdge::recheckLanes() {
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) {
         std::cout << "recheckLanes (final) edge=" << getID() << "\n";
-        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-            std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
+        for (Connection& c : myConnections) {
+            std::cout << "  conn " << c.getDescription(this) << "\n";
         }
     }
 #endif
