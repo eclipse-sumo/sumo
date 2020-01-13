@@ -77,3 +77,6 @@ vtype_additional_file_validate
 
 # some extra options that are passed  directly to duarouter
 duarouter_options
+
+# use fromJunction and toJunction
+junctionTaz
