@@ -35,6 +35,7 @@ permalink: /ChangeLog/
   - Added option **--step-log.period INT** to set the number of simulation steps between outputs. The new default is 100 which brings a major execution speedup when running sumo on windows with step-log (where command-line output is slow). Issue #6377
   - Added option **--fcd-output.acceleration** to inlcude acceleration values in fcd-output. When sublane simulation is enabled, attribute 'accelerationLat' is added as well. Issue #6448
   - [Aggregated tripinfo output](Simulation/Output.md#aggregated_traffic_measures) now includes average speed. Issue #6480
+  - Trips with attributes `fromJunction` and `toJunction` are now supported when setting option **--junction-taz**. Issue #6474
 
 - SUMO-GUI
   - dead-end links in the middle of a road are now highlighed in magenta to highlight connectivity problems. Issue #6391
@@ -46,6 +47,8 @@ permalink: /ChangeLog/
 
 - DUAROUTER
   - The maximum [map-matching](Demand/Shortest_or_Optimal_Path_Routing.md#mapmatching) distance is now configurable using option **--mapmatch.distance**.
+  - Trip input with attributes `fromJunction` and `toJunction` are now supported when setting option **--junction-taz**. Issue #6474
+  - Trips can now be written with attributes `fromJunction` and `toJunction` by setting option **--write-trips.junctions**. Issue #6474
 
 - TraCI / Libsumo
   - Added context subscription filter that filters in a given range around the vehicles route 'addSubscriptionFilterLateralDistance'. Issue #6287
