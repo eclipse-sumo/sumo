@@ -217,6 +217,10 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
             if (edges.front()->isTazConnector()) {
                 if (edges.size() > 1) {
                     from = edges[1];
+                    if (from->isTazConnector() && writeJunctions && edges.front()->getSuccessors().size() > 0) {
+                        // routing was skipped
+                        from = edges.front()->getSuccessors(getVClass()).front();
+                    }
                 }
             } else {
                 from = edges[0];
@@ -224,6 +228,10 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
             if (edges.back()->isTazConnector()) {
                 if (edges.size() > 1) {
                     to = edges[edges.size() - 2];
+                    if (to->isTazConnector() && writeJunctions && edges.back()->getPredecessors().size() > 0) {
+                        // routing was skipped
+                        to = edges.back()->getPredecessors().front();
+                    }
                 }
             } else {
                 to = edges[edges.size() - 1];
