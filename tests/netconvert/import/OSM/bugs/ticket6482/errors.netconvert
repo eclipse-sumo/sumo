@@ -3,9 +3,9 @@ Warning: No way found for reference '625352732' in relation '8691796'
 Warning: Ignoring restriction relation '8691796' with unknown to-way.
 Warning: Found sharp turn with radius 5.62 at the start of edge '20832138'.
 Warning: Found angle of 149.14 degrees at edge '39257069#2', segment 3.
-Warning: Speed of straight connection '132406502#0_0->132406502#2_1' reduced by 10.59 due to turning radius of 53.72 (length=11.81, angle=27.79).
-Warning: Speed of straight connection '132406502#0_1->132406502#2_2' reduced by 11.75 due to turning radius of 46.71 (length=10.25, angle=27.79).
-Warning: Speed of straight connection '132406502#0_2->132406502#2_3' reduced by 13.00 due to turning radius of 39.71 (length=8.69, angle=27.79).
+Warning: Speed of straight connection '411043475#0_0->132406503_0' reduced by 9.83 due to turning radius of 41.82 (length=20.56, angle=43.72).
+Warning: Speed of straight connection '132406502#0_2->132406502#2_2' reduced by 5.87 due to turning radius of 87.27 (length=17.47, angle=26.57).
 Warning: Speed of straight connection '132406507#0_0->132406507#1_0' reduced by 7.14 due to turning radius of 77.45 (length=2.35, angle=16.75).
 Warning: Speed of straight connection '132406507#0_1->132406507#1_1' reduced by 11.74 due to turning radius of 46.79 (length=1.41, angle=16.75).
-Warning: 10 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).
+Warning: Speed of straight connection '132406504#1_2->132406495#0_1' reduced by 7.50 due to turning radius of 74.75 (length=6.04, angle=19.68).
+Warning: 8 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).
