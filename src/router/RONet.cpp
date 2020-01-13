@@ -212,12 +212,16 @@ RONet::addJunctionTaz(ROAbstractEdgeBuilder& eb) {
         auto& district = myDistricts[tazID];
         const RONode* junction = item.second;
         for (const ROEdge* edge : junction->getIncoming()) {
-            const_cast<ROEdge*>(edge)->addSuccessor(sink);
-            district.second.push_back(edge->getID());
+            if (!edge->isInternal()) {
+                const_cast<ROEdge*>(edge)->addSuccessor(sink);
+                district.second.push_back(edge->getID());
+            }
         }
         for (const ROEdge* edge : junction->getOutgoing()) {
-            source->addSuccessor(const_cast<ROEdge*>(edge));
-            district.first.push_back(edge->getID());
+            if (!edge->isInternal()) {
+                source->addSuccessor(const_cast<ROEdge*>(edge));
+                district.first.push_back(edge->getID());
+            }
         }
     }
 }
