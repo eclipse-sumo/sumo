@@ -171,6 +171,9 @@ protected:
     void parseGeoEdges(const PositionVector& positions, bool geo,
                        ConstROEdgeVector& into, const std::string& rid);
 
+    /// @brief find closest edge within distance for the given position or nullptr
+    const ROEdge* getClosestEdge(const Position& pos, double distance, SUMOVehicleClass vClass); 
+
     /// @brief add a routing request for a walking or intermodal person
     void addPersonTrip(const SUMOSAXAttributes& attrs);
 

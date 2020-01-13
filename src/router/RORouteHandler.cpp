@@ -795,7 +795,6 @@ RORouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
 void
 RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo,
                               ConstROEdgeVector& into, const std::string& rid) {
-    NamedRTree* t = getLaneTree();
     if (geo && !GeoConvHelper::getFinal().usingGeoProjection()) {
         WRITE_ERROR("Cannot convert geo-positions because the network has no geo-reference");
         return;
@@ -810,37 +809,54 @@ RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo,
         if (geo) {
             GeoConvHelper::getFinal().x2cartesian_const(pos);
         }
-        Boundary b;
-        b.add(pos);
-        b.grow(myMapMatchingDistance);
-        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
-        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-        std::set<const Named*> lanes;
-        Named::StoringVisitor sv(lanes);
-        t->Search(cmin, cmax, sv);
-        // use closest
-        double minDist = std::numeric_limits<double>::max();
-        const ROLane* best = nullptr;
-        for (const Named* o : lanes) {
-            const ROLane* cand = static_cast<const ROLane*>(o);
-            if (!cand->allowsVehicleClass(vClass)) {
-                continue;
-            }
-            double dist = cand->getShape().distance2D(pos);
-            if (dist < minDist) {
-                minDist = dist;
-                best = cand;
-            }
+        double dist = MIN2(10.0, myMapMatchingDistance);
+        const ROEdge* best = getClosestEdge(pos, dist, vClass);
+        while (best == nullptr && dist < myMapMatchingDistance) {
+            dist = MIN2(dist * 2, myMapMatchingDistance);
+            best = getClosestEdge(pos, dist, vClass);
         }
         if (best == nullptr) {
             myErrorOutput->inform("No edge found near position " + toString(orig, geo ? gPrecisionGeo : gPrecision) + " within the route " + rid + ".");
         } else {
-            const ROEdge* bestEdge = &best->getEdge();
-            while (bestEdge->isInternal()) {
-                bestEdge = bestEdge->getSuccessors().front();
-            }
-            into.push_back(bestEdge);
+            into.push_back(best);
         }
+    }
+}
+
+
+const ROEdge*
+RORouteHandler::getClosestEdge(const Position& pos, double distance, SUMOVehicleClass vClass) {
+    NamedRTree* t = getLaneTree();
+    Boundary b;
+    b.add(pos);
+    b.grow(distance);
+    const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+    const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+    std::set<const Named*> lanes;
+    Named::StoringVisitor sv(lanes);
+    t->Search(cmin, cmax, sv);
+    // use closest
+    double minDist = std::numeric_limits<double>::max();
+    const ROLane* best = nullptr;
+    for (const Named* o : lanes) {
+        const ROLane* cand = static_cast<const ROLane*>(o);
+        if (!cand->allowsVehicleClass(vClass)) {
+            continue;
+        }
+        double dist = cand->getShape().distance2D(pos);
+        if (dist < minDist) {
+            minDist = dist;
+            best = cand;
+        }
+    }
+    if (best == nullptr) {
+        return nullptr;
+    } else {
+        const ROEdge* bestEdge = &best->getEdge();
+        while (bestEdge->isInternal()) {
+            bestEdge = bestEdge->getSuccessors().front();
+        }
+        return bestEdge;
     }
 }
 
