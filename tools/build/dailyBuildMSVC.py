@@ -239,11 +239,9 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                     if os.path.basename(f) != "Helper.h":
                         zipf.write(f, includeDir + f[len(srcDir):])
                 zipf.write(os.path.join(buildDir, "src", "version.h"), os.path.join(includeDir, "version.h"))
-                print(zipf.namelist())
                 for f in glob.glob(os.path.join(toolsLibsumoDir, "*.py")) + glob.glob(os.path.join(toolsLibsumoDir, "*.pyd")):
                     # no os.path.join here, since the namelist uses only "/"
-                    nameInZip = "/".join([binDir.replace("bin", "tools"), "libsumo", os.path.basename(f)])
-                    print(nameInZip, nameInZip in zipf.namelist())
+                    nameInZip = binDir.replace("bin", "tools") + "libsumo/" + os.path.basename(f)
                     if nameInZip not in zipf.namelist():
                         zipf.write(f, nameInZip)
                 zipf.close()
