@@ -243,6 +243,11 @@ enum GUIIcon {
     ICON_MODEPERSONPLAN,
     /// @}
 
+    /// @name NETEDIT Edge modes icons
+    /// @{
+    ICON_MODEEDGEDATA,
+    /// @}
+
     /// @name NETEDIT processing icons
     /// @{
     ICON_COMPUTEJUNCTIONS,
