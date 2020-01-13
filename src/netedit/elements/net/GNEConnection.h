@@ -18,7 +18,7 @@
 // A class for represent connections between Lanes
 /****************************************************************************/
 #pragma once
-#include "GNENetElement.h"
+#include "GNENetworkElement.h"
 
 #include <netbuild/NBEdge.h>
 

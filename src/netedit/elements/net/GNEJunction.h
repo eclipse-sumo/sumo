@@ -19,7 +19,7 @@
 // GUIJunctionWrapper)
 /****************************************************************************/
 #pragma once
-#include "GNENetElement.h"
+#include "GNENetworkElement.h"
 #include <netbuild/NBNode.h>
 
 // ===========================================================================

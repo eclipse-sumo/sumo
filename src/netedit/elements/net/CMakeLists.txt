@@ -1,6 +1,6 @@
 set(netedit_elements_net_SRCS
-   GNENetElement.h
-   GNENetElement.cpp
+   GNENetworkElement.h
+   GNENetworkElement.cpp
    GNEEdge.h
    GNEEdge.cpp
    GNELane.h

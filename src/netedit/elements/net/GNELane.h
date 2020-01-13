@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include "GNENetElement.h"
+#include "GNENetworkElement.h"
 
 // ===========================================================================
 // class declarations

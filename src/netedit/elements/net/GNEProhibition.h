@@ -18,7 +18,7 @@
 // A class for represent prohibitions between edges
 /****************************************************************************/
 #pragma once
-#include "GNENetElement.h"
+#include "GNENetworkElement.h"
 
 // ===========================================================================
 // class declarations
