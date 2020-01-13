@@ -726,7 +726,7 @@ GNESelectorFrame::ModificationMode::onCmdSelectModificationMode(FXObject* obj, F
 GNESelectorFrame::ElementSet::ElementSet(GNESelectorFrame* selectorFrameParent) :
     FXGroupBox(selectorFrameParent->myContentFrame, "Element Set", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent),
-    myCurrentElementSet(ELEMENTSET_NETELEMENT) {
+    myCurrentElementSet(ELEMENTSET_NETWORKELEMENT) {
     // Create MatchTagBox for tags and fill it
     mySetComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
 }
@@ -764,7 +764,7 @@ GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*
     // check depending of current supermode
     if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
         if (mySetComboBox->getText() == "network element") {
-            myCurrentElementSet = ELEMENTSET_NETELEMENT;
+            myCurrentElementSet = ELEMENTSET_NETWORKELEMENT;
             mySetComboBox->setTextColor(FXRGB(0, 0, 0));
             // enable match attribute
             mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
@@ -840,8 +840,8 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
     myMatchTagComboBox->clearItems();
     // Set items depending of current item set
     std::vector<SumoXMLTag> listOfTags;
-    if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_NETELEMENT) {
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_NETELEMENT, true);
+    if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_NETWORKELEMENT) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_NETWORKELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_ADDITIONAL) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL | GNEAttributeCarrier::TagType::TAGTYPE_TAZ, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_SHAPE) {
@@ -882,8 +882,8 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     myCurrentTag = SUMO_TAG_NOTHING;
     // find current element tag
     std::vector<SumoXMLTag> listOfTags;
-    if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_NETELEMENT) {
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_NETELEMENT, true);
+    if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_NETWORKELEMENT) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_NETWORKELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_ADDITIONAL) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL | GNEAttributeCarrier::TagType::TAGTYPE_TAZ, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_SHAPE) {

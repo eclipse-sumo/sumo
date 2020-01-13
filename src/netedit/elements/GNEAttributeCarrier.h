@@ -269,24 +269,24 @@ public:
     };
 
     enum TagType {
-        TAGTYPE_NETELEMENT =    1 << 0,   // Edges, Junctions, Lanes...
-        TAGTYPE_ADDITIONAL =    1 << 1,   // Bus Stops, Charging Stations, Detectors...
-        TAGTYPE_SHAPE =         1 << 2,   // POIs, Polygons
-        TAGTYPE_DEMANDELEMENT = 1 << 3,   // Routes, Vehicles, Trips...
-        TAGTYPE_DATAELEMENT =   1 << 4,   // EdgeData, LaneData...
-        TAGTYPE_TAZ =           1 << 5,   // Traffic Assignment Zones
-        TAGTYPE_STOPPINGPLACE = 1 << 6,   // StoppingPlaces (BusStops, ChargingStations...)
-        TAGTYPE_DETECTOR =      1 << 7,   // Detectors (E1, E2...)
-        TAGTYPE_VTYPE =         1 << 8,   // Vehicle types (vType and pTye)
-        TAGTYPE_VEHICLE =       1 << 9,   // Vehicles (Flows, trips...)
-        TAGTYPE_ROUTE =         1 << 10,  // Routes and embedded routes
-        TAGTYPE_STOP =          1 << 11,  // Stops
-        TAGTYPE_PERSON =        1 << 12,  // Persons
-        TAGTYPE_PERSONPLAN =    1 << 13,  // Person plans (Walks, rides, ...)
-        TAGTYPE_PERSONTRIP =    1 << 14,  // Walks
-        TAGTYPE_WALK =          1 << 15,  // Walks
-        TAGTYPE_RIDE =          1 << 16,  // Rides
-        TAGTYPE_PERSONSTOP =    1 << 17,  // Person stops
+        TAGTYPE_NETWORKELEMENT = 1 << 0,  // Edges, Junctions, Lanes...
+        TAGTYPE_ADDITIONAL =     1 << 1,  // Bus Stops, Charging Stations, Detectors...
+        TAGTYPE_SHAPE =          1 << 2,  // POIs, Polygons
+        TAGTYPE_DEMANDELEMENT =  1 << 3,  // Routes, Vehicles, Trips...
+        TAGTYPE_DATAELEMENT =    1 << 4,  // EdgeData, LaneData...
+        TAGTYPE_TAZ =            1 << 5,  // Traffic Assignment Zones
+        TAGTYPE_STOPPINGPLACE =  1 << 6,  // StoppingPlaces (BusStops, ChargingStations...)
+        TAGTYPE_DETECTOR =       1 << 7,  // Detectors (E1, E2...)
+        TAGTYPE_VTYPE =          1 << 8,  // Vehicle types (vType and pTye)
+        TAGTYPE_VEHICLE =        1 << 9,  // Vehicles (Flows, trips...)
+        TAGTYPE_ROUTE =          1 << 10, // Routes and embedded routes
+        TAGTYPE_STOP =           1 << 11, // Stops
+        TAGTYPE_PERSON =         1 << 12, // Persons
+        TAGTYPE_PERSONPLAN =     1 << 13, // Person plans (Walks, rides, ...)
+        TAGTYPE_PERSONTRIP =     1 << 14, // Walks
+        TAGTYPE_WALK =           1 << 15, // Walks
+        TAGTYPE_RIDE =           1 << 16, // Rides
+        TAGTYPE_PERSONSTOP =     1 << 17, // Person stops
     };
 
     enum TAGProperty {
@@ -636,7 +636,7 @@ public:
     /// @brief get tags of all editable element types
     static std::vector<SumoXMLTag> allowedTags(bool onlyDrawables);
 
-    /// @brief get tags of all editable element types using TagProperty Type (TAGTYPE_NETELEMENT, TAGTYPE_ADDITIONAL, etc.)
+    /// @brief get tags of all editable element types using TagProperty Type (TAGTYPE_NETWORKELEMENT, TAGTYPE_ADDITIONAL, etc.)
     static std::vector<SumoXMLTag> allowedTagsByCategory(int tagPropertyCategory, bool onlyDrawables);
 
     /// @brief true if a value of type T can be parsed from string

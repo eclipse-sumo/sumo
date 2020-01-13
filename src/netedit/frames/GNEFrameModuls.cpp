@@ -108,7 +108,7 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNEAttributeCarr
     myFrameParent(frameParent) {
     // first check that property is valid
     switch (type) {
-        case GNEAttributeCarrier::TagType::TAGTYPE_NETELEMENT:
+        case GNEAttributeCarrier::TagType::TAGTYPE_NETWORKELEMENT:
             setText("network elements");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL:

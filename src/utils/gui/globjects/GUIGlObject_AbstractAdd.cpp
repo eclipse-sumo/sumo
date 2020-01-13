@@ -89,10 +89,10 @@ GUIGlObject_AbstractAdd::getIDList(GUIGlObjectType typeFilter) {
     std::vector<GUIGlID> ret;
     if (typeFilter == GLO_NETWORK) {
         return ret;
-    } else if (typeFilter == GLO_NETELEMENT) {
+    } else if (typeFilter == GLO_NETWORKELEMENT) {
         // obtain all network elements
         for (auto i : myObjectList) {
-            if ((i->getType() > GLO_NETELEMENT) && (i->getType() < GLO_ADDITIONAL)) {
+            if ((i->getType() > GLO_NETWORKELEMENT) && (i->getType() < GLO_ADDITIONAL)) {
                 ret.push_back(i->getGlID());
             }
         }

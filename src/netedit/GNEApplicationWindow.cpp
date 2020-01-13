@@ -1183,11 +1183,11 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
         GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
     saveAdditionals = new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
         "Save Additionals\tCtrl+Shift+A\tSave additionals and shapes.",
-        GUIIconSubSys::getIcon(ICON_SAVEADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
+        GUIIconSubSys::getIcon(ICON_SAVEADDITIONALELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
     saveAdditionals->disable();
     saveAdditionalsAs = new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
         "Save Additionals As...\t\tSave additional elements in another file.",
-        GUIIconSubSys::getIcon(ICON_SAVEADDITIONALS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+        GUIIconSubSys::getIcon(ICON_SAVEADDITIONALELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
     saveAdditionalsAs->disable();
     new FXMenuCascade(fileMenu, "Additionals and shapes", GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myGNEApp->myFileMenuAdditionals);
     // create TLS menu options

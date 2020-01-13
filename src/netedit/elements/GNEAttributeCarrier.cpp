@@ -689,7 +689,7 @@ GNEAttributeCarrier::TagProperties::hasAttribute(SumoXMLAttr attr) const {
 
 bool
 GNEAttributeCarrier::TagProperties::isNetworkElement() const {
-    return (myTagType & TAGTYPE_NETELEMENT) != 0;
+    return (myTagType & TAGTYPE_NETWORKELEMENT) != 0;
 }
 
 
@@ -1347,7 +1347,7 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
     if (myTagProperties.size() == 0) {
         fillAttributeCarriers();
     }
-    if (tagPropertyCategory & TAGTYPE_NETELEMENT) {
+    if (tagPropertyCategory & TAGTYPE_NETWORKELEMENT) {
         // fill networkElements tags
         for (const auto& i : myTagProperties) {
             if (i.second.isNetworkElement() && (!onlyDrawables || i.second.isDrawable())) {
@@ -1501,7 +1501,7 @@ GNEAttributeCarrier::fillNetworkElements() {
     SumoXMLTag currentTag = SUMO_TAG_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_NETELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_EDGE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_NETWORKELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_EDGE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1613,7 +1613,7 @@ GNEAttributeCarrier::fillNetworkElements() {
     currentTag = SUMO_TAG_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_NETELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_JUNCTION);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_NETWORKELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_JUNCTION);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1676,7 +1676,7 @@ GNEAttributeCarrier::fillNetworkElements() {
     currentTag = SUMO_TAG_LANE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_NETELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_LANE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_NETWORKELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_LANE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1733,7 +1733,7 @@ GNEAttributeCarrier::fillNetworkElements() {
     currentTag = SUMO_TAG_CROSSING;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_NETELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_CROSSING, SUMO_TAG_JUNCTION);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_NETWORKELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_CROSSING, SUMO_TAG_JUNCTION);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1777,7 +1777,7 @@ GNEAttributeCarrier::fillNetworkElements() {
     currentTag = SUMO_TAG_CONNECTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_NETELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_CONNECTION, SUMO_TAG_EDGE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_NETWORKELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_CONNECTION, SUMO_TAG_EDGE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,

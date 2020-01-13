@@ -72,8 +72,8 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
     sortGUIGlObjectsByAltitude(GUIGlObjects);
     // iterate over GUIGlObjects
     for (const auto& i : myGUIGlObjects) {
-        // only continue if isn't GLO_NETELEMENT (0)
-        if (i->getType() != GLO_NETELEMENT) {
+        // only continue if isn't GLO_NETWORKELEMENT (0)
+        if (i->getType() != GLO_NETWORKELEMENT) {
             // cast attribute carrier from glObject
             myAttributeCarriers.push_back(dynamic_cast<GNEAttributeCarrier*>(i));
             // only continue if attributeCarrier isn't nullptr;

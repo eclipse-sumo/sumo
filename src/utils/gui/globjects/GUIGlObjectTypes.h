@@ -39,7 +39,7 @@ enum GUIGlObjectType {
     GLO_NETWORK = 0,
 
     /// @brief reserved GLO type to pack all network elements
-    GLO_NETELEMENT = 1,
+    GLO_NETWORKELEMENT = 1,
     /// @brief an edge
     GLO_EDGE = 2,
     /// @brief a lane

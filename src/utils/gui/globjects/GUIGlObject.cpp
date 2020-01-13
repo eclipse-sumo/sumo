@@ -46,7 +46,7 @@
 StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitializer[] = {
     {"network",             GLO_NETWORK},
     //
-    {"networkElement",      GLO_NETELEMENT},
+    {"networkElement",      GLO_NETWORKELEMENT},
     {"edge",                GLO_EDGE},
     {"lane",                GLO_LANE},
     {"junction",            GLO_JUNCTION},

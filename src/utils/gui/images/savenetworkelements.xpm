@@ -1,5 +1,5 @@
 /* XPM */
-static const char *savenetelements_xpm[] = {
+static const char *savenetworkelements_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "14 14 256 2 ",
 "   c black",
