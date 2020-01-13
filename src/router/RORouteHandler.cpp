@@ -119,6 +119,15 @@ RORouteHandler::parseFromViaTo(std::string element,
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIAXY, myVehicleParameter->id.c_str(), ok, true), false, viaEdges, rid, false);
     } else if (attrs.hasAttribute(SUMO_ATTR_VIALONLAT)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIALONLAT, myVehicleParameter->id.c_str(), ok, true), true, viaEdges, rid, false);
+    } else if (attrs.hasAttribute(SUMO_ATTR_VIAJUNCTIONS)) {
+        for (std::string junctionID : attrs.getStringVector(SUMO_ATTR_VIAJUNCTIONS)) {
+            const ROEdge* viaSink = myNet.getEdge(junctionID + "-sink");
+            if (viaSink == nullptr) {
+                myErrorOutput->inform("Junction-taz '" + junctionID + "' not found." + JUNCTION_TAZ_MISSING_HELP);
+            } else {
+                viaEdges.push_back(viaSink);
+            }
+        }
     } else {
         parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true), viaEdges, rid);
     }
