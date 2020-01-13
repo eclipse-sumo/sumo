@@ -84,6 +84,9 @@ RODUAFrame::addImportOptions() {
     oc.doRegister("write-trips.geo", new Option_Bool(false));
     oc.addDescription("write-trips.geo", "Output", "Write trips with geo-coordinates");
 
+    oc.doRegister("write-trips.junctions", new Option_Bool(false));
+    oc.addDescription("write-trips.junctions", "Output", "Write trips with fromJunction and toJunction");
+
     // register import options
     oc.doRegister("weight-files", 'w', new Option_FileName());
     oc.addSynonyme("weight-files", "weights");

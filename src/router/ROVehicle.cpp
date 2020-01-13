@@ -204,6 +204,7 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
 
     const bool writeTrip = options.exists("write-trips") && options.getBool("write-trips");
     const bool writeGeoTrip = writeTrip && options.getBool("write-trips.geo");
+    const bool writeJunctions = writeTrip && options.getBool("write-trips.junctions");
     // write the vehicle (new style, with included routes)
     getParameter().write(os, options, writeTrip ? SUMO_TAG_TRIP : SUMO_TAG_VEHICLE);
 
@@ -239,6 +240,8 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
                 } else {
                     os.writeAttr(SUMO_ATTR_FROMXY, fromPos);
                 }
+            } else if (writeJunctions) {
+                os.writeAttr(SUMO_ATTR_FROMJUNCTION, from->getFromJunction()->getID());
             } else {
                 os.writeAttr(SUMO_ATTR_FROM, from->getID());
             }
@@ -254,6 +257,8 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
                 } else {
                     os.writeAttr(SUMO_ATTR_TOXY, toPos);
                 }
+            } else if (writeJunctions) {
+                os.writeAttr(SUMO_ATTR_TOJUNCTION, to->getToJunction()->getID());
             } else {
                 os.writeAttr(SUMO_ATTR_TO, to->getID());
             }
