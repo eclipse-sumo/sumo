@@ -22,6 +22,7 @@ permalink: /ChangeLog/
   
 - NETCONVERT
   - Fixed bug where loaded connection was not created. Issue #6470
+  - Fixed bug where turning restrictions from OSM were violated. Issue #6482
 
 - TraCI
   - Context subscriptions can now be removed individually from the python client (before every unsubscribeContext removed all)
