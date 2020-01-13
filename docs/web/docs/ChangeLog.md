@@ -58,6 +58,8 @@ permalink: /ChangeLog/
   - [duaIterate.py](Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium) now supports intermodal scenarios. Issue #6403
   - Added [duaIterate.py](Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium) option **--measure-vtypes** to improve accuracy of measured travel times when different vehicle types can use different lanes.
   - Added [tileGet.py](Tools/Misc.md#tilegetpy) to retrieve image tiles from public servers. Issue #6279
+  - Added [randomTrips.py](Tools/Trip.md) option **--personrides LINE** to generated person rides with the give line id.
+  - Added [randomTrips.py](Tools/Trip.md) option **--junction-taz** to generated trips between junctions. Issue #6474    
 
 ### Other
 - Build
