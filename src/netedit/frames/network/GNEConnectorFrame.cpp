@@ -26,10 +26,10 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/elements/net/GNELane.h>
-#include <netedit/elements/net/GNEConnection.h>
-#include <netedit/elements/net/GNEEdge.h>
-#include <netedit/elements/net/GNEJunction.h>
+#include <netedit/elements/network/GNELane.h>
+#include <netedit/elements/network/GNEConnection.h>
+#include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/frames/network/GNEConnectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>

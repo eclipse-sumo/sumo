@@ -28,11 +28,11 @@
 #include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
-#include <netedit/elements/net/GNEJunction.h>
-#include <netedit/elements/net/GNEEdge.h>
-#include <netedit/elements/net/GNELane.h>
+#include <netedit/elements/network/GNEJunction.h>
+#include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNELane.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/elements/net/GNEInternalLane.h>
+#include <netedit/elements/network/GNEInternalLane.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNETLSEditorFrame.h"

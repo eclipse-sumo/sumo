@@ -22,7 +22,7 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/elements/net/GNEJunction.h>
+#include <netedit/elements/network/GNEJunction.h>
 
 #include "GNEDialogACChooser.h"
 

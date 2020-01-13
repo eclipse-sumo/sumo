@@ -20,7 +20,7 @@
 #include <config.h>
 
 #include "GNEClosingReroute.h"
-#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterIntervalDialog.h>
 

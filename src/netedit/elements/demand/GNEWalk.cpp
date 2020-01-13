@@ -26,8 +26,8 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/elements/net/GNELane.h>
-#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/network/GNELane.h>
+#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIGlobalSelection.h>

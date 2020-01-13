@@ -22,8 +22,8 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
-#include <netedit/elements/net/GNEEdge.h>
-#include <netedit/elements/net/GNELane.h>
+#include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNELane.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 

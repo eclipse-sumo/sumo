@@ -26,8 +26,8 @@
 #include <netedit/elements/additional/GNEBusStop.h>
 #include <netedit/elements/demand/GNEPerson.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/elements/net/GNEEdge.h>
-#include <netedit/elements/net/GNELane.h>
+#include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNELane.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GLIncludes.h>

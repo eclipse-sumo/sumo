@@ -20,8 +20,8 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/elements/net/GNECrossing.h>
-#include <netedit/elements/net/GNEJunction.h>
+#include <netedit/elements/network/GNECrossing.h>
+#include <netedit/elements/network/GNEJunction.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNEViewNet.h>
 

@@ -24,9 +24,9 @@
 #include <netedit/changes/GNEChange_Crossing.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/elements/net/GNEJunction.h>
-#include <netedit/elements/net/GNEEdge.h>
-#include <netedit/elements/net/GNELane.h>
+#include <netedit/elements/network/GNEJunction.h>
+#include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNELane.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNECrossingFrame.h"

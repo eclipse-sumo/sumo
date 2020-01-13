@@ -45,11 +45,11 @@
 #include <netedit/dialogs/GNEFixAdditionalElements.h>
 #include <netedit/dialogs/GNEFixDemandElements.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/elements/net/GNEConnection.h>
-#include <netedit/elements/net/GNECrossing.h>
-#include <netedit/elements/net/GNEEdge.h>
-#include <netedit/elements/net/GNEJunction.h>
-#include <netedit/elements/net/GNELane.h>
+#include <netedit/elements/network/GNEConnection.h>
+#include <netedit/elements/network/GNECrossing.h>
+#include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNEJunction.h>
+#include <netedit/elements/network/GNELane.h>
 #include <netwrite/NWFrame.h>
 #include <netwrite/NWWriter_SUMO.h>
 #include <netwrite/NWWriter_XML.h>

@@ -19,8 +19,8 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/elements/net/GNELane.h>
-#include <netedit/elements/net/GNEEdge.h>
+#include <netedit/elements/network/GNELane.h>
+#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 
 #include "GNEDetector.h"

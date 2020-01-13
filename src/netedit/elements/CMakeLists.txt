@@ -1,4 +1,4 @@
-add_subdirectory(net)
+add_subdirectory(network)
 add_subdirectory(additional)
 add_subdirectory(demand)
 add_subdirectory(data)

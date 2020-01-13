@@ -1,4 +1,4 @@
-set(netedit_elements_net_SRCS
+set(netedit_elements_network_SRCS
    GNENetworkElement.h
    GNENetworkElement.cpp
    GNEEdge.h
@@ -17,5 +17,5 @@ set(netedit_elements_net_SRCS
    GNEProhibition.cpp
    )
 
-add_library(netedit_elements_net STATIC ${netedit_elements_net_SRCS})
-set_property(TARGET netedit_elements_net PROPERTY PROJECT_LABEL "z_netedit_elements_net")
+add_library(netedit_elements_network STATIC ${netedit_elements_network_SRCS})
+set_property(TARGET netedit_elements_network PROPERTY PROJECT_LABEL "z_netedit_elements_network")
