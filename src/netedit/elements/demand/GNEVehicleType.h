@@ -116,7 +116,7 @@ public:
     Boundary getCenteringBoundary() const;
 
     /// @brief split geometry
-    void splitEdgeGeometry(const double splitPosition, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList);
+    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)

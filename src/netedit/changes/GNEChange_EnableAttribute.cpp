@@ -70,8 +70,8 @@ GNEChange_EnableAttribute::undo() {
     WRITE_DEBUG("Setting previous attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
     // set original attributes
     myAC->setEnabledAttribute(myOriginalAttributes);
-    // check if netElements, additional or shapes has to be saved
-    if (myAC->getTagProperty().isNetElement()) {
+    // check if networkElements, additional or shapes has to be saved
+    if (myAC->getTagProperty().isNetworkElement()) {
         myNet->requireSaveNet(true);
     } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
         myNet->requireSaveAdditionals(true);
@@ -87,8 +87,8 @@ GNEChange_EnableAttribute::redo() {
     WRITE_DEBUG("Setting new attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
     // set new attributes
     myAC->setEnabledAttribute(myNewAttributes);
-    // check if netElements, additional or shapes has to be saved
-    if (myAC->getTagProperty().isNetElement()) {
+    // check if networkElements, additional or shapes has to be saved
+    if (myAC->getTagProperty().isNetworkElement()) {
         myNet->requireSaveNet(true);
     } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
         myNet->requireSaveAdditionals(true);

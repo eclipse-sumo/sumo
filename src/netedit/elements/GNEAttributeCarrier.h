@@ -366,8 +366,8 @@ public:
         /// @brief check if current TagProperties owns the attribute attr
         bool hasAttribute(SumoXMLAttr attr) const;
 
-        /// @brief return true if tag correspond to a netElement
-        bool isNetElement() const;
+        /// @brief return true if tag correspond to a networkElement
+        bool isNetworkElement() const;
 
         /// @brief return true if tag correspond to an additional
         bool isAdditional() const;
@@ -811,8 +811,8 @@ private:
     /// @brief fill Attribute Carriers
     static void fillAttributeCarriers();
 
-    /// @brief fill Net Elements
-    static void fillNetElements();
+    /// @brief fill network elements
+    static void fillNetworkElements();
 
     /// @brief fill Additionals
     static void fillAdditionals();

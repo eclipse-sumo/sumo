@@ -744,24 +744,24 @@ GNEAdditionalFrame::tagSelected() {
 
 
 std::string
-GNEAdditionalFrame::generateID(GNENetElement* netElement) const {
+GNEAdditionalFrame::generateID(GNENetworkElement* networkElement) const {
     // obtain current number of additionals to generate a new index faster
     int additionalIndex = myViewNet->getNet()->getNumberOfAdditionals(myAdditionalTagSelector->getCurrentTagProperties().getTag());
     // obtain tag Properties (only for improve code legilibility
     const auto& tagProperties = myAdditionalTagSelector->getCurrentTagProperties();
-    if (netElement) {
+    if (networkElement) {
         // special case for vaporizers
         if (tagProperties.getTag() == SUMO_TAG_VAPORIZER) {
-            return netElement->getID();
+            return networkElement->getID();
         } else {
-            // generate ID using netElement
-            while (myViewNet->getNet()->retrieveAdditional(tagProperties.getTag(), tagProperties.getTagStr() + "_" + netElement->getID() + "_" + toString(additionalIndex), false) != nullptr) {
+            // generate ID using networkElement
+            while (myViewNet->getNet()->retrieveAdditional(tagProperties.getTag(), tagProperties.getTagStr() + "_" + networkElement->getID() + "_" + toString(additionalIndex), false) != nullptr) {
                 additionalIndex++;
             }
-            return tagProperties.getTagStr() + "_" + netElement->getID() + "_" + toString(additionalIndex);
+            return tagProperties.getTagStr() + "_" + networkElement->getID() + "_" + toString(additionalIndex);
         }
     } else {
-        // generate ID without netElement
+        // generate ID without networkElement
         while (myViewNet->getNet()->retrieveAdditional(tagProperties.getTag(), tagProperties.getTagStr() + "_" + toString(additionalIndex), false) != nullptr) {
             additionalIndex++;
         }

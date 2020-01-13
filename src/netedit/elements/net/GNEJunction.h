@@ -41,7 +41,7 @@ class GNEConnection;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEJunction : public GNENetElement {
+class GNEJunction : public GNENetworkElement {
 
     /// @brief Declare friend class
     friend class GNEChange_TLS;

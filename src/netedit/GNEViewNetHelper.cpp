@@ -56,7 +56,7 @@ void
 GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlObject*>& GUIGlObjects, GNEPoly* editedPolyShape) {
     // first clear all containers
     myAttributeCarriers.clear();
-    myNetElements.clear();
+    myNetworkElements.clear();
     myAdditionals.clear();
     myShapes.clear();
     myDemandElements.clear();
@@ -87,10 +87,10 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                 } else {
                     // obtain tag property (only for improve code legibility)
                     const auto& tagValue = myAttributeCarriers.back()->getTagProperty();
-                    // check if attributeCarrier can be casted into netElement, additional or shape
-                    if (tagValue.isNetElement()) {
-                        // cast netElement from attribute carrier
-                        myNetElements.push_back(dynamic_cast<GNENetElement*>(myAttributeCarriers.back()));
+                    // check if attributeCarrier can be casted into networkElement, additional or shape
+                    if (tagValue.isNetworkElement()) {
+                        // cast networkElement from attribute carrier
+                        myNetworkElements.push_back(dynamic_cast<GNENetworkElement*>(myAttributeCarriers.back()));
                     } else if (tagValue.isDemandElement()) {
                         // cast demand element from attribute carrier
                         myDemandElements.push_back(dynamic_cast<GNEDemandElement*>(myAttributeCarriers.back()));
@@ -151,7 +151,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
     // write information in debug mode (Currently disabled)
     WRITE_DEBUG("ObjectsUnderCursor: GUIGlObjects: " + toString(GUIGlObjects.size()) +
                 ", AttributeCarriers: " + toString(myAttributeCarriers.size()) +
-                ", NetElements: " + toString(myNetElements.size()) +
+                ", NetworkElements: " + toString(myNetworkElements.size()) +
                 ", Additionals: " + toString(myAdditionals.size()) +
                 ", DemandElements: " + toString(myDemandElements.size()) +
                 ", Shapes: " + toString(myShapes.size()) +
@@ -172,12 +172,12 @@ GNEViewNetHelper::ObjectsUnderCursor::swapLane2Edge() {
     // clear some containers
     myGUIGlObjects.clear();
     myAttributeCarriers.clear();
-    myNetElements.clear();
+    myNetworkElements.clear();
     // fill containers using edges
     for (const auto& i : myEdges) {
         myGUIGlObjects.push_back(i);
         myAttributeCarriers.push_back(i);
-        myNetElements.push_back(i);
+        myNetworkElements.push_back(i);
     }
     // write information for debug
     WRITE_DEBUG("ObjectsUnderCursor: swapped Lanes to edges")
@@ -214,10 +214,10 @@ GNEViewNetHelper::ObjectsUnderCursor::getAttributeCarrierFront() const {
 }
 
 
-GNENetElement*
-GNEViewNetHelper::ObjectsUnderCursor::getNetElementFront() const {
-    if (myNetElements.size() > 0) {
-        return myNetElements.front();
+GNENetworkElement*
+GNEViewNetHelper::ObjectsUnderCursor::getNetworkElementFront() const {
+    if (myNetworkElements.size() > 0) {
+        return myNetworkElements.front();
     } else {
         return nullptr;
     }
@@ -2042,7 +2042,7 @@ GNEViewNetHelper::CommonCheckableButtons::updateCommonCheckableButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::NetworkCheckableButtons::NetworkCheckableButtons(GNEViewNet* viewNet) :
-    moveNetElementsButton(nullptr),
+    moveNetworkElementsButton(nullptr),
     createEdgeButton(nullptr),
     connectionButton(nullptr),
     trafficLightButton(nullptr),
@@ -2058,10 +2058,10 @@ GNEViewNetHelper::NetworkCheckableButtons::NetworkCheckableButtons(GNEViewNet* v
 void
 GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     // move button
-    moveNetElementsButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, 
+    moveNetworkElementsButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, 
         "\tset move mode\tMode for move elements.",
         GUIIconSubSys::getIcon(ICON_MODEMOVE), myViewNet, MID_HOTKEY_M_MOVEMODE, GUIDesignButtonToolbarCheckable);
-    moveNetElementsButton->create();
+    moveNetworkElementsButton->create();
     // create edge
     createEdgeButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, 
         "\tset create edge mode\tMode for creating junction and edges.",
@@ -2109,7 +2109,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
 
 void
 GNEViewNetHelper::NetworkCheckableButtons::showNetworkCheckableButtons() {
-    moveNetElementsButton->show();
+    moveNetworkElementsButton->show();
     createEdgeButton->show();
     connectionButton->show();
     trafficLightButton->show();
@@ -2123,7 +2123,7 @@ GNEViewNetHelper::NetworkCheckableButtons::showNetworkCheckableButtons() {
 
 void
 GNEViewNetHelper::NetworkCheckableButtons::hideNetworkCheckableButtons() {
-    moveNetElementsButton->hide();
+    moveNetworkElementsButton->hide();
     createEdgeButton->hide();
     connectionButton->hide();
     trafficLightButton->hide();
@@ -2137,7 +2137,7 @@ GNEViewNetHelper::NetworkCheckableButtons::hideNetworkCheckableButtons() {
 
 void
 GNEViewNetHelper::NetworkCheckableButtons::disableNetworkCheckableButtons() {
-    moveNetElementsButton->setChecked(false);
+    moveNetworkElementsButton->setChecked(false);
     createEdgeButton->setChecked(false);
     connectionButton->setChecked(false);
     trafficLightButton->setChecked(false);
@@ -2151,7 +2151,7 @@ GNEViewNetHelper::NetworkCheckableButtons::disableNetworkCheckableButtons() {
 
 void
 GNEViewNetHelper::NetworkCheckableButtons::updateNetworkCheckableButtons() {
-    moveNetElementsButton->update();
+    moveNetworkElementsButton->update();
     createEdgeButton->update();
     connectionButton->update();
     trafficLightButton->update();
@@ -2328,20 +2328,20 @@ GNEViewNetHelper::DataCheckableButtons::updateDataCheckableButtons() {
 
 GNEViewNetHelper::EditShapes::EditShapes(GNEViewNet* viewNet) :
     editedShapePoly(nullptr),
-    editingNetElementShapes(false),
+    editingNetworkElementShapes(false),
     myViewNet(viewNet) {
 }
 
 
 void
-GNEViewNetHelper::EditShapes::startEditCustomShape(GNENetElement* element, const PositionVector& shape, bool fill) {
+GNEViewNetHelper::EditShapes::startEditCustomShape(GNENetworkElement* element, const PositionVector& shape, bool fill) {
     if ((editedShapePoly == nullptr) && (element != nullptr) && (shape.size() > 1)) {
         // save current edit mode before starting
         myPreviousNetworkEditMode = myViewNet->myEditModes.networkEditMode;
         if ((element->getTagProperty().getTag() == SUMO_TAG_CONNECTION) || (element->getTagProperty().getTag() == SUMO_TAG_CROSSING)) {
-            editingNetElementShapes = true;
+            editingNetworkElementShapes = true;
         } else {
-            editingNetElementShapes = false;
+            editingNetworkElementShapes = false;
         }
         // set move mode
         myViewNet->myEditModes.setNetworkEditMode(GNE_NETWORKMODE_MOVE);

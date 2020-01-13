@@ -92,8 +92,8 @@ GNEChange_Attribute::undo() {
         if (myAC->getTagProperty().hasAttribute(myKey) && myAC->getTagProperty().getAttributeProperties(myKey).requireUpdateGeometry()) {
             myAC->updateGeometry();
         }
-        // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
-        if (myAC->getTagProperty().isNetElement()) {
+        // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
+        if (myAC->getTagProperty().isNetworkElement()) {
             myNet->requireSaveNet(true);
         } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
             myNet->requireSaveAdditionals(true);
@@ -116,8 +116,8 @@ GNEChange_Attribute::redo() {
         if (myAC->getTagProperty().hasAttribute(myKey) && myAC->getTagProperty().getAttributeProperties(myKey).requireUpdateGeometry()) {
             myAC->updateGeometry();
         }
-        // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
-        if (myAC->getTagProperty().isNetElement()) {
+        // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
+        if (myAC->getTagProperty().isNetworkElement()) {
             myNet->requireSaveNet(true);
         } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
             myNet->requireSaveAdditionals(true);

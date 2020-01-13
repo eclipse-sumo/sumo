@@ -67,7 +67,7 @@ GNEChange_Junction::undo() {
         // delete junction from net
         myNet->insertJunction(myJunction);
     }
-    // enable save netElements
+    // enable save networkElements
     myNet->requireSaveNet(true);
 }
 
@@ -85,7 +85,7 @@ GNEChange_Junction::redo() {
         // delete junction from net
         myNet->deleteSingleJunction(myJunction, false);
     }
-    // enable save netElements
+    // enable save networkElements
     myNet->requireSaveNet(true);
 }
 

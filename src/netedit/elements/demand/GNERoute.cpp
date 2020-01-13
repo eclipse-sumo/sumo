@@ -313,8 +313,8 @@ GNERoute::getCenteringBoundary() const {
 
 
 void
-GNERoute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
-    // check that both net elementes are edges
+GNERoute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
+    // check that both network elementes are edges
     if ((originalElement->getTagProperty().getTag() == SUMO_TAG_EDGE) &&
             (originalElement->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
         // obtain new list of route edges

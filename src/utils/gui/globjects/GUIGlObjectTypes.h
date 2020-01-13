@@ -38,7 +38,7 @@ enum GUIGlObjectType {
     /// @brief The network - empty
     GLO_NETWORK = 0,
 
-    /// @brief reserved GLO type to pack all netElements
+    /// @brief reserved GLO type to pack all network elements
     GLO_NETELEMENT = 1,
     /// @brief an edge
     GLO_EDGE = 2,
@@ -53,7 +53,7 @@ enum GUIGlObjectType {
     /// @brief a tl-logic
     GLO_TLLOGIC = 8,
 
-    /// @brief reserved GLO type to pack all additionals
+    /// @brief reserved GLO type to pack all additionals elements
     GLO_ADDITIONAL = 100,
     /// @brief a busStop
     GLO_BUS_STOP = 101,

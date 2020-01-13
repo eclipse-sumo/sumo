@@ -532,13 +532,13 @@ GNEAttributeCarrier::TagProperties::getTagStr() const {
 
 void
 GNEAttributeCarrier::TagProperties::checkTagIntegrity() const {
-    // check that element must ist at least netElement, Additional, or shape
-    if (!isNetElement() && !isAdditional() && !isShape() && !isTAZ() && !isDemandElement()) {
-        throw ProcessError("element must be at leas netElement, additional, TAZ, shape or demandElement");
+    // check that element must ist at least networkElement, Additional, or shape
+    if (!isNetworkElement() && !isAdditional() && !isShape() && !isTAZ() && !isDemandElement()) {
+        throw ProcessError("element must be at leas networkElement, additional, TAZ, shape or demandElement");
     }
-    // check that element only is netElement, Additional, or shape at the same time
-    if ((isNetElement() + isAdditional() + isShape() + isTAZ() + isDemandElement()) > 1) {
-        throw ProcessError("element can be only a netElement, additional, shape or demandElement at the same time");
+    // check that element only is networkElement, Additional, or shape at the same time
+    if ((isNetworkElement() + isAdditional() + isShape() + isTAZ() + isDemandElement()) > 1) {
+        throw ProcessError("element can be only a networkElement, additional, shape or demandElement at the same time");
     }
     // if element can mask the start and end position, check that bot attributes exist
     if (canMaskStartEndPos() && (!hasAttribute(SUMO_ATTR_STARTPOS) || !hasAttribute(SUMO_ATTR_ENDPOS))) {
@@ -688,7 +688,7 @@ GNEAttributeCarrier::TagProperties::hasAttribute(SumoXMLAttr attr) const {
 
 
 bool
-GNEAttributeCarrier::TagProperties::isNetElement() const {
+GNEAttributeCarrier::TagProperties::isNetworkElement() const {
     return (myTagType & TAGTYPE_NETELEMENT) != 0;
 }
 
@@ -1348,9 +1348,9 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
         fillAttributeCarriers();
     }
     if (tagPropertyCategory & TAGTYPE_NETELEMENT) {
-        // fill netElements tags
+        // fill networkElements tags
         for (const auto& i : myTagProperties) {
-            if (i.second.isNetElement() && (!onlyDrawables || i.second.isDrawable())) {
+            if (i.second.isNetworkElement() && (!onlyDrawables || i.second.isDrawable())) {
                 allowedTags.push_back(i.first);
             }
         }
@@ -1470,7 +1470,7 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
 void
 GNEAttributeCarrier::fillAttributeCarriers() {
     // fill all groups of ACs
-    fillNetElements();
+    fillNetworkElements();
     fillAdditionals();
     fillShapes();
     fillDemandElements();
@@ -1487,7 +1487,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
 
 
 void
-GNEAttributeCarrier::fillNetElements() {
+GNEAttributeCarrier::fillNetworkElements() {
     // declare empty AttributeProperties
     AttributeProperties attrProperty;
     // obtain Node Types except NODETYPE_DEAD_END_DEPRECATED
@@ -1497,7 +1497,7 @@ GNEAttributeCarrier::fillNetElements() {
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(NODETYPE_DEAD_END)));
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(NODETYPE_NOJUNCTION)));
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(NODETYPE_INTERNAL)));
-    // fill netElement ACs
+    // fill networkElement ACs
     SumoXMLTag currentTag = SUMO_TAG_EDGE;
     {
         // set values of tag

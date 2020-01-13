@@ -173,7 +173,7 @@ GNEChange_Edge::undo() {
             }
         }
     }
-    // enable save netElements
+    // enable save networkElements
     myNet->requireSaveNet(true);
 }
 
@@ -277,7 +277,7 @@ GNEChange_Edge::redo() {
         // delete edge from net
         myNet->deleteSingleEdge(myEdge, false);
     }
-    // enable save netElements
+    // enable save networkElements
     myNet->requireSaveNet(true);
 }
 

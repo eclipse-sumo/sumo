@@ -145,7 +145,7 @@ GNEChange_Lane::undo() {
             i->addParentLane(myLane);
         }
     }
-    // enable save netElements
+    // enable save networkElements
     myNet->requireSaveNet(true);
 }
 
@@ -211,7 +211,7 @@ GNEChange_Lane::redo() {
         // remove lane from edge
         myEdge->removeLane(myLane, myRecomputeConnections);
     }
-    // enable save netElements
+    // enable save networkElements
     myNet->requireSaveNet(true);
 }
 

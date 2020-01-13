@@ -203,7 +203,7 @@ public:
         /// @name FOX-callbacks
         /// @{
 
-        /// @brief Called when the user change the set of element to search (netElement, Additional or shape)
+        /// @brief Called when the user change the set of element to search (networkElement, Additional or shape)
         long onCmdSelectElementSet(FXObject*, FXSelector, void*);
 
         /// @}

@@ -32,7 +32,7 @@ class GNEEdge;
 // class definitions
 // ===========================================================================
 
-class GNEConnection : public GNENetElement {
+class GNEConnection : public GNENetworkElement {
 public:
     /** Constructor
      * @param[in] from The edge the vehicles leave

@@ -11,14 +11,16 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNENetElement.h
+/// @file    GNENetworkElement.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
 ///
-// A abstract class for net elements
+// A abstract class for network elements
 /****************************************************************************/
 #pragma once
-#include <config.h>
+// ===========================================================================
+// included modules
+// ===========================================================================#include <config.h>
 
 #include <netedit/elements/GNEHierarchicalParentElements.h>
 #include <netedit/elements/GNEHierarchicalChildElements.h>
@@ -38,7 +40,7 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-class GNENetElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
+class GNENetworkElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
 
 public:
     /**@brief Constructor.
@@ -47,10 +49,10 @@ public:
      * @param[in] type type of GL object
      * @param[in] tag sumo xml tag of the element
      */
-    GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag);
+    GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag);
 
     /// @brief Destructor
-    ~GNENetElement();
+    ~GNENetworkElement();
 
     /// @brief updated dotted geometry
     void updateDottedGeometry(const PositionVector& shape);
@@ -180,8 +182,8 @@ private:
     void setEnabledAttribute(const int enabledAttributes);
 
     /// @brief Invalidated copy constructor.
-    GNENetElement(const GNENetElement&) = delete;
+    GNENetworkElement(const GNENetworkElement&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNENetElement& operator=(const GNENetElement&) = delete;
+    GNENetworkElement& operator=(const GNENetworkElement&) = delete;
 };

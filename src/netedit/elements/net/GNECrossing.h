@@ -38,7 +38,7 @@ class GNEEdge;
  * a popup menu. Messages are routeted to an internal dataTarget and to the
  * editor (hence inheritance from FXDelegator)
  */
-class GNECrossing : public GNENetElement {
+class GNECrossing : public GNENetworkElement {
 public:
 
     /**@brief Constructor

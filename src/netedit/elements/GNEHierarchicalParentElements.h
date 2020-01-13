@@ -31,7 +31,7 @@
 // ===========================================================================
 
 class GNEAdditional;
-class GNENetElement;
+class GNENetworkElement;
 class GNEDemandElement;
 class GNEShape;
 class GNEConnection;
@@ -150,7 +150,7 @@ public:
     /// @}
 
     /// @brief if use edge/parent lanes as a list of consecutive elements, obtain a list of IDs of elements after insert a new element
-    std::string getNewListOfParents(const GNENetElement* currentElement, const GNENetElement* newNextElement) const;
+    std::string getNewListOfParents(const GNENetworkElement* currentElement, const GNENetworkElement* newNextElement) const;
 
 protected:
     /// @name members and functions relative to changing parents

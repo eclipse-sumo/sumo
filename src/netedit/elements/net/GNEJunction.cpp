@@ -58,7 +58,7 @@ const double GNEJunction::BUBBLE_RADIUS(4);
 // ===========================================================================
 
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
-    GNENetElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION),
+    GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION),
     myNBNode(nbn),
     myMaxSize(1),
     myAmCreateEdgeSource(false),

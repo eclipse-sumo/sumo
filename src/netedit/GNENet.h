@@ -59,7 +59,7 @@ class GNECrossing;
 class GNEEdge;
 class GNEJunction;
 class GNELane;
-class GNENetElement;
+class GNENetworkElement;
 class GNEPOI;
 class GNEPoly;
 class GNEShape;
@@ -726,14 +726,14 @@ public:
     /// @{
 
     /**@brief Builds a special polygon used for edit Junctions's shapes
-     * @param[in] netElement GNENetElement to be edited
+     * @param[in] networkElement GNENetworkElement to be edited
      * @param[in] shape shape to be edited
      * @param[in] fill enable or disable fill polygon
      * @param[in] col The color for drawing the polygon
      * @throw processError if shape is empty
      * @return created GNEPoly
      */
-    GNEPoly* addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill, RGBColor col);
+    GNEPoly* addPolygonForEditShapes(GNENetworkElement* networkElement, const PositionVector& shape, bool fill, RGBColor col);
 
     /// @brief remove Polygon for edit shapes
     void removePolygonForEditShapes(GNEPoly* polygon);

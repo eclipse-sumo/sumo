@@ -437,7 +437,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
         }
     } else if (myAttrProperties.getAttr() == SUMO_ATTR_ID) {
         // check ID depending of tag
-        if (myAttrProperties.getTagPropertyParent().isNetElement() && !SUMOXMLDefinitions::isValidNetID(myValueTextField->getText().text())) {
+        if (myAttrProperties.getTagPropertyParent().isNetworkElement() && !SUMOXMLDefinitions::isValidNetID(myValueTextField->getText().text())) {
             myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
         } else if (myAttrProperties.getTagPropertyParent().isDetector() && !SUMOXMLDefinitions::isValidDetectorID(myValueTextField->getText().text())) {
             myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();

@@ -109,7 +109,7 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNEAttributeCarr
     // first check that property is valid
     switch (type) {
         case GNEAttributeCarrier::TagType::TAGTYPE_NETELEMENT:
-            setText("Net elements");
+            setText("network elements");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL:
             setText("Additional elements");
@@ -1064,7 +1064,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
         FXMenuCommand* inspectMenuCommand = new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECT);
         FXMenuCommand* deleteMenuCommand = new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_DELETE);
         // check if inspect and delete menu commands has to be disabled
-        if ((myClickedAC->getTagProperty().isNetElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) ||
+        if ((myClickedAC->getTagProperty().isNetworkElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) ||
                 (myClickedAC->getTagProperty().isDemandElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK))) {
             inspectMenuCommand->disable();
             deleteMenuCommand->disable();
@@ -1123,7 +1123,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
 
 FXTreeItem*
 GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
-    if (myAC->getTagProperty().isNetElement()) {
+    if (myAC->getTagProperty().isNetworkElement()) {
         // check demand element type
         switch (myAC->getTagProperty().getTag()) {
             case SUMO_TAG_EDGE: {
@@ -1375,7 +1375,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
 
 void
 GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
-    if (AC->getTagProperty().isNetElement()) {
+    if (AC->getTagProperty().isNetworkElement()) {
         // Switch gl type of ac
         switch (AC->getTagProperty().getTag()) {
             case SUMO_TAG_JUNCTION: {

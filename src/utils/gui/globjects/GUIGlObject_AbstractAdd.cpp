@@ -90,7 +90,7 @@ GUIGlObject_AbstractAdd::getIDList(GUIGlObjectType typeFilter) {
     if (typeFilter == GLO_NETWORK) {
         return ret;
     } else if (typeFilter == GLO_NETELEMENT) {
-        // obtain all netElements
+        // obtain all network elements
         for (auto i : myObjectList) {
             if ((i->getType() > GLO_NETELEMENT) && (i->getType() < GLO_ADDITIONAL)) {
                 ret.push_back(i->getGlID());

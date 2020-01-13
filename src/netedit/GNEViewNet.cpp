@@ -2630,7 +2630,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkViewOptions.menuCheckWarnAboutMerge->show();
             myNetworkViewOptions.menuCheckShowJunctionBubble->show();
             myNetworkViewOptions.menuCheckMoveElevation->show();
-            myNetworkCheckableButtons.moveNetElementsButton->setChecked(true);
+            myNetworkCheckableButtons.moveNetworkElementsButton->setChecked(true);
             // show view options
             myCommonViewOptions.menuCheckShowGrid->show();
             // show toolbar grip of view options
@@ -3384,7 +3384,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     }
                     // Check if this GLobject type is locked
                     if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
-                        // toogle netElement selection
+                        // toogle networkElement selection
                         if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                             myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
                         } else {
@@ -3648,7 +3648,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                     if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
                         // Check if this GLobject type is locked
                         if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
-                            // toogle netElement selection
+                            // toogle networkElement selection
                             if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                                 myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
                             } else {
@@ -3811,7 +3811,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
                     if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDataElement()) {
                         // Check if this GLobject type is locked
                         if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
-                            // toogle netElement selection
+                            // toogle networkElement selection
                             if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                                 myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
                             } else {

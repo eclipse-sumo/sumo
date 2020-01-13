@@ -2757,11 +2757,11 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
 
 
 GNEPoly*
-GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill, RGBColor col) {
+GNENet::addPolygonForEditShapes(GNENetworkElement* networkElement, const PositionVector& shape, bool fill, RGBColor col) {
     if (shape.size() > 0) {
         // create poly for edit shapes
         GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, fill, 0.3, col, GLO_POLYGON, 0, "", false, false, false);
-        shapePoly->setShapeEditedElement(netElement);
+        shapePoly->setShapeEditedElement(networkElement);
         myGrid.addAdditionalGLObject(shapePoly);
         myViewNet->update();
         return shapePoly;

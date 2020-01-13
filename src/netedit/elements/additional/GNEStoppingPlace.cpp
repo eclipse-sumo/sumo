@@ -154,8 +154,8 @@ GNEStoppingPlace::getPositionInView() const {
 
 
 void
-GNEStoppingPlace::splitEdgeGeometry(const double splitPosition, const GNENetElement* originalElement, const GNENetElement* newElement, GNEUndoList* undoList) {
-    // first check tat both net elements are lanes and originalElement correspond to stoppingPlace lane
+GNEStoppingPlace::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
+    // first check tat both network elements are lanes and originalElement correspond to stoppingPlace lane
     if ((originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
             (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
             (getParentLanes().front() == originalElement)) {

@@ -46,7 +46,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
     GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
     GNEShape(net, SUMO_TAG_POLY, movementBlocked, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-         myNetElementShapeEdited(nullptr),
+         myNetworkElementShapeEdited(nullptr),
          myBlockShape(shapeBlocked),
          myClosedShape(shape.front() == shape.back()),
          mySimplifiedShape(false),
@@ -159,7 +159,7 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
         myShape = oldShape;
         // first check if double points has to be removed
         shapeToCommit.removeDoublePoints(myHintSize);
-        if (shapeToCommit.size() != myShape.size() && !myNet->getViewNet()->getEditShapes().editingNetElementShapes) {
+        if (shapeToCommit.size() != myShape.size() && !myNet->getViewNet()->getEditShapes().editingNetworkElementShapes) {
             WRITE_WARNING("Merged shape's point")
         }
 
@@ -169,7 +169,7 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
             shapeToCommit.push_back(shapeToCommit.front());
         }
         // only use GNEChange_Attribute if we aren't editing a junction's shape
-        if (myNetElementShapeEdited == nullptr) {
+        if (myNetworkElementShapeEdited == nullptr) {
             // commit new shape
             undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
@@ -229,8 +229,8 @@ GNEPoly::getGlID() const {
 
 std::string
 GNEPoly::getParentName() const {
-    if (myNetElementShapeEdited != nullptr) {
-        return myNetElementShapeEdited->getMicrosimID();
+    if (myNetworkElementShapeEdited != nullptr) {
+        return myNetworkElementShapeEdited->getMicrosimID();
     } else {
         return myNet->getMicrosimID();
     }
@@ -251,8 +251,8 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (mySimplifiedShape || myShape.size() <= 2) {
         simplifyShape->disable();
     }
-    // create open or close polygon's shape only if myNetElementShapeEdited is nullptr
-    if (myNetElementShapeEdited == nullptr) {
+    // create open or close polygon's shape only if myNetworkElementShapeEdited is nullptr
+    if (myNetworkElementShapeEdited == nullptr) {
         if (myClosedShape) {
             new FXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", nullptr, &parent, MID_GNE_POLYGON_OPEN);
         } else {
@@ -487,18 +487,18 @@ GNEPoly::isPolygonClosed() const {
 
 
 void
-GNEPoly::setShapeEditedElement(GNENetElement* element) {
+GNEPoly::setShapeEditedElement(GNENetworkElement* element) {
     if (element) {
-        myNetElementShapeEdited = element;
+        myNetworkElementShapeEdited = element;
     } else {
         throw InvalidArgument("Junction cannot be nullptr");
     }
 }
 
 
-GNENetElement*
+GNENetworkElement*
 GNEPoly::getShapeEditedElement() const {
-    return myNetElementShapeEdited;
+    return myNetworkElementShapeEdited;
 }
 
 
@@ -813,8 +813,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry of shape edited element
-            if (myNetElementShapeEdited) {
-                myNetElementShapeEdited->updateGeometry();
+            if (myNetworkElementShapeEdited) {
+                myNetworkElementShapeEdited->updateGeometry();
             }
             break;
         }
@@ -831,8 +831,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry of shape edited element
-            if (myNetElementShapeEdited) {
-                myNetElementShapeEdited->updateGeometry();
+            if (myNetworkElementShapeEdited) {
+                myNetworkElementShapeEdited->updateGeometry();
             }
             break;
         }

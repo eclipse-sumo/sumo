@@ -117,7 +117,7 @@ GNEHierarchicalParentElements::getParentDemandElements() const {
 
 
 std::string
-GNEHierarchicalParentElements::getNewListOfParents(const GNENetElement* currentElement, const GNENetElement* newNextElement) const {
+GNEHierarchicalParentElements::getNewListOfParents(const GNENetworkElement* currentElement, const GNENetworkElement* newNextElement) const {
     std::vector<std::string> solution;
     if ((currentElement->getTagProperty().getTag() == SUMO_TAG_EDGE) && (newNextElement->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
         // reserve solution

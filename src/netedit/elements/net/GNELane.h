@@ -40,7 +40,7 @@ class GNEConnection;
  * @brief This lane is powered by an underlying GNEEdge and basically knows how
  * to draw itself
  */
-class GNELane : public GNENetElement, public FXDelegator {
+class GNELane : public GNENetworkElement, public FXDelegator {
     /// @brief FOX-declaration
     FXDECLARE(GNELane)
 

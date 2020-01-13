@@ -39,7 +39,7 @@
 class GNEViewNet;
 class GNEAdditional;
 class GNEDataSet;
-class GNENetElement;
+class GNENetworkElement;
 class GNEEdge;
 class GNELane;
 class GNEJunction;

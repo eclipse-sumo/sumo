@@ -126,7 +126,7 @@ GNEAccess::getCenteringBoundary() const {
 
 
 void
-GNEAccess::splitEdgeGeometry(const double splitPosition, const GNENetElement* /*originalElement*/, const GNENetElement* newElement, GNEUndoList* undoList) {
+GNEAccess::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* newElement, GNEUndoList* undoList) {
     if (splitPosition < myPositionOverLane) {
         // change lane
         setAttribute(SUMO_ATTR_LANE, newElement->getID(), undoList);

@@ -109,7 +109,7 @@ void GNEChange_Crossing::undo() {
         // Update view
         myNet->getViewNet()->update();
     }
-    // enable save netElements
+    // enable save networkElements
     myNet->requireSaveNet(true);
 }
 
@@ -151,7 +151,7 @@ void GNEChange_Crossing::redo() {
         // Update view
         myNet->getViewNet()->update();
     }
-    // enable save netElements
+    // enable save networkElements
     myNet->requireSaveNet(true);
 }
 

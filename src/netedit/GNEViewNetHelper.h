@@ -131,8 +131,8 @@ class GNENet;
 class GNEUndoList;
 class GNEViewNet;
 class GNEViewParent;
-// net elements
-class GNENetElement;
+// network elements
+class GNENetworkElement;
 class GNEJunction;
 class GNEEdge;
 class GNELane;
@@ -172,17 +172,17 @@ struct GNEViewNetHelper {
         /// @brief swap lane to edge
         void swapLane2Edge();
 
-        /// @brief get front GUI GL ID (or a pointer to nullptr if there isn't)
+        /// @brief get front GUI GL ID or a pointer to nullptr
         GUIGlID getGlIDFront() const;
 
-        /// @brief get front GUI GL object type (or a pointer to nullptr if there isn't)
+        /// @brief get front GUI GL object type or a pointer to nullptr
         GUIGlObjectType getGlTypeFront() const;
 
-        /// @brief get front attribute carrier (or a pointer to nullptr)
+        /// @brief get front attribute carrier or a pointer to nullptr
         GNEAttributeCarrier* getAttributeCarrierFront() const;
 
-        /// @brief get front net element or a pointer to nullptr
-        GNENetElement* getNetElementFront() const;
+        /// @brief get front network element or a pointer to nullptr
+        GNENetworkElement* getNetworkElementFront() const;
 
         /// @brief get front additional element or a pointer to nullptr
         GNEAdditional* getAdditionalFront() const;
@@ -230,8 +230,8 @@ struct GNEViewNetHelper {
         /// @brief vector with the clicked attribute carriers
         std::vector<GNEAttributeCarrier*> myAttributeCarriers;
 
-        /// @brief vector with the clicked net elements
-        std::vector<GNENetElement*> myNetElements;
+        /// @brief vector with the clicked network elements
+        std::vector<GNENetworkElement*> myNetworkElements;
 
         /// @brief vector with the clicked additional elements
         std::vector<GNEAdditional*> myAdditionals;
@@ -850,8 +850,8 @@ struct GNEViewNetHelper {
         /// @brief update network checkable buttons
         void updateNetworkCheckableButtons();
 
-        /// @brief chekable button for edit mode "move net elements"
-        MFXCheckableButton* moveNetElementsButton;
+        /// @brief chekable button for edit mode "move network elements"
+        MFXCheckableButton* moveNetworkElementsButton;
 
         /// @brief chekable button for edit mode create edge
         MFXCheckableButton* createEdgeButton;
@@ -961,14 +961,14 @@ struct GNEViewNetHelper {
         GNEViewNet* myViewNet;
     };
 
-    /// @brief struct used to group all variables related with edit shapes of NetElements
+    /// @brief struct used to group all variables related with edit shapes of NetworkElements
     struct EditShapes {
 
         /// @brief default constructor
         EditShapes(GNEViewNet* viewNet);
 
         /// @brief start edit custom shape
-        void startEditCustomShape(GNENetElement* element, const PositionVector& shape, bool fill);
+        void startEditCustomShape(GNENetworkElement* element, const PositionVector& shape, bool fill);
 
         /// @brief edit edit shape
         void stopEditCustomShape();
@@ -979,11 +979,11 @@ struct GNEViewNetHelper {
         /// @brief polygon used for edit shapes
         GNEPoly* editedShapePoly;
 
-        /// @brief flag to edit net element shapes
-        bool editingNetElementShapes;
+        /// @brief flag to edit network element shapes
+        bool editingNetworkElementShapes;
 
     private:
-        /// @brief the previous edit mode before edit NetElement's shapes
+        /// @brief the previous edit mode before edit NetworkElement's shapes
         NetworkEditMode myPreviousNetworkEditMode;
 
         /// @brief pointer to viewNet
