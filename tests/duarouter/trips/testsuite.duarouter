@@ -109,6 +109,9 @@ geoTrips_distance
 # test mapmatching trips with geo-coordinates to junctions
 geoTrips_junctions
 
+# test mapmatching trips with geo-coordinates to junctions in a network that has internal lanes
+geoTrips_junctions_internalLanes
+
 # test mapmatching trips with geo-coordinates to junctions and then writing output positions
 geoTrips_junctions_writeGeo
 
