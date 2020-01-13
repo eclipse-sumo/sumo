@@ -441,7 +441,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
         } else if (myAttrProperties.getTagPropertyParent().isDetector() && !SUMOXMLDefinitions::isValidDetectorID(myValueTextField->getText().text())) {
             myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
-        } else if (myAttrProperties.getTagPropertyParent().isAdditional() &&  !SUMOXMLDefinitions::isValidNetID(myValueTextField->getText().text())) {
+        } else if (myAttrProperties.getTagPropertyParent().isAdditionalElement() &&  !SUMOXMLDefinitions::isValidNetID(myValueTextField->getText().text())) {
             myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
         } else if (myAttrProperties.getTagPropertyParent().isShape() &&  !SUMOXMLDefinitions::isValidTypeID(myValueTextField->getText().text())) {
             myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
@@ -562,7 +562,7 @@ std::string
 GNEFrameAttributesModuls::AttributesCreatorRow::generateID() const {
     if (myAttrProperties.getTagPropertyParent().isShape()) {
         return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateShapeID(myAttrProperties.getTagPropertyParent().getTag());
-    } else if (myAttrProperties.getTagPropertyParent().isAdditional()) {
+    } else if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
         return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateAdditionalID(myAttrProperties.getTagPropertyParent().getTag());
     } else if (myAttrProperties.getTagPropertyParent().isDemandElement()) {
         return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateDemandElementID("", myAttrProperties.getTagPropertyParent().getTag());

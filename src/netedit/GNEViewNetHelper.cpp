@@ -94,7 +94,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                     } else if (tagValue.isDemandElement()) {
                         // cast demand element from attribute carrier
                         myDemandElements.push_back(dynamic_cast<GNEDemandElement*>(myAttributeCarriers.back()));
-                    } else if (tagValue.isAdditional()) {
+                    } else if (tagValue.isAdditionalElement()) {
                         // cast additional element from attribute carrier
                         myAdditionals.push_back(dynamic_cast<GNEAdditional*>(myAttributeCarriers.back()));
                     } else if (tagValue.isShape()) {

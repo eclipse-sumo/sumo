@@ -92,14 +92,14 @@ GUIGlObject_AbstractAdd::getIDList(GUIGlObjectType typeFilter) {
     } else if (typeFilter == GLO_NETWORKELEMENT) {
         // obtain all network elements
         for (auto i : myObjectList) {
-            if ((i->getType() > GLO_NETWORKELEMENT) && (i->getType() < GLO_ADDITIONAL)) {
+            if ((i->getType() > GLO_NETWORKELEMENT) && (i->getType() < GLO_ADDITIONALELEMENT)) {
                 ret.push_back(i->getGlID());
             }
         }
-    } else if (typeFilter == GLO_ADDITIONAL) {
+    } else if (typeFilter == GLO_ADDITIONALELEMENT) {
         // obtain all additionals
         for (auto i : myObjectList) {
-            if ((i->getType() > GLO_ADDITIONAL) && (i->getType() < GLO_SHAPE)) {
+            if ((i->getType() > GLO_ADDITIONALELEMENT) && (i->getType() < GLO_SHAPE)) {
                 ret.push_back(i->getGlID());
             }
         }

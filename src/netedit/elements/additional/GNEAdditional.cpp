@@ -526,7 +526,7 @@ GNEAdditional::selectAttributeCarrier(bool changeFlag) {
     } else {
         gSelected.select(getGlID());
         // add object of list into selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_ADDITIONAL);
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_ADDITIONALELEMENT);
         if (changeFlag) {
             mySelected = true;
         }
@@ -541,7 +541,7 @@ GNEAdditional::unselectAttributeCarrier(bool changeFlag) {
     } else {
         gSelected.deselect(getGlID());
         // remove object of list of selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_ADDITIONAL);
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_ADDITIONALELEMENT);
         if (changeFlag) {
             mySelected = false;
 

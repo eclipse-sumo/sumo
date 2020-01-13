@@ -54,7 +54,7 @@ enum GUIGlObjectType {
     GLO_TLLOGIC = 8,
 
     /// @brief reserved GLO type to pack all additionals elements
-    GLO_ADDITIONAL = 100,
+    GLO_ADDITIONALELEMENT = 100,
     /// @brief a busStop
     GLO_BUS_STOP = 101,
     /// @brief a containerStop

@@ -109,7 +109,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
         myZBoundary.add(0, 0);
     }
     // fill additionals with tags (note: this include the TAZS)
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL, false);
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONALELEMENT, false);
     for (auto i : listOfTags) {
         myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
     }
@@ -1392,7 +1392,7 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
                 result.push_back(j.second);
             }
         }
-    } else if (GNEAttributeCarrier::getTagProperties(type).isAdditional() || GNEAttributeCarrier::getTagProperties(type).isTAZ()) {
+    } else if (GNEAttributeCarrier::getTagProperties(type).isAdditionalElement() || GNEAttributeCarrier::getTagProperties(type).isTAZ()) {
         // only returns additionals of a certain type.
         for (auto i : myAttributeCarriers.additionals.at(type)) {
             result.push_back(i.second);
@@ -1489,7 +1489,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
         // fill additionals with tags
-        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL, false);
+        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONALELEMENT, false);
         for (auto i : listOfTags) {
             myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
         }
@@ -3364,7 +3364,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
         myAttributeCarriers.additionals.clear();
         // fill additionals with tags (note: this include the TAZS)
-        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL, false);
+        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONALELEMENT, false);
         for (auto i : listOfTags) {
             myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
         }

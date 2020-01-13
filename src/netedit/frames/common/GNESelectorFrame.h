@@ -179,11 +179,11 @@ public:
     public:
         /// @brief type of Set
         enum ElementSetType {
-            ELEMENTSET_NETWORKELEMENT = 1,
-            ELEMENTSET_ADDITIONAL     = 2,
-            ELEMENTSET_SHAPE          = 3,
-            ELEMENTSET_DEMANDELEMENT  = 4,
-            ELEMENTSET_INVALID        = 5,
+            ELEMENTSET_NETWORKELEMENT    = 1,
+            ELEMENTSET_ADDITIONALELEMENT = 2,
+            ELEMENTSET_SHAPE             = 3,
+            ELEMENTSET_DEMANDELEMENT     = 4,
+            ELEMENTSET_INVALID           = 5,
         };
 
         /// @brief constructor

@@ -111,7 +111,7 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNEAttributeCarr
         case GNEAttributeCarrier::TagType::TAGTYPE_NETWORKELEMENT:
             setText("network elements");
             break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL:
+        case GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONALELEMENT:
             setText("Additional elements");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_SHAPE:
@@ -1237,7 +1237,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
         } else {
             return nullptr;
         }
-    } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isTAZ()) {
+    } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isTAZ()) {
         // Obtain Additional
         GNEAdditional* additional = myFrameParent->myViewNet->getNet()->retrieveAdditional(myAC->getTagProperty().getTag(), myAC->getID(), false);
         if (additional) {
@@ -1479,7 +1479,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
     } else if (AC->getTagProperty().isShape()) {
         // insert shape item
         addListItem(AC, itemParent);
-    } else if (AC->getTagProperty().isAdditional() || AC->getTagProperty().isTAZ()) {
+    } else if (AC->getTagProperty().isAdditionalElement() || AC->getTagProperty().isTAZ()) {
         // retrieve additional
         GNEAdditional* additional = myFrameParent->myViewNet->getNet()->retrieveAdditional(AC->getTagProperty().getTag(), AC->getID(), false);
         if (additional) {
@@ -1763,7 +1763,7 @@ GNEFrameModuls::SelectorParent::setIDSelected(const std::string& id) {
 bool
 GNEFrameModuls::SelectorParent::showSelectorParentModul(SumoXMLTag additionalType) {
     // make sure that we're editing an additional tag
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL, false);
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONALELEMENT, false);
     for (auto i : listOfTags) {
         if (i == additionalType) {
             myParentTag = additionalType;
