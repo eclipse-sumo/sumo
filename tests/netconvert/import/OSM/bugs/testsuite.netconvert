@@ -15,3 +15,6 @@ ticket5513
 
 # connection from patch file is missing
 ticket6470
+
+# ramps.guess must consider turning restrictions
+ticket6482
