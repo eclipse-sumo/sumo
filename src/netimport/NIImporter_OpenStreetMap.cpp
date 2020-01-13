@@ -1406,6 +1406,13 @@ NIImporter_OpenStreetMap::RelationHandler::applyRestriction() const {
         }
         if (myRestrictionType == RESTRICTION_ONLY) {
             from->addEdge2EdgeConnection(to);
+            // make sure that these connections remain disabled even if network
+            // modifications (ramps.guess) reset existing connections
+            for (NBEdge* cand : from->getToNode()->getOutgoingEdges()) {
+                if (cand != to) {
+                    from->removeFromConnections(cand, -1, -1, true);
+                }
+            }
         } else {
             from->removeFromConnections(to, -1, -1, true);
         }
