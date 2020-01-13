@@ -156,7 +156,10 @@ NLBuilder::build() {
             const std::string sourceID = it->first + "-source";
             MSEdge* sink = myEdgeBuilder.buildEdge(sinkID, EDGEFUNC_CONNECTOR, "", "", -1, 0);
             MSEdge* source = myEdgeBuilder.buildEdge(sourceID, EDGEFUNC_CONNECTOR, "", "", -1, 0);
-            if (!MSEdge::dictionary(sinkID, sink) || !MSEdge::dictionary(sourceID, source)) {
+            // sink must be addd before source
+            bool addedSink = MSEdge::dictionary(sinkID, sink);
+            bool addedSource = MSEdge::dictionary(sourceID, source);
+            if (!addedSink || !addedSource) {
                 delete sink;
                 delete source;
                 WRITE_WARNINGF("A TAZ with id '%' already exists. Not building junction TAZ.", it->first)

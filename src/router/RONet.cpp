@@ -205,8 +205,9 @@ RONet::addJunctionTaz(ROAbstractEdgeBuilder& eb) {
         }
         const std::string sourceID = tazID + "-source";
         const std::string sinkID = tazID + "-sink";
-        ROEdge* source = eb.buildEdge(sourceID, nullptr, nullptr, 0);
+        // sink must be addd before source
         ROEdge* sink = eb.buildEdge(sinkID, nullptr, nullptr, 0);
+        ROEdge* source = eb.buildEdge(sourceID, nullptr, nullptr, 0);
         addDistrict(tazID, source, sink);
         auto& district = myDistricts[tazID];
         const RONode* junction = item.second;
