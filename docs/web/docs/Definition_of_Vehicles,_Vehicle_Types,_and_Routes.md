@@ -162,7 +162,7 @@ Demand information for the simulation may also take the form of origin
 and destination edges instead of a complete list of edges. In this case
 the simulation performs fastest-path routing based on the traffic
 conditions found in the network at the time of departure/flow begin.
-Optionally, a list of intermediate edges can be specified with the
+Optionally, a list of intermediate edges can be specified with the `via`
 attribute. The input format is exactly the same as that for the
 [DUAROUTER](DUAROUTER.md) application [and can be found here](Demand/Shortest_or_Optimal_Path_Routing.md).
 
