@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan  3 00:45:20 2020 by Eclipse SUMO netconvert Version v1_4_0+0301-c36eaff1a1
+<!-- generated on Mon Jan 13 16:00:22 2020 by Eclipse SUMO netconvert Version v1_4_0+0471-8685f21
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -473,6 +473,9 @@
 
         <!-- Use FLOAT as ramp-length -->
         <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length" type="FLOAT"/>
+
+        <!-- Use FLOAT as minimum ramp-length -->
+        <ramps.min-weave-length value="50" type="FLOAT"/>
 
         <!-- Tries to handle the given edges as ramps -->
         <ramps.set value="" synonymes="ramp-guess.explicite" type="STR[]"/>

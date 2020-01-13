@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_4_0+0301-c36eaff1a1
+Eclipse SUMO netconvert Version v1_4_0+0471-8685f21
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -303,6 +303,7 @@ Ramp Guessing Options:
   --ramps.min-highway-speed FLOAT      Treat edges with speed < FLOAT as no
                                          highways
   --ramps.ramp-length FLOAT            Use FLOAT as ramp-length
+  --ramps.min-weave-length FLOAT       Use FLOAT as minimum ramp-length
   --ramps.set STR[]                    Tries to handle the given edges as ramps
   --ramps.unset STR[]                  Do not consider the given edges as ramps
   --ramps.no-split                     Avoids edge splitting
