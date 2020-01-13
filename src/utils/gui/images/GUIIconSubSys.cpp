@@ -140,6 +140,7 @@
 #include "savenetelements.xpm"
 #include "saveaditionalelements.xpm"
 #include "savedemandelements.xpm"
+#include "savedataelements.xpm"
 
 #include "supermodenetwork.xpm"
 #include "supermodedemand.xpm"
@@ -426,6 +427,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_SAVENETELEMENTS] = new FXXPMIcon(a, savenetelements_xpm);
     myIcons[ICON_SAVEADDITIONALS] = new FXXPMIcon(a, saveadditionalelements_xpm);
     myIcons[ICON_SAVEDEMANDELEMENTS] = new FXXPMIcon(a, savedemandelements_xpm);
+    myIcons[ICON_SAVEDATAELEMENTS] = new FXXPMIcon(a, savedataelements_xpm);
 
     myIcons[ICON_SUPERMODENETWORK] = new FXXPMIcon(a, supermodenetwork_xpm);
     myIcons[ICON_SUPERMODEDEMAND] = new FXXPMIcon(a, supermodedemand_xpm);

@@ -206,6 +206,7 @@ enum GUIIcon {
     ICON_SAVENETELEMENTS,
     ICON_SAVEADDITIONALS,
     ICON_SAVEDEMANDELEMENTS,
+    ICON_SAVEDATAELEMENTS,
     /// @}
 
     /// @name netedit supermode icons
