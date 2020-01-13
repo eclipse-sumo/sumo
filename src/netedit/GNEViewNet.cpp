@@ -460,6 +460,12 @@ GNEViewNet::getDemandViewOptions() const {
 }
 
 
+const GNEViewNetHelper::DataViewOptions& 
+GNEViewNet::getDataViewOptions() const {
+    return myDataViewOptions;
+}
+
+
 const GNEViewNetHelper::KeyPressed&
 GNEViewNet::getKeyPressed() const {
     return myKeyPressed;
@@ -718,6 +724,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             processLeftButtonPressNetwork(eventData);
         } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
             processLeftButtonPressDemand(eventData);
+        } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+            processLeftButtonPressData(eventData);
         }
         makeNonCurrent();
     }
@@ -742,6 +750,8 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         processLeftButtonReleaseNetwork();
     } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
         processLeftButtonReleaseDemand();
+    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+        processLeftButtonReleaseData();
     }
     // update view
     update();
@@ -792,6 +802,8 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
         processMoveMouseNetwork();
     } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
         processMoveMouseDemand();
+    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+        processMoveMouseData();
     }
     return 1;
 }
@@ -892,6 +904,8 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.demandEditMode == GNE_DEMANDMODE_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->abortPersonPlanCreation();
         }
+    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+        // currently unused
     }
     // abort undo list
     myUndoList->p_abort();
@@ -900,11 +914,11 @@ GNEViewNet::abortOperation(bool clearSelection) {
 
 void
 GNEViewNet::hotkeyDel() {
-    if (myEditModes.networkEditMode == GNE_NETWORKMODE_CONNECT || myEditModes.networkEditMode == GNE_NETWORKMODE_TLS) {
-        setStatusBarText("Cannot delete in this mode");
-    } else {
-        // delete elements depending of current supermode
-        if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+    // delete elements depending of current supermode
+    if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+        if ((myEditModes.networkEditMode == GNE_NETWORKMODE_CONNECT) || (myEditModes.networkEditMode == GNE_NETWORKMODE_TLS)) {
+            setStatusBarText("Cannot delete in this mode");
+        } else {
             myUndoList->p_begin("delete network selection");
             deleteSelectedConnections();
             deleteSelectedCrossings();
@@ -914,14 +928,18 @@ GNEViewNet::hotkeyDel() {
             deleteSelectedJunctions();
             deleteSelectedShapes();
             myUndoList->p_end();
-        } else {
-            myUndoList->p_begin("delete demand selection");
-            deleteSelectedDemandElements();
-            myUndoList->p_end();
         }
-        // update view
-        update();
+    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+        myUndoList->p_begin("delete demand selection");
+        deleteSelectedDemandElements();
+        myUndoList->p_end();
+    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+        myUndoList->p_begin("delete data selection");
+        deleteSelectedDataElements();
+        myUndoList->p_end();
     }
+    // update view
+    update();
 }
 
 
@@ -975,14 +993,18 @@ GNEViewNet::hotkeyEnter() {
         } else if (myEditModes.demandEditMode == GNE_DEMANDMODE_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->finishPersonPlanCreation();
         }
+    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+        // currently unused
     }
 }
 
 
 void
 GNEViewNet::hotkeyBackSpace() {
-    // Currently only used in Demand mode
-    if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+    // check what supermode is enabled
+    if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+        // unused in Network mode
+    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
         // abort operation depending of current mode
         if (myEditModes.demandEditMode == GNE_DEMANDMODE_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyBackSpace();
@@ -993,6 +1015,8 @@ GNEViewNet::hotkeyBackSpace() {
         } else if (myEditModes.demandEditMode == GNE_DEMANDMODE_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->removeLastAddedElement();
         }
+    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+        // unused in Data mode
     }
 }
 
@@ -2003,6 +2027,8 @@ GNEViewNet::updateCursor() {
                 (myEditModes.demandEditMode == GNE_DEMANDMODE_STOP)) {
             cursorMove = true;
         }
+    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+        // unused in data mode
     }
     // update cursor if control key is pressed
     if (myKeyPressed.controlKeyPressed() && cursorMove) {
@@ -2999,6 +3025,25 @@ GNEViewNet::deleteSelectedDemandElements() {
 
 
 void
+GNEViewNet::deleteSelectedDataElements() {
+    std::vector<GNEDataElement*> dataElements = myNet->retrieveDataElements(true);
+    if (dataElements.size() > 0) {
+        std::string plural = dataElements.size() == 1 ? ("") : ("s");
+        myUndoList->p_begin("delete selected data elements" + plural);
+    /*
+        for (auto i : dataElements) {
+            // due there are data elements that are removed when their parent is removed, we need to check if yet exists before removing
+            if (myNet->retrieveDataElement(i->getTagProperty().getTag(), i->getID(), false) != nullptr) {
+                myNet->deleteDataElement(i, myUndoList);
+            }
+        }
+    */
+        myUndoList->p_end();
+    }
+}
+
+
+void
 GNEViewNet::deleteSelectedCrossings() {
     // obtain selected crossings
     std::vector<GNEJunction*> junctions = myNet->retrieveJunctions();
@@ -3689,5 +3734,98 @@ GNEViewNet::processMoveMouseDemand() {
     }
 }
 
+
+void
+GNEViewNet::processLeftButtonPressData(void* eventData) {
+    // decide what to do based on mode
+    switch (myEditModes.dataEditMode) {
+        case GNE_DATAMODE_INSPECT: {
+            // process left click in Inspector Frame
+            myViewParent->getInspectorFrame()->processDataSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case GNE_DATAMODE_DELETE: {
+            // check that we have clicked over an data element
+            if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDataElement()) {
+                // check if we are deleting a selection or an single attribute carrier
+                if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                } else {
+                    myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
+                }
+            } else {
+                // process click
+                processClick(eventData);
+            }
+            break;
+        }
+        case GNE_DATAMODE_SELECT:
+            // check if a rect for selecting is being created
+            if (myKeyPressed.shiftKeyPressed()) {
+                // begin rectangle selection
+                mySelectingArea.beginRectangleSelection();
+            } else {
+                // check if a rect for selecting is being created
+                if (myKeyPressed.shiftKeyPressed()) {
+                    // begin rectangle selection
+                    mySelectingArea.beginRectangleSelection();
+                } else {
+                    // first check that under cursor there is an attribute carrier, is data element and is selectable
+                    if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDataElement()) {
+                        // Check if this GLobject type is locked
+                        if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
+                            // toogle netElement selection
+                            if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                                myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                            } else {
+                                myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                            }
+                        }
+                    }
+                    // process click
+                    processClick(eventData);
+                }
+            }
+            break;
+        //
+        default: {
+            // process click
+            processClick(eventData);
+        }
+    }
+}
+
+
+void
+GNEViewNet::processLeftButtonReleaseData() {
+    // check moved items
+    if (myMoveMultipleElementValues.isMovingSelection()) {
+        myMoveMultipleElementValues.finishMoveSelection();
+    } else if (mySelectingArea.selectingUsingRectangle) {
+        // check if we're creating a rectangle selection or we want only to select a lane
+        if (mySelectingArea.startDrawing) {
+            mySelectingArea.processRectangleSelection();
+        }
+        // finish selection
+        mySelectingArea.finishRectangleSelection();
+    } else {
+        // finish moving of single elements
+        myMoveSingleElementValues.finishMoveSingleElement();
+    }
+}
+
+
+void
+GNEViewNet::processMoveMouseData() {
+    if (mySelectingArea.selectingUsingRectangle) {
+        // update selection corner of selecting area
+        mySelectingArea.moveRectangleSelection();
+    } else {
+        // move single elements
+        myMoveSingleElementValues.moveSingleElement();
+    }
+}
 
 /****************************************************************************/

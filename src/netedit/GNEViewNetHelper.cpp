@@ -254,6 +254,16 @@ GNEViewNetHelper::ObjectsUnderCursor::getDemandElementFront() const {
 }
 
 
+GNEDataElement*
+GNEViewNetHelper::ObjectsUnderCursor::getDataElementFront() const {
+    if (myDataElements.size() > 0) {
+        return myDataElements.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
 GNEJunction*
 GNEViewNetHelper::ObjectsUnderCursor::getJunctionFront() const {
     if (myJunctions.size() > 0) {

@@ -56,7 +56,6 @@ FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F1_TEMPLATE_SET,   GNEInspectorFrame::TemplateEditor::onCmdSetTemplate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY,  GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR, GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate),
-
 };
 
 // Object implementation
@@ -165,6 +164,42 @@ bool
 GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if we have clicked over a demand element
     if (objectsUnderCursor.getDemandElementFront()) {
+        // if Control key is Pressed, select instead inspect element
+        if (myViewNet->getKeyPressed().controlKeyPressed()) {
+            // Check if this GLobject type is locked
+            if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
+                // toogle netElement selection
+                if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                } else {
+                    objectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                }
+            }
+        } else {
+            // first check if we clicked over a OverlappedInspection point
+            if (myViewNet->getKeyPressed().shiftKeyPressed()) {
+                if (!myOverlappedInspection->previousElement(clickedPosition)) {
+                    // inspect attribute carrier, (or multiselection if AC is selected)
+                    inspectClickedElement(objectsUnderCursor, clickedPosition);
+                }
+            } else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
+                // inspect attribute carrier, (or multiselection if AC is selected)
+                inspectClickedElement(objectsUnderCursor, clickedPosition);
+            }
+            // focus upper element of inspector frame
+            focusUpperElement();
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+    // first check if we have clicked over a data element
+    if (objectsUnderCursor.getDataElementFront()) {
         // if Control key is Pressed, select instead inspect element
         if (myViewNet->getKeyPressed().controlKeyPressed()) {
             // Check if this GLobject type is locked

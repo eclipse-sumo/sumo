@@ -108,6 +108,9 @@ public:
     /// @brief get demand view options
     const GNEViewNetHelper::DemandViewOptions& getDemandViewOptions() const;
 
+    /// @brief get data view options
+    const GNEViewNetHelper::DataViewOptions& getDataViewOptions() const;
+
     /// @brief get Key Pressed modul
     const GNEViewNetHelper::KeyPressed& getKeyPressed() const;
 
@@ -487,6 +490,9 @@ private:
     /// @brief delete all currently selected demand elements
     void deleteSelectedDemandElements();
 
+    /// @brief delete all currently selected data elements
+    void deleteSelectedDataElements();
+
     /// @brief delete all currently selected crossings
     void deleteSelectedCrossings();
 
@@ -568,6 +574,15 @@ private:
 
     /// @brief process move mouse function in Supermode Demand
     void processMoveMouseDemand();
+
+    /// @brief process left button press function in Supermode Data
+    void processLeftButtonPressData(void* eventData);
+
+    /// @brief process left button release function in Supermode Data
+    void processLeftButtonReleaseData();
+
+    /// @brief process move mouse function in Supermode Data
+    void processMoveMouseData();
 
     /// @brief Invalidated copy constructor.
     GNEViewNet(const GNEViewNet&) = delete;

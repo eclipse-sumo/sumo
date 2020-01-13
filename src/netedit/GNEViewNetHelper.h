@@ -123,13 +123,13 @@ enum DataEditMode {
 // ===========================================================================
 
 // main elements
-class GNEViewParent;
-class GNEViewNet;
-class GNEUndoList;
-class GNEFrame;
 class GNEAttributeCarrier;
-// net elements
+class GNEFrame;
 class GNENet;
+class GNEUndoList;
+class GNEViewNet;
+class GNEViewParent;
+// net elements
 class GNENetElement;
 class GNEJunction;
 class GNEEdge;
@@ -149,6 +149,8 @@ class GNEVehicleType;
 class GNEFlow;
 class GNEVehicle;
 class GNEtrip;
+// data elements
+class GNEDataElement;
 
 // ===========================================================================
 // classes and structs definitions
@@ -174,43 +176,46 @@ struct GNEViewNetHelper {
         /// @brief get front GUI GL object type (or a pointer to nullptr if there isn't)
         GUIGlObjectType getGlTypeFront() const;
 
-        /// @brief get front attribute carrier (or a pointer to nullptr if there isn't)
+        /// @brief get front attribute carrier (or a pointer to nullptr)
         GNEAttributeCarrier* getAttributeCarrierFront() const;
 
-        /// @brief get front net element (or a pointer to nullptr if there isn't)
+        /// @brief get front net element or a pointer to nullptr
         GNENetElement* getNetElementFront() const;
 
-        /// @brief get front additional element (or a pointer to nullptr if there isn't)
+        /// @brief get front additional element or a pointer to nullptr
         GNEAdditional* getAdditionalFront() const;
 
-        /// @brief get front shape element (or a pointer to nullptr if there isn't)
+        /// @brief get front shape element or a pointer to nullptr
         GNEShape* getShapeFront() const;
 
-        /// @brief get front net element element (or a pointer to nullptr if there isn't)
+        /// @brief get front demand element or a pointer to nullptr
         GNEDemandElement* getDemandElementFront() const;
 
-        /// @brief get front junction (or a pointer to nullptr if there isn't)
+        /// @brief get front data element or a pointer to nullptr
+        GNEDataElement* getDataElementFront() const;
+
+        /// @brief get front junction or a pointer to nullptr
         GNEJunction* getJunctionFront() const;
 
-        /// @brief get front edge (or a pointer to nullptr if there isn't)
+        /// @brief get front edge or a pointer to nullptr
         GNEEdge* getEdgeFront() const;
 
-        /// @brief get front lane (or a pointer to nullptr if there isn't)
+        /// @brief get front lane or a pointer to nullptr
         GNELane* getLaneFront() const;
 
-        /// @brief get front crossing (or a pointer to nullptr if there isn't)
+        /// @brief get front crossing or a pointer to nullptr
         GNECrossing* getCrossingFront() const;
 
-        /// @brief get front connection (or a pointer to nullptr if there isn't)
+        /// @brief get front connection or a pointer to nullptr
         GNEConnection* getConnectionFront() const;
 
-        /// @brief get front TAZ (or a pointer to nullptr if there isn't)
+        /// @brief get front TAZ or a pointer to nullptr
         GNETAZ* getTAZFront() const;
 
-        /// @brief get front POI (or a pointer to nullptr if there isn't)
+        /// @brief get front POI or a pointer to nullptr
         GNEPOI* getPOIFront() const;
 
-        /// @brief get front Poly (or a pointer to nullptr if there isn't)
+        /// @brief get front Poly or a pointer to nullptr
         GNEPoly* getPolyFront() const;
 
         /// @brief get vector with clicked ACs
@@ -234,6 +239,9 @@ struct GNEViewNetHelper {
 
         /// @brief vector with the clicked demand elements
         std::vector<GNEDemandElement*> myDemandElements;
+
+        /// @brief vector with the clicked data elements
+        std::vector<GNEDataElement*> myDataElements;
 
         /// @brief vector with the clicked junctions
         std::vector<GNEJunction*> myJunctions;
