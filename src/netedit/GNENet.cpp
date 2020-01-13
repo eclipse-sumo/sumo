@@ -95,6 +95,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myAdditionalsSaved(true),
     myTLSProgramsSaved(true),
     myDemandElementsSaved(true),
+    myDataElementsSaved(true),
     myUpdateGeometryEnabled(true),
     myAllowUndoShapes(true) {
     // set net in gIDStorage
@@ -983,7 +984,9 @@ GNENet::requireSaveNet(bool value) {
         WRITE_DEBUG("net has to be saved");
         std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
         std::string demandElementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net unsaved, additionals " + additionalsSaved + ", demand elements " + demandElementsSaved);
+        std::string dataElementsSaved = (myDataElementsSaved ? "saved" : "unsaved");
+        WRITE_DEBUG("Current saving Status: net unsaved, additionals " + additionalsSaved + 
+                    ", demand elements " + demandElementsSaved + ", data elements " + dataElementsSaved);
     }
     myNetSaved = !value;
 }
@@ -2238,7 +2241,9 @@ GNENet::requireSaveAdditionals(bool value) {
         WRITE_DEBUG("Additionals has to be saved");
         std::string netSaved = (myNetSaved ? "saved" : "unsaved");
         std::string demandElementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals unsaved, demand elements " + demandElementsSaved);
+        std::string dataElementSaved = (myDataElementsSaved ? "saved" : "unsaved");
+        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals unsaved, demand elements " + 
+                    demandElementsSaved + ", data elements " + dataElementSaved);
     }
     myAdditionalsSaved = !value;
     if (myViewNet != nullptr) {
@@ -2394,7 +2399,9 @@ GNENet::requireSaveDemandElements(bool value) {
         WRITE_DEBUG("DemandElements has to be saved");
         std::string netSaved = (myNetSaved ? "saved" : "unsaved");
         std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved + ", demand elements unsaved");
+        std::string dataElementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
+        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved + 
+                    ", demand elements unsaved, data elements " + dataElementsSaved);
     }
     myDemandElementsSaved = !value;
     if (myViewNet != nullptr) {
@@ -2478,6 +2485,189 @@ GNENet::generateDemandElementID(const std::string& prefix, SumoXMLTag type) cons
         }
     } else {
         while (myAttributeCarriers.demandElements.at(type).count(prefix + toString(type) + "_" + toString(counter)) != 0) {
+            counter++;
+        }
+    }
+    return (prefix + toString(type) + "_" + toString(counter));
+}
+
+
+GNEDataElement*
+GNENet::retrieveDataElement(SumoXMLTag type, const std::string& id, bool hardFail) const {
+    if ((myAttributeCarriers.dataElements.count(type) > 0) && (myAttributeCarriers.dataElements.at(type).count(id) != 0)) {
+        return myAttributeCarriers.dataElements.at(type).at(id);
+    } else if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant data element");
+    } else {
+        return nullptr;
+    }
+}
+
+
+std::vector<GNEDataElement*>
+GNENet::retrieveDataElements(bool onlySelected) const {
+    std::vector<GNEDataElement*> result;
+    /*
+    // returns data elements depending of selection
+    for (auto i : myAttributeCarriers.dataElements) {
+        for (auto j : i.second) {
+            if (!onlySelected || j.second->isAttributeCarrierSelected()) {
+                result.push_back(j.second);
+            }
+        }
+    }
+    */
+    return result;
+}
+
+
+int
+GNENet::getNumberOfDataElements(SumoXMLTag type) const {
+    int counter = 0;
+    for (auto i : myAttributeCarriers.dataElements) {
+        if ((type == SUMO_TAG_NOTHING) || (type == i.first)) {
+            counter += (int)i.second.size();
+        }
+    }
+    return counter;
+}
+
+
+void
+GNENet::updateDataElementID(const std::string& oldID, GNEDataElement* dataElement) {
+    /*
+    if (myAttributeCarriers.dataElements.at(dataElement->getTagProperty().getTag()).count(oldID) == 0) {
+        throw ProcessError(dataElement->getTagStr() + " with old ID='" + oldID + "' doesn't exist");
+    } else {
+        // remove an insert data element again into container
+        myAttributeCarriers.dataElements.at(dataElement->getTagProperty().getTag()).erase(oldID);
+        myAttributeCarriers.dataElements.at(dataElement->getTagProperty().getTag()).insert(std::make_pair(dataElement->getID(), dataElement));
+        // remove an insert data element again into vehicleDepartures container
+        if (dataElement->getTagProperty().isVehicle()) {
+            if (myAttributeCarriers.vehicleDepartures.count(dataElement->getBegin() + "_" + oldID) == 0) {
+                throw ProcessError(dataElement->getTagStr() + " with old ID='" + oldID + "' doesn't exist");
+            } else {
+                myAttributeCarriers.vehicleDepartures.erase(dataElement->getBegin() + "_" + oldID);
+                myAttributeCarriers.vehicleDepartures.insert(std::make_pair(dataElement->getBegin() + "_" + dataElement->getID(), dataElement));
+            }
+        }
+        // data elements has to be saved
+        requireSaveDataElements(true);
+    }
+    */
+}
+
+
+void
+GNENet::updateDataElementBegin(const std::string& oldBegin, GNEDataElement* dataElement) {
+    /*
+    if (myAttributeCarriers.vehicleDepartures.count(oldBegin + "_" + dataElement->getID()) == 0) {
+        throw ProcessError(dataElement->getTagStr() + " with old begin='" + oldBegin + "' doesn't exist");
+    } else {
+        // remove an insert data element again into vehicleDepartures container
+        if (dataElement->getTagProperty().isVehicle()) {
+            myAttributeCarriers.vehicleDepartures.erase(oldBegin + "_" + dataElement->getID());
+            myAttributeCarriers.vehicleDepartures.insert(std::make_pair(dataElement->getBegin() + "_" + dataElement->getID(), dataElement));
+        }
+    }
+    */
+}
+
+
+void
+GNENet::requireSaveDataElements(bool value) {
+    if (myDataElementsSaved == true) {
+        WRITE_DEBUG("DataElements has to be saved");
+        std::string netSaved = (myNetSaved ? "saved" : "unsaved");
+        std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
+        std::string demandEleementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
+        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved + 
+                    ", demand elements " + demandEleementsSaved + ", data elements unsaved");
+    }
+    myDataElementsSaved = !value;
+    if (myViewNet != nullptr) {
+        if (myDataElementsSaved) {
+            myViewNet->getViewParent()->getGNEAppWindows()->disableSaveDataElementsMenu();
+        } else {
+            myViewNet->getViewParent()->getGNEAppWindows()->enableSaveDataElementsMenu();
+        }
+    }
+}
+
+
+void
+GNENet::saveDataElements(const std::string& filename) {
+    /*
+    // first recompute data elements
+    computeDataElements(myViewNet->getViewParent()->getGNEAppWindows());
+    // obtain invalid dataElements depending of number of their parent lanes
+    std::vector<GNEDataElement*> invalidSingleLaneDataElements;
+    // iterate over dataElements and obtain invalids
+    for (const auto &dataElementSet : myAttributeCarriers.dataElements) {
+        for (const auto &dataElement : dataElementSet.second) {
+            // compute before check if data element is valid
+            dataElement.second->computePath();
+            // check if has to be fixed
+            if (!dataElement.second->isDataElementValid()) {
+                invalidSingleLaneDataElements.push_back(dataElement.second);
+            }
+        }
+    }
+    // if there are invalid data elements, open GNEFixDataElements
+    if (invalidSingleLaneDataElements.size() > 0) {
+        // 0 -> Canceled Saving, with or whithout selecting invalid data elements
+        // 1 -> Invalid data elements fixed, friendlyPos enabled, or saved with invalid positions
+        GNEFixDataElements fixDataElementsDialog(myViewNet, invalidSingleLaneDataElements);
+        if (fixDataElementsDialog.execute() == 0) {
+            // show debug information
+            WRITE_DEBUG("data elements saving aborted");
+        } else {
+            saveDataElementsConfirmed(filename);
+            // change value of flag
+            myDataElementsSaved = true;
+            // show debug information
+            WRITE_DEBUG("data elements saved after dialog");
+        }
+        // update view
+        myViewNet->update();
+        // set focus again in viewNet
+        myViewNet->setFocus();
+    } else {
+        saveDataElementsConfirmed(filename);
+        // change value of flag
+        myDataElementsSaved = true;
+        // show debug information
+        WRITE_DEBUG("data elements saved");
+    }
+    */
+}
+
+
+bool
+GNENet::isDataElementsSaved() const {
+    return myDataElementsSaved;
+}
+
+
+std::string
+GNENet::generateDataElementID(const std::string& prefix, SumoXMLTag type) const {
+    int counter = 0;
+    if ((type == SUMO_TAG_VEHICLE) || (type == SUMO_TAG_TRIP) || (type == SUMO_TAG_ROUTEFLOW) || (type == SUMO_TAG_FLOW)) {
+        // special case for vehicles (Vehicles, Flows, Trips and routeFlows share nameSpaces)
+        while ((myAttributeCarriers.dataElements.at(SUMO_TAG_VEHICLE).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
+                (myAttributeCarriers.dataElements.at(SUMO_TAG_TRIP).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
+                (myAttributeCarriers.dataElements.at(SUMO_TAG_ROUTEFLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
+                (myAttributeCarriers.dataElements.at(SUMO_TAG_FLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0)) {
+            counter++;
+        }
+    } else if ((type == SUMO_TAG_PERSON) || (type == SUMO_TAG_PERSONFLOW)) {
+        // special case for persons (person and personFlows share nameSpaces)
+        while ((myAttributeCarriers.dataElements.at(SUMO_TAG_PERSON).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
+                (myAttributeCarriers.dataElements.at(SUMO_TAG_PERSONFLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0)) {
+            counter++;
+        }
+    } else {
+        while (myAttributeCarriers.dataElements.at(type).count(prefix + toString(type) + "_" + toString(counter)) != 0) {
             counter++;
         }
     }

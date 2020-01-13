@@ -137,6 +137,9 @@ public:
 
     /// @brief called if the user selects Processing->compute junctions with volatile options
     long computeJunctionWithVolatileOptions();
+    
+    /// @brief enable save TLS Programs
+    void enableSaveTLSProgramsMenu();
 
     /// @brief enable save additionals
     void enableSaveAdditionalsMenu();
@@ -144,14 +147,17 @@ public:
     /// @brief disable save additionals
     void disableSaveAdditionalsMenu();
 
-    /// @brief enable save TLS Programs
-    void enableSaveTLSProgramsMenu();
-
     /// @brief enable save demand elements
     void enableSaveDemandElementsMenu();
 
     /// @brief disable save demand elements
     void disableSaveDemandElementsMenu();
+
+    /// @brief enable save data elements
+    void enableSaveDataElementsMenu();
+
+    /// @brief disable save data elements
+    void disableSaveDataElementsMenu();
 
     /// @name Inter-thread event handling
     /// @{
@@ -188,6 +194,9 @@ public:
     /// @brief called when the command/FXCall open demand is executed
     long onCmdOpenDemandElements(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall open data is executed
+    long onCmdOpenDataElements(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall reload is executed
     long onCmdReload(FXObject*, FXSelector, void*);
 
@@ -209,23 +218,32 @@ public:
     /// @brief called when the command/FXCall save network is executed
     long onCmdSaveNetwork(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save additionals is executed
-    long onCmdSaveAdditionals(FXObject*, FXSelector, void*);
-
-    /// @brief called when the command/FXCall save additionals as is executed
-    long onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*);
-
     /// @brief called when the command/FXCall save TLSPrograms is executed
     long onCmdSaveTLSPrograms(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save TLSPrograms as is executed
     long onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall save additionals is executed
+    long onCmdSaveAdditionals(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save additionals as is executed
+    long onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save demand elements is executed
     long onCmdSaveDemandElements(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save demand elements as is executed
     long onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save data elements is executed
+    long onCmdSaveDataElements(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save data elements as is executed
+    long onCmdSaveDataElementsAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save network is executed
+    long onUpdSaveNetwork(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save network as is executed
     long onCmdSaveAsNetwork(FXObject*, FXSelector, void*);
@@ -244,6 +262,9 @@ public:
 
     /// @brief called when the update/FXCall save demand elements is executed
     long onUpdSaveDemandElements(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save data elements is executed
+    long onUpdSaveDataElements(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall undo is executed
     long onUpdUndo(FXObject* obj, FXSelector sel, void* ptr);
@@ -405,9 +426,10 @@ protected:
 
     /// @brief the submenus
     FXMenuPane* myFileMenu,
-                *myFileMenuAdditionals,
                 *myFileMenuTLS,
+                *myFileMenuAdditionals,
                 *myFileMenuDemandElements,
+                *myFileMenuDataElements,
                 *myEditMenu,
                 *myProcessingMenu,
                 *myLocatorMenu,
@@ -472,19 +494,25 @@ private:
         void buildFileMenuCommands(FXMenuPane* editMenu);
 
         /// @brief FXMenuCommand for enable or disable save additionals
+        FXMenuCommand* saveTLSPrograms;
+
+        /// @brief FXMenuCommand for enable or disable save additionals
         FXMenuCommand* saveAdditionals;
 
         /// @brief FXMenuCommand for enable or disable save additionals As
         FXMenuCommand* saveAdditionalsAs;
-
-        /// @brief FXMenuCommand for enable or disable save additionals
-        FXMenuCommand* saveTLSPrograms;
 
         /// @brief FXMenuCommand for enable or disable save demand elements
         FXMenuCommand* saveDemandElements;
 
         /// @brief FXMenuCommand for enable or disable save demand elements as
         FXMenuCommand* saveDemandElementsAs;
+
+        /// @brief FXMenuCommand for enable or disable save data elements
+        FXMenuCommand* saveDataElements;
+
+        /// @brief FXMenuCommand for enable or disable save data elements as
+        FXMenuCommand* saveDataElementsAs;
 
     private:
         /// @brief pointer to current GNEApplicationWindows

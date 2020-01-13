@@ -50,6 +50,7 @@
 
 class NBNetBuilder;
 class GNEAdditional;
+class GNEDataElement;
 class GNEDemandElement;
 class GNEApplicationWindow;
 class GNEAttributeCarrier;
@@ -100,6 +101,9 @@ public:
 
         /// @brief map with the name and pointer to demand elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > demandElements;
+
+        /// @brief map with the name and pointer to demand elements of net
+        std::map<SumoXMLTag, std::map<std::string, GNEDataElement*> > dataElements;
 
         /// @brief special map used for saving Demand Elements of type "Vehicle" (Vehicles, routeFlows, etc.) sorted by depart time
         std::map<std::string, GNEDemandElement*> vehicleDepartures;
@@ -671,6 +675,53 @@ public:
 
     /// @}
 
+    /// @name Functions related to DataElement Items
+    /// @{
+
+    /**@brief Returns the named data element
+     * @param[in] type tag with the type of data element
+     * @param[in] id The id of the data element to return.
+     * @param[in] failHard Whether attempts to retrieve a nonexisting data element should result in an exception
+     */
+    GNEDataElement* retrieveDataElement(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+
+    /**@brief return all data elements
+     * @param[in] onlySelected Whether to return only selected data elements
+     */
+    std::vector<GNEDataElement*> retrieveDataElements(bool onlySelected = false) const;
+
+    /**@brief Returns the number of data elements of the net
+     * @param[in] type type of data element to count. SUMO_TAG_NOTHING will count all data elements
+     * @return Number of data elements of the net
+     */
+    int getNumberOfDataElements(SumoXMLTag type = SUMO_TAG_NOTHING) const;
+
+    /**@brief update data element ID in container
+    * @note this function is automatically called when user changes the ID of an data element
+    */
+    void updateDataElementID(const std::string& oldID, GNEDataElement* dataElement);
+
+    /**@brief update data element begin in container
+    * @note this function is automatically called when user changes the begin/departure of an data element
+    */
+    void updateDataElementBegin(const std::string& oldBegin, GNEDataElement* dataElement);
+
+    /// @brief inform that data elements has to be saved
+    void requireSaveDataElements(bool value);
+
+    /**@brief save data element elements of the network
+    * @param[in] filename name of the file in wich save data elements
+    */
+    void saveDataElements(const std::string& filename);
+
+    /// @brief check if data elements are saved
+    bool isDataElementsSaved() const;
+
+    /// @brief generate data element id
+    std::string generateDataElementID(const std::string& prefix, SumoXMLTag type) const;
+
+    /// @}
+
     /// @name Functions related to Shapes
     /// @{
 
@@ -760,6 +811,9 @@ protected:
 
     /// @brief Flag to check if demand elements has to be saved
     bool myDemandElementsSaved;
+
+    /// @brief Flag to check if data elements has to be saved
+    bool myDataElementsSaved;
 
     /// @brief Flag to enable or disable update geometry of elements after inserting or removing element in net
     bool myUpdateGeometryEnabled;

@@ -109,6 +109,13 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,                 GNEApplicationWindow::onUpdSaveDemandElements),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,                          GNEApplicationWindow::onCmdSaveDemandElementsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,                          GNEApplicationWindow::onUpdNeedsNetwork),
+    // data elements
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,  GNEApplicationWindow::onCmdOpenDataElements),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,  GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,           GNEApplicationWindow::onCmdSaveDataElements),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,           GNEApplicationWindow::onUpdSaveDataElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDATA_AS,                    GNEApplicationWindow::onCmdSaveDataElementsAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDATA_AS,                    GNEApplicationWindow::onUpdNeedsNetwork),
     // other
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,             GNEApplicationWindow::onCmdSaveTLSProgramsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,             GNEApplicationWindow::onUpdNeedsNetwork),
@@ -346,9 +353,10 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myLoadThread(nullptr),
     myAmLoading(false),
     myFileMenu(nullptr),
-    myFileMenuAdditionals(nullptr),
     myFileMenuTLS(nullptr),
+    myFileMenuAdditionals(nullptr),
     myFileMenuDemandElements(nullptr),
+    myFileMenuDataElements(nullptr),
     myEditMenu(nullptr),
     myProcessingMenu(nullptr),
     myLocatorMenu(nullptr),
@@ -435,9 +443,10 @@ GNEApplicationWindow::create() {
     FXMainWindow::create();
     myFileMenu->create();
     myEditMenu->create();
-    myFileMenuAdditionals->create();
     myFileMenuTLS->create();
+    myFileMenuAdditionals->create();
     myFileMenuDemandElements->create();
+    myFileMenuDataElements->create();
     //mySettingsMenu->create();
     myWindowsMenu->create();
     myHelpMenu->create();
@@ -466,10 +475,11 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myGLVisual;
     // must delete menus to avoid segfault on removing accelerators
     // (http://www.fox-toolkit.net/faq#TOC-What-happens-when-the-application-s)
-    delete myFileMenuAdditionals,
-           delete myFileMenuTLS,
-           delete myFileMenuDemandElements,
-           delete myFileMenu;
+    delete myFileMenuTLS;
+    delete myFileMenuAdditionals;
+    delete myFileMenuDemandElements;
+    delete myFileMenuDataElements;
+    delete myFileMenu;
     delete myEditMenu;
     delete myLocatorMenu;
     delete myProcessingMenu;
@@ -745,6 +755,47 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
     } else {
         // write debug information
         WRITE_DEBUG("Cancel demand element dialog");
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
+    // write debug information
+    WRITE_DEBUG("Open data element dialog");
+    // get the data element file name
+    FXFileDialog opendialog(this, "Open data element file");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_SUPERMODEDATA));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("Data element files (*.rou.xml)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        // close additional dialog
+        WRITE_DEBUG("Close data element dialog");
+        // udpate current folder
+        gCurrentFolder = opendialog.getDirectory();
+        std::string file = opendialog.getFilename().text();
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto");
+        // Create additional handler
+        GNERouteHandler dataHandler(file, myNet->getViewNet());
+        // begin undoList operation
+        myUndoList->p_begin("Loading data elements from '" + file + "'");
+        // Run parser for additionals
+        if (!XMLSubSys::runParser(dataHandler, file, false)) {
+            WRITE_ERROR("Loading of " + file + " failed.");
+        }
+        // end undoList operation and update view
+        myUndoList->p_end();
+        update();
+        // restore validation for data
+        XMLSubSys::setValidation("auto", "auto");
+    } else {
+        // write debug information
+        WRITE_DEBUG("Cancel data element dialog");
     }
     return 1;
 }
@@ -1084,44 +1135,59 @@ GNEApplicationWindow::FileMenuCommands::FileMenuCommands(GNEApplicationWindow* G
 void
 GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu) {
     new FXMenuCommand(fileMenu,
-                      "&New Network...\tCtrl+N\tCreate a new network.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_HOTKEY_CTRL_N_NEWNETWORK);
+        "&New Network...\tCtrl+N\tCreate a new network.",
+        GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_HOTKEY_CTRL_N_NEWNETWORK);
     new FXMenuCommand(fileMenu,
-                      "&Open Network...\tCtrl+O\tOpen a SUMO network.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_OPEN_NETWORK);
+        "&Open Network...\tCtrl+O\tOpen a SUMO network.",
+        GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_OPEN_NETWORK);
     new FXMenuCommand(fileMenu,
-                      "Open Netconvert Configura&tion...\tCtrl+Shift+O\tOpen a configuration file with NETCONVERT options.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), myGNEApp, MID_OPEN_CONFIG);
+        "Open Netconvert Configura&tion...\tCtrl+Shift+O\tOpen a configuration file with NETCONVERT options.",
+        GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), myGNEApp, MID_OPEN_CONFIG);
     new FXMenuCommand(fileMenu,
-                      "Import &Foreign Network...\t\tImport a foreign network such as OSM.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_GNE_TOOLBARFILE_OPENFOREIGN);
+        "Import &Foreign Network...\t\tImport a foreign network such as OSM.",
+        GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_GNE_TOOLBARFILE_OPENFOREIGN);
     new FXMenuCommand(fileMenu,
-                      "&Reload\tCtrl+R\tReloads the network.",
-                      GUIIconSubSys::getIcon(ICON_RELOAD), myGNEApp, MID_HOTKEY_CTRL_R_RELOAD);
+        "&Reload\tCtrl+R\tReloads the network.",
+        GUIIconSubSys::getIcon(ICON_RELOAD), myGNEApp, MID_HOTKEY_CTRL_R_RELOAD);
     new FXMenuCommand(fileMenu,
-                      "&Save Network...\tCtrl+S\tSave the network.",
-                      GUIIconSubSys::getIcon(ICON_SAVENETELEMENTS), myGNEApp, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
+        "&Save Network...\tCtrl+S\tSave the network.",
+        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
     new FXMenuCommand(fileMenu,
-                      "Save Net&work As...\tCtrl+Shift+S\tSave the network in another file.",
-                      GUIIconSubSys::getIcon(ICON_SAVENETELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS);
+        "Save Net&work As...\tCtrl+Shift+S\tSave the network in another file.",
+        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS);
     new FXMenuCommand(fileMenu,
-                      "Save plain XM&L...\tCtrl+L\tSave plain xml representation the network.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_L_SAVEASPLAINXML);
+        "Save plain XM&L...\tCtrl+L\tSave plain xml representation the network.",
+        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_L_SAVEASPLAINXML);
     new FXMenuCommand(fileMenu,
-                      "Save &joined junctions...\tCtrl+J\tSave log of joined junctions (allows reproduction of joins).",
-                      GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS);
+        "Save &joined junctions...\tCtrl+J\tSave log of joined junctions (allows reproduction of joins).",
+        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS);
+    // create TLS menu options
+    myGNEApp->myFileMenuTLS = new FXMenuPane(myGNEApp);
+    new FXMenuCommand(myGNEApp->myFileMenuTLS,
+        "load TLS Programs...\tCtrl+K\tload TLS Programs in all Traffic Lights of the net.",
+        GUIIconSubSys::getIcon(ICON_OPEN_TLSPROGRAMS), myGNEApp, MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS);
+    saveTLSPrograms = new FXMenuCommand(myGNEApp->myFileMenuTLS,
+        "Save TLS Programs \tCtrl+Shift+K\tSave TLS Programs of all Traffic Lights of the current net.",
+        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_K_SAVETLS);
+    saveTLSPrograms->disable();
+    new FXMenuCommand(myGNEApp->myFileMenuTLS,
+        "Save TLS Programs As...\t\tSave TLS Programs of all Traffic Lights of the current net in another file.",
+        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS);
+    new FXMenuCascade(fileMenu, 
+        "Traffic Lights", 
+        GUIIconSubSys::getIcon(ICON_MODETLS), myGNEApp->myFileMenuTLS);
     // create Additionals menu options
     myGNEApp->myFileMenuAdditionals = new FXMenuPane(myGNEApp);
     new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
-                      "Load A&dditionals...\tCtrl+A\tLoad additionals and shapes.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
+        "Load A&dditionals...\tCtrl+A\tLoad additionals and shapes.",
+        GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
     saveAdditionals = new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
-                                        "Save Additionals\tCtrl+Shift+A\tSave additionals and shapes.",
-                                        GUIIconSubSys::getIcon(ICON_SAVEADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
+        "Save Additionals\tCtrl+Shift+A\tSave additionals and shapes.",
+        GUIIconSubSys::getIcon(ICON_SAVEADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
     saveAdditionals->disable();
     saveAdditionalsAs = new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
-                                          "Save Additionals As...\t\tSave additional elements in another file.",
-                                          GUIIconSubSys::getIcon(ICON_SAVEADDITIONALS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+        "Save Additionals As...\t\tSave additional elements in another file.",
+        GUIIconSubSys::getIcon(ICON_SAVEADDITIONALS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
     saveAdditionalsAs->disable();
     new FXMenuCascade(fileMenu, "Additionals and shapes", GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myGNEApp->myFileMenuAdditionals);
     // create TLS menu options
@@ -1140,26 +1206,46 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
     // create DemandElements menu options
     myGNEApp->myFileMenuDemandElements = new FXMenuPane(myGNEApp);
     new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
-                      "Load demand elements...\tCtrl+D\tLoad demand elements.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS);
+        "Load demand elements...\tCtrl+D\tLoad demand elements.",
+        GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS);
     saveDemandElements = new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
-                                           "Save demand elements\tCtrl+Shift+D\tSave demand elements.",
-                                           GUIIconSubSys::getIcon(ICON_SAVEDEMANDELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
+        "Save demand elements\tCtrl+Shift+D\tSave demand elements.",
+        GUIIconSubSys::getIcon(ICON_SAVEDEMANDELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
     saveDemandElements->disable();
     saveDemandElementsAs = new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
-            "Save demand elements as...\t\tSave demand elements in another file.",
-            GUIIconSubSys::getIcon(ICON_SAVEDEMANDELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND_AS);
+        "Save demand elements as...\t\tSave demand elements in another file.",
+        GUIIconSubSys::getIcon(ICON_SAVEDEMANDELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND_AS);
     saveDemandElementsAs->disable();
-    new FXMenuCascade(fileMenu, "Demand elements", GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myGNEApp->myFileMenuDemandElements);
+    new FXMenuCascade(fileMenu, 
+        "Demand elements", 
+        GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myGNEApp->myFileMenuDemandElements);
+    // create DataElements menu options
+    myGNEApp->myFileMenuDataElements = new FXMenuPane(myGNEApp);
+    new FXMenuCommand(myGNEApp->myFileMenuDataElements,
+        "Load data elements...\tCtrl+B\tLoad data elements.",
+        GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS);
+    saveDataElements = new FXMenuCommand(myGNEApp->myFileMenuDataElements,
+        "Save data elements\tCtrl+Shift+B\tSave data elements.",
+        GUIIconSubSys::getIcon(ICON_SAVEDATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS);
+    saveDataElements->disable();
+    saveDataElementsAs = new FXMenuCommand(myGNEApp->myFileMenuDataElements,
+        "Save data elements as...\t\tSave data elements in another file.",
+        GUIIconSubSys::getIcon(ICON_SAVEDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDATA_AS);
+    saveDataElementsAs->disable();
+    new FXMenuCascade(fileMenu, 
+        "Data elements", 
+        GUIIconSubSys::getIcon(ICON_SUPERMODEDATA), myGNEApp->myFileMenuDataElements);
     // close network
     new FXMenuSeparator(fileMenu);
     new FXMenuCommand(fileMenu,
-                      "Close\tCtrl+W\tClose the net&work.",
-                      GUIIconSubSys::getIcon(ICON_CLOSE), myGNEApp, MID_HOTKEY_CTRL_W_CLOSESIMULATION);
+        "Close\tCtrl+W\tClose the net&work.",
+        GUIIconSubSys::getIcon(ICON_CLOSE), myGNEApp, MID_HOTKEY_CTRL_W_CLOSESIMULATION);
     // build recent files
     myGNEApp->myMenuBarFile.buildRecentFiles(fileMenu);
     new FXMenuSeparator(fileMenu);
-    new FXMenuCommand(fileMenu, "&Quit\tCtrl+Q\tQuit the Application.", nullptr, myGNEApp, MID_HOTKEY_CTRL_Q_CLOSE, 0);
+    new FXMenuCommand(fileMenu, 
+        "&Quit\tCtrl+Q\tQuit the Application.", 
+        nullptr, myGNEApp, MID_HOTKEY_CTRL_Q_CLOSE, 0);
 }
 
 // ---------------------------------------------------------------------------
@@ -1956,6 +2042,12 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
 
 
 void
+GNEApplicationWindow::enableSaveTLSProgramsMenu() {
+    myFileMenuCommands.saveTLSPrograms->enable();
+}
+
+
+void
 GNEApplicationWindow::enableSaveAdditionalsMenu() {
     myFileMenuCommands.saveAdditionals->enable();
     myFileMenuCommands.saveAdditionalsAs->enable();
@@ -1970,12 +2062,6 @@ GNEApplicationWindow::disableSaveAdditionalsMenu() {
 
 
 void
-GNEApplicationWindow::enableSaveTLSProgramsMenu() {
-    myFileMenuCommands.saveTLSPrograms->enable();
-}
-
-
-void
 GNEApplicationWindow::enableSaveDemandElementsMenu() {
     myFileMenuCommands.saveDemandElements->disable();
     myFileMenuCommands.saveDemandElementsAs->disable();
@@ -1986,6 +2072,20 @@ void
 GNEApplicationWindow::disableSaveDemandElementsMenu() {
     myFileMenuCommands.saveDemandElements->disable();
     myFileMenuCommands.saveDemandElementsAs->disable();
+}
+
+
+void
+GNEApplicationWindow::enableSaveDataElementsMenu() {
+    myFileMenuCommands.saveDataElements->disable();
+    myFileMenuCommands.saveDataElementsAs->disable();
+}
+
+
+void
+GNEApplicationWindow::disableSaveDataElementsMenu() {
+    myFileMenuCommands.saveDataElements->disable();
+    myFileMenuCommands.saveDataElementsAs->disable();
 }
 
 
@@ -2786,6 +2886,13 @@ GNEApplicationWindow::onUpdSaveDemandElements(FXObject* sender, FXSelector, void
 
 
 long
+GNEApplicationWindow::onUpdSaveDataElements(FXObject* sender, FXSelector, void*) {
+    sender->handle(this, ((myNet == nullptr) || myNet->isDataElementsSaved()) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    return 1;
+}
+
+
+long
 GNEApplicationWindow::onUpdUndo(FXObject* obj, FXSelector sel, void* ptr) {
     return myUndoList->p_onUpdUndo(obj, sel, ptr);
 }
@@ -2822,6 +2929,74 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
         myMenuBarFile.myRecentNets.appendFile(oc.getString("output-file").c_str());
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        return 1;
+    }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // check if save additional menu is enabled
+    if (myFileMenuCommands.saveTLSPrograms->isEnabled()) {
+        // Check if TLS Programs file was already set at start of netedit or with a previous save
+        if (oc.getString("TLSPrograms-output").empty()) {
+            FXString file = MFXUtils::getFilename2Write(this,
+                            "Select name of the TLS file", ".xml",
+                            GUIIconSubSys::getIcon(ICON_MODETLS),
+                            gCurrentFolder);
+            // add xml extension
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+            // check tat file is valid
+            if (file == "") {
+                // None TLS Programs file was selected, then stop function
+                return 0;
+            } else {
+                // change value of "TLSPrograms-output"
+                oc.resetWritable();
+                oc.set("TLSPrograms-output", fileWithExtension);
+            }
+        }
+        // Start saving TLS Programs
+        getApp()->beginWaitCursor();
+        try {
+            myNet->saveTLSPrograms(oc.getString("TLSPrograms-output"));
+            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "TLS Programs saved in " + oc.getString("TLSPrograms-output") + ".\n");
+            myFileMenuCommands.saveTLSPrograms->disable();
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving TLS Programs'");
+            // open error message box
+            FXMessageBox::error(this, MBOX_OK, "Saving TLS Programs failed!", "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving TLS Programs' with 'OK'");
+        }
+        myMessageWindow->addSeparator();
+        getApp()->endWaitCursor();
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
+    // Open window to select TLS Programs file
+    FXString file = MFXUtils::getFilename2Write(this,
+                    "Select name of the TLS Progarm file", ".xml",
+                    GUIIconSubSys::getIcon(ICON_MODETLS),
+                    gCurrentFolder);
+    // add xml extension
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    // check tat file is valid
+    if (fileWithExtension != "") {
+        // change value of "TLSPrograms-files"
+        OptionsCont::getOptions().set("TLSPrograms-output", fileWithExtension);
+        // save TLS Programs
+        return onCmdSaveTLSPrograms(nullptr, 0, nullptr);
+    } else {
         return 1;
     }
 }
@@ -2900,74 +3075,6 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
-    // obtain option container
-    OptionsCont& oc = OptionsCont::getOptions();
-    // check if save additional menu is enabled
-    if (myFileMenuCommands.saveTLSPrograms->isEnabled()) {
-        // Check if TLS Programs file was already set at start of netedit or with a previous save
-        if (oc.getString("TLSPrograms-output").empty()) {
-            FXString file = MFXUtils::getFilename2Write(this,
-                            "Select name of the TLS file", ".xml",
-                            GUIIconSubSys::getIcon(ICON_MODETLS),
-                            gCurrentFolder);
-            // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-            // check tat file is valid
-            if (file == "") {
-                // None TLS Programs file was selected, then stop function
-                return 0;
-            } else {
-                // change value of "TLSPrograms-output"
-                oc.resetWritable();
-                oc.set("TLSPrograms-output", fileWithExtension);
-            }
-        }
-        // Start saving TLS Programs
-        getApp()->beginWaitCursor();
-        try {
-            myNet->saveTLSPrograms(oc.getString("TLSPrograms-output"));
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "TLS Programs saved in " + oc.getString("TLSPrograms-output") + ".\n");
-            myFileMenuCommands.saveTLSPrograms->disable();
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving TLS Programs'");
-            // open error message box
-            FXMessageBox::error(this, MBOX_OK, "Saving TLS Programs failed!", "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving TLS Programs' with 'OK'");
-        }
-        myMessageWindow->addSeparator();
-        getApp()->endWaitCursor();
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-
-long
-GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
-    // Open window to select TLS Programs file
-    FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the TLS Program file", ".xml",
-                    GUIIconSubSys::getIcon(ICON_MODETLS),
-                    gCurrentFolder);
-    // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-    // check tat file is valid
-    if (fileWithExtension != "") {
-        // change value of "TLSPrograms-files"
-        OptionsCont::getOptions().set("TLSPrograms-output", fileWithExtension);
-        // save TLS Programs
-        return onCmdSaveTLSPrograms(nullptr, 0, nullptr);
-    } else {
-        return 1;
-    }
-}
-
-
-long
 GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
     // obtain option container
     OptionsCont& oc = OptionsCont::getOptions();
@@ -3033,6 +3140,78 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
         myFileMenuCommands.saveDemandElements->enable();
         // save demand elements
         return onCmdSaveDemandElements(nullptr, 0, nullptr);
+    } else {
+        return 1;
+    }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // check if save data element menu is enabled
+    if (myFileMenuCommands.saveDataElements->isEnabled()) {
+        // Check if data elements file was already set at start of netedit or with a previous save
+        if (oc.getString("route-files").empty()) {
+            FXString file = MFXUtils::getFilename2Write(this,
+                            "Select name of the data element file", ".dat.xml",
+                            GUIIconSubSys::getIcon(ICON_MODEADDITIONAL),
+                            gCurrentFolder);
+            // add xml extension
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
+            // check tat file is valid
+            if (fileWithExtension != "") {
+                // change value of "route-files"
+                oc.resetWritable();
+                oc.set("route-files", fileWithExtension);
+            } else {
+                // None data elements file was selected, then stop function
+                return 0;
+            }
+        }
+        // Start saving data elements
+        getApp()->beginWaitCursor();
+        try {
+            myNet->saveDataElements(oc.getString("route-files"));
+            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Data elements saved in " + oc.getString("route-files") + ".\n");
+            myFileMenuCommands.saveDataElements->disable();
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving data elements'");
+            // open error message box
+            FXMessageBox::error(this, MBOX_OK, "Saving data elements failed!", "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving data elements' with 'OK'");
+        }
+        myMessageWindow->addSeparator();
+        getApp()->endWaitCursor();
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject*, FXSelector, void*) {
+    // Open window to select additionasl file
+    FXString file = MFXUtils::getFilename2Write(this,
+                    "Select name of the data element file", ".rou.xml",
+                    GUIIconSubSys::getIcon(ICON_SUPERMODEDATA),
+                    gCurrentFolder);
+    // add xml extension
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
+    // check that file is correct
+    if (fileWithExtension != "") {
+        // reset writtable flag
+        OptionsCont::getOptions().resetWritable();
+        // change value of "route-files"
+        OptionsCont::getOptions().set("route-files", fileWithExtension);
+        // change flag of menu command for save data elements
+        myFileMenuCommands.saveDataElements->enable();
+        // save data elements
+        return onCmdSaveDataElements(nullptr, 0, nullptr);
     } else {
         return 1;
     }
