@@ -130,7 +130,7 @@ on("ready", function(){
     function draw(){
         var x0 = canvas.width * canvasRect[0],
             y0 = canvas.height * canvasRect[1],
-            x1 = canvas.width * canvasRect[2],
+            x1 = canvas.width * canvasRect[2] - 250,
             y1 = canvas.height * canvasRect[3];
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
