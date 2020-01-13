@@ -91,6 +91,9 @@ busStop
 # test trip validation (trip input and trip output)
 write-trips
 
+# trip output uses fromJunction and toJunction instead of from and to
+write-trips.junctions
+
 # test trip validation (trip input and trip output)
 write-trips.geo
 
