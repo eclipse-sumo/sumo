@@ -46,6 +46,7 @@
 #include "RORouteDef.h"
 #include "RORouteHandler.h"
 
+#define JUNCTION_TAZ_MISSING_HELP "\nSet option '--junction-taz' or load a TAZ-file"
 
 // ===========================================================================
 // method definitions
@@ -88,12 +89,17 @@ RORouteHandler::parseFromViaTo(std::string element,
     }
     bool ok = true;
     const std::string rid = "for " + element + " '" + myVehicleParameter->id + "'";
-    if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) && myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET)) {
-        const ROEdge* fromTaz = myNet.getEdge(myVehicleParameter->fromTaz + "-source");
+    if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) &&
+                (myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) || attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION))) {
+        bool useJunction = attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION);
+        const std::string tazType = useJunction ? "junction" : "taz";
+        const std::string tazID = useJunction ? attrs.get<std::string>(SUMO_ATTR_FROMJUNCTION, myVehicleParameter->id.c_str(), ok, true) : myVehicleParameter->fromTaz;
+        const ROEdge* fromTaz = myNet.getEdge(tazID + "-source");
         if (fromTaz == nullptr) {
-            myErrorOutput->inform("Source taz '" + myVehicleParameter->fromTaz + "' not known for " + element + " '" + myVehicleParameter->id + "'!");
+            myErrorOutput->inform("Source " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
+                    + (useJunction ? JUNCTION_TAZ_MISSING_HELP : ""));
         } else if (fromTaz->getNumSuccessors() == 0) {
-            myErrorOutput->inform("Source taz '" + myVehicleParameter->fromTaz + "' has no outgoing edges for " + element + " '" + myVehicleParameter->id + "'!");
+            myErrorOutput->inform("Source " + tazType + " '" + tazID + "' has no outgoing edges for " + element + " '" + myVehicleParameter->id + "'!");
         } else {
             myActiveRoute.push_back(fromTaz);
         }
@@ -120,12 +126,17 @@ RORouteHandler::parseFromViaTo(std::string element,
         myVehicleParameter->via.push_back((*i)->getID());
     }
 
-    if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) && myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
-        const ROEdge* toTaz = myNet.getEdge(myVehicleParameter->toTaz + "-sink");
+    if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) &&
+            (myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET) || attrs.hasAttribute(SUMO_ATTR_TOJUNCTION))) {
+        bool useJunction = attrs.hasAttribute(SUMO_ATTR_TOJUNCTION);
+        const std::string tazType = useJunction ? "junction" : "taz";
+        const std::string tazID = useJunction ? attrs.get<std::string>(SUMO_ATTR_TOJUNCTION, myVehicleParameter->id.c_str(), ok, true) : myVehicleParameter->toTaz;
+        const ROEdge* toTaz = myNet.getEdge(tazID + "-sink");
         if (toTaz == nullptr) {
-            myErrorOutput->inform("Sink taz '" + myVehicleParameter->toTaz + "' not known for " + element + " '" + myVehicleParameter->id + "'!");
+            myErrorOutput->inform("Sink " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
+                    + (useJunction ? JUNCTION_TAZ_MISSING_HELP : ""));
         } else if (toTaz->getNumPredecessors() == 0) {
-            myErrorOutput->inform("Sink taz '" + myVehicleParameter->toTaz + "' has no incoming edges for " + element + " '" + myVehicleParameter->id + "'!");
+            myErrorOutput->inform("Sink " + tazType + " '" + tazID + "' has no incoming edges for " + element + " '" + myVehicleParameter->id + "'!");
         } else {
             myActiveRoute.push_back(toTaz);
         }

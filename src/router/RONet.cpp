@@ -39,6 +39,7 @@
 #include "RORoute.h"
 #include "RORouteDef.h"
 #include "ROVehicle.h"
+#include "ROAbstractEdgeBuilder.h"
 #include "RONet.h"
 
 
@@ -191,6 +192,33 @@ RONet::addDistrictEdge(const std::string tazID, const std::string edgeID, const 
         myDistricts[tazID].second.push_back(edgeID);
     }
     return true;
+}
+
+
+void
+RONet::addJunctionTaz(ROAbstractEdgeBuilder& eb) {
+    for (auto item : myNodes) {
+        const std::string tazID = item.first;
+        if (myDistricts.count(tazID) != 0) {
+            WRITE_WARNINGF("A TAZ with id '%' already exists. Not building junction TAZ.", tazID);
+            continue;
+        }
+        const std::string sourceID = tazID + "-source";
+        const std::string sinkID = tazID + "-sink";
+        ROEdge* source = eb.buildEdge(sourceID, nullptr, nullptr, 0);
+        ROEdge* sink = eb.buildEdge(sinkID, nullptr, nullptr, 0);
+        addDistrict(tazID, source, sink);
+        auto& district = myDistricts[tazID];
+        const RONode* junction = item.second;
+        for (const ROEdge* edge : junction->getIncoming()) {
+            const_cast<ROEdge*>(edge)->addSuccessor(sink);
+            district.second.push_back(edge->getID());
+        }
+        for (const ROEdge* edge : junction->getOutgoing()) {
+            source->addSuccessor(const_cast<ROEdge*>(edge));
+            district.first.push_back(edge->getID());
+        }
+    }
 }
 
 

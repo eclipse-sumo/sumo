@@ -154,6 +154,10 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
             }
         }
     }
+    if (myOptions.exists("junction-taz") && myOptions.getBool("junction-taz")) {
+        // create a TAZ for every junction
+        toFill.addJunctionTaz(eb);
+    }
 }
 
 

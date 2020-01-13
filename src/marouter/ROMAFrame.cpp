@@ -126,6 +126,9 @@ ROMAFrame::addImportOptions() {
     oc.doRegister("taz-param", new Option_StringVector());
     oc.addDescription("taz-param", "Input", "Parameter key(s) defining source (and sink) taz");
 
+    oc.doRegister("junction-taz", new Option_Bool(false));
+    oc.addDescription("junction-taz", "Input", "Initialize a TAZ for every junction to use attributes toJunction and fromJunction");
+
     // register the time settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");

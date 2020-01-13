@@ -47,6 +47,7 @@ class ROEdge;
 class RONode;
 class ROPerson;
 class ROVehicle;
+class ROAbstractEdgeBuilder;
 class OptionsCont;
 class OutputDevice;
 
@@ -132,6 +133,9 @@ public:
      * @return Whether the district was added
      */
     bool addDistrictEdge(const std::string tazID, const std::string edgeID, const bool isSource);
+
+    /// @brief add a taz for every junction unless a taz with the same id already exists
+    void addJunctionTaz(ROAbstractEdgeBuilder& eb); 
 
     /** @brief Retrieves all TAZ (districts) from the network
      *
