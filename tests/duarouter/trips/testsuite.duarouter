@@ -94,6 +94,9 @@ write-trips
 # trip output uses fromJunction and toJunction instead of from and to
 write-trips.junctions
 
+# trip output uses fromJunction and toJunction instead of from and to. Input also uses fromJunction toJunction and routing is skipped
+write-trips.junctions2
+
 # test trip validation (trip input and trip output)
 write-trips.geo
 
