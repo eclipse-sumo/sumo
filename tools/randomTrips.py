@@ -125,6 +125,8 @@ def get_options(args=None):
         "to the output file).")
     optParser.add_option("--remove-loops", dest="remove_loops", action="store_true",
                          default=False, help="Remove loops at route start and end")
+    optParser.add_option("--junction-taz", dest="junctionTaz", action="store_true",
+                         default=False, help="Write trips with fromJunction and toJunction")
     optParser.add_option("--validate", default=False, action="store_true",
                          help="Whether to produce trip output that is already checked for connectivity")
     optParser.add_option("-v", "--verbose", action="store_true",
@@ -467,21 +469,29 @@ def main(options):
                     fouttrips.write(
                         '        <walk from="%s" to="%s"%s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
                 fouttrips.write('    </person>\n')
-            elif options.flows > 0:
-                to = '' if options.jtrrouter else ' to="%s"' % sink_edge.getID()
-                if options.binomial:
-                    for j in range(options.binomial):
-                        fouttrips.write(('    <flow id="%s#%s" begin="%s" end="%s" probability="%s" ' +
-                                         'from="%s"%s%s%s/>\n') % (
-                            label, j, options.begin, options.end, 1.0 / options.period / options.binomial,
-                            source_edge.getID(), to, via, combined_attrs))
-                else:
-                    fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s" from="%s"%s%s%s/>\n') % (
-                        label, options.begin, options.end, options.period * options.flows, source_edge.getID(),
-                        to, via, combined_attrs))
             else:
-                fouttrips.write('    <trip id="%s" depart="%.2f" from="%s" to="%s"%s%s/>\n' % (
-                    label, depart, source_edge.getID(), sink_edge.getID(), via, combined_attrs))
+                if options.junctionTaz:
+                    attrFrom = ' fromJunction="%s"' % source_edge.getFromNode().getID()
+                    attrTo = ' toJunction="%s"' % sink_edge.getToNode().getID()
+                else:
+                    attrFrom = ' from="%s"' % source_edge.getID()
+                    attrTo = ' to="%s"' % sink_edge.getID()
+                if options.jtrrouter:
+                    attrTo = ''
+
+                if options.flows > 0:
+                    if options.binomial:
+                        for j in range(options.binomial):
+                            fouttrips.write(('    <flow id="%s#%s" begin="%s" end="%s" probability="%s"%s%s%s%s/>\n') % (
+                                label, j, options.begin, options.end, 1.0 / options.period / options.binomial,
+                                attrFrom, attrTo, via, combined_attrs))
+                    else:
+                        fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s"%s%s%s%s/>\n') % (
+                            label, options.begin, options.end, options.period *
+                            options.flows, attrFrom, attrTo, via, combined_attrs))
+                else:
+                    fouttrips.write('    <trip id="%s" depart="%.2f"%s%s%s%s/>\n' % (
+                        label, depart, attrFrom, attrTo, via, combined_attrs))
         except Exception as exc:
             print(exc, file=sys.stderr)
         return idx + 1
@@ -517,7 +527,7 @@ def main(options):
 
     # call duarouter for routes or validated trips
     args = [DUAROUTER, '-n', options.netfile, '-r', options.tripfile, '--ignore-errors',
-            '--begin', str(options.begin), '--end', str(options.end), '--no-step-log', '--no-warnings']
+            '--begin', str(options.begin), '--end', str(options.end), '--no-step-log']
     if options.additional is not None:
         args += ['--additional-files', options.additional]
     if options.carWalkMode is not None:
@@ -528,6 +538,13 @@ def main(options):
         args += ['--remove-loops']
     if options.vtypeout is not None:
         args += ['--vtype-output', options.vtypeout]
+    if options.junctionTaz:
+        args += ['--junction-taz']
+    if not options.verbose:
+        args += ['--no-warnings']
+    else:
+        args += ['-v']
+
     if options.routefile:
         args2 = args + ['-o', options.routefile]
         print("calling ", " ".join(args2))
