@@ -85,7 +85,7 @@ OptionsIO::getOptions(const bool commandLineOnly) {
     if (!OptionsParser::parse(myArgC, myArgV)) {
         throw ProcessError("Could not parse commandline options.");
     }
-    if (!commandLineOnly) {
+    if (!commandLineOnly || OptionsCont::getOptions().isSet("save-configuration", false)) {
         // read the configuration when everything's ok
         OptionsCont::getOptions().resetWritable();
         loadConfiguration();
