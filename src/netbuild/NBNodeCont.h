@@ -145,6 +145,9 @@ public:
     /// @brief remove geometry-like fringe nodes from cluster
     void pruneClusterFringe(NodeSet& cluster) const;
 
+    /// @brief remove nodes that form a slip lane from cluster
+    void pruneSlipLaneNodes(NodeSet& cluster) const;
+
     /// @brief determine wether the cluster is not too complex for joining
     bool feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const NBPTStopCont& sc, std::string& reason) const;
 
