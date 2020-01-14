@@ -93,6 +93,7 @@ MSRouteHandler::parseFromViaTo(std::string element,
         useTaz = false;
     }
     bool ok = true;
+    // from-attributes
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) &&
             (myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) || attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION))) {
         bool useJunction = attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION);
@@ -111,12 +112,31 @@ MSRouteHandler::parseFromViaTo(std::string element,
         MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok, "", true),
                                myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
     }
+
+    // via-attributes
     if (!attrs.hasAttribute(SUMO_ATTR_VIA) && !attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
         myInsertStopEdgesAt = (int)myActiveRoute.size();
     }
-    MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true),
-                           myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
-    myVehicleParameter->via = StringTokenizer(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true)).getVector();
+    ConstMSEdgeVector viaEdges;
+    if (attrs.hasAttribute(SUMO_ATTR_VIAJUNCTIONS)) {
+        for (std::string junctionID : attrs.getStringVector(SUMO_ATTR_VIAJUNCTIONS)) {
+            const MSEdge* viaSink = MSEdge::dictionary(junctionID + "-sink");
+            if (viaSink == nullptr) {
+                throw ProcessError("Junction-taz '" + junctionID + "' not found." + JUNCTION_TAZ_MISSING_HELP);
+            } else {
+                viaEdges.push_back(viaSink);
+            }
+        }
+    } else {
+        MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true),
+                viaEdges, "for " + element + " '" + myVehicleParameter->id + "'");
+    }
+    for (const MSEdge* e: viaEdges) {
+        myActiveRoute.push_back(e);
+        myVehicleParameter->via.push_back(e->getID());
+    }
+
+    // to-attributes
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) &&
             (myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET) || attrs.hasAttribute(SUMO_ATTR_TOJUNCTION))) {
         bool useJunction = attrs.hasAttribute(SUMO_ATTR_TOJUNCTION);
