@@ -103,6 +103,9 @@ bypass
 # a complex example where bypass edges should not be joined
 bypass2
 
+# a complex example where bypass edges should not be joined
+bypass3
+
 # creating opposite-direction edge due to sidewalk information
 sidewalks
 
