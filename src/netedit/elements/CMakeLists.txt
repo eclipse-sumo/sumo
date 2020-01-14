@@ -4,6 +4,10 @@ add_subdirectory(demand)
 add_subdirectory(data)
 
 set(netedit_elements_SRCS
+   GNEAttributeProperties.h
+   GNEAttributeProperties.cpp
+   GNETagProperties.h
+   GNETagProperties.cpp
    GNEAttributeCarrier.h
    GNEAttributeCarrier.cpp
    GNEHierarchicalParentElements.h
