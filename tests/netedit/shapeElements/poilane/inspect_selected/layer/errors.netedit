@@ -9,10 +9,11 @@ Debug: Current saving Status: net unsaved, additionals unsaved, demand elements 
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Value 'dummyLayer' for attribute layer of poiLane isn't valid
+Debug: Setting new attribute layer '202.00' into poiLane 'POI_1'
+Debug: Setting new attribute layer '202.00' into poiLane 'POI_2'
 Debug: Setting new attribute layer '-2' into poiLane 'POI_1'
 Debug: Setting new attribute layer '-2' into poiLane 'POI_2'
 Debug: Setting new attribute layer '2.5' into poiLane 'POI_1'
@@ -25,20 +26,18 @@ Debug: Setting previous attribute layer '-2.00' into poiLane 'POI_2'
 Debug: Setting previous attribute layer '-2.00' into poiLane 'POI_1'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute layer '25.00' into poiLane 'POI_2'
-Debug: Setting previous attribute layer '20.00' into poiLane 'POI_1'
+Debug: Setting previous attribute layer 'default' into poiLane 'POI_2'
+Debug: Setting previous attribute layer 'default' into poiLane 'POI_1'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing poiLane 'POI_2' from viewNet
-Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
-Debug: Removing poiLane 'POI_1' from viewNet
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Setting previous attribute layer '25.00' into poiLane 'POI_2'
+Debug: Setting previous attribute layer '20.00' into poiLane 'POI_1'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding poiLane 'POI_1' into viewNet
-Debug: Adding poiLane 'POI_2' into viewNet
+Debug: Setting new attribute layer '202.00' into poiLane 'POI_1'
+Debug: Setting new attribute layer '202.00' into poiLane 'POI_2'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute layer '-2' into poiLane 'POI_1'
