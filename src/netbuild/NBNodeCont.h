@@ -149,7 +149,7 @@ public:
     void pruneSlipLaneNodes(NodeSet& cluster) const;
 
     /// @brief check whether the given node maybe the start of a slip lane
-    bool maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing) const; 
+    bool maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing, double& inAngle) const; 
 
     /// @brief determine wether the cluster is not too complex for joining
     bool feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const NBPTStopCont& sc, std::string& reason) const;

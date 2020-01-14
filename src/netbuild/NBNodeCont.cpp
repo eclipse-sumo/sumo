@@ -65,7 +65,7 @@
 // ===========================================================================
 
 //#define DEBUG_JOINJUNCTIONS
-#define DEBUGNODEID "449797"
+#define DEBUGNODEID "2617545588"
 //#define DEBUGNODEID "5548037023"
 #define DEBUGCOND(obj) ((obj != 0 && (obj)->getID() == DEBUGNODEID))
 
@@ -850,7 +850,8 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
     NodeSet toRemove;
     for (NBNode* n : cluster) {
         EdgeVector outgoing;
-        if (maybeSlipLaneStart(n, outgoing)) {
+        double inAngle;
+        if (maybeSlipLaneStart(n, outgoing, inAngle)) {
             // potential slip lane start but we don't know which of the outgoing edges it is
 #ifdef DEBUG_JOINJUNCTIONS
             if (gDebugFlag1) std::cout << "   candidate slip-lane start=" << n->getID() << " outgoing=" << outgoing << "\n";
@@ -878,7 +879,9 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
 #ifdef DEBUG_JOINJUNCTIONS
                 if (gDebugFlag1) std::cout << "   candidate slip-lane end=" << cont->getID() << " slipLength=" << slipLength << "\n";
 #endif
-                if (cont->getIncomingEdges().size() >= 2 && cont->getOutgoingEdges().size() == 1) {
+                if (cont->getIncomingEdges().size() >= 2 && cont->getOutgoingEdges().size() == 1 &&
+                        // slip lanes are for turning so there needs to be a sufficient angle
+                        abs(NBHelpers::relAngle(inAngle, cont->getOutgoingEdges().front()->getAngleAtNode(cont))) > 45) {
                     // check whether the other continuation at n is also connected to the sliplane end
                     NBEdge* otherEdge = (contEdge == outgoing.front() ? outgoing.back() : outgoing.front());
                     double otherLength = otherEdge->getLength();
@@ -940,9 +943,10 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
 
 
 bool
-NBNodeCont::maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing) const {
+NBNodeCont::maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing, double& inAngle) const {
     if (n->getIncomingEdges().size() == 1 && n->getOutgoingEdges().size() == 2) {
         outgoing.insert(outgoing.begin(), n->getOutgoingEdges().begin(), n->getOutgoingEdges().end());
+        inAngle = n->getIncomingEdges().front()->getAngleAtNode(n);
         return true;
     } else if (n->getIncomingEdges().size() == 2 && n->getOutgoingEdges().size() == 3) {
         // check if the incoming edges are going in opposite directions and then
@@ -965,6 +969,7 @@ NBNodeCont::maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing) const {
             }
             if (straight.size() == 2 && numReverse == 1) {
                 outgoing.insert(outgoing.begin(), straight.begin(), straight.end());
+                inAngle = in->getAngleAtNode(n);
                 return true;
             }
         }
