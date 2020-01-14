@@ -65,7 +65,7 @@
 // ===========================================================================
 
 //#define DEBUG_JOINJUNCTIONS
-#define DEBUGNODEID "449778"
+#define DEBUGNODEID "449797"
 //#define DEBUGNODEID "5548037023"
 #define DEBUGCOND(obj) ((obj != 0 && (obj)->getID() == DEBUGNODEID))
 
@@ -849,13 +849,13 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
     // fringe has already been removed
     NodeSet toRemove;
     for (NBNode* n : cluster) {
-        if (n->getIncomingEdges().size() == 1 && n->getOutgoingEdges().size() == 2) {
-            // potential slip lane start but we don't know which of the outgoing
-            // lanes it is
+        EdgeVector outgoing;
+        if (maybeSlipLaneStart(n, outgoing)) {
+            // potential slip lane start but we don't know which of the outgoing edges it is
 #ifdef DEBUG_JOINJUNCTIONS
-            if (gDebugFlag1) std::cout << "   candidate slip-lane start=" << n->getID() << "\n";
+            if (gDebugFlag1) std::cout << "   candidate slip-lane start=" << n->getID() << " outgoing=" << outgoing << "\n";
 #endif
-            for (NBEdge* contEdge : n->getOutgoingEdges()) {
+            for (NBEdge* contEdge : outgoing) {
                 if ((contEdge->getPermissions() & SVC_PASSENGER) == 0) {
                     continue;
                 }
@@ -880,7 +880,7 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
 #endif
                 if (cont->getIncomingEdges().size() >= 2 && cont->getOutgoingEdges().size() == 1) {
                     // check whether the other continuation at n is also connected to the sliplane end
-                    NBEdge* otherEdge = (contEdge == n->getOutgoingEdges().front() ? n->getOutgoingEdges().back() : n->getOutgoingEdges().front());
+                    NBEdge* otherEdge = (contEdge == outgoing.front() ? outgoing.back() : outgoing.front());
                     double otherLength = otherEdge->getLength();
                     NBNode* cont2 = otherEdge->getToNode();
 
@@ -938,6 +938,39 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
     }
 }
 
+
+bool
+NBNodeCont::maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing) const {
+    if (n->getIncomingEdges().size() == 1 && n->getOutgoingEdges().size() == 2) {
+        outgoing.insert(outgoing.begin(), n->getOutgoingEdges().begin(), n->getOutgoingEdges().end());
+        return true;
+    } else if (n->getIncomingEdges().size() == 2 && n->getOutgoingEdges().size() == 3) {
+        // check if the incoming edges are going in opposite directions and then
+        // use the incoming edge that has 2 almost-straight outgoing edges
+        const double inRelAngle = fabs(NBHelpers::relAngle(n->getIncomingEdges().front()->getAngleAtNode(n), n->getIncomingEdges().back()->getAngleAtNode(n)));
+        //std::cout << "n=" << n->getID() << " inRelAngle=" << inRelAngle << "\n";
+        if (inRelAngle < 135) {
+            return false; // not opposite incoming
+        }
+        for (NBEdge* in : n->getIncomingEdges()) {
+            EdgeVector straight;
+            int numReverse = 0;
+            for (NBEdge* out : n->getOutgoingEdges()) {
+                const double outRelAngle = fabs(NBHelpers::relAngle(in->getAngleAtNode(n), out->getAngleAtNode(n)));
+                if (outRelAngle <= 45) {
+                    straight.push_back(out);
+                } else if (outRelAngle >= 135) {
+                    numReverse++;
+                }
+            }
+            if (straight.size() == 2 && numReverse == 1) {
+                outgoing.insert(outgoing.begin(), straight.begin(), straight.end());
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 bool
 NBNodeCont::feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const NBPTStopCont& sc, std::string& reason) const {
