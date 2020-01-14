@@ -108,12 +108,12 @@ GUIShapeContainer::addPolygonDynamics(double simtime,
 SUMOTime
 GUIShapeContainer::polygonDynamicsUpdate(SUMOTime t, PolygonDynamics* pd) {
     FXMutexLock locker(myLock);
+    GUIPolygon* p = dynamic_cast<GUIPolygon*>(pd->getPolygon());
+    assert(p != nullptr);
+    myVis.removeAdditionalGLObject(p);
     SUMOTime next = ShapeContainer::polygonDynamicsUpdate(t, pd);
     if (next != 0) {
         // Update polygon position in RTree
-        GUIPolygon* p = dynamic_cast<GUIPolygon*>(pd->getPolygon());
-        assert(p != nullptr);
-        myVis.removeAdditionalGLObject(p);
         myVis.addAdditionalGLObject(p);
     }
     return next;
