@@ -320,6 +320,9 @@ public:
     /// @brief invalidate path element childs
     void invalidatePathChildElementss();
 
+    // @brief update vehicle geometries
+    void updateVehicleGeometries();
+
 protected:
     /// @brief the underlying NBEdge
     NBEdge* myNBEdge;
@@ -389,6 +392,9 @@ private:
 
     /// @brief change Shape EndPos
     void setShapeEndPos(const Position& pos);
+
+    /// @brief get vehicles a that start over this edge
+    std::vector<GNEDemandElement*> getVehiclesOverEdge() const;
 
     /// @brief draw geometry points
     void drawGeometryPoints(const GUIVisualizationSettings& s) const;

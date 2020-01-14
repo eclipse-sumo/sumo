@@ -2179,6 +2179,8 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdToogleShowDemandElements(FXObject*, FXSelector sel, void*) {
+    // compute demand elements
+    myNet->computeDemandElements(myViewParent->getGNEAppWindows());
     // update view to show demand elements
     update();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>

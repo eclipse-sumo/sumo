@@ -570,6 +570,21 @@ GNEVehicle::updateGeometry() {
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
     }
+    // get parent edge
+    GNEEdge* edgeParent = nullptr;
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+        edgeParent = getParentEdges().front();
+    } else if (getParentDemandElements().size() == 2) {
+        edgeParent = getParentDemandElements().at(1)->getParentEdges().front();
+    } else if (getChildDemandElements().size() > 0) {
+        edgeParent = getChildDemandElements().at(0)->getParentEdges().front();
+    }
+    // update vehicle geometry depending of edgeParent
+    if (edgeParent) {
+        edgeParent->updateVehicleGeometries();
+    } else {
+        myDemandElementGeometry.updateGeometry(Position(0,0), 0);
+    }
 }
 
 
@@ -700,7 +715,10 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         // obtain Position an rotation (it depend of their parents)
         Position vehiclePosition;
         double vehicleRotation = 0;
-        if ((getParentDemandElements().size() == 2) && (getParentDemandElements().at(1)->getDemandElementSegmentGeometry().size() > 0)) {
+        if (true) {
+            vehiclePosition = myDemandElementGeometry.getPosition();
+            vehicleRotation = myDemandElementGeometry.getRotation();
+        } else if ((getParentDemandElements().size() == 2) && (getParentDemandElements().at(1)->getDemandElementSegmentGeometry().size() > 0)) {
             // obtain position and rotation of first edge route
             vehiclePosition = getParentDemandElements().at(1)->getDemandElementSegmentGeometry().getFirstPosition();
             vehicleRotation = getParentDemandElements().at(1)->getDemandElementSegmentGeometry().getFirstRotation();
@@ -854,8 +872,6 @@ GNEVehicle::unselectAttributeCarrier(bool changeFlag) {
 
 std::string
 GNEVehicle::getAttribute(SumoXMLAttr key) const {
-    // declare string error
-    std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
             return getDemandElementID();
@@ -941,7 +957,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             }
         // Specific of vehicles
         case SUMO_ATTR_DEPART:
-            return toString(depart);
+            return time2string(depart);
         case SUMO_ATTR_ROUTE:
             if (getParentDemandElements().size() == 2) {
                 return getParentDemandElements().at(1)->getID();
@@ -980,8 +996,18 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEVehicle::getAttributeDouble(SumoXMLAttr /*key*/) const {
-    return 0;
+GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN:
+            return STEPS2TIME(depart);
+        case SUMO_ATTR_WIDTH:
+            return getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH); 
+        case SUMO_ATTR_LENGTH:
+            return getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
 }
 
 

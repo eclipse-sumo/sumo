@@ -74,6 +74,9 @@ struct GNEGeometry {
                             const Position& extraLastPosition = Position::INVALID);
 
         /// @brief update position and rotation
+        void updateGeometry(const Position &position, const double rotation);
+
+        /// @brief update position and rotation (using a lane and a position over lane)
         void updateGeometry(const GNELane* lane, const double posOverLane);
 
         /// @brief update geometry (using geometry of another additional)

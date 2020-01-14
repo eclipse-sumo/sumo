@@ -165,6 +165,9 @@ public:
     /// @brief get demand element segment geometry
     const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
 
+    /// @brief update demand element geometry
+    void updateDemandElementGeometry(const GNELane* lane, const double posOverLane);
+
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
 

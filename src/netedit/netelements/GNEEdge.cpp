@@ -29,6 +29,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/demandelements/GNERoute.h>
+#include <netedit/demandelements/GNEVehicle.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -143,6 +144,8 @@ GNEEdge::updateGeometry() {
         for (const auto& pathElementChild : myPathElementChilds) {
             pathElementChild->updatePartialGeometry(this);
         }
+        // update vehicle geometry
+        updateVehicleGeometries();
         // mark dotted geometry deprecated
         myDottedGeometry.markDottedGeometryDeprecated();
     }
@@ -531,6 +534,11 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw geometry points if isnt's too small and
     if ((s.scale > 8.0) && (myNet->getViewNet()->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND)) {
         drawGeometryPoints(s);
+    }
+    // draw vehicles
+    std::vector<GNEDemandElement*> vehicles = getVehiclesOverEdge();
+    for (const auto &vehicle : vehicles) {
+        vehicle->drawGL(s);
     }
     // draw name if isn't being drawn for selecting
     if (!s.drawForRectangleSelection) {
@@ -1189,11 +1197,6 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
             drawPartialPersonPlan(s, i, junction);
         }
     }
-    // special case for embedded routes
-    if ((route->getTagProperty().getTag() == SUMO_TAG_EMBEDDEDROUTE) && (route->getParentDemandElements().size() > 0) && (route->getParentEdges().front() == this)) {
-        // draw vehicle parent
-        route->getParentDemandElements().at(0)->drawGL(s);
-    }
 }
 
 
@@ -1408,6 +1411,34 @@ GNEEdge::invalidatePathChildElementss() {
     auto copyOfMyPathElementChilds = myPathElementChilds;
     for (const auto& pathElementChild : copyOfMyPathElementChilds) {
         pathElementChild->invalidatePath();
+    }
+}
+
+
+void
+GNEEdge::updateVehicleGeometries() {
+    // get vehicles over edge
+    std::vector<GNEDemandElement* > vehicles = getVehiclesOverEdge();
+    // obtain total lenght
+    double totalLength = 0;
+    for (const auto &vehicle : vehicles) {
+        totalLength += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH);
+    }
+    // calculate multiplier for vehicle positions
+    double multiplier = 1;
+    const double laneShapeLenght = myLanes.front()->getLaneShape().length();
+    if (laneShapeLenght == 0) {
+        multiplier = 0;
+    } else if (totalLength > laneShapeLenght) {
+        multiplier = (laneShapeLenght / totalLength);
+    }
+    // declare current lenght
+    double lenght = 0;
+    // iterate over vehicles to calculate position and rotations
+    for (const auto &vehicle : vehicles) {
+        vehicle->updateDemandElementGeometry(myLanes.front(), lenght * multiplier);
+        // update lenght
+        lenght += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH);
     }
 }
 
@@ -2005,6 +2036,37 @@ GNEEdge::setShapeEndPos(const Position& pos) {
 }
 
 
+std::vector<GNEDemandElement*> 
+GNEEdge::getVehiclesOverEdge() const {
+    // declare solution
+    std::vector<GNEDemandElement*> solution;
+    // declare a set to 
+    std::set<std::pair<double, GNEDemandElement*> > vehicles;
+    // first obtain all vehicles of this edge
+    for (const auto &edgeChild : getChildDemandElements()) {
+        if (((edgeChild->getTagProperty().getTag() == SUMO_TAG_TRIP) || (edgeChild->getTagProperty().getTag() == SUMO_TAG_FLOW)) && 
+            (edgeChild->getParentEdges().front() == this)) {
+            vehicles.insert(std::make_pair(edgeChild->getAttributeDouble(SUMO_ATTR_DEPART), edgeChild));
+        } else if ((edgeChild->getTagProperty().getTag() == SUMO_TAG_ROUTE) && (edgeChild->getParentEdges().front() == this)) {
+            for (const auto &routeChild : edgeChild->getChildDemandElements()) {
+                if ((routeChild->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (routeChild->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
+                    vehicles.insert(std::make_pair(routeChild->getAttributeDouble(SUMO_ATTR_DEPART), routeChild));
+                }
+            }
+        } else if ((edgeChild->getTagProperty().getTag() == SUMO_TAG_EMBEDDEDROUTE) && (edgeChild->getParentEdges().front() == this)) {
+            vehicles.insert(std::make_pair(edgeChild->getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPART), edgeChild->getParentDemandElements().front()));
+        }
+    }
+    // reserve
+    solution.reserve(vehicles.size());
+    // iterate over vehicles
+    for (const auto &vehicle : vehicles) {
+        solution.push_back(vehicle.second);
+    }
+    return solution;
+}
+
+
 void
 GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
@@ -2246,10 +2308,6 @@ GNEEdge::drawDemandElements(const GUIVisualizationSettings& s) const {
         if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == trip) || trip->isAttributeCarrierSelected())) {
             drawPartialTripFromTo(s, trip, nullptr);
         }
-        // only draw trip in the first edge
-        if (trip->getAttribute(SUMO_ATTR_FROM) == getID()) {
-            trip->drawGL(s);
-        }
         // Pop name
         glPopName();
     }
@@ -2260,10 +2318,6 @@ GNEEdge::drawDemandElements(const GUIVisualizationSettings& s) const {
         // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
         if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == flow) || flow->isAttributeCarrierSelected())) {
             drawPartialTripFromTo(s, flow, nullptr);
-        }
-        // only draw flow in the first edge
-        if (flow->getAttribute(SUMO_ATTR_FROM) == getID()) {
-            flow->drawGL(s);
         }
         // Pop name
         glPopName();

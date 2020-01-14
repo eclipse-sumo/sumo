@@ -112,6 +112,13 @@ GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, double startP
 
 
 void
+GNEGeometry::Geometry::updateGeometry(const Position &position, const double rotation) {
+    myPosition = position;
+    myRotation = rotation;
+}
+
+
+void
 GNEGeometry::Geometry::updateGeometry(const GNELane* lane, const double posOverLane) {
     // get lane length
     const double laneLength = lane->getLaneShape().length();

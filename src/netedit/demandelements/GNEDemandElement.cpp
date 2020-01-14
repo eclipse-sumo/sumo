@@ -237,6 +237,12 @@ GNEDemandElement::getDemandElementSegmentGeometry() const {
 }
 
 
+void 
+GNEDemandElement::updateDemandElementGeometry(const GNELane* lane, const double posOverLane) {
+    myDemandElementGeometry.updateGeometry(lane, posOverLane);
+}
+
+
 bool
 GNEDemandElement::isDemandElementValid() const {
     return true;
