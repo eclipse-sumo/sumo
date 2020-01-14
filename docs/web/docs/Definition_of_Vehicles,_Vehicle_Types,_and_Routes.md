@@ -214,6 +214,9 @@ traffic assignment zone.
 
 !!! caution
     When using TAZ with [SUMO](SUMO.md) and [DUAROUTER](DUAROUTER.md), their edges will be selected to minimize travel time. This is different from TAZ usage in [OD2TRIPS](OD2TRIPS.md) where edges are selected according to a probability distribution.
+    
+### Routing between Junctions
+Trips and flows may use the attributes `fromJunction`, `toJunction`, and `viaJunctions` to describe origin, destination and intermediate locations. This is a special form of TAZ-routing and it must be enabled by either setting the SUMO option **--junction-taz** or by loading TAZ-definitions that use the respective junction IDs. When using option **--junction-taz**, all edges outgoing from a junction may be used at the origin and all edges incoming to a junction may be used to reach the intermediate and final junctions.
 
 ## A Vehicle's depart and arrival parameter
 
