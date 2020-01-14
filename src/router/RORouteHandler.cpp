@@ -89,6 +89,7 @@ RORouteHandler::parseFromViaTo(std::string element,
         useTaz = false;
     }
     bool ok = true;
+    // from-attributes
     const std::string rid = "for " + element + " '" + myVehicleParameter->id + "'";
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) &&
                 (myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) || attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION))) {
@@ -114,6 +115,8 @@ RORouteHandler::parseFromViaTo(std::string element,
     if (!attrs.hasAttribute(SUMO_ATTR_VIA) && !attrs.hasAttribute(SUMO_ATTR_VIALONLAT) && !attrs.hasAttribute(SUMO_ATTR_VIAXY)) {
         myInsertStopEdgesAt = (int)myActiveRoute.size();
     }
+
+    // via-attributes
     ConstROEdgeVector viaEdges;
     if (attrs.hasAttribute(SUMO_ATTR_VIAXY)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIAXY, myVehicleParameter->id.c_str(), ok, true), false, viaEdges, rid, false);
@@ -131,11 +134,12 @@ RORouteHandler::parseFromViaTo(std::string element,
     } else {
         parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true), viaEdges, rid);
     }
-    for (ConstROEdgeVector::const_iterator i = viaEdges.begin(); i != viaEdges.end(); ++i) {
-        myActiveRoute.push_back(*i);
-        myVehicleParameter->via.push_back((*i)->getID());
+    for (const ROEdge* e: viaEdges) {
+        myActiveRoute.push_back(e);
+        myVehicleParameter->via.push_back(e->getID());
     }
 
+    // to-attributes
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) &&
             (myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET) || attrs.hasAttribute(SUMO_ATTR_TOJUNCTION))) {
         bool useJunction = attrs.hasAttribute(SUMO_ATTR_TOJUNCTION);
