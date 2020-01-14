@@ -136,7 +136,7 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     GNEFrame(horizontalFrameParent, viewNet, "Persons") {
 
     // create tag Selector modul for persons
-    myPersonTagSelector = new GNEFrameModuls::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSON);
+    myPersonTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::TAGTYPE_PERSON);
 
     // create person types selector modul
     myPTypeSelector = new GNEFrameModuls::DemandElementSelector(this, SUMO_TAG_PTYPE);
@@ -145,7 +145,7 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myPersonAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
 
     // create tag Selector modul for person plans
-    myPersonPlanTagSelector = new GNEFrameModuls::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
+    myPersonPlanTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::TAGTYPE_PERSONPLAN);
 
     // create person plan attributes
     myPersonPlanAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);

@@ -112,7 +112,7 @@ FXIMPLEMENT(GNEFrameAttributesModuls::NeteditAttributes,            FXGroupBox, 
 // GNEFrameAttributesModuls::AttributesCreatorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeCarrier::AttributeProperties& attrProperties) :
+GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeProperties& attrProperties) :
     FXHorizontalFrame(AttributesCreatorParent, GUIDesignAuxiliarHorizontalFrame),
     myAttributesCreatorParent(AttributesCreatorParent),
     myAttrProperties(attrProperties) {
@@ -212,7 +212,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::destroy() {
 }
 
 
-const GNEAttributeCarrier::AttributeProperties&
+const GNEAttributeProperties&
 GNEFrameAttributesModuls::AttributesCreatorRow::getAttrProperties() const {
     return myAttrProperties;
 }
@@ -599,7 +599,7 @@ GNEFrameAttributesModuls::AttributesCreator::~AttributesCreator() {}
 
 
 void
-GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties, const std::vector<SumoXMLAttr>& hiddenAttributes) {
+GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GNETagProperties& tagProperties, const std::vector<SumoXMLAttr>& hiddenAttributes) {
     // set current tag Properties
     myTagProperties = tagProperties;
     // first destroy all rows
@@ -698,7 +698,7 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(bool include
 }
 
 
-GNEAttributeCarrier::TagProperties
+GNETagProperties
 GNEFrameAttributesModuls::AttributesCreator::getCurrentTagProperties() const {
     return myTagProperties;
 }
@@ -1010,7 +1010,7 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSelectFlowRadioButton(FXOb
 // GNEFrameAttributesModuls::AttributesEditorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttributesModuls::AttributesEditor* attributeEditorParent, const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool attributeEnabled) :
+GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttributesModuls::AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value, bool attributeEnabled) :
     FXHorizontalFrame(attributeEditorParent, GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
     myACAttr(ACAttr),
@@ -2538,7 +2538,7 @@ GNEFrameAttributesModuls::NeteditAttributes::~NeteditAttributes() {}
 
 
 void
-GNEFrameAttributesModuls::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrier::TagProperties& tagProperty) {
+GNEFrameAttributesModuls::NeteditAttributes::showNeteditAttributesModul(const GNETagProperties& tagProperty) {
     // we assume that frame will not be show
     bool showFrame = false;
     // check if length text field has to be showed

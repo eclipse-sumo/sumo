@@ -287,22 +287,22 @@ private:
     std::string generateID(GNENetworkElement* networkElement) const;
 
     /// @brief build common additional attributes
-    bool buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues);
+    bool buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::string>& valuesMap, const GNETagProperties& tagValues);
 
     /// @brief build additional with Parent
-    bool buildAdditionalWithParent(std::map<SumoXMLAttr, std::string>& valuesMap, GNEAdditional* parent, const GNEAttributeCarrier::TagProperties& tagValues);
+    bool buildAdditionalWithParent(std::map<SumoXMLAttr, std::string>& valuesMap, GNEAdditional* parent, const GNETagProperties& tagValues);
 
     /// @brief build additional over an edge (parent of lane)
-    bool buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues);
+    bool buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNETagProperties& tagValues);
 
     /// @brief build additional over a single lane
-    bool buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues);
+    bool buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNETagProperties& tagValues);
 
     /// @brief build additional over lanes
-    bool buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues);
+    bool buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNETagProperties& tagValues);
 
     /// @brief build additional over view
-    bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues);
+    bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNETagProperties& tagValues);
 
     /// @brief item selector
     GNEFrameModuls::TagSelector* myAdditionalTagSelector;

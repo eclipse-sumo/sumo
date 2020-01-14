@@ -678,7 +678,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             // check if we're in inspector mode and we're inspecting exactly one element
             if ((myEditModes.demandEditMode == GNE_DEMANDMODE_INSPECT) && getDottedAC()) {
                 // obtain tag property
-                const GNEAttributeCarrier::TagProperties& tagProperty = getDottedAC()->getTagProperty();
+                const GNETagProperties& tagProperty = getDottedAC()->getTagProperty();
                 // enable menu check lock person if is either a person, a person plan or a person stop
                 if (tagProperty.isPerson() || tagProperty.isPersonPlan() || tagProperty.isPersonStop()) {
                     myDemandViewOptions.menuCheckLockPerson->enable();

@@ -610,7 +610,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     GNEFrame(horizontalFrameParent, viewNet, "Additionals") {
 
     // create item Selector modul for additionals
-    myAdditionalTagSelector = new GNEFrameModuls::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONALELEMENT);
+    myAdditionalTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::TAGTYPE_ADDITIONALELEMENT);
 
     // Create additional parameters
     myAdditionalAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
@@ -771,7 +771,7 @@ GNEAdditionalFrame::generateID(GNENetworkElement* networkElement) const {
 
 
 bool
-GNEAdditionalFrame::buildAdditionalWithParent(std::map<SumoXMLAttr, std::string>& valuesMap, GNEAdditional* additionalParent, const GNEAttributeCarrier::TagProperties& tagValues) {
+GNEAdditionalFrame::buildAdditionalWithParent(std::map<SumoXMLAttr, std::string>& valuesMap, GNEAdditional* additionalParent, const GNETagProperties& tagValues) {
     // if user click over an additional element parent, mark int in ParentAdditionalSelector
     if (additionalParent && (additionalParent->getTagProperty().getTag() == tagValues.getParentTag())) {
         valuesMap[GNE_ATTR_PARENT] = additionalParent->getID();
@@ -789,7 +789,7 @@ GNEAdditionalFrame::buildAdditionalWithParent(std::map<SumoXMLAttr, std::string>
 
 
 bool
-GNEAdditionalFrame::buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues) {
+GNEAdditionalFrame::buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::string>& valuesMap, const GNETagProperties& tagValues) {
     // If additional has a interval defined by a begin or end, check that is valid
     if (tagValues.hasAttribute(SUMO_ATTR_STARTTIME) && tagValues.hasAttribute(SUMO_ATTR_END)) {
         double begin = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_STARTTIME]);
@@ -832,7 +832,7 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::s
 
 
 bool
-GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues) {
+GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNETagProperties& tagValues) {
     // check that edge exist
     if (lane) {
         // Get attribute lane's edge
@@ -873,7 +873,7 @@ GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& 
 
 
 bool
-GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues) {
+GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNETagProperties& tagValues) {
     // check that lane exist
     if (lane != nullptr) {
         // Get attribute lane
@@ -918,7 +918,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& 
 
 
 bool
-GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues) {
+GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNETagProperties& tagValues) {
     // stop if lane isn't valid
     if (lane == nullptr) {
         return false;
@@ -980,7 +980,7 @@ GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string>&
 
 
 bool
-GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues) {
+GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNETagProperties& tagValues) {
     // Check if ID has to be generated
     if (valuesMap.count(SUMO_ATTR_ID) == 0) {
         valuesMap[SUMO_ATTR_ID] = generateID(nullptr);

@@ -26,10 +26,9 @@
 #include <utils/common/Parameterised.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/gui/images/GUIIcons.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
-#include <utils/xml/SUMOSAXAttributes.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
+
+#include "GNETagProperties.h"
 
 
 // ===========================================================================
@@ -56,461 +55,6 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     friend class GNEChange_EnableAttribute;
 
 public:
-
-    // @brief declare class TagProperties
-    class TagProperties;
-
-    /// @brief struct with the tag Properties
-    enum AttrProperty {
-        ATTRPROPERTY_INT =                 1 << 0,   // Attribute is an integer (Including Zero)
-        ATTRPROPERTY_FLOAT =               1 << 1,   // Attribute is a float
-        ATTRPROPERTY_SUMOTIME =            1 << 2,   // Attribute is a SUMOTime
-        ATTRPROPERTY_BOOL =                1 << 3,   // Attribute is boolean (0/1, true/false)
-        ATTRPROPERTY_STRING =              1 << 4,   // Attribute is a string
-        ATTRPROPERTY_POSITION =            1 << 5,   // Attribute is a position defined by doubles (x,y or x,y,z)
-        ATTRPROPERTY_COLOR =               1 << 6,   // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
-        ATTRPROPERTY_VCLASS =              1 << 7,   // Attribute is a VClass (passenger, bus, motorcicle...)
-        ATTRPROPERTY_POSITIVE =            1 << 8,   // Attribute is positive (Including Zero)
-        ATTRPROPERTY_UNIQUE =              1 << 9,   // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
-        ATTRPROPERTY_FILENAME =            1 << 10,  // Attribute is a filename (string that cannot contains certain characters)
-        ATTRPROPERTY_DISCRETE =            1 << 11,  // Attribute is discrete (only certain values are allowed)
-        ATTRPROPERTY_PROBABILITY =         1 << 12,  // Attribute is probability (only allowed values between 0 and 1, including both)
-        ATTRPROPERTY_ANGLE =               1 << 13,  // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
-        ATTRPROPERTY_LIST =                1 << 14,  // Attribute is a list of other elements separated by spaces
-        ATTRPROPERTY_SECUENCIAL =          1 << 15,  // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
-        ATTRPROPERTY_OPTIONAL =            1 << 16,  // Attribute will not be written in XML file if current value is the same of his default Static/Mutable value
-        ATTRPROPERTY_DEFAULTVALUESTATIC =  1 << 17,  // Attribute owns a static default value
-        ATTRPROPERTY_DEFAULTVALUEMUTABLE = 1 << 18,  // Attribute owns a mutable default value (Default value depends of value of other attribute)
-        ATTRPROPERTY_VCLASSES =            1 << 19,  // Attribute is a combination of VClasses (allow/disallow)
-        ATTRPROPERTY_SYNONYM =             1 << 20,  // Attribute will be written with a different name in der XML
-        ATTRPROPERTY_RANGE =               1 << 21,  // Attribute only accept a range of elements (example: Probability [0,1])
-        ATTRPROPERTY_EXTENDED =            1 << 22,  // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
-        ATTRPROPERTY_UPDATEGEOMETRY =      1 << 23,  // Attribute require update geometry at the end of function setAttribute(...)
-        ATTRPROPERTY_ACTIVATABLE =         1 << 24,  // Attribute can be switch on/off using a checkbox in frame
-        ATTRPROPERTY_COMPLEX =             1 << 25,  // Attribute is complex: Requiere a special function to check if the given value is valid
-        ATTRPROPERTY_FLOWDEFINITION =      1 << 26,  // Attribute is part of a flow definition (Number, vehsPerHour...)
-    };
-
-    /// @brief struct with the attribute Properties
-    class AttributeProperties {
-
-    public:
-        /// @brief default constructor
-        AttributeProperties();
-
-        /// @brief parameter constructor
-        AttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const std::string& definition, std::string defaultValue = "");
-
-        /// @brief destructor
-        ~AttributeProperties();
-
-        /// @brief check Attribute integrity (For example, throw an exception if tag has a Float default value, but given default value cannot be parse to float)
-        void checkAttributeIntegrity();
-
-        /// @brief set discrete values
-        void setDiscreteValues(const std::vector<std::string>& discreteValues);
-
-        /// @brief set synonim
-        void setSynonym(const SumoXMLAttr synonym);
-
-        /// @brief set range
-        void setRange(const double minimum, const double maximum);
-
-        /// @brief set tag property parent
-        void setTagPropertyParent(TagProperties* tagPropertyParent);
-
-        /// @brief get XML Attribute
-        SumoXMLAttr getAttr() const;
-
-        /// @brief get XML Attribute
-        const std::string& getAttrStr() const;
-
-        /// @brief get reference to tagProperty parent
-        const TagProperties& getTagPropertyParent() const;
-
-        /// @brief get position in list (used in frames for listing attributes with certain sort)
-        int getPositionListed() const;
-
-        /// @brief get default value
-        const std::string& getDefinition() const;
-
-        /// @brief get default value
-        const std::string& getDefaultValue() const;
-
-        /// @brief return a description of attribute
-        std::string getDescription() const;
-
-        /// @brief get discrete values
-        const std::vector<std::string>& getDiscreteValues() const;
-
-        /// @brief get tag synonym
-        SumoXMLAttr getAttrSynonym() const;
-
-        /// @brief get minimum range
-        double getMinimumRange() const;
-
-        /// @brief get maximum range
-        double getMaximumRange() const;
-
-        /// @brief return true if attribute owns a static default value
-        bool hasStaticDefaultValue() const;
-
-        /// @brief return true if attribute owns a mutable default value
-        bool hasMutableDefaultValue() const;
-
-        /// @brief return true if Attr correspond to an element that will be written in XML with another name
-        bool hasAttrSynonym() const;
-
-        /// @brief return true if Attr correspond to an element that only accept a range of values
-        bool hasAttrRange() const;
-
-        /// @brief return true if atribute is an integer
-        bool isInt() const;
-
-        /// @brief return true if atribute is a float
-        bool isFloat() const;
-
-        /// @brief return true if atribute is a SUMOTime
-        bool isSUMOTime() const;
-
-        /// @brief return true if atribute is boolean
-        bool isBool() const;
-
-        /// @brief return true if atribute is a string
-        bool isString() const;
-
-        /// @brief return true if atribute is a position
-        bool isposition() const;
-
-        /// @brief return true if atribute is a probability
-        bool isProbability() const;
-
-        /// @brief return true if atribute is numerical (int or float)
-        bool isNumerical() const;
-
-        /// @brief return true if atribute is positive
-        bool isPositive() const;
-
-        /// @brief return true if atribute is a color
-        bool isColor() const;
-
-        /// @brief return true if atribute is a filename
-        bool isFilename() const;
-
-        /// @brief return true if atribute is a VehicleClass
-        bool isVClass() const;
-
-        /// @brief return true if atribute is a VehicleClass
-        bool isSVCPermission() const;
-
-        /// @brief return true if atribute is a list
-        bool isList() const;
-
-        /// @brief return true if atribute is sequential
-        bool isSecuential() const;
-
-        /// @brief return true if atribute is unique
-        bool isUnique() const;
-
-        /// @brief return true if atribute is optional (it will be written in XML only if his value is different of default value)
-        bool isOptional() const;
-
-        /// @brief return true if atribute is discrete
-        bool isDiscrete() const;
-
-        /// @brief return true if atribute is a list of VClasses
-        bool isVClasses() const;
-
-        /// @brief return true if atribute is extended
-        bool isExtended() const;
-
-        /// @brief return true if atribute requires a update geometry in setAttribute(...)
-        bool requireUpdateGeometry() const;
-
-        /// @brief return true if atribute is activatable
-        bool isActivatable() const;
-
-        /// @brief return true if atribute is complex
-        bool isComplex() const;
-
-        /// @brief return true if atribute is part of a flow definition
-        bool isFlowDefinition() const;
-
-    private:
-        /// @brief XML Attribute
-        SumoXMLAttr myAttribute;
-
-        /// @brief pointer to tagProperty parent
-        TagProperties* myTagPropertyParent;
-
-        /// @brief string with the Attribute in text format (to avoid unnecesaries toStrings(...) calls)
-        std::string myAttrStr;
-
-        /// @brief Property of attribute
-        int myAttributeProperty;
-
-        /// @brief text with a definition of attribute
-        std::string myDefinition;
-
-        /// @brief default value (by default empty)
-        std::string myDefaultValue;
-
-        /// @brief discrete values that can take this Attribute (by default empty)
-        std::vector<std::string> myDiscreteValues;
-
-        /// @brief Attribute written in XML (If is SUMO_ATTR_NOTHING), original Attribute will be written)
-        SumoXMLAttr myAttrSynonym;
-
-        /// @brief minimun Range
-        double myMinimumRange;
-
-        /// @brief maxium Range
-        double myMaximumRange;
-    };
-
-    enum TagType {
-        TAGTYPE_NETWORKELEMENT =    1 << 0, // Edges, Junctions, Lanes...
-        TAGTYPE_ADDITIONALELEMENT = 1 << 1,  // Bus Stops, Charging Stations, Detectors...
-        TAGTYPE_SHAPE =             1 << 2,  // POIs, Polygons
-        TAGTYPE_DEMANDELEMENT =     1 << 3,  // Routes, Vehicles, Trips...
-        TAGTYPE_DATAELEMENT =       1 << 4,  // EdgeData, LaneData...
-        TAGTYPE_TAZ =               1 << 5,  // Traffic Assignment Zones
-        TAGTYPE_STOPPINGPLACE =     1 << 6,  // StoppingPlaces (BusStops, ChargingStations...)
-        TAGTYPE_DETECTOR =          1 << 7,  // Detectors (E1, E2...)
-        TAGTYPE_VTYPE =             1 << 8,  // Vehicle types (vType and pTye)
-        TAGTYPE_VEHICLE =           1 << 9,  // Vehicles (Flows, trips...)
-        TAGTYPE_ROUTE =             1 << 10, // Routes and embedded routes
-        TAGTYPE_STOP =              1 << 11, // Stops
-        TAGTYPE_PERSON =            1 << 12, // Persons
-        TAGTYPE_PERSONPLAN =        1 << 13, // Person plans (Walks, rides, ...)
-        TAGTYPE_PERSONTRIP =        1 << 14, // Walks
-        TAGTYPE_WALK =              1 << 15, // Walks
-        TAGTYPE_RIDE =              1 << 16, // Rides
-        TAGTYPE_PERSONSTOP =        1 << 17, // Person stops
-    };
-
-    enum TAGProperty {
-        TAGPROPERTY_DRAWABLE =              1 << 0,     // Element can be drawed in view
-        TAGPROPERTY_BLOCKMOVEMENT =         1 << 1,     // Element can block their movement
-        TAGPROPERTY_BLOCKSHAPE =            1 << 2,     // Element can block their shape
-        TAGPROPERTY_CLOSESHAPE =            1 << 3,     // Element can close their shape
-        TAGPROPERTY_GEOPOSITION =           1 << 4,     // Element's position can be defined using a GEO position
-        TAGPROPERTY_GEOSHAPE =              1 << 5,     // Element's shape acn be defined using a GEO Shape
-        TAGPROPERTY_DIALOG =                1 << 6,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        TAGPROPERTY_PARENT =                1 << 7,     // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
-        TAGPROPERTY_MINIMUMCHILDREN =       1 << 8,     // Element will be only writed in XML if has a minimum number of children
-        TAGPROPERTY_REPARENT =              1 << 9,     // Element can be reparent
-        TAGPROPERTY_SYNONYM =               1 << 10,    // Element will be written with a different name in der XML
-        TAGPROPERTY_AUTOMATICSORTING =      1 << 11,    // Element sort automatic their Children (used by Additionals)
-        TAGPROPERTY_SELECTABLE =            1 << 12,    // Element is selectable
-        TAGPROPERTY_MASKSTARTENDPOS =       1 << 13,    // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
-        TAGPROPERTY_MASKXYZPOSITION =       1 << 14,    // Element mask attributes X, Y and Z as "Position"
-        TAGPROPERTY_WRITECHILDRENSEPARATE = 1 << 15,    // Element writes their children in a separated filename
-        TAGPROPERTY_NOPARAMETERS =          1 << 16,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        TAGPROPERTY_RTREE =                 1 << 17,    // Element is placed in RTREE
-        TAGPROPERTY_SORTINGCHILDREN =       1 << 18,    // Element can be sorted in their parent element manually (in ACHierarchy)
-        TAGPROPERTY_CENTERAFTERCREATION =   1 << 19,    // Camera is moved after element creation
-    };
-
-    /// @brief struct with the attribute Properties
-    class TagProperties {
-    public:
-        /// @brief default constructor
-        TagProperties();
-
-        /// @brief parameter constructor
-        TagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, SumoXMLTag parentTag = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
-
-        /// @brief destructor
-        ~TagProperties();
-
-        /// @brief get Tag vinculated with this attribute Property
-        SumoXMLTag getTag() const;
-
-        /// @brief get Tag vinculated with this attribute Property in String Format (used to avoid multiple calls to toString(...)
-        const std::string& getTagStr() const;
-
-        /// @brief check Tag integrity (this include all their attributes)
-        void checkTagIntegrity() const;
-
-        /// @brief add attribute (duplicated attributed aren't allowed)
-        void addAttribute(const AttributeProperties& attributeProperty);
-
-        /// @brief add deprecated Attribute
-        void addDeprecatedAttribute(SumoXMLAttr attr);
-
-        /// @brief get attribute (throw error if doesn't exist)
-        const AttributeProperties& getAttributeProperties(SumoXMLAttr attr) const;
-
-        /// @brief get begin of attribute values (used for iterate)
-        std::vector<AttributeProperties>::const_iterator begin() const;
-
-        /// @brief get end of attribute values (used for iterate)
-        std::vector<AttributeProperties>::const_iterator end() const;
-
-        /// @brief get number of attributes
-        int getNumberOfAttributes() const;
-
-        /// @brief return the default value of the attribute of an element
-        const std::string& getDefaultValue(SumoXMLAttr attr) const;
-
-        /// @brief get GUI icon associated to this Tag
-        GUIIcon getGUIIcon() const;
-
-        /// @brief if Tag owns a parent, return parent tag
-        SumoXMLTag getParentTag() const;
-
-        /// @brief get tag synonym
-        SumoXMLTag getTagSynonym() const;
-
-        /// @brief check if current TagProperties owns the attribute "attr"
-        bool hasAttribute(SumoXMLAttr attr) const;
-
-        /// @brief return true if tag correspond to a network element
-        bool isNetworkElement() const;
-
-        /// @brief return true if tag correspond to an additional element
-        bool isAdditionalElement() const;
-
-        /// @brief return true if tag correspond to a shape
-        bool isShape() const;
-
-        /// @brief return true if tag correspond to a TAZ
-        bool isTAZ() const;
-
-        /// @brief return true if tag correspond to a demand element
-        bool isDemandElement() const;
-
-        /// @brief return true if tag correspond to a data element
-        bool isDataElement() const;
-
-        /// @brief return true if tag correspond to a detector (Only used to group all stoppingPlaces in the output XML)
-        bool isStoppingPlace() const;
-
-        /// @brief return true if tag correspond to a shape (Only used to group all detectors in the XML)
-        bool isDetector() const;
-
-        /// @brief return true if tag correspond to a vehicle type element
-        bool isVehicleType() const;
-
-        /// @brief return true if tag correspond to a vehicle element
-        bool isVehicle() const;
-
-        /// @brief return true if tag correspond to a route element
-        bool isRoute() const;
-
-        /// @brief return true if tag correspond to a stop element
-        bool isStop() const;
-
-        /// @brief return true if tag correspond to a person element
-        bool isPerson() const;
-
-        /// @brief return true if tag correspond to a person plan
-        bool isPersonPlan() const;
-
-        /// @brief return true if tag correspond to a person trip
-        bool isPersonTrip() const;
-
-        /// @brief return true if tag correspond to a walk element
-        bool isWalk() const;
-
-        /// @brief return true if tag correspond to a ride element
-        bool isRide() const;
-
-        /// @brief return true if tag correspond to a person stop element
-        bool isPersonStop() const;
-
-        /// @brief return true if tag correspond to a drawable element
-        bool isDrawable() const;
-
-        /// @brief return true if tag correspond to a selectable element
-        bool isSelectable() const;
-
-        /// @brief return true if tag correspond to an element that can block their movement
-        bool canBlockMovement() const;
-
-        /// @brief return true if tag correspond to an element that can block their shape
-        bool canBlockShape() const;
-
-        /// @brief return true if tag correspond to an element that can close their shape
-        bool canCloseShape() const;
-
-        /// @brief return true if tag correspond to an element that can use a geo position
-        bool hasGEOPosition() const;
-
-        /// @brief return true if tag correspond to an element that can use a geo shape
-        bool hasGEOShape() const;
-
-        /// @brief return true if tag correspond to an element that can had another element as parent
-        bool hasParent() const;
-
-        /// @brief return true if tag correspond to an element that will be written in XML with another tag
-        bool hasTagSynonym() const;
-
-        /// @brief return true if tag correspond to an element that can be edited using a dialog
-        bool hasDialog() const;
-
-        /// @brief return true if tag correspond to an element that only have a limited number of children
-        bool hasMinimumNumberOfChildren() const;
-
-        /// @brief return true if Tag correspond to an element that supports parameters "key1=value1|key2=value2|...|keyN=valueN"
-        bool hasParameters() const;
-
-        /// @brief return true if Tag correspond to an element that has has to be placed in RTREE
-        bool isPlacedInRTree() const;
-
-        /// @brief return true if Tag correspond to an element that can be sorted within their parent
-        bool canBeSortedManually() const;
-
-        /// @brief return true if tag correspond to an element that can be reparent
-        bool canBeReparent() const;
-
-        /// @brief return true if tag correspond to an element that can sort their children automatic
-        bool canAutomaticSortChildren() const;
-
-        /// @brief return true if tag correspond to an element that can sort their children automatic
-        bool canWriteChildrenSeparate() const;
-
-        /// @brief return true if tag correspond to an element that can mask the attributes "start" and "end" position as attribute "length"
-        bool canMaskStartEndPos() const;
-
-        /// @brief return true if tag correspond to an element that can mask the attributes "X", "Y" and "Z" position as attribute "Position"
-        bool canMaskXYZPositions() const;
-
-        /// @brief return true if tag correspond to an element that center camera after creation
-        bool canCenterCameraAfterCreation() const;
-
-        /// @brief return true if attribute of this tag is deprecated
-        bool isAttributeDeprecated(SumoXMLAttr attr) const;
-
-    private:
-        /// @brief Sumo XML Tag vinculated wit this tag Property
-        SumoXMLTag myTag;
-
-        /// @brief Sumo XML Tag vinculated wit this tag Property in String format
-        std::string myTagStr;
-
-        /// @brief Attribute Type
-        int myTagType;
-
-        /// @brief Attribute properties
-        int myTagProperty;
-
-        /// @brief vector with the attribute values vinculated with this Tag
-        std::vector<AttributeProperties> myAttributeProperties;
-
-        /// @brief icon associated to this Tag
-        GUIIcon myIcon;
-
-        /// @brief parent tag
-        SumoXMLTag myParentTag;
-
-        /// @brief Tag written in XML (If is SUMO_TAG_NOTHING), original Tag name will be written)
-        SumoXMLTag myTagSynonym;
-
-        /// @brief List with the deprecated Attributes
-        std::vector<SumoXMLAttr> myDeprecatedAttributes;
-    };
 
     /**@brief Constructor
      * @param[in] tag SUMO Tag assigned to this type of object
@@ -622,7 +166,7 @@ public:
     const std::string& getTagStr() const;
 
     /// @brief get Tag Property assigned to this object
-    const TagProperties& getTagProperty() const;
+    const GNETagProperties& getTagProperty() const;
 
     /// @brief get FXIcon associated to this AC
     FXIcon* getIcon() const;
@@ -631,7 +175,7 @@ public:
     const std::string getID() const;
 
     /// @brief get Tag Properties
-    static const TagProperties& getTagProperties(SumoXMLTag tag);
+    static const GNETagProperties& getTagProperties(SumoXMLTag tag);
 
     /// @brief get tags of all editable element types
     static std::vector<SumoXMLTag> allowedTags(bool onlyDrawables);
@@ -790,13 +334,13 @@ public:
 
 protected:
     /// @brief the xml tag to which this attribute carrier corresponds
-    const TagProperties& myTagProperty;
+    const GNETagProperties& myTagProperty;
 
     /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
     bool mySelected;
 
     /// @brief dummy TagProperty used for reference some elements (for Example, dummyEdge)
-    static TagProperties dummyTagProperty;
+    static GNETagProperties dummyTagProperty;
 
     /// @brief dotted geometry
     GNEGeometry::DottedGeometry myDottedGeometry;
@@ -860,15 +404,15 @@ private:
     static void fillDataElements();
 
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
-    static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute,
+    static bool checkParsedAttribute(const GNETagProperties& tagProperties, const GNEAttributeProperties& attrProperties, const SumoXMLAttr attribute,
                                      std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief parse and check masked  (note: This function is only to improve legilibility)
-    static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const TagProperties& tagProperties,
-            const AttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
+    static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const GNETagProperties& tagProperties,
+            const GNEAttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief map with the tags properties
-    static std::map<SumoXMLTag, TagProperties> myTagProperties;
+    static std::map<SumoXMLTag, GNETagProperties> myTagProperties;
 
     /// @brief Invalidated copy constructor.
     GNEAttributeCarrier(const GNEAttributeCarrier&) = delete;

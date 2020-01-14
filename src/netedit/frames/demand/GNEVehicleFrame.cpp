@@ -103,7 +103,7 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     GNEFrame(horizontalFrameParent, viewNet, "Vehicles") {
 
     // Create item Selector modul for vehicles
-    myVehicleTagSelector = new GNEFrameModuls::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE);
+    myVehicleTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::TAGTYPE_VEHICLE);
 
     // Create vehicle type selector
     myVTypeSelector = new GNEFrameModuls::DemandElementSelector(this, SUMO_TAG_VTYPE);

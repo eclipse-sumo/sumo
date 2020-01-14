@@ -55,13 +55,13 @@ public:
 
     public:
         /// @brief constructor
-        AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeCarrier::AttributeProperties& attrProperties);
+        AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeProperties& attrProperties);
 
         /// @brief destroy AttributesCreatorRow (but don't delete)
         void destroy();
 
         /// @brief return Attr
-        const GNEAttributeCarrier::AttributeProperties& getAttrProperties() const;
+        const GNEAttributeProperties& getAttrProperties() const;
 
         /// @brief return value
         std::string getValue() const;
@@ -119,7 +119,7 @@ public:
         AttributesCreator* myAttributesCreatorParent = nullptr;
 
         /// @brief attribute properties
-        const GNEAttributeCarrier::AttributeProperties myAttrProperties;
+        const GNEAttributeProperties myAttrProperties;
 
         /// @brief string which indicates the reason due current value is invalid
         std::string myInvalidValue;
@@ -159,10 +159,10 @@ public:
         ~AttributesCreator();
 
         /**@brief show AttributesCreator modul
-         * @param tagProperties GNEAttributeCarrier::TagProperties which contain all attributes
+         * @param tagProperties GNETagProperties which contain all attributes
          * @param hiddenAttributes list of attributes contained in tagProperties but not shown
          */
-        void showAttributesCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties, const std::vector<SumoXMLAttr>& hiddenAttributes);
+        void showAttributesCreatorModul(const GNETagProperties& tagProperties, const std::vector<SumoXMLAttr>& hiddenAttributes);
 
         /// @brief hide group box
         void hideAttributesCreatorModul();
@@ -174,7 +174,7 @@ public:
         std::map<SumoXMLAttr, std::string> getAttributesAndValues(bool includeAll) const;
 
         /// @brief get current edited Tag Properties
-        GNEAttributeCarrier::TagProperties getCurrentTagProperties() const;
+        GNETagProperties getCurrentTagProperties() const;
 
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
@@ -202,7 +202,7 @@ public:
         AttributesCreatorFlow* myAttributesCreatorFlow = nullptr;
 
         /// @brief current edited Tag Properties
-        GNEAttributeCarrier::TagProperties myTagProperties;
+        GNETagProperties myTagProperties;
 
         /// @brief vector with the AttributesCreatorRow
         std::vector<AttributesCreatorRow*> myAttributesCreatorRows;
@@ -304,7 +304,7 @@ public:
 
     public:
         /// @brief constructor
-        AttributesEditorRow(AttributesEditor* attributeEditorParent, const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool attributeEnabled);
+        AttributesEditorRow(AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value, bool attributeEnabled);
 
         /// @brief destroy AttributesCreatorRow (but don't delete)
         void destroy();
@@ -339,7 +339,7 @@ public:
         AttributesEditor* myAttributesEditorParent = nullptr;
 
         /// @brief current AC Attribute
-        const GNEAttributeCarrier::AttributeProperties myACAttr;
+        const GNEAttributeProperties myACAttr;
 
         /// @brief flag to check if input element contains multiple values
         const bool myMultiple;
@@ -722,7 +722,7 @@ public:
         ~NeteditAttributes();
 
         /// @brief show Netedit attributes modul
-        void showNeteditAttributesModul(const GNEAttributeCarrier::TagProperties& tagValue);
+        void showNeteditAttributesModul(const GNETagProperties& tagValue);
 
         /// @brief hide Netedit attributes modul
         void hideNeteditAttributesModul();

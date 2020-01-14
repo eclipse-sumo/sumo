@@ -8,10 +8,10 @@
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
 /// @file    GNEAttributeCarrier.cpp
-/// @author  Jakob Erdmann
-/// @date    Feb 2011
+/// @author  Pablo Alvarez Lopez
+/// @date    Jan 2020
 ///
-// Abstract Base class for gui objects which carry attributes
+// Abstract Base class for tag properties used in GNEAttributeCarrier
 /****************************************************************************/
 
 

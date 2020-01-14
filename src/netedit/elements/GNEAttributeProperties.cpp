@@ -27,10 +27,6 @@
 // method definitions
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNEAttributeProperties - methods
-// ---------------------------------------------------------------------------
-
 GNEAttributeProperties::GNEAttributeProperties() :
     myAttribute(SUMO_ATTR_NOTHING),
     myTagPropertyParent(nullptr),

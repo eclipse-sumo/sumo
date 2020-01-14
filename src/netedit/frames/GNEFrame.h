@@ -104,7 +104,7 @@ protected:
     /// @}
 
     /// @brief Open help attributes dialog
-    void openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tagProperties) const;
+    void openHelpAttributesDialog(const GNETagProperties& tagProperties) const;
 
     /// @brief get edge candidate color
     const RGBColor& getEdgeCandidateColor() const;

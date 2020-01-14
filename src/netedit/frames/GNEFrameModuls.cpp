@@ -103,50 +103,50 @@ FXIMPLEMENT(GNEFrameModuls::OverlappedInspection,       FXGroupBox,     Overlapp
 // GNEFrameModuls::TagSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNEAttributeCarrier::TagType type, bool onlyDrawables) :
+GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, bool onlyDrawables) :
     FXGroupBox(frameParent->myContentFrame, "Element", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent) {
     // first check that property is valid
     switch (type) {
-        case GNEAttributeCarrier::TagType::TAGTYPE_NETWORKELEMENT:
+        case GNETagProperties::TagType::TAGTYPE_NETWORKELEMENT:
             setText("network elements");
             break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONALELEMENT:
+        case GNETagProperties::TagType::TAGTYPE_ADDITIONALELEMENT:
             setText("Additional elements");
             break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_SHAPE:
+        case GNETagProperties::TagType::TAGTYPE_SHAPE:
             setText("Shape elements");
             break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_TAZ:
+        case GNETagProperties::TagType::TAGTYPE_TAZ:
             setText("TAZ elements");
             break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE:
+        case GNETagProperties::TagType::TAGTYPE_VEHICLE:
             setText("Vehicles");
             break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_STOP:
+        case GNETagProperties::TagType::TAGTYPE_STOP:
             setText("Stops");
             break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_PERSON:
+        case GNETagProperties::TagType::TAGTYPE_PERSON:
             setText("Persons");
             break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN:
+        case GNETagProperties::TagType::TAGTYPE_PERSONPLAN:
             setText("Person plans");
             // person plan type has four sub-groups
-            myListOfTagTypes.push_back(std::make_pair("person trips", GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP));
-            myListOfTagTypes.push_back(std::make_pair("walks", GNEAttributeCarrier::TagType::TAGTYPE_WALK));
-            myListOfTagTypes.push_back(std::make_pair("rides", GNEAttributeCarrier::TagType::TAGTYPE_RIDE));
-            myListOfTagTypes.push_back(std::make_pair("stops", GNEAttributeCarrier::TagType::TAGTYPE_PERSONSTOP));
+            myListOfTagTypes.push_back(std::make_pair("person trips", GNETagProperties::TagType::TAGTYPE_PERSONTRIP));
+            myListOfTagTypes.push_back(std::make_pair("walks", GNETagProperties::TagType::TAGTYPE_WALK));
+            myListOfTagTypes.push_back(std::make_pair("rides", GNETagProperties::TagType::TAGTYPE_RIDE));
+            myListOfTagTypes.push_back(std::make_pair("stops", GNETagProperties::TagType::TAGTYPE_PERSONSTOP));
             break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP:
+        case GNETagProperties::TagType::TAGTYPE_PERSONTRIP:
             setText("Person trips");
             break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_WALK:
+        case GNETagProperties::TagType::TAGTYPE_WALK:
             setText("Walks");
             break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_RIDE:
+        case GNETagProperties::TagType::TAGTYPE_RIDE:
             setText("Rides");
             break;
-        case GNEAttributeCarrier::TagType::TAGTYPE_PERSONSTOP:
+        case GNETagProperties::TagType::TAGTYPE_PERSONSTOP:
             setText("Person stops");
             break;
         default:
@@ -166,7 +166,7 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNEAttributeCarr
         // Set visible items
         myTagTypesMatchBox->setNumVisible((int)myTagTypesMatchBox->getNumItems());
         // fill myListOfTags with personTrips (the first Tag Type)
-        myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP, onlyDrawables);
+        myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_PERSONTRIP, onlyDrawables);
     } else {
         myTagTypesMatchBox->hide();
         // fill myListOfTags
@@ -199,22 +199,22 @@ GNEFrameModuls::TagSelector::hideTagSelector() {
 }
 
 
-const GNEAttributeCarrier::TagProperties&
+const GNETagProperties&
 GNEFrameModuls::TagSelector::getCurrentTagProperties() const {
     return myCurrentTagProperties;
 }
 
 
 void
-GNEFrameModuls::TagSelector::setCurrentTagType(GNEAttributeCarrier::TagType tagType) {
+GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType) {
     // set empty tag properties
-    myCurrentTagProperties = GNEAttributeCarrier::TagProperties();
+    myCurrentTagProperties = GNETagProperties();
     // make sure that tag is in myTypeMatchBox
     for (int i = 0; i < (int)myTagsMatchBox->getNumItems(); i++) {
         if (myTagsMatchBox->getItem(i).text() == toString(tagType)) {
             myTagsMatchBox->setCurrentItem(i);
             // fill myListOfTags with personTrips (the first Tag Type)
-            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP, true);
+            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_PERSONTRIP, true);
             // clear myTagsMatchBox
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
@@ -233,7 +233,7 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNEAttributeCarrier::TagType tagT
 void
 GNEFrameModuls::TagSelector::setCurrentTag(SumoXMLTag newTag) {
     // set empty tag properties
-    myCurrentTagProperties = GNEAttributeCarrier::TagProperties();
+    myCurrentTagProperties = GNETagProperties();
     // make sure that tag is in myTypeMatchBox
     for (int i = 0; i < (int)myTagsMatchBox->getNumItems(); i++) {
         if (myTagsMatchBox->getItem(i).text() == toString(newTag)) {
@@ -336,7 +336,7 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
 }
 
 
-GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNEAttributeCarrier::TagType>& tagTypes) :
+GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes) :
     FXGroupBox(frameParent->myContentFrame, "Parent element", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr) {
@@ -1763,7 +1763,7 @@ GNEFrameModuls::SelectorParent::setIDSelected(const std::string& id) {
 bool
 GNEFrameModuls::SelectorParent::showSelectorParentModul(SumoXMLTag additionalType) {
     // make sure that we're editing an additional tag
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONALELEMENT, false);
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_ADDITIONALELEMENT, false);
     for (auto i : listOfTags) {
         if (i == additionalType) {
             myParentTag = additionalType;

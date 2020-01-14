@@ -46,7 +46,7 @@ public:
 
     public:
         /// @brief constructor
-        TagSelector(GNEFrame* frameParent, GNEAttributeCarrier::TagType type, bool onlyDrawables = true);
+        TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, bool onlyDrawables = true);
 
         /// @brief destructor
         ~TagSelector();
@@ -58,10 +58,10 @@ public:
         void hideTagSelector();
 
         /// @brief get current type tag
-        const GNEAttributeCarrier::TagProperties& getCurrentTagProperties() const;
+        const GNETagProperties& getCurrentTagProperties() const;
 
         /// @brief set current type manually
-        void setCurrentTagType(GNEAttributeCarrier::TagType tagType);
+        void setCurrentTagType(GNETagProperties::TagType tagType);
 
         /// @brief set current type manually
         void setCurrentTag(SumoXMLTag newTag);
@@ -92,16 +92,16 @@ public:
         FXComboBox* myTagsMatchBox;
 
         /// @brief current tag properties
-        GNEAttributeCarrier::TagProperties myCurrentTagProperties;
+        GNETagProperties myCurrentTagProperties;
 
         /// @brief list of tags types that will be shown in Match Box
-        std::vector<std::pair<std::string, GNEAttributeCarrier::TagType> > myListOfTagTypes;
+        std::vector<std::pair<std::string, GNETagProperties::TagType> > myListOfTagTypes;
 
         /// @brief list of tags that will be shown in Match Box
         std::vector<SumoXMLTag> myListOfTags;
 
         /// @brief dummy tag properties used if user select an invalid tag
-        GNEAttributeCarrier::TagProperties myInvalidTagProperty;
+        GNETagProperties myInvalidTagProperty;
     };
 
     // ===========================================================================
@@ -117,7 +117,7 @@ public:
         DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag);
 
         /// @brief constructor with tag type
-        DemandElementSelector(GNEFrame* frameParent, const std::vector<GNEAttributeCarrier::TagType>& tagTypes);
+        DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes);
 
         /// @brief destructor
         ~DemandElementSelector();

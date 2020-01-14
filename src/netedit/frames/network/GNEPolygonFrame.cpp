@@ -219,7 +219,7 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     GNEFrame(horizontalFrameParent, viewNet, "Shapes") {
 
     // create item Selector modul for shapes
-    myShapeTagSelector = new GNEFrameModuls::TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_SHAPE);
+    myShapeTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::TAGTYPE_SHAPE);
 
     // Create shape parameters
     myShapeAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);

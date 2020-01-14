@@ -47,7 +47,7 @@ GNEHierarchicalChildElements::GNEHierarchicalChildElements(GNEAttributeCarrier* 
     myChildDemandElements(childDemandElements),
     myAC(AC) {
     // fill SortedChildDemandElementsByType with all demand element tags (it's needed because getChildDemandElementsSortedByType(...) function is constant
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_DEMANDELEMENT, false);
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_DEMANDELEMENT, false);
     for (const auto& tag : listOfTags) {
         myDemandElementsByType[tag] = {};
     }

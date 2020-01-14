@@ -198,7 +198,7 @@ GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
 
 
 void
-GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tagProperties) const {
+GNEFrame::openHelpAttributesDialog(const GNETagProperties& tagProperties) const {
     FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + tagProperties.getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
     // Create FXTable
     FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);

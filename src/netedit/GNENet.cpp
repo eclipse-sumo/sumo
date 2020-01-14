@@ -109,21 +109,21 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
         myZBoundary.add(0, 0);
     }
     // fill additionals with tags (note: this include the TAZS)
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONALELEMENT, false);
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_ADDITIONALELEMENT, false);
     for (auto i : listOfTags) {
         myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
     }
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_TAZ, false);
+    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_TAZ, false);
     for (auto i : listOfTags) {
         myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
     }
 
     // fill demand elements with tags
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_DEMANDELEMENT, false);
+    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_DEMANDELEMENT, false);
     for (auto i : listOfTags) {
         myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
     }
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_STOP, false);
+    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_STOP, false);
     for (auto i : listOfTags) {
         myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
     }
@@ -1489,11 +1489,11 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
         // fill additionals with tags
-        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONALELEMENT, false);
+        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_ADDITIONALELEMENT, false);
         for (auto i : listOfTags) {
             myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
         }
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_TAZ, false);
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_TAZ, false);
         for (auto i : listOfTags) {
             myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
         }
@@ -1512,11 +1512,11 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load demand elements if was recomputed with volatile options
     if (demandPath != "") {
         // fill demandElements with tags
-        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_DEMANDELEMENT, false);
+        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_DEMANDELEMENT, false);
         for (auto i : listOfTags) {
             myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
         }
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_STOP, false);
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_STOP, false);
         for (auto i : listOfTags) {
             myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
         }
@@ -3364,11 +3364,11 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
         myAttributeCarriers.additionals.clear();
         // fill additionals with tags (note: this include the TAZS)
-        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONALELEMENT, false);
+        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_ADDITIONALELEMENT, false);
         for (auto i : listOfTags) {
             myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
         }
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_TAZ, false);
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_TAZ, false);
         for (auto i : listOfTags) {
             myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
         }
@@ -3393,11 +3393,11 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
         myAttributeCarriers.additionals.clear();
         // fill demand elements with tags
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_DEMANDELEMENT, false);
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_DEMANDELEMENT, false);
         for (auto i : listOfTags) {
             myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
         }
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_STOP, false);
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_STOP, false);
         for (auto i : listOfTags) {
             myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
         }
