@@ -7,6 +7,9 @@ fromJunction
 # trip with toJunction
 toJunction
 
+# trip with viaJunctions
+viaJunctions
+
 # trip with fromJunctoin and toJunction using loaded taz
 load_taz
 
