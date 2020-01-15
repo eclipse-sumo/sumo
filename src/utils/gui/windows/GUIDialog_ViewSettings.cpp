@@ -1167,7 +1167,7 @@ GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
     for (j = myDecals->begin(); j != myDecals->end(); ++j) {
         GUISUMOAbstractView::Decal& d = *j;
         dev.openTag(SUMO_TAG_VIEWSETTINGS_DECAL);
-        dev.writeAttr("filename", d.filename);
+        dev.writeAttr("file", d.filename);
         dev.writeAttr(SUMO_ATTR_CENTER_X, d.centerX);
         dev.writeAttr(SUMO_ATTR_CENTER_Y, d.centerY);
         dev.writeAttr(SUMO_ATTR_CENTER_Z, d.centerZ);
