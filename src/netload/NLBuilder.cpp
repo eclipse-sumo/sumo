@@ -154,16 +154,12 @@ NLBuilder::build() {
         for (auto it = junctions.begin(); it != junctions.end(); it++) {
             const std::string sinkID = it->first + "-sink";
             const std::string sourceID = it->first + "-source";
-            MSEdge* sink = myEdgeBuilder.buildEdge(sinkID, EDGEFUNC_CONNECTOR, "", "", -1, 0);
-            MSEdge* source = myEdgeBuilder.buildEdge(sourceID, EDGEFUNC_CONNECTOR, "", "", -1, 0);
-            // sink must be addd before source
-            bool addedSink = MSEdge::dictionary(sinkID, sink);
-            bool addedSource = MSEdge::dictionary(sourceID, source);
-            if (!addedSink || !addedSource) {
-                delete sink;
-                delete source;
-                WRITE_WARNINGF("A TAZ with id '%' already exists. Not building junction TAZ.", it->first)
-            } else {
+            if (MSEdge::dictionary(sinkID) == nullptr && MSEdge::dictionary(sourceID) == nullptr) {
+                // sink must be built and addd before source
+                MSEdge* sink = myEdgeBuilder.buildEdge(sinkID, EDGEFUNC_CONNECTOR, "", "", -1, 0);
+                MSEdge* source = myEdgeBuilder.buildEdge(sourceID, EDGEFUNC_CONNECTOR, "", "", -1, 0);
+                MSEdge::dictionary(sinkID, sink);
+                MSEdge::dictionary(sourceID, source);
                 sink->initialize(new std::vector<MSLane*>());
                 source->initialize(new std::vector<MSLane*>());
                 const MSJunction* junction = it->second;
@@ -177,6 +173,8 @@ NLBuilder::build() {
                         source->addSuccessor(const_cast<MSEdge*>(edge));
                     }
                 }
+            } else {
+                WRITE_WARNINGF("A TAZ with id '%' already exists. Not building junction TAZ.", it->first)
             }
         }
     }
