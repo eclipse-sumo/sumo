@@ -73,18 +73,6 @@ myLines(lines) {
 GNERide::~GNERide() {}
 
 
-GNEGeometry::Geometry&
-GNERide::getDemandElementGeometry() {
-    return myRideGeometry;
-}
-
-
-const GNEGeometry::SegmentGeometry& 
-GNERide::getDemandElementSegmentGeometry() const {
-    return myRideSegmentGeometry;
-}
-
-
 GUIGLObjectPopupMenu*
 GNERide::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -277,10 +265,10 @@ GNERide::updateGeometry() {
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path
     if (getPathEdges().size() > 0) {
-        GNEGeometry::calculateEdgeGeometricPath(this, myRideSegmentGeometry, getPathEdges(), getVClass(),
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
-        GNEGeometry::calculateEdgeGeometricPath(this, myRideSegmentGeometry, getParentEdges(), getVClass(),
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
     // update child demand elementss
@@ -308,7 +296,7 @@ GNERide::updatePartialGeometry(const GNEEdge* edge) {
     // calculate person plan start and end positions
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path
-    GNEGeometry::updateGeometricPath(myRideSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updatePartialGeometry(edge);

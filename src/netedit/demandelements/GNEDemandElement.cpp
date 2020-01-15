@@ -225,6 +225,30 @@ GNEDemandElement::generateChildID(SumoXMLTag childTag) {
 GNEDemandElement::~GNEDemandElement() {}
 
 
+GNEGeometry::Geometry& 
+GNEDemandElement::getDemandElementGeometry() {
+    return myDemandElementGeometry;
+}
+
+
+const GNEGeometry::SegmentGeometry&
+GNEDemandElement::getDemandElementSegmentGeometry() const {
+    return myDemandElementSegmentGeometry;
+}
+
+
+GNEGeometry::Geometry& 
+GNEDemandElement::getDemandElementStackedGeometry() {
+    return myStackedGeometry;
+}
+
+
+const GNEGeometry::SegmentGeometry& 
+GNEDemandElement::getDemandElementStackedSegmentGeometry() const {
+    return myStackedSegmentGeometry;
+}
+
+
 bool
 GNEDemandElement::isDemandElementValid() const {
     return true;

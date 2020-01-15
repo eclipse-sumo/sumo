@@ -59,12 +59,6 @@ public:
     /// @brief destructor
     ~GNERide();
 
-    /// @brief get demand element geometry
-    GNEGeometry::Geometry& getDemandElementGeometry();
-
-    /// @brief get demand element segment geometry
-    const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
-
     /**@brief writte demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
@@ -226,9 +220,6 @@ public:
     /// @}
 
 protected:
-    /// @brief ride segment geometry
-    GNEGeometry::SegmentGeometry myRideSegmentGeometry;
-
     /// @brief variable for move rides
     DemandElementMove myRideMove;
 
@@ -239,9 +230,6 @@ protected:
     std::vector<std::string> myLines;
 
 private:    
-    /// @brief ride geometry (unused)
-    GNEGeometry::Geometry myRideGeometry;
-
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

@@ -165,12 +165,6 @@ public:
     /// @brief destructor
     ~GNEVehicle();
 
-    /// @brief get demand element geometry
-    GNEGeometry::Geometry& getDemandElementGeometry();
-
-    /// @brief get demand element segment geometry
-    const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
-
     /**@brief get begin time of demand element
      * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
      * @throw invalid argument if demand element doesn't has a begin time
@@ -339,18 +333,6 @@ public:
 protected:
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
-
-    /// @brief departPos geometry
-    GNEGeometry::Geometry myDepartPosGeometry;
-
-    /// @brief departPos segment geometry
-    GNEGeometry::SegmentGeometry myDepartPosSegmentGeometry;
-
-    /// @brief demand element geometry
-    GNEGeometry::Geometry myStackedGeometry;
-
-    /// @brief demand element segment geometry
-    GNEGeometry::SegmentGeometry myStackedSegmentGeometry;
 
 private:
     /// @brief method for setting the attribute and nothing else
