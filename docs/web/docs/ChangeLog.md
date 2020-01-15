@@ -25,6 +25,8 @@ permalink: /ChangeLog/
   - Fixed bug where turning restrictions from OSM were violated. Issue #6482
   - Option **--flip-y-axis** is now working. In can be used to turn a right-hand network into a left-hand network and vice versa. Issue #3838
   - Fixed bug where option **--tls.guess-signals** failed to detect signals on incoming edges. Issue #6493
+  - Fixed invalid right-of-way rules in left-hand network. Issue #6496
+  - Connection attribute 'pass' now overrides conflicts between straight and turning connections from the same edge. Issue #6497
 
 - TraCI
   - Context subscriptions can now be removed individually from the python client (before every unsubscribeContext removed all)
