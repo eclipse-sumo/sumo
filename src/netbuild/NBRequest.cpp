@@ -609,7 +609,6 @@ NBRequest::computeCrossingResponse(const NBNode::Crossing& crossing, int pos) {
 
 std::string
 NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection& c, const bool checkLaneFoes) const {
-    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     const NBEdge* const to = c.toEdge;
     const int fromLane = c.fromLane;
     const int toLane = c.toLane;
@@ -652,7 +651,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                                   << " clfbc=" << checkLaneFoesByClass(queryCon, *i, connected[k])
                                   << " clfbcoop=" << checkLaneFoesByCooperation(from, queryCon, *i, connected[k])
                                   << " lc=" << laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)
-                                  << " rtc=" << NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
+                                  << " rtc=" << NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)
                                   << " mc=" << mergeConflict(from, queryCon, *i, connected[k], false)
                                   << " oltc=" << oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
                                   << " rorc=" << myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
