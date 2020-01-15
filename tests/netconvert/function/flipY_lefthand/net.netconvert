@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 15 21:10:13 2020 by Eclipse SUMO netconvert Version v1_4_0+0553-d8cb42440d
+<!-- generated on Wed Jan 15 22:10:49 2020 by Eclipse SUMO netconvert Version v1_4_0+0556-6117f21322
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -219,7 +219,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="gneJ1" type="priority" x="0.00" y="-0.00" incLanes="gneE8_0 gneE8_1 gneE8_2 gneE0_0 gneE0_1 gneE0_2" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_8_0 :gneJ1_3_0 :gneJ1_3_1 :gneJ1_5_0 :gneJ1_6_0 :gneJ1_7_0" shape="-8.40,10.14 1.12,8.95 0.45,4.33 -0.10,0.82 -0.36,-2.10 -0.16,-4.96 0.68,-8.27 2.33,-12.57 -7.80,-13.28 -9.03,-11.24 -9.79,-10.52 -10.65,-10.01 -11.60,-9.70 -12.64,-9.60 -12.64,6.40 -10.50,6.82 -9.70,7.34 -9.08,8.06 -8.65,9.00">
         <request index="0" response="00000000" foes="00000000" cont="0"/>
         <request index="1" response="00000000" foes="11100100" cont="0"/>
-        <request index="2" response="00000000" foes="00000010" cont="1"/>
+        <request index="2" response="00000010" foes="00000010" cont="1"/>
         <request index="3" response="00000000" foes="11000000" cont="0"/>
         <request index="4" response="00000000" foes="10000000" cont="0"/>
         <request index="5" response="00000010" foes="00000010" cont="0"/>
@@ -231,7 +231,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="0101000" foes="0101000" cont="0"/>
         <request index="2" response="0000000" foes="0000000" cont="0"/>
         <request index="3" response="0000000" foes="0010011" cont="0"/>
-        <request index="4" response="0000000" foes="0001000" cont="1"/>
+        <request index="4" response="0001000" foes="0001000" cont="1"/>
         <request index="5" response="0000000" foes="0000010" cont="0"/>
         <request index="6" response="0000000" foes="0000000" cont="0"/>
     </junction>
@@ -247,7 +247,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="11010000" foes="11010000" cont="0"/>
         <request index="3" response="00000000" foes="00000000" cont="0"/>
         <request index="4" response="00000000" foes="00100111" cont="0"/>
-        <request index="5" response="00000000" foes="00010000" cont="1"/>
+        <request index="5" response="00010000" foes="00010000" cont="1"/>
         <request index="6" response="00000000" foes="00000110" cont="0"/>
         <request index="7" response="00000000" foes="00000100" cont="0"/>
     </junction>
@@ -260,7 +260,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="11010000" foes="11010000" cont="0"/>
         <request index="3" response="00000000" foes="00000000" cont="0"/>
         <request index="4" response="00000000" foes="00100111" cont="0"/>
-        <request index="5" response="00000000" foes="00010000" cont="1"/>
+        <request index="5" response="00010000" foes="00010000" cont="1"/>
         <request index="6" response="00000000" foes="00000110" cont="0"/>
         <request index="7" response="00000000" foes="00000100" cont="0"/>
     </junction>
@@ -281,7 +281,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="gneE1" to="-gneE1" fromLane="1" toLane="1" via=":gneJ3_0_0" dir="T" state="M"/>
     <connection from="gneE10" to="-gneE2" fromLane="0" toLane="0" via=":gneJ5_3_0" dir="R" state="M"/>
     <connection from="gneE10" to="gneE4" fromLane="0" toLane="0" via=":gneJ5_4_0" dir="s" state="M"/>
-    <connection from="gneE10" to="-gneE2" fromLane="1" toLane="1" via=":gneJ5_5_0" dir="R" state="M"/>
+    <connection from="gneE10" to="-gneE2" fromLane="1" toLane="1" via=":gneJ5_5_0" dir="R" state="m"/>
     <connection from="gneE10" to="gneE4" fromLane="1" toLane="1" via=":gneJ5_6_0" dir="s" state="M"/>
     <connection from="gneE10" to="gneE4" fromLane="2" toLane="2" via=":gneJ5_6_1" dir="s" state="M"/>
     <connection from="gneE2" to="gneE4" fromLane="0" toLane="0" via=":gneJ5_0_0" dir="r" state="m"/>
@@ -292,17 +292,17 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="gneE3" to="gneE8" fromLane="2" toLane="2" via=":gneJ8_2_0" dir="r" state="m"/>
     <connection from="gneE4" to="gneE1" fromLane="0" toLane="0" via=":gneJ2_2_0" dir="R" state="M"/>
     <connection from="gneE4" to="gneE6" fromLane="0" toLane="0" via=":gneJ2_3_0" dir="s" state="M"/>
-    <connection from="gneE4" to="gneE1" fromLane="1" toLane="1" via=":gneJ2_4_0" dir="R" state="M"/>
+    <connection from="gneE4" to="gneE1" fromLane="1" toLane="1" via=":gneJ2_4_0" dir="R" state="m"/>
     <connection from="gneE4" to="gneE6" fromLane="1" toLane="1" via=":gneJ2_5_0" dir="s" state="M"/>
     <connection from="gneE4" to="gneE6" fromLane="2" toLane="2" via=":gneJ2_5_1" dir="s" state="M"/>
     <connection from="gneE6" to="-gneE3" fromLane="0" toLane="0" via=":gneJ8_3_0" dir="R" state="M"/>
     <connection from="gneE6" to="gneE8" fromLane="0" toLane="0" via=":gneJ8_4_0" dir="s" state="M"/>
-    <connection from="gneE6" to="-gneE3" fromLane="1" toLane="1" via=":gneJ8_5_0" dir="R" state="M"/>
+    <connection from="gneE6" to="-gneE3" fromLane="1" toLane="1" via=":gneJ8_5_0" dir="R" state="m"/>
     <connection from="gneE6" to="gneE8" fromLane="1" toLane="1" via=":gneJ8_6_0" dir="s" state="M"/>
     <connection from="gneE6" to="gneE8" fromLane="2" toLane="2" via=":gneJ8_6_1" dir="s" state="M"/>
     <connection from="gneE8" to="-gneE0" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="R" state="M"/>
     <connection from="gneE8" to="gneE10" fromLane="0" toLane="0" via=":gneJ1_1_0" dir="s" state="M"/>
-    <connection from="gneE8" to="-gneE0" fromLane="1" toLane="1" via=":gneJ1_2_0" dir="R" state="M"/>
+    <connection from="gneE8" to="-gneE0" fromLane="1" toLane="1" via=":gneJ1_2_0" dir="R" state="m"/>
     <connection from="gneE8" to="gneE10" fromLane="1" toLane="1" via=":gneJ1_3_0" dir="s" state="M"/>
     <connection from="gneE8" to="gneE10" fromLane="2" toLane="2" via=":gneJ1_3_1" dir="s" state="M"/>
 
