@@ -146,7 +146,7 @@ GNEEdge::updateGeometry() {
             pathElementChild->updatePartialGeometry(this);
         }
         // update vehicle geometry
-        updateVehicleGeometries();
+        updateStackedVehicleGeometries();
         // mark dotted geometry deprecated
         myDottedGeometry.markDottedGeometryDeprecated();
     }
@@ -1417,7 +1417,7 @@ GNEEdge::invalidatePathChildElementss() {
 
 
 void
-GNEEdge::updateVehicleGeometries() {
+GNEEdge::updateStackedVehicleGeometries() {
     // get vehicles over edge
     const std::vector<GNEDemandElement* > vehicles = getVehiclesOverEdge();
     // now split vehicles by lanes
@@ -1447,7 +1447,7 @@ GNEEdge::updateVehicleGeometries() {
         double lenght = 0;
         // iterate over vehicles to calculate position and rotations
         for (const auto &vehicle : laneVehicle.second) {
-            vehicle->getDemandElementGeometry().updateGeometry(laneVehicle.first, lenght * multiplier);
+            vehicle->updateDemandElementStackedGeometry(laneVehicle.first, lenght * multiplier);
             // update lenght
             lenght += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH) + VEHICLE_GAP;
         }

@@ -1617,9 +1617,9 @@ void
 GNEVehicle::updateStackedGeometry() {
     // get vehicle lane
     const GNELane *vehicleLane = getFirstAllowedVehicleLane();
-    // update vehicle geometry depending of edgeParent
+    // update stacked vehicle geometry depending of edgeParent
     if (vehicleLane) {
-        vehicleLane->getParentEdge()->updateVehicleGeometries();
+        vehicleLane->getParentEdge()->updateStackedVehicleGeometries();
     } else {
         myStackedGeometry.updateGeometry(Position(), 0);
     }

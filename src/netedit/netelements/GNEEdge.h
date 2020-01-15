@@ -321,7 +321,7 @@ public:
     void invalidatePathChildElementss();
 
     // @brief update vehicle geometries
-    void updateVehicleGeometries();
+    void updateStackedVehicleGeometries();
 
 protected:
     /// @brief the underlying NBEdge

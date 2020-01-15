@@ -160,16 +160,16 @@ public:
     ~GNEDemandElement();
 
     /// @brief get demand element geometry
-    GNEGeometry::Geometry& getDemandElementGeometry();
+    const GNEGeometry::Geometry& getDemandElementGeometry();
 
     /// @brief get demand element segment geometry
     const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
 
-    /// @brief get demand element stacked geometry
-    GNEGeometry::Geometry& getDemandElementStackedGeometry();
-
     /// @brief get demand element segment stacked geometry
     const GNEGeometry::SegmentGeometry& getDemandElementStackedSegmentGeometry() const;
+
+    /// @brief get demand element stacked geometry
+    void updateDemandElementStackedGeometry(const GNELane* lane, const double posOverLane);
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
