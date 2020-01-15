@@ -664,7 +664,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                                                     || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
                                                   || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
                     if ((myForbids[idx2][idx] && hasLaneConflict)
-                            || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
+                            || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)
                             || mergeConflict(from, queryCon, *i, connected[k], false)
                             || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
                             || myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
@@ -716,7 +716,7 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
                                                 || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
                                               || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
                 if ((foes(from, to, (*i), connected[k].toEdge) && hasLaneConflict)
-                        || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
+                        || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)
                         || myJunction->turnFoes(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                         || mergeConflict(from, queryCon, *i, connected[k], true)
                         || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], true)
