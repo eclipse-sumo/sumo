@@ -43,6 +43,7 @@
 
 //#define DEBUG_SMOOTH_GEOM
 //#define DEBUGCOND(obj) (true)
+#define VEHICLE_GAP 1
 
 // ===========================================================================
 // static
@@ -1432,7 +1433,7 @@ GNEEdge::updateVehicleGeometries() {
         // obtain total lenght
         double totalLength = 0;
         for (const auto &vehicle : laneVehicle.second) {
-            totalLength += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH) + vehicle->getAttributeDouble(SUMO_ATTR_MINGAP);
+            totalLength += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH) + VEHICLE_GAP;
         }
         // calculate multiplier for vehicle positions
         double multiplier = 1;
@@ -1448,7 +1449,7 @@ GNEEdge::updateVehicleGeometries() {
         for (const auto &vehicle : laneVehicle.second) {
             vehicle->getDemandElementGeometry().updateGeometry(laneVehicle.first, lenght * multiplier);
             // update lenght
-            lenght += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH) + vehicle->getAttributeDouble(SUMO_ATTR_MINGAP);
+            lenght += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH) + VEHICLE_GAP;
         }
     }
 }

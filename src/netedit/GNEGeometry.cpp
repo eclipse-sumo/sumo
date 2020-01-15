@@ -115,10 +115,6 @@ void
 GNEGeometry::Geometry::updateGeometry(const Position &position, const double rotation) {
     myPosition = position;
     myRotation = rotation;
-    // clear multishape parameters
-    myShape.clear();
-    myShapeRotations.clear();
-    myShapeLengths.clear();
 }
 
 
@@ -142,9 +138,6 @@ GNEGeometry::Geometry::updateGeometry(const GNELane* lane, const double posOverL
 
 void
 GNEGeometry::Geometry::updateGeometry(const GNEAdditional* additional) {
-    // set position and rotationinvalid
-    myPosition = Position::INVALID;
-    myRotation = 0;
     // copy geometry of additional
     myShape = additional->getAdditionalGeometry().getShape();
     myShapeRotations = additional->getAdditionalGeometry().getShapeRotations();
@@ -154,10 +147,6 @@ GNEGeometry::Geometry::updateGeometry(const GNEAdditional* additional) {
 
 void
 GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths) {
-    // set position and rotationinvalid
-    myPosition = Position::INVALID;
-    myRotation = 0;
-    // set multishape parameters
     myShape = shape;
     myShapeRotations = shapeRotations;
     myShapeLengths = shapeLengths;
