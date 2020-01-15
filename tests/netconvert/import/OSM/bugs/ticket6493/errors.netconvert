@@ -1,7 +1,6 @@
 Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '8142293').
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '119432576').
 Warning: No way found for reference '1670309356' in relation '4443863'
-Warning: Not joining junctions 1806157955,1806157960,443826,443827,443828,443829,443837,443897 (6 incoming edges).
 Warning: Reducing junction cluster 1093872774,245901919,245904890,7022705834 (parallel incoming -22873499#0,150039007#0).
 Warning: Reducing junction cluster 313566,368880,84510146 (5 incoming edges).
 Warning: Not joining junctions 245904901,248150932 (parallel outgoing 27115018#0,329890957).
