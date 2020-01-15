@@ -1580,7 +1580,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             const NBNode* node = item.second;
             if (node->isTLControlled() && node->geometryLike()) {
 #ifdef DEBUG_GUESSSIGNALS
-                if (DEBUGCOND(node)) std::cout << " propagate TLS from " << node->getID() << " downstream\n";
+                if (DEBUGCOND(node) || true) std::cout << " propagate TLS from " << node->getID() << " downstream\n";
 #endif
                 for (NBEdge* edge : node->getOutgoingEdges()) {
                     edge->setSignalPosition(node->getPosition(), node);
@@ -1593,27 +1593,32 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             for (NBEdge* edge : item.second->getOutgoingEdges()) {
                 if (edge->getSignalPosition() != Position::INVALID) {
                     check.insert(edge);
+                    seen.insert(edge);
+#ifdef DEBUG_GUESSSIGNALS
+                    if (DEBUGCOND(edge->getSignalNode()) || true) std::cout << "   primary signalPosition edge=" << edge->getID() << " pos=" << edge->getSignalPosition() << "\n";
+#endif
                 }
             }
-            // propagate signal position until the next real intersection
-            while (check.size() > 0) {
-                NBEdge* const edge = *check.begin();
-                check.erase(check.begin());
-                seen.insert(edge);
-                NBNode* const nextNode = edge->getToNode();
-                if (nextNode->geometryLike() && !nextNode->isTLControlled()) {
-                    for (NBEdge* const outEdge : nextNode->getOutgoingEdges()) {
-                        if (seen.count(outEdge) == 0) {
-                            outEdge->setSignalPosition(edge->getSignalPosition(), edge->getSignalNode());
+        }
+        // propagate signal position until the next real intersection
+        while (check.size() > 0) {
+            NBEdge* const edge = *check.begin();
+            check.erase(check.begin());
+            seen.insert(edge);
+            NBNode* const nextNode = edge->getToNode();
+            if (nextNode->geometryLike() && !nextNode->isTLControlled()) {
+                for (NBEdge* const outEdge : nextNode->getOutgoingEdges()) {
+                    if (seen.count(outEdge) == 0) {
+                        outEdge->setSignalPosition(edge->getSignalPosition(), edge->getSignalNode());
 #ifdef DEBUG_GUESSSIGNALS
-                            if (DEBUGCOND(edge->getSignalNode()) || true) std::cout << "   setSignalPosition edge=" << outEdge->getID() << " pos=" << edge->getSignalPosition() << "\n";
+                        if (DEBUGCOND(edge->getSignalNode()) || true) std::cout << "   setSignalPosition edge=" << outEdge->getID() << " pos=" << edge->getSignalPosition() << "\n";
 #endif
-                            check.insert(outEdge);
-                        }
+                        check.insert(outEdge);
                     }
                 }
             }
         }
+       
         // check which nodes should be controlled
         for (std::map<std::string, NBNode*>::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
             NBNode* node = i->second;
@@ -2013,6 +2018,9 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
                 // record signal location
                 for (NBEdge* edge : node->getOutgoingEdges()) {
                     edge->setSignalPosition(node->getPosition(), nullptr);
+#ifdef DEBUG_GUESSSIGNALS
+                    std::cout << "   discard-simple " << node->getID() << "  edge=" << edge->getID() << " pos=" << edge->getSignalPosition() << "\n";
+#endif
                 }
             }
             for (std::set<NBTrafficLightDefinition*>::const_iterator it = tldefs.begin(); it != tldefs.end(); ++it) {

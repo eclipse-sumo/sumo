@@ -533,7 +533,9 @@ NBEdge::reshiftPosition(double xoff, double yoff) {
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         (*i).customShape.add(xoff, yoff, 0);
     }
-    mySignalPosition.add(xoff, yoff);
+    if (mySignalPosition != Position::INVALID) {
+        mySignalPosition.add(xoff, yoff);
+    }
     myFromBorder.add(xoff, yoff, 0);
     myToBorder.add(xoff, yoff, 0);
     computeAngle(); // update angles because they are numerically sensitive (especially where based on centroids)
