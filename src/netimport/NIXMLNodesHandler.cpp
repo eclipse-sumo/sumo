@@ -152,10 +152,6 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
         WRITE_ERROR("Missing position (at node ID='" + myID + "').");
     }
     bool updateEdgeGeometries = node != nullptr && myPosition != node->getPosition();
-    // check whether the y-axis shall be flipped
-    if (myOptions.getBool("flip-y-axis")) {
-        myPosition.mul(1.0, -1.0);
-    }
     node = processNodeType(attrs, node, myID, myPosition, updateEdgeGeometries, myNodeCont, myEdgeCont, myTLLogicCont);
     myLastParameterised = node;
 }

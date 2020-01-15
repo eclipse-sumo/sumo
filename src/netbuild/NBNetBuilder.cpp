@@ -523,7 +523,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     // compute lane-to-lane node logics (require traffic lights and inner edges to be done)
     myNodeCont.computeLogics2(myEdgeCont, oc);
 
-    if (lefthand) {
+    if (lefthand != oc.getBool("flip-y-axis")) {
         mirrorX();
     };
 
