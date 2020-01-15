@@ -21,3 +21,6 @@ ticket6482
 
 # guess-signals must work indendepent of the junction size
 ticket6493
+
+# guess-signals must work in intermodal networks
+ticket6495

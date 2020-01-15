@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 15Jan15:55:39]
+search_string:GS_cluster_313566_368880
+trigger_on_absence:1
+search_file:net
+full_description:tls.guess-signals failure in intermodal network
+brief_description:see #6495
