@@ -23,6 +23,8 @@ permalink: /ChangeLog/
 - NETCONVERT
   - Fixed bug where loaded connection was not created. Issue #6470
   - Fixed bug where turning restrictions from OSM were violated. Issue #6482
+  - Option **--flip-y-axis** is now working. In can be used to turn a right-hand network into a left-hand network and vice versa. Issue #3838
+  - Fixed bug where option **--tls.guess-signals** failed to detect signals on incoming edges. Issue #6493
 
 - TraCI
   - Context subscriptions can now be removed individually from the python client (before every unsubscribeContext removed all)
