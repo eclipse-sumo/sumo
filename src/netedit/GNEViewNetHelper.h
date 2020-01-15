@@ -336,14 +336,17 @@ struct GNEViewNetHelper {
         /// @brief build menu checks
         void buildCommonViewOptionsMenuChecks();
 
-        /// @brief hide all options menu checks
-        void hideCommonViewOptionsMenuChecks();
-
         /// @brief get visible common menu commands
         void getVisibleCommonMenuCommands(std::vector<FXMenuCheck*>& commands) const;
 
+        /// @brief check if vehicles must be drawn stacked
+        bool drawStackedVehicles() const;
+
         /// @brief menu check to show grid button
         FXMenuCheck* menuCheckShowGrid;
+
+        /// @brief menu check to draw vehicles in begin position or as stack
+        FXMenuCheck* menuCheckDrawStackedVehicles;
 
     private:
         /// @brief pointer to viewNet

@@ -715,7 +715,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         // obtain Position an rotation (it depend of their parents)
         Position vehiclePosition;
         double vehicleRotation = 0;
-        if (true) {
+        if (myViewNet->getCommonViewOptions().drawStackedVehicles()) {
             vehiclePosition = myDemandElementGeometry.getPosition();
             vehicleRotation = myDemandElementGeometry.getRotation();
         } else if ((getParentDemandElements().size() == 2) && (getParentDemandElements().at(1)->getDemandElementSegmentGeometry().size() > 0)) {

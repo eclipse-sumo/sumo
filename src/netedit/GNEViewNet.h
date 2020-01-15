@@ -263,6 +263,9 @@ public:
     /// @brief toogle show grid
     long onCmdToogleShowGrid(FXObject*, FXSelector, void*);
 
+    /// @brief toogle draw vehicles in begin position or stacked
+    long onCmdToogleDrawStackedVehicles(FXObject*, FXSelector, void*);
+
     /// @brief toogle warn for merge
     long onCmdToogleWarnAboutMerge(FXObject*, FXSelector, void*);
 

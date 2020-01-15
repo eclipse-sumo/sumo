@@ -596,11 +596,18 @@ enum {
 
     /// @}
 
-    /// @name GNEViewNet view options messages
+    /// @name GNEViewNet common view options messages
     /// @{
 
     /// @brief show grid
     MID_GNE_COMMONVIEWOPTIONS_SHOWGRID,
+    /// @brief Draw vehicles in begin position or as a stack
+    MID_GNE_COMMONVIEWOPTIONS_DRAWSTACKEDVEHICLES,
+
+    /// @}
+
+    /// @name GNEViewNet Network view options messages
+    /// @{
     /// @brief show demand elements
     MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,
     /// @brief select edges
@@ -623,6 +630,12 @@ enum {
     MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES,
     /// @brief automatically create opposite edge
     MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES,
+
+    /// @}
+
+    /// @name GNEViewNet Demand view options messages
+    /// @{
+
     /// @brief hide non-inspected demand element
     MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,
     /// @brief hide shapes
