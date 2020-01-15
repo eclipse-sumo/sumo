@@ -496,6 +496,9 @@ public:
      */
     void computeNodeShape(double mismatchThreshold);
 
+    /// @brief update geometry of node and surrounding edges
+    void updateSurroundingGeometry();
+
     /// @brief retrieve the junction shape
     const PositionVector& getShape() const;
 

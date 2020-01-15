@@ -985,6 +985,15 @@ NBNode::getResponse(int linkIndex) const {
 
 
 void
+NBNode::updateSurroundingGeometry() {
+    sortEdges(false);
+    computeNodeShape(-1);
+    for (NBEdge* edge : myAllEdges) {
+        edge->computeEdgeShape();
+    }
+}
+
+void
 NBNode::computeNodeShape(double mismatchThreshold) {
     if (myHaveCustomPoly) {
         return;

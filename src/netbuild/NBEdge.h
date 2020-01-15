@@ -635,18 +635,21 @@ public:
     const std::map<int, double>& getStopOffsets(int lane) const;
 
     /// @brief Returns the offset of a traffic signal from the end of this edge
-    double getSignalOffset() const {
-        return mySignalOffset;
+    double getSignalOffset() const;
+
+    /// @brief Returns the position of a traffic signal on this edge
+    const Position& getSignalPosition() const {
+        return mySignalPosition;
     }
 
     /// @brief Returns the node that (possibly) represents a traffic signal controlling at the end of this edge
-    NBNode* getSignalNode() const {
+    const NBNode* getSignalNode() const {
         return mySignalNode;
     }
 
     /// @brief sets the offset of a traffic signal from the end of this edge
-    void setSignalOffset(double offset, NBNode* signalNode) {
-        mySignalOffset = offset;
+    void setSignalPosition(const Position& pos, const NBNode* signalNode) {
+        mySignalPosition = pos;
         mySignalNode = signalNode;
     }
 
@@ -1635,9 +1638,9 @@ private:
     /// @brief the street signs along this edge
     std::vector<NBSign> mySigns;
 
-    /// @brief the offset of a traffic light signal from the end of this edge (-1 for None)
-    double mySignalOffset;
-    NBNode* mySignalNode;
+    /// @brief the position of a traffic light signal on this edge
+    Position mySignalPosition;
+    const NBNode* mySignalNode;
 
     /// @brief intersection borders (because the node shape might be invalid)
     /// @{

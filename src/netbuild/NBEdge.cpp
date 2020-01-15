@@ -290,7 +290,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmInTLS(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
-    mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET),
+    mySignalPosition(Position::INVALID),
     mySignalNode(nullptr),
     myIsOffRamp(false),
     myIndex(-1) {
@@ -321,7 +321,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmInTLS(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
-    mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET),
+    mySignalPosition(Position::INVALID),
     mySignalNode(nullptr),
     myIsOffRamp(false),
     myIndex(-1) {
@@ -349,7 +349,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
     myAmInTLS(false),
     myAmMacroscopicConnector(false),
     myStreetName(tpl->getStreetName()),
-    mySignalOffset(to == tpl->myTo ? tpl->mySignalOffset : UNSPECIFIED_SIGNAL_OFFSET),
+    mySignalPosition(to == tpl->myTo ? tpl->mySignalPosition : Position::INVALID),
     mySignalNode(to == tpl->myTo ? tpl->mySignalNode : nullptr) {
     init(numLanes > 0 ? numLanes : tpl->getNumLanes(), myGeom.size() > 0, "");
     for (int i = 0; i < getNumLanes(); i++) {
@@ -533,6 +533,9 @@ NBEdge::reshiftPosition(double xoff, double yoff) {
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         (*i).customShape.add(xoff, yoff, 0);
     }
+    mySignalPosition.add(xoff, yoff);
+    myFromBorder.add(xoff, yoff, 0);
+    myToBorder.add(xoff, yoff, 0);
     computeAngle(); // update angles because they are numerically sensitive (especially where based on centroids)
 }
 
@@ -3141,10 +3144,8 @@ NBEdge::append(NBEdge* e) {
     if (e->knowsParameter("origTo")) {
         setParameter("origTo", e->getParameter("origTo"));
     }
-    if (e->getSignalOffset() != UNSPECIFIED_SIGNAL_OFFSET) {
-        mySignalOffset = e->getSignalOffset();
-    } else if (mySignalOffset != UNSPECIFIED_SIGNAL_OFFSET) {
-        mySignalOffset += e->getLength();
+    if (e->mySignalPosition != Position::INVALID) {
+        mySignalPosition = e->mySignalPosition;
     }
     computeAngle(); // myEndAngle may be different now
 }
@@ -3526,6 +3527,17 @@ NBEdge::connections_sorter(const Connection& c1, const Connection& c2) {
     return c1.toLane < c2.toLane;
 }
 
+double
+NBEdge::getSignalOffset() const {
+    if (mySignalPosition == Position::INVALID) {
+        return UNSPECIFIED_SIGNAL_OFFSET;
+    } else {
+        Position laneEnd = myLaneSpreadFunction == LANESPREAD_RIGHT ?
+            myLanes.back().shape.back() : myLanes[getNumLanes() / 2].shape.back();
+        //std::cout << getID() << " signalPos=" << mySignalPosition << " laneEnd=" << laneEnd << " toShape=" << myTo->getShape() << " toBorder=" << myToBorder << "\n";
+        return mySignalPosition.distanceTo2D(laneEnd);
+    }
+}
 
 int
 NBEdge::getFirstNonPedestrianLaneIndex(int direction, bool exclusive) const {
