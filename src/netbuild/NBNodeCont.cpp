@@ -65,7 +65,8 @@
 // ===========================================================================
 
 //#define DEBUG_JOINJUNCTIONS
-#define DEBUGNODEID "2617545588"
+//#define DEBUG_GUESSSIGNALS
+#define DEBUGNODEID "cluster_313566_368880"
 //#define DEBUGNODEID "5548037023"
 #define DEBUGCOND(obj) ((obj != 0 && (obj)->getID() == DEBUGNODEID))
 
@@ -1620,13 +1621,17 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                     const NBEdge* inEdge = *it_i;
                     if ((inEdge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET || inEdge->getSignalOffset() > signalDist)
                             && inEdge->getPermissions() != SVC_TRAM) {
-                        //if (node->getID() == "cluster_2292787672_259083790") std::cout << " noTLS, edge=" << inEdge->getID() << " offset=" << inEdge->getSignalOffset() << "\n";
+#ifdef DEBUG_GUESSSIGNALS
+                        if (DEBUGCOND(node)) std::cout << " noTLS, edge=" << inEdge->getID() << " offset=" << inEdge->getSignalOffset() << "\n";
+#endif
                         isTLS = false;
                         break;
                     }
                     NBNode* signal = inEdge->getSignalNode();
                     if (signal != nullptr) {
-                        //if (true || node->getID() == "cluster_2648427269_3180391961_3180391964_736234762") std::cout << " edge=" << inEdge->getID() << " signalNode=" << signal->getID() << " offset=" << inEdge->getSignalOffset() << "\n";
+#ifdef DEBUG_GUESSSIGNALS
+                        if (DEBUGCOND(node))  std::cout << " edge=" << inEdge->getID() << " signalNode=" << signal->getID() << " offset=" << inEdge->getSignalOffset() << "\n";
+#endif
                         signals.push_back(signal);
                     }
                 }
@@ -1636,7 +1641,9 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                     const NBEdge* outEdge = *it_i;
                     NBNode* cand = outEdge->getToNode();
                     if (cand->isTLControlled() && cand->geometryLike() && outEdge->getLength() <= signalDist) {
-                        //if (true || node->getID() == "cluster_2648427269_3180391961_3180391964_736234762") std::cout << " node=" << node->getID() << " outEdge=" << outEdge->getID() << " signalNode=" << cand->getID() << " len=" << outEdge->getLength() << "\n";
+#ifdef DEBUG_GUESSSIGNALS
+                        if (DEBUGCOND(node))  std::cout << " node=" << node->getID() << " outEdge=" << outEdge->getID() << " signalNode=" << cand->getID() << " len=" << outEdge->getLength() << "\n";
+#endif
                         signals.push_back(cand);
                     }
                 }
