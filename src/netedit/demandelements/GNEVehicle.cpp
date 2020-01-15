@@ -972,9 +972,9 @@ GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_BEGIN:
             return STEPS2TIME(depart);
         case SUMO_ATTR_WIDTH:
-            return getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH); 
         case SUMO_ATTR_LENGTH:
-            return getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
+        case SUMO_ATTR_MINGAP:
+            return getParentDemandElements().at(0)->getAttributeDouble(key);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }

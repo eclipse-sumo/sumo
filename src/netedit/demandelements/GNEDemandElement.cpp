@@ -367,6 +367,91 @@ GNEDemandElement::changeDemandElementID(const std::string& newID) {
 }
 
 
+GNELane*
+GNEDemandElement::getFirstAllowedVehicleLane() const {
+    // first check if current demand element has parent edges
+    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
+        // use route edges
+        return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+    } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
+        // check if vehicle use a embedded route
+        if (getParentDemandElements().size() == 2) {
+            return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+        } else if (getChildDemandElements().size() > 0) {
+            return getChildDemandElements().front()->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+        } else {
+            return nullptr;
+        }
+    } else if (getParentEdges().size() > 0) {
+        // obtain Lane depending of attribute "departLane"
+        if (myTagProperty.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
+            // obtain depart lane
+            std::string departLane = getAttribute(SUMO_ATTR_DEPARTLANE);
+            //  check depart lane
+            if ((departLane == "random") || (departLane == "free") || (departLane == "allowed") || (departLane == "best") || (departLane == "first")) {
+                return getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+            }
+            // obtain index
+            const int departLaneIndex = parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE));
+            // if index is correct, return lane. In other case, return nullptr;
+            if ((departLaneIndex >= 0) && (departLaneIndex < getParentEdges().front()->getNBEdge()->getNumLanes())) {
+                return getParentEdges().front()->getLanes().at(departLaneIndex);
+            } else {
+                return nullptr;
+            }
+        } else if (myTagProperty.isRide()) {
+            // special case for rides
+            return getParentEdges().front()->getLaneByDisallowedVClass(getVClass());
+        } else {
+            // in other case, always return the first allowed
+            return getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+        }
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNELane*
+GNEDemandElement::getLastAllowedVehicleLane() const {
+    // first check if current demand element has parent edges
+    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
+        // use route edges
+        return getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(getVClass());
+    } else if (getParentEdges().size() > 0) {
+        if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) ||
+                (myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) ||
+                (myTagProperty.getTag() == SUMO_TAG_RIDE_BUSSTOP)) {
+            // return busStop lane
+            return getParentAdditionals().front()->getParentLanes().front();
+        } else if (myTagProperty.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
+            // obtain Lane depending of attribute "arrivalLane"
+            std::string arrivalLane = getAttribute(SUMO_ATTR_ARRIVALLANE);
+            //  check depart lane
+            if (arrivalLane == "current") {
+                return getParentEdges().back()->getLaneByAllowedVClass(getVClass());
+            }
+            // obtain index
+            const int arrivalLaneIndex = parse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE));
+            // if index is correct, return lane. In other case, return nullptr;
+            if ((arrivalLaneIndex >= 0) && (arrivalLaneIndex < getParentEdges().back()->getNBEdge()->getNumLanes())) {
+                return getParentEdges().back()->getLanes().at(arrivalLaneIndex);
+            } else {
+                return nullptr;
+            }
+        } else if (myTagProperty.isRide()) {
+            // special case for rides
+            return getParentEdges().back()->getLaneByDisallowedVClass(getVClass());
+        } else {
+            // in other case, always return the first allowed
+            return getParentEdges().back()->getLaneByAllowedVClass(getVClass());
+        }
+    } else {
+        return nullptr;
+    }
+}
+
+
 void
 GNEDemandElement::calculatePersonPlanLaneStartEndPos(double& startPos, double& endPos) const {
     // obtain pointer to current busStop
@@ -439,82 +524,6 @@ GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position& startPos, Pos
                 endPos = nextDemandElmement->getDemandElementGeometry().getShape().front();
             }
         }
-    }
-}
-
-
-GNELane*
-GNEDemandElement::getFirstAllowedVehicleLane() const {
-    // first check if current demand element has parent edges
-    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
-        // use route edges
-        return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-    } else if (getParentEdges().size() > 0) {
-        // obtain Lane depending of attribute "departLane"
-        if (myTagProperty.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
-            // obtain depart lane
-            std::string departLane = getAttribute(SUMO_ATTR_DEPARTLANE);
-            //  check depart lane
-            if ((departLane == "random") || (departLane == "free") || (departLane == "allowed") || (departLane == "best") || (departLane == "first")) {
-                return getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-            }
-            // obtain index
-            const int departLaneIndex = parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE));
-            // if index is correct, return lane. In other case, return nullptr;
-            if ((departLaneIndex >= 0) && (departLaneIndex < getParentEdges().front()->getNBEdge()->getNumLanes())) {
-                return getParentEdges().front()->getLanes().at(departLaneIndex);
-            } else {
-                return nullptr;
-            }
-        } else if (myTagProperty.isRide()) {
-            // special case for rides
-            return getParentEdges().front()->getLaneByDisallowedVClass(getVClass());
-        } else {
-            // in other case, always return the first allowed
-            return getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-        }
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNELane*
-GNEDemandElement::getLastAllowedVehicleLane() const {
-    // first check if current demand element has parent edges
-    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
-        // use route edges
-        return getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(getVClass());
-    } else if (getParentEdges().size() > 0) {
-        if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) ||
-                (myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) ||
-                (myTagProperty.getTag() == SUMO_TAG_RIDE_BUSSTOP)) {
-            // return busStop lane
-            return getParentAdditionals().front()->getParentLanes().front();
-        } else if (myTagProperty.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
-            // obtain Lane depending of attribute "arrivalLane"
-            std::string arrivalLane = getAttribute(SUMO_ATTR_ARRIVALLANE);
-            //  check depart lane
-            if (arrivalLane == "current") {
-                return getParentEdges().back()->getLaneByAllowedVClass(getVClass());
-            }
-            // obtain index
-            const int arrivalLaneIndex = parse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE));
-            // if index is correct, return lane. In other case, return nullptr;
-            if ((arrivalLaneIndex >= 0) && (arrivalLaneIndex < getParentEdges().back()->getNBEdge()->getNumLanes())) {
-                return getParentEdges().back()->getLanes().at(arrivalLaneIndex);
-            } else {
-                return nullptr;
-            }
-        } else if (myTagProperty.isRide()) {
-            // special case for rides
-            return getParentEdges().back()->getLaneByDisallowedVClass(getVClass());
-        } else {
-            // in other case, always return the first allowed
-            return getParentEdges().back()->getLaneByAllowedVClass(getVClass());
-        }
-    } else {
-        return nullptr;
     }
 }
 

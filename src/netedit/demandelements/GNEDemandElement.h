@@ -368,6 +368,12 @@ public:
     virtual std::string getHierarchyName() const = 0;
     /// @}
 
+    /// @brief get first allowed vehicle lane
+    GNELane* getFirstAllowedVehicleLane() const;
+
+    /// @brief get first allowed vehicle lane
+    GNELane* getLastAllowedVehicleLane() const;
+
 protected:
     /// @brief The GNEViewNet this demand element element belongs
     GNEViewNet* myViewNet;
@@ -394,12 +400,6 @@ protected:
 
     /// @brief calculate personPlan start and end positions
     void calculatePersonPlanPositionStartEndPos(Position& startPos, Position& endPos) const;
-
-    /// @brief get first allowed vehicle lane
-    GNELane* getFirstAllowedVehicleLane() const;
-
-    /// @brief get first allowed vehicle lane
-    GNELane* getLastAllowedVehicleLane() const;
 
 private:
     /**@brief check restriction with the number of children
