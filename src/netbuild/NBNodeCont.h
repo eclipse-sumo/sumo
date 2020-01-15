@@ -150,6 +150,8 @@ public:
 
     /// @brief check whether the given node maybe the start of a slip lane
     bool maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing, double& inAngle) const; 
+    /// @brief check whether the given node maybe the end of a slip lane
+    bool maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outAngle) const; 
 
     /// @brief determine wether the cluster is not too complex for joining
     bool feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const NBPTStopCont& sc, std::string& reason) const;

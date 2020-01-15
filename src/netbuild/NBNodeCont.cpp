@@ -66,8 +66,8 @@
 
 //#define DEBUG_JOINJUNCTIONS
 //#define DEBUG_GUESSSIGNALS
-#define DEBUGNODEID "cluster_313566_368880"
-#define DEBUGNODEID2 "1093872822"
+#define DEBUGNODEID "443827"
+#define DEBUGNODEID2 ""
 //#define DEBUGNODEID "5548037023"
 #define DEBUGCOND(obj) ((obj) != 0 && ((obj)->getID() == DEBUGNODEID || (obj)->getID() == DEBUGNODEID2))
 //#define DEBUGCOND(obj) (true)
@@ -854,6 +854,7 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
     for (NBNode* n : cluster) {
         EdgeVector outgoing;
         double inAngle;
+        // find slip lanes where the start is part of the cluster
         if (maybeSlipLaneStart(n, outgoing, inAngle)) {
             // potential slip lane start but we don't know which of the outgoing edges it is
 #ifdef DEBUG_JOINJUNCTIONS
@@ -929,6 +930,88 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
                 }
             }
         }
+
+        EdgeVector incoming;
+        double outAngle;
+        // find slip lanes where the end is part of the cluster
+        if (maybeSlipLaneEnd(n, incoming, outAngle)) {
+            // potential slip lane end but we don't know which of the incoming edges it is
+#ifdef DEBUG_JOINJUNCTIONS
+            if (gDebugFlag1) std::cout << "   candidate slip-lane end=" << n->getID() << " incoming=" << incoming << "\n";
+#endif
+            for (NBEdge* contEdge : incoming) {
+                if ((contEdge->getPermissions() & SVC_PASSENGER) == 0) {
+                    continue;
+                }
+                double slipLength = contEdge->getLength();
+                NBNode* cont = contEdge->getFromNode();
+                NodeSet cands;
+                cands.insert(n);
+                while (cont->getIncomingEdges().size() == 1 && cont->getOutgoingEdges().size() == 1 && slipLength < MAX_SLIPLANE_LENGTH) {
+                    if (cands.count(cont) != 0) {
+                        break; // circle, should not happen
+                    }
+                    cands.insert(cont);
+#ifdef DEBUG_JOINJUNCTIONS
+                    if (gDebugFlag1) std::cout << "   candidate slip-lane cont=" << cont->getID() << "\n";
+#endif
+                    NBEdge* next = cont->getIncomingEdges().front();
+                    slipLength += next->getLength();
+                    cont = next->getFromNode();
+                }
+#ifdef DEBUG_JOINJUNCTIONS
+                if (gDebugFlag1) std::cout << "   candidate slip-lane start=" << cont->getID() << " slipLength=" << slipLength << "\n";
+#endif
+                if (cont->getOutgoingEdges().size() >= 2 && cont->getIncomingEdges().size() == 1 &&
+                        // slip lanes are for turning so there needs to be a sufficient angle
+                        abs(NBHelpers::relAngle(outAngle, cont->getIncomingEdges().front()->getAngleAtNode(cont))) > 45) {
+                    // check whether the other continuation at n is also connected to the sliplane end
+                    NBEdge* otherEdge = (contEdge == incoming.front() ? incoming.back() : incoming.front());
+                    double otherLength = otherEdge->getLength();
+                    NBNode* cont2 = otherEdge->getFromNode();
+
+                    NodeSet visited;
+                    visited.insert(n);
+                    std::vector<NodeAndDist> toProc;
+                    toProc.push_back(std::make_pair(cont2, otherLength));
+                    bool found = false;
+                    while (!toProc.empty()) {
+                        NodeAndDist nodeAndDist = toProc.back();
+                        NBNode* cont2 = nodeAndDist.first;
+                        double dist = nodeAndDist.second;
+#ifdef DEBUG_JOINJUNCTIONS
+                        if (gDebugFlag1) std::cout << "   search alternative cont2=" << cont2->getID() << " dist=" << dist << "\n";
+#endif
+                        toProc.pop_back();
+                        if (visited.find(cont2) != visited.end()) {
+                            continue;
+                        }
+                        visited.insert(cont2);
+                        if (cont2 == cont) {
+                            found = true;
+                            break;
+                        }
+                        for (NBEdge* e : cont2->getIncomingEdges()) {
+                            const double dist2 = dist + e->getLength();
+                            if (dist2 < slipLength * 2 && (e->getPermissions() & SVC_PASSENGER) != 0) {
+                                toProc.push_back(std::make_pair(e->getFromNode(), dist2));
+                            }
+                        }
+                    }
+                    if (found) {
+                        // found slip lane
+                        cands.insert(cont);
+                        toRemove.insert(cands.begin(), cands.end());
+#ifdef DEBUG_JOINJUNCTIONS
+                        if (gDebugFlag1) std::cout << "   found slip-lane start with nodes=" << joinNamedToString(cands, ' ') << "\n";
+#endif
+                    }
+                }
+            }
+        }
+
+
+
     }
     int numRemoved = 0;
     for (NBNode* n : toRemove) {
@@ -973,6 +1056,42 @@ NBNodeCont::maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing, double& in
             if (straight.size() == 2 && numReverse == 1) {
                 outgoing.insert(outgoing.begin(), straight.begin(), straight.end());
                 inAngle = in->getAngleAtNode(n);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+bool
+NBNodeCont::maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outAngle) const {
+    if (n->getIncomingEdges().size() == 2 && n->getOutgoingEdges().size() == 1) {
+        incoming.insert(incoming.begin(), n->getIncomingEdges().begin(), n->getIncomingEdges().end());
+        outAngle = n->getOutgoingEdges().front()->getAngleAtNode(n);
+        return true;
+    } else if (n->getIncomingEdges().size() == 3 && n->getOutgoingEdges().size() == 2) {
+        // check if the outgoing edges are going in opposite directions and then
+        // use the outgoing edge that has 2 almost-straight incoming edges
+        const double outRelAngle = fabs(NBHelpers::relAngle(n->getOutgoingEdges().front()->getAngleAtNode(n), n->getOutgoingEdges().back()->getAngleAtNode(n)));
+        //std::cout << "n=" << n->getID() << " outRelAngle=" << outRelAngle << "\n";
+        if (outRelAngle < 135) {
+            return false; // not opposite outgoing
+        }
+        for (NBEdge* out : n->getOutgoingEdges()) {
+            EdgeVector straight;
+            int numReverse = 0;
+            for (NBEdge* in : n->getIncomingEdges()) {
+                const double inRelAngle = fabs(NBHelpers::relAngle(in->getAngleAtNode(n), out->getAngleAtNode(n)));
+                if (inRelAngle <= 45) {
+                    straight.push_back(out);
+                } else if (inRelAngle >= 135) {
+                    numReverse++;
+                }
+            }
+            if (straight.size() == 2 && numReverse == 1) {
+                incoming.insert(incoming.begin(), straight.begin(), straight.end());
+                outAngle = out->getAngleAtNode(n);
                 return true;
             }
         }
