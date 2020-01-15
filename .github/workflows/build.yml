@@ -7,10 +7,26 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v1
     
-    - name: cloning-SUMO-Libraries
-      run: git clone --recurse-submodules https://github.com/DLR-TS/SUMOLibraries && set SUMO_LIBRARIES=%CD%\SUMOLibraries && "%PYTHON%\\python.exe -m pip install wheel"
+    - name: Checkout SUMO
+      uses: actions/checkout@v2
+      with:
+        path: SUMO 
+      
+    - name: Checkout SUMO Libraries
+      uses: actions/checkout@v2
+      with:
+        repository: DLR-TS/SUMOLibraries 
+        path: SUMOLibraries
+    
+    - name: Checkout SUMO Libraries Submodules
+      shell: bash
+      run: |
+        cd SUMOLibraries
+        git submodule sync --recursive
+        git submodule update --init --force --recursive --depth=1
+
+#run: git clone --recurse-submodules https://github.com/DLR-TS/SUMOLibraries && set SUMO_LIBRARIES=%CD%\SUMOLibraries && "%PYTHON%\\python.exe -m pip install wheel"
 
     
   build-linux:
