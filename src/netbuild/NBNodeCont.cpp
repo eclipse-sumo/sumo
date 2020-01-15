@@ -850,6 +850,9 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
     if (gDebugFlag1) std::cout << "pruning slip-lanes at cluster=" << joinNamedToString(cluster, ' ') << "\n";
 #endif
     // fringe has already been removed
+    if (cluster.size() <= 2) {
+        return;
+    }
     NodeSet toRemove;
     for (NBNode* n : cluster) {
         EdgeVector outgoing;
