@@ -104,3 +104,6 @@ ticket5881
 
 # invalid network with option geometry.remove.min-length
 ticket6333
+
+# override right-turn-conflict
+ticket6497
