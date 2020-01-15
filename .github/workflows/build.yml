@@ -9,17 +9,24 @@ jobs:
     steps:
     
     - name: checkout-sumo
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
+      with:
+        path: SUMO 
       
     - name: checkout-sumo-libraries
-      run: |
-        git clone --recurse-submodules https://github.com/DLR-TS/SUMOLibraries SUMOLibraries
-        cd
-        cd $HOME
-        cd
-
+      uses: actions/checkout@v2
+      with:
+        repository: DLR-TS/SUMOLibraries 
+        path: SUMOLibraries
     
-      #run: git clone --recurse-submodules https://github.com/DLR-TS/SUMOLibraries && set SUMO_LIBRARIES=%CD%\SUMOLibraries && "%PYTHON%\\python.exe -m pip install wheel"
+    - name: Checkout submodules
+      shell: bash
+      run: |
+        auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+        git submodule sync --recursive
+        git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+
+#run: git clone --recurse-submodules https://github.com/DLR-TS/SUMOLibraries && set SUMO_LIBRARIES=%CD%\SUMOLibraries && "%PYTHON%\\python.exe -m pip install wheel"
 
     
   build-linux:
