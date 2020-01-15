@@ -51,6 +51,9 @@ ticket936
 # test the code path where a ramp is recognized
 ticket936b
 ticket947
+
+# using another junction geometry to expose the issue
+ticket947b
 ticket1031
 ticket1037
 ticket1177
