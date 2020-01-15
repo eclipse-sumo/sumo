@@ -17,7 +17,7 @@ jobs:
       run: pushd /usr/src/gtest; sudo mkdir build; cd build; sudo cmake ..; sudo make; sudo cp libgtest* /usr/lib/;
     
     - name: build-sumo
-      run: cmake-build && cd cmake-build && cmake .. && make -j 
+      run: mkdir cmake-build && cd cmake-build && cmake .. && make -j 
 
     - name: build-traas
       run: make traas
