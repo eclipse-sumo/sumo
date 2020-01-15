@@ -913,7 +913,9 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
         }
         if (response.find_first_of("1") == std::string::npos) {
             return false;
-        };
+        } else if (!myJunction->isTLControlled()) {
+            return true;
+        }
         // if the link must respond it could also be due to a tlsConflict. This
         // must not carry over the the off-state response so we continue with
         // the regular check

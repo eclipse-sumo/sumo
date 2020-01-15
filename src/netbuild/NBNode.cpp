@@ -1795,6 +1795,13 @@ NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
         return false;
     } else {
         const LinkDirection d2 = prohibitorFrom->getToNode()->getDirection(prohibitorFrom, prohibitorTo);
+        /* std::cout
+            << "from=" << from->getID() << " to=" << to->getID() << " fromLane=" << fromLane
+            << " pFrom=" << prohibitorFrom->getID() << " pTo=" << prohibitorTo->getID() << " pFromLane=" << prohibitorFromLane
+            << " d1=" << toString(d1) << " d2=" << toString(d2)
+            << " lefthand=" << lefthand
+            << "\n"; */
+        lefthand = false;
         if (d1 == LINKDIR_LEFT || d1 == LINKDIR_PARTLEFT) {
             // check for leftTurnConflicht
             lefthand = !lefthand;
