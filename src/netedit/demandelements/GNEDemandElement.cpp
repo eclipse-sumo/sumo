@@ -225,24 +225,6 @@ GNEDemandElement::generateChildID(SumoXMLTag childTag) {
 GNEDemandElement::~GNEDemandElement() {}
 
 
-const GNEGeometry::Geometry&
-GNEDemandElement::getDemandElementGeometry() const {
-    return myDemandElementGeometry;
-}
-
-
-const GNEGeometry::SegmentGeometry&
-GNEDemandElement::getDemandElementSegmentGeometry() const {
-    return myDemandElementSegmentGeometry;
-}
-
-
-void 
-GNEDemandElement::updateDemandElementGeometry(const GNELane* lane, const double posOverLane) {
-    myDemandElementGeometry.updateGeometry(lane, posOverLane);
-}
-
-
 bool
 GNEDemandElement::isDemandElementValid() const {
     return true;

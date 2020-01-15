@@ -362,11 +362,11 @@ private:
     /// @brief update stacked geometry
     void updateStackedGeometry();
 
-    /// @brief update departPos geometry
-    void updateDepartPosGeometry();
-
     /// @brief partial update pre-computed stacked geometry information
     void updatePartialStackedGeometry(const GNEEdge* edge);
+
+    /// @brief update departPos geometry
+    void updateDepartPosGeometry();
 
     /// @brief partial update pre-computed departPosgeometry information
     void updatePartialDepartPosGeometry(const GNEEdge* edge);
