@@ -35,13 +35,14 @@ environment:
 install:
     - git clone --recurse-submodules https://github.com/DLR-TS/SUMOLibraries
     - set SUMO_LIBRARIES=%CD%\SUMOLibraries
+    - "%PYTHON%\\python.exe -m pip install wheel"
 
 build_script:
     - cd %APPVEYOR_BUILD_FOLDER%
     - mkdir build_msvc%ver% &&
       cd build_msvc%ver% &&
       cmake .. -G"%generator%" -A x64 -DPYTHON_EXECUTABLE=%PYTHON%\python.exe &&
-      cmake --build . --config %configuration% &&
+      cmake --build . --config %configuration% && cd .. &&
       %PYTHON%\python.exe tools\build\setup-libsumo.py bdist_wheel
 
 
