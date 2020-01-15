@@ -165,6 +165,12 @@ public:
     /// @brief destructor
     ~GNEVehicle();
 
+    /// @brief get demand element geometry
+    GNEGeometry::Geometry& getDemandElementGeometry();
+
+    /// @brief get demand element segment geometry
+    const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
+
     /**@brief get begin time of demand element
      * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
      * @throw invalid argument if demand element doesn't has a begin time
@@ -334,13 +340,36 @@ protected:
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 
-private:
+    /// @brief departPos geometry
+    GNEGeometry::Geometry myDepartPosGeometry;
 
+    /// @brief departPos segment geometry
+    GNEGeometry::SegmentGeometry myDepartPosSegmentGeometry;
+
+    /// @brief demand element geometry
+    GNEGeometry::Geometry myStackedGeometry;
+
+    /// @brief demand element segment geometry
+    GNEGeometry::SegmentGeometry myStackedSegmentGeometry;
+
+private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
+
+    /// @brief update stacked geometry
+    void updateStackedGeometry();
+
+    /// @brief update departPos geometry
+    void updateDepartPosGeometry();
+
+    /// @brief partial update pre-computed stacked geometry information
+    void updatePartialStackedGeometry(const GNEEdge* edge);
+
+    /// @brief partial update pre-computed departPosgeometry information
+    void updatePartialDepartPosGeometry(const GNEEdge* edge);
 
     /// @brief Invalidated copy constructor.
     GNEVehicle(const GNEVehicle&) = delete;

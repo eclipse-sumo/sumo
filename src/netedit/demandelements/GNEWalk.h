@@ -75,6 +75,12 @@ public:
     /// @brief destructor
     ~GNEWalk();
 
+    /// @brief get demand element geometry
+    GNEGeometry::Geometry& getDemandElementGeometry();
+
+    /// @brief get demand element segment geometry
+    const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
+
     /**@brief writte demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
@@ -236,6 +242,9 @@ public:
     /// @}
 
 protected:
+    /// @brief walk segment geometry
+    GNEGeometry::SegmentGeometry myWalkSegmentGeometry;
+
     /// @brief variable for move walks
     DemandElementMove myWalkMove;
 
@@ -243,6 +252,9 @@ protected:
     double myArrivalPosition;
 
 private:
+    /// @brief walk geometry (unused)
+    GNEGeometry::Geometry myWalkGeometry;
+
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

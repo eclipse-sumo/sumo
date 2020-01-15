@@ -90,6 +90,12 @@ public:
     /// @brief destructor
     ~GNERoute();
 
+    /// @brief get demand element geometry
+    GNEGeometry::Geometry& getDemandElementGeometry();
+
+    /// @brief get demand element segment geometry
+    const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
+
     /**@brief writte demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
@@ -257,6 +263,9 @@ public:
     static std::string isRouteValid(const std::vector<GNEEdge*>& edges);
 
 protected:
+    /// @brief route segment geometry
+    GNEGeometry::SegmentGeometry myRouteSegmentGeometry;
+
     /// @brief route color
     RGBColor myColor;
 
@@ -264,6 +273,9 @@ protected:
     SUMOVehicleClass myVClass;
 
 private:
+    /// @brief route geometry (unused)
+    GNEGeometry::Geometry myRouteGeometry;
+
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

@@ -116,6 +116,18 @@ GNERoute::GNERoute(GNEDemandElement* route) :
 GNERoute::~GNERoute() {}
 
 
+GNEGeometry::Geometry&
+GNERoute::getDemandElementGeometry() {
+     return myRouteGeometry;
+}
+
+
+const GNEGeometry::SegmentGeometry& 
+GNERoute::getDemandElementSegmentGeometry() const {
+    return myRouteSegmentGeometry;
+}
+
+
 GUIGLObjectPopupMenu*
 GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GNERoutePopupMenu(app, parent, *this);
@@ -243,8 +255,8 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 void
 GNERoute::updateGeometry() {
     // calculate geometry path
-    GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(),
-                                            getVClass(), getFirstAllowedVehicleLane(), getLastAllowedVehicleLane());
+    GNEGeometry::calculateEdgeGeometricPath(this, myRouteSegmentGeometry, getParentEdges(),
+        getVClass(), getFirstAllowedVehicleLane(), getLastAllowedVehicleLane());
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
@@ -263,7 +275,7 @@ GNERoute::updateDottedContour() {
 void
 GNERoute::updatePartialGeometry(const GNEEdge* edge) {
     // calculate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge);
+    GNEGeometry::updateGeometricPath(myRouteSegmentGeometry, edge);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {

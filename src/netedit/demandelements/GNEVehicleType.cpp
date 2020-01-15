@@ -79,6 +79,18 @@ myDefaultVehicleTypeModified(false) {
 GNEVehicleType::~GNEVehicleType() {}
 
 
+GNEGeometry::Geometry&
+GNEVehicleType::getDemandElementGeometry() {
+    return myVTypeGeometry;
+}
+
+
+const GNEGeometry::SegmentGeometry& 
+GNEVehicleType::getDemandElementSegmentGeometry() const {
+    return myVTypeSegmentGeometry;
+}
+
+
 void
 GNEVehicleType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified

@@ -112,6 +112,12 @@ public:
     /// @brief destructor
     ~GNEPerson();
 
+    /// @brief get demand element geometry
+    GNEGeometry::Geometry& getDemandElementGeometry();
+
+    /// @brief get demand element segment geometry
+    const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
+
     /**@brief get begin time of demand element
      * @note: used by demand elements of type "Person", and it has to be implemented as children
      * @throw invalid argument if demand element doesn't has a begin time
@@ -284,6 +290,9 @@ protected:
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(int activeScheme) const;
 
+    /// @brief person geometry
+    GNEGeometry::Geometry myPersonGeometry;
+
 private:
     // @brief struct used for calculating person plan geometry segments
     struct personPlanSegment {
@@ -309,6 +318,9 @@ private:
         /// @brief constructor
         personPlanSegment();
     };
+
+    /// @brief person segment geometry (unused)
+    GNEGeometry::SegmentGeometry myPersonSegmentGeometry;
 
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);

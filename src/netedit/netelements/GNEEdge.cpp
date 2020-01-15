@@ -1436,7 +1436,7 @@ GNEEdge::updateVehicleGeometries() {
     double lenght = 0;
     // iterate over vehicles to calculate position and rotations
     for (const auto &vehicle : vehicles) {
-        vehicle->updateDemandElementGeometry(myLanes.front(), lenght * multiplier);
+        vehicle->getDemandElementGeometry().updateGeometry(myLanes.front(), lenght * multiplier);
         // update lenght
         lenght += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH);
     }

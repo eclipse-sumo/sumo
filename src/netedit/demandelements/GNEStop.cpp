@@ -60,6 +60,18 @@ SUMOVehicleParameter::Stop(stopParameter) {
 GNEStop::~GNEStop() {}
 
 
+GNEGeometry::Geometry&
+GNEStop::getDemandElementGeometry() {
+    return myStopGeometry;
+}
+
+
+const GNEGeometry::SegmentGeometry& 
+GNEStop::getDemandElementSegmentGeometry() const {
+    return myStopSegmentGeometry;
+}
+
+
 std::string
 GNEStop::getBegin() const {
     return "";
@@ -272,10 +284,10 @@ GNEStop::updateGeometry() {
     //only update Stops over lanes, because other uses the geometry of stopping place parent
     if (getParentLanes().size() > 0) {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myDemandElementGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
+        myStopGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
     } else if (getParentAdditionals().size() > 0) {
         // use geometry of additional (busStop)
-        myDemandElementGeometry.updateGeometry(getParentAdditionals().at(0));
+        myStopGeometry.updateGeometry(getParentAdditionals().at(0));
     }
     // recompute geometry of all Demand elements related with this this stop
     if (getParentDemandElements().front()->getTagProperty().isRoute()) {
@@ -305,10 +317,10 @@ GNEStop::updatePartialGeometry(const GNEEdge* edge) {
     //only update Stops over lanes, because other uses the geometry of stopping place parent
     if (getParentLanes().size() > 0) {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myDemandElementGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
+        myStopGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
     } else if (getParentAdditionals().size() > 0) {
         // use geometry of additional (busStop)
-        myDemandElementGeometry.updateGeometry(getParentAdditionals().at(0));
+        myStopGeometry.updateGeometry(getParentAdditionals().at(0));
     }
     // recompute geometry of all Demand elements related with this this stop
     if (getParentDemandElements().front()->getTagProperty().isRoute()) {
@@ -384,8 +396,8 @@ GNEStop::getCenteringBoundary() const {
         return getParentAdditionals().at(0)->getCenteringBoundary();
     } else if (myStopMove.movingGeometryBoundary.isInitialised()) {
         return myStopMove.movingGeometryBoundary;
-    } else if (myDemandElementGeometry.getShape().size() > 0) {
-        Boundary b = myDemandElementGeometry.getShape().getBoxBoundary();
+    } else if (myStopGeometry.getShape().size() > 0) {
+        Boundary b = myStopGeometry.getShape().getBoxBoundary();
         b.grow(20);
         return b;
     } else {
@@ -447,17 +459,17 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         // draw depending of details
         if (s.drawDetail(s.detailSettings.stopsDetails, exaggeration) && getParentLanes().size() > 0) {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myDemandElementGeometry.getShape(), myDemandElementGeometry.getShapeRotations(), myDemandElementGeometry.getShapeLengths(), exaggeration * 0.1, 0,
-                                   getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
-            GLHelper::drawBoxLines(myDemandElementGeometry.getShape(), myDemandElementGeometry.getShapeRotations(), myDemandElementGeometry.getShapeLengths(), exaggeration * 0.1, 0,
-                                   getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * -0.5);
+            GLHelper::drawBoxLines(myStopGeometry.getShape(), myStopGeometry.getShapeRotations(), myStopGeometry.getShapeLengths(), exaggeration * 0.1, 0,
+                getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
+            GLHelper::drawBoxLines(myStopGeometry.getShape(), myStopGeometry.getShapeRotations(), myStopGeometry.getShapeLengths(), exaggeration * 0.1, 0,
+                getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * -0.5);
             // pop draw matrix
             glPopMatrix();
             // Add a draw matrix
             glPushMatrix();
             // move to geometry front
-            glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), getType());
-            glRotated(myDemandElementGeometry.getShapeRotations().back(), 0, 0, 1);
+            glTranslated(myStopGeometry.getShape().back().x(), myStopGeometry.getShape().back().y(), getType());
+            glRotated(myStopGeometry.getShapeRotations().back(), 0, 0, 1);
             // draw front of Stop depending if it's placed over a lane or over a stoppingPlace
             if (getParentLanes().size() > 0) {
                 // draw front of Stop
@@ -489,14 +501,15 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             if (myViewNet->getDottedAC() == this) {
                 // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
                 if (getParentLanes().size() > 0) {
-                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(), getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
+                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), myStopGeometry.getShape(), 
+                        getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
                 } else {
-                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(), exaggeration);
+                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), myStopGeometry.getShape(), exaggeration);
                 }
             }
         } else {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(myViewNet, myDemandElementGeometry, exaggeration * 0.8);
+            GNEGeometry::drawGeometry(myViewNet, myStopGeometry, exaggeration * 0.8);
             // pop draw matrix
             glPopMatrix();
         }

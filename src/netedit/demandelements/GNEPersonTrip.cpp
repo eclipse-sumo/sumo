@@ -76,6 +76,18 @@ myModes(modes) {
 GNEPersonTrip::~GNEPersonTrip() {}
 
 
+GNEGeometry::Geometry&
+GNEPersonTrip::getDemandElementGeometry() {
+    return myPersonTripGeometry;
+}
+
+
+const GNEGeometry::SegmentGeometry& 
+GNEPersonTrip::getDemandElementSegmentGeometry() const {
+    return myPersonTripSegmentGeometry;
+}
+
+
 GUIGLObjectPopupMenu*
 GNEPersonTrip::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -276,11 +288,11 @@ GNEPersonTrip::updateGeometry() {
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path
     if (getPathEdges().size() > 0) {
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
-                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+        GNEGeometry::calculateEdgeGeometricPath(this, myPersonTripSegmentGeometry, getPathEdges(), getVClass(),
+            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
-                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+        GNEGeometry::calculateEdgeGeometricPath(this, myPersonTripSegmentGeometry, getParentEdges(), getVClass(),
+            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
@@ -308,7 +320,7 @@ GNEPersonTrip::updatePartialGeometry(const GNEEdge* edge) {
     // calculate person plan start and end positions
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::updateGeometricPath(myPersonTripSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updatePartialGeometry(edge);

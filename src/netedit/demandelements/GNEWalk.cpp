@@ -88,6 +88,18 @@ myArrivalPosition(arrivalPosition) {
 GNEWalk::~GNEWalk() {}
 
 
+GNEGeometry::Geometry&
+GNEWalk::getDemandElementGeometry() {
+    return myWalkGeometry;
+}
+
+
+const GNEGeometry::SegmentGeometry& 
+GNEWalk::getDemandElementSegmentGeometry() const {
+    return myWalkSegmentGeometry;
+}
+
+
 GUIGLObjectPopupMenu*
 GNEWalk::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -298,14 +310,14 @@ GNEWalk::updateGeometry() {
     // calculate geometry path depending if is a Walk over route
     if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
         // use edges of route parent
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
-                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+        GNEGeometry::calculateEdgeGeometricPath(this, myWalkSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
+            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else if (getPathEdges().empty()) {
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
-                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+        GNEGeometry::calculateEdgeGeometricPath(this, myWalkSegmentGeometry, getParentEdges(), getVClass(),
+            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
-                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+        GNEGeometry::calculateEdgeGeometricPath(this, myWalkSegmentGeometry, getPathEdges(), getVClass(),
+            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
@@ -333,7 +345,7 @@ GNEWalk::updatePartialGeometry(const GNEEdge* edge) {
     // calculate person plan start and end positions
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // udpate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::updateGeometricPath(myWalkSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updatePartialGeometry(edge);

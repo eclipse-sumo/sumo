@@ -43,6 +43,12 @@ public:
     /// @brief destructor
     ~GNEStop();
 
+    /// @brief get demand element geometry
+    GNEGeometry::Geometry& getDemandElementGeometry();
+
+    /// @brief get demand element segment geometry
+    const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
+
     /**@brief get begin time of demand element
      * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
      * @throw invalid argument if demand element doesn't has a begin time
@@ -206,10 +212,16 @@ public:
     double getEndGeometryPositionOverLane() const;
 
 protected:
+    /// @brief stop geometry
+    GNEGeometry::Geometry myStopGeometry;
+
     /// @brief variable demand element move
     DemandElementMove myStopMove;
 
 private:
+    /// @brief stop segment geometry (unused)
+    GNEGeometry::SegmentGeometry myStopSegmentGeometry;
+
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

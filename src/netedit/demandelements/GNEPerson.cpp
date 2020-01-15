@@ -180,6 +180,18 @@ SUMOVehicleParameter(personparameters) {
 GNEPerson::~GNEPerson() {}
 
 
+GNEGeometry::Geometry&
+GNEPerson::getDemandElementGeometry() {
+    return myPersonGeometry;
+}
+
+
+const GNEGeometry::SegmentGeometry& 
+GNEPerson::getDemandElementSegmentGeometry() const {
+    return myPersonSegmentGeometry;
+}
+
+
 std::string
 GNEPerson::getBegin() const {
     // obtain depart depending if is a Person, trip or routeFlow
