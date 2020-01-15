@@ -243,7 +243,7 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 void
 GNERoute::updateGeometry() {
     // calculate geometry path
-    GNEGeometry::calculateEdgeGeometricPath(this, myStackedSegmentGeometry, getParentEdges(),
+    GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(),
         getVClass(), getFirstAllowedVehicleLane(), getLastAllowedVehicleLane());
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
@@ -263,7 +263,7 @@ GNERoute::updateDottedContour() {
 void
 GNERoute::updatePartialGeometry(const GNEEdge* edge) {
     // calculate geometry path
-    GNEGeometry::updateGeometricPath(myStackedSegmentGeometry, edge);
+    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {

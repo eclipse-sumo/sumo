@@ -298,13 +298,13 @@ GNEWalk::updateGeometry() {
     // calculate geometry path depending if is a Walk over route
     if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
         // use edges of route parent
-        GNEGeometry::calculateEdgeGeometricPath(this, myStackedSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else if (getPathEdges().empty()) {
-        GNEGeometry::calculateEdgeGeometricPath(this, myStackedSegmentGeometry, getParentEdges(), getVClass(),
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
-        GNEGeometry::calculateEdgeGeometricPath(this, myStackedSegmentGeometry, getPathEdges(), getVClass(),
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
     // update child demand elementss
@@ -333,7 +333,7 @@ GNEWalk::updatePartialGeometry(const GNEEdge* edge) {
     // calculate person plan start and end positions
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // udpate geometry path
-    GNEGeometry::updateGeometricPath(myStackedSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updatePartialGeometry(edge);

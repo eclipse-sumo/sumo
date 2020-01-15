@@ -1218,16 +1218,32 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
     // draw trip from to
     if (junction) {
         // iterate over segments
-        for (const auto& segment : tripOrFromTo->getDemandElementSegmentGeometry()) {
-            // draw partial segment
-            GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
+        if (myNet->getViewNet()->getCommonViewOptions().drawStackedVehicles()) {
+            for (const auto& segment : tripOrFromTo->getDemandElementStackedSegmentGeometry()) {
+                // draw partial segment
+                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
+            }
+        } else {
+            for (const auto& segment : tripOrFromTo->getDemandElementSegmentGeometry()) {
+                // draw partial segment
+                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
+            }
         }
     } else {
         // iterate over segments
-        for (const auto& segment : tripOrFromTo->getDemandElementSegmentGeometry()) {
-            // draw partial segment
-            if ((segment.edge == this) && (segment.AC == tripOrFromTo)) {
-                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
+        if (myNet->getViewNet()->getCommonViewOptions().drawStackedVehicles()) {
+            for (const auto& segment : tripOrFromTo->getDemandElementStackedSegmentGeometry()) {
+                // draw partial segment
+                if ((segment.edge == this) && (segment.AC == tripOrFromTo)) {
+                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
+                }
+            }
+        } else {
+            for (const auto& segment : tripOrFromTo->getDemandElementSegmentGeometry()) {
+                // draw partial segment
+                if ((segment.edge == this) && (segment.AC == tripOrFromTo)) {
+                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
+                }
             }
         }
     }
