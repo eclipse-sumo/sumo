@@ -652,6 +652,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                                   << " clfbcoop=" << checkLaneFoesByCooperation(from, queryCon, *i, connected[k])
                                   << " lc=" << laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)
                                   << " rtc=" << NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)
+                                  << " rtc2=" << rightTurnConflict(from, queryCon, *i, connected[k])
                                   << " mc=" << mergeConflict(from, queryCon, *i, connected[k], false)
                                   << " oltc=" << oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
                                   << " rorc=" << myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
@@ -663,7 +664,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                                                     || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
                                                   || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
                     if ((myForbids[idx2][idx] && hasLaneConflict)
-                            || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)
+                            || rightTurnConflict(from, queryCon, *i, connected[k])
                             || mergeConflict(from, queryCon, *i, connected[k], false)
                             || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
                             || myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
@@ -715,7 +716,7 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
                                                 || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
                                               || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
                 if ((foes(from, to, (*i), connected[k].toEdge) && hasLaneConflict)
-                        || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)
+                        || rightTurnConflict(from, queryCon, *i, connected[k])
                         || myJunction->turnFoes(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                         || mergeConflict(from, queryCon, *i, connected[k], true)
                         || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], true)
@@ -728,6 +729,19 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
         }
     }
     return result;
+}
+
+
+bool
+NBRequest::rightTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
+                         const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon) const {
+    return (!con.mayDefinitelyPass && 
+                (NBNode::rightTurnConflict(from, con.toEdge, con.fromLane, prohibitorFrom, prohibitorCon.toEdge, prohibitorCon.fromLane)
+                 // reverse conflicht (override)
+                 || (prohibitorCon.mayDefinitelyPass &&
+                     NBNode::rightTurnConflict(prohibitorFrom, prohibitorCon.toEdge, prohibitorCon.fromLane, from, con.toEdge, con.fromLane))));
+
+            
 }
 
 
@@ -944,18 +958,16 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
     }
     // maybe we need to brake due to a right-turn conflict with straight-going
     // bicycles
+    NBEdge::Connection queryCon = from->getConnection(fromLane, to, toLane);
     LinkDirection dir = myJunction->getDirection(from, to);
     if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
-        const std::vector<NBEdge::Connection>& cons = from->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator i = cons.begin(); i != cons.end(); i++) {
-            if (NBNode::rightTurnConflict(from, to, fromLane,
-                                          from, (*i).toEdge, (*i).fromLane)) {
+        for (const NBEdge::Connection& con : from->getConnections()) {
+            if (rightTurnConflict(from, queryCon, from, con)) {
                 return true;
             }
         }
     }
     // maybe we need to brake due to a merge conflict
-    NBEdge::Connection queryCon = from->getConnection(fromLane, to, toLane);
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
         int noLanes = (*i)->getNumLanes();
         for (int j = noLanes; j-- > 0;) {
