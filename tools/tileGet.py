@@ -68,7 +68,7 @@ def getZoomWidthHeight(south, west, north, east, maxTileSize):
     return center, zoom, width, height
 
 
-def retrieveMapServerTiles(url, tiles, west, south, east, north, decals, prefix, net):
+def retrieveMapServerTiles(url, tiles, west, south, east, north, decals, prefix, net, layer):
     zoom = 20
     numTiles = tiles + 1
     while numTiles > tiles:
@@ -85,9 +85,9 @@ def retrieveMapServerTiles(url, tiles, west, south, east, north, decals, prefix,
             upperLeft = net.convertLonLat2XY(lon, lat)
             lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
             center = net.convertLonLat2XY(lon, lat)
-            print('    <decal file="%s%s_%s.jpeg" centerX="%s" centerY="%s" width="%s" height="%s"/>' %
+            print('    <decal file="%s%s_%s.jpeg" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
                   (prefix, x, y, center[0], center[1],
-                   2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1])), file=decals)
+                   2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), layer), file=decals)
 
 
 optParser = optparse.OptionParser()
@@ -97,6 +97,7 @@ optParser.add_option("-t", "--tiles", type="int",
                      default=1, help="maximum number of tiles the output gets split into")
 optParser.add_option("-d", "--output-dir", default=".", help="optional output directory (must already exist)")
 optParser.add_option("-s", "--decals-file", default="settings.xml", help="name of decals settings file")
+optParser.add_option("-l", "--layer", type="int", default=0, help="(int) layer at which the image will appear, default 0")
 optParser.add_option("-x", "--polygon", help="calculate bounding box from polygon data in file")
 optParser.add_option("-n", "--net", help="get bounding box from net file")
 optParser.add_option("-k", "--key", help="API key to use")
@@ -143,7 +144,7 @@ def get(args=None):
         sumolib.xml.writeHeader(decals, root="viewsettings")
         if "MapServer" in options.url:
             retrieveMapServerTiles(options.url, options.tiles, west, south, east, north,
-                                   decals, options.prefix, net)
+                                   decals, options.prefix, net, options.layer)
         else:
             b = west
             for i in range(options.tiles):
@@ -160,9 +161,9 @@ def get(args=None):
                            (options.url, size, c[0], c[1], z, maptype, options.key))
     #            print(request)
                 urllib.urlretrieve(request, "%s%s.png" % (prefix, i))
-                print('    <decal file="%s%s.png" centerX="%s" centerY="%s" width="%s" height="%s"/>' %
+                print('    <decal file="%s%s.png" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
                       (options.prefix, i, bbox[0][0] + (i + 0.5) * offset, (bbox[0][1] + bbox[1][1]) / 2,
-                       offset, bbox[1][1] - bbox[0][1]), file=decals)
+                       offset, bbox[1][1] - bbox[0][1], options.layer), file=decals)
                 b = e
         print("</viewsettings>", file=decals)
 
