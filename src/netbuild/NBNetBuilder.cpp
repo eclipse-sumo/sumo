@@ -190,10 +190,6 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont, myPTStopCont);
         PROGRESS_TIME_MESSAGE(before);
     }
-    if (oc.getBool("junctions.join") || (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))) {
-        // reset geometry to avoid influencing subsequent steps (ramps.guess)
-        myEdgeCont.computeLaneShapes();
-    }
     if (numJoined > 0) {
         // bit of a misnomer since we're already done
         WRITE_MESSAGE(" Joined " + toString(numJoined) + " junction cluster(s).");

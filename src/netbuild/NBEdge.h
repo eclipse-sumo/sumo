@@ -1394,6 +1394,9 @@ public:
     /// @brief join adjacent lanes with the given permissions
     bool joinLanes(SVCPermissions perms);
 
+    /// @brief reset lane shapes to what they would be before cutting with the junction shapes
+    void resetLaneShapes();
+
 private:
     /** @class ToEdgeConnectionsAdder
      * @brief A class that being a bresenham-callback assigns the incoming lanes to the edges

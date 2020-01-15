@@ -613,6 +613,8 @@ NBRampsComputer::patchRampGeometry(NBEdge* potRamp, NBEdge* first, NBEdge* potHi
         }
         firstIndex /= 2; // integer division
     }
+    // reset lane shape (might be affected by earlier junctions.join step. see #947)
+    first->resetLaneShapes();
     PositionVector l = first->getLaneShape(firstIndex);
     try {
         l.move2side(offset);

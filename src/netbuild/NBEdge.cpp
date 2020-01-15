@@ -52,10 +52,11 @@
 //#define DEBUG_NODE_BORDER
 //#define DEBUG_REPLACECONNECTION
 #define DEBUGID "132406495"
-//#define DEBUGCOND (getID() == DEBUGID)
+#define DEBUGCOND (getID() == DEBUGID)
 //#define DEBUGCOND (StringUtils::startsWith(getID(), DEBUGID))
 //#define DEBUGCOND (getID() == "22762377#1" || getID() == "146511467")
 #define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == DEBUGID))
+//#define DEBUGCOND (true)
 
 // ===========================================================================
 // static members
@@ -528,9 +529,7 @@ NBEdge::~NBEdge() {}
 void
 NBEdge::reshiftPosition(double xoff, double yoff) {
     myGeom.add(xoff, yoff, 0);
-    for (int i = 0; i < (int)myLanes.size(); i++) {
-        myLanes[i].shape.add(xoff, yoff, 0);
-    }
+    computeLaneShapes(); // old shapes are dubious if computed with large coordinates
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         (*i).customShape.add(xoff, yoff, 0);
     }
@@ -1905,6 +1904,10 @@ NBEdge::getLaneSpeed(int lane) const {
     return myLanes[lane].speed;
 }
 
+void
+NBEdge::resetLaneShapes() {
+    computeLaneShapes();
+}
 
 void
 NBEdge::computeLaneShapes() {
@@ -2003,13 +2006,14 @@ NBEdge::computeAngle() {
     myEndAngle = GeomHelper::legacyDegree(referencePosEnd.angleTo2D(toCenter), true);
     myTotalAngle = GeomHelper::legacyDegree(myFrom->getPosition().angleTo2D(myTo->getPosition()), true);
 #ifdef DEBUG_ANGLES
-    if (DEBUGCOND) std::cout << "computeAngle edge=" << getID() << " fromCenter=" << fromCenter << " toCenter=" << toCenter
-                                 << " refStart=" << referencePosStart << " refEnd=" << referencePosEnd << " shape=" << shape
-                                 << " hasFromShape=" << hasFromShape
-                                 << " hasToShape=" << hasToShape
-                                 << " numLanes=" << getNumLanes()
-                                 << " shapeLane=" << getNumLanes() / 2
-                                 << " startA=" << myStartAngle << " endA=" << myEndAngle << " totA=" << myTotalAngle << "\n";
+    if (DEBUGCOND) std::cout << "computeAngle edge=" << getID() 
+                             << " fromCenter=" << fromCenter << " toCenter=" << toCenter
+                             << " refStart=" << referencePosStart << " refEnd=" << referencePosEnd << " shape=" << shape
+                             << " hasFromShape=" << hasFromShape
+                             << " hasToShape=" << hasToShape
+                             << " numLanes=" << getNumLanes()
+                             << " shapeLane=" << getNumLanes() / 2
+                             << " startA=" << myStartAngle << " endA=" << myEndAngle << " totA=" << myTotalAngle << "\n";
 #endif
 }
 
