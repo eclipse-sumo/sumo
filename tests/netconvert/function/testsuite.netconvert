@@ -83,3 +83,9 @@ prefix_renumber
 
 # rotate the input network
 rotate
+
+# mirror the network along the x-axis
+flipY
+
+# turn a left-hand network into a right-hand network
+flipY_lefthand
