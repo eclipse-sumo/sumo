@@ -644,7 +644,7 @@ The following attributes are supported
 | **width**      | float         | The width of the image in network coordinates (in meters)                                                                       |
 | **height**     | float         | The height of the image in network coordinates (in meters)                                                                      |
 | rotation       | float         | The angle of the image in degrees                                                                                               |
-| layer          | float         | The layer at which the image in drawn in meters over ground                                                                     |
+| layer          | float         | The layer at which the image is drawn in meters over ground                                                                     |
 | screenRelative | bool          | *relative*, whether the position and size are pixel coordinates relative to the screen rather then the network coordinates      |
 | centerZ        | float         | The z-position of the center of the object in network coordinates (in meters), only used in 3D visualization instead of *layer* |
 | tilt           | float         | The tilt angle of the object, only used in 3D visualization                                                                     |
