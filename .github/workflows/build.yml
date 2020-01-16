@@ -40,6 +40,9 @@ jobs:
       run: python -m pip install wheel
    
     - name: Building SUMO
+      env:
+        # Allow CMake build to use multiple processors
+        CMAKE_BUILD_PARALLEL_LEVEL: 4
       shell: bash
       run: |
         cd $GITHUB_WORKSPACE/SUMO
