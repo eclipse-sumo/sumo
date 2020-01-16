@@ -46,13 +46,14 @@ Command_SaveTLSProgram::~Command_SaveTLSProgram() {
 SUMOTime
 Command_SaveTLSProgram::execute(SUMOTime /*currentTime*/) {
     const std::string& state = myLogics.getActive()->getCurrentPhaseDef().getState();
+    const std::string& name = myLogics.getActive()->getCurrentPhaseDef().getName();
     if (myLogics.getActive()->getProgramID() != myPreviousProgramID) {
         writeCurrent();
         myPreviousProgramID = myLogics.getActive()->getProgramID();
         myTLSID = myLogics.getActive()->getID();
     }
     if (myPreviousStates.size() == 0 || myPreviousStates.back().getState() != state) {
-        myPreviousStates.push_back(MSPhaseDefinition(0, state));
+        myPreviousStates.push_back(MSPhaseDefinition(0, state, std::vector<int>(), name));
     }
     myPreviousStates.back().duration += DELTA_T;
     return DELTA_T;
@@ -73,6 +74,9 @@ Command_SaveTLSProgram::writeCurrent() {
                 myOutputDevice.writePadding(" ");
             }
             myOutputDevice.writeAttr(SUMO_ATTR_STATE, p.getState());
+            if (p.getName() != "") {
+                myOutputDevice.writeAttr(SUMO_ATTR_NAME, p.getName());
+            }
             myOutputDevice.closeTag();
         }
         // write params
