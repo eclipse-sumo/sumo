@@ -347,9 +347,11 @@ GUISUMOViewParent::onUpdSpeedFactor(FXObject* sender, FXSelector, void* ptr) {
                 MSPerson* person = dynamic_cast<MSPerson*>(o);
                 mySpeedFactorSlider->setValue((int)(person->getChosenSpeedFactor() * SPEEDFACTOR_SCALE));
             }
+            mySpeedFactorSlider->show();
+        } else {
+            myView->stopTrack();
+            mySpeedFactorSlider->hide();
         }
-
-        mySpeedFactorSlider->show();
     }
     return 1;
 }

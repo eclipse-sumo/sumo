@@ -249,9 +249,6 @@ GUIBaseVehicle::GUIBaseVehicle(MSBaseVehicle& vehicle) :
 GUIBaseVehicle::~GUIBaseVehicle() {
     myLock.lock();
     for (std::map<GUISUMOAbstractView*, int>::iterator i = myAdditionalVisualizations.begin(); i != myAdditionalVisualizations.end(); ++i) {
-        if (i->first->getTrackedID() == getGlID()) {
-            i->first->stopTrack();
-        }
         while (i->first->removeAdditionalGLVisualisation(this));
     }
     myLock.unlock();
