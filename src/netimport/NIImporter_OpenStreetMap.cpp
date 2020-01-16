@@ -143,6 +143,9 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         if (!XMLSubSys::runParser(nodesHandler, *file)) {
             return;
         }
+        if (nodesHandler.getDuplicateNodes() > 0) {
+            WRITE_MESSAGE("Found and substituted " + toString(nodesHandler.getDuplicateNodes()) + " osm nodes.");
+        }
         PROGRESS_DONE_MESSAGE();
     }
     // load edges, then
@@ -157,12 +160,13 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
 
     /* Remove duplicate edges with the same shape and attributes */
     if (!oc.getBool("osm.skip-duplicates-check")) {
+        int numRemoved = 0;
         PROGRESS_BEGIN_MESSAGE("Removing duplicate edges");
         if (myEdges.size() > 1) {
             std::set<const Edge*, CompareEdges> dupsFinder;
             for (auto it = myEdges.begin(); it != myEdges.end();) {
                 if (dupsFinder.count(it->second) > 0) {
-                    WRITE_MESSAGE("Found duplicate edges. Removing " + toString(it->first));
+                    numRemoved++;
                     delete it->second;
                     myEdges.erase(it++);
                 } else {
@@ -170,6 +174,9 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
                     it++;
                 }
             }
+        }
+        if (numRemoved > 0) {
+            WRITE_MESSAGE("Removed " + toString(numRemoved) + " duplicate osm edges.");
         }
         PROGRESS_DONE_MESSAGE();
     }
@@ -605,6 +612,7 @@ NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<long long int, NIO
     myHierarchyLevel(0),
     myUniqueNodes(uniqueNodes),
     myImportElevation(oc.getBool("osm.elevation")),
+    myDuplicateNodes(0),
     myOptionsCont(oc) {
 }
 
@@ -662,7 +670,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             } else {
                 delete toAdd;
                 toAdd = *similarNode;
-                WRITE_MESSAGE("Found duplicate nodes. Substituting " + toString(id) + " with " + toString(toAdd->id));
+                myDuplicateNodes++;
             }
             myToFill[id] = toAdd;
         }
@@ -709,8 +717,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 try {
                     myToFill[myLastNodeID]->ele = StringUtils::toDouble(value);
                 } catch (...) {
-                    WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in node '" +
-                                  toString(myLastNodeID) + "'.");
+                    WRITE_WARNINGF("Value of key '%' is not numeric ('%') in node '%'.", key, value, toString(myLastNodeID));
                 }
             } else if (key == "station") {
                 interpretTransportType(value, myToFill[myLastNodeID]);
@@ -776,7 +783,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         if (ok) {
             auto node = myOSMNodes.find(ref);
             if (node == myOSMNodes.end()) {
-                WRITE_WARNING("The referenced geometry information (ref='" + toString(ref) + "') is not known");
+                WRITE_WARNINGF("The referenced geometry information (ref='%') is not known", toString(ref));
                 return;
             }
 
@@ -928,10 +935,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                             minLanes = MIN2(minLanes, numLanes);
                         }
                         myCurrentEdge->myNoLanes = minLanes;
-                        WRITE_WARNING(
-                            "Using minimum lane number from list (" + value + ") for edge '"
-                            + toString(myCurrentEdge->id)
-                            + "'.");
+                        WRITE_WARNINGF( "Using minimum lane number from list (%) for edge '%'.", value, toString(myCurrentEdge->id));
                     } catch (NumberFormatException&) {
                         WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                                       toString(myCurrentEdge->id) + "'.");
@@ -1127,10 +1131,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
                 if (myOSMNodes.find(ref) != myOSMNodes.end()) {
                     myViaNode = ref;
                 } else {
-                    WRITE_WARNING(
-                        "No node found for reference '" + toString(ref) + "' in relation '"
-                        + toString(myCurrentRelation)
-                        + "'");
+                    WRITE_WARNINGF( "No node found for reference '%' in relation '%'.", toString(ref), toString(myCurrentRelation));
                 }
             }
         } else if (role == "from" && checkEdgeRef(ref)) {
@@ -1189,9 +1190,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
                 } else if (value.substr(0, 3) == "no_") {
                     myRestrictionType = RESTRICTION_NO;
                 } else {
-                    WRITE_WARNING(
-                        "Found unknown restriction type '" + value + "' in relation '" + toString(myCurrentRelation)
-                        + "'");
+                    WRITE_WARNINGF("Found unknown restriction type '%' in relation '%'", value, toString(myCurrentRelation));
                 }
                 return;
             }
@@ -1225,8 +1224,7 @@ NIImporter_OpenStreetMap::RelationHandler::checkEdgeRef(long long int ref) const
         return true;
     }
 
-    WRITE_WARNING(
-        "No way found for reference '" + toString(ref) + "' in relation '" + toString(myCurrentRelation) + "'");
+    WRITE_WARNINGF("No way found for reference '%' in relation '%'", toString(ref), toString(myCurrentRelation));
     return false;
 
 }
@@ -1239,25 +1237,23 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             assert(myCurrentRelation != INVALID_ID);
             bool ok = true;
             if (myRestrictionType == RESTRICTION_UNKNOWN) {
-                WRITE_WARNING("Ignoring restriction relation '" + toString(myCurrentRelation) + "' with unknown type.");
+                WRITE_WARNINGF("Ignoring restriction relation '%' with unknown type.", toString(myCurrentRelation));
                 ok = false;
             }
             if (myFromWay == INVALID_ID) {
-                WRITE_WARNING(
-                    "Ignoring restriction relation '" + toString(myCurrentRelation) + "' with unknown from-way.");
+                WRITE_WARNINGF("Ignoring restriction relation '%' with unknown from-way.", toString(myCurrentRelation));
                 ok = false;
             }
             if (myToWay == INVALID_ID) {
-                WRITE_WARNING(
-                    "Ignoring restriction relation '" + toString(myCurrentRelation) + "' with unknown to-way.");
+                WRITE_WARNINGF("Ignoring restriction relation '%' with unknown to-way.", toString(myCurrentRelation));
                 ok = false;
             }
             if (myViaNode == INVALID_ID && myViaWay == INVALID_ID) {
-                WRITE_WARNING("Ignoring restriction relation '" + toString(myCurrentRelation) + "' with unknown via.");
+                WRITE_WARNINGF("Ignoring restriction relation '%' with unknown via.", toString(myCurrentRelation));
                 ok = false;
             }
             if (ok && !applyRestriction()) {
-                WRITE_WARNING("Ignoring restriction relation '" + toString(myCurrentRelation) + "'.");
+                WRITE_WARNINGF("Ignoring restriction relation '%'.", toString(myCurrentRelation));
             }
         } else if (myIsStopArea && OptionsCont::getOptions().isSet("ptstop-output")) {
             for (long long ref : myStops) {
@@ -1302,9 +1298,8 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                             p.push_back(pNodePos);
                         }
                         if (p.size() == 0) {
-                            WRITE_WARNING(
-                                "Referenced platform: '" + toString(myPlatform.ref) + "' in relation: '" + toString(myCurrentRelation)
-                                + "' is corrupt. Probably OSM file is incomplete.");
+                            WRITE_WARNINGF("Referenced platform: '%' in relation: '%' is corrupt. Probably OSM file is incomplete.",
+                                    toString(myPlatform.ref), toString(myCurrentRelation));
                             continue;
                         }
                         NBPTPlatform platform(p[(int)p.size() / 2], p.length());
@@ -1376,7 +1371,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             if (myNBPTLineCont->getLines().count(ptLine->getLineID()) == 0) {
                 myNBPTLineCont->insert(ptLine);
             } else {
-                WRITE_WARNING("Ignoring duplicate PT line " + toString(myCurrentRelation) + ".");
+                WRITE_WARNINGF("Ignoring duplicate PT line '%'.", toString(myCurrentRelation));
                 delete ptLine;
             }
         }
@@ -1391,17 +1386,17 @@ NIImporter_OpenStreetMap::RelationHandler::applyRestriction() const {
     if (myViaNode != INVALID_ID) {
         NBNode* viaNode = myOSMNodes.find(myViaNode)->second->node;
         if (viaNode == nullptr) {
-            WRITE_WARNING("Via-node '" + toString(myViaNode) + "' was not instantiated");
+            WRITE_WARNINGF("Via-node '%' was not instantiated", toString(myViaNode));
             return false;
         }
         NBEdge* from = findEdgeRef(myFromWay, viaNode->getIncomingEdges());
         NBEdge* to = findEdgeRef(myToWay, viaNode->getOutgoingEdges());
         if (from == nullptr) {
-            WRITE_WARNING("from-edge of restriction relation could not be determined");
+            WRITE_WARNINGF("from-edge '%' of restriction relation could not be determined", toString(myFromWay));
             return false;
         }
         if (to == nullptr) {
-            WRITE_WARNING("to-edge of restriction relation could not be determined");
+            WRITE_WARNINGF("to-edge '%' of restriction relation could not be determined", toString(myToWay));
             return false;
         }
         if (myRestrictionType == RESTRICTION_ONLY) {
@@ -1418,7 +1413,7 @@ NIImporter_OpenStreetMap::RelationHandler::applyRestriction() const {
         }
     } else {
         // XXX interpreting via-ways or via-node lists not yet implemented
-        WRITE_WARNING("direction of restriction relation could not be determined");
+        WRITE_WARNINGF("direction of restriction relation could not be determined%", "");
         return false;
     }
     return true;
@@ -1439,7 +1434,7 @@ NIImporter_OpenStreetMap::RelationHandler::findEdgeRef(long long int wayRef,
         }
     }
     if (found > 1) {
-        WRITE_WARNING("Ambigous way reference '" + prefix + "' in restriction relation");
+        WRITE_WARNINGF("Ambigous way reference '%' in restriction relation", prefix);
         result = nullptr;
     }
     return result;
@@ -1740,8 +1735,7 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
         }
 
         if (discard) {
-            WRITE_WARNING(
-                "Discarding compound type '" + newType + "' (first occurence for edge '" + id + "').");
+            WRITE_WARNINGF("Discarding compound type '%' (first occurence for edge '%').", newType, id);
             myUnusableTypes.insert(newType);
             return "";
         }
@@ -1783,14 +1777,14 @@ NIImporter_OpenStreetMap::extendRailwayDistances(Edge* e, NBTypeCont& tc) {
         } else {
             bool forward = true;
             if (usablePositions.size() == 1) {
-                WRITE_WARNING("Ambiguous railway kilometrage direction for way '" + id + "' (assuming forward)");
+                WRITE_WARNINGF("Ambiguous railway kilometrage direction for way '%' (assuming forward)", id);
             } else {
                 forward = usablePositions.front() < usablePositions.back();
             }
             // check for consistency
             for (int i = 1; i < (int)usablePositions.size(); i++) {
                 if ((usablePositions[i - 1] < usablePositions[i]) != forward) {
-                    WRITE_WARNING("Inconsistent railway kilometrage direction for way '" + id + "': " + toString(usablePositions) + " (skipping)");
+                    WRITE_WARNINGF("Inconsistent railway kilometrage direction for way '%': %s (skipping)", id, toString(usablePositions));
                     return;
                 }
             }
@@ -1835,8 +1829,7 @@ NIImporter_OpenStreetMap::interpretDistance(NIOSMNode* node) {
                 return StringUtils::toDouble(node->position) * 1000;
             }
         } catch (...) {
-            WRITE_WARNING("Value of railway:position is not numeric ('" + node->position + "') in node '" +
-                          toString(node->id) + "'.");
+            WRITE_WARNINGF("Value of railway:position is not numeric ('%') in node '%'.", node->position, toString(node->id));
         }
     }
     return std::numeric_limits<double>::max();

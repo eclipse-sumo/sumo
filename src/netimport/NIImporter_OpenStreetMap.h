@@ -334,6 +334,9 @@ protected:
         /// @brief Destructor
         ~NodesHandler() override;
 
+        int getDuplicateNodes() const {
+            return myDuplicateNodes;
+        }
 
     protected:
         /// @name inherited from GenericSAXHandler
@@ -378,6 +381,9 @@ protected:
 
         /// @brief whether elevation data should be imported
         const bool myImportElevation;
+
+        /// @brief number of diplic
+        int myDuplicateNodes;
 
         /// @brief the options
         const OptionsCont& myOptionsCont;
