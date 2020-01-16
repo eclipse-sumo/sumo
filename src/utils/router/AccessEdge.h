@@ -44,6 +44,15 @@ public:
         myVehicleRestriction(vehicleRestriction)
         { }
 
+    AccessEdge(int numericalID, const std::string& id, const E* edge, const double length = 0,
+            SVCPermissions modeRestriction = SVC_IGNORING,
+            SVCPermissions vehicleRestriction = SVC_IGNORING) :
+        _IntermodalEdge(id, numericalID, edge, "!access"),
+        myLength(length > 0. ? length : NUMERICAL_EPS),
+        myModeRestrictions(modeRestriction),
+        myVehicleRestriction(vehicleRestriction)
+        { }
+
     double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double /* time */) const {
         return myLength / trip->speed;
     }
