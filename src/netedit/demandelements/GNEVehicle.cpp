@@ -1636,18 +1636,22 @@ GNEVehicle::updateSpreadGeometry() {
     }
     // calculate depart pos geometry path starting at the lane begin
     if (getPathEdges().size() > 0) {
+        // calculate edge geometry path
         GNEGeometry::calculateEdgeGeometricPath(this, mySpreadSegmentGeometry, getPathEdges(), getVClass(),
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
     } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // use route edges
         if (getParentDemandElements().size() == 2) {
+            // calculate edge geometry path
             GNEGeometry::calculateEdgeGeometricPath(this, mySpreadSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
                 getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
         } else if (getChildDemandElements().size() > 0) {
+            // calculate edge geometry path
             GNEGeometry::calculateEdgeGeometricPath(this, mySpreadSegmentGeometry, getChildDemandElements().front()->getParentEdges(), getVClass(),
                 getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
         }
     } else {
+        // calculate edge geometry path
         GNEGeometry::calculateEdgeGeometricPath(this, mySpreadSegmentGeometry, getParentEdges(), getVClass(),
             getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
     }
@@ -1688,26 +1692,45 @@ GNEVehicle::updateDepartPosGeometry() {
     }
     // get first allowed lane
     GNELane* firstLane = getFirstAllowedVehicleLane();
-    // calculate position
-    if (firstLane && (departPosLane != -1)) {
-        myDemandElementGeometry.updateGeometry(firstLane, departPosLane);
-    }
     // calculate spread geometry path
     if (getPathEdges().size() > 0) {
+        // check if first lane has to be updated
+        if (!firstLane) {
+            firstLane = getPathEdges().front()->getLanes().front();
+        }
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
             firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
     } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // use route edges
         if (getParentDemandElements().size() == 2) {
+            // check if first lane has to be updated
+            if (!firstLane) {
+                firstLane = getParentDemandElements().at(1)->getParentEdges().front()->getLanes().front();
+            }
+            // calculate edge geometry path
             GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
                 firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
         } else if (getChildDemandElements().size() > 0) {
+            // check if first lane has to be updated
+            if (!firstLane) {
+                firstLane = getChildDemandElements().front()->getParentEdges().front()->getLanes().front();
+            }
+            // calculate edge geometry path
             GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getChildDemandElements().front()->getParentEdges(), getVClass(),
                 firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
         }
     } else {
+        // check if first lane has to be updated
+        if (!firstLane) {
+            firstLane = getParentEdges().front()->getLanes().front();
+        }
+        // calculate edge geometry path
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
             firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+    }
+    // calculate position
+    if (firstLane) {
+        myDemandElementGeometry.updateGeometry(firstLane, departPosLane);
     }
 }
 
