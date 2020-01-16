@@ -33,6 +33,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/tracker/GUIParameterTracker.h>
 #include <utils/gui/div/GUIParameterTableItem.h>
 
 
@@ -44,6 +45,7 @@ FXDEFMAP(GUIParameterTableWindow) GUIParameterTableWindowMap[] = {
     FXMAPFUNC(SEL_SELECTED,         MID_TABLE,      GUIParameterTableWindow::onTableSelected),
     FXMAPFUNC(SEL_DESELECTED,       MID_TABLE,      GUIParameterTableWindow::onTableDeselected),
     FXMAPFUNC(SEL_RIGHTBUTTONPRESS, MID_TABLE,      GUIParameterTableWindow::onRightButtonPress),
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,  MID_TABLE,      GUIParameterTableWindow::onLeftBtnPress),
 };
 
 FXIMPLEMENT(GUIParameterTableWindow, FXMainWindow, GUIParameterTableWindowMap, ARRAYNUMBER(GUIParameterTableWindowMap))
@@ -62,6 +64,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
     FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 20, 200, 500),
     myObject(&o),
     myApplication(&app),
+    myTrackerY(0),
     myCurrentPos(0) 
 {
     myTable = new FXTable(this, this, MID_TABLE, TABLE_COL_SIZABLE | TABLE_ROW_SIZABLE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
@@ -134,12 +137,34 @@ GUIParameterTableWindow::onTableDeselected(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+long
+GUIParameterTableWindow::onLeftBtnPress(FXObject* sender, FXSelector sel, void* eventData) {
+    FXEvent* e = (FXEvent*) eventData;
+    int row = myTable->rowAtY(e->win_y);
+    int col = myTable->colAtX(e->win_x);
+    if (col == 2 && row >= 0 && row < (int)myItems.size()) {
+        GUIParameterTableItemInterface* i = myItems[row];
+        if (i->dynamic() && i->getdoubleSourceCopy() != nullptr) {
+            // open tracker directly
+            const std::string trackerName = i->getName() + " from " + myObject->getFullName();
+            GUIParameterTracker* tr = new GUIParameterTracker(*myApplication, trackerName);
+            TrackerValueDesc* newTracked = new TrackerValueDesc(i->getName(), RGBColor::BLACK, myApplication->getCurrentSimTime(), myApplication->getTrackerInterval());
+            tr->addTracked(*myObject, i->getdoubleSourceCopy(), newTracked);
+            tr->setX(getX() + getWidth() + 10);
+            tr->setY(myTrackerY);
+            tr->create();
+            tr->show();
+            myTrackerY = (myTrackerY + tr->getHeight() + 20) % getApp()->getRootWindow()->getHeight();
+        }
+    }
+    return FXMainWindow::onLeftBtnPress(sender, sel, eventData);
+}
 
 long
-GUIParameterTableWindow::onRightButtonPress(FXObject* sender, FXSelector sel, void* eventData) {
+GUIParameterTableWindow::onRightButtonPress(FXObject* /*sender*/, FXSelector /*sel*/, void* eventData) {
     // check which value entry was pressed
-    myTable->onLeftBtnPress(sender, sel, eventData);
-    int row = myTable->getCurrentRow();
+    FXEvent* e = (FXEvent*) eventData;
+    int row = myTable->rowAtY(e->win_y);
     if (row == -1 || row >= (int)(myItems.size())) {
         return 1;
     }

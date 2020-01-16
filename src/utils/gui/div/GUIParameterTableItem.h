@@ -149,7 +149,11 @@ public:
         myTable->setItemText(myTablePosition, 0, myName.c_str());
         myTable->setItemText(myTablePosition, 1, value.c_str());
         if (dynamic) {
-            myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(ICON_YES));
+            if (getdoubleSourceCopy() == nullptr) {
+                myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(ICON_YES));
+            } else {
+                myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(ICON_APP_TRACKER));
+            }
         } else {
             myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(ICON_NO));
         }

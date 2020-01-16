@@ -179,6 +179,7 @@ public:
      */
     long onTableDeselected(FXObject*, FXSelector, void*);
 
+
     /** @brief Shows a popup
      *
      * Callback for right-mouse-button pressing event. Obtains the selected row
@@ -189,6 +190,9 @@ public:
      * @see GUIParam_PopupMenuInterface
      */
     long onRightButtonPress(FXObject*, FXSelector, void*);
+
+    /// @brief directly opens tracker when clicking on last column
+    long onLeftBtnPress(FXObject*, FXSelector, void*);
     /// @}
 
     /** @brief Updates all instances
@@ -225,6 +229,9 @@ private:
 
     /// @brief The list of table rows
     std::vector<GUIParameterTableItemInterface*> myItems;
+
+    /// @brief y-position for opening new tracker window
+    int myTrackerY;
 
     /// @brief The index of the next row to add - used while building
     unsigned myCurrentPos;
