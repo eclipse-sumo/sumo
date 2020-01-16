@@ -106,6 +106,7 @@ public:
      */
     template<class T>
     void mkItem(const char* name, bool dynamic, ValueSource<T>* src) {
+        myTable->insertRows(myItems.size() + 1);
         GUIParameterTableItemInterface* i = new GUIParameterTableItem<T>(myTable, myCurrentPos++, name, dynamic, src);
         myItems.push_back(i);
     }

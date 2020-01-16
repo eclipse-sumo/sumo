@@ -58,16 +58,15 @@ std::vector<GUIParameterTableWindow*> GUIParameterTableWindow::myContainer;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o, int noRows) :
-    FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 20, 500, (FXint)((noRows + numParams(&o))  * 20 + 60)),
+GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o, int /*noRows*/) :
+    FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 20, 200, 500),
     myObject(&o),
     myApplication(&app),
-    myCurrentPos(0) {
-    noRows += numParams(&o);
+    myCurrentPos(0) 
+{
     myTable = new FXTable(this, this, MID_TABLE, TABLE_COL_SIZABLE | TABLE_ROW_SIZABLE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
-    myTable->setVisibleRows((FXint)(noRows + 1));
+    myTable->setTableSize(1, 3);
     myTable->setVisibleColumns(3);
-    myTable->setTableSize((FXint)(noRows + 1), 3);
     myTable->setBackColor(FXRGB(255, 255, 255));
     myTable->setColumnText(0, "Name");
     myTable->setColumnText(1, "Value");
@@ -89,7 +88,6 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
     // Table cannot be editable
     myTable->setEditable(FALSE);
 }
-
 
 GUIParameterTableWindow::~GUIParameterTableWindow() {
     myApplication->removeChild(this);
@@ -170,6 +168,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* sender, FXSelector sel, vo
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic, std::string value) {
+    myTable->insertRows(myItems.size() + 1);
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<std::string>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -177,6 +176,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic, std::string valu
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic, double value) {
+    myTable->insertRows(myItems.size() + 1);
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<double>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -184,6 +184,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic, double value) {
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic, unsigned value) {
+    myTable->insertRows(myItems.size() + 1);
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<unsigned>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -191,6 +192,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic, unsigned value) 
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic, int value) {
+    myTable->insertRows(myItems.size() + 1);
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<int>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -198,6 +200,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic, int value) {
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic, long long int value) {
+    myTable->insertRows(myItems.size() + 1);
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<long long int>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -227,6 +230,11 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
             mkItem(("param:" + it->first).c_str(), false, it->second);
         }
     }
+    const int rows = myItems.size() + 1;
+    setHeight(rows * 20 + 40);
+    myTable->fitColumnsToContents(1);
+    setWidth(myTable->getContentWidth() + 40);
+    myTable->setVisibleRows(rows);
     myApplication->addChild(this);
     create();
     show();
