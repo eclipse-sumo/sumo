@@ -430,6 +430,9 @@ private:
     GNEViewNetHelper::VehicleTypeOptions myVehicleTypeOptions;
     // @}
 
+    /// @brief variable used to save elements
+    GNEViewNetHelper::SaveElements mySaveElements;
+
     /// @brief variable used to save variables related with selecting areas
     GNEViewNetHelper::SelectingArea mySelectingArea;
 

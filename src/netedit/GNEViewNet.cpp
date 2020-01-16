@@ -175,6 +175,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     GUISUMOAbstractView(tmpParent, app, viewParent, net->getVisualisationSpeedUp(), glVis, share),
     myEditModes(this),
     myTestingMode(this),
+    mySaveElements(this),
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
@@ -548,8 +549,9 @@ GNEViewNet::showJunctionAsBubbles() const {
 
 
 GNEViewNet::GNEViewNet() :
-    myEditModes(this),
     myTestingMode(this),
+    myEditModes(this),
+    mySaveElements(this),
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
@@ -2474,6 +2476,9 @@ void
 GNEViewNet::buildEditModeControls() {
     // first build supermode buttons
     myEditModes.buildSuperModeButtons();
+
+    // build save buttons
+    mySaveElements.buildSaveElementsButtons();
 
     // build menu checks for Common checkable buttons
     myCommonCheckableButtons.buildCommonCheckableButtons();

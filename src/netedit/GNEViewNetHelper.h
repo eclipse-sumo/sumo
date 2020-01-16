@@ -283,6 +283,35 @@ struct GNEViewNetHelper {
         KeyPressed& operator=(const KeyPressed&) = delete;
     };
 
+    /// @brief struct used to group all variables related with save elements
+    struct SaveElements {
+
+        /// @brief default constructor
+        SaveElements(GNEViewNet* viewNet);
+
+        /// @brief build save buttons
+        void buildSaveElementsButtons();
+
+        /// @brief chekable button for save network
+        FXButton* saveNetwork;
+
+        /// @brief chekable button for save additional elements
+        FXButton* saveAdditionalElements;
+        
+        /// @brief chekable button for save demand elements
+        FXButton* saveDemandElements;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        SaveElements(const SaveElements&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        SaveElements& operator=(const SaveElements&) = delete;
+    };
+
     /// @brief struct used to group all variables related with Supermodes
     struct EditModes {
 

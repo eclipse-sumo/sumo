@@ -1272,6 +1272,41 @@ GNEViewNetHelper::TestingMode::isTestingEnabled() const {
 }
 
 // ---------------------------------------------------------------------------
+// GNEViewNetHelper::SaveElements - methods
+// ---------------------------------------------------------------------------
+
+GNEViewNetHelper::SaveElements::SaveElements(GNEViewNet* viewNet) :
+    saveNetwork(nullptr),
+    saveAdditionalElements(nullptr),
+    saveDemandElements(nullptr),
+    myViewNet(viewNet) {
+}
+
+
+void
+GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
+    // create save network button
+    saveNetwork = new FXButton(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements, 
+        "\tSave network\tSave network.", GUIIconSubSys::getIcon(ICON_SAVENETELEMENTS), 
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
+    saveNetwork->create();
+    // create save additional elements button
+    saveAdditionalElements = new FXButton(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements, 
+        "\tSave additional elements\tSave additional elements.", GUIIconSubSys::getIcon(ICON_SAVEADDITIONALS), 
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS, GUIDesignButtonToolbar);
+    saveAdditionalElements->create();
+    // create save demand elements button
+    saveDemandElements = new FXButton(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements, 
+        "\tSave demand elements\tSave demand elements.", GUIIconSubSys::getIcon(ICON_SAVEDEMANDELEMENTS), 
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS, GUIDesignButtonToolbar);
+    saveDemandElements->create();
+    // recalc menu bar because there is new elements
+    myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements->recalc();
+    // show menu bar modes
+    myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements->show();
+}
+
+// ---------------------------------------------------------------------------
 // GNEViewNetHelper::EditModes - methods
 // ---------------------------------------------------------------------------
 

@@ -281,15 +281,17 @@ GNEApplicationWindow::ToolbarsGrip::buildViewParentToolbarsGrips() {
     // build menu bar for supermodes (next to menu bar)
     myToolBarShellSuperModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     superModes = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
-    // declare toolbar grip for menu bar Supermodes
+    // declare toolbar grip for menu bar superModes
     new FXToolBarGrip(superModes, superModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for save elements (bot to menu bar)
     myToolBarShellSaveElements = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     saveElements = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
+    // declare toolbar grip for menu bar saveElements
+    new FXToolBarGrip(saveElements, saveElements, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for navigation
     myToolBarShellNavigation = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     navigation = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellNavigation, GUIDesignToolBarRaisedSame);
-    // declare toolbar grip for menu bar Navigation
+    // declare toolbar grip for menu bar navigation
     new FXToolBarGrip(navigation, navigation, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for modes
     myToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
