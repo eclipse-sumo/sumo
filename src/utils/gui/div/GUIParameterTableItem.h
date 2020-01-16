@@ -152,7 +152,7 @@ public:
             if (getdoubleSourceCopy() == nullptr) {
                 myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(ICON_YES));
             } else {
-                myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(ICON_APP_TRACKER));
+                myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(ICON_TRACKER));
             }
         } else {
             myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(ICON_NO));

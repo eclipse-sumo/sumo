@@ -171,6 +171,7 @@ enum GUIIcon {
     /// @{
     ICON_EXT,
     ICON_CUT_SWELL,
+    ICON_TRACKER,
     /// @}
 
     /// @name net edit icons
