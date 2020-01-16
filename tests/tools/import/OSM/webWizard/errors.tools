@@ -15,20 +15,8 @@ Warning: Ambiguous railway kilometrage direction for way '32572620' (assuming fo
 Warning: Ambiguous railway kilometrage direction for way '32572624' (assuming forward)
 Warning: Ambiguous railway kilometrage direction for way '32590429' (assuming forward)
 Warning: Ambiguous railway kilometrage direction for way '32590435' (assuming forward)
-Warning: Ambiguous railway kilometrage direction for way '32590492' (assuming forward)
-Warning: Ambiguous railway kilometrage direction for way '32590636' (assuming forward)
-Warning: Ambiguous railway kilometrage direction for way '32590637' (assuming forward)
-Warning: Ambiguous railway kilometrage direction for way '32590640' (assuming forward)
-Warning: Ambiguous railway kilometrage direction for way '32590647' (assuming forward)
-Warning: Ambiguous railway kilometrage direction for way '32590649' (assuming forward)
-Warning: Ambiguous railway kilometrage direction for way '32590652' (assuming forward)
-Warning: Ambiguous railway kilometrage direction for way '32590889' (assuming forward)
-Warning: Ambiguous railway kilometrage direction for way '32590890' (assuming forward)
-Warning: Ambiguous railway kilometrage direction for way '32590891' (assuming forward)
-Warning: Ambiguous railway kilometrage direction for way '32590896' (assuming forward)
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '43185748').
 Warning: Discarding unusable type 'railway.construction' (first occurence for edge '71326270').
-Warning: Ambiguous railway kilometrage direction for way '230976793' (assuming forward)
 Warning: Removing pt stop:1257007152 on non existing edge: 71326270
 Warning: Removing pt stop:587624704 on non existing edge: 71326270
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 28270 are ignored
@@ -51,19 +39,9 @@ Warning: No way found for reference '29177662' in relation '3832450'
 Warning: No way found for reference '134833998' in relation '3832450'
 Warning: No way found for reference '29177662' in relation '3832461'
 Warning: No way found for reference '134833998' in relation '3832461'
-Warning: No way found for reference '134833998' in relation '3845045'
-Warning: No way found for reference '29177662' in relation '3845045'
-Warning: No way found for reference '29177662' in relation '3845052'
-Warning: No way found for reference '134833998' in relation '3845052'
-Warning: No way found for reference '29177662' in relation '3845058'
-Warning: No way found for reference '134833998' in relation '3845058'
-Warning: No way found for reference '29177662' in relation '3845082'
-Warning: No way found for reference '134833998' in relation '3845082'
-Warning: No way found for reference '120359703' in relation '4806373'
 Warning: Ignoring restriction relation '4806373' with unknown to-way.
 Warning: Platform '383505801' in relation: '5707635' is given as polygon, which currently is not supported.
 Warning: Platform '383505801' in relation: '5707635' is given as polygon, which currently is not supported.
-Warning: No way found for reference '544327502' in relation '7778535'
 Warning: Ignoring restriction relation '7778535' with unknown to-way.
 Warning: Could not re-assign PT stop: 1615531689 probably broken osm file
 Warning: PT stop: 4692172068 has been moved to edge: -326116285#2
@@ -150,9 +128,11 @@ Warning: The traffic light 'joinedS_1' has a high cycle time of 189.00.
 Warning: Connection '101699692#1_0->101694131#0_0' is only 0.08m short.
 Warning: Connection '101699692#1_0->153522302#0_0' is only 0.08m short.
 Warning: Intersecting left turns at junction 'cluster_196741367_29221514_3837048403_3837048405_3837048407_3837048408_3837048410_5097270924' from lane '523630412_0' and lane '523630409_3' (increase junction radius to avoid this).
+Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
 Warning: 15 total messages of type: Discarding unusable type '%' (first occurence for edge '%').
 Warning: 69 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
+Warning: 15 total messages of type: No way found for reference '%' in relation '%'
 Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 22 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
 Warning: 29 total messages of type: The rail crossing '%' does not have any roads.
