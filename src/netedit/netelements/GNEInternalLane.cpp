@@ -165,7 +165,7 @@ GNEInternalLane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 GUIParameterTableWindow*
 GNEInternalLane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // internal lanes don't have attributes
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 2);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // close building
     ret->closeBuilding();
     return ret;

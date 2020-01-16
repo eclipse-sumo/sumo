@@ -126,8 +126,7 @@ GUIPolygon::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUIPolygon::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 3 + (int)getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("type", false, getShapeType());
     ret->mkItem("layer", false, toString(getShapeLayer()));

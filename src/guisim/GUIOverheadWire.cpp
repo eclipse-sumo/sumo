@@ -101,7 +101,7 @@ GUIOverheadWireClamp::~GUIOverheadWireClamp() {
 GUIParameterTableWindow*
 GUIOverheadWire::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table items
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 6);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
 
     // add items
     ret->mkItem("begin position [m]", false, myBegPos);
@@ -318,7 +318,7 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
 GUIParameterTableWindow* 
 GUIOverheadWireClamp::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table items
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 6);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
 
     // add items
     //ret->mkItem("begin position [m]", false, NAN);

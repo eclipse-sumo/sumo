@@ -83,8 +83,7 @@ GUIMEInductLoop::MyWrapper::getCenteringBoundary() const {
 GUIParameterTableWindow*
 GUIMEInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
         GUISUMOAbstractView& /* parent */) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 2);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     /*
     ret->mkItem("flow [veh/h]", true,

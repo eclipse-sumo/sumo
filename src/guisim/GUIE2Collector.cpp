@@ -117,7 +117,7 @@ GUIParameterTableWindow*
 GUIE2Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
         GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 13);
+        new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
     ret->mkItem("length [m]", false, myDetector.getLength());

@@ -66,10 +66,8 @@ public:
      *
      * @param[in] app The application this window belongs to
      * @param[in] o The gl-object this table describes
-     * @param[in] noRows Number of rows to allocate
      */
-    GUIParameterTableWindow(GUIMainWindow& app,
-                            GUIGlObject& o, int noRows);
+    GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o);
 
 
     /// @brief Destructor

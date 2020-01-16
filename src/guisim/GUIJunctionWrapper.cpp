@@ -110,8 +110,7 @@ GUIJunctionWrapper::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUIJunctionWrapper::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 12 + (int)myJunction.getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("type", false, toString(myJunction.getType()));
     // close building

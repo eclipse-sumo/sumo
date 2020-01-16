@@ -88,7 +88,7 @@ GUIChargingStation::~GUIChargingStation() {
 GUIParameterTableWindow*
 GUIChargingStation::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table items
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 9);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
 
     // add items
     ret->mkItem("name", false, getMyName());

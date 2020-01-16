@@ -131,7 +131,7 @@ GUIInductLoop::MyWrapper::getCenteringBoundary() const {
 GUIParameterTableWindow*
 GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
         GUISUMOAbstractView& /*parent !!! recheck this - never needed?*/) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 7);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
     ret->mkItem("position [m]", false, myPosition);

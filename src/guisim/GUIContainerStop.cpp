@@ -101,7 +101,7 @@ GUIParameterTableWindow*
 GUIContainerStop::getParameterWindow(GUIMainWindow& app,
                                      GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 7);
+        new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("name", false, getMyName());
     ret->mkItem("begin position [m]", false, myBegPos);

@@ -315,7 +315,7 @@ GUICalibrator::getParameterWindow(GUIMainWindow& app,
                                   GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret;
     if (isActive()) {
-        ret = new GUIParameterTableWindow(app, *this, 12);
+        ret = new GUIParameterTableWindow(app, *this);
         // add items
         ret->mkItem("interval start", false, STEPS2TIME(myCurrentStateInterval->begin));
         ret->mkItem("interval end", false, STEPS2TIME(myCurrentStateInterval->end));
@@ -330,7 +330,7 @@ GUICalibrator::getParameterWindow(GUIMainWindow& app,
         ret->mkItem("removed vehicles", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::removed));
         ret->mkItem("cleared in jam", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::clearedInJam));
     } else {
-        ret = new GUIParameterTableWindow(app, *this, 1);
+        ret = new GUIParameterTableWindow(app, *this);
         const std::string nextStart =
             (myCurrentStateInterval != myIntervals.end() ?
              time2string(myCurrentStateInterval->begin) :

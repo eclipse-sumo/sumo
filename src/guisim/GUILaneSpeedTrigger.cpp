@@ -301,8 +301,7 @@ GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow& app,
                                         GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 1);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("speed [m/s]", true,
                 new FunctionBinding<GUILaneSpeedTrigger, double>(this, &GUILaneSpeedTrigger::getCurrentSpeed));

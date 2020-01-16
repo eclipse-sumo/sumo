@@ -74,7 +74,7 @@ GUIParameterTableWindow*
 GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
         GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 3);
+        new GUIParameterTableWindow(app, *this);
     // add items
     // values
     ret->mkItem("vehicles within [#]", true,
