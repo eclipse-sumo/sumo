@@ -90,7 +90,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE,     GNEViewNet::onCmdSetMode),
     // Common view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_COMMONVIEWOPTIONS_SHOWGRID,              GNEViewNet::onCmdToogleShowGrid),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_COMMONVIEWOPTIONS_DRAWSTACKEDVEHICLES,   GNEViewNet::onCmdToogleDrawStackedVehicles),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_COMMONVIEWOPTIONS_DRAWSPREADVEHICLES,    GNEViewNet::onCmdToogleDrawSpreadVehicles),
     // Network view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,   GNEViewNet::onCmdToogleShowDemandElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES,          GNEViewNet::onCmdToogleSelectEdges),
@@ -2277,7 +2277,7 @@ GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector sel, void*) {
 
 
 long 
-GNEViewNet::onCmdToogleDrawStackedVehicles(FXObject*, FXSelector sel, void*) {
+GNEViewNet::onCmdToogleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
     // compute vehicle geometry
     for (const auto& vehicle : myNet->getAttributeCarriers().demandElements.at(SUMO_TAG_VEHICLE)) {
         vehicle.second->updateGeometry();
@@ -2294,8 +2294,8 @@ GNEViewNet::onCmdToogleDrawStackedVehicles(FXObject*, FXSelector sel, void*) {
     // update view to show new vehicles positions
     update();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
-    if (sel == FXSEL(SEL_COMMAND, MID_GNE_COMMONVIEWOPTIONS_DRAWSTACKEDVEHICLES)) {
-        myCommonViewOptions.menuCheckDrawStackedVehicles->setFocus();
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_COMMONVIEWOPTIONS_DRAWSPREADVEHICLES)) {
+        myCommonViewOptions.menuCheckDrawSpreadVehicles->setFocus();
     }
     return 1;
 }

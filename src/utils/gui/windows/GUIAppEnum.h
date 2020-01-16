@@ -601,8 +601,8 @@ enum {
 
     /// @brief show grid
     MID_GNE_COMMONVIEWOPTIONS_SHOWGRID,
-    /// @brief Draw vehicles in begin position or as a stack
-    MID_GNE_COMMONVIEWOPTIONS_DRAWSTACKEDVEHICLES,
+    /// @brief Draw vehicles in begin position or spread in lane
+    MID_GNE_COMMONVIEWOPTIONS_DRAWSPREADVEHICLES,
 
     /// @}
 

@@ -2296,6 +2296,19 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
             }
             // Call manually onCmdToogleShowGrid
             return myViewNet->onCmdToogleShowGrid(obj, sel, ptr);
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getCommonViewOptions().menuCheckDrawSpreadVehicles) {
+            // Toogle menuCheckDrawSpreadVehicles
+            if (myViewNet->getCommonViewOptions().menuCheckDrawSpreadVehicles->getCheck() == TRUE) {
+                myViewNet->getCommonViewOptions().menuCheckDrawSpreadVehicles->setCheck(FALSE);
+                // show extra information for tests
+                WRITE_DEBUG("Disabled toogle draw spread vehicles throught alt + " + toString(numericalKeyPressed + 1));
+            } else {
+                myViewNet->getCommonViewOptions().menuCheckDrawSpreadVehicles->setCheck(TRUE);
+                // show extra information for tests
+                WRITE_DEBUG("Enabled toogle spread vehicles throught alt + " + toString(numericalKeyPressed + 1));
+            }
+            // Call manually onCmdToogleDrawSpreadVehicles
+            return myViewNet->onCmdToogleDrawSpreadVehicles(obj, sel, ptr);
         } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getNetworkViewOptions().menuCheckShowDemandElements) {
             // Toogle menuCheckShowDemandElements
             if (myViewNet->getNetworkViewOptions().menuCheckShowDemandElements->getCheck() == TRUE) {

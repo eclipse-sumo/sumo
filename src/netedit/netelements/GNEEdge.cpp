@@ -146,7 +146,7 @@ GNEEdge::updateGeometry() {
             pathElementChild->updatePartialGeometry(this);
         }
         // update vehicle geometry
-        updateStackedVehicleGeometries();
+        updateSpreadVehicleGeometries();
         // mark dotted geometry deprecated
         myDottedGeometry.markDottedGeometryDeprecated();
     }
@@ -1218,8 +1218,8 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
     // draw trip from to
     if (junction) {
         // iterate over segments
-        if (myNet->getViewNet()->getCommonViewOptions().drawStackedVehicles()) {
-            for (const auto& segment : tripOrFromTo->getDemandElementStackedSegmentGeometry()) {
+        if (myNet->getViewNet()->getCommonViewOptions().drawSpreadVehicles()) {
+            for (const auto& segment : tripOrFromTo->getDemandElementSpreadSegmentGeometry()) {
                 // draw partial segment
                 GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
             }
@@ -1231,8 +1231,8 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
         }
     } else {
         // iterate over segments
-        if (myNet->getViewNet()->getCommonViewOptions().drawStackedVehicles()) {
-            for (const auto& segment : tripOrFromTo->getDemandElementStackedSegmentGeometry()) {
+        if (myNet->getViewNet()->getCommonViewOptions().drawSpreadVehicles()) {
+            for (const auto& segment : tripOrFromTo->getDemandElementSpreadSegmentGeometry()) {
                 // draw partial segment
                 if ((segment.edge == this) && (segment.AC == tripOrFromTo)) {
                     GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
@@ -1433,7 +1433,7 @@ GNEEdge::invalidatePathChildElementss() {
 
 
 void
-GNEEdge::updateStackedVehicleGeometries() {
+GNEEdge::updateSpreadVehicleGeometries() {
     // get vehicles over edge
     const std::vector<GNEDemandElement* > vehicles = getVehiclesOverEdge();
     // now split vehicles by lanes
@@ -1463,7 +1463,7 @@ GNEEdge::updateStackedVehicleGeometries() {
         double lenght = 0;
         // iterate over vehicles to calculate position and rotations
         for (const auto &vehicle : laneVehicle.second) {
-            vehicle->updateDemandElementStackedGeometry(laneVehicle.first, lenght * multiplier);
+            vehicle->updateDemandElementSpreadGeometry(laneVehicle.first, lenght * multiplier);
             // update lenght
             lenght += vehicle->getAttributeDouble(SUMO_ATTR_LENGTH) + VEHICLE_GAP;
         }

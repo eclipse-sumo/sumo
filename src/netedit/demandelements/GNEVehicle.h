@@ -341,11 +341,11 @@ private:
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
 
-    /// @brief update stacked geometry
-    void updateStackedGeometry();
+    /// @brief update spread geometry
+    void updateSpreadGeometry();
 
-    /// @brief partial update pre-computed stacked geometry information
-    void updatePartialStackedGeometry(const GNEEdge* edge);
+    /// @brief partial update pre-computed spread geometry information
+    void updatePartialSpreadGeometry(const GNEEdge* edge);
 
     /// @brief update departPos geometry
     void updateDepartPosGeometry();

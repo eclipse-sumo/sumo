@@ -1431,7 +1431,7 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, bool force) 
 
 GNEViewNetHelper::CommonViewOptions::CommonViewOptions(GNEViewNet* viewNet) :
     menuCheckShowGrid(nullptr),
-    menuCheckDrawStackedVehicles(nullptr),
+    menuCheckDrawSpreadVehicles(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -1447,13 +1447,13 @@ GNEViewNetHelper::CommonViewOptions::buildCommonViewOptionsMenuChecks() {
     menuCheckShowGrid->setCheck(false);
     menuCheckShowGrid->create();
 
-    menuCheckDrawStackedVehicles = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-        ("Stacked vehicles\t\tDraw vehicles as a stack or in begin position"),
-        myViewNet, MID_GNE_COMMONVIEWOPTIONS_DRAWSTACKEDVEHICLES, LAYOUT_FIX_HEIGHT);
+    menuCheckDrawSpreadVehicles = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
+        ("Spread vehicles\t\tDraw vehicles spread in lane or in depart position"),
+        myViewNet, MID_GNE_COMMONVIEWOPTIONS_DRAWSPREADVEHICLES, LAYOUT_FIX_HEIGHT);
 
-    menuCheckDrawStackedVehicles->setHeight(23);
-    menuCheckDrawStackedVehicles->setCheck(false);
-    menuCheckDrawStackedVehicles->create();
+    menuCheckDrawSpreadVehicles->setHeight(23);
+    menuCheckDrawSpreadVehicles->setCheck(false);
+    menuCheckDrawSpreadVehicles->create();
 
 }
 
@@ -1464,15 +1464,15 @@ GNEViewNetHelper::CommonViewOptions::getVisibleCommonMenuCommands(std::vector<FX
     if (menuCheckShowGrid->shown()) {
         commands.push_back(menuCheckShowGrid);
     }
-    if (menuCheckDrawStackedVehicles->shown()) {
-        commands.push_back(menuCheckDrawStackedVehicles);
+    if (menuCheckDrawSpreadVehicles->shown()) {
+        commands.push_back(menuCheckDrawSpreadVehicles);
     }
 }
 
 
 bool 
-GNEViewNetHelper::CommonViewOptions::drawStackedVehicles() const {
-    return (menuCheckDrawStackedVehicles->getCheck() == TRUE);
+GNEViewNetHelper::CommonViewOptions::drawSpreadVehicles() const {
+    return (menuCheckDrawSpreadVehicles->getCheck() == TRUE);
 }
 
 // ---------------------------------------------------------------------------

@@ -238,14 +238,14 @@ GNEDemandElement::getDemandElementSegmentGeometry() const {
 
 
 const GNEGeometry::SegmentGeometry& 
-GNEDemandElement::getDemandElementStackedSegmentGeometry() const {
-    return myStackedSegmentGeometry;
+GNEDemandElement::getDemandElementSpreadSegmentGeometry() const {
+    return mySpreadSegmentGeometry;
 }
 
 
 void 
-GNEDemandElement::updateDemandElementStackedGeometry(const GNELane* lane, const double posOverLane) {
-    myStackedGeometry.updateGeometry(lane, posOverLane);
+GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane) {
+    mySpreadGeometry.updateGeometry(lane, posOverLane);
 }
 
 

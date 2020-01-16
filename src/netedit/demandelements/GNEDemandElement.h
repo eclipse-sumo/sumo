@@ -165,11 +165,11 @@ public:
     /// @brief get demand element segment geometry
     const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
 
-    /// @brief get demand element segment stacked geometry
-    const GNEGeometry::SegmentGeometry& getDemandElementStackedSegmentGeometry() const;
+    /// @brief get demand element segment spread geometry
+    const GNEGeometry::SegmentGeometry& getDemandElementSpreadSegmentGeometry() const;
 
-    /// @brief get demand element stacked geometry
-    void updateDemandElementStackedGeometry(const GNELane* lane, const double posOverLane);
+    /// @brief get demand element spread geometry
+    void updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane);
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
@@ -390,11 +390,11 @@ protected:
     /// @brief demand element segment geometry
     GNEGeometry::SegmentGeometry myDemandElementSegmentGeometry;
 
-    /// @brief demand element stacked geometry
-    GNEGeometry::Geometry myStackedGeometry;
+    /// @brief demand element spread geometry
+    GNEGeometry::Geometry mySpreadGeometry;
 
-    /// @brief demand element stacked segment geometry
-    GNEGeometry::SegmentGeometry myStackedSegmentGeometry;
+    /// @brief demand element spread segment geometry
+    GNEGeometry::SegmentGeometry mySpreadSegmentGeometry;
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
