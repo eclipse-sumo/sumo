@@ -1101,10 +1101,10 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
                       GUIIconSubSys::getIcon(ICON_RELOAD), myGNEApp, MID_HOTKEY_CTRL_R_RELOAD);
     new FXMenuCommand(fileMenu,
                       "&Save Network...\tCtrl+S\tSave the network.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
+                      GUIIconSubSys::getIcon(ICON_SAVENETELEMENTS), myGNEApp, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
     new FXMenuCommand(fileMenu,
                       "Save Net&work As...\tCtrl+Shift+S\tSave the network in another file.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS);
+                      GUIIconSubSys::getIcon(ICON_SAVENETELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS);
     new FXMenuCommand(fileMenu,
                       "Save plain XM&L...\tCtrl+L\tSave plain xml representation the network.",
                       GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_L_SAVEASPLAINXML);
@@ -1118,11 +1118,11 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
                       GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
     saveAdditionals = new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
                                         "Save Additionals\tCtrl+Shift+A\tSave additionals and shapes.",
-                                        GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
+                                        GUIIconSubSys::getIcon(ICON_SAVEADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
     saveAdditionals->disable();
     saveAdditionalsAs = new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
                                           "Save Additionals As...\t\tSave additional elements in another file.",
-                                          GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+                                          GUIIconSubSys::getIcon(ICON_SAVEADDITIONALS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
     saveAdditionalsAs->disable();
     new FXMenuCascade(fileMenu, "Additionals and shapes", GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myGNEApp->myFileMenuAdditionals);
     // create TLS menu options
@@ -1145,11 +1145,11 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
                       GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMAND);
     saveDemandElements = new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
                                            "Save demand elements\tCtrl+Shift+D\tSave demand elements.",
-                                           GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
+                                           GUIIconSubSys::getIcon(ICON_SAVEDEMANDELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
     saveDemandElements->disable();
     saveDemandElementsAs = new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
             "Save demand elements as...\t\tSave demand elements in another file.",
-            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND_AS);
+            GUIIconSubSys::getIcon(ICON_SAVEDEMANDELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND_AS);
     saveDemandElementsAs->disable();
     new FXMenuCascade(fileMenu, "Demand elements", GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myGNEApp->myFileMenuDemandElements);
     // close network
@@ -2642,7 +2642,7 @@ long
 GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this,
                     "Save Network as", ".net.xml",
-                    GUIIconSubSys::getIcon(ICON_SAVE),
+                    GUIIconSubSys::getIcon(ICON_SAVENETELEMENTS),
                     gCurrentFolder);
     // add xml extension
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".net.xml");
