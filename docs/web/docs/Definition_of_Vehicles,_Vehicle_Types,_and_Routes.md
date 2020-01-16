@@ -967,6 +967,12 @@ Stops can be childs of vehicles, routes, persons or containers.
 
 !!! note
     Bus stops must have a length of at least 10
+    
+## startPos and endPos
+- by default vehicles will try to stop and the given endPos
+- if the vehicle comes to a halt earlier (i.e. due to a jam) then the stop counts as reached if the vehicle front is between startPos and endPos
+- if the vehicle picks up a person or container, it can do so as long as the person is between startPos and endPos
+- if the stop uses attribute 'speed', than that speed will be maintained between startPos and endPos
 
 # Colors
 
