@@ -1692,44 +1692,48 @@ GNEVehicle::updateDepartPosGeometry() {
     }
     // get first allowed lane
     GNELane* firstLane = getFirstAllowedVehicleLane();
-    // calculate spread geometry path
-    if (getPathEdges().size() > 0) {
-        // check if first lane has to be updated
-        if (!firstLane) {
+    // check if first lane wasn't sucesfully obtained
+    if (!firstLane) {
+        if (getPathEdges().size() > 0) {
             firstLane = getPathEdges().front()->getLanes().front();
-        }
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
-            firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
-    } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
-        // use route edges
-        if (getParentDemandElements().size() == 2) {
-            // check if first lane has to be updated
-            if (!firstLane) {
+        } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+            // use route edges
+            if (getParentDemandElements().size() == 2) {
                 firstLane = getParentDemandElements().at(1)->getParentEdges().front()->getLanes().front();
-            }
-            // calculate edge geometry path
-            GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
-                firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
-        } else if (getChildDemandElements().size() > 0) {
-            // check if first lane has to be updated
-            if (!firstLane) {
+            } else if (getChildDemandElements().size() > 0) {
                 firstLane = getChildDemandElements().front()->getParentEdges().front()->getLanes().front();
             }
-            // calculate edge geometry path
-            GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getChildDemandElements().front()->getParentEdges(), getVClass(),
-                firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
-        }
-    } else {
-        // check if first lane has to be updated
-        if (!firstLane) {
+        } else {
             firstLane = getParentEdges().front()->getLanes().front();
         }
-        // calculate edge geometry path
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
-            firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
     }
-    // calculate position
+    // continue only if lane was sucesfully found
     if (firstLane) {
+        // check if depart pos has to be adjusted
+        if ((departPosProcedure == DEPART_POS_GIVEN) && (departPosLane < 0)) {
+            departPosLane += firstLane->getLaneShape().length();
+        }
+        // calculate spread geometry path
+        if (getPathEdges().size() > 0) {
+            GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
+                firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+        } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+            // use route edges
+            if (getParentDemandElements().size() == 2) {
+                // calculate edge geometry path
+                GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
+                    firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+            } else if (getChildDemandElements().size() > 0) {
+                // calculate edge geometry path
+                GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getChildDemandElements().front()->getParentEdges(), getVClass(),
+                    firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+            }
+        } else {
+            // calculate edge geometry path
+            GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
+                firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+        }
+        // update start pos geometry
         myDemandElementGeometry.updateGeometry(firstLane, departPosLane);
     }
 }
