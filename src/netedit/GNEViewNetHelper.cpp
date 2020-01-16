@@ -1731,15 +1731,15 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     menuCheckHideShapes->create();
 
     menuCheckHideNonInspectedDemandElements = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-            ("Hide non-inspected elements\t\tToggle show non-inspected demand elements"),
-            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED, LAYOUT_FIX_HEIGHT);
+        ("Hide non-inspected\t\tToggle show non-inspected demand elements"),
+        myViewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED, LAYOUT_FIX_HEIGHT);
     menuCheckHideNonInspectedDemandElements->setHeight(23);
     menuCheckHideNonInspectedDemandElements->setCheck(false);
     menuCheckHideNonInspectedDemandElements->create();
 
     menuCheckShowAllPersonPlans = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-            ("Show all person plans\t\tshow all person plans"),
-            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS, LAYOUT_FIX_HEIGHT);
+        ("Show person plans\t\tshow all person plans"),
+        myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS, LAYOUT_FIX_HEIGHT);
     menuCheckShowAllPersonPlans->setHeight(23);
     menuCheckShowAllPersonPlans->setCheck(false);
     menuCheckShowAllPersonPlans->create();
