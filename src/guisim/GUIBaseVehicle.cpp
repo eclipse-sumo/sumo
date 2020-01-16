@@ -821,6 +821,15 @@ GUIBaseVehicle::getNumContainers() const {
     return 0;
 }
 
+std::string
+GUIBaseVehicle::getDeviceDescription() {
+    std::vector<std::string> devs;
+    for (MSDevice* d : myVehicle.getDevices()) {
+        devs.push_back(d->deviceName());
+    }
+    return joinToString(devs, " ");
+}
+
 
 void
 GUIBaseVehicle::computeSeats(const Position& front, const Position& back, double seatOffset, int maxSeats, double exaggeration, int& requiredSeats, Seats& into) const {

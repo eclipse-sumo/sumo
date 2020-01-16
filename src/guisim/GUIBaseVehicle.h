@@ -233,7 +233,8 @@ public:
     /// @brief return the number of passengers
     int getNumContainers() const;
 
-
+    /// @brief lists equipped device (types) for the current vehicle
+    std::string getDeviceDescription();
 
     /**
      * @class GUIBaseVehiclePopupMenu

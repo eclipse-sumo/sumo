@@ -106,7 +106,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getFuelConsumption));
     //ret->mkItem("noise (Harmonoise) [dB]", true,
     //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getHarmonoise_NoiseEmissions));
-    ret->mkItem("devices", false, toString(myDevices));
+    ret->mkItem("devices", false, getDeviceDescription());
     //ret->mkItem("persons", true,
     //            new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getPersonNumber));
     //ret->mkItem("containers", true,

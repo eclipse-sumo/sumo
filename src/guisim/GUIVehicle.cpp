@@ -164,7 +164,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getElectricityConsumption));
     ret->mkItem("noise (Harmonoise) [dB]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getHarmonoise_NoiseEmissions));
-    ret->mkItem("devices", false, toString(myDevices));
+    ret->mkItem("devices", false, getDeviceDescription());
     ret->mkItem("persons", true,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getPersonNumber));
     ret->mkItem("containers", true,
