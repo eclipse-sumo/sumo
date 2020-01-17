@@ -1619,7 +1619,7 @@ GNEVehicle::updateSpreadGeometry() {
     const GNELane *vehicleLane = getFirstAllowedVehicleLane();
     // update spread vehicle geometry depending of edgeParent
     if (vehicleLane) {
-        vehicleLane->getParentEdge()->updateSpreadVehicleGeometries();
+        vehicleLane->getParentEdge()->updateVehicleSpreadGeometries();
     } else {
         mySpreadGeometry.updateGeometry(Position(), 0);
     }
