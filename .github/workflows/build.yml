@@ -15,17 +15,17 @@ jobs:
     - name: Checkout SUMO
       uses: actions/checkout@v2
       with:
-        path: SUMO 
+        path: sumo 
       
     - name: Checkout SUMO Libraries
       uses: actions/checkout@v2
       with:
         repository: DLR-TS/SUMOLibraries 
-        path: SUMOLibraries
+        path: sumolibraries
     
     - name: Checkout SUMO Libraries Submodules
       run: |
-        cd SUMOLibraries
+        cd sumolibraries
         git submodule sync --recursive
         git submodule update --init --force --recursive --depth=1
 
@@ -35,7 +35,7 @@ jobs:
         python-version: '3.8' # Version range or exact version of a Python version to use, using SemVer's version range syntax
         architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
     
-    - name: Install python wheel
+    - name: Install Python Wheel
       run: python -m pip install wheel
    
     - name: Building SUMO
@@ -43,7 +43,7 @@ jobs:
         # Allow CMake build to use multiple processors (4)
         CMAKE_BUILD_PARALLEL_LEVEL: 4
       run: |
-        cd SUMO
+        cd sumo
         mkdir build_msvc
         cd build_msvc
         cmake .. -G"Visual Studio 16 2019" -A x64
