@@ -53,6 +53,12 @@ pedestrians
 # generate random persontrips
 persontrips
 
+# walks between junctions
+pedestrians_junctionTaz
+
+# generate random persontrips between junctions
+persontrips_junctionTaz
+
 # generate random taxi rides
 taxirides
 

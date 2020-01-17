@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Jan 17 12:03:58 2020 by Eclipse SUMO duarouter Version v1_4_0+0594-c2951a9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <junction-taz value="true"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="routes.rou.xml"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="0" depart="0.00" departPos="random" color="red">
+        <personTrip from="N-source" to="S-sink" modes="public car" departPos="0.00" walkFactor="0.75" costs="96.00"/>
+    </person>
+    <person id="1" depart="0.00" departPos="random" color="red">
+        <personTrip from="S-source" to="N-sink" modes="public car" departPos="0.00" walkFactor="0.75" costs="96.00"/>
+    </person>
+    <person id="3" depart="2.00" departPos="random" color="red">
+        <personTrip from="N-source" to="C-sink" modes="public car" departPos="0.00" walkFactor="0.75" costs="40.27"/>
+    </person>
+    <person id="4" depart="2.00" departPos="random" color="red">
+        <personTrip from="S-source" to="C-sink" modes="public car" departPos="0.00" walkFactor="0.75" costs="40.27"/>
+    </person>
+    <person id="5" depart="2.00" departPos="random" color="red">
+        <personTrip from="C-source" to="N-sink" modes="public car" departPos="0.00" walkFactor="0.75" costs="40.27"/>
+    </person>
+    <person id="6" depart="2.00" departPos="random" color="red">
+        <personTrip from="C-source" to="S-sink" modes="public car" departPos="0.00" walkFactor="0.75" costs="40.27"/>
+    </person>
+</routes>
