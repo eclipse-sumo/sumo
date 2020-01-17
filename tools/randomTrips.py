@@ -448,6 +448,12 @@ def main(options):
             combined_attrs = options.tripattrs
             if options.fringeattrs and source_edge.is_fringe(source_edge._incoming):
                 combined_attrs += " " + options.fringeattrs
+            if options.junctionTaz:
+                attrFrom = ' fromJunction="%s"' % source_edge.getFromNode().getID()
+                attrTo = ' toJunction="%s"' % sink_edge.getToNode().getID()
+            else:
+                attrFrom = ' from="%s"' % source_edge.getID()
+                attrTo = ' to="%s"' % sink_edge.getID()
             via = ""
             if len(intermediate) > 0:
                 via = ' via="%s" ' % ' '.join(
@@ -459,23 +465,16 @@ def main(options):
                     '    <person id="%s" depart="%.2f"%s>\n' % (label, depart, personattrs))
                 if options.persontrips:
                     fouttrips.write(
-                        '        <personTrip from="%s" to="%s"%s/>\n' % (
-                            source_edge.getID(), sink_edge.getID(), otherattrs))
+                        '        <personTrip%s%s%s/>\n' % (attrFrom, attrTo, otherattrs))
                 elif options.personrides:
                     fouttrips.write(
                         '        <ride from="%s" to="%s" lines="%s"%s/>\n' % (
                             source_edge.getID(), sink_edge.getID(), options.personrides, otherattrs))
                 else:
                     fouttrips.write(
-                        '        <walk from="%s" to="%s"%s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
+                        '        <walk%s%s%s/>\n' % (attrFrom, attrTo, otherattrs))
                 fouttrips.write('    </person>\n')
             else:
-                if options.junctionTaz:
-                    attrFrom = ' fromJunction="%s"' % source_edge.getFromNode().getID()
-                    attrTo = ' toJunction="%s"' % sink_edge.getToNode().getID()
-                else:
-                    attrFrom = ' from="%s"' % source_edge.getID()
-                    attrTo = ' to="%s"' % sink_edge.getID()
                 if options.jtrrouter:
                     attrTo = ''
 
