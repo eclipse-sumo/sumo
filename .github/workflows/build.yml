@@ -111,6 +111,16 @@ jobs:
         brew cask install xquartz
         brew install xerces-c fox gl2ps  
    
+    - name: Installing Google Test
+      run: |
+        git clone https://github.com/google/googletest
+        cd googletest
+        mkdir build
+        cd build
+        cmake ..
+        make
+        make install  
+        
     - name: Building SUMO
       run: |
         mkdir cmake-build 
