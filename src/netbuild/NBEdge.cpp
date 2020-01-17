@@ -2264,6 +2264,10 @@ NBEdge::recheckLanes() {
         }
     }
 #endif
+    // check delayed removals
+    for (std::vector<Connection>::iterator it = myConnectionsToDelete.begin(); it != myConnectionsToDelete.end(); ++it) {
+        removeFromConnections(it->toEdge, it->fromLane, it->toLane, false, false, true);
+    }
     std::vector<int> connNumbersPerLane(myLanes.size(), 0);
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
         if ((*i).toEdge == nullptr || (*i).fromLane < 0 || (*i).toLane < 0) {
@@ -2368,10 +2372,6 @@ NBEdge::recheckLanes() {
                 ++i;
             }
         }
-    }
-    // check delayed removals
-    for (std::vector<Connection>::iterator it = myConnectionsToDelete.begin(); it != myConnectionsToDelete.end(); ++it) {
-        removeFromConnections(it->toEdge, it->fromLane, it->toLane, false, false, true);
     }
     // check involuntary dead end at "real" junctions
     if (getPermissions() != SVC_PEDESTRIAN) {
