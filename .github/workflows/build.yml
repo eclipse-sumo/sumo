@@ -43,7 +43,7 @@ jobs:
         # Allow CMake build to use multiple processors (4)
         CMAKE_BUILD_PARALLEL_LEVEL: 4
       run: |
-        cd $GITHUB_WORKSPACE\SUMO
+        cd SUMO
         mkdir build_msvc
         cd build_msvc
         cmake .. -G"Visual Studio 16 2019" -A x64
