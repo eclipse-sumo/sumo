@@ -2424,9 +2424,11 @@ NBEdge::recheckLanes() {
         }
     }
     for (const NBEdge* out : myTo->getOutgoingEdges()) {
-        for (const Lane& lane : out->getLanes()) {
-            if ((lane.permissions & SVC_PASSENGER) != 0) {
-                passengerTargetLanes++;
+        if (!isTurningDirectionAt(out)) {
+            for (const Lane& lane : out->getLanes()) {
+                if ((lane.permissions & SVC_PASSENGER) != 0) {
+                    passengerTargetLanes++;
+                }
             }
         }
     }
