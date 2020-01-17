@@ -46,7 +46,7 @@
 #include "NBTypeCont.h"
 #include "NBEdge.h"
 
-#define ADDITIONAL_WARNINGS
+//#define ADDITIONAL_WARNINGS
 //#define DEBUG_CONNECTION_GUESSING
 //#define DEBUG_ANGLES
 //#define DEBUG_NODE_BORDER
