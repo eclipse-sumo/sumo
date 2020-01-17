@@ -108,6 +108,7 @@ jobs:
     - name: Preparing Build System
       run: |
         brew update
+        brew cask install xquartz
         brew install xerces-c fox gl2ps  
    
     - name: Building SUMO
