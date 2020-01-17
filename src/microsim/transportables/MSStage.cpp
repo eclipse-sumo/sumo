@@ -258,6 +258,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
         myDepartPos = previous->getArrivalPos();
     }
     // TODO This works currently only for a single vehicle type
+    const int oldNumStages = transportable->getNumStages();
     for (SUMOVehicleParameter* vehPar : pars) {
         SUMOVehicle* vehicle = nullptr;
         bool isTaxi = false;
@@ -364,6 +365,13 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
         }
         if (vehicle != nullptr && !isTaxi && !carUsed) {
             vehControl.deleteVehicle(vehicle, true);
+        }
+    }
+    if (transportable->getNumStages() == oldNumStages) {
+        // append stage so the GUI won't crash due to inconsistent state
+        transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat), -1);
+        if (MSGlobals::gCheckRoutes) {  // if not pedestrians will teleport
+            return "Empty route between edge '" + myOrigin->getID() + "' and edge '" + (myDestinationStop != nullptr ? myDestinationStop->getID() : myDestination->getID()) + "' for person '" + transportable->getID() + "'.";
         }
     }
     return "";
