@@ -145,11 +145,13 @@ GNEEdge::updateGeometry() {
         for (const auto& pathElementChild : myPathElementChilds) {
             pathElementChild->updatePartialGeometry(this);
         }
-        // update vehicle geometry
-        updateSpreadVehicleGeometries();
         // mark dotted geometry deprecated
         myDottedGeometry.markDottedGeometryDeprecated();
     }
+    // update vehicle geometry
+    updateVehicleSpreadGeometries();
+    // update vehicle stack labels
+    updateVehicleStackLabels();
 }
 
 
@@ -537,9 +539,11 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         drawGeometryPoints(s);
     }
     // draw vehicles
-    std::vector<GNEDemandElement*> vehicles = getVehiclesOverEdge();
-    for (const auto &vehicle : vehicles) {
-        vehicle->drawGL(s);
+    const std::map<const GNELane*, std::vector<GNEDemandElement*> > vehiclesMap = getVehiclesOverEdgeMap();
+    for (const auto &vehicleMap : vehiclesMap) {
+        for (const auto &vehicle : vehicleMap.second) {
+            vehicle->drawGL(s);
+        }
     }
     // draw name if isn't being drawn for selecting
     if (!s.drawForRectangleSelection) {
@@ -1433,17 +1437,9 @@ GNEEdge::invalidatePathChildElementss() {
 
 
 void
-GNEEdge::updateSpreadVehicleGeometries() {
-    // get vehicles over edge
-    const std::vector<GNEDemandElement* > vehicles = getVehiclesOverEdge();
-    // now split vehicles by lanes
-    std::map<const GNELane*, std::vector<GNEDemandElement* > > laneVehiclesMap;
-    for (const auto &vehicle : vehicles) {
-        const GNELane* vehicleLane = vehicle->getFirstAllowedVehicleLane();
-        if (vehicleLane) {
-            laneVehiclesMap[vehicleLane].push_back(vehicle);
-        }
-    }
+GNEEdge::updateVehicleSpreadGeometries() {
+    // get lane vehicles map
+    const std::map<const GNELane*, std::vector<GNEDemandElement*> > laneVehiclesMap = getVehiclesOverEdgeMap();
     // iterate over every lane
     for (const auto &laneVehicle : laneVehiclesMap) {
         // obtain total lenght
@@ -1470,9 +1466,104 @@ GNEEdge::updateSpreadVehicleGeometries() {
     }
 }
 
+
+void
+GNEEdge::updateVehicleStackLabels() {
+    // get lane vehicles map
+    const std::map<const GNELane*, std::vector<GNEDemandElement*> > laneVehiclesMap = getVehiclesOverEdgeMap();
+    // declare map for sprt vehicles using their departpos+lenght position (StackPosition)
+    std::map<GNEEdge::StackPosition, GNEDemandElement*> departPosVehicles;
+    // declare vector of stack demand elements
+    std::vector<GNEEdge::StackDemandElements> stackedVehicles;
+    // iterate over laneVehiclesMap
+    for (const auto &vehicleMap : laneVehiclesMap) {
+        // iterate over vehicles
+        for (const auto &vehicle : vehicleMap.second) {
+            // get vehicle's depart pos and lenght
+            const double departPos = vehicle->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+            const double length = vehicle->getAttributeDouble(SUMO_ATTR_LENGTH);
+            // make a stack position using departPos and length
+            departPosVehicles[StackPosition(departPos, departPos + length)] = vehicle;
+            // reset vehicle stack label
+            vehicle->updateDemandElementStackLabel(0);
+        }
+    }
+    // iterate over departPosVehicles
+    for (const auto &departPosVehicle : departPosVehicles) {
+        // obtain stack position and vehicle
+        const GNEEdge::StackPosition &vehicleStackPosition = departPosVehicle.first;
+        GNEDemandElement* vehicle = departPosVehicle.second;
+        // if stackedVehicles is empty, add a new StackDemandElements
+        if (stackedVehicles.empty()) {
+            stackedVehicles.push_back(GNEEdge::StackDemandElements(vehicleStackPosition, vehicle));
+        } else if (areStackPositionOverlapped(vehicleStackPosition, stackedVehicles.back().getStackPosition())) {
+            // add new vehicle to last inserted stackDemandElements and update end position
+            stackedVehicles[stackedVehicles.size()-1].addDemandElements(vehicle, vehicleStackPosition.endPosition());
+        } else {
+            // No overlapping, then add a new StackDemandElements
+            stackedVehicles.push_back(GNEEdge::StackDemandElements(vehicleStackPosition, vehicle));
+        }
+    }
+    // iterate over stackedVehicles
+    for (const auto &vehicle : stackedVehicles) {
+        // only update vehicles with one or more stack
+        if (vehicle.getDemandElements().size() > 1) {
+            // set stack labels
+            vehicle.getDemandElements().front()->updateDemandElementStackLabel((int)vehicle.getDemandElements().size());
+        }
+    }
+}
+
 // ===========================================================================
 // private
 // ===========================================================================
+
+GNEEdge::StackPosition::StackPosition(const double departPos, const double length) :
+    tuple(departPos, departPos + length) {
+}
+
+
+const double 
+GNEEdge::StackPosition::beginPosition() const {
+    return std::get<0>(*this);
+}
+
+
+const double 
+GNEEdge::StackPosition::endPosition() const {
+    return std::get<1>(*this);
+}
+
+
+void 
+GNEEdge::StackPosition::updateEndPosition(double end) {
+    std::get<1>(*this) = end;
+}
+
+
+GNEEdge::StackDemandElements::StackDemandElements(const StackPosition stackedPosition, GNEDemandElement* demandElement) :
+    tuple(stackedPosition, {demandElement}) {
+}
+
+
+void 
+GNEEdge::StackDemandElements::addDemandElements(GNEDemandElement* demandElement, const double newEnd) {
+    std::get<0>(*this).updateEndPosition(newEnd);
+    std::get<1>(*this).push_back(demandElement);
+}
+
+
+const GNEEdge::StackPosition &
+GNEEdge::StackDemandElements::getStackPosition() const {
+    return std::get<0>(*this);
+}
+
+
+const std::vector<GNEDemandElement*> &
+GNEEdge::StackDemandElements::getDemandElements() const {
+    return std::get<1>(*this);
+}
+
 
 void
 GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
@@ -2064,11 +2155,13 @@ GNEEdge::setShapeEndPos(const Position& pos) {
 }
 
 
-std::vector<GNEDemandElement*> 
-GNEEdge::getVehiclesOverEdge() const {
-    // declare solution
-    std::vector<GNEDemandElement*> solution;
-    // declare a set to 
+const std::map<const GNELane*, std::vector<GNEDemandElement*> >
+GNEEdge::getVehiclesOverEdgeMap() const {
+    // declare vehicles over edge vector
+    std::vector<GNEDemandElement*> vehiclesOverEdge;
+    // declare solution map
+    std::map<const GNELane*, std::vector<GNEDemandElement*> > vehiclesOverEdgeMap;
+    // declare a set of vehicles (to avoid duplicates)
     std::set<std::pair<double, GNEDemandElement*> > vehicles;
     // first obtain all vehicles of this edge
     for (const auto &edgeChild : getChildDemandElements()) {
@@ -2086,12 +2179,20 @@ GNEEdge::getVehiclesOverEdge() const {
         }
     }
     // reserve
-    solution.reserve(vehicles.size());
+    vehiclesOverEdge.reserve(vehicles.size());
     // iterate over vehicles
     for (const auto &vehicle : vehicles) {
-        solution.push_back(vehicle.second);
+        // add it over vehiclesOverEdge;
+        vehiclesOverEdge.push_back(vehicle.second);
     }
-    return solution;
+    // now split vehicles by lanes
+    for (const auto &vehicle : vehiclesOverEdge) {
+        const GNELane* vehicleLane = vehicle->getFirstAllowedVehicleLane();
+        if (vehicleLane) {
+            vehiclesOverEdgeMap[vehicleLane].push_back(vehicle);
+        }
+    }
+    return vehiclesOverEdgeMap;
 }
 
 
@@ -2417,6 +2518,22 @@ GNEEdge::drawDemandElements(const GUIVisualizationSettings& s) const {
         } else if (elementChild->getTagProperty().isPersonPlan()) {
             drawPartialPersonPlan(s, elementChild, nullptr);
         }
+    }
+}
+
+
+bool 
+GNEEdge::areStackPositionOverlapped(const GNEEdge::StackPosition &vehicleA, const GNEEdge::StackPosition &vehicleB) const {
+    if ((vehicleA.beginPosition() == vehicleB.beginPosition()) && (vehicleA.endPosition() == vehicleB.endPosition())) {
+        return true;
+    } else if ((vehicleA.beginPosition() < vehicleB.beginPosition()) && (vehicleA.endPosition() > vehicleB.endPosition())) {
+        return true;
+    } else if ((vehicleA.beginPosition() < vehicleB.beginPosition()) && (vehicleA.endPosition() > vehicleB.beginPosition())) {
+        return true;
+    } else if ((vehicleA.beginPosition() < vehicleB.endPosition()) && (vehicleA.endPosition() > vehicleB.endPosition())) {
+        return true;
+    } else {
+        return false;
     }
 }
 

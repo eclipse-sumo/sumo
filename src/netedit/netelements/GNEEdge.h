@@ -272,9 +272,6 @@ public:
     // the radius in which to register clicks for geometry nodes
     static const double SNAP_RADIUS;
 
-    /// @brief Dummy edge to use when a reference must be supplied in the no-arguments constructor (FOX technicality)
-    static GNEEdge& getDummyEdge();
-
     /// @brief clear current connections
     void clearGNEConnections();
 
@@ -320,8 +317,11 @@ public:
     /// @brief invalidate path element childs
     void invalidatePathChildElementss();
 
+    // @brief update vehicle spread geometries
+    void updateVehicleSpreadGeometries();
+
     // @brief update vehicle geometries
-    void updateSpreadVehicleGeometries();
+    void updateVehicleStackLabels();
 
 protected:
     /// @brief the underlying NBEdge
@@ -355,6 +355,40 @@ protected:
     std::vector<GNEDemandElement*> myPathElementChilds;
 
 private:
+    /// @brief Stack position (used to stack demand elements over edges)
+    class StackPosition : public std::tuple<const double, double> {
+
+    public:
+        /// @brief constructor
+        StackPosition(const double departPos, const double length);
+
+        /// @brief get begin position
+        const double beginPosition() const;
+
+        /// @brief get end position
+        const double endPosition() const;
+
+        /// @brief update end position
+        void updateEndPosition(double end);
+    };
+
+    /// @brief Stack demand elements
+    class StackDemandElements : public std::tuple<StackPosition, std::vector<GNEDemandElement*> > {
+
+    public:
+        /// @brief constructor
+        StackDemandElements(const StackPosition stackedPosition, GNEDemandElement* demandElement);
+
+        /// @brief add demand elment to current StackDemandElements (And update end)
+        void addDemandElements(GNEDemandElement* demandElement, const double newEnd);
+
+        /// @brief get stack position
+        const StackPosition &getStackPosition() const;
+
+        /// @brief get demand elements
+        const std::vector<GNEDemandElement*> &getDemandElements() const;
+    };
+
     /// @brif flag to enable/disable update geomtetry of lanes (used mainly by setNumLanes)
     bool myUpdateGeometry;
 
@@ -394,7 +428,7 @@ private:
     void setShapeEndPos(const Position& pos);
 
     /// @brief get vehicles a that start over this edge
-    std::vector<GNEDemandElement*> getVehiclesOverEdge() const;
+    const std::map<const GNELane*, std::vector<GNEDemandElement*> > getVehiclesOverEdgeMap() const;
 
     /// @brief draw geometry points
     void drawGeometryPoints(const GUIVisualizationSettings& s) const;
@@ -408,14 +442,14 @@ private:
     /// @brief draw demand elements
     void drawDemandElements(const GUIVisualizationSettings& s) const;
 
+    /// @brief check if given stacked positions are overlapped
+    bool areStackPositionOverlapped(const GNEEdge::StackPosition &vehicleA, const GNEEdge::StackPosition &vehicleB) const;
+
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;
 
     /// @brief invalidated assignment operator
     GNEEdge& operator=(const GNEEdge& s) = delete;
-
-    /// @brief constructor for dummy edge
-    GNEEdge();
 };
 
 
