@@ -158,7 +158,12 @@ public:
 
     /// @brief Destructor
     ~GNEDemandElement();
+    
+    /// @brief gererate a new ID for an element child
+    std::string generateChildID(SumoXMLTag childTag);
 
+    /// @name members and functions relative to demand element geometries
+    /// @{
     /// @brief get demand element geometry
     const GNEGeometry::Geometry& getDemandElementGeometry();
 
@@ -168,11 +173,12 @@ public:
     /// @brief get demand element segment spread geometry
     const GNEGeometry::SegmentGeometry& getDemandElementSpreadSegmentGeometry() const;
 
-    /// @brief get demand element spread geometry
+    /// @brief update element spread geometry
     void updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane);
 
-    /// @brief gererate a new ID for an element child
-    std::string generateChildID(SumoXMLTag childTag);
+    /// @brief set stack label geometry
+    void updateDemandElementStackLabel(const int stack);
+    /// @}
 
     /// @name members and functions relative to elements common to all demand elements
     /// @{
@@ -395,6 +401,12 @@ protected:
 
     /// @brief demand element spread segment geometry
     GNEGeometry::SegmentGeometry mySpreadSegmentGeometry;
+
+    /// @brief demand element stacked label geometry
+    GNEGeometry::Geometry myStackedLabelGeometry;
+
+    /// @brief stacked label number
+    int myStackedLabelNumber;
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{

@@ -154,19 +154,6 @@ GNEDemandElement::RouteCalculator::consecutiveEdgesConnected(const SUMOVehicleCl
         } else {
             return false;
         }
-        /*
-        // obtain NBEdges from both edges
-        NBEdge* nbFrom = from->getNBEdge();
-        NBEdge* nbTo = to->getNBEdge();
-        // iterate over all connections of NBFrom
-        for (NBEdge::Connection c : nbFrom->getConnectionsFromLane(-1, nbTo, -1)) {
-            //check if given VClass is allowed for from and to lanes
-            if ((nbFrom->getPermissions(c.fromLane) & nbTo->getPermissions(c.toLane) & vClass) == vClass) {
-                return true;
-            }
-        }
-        return false;
-        */
     }
 }
 
@@ -212,6 +199,9 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEVie
 }
 
 
+GNEDemandElement::~GNEDemandElement() {}
+
+
 std::string
 GNEDemandElement::generateChildID(SumoXMLTag childTag) {
     int counter = (int)getChildDemandElements().size();
@@ -220,9 +210,6 @@ GNEDemandElement::generateChildID(SumoXMLTag childTag) {
     }
     return (getID() + toString(childTag) + toString(counter));
 }
-
-
-GNEDemandElement::~GNEDemandElement() {}
 
 
 const GNEGeometry::Geometry& 
@@ -246,6 +233,12 @@ GNEDemandElement::getDemandElementSpreadSegmentGeometry() const {
 void 
 GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane) {
     mySpreadGeometry.updateGeometry(lane, posOverLane);
+}
+
+
+void 
+GNEDemandElement::updateDemandElementStackLabel(const int stack) {
+    myStackedLabelNumber = stack;
 }
 
 
