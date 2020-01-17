@@ -66,7 +66,7 @@
 
 //#define DEBUG_JOINJUNCTIONS
 //#define DEBUG_GUESSSIGNALS
-#define DEBUGNODEID "443827"
+#define DEBUGNODEID "354916004"
 #define DEBUGNODEID2 ""
 //#define DEBUGNODEID "5548037023"
 #define DEBUGCOND(obj) ((obj) != 0 && ((obj)->getID() == DEBUGNODEID || (obj)->getID() == DEBUGNODEID2))
@@ -701,30 +701,30 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
             continue;
         }
         std::string reason;
-        bool feasible = feasibleCluster(cluster, ec, sc, reason);
+        std::string origReason;
+        std::string origCluster;
+        bool feasible = feasibleCluster(cluster, ec, sc, origReason);
         //if (!feasible) std::cout << "\ntry to reduce cluster " << joinNamedToString(cluster, ',') << "\n";
         if (!feasible) {
-            std::string origCluster = joinNamedToString(cluster, ',');
+            origCluster = joinNamedToString(cluster, ',');
             if (reduceToCircle(cluster, 4, cluster)) {
-                pruneClusterFringe(cluster);
                 feasible = feasibleCluster(cluster, ec, sc, reason);
                 if (feasible) {
-                    WRITE_WARNINGF("Reducing junction cluster % (%).", origCluster, reason);
+                    WRITE_WARNINGF("Reducing junction cluster % (%).", origCluster, origReason);
                 }
             }
         }
         if (!feasible) {
-            std::string origCluster = joinNamedToString(cluster, ',');
+            origCluster = joinNamedToString(cluster, ',');
             if (reduceToCircle(cluster, 2, cluster)) {
-                pruneClusterFringe(cluster);
                 feasible = feasibleCluster(cluster, ec, sc, reason);
                 if (feasible) {
-                    WRITE_WARNINGF("Reducing junction cluster % (%).", origCluster, reason);
+                    WRITE_WARNINGF("Reducing junction cluster % (%).", origCluster, origReason);
                 }
             }
         }
         if (!feasible) {
-            WRITE_WARNINGF("Not joining junctions % (%).", joinNamedToString(cluster, ','), reason);
+            WRITE_WARNINGF("Not joining junctions % (%).", origCluster, origReason);
             continue;
         }
         // compute all connected components of this cluster
@@ -1287,20 +1287,27 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const 
 
 bool
 NBNodeCont::reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes, std::vector<NBNode*> cands) const {
-    //std::cout << " cs=" << circleSize << " cands=" << toString(cands) << " startNodes=" << toString(startNodes) << "\n";
+    //std::cout << "reduceToCircle  cs=" << circleSize << " cands=" << toString(cands, ',') << " startNodes=" << joinNamedToString(startNodes, ',') << "\n";
     assert(circleSize >= 2);
     if ((int)cands.size() == circleSize) {
         if (cands.back()->getConnectionTo(cands.front()) != nullptr) {
             // cluster found
-            cluster.clear();
-            cluster.insert(cands.begin(), cands.end());
-            return true;
+            NodeSet candCluster;
+            candCluster.insert(cands.begin(), cands.end());
+            pruneClusterFringe(candCluster);
+            const bool feasible = (int)candCluster.size() == circleSize;
+            if (feasible) {
+                cluster.clear();
+                cluster.insert(cands.begin(), cands.end());
+            }
+            return feasible;
         } else {
             return false;
         }
     }
     if ((int)cluster.size() <= circleSize || startNodes.size() == 0) {
         // no reduction possible
+        //std::cout << "    abort\n";
         return false;
     }
     if (cands.size() == 0) {
@@ -1328,6 +1335,7 @@ NBNodeCont::reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes,
             }
         }
     }
+    //std::cout << "    abort2\n";
     return false;
 }
 
