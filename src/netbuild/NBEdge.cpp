@@ -46,7 +46,7 @@
 #include "NBTypeCont.h"
 #include "NBEdge.h"
 
-//#define ADDITIONAL_WARNINGS
+#define ADDITIONAL_WARNINGS
 //#define DEBUG_CONNECTION_GUESSING
 //#define DEBUG_ANGLES
 //#define DEBUG_NODE_BORDER
@@ -2386,8 +2386,8 @@ NBEdge::recheckLanes() {
             }
         }
     }
-    // check for connections with bad access permissions
 #ifdef ADDITIONAL_WARNINGS
+    // check for connections with bad access permissions
     for (const Connection& c : myConnections) {
         SVCPermissions fromP = getPermissions(c.fromLane);
         SVCPermissions toP = c.toEdge->getPermissions(c.toLane);
@@ -2405,6 +2405,35 @@ NBEdge::recheckLanes() {
             }
         }
     }
+    // check for dead-end passenger lanes when there are still unconnected outgoing edges
+    int passengerLanes = 0;
+    int passengerTargetLanes = 0;
+    for (const Lane& lane : myLanes) {
+        if ((lane.permissions & SVC_PASSENGER) != 0) {
+            passengerLanes++;
+        }
+    }
+    for (const NBEdge* out : myTo->getOutgoingEdges()) {
+        for (const Lane& lane : out->getLanes()) {
+            if ((lane.permissions & SVC_PASSENGER) != 0) {
+                passengerTargetLanes++;
+            }
+        }
+    }
+    if (passengerLanes <= passengerTargetLanes) {
+        // no need for dead-ends
+        connNumbersPerLane = std::vector<int>(myLanes.size(), 0);
+        for (const Connection& c : myConnections) {
+            connNumbersPerLane[c.fromLane]++;
+        }
+        for (int i = 0; i < (int)myLanes.size(); i++) {
+            if (connNumbersPerLane[i] == 0 && !isForbidden(getPermissions(i))) {
+                // dead-end lane found
+                WRITE_WARNING("Found dead-end lane " + getLaneID(i));
+            }
+        }
+    }
+
 #endif
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) {

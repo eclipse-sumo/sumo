@@ -77,6 +77,21 @@ GUIEdge::~GUIEdge() {
     }
 }
 
+void
+GUIEdge::closeBuilding() {
+    MSEdge::closeBuilding();
+    bool hasNormalSuccessors = false;
+    for (const MSEdge* out : getSuccessors()) {
+        if (!out->isTazConnector()) {
+            hasNormalSuccessors = true;
+            break;
+        }
+    }
+    myShowDeadEnd = (!isTazConnector() && !hasNormalSuccessors && getToJunction()->getOutgoing().size() > 0
+            && (getPermissions() & ~SVC_PEDESTRIAN) != 0
+            && (getToJunction()->getOutgoing().size() > 1 || 
+                getToJunction()->getOutgoing().front()->getToJunction() != getFromJunction())); 
+}
 
 MSLane&
 GUIEdge::getLane(int laneNo) {

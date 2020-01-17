@@ -65,6 +65,8 @@ public:
     /// @brief Destructor.
     ~GUIEdge();
 
+    /// Has to be called after all edges were built and all connections were set
+    virtual void closeBuilding();
 
     /* @brief Returns the gl-ids of all known edges
      * @param[in] includeInternal Whether to include ids of internal edges
@@ -210,12 +212,18 @@ public:
         return myMesoColor;
     }
 
+    bool showDeadEnd() const {
+        return myShowDeadEnd;
+    }
+
     /// @brief whether this lane is selected in the GUI
     bool isSelected() const;
 
     /// The color of the segments (cached)
     mutable std::vector<RGBColor> mySegmentColors;
 
+    /// @brief whether to highlight this edge as a dead-end edge
+    bool myShowDeadEnd;
 
 
 private:
