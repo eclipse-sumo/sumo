@@ -19,11 +19,11 @@ ticket6470
 # ramps.guess must consider turning restrictions
 ticket6482
 
-# test handling multiple "only" restrictions for the same edge
-ticket6482b
-
 # guess-signals must work indendepent of the junction size
 ticket6493
 
 # guess-signals must work in intermodal networks
 ticket6495
+
+# restrictions should not cause dead-end lanes if there are sufficient targets
+ticket6503
