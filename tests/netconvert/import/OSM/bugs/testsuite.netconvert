@@ -19,6 +19,9 @@ ticket6470
 # ramps.guess must consider turning restrictions
 ticket6482
 
+# test handling multiple "only" restrictions for the same edge
+ticket6482b
+
 # guess-signals must work indendepent of the junction size
 ticket6493
 
