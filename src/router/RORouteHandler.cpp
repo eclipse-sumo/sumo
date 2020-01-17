@@ -39,7 +39,6 @@
 #include <utils/xml/SUMOSAXReader.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/OutputDevice_String.h>
-#include "ROPerson.h"
 #include "RONet.h"
 #include "ROEdge.h"
 #include "ROLane.h"
@@ -80,15 +79,13 @@ RORouteHandler::~RORouteHandler() {
 
 
 void
-RORouteHandler::parseFromViaTo(std::string element,
-                               const SUMOSAXAttributes& attrs) {
+RORouteHandler::parseFromViaTo(std::string element, const SUMOSAXAttributes& attrs, bool& ok) {
     myActiveRoute.clear();
     bool useTaz = OptionsCont::getOptions().getBool("with-taz");
     if (useTaz && !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) && !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
         WRITE_WARNING("Taz usage was requested but no taz present in " + element + " '" + myVehicleParameter->id + "'!");
         useTaz = false;
     }
-    bool ok = true;
     // from-attributes
     const std::string rid = "for " + element + " '" + myVehicleParameter->id + "'";
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) &&
@@ -100,17 +97,19 @@ RORouteHandler::parseFromViaTo(std::string element,
         if (fromTaz == nullptr) {
             myErrorOutput->inform("Source " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
                     + (useJunction ? JUNCTION_TAZ_MISSING_HELP : ""));
+            ok = false;
         } else if (fromTaz->getNumSuccessors() == 0) {
             myErrorOutput->inform("Source " + tazType + " '" + tazID + "' has no outgoing edges for " + element + " '" + myVehicleParameter->id + "'!");
+            ok = false;
         } else {
             myActiveRoute.push_back(fromTaz);
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROMXY)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMXY, myVehicleParameter->id.c_str(), ok, true), false, myActiveRoute, rid, true);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMXY, myVehicleParameter->id.c_str(), ok, true), false, myActiveRoute, rid, true, ok);
     } else if (attrs.hasAttribute(SUMO_ATTR_FROMLONLAT)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMLONLAT, myVehicleParameter->id.c_str(), ok, true), true, myActiveRoute, rid, true);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMLONLAT, myVehicleParameter->id.c_str(), ok, true), true, myActiveRoute, rid, true, ok);
     } else {
-        parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok, "", true), myActiveRoute, rid);
+        parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok, "", true), myActiveRoute, rid, ok);
     }
     if (!attrs.hasAttribute(SUMO_ATTR_VIA) && !attrs.hasAttribute(SUMO_ATTR_VIALONLAT) && !attrs.hasAttribute(SUMO_ATTR_VIAXY)) {
         myInsertStopEdgesAt = (int)myActiveRoute.size();
@@ -119,20 +118,21 @@ RORouteHandler::parseFromViaTo(std::string element,
     // via-attributes
     ConstROEdgeVector viaEdges;
     if (attrs.hasAttribute(SUMO_ATTR_VIAXY)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIAXY, myVehicleParameter->id.c_str(), ok, true), false, viaEdges, rid, false);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIAXY, myVehicleParameter->id.c_str(), ok, true), false, viaEdges, rid, false, ok);
     } else if (attrs.hasAttribute(SUMO_ATTR_VIALONLAT)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIALONLAT, myVehicleParameter->id.c_str(), ok, true), true, viaEdges, rid, false);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIALONLAT, myVehicleParameter->id.c_str(), ok, true), true, viaEdges, rid, false, ok);
     } else if (attrs.hasAttribute(SUMO_ATTR_VIAJUNCTIONS)) {
         for (std::string junctionID : attrs.getStringVector(SUMO_ATTR_VIAJUNCTIONS)) {
             const ROEdge* viaSink = myNet.getEdge(junctionID + "-sink");
             if (viaSink == nullptr) {
                 myErrorOutput->inform("Junction-taz '" + junctionID + "' not found." + JUNCTION_TAZ_MISSING_HELP);
+                ok = false;
             } else {
                 viaEdges.push_back(viaSink);
             }
         }
     } else {
-        parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true), viaEdges, rid);
+        parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true), viaEdges, rid, ok);
     }
     for (const ROEdge* e: viaEdges) {
         myActiveRoute.push_back(e);
@@ -149,17 +149,19 @@ RORouteHandler::parseFromViaTo(std::string element,
         if (toTaz == nullptr) {
             myErrorOutput->inform("Sink " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
                     + (useJunction ? JUNCTION_TAZ_MISSING_HELP : ""));
+            ok = false;
         } else if (toTaz->getNumPredecessors() == 0) {
             myErrorOutput->inform("Sink " + tazType + " '" + tazID + "' has no incoming edges for " + element + " '" + myVehicleParameter->id + "'!");
+            ok = false;
         } else {
             myActiveRoute.push_back(toTaz);
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_TOXY)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOXY, myVehicleParameter->id.c_str(), ok, true), false, myActiveRoute, rid, false);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOXY, myVehicleParameter->id.c_str(), ok, true), false, myActiveRoute, rid, false, ok);
     } else if (attrs.hasAttribute(SUMO_ATTR_TOLONLAT)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOLONLAT, myVehicleParameter->id.c_str(), ok, true), true, myActiveRoute, rid, false);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOLONLAT, myVehicleParameter->id.c_str(), ok, true), true, myActiveRoute, rid, false, ok);
     } else {
-        parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok, "", true), myActiveRoute, rid);
+        parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok, "", true), myActiveRoute, rid, ok);
     }
     myActiveRouteID = "!" + myVehicleParameter->id;
     if (myVehicleParameter->routeid == "") {
@@ -172,6 +174,7 @@ void
 RORouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes& attrs) {
     SUMORouteHandler::myStartElement(element, attrs);
+    bool ok = true;
     switch (element) {
         case SUMO_TAG_PERSON:
         case SUMO_TAG_PERSONFLOW: {
@@ -186,7 +189,6 @@ RORouteHandler::myStartElement(int element,
         case SUMO_TAG_RIDE: {
             std::vector<ROPerson::PlanItem*>& plan = myActivePerson->getPlan();
             const std::string pid = myVehicleParameter->id;
-            bool ok = true;
             ROEdge* from = nullptr;
             if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
                 const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, pid.c_str(), ok);
@@ -252,11 +254,11 @@ RORouteHandler::myStartElement(int element,
         }
         case SUMO_TAG_FLOW:
             myActiveRouteProbability = DEFAULT_VEH_PROB;
-            parseFromViaTo("flow", attrs);
+            parseFromViaTo("flow", attrs, ok);
             break;
         case SUMO_TAG_TRIP:
             myActiveRouteProbability = DEFAULT_VEH_PROB;
-            parseFromViaTo("trip", attrs);
+            parseFromViaTo("trip", attrs, ok);
             break;
         default:
             break;
@@ -331,7 +333,7 @@ RORouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     }
     bool ok = true;
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        parseEdges(attrs.get<std::string>(SUMO_ATTR_EDGES, myActiveRouteID.c_str(), ok), myActiveRoute, rid);
+        parseEdges(attrs.get<std::string>(SUMO_ATTR_EDGES, myActiveRouteID.c_str(), ok), myActiveRoute, rid, ok);
     }
     myActiveRouteRefID = attrs.getOpt<std::string>(SUMO_ATTR_REFID, myActiveRouteID.c_str(), ok, "");
     if (myActiveRouteRefID != "" && myNet.getRouteDef(myActiveRouteRefID) == nullptr) {
@@ -798,7 +800,7 @@ RORouteHandler::addTranship(const SUMOSAXAttributes& /*attrs*/) {
 
 void
 RORouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
-                           const std::string& rid) {
+                           const std::string& rid, bool& ok) {
     if (desc[0] == BinaryFormatter::BF_ROUTE) {
         std::istringstream in(desc, std::ios::binary);
         char c;
@@ -810,6 +812,7 @@ RORouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
             const ROEdge* edge = myNet.getEdge(id);
             if (edge == nullptr) {
                 myErrorOutput->inform("The edge '" + id + "' within the route " + rid + " is not known.");
+                ok = false;
             } else {
                 into.push_back(edge);
             }
@@ -819,7 +822,7 @@ RORouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
 
 void
 RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo,
-                              ConstROEdgeVector& into, const std::string& rid, bool isFrom) {
+                              ConstROEdgeVector& into, const std::string& rid, bool isFrom, bool& ok) {
     if (geo && !GeoConvHelper::getFinal().usingGeoProjection()) {
         WRITE_ERROR("Cannot convert geo-positions because the network has no geo-reference");
         return;
@@ -842,6 +845,7 @@ RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo,
         }
         if (best == nullptr) {
             myErrorOutput->inform("No edge found near position " + toString(orig, geo ? gPrecisionGeo : gPrecision) + " within the route " + rid + ".");
+            ok = false;
         } else {
             if (myMapMatchJunctions) {
                 best = getJunctionTaz(pos, best, vClass, isFrom);
@@ -936,55 +940,75 @@ RORouteHandler::getJunctionTaz(const Position& pos, const ROEdge* closestEdge, S
 
 
 void
+RORouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
+                            const ROEdge* /*fromEdge*/, const ROEdge*& toEdge,
+                            double& departPos, double& arrivalPos, std::string& busStopID,
+                            const ROPerson::PlanItem* const lastStage, bool& ok) 
+{
+    const std::string description = "walk or personTrip of '" + personID + "'.";
+    if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
+        WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
+    }
+    departPos = myActivePerson->getParameter().departPos;
+    if (lastStage != nullptr) {
+        departPos = lastStage->getDestinationPos();
+    }
+
+    busStopID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
+    if (busStopID != "") {
+        const SUMOVehicleParameter::Stop* bs = myNet.getStoppingPlace(busStopID, SUMO_TAG_BUS_STOP);
+        if (bs == nullptr) {
+            myErrorOutput->inform("Unknown bus stop '" + busStopID + "' for " + description);
+            ok = false;
+        } else {
+            toEdge = myNet.getEdge(bs->lane.substr(0, bs->lane.rfind('_')));
+            arrivalPos = (bs->startPos + bs->endPos) / 2;
+        }
+    }
+    if (toEdge != nullptr) {
+        if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+            arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, 
+                    myHardFail, description, toEdge->getLength(), 
+                    attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok));
+        }
+    } else {
+        throw ProcessError("No destination edge for " + description + ".");
+    }
+}
+
+
+void
 RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const char* const id = myVehicleParameter->id.c_str();
     assert(!attrs.hasAttribute(SUMO_ATTR_EDGES));
-    const std::string fromID = attrs.getOpt<std::string>(SUMO_ATTR_FROM, id, ok, "");
-    std::string toID = attrs.getOpt<std::string>(SUMO_ATTR_TO, id, ok, "");
-    const std::string busStopID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, id, ok, "");
-
-    const ROEdge* from = fromID != "" || myActivePerson->getPlan().empty() ? myNet.getEdge(fromID) : myActivePerson->getPlan().back()->getDestination();
-    if (from == nullptr) {
-        myErrorOutput->inform("The edge '" + fromID + "' within a walk or personTrip of '" + myVehicleParameter->id + "' is not known."
-                              + "\n The route can not be build.");
-        ok = false;
-    }
-    double arrivalPos = 0;
-    const ROEdge* to = myNet.getEdge(toID);
-    if (toID != "" && to == nullptr) {
-        myErrorOutput->inform("The edge '" + toID + "' within a walk or personTrip of '" + myVehicleParameter->id + "' is not known."
-                              + "\n The route can not be build.");
-        ok = false;
-    }
-    if (toID == "" && busStopID == "") {
-        myErrorOutput->inform("Either a destination edge or busStop must be define within a walk or personTrip of '" + myVehicleParameter->id + "'."
-                              + "\n The route can not be build.");
-        ok = false;
-    }
-
-    if (toID == "") {
-        const SUMOVehicleParameter::Stop* stop = myNet.getStoppingPlace(busStopID, SUMO_TAG_BUS_STOP);
-        if (stop == nullptr) {
-            myErrorOutput->inform("Unknown bus stop '" + busStopID + "' within a walk or personTrip of '" + myVehicleParameter->id + "'.");
-            ok = false;
-        } else {
-            to = myNet.getEdge(stop->lane.substr(0, stop->lane.rfind('_')));
-            arrivalPos = (stop->startPos + stop->endPos) / 2;
+    const ROEdge* from = nullptr;
+    const ROEdge* to = nullptr;
+    parseFromViaTo("person", attrs, ok);
+    myInsertStopEdgesAt = -1;
+    if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION) || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)) {
+        if (ok) {
+            from = myActiveRoute.front();
         }
+    } else if (myActivePerson->getPlan().empty()) {
+        throw ProcessError("Start edge not defined for person '" + myVehicleParameter->id + "'.");
+    } else {
+        from = myActivePerson->getPlan().back()->getDestination();
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TOJUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
+        to = myActiveRoute.back();
+    } // else, to may also be derived from stopping place
+
+    const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, id, ok, -1);
+    if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
+        throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
     }
 
-    double departPos = myActivePerson->getParameter().departPos;
-    if (!myActivePerson->getPlan().empty()) {
-        departPos = myActivePerson->getPlan().back()->getDestinationPos();
-    }
-
-    if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
-        WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
-    }
-    if (to != nullptr && attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-        arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, myHardFail, id, to->getLength(), attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, id, ok));
-    }
+    double departPos = 0;
+    double arrivalPos = 0;
+    std::string busStopID;
+    const ROPerson::PlanItem* const lastStage = myActivePerson->getPlan().empty() ? nullptr : myActivePerson->getPlan().back();
+    parseWalkPositions(attrs, myVehicleParameter->id, from, to, departPos, arrivalPos, busStopID, lastStage, ok);
 
     const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
     SVCPermissions modeSet = 0;
@@ -1024,7 +1048,7 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         myActiveRoute = route->getEdgeVector();
     } else {
         myActiveRoute.clear();
-        parseEdges(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, " walk for person '" + myVehicleParameter->id + "'");
+        parseEdges(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, " walk for person '" + myVehicleParameter->id + "'", ok);
     }
     const char* const objId = myVehicleParameter->id.c_str();
     const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, objId, ok, -1);

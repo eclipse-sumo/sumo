@@ -31,6 +31,7 @@
 #include <utils/common/NamedRTree.h>
 #include <utils/router/PedestrianRouter.h>
 #include <utils/vehicle/SUMORouteHandler.h>
+#include "ROPerson.h"
 
 
 // ===========================================================================
@@ -40,7 +41,6 @@ class OutputDevice_String;
 class ROEdge;
 class ROLane;
 class RONet;
-class ROPerson;
 class RORoute;
 class RORouteDef;
 
@@ -89,8 +89,7 @@ protected:
      * @param[in] attrs Attributes within the currently opened element
      * @exception ProcessError If something fails
      */
-    void parseFromViaTo(std::string element,
-                        const SUMOSAXAttributes& attrs);
+    void parseFromViaTo(std::string element, const SUMOSAXAttributes& attrs, bool& ok);
 
     /// @brief opens a type distribution for reading
     void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);
@@ -165,11 +164,11 @@ protected:
 
     /// @brief Parse edges from strings
     void parseEdges(const std::string& desc, ConstROEdgeVector& into,
-                    const std::string& rid);
+                    const std::string& rid, bool& ok);
 
     /// @brief Parse edges from coordinates
     void parseGeoEdges(const PositionVector& positions, bool geo,
-                       ConstROEdgeVector& into, const std::string& rid, bool isFrom);
+                       ConstROEdgeVector& into, const std::string& rid, bool isFrom, bool& ok);
 
     /// @brief find closest edge within distance for the given position or nullptr
     const ROEdge* getClosestEdge(const Position& pos, double distance, SUMOVehicleClass vClass); 
@@ -182,6 +181,12 @@ protected:
 
     /// @brief add a fully specified walk
     void addWalk(const SUMOSAXAttributes& attrs);
+
+    ///@ brief parse depart- and arrival positions of a walk
+    void parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
+                            const ROEdge* fromEdge, const ROEdge*& toEdge,
+                            double& departPos, double& arrivalPos, std::string& busStopID,
+                            const ROPerson::PlanItem* const lastStage, bool& ok);
 
     /// @brief initialize lane-RTree
     NamedRTree* getLaneTree();
