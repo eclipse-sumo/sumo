@@ -174,14 +174,18 @@ public:
                 if (it != myDepartLookup.end()) {
                     // connect to depart connectors to all taz-source edges
                     for (const E* out : edge->getSuccessors()) {
-                        it->second.front()->addSuccessor(getDepartConnector(out));
+                        if (!edge->isTazConnector()) { // old network, see #6358
+                            it->second.front()->addSuccessor(getDepartConnector(out));
+                        }
                     }
                 } else {
                     it = myArrivalLookup.find(edge);
                     if (it != myArrivalLookup.end()) {
                         // connect to depart connectors to all taz-source edges
                         for (const E* in : edge->getPredecessors()) {
-                            getArrivalConnector(in)->addSuccessor(it->second.front());
+                            if (!in->isTazConnector()) { // old network, see #6358
+                                getArrivalConnector(in)->addSuccessor(it->second.front());
+                            }
                         }
                     }
                 }
