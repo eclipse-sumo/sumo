@@ -1404,7 +1404,7 @@ NIImporter_OpenStreetMap::RelationHandler::applyRestriction() const {
             // make sure that these connections remain disabled even if network
             // modifications (ramps.guess) reset existing connections
             for (NBEdge* cand : from->getToNode()->getOutgoingEdges()) {
-                if (cand != to) {
+                if (!from->isConnectedTo(cand)) {
                     from->removeFromConnections(cand, -1, -1, true);
                 }
             }
