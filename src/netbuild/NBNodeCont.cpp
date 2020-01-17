@@ -861,7 +861,7 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
         if (maybeSlipLaneStart(n, outgoing, inAngle)) {
             // potential slip lane start but we don't know which of the outgoing edges it is
 #ifdef DEBUG_JOINJUNCTIONS
-            if (gDebugFlag1) std::cout << "   candidate slip-lane start=" << n->getID() << " outgoing=" << outgoing << "\n";
+            if (gDebugFlag1) std::cout << "   candidate slip-lane start=" << n->getID() << " outgoing=" << toString(outgoing) << "\n";
 #endif
             for (NBEdge* contEdge : outgoing) {
                 if ((contEdge->getPermissions() & SVC_PASSENGER) == 0) {
@@ -940,7 +940,7 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
         if (maybeSlipLaneEnd(n, incoming, outAngle)) {
             // potential slip lane end but we don't know which of the incoming edges it is
 #ifdef DEBUG_JOINJUNCTIONS
-            if (gDebugFlag1) std::cout << "   candidate slip-lane end=" << n->getID() << " incoming=" << incoming << "\n";
+            if (gDebugFlag1) std::cout << "   candidate slip-lane end=" << n->getID() << " incoming=" << toString(incoming) << "\n";
 #endif
             for (NBEdge* contEdge : incoming) {
                 if ((contEdge->getPermissions() & SVC_PASSENGER) == 0) {
@@ -1037,7 +1037,7 @@ NBNodeCont::maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing, double& in
         outgoing.insert(outgoing.begin(), n->getOutgoingEdges().begin(), n->getOutgoingEdges().end());
         inAngle = n->getIncomingEdges().front()->getAngleAtNode(n);
         return true;
-    } else if (n->getIncomingEdges().size() == 2 && n->getOutgoingEdges().size() == 3) {
+    } else if (n->getIncomingEdges().size() >= 2 && n->getOutgoingEdges().size() == 3) {
         // check if the incoming edges are going in opposite directions and then
         // use the incoming edge that has 2 almost-straight outgoing edges
         const double inRelAngle = fabs(NBHelpers::relAngle(n->getIncomingEdges().front()->getAngleAtNode(n), n->getIncomingEdges().back()->getAngleAtNode(n)));
@@ -1073,7 +1073,7 @@ NBNodeCont::maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outA
         incoming.insert(incoming.begin(), n->getIncomingEdges().begin(), n->getIncomingEdges().end());
         outAngle = n->getOutgoingEdges().front()->getAngleAtNode(n);
         return true;
-    } else if (n->getIncomingEdges().size() == 3 && n->getOutgoingEdges().size() == 2) {
+    } else if (n->getIncomingEdges().size() == 3 && n->getOutgoingEdges().size() >= 2) {
         // check if the outgoing edges are going in opposite directions and then
         // use the outgoing edge that has 2 almost-straight incoming edges
         const double outRelAngle = fabs(NBHelpers::relAngle(n->getOutgoingEdges().front()->getAngleAtNode(n), n->getOutgoingEdges().back()->getAngleAtNode(n)));
@@ -1087,7 +1087,7 @@ NBNodeCont::maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outA
             for (NBEdge* in : n->getIncomingEdges()) {
                 const double inRelAngle = fabs(NBHelpers::relAngle(in->getAngleAtNode(n), out->getAngleAtNode(n)));
                 if (inRelAngle <= 45) {
-                    straight.push_back(out);
+                    straight.push_back(in);
                 } else if (inRelAngle >= 135) {
                     numReverse++;
                 }
