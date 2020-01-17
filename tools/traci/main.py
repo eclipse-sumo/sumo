@@ -74,14 +74,14 @@ def setConnectHook(hookFunc):
     _connectHook = hookFunc
 
 
-def connect(port=8813, numRetries=10, host="localhost", proc=None):
+def connect(port=8813, numRetries=10, host="localhost", proc=None, waitBetweenRetries=1):
     """
     Establish a connection to a TraCI-Server and return the
     connection object. The connection is not saved in the pool and not
     accessible via traci.switch. It should be safe to use different
     connections established by this method in different threads.
     """
-    for wait in range(1, numRetries + 2):
+    for retry in range(1, numRetries + 2):
         try:
             conn = Connection(host, port, proc)
             if _connectHook is not None:
@@ -90,11 +90,11 @@ def connect(port=8813, numRetries=10, host="localhost", proc=None):
         except socket.error as e:
             if proc is not None and proc.poll() is not None:
                 raise TraCIException("TraCI server already finished")
-            if wait > 1:
+            if retry > 1:
                 print("Could not connect to TraCI server at %s:%s" % (host, port), e)
-            if wait < numRetries + 1:
-                print(" Retrying in %s seconds" % wait)
-                time.sleep(wait)
+            if retry < numRetries + 1:
+                print(" Retrying in %s seconds" % waitBetweenRetries)
+                time.sleep(waitBetweenRetries)
     raise FatalTraCIError("Could not connect in %s tries" % (numRetries + 1))
 
 
