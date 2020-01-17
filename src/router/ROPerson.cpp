@@ -296,10 +296,30 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
     for (std::vector<ROIntermodalRouter::TripItem>::const_iterator it = result.begin(); it != result.end(); ++it) {
         if (!it->edges.empty()) {
             if (it->line == "") {
+                double depPos = trip->getDepartPos(false);
+                double arrPos = trip->getArrivalPos(false);
+                if (trip->getOrigin()->isTazConnector()) {
+                    // walk the whole length of the first edge
+                    const ROEdge* first = it->edges.front();
+                    if (std::find(first->getPredecessors().begin(), first->getPredecessors().end(), trip->getOrigin()) != first->getPredecessors().end()) {
+                        depPos = 0;
+                    } else {
+                        depPos = first->getLength();
+                    }
+                }
+                if (trip->getDestination()->isTazConnector()) {
+                    // walk the whole length of the last edge
+                    const ROEdge* last = it->edges.back();
+                    if (std::find(last->getSuccessors().begin(), last->getSuccessors().end(), trip->getDestination()) != last->getSuccessors().end()) {
+                        arrPos = last->getLength();
+                    } else {
+                        arrPos = 0;
+                    }
+                }
                 if (it + 1 == result.end() && trip->getStopDest() == "") {
-                    trip->addTripItem(new Walk(it->edges, it->cost, trip->getDepartPos(false), trip->getArrivalPos(false)));
+                    trip->addTripItem(new Walk(it->edges, it->cost, depPos, arrPos));
                 } else {
-                    trip->addTripItem(new Walk(it->edges, it->cost, trip->getDepartPos(false), trip->getArrivalPos(false), it->destStop));
+                    trip->addTripItem(new Walk(it->edges, it->cost, depPos, arrPos, it->destStop));
                 }
             } else if (veh != nullptr && it->line == veh->getID()) {
                 trip->addTripItem(new Ride(it->edges.front(), it->edges.back(), veh->getID(), it->cost, trip->getArrivalPos(), it->destStop));
