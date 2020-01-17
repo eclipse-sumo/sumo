@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 17 09:44:46 2020 by Eclipse SUMO duarouter Version v1_4_0+0591-e091448
+<!-- generated on Fri Jan 17 08:58:54 2020 by Eclipse SUMO duarouter Version v1_4_0+0591-e091448
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,13 +11,13 @@ SPDX-License-Identifier: EPL-2.0
     <input>
         <net-file value="input_net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
+        <junction-taz value="true"/>
     </input>
 
     <output>
         <write-license value="true"/>
         <output-file value="routes.rou.xml"/>
         <alternatives-output value="routes.rou.alt.xml"/>
-        <write-trips value="true"/>
     </output>
 
     <report>
@@ -29,12 +29,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p0" depart="0.00">
-        <personTrip from="beg" to="end" modes="public bicycle" walkFactor="0.75"/>
-    </person>
-    <person id="p1" depart="1.00">
-        <personTrip from="beg" to="end" modes="public car" walkFactor="0.75"/>
-        <stop lane="end_0" duration="100.00"/>
-        <personTrip from="end" to="middle" departPos="499.90" walkFactor="0.75"/>
+    <person id="0" depart="0.00">
+        <personTrip from="A0-source" to="C0toC1" walkFactor="0.75" costs="182.14"/>
     </person>
 </routes>
