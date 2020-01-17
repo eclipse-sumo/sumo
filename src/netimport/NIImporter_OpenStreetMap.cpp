@@ -1400,7 +1400,7 @@ NIImporter_OpenStreetMap::RelationHandler::applyRestriction() const {
             return false;
         }
         if (myRestrictionType == RESTRICTION_ONLY) {
-            from->addEdge2EdgeConnection(to);
+            from->addEdge2EdgeConnection(to, true);
             // make sure that these connections remain disabled even if network
             // modifications (ramps.guess) reset existing connections
             for (NBEdge* cand : from->getToNode()->getOutgoingEdges()) {

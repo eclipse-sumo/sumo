@@ -810,7 +810,7 @@ public:
      * @param[in] dest The connection's destination edge
      * @return Whether the connection was valid
      */
-    bool addEdge2EdgeConnection(NBEdge* dest);
+    bool addEdge2EdgeConnection(NBEdge* dest, bool overrideRemoval = false);
 
     /** @brief Adds a connection between the specified this edge's lane and an approached one
      *

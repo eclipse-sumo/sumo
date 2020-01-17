@@ -968,7 +968,7 @@ NBEdge::checkGeometry(const double maxAngle, const double minRadius, bool fix, b
 
 // ----------- Setting and getting connections
 bool
-NBEdge::addEdge2EdgeConnection(NBEdge* dest) {
+NBEdge::addEdge2EdgeConnection(NBEdge* dest, bool overrideRemoval) {
     if (myStep == EdgeBuildingStep::INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -983,6 +983,16 @@ NBEdge::addEdge2EdgeConnection(NBEdge* dest) {
         myConnections.push_back(Connection(-1, dest, -1));
     } else if (find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(dest)) == myConnections.end()) {
         myConnections.push_back(Connection(-1, dest, -1));
+    }
+    if (overrideRemoval) {
+        // override earlier delete decision
+        for (std::vector<Connection>::iterator it = myConnectionsToDelete.begin(); it != myConnectionsToDelete.end();) {
+            if (it->toEdge == dest) {
+                it = myConnectionsToDelete.erase(it);
+            } else {
+                it++;
+            }
+        }
     }
     if (myStep < EdgeBuildingStep::EDGE2EDGES) {
         myStep = EdgeBuildingStep::EDGE2EDGES;
