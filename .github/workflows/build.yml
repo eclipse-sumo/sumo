@@ -24,7 +24,6 @@ jobs:
         path: SUMOLibraries
     
     - name: Checkout SUMO Libraries Submodules
-      shell: bash
       run: |
         cd SUMOLibraries
         git submodule sync --recursive
@@ -41,9 +40,8 @@ jobs:
    
     - name: Building SUMO
       env:
-        # Allow CMake build to use multiple processors
+        # Allow CMake build to use multiple processors (4)
         CMAKE_BUILD_PARALLEL_LEVEL: 4
-      shell: bash
       run: |
         cd $GITHUB_WORKSPACE/SUMO
         mkdir build_msvc
@@ -53,6 +51,9 @@ jobs:
         cd ..
         python tools/build/setup-libsumo.py bdist_wheel
  
+  ###########################
+  # BUILDING ON LINUX
+  ###########################
   build-linux:
     runs-on: ubuntu-latest 
     steps:
