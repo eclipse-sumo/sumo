@@ -79,7 +79,8 @@ RORouteHandler::~RORouteHandler() {
 
 
 void
-RORouteHandler::parseFromViaTo(std::string element, const SUMOSAXAttributes& attrs, bool& ok) {
+RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, bool& ok) {
+    const std::string element = toString(tag);
     myActiveRoute.clear();
     bool useTaz = OptionsCont::getOptions().getBool("with-taz");
     if (useTaz && !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) && !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
@@ -98,7 +99,7 @@ RORouteHandler::parseFromViaTo(std::string element, const SUMOSAXAttributes& att
             myErrorOutput->inform("Source " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
                     + (useJunction ? JUNCTION_TAZ_MISSING_HELP : ""));
             ok = false;
-        } else if (fromTaz->getNumSuccessors() == 0) {
+        } else if (fromTaz->getNumSuccessors() == 0 && tag != SUMO_TAG_PERSON) {
             myErrorOutput->inform("Source " + tazType + " '" + tazID + "' has no outgoing edges for " + element + " '" + myVehicleParameter->id + "'!");
             ok = false;
         } else {
@@ -150,7 +151,7 @@ RORouteHandler::parseFromViaTo(std::string element, const SUMOSAXAttributes& att
             myErrorOutput->inform("Sink " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
                     + (useJunction ? JUNCTION_TAZ_MISSING_HELP : ""));
             ok = false;
-        } else if (toTaz->getNumPredecessors() == 0) {
+        } else if (toTaz->getNumPredecessors() == 0 && tag != SUMO_TAG_PERSON) {
             myErrorOutput->inform("Sink " + tazType + " '" + tazID + "' has no incoming edges for " + element + " '" + myVehicleParameter->id + "'!");
             ok = false;
         } else {
@@ -254,11 +255,11 @@ RORouteHandler::myStartElement(int element,
         }
         case SUMO_TAG_FLOW:
             myActiveRouteProbability = DEFAULT_VEH_PROB;
-            parseFromViaTo("flow", attrs, ok);
+            parseFromViaTo((SumoXMLTag)element, attrs, ok);
             break;
         case SUMO_TAG_TRIP:
             myActiveRouteProbability = DEFAULT_VEH_PROB;
-            parseFromViaTo("trip", attrs, ok);
+            parseFromViaTo((SumoXMLTag)element, attrs, ok);
             break;
         default:
             break;
@@ -984,7 +985,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     assert(!attrs.hasAttribute(SUMO_ATTR_EDGES));
     const ROEdge* from = nullptr;
     const ROEdge* to = nullptr;
-    parseFromViaTo("person", attrs, ok);
+    parseFromViaTo(SUMO_TAG_PERSON, attrs, ok);
     myInsertStopEdgesAt = -1;
     if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION) || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)) {
         if (ok) {

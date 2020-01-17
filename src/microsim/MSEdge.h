@@ -258,6 +258,14 @@ public:
         return myFunction == EDGEFUNC_CONNECTOR;
     }
 
+    void setOtherTazConnector(const MSEdge* edge) {
+        myOtherTazConnector = edge;
+    }
+
+    const MSEdge* getOtherTazConnector() const {
+        return myOtherTazConnector;
+    }
+
     /** @brief Returns the numerical id of the edge
      * @return This edge's numerical id
      */
@@ -838,6 +846,9 @@ protected:
     /// @brief The union of lane permissions for this edge
     SVCPermissions myCombinedPermissions = 0;
     /// @}
+
+    /// @brief the other taz-connector if this edge isTazConnector, otherwise nullptr
+    const MSEdge* myOtherTazConnector;
 
     /// @brief the real-world name of this edge (need not be unique)
     std::string myStreetName;

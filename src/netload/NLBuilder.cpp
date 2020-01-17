@@ -158,6 +158,8 @@ NLBuilder::build() {
                 // sink must be built and addd before source
                 MSEdge* sink = myEdgeBuilder.buildEdge(sinkID, EDGEFUNC_CONNECTOR, "", "", -1, 0);
                 MSEdge* source = myEdgeBuilder.buildEdge(sourceID, EDGEFUNC_CONNECTOR, "", "", -1, 0);
+                sink->setOtherTazConnector(source);
+                source->setOtherTazConnector(sink);
                 MSEdge::dictionary(sinkID, sink);
                 MSEdge::dictionary(sourceID, source);
                 sink->initialize(new std::vector<MSLane*>());

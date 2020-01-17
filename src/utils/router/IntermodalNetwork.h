@@ -111,11 +111,8 @@ public:
                 // only a single edge
                 _AccessEdge* access = new _AccessEdge(myNumericalID++, edge->getID(), edge);
                 addEdge(access);
-                if (edge->getSuccessors().size() > 0) {
-                    myDepartLookup[edge].push_back(access);
-                } else {
-                    myArrivalLookup[edge].push_back(access);
-                }
+                myDepartLookup[edge].push_back(access);
+                myArrivalLookup[edge].push_back(access);
             } else {
                 const L* lane = getSidewalk<E, L>(edge);
                 if (lane != 0) {
@@ -170,24 +167,19 @@ public:
         // build the connections
         for (const E* const edge : edges) {
             if (edge->isTazConnector()) {
-                auto it = myDepartLookup.find(edge);
-                if (it != myDepartLookup.end()) {
-                    // connect to depart connectors to all taz-source edges
-                    for (const E* out : edge->getSuccessors()) {
-                        if (!edge->isTazConnector()) { // old network, see #6358
-                            it->second.front()->addSuccessor(getDepartConnector(out));
-                        }
-                    }
-                } else {
-                    it = myArrivalLookup.find(edge);
-                    if (it != myArrivalLookup.end()) {
-                        // connect to depart connectors to all taz-source edges
-                        for (const E* in : edge->getPredecessors()) {
-                            if (!in->isTazConnector()) { // old network, see #6358
-                                getArrivalConnector(in)->addSuccessor(it->second.front());
-                            }
-                        }
-                    }
+                // since pedestrians walk in both directions, also allow departing at sinks and arriving at sources
+                _IntermodalEdge* const tazDepart = getDepartConnector(edge);
+                _IntermodalEdge* const tazArrive = getArrivalConnector(edge);
+                const E* other = edge->getOtherTazConnector();
+                _IntermodalEdge* const otherTazDepart = other != nullptr ? getDepartConnector(other) : tazDepart;
+                _IntermodalEdge* const otherTazArrive = other != nullptr ? getArrivalConnector(other) : tazArrive;
+                for (const E* out : edge->getSuccessors()) {
+                    tazDepart->addSuccessor(getDepartConnector(out));
+                    getArrivalConnector(out)->addSuccessor(otherTazArrive);
+                }
+                for (const E* in : edge->getPredecessors()) {
+                    getArrivalConnector(in)->addSuccessor(tazArrive);
+                    otherTazDepart->addSuccessor(getDepartConnector(in));
                 }
                 continue;
             }

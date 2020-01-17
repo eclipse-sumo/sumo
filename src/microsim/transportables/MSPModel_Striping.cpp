@@ -335,13 +335,15 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
             // build all possible paths across this walkingArea
             // gather all incident lanes
             std::vector<const MSLane*> lanes;
-            const MSEdgeVector& incoming = edge->getPredecessors();
-            for (int j = 0; j < (int)incoming.size(); ++j) {
-                lanes.push_back(getSidewalk<MSEdge, MSLane>(incoming[j]));
+            for (const MSEdge* in : edge->getPredecessors()) {
+                if (!in->isTazConnector()) {
+                    lanes.push_back(getSidewalk<MSEdge, MSLane>(in));
+                }
             }
-            const MSEdgeVector& outgoing = edge->getSuccessors();
-            for (int j = 0; j < (int)outgoing.size(); ++j) {
-                lanes.push_back(getSidewalk<MSEdge, MSLane>(outgoing[j]));
+            for (const MSEdge* out : edge->getSuccessors()) {
+                if (!out->isTazConnector()) {
+                    lanes.push_back(getSidewalk<MSEdge, MSLane>(out));
+                }
             }
             // build all combinations
             for (int j = 0; j < (int)lanes.size(); ++j) {

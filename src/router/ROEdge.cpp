@@ -64,6 +64,7 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
     myUsingTTTimeLine(false),
     myUsingETimeLine(false),
     myCombinedPermissions(0),
+    myOtherTazConnector(nullptr),
     myTimePenalty(0) {
     while ((int)myEdges.size() <= index) {
         myEdges.push_back(0);

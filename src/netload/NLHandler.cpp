@@ -1362,6 +1362,8 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-source' exists.");
         }
         source->initialize(new std::vector<MSLane*>());
+        sink->setOtherTazConnector(source);
+        source->setOtherTazConnector(sink);
         if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
             std::vector<std::string> desc = attrs.getStringVector(SUMO_ATTR_EDGES);
             for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {

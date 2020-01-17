@@ -162,6 +162,14 @@ public:
         return myFunction == EDGEFUNC_CONNECTOR;
     }
 
+    void setOtherTazConnector(const ROEdge* edge) {
+        myOtherTazConnector = edge;
+    }
+
+    const ROEdge* getOtherTazConnector() const {
+        return myOtherTazConnector;
+    }
+
     /** @brief Builds the internal representation of the travel time/effort
      *
      * Should be called after weights / travel times have been loaded.
@@ -558,6 +566,9 @@ protected:
 
     /// @brief The list of allowed vehicle classes combined across lanes
     SVCPermissions myCombinedPermissions;
+
+    /// @brief the other taz-connector if this edge isTazConnector, otherwise nullptr
+    const ROEdge* myOtherTazConnector;
 
     /// @brief The bounding rectangle of end nodes incoming or outgoing edges for taz connectors or of my own start and end node for normal edges
     Boundary myBoundary;
