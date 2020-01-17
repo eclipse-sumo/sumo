@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-01-17 10:26:48.822041 by randomTrips.py v1_4_0+0594-c2951a9
+  options: -n net.net.xml -s 42 <doubleminus>persontrips -e 100 <doubleminus>min-distance 1 <doubleminus>trip-attributes departPos="random" color="red" modes="car public" <doubleminus>route-file out.rou.xml <doubleminus>junction-taz
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="2" depart="2.00" departPos="random" color="red">
+        <personTrip fromJunction="C" toJunction="C" modes="car public"/>
+    </person>
+</routes>
