@@ -183,8 +183,8 @@ MSCalibrator::myStartElement(int element,
         } catch (NumberFormatException&) {
             WRITE_ERROR("Non-numeric value for numeric attribute in definition of calibrator '" + getID() + "'.");
         }
-        if (state.q < 0 && state.v < 0) {
-            WRITE_ERROR("Either 'vehsPerHour' or 'speed' has to be given in flow definition of calibrator '" + getID() + "'.");
+        if (state.q < 0 && state.v < 0 && state.vehicleParameter->vtypeid == DEFAULT_VTYPE_ID) {
+            WRITE_ERROR("Either 'vehsPerHour',  'speed' or 'type' has to be set in flow definition of calibrator '" + getID() + "'.");
         }
         if (myIntervals.size() > 0 && myIntervals.back().end == -1) {
             myIntervals.back().end = state.begin;
@@ -540,6 +540,16 @@ MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /
             if (myParent->scheduleRemoval(vehicle)) {
                 myParent->myClearedInJam++;
             }
+        }
+        const std::string typeID = myParent->myCurrentStateInterval->vehicleParameter->vtypeid;
+        if (!calibrateFlow && typeID != DEFAULT_VTYPE_ID) {
+            // calibrate type
+            MSVehicle* vehicle = dynamic_cast<MSVehicle*>(&veh);
+            MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(typeID);
+            if (vehicleType == nullptr) {
+                throw ProcessError("Unknown vehicle type '" + typeID + "' in calibrator '" + myParent->getID() + "'");
+            }
+            vehicle->replaceVehicleType(vehicleType);
         }
     }
     return true;
