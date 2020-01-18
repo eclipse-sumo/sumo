@@ -150,6 +150,9 @@ public:
     /// @brief heuristically add minDur and maxDur when switching from tlType fixed to actuated
     void guessMinMaxDuration();
 
+    /// @brief let connections with the same state use the same link index
+    void groupSignals();
+
 protected:
     /** @brief Collects the links participating in this traffic light
      *    (only if not previously loaded)
@@ -176,6 +179,15 @@ protected:
 
     ///@brief Returns the maximum index controlled by this traffic light
     int getMaxValidIndex();
+
+    /// @brief get all states for the given link index
+    std::string getStates(int index);
+
+    /// @brief return whether the given link index is used by any connectons
+    bool isUsed(int index);
+
+    /// @brief replace the given link index in all connections
+    void replaceIndex(int oldIndex, int newIndex);
 
 private:
 

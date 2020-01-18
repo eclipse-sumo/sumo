@@ -122,6 +122,16 @@ NBTrafficLightLogic::setStateLength(int numLinks, LinkState fill) {
     myNumLinks = numLinks;
 }
 
+void
+NBTrafficLightLogic::deleteStateIndex(int index) {
+    assert(index >= 0);
+    assert(index < myNumLinks);
+    for (PhaseDefinition& p : myPhases) {
+        p.state.erase(index, 1);
+    }
+    myNumLinks--;
+}
+
 
 void
 NBTrafficLightLogic::resetPhases() {

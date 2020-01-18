@@ -167,6 +167,9 @@ public:
     */
     void setStateLength(int numLinks, LinkState fill = LINKSTATE_TL_RED);
 
+    /// @brief remove the index from all phase states
+    void deleteStateIndex(int index);
+
     /* @brief deletes all phases and reset the expect number of links
     */
     void resetPhases();

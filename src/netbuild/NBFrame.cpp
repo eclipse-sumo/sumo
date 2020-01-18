@@ -498,6 +498,12 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("tls.max-dur", new Option_Integer(50));
     oc.addDescription("tls.max-dur", "TLS Building", "Default maximum phase duration for traffic lights with variable phase length");
 
+    oc.doRegister("tls.group-signals", new Option_Bool(false));
+    oc.addDescription("tls.group-signals", "TLS Building", "Assign the same tls link index to connections that share the same states");
+
+    oc.doRegister("tls.ungroup-signals", new Option_Bool(false));
+    oc.addDescription("tls.ungroup-signals", "TLS Building", "Assign a distinct tls link index to every connection");
+
     // edge pruning
     oc.doRegister("keep-edges.min-speed", new Option_Float(-1));
     oc.addSynonyme("keep-edges.min-speed", "edges-min-speed", true);
