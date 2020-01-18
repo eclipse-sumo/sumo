@@ -43,13 +43,14 @@ permalink: /ChangeLog/
   - Trips, flows, personTrips and walks with attributes `fromJunction`, `toJunction` and `viaJunctions` are now supported when setting option **--junction-taz**. Issue #6474
 
 - SUMO-GUI
-  - dead-end links in the middle of a road are now highlighed in magenta to highlight connectivity problems. Issue #6391
+  - Dead-end links in the middle of a road are now highlighed in magenta to highlight connectivity problems. Issue #6391
 
 - NETCONVERT
   - Improved connection building heuristic. Issue #6295, #6467, #6468
   - Improved heuristic for option **--junctions.join**. Issue #872
-  - added options **--numerical-ids.edge-start INT**, **--numerical-ids.node-start INT** to relabel network elements with numbers starting at the given value. Issue #6372
-  - added option **--no-turnarounds.except-turnlane** which causes turnlanes to be built only if there is an exclusive (left) turn lane. Issue #6444
+  - Added options **--numerical-ids.edge-start INT**, **--numerical-ids.node-start INT** to relabel network elements with numbers starting at the given value. Issue #6372
+  - Added option **--no-turnarounds.except-turnlane** which causes turnlanes to be built only if there is an exclusive (left) turn lane. Issue #6444
+  - Added option **--tls.group-signals** which assigns the same signal index to connections that share the same sequence signal states. Added option **--tls.ungroup-signals** which reverts grouping and assigns a distinct signal index to every connection. Issue #2958
 
 - DUAROUTER
   - The maximum [map-matching](Demand/Shortest_or_Optimal_Path_Routing.md#mapmatching) distance is now configurable using option **--mapmatch.distance**.  
