@@ -33,3 +33,6 @@ oneway
 
 # create tls program with signal groups
 group-signals
+
+# set distinct tls index for every connection
+ungroup-signals
