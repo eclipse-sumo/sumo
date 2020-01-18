@@ -41,6 +41,7 @@ permalink: /ChangeLog/
   - Added option **--fcd-output.acceleration** to inlcude acceleration values in fcd-output. When sublane simulation is enabled, attribute 'accelerationLat' is added as well. Issue #6448
   - [Aggregated tripinfo output](Simulation/Output.md#aggregated_traffic_measures) now includes average speed. Issue #6480
   - Trips, flows, personTrips and walks with attributes `fromJunction`, `toJunction` and `viaJunctions` are now supported when setting option **--junction-taz**. Issue #6474
+  - Calibrators can now be used to update vehicle types by defining flows with the 'type' attribute and without the 'vehsPerHour' attribute. Issue #6219
 
 - SUMO-GUI
   - Dead-end links in the middle of a road are now highlighed in magenta to highlight connectivity problems. Issue #6391
