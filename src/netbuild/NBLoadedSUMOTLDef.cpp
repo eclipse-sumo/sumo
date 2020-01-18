@@ -283,7 +283,7 @@ NBLoadedSUMOTLDef::collectLinks() {
         // maybe we only loaded a different program for a default traffic light.
         // Try to build links now.
         myOriginalNodes.insert(myControlledNodes.begin(), myControlledNodes.end());
-        collectAllLinks();
+        collectAllLinks(myControlledLinks);
     }
 }
 
@@ -672,6 +672,37 @@ NBLoadedSUMOTLDef::groupSignals() {
     setTLControllingInformation();
 }
 
+void
+NBLoadedSUMOTLDef::ungroupSignals() {
+    NBConnectionVector defaultOrdering;
+    collectAllLinks(defaultOrdering);
+    myTLLogic->setStateLength(myControlledLinks.size());
+    std::vector<std::string> states; // organized per link rather than phase
+    int index = 0;
+    for (NBConnection& c : defaultOrdering) {
+        NBConnection& c2 = *find_if(myControlledLinks.begin(), myControlledLinks.end(), connection_equal(c));
+        states.push_back(getStates(c2.getTLIndex()));
+        c2.setTLIndex(index++);
+    }
+    for (NBNode* n : myControlledNodes) {
+        for (NBNode::Crossing* c : n->getCrossings()) {
+            states.push_back(getStates(c->tlLinkIndex));
+            c->tlLinkIndex = index++;
+            if (c->tlLinkIndex2 != NBConnection::InvalidTlIndex) {
+                states.push_back(getStates(c->tlLinkIndex2));
+                c->tlLinkIndex2 = index++;
+            }
+        }
+    }
+    for (int i = 0; i < (int)states.size(); i++) {
+        for (int p = 0; p < (int)states[i].size(); p++) {
+            myTLLogic->setPhaseState(p, i, (LinkState)states[i][p]);
+        }
+    }
+    setTLControllingInformation();
+}
+
+
 bool
 NBLoadedSUMOTLDef::cleanupStates() {
     const int maxIndex = getMaxIndex();
@@ -718,7 +749,7 @@ NBLoadedSUMOTLDef::guessMinMaxDuration() {
     bool hasMinMaxDur = false;
     for (auto phase : myTLLogic->getPhases()) {
         if (phase.maxDur != UNSPECIFIED_DURATION) {
-            std::cout << " phase=" << phase.state << " maxDur=" << phase.maxDur << "\n";
+            //std::cout << " phase=" << phase.state << " maxDur=" << phase.maxDur << "\n";
             hasMinMaxDur = true;
         }
     }

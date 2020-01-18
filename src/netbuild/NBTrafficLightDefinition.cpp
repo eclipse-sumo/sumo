@@ -449,8 +449,7 @@ NBTrafficLightDefinition::getIncomingEdges() const {
 
 
 void
-NBTrafficLightDefinition::collectAllLinks() {
-    myControlledLinks.clear();
+NBTrafficLightDefinition::collectAllLinks(NBConnectionVector& into) {
     int tlIndex = 0;
     // build the list of links which are controled by the traffic light
     for (EdgeVector::iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
@@ -468,18 +467,18 @@ NBTrafficLightDefinition::collectAllLinks() {
                             && isRailway(incoming->getPermissions())) {
                         // railways stay uncontrolled at rail crossing but they
                         // must be registered in MSRailCrossing
-                        myControlledLinks.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, -1));
+                        into.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, -1));
                     } else if (incoming->getToNode()->getType() == NODETYPE_RAIL_SIGNAL
                                && incoming->getToNode()->getDirection(incoming, el.toEdge) == LINKDIR_TURN) {
                         // turnarounds stay uncontrolled at rail signal
                     } else {
-                        myControlledLinks.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, tlIndex++));
+                        into.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, tlIndex++));
                     }
                 }
             }
         }
     }
-    if (myControlledLinks.size() > 0 && tlIndex == 0) {
+    if (into.size() > 0 && tlIndex == 0) {
         WRITE_WARNINGF("The rail crossing '%' does not have any roads.", getID());
     }
 }

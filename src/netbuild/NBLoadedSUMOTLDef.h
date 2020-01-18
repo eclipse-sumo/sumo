@@ -153,6 +153,9 @@ public:
     /// @brief let connections with the same state use the same link index
     void groupSignals();
 
+    /// @brief let all connections use a distinct link index
+    void ungroupSignals();
+
 protected:
     /** @brief Collects the links participating in this traffic light
      *    (only if not previously loaded)

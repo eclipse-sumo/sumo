@@ -167,6 +167,16 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
                 lDef->groupSignals();
             }
         }
+    } else if (oc.getBool("tls.ungroup-signals")) {
+        for (NBTrafficLightDefinition* def : getDefinitions()) {
+            NBLoadedSUMOTLDef* lDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
+            // NBOwnTLDef are always ungrouped
+            if (lDef != nullptr) {
+                if (lDef->usingSignalGroups()) {
+                    lDef->ungroupSignals();
+                }
+            }
+        }
     }
     int numPrograms = 0;
     for (NBTrafficLightDefinition* def : getDefinitions()) {

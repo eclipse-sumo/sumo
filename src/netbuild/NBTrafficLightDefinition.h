@@ -399,7 +399,7 @@ protected:
     virtual bool amInvalid() const;
 
     /// @brief helper method for use in NBOwnTLDef and NBLoadedSUMOTLDef
-    void collectAllLinks();
+    void collectAllLinks(NBConnectionVector& into);
 
 protected:
     /// @brief The container with participating nodes

@@ -727,7 +727,8 @@ NBOwnTLDef::patchStateForCrossings(const std::string& state, const std::vector<N
 
 void
 NBOwnTLDef::collectLinks() {
-    collectAllLinks();
+    myControlledLinks.clear();
+    collectAllLinks(myControlledLinks);
 }
 
 
