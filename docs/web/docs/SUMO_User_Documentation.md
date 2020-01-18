@@ -105,7 +105,7 @@ documentation, submission of code, or other results.
 - [Variable Speed Signs](Simulation/Variable_Speed_Signs.md)
 - [Rerouter / Alternative Route Signage](Simulation/Rerouter.md)
 - [Vaporizer](Simulation/Vaporizer.md) (deprecated, use Calibrator instead)
-- [Dynamic calibration of flow and speed](Simulation/Calibrator.md)
+- [Dynamic calibration of flow and speed and type](Simulation/Calibrator.md)
 - [Parking areas](Simulation/ParkingArea.md)
 
 ## Traffic Modes
