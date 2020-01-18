@@ -6,10 +6,11 @@ permalink: /Simulation/Calibrator/
 # Calibrators
 
 These trigger-type objects may be specified within an {{AdditionalFile}} and allow the
-dynamic adaption of traffic flows and speeds. The syntax for such an
+dynamic adaption of traffic flows, speeds and vehicle parameters (vTypes). The syntax for such an
 object is: `<calibrator id="<ID>" lane="<LANE_ID>" output="<OUTPUT_FILE>"/\>`. They can be used to modify simulation
-scenario based on induction loop measurements. A calibrator will remove
-vehicles in excess of the specified flow and it will insert new vehicles
+scenario based on induction loop measurements. They can also be used to model location-base change in driving behavior.
+
+A calibrator will remove vehicles in excess of the specified flow and it will insert new vehicles (of the specified type)
 if the normal traffic demand of the simulation does not meet the
 specified number of `vehsPerHour`. Furthermore, the speed on the edge will be
 adjusted to the specified `speed` similar to the workings of a [variable speed
@@ -17,6 +18,7 @@ sign](../Simulation/Variable_Speed_Signs.md). Calibrators will also
 remove vehicles if the traffic on their lane is jammend beyond what
 would be expected given the specified flow and speed. This ensures that
 invalid jams do not grow upstream past a calibrator.
+If no target flow is given, the provided type information will instead be used to modify the type of vehicles that are passing the calibrator.
 
 ```
 <additional>
@@ -48,12 +50,12 @@ element:
 | freq           | float         | The aggregation interval in which to calibrate the flows. default is step-length                                |
 | routeProbe     | float         | The id of the [routeProbe](../Simulation/Output/RouteProbe.md) element from which to determine the route distribution for generated vehicles.|
 | output         | file (string) | The output file for writing calibrator information or *NULL*                                                    |
-| vTypes         | string        | space separated list of vehicle type ids to consider (for counting/removal), "" means all; default "".          |
+| vTypes         | string        | space separated list of vehicle type ids to consider (for counting/removal/type-modification), "" means all; default "".          |
 
 The `flow` elements which are defined as children of the calibrator definition
 follow the general [format of flow
 definitions](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#repeated_vehicles_flows).
-As the only difference, either the attribute `vehsPerHour` or `speed` (or both) must be
+As the only difference, either the attribute `vehsPerHour` or `speed` or `type` (or any combination of these) must be
 given.
 
 By default edge calibrators will use `departLane="free"` whereas lane calibrators will use `departLane="x"`
@@ -98,7 +100,42 @@ probe detector](../Simulation/Output/RouteProbe.md). Otherwise the `route`
 attribute of the flow is used. Note, that this value may also specify
 the name of a route distribution.
 
-## Building a scenario without knowledge of routes, based on flow measurements
+## Calibrating vehicle types
+When a calibrator flow is defined without attribute `vehsPerHour` but with attribute `type`, this defines a type-calibrator.
+This type of calibrator will modify the types of all passing vehicles (or all vehicles that match the `vTypes` attribute of the calibrator).
+The normal behavior is to replace the type of the passing vehicles with the type set in the flow element.
+
+### Mapping between vTypeDistributions
+A special behavior is activated if the following conditions are met:
+- the `type` in the flow element references a `vTypeDistribution`
+- the passing vehicle was defined with a type drawn from a `vTypeDistribution`
+- both vTypeDistributions have the same number of member types
+In this case, the new type of the passing vehicle will be mapped to a specific type in the vType distribution:
+- the index of the actual vehicle type in the original vTypeDistribution will be computed
+- the type with that index in the new vTypeDistribution will be used as the new vehicle type
+
+Example route-file input:
+
+```
+    <vTypeDistribution id="dist1">
+        <vType id="car" probability="70"/>
+        <vType id="truck" maxSpeed="10" probability="30" vClass="truck"/>
+    </vTypeDistribution>
+```
+Example additional-file input: 
+```   
+    <vTypeDistribution id="bad_weather">
+        <vType id="car2" speedFactor="0.8" decel="3"/>
+        <vType id="truck2" decel="2" tau="1.5" vClass="truck"/>
+    </vTypeDistribution>
+
+    <calibrator id="c1" lane="middle_0" pos="0" output="detector.xml">
+        <flow begin="900"    end="1800" route="r1" type="bad_weather"/>
+    </calibrator>`      
+```
+In this example, all cars will be mapped to slower cars (type 'car' to 'car2') and all trucks will be mapped to trucks that keep larger distances.
+
+# Building a scenario without knowledge of routes, based on flow measurements
 
 Due to their ability of adapting higher as as well as lower flows to a
 specified value, calibrators may be used to adapt (almost) arbitrary
