@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_4_0+0311-59c20cfff9
+Eclipse SUMO netgenerate Version v1_4_0+0632-3958f5e20f
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -245,6 +245,10 @@ TLS Building Options:
   --tls.max-dur INT                    Default maximum phase duration for
                                          traffic lights with variable phase
                                          length
+  --tls.group-signals                  Assign the same tls link index to
+                                         connections that share the same states
+  --tls.ungroup-signals                Assign a distinct tls link index to
+                                         every connection
 
 Edge Removal Options:
   --keep-edges.min-speed FLOAT         Only keep edges with speed in

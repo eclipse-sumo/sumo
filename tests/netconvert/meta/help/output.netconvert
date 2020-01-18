@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_4_0+0471-8685f21
+Eclipse SUMO netconvert Version v1_4_0+0632-3958f5e20f
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -292,6 +292,10 @@ TLS Building Options:
   --tls.max-dur INT                    Default maximum phase duration for
                                          traffic lights with variable phase
                                          length
+  --tls.group-signals                  Assign the same tls link index to
+                                         connections that share the same states
+  --tls.ungroup-signals                Assign a distinct tls link index to
+                                         every connection
 
 Ramp Guessing Options:
   --ramps.guess                        Enable ramp-guessing

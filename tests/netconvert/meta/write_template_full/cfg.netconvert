@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 13 16:00:20 2020 by Eclipse SUMO netconvert Version v1_4_0+0471-8685f21
+<!-- generated on Sat Jan 18 02:31:07 2020 by Eclipse SUMO netconvert Version v1_4_0+0632-3958f5e20f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -168,6 +168,8 @@
         <tls.layout value="opposites" type="STR" help="Set phase layout four grouping opposite directions or grouping all movements for one incoming edge [&apos;opposites&apos;, &apos;incoming&apos;]"/>
         <tls.min-dur value="5" type="INT" help="Default minimum phase duration for traffic lights with variable phase length"/>
         <tls.max-dur value="50" type="INT" help="Default maximum phase duration for traffic lights with variable phase length"/>
+        <tls.group-signals value="false" type="BOOL" help="Assign the same tls link index to connections that share the same states"/>
+        <tls.ungroup-signals value="false" type="BOOL" help="Assign a distinct tls link index to every connection"/>
     </tls_building>
 
     <ramp_guessing>
