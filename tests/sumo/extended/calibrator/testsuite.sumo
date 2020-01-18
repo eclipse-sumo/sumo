@@ -41,6 +41,9 @@ speed_only_swallow_downstream_jam
 # test calibrator flow with only a type value given
 calibrate_type
 
+# map from one type distribution to another.
+calibrate_type_distribution
+
 # calibrate type and speed at the same time
 type_and_speed
 
