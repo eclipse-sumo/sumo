@@ -43,9 +43,9 @@ def addGenericOptions(argParser):
                            help="SUMO network (mandatory)", metavar="FILE")
     argParser.add_argument("-+", "--additional", default="", help="Additional files")
     argParser.add_argument("-b", "--begin",
-                           type=int, default=0, help="Set simulation/routing begin")
+                           type=float, default=0, help="Set simulation/routing begin")
     argParser.add_argument("-e", "--end",
-                           type=int, help="Set simulation/routing end")
+                           type=float, help="Set simulation/routing end")
     argParser.add_argument("-R", "--route-steps", type=int, default=200, help="Set simulation route steps")
     argParser.add_argument("-a", "--aggregation",
                            type=int, default=900, help="Set main weights aggregation period")
