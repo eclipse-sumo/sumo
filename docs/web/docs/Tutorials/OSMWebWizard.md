@@ -15,7 +15,7 @@ in the SUMO-GUI.
 
 # Requirements
 
-- [SUMO](../Installing.md) installation
+- [SUMO](../Installing.md) installation including set [environment variable `SUMO_HOME`](../Basics/Basic_Computer_Skills.md#sumo_home)
 - [Python](http://www.python.org) (\>= 2.7) installation
 
 # Getting started
@@ -28,6 +28,7 @@ directory:
 ```
 python osmWebWizard.py
 ```
+On an Ubuntu installation the tools folder is located at `/usr/share/sumo/`.
 
 Windows users may also invoke the command by clicking *All Programs -\>
 SUMO -\> OSM Web Wizard*. Once the script is running, a web browser
