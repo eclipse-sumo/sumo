@@ -50,6 +50,10 @@ GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tl
         assert(forward);
         // potential memory leak if this change is never executed
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
+        if (myJunction->getNBNode()->isTLControlled()) {
+            // copy existing type
+            type = (*myJunction->getNBNode()->getControllingTLS().begin())->getType();
+        }
         myTlDef = new NBOwnTLDef(tlID == "" ? myJunction->getMicrosimID() : tlID, 0, type);
     }
 }
