@@ -75,12 +75,6 @@ public:
         /// @brief text field for junction ID
         FXTextField* myTextFieldJunctionID;
 
-        /// @brief label for junction status
-        FXLabel* myLabelJunctionStatus;
-
-        /// @brief text field for junction status
-        FXTextField* myTextFieldJunctionStatus;
-
         /// @brief the junction of the tls is being modified
         GNEJunction* myCurrentJunction;
     };
