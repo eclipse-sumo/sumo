@@ -668,6 +668,7 @@ NBLoadedSUMOTLDef::groupSignals() {
     for (int i = (int)unusedIndices.size() - 1; i >= 0; i--) {
         myTLLogic->deleteStateIndex(unusedIndices[i]);
     }
+    cleanupStates();
     //std::cout << "oldMaxIndex=" << maxIndex << " newMaxIndex=" << getMaxIndex() << " unused=" << toString(unusedIndices) << "\n";
     setTLControllingInformation();
 }
