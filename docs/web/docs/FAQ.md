@@ -96,7 +96,7 @@ git commit -m "your change message" -s
 ```
 
 !!! caution
-    the option -s must be used so the contribution can be accepted in accordance with Eclipse rules
+    the option `-s` must be used so the contribution can be accepted in accordance with Eclipse rules
 
 - Push your changes to your fork on GitHub with
 
@@ -186,7 +186,7 @@ always use the latest version of SUMO.
 ### What should I do to get helpful answers on the mailing list?
 
 - Make your question specific
-  - avoid vague terms.
+  - Avoid vague terms.
   - Always name the SUMO version to which your question applies
   - Include relevant warnings/errors/stack-traces in your question
     (please copy the text and avoid screenshots to reproduce text
@@ -196,10 +196,10 @@ in your domain).
 - Don't ask for too many things in a single post.
 - Do some research on your own before you post the question (otherwise
 you may appear to be lazy).
-  - read the FAQ
-  - read the documentation
-  - check out the [Tutorials](Tutorials.md)
-  - do a web search (past questions and answers from the mailing
+  - Read the FAQ
+  - Read the documentation
+  - Check out the [Tutorials](Tutorials.md)
+  - Do a web search (past questions and answers from the mailing
     list can be found by google)
 - Do not ask the same thing twice in a short span of time. If you are
 in a hurry and cannot get an answer, try to change your question
@@ -253,22 +253,22 @@ what is happening:
 
 - The SUMO error *connection reset by peer* indicates a problem in the
 script. The python strack trace should point to the problem (in the
-simplest case, the script ends without calling *traci.close()*)
+simplest case, the script ends without calling `traci.close()`)
 - The error **TraCIFatalError** *connection closed by SUMO* indicates
 a problem with SUMO
 - The error **TraCIException** indicates a minor problem with the
 script. (e.g. asking for a vehicle that does not exist). This type
 of error can be safely handled by the script with *try/except*
-- It is a good idea to run [SUMO](SUMO.md) with the option **--log** {{DT_FILE}} to
+- It is a good idea to run [SUMO](SUMO.md) with the option `--log {{DT_FILE}}` to
 figure out what went wrong in a simulation run or why the simulation
 aborted.
 - If SUMO crashes (just stops instead of quiting with an error
 message) here is how to debug it:
-  - in the options to *traci.start()* add *\['--save-configuration',
-    'debug.sumocfg'\]*
-  - run your script (sumo will not start and the script will try to
+  - In the options to `traci.start()` add `['--save-configuration',
+    'debug.sumocfg']`
+  - Run your script (sumo will not start and the script will try to
     connect repeatedly)
-  - run the debug version of sumo with the saved configuration in a
+  - Run the debug version of sumo with the saved configuration in a
     debugger while the script is still trying to connect
 
 ```
@@ -294,7 +294,7 @@ client version and SUMO version match.
 ### Can SUMO simulate lefthand traffic?
 
   Yes. It is supported since version 0.24.0. To build a network for
-  lefthand traffic, the option **--lefthand** must be set. Note, that this option
+  lefthand traffic, the option `--lefthand` must be set. Note, that this option
   
   in earlier versions but only works correctly since 0.24.0.
 
@@ -309,7 +309,7 @@ client version and SUMO version match.
 
   Yes (since version 0.27.0). The
   [Sublane-Model](Simulation/SublaneModel.md) is activated by
-  setting the option **--lateral-resolution** {{DT_FLOAT}}.
+  setting the option `--lateral-resolution {{DT_FLOAT}}`.
 
 ### Can SUMO simulate driving in reverse?
 
@@ -325,13 +325,13 @@ client version and SUMO version match.
 
   The simulation itself always runs on a single core. However, routing
   in [SUMO](SUMO.md) or [DUAROUTER](DUAROUTER.md) can
-  be parallelized by setting the option **--device.rerouting.threads** {{DT_INT}} and **--routing-threads** {{DT_INT}} respectively.
+  be parallelized by setting the option `--device.rerouting.threads {{DT_INT}}` and `--routing-threads {{DT_INT}}` respectively.
 
   The python TraCI library allows controlling multiple simulations
-  from a single script either by calling *traci.connect* and storing
+  from a single script either by calling `traci.connect` and storing
   the returned connection object or by calling
-  *traci.start(label=...)* and retrieving the connection object with
-  *traci.getConnection(label)*.
+  `traci.start(label=...)` and retrieving the connection object with
+  `traci.getConnection(label)`.
 
 ## Building / Installation
 
@@ -369,7 +369,7 @@ and simply type `git pull`.
 
 ### How to check out revision 5499 (or any other outdated sumo)?
 
-  You can use the subversion option "**-r <REVISION_NUMBER\>**"
+  You can use the subversion option `-r <REVISION_NUMBER\>`
   together with the checkout on the command line. If you are using git
   you can find the correct hash using the git log. You have to consult
   your client's documentation if you use a graphical interface. Please
@@ -436,7 +436,7 @@ and simply type `git pull`.
   to find them.
   If you are using Windows please consult [Basics/Basic Computer Skills\#running_programs_from_the_command_line](Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line)
   If you are using Linux run `export PATH=$PATH:/path/to/sumo/bin`
-  (replace /path/to/sumo/bin with the path to the bin directory of
+  (replace `/path/to/sumo/bin` with the path to the bin directory of
   your sumo installation)
 
 ### How do I work around missing dll errors on windows?
@@ -461,7 +461,7 @@ and simply type `git pull`.
   are retrieved from the local sumo installation if [the environment variable **SUMO_HOME** is set](Basics/Basic_Computer_Skills.md#additional_environment_variables).
   Otherwise the files will be retrieved from
   [sumo.dlr.de](https://sumo.dlr.de) which is slower. Validation
-  can be disabled by using the option **--xml-validation never** or by deleting the schema
+  can be disabled by using the option `--xml-validation never` or by deleting the schema
   information at the top of the XML input file(s).
 
 ### What causes ''Error: unable to resolve host/address 'sumo.dlr.de' ''?
@@ -472,9 +472,9 @@ and simply type `git pull`.
   online. If there is no internet connection. The above error results.
   The solution is to either
 
-- disable validation or
-- declare **SUMO_HOME** or
-- ensure internet connectivity
+- Disable validation or
+- Declare **SUMO_HOME** or
+- Ensure internet connectivity
 
 ### Why can my input-XML files not be read even though they look OK to me?
 
@@ -507,7 +507,7 @@ At line/column 10/46
   As a general rule, you should never modify the *.net.xml* file
   directly nor try to generate one with a custom process. There are
   lots of subtle interdependencies between network elements which are
-  hard to get right with manual modifications. Even if your .net.xml
+  hard to get right with manual modifications. Even if your *.net.xml*
   can be loaded by [SUMO](SUMO.md) it could fail in ways that
   are less obvious:
 
@@ -532,7 +532,7 @@ If you need to modify a network there are several possibilities:
     [Simulation/Traffic_Lights](Simulation/Traffic_Lights.md).
     If you cannot figure out how to accomplish the desired changes this
     way, [contact us\!](Contact.md).
-4.  Use [NETCONVERT](NETCONVERT.md)-option **--plain-output-prefix** to convert the
+4.  Use [NETCONVERT](NETCONVERT.md)-option `--plain-output-prefix` to convert the
     network into [it's plain XML representation](Networks/PlainXML.md).
     Then modify these files and rebuild the network
 
@@ -562,7 +562,7 @@ happy to integrate if possible).
   front of an intersection (even if the segment is only centimeters
   long) may mess up the shape computation. Read the
   [NETCONVERT](NETCONVERT.md) warnings about sharp angles and
-  consider using [NETCONVERT](NETCONVERT.md) option **--geometry.min-radius.fix**.
+  consider using [NETCONVERT](NETCONVERT.md) option `--geometry.min-radius.fix`.
   If that still doesn't help you may specify the shape of the junction
   [manually using the `shape`-attribute](Networks/PlainXML.md#node_descriptions).
 
@@ -589,12 +589,12 @@ happy to integrate if possible).
 ### Many errors of the form *Edge's 'x' from- and to-node are at the same position*
 
   You are probably trying to import a network with geo-coordinates
-  without specifying a geo-projection. Add option **--proj.utm**.
+  without specifying a geo-projection. Add option `--proj.utm`.
 
 ### Many errors of the form *Error: Type 'x' used by edge 'y' was not defined*
 
   You are probably trying to re-import an OSM-network written to plain
-  XML data. Add **--ignore-errors.edge-type** or provide a type file.
+  XML data. Add `--ignore-errors.edge-type` or provide a type file.
 
 ### Error: SUMO was compiled without GDAL support
 
@@ -616,7 +616,7 @@ use the Linux version or download the [nightly-extra version](http://sumo.dlr.de
   First of all you should know that random routes are probably quite
   unrealistic.
   If you wish to use them anyway, use the script
-  {{SUMO}}/tools/trip/randomTrips.py to generate random trips as explained
+  `{{SUMO}}/tools/trip/randomTrips.py` to generate random trips as explained
   here
   [Tools/Trip\#randomTrips.py](Tools/Trip.md#randomtripspy).
 
@@ -627,7 +627,7 @@ use the Linux version or download the [nightly-extra version](http://sumo.dlr.de
 ### How do I maintain a constant number of vehicles in the net?
 
   There are different methods for accomplishing this. In either case
-  the simulation itself should be constraint using options **--begin**, **--end**.
+  the simulation itself should be constraint using options `--begin`, `--end`.
 
 - You can use [rerouters](Simulation/Rerouter.md) in the
   simulation. Rerouters, assign a new route for vehicles driving
@@ -645,18 +645,18 @@ use the Linux version or download the [nightly-extra version](http://sumo.dlr.de
   the options below. If the network contains disconnected parts, not
   all random trips will be viable. In this case, simply generate more
   trips and delete superfluous vehicles from the output route file.
-  - **--begin** <your desired begin time\>
-  - **--end** <begin + time in which vehicles shall be inserted to then network\>
-  - **--period** <(end - begin) / number of vehicles desired\>
-  - **--intermediate** {{DT_INT}} set to a large value to ensure that vehicles remain in the simulation long enough
-  - **-r** <output route file\>
+  - `--begin <your desired begin time>`
+  - `--end <begin + time in which vehicles shall be inserted to then network>`
+  - `--period** <(end - begin) / number of vehicles desired>`
+  - `--intermediate {{DT_INT}}` set to a large value to ensure that vehicles remain in the simulation long enough
+  - `-r <output route file>`
 
 - You can use [JTRROUTER](JTRROUTER.md) to [generate vehicles which drive randomly around the network with configurable turning ratios](Tutorials/Manhattan.md#generating_vehicles)
 
-- You can use the option **--max-num-vehicles** to set the desired number. Vehicle
+- You can use the option `--max-num-vehicles` to set the desired number. Vehicle
   insertions are delayed whenever this number would be exceeded. To
   avoid a large number of delayed vehicles it is recommended to also
-  use the option **--max-depart-delay**. When using this approach you must ensure that there
+  use the option `--max-depart-delay`. When using this approach you must ensure that there
   is a sufficient number of vehicles that are ready for insertion at
   all times. Note, that the number of distinct vehicle IDs over the
   whole simulation is much larger the specified value because some
@@ -664,7 +664,7 @@ use the Linux version or download the [nightly-extra version](http://sumo.dlr.de
   inserted to replace them.
 
 !!! caution
-    Up to version 0.24.0, option **--max-num-vehicles** terminates the simulation when exceeding the specified number
+    Up to version 0.24.0, option `--max-num-vehicles` terminates the simulation when exceeding the specified number
 
 
 ### A vehicle cannot reach its target or takes a circuitous route. Why?
@@ -701,7 +701,7 @@ use the Linux version or download the [nightly-extra version](http://sumo.dlr.de
   hit by a data point or if you have a mismatch (for instance matching
   an edge which goes in the "wrong" direction). In the former case you
   can easily repair the route using [DUAROUTER](DUAROUTER.md)
-  with **--repair**. Another small script which helps here is
+  with `--repair`. Another small script which helps here is
   [Tools/Routes\#tracemapper.py](Tools/Routes.md#tracemapperpy).
   You can also use the map matching plugin from
   [Contributed/SUMOPy](Contributed/SUMOPy.md) here.
@@ -738,7 +738,7 @@ simulated traffic incidents by letting vehicles stop on one lane and
 reducing the speed on the other lanes.
 4. Alternatively, you may [close one or more of the lanes on an edge](Simulation/Rerouter.md#closing_a_lane)
 5. If you [close the whole edge, rerouting may be triggered as well](Simulation/Rerouter.md#closing_a_street)
-6. By setting the option **--collision.stoptime**, traffic jams may be created after a
+6. By setting the option `--collision.stoptime`, traffic jams may be created after a
 registered
 [collision](Simulation/Safety.md#deliberately_causing_collisions).
 
@@ -785,47 +785,47 @@ registered
 
 ### How can I make the simulation run faster?
 
-- make sure there are [no unwanted jams](#the_simulation_has_lots_of_jamsdeadlocks_what_can_i_do)
+- Make sure there are [no unwanted jams](#the_simulation_has_lots_of_jamsdeadlocks_what_can_i_do)
   The more vehicles there are in the simulion, the slower it gets.
-- if your network is very large, build it with option
-  --no-internal-links ([simplified intersection model](Simulation/Intersections.md#internal_links))
+- If your network is very large, build it with option
+  `--no-internal-links` ([simplified intersection model](Simulation/Intersections.md#internal_links))
 - If you are using trips or periodic rerouting, enable [parallel routing](Demand/Automatic_Routing.md#parallelization)
-- use the default step-lenght of 1s (using **--step-length 0.1** slows down the simulation
+- Use the default step-lenght of 1s (using `--step-length 0.1` slows down the simulation
   by a factor of 10)
-- if your simulation is very larger. consider using the [mesoscopic simulation model](Simulation/Meso.md)
-- see below for further tips on slow-down
+- If your simulation is very larger. consider using the [mesoscopic simulation model](Simulation/Meso.md)
+- See below for further tips on slow-down
 
 ### The simulation gets slow with many vehicles waiting for insertion
 
   SUMO keeps checking continuously for possible vehicle insertions. If
   the network is jammed the number of necessary checks grows quickly.
-  The option **--max-depart-delay** {{DT_TIME}} may be used to discard vehicles which could not be
+  The option `--max-depart-delay {{DT_TIME}}` may be used to discard vehicles which could not be
   inserted within {{DT_TIME}} seconds.
 
 ### The simulation runs slow on the command line
 
   when running on the windows operating system, the command-line
   output which is refreshed every simulation step slows the simulation
-  down significantly. Use option **--no-step-log** to avoid this.
+  down significantly. Use option `--no-step-log` to avoid this.
 
 ### The simulation has lots of jams/deadlocks. What can I do?
 
 Deadlocks in a scenario can have many causes:
 
-1.  invalid network
-  - invalid lane numbers
-  - missing turning lanes
-  - invalid connections
-  - invalid junctions [(big clusters of small junctions should be joined)](Networks/PlainXML.md#joining_nodes)
-2.  invalid traffic lights (see [Improving generated traffic lights](Simulation/Traffic_Lights.md#improving_generated_programs_with_knowledge_about_traffic_demand))
-3.  invalid demand (too many vehicles overall, too many vehicles
+1.  Invalid network
+  - Invalid lane numbers
+  - Missing turning lanes
+  - Invalid connections
+  - Invalid junctions [(big clusters of small junctions should be joined)](Networks/PlainXML.md#joining_nodes)
+2.  Invalid traffic lights (see [Improving generated traffic lights](Simulation/Traffic_Lights.md#improving_generated_programs_with_knowledge_about_traffic_demand))
+3.  Invalid demand (too many vehicles overall, too many vehicles
     starting on the same edge).
-4.  invalid routing
-  - only shortest path were used instead of [a user assignment algorithm](Demand/Dynamic_User_Assignment.md)
-  - to many vehicles start/end their route with a turn-around. This
+4.  Invalid routing
+  - Only shortest path were used instead of [a user assignment algorithm](Demand/Dynamic_User_Assignment.md)
+  - Too many vehicles start/end their route with a turn-around. This
     can be avoided by using [TAZ for bidirectional departure](Tools/District.md#generatebididistrictspy)
     or using [DUAROUTER option **--remove-loops**](DUAROUTER.md).
-5.  invalid insertion (vehicles being inserted on the wrong lane close
+5.  Invalid insertion (vehicles being inserted on the wrong lane close
     to the end of an edge where they need to change to another turn
     lane). This can be fixed by setting the vehicle attribute `departLane="best"`
 
@@ -851,7 +851,7 @@ vehicles/hour/lane
 - `<vehicle departSpeed="max" departPos="last" departLane="best" ../>`
 
 !!! caution
-    When using *departLane* values *best*, *free* or *random_free* high flows on multi-lane roads require insertion edges that are somewhat longer than the braking distance of the fastest vehicles. This is because the lane selection checks vehicles on the insertion edge to determine a suitable insertion lane and short edges give insufficient information.
+    When using `departLane` values `best`, `free` or `random_free` high flows on multi-lane roads require insertion edges that are somewhat longer than the braking distance of the fastest vehicles. This is because the lane selection checks vehicles on the insertion edge to determine a suitable insertion lane and short edges give insufficient information.
 
 To increase flows even further the following settings can be used
 (potentially sacrificing some realism)
@@ -865,14 +865,14 @@ To increase flows even further the following settings can be used
 To start a simulation with 65 evenly-spaced vehicles on a specific lane
 of a 1km highway, do the following:
 
-- create an edge that is 1km long
-- compute the space for each vehicle: 1000m / 65 = 15.385m
-- subtract the minimum space requirement (5m vehicle length + 2.5m
+- Create an edge that is 1km long
+- Compute the space for each vehicle: 1000m / 65 = 15.385m
+- Subtract the minimum space requirement (5m vehicle length + 2.5m
   minimumg gap by default)
-- this gives you 7.885m as remaining space between vehicles.
-- at a default value of tau=1 (desired time headway excluding minGap)
+- This gives you 7.885m as remaining space between vehicles.
+- At a default value of tau=1 (desired time headway excluding minGap)
   this means vehicles will be in a stationary state at 7.885m/s
-- you can use insertion method 'last' which places vehicles at their
+- You can use insertion method 'last' which places vehicles at their
   desired headway for a given speed (repeat for every lane):
 
 ```
@@ -882,9 +882,9 @@ of a 1km highway, do the following:
 To let vehicles enter the simulation continuously with a specific
 density:
 
-- compute the time period between successive vehicles using the
+- Compute the time period between successive vehicles using the
   equilibrium speed from above: 15.385m / 7.885m/s = 1.951s
-- uese the equilibrium speed as departSpeed
+- Use the equilibrium speed as `departSpeed`
 
 ```
 <flow id="lane0" from="startEdge" to="destEdge" begin="0" end="3600" period="1.951" departPos="base" departSpeed="7.885" departLane="0"/>
@@ -894,14 +894,14 @@ density:
 
   There are several options to force a vehicle onto a lane:
 
-- setting vehicle attributes ['departLane' and 'arrivalLane'](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#a_vehicles_depart_and_arrival_parameter)
-- setting a
+- Setting vehicle attributes ['departLane' and 'arrivalLane'](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#a_vehicles_depart_and_arrival_parameter)
+- Setting a
   [<stop\>](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops)
   on the desired lane (also affects speed)
-- setting a route that requires lane-changing to a specific lane for
+- Setting a route that requires lane-changing to a specific lane for
   continuation
-- setting the vehicle [class of the vehicle and forbidding that class from using the other lanes of an edge](Simulation/VehiclePermissions.md)
-- trigger the lane-change via
+- Setting the vehicle [class of the vehicle and forbidding that class from using the other lanes of an edge](Simulation/VehiclePermissions.md)
+- Trigger the lane-change via
   [TraCI](TraCI/Change_Vehicle_State.md#change_lane_0x13)
 
 !!! note
@@ -974,7 +974,7 @@ for ffmpeg is shown below.
     ffmpeg -r 10 -i images/%d.png -b:v 1500k -vcodec wmv2 sumo.wmv
 ```
 
-The parameters -r set the value for the fps and -b:v the bitrate for the
+The parameters `-r` set the value for the fps and `-b:v` the bitrate for the
 video.
 
 ### Incomplete output
@@ -1036,7 +1036,7 @@ during the execution, DisplayLink drivers must be uninstalled.
 
 In order to import these libraries the folder {{SUMO}}/tools must be in your
 [python search path](https://docs.python.org/2/tutorial/modules.html#the-module-search-path).
-This can be accomplished by modifying the python variable **sys.path**
+This can be accomplished by modifying the python variable `sys.path`
 as explained [here](TraCI/Interfacing_TraCI_from_Python.md) and
 [here](Tools/Sumolib.md). Alternatively you can hard-code the
 path to your SUMO-installation into your script:
@@ -1086,10 +1086,10 @@ This can happen with an outdated version of python 2.7. Updating to
 
   Up to (and including) version 0.13.1 a vehicle finished its route
   (per default) on position 0 of the last edge. You can change this by
-  setting the attribute **departPos** in the vehicle definition (see
+  setting the attribute `departPos` in the vehicle definition (see
   [Definition_of_Vehicles,_Vehicle_Types,_and_Routes](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)).
   Negative values count backwards from the end of the edge, thus
-  setting **departPos**="-1" will make the vehicle drive (almost) to
+  setting `departPos="-1"` will make the vehicle drive (almost) to
   the end of the last edge. The new default in more recent versions is
   the end of the edge, which should disable this behavior.
 
@@ -1104,4 +1104,4 @@ This can happen with an outdated version of python 2.7. Updating to
   vehicles may differ a bit, one of the vehicles may seem to jump
   backwards.
 
-  This should not happen from Version0.8 on.
+  This should not happen from version 0.8 on.
