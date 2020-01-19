@@ -1006,12 +1006,14 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorParent) :
-    FXGroupBox(TLSEditorParent->myContentFrame, "Traffic lights definition", GUIDesignGroupBoxFrame) {
+    FXGroupBox(TLSEditorParent->myContentFrame, "Traffic Light Programs", GUIDesignGroupBoxFrame) 
+{
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
-    myNewTLProgram = new FXButton(this, "Create TLS\t\tCreate a new traffic light program",
+    myNewTLProgram = new FXButton(buttonsFrame, "Create\t\tCreate a new traffic light program",
                                   GUIIconSubSys::getIcon(ICON_MODETLS), TLSEditorParent, MID_GNE_TLSFRAME_CREATE, GUIDesignButton);
     // create delete tlDef button
-    myDeleteTLProgram = new FXButton(this, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.",
+    myDeleteTLProgram = new FXButton(buttonsFrame, "Delete\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.",
                                      GUIIconSubSys::getIcon(ICON_REMOVE), TLSEditorParent, MID_GNE_TLSFRAME_DELETE, GUIDesignButton);
     // show TLS TLSDefinition
     show();
@@ -1043,17 +1045,24 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     // create total duration info label
     myCycleDuration = new FXLabel(this, "", nullptr, GUIDesignLabelLeft);
 
-    // create new phase button
-    myInsertDuplicateButton = new FXButton(this, "Insert Phase\t\tInsert new phase after the selected phase. The new state is deduced from the selected phase.", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_CREATE, GUIDesignButton);
+    // using FXMatrix for tabular button layout would have been cleaner but the
+    // below attempt did not make the buttons fill available horizontal space
+    // FXMatrix* phaseButtons = new FXMatrix(this, 2, LAYOUT_FILL_X | MATRIX_BY_COLUMNS);
+    
+    FXHorizontalFrame* phaseButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame* col1 = new FXVerticalFrame(phaseButtons, LAYOUT_FILL_X, 0,0,0,0, 0,0,0,0, 0,0); // left button columm
+    FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, LAYOUT_FILL_X, 0,0,0,0, 0,0,0,0, 0,0); // right button column
 
+    // create new phase button
+    myInsertDuplicateButton = new FXButton(col1, "Insert Phase\t\tInsert new phase after the selected phase. The new state is deduced from the selected phase.", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_CREATE, GUIDesignButton);
     // create delete phase button
-    myDeleteSelectedPhaseButton = new FXButton(this, "Delete Phase\t\tDelete selected phase", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_DELETE, GUIDesignButton);
+    myDeleteSelectedPhaseButton = new FXButton(col2, "Delete Phase\t\tDelete selected phase", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_DELETE, GUIDesignButton);
 
     // create cleanup states button
-    new FXButton(this, "Cleanup States\t\tClean unused states from all phase.", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_CLEANUP, GUIDesignButton);
+    new FXButton(col1, "Clean States\t\tClean unused states from all phase.", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_CLEANUP, GUIDesignButton);
 
     // add unused states button
-    new FXButton(this, "Add Unused States\t\tExtend the state vector for all phases by one entry.", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_ADDUNUSED, GUIDesignButton);
+    new FXButton(col2, "Add States\t\tExtend the state vector for all phases by one entry (unused until a connection or crossing is assigned to the new index).", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_ADDUNUSED, GUIDesignButton);
 
     // show TLSFile
     show();
@@ -1166,11 +1175,12 @@ GNETLSEditorFrame::TLSModifications::TLSModifications(GNETLSEditorFrame* TLSEdit
     FXGroupBox(TLSEditorParent->myContentFrame, "Modifications", GUIDesignGroupBoxFrame),
     myTLSEditorParent(TLSEditorParent),
     myHaveModifications(false) {
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create save modifications button
-    mySaveModificationsButtons = new FXButton(this, "Save\t\tSave program modifications (Enter)",
+    mySaveModificationsButtons = new FXButton(buttonsFrame, "Save\t\tSave program modifications (Enter)",
             GUIIconSubSys::getIcon(ICON_OK), myTLSEditorParent, MID_OK, GUIDesignButton);
     // create discard modifications buttons
-    myDiscardModificationsButtons = new FXButton(this, "Cancel\t\tDiscard program modifications (Esc)",
+    myDiscardModificationsButtons = new FXButton(buttonsFrame, "Cancel\t\tDiscard program modifications (Esc)",
             GUIIconSubSys::getIcon(ICON_CANCEL), myTLSEditorParent, MID_CANCEL, GUIDesignButton);
     // show TLSModifications
     show();
@@ -1196,12 +1206,13 @@ GNETLSEditorFrame::TLSModifications::setHaveModifications(bool value) {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSFile::TLSFile(GNETLSEditorFrame* TLSEditorParent) :
-    FXGroupBox(TLSEditorParent->myContentFrame, "TLS Program", GUIDesignGroupBoxFrame),
+    FXGroupBox(TLSEditorParent->myContentFrame, "TLS Program File", GUIDesignGroupBoxFrame),
     myTLSEditorParent(TLSEditorParent) {
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
-    myLoadTLSProgramButton = new FXButton(this, "Load TLS Program", nullptr, this, MID_GNE_TLSFRAME_LOAD_PROGRAM, GUIDesignButton);
+    myLoadTLSProgramButton = new FXButton(buttonsFrame, "Load\t\tLoad TLS program from additional file", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_GNE_TLSFRAME_LOAD_PROGRAM, GUIDesignButton);
     // create create tlDef button
-    mySaveTLSProgramButton = new FXButton(this, "Save TLS Program", nullptr, this, MID_GNE_TLSFRAME_SAVE_PROGRAM, GUIDesignButton);
+    mySaveTLSProgramButton = new FXButton(buttonsFrame, "Save\t\tSave TLS program to additional file", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TLSFRAME_SAVE_PROGRAM, GUIDesignButton);
     // show TLSFile
     show();
 }
