@@ -66,6 +66,10 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onUpdNeedsDef),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ADDUNUSED,       GNETLSEditorFrame::onCmdAddUnused),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_ADDUNUSED,       GNETLSEditorFrame::onUpdNeedsDef),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_GROUP_STATES,    GNETLSEditorFrame::onCmdGroupStates),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_GROUP_STATES,    GNETLSEditorFrame::onUpdNeedsDef),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_UNGROUP_STATES,  GNETLSEditorFrame::onCmdUngroupStates),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_UNGROUP_STATES,  GNETLSEditorFrame::onUpdNeedsDef),
     FXMAPFUNC(SEL_SELECTED,   MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
     FXMAPFUNC(SEL_DESELECTED, MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
     FXMAPFUNC(SEL_CHANGED,    MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
@@ -549,6 +553,26 @@ long
 GNETLSEditorFrame::onCmdAddUnused(FXObject*, FXSelector, void*) {
     myEditedDef->getLogic()->setStateLength(
         myEditedDef->getLogic()->getNumLinks() + 1);
+    myTLSModifications->setHaveModifications(true);
+    myTLSPhases->initPhaseTable(0);
+    myTLSPhases->getPhaseTable()->setFocus();
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::onCmdGroupStates(FXObject*, FXSelector, void*) {
+    myEditedDef->groupSignals();
+    myTLSModifications->setHaveModifications(true);
+    myTLSPhases->initPhaseTable(0);
+    myTLSPhases->getPhaseTable()->setFocus();
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::onCmdUngroupStates(FXObject*, FXSelector, void*) {
+    myEditedDef->ungroupSignals();
     myTLSModifications->setHaveModifications(true);
     myTLSPhases->initPhaseTable(0);
     myTLSPhases->getPhaseTable()->setFocus();
@@ -1064,6 +1088,11 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     // add unused states button
     new FXButton(col2, "Add States\t\tExtend the state vector for all phases by one entry (unused until a connection or crossing is assigned to the new index).", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_ADDUNUSED, GUIDesignButton);
 
+    // group states button
+    new FXButton(col1, "Group Signals\t\tShorten state definition by letting connections with the same signal states use the same index. Warning: This affects all programs.", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_GROUP_STATES, GUIDesignButton);
+
+    // ungroup states button
+    new FXButton(col2, "Ungroup Signals\t\tLet every connection use a distinct index (reverse state grouping). Warning: This affects all programs.", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_UNGROUP_STATES, GUIDesignButton);
     // show TLSFile
     show();
 }
