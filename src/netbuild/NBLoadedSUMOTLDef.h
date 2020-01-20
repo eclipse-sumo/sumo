@@ -192,6 +192,9 @@ protected:
     /// @brief replace the given link index in all connections
     void replaceIndex(int oldIndex, int newIndex);
 
+    /// brief retrieve all edges with connections that use the given traffic light index
+    std::set<const NBEdge*> getEdgesUsingIndex(int index) const;
+
 private:
 
     /** @brief phases are added directly to myTLLogic which is then returned in myCompute() */

@@ -622,6 +622,18 @@ NBLoadedSUMOTLDef::isUsed(int index) {
     return false;
 }
 
+std::set<const NBEdge*>
+NBLoadedSUMOTLDef::getEdgesUsingIndex(int index) const {
+    std::set<const NBEdge*> result;
+    for (const NBConnection& c : myControlledLinks) {
+        if (c.getTLIndex() == index || c.getTLIndex2() == index) {
+            result.insert(c.getFrom());
+        }
+    }
+    return result;
+}
+
+
 void
 NBLoadedSUMOTLDef::replaceIndex(int oldIndex, int newIndex) {
     if (oldIndex == newIndex) {
@@ -653,11 +665,18 @@ NBLoadedSUMOTLDef::groupSignals() {
     std::vector<int> unusedIndices;
     for (int i = 0; i <= maxIndex; i++) {
         if (isUsed(i)) {
-            std::string states = getStates(i);
+            std::set<const NBEdge*> edges = getEdgesUsingIndex(i);
+            // compactify
             replaceIndex(i, i - unusedIndices.size());
+            if (edges.size() == 0) {
+                // do not group pedestrian crossing signals
+                continue;
+            }
+            std::string states = getStates(i);
             for (int j = i + 1; j <= maxIndex; j++) {
-                std::string states2 = getStates(j);
-                if (states2 == states) {
+                // only group signals from the same edges as is commonly done by
+                // traffic engineers
+                if (states == getStates(j) && edges == getEdgesUsingIndex(j)) {
                     replaceIndex(j, i - unusedIndices.size());
                 }
             }
