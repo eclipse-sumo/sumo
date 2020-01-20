@@ -726,12 +726,28 @@ NBLoadedSUMOTLDef::ungroupSignals() {
 bool
 NBLoadedSUMOTLDef::cleanupStates() {
     const int maxIndex = getMaxIndex();
-    if (maxIndex >= 0 && maxIndex + 1 < myTLLogic->getNumLinks()) {
-        myTLLogic->setStateLength(maxIndex + 1);
-        return true;
+    std::vector<int> unusedIndices;
+    for (int i = 0; i <= maxIndex; i++) {
+        if (isUsed(i)) {
+            if (unusedIndices.size() > 0) {
+                replaceIndex(i, i - unusedIndices.size());
+            }
+        } else {
+            unusedIndices.push_back(i);
+        }
     }
-    return false;
+    for (int i = (int)unusedIndices.size() - 1; i >= 0; i--) {
+        myTLLogic->deleteStateIndex(unusedIndices[i]);
+    }
+    if (unusedIndices.size() > 0) {
+        myTLLogic->setStateLength(maxIndex + 1 - (int)unusedIndices.size());
+        setTLControllingInformation();
+        return true;
+    } else {
+        return false;
+    }
 }
+
 
 void
 NBLoadedSUMOTLDef::joinLogic(NBTrafficLightDefinition* def) {

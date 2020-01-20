@@ -543,8 +543,10 @@ GNETLSEditorFrame::onCmdPhaseDelete(FXObject*, FXSelector, void*) {
 long
 GNETLSEditorFrame::onCmdCleanup(FXObject*, FXSelector, void*) {
     myTLSModifications->setHaveModifications(myEditedDef->cleanupStates());
+    buildIinternalLanes(myEditedDef);
     myTLSPhases->initPhaseTable(0);
     myTLSPhases->getPhaseTable()->setFocus();
+    myTLSModifications->setHaveModifications(true);
     return 1;
 }
 
