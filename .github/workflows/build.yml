@@ -29,10 +29,6 @@ jobs:
         git submodule sync --recursive
         git submodule update --init --force --recursive --depth=1
 
-    - name: Creating links to lower case libraries
-      run: |
-        New-Item -ItemType SymbolicLink -Path sumolibraries -name osg-3.6.3 -value "sumolibraries/OSG-3.6.3"
-
     - name: Configuring Python 
       uses: actions/setup-python@v1
       with:
