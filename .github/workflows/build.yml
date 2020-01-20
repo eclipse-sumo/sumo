@@ -17,7 +17,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        python-version: [3.6.8, 3.7.5, 3.8.0]
+        python-version: [3.5.4, 3.6.8, 3.7.6, 3.8.1]
         architecture: [x86, x64]
 
     steps:
