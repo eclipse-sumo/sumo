@@ -1146,8 +1146,9 @@ GUIVisualizationSettings::initNeteditDefaults() {
     laneColorer.addScheme(scheme);
 
     scheme = GUIColorScheme("uniform", RGBColor(102, 0, 0), "", true);
-    scheme.addColor(RGBColor(204, 0, 0), 1, "shape not computed");
+    scheme.addColor(RGBColor(204, 0, 0), 1, "junction bubble");
     scheme.addColor(RGBColor(153, 0, 0), 2, "geometry points");
+    scheme.addColor(RGBColor(255, 0, 255), 3, "connections missing");
     scheme.addColor(RGBColor::GREEN, 3, "custom shape");
     junctionColorer.addScheme(scheme);
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);

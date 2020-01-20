@@ -281,6 +281,9 @@ private:
     /// @brief whether this junction is selected in tls-mode
     bool myAmTLSSelected;
 
+    /// @brief whether this junction probably should have some connections but doesn't
+    bool myColorForMissingConnections;
+
     /// @brief draw TLS icon
     void drawTLSIcon(const GUIVisualizationSettings& s) const;
 
@@ -307,6 +310,9 @@ private:
 
     /// @brief determines color value
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
+
+    /// @brief compute whether this junction probably should have some connections but doesn't
+    void checkMissingConnections();
 
     /// @brief adds a traffic light
     void addTrafficLight(NBTrafficLightDefinition* tlDef, bool forceInsert);

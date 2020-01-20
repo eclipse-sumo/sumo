@@ -66,7 +66,9 @@ GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
     myAmResponsible(false),
     myHasValidLogic(loaded),
-    myAmTLSSelected(false) {
+    myAmTLSSelected(false),
+    myColorForMissingConnections(false)
+{
 }
 
 
@@ -117,6 +119,7 @@ void
 GNEJunction::updateGeometryAfterNetbuild(bool rebuildNBNodeCrossings) {
     myMaxSize = MAX2(getCenteringBoundary().getWidth(), getCenteringBoundary().getHeight());
     rebuildGNECrossings(rebuildNBNodeCrossings);
+    checkMissingConnections();
     // mark dotted geometry deprecated
     myDottedGeometry.markDottedGeometryDeprecated();
 }
@@ -1468,8 +1471,11 @@ double
 GNEJunction::getColorValue(const GUIVisualizationSettings& /* s */, int activeScheme) const {
     switch (activeScheme) {
         case 0:
-            // ensure visibility of red connections
-            return 0;
+            if (myColorForMissingConnections) {
+                return 3;
+            } else {
+                return 0;
+            }
         case 1:
             return isAttributeCarrierSelected();
         case 2:
@@ -1515,6 +1521,29 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& /* s */, int activeSc
     }
 }
 
+void
+GNEJunction::checkMissingConnections() {
+    for (auto edge : myGNEIncomingEdges) {
+        if (edge->getGNEConnections().size() > 0) {
+            myColorForMissingConnections = false;
+            return;
+        }
+    }
+    // no connections. Use normal color for border edges and cul-de-sac
+    if (myGNEIncomingEdges.size() == 0 || myGNEOutgoingEdges.size() == 0) {
+        myColorForMissingConnections = false;
+        return;
+    } else if (myGNEIncomingEdges.size() == 1 && myGNEOutgoingEdges.size() == 1) {
+        NBEdge* in = myGNEIncomingEdges[0]->getNBEdge();
+        NBEdge* out = myGNEOutgoingEdges[0]->getNBEdge();
+        if (in->isTurningDirectionAt(out)) {
+            myColorForMissingConnections = false;
+            return;
+        }
+    }
+    myColorForMissingConnections = true;
+}
+
 
 void
 GNEJunction::moveJunctionGeometry(const Position& pos) {
@@ -1555,7 +1584,7 @@ RGBColor
 GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     const int scheme = s.junctionColorer.getActive();
     RGBColor color = s.junctionColorer.getScheme().getColor(getColorValue(s, scheme));
-    if (bubble && scheme == 0) {
+    if (bubble && scheme == 0 && !myColorForMissingConnections) {
         color = s.junctionColorer.getScheme().getColor(1);
     }
     // override with special colors (unless the color scheme is based on selection)
