@@ -52,7 +52,8 @@ permalink: /ChangeLog/
   - Flows are now distinguished from individual vehicles with a text caption. Issue #6486
   - Junctions with missing connections are now highlighted in magenta. Issue #6391
   - Geometry points are now clearly distinguished from junctions by color and size. Issue #6514
-  - Traffic light mode now allows grouping signals. Issue #2958
+  - Traffic light mode now allows grouping and ungrouping signals. Issue #2958
+  - Traffic light mode 'Clean States' function now also compactifies state and removes all unused indices. Issue #3828
 
 - NETCONVERT
   - Improved connection building heuristic. Issue #6295, #6467, #6468
