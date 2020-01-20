@@ -15,6 +15,10 @@ jobs:
   ###########################
   build-windows:
     runs-on: windows-latest
+    strategy:
+      matrix:
+        python: [3.6.8, 3.7.5, 3.8.0]
+
     steps:
     
     - name: Cloning SUMO
@@ -37,7 +41,7 @@ jobs:
     - name: Configuring Python 
       uses: actions/setup-python@v1
       with:
-        python-version: '3.8' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+        python-version: ${{ matrix.python }} 
         architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
     
     - name: Installing Python Wheel
