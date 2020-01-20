@@ -2200,7 +2200,9 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // obtain circle width
-    double circleWidth = SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration);
+    bool drawBig = (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_MOVE ||
+            myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_DELETE);
+    double circleWidth = drawBig ? SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) : 0.5;
     double circleWidthSquared = circleWidth * circleWidth;
     // obtain color
     RGBColor color = s.junctionColorer.getSchemes()[0].getColor(2);
