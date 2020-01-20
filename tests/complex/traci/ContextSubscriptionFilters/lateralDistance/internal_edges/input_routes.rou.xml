@@ -1,0 +1,14 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r0" edges="WE2 WE3 WE4"/>
+    <route id="r1" edges="NS2 EW3"/>
+
+    <vehicle id="ego" route="r0" depart="0" departPos="50" color="red">
+    </vehicle>
+
+    <vehicle id="v1" route="r1" depart="0" departPos="50">
+    </vehicle>
+    <vehicle id="v2" route="r0" depart="0" departPos="82">
+    </vehicle>
+
+</routes>
+
