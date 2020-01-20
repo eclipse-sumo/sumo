@@ -42,6 +42,7 @@ jobs:
       env:
         # Allow CMake build to use multiple processors (4)
         CMAKE_BUILD_PARALLEL_LEVEL: 4
+      shell: cmd  # instead of PwSh (default) to be case-insensitive
       run: |
         cd sumo
         mkdir build_msvc
