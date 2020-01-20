@@ -1526,13 +1526,13 @@ GNEEdge::StackPosition::StackPosition(const double departPos, const double lengt
 }
 
 
-const double 
+double
 GNEEdge::StackPosition::beginPosition() const {
     return std::get<0>(*this);
 }
 
 
-const double 
+double
 GNEEdge::StackPosition::endPosition() const {
     return std::get<1>(*this);
 }

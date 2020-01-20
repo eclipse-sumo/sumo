@@ -363,10 +363,10 @@ private:
         StackPosition(const double departPos, const double length);
 
         /// @brief get begin position
-        const double beginPosition() const;
+        double beginPosition() const;
 
         /// @brief get end position
-        const double endPosition() const;
+        double endPosition() const;
     };
 
     /// @brief Stack demand elements
