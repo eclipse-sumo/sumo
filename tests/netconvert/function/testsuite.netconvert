@@ -38,8 +38,11 @@ junctions.join
 # joining adjacent lanes
 join-lanes
 
-# joining traffic light clusters
-tls.join
+# test various options for guessing tls 
+# -tls.guess
+# -tls.guess-signals
+# -tls.guess.joining
+tls_guessing
 
 # tests for disabling left-turns
 no_left
