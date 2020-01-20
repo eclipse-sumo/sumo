@@ -1,5 +1,8 @@
 <hTitles >Simulation of Urban MObility<hr style="border: 0.5px solid #338033;"></hTitles>
 
+!!! note "Deadline extended"
+    Due to numerous requests we are extending the deadline for the paper and presentation submission **until 31 January 2020**. We are looking forward to seeing you at the SUMO conference!
+
 !!! conference "SUMO User Conference 2020"
     The [SUMO User Conference 2020](http://sumo.dlr.de/2020/) takes place **May, 11-13, 2020** in Berlin.
 
