@@ -46,9 +46,18 @@ permalink: /ChangeLog/
 - SUMO-GUI
   - Dead-end links in the middle of a road are now highlighed in magenta to highlight connectivity problems. Issue #6391
 
+- NETEDIT
+  - Stacked vehicles (overlapping due to similar departPos) are now indicated by a number. Issue #6485
+  - Stacked vechicles can now be "unstacked" by setting the option 'spread vehicles'. This spreads them alonger the lane sorted by depart time. Issue #5602
+  - Flows are now distinguished from individual vehicles with a text caption. Issue #6486
+  - Junctions with missing connections are now highlighted in magenta. Issue #6391
+  - Geometry points are now clearly distinguished from junctions by color and size. Issue #6514
+  - Traffic light mode now allows grouping signals. Issue #2958
+
 - NETCONVERT
   - Improved connection building heuristic. Issue #6295, #6467, #6468
   - Improved heuristic for option **--junctions.join**. Issue #872
+  - Improved heuristic for option **--tls.guess**. Issue #6512
   - Added options **--numerical-ids.edge-start INT**, **--numerical-ids.node-start INT** to relabel network elements with numbers starting at the given value. Issue #6372
   - Added option **--no-turnarounds.except-turnlane** which causes turnlanes to be built only if there is an exclusive (left) turn lane. Issue #6444
   - Added option **--tls.group-signals** which assigns the same signal index to connections that share the same sequence signal states. Added option **--tls.ungroup-signals** which reverts grouping and assigns a distinct signal index to every connection. Issue #2958
@@ -77,7 +86,7 @@ permalink: /ChangeLog/
 - SUMO-GUI
   - the settings file no longer accepts the element breakpoints-file (command line option is still there)
   - renamed attributes in the settings (breakpoint.value to breakpoint.time and decal.filename to decal.file)
-
+  
 - TraCI
   - traci.lane.getLinks (python) now returns the extended descriptions by default, the older behavior should not be used anymore (but is still available using a second parameter)
 
