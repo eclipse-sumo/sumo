@@ -353,6 +353,12 @@ private:
     /// @brief partial update pre-computed departPosgeometry information
     void updatePartialDepartPosGeometry(const GNEEdge* edge);
 
+    /// @brief draw stack label
+    void drawStackLabel(const Position &vehiclePosition, const double vehicleRotation, const double width, const double length) const;
+
+    /// @brief draw flow label
+    void drawFlowLabel(const Position &vehiclePosition, const double vehicleRotation, const double width, const double length) const;
+
     /// @brief Invalidated copy constructor.
     GNEVehicle(const GNEVehicle&) = delete;
 

@@ -672,7 +672,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const double exaggeration = s.vehicleSize.getExaggeration(s, this);
         const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
         const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
-        double vehicleSizeSquared = width * length * exaggeration * width * length * exaggeration;
+        const double vehicleSizeSquared = (width * width) * (length * length) * (exaggeration * exaggeration);
         // obtain Position an rotation (depending of draw spread vehicles)
         const Position vehiclePosition = myViewNet->getCommonViewOptions().drawSpreadVehicles()? mySpreadGeometry.getPosition() : myDemandElementGeometry.getPosition();
         const double vehicleRotation = myViewNet->getCommonViewOptions().drawSpreadVehicles()? mySpreadGeometry.getRotation() : myDemandElementGeometry.getRotation();
@@ -760,11 +760,18 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // pop draw matrix
                 glPopMatrix();
+                // draw stack label
+                if ((myStackedLabelNumber > 0) && !myViewNet->getCommonViewOptions().drawSpreadVehicles()) {
+                    drawStackLabel(vehiclePosition, vehicleRotation, width, length);
+                }
+                // draw flow label
+                if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
+                    drawFlowLabel(vehiclePosition, vehicleRotation, width, length);
+                }
                 // check if dotted contour has to be drawn
                 if (myViewNet->getDottedAC() == this) {
                     GLHelper::drawShapeDottedContourRectangle(s, getType(), vehiclePosition, width, length, vehicleRotation, 0, length / (-2));
                 }
-
             }
             // pop name
             glPopName();
@@ -935,6 +942,13 @@ GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN:
             return STEPS2TIME(depart);
+        case SUMO_ATTR_DEPARTPOS:
+            // check if depart and arrival pos lanes are defined
+            if (departPosProcedure == DEPART_POS_GIVEN) {
+                return departPos;
+            } else {
+                return 0;
+            }
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_MINGAP:
@@ -1735,6 +1749,7 @@ GNEVehicle::updateDepartPosGeometry() {
         }
         // update start pos geometry
         myDemandElementGeometry.updateGeometry(firstLane, departPosLane);
+        firstLane->getParentEdge()->updateVehicleStackLabels();
     }
 }
 
@@ -1753,6 +1768,54 @@ GNEVehicle::updatePartialDepartPosGeometry(const GNEEdge* edge) {
     }
     // update geometry path for the given edge
     GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane);
+}
+
+
+void 
+GNEVehicle::drawStackLabel(const Position &vehiclePosition, const double vehicleRotation, const double width, const double length) const {
+    // declare contour width
+    const double contourWidth = 0.05;
+    // Push matrix
+    glPushMatrix();
+    // Traslate to vehicle top
+    glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
+    glRotated(vehicleRotation, 0, 0, 1);
+    glTranslated((width/2.0) + 0.35, 0, 0);
+    // draw external box
+    GLHelper::setColor(RGBColor(0, 128, 0));
+    GLHelper::drawBoxLine(Position(), Position(), 0, length, 0.3);
+    // draw internal box
+    glTranslated(0, 0, 0.1);
+    GLHelper::setColor(RGBColor::CYAN);
+    GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, length-(contourWidth*2), 0.3 - contourWidth);
+    // draw stack label
+    GLHelper::drawText("Stack: " + toString(myStackedLabelNumber), Position(0, length/-2.0), .1, 0.6, RGBColor::BLACK, 90);
+    // pop draw matrix
+    glPopMatrix();
+}
+
+
+void 
+GNEVehicle::drawFlowLabel(const Position &vehiclePosition, const double vehicleRotation, const double width, const double length) const {
+    // declare contour width
+    const double contourWidth = 0.05;
+    // Push matrix
+    glPushMatrix();
+    // Traslate to vehicle bot
+    glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
+    glRotated(vehicleRotation, 0, 0, 1);
+    glTranslated(-1 * ((width/2.0) + 0.35), 0, 0);
+    // draw external box
+    GLHelper::setColor(RGBColor(0, 128, 0));
+    GLHelper::drawBoxLine(Position(), Position(), 0, length, 0.3);
+    // draw internal box
+    glTranslated(0, 0, 0.1);
+    GLHelper::setColor(RGBColor::CYAN);
+    GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, length-(contourWidth*2), 0.3 - contourWidth);
+    // draw stack label
+    GLHelper::drawText("Flow", Position(0, length/-2.0), .1, 0.6, RGBColor::BLACK, 90);
+    // pop draw matrix
+    glPopMatrix();
 }
 
 /****************************************************************************/

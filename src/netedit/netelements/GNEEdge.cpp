@@ -1257,8 +1257,6 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
     if (!s.drawForRectangleSelection) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
-    // Pop name
-    glPopName();
 }
 
 
@@ -2168,6 +2166,7 @@ GNEEdge::getVehiclesOverEdgeMap() const {
         if (((edgeChild->getTagProperty().getTag() == SUMO_TAG_TRIP) || (edgeChild->getTagProperty().getTag() == SUMO_TAG_FLOW)) && 
             (edgeChild->getParentEdges().front() == this)) {
             vehicles.insert(std::make_pair(edgeChild->getAttributeDouble(SUMO_ATTR_DEPART), edgeChild));
+            vehicles.insert(std::make_pair(edgeChild->getAttributeDouble(SUMO_ATTR_DEPART), edgeChild));
         } else if ((edgeChild->getTagProperty().getTag() == SUMO_TAG_ROUTE) && (edgeChild->getParentEdges().front() == this)) {
             for (const auto &routeChild : edgeChild->getChildDemandElements()) {
                 if ((routeChild->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (routeChild->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
@@ -2429,28 +2428,6 @@ GNEEdge::drawDemandElements(const GUIVisualizationSettings& s) const {
             }
         }
     }
-    // draw trips
-    for (const auto& trip : getChildDemandElementsByType(SUMO_TAG_TRIP)) {
-        // Start drawing adding an gl identificator
-        glPushName(trip->getGlID());
-        // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
-        if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == trip) || trip->isAttributeCarrierSelected())) {
-            drawPartialTripFromTo(s, trip, nullptr);
-        }
-        // Pop name
-        glPopName();
-    }
-    // draw flows
-    for (const auto& flow : getChildDemandElementsByType(SUMO_TAG_FLOW)) {
-        // Start drawing adding an gl identificator
-        glPushName(flow->getGlID());
-        // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
-        if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == flow) || flow->isAttributeCarrierSelected())) {
-            drawPartialTripFromTo(s, flow, nullptr);
-        }
-        // Pop name
-        glPopName();
-    }
     // draw person plans
     if (s.drawForPositionSelection) {
         for (const auto& personTripFromTo : getChildDemandElementsByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
@@ -2507,14 +2484,10 @@ GNEEdge::drawDemandElements(const GUIVisualizationSettings& s) const {
     // draw path element childs
     for (const auto& elementChild : myPathElementChilds) {
         if (elementChild->getTagProperty().isVehicle()) {
-            // Start drawing adding an gl identificator
-            glPushName(elementChild->getGlID());
             // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
             if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == elementChild) || elementChild->isAttributeCarrierSelected())) {
                 drawPartialTripFromTo(s, elementChild, nullptr);
             }
-            // Pop name
-            glPopName();
         } else if (elementChild->getTagProperty().isPersonPlan()) {
             drawPartialPersonPlan(s, elementChild, nullptr);
         }
