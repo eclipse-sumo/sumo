@@ -49,3 +49,6 @@ with_unregulated
 
 # keep inner edges uncontrolled
 legacy_mode
+
+# tls should not be guess due to lack of conflicts
+guess_not_no_conflict
