@@ -373,6 +373,9 @@ public:
     /// @brief Called when the user ungroups states
     long onCmdUngroupStates(FXObject*, FXSelector, void*);
 
+    /// @brief Called to update the ungroups states button
+    long onUpdUngroupStates(FXObject*, FXSelector, void*);
+
     /// @brief Called when the user edits a Phase
     long onCmdPhaseEdit(FXObject*, FXSelector, void*);
 

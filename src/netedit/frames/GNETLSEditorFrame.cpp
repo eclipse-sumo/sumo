@@ -69,7 +69,7 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_GROUP_STATES,    GNETLSEditorFrame::onCmdGroupStates),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_GROUP_STATES,    GNETLSEditorFrame::onUpdNeedsDef),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_UNGROUP_STATES,  GNETLSEditorFrame::onCmdUngroupStates),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_UNGROUP_STATES,  GNETLSEditorFrame::onUpdNeedsDef),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_UNGROUP_STATES,  GNETLSEditorFrame::onUpdUngroupStates),
     FXMAPFUNC(SEL_SELECTED,   MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
     FXMAPFUNC(SEL_DESELECTED, MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
     FXMAPFUNC(SEL_CHANGED,    MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
@@ -564,6 +564,7 @@ long
 GNETLSEditorFrame::onCmdGroupStates(FXObject*, FXSelector, void*) {
     myEditedDef->groupSignals();
     myTLSModifications->setHaveModifications(true);
+    buildIinternalLanes(myEditedDef);
     myTLSPhases->initPhaseTable(0);
     myTLSPhases->getPhaseTable()->setFocus();
     return 1;
@@ -572,13 +573,22 @@ GNETLSEditorFrame::onCmdGroupStates(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::onCmdUngroupStates(FXObject*, FXSelector, void*) {
+    myEditedDef->setParticipantsInformation();
     myEditedDef->ungroupSignals();
     myTLSModifications->setHaveModifications(true);
+    buildIinternalLanes(myEditedDef);
     myTLSPhases->initPhaseTable(0);
     myTLSPhases->getPhaseTable()->setFocus();
     return 1;
 }
 
+
+long
+GNETLSEditorFrame::onUpdUngroupStates(FXObject* o, FXSelector sel, void* data) {
+    const bool enable = onUpdNeedsDef(o, sel, data) && myEditedDef != nullptr && myEditedDef->usingSignalGroups();
+    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
+    return 1;
+}
 
 long
 GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
