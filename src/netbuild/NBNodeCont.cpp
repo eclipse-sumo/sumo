@@ -1595,10 +1595,8 @@ NBNodeCont::analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
 // ----------- (Helper) methods for guessing/computing traffic lights
 bool
 NBNodeCont::shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) const {
-    int noIncoming = 0;
-    int noOutgoing = 0;
     bool tooFast = false;
-    double f = 0;
+    double laneSpeedSum = 0;
     std::set<NBEdge*> seen;
     for (NBNode* j : c) {
         const EdgeVector& edges = j->getEdges();
@@ -1607,10 +1605,7 @@ NBNodeCont::shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) c
                 continue;
             }
             if (j->hasIncoming(*k)) {
-                ++noIncoming;
-                f += (double)(*k)->getNumLanes() * (*k)->getLaneSpeed(0);
-            } else {
-                ++noOutgoing;
+                laneSpeedSum += (double)(*k)->getNumLanes() * (*k)->getLaneSpeed(0);
             }
             if ((*k)->getLaneSpeed(0) * 3.6 > 79) {
                 tooFast = true;
@@ -1618,7 +1613,7 @@ NBNodeCont::shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) c
         }
     }
     //std::cout << " c=" << joinNamedToString(c, ' ') << " f=" << f << " size=" << c.size() << " thresh=" << laneSpeedThreshold << " tooFast=" << tooFast << "\n";
-    return !tooFast && f >= laneSpeedThreshold && c.size() != 0;
+    return !tooFast && laneSpeedSum >= laneSpeedThreshold && c.size() != 0;
 }
 
 bool
