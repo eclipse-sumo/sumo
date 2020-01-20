@@ -1358,7 +1358,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         newVal = stripWhitespaceAfterComma(newVal);
     }
     // Check if attribute must be changed
-    if (myAttributesEditorParent->getEditedACs().front()->isValid(myACAttr.getAttr(), newVal)) {
+    if ((myAttributesEditorParent->getEditedACs().size() > 0) && myAttributesEditorParent->getEditedACs().front()->isValid(myACAttr.getAttr(), newVal)) {
         // if its valid for the first AC than its valid for all (of the same type)
         if (myAttributesEditorParent->getEditedACs().size() > 1) {
             myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_begin("Change multiple attributes");
