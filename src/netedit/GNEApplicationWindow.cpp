@@ -2946,7 +2946,7 @@ long
 GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
     // Open window to select TLS Programs file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the TLS Progarm file", ".xml",
+                    "Select name of the TLS Program file", ".xml",
                     GUIIconSubSys::getIcon(ICON_MODETLS),
                     gCurrentFolder);
     // add xml extension
