@@ -231,6 +231,9 @@ public:
      */
     void guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc);
 
+    /// @brief recheck myGuessedTLS after node logics are computed
+    void recheckGuessedTLS(NBTrafficLightLogicCont& tlc); 
+
     /** @brief Builds clusters of tls-controlled junctions and joins the control if possible
      * @param[changed] tlc The traffic lights control for adding/removing new/prior tls
      * @param[in] maxdist The maximum distance between nodes for clustering
@@ -392,8 +395,12 @@ private:
     /// @brief nodes that were created when splitting an edge
     std::set<const NBNode*> mySplit;
 
+    /// @brief nodes that received a traffic light due to guessing (--tls.guess)
+    std::set<NBNode*> myGuessedTLS;
+
     /// @brief node positions for faster lookup
     NamedRTree myRTree;
+
 
 private:
     /// @brief invalidated copy constructor

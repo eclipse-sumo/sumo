@@ -1060,6 +1060,18 @@ NBRequest::resetCooperating() {
     }
 }
 
+
+bool
+NBRequest::hasConflict() const {
+  for (std::string foes : myFoes) {
+      if (foes.find_first_of("1") != std::string::npos) {
+          return true;
+      }
+  }
+  return false;
+}
+
+
 int
 NBRequest::numLinks() const {
     return (int)(myIncoming.size() * myOutgoing.size() + myJunction->getCrossings().size());

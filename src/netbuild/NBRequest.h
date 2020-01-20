@@ -157,6 +157,9 @@ public:
                                   const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
 
 
+    /// @brief whether there are conflicting streams of traffic at this node
+    bool hasConflict() const;
+
 private:
     /** sets the information that the edge from1->to1 blocks the edge
         from2->to2 (is higher priorised than this) */

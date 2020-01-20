@@ -373,8 +373,14 @@ public:
     /// @brief writes the XML-representation of the logic as a bitset-logic XML representation
     bool writeLogic(OutputDevice& into) const;
 
+    /// @brief get the 'foes' string (conflict bit set) of the right-of-way logic
     const std::string getFoes(int linkIndex) const;
+
+    /// @brief get the 'response' string (right-of-way bit set) of the right-of-way logic
     const std::string getResponse(int linkIndex) const;
+
+    /// @brief whether there are conflicting streams of traffic at this node
+    bool hasConflict() const;
 
     /// @brief Returns something like the most unused direction Should only be used to add source or sink nodes
     Position getEmptyDir() const;

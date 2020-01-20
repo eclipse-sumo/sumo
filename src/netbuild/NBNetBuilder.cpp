@@ -483,6 +483,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     before = PROGRESS_BEGIN_TIME_MESSAGE("Computing node logics");
     myNodeCont.computeLogics(myEdgeCont);
     PROGRESS_TIME_MESSAGE(before);
+
     //
     before = PROGRESS_BEGIN_TIME_MESSAGE("Computing traffic light logics");
     std::pair<int, int> numbers = myTLLCont.computeLogics(oc);
@@ -492,12 +493,6 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         progCount = "(" + toString(numbers.second) + " programs) ";
     }
     WRITE_MESSAGE(" " + toString(numbers.first) + " traffic light(s) " + progCount + "computed.");
-    //
-    if (oc.isSet("street-sign-output")) {
-        before = PROGRESS_BEGIN_TIME_MESSAGE("Generating street signs");
-        myEdgeCont.generateStreetSigns();
-        PROGRESS_TIME_MESSAGE(before);
-    }
 
     for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
         (*i).second->sortOutgoingConnectionsByIndex();
@@ -525,6 +520,17 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     // compute lane-to-lane node logics (require traffic lights and inner edges to be done)
     myNodeCont.computeLogics2(myEdgeCont, oc);
+
+    // remove guessed traffic lights at junctions without conflicts (requires computeLogics2)
+    myNodeCont.recheckGuessedTLS(myTLLCont);
+
+    //
+    if (oc.isSet("street-sign-output")) {
+        before = PROGRESS_BEGIN_TIME_MESSAGE("Generating street signs");
+        myEdgeCont.generateStreetSigns();
+        PROGRESS_TIME_MESSAGE(before);
+    }
+
 
     if (lefthand != oc.getBool("flip-y-axis")) {
         mirrorX();

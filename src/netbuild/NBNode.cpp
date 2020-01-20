@@ -983,6 +983,15 @@ NBNode::getResponse(int linkIndex) const {
     }
 }
 
+bool
+NBNode::hasConflict() const {
+    assert(myRequest != nullptr);
+    if (myRequest == nullptr) {
+        return false;
+    } else {
+        return myRequest->hasConflict();
+    }
+}
 
 void
 NBNode::updateSurroundingGeometry() {
