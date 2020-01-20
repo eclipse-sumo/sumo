@@ -1469,11 +1469,7 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& /* s */, int activeSc
     switch (activeScheme) {
         case 0:
             // ensure visibility of red connections
-            if (!(myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS && myNBNode->isTLControlled())) {
-                return 1;
-            } else {
-                return 0;
-            }
+            return 0;
         case 1:
             return isAttributeCarrierSelected();
         case 2:
@@ -1559,8 +1555,8 @@ RGBColor
 GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     const int scheme = s.junctionColorer.getActive();
     RGBColor color = s.junctionColorer.getScheme().getColor(getColorValue(s, scheme));
-    if (!bubble && scheme == 0) {
-        color = s.junctionColorer.getScheme().getColor(0.);
+    if (bubble && scheme == 0) {
+        color = s.junctionColorer.getScheme().getColor(1);
     }
     // override with special colors (unless the color scheme is based on selection)
     if (drawUsingSelectColor() && scheme != 1) {
