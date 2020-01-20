@@ -391,7 +391,8 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     drawLinkJunctionIndex(false, 50, RGBColor(128, 128, 255, 255)),
     junctionName(false, 60, RGBColor(0, 255, 128, 255)),
     internalJunctionName(false, 50, RGBColor(0, 204, 128, 255)),
-    tlsPhaseIndex(false, 150, RGBColor(255, 255, 0, 255)),
+    tlsPhaseIndex(false, 150, RGBColor::YELLOW),
+    tlsPhaseName(false, 150, RGBColor::ORANGE),
     showLane2Lane(false),
     drawJunctionShape(true),
     drawCrossingsAndWalkingareas(true),
@@ -1359,6 +1360,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.lf();
     dev << "                  ";
     tlsPhaseIndex.print(dev, "tlsPhaseIndex");
+    tlsPhaseName.print(dev, "tlsPhaseName");
     dev.lf();
     dev << "                  ";
     dev.writeAttr("showLane2Lane", showLane2Lane);
@@ -1591,6 +1593,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (tlsPhaseIndex != v2.tlsPhaseIndex) {
+        return false;
+    }
+    if (tlsPhaseName != v2.tlsPhaseName) {
         return false;
     }
 

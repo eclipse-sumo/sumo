@@ -363,7 +363,7 @@ private:
     NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myCwaEdgeNamePanel, *myStreetNamePanel, *myEdgeValuePanel,
                *myJunctionIndexPanel, *myTLIndexPanel,
                *myJunctionNamePanel, *myInternalJunctionNamePanel,
-               *myTLSPhaseIndexPanel,
+               *myTLSPhaseIndexPanel, *myTLSPhaseNamePanel,
                *myVehicleNamePanel, *myVehicleValuePanel, *myVehicleTextPanel,
                *myPersonNamePanel, *myPersonValuePanel,
                *myContainerNamePanel,

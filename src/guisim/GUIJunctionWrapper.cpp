@@ -173,14 +173,20 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         drawName(myJunction.getPosition(), s.scale, s.internalJunctionName, s.angle);
     } else {
         drawName(myJunction.getPosition(), s.scale, s.junctionName, s.angle);
-        if (s.tlsPhaseIndex.show && myTLLID != "") {
+        if ((s.tlsPhaseIndex.show || s.tlsPhaseName.show) && myTLLID != "") {
             const MSTrafficLightLogic* active = MSNet::getInstance()->getTLSControl().getActive(myTLLID);
-            const int index = active->getCurrentPhaseIndex();
-            const std::string& name = active->getCurrentPhaseDef().getName();
-            GLHelper::drawTextSettings(s.tlsPhaseIndex, toString(index), myJunction.getPosition(), s.scale, s.angle);
-            if (name != "") {
-                const Position offset = Position(0, 0.8 * s.tlsPhaseIndex.scaledSize(s.scale)).rotateAround2D(DEG2RAD(-s.angle), Position(0, 0));
-                GLHelper::drawTextSettings(s.tlsPhaseIndex, name, myJunction.getPosition() - offset, s.scale, s.angle);
+            if (s.tlsPhaseIndex.show) {
+                const int index = active->getCurrentPhaseIndex();
+                GLHelper::drawTextSettings(s.tlsPhaseIndex, toString(index), myJunction.getPosition(), s.scale, s.angle);
+            }
+            if (s.tlsPhaseName.show) {
+                const std::string& name = active->getCurrentPhaseDef().getName();
+                if (name != "") {
+                    const Position offset = (s.tlsPhaseIndex.show ? 
+                            Position(0, 0.8 * s.tlsPhaseIndex.scaledSize(s.scale)).rotateAround2D(DEG2RAD(-s.angle), Position(0, 0))
+                            : Position(0, 0));
+                    GLHelper::drawTextSettings(s.tlsPhaseName, name, myJunction.getPosition() - offset, s.scale, s.angle);
+                }
             }
         }
     }

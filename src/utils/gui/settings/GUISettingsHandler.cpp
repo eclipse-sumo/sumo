@@ -250,6 +250,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.junctionName = parseTextSettings("junctionName", attrs, mySettings.junctionName);
             mySettings.internalJunctionName = parseTextSettings("internalJunctionName", attrs, mySettings.internalJunctionName);
             mySettings.tlsPhaseIndex = parseTextSettings("tlsPhaseIndex", attrs, mySettings.tlsPhaseIndex);
+            mySettings.tlsPhaseName = parseTextSettings("tlsPhaseName", attrs, mySettings.tlsPhaseName);
             mySettings.showLane2Lane = StringUtils::toBool(attrs.getStringSecure("showLane2Lane", toString(mySettings.showLane2Lane)));
             mySettings.drawJunctionShape = StringUtils::toBool(attrs.getStringSecure("drawShape", toString(mySettings.drawJunctionShape)));
             mySettings.drawCrossingsAndWalkingareas = StringUtils::toBool(attrs.getStringSecure(

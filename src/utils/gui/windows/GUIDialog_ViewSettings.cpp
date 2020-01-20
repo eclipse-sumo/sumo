@@ -406,7 +406,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myInternalJunctionNamePanel = new NamePanel(m42, this, "Show internal junction name", mySettings->internalJunctionName);
         myInternalEdgeNamePanel = new NamePanel(m42, this, "Show internal edge name", mySettings->internalEdgeName);
         myCwaEdgeNamePanel = new NamePanel(m42, this, "Show crossing and walkingarea name", mySettings->cwaEdgeName);
-        myTLSPhaseIndexPanel = new NamePanel(m42, this, "Show traffic light phase", mySettings->tlsPhaseIndex);
+        myTLSPhaseIndexPanel = new NamePanel(m42, this, "Show traffic light phase index", mySettings->tlsPhaseIndex);
+        myTLSPhaseNamePanel = new NamePanel(m42, this, "Show traffic light phase name", mySettings->tlsPhaseName);
     }
     {
         // detectors / triggers
@@ -561,6 +562,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myInternalJunctionNamePanel;
     delete myInternalEdgeNamePanel;
     delete myTLSPhaseIndexPanel;
+    delete myTLSPhaseNamePanel;
     delete myCwaEdgeNamePanel;
     delete myStreetNamePanel;
     delete myEdgeValuePanel;
@@ -705,6 +707,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myJunctionNamePanel->update(mySettings->junctionName);
     myInternalJunctionNamePanel->update(mySettings->internalJunctionName);
     myTLSPhaseIndexPanel->update(mySettings->tlsPhaseIndex);
+    myTLSPhaseNamePanel->update(mySettings->tlsPhaseName);
     myJunctionSizePanel->update(mySettings->junctionSize);
 
     myAddNamePanel->update(mySettings->addName);
@@ -949,6 +952,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.junctionName = myJunctionNamePanel->getSettings();
     tmpSettings.internalJunctionName = myInternalJunctionNamePanel->getSettings();
     tmpSettings.tlsPhaseIndex = myTLSPhaseIndexPanel->getSettings();
+    tmpSettings.tlsPhaseName = myTLSPhaseNamePanel->getSettings();
     tmpSettings.junctionSize = myJunctionSizePanel->getSettings();
 
     tmpSettings.addName = myAddNamePanel->getSettings();
