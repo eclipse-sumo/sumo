@@ -870,14 +870,14 @@ public:
      * @param[in] distance The downstream distance to cover
      * @return The bestContinuations of the LaneQ for myLane (see LaneQ) concatenated with default following lanes up until
      *  the given distance has been covered
-     * @note includes initial internal lanes if applicable
+     * @note includes internal lanes if applicable
      */
     const std::vector<const MSLane*> getUpcomingLanesUntil(double distance) const;
 
     /** @brief Returns the sequence of past lanes (right-most on edge) based on the route starting at the current lane
      * @param[in] distance The upstream distance to cover
      * @return The myRoute-based past lanes (right-most on edge) up until the given distance has been covered
-     * @note includes initial internal lanes if applicable
+     * @note includes internal lanes if applicable
      */
     const std::vector<const MSLane*> getPastLanesUntil(double distance) const;
 

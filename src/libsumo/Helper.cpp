@@ -993,7 +993,7 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(std::set<std::string>& 
     for (const MSLane* lane : lanes) {
 #ifdef DEBUG_SURROUNDING
         std::cout << "FILTER_LATERAL_DIST: current lane " << (isDownstream ? "down" : "up") << " is '" << lane->getID() << "', length " << lane->getLength()
-                  << ", pos " << pos << ", distRemaining " << distRemaining << std::endl;
+                  << ", pos " << posOnLane << ", distRemaining " << distRemaining << std::endl;
 #endif
         PositionVector laneShape = lane->getShape();
         if (isFirstLane) {

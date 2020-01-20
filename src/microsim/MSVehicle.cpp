@@ -5188,11 +5188,10 @@ MSVehicle::getUpcomingLanesUntil(double distance) const {
 
     distance += getPositionOnLane();
     MSLane* lane = myLane;
-    while (lane->isInternal()) {  // include internal lanes
+    while (lane->isInternal() && (distance > 0.)) {  // include initial internal lanes
         lanes.insert(lanes.end(), lane);
         distance -= lane->getLength();
         lane = lane->getLinkCont().front()->getViaLaneOrLane();
-        // NOTE: we at least want to get off the junction, therefore, we don't check the remaining distance here
     }
 
     const std::vector<MSLane*>& contLanes = getBestLanesContinuation();
@@ -5222,6 +5221,18 @@ MSVehicle::getUpcomingLanesUntil(double distance) const {
         }
 
         assert(l != nullptr);
+
+        // insert internal lanes if applicable
+        const MSLane* internalLane = lanes.size() > 0 ? MSLinkContHelper::getInternalFollowingLane(lanes.back(), l) : nullptr;
+        while ((internalLane != nullptr) && internalLane->isInternal() && (distance > 0.)) {
+            lanes.insert(lanes.end(), internalLane);
+            distance -= internalLane->getLength();
+            internalLane = internalLane->getLinkCont().front()->getViaLaneOrLane();
+        }
+        if (distance <= 0.) {
+            break;
+        }
+
         lanes.insert(lanes.end(), l);
         distance -= l->getLength();
     }
@@ -5241,16 +5252,32 @@ MSVehicle::getPastLanesUntil(double distance) const {
     MSRouteIterator routeIt = myCurrEdge;
     distance += myLane->getLength() - getPositionOnLane();
     MSLane* lane = myLane;
-    while (lane->isInternal()) {  // include internal lanes
+    while (lane->isInternal() && (distance > 0.)) {  // include initial internal lanes
         lanes.insert(lanes.end(), lane);
         distance -= lane->getLength();
         lane = lane->getLogicalPredecessorLane();
-        // NOTE: we at least want to get off the junction, therefore, we don't check the remaining distance here
     }
 
     while (distance > 0.) {
         // choose right-most lane as default
         MSLane* l = (*routeIt)->getLanes().front();
+
+        // insert internal lanes if applicable
+        const MSEdge* internalEdge = lanes.size() > 0 ? (*routeIt)->getInternalFollowingEdge(&(lanes.back()->getEdge())) : nullptr;
+        const MSLane* internalLane = internalEdge != nullptr ? internalEdge->getLanes().front() : nullptr;
+        std::vector<const MSLane*> internalLanes;
+        while ((internalLane != nullptr) && internalLane->isInternal()) {  // collect all internal successor lanes
+            internalLanes.insert(internalLanes.begin(), internalLane);
+            internalLane = internalLane->getLinkCont().front()->getViaLaneOrLane();
+        }
+        for (auto it = internalLanes.begin(); (it != internalLanes.end()) && (distance > 0.); ++it) {  // check remaining distance in correct order
+            lanes.insert(lanes.end(), *it);
+            distance -= (*it)->getLength();
+        }
+        if (distance <= 0.) {
+            break;
+        }
+
         lanes.insert(lanes.end(), l);
         distance -= l->getLength();
 
