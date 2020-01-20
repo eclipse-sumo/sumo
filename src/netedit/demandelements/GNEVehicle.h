@@ -347,11 +347,11 @@ private:
     /// @brief partial update pre-computed spread geometry information
     void updatePartialSpreadGeometry(const GNEEdge* edge);
 
-    /// @brief update departPos geometry
-    void updateDepartPosGeometry();
+    /// @brief update stacked geometry
+    void updateStackedGeometry();
 
     /// @brief partial update pre-computed departPosgeometry information
-    void updatePartialDepartPosGeometry(const GNEEdge* edge);
+    void updatePartialStackedGeometry(const GNEEdge* edge);
 
     /// @brief draw stack label
     void drawStackLabel(const Position &vehiclePosition, const double vehicleRotation, const double width, const double length) const;

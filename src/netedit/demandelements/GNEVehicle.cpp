@@ -550,8 +550,8 @@ void
 GNEVehicle::updateGeometry() {
     // update spread geometry
     updateSpreadGeometry();
-    // update departPos geometry
-    updateDepartPosGeometry();
+    // update stacked geometry
+    updateStackedGeometry();
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
@@ -569,8 +569,8 @@ void
 GNEVehicle::updatePartialGeometry(const GNEEdge* edge) {
     // update partial spread geometry
     updatePartialSpreadGeometry(edge);
-    // update partial departPos geometry
-    updatePartialDepartPosGeometry(edge);
+    // update partial stacked geometry
+    updatePartialStackedGeometry(edge);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updatePartialGeometry(edge);
@@ -1014,10 +1014,10 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             // Vehicles, Trips and Flows share namespace
             if (SUMOXMLDefinitions::isValidVehicleID(value) &&
-                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
-                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
-                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value, false) == nullptr) &&
-                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr)) {
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value, false) == nullptr) &&
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
@@ -1369,6 +1369,8 @@ void
 GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
     // declare string error
     std::string error;
+    // flag to upate stack label
+    bool updateSpreadStackGeometry = false;
     switch (key) {
         case SUMO_ATTR_ID:
             changeDemandElementID(value);
@@ -1416,6 +1418,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~VEHPARS_DEPARTPOS_SET;
             }
             updateGeometry();
+            updateSpreadStackGeometry = true;
             break;
         case SUMO_ATTR_DEPARTSPEED:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
@@ -1453,6 +1456,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~VEHPARS_ARRIVALPOS_SET;
             }
             updateGeometry();
+            updateSpreadStackGeometry = true;
             break;
         case SUMO_ATTR_ARRIVALSPEED:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
@@ -1548,6 +1552,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
                 replaceParentDemandElement(this, value, 1);
             }
             updateGeometry();
+            updateSpreadStackGeometry = true;
             break;
         // Specific of Trips and flow
         case SUMO_ATTR_FROM: {
@@ -1555,6 +1560,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceFirstParentEdge(this, myViewNet->getNet()->retrieveEdge(value));
             // compute vehicle
             computePath();
+            updateSpreadStackGeometry = true;
             break;
         }
         case SUMO_ATTR_TO: {
@@ -1562,6 +1568,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceLastParentEdge(this, myViewNet->getNet()->retrieveEdge(value));
             // compute vehicle
             computePath();
+            updateSpreadStackGeometry = true;
             break;
         }
         case SUMO_ATTR_VIA: {
@@ -1580,6 +1587,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceMiddleParentEdges(this, parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), true);
             // compute vehicle
             computePath();
+            updateSpreadStackGeometry = true;
             break;
         }
         // Specific of routeFlows
@@ -1617,6 +1625,19 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+    // check if stack label has to be updated
+    if(updateSpreadStackGeometry) {
+        if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+            getParentEdges().front()->updateVehicleStackLabels();
+            getParentEdges().front()->updateVehicleSpreadGeometries();
+        } else if (getParentDemandElements().size() == 2) {
+            getParentDemandElements().at(1)->getParentEdges().front()->updateVehicleStackLabels();
+            getParentDemandElements().at(1)->getParentEdges().front()->updateVehicleSpreadGeometries();
+        } else if (getChildDemandElements().size() > 0) {
+            getChildDemandElements().front()->getParentEdges().front()->updateVehicleStackLabels();
+            getChildDemandElements().front()->getParentEdges().front()->updateVehicleSpreadGeometries();
+        }
     }
 }
 
@@ -1693,7 +1714,7 @@ GNEVehicle::updatePartialSpreadGeometry(const GNEEdge* edge) {
 
 
 void 
-GNEVehicle::updateDepartPosGeometry() {
+GNEVehicle::updateStackedGeometry() {
     // declare two pointers for depart and arrival pos lanes
     double departPosLane = -1;
     double arrivalPosLane = -1;
@@ -1755,7 +1776,7 @@ GNEVehicle::updateDepartPosGeometry() {
 
 
 void 
-GNEVehicle::updatePartialDepartPosGeometry(const GNEEdge* edge) {
+GNEVehicle::updatePartialStackedGeometry(const GNEEdge* edge) {
     // declare two pointers for depart and arrival pos lanes
     double departPosLane = -1;
     double arrivalPosLane = -1;
@@ -1782,14 +1803,14 @@ GNEVehicle::drawStackLabel(const Position &vehiclePosition, const double vehicle
     glRotated(vehicleRotation, 0, 0, 1);
     glTranslated((width/2.0) + 0.35, 0, 0);
     // draw external box
-    GLHelper::setColor(RGBColor(0, 128, 0));
+    GLHelper::setColor(RGBColor::GREY);
     GLHelper::drawBoxLine(Position(), Position(), 0, length, 0.3);
     // draw internal box
     glTranslated(0, 0, 0.1);
-    GLHelper::setColor(RGBColor::CYAN);
+    GLHelper::setColor(RGBColor(0, 128, 0));
     GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, length-(contourWidth*2), 0.3 - contourWidth);
     // draw stack label
-    GLHelper::drawText("Stack: " + toString(myStackedLabelNumber), Position(0, length/-2.0), .1, 0.6, RGBColor::BLACK, 90);
+    GLHelper::drawText("vehicles stacked: " + toString(myStackedLabelNumber), Position(0, length/-2.0), .1, 0.6, RGBColor::WHITE, 90);
     // pop draw matrix
     glPopMatrix();
 }
@@ -1806,7 +1827,7 @@ GNEVehicle::drawFlowLabel(const Position &vehiclePosition, const double vehicleR
     glRotated(vehicleRotation, 0, 0, 1);
     glTranslated(-1 * ((width/2.0) + 0.35), 0, 0);
     // draw external box
-    GLHelper::setColor(RGBColor(0, 128, 0));
+    GLHelper::setColor(RGBColor::GREY);
     GLHelper::drawBoxLine(Position(), Position(), 0, length, 0.3);
     // draw internal box
     glTranslated(0, 0, 0.1);

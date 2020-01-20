@@ -1223,7 +1223,7 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
     if (junction) {
         // iterate over segments
         if (myNet->getViewNet()->getCommonViewOptions().drawSpreadVehicles()) {
-            for (const auto& segment : tripOrFromTo->getDemandElementSpreadSegmentGeometry()) {
+            for (const auto& segment : tripOrFromTo->getDemandElementSegmentSpreadGeometry()) {
                 // draw partial segment
                 GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
             }
@@ -1236,7 +1236,7 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
     } else {
         // iterate over segments
         if (myNet->getViewNet()->getCommonViewOptions().drawSpreadVehicles()) {
-            for (const auto& segment : tripOrFromTo->getDemandElementSpreadSegmentGeometry()) {
+            for (const auto& segment : tripOrFromTo->getDemandElementSegmentSpreadGeometry()) {
                 // draw partial segment
                 if ((segment.edge == this) && (segment.AC == tripOrFromTo)) {
                     GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
@@ -1470,22 +1470,27 @@ GNEEdge::updateVehicleStackLabels() {
     // get lane vehicles map
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > laneVehiclesMap = getVehiclesOverEdgeMap();
     // declare map for sprt vehicles using their departpos+lenght position (StackPosition)
-    std::map<GNEEdge::StackPosition, GNEDemandElement*> departPosVehicles;
+    std::vector<std::pair<GNEEdge::StackPosition, GNEDemandElement*> > departPosVehicles;
     // declare vector of stack demand elements
     std::vector<GNEEdge::StackDemandElements> stackedVehicles;
-    // iterate over laneVehiclesMap
+    // iterate over laneVehiclesMap and obtain a vector with 
     for (const auto &vehicleMap : laneVehiclesMap) {
         // iterate over vehicles
         for (const auto &vehicle : vehicleMap.second) {
             // get vehicle's depart pos and lenght
             const double departPos = vehicle->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
             const double length = vehicle->getAttributeDouble(SUMO_ATTR_LENGTH);
+            const double posOverLane = vehicle->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
             // make a stack position using departPos and length
-            departPosVehicles[StackPosition(departPos, departPos + length)] = vehicle;
+            departPosVehicles.push_back(std::make_pair(StackPosition(departPos, length), vehicle));
+            // update depart element geometry
+            vehicle->updateDemandElementGeometry(vehicleMap.first, posOverLane);
             // reset vehicle stack label
             vehicle->updateDemandElementStackLabel(0);
         }
     }
+    // sort departPosVehicles
+    std::sort(departPosVehicles.begin(), departPosVehicles.end());
     // iterate over departPosVehicles
     for (const auto &departPosVehicle : departPosVehicles) {
         // obtain stack position and vehicle
@@ -1495,8 +1500,8 @@ GNEEdge::updateVehicleStackLabels() {
         if (stackedVehicles.empty()) {
             stackedVehicles.push_back(GNEEdge::StackDemandElements(vehicleStackPosition, vehicle));
         } else if (areStackPositionOverlapped(vehicleStackPosition, stackedVehicles.back().getStackPosition())) {
-            // add new vehicle to last inserted stackDemandElements and update end position
-            stackedVehicles[stackedVehicles.size()-1].addDemandElements(vehicle, vehicleStackPosition.endPosition());
+            // add new vehicle to last inserted stackDemandElements
+            stackedVehicles[stackedVehicles.size()-1].addDemandElements(vehicle);
         } else {
             // No overlapping, then add a new StackDemandElements
             stackedVehicles.push_back(GNEEdge::StackDemandElements(vehicleStackPosition, vehicle));
@@ -1521,21 +1526,15 @@ GNEEdge::StackPosition::StackPosition(const double departPos, const double lengt
 }
 
 
-double 
+const double 
 GNEEdge::StackPosition::beginPosition() const {
     return std::get<0>(*this);
 }
 
 
-double 
+const double 
 GNEEdge::StackPosition::endPosition() const {
     return std::get<1>(*this);
-}
-
-
-void 
-GNEEdge::StackPosition::updateEndPosition(double end) {
-    std::get<1>(*this) = end;
 }
 
 
@@ -1545,8 +1544,7 @@ GNEEdge::StackDemandElements::StackDemandElements(const StackPosition stackedPos
 
 
 void 
-GNEEdge::StackDemandElements::addDemandElements(GNEDemandElement* demandElement, const double newEnd) {
-    std::get<0>(*this).updateEndPosition(newEnd);
+GNEEdge::StackDemandElements::addDemandElements(GNEDemandElement* demandElement) {
     std::get<1>(*this).push_back(demandElement);
 }
 

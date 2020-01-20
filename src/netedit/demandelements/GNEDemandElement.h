@@ -162,22 +162,28 @@ public:
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
 
-    /// @name members and functions relative to demand element geometries
+    /// @name members and functions relative to demand element (stacked) geometries
     /// @{
-    /// @brief get demand element geometry
+    /// @brief get demand element geometry (stacked)
     const GNEGeometry::Geometry& getDemandElementGeometry();
 
-    /// @brief get demand element segment geometry
+    /// @brief get demand element segment geometry (stacked)
     const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
 
+    /// @brief update element stacked geometry (stacked)
+    void updateDemandElementGeometry(const GNELane* lane, const double posOverLane);
+    
+    /// @brief update stack label
+    void updateDemandElementStackLabel(const int stack);
+    /// @}
+
+    /// @name members and functions relative to demand element spread geometries
+    /// @{
     /// @brief get demand element segment spread geometry
-    const GNEGeometry::SegmentGeometry& getDemandElementSpreadSegmentGeometry() const;
+    const GNEGeometry::SegmentGeometry& getDemandElementSegmentSpreadGeometry() const;
 
     /// @brief update element spread geometry
     void updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane);
-
-    /// @brief set stack label geometry
-    void updateDemandElementStackLabel(const int stack);
     /// @}
 
     /// @name members and functions relative to elements common to all demand elements
@@ -390,20 +396,17 @@ protected:
     /// @brief The GNEViewNet this demand element element belongs
     GNEViewNet* myViewNet;
 
-    /// @brief demand element geometry
+    /// @brief demand element geometry (also called "stacked geometry")
     GNEGeometry::Geometry myDemandElementGeometry;
 
-    /// @brief demand element segment geometry
+    /// @brief demand element segment geometry (also called "stacked geometry")
     GNEGeometry::SegmentGeometry myDemandElementSegmentGeometry;
 
-    /// @brief demand element spread geometry
+    /// @brief demand element spread geometry (Only used by vehicles and pedestrians)
     GNEGeometry::Geometry mySpreadGeometry;
 
-    /// @brief demand element spread segment geometry
+    /// @brief demand element spread segment geometry (Only used by vehicles and pedestrians)
     GNEGeometry::SegmentGeometry mySpreadSegmentGeometry;
-
-    /// @brief demand element stacked label geometry
-    GNEGeometry::Geometry myStackedLabelGeometry;
 
     /// @brief stacked label number
     int myStackedLabelNumber;

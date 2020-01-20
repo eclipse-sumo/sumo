@@ -356,20 +356,17 @@ protected:
 
 private:
     /// @brief Stack position (used to stack demand elements over edges)
-    class StackPosition : public std::tuple<const double, double> {
+    class StackPosition : public std::tuple<double, double> {
 
     public:
         /// @brief constructor
         StackPosition(const double departPos, const double length);
 
         /// @brief get begin position
-        double beginPosition() const;
+        const double beginPosition() const;
 
         /// @brief get end position
-        double endPosition() const;
-
-        /// @brief update end position
-        void updateEndPosition(double end);
+        const double endPosition() const;
     };
 
     /// @brief Stack demand elements
@@ -379,8 +376,8 @@ private:
         /// @brief constructor
         StackDemandElements(const StackPosition stackedPosition, GNEDemandElement* demandElement);
 
-        /// @brief add demand elment to current StackDemandElements (And update end)
-        void addDemandElements(GNEDemandElement* demandElement, const double newEnd);
+        /// @brief add demand elment to current StackDemandElements
+        void addDemandElements(GNEDemandElement* demandElement);
 
         /// @brief get stack position
         const StackPosition &getStackPosition() const;

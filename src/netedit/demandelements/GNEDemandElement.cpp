@@ -224,8 +224,20 @@ GNEDemandElement::getDemandElementSegmentGeometry() const {
 }
 
 
+void 
+GNEDemandElement::updateDemandElementGeometry(const GNELane* lane, const double posOverLane) {
+    myDemandElementGeometry.updateGeometry(lane, posOverLane);
+}
+
+
+void
+GNEDemandElement::updateDemandElementStackLabel(const int stack) {
+    myStackedLabelNumber = stack;
+}
+
+
 const GNEGeometry::SegmentGeometry& 
-GNEDemandElement::getDemandElementSpreadSegmentGeometry() const {
+GNEDemandElement::getDemandElementSegmentSpreadGeometry() const {
     return mySpreadSegmentGeometry;
 }
 
@@ -233,12 +245,6 @@ GNEDemandElement::getDemandElementSpreadSegmentGeometry() const {
 void 
 GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane) {
     mySpreadGeometry.updateGeometry(lane, posOverLane);
-}
-
-
-void 
-GNEDemandElement::updateDemandElementStackLabel(const int stack) {
-    myStackedLabelNumber = stack;
 }
 
 
