@@ -200,7 +200,6 @@ permalink: /ChangeLog/
   - Added shortcuts (Shift F1,F2,F3) for edge templates. Issue #6033
   - VTypes can be edited in multiple selected vehicles. Issue #6051
   - Improved support of GNEStops. Issue #5367
-  - Now vehicles can be drawn spreand along the lane or stacked. Issue #6485
   
 - SUMO-GUI
   - Added 'select reachable' function to the lane context-menu to select all lanes that can be reached by a given vehicle class from the origin lane. After such an operation, the coloring scheme 'by reachability' can be used to render an isochrone travel time map. Issue #3650
