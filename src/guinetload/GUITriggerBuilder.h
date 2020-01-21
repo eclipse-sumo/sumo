@@ -182,23 +182,6 @@ protected:
     * @param[in] lane_end The lane, where is the overhead wire segment placed, to the end of which the overhead wire clamp is connected
     */
     virtual void buildOverheadWireClamp(MSNet& net, const std::string& id, MSLane* lane_start, MSLane* lane_end);
-
-    /** @brief builds a microscopic calibrator
-     *
-     * Simply calls the MSCalibrator constructor.
-     *
-     * @param[in] net The net the calibrator belongs to
-     * @param[in] id The id of the calibrator
-     * @param[in] edge The edge the calibrator is placed at
-     * @param[in] pos The position on the edge the calibrator lies at
-     * @param[in] file The file to read the flows from
-     * @todo Is the position correct/needed
-     */
-    virtual MSCalibrator* buildCalibrator(MSNet& net,
-                                          const std::string& id, MSEdge* edge, MSLane* lane, double pos,
-                                          const std::string& file, const std::string& outfile,
-                                          const SUMOTime freq, const MSRouteProbe* probe,
-                                          const std::string& vTypes);
     /// @}
 
 

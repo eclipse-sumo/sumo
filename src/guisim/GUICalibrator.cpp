@@ -267,20 +267,14 @@ GUICalibrator::GUICalibratorPopupMenu::onCmdOpenManip(FXObject*,
 /* -------------------------------------------------------------------------
  * GUICalibrator - methods
  * ----------------------------------------------------------------------- */
-GUICalibrator::GUICalibrator(const std::string& id,
-                             MSEdge* edge,
-                             MSLane* lane,
-                             double pos,
-                             const std::string& aXMLFilename,
-                             const std::string& outputFilename,
-                             const SUMOTime freq,
-                             const MSRouteProbe* probe,
-                             const std::string& vTypes,
-                             bool addLaneMeanData) :
-    MSCalibrator(id, edge, lane, pos, aXMLFilename, outputFilename, freq, edge->getLength(), probe, vTypes, addLaneMeanData),
-    GUIGlObject_AbstractAdd(GLO_CALIBRATOR, id),
-    myShowAsKMH(true) {
-    const std::vector<MSLane*>& destLanes = edge->getLanes();
+GUICalibrator::GUICalibrator(MSCalibrator* calibrator) :
+    GUIGlObject_AbstractAdd(GLO_CALIBRATOR, calibrator->getID()),
+    myCalibrator(calibrator),
+    myShowAsKMH(true)
+{
+    const std::vector<MSLane*>& destLanes = calibrator->myEdge->getLanes();
+    const MSLane* lane = calibrator->myLane;
+    const double pos = calibrator->myPos;
     for (std::vector<MSLane*>::const_iterator i = destLanes.begin(); i != destLanes.end(); ++i) {
         if (lane == nullptr || (*i) == lane) {
             const PositionVector& v = (*i)->getShape();
@@ -314,25 +308,26 @@ GUIParameterTableWindow*
 GUICalibrator::getParameterWindow(GUIMainWindow& app,
                                   GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret;
-    if (isActive()) {
+    auto myCurrentStateInterval = myCalibrator->myCurrentStateInterval;
+    if (myCalibrator->isActive()) {
         ret = new GUIParameterTableWindow(app, *this);
         // add items
         ret->mkItem("interval start", false, STEPS2TIME(myCurrentStateInterval->begin));
         ret->mkItem("interval end", false, STEPS2TIME(myCurrentStateInterval->end));
         ret->mkItem("aspired flow [veh/h]", false, myCurrentStateInterval->q);
         ret->mkItem("aspired speed", false, myCurrentStateInterval->v);
-        ret->mkItem("current flow [veh/h]", true, new FunctionBinding<GUICalibrator, double>(this, &GUICalibrator::currentFlow));
-        ret->mkItem("current speed", true, new FunctionBinding<GUICalibrator, double>(this, &GUICalibrator::currentSpeed));
-        ret->mkItem("default speed", false, myDefaultSpeed);
-        ret->mkItem("required vehicles", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::totalWished));
-        ret->mkItem("passed vehicles", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::passed));
-        ret->mkItem("inserted vehicles", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::inserted));
-        ret->mkItem("removed vehicles", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::removed));
-        ret->mkItem("cleared in jam", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::clearedInJam));
+        ret->mkItem("current flow [veh/h]", true, new FunctionBinding<MSCalibrator, double>(myCalibrator, &MSCalibrator::currentFlow));
+        ret->mkItem("current speed", true, new FunctionBinding<MSCalibrator, double>(myCalibrator, &MSCalibrator::currentSpeed));
+        ret->mkItem("default speed", false, myCalibrator->myDefaultSpeed);
+        ret->mkItem("required vehicles", true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::totalWished));
+        ret->mkItem("passed vehicles", true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::passed));
+        ret->mkItem("inserted vehicles", true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::inserted));
+        ret->mkItem("removed vehicles", true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::removed));
+        ret->mkItem("cleared in jam", true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::clearedInJam));
     } else {
         ret = new GUIParameterTableWindow(app, *this);
         const std::string nextStart =
-            (myCurrentStateInterval != myIntervals.end() ?
+            (myCurrentStateInterval != myCalibrator->myIntervals.end() ?
              time2string(myCurrentStateInterval->begin) :
              "simulation end");
         ret->mkItem("inactive until", false, nextStart);
@@ -348,7 +343,8 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     std::string flow = "-";
     std::string speed = "-";
-    if (isActive()) {
+    if (myCalibrator->isActive()) {
+        auto myCurrentStateInterval = myCalibrator->myCurrentStateInterval;
         if (myCurrentStateInterval->v >= 0) {
             speed = toString(myCurrentStateInterval->v) + "m/s";
         }

@@ -41,25 +41,12 @@
  *
  * This is the gui-version of the MSCalibrator-object
  */
-class GUICalibrator : public MSCalibrator, public GUIGlObject_AbstractAdd {
+class GUICalibrator : public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
-     * @param[in] idStorage The gl-id storage for giving this object an gl-id
-     * @param[in] id The id of the lane speed trigger
-     * @param[in] destLanes List of lanes affected by this speed trigger
-     * @param[in] file Name of the file to read the speeds to set from
+     * @param[in] calibrator MSCalibrator or METriggeredCalibrator to be wrapped
      */
-    GUICalibrator(const std::string& id,
-                  MSEdge* edge,
-                  MSLane* lane,
-                  double pos,
-                  const std::string& aXMLFilename,
-                  const std::string& outputFilename,
-                  const SUMOTime freq,
-                  const MSRouteProbe* probe,
-                  const std::string& vTypes,
-                  bool addLaneMeanData = true);
-
+    GUICalibrator(MSCalibrator* calibrator);
 
     /** destructor */
     ~GUICalibrator();
@@ -184,7 +171,9 @@ private:
     /// Definition of a rotation container
     typedef std::vector<double> RotCont;
 
-private:
+    /// @brief the calibrator being wrapped
+    MSCalibrator* myCalibrator;
+
     /// The positions in full-geometry mode
     PosCont myFGPositions;
 

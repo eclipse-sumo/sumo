@@ -94,7 +94,9 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
     // check whether an adaptation value exists
     if (isCurrentStateActive(currentTime)) {
         // all happens in isCurrentStateActive()
+        myAmActive = true;
     } else {
+        myAmActive = false;
         myEdgeMeanData.reset(); // discard collected values
         if (!mySpeedIsDefault) {
             // if not, reset adaptation values

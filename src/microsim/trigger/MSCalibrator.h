@@ -95,6 +95,10 @@ public:
     /// @brief cleanup remaining data structures
     static void cleanup();
 
+    /// @brief return all calibrator instances
+    static const std::set<MSCalibrator*>& getInstances() {
+        return myInstances;
+    }
 
 
 protected:
@@ -164,6 +168,7 @@ protected:
         MSCalibrator* myParent;
     };
     friend class VehicleRemover;
+    friend class GUICalibrator;
 
     // @return whether the current state is active (GUI)
     bool isActive() const {
@@ -309,6 +314,7 @@ protected:
      * instance which created them */
     static std::vector<MSMoveReminder*> LeftoverReminders;
     static std::vector<SUMOVehicleParameter*> LeftoverVehicleParameters;
+    static std::set<MSCalibrator*> myInstances;
 
 };
 

@@ -51,6 +51,7 @@ class MSTrafficLightLogic;
 class MSLink;
 class GUIJunctionWrapper;
 class GUIDetectorWrapper;
+class GUICalibrator;
 class GUITrafficLightLogicWrapper;
 class RGBColor;
 class GUIEdge;
@@ -365,6 +366,8 @@ protected:
     /// @brief A detector dictionary
     std::vector<GUIDetectorWrapper*> myDetectorWrapper;
 
+    /// @brief A calibrator dictionary
+    std::vector<GUICalibrator*> myCalibratorWrapper;
 
     /// @brief Definition of a link-to-logic-id map
     typedef std::map<MSLink*, std::string> Links2LogicMap;

@@ -50,6 +50,7 @@
 // ===========================================================================
 std::vector<MSMoveReminder*> MSCalibrator::LeftoverReminders;
 std::vector<SUMOVehicleParameter*> MSCalibrator::LeftoverVehicleParameters;
+std::set<MSCalibrator*> MSCalibrator::myInstances;
 
 // ===========================================================================
 // method definitions
@@ -79,7 +80,9 @@ MSCalibrator::MSCalibrator(const std::string& id,
     myDefaultSpeed(myLane == nullptr ? myEdge->getSpeedLimit() : myLane->getSpeedLimit()),
     myHaveWarnedAboutClearingJam(false),
     myAmActive(false),
-    myHaveInvalidJam(false) {
+    myHaveInvalidJam(false)
+{
+    myInstances.insert(this);
     if (outputFilename != "") {
         myOutput = &OutputDevice::getDevice(outputFilename);
         writeXMLDetectorProlog(*myOutput);
@@ -131,6 +134,7 @@ MSCalibrator::~MSCalibrator() {
     for (VehicleRemover* const remover : myVehicleRemovers) {
         remover->disable();
     }
+    myInstances.erase(this);
 }
 
 
@@ -493,6 +497,7 @@ MSCalibrator::cleanup() {
         delete *it;
     }
     LeftoverVehicleParameters.clear();
+    myInstances.clear(); // deletion is performed in MSTrigger::cleanup()
 }
 
 

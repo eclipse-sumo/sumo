@@ -51,6 +51,7 @@
 #include <guisim/GUITransportableControl.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIDetectorWrapper.h>
+#include <guisim/GUICalibrator.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include <guisim/GUIJunctionWrapper.h>
 #include <guisim/GUIVehicleControl.h>
@@ -102,6 +103,10 @@ GUINet::~GUINet() {
     //  of detectors
     for (std::vector<GUIDetectorWrapper*>::iterator i = myDetectorWrapper.begin(); i != myDetectorWrapper.end(); ++i) {
         delete *i;
+    }
+    //  of calibrators
+    for (GUICalibrator* cw : myCalibratorWrapper) {
+        delete cw;
     }
     for (auto& item : myLoadedEdgeData) {
         delete item.second;
@@ -265,6 +270,12 @@ GUINet::initGUIStructures() {
                 myGrid.addAdditionalGLObject(wrapper);
             }
         }
+    }
+    // initialise calibrators
+    for (MSCalibrator* cali : MSCalibrator::getInstances()) {
+        GUICalibrator* wrapper = new GUICalibrator(cali);
+        myCalibratorWrapper.push_back(wrapper);
+        myGrid.addAdditionalGLObject(wrapper);
     }
     // initialise the tl-map
     initTLMap();
