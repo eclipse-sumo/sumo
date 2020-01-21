@@ -84,12 +84,11 @@ jobs:
     - name: Preparing Gtest
       env:
         CC: ${{ matrix.compiler }}
-        CXX: ${{ matrix.compiler }}
       run: |
         pushd /usr/src/gtest
         sudo mkdir build
         cd build
-        sudo cmake ..
+        sudo cmake -DCMAKE_CXX_COMPILER={ ${{ matrix.compiler }} } ..
         sudo make
         sudo cp libgtest* /usr/lib/
     
