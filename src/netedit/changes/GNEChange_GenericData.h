@@ -11,7 +11,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2020
 ///
-// A network change in which a generic data element is created or deleted
+// A network change in which a generic data set is created or deleted
 /****************************************************************************/
 #ifndef GNEChange_GenericData_h
 #define GNEChange_GenericData_h
@@ -40,14 +40,14 @@ class GNEXMLChild;
 // ===========================================================================
 /**
  * @class GNEChange_GenericData
- * A network change in which a generic data element is created or deleted
+ * A network change in which a generic data set is created or deleted
  */
 class GNEChange_GenericData : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_GenericData)
 
 public:
-    /**@brief Constructor for creating/deleting an generic data element
-     * @param[in] generic data The generic data element to be created/deleted
+    /**@brief Constructor for creating/deleting an generic data set
+     * @param[in] generic data The generic data set to be created/deleted
      * @param[in] forward Whether to create/delete (true/false)
      */
     GNEChange_GenericData(GNEGenericData* genericData, bool forward);
@@ -71,7 +71,7 @@ public:
     /// @}
 
 private:
-    /**@brief full information regarding the generic data element that is to be created/deleted
+    /**@brief full information regarding the generic data set that is to be created/deleted
      * @note we assume shared responsibility for the pointer (via reference counting)
      */
     GNEGenericData* myGenericData;

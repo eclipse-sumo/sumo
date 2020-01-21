@@ -11,7 +11,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2020
 ///
-// A abstract class for data elements
+// A abstract class for data sets
 /****************************************************************************/
 #ifndef GNEGenericData_h
 #define GNEGenericData_h
@@ -56,38 +56,38 @@ class GNEGenericData : public GNEAttributeCarrier {
 
 public:
     /**@brief Constructor
-     * @param[in] id Gl-id of the data element element (Must be unique)
-     * @param[in] viewNet pointer to GNEViewNet of this data element element belongs
+     * @param[in] id Gl-id of the data set element (Must be unique)
+     * @param[in] viewNet pointer to GNEViewNet of this data set element belongs
      */
     GNEGenericData(const std::string& id, GNEViewNet* viewNet);
 
     /**@brief Constructor
-     * @param[in] dataElementParent pointer to parent data element pointer (used to generate an ID)
-     * @param[in] viewNet pointer to GNEViewNet of this data element element belongs
+     * @param[in] dataSetParent pointer to parent data set pointer (used to generate an ID)
+     * @param[in] viewNet pointer to GNEViewNet of this data set element belongs
      */
-    GNEGenericData(GNEGenericData* dataElementParent, GNEViewNet* viewNet);
+    GNEGenericData(GNEGenericData* dataSetParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEGenericData();
 
-    /// @name members and functions relative to write data elements into XML
+    /// @name members and functions relative to write data sets into XML
     /// @{
-    /**@brief writte data element element into a xml file
-     * @param[in] device device in which write parameters of data element element
+    /**@brief writte data set element into a xml file
+     * @param[in] device device in which write parameters of data set element
      */
     virtual void writeGenericData(OutputDevice& device) const = 0;
 
-    /// @brief check if current data element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current data set is valid to be writed into XML (by default true, can be reimplemented in children)
     virtual bool isGenericDataValid() const;
 
-    /// @brief return a string with the current data element problem (by default empty, can be reimplemented in children)
+    /// @brief return a string with the current data set problem (by default empty, can be reimplemented in children)
     virtual std::string getGenericDataProblem() const;
 
-    /// @brief fix data element problem (by default throw an exception, has to be reimplemented in children)
+    /// @brief fix data set problem (by default throw an exception, has to be reimplemented in children)
     virtual void fixGenericDataProblem();
     /// @}
 
-    /// @brief Returns a pointer to GNEViewNet in which data element element is located
+    /// @brief Returns a pointer to GNEViewNet in which data set element is located
     GNEViewNet* getViewNet() const;
 
     /// @name inherited from GNEAttributeCarrier
@@ -116,7 +116,7 @@ public:
      */
     virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
 
-    /**@brief method for setting the attribute and letting the object perform data element changes
+    /**@brief method for setting the attribute and letting the object perform data set changes
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
@@ -157,7 +157,7 @@ public:
     /// @}
 
 protected:
-    /// @brief The GNEViewNet this data element element belongs
+    /// @brief The GNEViewNet this data set element belongs
     GNEViewNet* myViewNet;
 
 private:

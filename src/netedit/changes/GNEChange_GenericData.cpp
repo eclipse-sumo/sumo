@@ -11,7 +11,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2020
 ///
-// A network change in which a generic data element is created or deleted
+// A network change in which a generic data set is created or deleted
 /****************************************************************************/
 
 // ===========================================================================

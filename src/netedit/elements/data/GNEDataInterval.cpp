@@ -11,7 +11,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2020
 ///
-// A abstract class for data elements
+// A abstract class for data sets
 /****************************************************************************/
 
 
@@ -39,7 +39,7 @@ GNEDataInterval::GNEDataInterval(const std::string& id, GNEViewNet* viewNet) :
 }
 
 
-GNEDataInterval::GNEDataInterval(GNEDataInterval* dataElementParent, GNEViewNet* viewNet) :
+GNEDataInterval::GNEDataInterval(GNEDataInterval* dataSetParent, GNEViewNet* viewNet) :
     GNEAttributeCarrier(SUMO_TAG_NOTHING),
     myViewNet(viewNet) {
 }

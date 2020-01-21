@@ -3060,9 +3060,9 @@ GNEViewNet::deleteSelectedDemandElements() {
 
 void
 GNEViewNet::deleteSelectedDataElements() {
-    std::vector<GNEDataElement*> dataElements = myNet->retrieveDataElements(true);
-    if (dataElements.size() > 0) {
-        std::string plural = dataElements.size() == 1 ? ("") : ("s");
+    std::vector<GNEDataSet*> dataSets = myNet->retrieveDataSets(true);
+    if (dataSets.size() > 0) {
+        std::string plural = dataSets.size() == 1 ? ("") : ("s");
         myUndoList->p_begin("delete selected data elements" + plural);
     /*
         for (auto i : dataElements) {

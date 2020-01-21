@@ -50,7 +50,7 @@
 
 class NBNetBuilder;
 class GNEAdditional;
-class GNEDataElement;
+class GNEDataSet;
 class GNEDemandElement;
 class GNEApplicationWindow;
 class GNEAttributeCarrier;
@@ -103,7 +103,7 @@ public:
         std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > demandElements;
 
         /// @brief map with the name and pointer to demand elements of net
-        std::map<SumoXMLTag, std::map<std::string, GNEDataElement*> > dataElements;
+        std::map<SumoXMLTag, std::map<std::string, GNEDataSet*> > dataSets;
 
         /// @brief special map used for saving Demand Elements of type "Vehicle" (Vehicles, routeFlows, etc.) sorted by depart time
         std::map<std::string, GNEDemandElement*> vehicleDepartures;
@@ -528,6 +528,11 @@ public:
      */
     void computeDemandElements(GNEApplicationWindow* window);
 
+    /**@brief compute data elements
+     * param[in] window The window to inform about delay
+     */
+    void computeDataElements(GNEApplicationWindow* window);
+
     /**@brief join selected junctions
      * @note difference to mergeJunctions:
      *  - can join more than 2
@@ -675,50 +680,45 @@ public:
 
     /// @}
 
-    /// @name Functions related to DataElement Items
+    /// @name Functions related to DataSet Items
     /// @{
 
-    /**@brief Returns the named data element
-     * @param[in] type tag with the type of data element
-     * @param[in] id The id of the data element to return.
-     * @param[in] failHard Whether attempts to retrieve a nonexisting data element should result in an exception
+    /**@brief Returns the named data set
+     * @param[in] type tag with the type of data set
+     * @param[in] id The id of the data set to return.
+     * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
      */
-    GNEDataElement* retrieveDataElement(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+    GNEDataSet* retrieveDataSet(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
 
-    /**@brief return all data elements
-     * @param[in] onlySelected Whether to return only selected data elements
+    /**@brief return all data sets
+     * @param[in] onlySelected Whether to return only selected data sets
      */
-    std::vector<GNEDataElement*> retrieveDataElements(bool onlySelected = false) const;
+    std::vector<GNEDataSet*> retrieveDataSets(bool onlySelected = false) const;
 
-    /**@brief Returns the number of data elements of the net
-     * @param[in] type type of data element to count. SUMO_TAG_NOTHING will count all data elements
-     * @return Number of data elements of the net
+    /**@brief Returns the number of data sets of the net
+     * @param[in] type type of data set to count. SUMO_TAG_NOTHING will count all data sets
+     * @return Number of data sets of the net
      */
-    int getNumberOfDataElements(SumoXMLTag type = SUMO_TAG_NOTHING) const;
+    int getNumberOfDataSets(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
-    /**@brief update data element ID in container
-    * @note this function is automatically called when user changes the ID of an data element
+    /**@brief update data set ID in container
+    * @note this function is automatically called when user changes the ID of an data set
     */
-    void updateDataElementID(const std::string& oldID, GNEDataElement* dataElement);
+    void updateDataSetID(const std::string& oldID, GNEDataSet* dataSet);
 
-    /**@brief update data element begin in container
-    * @note this function is automatically called when user changes the begin/departure of an data element
-    */
-    void updateDataElementBegin(const std::string& oldBegin, GNEDataElement* dataElement);
-
-    /// @brief inform that data elements has to be saved
+    /// @brief inform that data sets has to be saved
     void requireSaveDataElements(bool value);
 
-    /**@brief save data element elements of the network
-    * @param[in] filename name of the file in wich save data elements
+    /**@brief save data set elements of the network
+    * @param[in] filename name of the file in wich save data sets
     */
     void saveDataElements(const std::string& filename);
 
-    /// @brief check if data elements are saved
+    /// @brief check if data sets are saved
     bool isDataElementsSaved() const;
 
-    /// @brief generate data element id
-    std::string generateDataElementID(const std::string& prefix, SumoXMLTag type) const;
+    /// @brief generate data set id
+    std::string generateDataSetID(const std::string& prefix, SumoXMLTag type) const;
 
     /// @}
 
@@ -899,6 +899,9 @@ private:
 
     /// @brief save demand elements after confirming invalid objects
     void saveDemandElementsConfirmed(const std::string& filename);
+
+    /// @brief save data elements after confirming invalid objects
+    void saveDataElementsConfirmed(const std::string& filename);
 
     static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList);
 

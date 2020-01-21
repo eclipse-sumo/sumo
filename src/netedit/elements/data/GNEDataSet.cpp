@@ -11,7 +11,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2020
 ///
-// A abstract class for data elements
+// A abstract class for data sets
 /****************************************************************************/
 
 
@@ -39,7 +39,7 @@ GNEDataSet::GNEDataSet(const std::string& id, GNEViewNet* viewNet) :
 }
 
 
-GNEDataSet::GNEDataSet(GNEDataSet* dataElementParent, GNEViewNet* viewNet) :
+GNEDataSet::GNEDataSet(GNEDataSet* dataSetParent, GNEViewNet* viewNet) :
     GNEAttributeCarrier(SUMO_TAG_NOTHING),
     myViewNet(viewNet) {
 }
