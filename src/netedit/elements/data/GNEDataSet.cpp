@@ -29,17 +29,7 @@
 // member method definitions
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNEDataSet - methods
-// ---------------------------------------------------------------------------
-
-GNEDataSet::GNEDataSet(const std::string& id, GNEViewNet* viewNet) :
-    GNEAttributeCarrier(SUMO_TAG_NOTHING),
-    myViewNet(viewNet) {
-}
-
-
-GNEDataSet::GNEDataSet(GNEDataSet* dataSetParent, GNEViewNet* viewNet) :
+GNEDataSet::GNEDataSet(GNEViewNet* viewNet) :
     GNEAttributeCarrier(SUMO_TAG_NOTHING),
     myViewNet(viewNet) {
 }
@@ -48,43 +38,88 @@ GNEDataSet::GNEDataSet(GNEDataSet* dataSetParent, GNEViewNet* viewNet) :
 GNEDataSet::~GNEDataSet() {}
 
 
-bool
-GNEDataSet::isDataSetValid() const {
-    return true;
-}
-
-
-std::string
-GNEDataSet::getDataSetProblem() const {
-    return "";
-}
-
-
-void
-GNEDataSet::fixDataSetProblem() {
-    throw InvalidArgument(getTagStr() + " cannot fix any problem");
-}
-
-
 GNEViewNet*
 GNEDataSet::getViewNet() const {
     return myViewNet;
 }
 
 
+void 
+GNEDataSet::selectAttributeCarrier(bool /*changeFlag*/) {
+    //
+}
+
+
+void 
+GNEDataSet::unselectAttributeCarrier(bool /*changeFlag*/) {
+    //
+}
+
+
 bool
 GNEDataSet::isAttributeCarrierSelected() const {
-    return mySelected;
+    return false;
 }
 
 
 bool
 GNEDataSet::drawUsingSelectColor() const {
-    if (mySelected && (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) {
-        return true;
-    } else {
-        return false;
-    }
+    return false;
 }
+
+
+std::string 
+GNEDataSet::getAttribute(SumoXMLAttr /*key*/) const {
+    return "";
+}
+
+
+double 
+GNEDataSet::getAttributeDouble(SumoXMLAttr /*key*/) const {
+    return 0;
+}
+
+
+void 
+GNEDataSet::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
+    //
+}
+
+
+bool 
+GNEDataSet::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
+    return false;
+}
+
+
+void 
+GNEDataSet::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    //
+}
+
+
+void 
+GNEDataSet::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    //
+}
+
+
+bool 
+GNEDataSet::isAttributeEnabled(SumoXMLAttr /*key*/) const {
+    return false;
+}
+
+
+std::string 
+GNEDataSet::getPopUpID() const {
+    return "";
+}
+
+
+std::string 
+GNEDataSet::getHierarchyName() const {
+    return "";
+}
+
 
 /****************************************************************************/
