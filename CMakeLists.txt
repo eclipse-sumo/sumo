@@ -584,8 +584,4 @@ if (GIT_FOUND)
     set_property(TARGET distcheck PROPERTY FOLDER "CMake")
     set_property(TARGET distcheck PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 endif ()
-
-set(CPACK_GENERATOR "ZIP")
-include(CPackConfig)
-
 message(STATUS "Enabled features: ${ENABLED_FEATURES}")
