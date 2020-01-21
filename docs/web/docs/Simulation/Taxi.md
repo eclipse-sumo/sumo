@@ -74,7 +74,7 @@ By default, taxis will remain in the simulation until all persons have left. To 
         <param key="has.taxi.device" value="true"/>
         <param key="device.taxi.end" value="3600"/>
     </vType>
- ```
+```
 
 # Outputs
 
