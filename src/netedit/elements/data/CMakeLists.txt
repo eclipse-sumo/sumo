@@ -1,4 +1,6 @@
 set(netedit_elements_data_SRCS
+   GNEDataHandler.h
+   GNEDataHandler.cpp
    GNEDataSet.h
    GNEDataSet.cpp
    GNEDataInterval.h
