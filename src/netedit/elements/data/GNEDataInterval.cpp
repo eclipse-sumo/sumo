@@ -33,19 +33,19 @@
 // GNEDataInterval - methods
 // ---------------------------------------------------------------------------
 
-GNEDataInterval::GNEDataInterval(const std::string& id, GNEViewNet* viewNet) :
-    GNEAttributeCarrier(SUMO_TAG_NOTHING),
-    myViewNet(viewNet) {
-}
-
-
-GNEDataInterval::GNEDataInterval(GNEDataInterval* dataSetParent, GNEViewNet* viewNet) :
+GNEDataInterval::GNEDataInterval(GNEViewNet* viewNet) :
     GNEAttributeCarrier(SUMO_TAG_NOTHING),
     myViewNet(viewNet) {
 }
 
 
 GNEDataInterval::~GNEDataInterval() {}
+
+
+void 
+GNEDataInterval::writeDataInterval(OutputDevice& /*device*/) const {
+
+}
 
 
 bool
@@ -72,6 +72,18 @@ GNEDataInterval::getViewNet() const {
 }
 
 
+void 
+GNEDataInterval::selectAttributeCarrier(bool /*changeFlag*/) {
+    //
+}
+
+
+void 
+GNEDataInterval::unselectAttributeCarrier(bool /*changeFlag*/) {
+    //
+}
+
+
 bool
 GNEDataInterval::isAttributeCarrierSelected() const {
     return mySelected;
@@ -85,6 +97,60 @@ GNEDataInterval::drawUsingSelectColor() const {
     } else {
         return false;
     }
+}
+
+
+std::string 
+GNEDataInterval::getAttribute(SumoXMLAttr /*key*/) const {
+    return "";
+}
+
+
+double 
+GNEDataInterval::getAttributeDouble(SumoXMLAttr /*key*/) const {
+    return 0;
+}
+
+
+void 
+GNEDataInterval::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
+    //
+}
+
+
+bool 
+GNEDataInterval::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
+    return false;
+}
+
+
+void 
+GNEDataInterval::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    //
+}
+
+
+void 
+GNEDataInterval::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    //
+}
+
+
+bool 
+GNEDataInterval::isAttributeEnabled(SumoXMLAttr /*key*/) const {
+    return false;
+}
+
+
+std::string 
+GNEDataInterval::getPopUpID() const {
+    return "";
+}
+
+
+std::string 
+GNEDataInterval::getHierarchyName() const {
+    return "";
 }
 
 /****************************************************************************/
