@@ -68,7 +68,7 @@ def getZoomWidthHeight(south, west, north, east, maxTileSize):
     return center, zoom, width, height
 
 
-def retrieveMapServerTiles(url, tiles, west, south, east, north, decals, prefix, net, layer):
+def retrieveMapServerTiles(url, tiles, west, south, east, north, decals, prefix, net, layer, output_dir):
     zoom = 20
     numTiles = tiles + 1
     while numTiles > tiles:
@@ -80,7 +80,7 @@ def retrieveMapServerTiles(url, tiles, west, south, east, north, decals, prefix,
         for y in range(sy, ey + 1):
             request = "%s/%s/%s/%s" % (url, zoom, y, x)
 #            print(request)
-            urllib.urlretrieve(request, "%s%s_%s.jpeg" % (prefix, x, y))
+            urllib.urlretrieve(request, "%s%s_%s.jpeg" % (os.path.join(output_dir, prefix), x, y))
             lat, lon = fromTileToLatLon(x, y, zoom)
             upperLeft = net.convertLonLat2XY(lon, lat)
             lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
@@ -144,7 +144,7 @@ def get(args=None):
         sumolib.xml.writeHeader(decals, root="viewsettings")
         if "MapServer" in options.url:
             retrieveMapServerTiles(options.url, options.tiles, west, south, east, north,
-                                   decals, options.prefix, net, options.layer)
+                                   decals, options.prefix, net, options.layer, options.output_dir)
         else:
             b = west
             for i in range(options.tiles):
