@@ -190,6 +190,7 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
     mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration + simStep);
     if (step != myStep) {
         myStep = step;
+        myPhases[myStep]->myLastSwitch = MSNet::getInstance()->getCurrentTimeStep();
         setTrafficLightSignals(simStep);
         tlcontrol.get(getID()).executeOnSwitchActions();
     }
