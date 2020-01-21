@@ -68,6 +68,8 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest 
     strategy:
+      # Allow all other matrix-jobs to continue running, even if one of the jobs fails
+      fail-fast: false   
       matrix:
         build_type: [full, minimal]
         compiler: [gcc, clang]
