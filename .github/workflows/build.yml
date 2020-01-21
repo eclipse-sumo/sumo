@@ -67,6 +67,11 @@ jobs:
   ###########################
   build-linux:
     runs-on: ubuntu-latest 
+    strategy:
+      matrix:
+        build_type: [full, minimal]
+        compiler: [gcc, clang]
+
     steps:
     - name: Cloning SUMO
       uses: actions/checkout@v2
@@ -77,6 +82,9 @@ jobs:
         sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgtest-dev libgl2ps-dev python3-dev swig openjdk-8-jdk maven
     
     - name: Preparing Gtest
+      env:
+        CC: ${{ matrix.compiler }}
+        CXX: ${{ matrix.compiler }}
       run: |
         pushd /usr/src/gtest
         sudo mkdir build
@@ -86,10 +94,14 @@ jobs:
         sudo cp libgtest* /usr/lib/
     
     - name: Building SUMO
+      env:
+        CC: ${{ matrix.compiler }}
+        CXX: ${{ matrix.compiler }}
       run: |
         mkdir cmake-build 
         cd cmake-build 
-        cmake .. 
+        if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake ..; fi
+        if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF ..; fi 
         make -j4
 
     - name: Building Traas
@@ -105,7 +117,7 @@ jobs:
     - name: Building Examples and Tests
       run: |
         cd cmake-build
-        make CTEST_OUTPUT_ON_FAILURE=1 examples test
+        if [[ "${{ matrix.build_type }}" == "full" ]]; then make CTEST_OUTPUT_ON_FAILURE=1 examples test; fi
 
   ###################
   # BUILDING ON OSX
