@@ -187,7 +187,7 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
         double x2 = x1 - (double)(w / 2.);
         const int linkIndex = myParentEdge->getNBEdge()->getToNode()->getConnectionIndex(myParentEdge->getNBEdge(),
                               cons[s.lefthand ? noLinks - 1 - i : i]);
-        GLHelper::drawTextAtEnd(toString(linkIndex), myLaneGeometry.getShape(), x2, s.drawLinkJunctionIndex.size, s.drawLinkJunctionIndex.color);
+        GLHelper::drawTextAtEnd(toString(linkIndex), myLaneGeometry.getShape(), x2, s.drawLinkJunctionIndex, s.scale);
         x1 -= w;
     }
     glPopMatrix();
@@ -209,7 +209,7 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
     for (int i = noLinks; --i >= 0;) {
         double x2 = x1 - (double)(w / 2.);
         int linkNo = cons[s.lefthand ? noLinks - 1 - i : i].tlLinkIndex;
-        GLHelper::drawTextAtEnd(toString(linkNo), myLaneGeometry.getShape(), x2, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
+        GLHelper::drawTextAtEnd(toString(linkNo), myLaneGeometry.getShape(), x2, s.drawLinkTLIndex, s.scale);
         x1 -= w;
     }
     glPopMatrix();

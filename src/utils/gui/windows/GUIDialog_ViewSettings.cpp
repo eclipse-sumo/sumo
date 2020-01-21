@@ -1818,7 +1818,7 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
     FXMatrix* m1 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(m1, "Size", nullptr, GUIDesignViewSettingsLabel1);
     mySizeDial = new FXRealSpinner(m1, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
-    mySizeDial->setRange(10, 1000);
+    mySizeDial->setRange(5, 1000);
     mySizeDial->setValue(settings.size);
     FXMatrix* m2 = new FXMatrix(parent, 4, GUIDesignViewSettingsMatrix5);
     new FXLabel(m2, "Color", nullptr, GUIDesignViewSettingsLabel1);

@@ -646,17 +646,22 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
 
 
 void
-GLHelper::drawTextAtEnd(const std::string& text, const PositionVector& shape, double x, double size, RGBColor color) {
+GLHelper::drawTextAtEnd(const std::string& text, const PositionVector& shape, double x,
+        const GUIVisualizationTextSettings& settings, const double scale) {
     glPushMatrix();
     const Position& end = shape.back();
     const Position& f = shape[-2];
     const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    GLHelper::drawText(text, Position(x, 0.26), 0, .6 * size / 50, color, 180);
+    drawTextBox(text, Position(x, 0.26), 0,
+                settings.scaledSize(scale, 0.01),
+                settings.color,
+                settings.bgColor,
+                RGBColor::INVISIBLE,
+                180, 0, 0.2);
     glPopMatrix();
 }
-
 
 void
 GLHelper::drawCrossTies(const PositionVector& geom,
