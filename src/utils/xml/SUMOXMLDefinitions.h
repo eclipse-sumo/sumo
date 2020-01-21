@@ -320,6 +320,13 @@ enum SumoXMLTag {
     SUMO_TAG_PERSONSTOP_LANE,
     /// @}
 
+    /// @name Data elements (used by Netedit)
+    /// @{
+    SUMO_TAG_DATASET,
+    SUMO_TAG_DATAINTERVAL,
+    SUMO_TAG_EDGEDATA,
+    /// @}
+
     SUMO_TAG_CONTAINER,
     SUMO_TAG_TRANSPORT,
     SUMO_TAG_TRANSHIP,
