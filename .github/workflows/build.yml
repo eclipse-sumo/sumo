@@ -88,7 +88,8 @@ jobs:
         pushd /usr/src/gtest
         sudo mkdir build
         cd build
-        sudo CC=${{ matrix.compiler }} cmake ..
+        if [[ "${{ matrix.compiler }}" == "gcc" ]]; then sudo CC=gcc CXX=g++ cmake ..; fi
+        if [[ "${{ matrix.compiler }}" == "clang" ]]; then sudo CC=clang CXX=clang++ cmake ..; fi
         sudo make
         sudo cp libgtest* /usr/lib/
     
