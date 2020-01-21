@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------------------
 
 GNEDataInterval::GNEDataInterval(GNEViewNet* viewNet) :
-    GNEAttributeCarrier(SUMO_TAG_NOTHING),
+    GNEAttributeCarrier(SUMO_TAG_DATAINTERVAL),
     myViewNet(viewNet) {
 }
 

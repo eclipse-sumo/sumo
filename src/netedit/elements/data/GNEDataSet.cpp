@@ -30,7 +30,7 @@
 // ===========================================================================
 
 GNEDataSet::GNEDataSet(GNEViewNet* viewNet) :
-    GNEAttributeCarrier(SUMO_TAG_NOTHING),
+    GNEAttributeCarrier(SUMO_TAG_DATASET),
     myViewNet(viewNet) {
 }
 

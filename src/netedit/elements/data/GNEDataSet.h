@@ -29,12 +29,6 @@
 // ===========================================================================
 
 class GNEViewNet;
-class GNEAdditional;
-class GNEDataSet;
-class GNENetworkElement;
-class GNEEdge;
-class GNELane;
-class GNEJunction;
 
 // ===========================================================================
 // class definitions
