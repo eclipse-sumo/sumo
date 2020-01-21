@@ -155,7 +155,7 @@ search and is often faster than dijkstra. Here, the metric *euclidean distance /
     allow for blazing fast search.
 - *CH*: [Contraction Hierarchies](https://en.wikipedia.org/wiki/Contraction_hierarchies)
 is preprocessing-based routing algorithm. This is very efficient
-when a large number of queries is expected. The algorithm does
+when a large number of queries is expected. The algorithm does not
 consider time-dependent weights. Instead, new preprocessing can be
 performed for time-slices of fixed size by setting the option **--weight-period** {{DT_TIME}}. The
 preprocessing is done without restrictions on vehicle class which
