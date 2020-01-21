@@ -16,6 +16,7 @@ permalink: /ChangeLog/
 
 - SUMO-GUI
   - Fixed visualisation of containers. Issue #6426
+  - Text setting options 'constant size' and 'background' are now working for 'link junction index' and 'link tls index'. Issue #6376
 
 - MESO
   - Fixed invalid simulation state when vehicles are teleporting. Issue #6408
@@ -87,6 +88,7 @@ permalink: /ChangeLog/
 - SUMO-GUI
   - the settings file no longer accepts the element breakpoints-file (command line option is still there)
   - renamed attributes in the settings (breakpoint.value to breakpoint.time and decal.filename to decal.file)
+  - Default settings values 'show link junction index' and 'show link tls index' changed because their interpretation varies after #6376. Old GUI-setting files must be updated to achieve the default look.
   
 - TraCI
   - traci.lane.getLinks (python) now returns the extended descriptions by default, the older behavior should not be used anymore (but is still available using a second parameter)
