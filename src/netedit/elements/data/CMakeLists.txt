@@ -5,6 +5,8 @@ set(netedit_elements_data_SRCS
    GNEDataInterval.cpp
    GNEGenericData.h
    GNEGenericData.cpp
+   GNEEdgeData.h
+   GNEEdgeData.cpp
    )
 
 add_library(netedit_elements_data STATIC ${netedit_elements_data_SRCS})
