@@ -82,13 +82,11 @@ jobs:
         sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgtest-dev libgl2ps-dev python3-dev swig openjdk-8-jdk maven
     
     - name: Preparing Gtest
-      env:
-        CC: ${{ matrix.compiler }}
       run: |
         pushd /usr/src/gtest
         sudo mkdir build
         cd build
-        sudo CC=${{ matrix.compiler }} cmake ..
+        sudo CXX=${{ matrix.compiler }} CC=${{ matrix.compiler }} cmake ..
         sudo make
         sudo cp libgtest* /usr/lib/
     
