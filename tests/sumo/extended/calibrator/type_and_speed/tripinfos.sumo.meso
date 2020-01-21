@@ -41,6 +41,5 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<calibratorstats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/calibratorstats_file.xsd">
-    <interval begin="0.00" end="3600.00" id="c1" nVehContrib="0" removed="0" inserted="0" cleared="0" flow="0.00" aspiredFlow="-1.00" speed="-nan" aspiredSpeed="10.00"/>
-</calibratorstats>
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+</tripinfos>
