@@ -37,12 +37,7 @@
 // ===========================================================================
 
 class GNEViewNet;
-class GNEAdditional;
-class GNEGenericData;
-class GNENetworkElement;
-class GNEEdge;
-class GNELane;
-class GNEJunction;
+class GNEDataInterval;
 
 // ===========================================================================
 // class definitions
@@ -56,16 +51,10 @@ class GNEGenericData : public GNEAttributeCarrier {
 
 public:
     /**@brief Constructor
-     * @param[in] id Gl-id of the data set element (Must be unique)
-     * @param[in] viewNet pointer to GNEViewNet of this data set element belongs
+     * @param[in] tag generic data Tag (edgeData, laneData, etc.)
+     * @param[in] dataIntervalParent pointer to data interval parent
      */
-    GNEGenericData(const std::string& id, GNEViewNet* viewNet);
-
-    /**@brief Constructor
-     * @param[in] dataSetParent pointer to parent data set pointer (used to generate an ID)
-     * @param[in] viewNet pointer to GNEViewNet of this data set element belongs
-     */
-    GNEGenericData(GNEGenericData* dataSetParent, GNEViewNet* viewNet);
+    GNEGenericData(const SumoXMLTag tag, GNEDataInterval* dataIntervalParent);
 
     /// @brief Destructor
     ~GNEGenericData();

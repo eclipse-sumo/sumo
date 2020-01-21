@@ -324,7 +324,6 @@ enum SumoXMLTag {
     /// @{
     SUMO_TAG_DATASET,
     SUMO_TAG_DATAINTERVAL,
-    SUMO_TAG_EDGEDATA,
     /// @}
 
     SUMO_TAG_CONTAINER,

@@ -23,6 +23,7 @@
 #include <netedit/GNEViewNet.h>
 
 #include "GNEGenericData.h"
+#include "GNEDataInterval.h"
 
 
 // ===========================================================================
@@ -33,15 +34,9 @@
 // GNEGenericData - methods
 // ---------------------------------------------------------------------------
 
-GNEGenericData::GNEGenericData(const std::string& id, GNEViewNet* viewNet) :
-    GNEAttributeCarrier(SUMO_TAG_DATAINTERVAL),
-    myViewNet(viewNet) {
-}
-
-
-GNEGenericData::GNEGenericData(GNEGenericData* dataSetParent, GNEViewNet* viewNet) :
-    GNEAttributeCarrier(SUMO_TAG_NOTHING),
-    myViewNet(viewNet) {
+GNEGenericData::GNEGenericData(const SumoXMLTag tag, GNEDataInterval* dataIntervalParent) :
+    GNEAttributeCarrier(tag),
+    myViewNet(dataIntervalParent->getViewNet()) {
 }
 
 

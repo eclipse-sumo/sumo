@@ -209,7 +209,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     // Data (Netedit)
     { "dataSet",                    SUMO_TAG_DATASET },
     { "dataInterval",               SUMO_TAG_DATAINTERVAL },
-    { "edgeData",                   SUMO_TAG_EDGEDATA },
     // Transport
     { "container",                  SUMO_TAG_CONTAINER },
     { "transport",                  SUMO_TAG_TRANSPORT },
