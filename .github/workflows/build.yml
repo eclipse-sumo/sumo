@@ -88,15 +88,14 @@ jobs:
         pushd /usr/src/gtest
         sudo mkdir build
         cd build
-        sudo CXX=${{ matrix.compiler }} CC=${{ matrix.compiler }} cmake ..
+        sudo CC=${{ matrix.compiler }} cmake ..
         sudo make
         sudo cp libgtest* /usr/lib/
     
     - name: Building SUMO
-      env:
-        CC: ${{ matrix.compiler }}
-        CXX: ${{ matrix.compiler }}
       run: |
+        if [[ "${{ matrix.compiler }}" == "gcc" ]]; then export CC=gcc; export CXX=g++; fi
+        if [[ "${{ matrix.compiler }}" == "clang" ]]; then export CC=clang; export CXX=clang++; fi
         mkdir cmake-build 
         cd cmake-build 
         if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake ..; fi
