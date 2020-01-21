@@ -17,9 +17,11 @@ permalink: /ChangeLog/
 - SUMO-GUI
   - Fixed visualisation of containers. Issue #6426
   - Text setting options 'constant size' and 'background' are now working for 'link junction index' and 'link tls index'. Issue #6376
+  - Traffic light parameter 'running duration' is now correct when switching phases via TraCI. Issue #6520
 
 - MESO
   - Fixed invalid simulation state when vehicles are teleporting. Issue #6408
+  - Meso calibrator is now shown in GUI. Issue #2345
   
 - NETCONVERT
   - Fixed bug where loaded connection was not created. Issue #6470
