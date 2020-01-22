@@ -3,7 +3,7 @@ title: Simulation/Taxi
 permalink: /Simulation/Taxi
 ---
 # Introduction
-Since version 1.5 SUMO supports simulation of demand responsive transport (DRT)
+Since version 1.5.0 SUMO supports simulation of demand responsive transport (DRT)
 via the taxi device. This allows a fleet of taxis to service customer requests
 based on a configurable dispatch algorithm.
 
