@@ -313,7 +313,7 @@ public:
     /** @brief Sets the programID
      * @param[in] programID The new ID of the program (subID)
      */
-    void setProgramID(const std::string& programID) {
+    virtual void setProgramID(const std::string& programID) {
         mySubID = programID;
     }
 

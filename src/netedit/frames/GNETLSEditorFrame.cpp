@@ -23,6 +23,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
+#include <netbuild/NBOwnTLDef.h>
 #include <utils/xml/XMLSubSys.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
 #include <netedit/changes/GNEChange_TLS.h>
@@ -289,8 +290,17 @@ GNETLSEditorFrame::onCmdDefCreate(FXObject*, FXSelector, void*) {
         if (junction->getAttribute(SUMO_ATTR_TYPE) != toString(NODETYPE_TRAFFIC_LIGHT)) {
             junction->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_TRAFFIC_LIGHT), myViewNet->getUndoList());
         } else {
-            const std::string tlID = junction->getNBNode()->isTLControlled() ? junction->getAttribute(SUMO_ATTR_TLID) : junction->getID();
-            myViewNet->getUndoList()->add(new GNEChange_TLS(junction, nullptr, true, true, tlID), true);
+            if (junction->getNBNode()->isTLControlled()) {
+                // use existing traffic light as template for type, signal groups, controlled nodes etc
+                NBTrafficLightDefinition* tpl = *junction->getNBNode()->getControllingTLS().begin();
+                NBTrafficLightLogic* newLogic = tpl->compute(OptionsCont::getOptions());
+                NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(tpl, newLogic);
+                delete newLogic;
+                myViewNet->getUndoList()->add(new GNEChange_TLS(junction, newDef, true, true), true);
+            } else {
+                // for some reason the traffic light was not built, try again
+                myViewNet->getUndoList()->add(new GNEChange_TLS(junction, nullptr, true, true), true);
+            }
         }
         editJunction(junction);
     } else {
@@ -377,8 +387,11 @@ GNETLSEditorFrame::onUpdNeedsDefAndPhase(FXObject* o, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::onUpdDefCreate(FXObject* o, FXSelector, void*) {
-    const bool enable = myTLSJunction->getCurrentJunction() != nullptr && !myTLSModifications->checkHaveModifications();
+    GNEJunction* junction = myTLSJunction->getCurrentJunction();
+    const bool enable = junction != nullptr && !myTLSModifications->checkHaveModifications();
     o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
+    const bool copy = junction != nullptr && junction->getNBNode()->isTLControlled();
+    static_cast<FXButton*>(o)->setText(copy ? "Copy" : "Create");
     return 1;
 }
 

@@ -235,12 +235,19 @@ public:
         myType = type;
     }
 
+    /** @brief Sets the programID
+     * @param[in] programID The new ID of the program (subID)
+     */
+    void setProgramID(const std::string& programID) {
+        mySubID = programID;
+    }
+
 private:
     /// @brief The number of participating links
     int myNumLinks;
 
     /// @brief The tls program's subid
-    const std::string mySubID;
+    std::string mySubID;
 
     /// @brief The tls program's offset
     SUMOTime myOffset;

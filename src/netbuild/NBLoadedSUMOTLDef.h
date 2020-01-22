@@ -62,6 +62,11 @@ public:
     /// @brief Destructor
     ~NBLoadedSUMOTLDef();
 
+    /** @brief Sets the programID
+     * @param[in] programID The new ID of the program (subID)
+     */
+    void setProgramID(const std::string& programID);
+
     /** @brief Informs edges about being controlled by a tls
      */
     void setTLControllingInformation() const;
@@ -155,6 +160,10 @@ public:
 
     /// @brief let all connections use a distinct link index
     void ungroupSignals();
+
+    /// @brief copy the assignment of link indices to connections from the given definition and rebuilt the states to match
+    // Note: Issues a warning when the grouping of def is incompatible with the current states
+    void copyIndices(NBTrafficLightDefinition* def);
 
 protected:
     /** @brief Collects the links participating in this traffic light

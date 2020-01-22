@@ -119,6 +119,11 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
     myReconstructAddedConnections |= reconstruct;
 }
 
+void
+NBLoadedSUMOTLDef::setProgramID(const std::string& programID) {
+    NBTrafficLightDefinition::setProgramID(programID);
+    myTLLogic->setProgramID(programID);
+}
 
 void
 NBLoadedSUMOTLDef::setTLControllingInformation() const {
@@ -717,6 +722,35 @@ NBLoadedSUMOTLDef::ungroupSignals() {
     for (int i = 0; i < (int)states.size(); i++) {
         for (int p = 0; p < (int)states[i].size(); p++) {
             myTLLogic->setPhaseState(p, i, (LinkState)states[i][p]);
+        }
+    }
+    setTLControllingInformation();
+}
+
+
+void
+NBLoadedSUMOTLDef::copyIndices(NBTrafficLightDefinition* def) {
+    std::map<int, std::string> oldStates; // organized per link index rather than phase
+    std::map<int, std::string> newStates; // organized per link index rather than phase
+    for (NBConnection& c : def->getControlledLinks()) {
+        NBConnection& c2 = *find_if(myControlledLinks.begin(), myControlledLinks.end(), connection_equal(c));
+        const int oldIndex = c2.getTLIndex();
+        const int newIndex = c.getTLIndex();
+        std::string states = getStates(oldIndex);
+        oldStates[oldIndex] = states;
+        if (newStates.count(newIndex) != 0 && newStates[newIndex] != states) {
+            WRITE_WARNING("Signal groups from program '" + def->getProgramID() + "' are incompatible with the states of program '" + getProgramID() + "' at tlLogic '" + getID() 
+                    + "'. Possibly unsafe program.");
+        } else {
+            newStates[newIndex] = states;
+        }
+        c2.setTLIndex(newIndex);
+    }
+    const int maxIndex = getMaxIndex();
+    myTLLogic->setStateLength(maxIndex + 1);
+    for (int i = 0; i < (int)newStates.size(); i++) {
+        for (int p = 0; p < (int)newStates[i].size(); p++) {
+            myTLLogic->setPhaseState(p, i, (LinkState)newStates[i][p]);
         }
     }
     setTLControllingInformation();
