@@ -3,7 +3,7 @@
 Eclipse SUMO - Simulation of Urban MObility 
 ===========================================
 
-![Windows, Linux and MacOS Build Status](https://github.com/eclipse/sumo/workflows/Standard%20Build/badge.svg)
+![Windows, Linux and MacOS Build Status](https://github.com/eclipse/sumo/workflows/build/badge.svg)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/eclipse/sumo?svg=true)](https://ci.appveyor.com/project/eclipsewebmaster/sumo)
 ![Repo Size](https://img.shields.io/github/repo-size/eclipse/sumo.svg)
 
