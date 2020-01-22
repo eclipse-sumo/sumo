@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Standard Build
 
 on: 
   push:                 # run on push events, 
