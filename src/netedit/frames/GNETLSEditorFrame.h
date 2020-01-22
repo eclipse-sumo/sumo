@@ -388,6 +388,9 @@ public:
     /// @brief Called when occurs an update of needs definition
     long onUpdNeedsDef(FXObject*, FXSelector, void*);
 
+    /// @brief Called to buttons that modify link indices
+    long onUpdNeedsSingleDef(FXObject*, FXSelector, void*);
+
     /// @brief Called when occurs an update of needs definition an dphase
     long onUpdNeedsDefAndPhase(FXObject*, FXSelector, void*);
 

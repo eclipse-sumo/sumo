@@ -64,11 +64,11 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onCmdPhaseDelete),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onUpdNeedsDefAndPhase),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onCmdCleanup),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onUpdNeedsDef),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onUpdNeedsSingleDef),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ADDUNUSED,       GNETLSEditorFrame::onCmdAddUnused),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_ADDUNUSED,       GNETLSEditorFrame::onUpdNeedsDef),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_GROUP_STATES,    GNETLSEditorFrame::onCmdGroupStates),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_GROUP_STATES,    GNETLSEditorFrame::onUpdNeedsDef),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_GROUP_STATES,    GNETLSEditorFrame::onUpdNeedsSingleDef),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_UNGROUP_STATES,  GNETLSEditorFrame::onCmdUngroupStates),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_UNGROUP_STATES,  GNETLSEditorFrame::onUpdUngroupStates),
     FXMAPFUNC(SEL_SELECTED,   MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
@@ -600,8 +600,15 @@ GNETLSEditorFrame::onCmdUngroupStates(FXObject*, FXSelector, void*) {
 
 
 long
-GNETLSEditorFrame::onUpdUngroupStates(FXObject* o, FXSelector sel, void* data) {
-    const bool enable = onUpdNeedsDef(o, sel, data) && myEditedDef != nullptr && myEditedDef->usingSignalGroups();
+GNETLSEditorFrame::onUpdNeedsSingleDef(FXObject* o, FXSelector, void*) {
+    const bool enable = myTLSAttributes->getNumberOfTLSDefinitions() == 1;
+    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
+    return 1;
+}
+
+long
+GNETLSEditorFrame::onUpdUngroupStates(FXObject* o, FXSelector, void*) {
+    const bool enable = myTLSAttributes->getNumberOfTLSDefinitions() == 1 && myEditedDef != nullptr && myEditedDef->usingSignalGroups();
     o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
     return 1;
 }
@@ -1109,16 +1116,16 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     myDeleteSelectedPhaseButton = new FXButton(col2, "Delete Phase\t\tDelete selected phase", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_DELETE, GUIDesignButton);
 
     // create cleanup states button
-    new FXButton(col1, "Clean States\t\tClean unused states from all phase.", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_CLEANUP, GUIDesignButton);
+    new FXButton(col1, "Clean States\t\tClean unused states from all phase. (Not allowed for multiple programs)", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_CLEANUP, GUIDesignButton);
 
     // add unused states button
     new FXButton(col2, "Add States\t\tExtend the state vector for all phases by one entry (unused until a connection or crossing is assigned to the new index).", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_ADDUNUSED, GUIDesignButton);
 
     // group states button
-    new FXButton(col1, "Group Signals\t\tShorten state definition by letting connections with the same signal states use the same index. Warning: This affects all programs.", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_GROUP_STATES, GUIDesignButton);
+    new FXButton(col1, "Group Signals\t\tShorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_GROUP_STATES, GUIDesignButton);
 
     // ungroup states button
-    new FXButton(col2, "Ungroup Signals\t\tLet every connection use a distinct index (reverse state grouping). Warning: This affects all programs.", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_UNGROUP_STATES, GUIDesignButton);
+    new FXButton(col2, "Ungroup Signals\t\tLet every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_UNGROUP_STATES, GUIDesignButton);
     // show TLSFile
     show();
 }
