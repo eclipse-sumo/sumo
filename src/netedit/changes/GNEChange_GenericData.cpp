@@ -35,7 +35,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_GenericData, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_GenericData::GNEChange_GenericData(GNEGenericData* genericData, bool forward) :
-    GNEChange(genericData->getViewNet()->getNet(), forward),
+    GNEChange(genericData->getViewNet()->getNet(), genericData, genericData, forward),
     myGenericData(genericData)
     /*
     myEdgePath(genericData->getPathEdges()),

@@ -29,6 +29,8 @@
 // class declarations
 // ===========================================================================
 class GNENet;
+class GNEHierarchicalParentElements;
+class GNEHierarchicalChildElements;
 
 // ===========================================================================
 // class definitions
@@ -42,10 +44,23 @@ class GNEChange : public FXCommand {
 
 public:
     /**@brief Constructor
+     * @param[in] forward The direction of this change
+     */
+    GNEChange(bool forward);
+
+    /**@brief Constructor
      * @param[in] net GNENet net on which to apply changes
      * @param[in] forward The direction of this change
      */
     GNEChange(GNENet* net, bool forward);
+
+    /**@brief Constructor
+     * @param[in] net GNENet net on which to apply changes
+     * @param[in] forward The direction of this change
+     * @param[in] parents hierarchical parent elements
+     * @param[in] children hierarchical children elements
+     */
+    GNEChange(GNENet* net, GNEHierarchicalParentElements* parents, GNEHierarchicalChildElements* children, bool forward);
 
     /// @brief Destructor
     ~GNEChange();

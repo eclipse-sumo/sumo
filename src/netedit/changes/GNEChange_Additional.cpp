@@ -39,7 +39,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
-    GNEChange(additional->getViewNet()->getNet(), forward),
+    GNEChange(additional->getViewNet()->getNet(), additional, additional, forward),
     myAdditional(additional),
     myParentEdges(myAdditional->getParentEdges()),
     myParentLanes(myAdditional->getParentLanes()),

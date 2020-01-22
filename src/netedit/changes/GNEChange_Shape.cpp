@@ -38,7 +38,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Shape, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Shape::GNEChange_Shape(GNEShape* shape, bool forward) :
-    GNEChange(shape->getNet(), forward),
+    GNEChange(shape->getNet(), shape, shape, forward),
     myShape(shape),
     myParentEdges(shape->getParentEdges()),
     myParentLanes(shape->getParentLanes()),

@@ -41,12 +41,11 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, nullptr, 0)
 
 /// @brief constructor for creating an edge
 GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections):
-    GNEChange(edge->getNet(), forward),
+    GNEChange(edge->getNet(), lane, lane, forward),
     myEdge(edge),
     myLane(lane),
     myLaneAttrs(laneAttrs),
     myRecomputeConnections(recomputeConnections) {
-    assert(myNet);
     myEdge->incRef("GNEChange_Lane");
     if (myLane) {
         // non-zero pointer is passsed in case of removal or duplication

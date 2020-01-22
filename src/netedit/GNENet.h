@@ -924,8 +924,10 @@ private:
     public:
         /// @brief constructor
         GNEChange_ReplaceEdgeInTLS(NBTrafficLightLogicCont& tllcont, NBEdge* replaced, NBEdge* by) :
-            GNEChange(0, true),
-            myTllcont(tllcont), myReplaced(replaced), myBy(by) { }
+            GNEChange(true),
+            myTllcont(tllcont), 
+            myReplaced(replaced), 
+            myBy(by) { }
 
         /// @bief destructor
         ~GNEChange_ReplaceEdgeInTLS() {};

@@ -20,19 +20,30 @@
 /****************************************************************************/
 #include <config.h>
 
-
 #include "GNEChange.h"
+
 
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
 FXIMPLEMENT_ABSTRACT(GNEChange, FXCommand, nullptr, 0)
 
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
+GNEChange::GNEChange(bool forward) :
+    myNet(nullptr),
+    myForward(forward) {}
+
+
 GNEChange::GNEChange(GNENet* net, bool forward) :
+    myNet(net),
+    myForward(forward) {}
+
+
+GNEChange::GNEChange(GNENet* net, GNEHierarchicalParentElements* parents, GNEHierarchicalChildElements* childs, bool forward) :
     myNet(net),
     myForward(forward) {}
 
