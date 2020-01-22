@@ -40,8 +40,10 @@ It currently requires cmake and swig being installed together with the
 developer packages for Python (and Java if needed), for Windows see
 [Installing/Windows_CMake](Installing/Windows_CMake.md). You
 need to (re-)compile sumo yourself under Windows following the remarks
-above, under Linux it is probably just a matter of calling cmake and
-make. For the python bindings you will get a libsumo.py and a
+above, under Linux see [Installing/Linux_Build](Installing/Linux_Build.md)
+(it is probably just a matter of calling cmake and
+make again if you previously did a build without swig).
+For the python bindings you will get a libsumo.py and a
 _libsumo.so (or .pyd on Windows). If you place them somewhere on your
 python path you should be able to use them as described below.
 
