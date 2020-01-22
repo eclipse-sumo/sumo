@@ -71,6 +71,9 @@ incomplete_MRM
 # Schedule ToC before initialization of MRM
 successful_ToC
 
+# Schedule ToC down- and upwards. Reset to original vehicle color after upward ToC.
+ToC_down_up_reset_color
+
 # Request only MRM without any ToC
 request_MRMs
 
