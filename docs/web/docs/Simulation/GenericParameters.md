@@ -22,6 +22,7 @@ their XML definitions:
 
 Parameters support the following functionality
 
+- editing in [NETEDIT](../NETEDIT.md#generic_parameters)
 - reading and writing [via TraCI](../TraCI/GenericParameters.md).
 - customizing the functionality of [actuated traffic lights](../Simulation/Traffic_Lights.md#additional_parameters)
 - configuring vehicle types for use with the [electric vehicle model](../Models/Electric.md)
