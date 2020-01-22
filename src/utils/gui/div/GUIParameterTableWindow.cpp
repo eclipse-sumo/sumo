@@ -193,7 +193,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* /*sender*/, FXSelector /*s
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic, std::string value) {
-    myTable->insertRows(myItems.size() + 1);
+    myTable->insertRows((int)myItems.size() + 1);
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<std::string>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -201,7 +201,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic, std::string valu
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic, double value) {
-    myTable->insertRows(myItems.size() + 1);
+    myTable->insertRows((int)myItems.size() + 1);
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<double>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -209,7 +209,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic, double value) {
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic, unsigned value) {
-    myTable->insertRows(myItems.size() + 1);
+    myTable->insertRows((int)myItems.size() + 1);
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<unsigned>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -217,7 +217,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic, unsigned value) 
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic, int value) {
-    myTable->insertRows(myItems.size() + 1);
+    myTable->insertRows((int)myItems.size() + 1);
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<int>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -225,7 +225,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic, int value) {
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic, long long int value) {
-    myTable->insertRows(myItems.size() + 1);
+    myTable->insertRows((int)myItems.size() + 1);
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<long long int>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -237,8 +237,8 @@ GUIParameterTableWindow::updateTable() {
     if (myObject == nullptr) {
         return;
     }
-    for (std::vector<GUIParameterTableItemInterface*>::iterator i = myItems.begin(); i != myItems.end(); i++) {
-        (*i)->update();
+    for (GUIParameterTableItemInterface* const item : myItems) {
+        item->update();
     }
 }
 
@@ -255,7 +255,7 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
             mkItem(("param:" + it->first).c_str(), false, it->second);
         }
     }
-    const int rows = myItems.size() + 1;
+    const int rows = (int)myItems.size() + 1;
     setHeight(rows * 20 + 40);
     myTable->fitColumnsToContents(1);
     setWidth(myTable->getContentWidth() + 40);
