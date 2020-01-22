@@ -264,6 +264,12 @@ with multiple elements of the same type this mode behaves differently:
 ![](images/InspectMode4.png)Width of lane changed
 (gaps will disappear upon triggering recomputation with **F5**)
 
+#### Generic Parameters
+Most simulation objects support [Generic Parameters](Simulation/GenericParameters.md) to express custom user data and supplemental configurations. They can be edited with the 'Edit parameters' dialog wich is accessible with the 'Edit parameters' button. 
+
+In inspect mode, a serialized form of the parameters is also given. In this form, all parameters are concatenated using the '=' sign between key and value and by using the '|' sign between parameters. Serialization of key value pars that use these separating characters in their key or value is currently not supported by NETEDIT (though peritted by SUMO). 
+The serialized form is useful in select mode when selecting objects with a particular parameter.
+
 #### Edge template
 
 When inspecting an edge, the extra buttons *set Edge ... as Template*
