@@ -28,9 +28,16 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class GNEAdditional;
+class GNEDemandElement;
+class GNEGenericData;
+class GNEEdge;
+class GNELane;
+class GNEShape;
 class GNENet;
-class GNEHierarchicalParentElements;
+class GNEViewNet;
 class GNEHierarchicalChildElements;
+class GNEHierarchicalParentElements;
 
 // ===========================================================================
 // class definitions
@@ -91,4 +98,59 @@ protected:
      * junction) and keep them apart by this flag
      */
     bool myForward;
+
+    /// @brief reference to vector of parent edges
+    const std::vector<GNEEdge*>& myParentEdges;
+
+    /// @brief reference to vector of parent lanes
+    const std::vector<GNELane*>& myParentLanes;
+
+    /// @brief reference to vector of parent shapes
+    const std::vector<GNEShape*>& myParentShapes;
+
+    /// @brief reference to vector of parent additionals
+    const std::vector<GNEAdditional*>& myParentAdditionals;
+
+    /// @brief reference to vector of parent demand elements
+    const std::vector<GNEDemandElement*>& myParentDemandElements;
+
+    /// @brief reference to vector of parent generic datas
+    const std::vector<GNEGenericData*>& myParentGenericDatas;
+
+    /// @brief reference to vector of child edges
+    const std::vector<GNEEdge*>& myChildEdges;
+
+    /// @brief reference to vector of child lanes
+    const std::vector<GNELane*>& myChildLanes;
+
+    /// @brief reference to vector of child shapes
+    const std::vector<GNEShape*>& myChildShapes;
+
+    /// @brief reference to vector of child additional
+    const std::vector<GNEAdditional*>& myChildAdditionals;
+
+    /// @brief reference to vector of child demand elements
+    const std::vector<GNEDemandElement*>& myChildDemandElements;
+
+    /// @brief reference to vector of child generic datas
+    const std::vector<GNEGenericData*>& myChildGenericDatas;
+
+private:
+    /// @brief vector of empty edges
+    static const std::vector<GNEEdge*> myEmptyEdges;
+
+    /// @brief vector of empty lanes
+    static const std::vector<GNELane*> myEmptyLanes;
+
+    /// @brief vector of empty shapes
+    static const std::vector<GNEShape*> myEmptyShapes;
+
+    /// @brief vector of empty additionals
+    static const std::vector<GNEAdditional*> myEmptyAdditionals;
+
+    /// @brief vector of empty demand elements
+    static const std::vector<GNEDemandElement*> myEmptyDemandElements;
+
+    /// @brief vector of empty generic datas
+    static const std::vector<GNEGenericData*> myEmptyGenericDatas;
 };

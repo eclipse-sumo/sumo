@@ -1743,7 +1743,7 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     const int oldNumLanes = (int)myLanes.size();
     for (int i = oldNumLanes; i < numLanes; i++) {
         // since the GNELane does not exist yet, it cannot have yet been referenced so we only pass a zero-pointer
-        undoList->add(new GNEChange_Lane(this, nullptr, myNBEdge->getLaneStruct(oldNumLanes - 1), true), true);
+        undoList->add(new GNEChange_Lane(this, myNBEdge->getLaneStruct(oldNumLanes - 1)), true);
     }
     for (int i = (oldNumLanes - 1); i > (numLanes - 1); i--) {
         // delete leftmost lane

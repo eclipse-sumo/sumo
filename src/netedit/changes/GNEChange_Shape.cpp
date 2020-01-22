@@ -39,17 +39,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Shape, GNEChange, nullptr, 0)
 
 GNEChange_Shape::GNEChange_Shape(GNEShape* shape, bool forward) :
     GNEChange(shape->getNet(), shape, shape, forward),
-    myShape(shape),
-    myParentEdges(shape->getParentEdges()),
-    myParentLanes(shape->getParentLanes()),
-    myParentShapes(shape->getParentShapes()),
-    myParentAdditionals(shape->getParentAdditionals()),
-    myParentDemandElements(shape->getParentDemandElements()),
-    myChildEdges(shape->getChildEdges()),
-    myChildLanes(shape->getChildLanes()),
-    myChildShapes(shape->getChildShapes()),
-    myChildAdditionals(shape->getChildAdditionals()),
-    myChildDemandElements(shape->getChildDemandElements()) {
+    myShape(shape) {
     myShape->incRef("GNEChange_Shape");
 }
 

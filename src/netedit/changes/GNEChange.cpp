@@ -18,15 +18,30 @@
 // The reification of a NETEDIT editing operation (see command pattern)
 // inherits from FXCommand and is used to for undo/redo
 /****************************************************************************/
-#include <config.h>
 
 #include "GNEChange.h"
+
+#include <netedit/elements/GNEHierarchicalParentElements.h>
+#include <netedit/elements/GNEHierarchicalChildElements.h>
 
 
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
+
 FXIMPLEMENT_ABSTRACT(GNEChange, FXCommand, nullptr, 0)
+
+
+// ===========================================================================
+// static
+// ===========================================================================
+
+const std::vector<GNEEdge*> GNEChange::myEmptyEdges = {};
+const std::vector<GNELane*> GNEChange::myEmptyLanes = {};
+const std::vector<GNEShape*> GNEChange::myEmptyShapes = {};
+const std::vector<GNEAdditional*> GNEChange::myEmptyAdditionals = {};
+const std::vector<GNEDemandElement*> GNEChange::myEmptyDemandElements = {};
+const std::vector<GNEGenericData*> GNEChange::myEmptyGenericDatas = {};
 
 
 // ===========================================================================
@@ -35,17 +50,53 @@ FXIMPLEMENT_ABSTRACT(GNEChange, FXCommand, nullptr, 0)
 
 GNEChange::GNEChange(bool forward) :
     myNet(nullptr),
-    myForward(forward) {}
+    myForward(forward),
+    myParentEdges(myEmptyEdges),
+    myParentLanes(myEmptyLanes),
+    myParentShapes(myEmptyShapes),
+    myParentAdditionals(myEmptyAdditionals),
+    myParentDemandElements(myEmptyDemandElements),
+    myParentGenericDatas(myEmptyGenericDatas),
+    myChildEdges(myEmptyEdges),
+    myChildLanes(myEmptyLanes),
+    myChildShapes(myEmptyShapes),
+    myChildAdditionals(myEmptyAdditionals),
+    myChildDemandElements(myEmptyDemandElements),
+    myChildGenericDatas(myEmptyGenericDatas) {}
 
 
 GNEChange::GNEChange(GNENet* net, bool forward) :
     myNet(net),
-    myForward(forward) {}
+    myForward(forward),
+    myParentEdges(myEmptyEdges),
+    myParentLanes(myEmptyLanes),
+    myParentShapes(myEmptyShapes),
+    myParentAdditionals(myEmptyAdditionals),
+    myParentDemandElements(myEmptyDemandElements),
+    myParentGenericDatas(myEmptyGenericDatas),
+    myChildEdges(myEmptyEdges),
+    myChildLanes(myEmptyLanes),
+    myChildShapes(myEmptyShapes),
+    myChildAdditionals(myEmptyAdditionals),
+    myChildDemandElements(myEmptyDemandElements),
+    myChildGenericDatas(myEmptyGenericDatas) {}
 
 
 GNEChange::GNEChange(GNENet* net, GNEHierarchicalParentElements* parents, GNEHierarchicalChildElements* childs, bool forward) :
     myNet(net),
-    myForward(forward) {}
+    myForward(forward),
+    myParentEdges(parents->getParentEdges()),
+    myParentLanes(parents->getParentLanes()),
+    myParentShapes(parents->getParentShapes()),
+    myParentAdditionals(parents->getParentAdditionals()),
+    myParentDemandElements(parents->getParentDemandElements()),
+    myParentGenericDatas(parents->getParentGenericDatas()),
+    myChildEdges(childs->getChildEdges()),
+    myChildLanes(childs->getChildLanes()),
+    myChildShapes(childs->getChildShapes()),
+    myChildAdditionals(childs->getChildAdditionals()),
+    myChildDemandElements(childs->getChildDemandElements()),
+    myChildGenericDatas(childs->getChildGenericDataElements()) {}
 
 
 GNEChange::~GNEChange() {}

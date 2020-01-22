@@ -40,17 +40,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, nullptr, 0)
 
 GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
     GNEChange(additional->getViewNet()->getNet(), additional, additional, forward),
-    myAdditional(additional),
-    myParentEdges(myAdditional->getParentEdges()),
-    myParentLanes(myAdditional->getParentLanes()),
-    myParentShapes(myAdditional->getParentShapes()),
-    myParentAdditionals(myAdditional->getParentAdditionals()),
-    myParentDemandElements(myAdditional->getParentDemandElements()),
-    myChildEdges(myAdditional->getChildEdges()),
-    myChildLanes(myAdditional->getChildLanes()),
-    myChildShapes(myAdditional->getChildShapes()),
-    myChildAdditionals(myAdditional->getChildAdditionals()),
-    myChildDemandElements(myAdditional->getChildDemandElements()) {
+    myAdditional(additional) {
     myAdditional->incRef("GNEChange_Additional");
 }
 

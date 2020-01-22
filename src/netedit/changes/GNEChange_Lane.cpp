@@ -34,12 +34,21 @@
 // ===========================================================================
 FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, nullptr, 0)
 
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
+GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs):
+    GNEChange(edge->getNet(), true),
+    myEdge(edge),
+    myLane(nullptr),
+    myLaneAttrs(laneAttrs),
+    myRecomputeConnections(true) {
+    myEdge->incRef("GNEChange_Lane");
+}
 
-/// @brief constructor for creating an edge
+
 GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections):
     GNEChange(edge->getNet(), lane, lane, forward),
     myEdge(edge),
@@ -47,19 +56,7 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane&
     myLaneAttrs(laneAttrs),
     myRecomputeConnections(recomputeConnections) {
     myEdge->incRef("GNEChange_Lane");
-    if (myLane) {
-        // non-zero pointer is passsed in case of removal or duplication
-        myLane->incRef("GNEChange_Lane");
-        // Save hierarchy elements of lane
-        myParentShapes = myLane->getParentShapes();
-        myParentAdditionals = myLane->getParentAdditionals();
-        myParentDemandElements = myLane->getParentDemandElements();
-        myChildShapes = myLane->getChildShapes();
-        myChildAdditionals = myLane->getChildAdditionals();
-        myChildDemandElements = myLane->getChildDemandElements();
-    } else {
-        assert(forward);
-    }
+    myLane->incRef("GNEChange_Lane");
 }
 
 

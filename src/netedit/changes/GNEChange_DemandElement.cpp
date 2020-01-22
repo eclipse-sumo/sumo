@@ -43,17 +43,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DemandElement, GNEChange, nullptr, 0)
 GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward) :
     GNEChange(demandElement->getViewNet()->getNet(), demandElement, demandElement, forward),
     myDemandElement(demandElement),
-    myEdgePath(demandElement->getPathEdges()),
-    myParentEdges(demandElement->getParentEdges()),
-    myParentLanes(demandElement->getParentLanes()),
-    myParentShapes(demandElement->getParentShapes()),
-    myParentAdditionals(demandElement->getParentAdditionals()),
-    myParentDemandElements(demandElement->getParentDemandElements()),
-    myChildEdges(demandElement->getChildEdges()),
-    myChildLanes(demandElement->getChildLanes()),
-    myChildShapes(demandElement->getChildShapes()),
-    myChildAdditionals(demandElement->getChildAdditionals()),
-    myChildDemandElements(demandElement->getChildDemandElements()) {
+    myEdgePath(demandElement->getPathEdges()) {
     myDemandElement->incRef("GNEChange_DemandElement");
 }
 

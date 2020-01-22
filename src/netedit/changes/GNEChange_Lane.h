@@ -45,11 +45,17 @@ class GNEChange_Lane : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_Lane)
 
 public:
-    /**@brief Constructor for creating/deleting an edge
+    /**@brief Constructor for creating a lane
      * @param[in] edge The edge on which to apply changes
-     * @param[in] lane The lane to be deleted or 0 if a lane should be created
-     * @param[in] laneAttrs The attributes of the lane to be created/deleted
-     * @param[in] forward Whether to create/delete (true/false)
+     * @param[in] laneAttrs The attributes of the lane to be created/
+     */
+    GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs);
+
+    /**@brief Constructor for deleting a lane
+     * @param[in] edge The edge on which to apply changes
+     * @param[in] lane The lane to be deleted
+     * @param[in] laneAttrs The attributes of the lane to be deleted
+     * @param[in] forward Whether to delete (true/false)
      * @param[in] recomputeConnections Whether to recompute all connections for the affected edge
      */
     GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections = true);
@@ -85,22 +91,4 @@ private:
 
     /// @bried whether to recompute connection when adding a new lane
     bool myRecomputeConnections;
-
-    /// @brief vector of parent shapes
-    std::vector<GNEShape*> myParentShapes;
-
-    /// @brief vector of parent additionals
-    std::vector<GNEAdditional*> myParentAdditionals;
-
-    /// @brief vector of parent demand elements
-    std::vector<GNEDemandElement*> myParentDemandElements;
-
-    /// @brief vector of child shapes
-    std::vector<GNEShape*> myChildShapes;
-
-    /// @brief vector of child additional
-    std::vector<GNEAdditional*> myChildAdditionals;
-
-    /// @brief vector of child demand elements
-    std::vector<GNEDemandElement*> myChildDemandElements;
 };
