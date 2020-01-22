@@ -747,8 +747,8 @@ elements to the configuration:
 # Multiple Views
 
 Using the (![Image:NewView.gif](images/NewView.gif
-"Image:newView.gif"))-button, multple viewing windows onto the same
-simulation can be opened. The visualization settings can be set
+"Image:newView.gif"))-button, multiple viewing windows can be opened onto the same
+simulation. The visualization settings can be set
 independently for each view. The viewing windows can be managed using
 the *Windows* menu in the main menu bar.
 
