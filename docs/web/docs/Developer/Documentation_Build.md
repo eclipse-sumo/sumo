@@ -39,3 +39,4 @@ The HTML pages are being build using the Markdown files. The final pages are ava
 # Static HTML site generation
 
 The static HTML site generation is explained here: <https://github.com/eclipse/sumo/blob/master/docs/web/README.md>
+It can be triggered (from within the DLR network) via <https://sumo.dlr.de/generate-documentation.php>.
