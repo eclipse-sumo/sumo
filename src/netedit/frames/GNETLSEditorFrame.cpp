@@ -289,7 +289,8 @@ GNETLSEditorFrame::onCmdDefCreate(FXObject*, FXSelector, void*) {
         if (junction->getAttribute(SUMO_ATTR_TYPE) != toString(NODETYPE_TRAFFIC_LIGHT)) {
             junction->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_TRAFFIC_LIGHT), myViewNet->getUndoList());
         } else {
-            myViewNet->getUndoList()->add(new GNEChange_TLS(junction, nullptr, true, true), true);
+            const std::string tlID = junction->getNBNode()->isTLControlled() ? junction->getAttribute(SUMO_ATTR_TLID) : junction->getID();
+            myViewNet->getUndoList()->add(new GNEChange_TLS(junction, nullptr, true, true, tlID), true);
         }
         editJunction(junction);
     } else {
