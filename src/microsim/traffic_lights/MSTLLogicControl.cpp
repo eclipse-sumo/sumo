@@ -683,7 +683,7 @@ MSTLLogicControl::switchTo(const std::string& id, const std::string& programID) 
 
 void
 MSTLLogicControl::addWAUT(SUMOTime refTime, const std::string& id,
-                          const std::string& startProg) {
+                          const std::string& startProg, SUMOTime period) {
     // check whether the waut was already defined
     if (myWAUTs.find(id) != myWAUTs.end()) {
         // report an error if so
@@ -693,6 +693,7 @@ MSTLLogicControl::addWAUT(SUMOTime refTime, const std::string& id,
     w->id = id;
     w->refTime = refTime;
     w->startProg = startProg;
+    w->period = period;
     myWAUTs[id] = w;
 }
 
@@ -706,9 +707,13 @@ MSTLLogicControl::addWAUTSwitch(const std::string& wautid,
         throw InvalidArgument("Waut '" + wautid + "' was not yet defined.");
     }
     // build and save the waut switch definition
+    WAUT* waut = myWAUTs[wautid];
     WAUTSwitch s;
     s.to = to;
-    s.when = (myWAUTs[wautid]->refTime + when) % 86400000;
+    s.when = (waut->refTime + when);
+    if (waut->period > 0) {
+        s.when = s.when % waut->period;
+    }
     myWAUTs[wautid]->switches.push_back(s);
 }
 
@@ -789,7 +794,8 @@ SUMOTime
 MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand& cmd) {
     const std::string& wautid = cmd.getWAUTID();
     int& index = cmd.getIndex();
-    WAUTSwitch s = myWAUTs[wautid]->switches[index];
+    WAUT* waut = myWAUTs[wautid];
+    WAUTSwitch s = waut->switches[index];
     for (std::vector<WAUTJunction>::iterator i = myWAUTs[wautid]->junctions.begin(); i != myWAUTs[wautid]->junctions.end(); ++i) {
         // get the current program and the one to instantiate
         TLSLogicVariants* vars = myLogics.find((*i).junction)->second;
@@ -813,8 +819,15 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand& cmd) {
         myCurrentlySwitched.push_back(p);
     }
     index++;
-    if (index == static_cast<int>(myWAUTs[wautid]->switches.size())) {
-        return 0;
+    if (index == (int)waut->switches.size()) {
+        if (waut->period <= 0) {
+            return 0;
+        } else {
+            index = 0; // start over
+            for (WAUTSwitch& ws : waut->switches) {
+                ws.when += waut->period;
+            }
+        }
     }
     return myWAUTs[wautid]->switches[index].when - MSNet::getInstance()->getCurrentTimeStep();
 }

@@ -585,15 +585,16 @@ NLHandler::openWAUT(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
         return;
     }
-    SUMOTime t = attrs.getOptSUMOTimeReporting(SUMO_ATTR_REF_TIME, id.c_str(), ok, 0);
-    std::string pro = attrs.get<std::string>(SUMO_ATTR_START_PROG, id.c_str(), ok);
+    SUMOTime refTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_REF_TIME, id.c_str(), ok, 0);
+    SUMOTime period = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok, TIME2STEPS(24 * 3600));
+    std::string startProg = attrs.get<std::string>(SUMO_ATTR_START_PROG, id.c_str(), ok);
     if (!ok) {
         myCurrentIsBroken = true;
     }
     if (!myCurrentIsBroken) {
         myCurrentWAUTID = id;
         try {
-            myJunctionControlBuilder.getTLLogicControlToUse().addWAUT(t, id, pro);
+            myJunctionControlBuilder.getTLLogicControlToUse().addWAUT(refTime, id, startProg, period);
         } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
             myCurrentIsBroken = true;

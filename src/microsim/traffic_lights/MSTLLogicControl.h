@@ -303,10 +303,11 @@ public:
      * @param[in] refTime The reference time of the WAUT
      * @param[in] id The ID of the WAUT
      * @param[in] startProg The begin program of the WAUT
+     * @param[in] period The period with which to repeat the switches
      * @exception InvalidArgument If the id is already used by another WAUT
      */
     void addWAUT(SUMOTime refTime, const std::string& id,
-                 const std::string& startProg);
+                 const std::string& startProg, SUMOTime period);
 
 
     /** @brief Adds a WAUT switch step to a previously built WAUT
@@ -503,6 +504,8 @@ protected:
         std::string startProg;
         /// @brief The reference time (offset to the switch times)
         SUMOTime refTime;
+        /// @brief The period with which to repeat switches
+        SUMOTime period;
         /// @brief The list of switches to be done by the WAUT
         std::vector<WAUTSwitch> switches;
         /// @brief The list of switches assigned to the WAUT

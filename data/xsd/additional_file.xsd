@@ -244,8 +244,9 @@
             <xsd:element name="wautSwitch" type="wautSwitchType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="idType" use="required"/>
-        <xsd:attribute name="refTime" type="xsd:int" use="required"/>
+        <xsd:attribute name="refTime" type="xsd:int"/>
         <xsd:attribute name="startProg" type="xsd:string" use="required"/>
+        <xsd:attribute name="period" type="timeType"/>
     </xsd:complexType>
 
     <xsd:complexType name="wautSwitchType">
