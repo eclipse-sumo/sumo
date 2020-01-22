@@ -45,7 +45,7 @@ const double GNEStoppingPlace::myCircleInText = 1.6;
 GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double startPos, double endPos,
                                    int parametersSet, const std::string& name, bool friendlyPosition, bool blockMovement) :
     GNEAdditional(id, viewNet, type, tag, name, blockMovement, 
-        {}, {lane}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {lane}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     myStartPosition(startPos),
     myEndPosition(endPos),
     myParametersSet(parametersSet),

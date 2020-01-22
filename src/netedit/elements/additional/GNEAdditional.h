@@ -53,11 +53,12 @@ public:
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] name Additional name
      * @param[in] block movement enable or disable additional movement
-     * @param[in] parentEdges vector of parent edges
-     * @param[in] parentLanes vector of parent lanes
-     * @param[in] parentShapes vector of parent shapes
-     * @param[in] parentAdditionals vector of parent additionals
-     * @param[in] childDemandElements vector of demandElement parents
+     * @param[in] edgeParents vector of edge parents
+     * @param[in] laneParents vector of lane parents
+     * @param[in] shapeParents vector of shape parents
+     * @param[in] additionalParents vector of additional parents
+     * @param[in] demandElementParents vector of demand element parents
+     * @param[in] genericDataParents vector of generic data parents
      * @param[in] edgeChildren vector of edge children
      * @param[in] laneChildren vector of lane children
      * @param[in] shapeChildren vector of shape children
@@ -66,11 +67,12 @@ public:
      * @param[in] genericDataChildren vector of genericData children
      */
     GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEEdge*>& parentEdges,
-        const std::vector<GNELane*>& parentLanes,
-        const std::vector<GNEShape*>& parentShapes,
-        const std::vector<GNEAdditional*>& parentAdditionals,
-        const std::vector<GNEDemandElement*>& parentDemandElements,
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
         const std::vector<GNEEdge*>& edgeChildren,
         const std::vector<GNELane*>& laneChildren,
         const std::vector<GNEShape*>& shapeChildren,
@@ -85,11 +87,12 @@ public:
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] name Additional name
      * @param[in] block movement enable or disable additional movement
-     * @param[in] parentEdges vector of parent edges
-     * @param[in] parentLanes vector of parent lanes
-     * @param[in] parentShapes vector of parent shapes
-     * @param[in] parentAdditionals vector of parent additionals
-     * @param[in] childDemandElements vector of demandElement parents
+     * @param[in] edgeParents vector of edge parents
+     * @param[in] laneParents vector of lane parents
+     * @param[in] shapeParents vector of shape parents
+     * @param[in] additionalParents vector of additional parents
+     * @param[in] demandElementParents vector of demand element parents
+     * @param[in] genericDataParents vector of generic data parents
      * @param[in] edgeChildren vector of edge children
      * @param[in] laneChildren vector of lane children
      * @param[in] shapeChildren vector of shape children
@@ -98,11 +101,12 @@ public:
      * @param[in] genericDataChildren vector of genericData children
     */
     GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEEdge*>& parentEdges,
-        const std::vector<GNELane*>& parentLanes,
-        const std::vector<GNEShape*>& parentShapes,
-        const std::vector<GNEAdditional*>& parentAdditionals,
-        const std::vector<GNEDemandElement*>& parentDemandElements,
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
         const std::vector<GNEEdge*>& edgeChildren,
         const std::vector<GNELane*>& laneChildren,
         const std::vector<GNEShape*>& shapeChildren,

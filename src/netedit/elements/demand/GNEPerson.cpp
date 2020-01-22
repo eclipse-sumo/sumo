@@ -169,7 +169,7 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNEViewNet* viewNet, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
     GNEDemandElement(personparameters.id, viewNet, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
-        {}, {}, {}, {}, {pType}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {pType}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter(personparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();

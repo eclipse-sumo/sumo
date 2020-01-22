@@ -36,7 +36,7 @@ GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouter
         {}, {}, {}, 
             {rerouterIntervalDialog->getEditedAdditional(), 
              rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAttributeCarriers().additionals.at(SUMO_TAG_PARKING_AREA).begin()->second}, 
-        {}, {}, {}, {}, {}, {}, {}) {
+         {}, {}, {}, {}, {}, {}, {}, {}) {
     // fill route type with default values
     setDefaultValues();
 }
@@ -44,7 +44,7 @@ GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouter
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
     GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", false,
-        {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {}, {}, {}, {}, {}),
     myProbability(probability),
     myVisible(visible) {
 }

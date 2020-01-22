@@ -23,6 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/additional/GNEShape.h>
+#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
@@ -44,13 +45,15 @@ GNEHierarchicalParentElements::GNEHierarchicalParentElements(GNEAttributeCarrier
         const std::vector<GNELane*>& parentLanes,
         const std::vector<GNEShape*>& parentShapes,
         const std::vector<GNEAdditional*>& parentAdditionals,
-        const std::vector<GNEDemandElement*>& parentDemandElements) :
+        const std::vector<GNEDemandElement*>& parentDemandElements,
+        const std::vector<GNEGenericData*>& parentGenericDatas) :
     myParentConnections(this),
     myParentEdges(parentEdges),
     myParentLanes(parentLanes),
     myParentShapes(parentShapes),
     myParentAdditionals(parentAdditionals),
     myParentDemandElements(parentDemandElements),
+    myParentGenericDatas(parentGenericDatas),
     myAC(AC) {
 }
 
@@ -113,6 +116,35 @@ GNEHierarchicalParentElements::removeParentDemandElement(GNEDemandElement* deman
 const std::vector<GNEDemandElement*>&
 GNEHierarchicalParentElements::getParentDemandElements() const {
     return myParentDemandElements;
+}
+
+
+void
+GNEHierarchicalParentElements::addParentGenericData(GNEGenericData* genericData) {
+    // First check that GenericData wasn't already inserted
+    if (std::find(myParentGenericDatas.begin(), myParentGenericDatas.end(), genericData) != myParentGenericDatas.end()) {
+        throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' was already inserted in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myParentGenericDatas.push_back(genericData);
+    }
+}
+
+
+void
+GNEHierarchicalParentElements::removeParentGenericData(GNEGenericData* genericData) {
+    // First check that GenericData was already inserted
+    auto it = std::find(myParentGenericDatas.begin(), myParentGenericDatas.end(), genericData);
+    if (it == myParentGenericDatas.end()) {
+        throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myParentGenericDatas.erase(it);
+    }
+}
+
+
+const std::vector<GNEGenericData*>&
+GNEHierarchicalParentElements::getParentGenericDatas() const {
+    return myParentGenericDatas;
 }
 
 

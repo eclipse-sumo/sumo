@@ -46,7 +46,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
     GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
     GNEShape(net, SUMO_TAG_POLY, movementBlocked, 
-        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     myNetworkElementShapeEdited(nullptr),
     myBlockShape(shapeBlocked),
     myClosedShape(shape.front() == shape.back()),

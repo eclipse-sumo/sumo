@@ -34,7 +34,7 @@
 
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name, blockMovement,
-        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     myPosition(pos),
     myFreq(freq),
     myFilename(filename),

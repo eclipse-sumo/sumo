@@ -34,7 +34,7 @@ class GNEAdditional;
 class GNENetworkElement;
 class GNEDemandElement;
 class GNEShape;
-class GNEConnection;
+class GNEGenericData;
 
 // ===========================================================================
 // class definitions
@@ -58,13 +58,15 @@ public:
      * @param[in] parentShapes vector of parent shapes
      * @param[in] parentAdditionals vector of parent additionals
      * @param[in] parentDemandElements vector of parent demand elements
+     * @param[in] parentGenericData vector of parent generic data elements
      */
     GNEHierarchicalParentElements(GNEAttributeCarrier* AC,
-                                  const std::vector<GNEEdge*>& parentEdges,
-                                  const std::vector<GNELane*>& parentLanes,
-                                  const std::vector<GNEShape*>& parentShapes,
-                                  const std::vector<GNEAdditional*>& parentAdditionals,
-                                  const std::vector<GNEDemandElement*>& parentDemandElements);
+        const std::vector<GNEEdge*>& parentEdges,
+        const std::vector<GNELane*>& parentLanes,
+        const std::vector<GNEShape*>& parentShapes,
+        const std::vector<GNEAdditional*>& parentAdditionals,
+        const std::vector<GNEDemandElement*>& parentDemandElements,
+        const std::vector<GNEGenericData*>& parentGenericDatas);
 
     /// @brief Destructor
     ~GNEHierarchicalParentElements();
@@ -146,6 +148,19 @@ public:
 
     /// @brief get parent demand elements
     const std::vector<GNEDemandElement*>& getParentDemandElements() const;
+
+    /// @}
+
+    /// @name members and functions related to parent generic data elements
+    /// @{
+    /// @brief add parent demand element
+    void addParentGenericData(GNEGenericData* genericData);
+
+    /// @brief remove parent demand element
+    void removeParentGenericData(GNEGenericData* genericData);
+
+    /// @brief get parent demand elements
+    const std::vector<GNEGenericData*>& getParentGenericDatas() const;
 
     /// @}
 
@@ -231,23 +246,26 @@ protected:
     GNEGeometry::ParentConnections myParentConnections;
 
 private:
-    /// @brief list of parent edges of this element
+    /// @brief vector of parent edges of this element
     std::vector<GNEEdge*> myParentEdges;
 
-    /// @brief list of edges used in Flow/Trips/PersonTrips
+    /// @brief vector of edges used in Flow/Trips/PersonTrips
     std::vector<GNEEdge*> myRouteEdges;
 
-    /// @brief list of parent lanes of this element
+    /// @brief vector of parent lanes of this element
     std::vector<GNELane*> myParentLanes;
 
-    /// @brief list of parent shapes of this element
+    /// @brief vector of parent shapes of this element
     std::vector<GNEShape*> myParentShapes;
 
-    /// @brief list of parent additionals of this element
+    /// @brief vector of parent additionals of this element
     std::vector<GNEAdditional*> myParentAdditionals;
 
-    /// @brief list of demand elements parents of this element
+    /// @brief vector of demand elements parents of this element
     std::vector<GNEDemandElement*> myParentDemandElements;
+    
+    /// @brief vector of generic datas parents of this element
+    std::vector<GNEGenericData*> myParentGenericDatas;
 
     /// @brief pointer to AC (needed to avoid diamond problem)
     GNEAttributeCarrier* myAC;
