@@ -18,10 +18,8 @@ jobs:
     strategy:
       matrix:
         python-version: [3.5.4, 3.6.8, 3.7.6, 3.8.1]
-        architecture: [x86, x64]
 
     steps:
-    
     - name: Cloning SUMO
       uses: actions/checkout@v2
       with:
@@ -43,7 +41,7 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }} 
-        architecture: ${{ matrix.architecture }}
+        architecture: x64
       
     - name: Installing Python Wheel
       run: python -m pip install wheel
