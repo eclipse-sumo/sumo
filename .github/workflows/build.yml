@@ -1,4 +1,4 @@
-name: Standard Build
+name: build
 
 on: 
   push:                 # run on push events, 
