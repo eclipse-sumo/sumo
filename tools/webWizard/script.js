@@ -431,6 +431,7 @@ on("ready", function(){
             duration: parseInt(elem("#duration").value),
             publicTransport: elem("#publicTransport").checked,
             leftHand: elem("#leftHand").checked,
+            decal: elem("#decal").checked,
             vehicles: {}
         };
 

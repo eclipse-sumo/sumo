@@ -34,6 +34,7 @@ import osmGet
 import osmBuild
 import randomTrips
 import ptlines2flows
+import tileGet
 import sumolib  # noqa
 from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
@@ -257,6 +258,24 @@ class Builder(object):
             ]
             ptlines2flows.main(ptlines2flows.get_options(ptOptions))
 
+        if self.data["decal"]:
+            self.report("Downloading background images")
+            tileOptions = [
+                "-n", self.files["net"],
+                "-t", "100",
+                "-d", "background_images",
+                "-l", "-300",
+            ]
+            try:
+                os.chdir(self.tmp)
+                os.mkdir("background_images")
+                tileGet.get(tileOptions)
+                self.report("Success.")
+            except:
+                os.chdir(self.tmp)
+                shutil.rmtree("background_images", ignore_errors=True)
+                self.report("Error while downloading background images")
+
         if self.data["vehicles"] or ptOptions:
             # routenames stores all routefiles and will join the items later, will
             # be used by sumo-gui
@@ -339,7 +358,16 @@ class Builder(object):
 
         self.filename("guisettings", ".view.xml")
         with open(self.files["guisettings"], 'w') as f:
-            f.write("""
+            if self.data["decal"]:
+                f.write("""
+<viewsettings>
+    <scheme name="real world"/>
+    <delay value="20"/>
+    <include href="background_images/settings.xml"/>
+</viewsettings>
+""")
+            else:
+                f.write("""
 <viewsettings>
     <scheme name="real world"/>
     <delay value="20"/>
