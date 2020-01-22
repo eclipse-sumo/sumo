@@ -20,15 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <fx.h>
-#include <utils/foxtools/fxexdefs.h>
 #include "GNEChange.h"
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class NBTrafficLightDefinition;
-class GNEJunction;
 
 // ===========================================================================
 // class definitions

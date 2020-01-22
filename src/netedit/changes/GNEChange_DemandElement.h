@@ -23,18 +23,6 @@
 #include "GNEChange.h"
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNEViewNet;
-class GNEEdge;
-class GNELane;
-class GNEShape;
-class GNEAdditional;
-class GNEDemandElement;
-class GNEXMLChild;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**

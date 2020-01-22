@@ -20,20 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <fx.h>
-#include <utils/foxtools/fxexdefs.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 #include "GNEChange.h"
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEAttributeCarrier;
-class GNENetworkElement;
-class GNEAdditional;
-class GNEDemandElement;
-class GNEShape;
-class GNENet;
 
 // ===========================================================================
 // class definitions

@@ -20,11 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/elements/network/GNELane.h>
-#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/additional/GNEShape.h>
-#include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/demand/GNEDemandElement.h>
 
 #include "GNEChange_Shape.h"
 
@@ -56,38 +52,8 @@ GNEChange_Shape::~GNEChange_Shape() {
             myNet->removeGLObjectFromGrid(dynamic_cast<GUIGlObject*>(myShape));
             // remove polygon from container
             myNet->myPolygons.remove(myShape->getID(), false);
-            // Remove element from parent elements
-            for (const auto& i : myParentEdges) {
-                i->removeChildShape(myShape);
-            }
-            for (const auto& i : myParentLanes) {
-                i->removeChildShape(myShape);
-            }
-            for (const auto& i : myParentShapes) {
-                i->removeChildShape(myShape);
-            }
-            for (const auto& i : myParentAdditionals) {
-                i->removeChildShape(myShape);
-            }
-            for (const auto& i : myParentDemandElements) {
-                i->removeChildShape(myShape);
-            }
-            // Remove element from child elements
-            for (const auto& i : myChildEdges) {
-                i->removeParentShape(myShape);
-            }
-            for (const auto& i : myChildLanes) {
-                i->removeParentShape(myShape);
-            }
-            for (const auto& i : myChildShapes) {
-                i->removeParentShape(myShape);
-            }
-            for (const auto& i : myChildAdditionals) {
-                i->removeParentShape(myShape);
-            }
-            for (const auto& i : myChildDemandElements) {
-                i->removeParentShape(myShape);
-            }
+            // Remove element from parents and children
+            removeShape(myShape);
         } else if (myNet->retrievePOI(myShape->getID(), false) != nullptr) {
             // show extra information for tests
             WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
@@ -97,38 +63,8 @@ GNEChange_Shape::~GNEChange_Shape() {
             }
             // remove POI from container
             myNet->myPOIs.remove(myShape->getID(), false);
-            // Remove element from parent elements
-            for (const auto& i : myParentEdges) {
-                i->removeChildShape(myShape);
-            }
-            for (const auto& i : myParentLanes) {
-                i->removeChildShape(myShape);
-            }
-            for (const auto& i : myParentShapes) {
-                i->removeChildShape(myShape);
-            }
-            for (const auto& i : myParentAdditionals) {
-                i->removeChildShape(myShape);
-            }
-            for (const auto& i : myParentDemandElements) {
-                i->removeChildShape(myShape);
-            }
-            // Remove element from child elements
-            for (const auto& i : myChildEdges) {
-                i->removeParentShape(myShape);
-            }
-            for (const auto& i : myChildLanes) {
-                i->removeParentShape(myShape);
-            }
-            for (const auto& i : myChildShapes) {
-                i->removeParentShape(myShape);
-            }
-            for (const auto& i : myChildAdditionals) {
-                i->removeParentShape(myShape);
-            }
-            for (const auto& i : myChildDemandElements) {
-                i->removeParentShape(myShape);
-            }
+            // Remove element from parents and children
+            removeShape(myShape);
         }
         // show extra information for tests
         WRITE_DEBUG("delete " + myShape->getTagStr() + " '" + myShape->getID() + "' in ~GNEChange_Shape()");
@@ -144,75 +80,15 @@ GNEChange_Shape::undo() {
         WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from viewNet");
         // remove shape from net
         myNet->removeShape(myShape, false);
-        // Remove element from parent elements
-        for (const auto& i : myParentEdges) {
-            i->removeChildShape(myShape);
-        }
-        for (const auto& i : myParentLanes) {
-            i->removeChildShape(myShape);
-        }
-        for (const auto& i : myParentShapes) {
-            i->removeChildShape(myShape);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->removeChildShape(myShape);
-        }
-        for (const auto& i : myParentDemandElements) {
-            i->removeChildShape(myShape);
-        }
-        // Remove element from child elements
-        for (const auto& i : myChildEdges) {
-            i->removeParentShape(myShape);
-        }
-        for (const auto& i : myChildLanes) {
-            i->removeParentShape(myShape);
-        }
-        for (const auto& i : myChildShapes) {
-            i->removeParentShape(myShape);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->removeParentShape(myShape);
-        }
-        for (const auto& i : myChildDemandElements) {
-            i->removeParentShape(myShape);
-        }
+        // Remove element from parents and children
+        removeShape(myShape);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myShape->getTagStr() + " '" + myShape->getID() + "' into viewNet");
         // Add shape in net
         myNet->insertShape(myShape, false);
-        // add element in parent elements
-        for (const auto& i : myParentEdges) {
-            i->addChildShape(myShape);
-        }
-        for (const auto& i : myParentLanes) {
-            i->addChildShape(myShape);
-        }
-        for (const auto& i : myParentShapes) {
-            i->addChildShape(myShape);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->addChildShape(myShape);
-        }
-        for (const auto& i : myParentDemandElements) {
-            i->addChildShape(myShape);
-        }
-        // add element in child elements
-        for (const auto& i : myChildEdges) {
-            i->addParentShape(myShape);
-        }
-        for (const auto& i : myChildLanes) {
-            i->addParentShape(myShape);
-        }
-        for (const auto& i : myChildShapes) {
-            i->addParentShape(myShape);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->addParentShape(myShape);
-        }
-        for (const auto& i : myChildDemandElements) {
-            i->addParentShape(myShape);
-        }
+        // Add element in parents and children
+        addShape(myShape);
     }
 }
 
@@ -224,75 +100,15 @@ GNEChange_Shape::redo() {
         WRITE_DEBUG("Adding " + myShape->getTagStr() + " '" + myShape->getID() + "' into viewNet");
         // Add shape in net
         myNet->insertShape(myShape, false);
-        // add element in parent elements
-        for (const auto& i : myParentEdges) {
-            i->addChildShape(myShape);
-        }
-        for (const auto& i : myParentLanes) {
-            i->addChildShape(myShape);
-        }
-        for (const auto& i : myParentShapes) {
-            i->addChildShape(myShape);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->addChildShape(myShape);
-        }
-        for (const auto& i : myParentDemandElements) {
-            i->addChildShape(myShape);
-        }
-        // add element in child elements
-        for (const auto& i : myChildEdges) {
-            i->addParentShape(myShape);
-        }
-        for (const auto& i : myChildLanes) {
-            i->addParentShape(myShape);
-        }
-        for (const auto& i : myChildShapes) {
-            i->addParentShape(myShape);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->addParentShape(myShape);
-        }
-        for (const auto& i : myChildDemandElements) {
-            i->addParentShape(myShape);
-        }
+        // Add element in parents and children
+        addShape(myShape);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from viewNet");
         // remove shape from net
         myNet->removeShape(myShape, false);
-        // Remove element from parent elements
-        for (const auto& i : myParentEdges) {
-            i->removeChildShape(myShape);
-        }
-        for (const auto& i : myParentLanes) {
-            i->removeChildShape(myShape);
-        }
-        for (const auto& i : myParentShapes) {
-            i->removeChildShape(myShape);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->removeChildShape(myShape);
-        }
-        for (const auto& i : myParentDemandElements) {
-            i->removeChildShape(myShape);
-        }
-        // Remove element from child elements
-        for (const auto& i : myChildEdges) {
-            i->removeParentShape(myShape);
-        }
-        for (const auto& i : myChildLanes) {
-            i->removeParentShape(myShape);
-        }
-        for (const auto& i : myChildShapes) {
-            i->removeParentShape(myShape);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->removeParentShape(myShape);
-        }
-        for (const auto& i : myChildDemandElements) {
-            i->removeParentShape(myShape);
-        }
+        // Remove element from parents and children
+        removeShape(myShape);
     }
 }
 

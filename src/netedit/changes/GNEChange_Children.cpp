@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2019
 ///
-// A network change used to modify sorting of hierarchical element childrens
+// A network change used to modify sorting of hierarchical element children
 /****************************************************************************/
 #include <config.h>
 
@@ -96,7 +96,7 @@ GNEChange_Children::undo() {
             myParentDemandElement->myChildDemandElements = myEditedChildElements;
         }
     }
-    // Requiere always save childrens
+    // Requiere always save children
     myNet->requireSaveDemandElements(true);
 }
 
@@ -130,7 +130,7 @@ GNEChange_Children::redo() {
             myParentDemandElement->myChildDemandElements = myOriginalChildElements;
         }
     }
-    // Requiere always save childrens
+    // Requiere always save children
     myNet->requireSaveDemandElements(true);
 }
 

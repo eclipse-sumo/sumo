@@ -20,11 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/elements/network/GNELane.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/additional/GNEShape.h>
 #include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/GNEViewNet.h>
 
 #include "GNEChange_Additional.h"
@@ -53,39 +49,10 @@ GNEChange_Additional::~GNEChange_Additional() {
         WRITE_DEBUG("Deleting unreferenced " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "'");
         // make sure that additional isn't in net before removing
         if (myNet->additionalExist(myAdditional)) {
+            // delete additional from net
             myNet->deleteAdditional(myAdditional, false);
-            // Remove additional from parent elements
-            for (const auto& i : myParentEdges) {
-                i->removeChildAdditional(myAdditional);
-            }
-            for (const auto& i : myParentLanes) {
-                i->removeChildAdditional(myAdditional);
-            }
-            for (const auto& i : myParentShapes) {
-                i->removeChildAdditional(myAdditional);
-            }
-            for (const auto& i : myParentAdditionals) {
-                i->removeChildAdditional(myAdditional);
-            }
-            for (const auto& i : myParentDemandElements) {
-                i->removeChildAdditional(myAdditional);
-            }
-            // Remove additional from child elements
-            for (const auto& i : myChildEdges) {
-                i->removeParentAdditional(myAdditional);
-            }
-            for (const auto& i : myChildLanes) {
-                i->removeParentAdditional(myAdditional);
-            }
-            for (const auto& i : myChildShapes) {
-                i->removeChildAdditional(myAdditional);
-            }
-            for (const auto& i : myChildAdditionals) {
-                i->removeParentAdditional(myAdditional);
-            }
-            for (const auto& i : myChildDemandElements) {
-                i->removeParentAdditional(myAdditional);
-            }
+            // remove additional from parents and children
+            removeAdditional(myAdditional);
         }
         delete myAdditional;
     }
@@ -99,75 +66,15 @@ GNEChange_Additional::undo() {
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional from net
         myNet->deleteAdditional(myAdditional, false);
-        // Remove additional from parent elements
-        for (const auto& i : myParentEdges) {
-            i->removeChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentLanes) {
-            i->removeChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentShapes) {
-            i->removeChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->removeChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentDemandElements) {
-            i->removeChildAdditional(myAdditional);
-        }
-        // Remove additional from child elements
-        for (const auto& i : myChildEdges) {
-            i->removeParentAdditional(myAdditional);
-        }
-        for (const auto& i : myChildLanes) {
-            i->removeParentAdditional(myAdditional);
-        }
-        for (const auto& i : myChildShapes) {
-            i->removeChildAdditional(myAdditional);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->removeParentAdditional(myAdditional);
-        }
-        for (const auto& i : myChildDemandElements) {
-            i->removeParentAdditional(myAdditional);
-        }
+        // remove additional from parents and children
+        removeAdditional(myAdditional);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // insert additional into net
         myNet->insertAdditional(myAdditional);
         // add additional in parent elements
-        for (const auto& i : myParentEdges) {
-            i->addChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentLanes) {
-            i->addChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentShapes) {
-            i->addChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->addChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentDemandElements) {
-            i->addChildAdditional(myAdditional);
-        }
-        // add additional in child elements
-        for (const auto& i : myChildEdges) {
-            i->addParentAdditional(myAdditional);
-        }
-        for (const auto& i : myChildLanes) {
-            i->addParentAdditional(myAdditional);
-        }
-        for (const auto& i : myChildShapes) {
-            i->addParentAdditional(myAdditional);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->addParentAdditional(myAdditional);
-        }
-        for (const auto& i : myChildDemandElements) {
-            i->addParentAdditional(myAdditional);
-        }
+        addAdditional(myAdditional);
     }
     // Requiere always save additionals
     myNet->requireSaveAdditionals(true);
@@ -182,74 +89,14 @@ GNEChange_Additional::redo() {
         // insert additional into net
         myNet->insertAdditional(myAdditional);
         // add additional in parent elements
-        for (const auto& i : myParentEdges) {
-            i->addChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentLanes) {
-            i->addChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentShapes) {
-            i->addChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->addChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentDemandElements) {
-            i->addChildAdditional(myAdditional);
-        }
-        // add additional in child elements
-        for (const auto& i : myChildEdges) {
-            i->addParentAdditional(myAdditional);
-        }
-        for (const auto& i : myChildLanes) {
-            i->addParentAdditional(myAdditional);
-        }
-        for (const auto& i : myChildShapes) {
-            i->addParentAdditional(myAdditional);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->addParentAdditional(myAdditional);
-        }
-        for (const auto& i : myChildDemandElements) {
-            i->addParentAdditional(myAdditional);
-        }
+        addAdditional(myAdditional);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional from net
         myNet->deleteAdditional(myAdditional, false);
-        // Remove additional from parent elements
-        for (const auto& i : myParentEdges) {
-            i->removeChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentLanes) {
-            i->removeChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentShapes) {
-            i->removeChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->removeChildAdditional(myAdditional);
-        }
-        for (const auto& i : myParentDemandElements) {
-            i->removeChildAdditional(myAdditional);
-        }
-        // Remove additional from child elements
-        for (const auto& i : myChildEdges) {
-            i->removeParentAdditional(myAdditional);
-        }
-        for (const auto& i : myChildLanes) {
-            i->removeParentAdditional(myAdditional);
-        }
-        for (const auto& i : myChildShapes) {
-            i->removeChildAdditional(myAdditional);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->removeParentAdditional(myAdditional);
-        }
-        for (const auto& i : myChildDemandElements) {
-            i->removeParentAdditional(myAdditional);
-        }
+        // remove additional from parents and children
+        removeAdditional(myAdditional);
     }
     // Requiere always save additionals
     myNet->requireSaveAdditionals(true);

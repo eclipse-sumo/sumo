@@ -20,10 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/additional/GNEShape.h>
-#include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/frames/demand/GNEVehicleTypeFrame.h>
 #include <netedit/GNEViewParent.h>
@@ -56,43 +53,14 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
         WRITE_DEBUG("Deleting unreferenced " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "'");
         // make sure that element isn't in net before removing
         if (myNet->demandElementExist(myDemandElement)) {
+            // remove demand element of network
             myNet->deleteDemandElement(myDemandElement, false);
             // remove element from path
             for (const auto& i : myEdgePath) {
                 i->removePathElement(myDemandElement);
             }
-            // Remove element from parent elements
-            for (const auto& i : myParentEdges) {
-                i->removeChildDemandElement(myDemandElement);
-            }
-            for (const auto& i : myParentLanes) {
-                i->removeChildDemandElement(myDemandElement);
-            }
-            for (const auto& i : myParentShapes) {
-                i->removeChildDemandElement(myDemandElement);
-            }
-            for (const auto& i : myParentAdditionals) {
-                i->removeChildDemandElement(myDemandElement);
-            }
-            for (const auto& i : myParentDemandElements) {
-                i->removeChildDemandElement(myDemandElement);
-            }
-            // Remove element from child elements
-            for (const auto& i : myChildEdges) {
-                i->removeParentDemandElement(myDemandElement);
-            }
-            for (const auto& i : myChildLanes) {
-                i->removeParentDemandElement(myDemandElement);
-            }
-            for (const auto& i : myChildShapes) {
-                i->removeParentDemandElement(myDemandElement);
-            }
-            for (const auto& i : myChildAdditionals) {
-                i->removeParentDemandElement(myDemandElement);
-            }
-            for (const auto& i : myChildDemandElements) {
-                i->removeParentDemandElement(myDemandElement);
-            }
+            // remove demand element from parents and children
+            removeDemandElement(myDemandElement);
         }
         delete myDemandElement;
     }
@@ -110,75 +78,15 @@ GNEChange_DemandElement::undo() {
         for (const auto& i : myEdgePath) {
             i->removePathElement(myDemandElement);
         }
-        // Remove element from parent elements
-        for (const auto& i : myParentEdges) {
-            i->removeChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentLanes) {
-            i->removeChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentShapes) {
-            i->removeChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->removeChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentDemandElements) {
-            i->removeChildDemandElement(myDemandElement);
-        }
-        // Remove element from child elements
-        for (const auto& i : myChildEdges) {
-            i->removeParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildLanes) {
-            i->removeParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildShapes) {
-            i->removeParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->removeParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildDemandElements) {
-            i->removeParentDemandElement(myDemandElement);
-        }
+        // remove demand element from parents and children
+        removeDemandElement(myDemandElement);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // insert demand element into net
         myNet->insertDemandElement(myDemandElement);
-        // add element in parent elements
-        for (const auto& i : myParentEdges) {
-            i->addChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentLanes) {
-            i->addChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentShapes) {
-            i->addChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->addChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentDemandElements) {
-            i->addChildDemandElement(myDemandElement);
-        }
-        // add element in child elements
-        for (const auto& i : myChildEdges) {
-            i->addParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildLanes) {
-            i->addParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildShapes) {
-            i->addParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->addParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildDemandElements) {
-            i->addParentDemandElement(myDemandElement);
-        }
+        // add demand element in parents and children
+        addDemandElement(myDemandElement);
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
     if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
@@ -200,38 +108,8 @@ GNEChange_DemandElement::redo() {
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // insert demand element into net
         myNet->insertDemandElement(myDemandElement);
-        // add element in parent elements
-        for (const auto& i : myParentEdges) {
-            i->addChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentLanes) {
-            i->addChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentShapes) {
-            i->addChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->addChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentDemandElements) {
-            i->addChildDemandElement(myDemandElement);
-        }
-        // add element in child elements
-        for (const auto& i : myChildEdges) {
-            i->addParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildLanes) {
-            i->addParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildShapes) {
-            i->addParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->addParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildDemandElements) {
-            i->addParentDemandElement(myDemandElement);
-        }
+        // add demand element in parents and children
+        addDemandElement(myDemandElement);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
@@ -241,38 +119,8 @@ GNEChange_DemandElement::redo() {
         for (const auto& i : myEdgePath) {
             i->removePathElement(myDemandElement);
         }
-        // Remove element from parent elements
-        for (const auto& i : myParentEdges) {
-            i->removeChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentLanes) {
-            i->removeChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentShapes) {
-            i->removeChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->removeChildDemandElement(myDemandElement);
-        }
-        for (const auto& i : myParentDemandElements) {
-            i->removeChildDemandElement(myDemandElement);
-        }
-        // Remove element from child elements
-        for (const auto& i : myChildEdges) {
-            i->removeParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildLanes) {
-            i->removeParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildShapes) {
-            i->removeParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->removeParentDemandElement(myDemandElement);
-        }
-        for (const auto& i : myChildDemandElements) {
-            i->removeParentDemandElement(myDemandElement);
-        }
+        // remove demand element from parents and children
+        removeDemandElement(myDemandElement);
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
     if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {

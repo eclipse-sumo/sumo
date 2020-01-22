@@ -20,19 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <fx.h>
-#include <utils/foxtools/fxexdefs.h>
-#include <netbuild/NBEdge.h>
-
 #include "GNEChange.h"
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEEdge;
-class GNELane;
-class GNEAdditional;
-class GNEShape;
 
 // ===========================================================================
 // class definitions
@@ -77,7 +65,6 @@ public:
     /// @brief redo action
     void redo();
     /// @}
-
 
 private:
     /// @brief we need the edge because it is the target of our change commands

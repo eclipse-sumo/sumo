@@ -22,12 +22,16 @@
 #include <config.h>
 
 #include <fx.h>
-#include <vector>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBNode.h>
 #include <utils/foxtools/fxexdefs.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class GNEAttributeCarrier;
 class GNEAdditional;
 class GNEDemandElement;
 class GNEGenericData;
@@ -99,6 +103,46 @@ protected:
      */
     bool myForward;
 
+
+    /***********/
+    
+    /// @brief add given edge into parents and children
+    void addEdge(GNEEdge *edge);
+
+    /// @brief remove given edge from parents and children
+    void removeEdge(GNEEdge *edge);
+
+    /// @brief add given lane into parents and children
+    void addLane(GNELane *lane);
+
+    /// @brief remove given lane from parents and children
+    void removeLane(GNELane *lane);
+
+    /// @brief add given shape into parents and children
+    void addShape(GNEShape *shape);
+
+    /// @brief remove given shape from parents and children
+    void removeShape(GNEShape *shape);
+
+    /// @brief add given additional into parents and children
+    void addAdditional(GNEAdditional *additional);
+
+    /// @brief remove given additional from parents and children
+    void removeAdditional(GNEAdditional *additional);
+
+    /// @brief add given demand element into parents and children
+    void addDemandElement(GNEDemandElement *demandElement);
+
+    /// @brief remove given demand element from parents and children
+    void removeDemandElement(GNEDemandElement *demandElement);
+
+    /// @brief add given generic data into parents and children
+    void addGenericData(GNEGenericData *genericData);
+
+    /// @brief remove given generic data from parents and children
+    void removeGenericData(GNEGenericData *genericData);
+
+private:
     /// @brief reference to vector of parent edges
     const std::vector<GNEEdge*>& myParentEdges;
 

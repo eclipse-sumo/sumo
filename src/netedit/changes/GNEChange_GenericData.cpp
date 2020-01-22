@@ -36,19 +36,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_GenericData, GNEChange, nullptr, 0)
 
 GNEChange_GenericData::GNEChange_GenericData(GNEGenericData* genericData, bool forward) :
     GNEChange(genericData->getViewNet()->getNet(), genericData, genericData, forward),
-    myGenericData(genericData)
-    /*
-    myEdgePath(genericData->getPathEdges()),
-    myParentEdges(genericData->getParentEdges()),
-    myParentLanes(genericData->getParentLanes()),
-    myParentShapes(genericData->getParentShapes()),
-    myParentAdditionals(genericData->getParentAdditionals()),
-    myParentGenericDatas(genericData->getParentGenericDatas()),
-    myChildEdges(genericData->getChildEdges()),
-    myChildLanes(genericData->getChildLanes()),
-    myChildShapes(genericData->getChildShapes()),
-    myChildAdditionals(genericData->getChildAdditionals()),
-    myChildGenericDatas(genericData->getChildGenericDatas())*/{
+    myGenericData(genericData) {
     myGenericData->incRef("GNEChange_GenericData");
 }
 
@@ -112,84 +100,16 @@ GNEChange_GenericData::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
         // delete generic data from net
-        //myNet->deleteGenericData(myGenericData, false);
-        /*
-        // remove element from path
-        for (const auto& i : myEdgePath) {
-            i->removePathElement(myGenericData);
-        }
-        // Remove element from parent elements
-        for (const auto& i : myParentEdges) {
-            i->removeChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentLanes) {
-            i->removeChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentShapes) {
-            i->removeChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->removeChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentGenericDatas) {
-            i->removeChildGenericData(myGenericData);
-        }
-        // Remove element from child elements
-        for (const auto& i : myChildEdges) {
-            i->removeParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildLanes) {
-            i->removeParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildShapes) {
-            i->removeParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->removeParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildGenericDatas) {
-            i->removeParentGenericData(myGenericData);
-        }
-        */
+//      myNet->deleteGenericData(myGenericData, false);
+        // remove genericData from parents and children
+        removeGenericData(myGenericData);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
         // insert generic data into net
-        //myNet->insertGenericData(myGenericData);
-        /*
-        // add element in parent elements
-        for (const auto& i : myParentEdges) {
-            i->addChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentLanes) {
-            i->addChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentShapes) {
-            i->addChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->addChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentGenericDatas) {
-            i->addChildGenericData(myGenericData);
-        }
-        // add element in child elements
-        for (const auto& i : myChildEdges) {
-            i->addParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildLanes) {
-            i->addParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildShapes) {
-            i->addParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->addParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildGenericDatas) {
-            i->addParentGenericData(myGenericData);
-        }
-        */
+//      myNet->insertGenericData(myGenericData);
+        // add genericData in parents and children
+        addGenericData(myGenericData);
     }
     // Requiere always save elements
     myNet->requireSaveDataElements(true);
@@ -202,84 +122,16 @@ GNEChange_GenericData::redo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
         // insert generic data into net
-        //myNet->insertGenericData(myGenericData);
-        /*
-        // add element in parent elements
-        for (const auto& i : myParentEdges) {
-            i->addChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentLanes) {
-            i->addChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentShapes) {
-            i->addChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->addChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentGenericDatas) {
-            i->addChildGenericData(myGenericData);
-        }
-        // add element in child elements
-        for (const auto& i : myChildEdges) {
-            i->addParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildLanes) {
-            i->addParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildShapes) {
-            i->addParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->addParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildGenericDatas) {
-            i->addParentGenericData(myGenericData);
-        }
-        */
+//      myNet->insertGenericData(myGenericData);
+        // add genericData in parents and children
+        addGenericData(myGenericData);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
         // delete generic data from net
-        //myNet->deleteGenericData(myGenericData, false);
-        /*
-        // remove element from path
-        for (const auto& i : myEdgePath) {
-            i->removePathElement(myGenericData);
-        }
-        // Remove element from parent elements
-        for (const auto& i : myParentEdges) {
-            i->removeChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentLanes) {
-            i->removeChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentShapes) {
-            i->removeChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->removeChildGenericData(myGenericData);
-        }
-        for (const auto& i : myParentGenericDatas) {
-            i->removeChildGenericData(myGenericData);
-        }
-        // Remove element from child elements
-        for (const auto& i : myChildEdges) {
-            i->removeParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildLanes) {
-            i->removeParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildShapes) {
-            i->removeParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->removeParentGenericData(myGenericData);
-        }
-        for (const auto& i : myChildGenericDatas) {
-            i->removeParentGenericData(myGenericData);
-        }
-        */
+//      myNet->deleteGenericData(myGenericData, false);
+        // remove genericData from parents and children
+        removeGenericData(myGenericData);
     }
     // Requiere always save elements
     myNet->requireSaveDataElements(true);
