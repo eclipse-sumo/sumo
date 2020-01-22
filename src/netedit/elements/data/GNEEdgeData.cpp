@@ -34,7 +34,8 @@
 // ---------------------------------------------------------------------------
 
 GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent) :
-    GNEGenericData(SUMO_TAG_MEANDATA_EDGE, dataIntervalParent) {
+    GNEGenericData(SUMO_TAG_MEANDATA_EDGE, dataIntervalParent,
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}) {
 }
 
 
