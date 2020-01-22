@@ -35,8 +35,8 @@
 
 GNEClosingReroute::GNEClosingReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "", false,
-{}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}),
-myClosedEdge(rerouterIntervalDialog->getEditedAdditional()->getParentAdditionals().at(0)->getChildEdges().at(0)) {
+        {}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}, {}),
+    myClosedEdge(rerouterIntervalDialog->getEditedAdditional()->getParentAdditionals().at(0)->getChildEdges().at(0)) {
     // fill closing reroute interval with default values
     setDefaultValues();
 }
@@ -44,9 +44,9 @@ myClosedEdge(rerouterIntervalDialog->getEditedAdditional()->getParentAdditionals
 
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "", false,
-{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}, {}, {}),
-myClosedEdge(closedEdge),
-myPermissions(permissions) {
+        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}, {}, {}, {}),
+    myClosedEdge(closedEdge),
+    myPermissions(permissions) {
 }
 
 

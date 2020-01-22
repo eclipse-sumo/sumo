@@ -36,10 +36,11 @@
 
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag) :
-    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, tag, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-                 SUMOVTypeParameter(vTypeID),
-                 myDefaultVehicleType(true),
-myDefaultVehicleTypeModified(false) {
+    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, tag, 
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    SUMOVTypeParameter(vTypeID),
+    myDefaultVehicleType(true),
+    myDefaultVehicleTypeModified(false) {
     // set default vehicle class
     vehicleClass = defaultVClass;
     parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
@@ -49,10 +50,11 @@ myDefaultVehicleTypeModified(false) {
 
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag) :
-    GNEDemandElement(vTypeParameter.id, viewNet, GLO_VTYPE, tag, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(vTypeParameter),
-myDefaultVehicleType(false),
-myDefaultVehicleTypeModified(false) {
+    GNEDemandElement(vTypeParameter.id, viewNet, GLO_VTYPE, tag, 
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    SUMOVTypeParameter(vTypeParameter),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false) {
     // if we're creating a Person Type, set manually VClass
     if (tag == SUMO_TAG_PTYPE) {
         vehicleClass = SVC_PEDESTRIAN;
@@ -64,10 +66,11 @@ myDefaultVehicleTypeModified(false) {
 
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, GNEVehicleType* vTypeOriginal) :
-    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(*vTypeOriginal),
-myDefaultVehicleType(false),
-myDefaultVehicleTypeModified(false) {
+    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), 
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    SUMOVTypeParameter(*vTypeOriginal),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false) {
     // change manually the ID (to avoid to use the ID of vTypeOriginal)
     id = vTypeID;
     // init Rail Visualization Parameters

@@ -42,17 +42,16 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP, tag,
-{}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+        {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, viewNet,
-                     stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP,
-                     stopParent->getTagProperty().isPerson() ? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
-{}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+    GNEDemandElement(stopParent, viewNet, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP,
+        stopParent->getTagProperty().isPerson() ? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
+        {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 

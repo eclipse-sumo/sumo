@@ -22,6 +22,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
+#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
 #include <utils/gui/div/GLHelper.h>
@@ -34,17 +35,19 @@
 // ===========================================================================
 
 GNEHierarchicalChildElements::GNEHierarchicalChildElements(GNEAttributeCarrier* AC,
-        const std::vector<GNEEdge*>& childEdges,
-        const std::vector<GNELane*>& childLanes,
-        const std::vector<GNEShape*>& childShapes,
-        const std::vector<GNEAdditional*>& childAdditionals,
-        const std::vector<GNEDemandElement*>& childDemandElements) :
+    const std::vector<GNEEdge*>& childEdges,
+    const std::vector<GNELane*>& childLanes,
+    const std::vector<GNEShape*>& childShapes,
+    const std::vector<GNEAdditional*>& childAdditionals,
+    const std::vector<GNEDemandElement*>& childDemandElements,
+    const std::vector<GNEGenericData*>& childGenericDataElements) :
     myChildConnections(this),
     myChildEdges(childEdges),
     myChildLanes(childLanes),
     myChildShapes(childShapes),
     myChildAdditionals(childAdditionals),
     myChildDemandElements(childDemandElements),
+    myChildGenericDataElements(childGenericDataElements),
     myAC(AC) {
     // fill SortedChildDemandElementsByType with all demand element tags (it's needed because getChildDemandElementsSortedByType(...) function is constant
     auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_DEMANDELEMENT, false);
@@ -344,6 +347,37 @@ GNEHierarchicalChildElements::getNextChildDemandElement(const GNEDemandElement* 
     } else {
         return *(it + 1);
     }
+}
+
+
+void 
+GNEHierarchicalChildElements::addChildGenericDataElement(GNEGenericData* genericDataElement) {
+    // Check if demand element is valid
+    if (genericDataElement == nullptr) {
+        throw InvalidArgument("Trying to add an empty child generic data element in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        // add it in generic data element child container
+        myChildGenericDataElements.push_back(genericDataElement);
+    }
+}
+
+
+void 
+GNEHierarchicalChildElements::removeChildGenericDataElement(GNEGenericData* genericDataElement) {
+    // First check that genericDataElement was already inserted
+    auto it = std::find(myChildGenericDataElements.begin(), myChildGenericDataElements.end(), genericDataElement);
+    if (it == myChildGenericDataElements.end()) {
+        throw ProcessError(genericDataElement->getTagStr() + " with ID='" + genericDataElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        // remove it from child demand elements
+        myChildGenericDataElements.erase(it);
+    }
+}
+
+
+const std::vector<GNEGenericData*>&
+GNEHierarchicalChildElements:: getChildGenericDataElements() const {
+    return myChildGenericDataElements;
 }
 
 

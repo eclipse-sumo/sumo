@@ -31,6 +31,7 @@
 class GNEAdditional;
 class GNEDemandElement;
 class GNEShape;
+class GNEGenericData;
 
 // ===========================================================================
 // class definitions
@@ -53,13 +54,15 @@ public:
      * @param[in] childShapes vector of child shapes
      * @param[in] childAdditionals vector of child additional
      * @param[in] childDemandElements vector of child demand elements
+     * @param[in] childGenericDataElements vector of child generic data elements
      */
     GNEHierarchicalChildElements(GNEAttributeCarrier* AC,
                                  const std::vector<GNEEdge*>& childEdges,
                                  const std::vector<GNELane*>& childLanes,
                                  const std::vector<GNEShape*>& childShapes,
                                  const std::vector<GNEAdditional*>& childAdditionals,
-                                 const std::vector<GNEDemandElement*>& childDemandElements);
+                                 const std::vector<GNEDemandElement*>& childDemandElements,
+                                 const std::vector<GNEGenericData*>& childGenericDataElements);
 
     /// @brief Destructor
     ~GNEHierarchicalChildElements();
@@ -174,6 +177,19 @@ public:
 
     /// @}
 
+    /// @name members and functions related to child generic data elements
+    /// @{
+    /// @brief add child generic data element
+    void addChildGenericDataElement(GNEGenericData* genericDataElement);
+
+    /// @brief remove child generic data element
+    void removeChildGenericDataElement(GNEGenericData* genericDataElement);
+
+    /// @brief return child generic data elements
+    const std::vector<GNEGenericData*>& getChildGenericDataElements() const;
+
+    /// @}
+
     /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)
     virtual void updateParentAdditional();
 
@@ -249,6 +265,9 @@ private:
 
     /// @brief vector with the demand elements children
     std::vector<GNEDemandElement*> myChildDemandElements;
+
+    /// @brief vector with the generic data elements children
+    std::vector<GNEGenericData*> myChildGenericDataElements;
 
     /// @brief vector with the demand elements children sorted by type and filtered (to avoid duplicated
     std::map<SumoXMLTag, std::vector<GNEDemandElement* >> myDemandElementsByType;

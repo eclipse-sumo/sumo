@@ -71,10 +71,10 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // member method definitions
 // ===========================================================================
 GNETAZ::GNETAZ(const std::string& id, GNEViewNet* viewNet, PositionVector shape, RGBColor color, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    GNEAdditional(id, viewNet, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement, 
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     myColor(color),
     myTAZShape(shape),
-    myDrawFill(false),
     myBlockShape(false),
     myCurrentMovingVertexIndex(-1),
     myMaxWeightSource(0),

@@ -33,7 +33,7 @@
 
 GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "", false,
-{}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}, {}) {
     // if exist a reroute, set newRoute ID
     if (rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).size() > 0) {
         myNewRouteId = rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).begin()->first;
@@ -45,9 +45,9 @@ GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterInte
 
 GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, const std::string& newRouteId, double probability) :
     GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "", false,
-{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}, {}, {}),
-myNewRouteId(newRouteId),
-myProbability(probability) {
+    {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}, {}, {}, {}),
+    myNewRouteId(newRouteId),
+    myProbability(probability) {
 }
 
 

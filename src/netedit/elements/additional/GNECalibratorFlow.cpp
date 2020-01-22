@@ -33,9 +33,9 @@
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent) :
     GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW_CALIBRATOR, "", false,
-{}, {}, {}, {calibratorParent}, {}, {}, {}, {}, {}, {}),
-myVehicleType(calibratorParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID)),
-myRoute(calibratorParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).begin()->second) {
+        {}, {}, {}, {calibratorParent}, {}, {}, {}, {}, {}, {}, {}),
+    myVehicleType(calibratorParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID)),
+    myRoute(calibratorParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).begin()->second) {
     // fill calibrator flows with default values
     setDefaultValues();
 }
@@ -45,26 +45,27 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
                                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
                                      const std::string& departPosLat, const std::string& arrivalPosLat, SUMOTime begin, SUMOTime end) :
-    GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW_CALIBRATOR, "", false, {}, {}, {}, {calibratorParent}, {}, {}, {}, {}, {}, {}),
-myVehicleType(vehicleType),
-myRoute(route),
-myVehsPerHour(vehsPerHour),
-mySpeed(speed),
-myColor(color),
-myDepartLane(departLane),
-myDepartPos(departPos),
-myDepartSpeed(departSpeed),
-myArrivalLane(arrivalLane),
-myArrivalPos(arrivalPos),
-myArrivalSpeed(arrivalSpeed),
-myLine(line),
-myPersonNumber(personNumber),
-myContainerNumber(containerNumber),
-myReroute(reroute),
-myDepartPosLat(departPosLat),
-myArrivalPosLat(arrivalPosLat),
-myBegin(begin),
-myEnd(end) {
+    GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW_CALIBRATOR, "", false, 
+        {}, {}, {}, {calibratorParent}, {}, {}, {}, {}, {}, {}, {}),
+    myVehicleType(vehicleType),
+    myRoute(route),
+    myVehsPerHour(vehsPerHour),
+    mySpeed(speed),
+    myColor(color),
+    myDepartLane(departLane),
+    myDepartPos(departPos),
+    myDepartSpeed(departSpeed),
+    myArrivalLane(arrivalLane),
+    myArrivalPos(arrivalPos),
+    myArrivalSpeed(arrivalSpeed),
+    myLine(line),
+    myPersonNumber(personNumber),
+    myContainerNumber(containerNumber),
+    myReroute(reroute),
+    myDepartPosLat(departPosLat),
+    myArrivalPosLat(arrivalPosLat),
+    myBegin(begin),
+    myEnd(end) {
 }
 
 
