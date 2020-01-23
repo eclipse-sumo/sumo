@@ -22,7 +22,13 @@
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
+#include <netedit/elements/network/GNEConnection.h>
+#include <netedit/elements/network/GNECrossing.h>
+#include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNEJunction.h>
+#include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
@@ -42,11 +48,6 @@
 #include <netedit/frames/network/GNEProhibitionFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <netedit/elements/network/GNEConnection.h>
-#include <netedit/elements/network/GNECrossing.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNEJunction.h>
-#include <netedit/elements/network/GNELane.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -3077,18 +3078,16 @@ GNEViewNet::deleteSelectedDemandElements() {
 
 void
 GNEViewNet::deleteSelectedDataElements() {
-    std::vector<GNEDataSet*> dataSets = myNet->retrieveDataSets(true);
+    std::vector<GNEDataSet*> dataSets = myNet->retrieveDataSets();
     if (dataSets.size() > 0) {
         std::string plural = dataSets.size() == 1 ? ("") : ("s");
         myUndoList->p_begin("delete selected data elements" + plural);
-    /*
-        for (auto i : dataElements) {
+        for (auto i : dataSets) {
             // due there are data elements that are removed when their parent is removed, we need to check if yet exists before removing
-            if (myNet->retrieveDataElement(i->getTagProperty().getTag(), i->getID(), false) != nullptr) {
-                myNet->deleteDataElement(i, myUndoList);
+            if (myNet->retrieveDataSet(i->getID(), false) != nullptr) {
+                myNet->deleteDataSet(i, myUndoList);
             }
         }
-    */
         myUndoList->p_end();
     }
 }

@@ -31,6 +31,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/changes/GNEChange_Crossing.h>
+#include <netedit/changes/GNEChange_DataSet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/changes/GNEChange_Edge.h>
 #include <netedit/changes/GNEChange_Junction.h>
@@ -672,6 +673,20 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
     }
 }
 
+
+void
+GNENet::deleteDataSet(GNEDataSet* dataSet, GNEUndoList* undoList) {
+    undoList->p_begin("delete " + dataSet->getTagStr());
+    // first remove all data interval children calling this function recursively
+/*
+    while (dataSet->getChildDataSets().size() > 0) {
+        deleteDataSet(dataSet->getChildDataSets().front(), undoList);
+    }
+*/
+    // remove dataSet
+    undoList->add(new GNEChange_DataSet(dataSet, false), true);
+    undoList->p_end();
+}
 
 void
 GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections) {
@@ -2511,9 +2526,9 @@ GNENet::generateDemandElementID(const std::string& prefix, SumoXMLTag type) cons
 
 
 GNEDataSet*
-GNENet::retrieveDataSet(SumoXMLTag type, const std::string& id, bool hardFail) const {
-    if ((myAttributeCarriers.dataSets.count(type) > 0) && (myAttributeCarriers.dataSets.at(type).count(id) != 0)) {
-        return myAttributeCarriers.dataSets.at(type).at(id);
+GNENet::retrieveDataSet(const std::string& id, bool hardFail) const {
+    if (myAttributeCarriers.dataSets.count(id) > 0) {
+        return myAttributeCarriers.dataSets.at(id);
     } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data set");
     } else {
@@ -2523,40 +2538,31 @@ GNENet::retrieveDataSet(SumoXMLTag type, const std::string& id, bool hardFail) c
 
 
 std::vector<GNEDataSet*>
-GNENet::retrieveDataSets(bool onlySelected) const {
+GNENet::retrieveDataSets() const {
     std::vector<GNEDataSet*> result;
+    result.reserve(myAttributeCarriers.dataSets.size());
     // returns data sets depending of selection
-    for (auto i : myAttributeCarriers.dataSets) {
-        for (auto j : i.second) {
-            if (!onlySelected || j.second->isAttributeCarrierSelected()) {
-                result.push_back(j.second);
-            }
-        }
+    for (auto dataSet : myAttributeCarriers.dataSets) {
+        result.push_back(dataSet.second);
     }
     return result;
 }
 
 
 int
-GNENet::getNumberOfDataSets(SumoXMLTag type) const {
-    int counter = 0;
-    for (auto i : myAttributeCarriers.dataSets) {
-        if ((type == SUMO_TAG_NOTHING) || (type == i.first)) {
-            counter += (int)i.second.size();
-        }
-    }
-    return counter;
+GNENet::getNumberOfDataSets() const {
+    return (int)myAttributeCarriers.dataSets.size();
 }
 
 
 void
 GNENet::updateDataSetID(const std::string& oldID, GNEDataSet* dataSet) {
-    if (myAttributeCarriers.dataSets.at(dataSet->getTagProperty().getTag()).count(oldID) == 0) {
+    if (myAttributeCarriers.dataSets.count(oldID) == 0) {
         throw ProcessError(dataSet->getTagStr() + " with old ID='" + oldID + "' doesn't exist");
     } else {
         // remove an insert data set again into container
-        myAttributeCarriers.dataSets.at(dataSet->getTagProperty().getTag()).erase(oldID);
-        myAttributeCarriers.dataSets.at(dataSet->getTagProperty().getTag()).insert(std::make_pair(dataSet->getID(), dataSet));
+        myAttributeCarriers.dataSets.erase(oldID);
+        myAttributeCarriers.dataSets.insert(std::make_pair(dataSet->getID(), dataSet));
         // data sets has to be saved
         requireSaveDataElements(true);
     }
@@ -2604,12 +2610,13 @@ GNENet::isDataElementsSaved() const {
 
 
 std::string
-GNENet::generateDataSetID(const std::string& prefix, SumoXMLTag type) const {
+GNENet::generateDataSetID(const std::string& prefix) const {
+    const std::string dataSetTagStr = toString(SUMO_TAG_DATASET);
     int counter = 0;
-    while (myAttributeCarriers.dataSets.at(type).count(prefix + toString(type) + "_" + toString(counter)) != 0) {
+    while (myAttributeCarriers.dataSets.count(prefix + dataSetTagStr + "_" + toString(counter)) != 0) {
         counter++;
     }
-    return (prefix + toString(type) + "_" + toString(counter));
+    return (prefix + dataSetTagStr + "_" + toString(counter));
 }
 
 
@@ -2997,6 +3004,49 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfte
         return true;
     } else {
         throw ProcessError("Invalid demandElement pointer");
+    }
+}
+
+
+bool
+GNENet::dataSetExist(GNEDataSet* dataSet) const {
+    // first check that dataSet pointer is valid
+    if (dataSet) {
+        return myAttributeCarriers.dataSets.find(dataSet->getID()) != myAttributeCarriers.dataSets.end();
+    } else {
+        throw ProcessError("Invalid dataSet pointer");
+    }
+}
+
+
+void
+GNENet::insertDataSet(GNEDataSet* dataSet) {
+    // Check if dataSet element exists before insertion
+    if (!dataSetExist(dataSet)) {
+        // insert in dataSets container
+        myAttributeCarriers.dataSets.insert(std::make_pair(dataSet->getID(), dataSet));
+        // data elements has to be saved
+        requireSaveDataElements(true);
+    } else {
+        throw ProcessError(dataSet->getTagStr() + " with ID='" + dataSet->getID() + "' already exist");
+    }
+}
+
+
+bool
+GNENet::deleteDataSet(GNEDataSet* dataSet) {
+    // first check that dataSet pointer is valid
+    if (dataSetExist(dataSet)) {
+        // obtain data set and erase it from container
+        myAttributeCarriers.dataSets.erase(myAttributeCarriers.dataSets.find(dataSet->getID()));
+        // remove it from Inspector Frame
+        myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(dataSet);
+        // data elements has to be saved
+        requireSaveDataElements(true);
+        // dataSet removed, then return true
+        return true;
+    } else {
+        throw ProcessError("Invalid dataSet pointer");
     }
 }
 

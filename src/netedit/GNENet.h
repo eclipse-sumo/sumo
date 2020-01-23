@@ -90,20 +90,20 @@ class GNENet : public GUIGlObject, public ShapeContainer {
 public:
     /// @brief struct used for saving all attribute carriers of net, in different formats
     struct AttributeCarriers {
-        /// @brief map with the name and pointer to junctions of net
+        /// @brief map with the ID and pointer to junctions of net
         std::map<std::string, GNEJunction*> junctions;
 
-        /// @brief map with the name and pointer to edges of net
+        /// @brief map with the ID and pointer to edges of net
         std::map<std::string, GNEEdge*> edges;
 
-        /// @brief map with the name and pointer to additional elements of net
+        /// @brief map with the ID and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > additionals;
 
-        /// @brief map with the name and pointer to demand elements of net
+        /// @brief map with the ID and pointer to demand elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > demandElements;
 
-        /// @brief map with the name and pointer to demand elements of net
-        std::map<SumoXMLTag, std::map<std::string, GNEDataSet*> > dataSets;
+        /// @brief map with the ID and pointer to data sets of net
+        std::map<std::string, GNEDataSet*> dataSets;
 
         /// @brief special map used for saving Demand Elements of type "Vehicle" (Vehicles, routeFlows, etc.) sorted by depart time
         std::map<std::string, GNEDemandElement*> vehicleDepartures;
@@ -288,6 +288,12 @@ public:
      * @param[in] undoList The undolist in which to mark changes
      */
     void deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoList);
+
+    /**@brief remove demand element
+     * @param[in] demandElement The dataSet to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void deleteDataSet(GNEDataSet* dataSet, GNEUndoList* undoList);
 
     /**@brief duplicates lane
      * @param[in] lane The lane to be duplicated
@@ -684,22 +690,18 @@ public:
     /// @{
 
     /**@brief Returns the named data set
-     * @param[in] type tag with the type of data set
      * @param[in] id The id of the data set to return.
      * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
      */
-    GNEDataSet* retrieveDataSet(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+    GNEDataSet* retrieveDataSet(const std::string& id, bool hardFail = true) const;
 
-    /**@brief return all data sets
-     * @param[in] onlySelected Whether to return only selected data sets
-     */
-    std::vector<GNEDataSet*> retrieveDataSets(bool onlySelected = false) const;
+    ///@brief return all data sets
+    std::vector<GNEDataSet*> retrieveDataSets() const;
 
     /**@brief Returns the number of data sets of the net
-     * @param[in] type type of data set to count. SUMO_TAG_NOTHING will count all data sets
      * @return Number of data sets of the net
      */
-    int getNumberOfDataSets(SumoXMLTag type = SUMO_TAG_NOTHING) const;
+    int getNumberOfDataSets() const;
 
     /**@brief update data set ID in container
     * @note this function is automatically called when user changes the ID of an data set
@@ -718,7 +720,7 @@ public:
     bool isDataElementsSaved() const;
 
     /// @brief generate data set id
-    std::string generateDataSetID(const std::string& prefix, SumoXMLTag type) const;
+    std::string generateDataSetID(const std::string& prefix) const;
 
     /// @}
 
@@ -851,6 +853,24 @@ protected:
      * @throw processError if demand element wasn't previously inserted
      */
     bool deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfterDeleting);
+
+    /// @}
+
+    /// @name Insertion and erasing of GNEDataSets items
+    /// @{
+
+    /// @brief return true if data set exist (use pointer instead ID)
+    bool dataSetExist(GNEDataSet* dataSet) const;
+
+    /**@brief Insert a data set element int GNENet container.
+     * @throw processError if route was already inserted
+     */
+    void insertDataSet(GNEDataSet* dataSet);
+
+    /**@brief delete data set element of GNENet container
+     * @throw processError if data set wasn't previously inserted
+     */
+    bool deleteDataSet(GNEDataSet* dataSet);
 
     /// @}
 

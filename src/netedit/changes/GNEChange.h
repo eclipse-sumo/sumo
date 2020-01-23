@@ -33,6 +33,7 @@
 // ===========================================================================
 class GNEAttributeCarrier;
 class GNEAdditional;
+class GNEDataSet;
 class GNEDemandElement;
 class GNEGenericData;
 class GNEEdge;
