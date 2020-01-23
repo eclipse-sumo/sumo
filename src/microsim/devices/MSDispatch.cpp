@@ -42,9 +42,30 @@ MSDispatch::addReservation(MSTransportable* person,
         SUMOTime reservationTime, 
         SUMOTime pickupTime,
         const MSEdge* from, double fromPos,
-        const MSEdge* to, double toPos) 
+        const MSEdge* to, double toPos,
+        const std::string& group) 
 {
-    myReservations.push_back(Reservation(person, reservationTime, pickupTime, from, fromPos, to, toPos));
+    // no new reservation nedded if the person can be added to an existing group
+    bool added = false;
+    auto it = myGroupReservations.find(group);
+    if (it != myGroupReservations.end()) {
+        // try to add to existing reservation
+        for (Reservation* res : it->second) {
+            if (res->persons.count(person) == 0 
+                    && res->from == from 
+                    && res->to == to
+                    && res->fromPos == fromPos 
+                    && res->toPos == toPos) {
+                res->persons.insert(person);
+                added = true;
+                break;
+            }
+        }
+    }
+    if (!added) {
+        Reservation* newRes = new Reservation({person}, reservationTime, pickupTime, from, fromPos, to, toPos, group);
+        myGroupReservations[group].push_back(newRes);
+    }
     myHasServableReservations = true;
 #ifdef DEBUG_RESERVATION
     if (DEBUG_COND2(person)) std::cout << SIMTIME 
@@ -53,8 +74,36 @@ MSDispatch::addReservation(MSTransportable* person,
             << " pT=" << time2string(pickupTime)
             << " from=" << from->getID() << " fromPos=" << fromPos
             << " to=" << to->getID() << " toPos=" << toPos
+            << " group=" << group
             << "\n";
 #endif
+}
+
+std::vector<Reservation*>
+MSDispatch::getReservations() {
+    std::vector<Reservation*> reservations;
+    for (const auto& it : myGroupReservations) {
+        reservations.insert(reservations.end(), it.second.begin(), it.second.end());
+    }
+    return reservations;
+}
+
+
+void
+MSDispatch::servedReservation(const Reservation* res) {
+    auto it = myGroupReservations.find(res->group);
+    if (it == myGroupReservations.end()) {
+        throw ProcessError("Inconsistent group reservations.");
+    }
+    auto it2 = std::find(it->second.begin(), it->second.end(), res);
+    if (it2 == it->second.end()) {
+        throw ProcessError("Inconsistent group reservations (2).");
+    }
+    delete *it2;
+    it->second.erase(it2);
+    if (it->second.empty()) {
+        myGroupReservations.erase(it);
+    }
 }
 
 
@@ -84,18 +133,19 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
             available.insert(taxi);
         }
     }
-#ifdef DEBUG_DISPATCH
-    std::cout << SIMTIME << " computeDispatch fleet=" << fleet.size() << " available=" << available.size() << "\n";
-#endif
     // greedy assign closest vehicle in reservation order
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = myRoutingMode == 1 ? MSRoutingEngine::getRouterTT(0) : MSNet::getInstance()->getRouterTT(0);
-    std::sort(myReservations.begin(), myReservations.end(), time_sorter());
-    for (auto it = myReservations.begin(); it != myReservations.end();) {
+    std::vector<Reservation*> reservations = getReservations();
+    std::sort(reservations.begin(), reservations.end(), time_sorter());
+#ifdef DEBUG_DISPATCH
+    std::cout << SIMTIME << " computeDispatch fleet=" << fleet.size() << " available=" << available.size() << " reservations=" << toString(reservations) << "\n";
+#endif
+    for (auto it = reservations.begin(); it != reservations.end();) {
         if (available.size() == 0) {
             break;
         }
-        Reservation& res = *it;
-        if (res.recheck > now) {
+        Reservation* res = *it;
+        if (res->recheck > now) {
             it++;
             numPostponed++;
             continue;
@@ -105,18 +155,18 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
         SUMOTime closestTime = SUMOTime_MAX;
         bool toEarly = false;
         for (auto* taxi : available) {
-            SUMOTime travelTime = computePickupTime(now, taxi, res, router);
+            SUMOTime travelTime = computePickupTime(now, taxi, *res, router);
 #ifdef DEBUG_TRAVELTIME
-            if (DEBUG_COND2(person)) std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " person=" << res.person->getID() << " traveltime=" << time2string(travelTime) << "\n";
+            if (DEBUG_COND2(person)) std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " person=" << toString(res->persons) << " traveltime=" << time2string(travelTime) << "\n";
 #endif
             if (travelTime < closestTime) {
                 closestTime = travelTime;
                 closest = taxi;
-                SUMOTime taxiWait = res.pickupTime - (now + closestTime);
+                SUMOTime taxiWait = res->pickupTime - (now + closestTime);
                 if (taxiWait > myMaximumWaitingTime) {
                     // no need to service this customer now
                     toEarly = true;
-                    res.recheck += MAX2(now + myRecheckTime, res.pickupTime - closestTime - myRecheckSafety);
+                    res->recheck += MAX2(now + myRecheckTime, res->pickupTime - closestTime - myRecheckSafety);
                     break;
                 }
             }
@@ -125,19 +175,20 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
             it++;
             numPostponed++;
         } else {
-            closest->dispatch(res);
-            available.erase(closest);
-            it = myReservations.erase(it);
-            numDispatched++; 
 #ifdef DEBUG_DISPATCH
-            if (DEBUG_COND2(person)) std::cout << SIMTIME << " dispatch taxi=" << closest->getHolder().getID() << " person=" << res.person->getID() << "\n";
+            if (DEBUG_COND2(person)) std::cout << SIMTIME << " dispatch taxi=" << closest->getHolder().getID() << " person=" << toString(res->persons) << "\n";
 #endif
+            closest->dispatch(*res);
+            servedReservation(res); // deleting res
+            available.erase(closest);
+            it = reservations.erase(it);
+            numDispatched++; 
         }
     }
     // check if any taxis are able to service the remaining requests
-    myHasServableReservations = myReservations.size() > 0 && (available.size() < fleet.size() || numPostponed > 0 || numDispatched > 0);
+    myHasServableReservations = reservations.size() > 0 && (available.size() < fleet.size() || numPostponed > 0 || numDispatched > 0);
 #ifdef DEBUG_SERVABLE
-    std::cout << SIMTIME << " reservations=" << myReservations.size() << " avail=" << available.size() 
+    std::cout << SIMTIME << " reservations=" << reservations.size() << " avail=" << available.size() 
         << " fleet=" << fleet.size() << " postponed=" << numPostponed << " dispatched=" << numDispatched << "\n";
 #endif
 }
@@ -162,9 +213,9 @@ MSDispatch_GreedyClosest::computeDispatch(SUMOTime now, const std::vector<MSDevi
 #endif
     // greedy assign closest vehicle
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = myRoutingMode == 1 ? MSRoutingEngine::getRouterTT(0) : MSNet::getInstance()->getRouterTT(0);
-    std::vector<Reservation> activeReservations;
-    for (Reservation& res : myReservations) {
-        if (res.recheck <= now) {
+    std::vector<Reservation*> activeReservations;
+    for (Reservation* res : getReservations()) {
+        if (res->recheck <= now) {
             activeReservations.push_back(res);
         }
     }
@@ -172,25 +223,25 @@ MSDispatch_GreedyClosest::computeDispatch(SUMOTime now, const std::vector<MSDevi
         Reservation* closest = nullptr;
         MSDevice_Taxi* closestTaxi = nullptr;
         SUMOTime closestTime = SUMOTime_MAX;
-        for (auto& res : activeReservations) {
+        for (Reservation* res : activeReservations) {
             SUMOTime recheck = SUMOTime_MAX;
             for (auto* taxi : available) {
-                SUMOTime travelTime = computePickupTime(now, taxi, res, router);
-                SUMOTime taxiWait = res.pickupTime - (now + travelTime);
+                SUMOTime travelTime = computePickupTime(now, taxi, *res, router);
+                SUMOTime taxiWait = res->pickupTime - (now + travelTime);
 #ifdef DEBUG_TRAVELTIME
-                if (DEBUG_COND2(person)) std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " person=" << res.person->getID() 
+                if (DEBUG_COND2(person)) std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " person=" << toString(res->persons) 
                     << " traveltime=" << time2string(travelTime) 
-                    << " pickupTime=" << time2string(res.pickupTime)
+                    << " pickupTime=" << time2string(res->pickupTime)
                     << " taxiWait=" << time2string(taxiWait) << "\n";
 #endif
                 if (travelTime < closestTime) {
                     if (taxiWait < myMaximumWaitingTime) {
                         closestTime = travelTime;
-                        closest = &res;
+                        closest = res;
                         closestTaxi = taxi;
                     } else {
                         recheck = MIN2(recheck, 
-                                MAX2(now + myRecheckTime, res.pickupTime - closestTime - myRecheckSafety));
+                                MAX2(now + myRecheckTime, res->pickupTime - closestTime - myRecheckSafety));
                     }
                 }
             }
@@ -202,15 +253,14 @@ MSDispatch_GreedyClosest::computeDispatch(SUMOTime now, const std::vector<MSDevi
             */
         }
         if (closestTaxi != nullptr) {
+#ifdef DEBUG_DISPATCH
+            if (DEBUG_COND2(person)) std::cout << SIMTIME << " dispatch taxi=" << closestTaxi->getHolder().getID() << " person=" << toString(closest->persons) << "\n";
+#endif
             closestTaxi->dispatch(*closest);
             available.erase(closestTaxi);
-            Reservation tmp = *closest;
-            activeReservations.erase(std::find(activeReservations.begin(), activeReservations.end(), tmp));
-            myReservations.erase(std::find(myReservations.begin(), myReservations.end(), tmp));
+            activeReservations.erase(std::find(activeReservations.begin(), activeReservations.end(), closest));
+            servedReservation(closest); // deleting closest
             numDispatched++; 
-#ifdef DEBUG_DISPATCH
-            if (DEBUG_COND2(person)) std::cout << SIMTIME << " dispatch taxi=" << closestTaxi->getHolder().getID() << " person=" << closest->person->getID() << "\n";
-#endif
         } else {
             // all current reservations are too early
             havePostponed = true;
@@ -218,9 +268,9 @@ MSDispatch_GreedyClosest::computeDispatch(SUMOTime now, const std::vector<MSDevi
         }
     }
     // check if any taxis are able to service the remaining requests
-    myHasServableReservations = myReservations.size() > 0 && (available.size() < fleet.size() || havePostponed || numDispatched > 0);
+    myHasServableReservations = getReservations().size() > 0 && (available.size() < fleet.size() || havePostponed || numDispatched > 0);
 #ifdef DEBUG_SERVABLE
-    std::cout << SIMTIME << " reservations=" << myReservations.size() << " avail=" << available.size() 
+    std::cout << SIMTIME << " reservations=" << getReservations().size() << " avail=" << available.size() 
         << " fleet=" << fleet.size() << " postponed=" << havePostponed << " dispatched=" << numDispatched << "\n";
 #endif
 }

@@ -37,38 +37,47 @@
 // class definitions
 // ===========================================================================
 struct Reservation {
-    Reservation(MSTransportable* _person,
+    Reservation(const std::vector<MSTransportable*>& _persons,
             SUMOTime _reservationTime,
             SUMOTime _pickupTime,
             const MSEdge* _from, double _fromPos,
-            const MSEdge* _to, double _toPos) :
-        person(_person),
+            const MSEdge* _to, double _toPos,
+            const std::string& _group) :
+        persons(_persons.begin(), _persons.end()),
         reservationTime(_reservationTime),
         pickupTime(_pickupTime),
         from(_from),
         fromPos(_fromPos),
         to(_to),
         toPos(_toPos),
+        group(_group),
         recheck(_reservationTime)
     {}
 
-    MSTransportable* person;
+    std::set<MSTransportable*> persons;
     SUMOTime reservationTime;
     SUMOTime pickupTime;
     const MSEdge* from;
     double fromPos;
     const MSEdge* to;
     double toPos;
+    std::string group;
     SUMOTime recheck;
 
     bool operator==(const Reservation& other) const {
-        return person == other.person
+        return persons == other.persons
             && reservationTime == other.reservationTime
             && pickupTime == other.pickupTime
             && from == other.from
             && fromPos == other.fromPos
             && to == other.to
-            && toPos == other.toPos;
+            && toPos == other.toPos
+            && group == other.group;
+    }
+
+    /// @brief debug identification
+    std::string getID() const {
+        return toString(persons);
     }
 };
 
@@ -86,8 +95,8 @@ public:
         explicit time_sorter() {}
 
         /// @brief Comparing operator
-        int operator()(const Reservation& r1, const Reservation& r2) const {
-            return r1.reservationTime < r2.reservationTime;
+        int operator()(const Reservation* r1, const Reservation* r2) const {
+            return r1->reservationTime < r2->reservationTime;
         }
     };
 
@@ -99,7 +108,8 @@ public:
             SUMOTime reservationTime, 
             SUMOTime pickupTime,
             const MSEdge* from, double fromPos,
-            const MSEdge* to, double toPos);
+            const MSEdge* to, double toPos,
+            const std::string& group);
 
     /// @brief computes dispatch and updates reservations
     virtual void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet) = 0;
@@ -112,11 +122,16 @@ public:
 
     static SUMOTime computePickupTime(SUMOTime t, const MSDevice_Taxi* taxi, const Reservation& res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router);
 
-protected:
-    std::vector<Reservation> myReservations;
-
     /// @brief whether the last call to computeDispatch has left servable reservations
     bool myHasServableReservations = false;
+
+protected:
+    std::vector<Reservation*> getReservations();
+
+    void servedReservation(const Reservation* res);
+
+private:
+    std::map<std::string, std::vector<Reservation*> > myGroupReservations;
 
 };
 

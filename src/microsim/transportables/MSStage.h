@@ -68,7 +68,7 @@ enum class MSStageType {
 class MSStage {
 public:
     /// constructor
-    MSStage(const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos, MSStageType type);
+    MSStage(const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos, MSStageType type, const std::string& group = "");
 
     /// destructor
     virtual ~MSStage();
@@ -108,6 +108,11 @@ public:
     ///
     MSStageType getStageType() const {
         return myType;
+    }
+
+    /// @brief return the id of the group of transportables traveling together
+    const std::string& getGroup() const {
+        return myGroup;
     }
 
     /// @brief return (brief) string representation of the current stage
@@ -203,6 +208,9 @@ protected:
 
     /// The type of this stage
     MSStageType myType;
+
+    /// The id of the group of transportables traveling together
+    const std::string myGroup;
 
     /// @brief the offset for computing positions when standing at an edge
     static const double ROADSIDE_OFFSET;

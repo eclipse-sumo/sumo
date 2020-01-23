@@ -114,7 +114,7 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
                     }
                     MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
                     if (taxiDevice != nullptr) {
-                        taxiDevice->customerArrived();
+                        taxiDevice->customerArrived(transportable);
                     }
                 } else {
                     ++i;

@@ -79,7 +79,8 @@ public:
             SUMOTime reservationTime, 
             SUMOTime pickupTime,
             const MSEdge* from, double fromPos,
-            const MSEdge* to, double toPos);
+            const MSEdge* to, double toPos,
+            const std::string& group);
     
     /// @brief period command to trigger the dispatch algorithm
     static SUMOTime triggerDispatch(SUMOTime currentTime); 
@@ -159,7 +160,7 @@ public:
     void customerEntered();
 
     /// @brief called by MSDevice_Transportable upon unloading a person
-    void customerArrived();
+    void customerArrived(const MSTransportable* person);
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const;
@@ -206,7 +207,7 @@ private:
     /// @brief whether the vehicle is currently stopped
     bool myIsStopped = false;
     /// @brief the customer of the current reservation
-    const MSTransportable* myCustomer;
+    std::set<const MSTransportable*> myCustomers;
 
     /// @brief the time between successive calls to the dispatcher
     static SUMOTime myDispatchPeriod;

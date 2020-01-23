@@ -105,13 +105,14 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
         SUMOTime reservationTime, 
         SUMOTime pickupTime,
         const MSEdge* from, double fromPos,
-        const MSEdge* to, double toPos) 
+        const MSEdge* to, double toPos,
+        const std::string& group) 
 {
     if (lines.size() == 1 && *lines.begin() == TAXI_SERVICE) {
         if (myDispatchCommand == nullptr) {
             initDispatch();
         }
-        myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos);
+        myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group);
     }
 }
 
@@ -187,7 +188,7 @@ MSDevice_Taxi::dispatch(const Reservation& res) {
         pickup.index = STOP_INDEX_END;
         myHolder.addStop(pickup, error);
         if (error != "") {
-            WRITE_WARNINGF("Could not add taxi stop for vehicle '%' to pick up person '%'. time=% error=%", myHolder.getID(), res.person->getID(), SIMTIME, error)
+            WRITE_WARNINGF("Could not add taxi stop for vehicle '%' to pick up persons '%'. time=% error=%", myHolder.getID(), toString(res.persons), SIMTIME, error)
         }
 
         error = "";
@@ -202,7 +203,7 @@ MSDevice_Taxi::dispatch(const Reservation& res) {
         destination.index = STOP_INDEX_END;
         myHolder.addStop(destination, error);
         if (error != "") {
-            WRITE_WARNINGF("Could not add taxi stop for vehicle '%' to deliver person '%'. time=% error=%", myHolder.getID(), res.person->getID(), SIMTIME, error)
+            WRITE_WARNINGF("Could not add taxi stop for vehicle '%' to deliver persons '%'. time=% error=%", myHolder.getID(), toString(res.persons), SIMTIME, error)
         }
 
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(0);
@@ -212,7 +213,7 @@ MSDevice_Taxi::dispatch(const Reservation& res) {
         throw ProcessError("Dispatch for busy taxis not yet implemented");
     }
     myState = PICKUP;
-    myCustomer = res.person;
+    myCustomers.insert(res.persons.begin(), res.persons.end());
 }
 
 MSLane*
@@ -232,7 +233,7 @@ MSDevice_Taxi::isEmpty() {
 
 bool
 MSDevice_Taxi::allowsBoarding(MSTransportable* t) const {
-    return t == myCustomer;
+    return myCustomers.count(t) != 0;
 }
 
 
@@ -276,11 +277,11 @@ MSDevice_Taxi::customerEntered() {
 
 
 void
-MSDevice_Taxi::customerArrived() {
+MSDevice_Taxi::customerArrived(const MSTransportable* person) {
     myCustomersServed++;
+    myCustomers.erase(person);
     if (myHolder.getPersonNumber() == 0) {
         myState = EMPTY;
-        myCustomer = nullptr;
     }
 }
 

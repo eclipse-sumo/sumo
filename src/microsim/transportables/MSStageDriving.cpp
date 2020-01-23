@@ -46,8 +46,9 @@
 // ===========================================================================
 MSStageDriving::MSStageDriving(const MSEdge* destination,
                                MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
+                               const std::string& group,
                                const std::string& intendedVeh, SUMOTime intendedDepart) :
-    MSStage(destination, toStop, arrivalPos, MSStageType::DRIVING),
+    MSStage(destination, toStop, arrivalPos, MSStageType::DRIVING, group),
     myLines(lines.begin(), lines.end()),
     myVehicle(nullptr),
     myVehicleID("NULL"),
@@ -64,7 +65,7 @@ MSStageDriving::MSStageDriving(const MSEdge* destination,
 MSStage*
 MSStageDriving::clone() const {
     return new MSStageDriving(myDestination, myDestinationStop, myArrivalPos, std::vector<std::string>(myLines.begin(), myLines.end()),
-                              myIntendedVehicleID, myIntendedDepart);
+                              myGroup, myIntendedVehicleID, myIntendedDepart);
 }
 
 
@@ -193,7 +194,7 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
             net->getPersonControl().addWaiting(myWaitingEdge, transportable);
             myWaitingEdge->addPerson(transportable);
             // check if the ride can be conducted and reserve it
-            MSDevice_Taxi::addReservation(transportable, getLines(), now, now, myWaitingEdge, myWaitingPos, getDestination(), myArrivalPos);
+            MSDevice_Taxi::addReservation(transportable, getLines(), now, now, myWaitingEdge, myWaitingPos, getDestination(), myArrivalPos, myGroup);
         } else {
             net->getContainerControl().addWaiting(myWaitingEdge, transportable);
             myWaitingEdge->addContainer(transportable);
