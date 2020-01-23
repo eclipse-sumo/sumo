@@ -38,7 +38,8 @@ Set the **SUMO_HOME** environment variable. To do so, open .bash_profile in Text
 ```
 touch ~/.bash_profile; open ~/.bash_profile
 ```
-Just insert the following new line at the end: `export SUMO_HOME=/your/path/to/sumo`
+Just insert the following new line at the end: `export SUMO_HOME=/your/path/to/sumo`, where `/your/path/to/sumo` is the path stated in the caveats section of the `brew install sumo` command.
+
 Restart the Terminal and test the newly added variable:
 ```
 echo $SUMO_HOME
