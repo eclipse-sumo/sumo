@@ -1289,6 +1289,7 @@ GNEViewNetHelper::SaveElements::SaveElements(GNEViewNet* viewNet) :
     saveNetwork(nullptr),
     saveAdditionalElements(nullptr),
     saveDemandElements(nullptr),
+    saveDataElements(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -1310,6 +1311,11 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
                                       "\tSave demand elements\tSave demand elements.", GUIIconSubSys::getIcon(ICON_SAVEDEMANDELEMENTS),
                                       myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS, GUIDesignButtonToolbar);
     saveDemandElements->create();
+    // create save data elements button
+    saveDataElements = new FXButton(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements, 
+        "\tSave data elements\tSave data elements.", GUIIconSubSys::getIcon(ICON_SAVEDATAELEMENTS), 
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS, GUIDesignButtonToolbar);
+    saveDataElements->create();
     // recalc menu bar because there is new elements
     myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements->recalc();
     // show menu bar modes

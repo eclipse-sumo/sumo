@@ -323,6 +323,9 @@ struct GNEViewNetHelper {
         /// @brief chekable button for save demand elements
         FXButton* saveDemandElements;
 
+        /// @brief chekable button for save data elements
+        FXButton* saveDataElements;
+
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
