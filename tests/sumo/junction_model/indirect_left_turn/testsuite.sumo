@@ -15,7 +15,7 @@ straight_from_left
 straight_from_left_blockedSecond
 
 # bicycles make an indirect left turn and wait at the internal junction until the flow across gets the green light
-internal_juction_controlled
+internal_junction_controlled
 
 # bicycles make an indirect left turn and wait at the internal junction until a gap in the flow of their own phase
-internal_juction_uncontrolled
+internal_junction_uncontrolled
