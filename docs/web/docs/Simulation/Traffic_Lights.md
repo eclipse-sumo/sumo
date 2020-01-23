@@ -516,7 +516,7 @@ The fields in WAUT have the following meanings:
 | **id**         | string id  | The name of the defined WAUT                                   |
 | **startProg**  | string id  | The program that will be used at the simulation's begin     |
 | refTime   | time   | A reference time which is used as offset to the switch times given later (in simulation seconds or D:H:M:S) |
-| period  | time  | The period for repeating switch times. Disabled when set to <= 0, default 86400 (1 day)     |
+| period  | time  | The period for repeating switch times. Disabled when set to <= 0, default 0     |
 
 and the fields in wautSwitch:
 
