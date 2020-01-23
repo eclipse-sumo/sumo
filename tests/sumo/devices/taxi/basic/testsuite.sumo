@@ -15,3 +15,6 @@ persontrip_walk_last
 
 # test taxi device attribute end
 end_of_work
+
+# some taxis are late to work
+late_taxi
