@@ -18,6 +18,9 @@ permalink: /ChangeLog/
   - Fixed visualisation of containers. Issue #6426
   - Text setting options 'constant size' and 'background' are now working for 'link junction index' and 'link tls index'. Issue #6376
   - Traffic light parameter 'running duration' is now correct when switching phases via TraCI. Issue #6520
+  
+- NETEDIT
+  - Creating new traffic light plans where a plan already exists no longer results in invalid plans at joined traffic lights or traffic lights with signal groups. Instead a copy of the existing plan is created. Accordingly the button caption now varies between 'Create' and 'Copy'. Issue #6536, #6537
 
 - MESO
   - Fixed invalid simulation state when vehicles are teleporting. Issue #6408
@@ -48,7 +51,7 @@ permalink: /ChangeLog/
   - When definining [automated switching between traffic light programs](Simulation/Traffic_Lights.md#defining_program_switch_times_and_procedure), the new attribute 'period' can now be used to define repeating switch times. Issue #6540
 
 - SUMO-GUI
-  - Dead-end links in the middle of a road are now highlighed in magenta to highlight connectivity problems. Issue #6391
+  - Dead-end links in the middle of a road are now colored in magenta to highlight connectivity problems. Issue #6391
 
 - NETEDIT
   - Stacked vehicles (overlapping due to similar departPos) are now indicated by a number. Issue #6485
@@ -68,7 +71,7 @@ permalink: /ChangeLog/
   - Added option **--tls.group-signals** which assigns the same signal index to connections that share the same sequence signal states. Added option **--tls.ungroup-signals** which reverts grouping and assigns a distinct signal index to every connection. Issue #2958
 
 - DUAROUTER
-  - The maximum [map-matching](Demand/Shortest_or_Optimal_Path_Routing.md#mapmatching) distance is now configurable using option **--mapmatch.distance**.  
+  - The maximum [map-matching](Demand/Shortest_or_Optimal_Path_Routing.md#mapmatching) distance is now configurable using option **--mapmatch.distance**. Also, mapmatching with large distance is now computationally efficient. Issue #6476
   - Trip, flows, personTrips and walks with attributes `fromJunction`,`toJunction` and `viaJunctions` are now supported when setting option **--junction-taz**. Issue #6474
   - Trips can now be written with attributes `fromJunction` and `toJunction` and `viaJunctions` by setting option **--write-trips.junctions**. Issue #6474
   - When using trip attributes `fromXY`, `fromLonLat`, etc. the given positions can now be mapped to junctions instead of edges by setting option **--mapmatch.junctions**. Issue #6475  
