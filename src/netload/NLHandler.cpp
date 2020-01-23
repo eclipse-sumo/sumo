@@ -586,7 +586,7 @@ NLHandler::openWAUT(const SUMOSAXAttributes& attrs) {
         return;
     }
     SUMOTime refTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_REF_TIME, id.c_str(), ok, 0);
-    SUMOTime period = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok, TIME2STEPS(24 * 3600));
+    SUMOTime period = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok, 0);
     std::string startProg = attrs.get<std::string>(SUMO_ATTR_START_PROG, id.c_str(), ok);
     if (!ok) {
         myCurrentIsBroken = true;
