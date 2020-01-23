@@ -119,7 +119,13 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
 
 SUMOTime
 MSDevice_Taxi::triggerDispatch(SUMOTime currentTime) {
-    myDispatcher->computeDispatch(currentTime, myFleet);
+    std::vector<MSDevice_Taxi*> active;
+    for (MSDevice_Taxi* taxi : myFleet) {
+        if (taxi->getHolder().hasDeparted()) {
+            active.push_back(taxi);
+        }
+    }
+    myDispatcher->computeDispatch(currentTime, active);
     return myDispatchPeriod;
 }
 
