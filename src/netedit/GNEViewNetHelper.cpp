@@ -1971,6 +1971,35 @@ GNEViewNetHelper::DataViewOptions::getVisibleDataMenuCommands(std::vector<FXMenu
 }
 
 // ---------------------------------------------------------------------------
+// GNEViewNetHelper::IntervalBar - methods
+// ---------------------------------------------------------------------------
+
+GNEViewNetHelper::IntervalBar::IntervalBar(GNEViewNet* viewNet) :
+    myViewNet(viewNet) {
+}
+
+
+void
+GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
+    // always recalc after creating new elements
+    myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().interval->recalc();
+}
+
+
+void
+GNEViewNetHelper::IntervalBar::showIntervalBar() {
+    // show toolbar grip
+    myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().interval->show();
+}
+
+
+void
+GNEViewNetHelper::IntervalBar::hideIntervalBar() {
+    // hide toolbar grip
+    myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().interval->hide();
+}
+
+// ---------------------------------------------------------------------------
 // GNEViewNetHelper::CommonCheckableButtons - methods
 // ---------------------------------------------------------------------------
 

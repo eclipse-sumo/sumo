@@ -574,6 +574,32 @@ struct GNEViewNetHelper {
         DataViewOptions& operator=(const DataViewOptions&) = delete;
     };
 
+    /// @brief struct used to group all variables related to interval bar
+    struct IntervalBar {
+
+        /// @brief default constructor
+        IntervalBar(GNEViewNet* viewNet);
+
+        /// @brief build interval bar elements
+        void buildIntervalBarElements();
+
+        /// @brief show interval option bar
+        void showIntervalBar();
+
+        /// @brief hide all options menu checks
+        void hideIntervalBar();
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        IntervalBar(const IntervalBar&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        IntervalBar& operator=(const IntervalBar&) = delete;
+    };
+
     /// @brief struct used to group all variables related with movement of single elements
     struct MoveSingleElementValues {
 

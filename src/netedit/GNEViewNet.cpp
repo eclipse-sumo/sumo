@@ -183,6 +183,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myNetworkViewOptions(this),
     myDemandViewOptions(this),
     myDataViewOptions(this),
+    myIntervalBar(this),
     myMoveSingleElementValues(this),
     myMoveMultipleElementValues(this),
     myVehicleOptions(this),
@@ -567,6 +568,7 @@ GNEViewNet::GNEViewNet() :
     myNetworkViewOptions(this),
     myDemandViewOptions(this),
     myDataViewOptions(this),
+    myIntervalBar(this),
     myMoveSingleElementValues(this),
     myMoveMultipleElementValues(this),
     myVehicleOptions(this),
@@ -2546,6 +2548,9 @@ GNEViewNet::buildEditModeControls() {
     // build menu checks for Demand checkable buttons
     myDemandCheckableButtons.buildDemandCheckableButtons();
 
+    // build menu checks of view options Data
+    myDataCheckableButtons.buildDataCheckableButtons();
+
     // build menu checks of view options Common
     myCommonViewOptions.buildCommonViewOptionsMenuChecks();
 
@@ -2556,7 +2561,13 @@ GNEViewNet::buildEditModeControls() {
     myDemandViewOptions.buildDemandViewOptionsMenuChecks();
 
     // build menu checks of view options Data
-    myDataCheckableButtons.buildDataCheckableButtons();
+    myDataViewOptions.buildDataViewOptionsMenuChecks();
+
+    // build menu checks of interval
+    myDataViewOptions.buildDataViewOptionsMenuChecks();
+
+    // build interval bar
+    myIntervalBar.buildIntervalBarElements();
 }
 
 
@@ -2576,6 +2587,8 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     myNetworkCheckableButtons.disableNetworkCheckableButtons();
     // disable all network edit modes
     myDataCheckableButtons.disableDataCheckableButtons();
+    // hide interval bar
+    myIntervalBar.hideIntervalBar();
     // hide all frames
     myViewParent->hideAllFrames();
     // In network mode, always show option "show demand elements"
@@ -2725,6 +2738,8 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myDemandCheckableButtons.disableDemandCheckableButtons();
     // disable all network edit modes
     myDataCheckableButtons.disableDataCheckableButtons();
+    // hide interval bar
+    myIntervalBar.hideIntervalBar();
     // hide all frames
     myViewParent->hideAllFrames();
     // enable selected controls
@@ -2902,6 +2917,8 @@ GNEViewNet::updateDataModeSpecificControls() {
     myCommonCheckableButtons.disableCommonCheckableButtons();
     // disable all Data edit modes
     myDataCheckableButtons.disableDataCheckableButtons();
+    // show interval bar
+    myIntervalBar.showIntervalBar();
     // hide all frames
     myViewParent->hideAllFrames();
     // enable selected controls

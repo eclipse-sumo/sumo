@@ -262,13 +262,15 @@ GNEApplicationWindow::ToolbarsGrip::ToolbarsGrip(GNEApplicationWindow* GNEApp) :
     navigation(nullptr),
     modes(nullptr),
     modeOptions(nullptr),
+    interval(nullptr),
     myGNEApp(GNEApp),
     myToolBarShellMenu(nullptr),
     myToolBarShellSuperModes(nullptr),
     myToolBarShellSaveElements(nullptr),
     myToolBarShellNavigation(nullptr),
     myToolBarShellModes(nullptr),
-    myToolBarShellModeOptions(nullptr) {
+    myToolBarShellModeOptions(nullptr),
+    myToolBarShellModeInterval(nullptr) {
 }
 
 
@@ -309,18 +311,25 @@ GNEApplicationWindow::ToolbarsGrip::buildViewParentToolbarsGrips() {
     modeOptions = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellModeOptions, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(modeOptions, modeOptions, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // build menu bar for interal
+    myToolBarShellModeInterval = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    interval = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellModeOptions, GUIDesignToolBarRaisedNext);
+    // declare toolbar grip for menu bar modes
+    new FXToolBarGrip(interval, interval, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // create menu bars
     superModes->create();
     saveElements->create();
     navigation->create();
     modes->create();
     modeOptions->create();
+    interval->create();
     // create toolbar shells
     myToolBarShellSuperModes->create();
     myToolBarShellSaveElements->create();
     myToolBarShellNavigation->create();
     myToolBarShellModes->create();
     myToolBarShellModeOptions->create();
+    myToolBarShellModeInterval->create();
     // recalc top dop after creating elements
     myGNEApp->myTopDock->recalc();
 }
@@ -334,12 +343,14 @@ GNEApplicationWindow::ToolbarsGrip::destroyParentToolbarsGrips() {
     delete navigation;
     delete modes;
     delete modeOptions;
+    delete interval;
     // also delete toolbar shells to avoid floating windows
     delete myToolBarShellSuperModes;
     delete myToolBarShellSaveElements;
     delete myToolBarShellNavigation;
     delete myToolBarShellModes;
     delete myToolBarShellModeOptions;
+    delete myToolBarShellModeInterval;
     // recalc top dop after deleting elements
     myGNEApp->myTopDock->recalc();
 }

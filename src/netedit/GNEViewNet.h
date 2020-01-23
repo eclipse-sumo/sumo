@@ -418,6 +418,9 @@ private:
     GNEViewNetHelper::DataViewOptions myDataViewOptions;
     /// @}
 
+    /// @brief variable used to save IntervalBar
+    GNEViewNetHelper::IntervalBar myIntervalBar;
+
     /// @name structs related with move elements
     /// @{
     /// @brief variable used to save variables related with movement of single elements
