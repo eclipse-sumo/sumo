@@ -592,15 +592,27 @@ struct GNEViewNetHelper {
         /// @brief hide all options menu checks
         void hideIntervalBar();
 
-        /// @brief update data sets
-        void updateDataSets();
+        /// @brief update data intervals
+        void updateDataIntervals();
 
     private:
-        /// @brief combo box for data sets
-        FXComboBox *myDataSets;
-
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
+
+        /// @checkbox for limit data elements by interval
+        FXCheckButton* myLimitByInterval;
+
+        /// @brief combo box for data intervals
+        FXComboBox *myDataIntervals;
+
+        /// @brief interval label
+        FXLabel *myIntervalLabel;
+
+        /// @brief text field for interval begin
+        FXTextField* myBeginTextField;
+
+        /// @brief text field for interval end
+        FXTextField* myEndTextField;
 
         /// @brief Invalidated copy constructor.
         IntervalBar(const IntervalBar&) = delete;

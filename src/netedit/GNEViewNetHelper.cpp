@@ -1982,16 +1982,36 @@ GNEViewNetHelper::DataViewOptions::getVisibleDataMenuCommands(std::vector<FXMenu
 
 GNEViewNetHelper::IntervalBar::IntervalBar(GNEViewNet* viewNet) :
     myViewNet(viewNet),
-    myDataSets(nullptr) {
+    myLimitByInterval(nullptr),
+    myDataIntervals(nullptr),
+    myIntervalLabel(nullptr),
+    myBeginTextField(nullptr),
+    myEndTextField(nullptr) {
 }
 
 
 void
 GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
+    // create checkbutton for myLimitByInterval
+    myLimitByInterval = new FXCheckButton(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar, 
+        "Limit by interval", myViewNet, MID_GNE_DATAINTERVAL_LIMITED, GUIDesignCheckButtonAttribute);
+    myLimitByInterval->create();
     // create combo box for sets
-    myDataSets = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar, 
-        GUIDesignComboBoxNCol, myViewNet, MID_GNE_DATASET_SELECTED, GUIDesignComboBoxWidth180);
-    myDataSets->create();
+    myDataIntervals = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar, 
+        GUIDesignComboBoxNCol, myViewNet, MID_GNE_DATAINTERVAL_SELECTED, GUIDesignComboBoxWidth180);
+    myDataIntervals->create();
+    // create interval label
+    myIntervalLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar, 
+        "Interval", 0, GUIDesignLabelAttribute);
+    myIntervalLabel->create();
+    // create textfield for begin
+    myBeginTextField = new FXTextField(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar, 
+        GUIDesignTextFieldNCol, myViewNet, MID_GNE_DATAINTERVAL_SETBEGIN, GUIDesignTextFielWidth50);
+    myBeginTextField->create();
+    // create text field for end
+    myEndTextField = new FXTextField(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar, 
+        GUIDesignTextFieldNCol, myViewNet, MID_GNE_DATAINTERVAL_SETEND, GUIDesignTextFielWidth50);
+    myEndTextField->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar->recalc();
 }
@@ -2012,7 +2032,7 @@ GNEViewNetHelper::IntervalBar::hideIntervalBar() {
 
 
 void 
-GNEViewNetHelper::IntervalBar::updateDataSets() {
+GNEViewNetHelper::IntervalBar::updateDataIntervals() {
     //
 }
 

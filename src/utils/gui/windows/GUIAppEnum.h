@@ -714,8 +714,14 @@ enum {
     MID_GNE_OVERLAPPED_SHOWLIST,
     /// @brief list item selected in overlapped modul
     MID_GNE_OVERLAPPED_ITEMSELECTED,
-    /// @brief GNEDataSet selected in comboBox
-    MID_GNE_DATASET_SELECTED,
+    /// @brief enable/disable show data elements by interval
+    MID_GNE_DATAINTERVAL_LIMITED,
+    /// @brief GNEDataInterval selected in comboBox of IntervalBar
+    MID_GNE_DATAINTERVAL_SELECTED,
+    /// @brief begin changed in InterbalBar
+    MID_GNE_DATAINTERVAL_SETBEGIN,
+    /// @brief end changed in InterbalBar
+    MID_GNE_DATAINTERVAL_SETEND,
     /// @}
 
     /// @name GNESelectorFrame messages
