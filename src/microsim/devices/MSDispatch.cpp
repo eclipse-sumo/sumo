@@ -155,6 +155,9 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
         SUMOTime closestTime = SUMOTime_MAX;
         bool toEarly = false;
         for (auto* taxi : available) {
+            if (taxi->getHolder().getVehicleType().getPersonCapacity() < (int)res->persons.size()) {
+                continue;
+            }
             SUMOTime travelTime = computePickupTime(now, taxi, *res, router);
 #ifdef DEBUG_TRAVELTIME
             if (DEBUG_COND2(person)) std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " person=" << toString(res->persons) << " traveltime=" << time2string(travelTime) << "\n";
@@ -171,7 +174,8 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
                 }
             }
         }
-        if (toEarly) {
+        if (toEarly || closest == nullptr) {
+            // toEarly or all taxis are too small
             it++;
             numPostponed++;
         } else {
@@ -226,6 +230,9 @@ MSDispatch_GreedyClosest::computeDispatch(SUMOTime now, const std::vector<MSDevi
         for (Reservation* res : activeReservations) {
             SUMOTime recheck = SUMOTime_MAX;
             for (auto* taxi : available) {
+                if (taxi->getHolder().getVehicleType().getPersonCapacity() < (int)res->persons.size()) {
+                    continue;
+                }
                 SUMOTime travelTime = computePickupTime(now, taxi, *res, router);
                 SUMOTime taxiWait = res->pickupTime - (now + travelTime);
 #ifdef DEBUG_TRAVELTIME
@@ -262,7 +269,7 @@ MSDispatch_GreedyClosest::computeDispatch(SUMOTime now, const std::vector<MSDevi
             servedReservation(closest); // deleting closest
             numDispatched++; 
         } else {
-            // all current reservations are too early
+            // all current reservations are too early or too big
             havePostponed = true;
             break;
         }
