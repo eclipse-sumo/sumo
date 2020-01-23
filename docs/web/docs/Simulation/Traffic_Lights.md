@@ -578,7 +578,7 @@ switching between programs **S1** and **S2** for traffic light logic
 ```
 
 !!! note
-    If a traffic light program called "online" is loaded, this program will interupt WAUT switching at that traffic light. This can be used to override WAUT behavior via TraCI.
+    If a traffic light program called "online" is loaded, this program will interrupt WAUT switching at that traffic light. This can be used to override WAUT behavior via TraCI.
 
 # Evaluation of Traffic Lights Performance
 
