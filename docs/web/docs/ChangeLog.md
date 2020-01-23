@@ -97,6 +97,9 @@ permalink: /ChangeLog/
   - renamed attributes in the settings (breakpoint.value to breakpoint.time and decal.filename to decal.file)
   - Default settings values 'show link junction index' and 'show link tls index' changed because their interpretation varies after #6376. Old GUI-setting files must be updated to achieve the default look.
   
+- Simulation
+  - When definining [automated switching between traffic light programs](Simulation/Traffic_Lights.md#defining_program_switch_times_and_procedure), switch times are no longer wrapped to fit into a single day (modulo). The replace the old behavior, set the new waut attribute `period="86400"`. Issue #6522
+  
 - TraCI
   - traci.lane.getLinks (python) now returns the extended descriptions by default, the older behavior should not be used anymore (but is still available using a second parameter)
 
