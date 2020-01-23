@@ -10,7 +10,7 @@
    </tlLogic>
 
 
-	<WAUT startProg="0" refTime="500" id="w1">
+	<WAUT startProg="0" refTime="500" id="w1" period="1:0:0:0">
 		<wautSwitch to="S1" time="86100"></wautSwitch>
 	</WAUT>
 
