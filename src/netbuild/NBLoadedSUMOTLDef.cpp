@@ -672,7 +672,7 @@ NBLoadedSUMOTLDef::groupSignals() {
         if (isUsed(i)) {
             std::set<const NBEdge*> edges = getEdgesUsingIndex(i);
             // compactify
-            replaceIndex(i, i - unusedIndices.size());
+            replaceIndex(i, i - (int)unusedIndices.size());
             if (edges.size() == 0) {
                 // do not group pedestrian crossing signals
                 continue;
@@ -682,7 +682,7 @@ NBLoadedSUMOTLDef::groupSignals() {
                 // only group signals from the same edges as is commonly done by
                 // traffic engineers
                 if (states == getStates(j) && edges == getEdgesUsingIndex(j)) {
-                    replaceIndex(j, i - unusedIndices.size());
+                    replaceIndex(j, i - (int)unusedIndices.size());
                 }
             }
         } else {
@@ -701,7 +701,7 @@ void
 NBLoadedSUMOTLDef::ungroupSignals() {
     NBConnectionVector defaultOrdering;
     collectAllLinks(defaultOrdering);
-    myTLLogic->setStateLength(myControlledLinks.size());
+    myTLLogic->setStateLength((int)myControlledLinks.size());
     std::vector<std::string> states; // organized per link rather than phase
     int index = 0;
     for (NBConnection& c : defaultOrdering) {
@@ -764,7 +764,7 @@ NBLoadedSUMOTLDef::cleanupStates() {
     for (int i = 0; i <= maxIndex; i++) {
         if (isUsed(i)) {
             if (unusedIndices.size() > 0) {
-                replaceIndex(i, i - unusedIndices.size());
+                replaceIndex(i, i - (int)unusedIndices.size());
             }
         } else {
             unusedIndices.push_back(i);

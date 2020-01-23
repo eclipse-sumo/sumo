@@ -563,7 +563,7 @@ MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /
                 auto it = std::find(oldDist->getVals().begin(), oldDist->getVals().end(), &vehicle->getVehicleType());
                 if (it != oldDist->getVals().end()) {
                     matchDistribution = true;
-                    const int distIndex = it - oldDist->getVals().begin();
+                    const int distIndex = (int)(it - oldDist->getVals().begin());
                     vehicle->replaceVehicleType(newDist->getVals()[distIndex]);
                 }
             }

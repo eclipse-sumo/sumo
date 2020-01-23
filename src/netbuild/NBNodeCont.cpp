@@ -1018,7 +1018,7 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
     }
     int numRemoved = 0;
     for (NBNode* n : toRemove) {
-        numRemoved += cluster.erase(n);
+        numRemoved += (int)cluster.erase(n);
     }
     if (numRemoved > 0) {
 #ifdef DEBUG_JOINJUNCTIONS
