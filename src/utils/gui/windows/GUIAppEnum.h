@@ -714,7 +714,8 @@ enum {
     MID_GNE_OVERLAPPED_SHOWLIST,
     /// @brief list item selected in overlapped modul
     MID_GNE_OVERLAPPED_ITEMSELECTED,
-
+    /// @brief GNEDataSet selected in comboBox
+    MID_GNE_DATASET_SELECTED,
     /// @}
 
     /// @name GNESelectorFrame messages

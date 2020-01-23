@@ -1981,28 +1981,39 @@ GNEViewNetHelper::DataViewOptions::getVisibleDataMenuCommands(std::vector<FXMenu
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::IntervalBar::IntervalBar(GNEViewNet* viewNet) :
-    myViewNet(viewNet) {
+    myViewNet(viewNet),
+    myDataSets(nullptr) {
 }
 
 
 void
 GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
+    // create combo box for sets
+    myDataSets = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar, 
+        GUIDesignComboBoxNCol, myViewNet, MID_GNE_DATASET_SELECTED, GUIDesignComboBoxWidth180);
+    myDataSets->create();
     // always recalc after creating new elements
-    myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().interval->recalc();
+    myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar->recalc();
 }
 
 
 void
 GNEViewNetHelper::IntervalBar::showIntervalBar() {
     // show toolbar grip
-    myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().interval->show();
+    myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar->show();
 }
 
 
 void
 GNEViewNetHelper::IntervalBar::hideIntervalBar() {
     // hide toolbar grip
-    myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().interval->hide();
+    myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar->hide();
+}
+
+
+void 
+GNEViewNetHelper::IntervalBar::updateDataSets() {
+    //
 }
 
 // ---------------------------------------------------------------------------

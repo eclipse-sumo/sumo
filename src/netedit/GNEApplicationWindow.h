@@ -92,7 +92,7 @@ public:
         FXMenuBar* modeOptions;
 
         /// @brief The application menu bar for mode options (show connections, select edges...)
-        FXMenuBar* interval;
+        FXMenuBar* intervalBar;
 
     private:
         /// @brief pointer to current GNEApplicationWindow
@@ -116,8 +116,8 @@ public:
         /// @brief menu bar drag for mode options (show connections, select edges...)
         FXToolBarShell* myToolBarShellModeOptions;
         
-        /// @brief menu bar drag for mode interval 
-        FXToolBarShell* myToolBarShellModeInterval;
+        /// @brief menu bar drag for interval bar
+        FXToolBarShell* myToolBarShellIntervalBar;
     };
 
     /**@brief Constructor

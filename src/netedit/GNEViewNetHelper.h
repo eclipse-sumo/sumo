@@ -592,7 +592,13 @@ struct GNEViewNetHelper {
         /// @brief hide all options menu checks
         void hideIntervalBar();
 
+        /// @brief update data sets
+        void updateDataSets();
+
     private:
+        /// @brief combo box for data sets
+        FXComboBox *myDataSets;
+
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
 
