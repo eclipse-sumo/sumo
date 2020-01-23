@@ -38,6 +38,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 
+#define TRACI_PROGRAM "online"
 
 // ===========================================================================
 // method definitions
@@ -155,20 +156,20 @@ void
 MSTLLogicControl::TLSLogicVariants::setStateInstantiatingOnline(MSTLLogicControl& tlc,
         const std::string& state) {
     // build only once...
-    MSTrafficLightLogic* logic = getLogic("online");
+    MSTrafficLightLogic* logic = getLogic(TRACI_PROGRAM);
     if (logic == nullptr) {
         MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state, -1);
         std::vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
-        logic = new MSSimpleTrafficLightLogic(tlc, myCurrentProgram->getID(), "online", TLTYPE_STATIC, phases, 0,
+        logic = new MSSimpleTrafficLightLogic(tlc, myCurrentProgram->getID(), TRACI_PROGRAM, TLTYPE_STATIC, phases, 0,
                                               MSNet::getInstance()->getCurrentTimeStep() + DELTA_T,
                                               std::map<std::string, std::string>());
-        addLogic("online", logic, true, true);
+        addLogic(TRACI_PROGRAM, logic, true, true);
         MSNet::getInstance()->createTLWrapper(logic);
     } else {
         MSPhaseDefinition nphase(DELTA_T, state, -1);
         *(dynamic_cast<MSSimpleTrafficLightLogic*>(logic)->getPhases()[0]) = nphase;
-        switchTo(tlc, "online");
+        switchTo(tlc, TRACI_PROGRAM);
     }
 }
 
@@ -839,7 +840,10 @@ MSTLLogicControl::check2Switch(SUMOTime step) {
         const WAUTSwitchProcess& proc = *i;
         if (proc.proc->trySwitch(step)) {
             delete proc.proc;
-            switchTo((*i).to->getID(), (*i).to->getProgramID());
+            // do not switch away from TraCI control
+            if (getActive(proc.to->getID())->getProgramID() != TRACI_PROGRAM) {
+                switchTo(proc.to->getID(), proc.to->getProgramID());
+            }
             i = myCurrentlySwitched.erase(i);
         } else {
             ++i;
