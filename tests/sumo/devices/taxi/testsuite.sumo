@@ -1,2 +1,5 @@
 basic
+
+# groups of persons traveling together between two locations (no arbitrary ride sharing)
+groups
 2taxis_10persons
