@@ -153,6 +153,9 @@ public:
     /// @brief service the given reservation
     void dispatch(const Reservation& res);
 
+    /// @brief service the given reservations
+    void dispatchShared(const std::vector<Reservation*> reservations);
+
     /// @brief whether the given person is allowed to board this taxi
     bool allowsBoarding(MSTransportable* t) const;
 
@@ -186,6 +189,11 @@ private:
      */
     MSDevice_Taxi(SUMOVehicle& holder, const std::string& id);
 
+    /// @brief prepare stop for the given action
+    void prepareStop(ConstMSEdgeVector& edges,
+        std::vector<SUMOVehicleParameter::Stop>& stops,
+        double& lastPos, const MSEdge* stopEdge, double stopPos,
+        const std::string& action);
 
     /// @brief determine stopping lane for taxi
     MSLane* getStopLane(const MSEdge* edge);

@@ -31,6 +31,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
 #include "MSDispatch.h"
+#include "MSDispatch_GreedyShared.h"
 #include "MSRoutingEngine.h"
 #include "MSDevice_Taxi.h"
 
@@ -59,7 +60,7 @@ MSDevice_Taxi::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("taxi", "Taxi Device", oc);
 
     oc.doRegister("device.taxi.dispatch-algorithm", new Option_String("greedy"));
-    oc.addDescription("device.taxi.dispatch-algorithm", "Taxi Device", "The dispatch algorithm [greedy|greedyClosest]");
+    oc.addDescription("device.taxi.dispatch-algorithm", "Taxi Device", "The dispatch algorithm [greedy|greedyClosest|greedyShared]");
 
     oc.doRegister("device.taxi.dispatch-period", new Option_String("60", "TIME"));
     oc.addDescription("device.taxi.dispatch-period", "Taxi Device", "The period between successive calls to the dispatcher");
@@ -92,11 +93,17 @@ MSDevice_Taxi::initDispatch() {
         myDispatcher = new MSDispatch_Greedy();
     } else if (algo == "greedyClosest") {
         myDispatcher = new MSDispatch_GreedyClosest();
+    } else if (algo == "greedyShared") {
+        myDispatcher = new MSDispatch_GreedyShared();
     } else {
         throw ProcessError("Dispatch algorithm '" + algo + "' is not known");
     }
     myDispatchCommand = new StaticCommand<MSDevice_Taxi>(&MSDevice_Taxi::triggerDispatch);
-    MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myDispatchCommand);
+    // round to next multiple of myDispatchPeriod
+    const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+    const SUMOTime begin = string2time(oc.getString("begin"));
+    const SUMOTime delay = (myDispatchPeriod - ((now - begin) % myDispatchPeriod)) % myDispatchPeriod;
+    MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myDispatchCommand, now + delay);
 }
 
 void
@@ -221,6 +228,81 @@ MSDevice_Taxi::dispatch(const Reservation& res) {
     myState = PICKUP;
     myCustomers.insert(res.persons.begin(), res.persons.end());
 }
+
+
+void
+MSDevice_Taxi::dispatchShared(const std::vector<Reservation*> reservations) {
+    if (isEmpty()) {
+        if (MSGlobals::gUseMesoSim) {
+            throw ProcessError("Dispatch for meso not yet implemented");
+        }
+        MSVehicle* veh = static_cast<MSVehicle*>(&myHolder);
+        veh->abortNextStop();
+        ConstMSEdgeVector tmpEdges;
+        std::vector<SUMOVehicleParameter::Stop> stops;
+        tmpEdges.push_back(myHolder.getEdge());
+        double lastPos = myHolder.getPositionOnLane();
+        for (Reservation* res : reservations) {
+            bool isPickup = false;
+            for (MSTransportable* person : res->persons) {
+                if (myCustomers.count(person) == 0) {
+                    myCustomers.insert(person);
+                    isPickup = true;
+                }
+            }
+            if (isPickup) {
+                prepareStop(tmpEdges, stops, lastPos, res->from, res->fromPos, "pickup " + toString(res->persons));
+                stops.back().triggered = true;
+                //stops.back().awaitedPersons.insert(res.person->getID());
+            } else {
+                prepareStop(tmpEdges, stops, lastPos, res->to, res->toPos, "dropOff " + toString(res->persons));
+                stops.back().duration = TIME2STEPS(60); // pay and collect bags
+            }
+        }
+        stops.back().triggered = true; // stay in the simulaton
+        veh->replaceRouteEdges(tmpEdges, -1, 0, "taxi:prepare_dispatch", false, false, false);
+        for (auto stop : stops) {
+            std::string error;
+            myHolder.addStop(stop, error);
+            if (error != "") {
+                WRITE_WARNINGF("Could not add taxi stop for vehicle '%' to %. time=% error=%", myHolder.getID(), stop.actType, SIMTIME, error)
+            }
+        }
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(0);
+        // SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = myHolder.getInfluencer().getRouterTT(veh->getRNGIndex())
+        myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), "taxi:dispatch", router, false);
+    } else {
+        throw ProcessError("Dispatch for busy taxis not yet implemented");
+    }
+    myState = PICKUP;
+}
+
+
+void
+MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
+        std::vector<SUMOVehicleParameter::Stop>& stops,
+        double& lastPos, const MSEdge* stopEdge, double stopPos,
+        const std::string& action) 
+{
+    assert(!edges.empty());
+    if (stopEdge == edges.back() && stopPos == lastPos && !stops.empty()) {
+        // no new stop needed
+        return;
+    }
+    if (stopEdge != edges.back() || stopPos < lastPos) {
+        edges.push_back(stopEdge);
+    }
+    lastPos = stopPos;
+    SUMOVehicleParameter::Stop stop;
+    stop.lane = getStopLane(stopEdge)->getID();
+    stop.startPos = stopPos;
+    stop.endPos = MAX2(stopPos, MIN2(myHolder.getVehicleType().getLength(), stopEdge->getLength()));
+    stop.parking = true;
+    stop.actType = action;
+    stop.index = STOP_INDEX_END;
+    stops.push_back(stop);
+}
+
 
 MSLane*
 MSDevice_Taxi::getStopLane(const MSEdge* edge) {

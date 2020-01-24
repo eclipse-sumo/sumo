@@ -120,7 +120,17 @@ public:
         return myHasServableReservations;
     }
 
+    ///@brief compute time to pick up the given reservation
     static SUMOTime computePickupTime(SUMOTime t, const MSDevice_Taxi* taxi, const Reservation& res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router);
+
+    ///@brief compute directTime and detourTime
+    static double computeDetourTime(SUMOTime t, SUMOTime viaTime, const MSDevice_Taxi* taxi, 
+        const MSEdge* from, double fromPos, 
+        const MSEdge* via, double viaPos,
+        const MSEdge* to, double toPos,
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
+        double& timeDirect) ;
+
 
     /// @brief whether the last call to computeDispatch has left servable reservations
     bool myHasServableReservations = false;

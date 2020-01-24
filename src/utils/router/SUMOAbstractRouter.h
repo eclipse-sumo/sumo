@@ -125,6 +125,24 @@ public:
     virtual bool compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*>& into, bool silent = false) = 0;
 
+
+    /** @brief Builds the route between the given edges using the minimum effort at the given time,
+     * also taking into account position along the edges to ensure currect
+     * handling of looped routes
+     * The definition of the effort depends on the wished routing scheme */
+    inline bool compute(
+            const E* from, double fromPos, 
+            const E* to, double toPos,
+            const V* const vehicle,
+            SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
+        if (from != to || fromPos <= toPos) {
+            return compute(from, to, vehicle, msTime, into, silent);
+        } else {
+            return computeLooped(from, to, vehicle, msTime, into, silent);
+        }
+    }
+
+
     /** @brief Builds the route between the given edges using the minimum effort at the given time
      * if from == to, return the shortest looped route */
     inline bool computeLooped(const E* from, const E* to, const V* const vehicle,
@@ -208,6 +226,17 @@ public:
             }
             updateViaCost(prev, e, v, time, effort, *lengthp);
             prev = e;
+        }
+        return effort;
+    }
+
+    inline double recomputeCosts(const std::vector<const E*>& edges, const V* const v, double fromPos, double toPos, SUMOTime msTime, double* lengthp = nullptr) const {
+        double effort = recomputeCosts(edges, v, msTime, lengthp);
+        if (!edges.empty()) {
+            double firstEffort = this->getEffort(edges.front(), v, msTime);
+            double lastEffort = this->getEffort(edges.back(), v, msTime);
+            effort -= firstEffort * fromPos / edges.front()->getLength();
+            effort -= lastEffort * (edges.back()->getLength() - toPos) / edges.front()->getLength();
         }
         return effort;
     }
