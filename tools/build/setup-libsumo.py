@@ -15,10 +15,13 @@
 
 from setuptools import setup
 import os
+import glob
 import version
 
 SUMO_VERSION = version.get_version(padZero=False)[1:-11].replace("_", ".").replace("+", ".")
 package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+data_files = glob.glob(os.path.join(os.path.dirname(package_dir), 'bin', '*.dll'))
+print(data_files)
 
 setup(
     name='libsumo',
@@ -41,10 +44,12 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
     keywords='traffic simulation traci sumo',
 
     packages=['libsumo'],
     package_dir={'': package_dir},
-    package_data={'libsumo': ['*.pyd', '*.so', '*.dylib']}
+    package_data={'libsumo': ['*.pyd', '*.so', '*.dylib']},
+    data_files=[("", data_files)]
 )

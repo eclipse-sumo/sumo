@@ -65,13 +65,13 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: Windows-python${{ matrix.python-version }}-binaries
-        path: bin
+        path: sumo/bin
 
     - name: Upload artifacts (Python wheels)
       uses: actions/upload-artifact@v1
       with:
         name: Python${{ matrix.python-version }}-wheels
-        path: dist        
+        path: sumo/dist
         
   ###########################
   # BUILDING ON LINUX
