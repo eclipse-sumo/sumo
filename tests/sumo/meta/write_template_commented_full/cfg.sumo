@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jan 11 13:08:05 2020 by Eclipse SUMO Version v1_4_0+0439-f1d139a209
+<!-- generated on Fri Jan 24 11:05:34 2020 by Eclipse SUMO Version v1_4_0+0752-667c2b0
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -768,7 +768,7 @@
         <!-- The &apos;taxi&apos; devices are set deterministic using a fraction of 1000 -->
         <device.taxi.deterministic value="false" type="BOOL"/>
 
-        <!-- The dispatch algorithm [greedy|greedyClosest] -->
+        <!-- The dispatch algorithm [greedy|greedyClosest|greedyShared] -->
         <device.taxi.dispatch-algorithm value="greedy" type="STR"/>
 
         <!-- The period between successive calls to the dispatcher -->
@@ -893,6 +893,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

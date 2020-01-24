@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_4_0+0439-f1d139a209
+Eclipse SUMO Version v1_4_0+0752-667c2b0
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -547,7 +547,7 @@ Taxi Device Options:
   --device.taxi.deterministic          The 'taxi' devices are set deterministic
                                          using a fraction of 1000
   --device.taxi.dispatch-algorithm STR  The dispatch algorithm
-                                         [greedy|greedyClosest]
+                                         [greedy|greedyClosest|greedyShared]
   --device.taxi.dispatch-period TIME   The period between successive calls to
                                          the dispatcher
 
@@ -632,6 +632,8 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing
