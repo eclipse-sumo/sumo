@@ -177,61 +177,12 @@ MSDevice_Taxi::getTaxi() {
 
 void
 MSDevice_Taxi::dispatch(const Reservation& res) {
-    if (isEmpty()) {
-        if (MSGlobals::gUseMesoSim) {
-            throw ProcessError("Dispatch for meso not yet implemented");
-        }
-        MSVehicle* veh = static_cast<MSVehicle*>(&myHolder);
-        veh->abortNextStop();
-        ConstMSEdgeVector tmpEdges;
-        tmpEdges.push_back(myHolder.getEdge());
-        tmpEdges.push_back(res.from);
-        tmpEdges.push_back(res.to);
-        veh->replaceRouteEdges(tmpEdges, -1, 0, "taxi:prepare_dispatch", false, false, false);
-
-        std::string error;
-        double fromPos = MAX2(res.fromPos, MIN2(myHolder.getVehicleType().getLength(), res.from->getLength()));
-        SUMOVehicleParameter::Stop pickup;
-        pickup.lane = getStopLane(res.from)->getID();
-        pickup.startPos = res.fromPos;
-        pickup.endPos = fromPos;
-        pickup.triggered = true;
-        //pickup.awaitedPersons.insert(res.person->getID());
-        pickup.parking = true;
-        pickup.index = STOP_INDEX_END;
-        myHolder.addStop(pickup, error);
-        if (error != "") {
-            WRITE_WARNINGF("Could not add taxi stop for vehicle '%' to pick up persons '%'. time=% error=%", myHolder.getID(), toString(res.persons), SIMTIME, error)
-        }
-
-        error = "";
-        double toPos = MAX2(res.toPos, MIN2(myHolder.getVehicleType().getLength(), res.to->getLength()));
-        SUMOVehicleParameter::Stop destination;
-        destination.lane = getStopLane(res.to)->getID();
-        destination.startPos = res.toPos;
-        destination.endPos = toPos;
-        destination.duration = TIME2STEPS(60); // pay and collect bags
-        destination.triggered = true; // wait until next dispatch but let the simulation end when there are no more persons
-        destination.parking = true;
-        destination.index = STOP_INDEX_END;
-        myHolder.addStop(destination, error);
-        if (error != "") {
-            WRITE_WARNINGF("Could not add taxi stop for vehicle '%' to deliver persons '%'. time=% error=%", myHolder.getID(), toString(res.persons), SIMTIME, error)
-        }
-
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(0);
-        // SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = myHolder.getInfluencer().getRouterTT(veh->getRNGIndex())
-        myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), "taxi:dispatch", router, false);
-    } else {
-        throw ProcessError("Dispatch for busy taxis not yet implemented");
-    }
-    myState = PICKUP;
-    myCustomers.insert(res.persons.begin(), res.persons.end());
+    dispatchShared({&res, &res});
 }
 
 
 void
-MSDevice_Taxi::dispatchShared(const std::vector<Reservation*> reservations) {
+MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*> reservations) {
     if (isEmpty()) {
         if (MSGlobals::gUseMesoSim) {
             throw ProcessError("Dispatch for meso not yet implemented");
@@ -242,7 +193,7 @@ MSDevice_Taxi::dispatchShared(const std::vector<Reservation*> reservations) {
         std::vector<SUMOVehicleParameter::Stop> stops;
         tmpEdges.push_back(myHolder.getEdge());
         double lastPos = myHolder.getPositionOnLane();
-        for (Reservation* res : reservations) {
+        for (const Reservation* res : reservations) {
             bool isPickup = false;
             for (MSTransportable* person : res->persons) {
                 if (myCustomers.count(person) == 0) {
