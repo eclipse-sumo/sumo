@@ -28,7 +28,7 @@
 // class declarations
 // ===========================================================================
 
-class GNEViewNet;
+class GNEDataSet;
 
 // ===========================================================================
 // class definitions
@@ -42,9 +42,11 @@ class GNEDataInterval : public GNEAttributeCarrier {
 
 public:
     /**@brief Constructor
-     * @param[in] viewNet pointer to GNEViewNet of this data element element belongs
+     * @param[in] dataSetParent GNEDataSet to which this data interval belongs.
+     * @param[in] begin interval begin
+     * @param[in] end interval end
      */
-    GNEDataInterval(GNEViewNet* viewNet);
+    GNEDataInterval(GNEDataSet *dataSetParent, const double begin, const double end);
 
     /// @brief Destructor
     ~GNEDataInterval();
@@ -66,8 +68,8 @@ public:
     void fixDataIntervalProblem();
     /// @}
 
-    /// @brief Returns a pointer to GNEViewNet in which data element element is located
-    GNEViewNet* getViewNet() const;
+    /// @brief Returns a pointer to GNEDataSet parent
+    GNEDataSet* getDataSetParent() const;
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -136,8 +138,14 @@ public:
     /// @}
 
 protected:
-    /// @brief The GNEViewNet this data element element belongs
-    GNEViewNet* myViewNet;
+    /// @brief GNEDataSet parent to which this data interval belongs.
+    GNEDataSet *myDataSetParent;
+
+    /// @brief begin interval
+    double myBegin;
+
+    /// @brief end interval
+    double myEnd;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

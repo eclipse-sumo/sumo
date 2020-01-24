@@ -21,8 +21,11 @@
 #include <config.h>
 
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 
 #include "GNEDataInterval.h"
+#include "GNEDataSet.h"
 
 
 // ===========================================================================
@@ -33,9 +36,11 @@
 // GNEDataInterval - methods
 // ---------------------------------------------------------------------------
 
-GNEDataInterval::GNEDataInterval(GNEViewNet* viewNet) :
+GNEDataInterval::GNEDataInterval(GNEDataSet *dataSetParent, const double begin, const double end) :
     GNEAttributeCarrier(SUMO_TAG_DATAINTERVAL),
-    myViewNet(viewNet) {
+    myDataSetParent(dataSetParent),
+    myBegin(begin),
+    myEnd(end) {
 }
 
 
@@ -66,79 +71,105 @@ GNEDataInterval::fixDataIntervalProblem() {
 }
 
 
-GNEViewNet*
-GNEDataInterval::getViewNet() const {
-    return myViewNet;
+GNEDataSet*
+GNEDataInterval::getDataSetParent() const {
+    return myDataSetParent;
 }
 
 
 void 
 GNEDataInterval::selectAttributeCarrier(bool /*changeFlag*/) {
-    //
+    // GNEDataInterval cannot be selected
 }
 
 
 void 
 GNEDataInterval::unselectAttributeCarrier(bool /*changeFlag*/) {
-    //
+    // GNEDataInterval cannot be selected
 }
 
 
 bool
 GNEDataInterval::isAttributeCarrierSelected() const {
-    return mySelected;
+    return false;
 }
 
 
 bool
 GNEDataInterval::drawUsingSelectColor() const {
-    if (mySelected && (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) {
-        return true;
-    } else {
-        return false;
-    }
+    return false;
 }
 
 
 std::string 
-GNEDataInterval::getAttribute(SumoXMLAttr /*key*/) const {
-    return "";
+GNEDataInterval::getAttribute(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            return myDataSetParent->getAttribute(SUMO_ATTR_ID);
+        case SUMO_ATTR_BEGIN:
+            return toString(myBegin);
+        case SUMO_ATTR_END:
+            return toString(myEnd);
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
 double 
-GNEDataInterval::getAttributeDouble(SumoXMLAttr /*key*/) const {
-    return 0;
+GNEDataInterval::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_BEGIN:
+            return myBegin;
+        case SUMO_ATTR_END:
+            return myEnd;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
 void 
-GNEDataInterval::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
-    //
+GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    switch (key) {
+        case SUMO_ATTR_BEGIN:
+        case SUMO_ATTR_END:
+            undoList->p_add(new GNEChange_Attribute(this, myDataSetParent->getViewNet()->getNet(), key, value));
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
 bool 
-GNEDataInterval::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
-    return false;
+GNEDataInterval::isValid(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_BEGIN:
+            return canParse<double>(value);
+        case SUMO_ATTR_END:
+            return canParse<double>(value);
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
 void 
 GNEDataInterval::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    //
+    // Nothing to enable
 }
 
 
 void 
 GNEDataInterval::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    //
+    // Nothing to disable
 }
 
 
 bool 
 GNEDataInterval::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return false;
+    return true;
 }
 
 
@@ -151,6 +182,21 @@ GNEDataInterval::getPopUpID() const {
 std::string 
 GNEDataInterval::getHierarchyName() const {
     return "";
+}
+
+
+void 
+GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_BEGIN:
+            myBegin = parse<double>(value);
+            break;
+        case SUMO_ATTR_END:
+            myEnd = parse<double>(value);
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 /****************************************************************************/

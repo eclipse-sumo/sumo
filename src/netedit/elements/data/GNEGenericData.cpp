@@ -50,7 +50,7 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, GNEDataInterval* dataInterv
     GNEAttributeCarrier(tag),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
-    myViewNet(dataIntervalParent->getViewNet()) {
+    myViewNet(nullptr) {
 }
 
 
