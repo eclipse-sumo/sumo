@@ -63,7 +63,7 @@ jobs:
     - name: Upload artifacts (SUMO binaries)
       uses: actions/upload-artifact@v1
       with:
-        name: binaries
+        name: Windows-python${{ matrix.python-version }}-Binaries
         path: sumo/bin
         
   ###########################
@@ -122,6 +122,12 @@ jobs:
         cd cmake-build
         if [[ "${{ matrix.build_type }}" == "full" ]]; then make CTEST_OUTPUT_ON_FAILURE=1 examples test; fi
 
+    - name: Upload artifacts (SUMO binaries)
+      uses: actions/upload-artifact@v1
+      with:
+        name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}-Binaries
+        path: sumo/bin
+        
   ###################
   # BUILDING ON OSX
   ###################
@@ -169,3 +175,8 @@ jobs:
         cd cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
      
+    - name: Upload artifacts (SUMO binaries)
+      uses: actions/upload-artifact@v1
+      with:
+        name: MacOS-Binaries
+        path: sumo/bin
