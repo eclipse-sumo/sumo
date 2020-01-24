@@ -64,7 +64,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: binaries
-        path: sumo/bin/*
+        path: sumo/bin
         
   ###########################
   # BUILDING ON LINUX
