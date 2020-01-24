@@ -34,12 +34,12 @@
 Parameterised::Parameterised() {}
 
 
-Parameterised::~Parameterised() {}
-
-
 Parameterised::Parameterised(const std::map<std::string, std::string>& mapArg)
     : myMap(mapArg) {
 }
+
+
+Parameterised::~Parameterised() {}
 
 
 void
@@ -109,15 +109,16 @@ Parameterised::getParametersMap() const {
 
 
 std::string
-Parameterised::getParametersStr() const {
+Parameterised::getParametersStr(const std::string& kvsep, const std::string& sep) const {
     std::string result;
-    // Generate an string using the following structure: "key1=value1|key2=value2|...|keyN=valueN"
-    for (const auto& i : myMap) {
-        result += i.first + "=" + i.second + "|";
-    }
-    // remove the last "|"
-    if (!result.empty()) {
-        result.pop_back();
+    // Generate an string using configurable seperatrs, default: "key1=value1|key2=value2|...|keyN=valueN"
+    bool addSep = false;
+    for (auto kv : myMap) {
+        if (addSep) {
+            result += sep;
+        }
+        result += kv.first + kvsep + kv.second;
+        addSep = true;
     }
     return result;
 }
@@ -136,15 +137,15 @@ Parameterised::setParametersMap(const std::map<std::string, std::string>& params
 
 
 void
-Parameterised::setParametersStr(const std::string& paramsString) {
+Parameterised::setParametersStr(const std::string& paramsString, const std::string& kvsep, const std::string& sep) {
     // clear parameters
     myMap.clear();
     // separate value in a vector of string using | as separator
-    std::vector<std::string> parameters = StringTokenizer(paramsString, "|", true).getVector();
+    std::vector<std::string> parameters = StringTokenizer(paramsString, sep).getVector();
     // iterate over all values
     for (const auto& i : parameters) {
         // obtain key and value and save it in myParameters
-        std::vector<std::string> keyValue = StringTokenizer(i, "=", true).getVector();
+        std::vector<std::string> keyValue = StringTokenizer(i, kvsep).getVector();
         myMap[keyValue.front()] = keyValue.back();
     }
 }
@@ -163,13 +164,12 @@ Parameterised::writeParams(OutputDevice& device) const {
 
 
 bool
-Parameterised::areParametersValid(const std::string& value, bool report) {
-    // obtain vector of strings using '|' as delimiter
-    std::vector<std::string> parameters = StringTokenizer(value, "|", true).getVector();
+Parameterised::areParametersValid(const std::string& value, bool report, const std::string& kvsep, const std::string& sep) {
+    std::vector<std::string> parameters = StringTokenizer(value, sep).getVector();
     // first check if parsed parameters are valid
     for (const auto& i : parameters) {
         // check if parameter is valid
-        if (!isParameterValid(i, report)) {
+        if (!isParameterValid(i, report, kvsep, sep)) {
             // report depending of flag
             if (report) {
                 WRITE_WARNING("Invalid format of parameter (" + i + ")");
@@ -186,17 +186,12 @@ Parameterised::areParametersValid(const std::string& value, bool report) {
 // ===========================================================================
 
 bool
-Parameterised::isParameterValid(const std::string& value, bool /* report */) {
-    // first check if value has the character "|"
-    if (std::find(value.begin(), value.end(), '|') != value.end()) {
-        return false;
-    }
-    // now check if value has the character "="
-    if (std::find(value.begin(), value.end(), '=') == value.end()) {
+Parameterised::isParameterValid(const std::string& value, bool /* report */, const std::string& kvsep, const std::string& sep) {
+    if (value.find(sep) != std::string::npos || value.find(kvsep) == std::string::npos) {
         return false;
     }
     // separate key and value
-    std::vector<std::string> keyValue = StringTokenizer(value, "=", true).getVector();
+    std::vector<std::string> keyValue = StringTokenizer(value, kvsep).getVector();
     // Check that keyValue size is exactly 2 (key, value)
     if (keyValue.size() == 2) {
         // check if key and value contains valid characters
