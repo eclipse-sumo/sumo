@@ -45,9 +45,9 @@ public:
         myRelativeLossThreshold(relLossThresh)
     {}
 
-    virtual void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet);
-
 protected:
+    /// @brief trigger taxi dispatch. @note: method exists so subclasses can inject code at this point (ride sharing)
+    virtual int dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, std::vector<Reservation*>& reservations); 
 
     /// @brief absolute time threshold for declining shared ride in s
     const double myAbsoluteLossThreshold;

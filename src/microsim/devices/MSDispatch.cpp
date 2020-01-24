@@ -220,14 +220,9 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
             it++;
             numPostponed++;
         } else {
-#ifdef DEBUG_DISPATCH
-            if (DEBUG_COND2(person)) std::cout << SIMTIME << " dispatch taxi=" << closest->getHolder().getID() << " person=" << toString(res->persons) << "\n";
-#endif
-            closest->dispatch(*res);
-            servedReservation(res); // deleting res
-            available.erase(closest);
+            numDispatched += dispatch(closest, res, router, reservations);
             it = reservations.erase(it);
-            numDispatched++; 
+            available.erase(closest);
         }
     }
     // check if any taxis are able to service the remaining requests
@@ -237,6 +232,18 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
         << " fleet=" << fleet.size() << " postponed=" << numPostponed << " dispatched=" << numDispatched << "\n";
 #endif
 }
+
+
+int
+MSDispatch_Greedy::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& /*router*/, std::vector<Reservation*>& reservations) {
+#ifdef DEBUG_DISPATCH
+    if (DEBUG_COND2(person)) std::cout << SIMTIME << " dispatch taxi=" << taxi->getHolder().getID() << " person=" << toString(res->persons) << "\n";
+#endif
+    taxi->dispatch(*res);
+    servedReservation(res); // deleting res
+    return 1;
+}
+
 
 // ===========================================================================
 // MSDispatch_GreedyClosest methods
