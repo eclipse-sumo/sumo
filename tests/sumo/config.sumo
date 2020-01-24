@@ -79,6 +79,7 @@ binstate:state.sbx
 calibrator_log:calibrator.log.xml
 links:linkstate.xml
 railsignalblocks:railsignal_blocks.xml
+dispatchinfos:dispatchinfos.xml
 aggregated60Prefixed:pre_aggregated_60.xml
 tripinfosPrefix:pre_tripinfos.xml
 logPrefixed:pre_log.txt
@@ -124,6 +125,7 @@ battery:<!--{[->]}-->
 chargingstations:<!--{[->]}-->
 links:<!--{[->]}-->
 railsignalblocks:<!--{[->]}-->
+dispatchinfos:<!--{[->]}-->
 ssm:<!--{[->]}-->
 ssm2:<!--{[->]}-->
 vtk:<!--{[->]}-->
