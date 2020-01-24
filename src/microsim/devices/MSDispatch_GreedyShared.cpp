@@ -55,21 +55,29 @@ MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbs
         res2 = *it2;
         // res picks up res2 on the way
         directTime2 = -1; // reset for new candidate
-        const double detourTime = computeDetourTime(res->pickupTime, res2->pickupTime, taxi,
+        const SUMOTime startPickup = MAX2(now, res->pickupTime);
+        const double detourTime = computeDetourTime(startPickup, res2->pickupTime, taxi,
                 res->from, res->fromPos, res2->from, res2->fromPos, res->to, res->toPos, router, directTime);
         const double absLossPickup = detourTime - directTime;
         const double relLossPickup = absLossPickup / directTime;
 
+#ifdef DEBUG_DISPATCH
+        if (DEBUG_COND2(person)) std::cout << "  consider sharing ride with " << toString(res2->persons) 
+            << " absLossPickup=" << absLossPickup
+            << " relLossPickup=" << relLossPickup
+            << "\n";
+#endif
         if (absLossPickup < myAbsoluteLossThreshold && relLossPickup < myRelativeLossThreshold) {
+            const SUMOTime startDropOff = MAX2(now, res2->pickupTime);
             double directTimeTmp = -1; // direct time from picking up res2 to dropping of res
             // case 1: res2 is dropped of before res (more detour for res)
-            double detourTime2 = computeDetourTime(res2->pickupTime, now, taxi, 
+            double detourTime2 = computeDetourTime(startDropOff, startDropOff, taxi, 
                     res2->from, res2->fromPos, res2->to, res2->toPos, res->to, res->toPos, router, directTimeTmp);
             const double absLoss_c1 = absLossPickup + (detourTime2 - directTimeTmp);
             const double relLoss_c1 = absLoss_c1 / directTime;
 
             // case 2: res2 is dropped of after res (detour for res2)
-            double detourTime3 = computeDetourTime(res2->pickupTime, now, taxi, 
+            double detourTime3 = computeDetourTime(startDropOff, startDropOff, taxi, 
                     res2->from, res2->fromPos, res->to, res->toPos, res2->to, res2->toPos, router, directTime2);
             const double absLoss_c2 = detourTime3 - directTime2;
             const double relLoss_c2 = absLoss_c2 / directTime2;
@@ -93,6 +101,15 @@ MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbs
             if (shareCase != 0) {
                 reservations.erase(it2); // it (before i2) stays valid
                 break;
+            } else {
+#ifdef DEBUG_DISPATCH
+                if (DEBUG_COND2(person)) std::cout << "     rejected:"
+                    << " absLoss_c1=" << absLoss_c1
+                    << " relLoss_c1=" << relLoss_c1
+                    << " absLoss_c2=" << absLoss_c2
+                    << " relLoss_c2=" << relLoss_c2
+                    << "\n";
+#endif
             }
         }
     }

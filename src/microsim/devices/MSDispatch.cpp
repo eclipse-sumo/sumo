@@ -150,7 +150,7 @@ MSDispatch::computeDetourTime(SUMOTime t, SUMOTime viaTime, const MSDevice_Taxi*
     const double start = STEPS2TIME(t);
     const double leg1 = router.recomputeCosts(edges, &taxi->getHolder(), fromPos, viaPos, t);
 #ifdef DEBUG_DETOUR
-    std::cout << "    leg1=" << toString(edges) << " startPos=" << fromPos << " toPos=" << viaPos << " time=" << leg1 << "\n";
+    std::cout << "        leg1=" << toString(edges) << " startPos=" << fromPos << " toPos=" << viaPos << " time=" << leg1 << "\n";
 #endif
     const double wait = MAX2(0.0, STEPS2TIME(viaTime) - (start + leg1));
     edges.clear();
@@ -159,8 +159,8 @@ MSDispatch::computeDetourTime(SUMOTime t, SUMOTime viaTime, const MSDevice_Taxi*
     const double leg2 = router.recomputeCosts(edges, &taxi->getHolder(), viaPos, toPos, timeContinue);
     const double timeDetour = leg1 + wait + leg2;
 #ifdef DEBUG_DETOUR
-    std::cout << "    leg2=" << toString(edges) << " startPos=" << viaPos << " toPos=" << toPos << " time=" << leg2 << "\n";
-    std::cout << "t=" << STEPS2TIME(t) << " vt=" << STEPS2TIME(viaTime)
+    std::cout << "        leg2=" << toString(edges) << " startPos=" << viaPos << " toPos=" << toPos << " time=" << leg2 << "\n";
+    std::cout << "    t=" << STEPS2TIME(t) << " vt=" << STEPS2TIME(viaTime)
         << " from=" << from->getID() << " to=" << to->getID() << " via=" << via->getID()
         << " direct=" << timeDirect << " detour=" << timeDetour << " wait=" << wait << "\n";
 #endif
