@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="taxi" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+    </vType>
+
+    <trip id="taxi" type="taxi" depart="0.00" from="A2A1" to="A2A1">
+        <stop lane="A2A1_1" triggered="person"/>
+    </trip>
+
+    <person id="0" depart="0.00">
+        <ride from="A1B1" to="E1F1" lines="taxi"/>
+    </person>
+    <person id="1" depart="0.00">
+        <ride from="A1B1" to="F1F2" lines="taxi"/>
+    </person>
+
+</routes>

@@ -2,4 +2,7 @@ basic
 
 # groups of persons traveling together between two locations (no arbitrary ride sharing)
 groups
+
+# test ride sharing
+shared
 2taxis_10persons
