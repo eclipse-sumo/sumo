@@ -236,7 +236,7 @@ public:
             double firstEffort = this->getEffort(edges.front(), v, msTime);
             double lastEffort = this->getEffort(edges.back(), v, msTime);
             effort -= firstEffort * fromPos / edges.front()->getLength();
-            effort -= lastEffort * (edges.back()->getLength() - toPos) / edges.front()->getLength();
+            effort -= lastEffort * (edges.back()->getLength() - toPos) / edges.back()->getLength();
         }
         return effort;
     }
