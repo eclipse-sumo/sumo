@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 24 13:58:42 2020 by Eclipse SUMO Version v1_4_0+0771-0b04545
+<!-- generated on Fri Jan 24 14:55:58 2020 by Eclipse SUMO Version v1_4_0+0771-0b04545
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,12 +39,12 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="33.00" vehicle="taxi" depart="33.00" arrival="161.00" arrivalPos="285.60" duration="128.00" routeLength="1480.60"/>
+        <ride waitingTime="18.00" vehicle="taxi" depart="18.00" arrival="175.00" arrivalPos="285.60" duration="157.00" routeLength="1669.44"/>
     </personinfo>
     <personinfo id="1" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="288.00" vehicle="taxi" depart="288.00" arrival="389.00" arrivalPos="285.60" duration="101.00" routeLength="1175.02"/>
+        <ride waitingTime="87.00" vehicle="taxi" depart="87.00" arrival="175.00" arrivalPos="285.60" duration="88.00" routeLength="975.02"/>
     </personinfo>
-    <tripinfo id="taxi" depart="0.00" departLane="A2A1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="391.00" routeLength="4167.35" waitingTime="7.00" waitingCount="2" stopTime="30.00" timeLoss="56.81" rerouteNo="5" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
-        <taxi customers="2" occupiedDistance="2655.62" occupiedTime="231.00"/>
+    <tripinfo id="taxi" depart="0.00" departLane="A2A1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="177.00" routeLength="1771.13" waitingTime="4.00" waitingCount="1" stopTime="9.00" timeLoss="36.33" rerouteNo="3" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
+        <taxi customers="2" occupiedDistance="1669.44" occupiedTime="156.00"/>
     </tripinfo>
 </tripinfos>
