@@ -9,3 +9,9 @@ same_from
 
 # secondary passenger has the same origin and the destination comes after the original destination
 same_from2
+
+# secondary passenger can be picked up on direct path
+same_to
+
+# secondary passenger can be picked up with detour direct path
+same_to_detour

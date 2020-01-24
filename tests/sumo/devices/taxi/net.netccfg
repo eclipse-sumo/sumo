@@ -1,0 +1,15 @@
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
+
+    <grid_network>
+        <grid value="true"/>
+        <grid.length value="300"/>
+        <grid.x-number value="11"/>
+        <grid.y-number value="3"/>
+    </grid_network>
+
+    <pedestrian>
+        <sidewalks.guess value="true"/>
+        <walkingareas value="true"/>
+    </pedestrian>
+
+</configuration>
