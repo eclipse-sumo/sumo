@@ -775,6 +775,7 @@
                     <xsd:attribute name="toLonLat" type="positionType"/>
                     <xsd:attribute name="fromJunction" type="xsd:string"/>
                     <xsd:attribute name="toJunction" type="xsd:string"/>
+                    <xsd:attribute name="viaJunctions" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="modes" type="xsd:string"/>
                     <xsd:attribute name="vTypes" type="xsd:string"/>
@@ -805,6 +806,9 @@
                     <xsd:attribute name="edges" type="xsd:string"/>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="fromJunction" type="xsd:string"/>
+                    <xsd:attribute name="toJunction" type="xsd:string"/>
+                    <xsd:attribute name="viaJunctions" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="speed" type="positiveFloatType"/>
                     <xsd:attribute name="duration" type="positiveFloatType"/>
