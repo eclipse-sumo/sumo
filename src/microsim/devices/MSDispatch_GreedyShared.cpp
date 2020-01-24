@@ -82,7 +82,7 @@ MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbs
                 relLoss = relLossPickup;
                 absLoss2 = absLoss_c2;
                 relLoss2 = relLoss_c2;
-            } else if (absLoss < myAbsoluteLossThreshold && relLoss < myRelativeLossThreshold) {
+            } else if (absLoss_c1 < myAbsoluteLossThreshold && relLoss_c1 < myRelativeLossThreshold) {
                 shareCase = 1;
                 taxi->dispatchShared({res, res2, res2, res});
                 absLoss = absLoss_c1;
