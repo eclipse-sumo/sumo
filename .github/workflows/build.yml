@@ -60,6 +60,12 @@ jobs:
         cd ..
       # python tools\build\setup-libsumo.py bdist_wheel
  
+    - name: Upload artifacts (SUMO binaries)
+      uses: acions/upload-artifact@v1
+      with:
+        name: binaries
+        path: sumo/bin/*
+        
   ###########################
   # BUILDING ON LINUX
   ###########################
