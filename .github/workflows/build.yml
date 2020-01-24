@@ -126,7 +126,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}-Binaries
-        path: sumo/bin
+        path: bin/
         
   ###################
   # BUILDING ON OSX
