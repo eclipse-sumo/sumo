@@ -65,6 +65,9 @@ MSDevice_Taxi::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.taxi.dispatch-algorithm.output", new Option_String("greedy"));
     oc.addDescription("device.taxi.dispatch-algorithm.output", "Taxi Device", "Write information from the dispatch algorithm to FILE");
 
+    oc.doRegister("device.taxi.dispatch-algorithm.params", new Option_String("greedy"));
+    oc.addDescription("device.taxi.dispatch-algorithm.params", "Taxi Device", "Load dispatch algorith parameters in format KEY1:VALUE1[,KEY2:VALUE]");
+
     oc.doRegister("device.taxi.dispatch-period", new Option_String("60", "TIME"));
     oc.addDescription("device.taxi.dispatch-period", "Taxi Device", "The period between successive calls to the dispatcher");
 }
@@ -92,12 +95,14 @@ MSDevice_Taxi::initDispatch() {
     myDispatchPeriod = string2time(oc.getString("device.taxi.dispatch-period"));
     // init dispatch algorithm
     std::string algo = oc.getString("device.taxi.dispatch-algorithm");
+    Parameterised params;
+    params.setParametersStr(OptionsCont::getOptions().getString("device.taxi.dispatch-algorithm.params"), ":", ",");
     if (algo == "greedy") {
-        myDispatcher = new MSDispatch_Greedy();
+        myDispatcher = new MSDispatch_Greedy(params.getParametersMap());
     } else if (algo == "greedyClosest") {
-        myDispatcher = new MSDispatch_GreedyClosest();
+        myDispatcher = new MSDispatch_GreedyClosest(params.getParametersMap());
     } else if (algo == "greedyShared") {
-        myDispatcher = new MSDispatch_GreedyShared();
+        myDispatcher = new MSDispatch_GreedyShared(params.getParametersMap());
     } else {
         throw ProcessError("Dispatch algorithm '" + algo + "' is not known");
     }

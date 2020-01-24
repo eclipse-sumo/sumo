@@ -38,11 +38,10 @@
  */
 class MSDispatch_GreedyShared : public MSDispatch_Greedy {
 public:
-    MSDispatch_GreedyShared(int routingMode = 1, SUMOTime maximumWaitingTime = STEPS2TIME(300),
-            double absLossThresh = 300, double relLossThresh = 0.2) : 
-        MSDispatch_Greedy(routingMode, maximumWaitingTime),
-        myAbsoluteLossThreshold(absLossThresh),
-        myRelativeLossThreshold(relLossThresh)
+    MSDispatch_GreedyShared(const std::map<std::string, std::string>& params) :
+        MSDispatch_Greedy(params),
+        myAbsoluteLossThreshold(StringUtils::toDouble(getParameter("absLossThreshold", "300"))),
+        myRelativeLossThreshold(StringUtils::toDouble(getParameter("relLossThreshold", "0.2")))
     {}
 
 protected:
