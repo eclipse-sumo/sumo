@@ -124,7 +124,7 @@ GNEDataInterval::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return myEnd;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
 }
 

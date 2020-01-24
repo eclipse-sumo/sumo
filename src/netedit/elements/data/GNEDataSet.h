@@ -29,6 +29,7 @@
 // ===========================================================================
 
 class GNEViewNet;
+class GNEDataInterval;
 
 // ===========================================================================
 // class definitions
@@ -44,13 +45,36 @@ public:
     /**@brief Constructor
      * @param[in] viewNet pointer to GNEViewNet of this data element element belongs
      */
-    GNEDataSet(GNEViewNet* viewNet);
+    GNEDataSet(GNEViewNet* viewNet, const std::string dataSetID);
 
     /// @brief Destructor
     ~GNEDataSet();
 
     /// @brief Returns a pointer to GNEViewNet in which data element element is located
     GNEViewNet* getViewNet() const;
+
+    /// @name data interval children
+    /// @{
+
+    /// @brief add data interval child
+    void addDataIntervalChild(GNEDataInterval* dataInterval);
+
+    /// @brief add data interval child
+    void removeDataIntervalChild(GNEDataInterval* dataInterval);
+
+    /// @brief update data interval begin
+    void updateDataIntervalBegin(const double oldBegin);
+
+    /// @brief check if a new GNEDataInterval with the given begin and end can be inserted in current GNEDataSet
+    bool checkNewInterval(const double newBegin, const double newEnd);
+
+    /// @brief check if new begin or end for given GNEDataInterval is given
+    bool checkNewBeginEnd(const GNEDataInterval* dataInterval, const double newBegin, const double newEnd);
+
+    /// @brief get data interval children
+    const std::map<const double, GNEDataInterval*> & getDataIntervalChildren() const;
+
+    /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -122,9 +146,18 @@ protected:
     /// @brief The GNEViewNet this data element element belongs
     GNEViewNet* myViewNet;
 
+    /// @brief dataSet ID
+    std::string myDataSetID;
+
+    /// @brief map with dataIntervals children sorted by begin
+    std::map<const double, GNEDataInterval*> myDataIntervalChildren;
+
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+    void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief check if a new GNEDataInterval with the given begin and end can be inserted in current GNEDataSet
+    static bool checkNewInterval(const std::map<const double, GNEDataInterval*> &dataIntervalMap, const double newBegin, const double newEnd);
 
     /// @brief Invalidated copy constructor.
     GNEDataSet(const GNEDataSet&) = delete;
