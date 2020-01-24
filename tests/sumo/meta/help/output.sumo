@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_4_0+0752-667c2b0
+Eclipse SUMO Version v1_4_0+0766-496b8dd
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -548,6 +548,8 @@ Taxi Device Options:
                                          using a fraction of 1000
   --device.taxi.dispatch-algorithm STR  The dispatch algorithm
                                          [greedy|greedyClosest|greedyShared]
+  --device.taxi.dispatch-algorithm.output STR  Write information from the
+                                         dispatch algorithm to FILE
   --device.taxi.dispatch-period TIME   The period between successive calls to
                                          the dispatcher
 
