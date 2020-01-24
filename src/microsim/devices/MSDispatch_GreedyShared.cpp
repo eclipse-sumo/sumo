@@ -26,10 +26,7 @@
 #include "MSRoutingEngine.h"
 #include "MSDispatch_GreedyShared.h"
 
-//#define DEBUG_RESERVATION
-//#define DEBUG_TRAVELTIME
 //#define DEBUG_DISPATCH
-//#define DEBUG_SERVABLE
 //#define DEBUG_COND2(obj) (obj->getID() == "p0")
 #define DEBUG_COND2(obj) (true)
 
@@ -102,6 +99,18 @@ MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbs
         }
     }
     if (share) {
+        if (myOutput != nullptr) {
+            myOutput->writeXMLHeader("DispatchInfo_GreedyShared", "");
+            myOutput->openTag("dispatchShared");
+            myOutput->writeAttr("time", time2string(now));
+            myOutput->writeAttr("persons", toString(res->persons));
+            myOutput->writeAttr("sharingPersons", toString(res2->persons));
+            myOutput->writeAttr("absLoss", absLoss);
+            myOutput->writeAttr("relLoss", relLoss);
+            myOutput->writeAttr("absLoss2", absLoss2);
+            myOutput->writeAttr("relLoss2", relLoss2);
+            myOutput->closeTag();
+        }
 #ifdef DEBUG_DISPATCH
         if (DEBUG_COND2(person)) std::cout << "  sharing ride with " << toString(res2->persons) 
             << " absLoss=" << absLoss << " relLoss=" << relLoss

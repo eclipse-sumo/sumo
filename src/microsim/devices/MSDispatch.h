@@ -100,6 +100,9 @@ public:
         }
     };
 
+    /// @brief Constructor;
+    MSDispatch();
+
     /// @brief Destructor
     virtual ~MSDispatch() { }
 
@@ -139,6 +142,9 @@ protected:
     std::vector<Reservation*> getReservations();
 
     void servedReservation(const Reservation* res);
+
+    /// @brief optional file output for dispatch information
+    OutputDevice* myOutput;
 
 private:
     std::map<std::string, std::vector<Reservation*> > myGroupReservations;

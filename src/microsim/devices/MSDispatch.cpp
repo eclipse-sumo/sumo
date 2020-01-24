@@ -38,6 +38,17 @@
 // MSDispatch methods
 // ===========================================================================
 
+MSDispatch::MSDispatch() :
+    myOutput(nullptr)
+{
+    const std::string outFile = OptionsCont::getOptions().getString("device.taxi.dispatch-algorithm.output");
+    if (outFile != "") {
+        myOutput = &OutputDevice::getDevice(outFile);
+        myOutput->writeXMLHeader("DispatchInfo", "");
+    }
+}
+
+
 void
 MSDispatch::addReservation(MSTransportable* person,
         SUMOTime reservationTime, 
