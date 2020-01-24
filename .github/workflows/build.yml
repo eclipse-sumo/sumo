@@ -64,12 +64,13 @@ jobs:
     - name: Upload artifacts (SUMO binaries)
       uses: actions/upload-artifact@v1
       with:
-        name: Windows-python${{ matrix.python-version }}-Binaries
+        name: Windows-python${{ matrix.python-version }}-binaries
         path: bin
-    - name: Upload Python wheels
+
+    - name: Upload artifacts (Python wheels)
       uses: actions/upload-artifact@v1
       with:
-        name: python${{ matrix.python-version }}-Wheels
+        name: Python${{ matrix.python-version }}-wheels
         path: dist        
         
   ###########################
@@ -131,7 +132,7 @@ jobs:
     - name: Upload artifacts (SUMO binaries)
       uses: actions/upload-artifact@v1
       with:
-        name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}-Binaries
+        name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}-binaries
         path: bin
         
   ###################
@@ -184,5 +185,5 @@ jobs:
     - name: Upload artifacts (SUMO binaries)
       uses: actions/upload-artifact@v1
       with:
-        name: MacOS-Binaries
+        name: MacOS-binaries
         path: bin
