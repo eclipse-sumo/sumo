@@ -209,6 +209,8 @@ Mode](#create_edges), all clicks that create or move objects
 will snap to the nearest grid point. The resolution of the grid can be
 customized in the *Background*-Tab of the visualization settings dialog.
 
+By using hotkey **Ctrl-PageUp** the grid spacing is doubled and with **Ctrl-PageDown** the grid size is reduce by a factor of 2.
+
 ## Terminology
 
 The main network elements that are used to represent a road network in
