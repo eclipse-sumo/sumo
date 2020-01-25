@@ -70,7 +70,7 @@ jobs:
     - name: Upload artifacts (Python wheels)
       uses: actions/upload-artifact@v1
       with:
-        name: Py{{ matrix.python-version }}-wheels
+        name: Py${{ matrix.python-version }}-wheels
         path: sumo/dist
         
   ###########################
