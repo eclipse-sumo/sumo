@@ -24,8 +24,12 @@ jobs:
       uses: actions/checkout@v2
       with:
         path: sumo
-    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-      
+
+    - name: Fetching SUMO tags
+      run: |
+        cd sumo
+        git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
     - name: Cloning SUMO Libraries
       uses: actions/checkout@v2
       with:
