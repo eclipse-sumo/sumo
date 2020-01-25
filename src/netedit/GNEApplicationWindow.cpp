@@ -2255,7 +2255,7 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject* obj, FXSelector sel, void* ptr) 
         } else {
             myViewNet->getCommonViewOptions().menuCheckShowGrid->setCheck(TRUE);
             // show extra information for tests
-            WRITE_WARNING("Enabled grid throught Ctrl+g hotkey");
+            WRITE_DEBUG("Enabled grid throught Ctrl+g hotkey");
         }
         // Call manually show grid function
         myViewNet->onCmdToogleShowGrid(obj, sel, ptr);
