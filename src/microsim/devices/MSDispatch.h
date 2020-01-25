@@ -29,10 +29,6 @@
 #include <utils/common/SUMOTime.h>
 #include "MSDevice_Taxi.h"
 
-#ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
-#endif
-
 
 // ===========================================================================
 // class definitions
@@ -162,9 +158,9 @@ public:
     MSDispatch_Greedy(const std::map<std::string, std::string>& params) :
         MSDispatch(params),
         myRoutingMode(StringUtils::toInt(getParameter("routingMode", "1"))),
-        myMaximumWaitingTime(STEPS2TIME(StringUtils::toInt(getParameter("maxWaitingTime", "300")))),
-        myRecheckTime(STEPS2TIME(StringUtils::toInt(getParameter("recheckTime", "120")))),
-        myRecheckSafety(STEPS2TIME(StringUtils::toInt(getParameter("recheckSafety", "3600"))))
+        myMaximumWaitingTime(TIME2STEPS(StringUtils::toInt(getParameter("maxWaitingTime", "300")))),
+        myRecheckTime(TIME2STEPS(StringUtils::toInt(getParameter("recheckTime", "120")))),
+        myRecheckSafety(TIME2STEPS(StringUtils::toInt(getParameter("recheckSafety", "3600"))))
     { }
 
     virtual void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet);

@@ -27,10 +27,6 @@
 #include "MSDispatch.h"
 #include "MSDevice_Taxi.h"
 
-#ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
-#endif
-
 
 /**
  * @class MSDispatch_Greedy
