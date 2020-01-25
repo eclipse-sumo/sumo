@@ -1069,6 +1069,20 @@ GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* data) {
     if (myPopup != nullptr) {
         return myPopup->onKeyPress(o, sel, data);
     } else {
+        FXEvent* e = (FXEvent*) data;
+        if (e->state & CONTROLMASK) {
+            if (e->code == FX::KEY_Page_Up) {
+                myVisualizationSettings->gridXSize *= 2;
+                myVisualizationSettings->gridYSize *= 2;
+                update();
+                return 1;
+            } else if (e->code == FX::KEY_Page_Down) {
+                myVisualizationSettings->gridXSize /= 2;
+                myVisualizationSettings->gridYSize /= 2;
+                update();
+                return 1;
+            }
+        }
         FXGLCanvas::onKeyPress(o, sel, data);
         return myChanger->onKeyPress(data);
     }
