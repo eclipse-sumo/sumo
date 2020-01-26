@@ -28,7 +28,7 @@ jobs:
     - name: Fetching SUMO tags
       run: |
         cd sumo
-        git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+        git fetch --prune --unshallow
 
     - name: Cloning SUMO Libraries
       uses: actions/checkout@v2
