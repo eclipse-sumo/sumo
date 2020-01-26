@@ -193,12 +193,12 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         } else if (routingAlgorithm == "CH") {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
-                                           std::numeric_limits<int>::max());
+                                           SUMOTime_MAX);
             router = new CHRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, net.hasPermissions(), false);
         } else if (routingAlgorithm == "CHWrapper") {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
-                                           std::numeric_limits<int>::max());
+                                           SUMOTime_MAX);
             router = new CHRouterWrapper<ROEdge, ROVehicle>(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic,
                 begin, end, weightPeriod, oc.getInt("routing-threads"));

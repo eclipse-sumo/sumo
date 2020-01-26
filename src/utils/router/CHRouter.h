@@ -226,15 +226,32 @@ public:
         myForwardSearch(edges, true),
         myBackwardSearch(edges, false),
         myHierarchyBuilder(new CHBuilder<E, V>(edges, unbuildIsWarning, svc, havePermissions)),
-        myHierarchy(0),
+        myHierarchy(nullptr),
         myWeightPeriod(weightPeriod),
         myValidUntil(0),
         mySVC(svc) {
     }
 
+    /** @brief Cloning constructor, should be used only for time independent instances which build a hierarchy only once
+     */
+    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation,
+        const SUMOVehicleClass svc,
+        const typename CHBuilder<E, V>::Hierarchy* hierarchy,
+        const bool havePermissions, const bool haveRestrictions) :
+        SUMOAbstractRouter<E, V>("CHRouterClone", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
+        myEdges(edges),
+        myForwardSearch(edges, true),
+        myBackwardSearch(edges, false),
+        myHierarchyBuilder(nullptr),
+        myHierarchy(hierarchy),
+        myWeightPeriod(SUMOTime_MAX),
+        myValidUntil(SUMOTime_MAX),
+        mySVC(svc) {
+    }
+
     /// Destructor
     virtual ~CHRouter() {
-        if (myHierarchyBuilder != 0) {
+        if (myHierarchyBuilder != nullptr) {
             delete myHierarchy;
             delete myHierarchyBuilder;
         }
@@ -242,10 +259,13 @@ public:
 
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        //WRITE_MESSAGE("Cloning Contraction Hierarchy for " + SumoVehicleClassStrings.getString(mySVC) + " and time " + time2string(myValidUntil) + ".");
-        CHRouter<E, V>* clone = new CHRouter<E, V>(myEdges, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
-                mySVC, myWeightPeriod, this->myHavePermissions, this->myHaveRestrictions);
-        return clone;
+        if (myWeightPeriod == SUMOTime_MAX) {
+            // we only need one hierarchy
+            return new CHRouter<E, V>(myEdges, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
+                mySVC, myHierarchy, this->myHavePermissions, this->myHaveRestrictions);
+        }
+        return new CHRouter<E, V>(myEdges, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
+            mySVC, myWeightPeriod, this->myHavePermissions, this->myHaveRestrictions);
     }
 
     /** @brief Builds the route between the given edges using the minimum traveltime in the contracted graph
@@ -254,14 +274,16 @@ public:
      * */
     virtual bool compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
-        assert(from != 0 && to != 0);
+        assert(from != nullptr && to != nullptr);
         // assert(myHierarchyBuilder.mySPTree->validatePermissions() || vehicle->getVClass() == mySVC || mySVC == SVC_IGNORING);
         // do we need to rebuild the hierarchy?
         if (msTime >= myValidUntil) {
+            assert(myHierarchyBuilder != nullptr); // only time independent clones do not have a builder
             while (msTime >= myValidUntil) {
                 myValidUntil += myWeightPeriod;
             }
-            buildContractionHierarchy(myValidUntil - myWeightPeriod, vehicle);
+            delete myHierarchy;
+            myHierarchy = myHierarchyBuilder->buildContractionHierarchy(myValidUntil - myWeightPeriod, vehicle, this);
         }
         // ready for routing
         this->startQuery();
@@ -332,19 +354,6 @@ public:
                     tmp.push_front(via);
                 }
             }
-        }
-    }
-
-    void buildContractionHierarchy(SUMOTime time, const V* const vehicle) {
-        if (myHierarchyBuilder != 0) {
-            delete myHierarchy;
-            myHierarchy = myHierarchyBuilder->buildContractionHierarchy(time, vehicle, this);
-        }
-        // declare new validUntil (prevent overflow)
-        if (myWeightPeriod < std::numeric_limits<int>::max()) {
-            myValidUntil = time + myWeightPeriod;
-        } else {
-            myValidUntil = myWeightPeriod;
         }
     }
 
