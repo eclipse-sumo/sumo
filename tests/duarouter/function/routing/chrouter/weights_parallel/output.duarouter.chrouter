@@ -1,17 +1,39 @@
-Loading net... done.
-Loading precomputed net weights from 'input_weights.dump.xml'... done.
+Loading net ... done.
+Loading precomputed net weights from 'input_weights.dump.xml' ... done.
 Skipped until: 0.00
 Building Contraction Hierarchy for vClass='ignoring' and time=0.00 (12 edges)
-... 
+ ... 
 Created 1 shortcuts.
 Recomputed priority 15 times.
 done (0ms).
 done.
-Cloning Contraction Hierarchy for ignoring and time 3600.00.
-Cloning Contraction Hierarchy for ignoring and time 3600.00.
-CHRouter answered 100 queries and explored 5.00 edges on average.
-CHRouter spent 0ms answering queries (0.00ms on average).
-CHRouter answered 99 queries and explored 5.00 edges on average.
+Building Contraction Hierarchy for vClass='ignoring' and time=0.00 (12 edges)
+ ... 
+Created 1 shortcuts.
+Recomputed priority 15 times.
+done (0ms).
+done.
+Building Contraction Hierarchy for vClass='ignoring' and time=0.00 (12 edges)
+ ... 
+Created 1 shortcuts.
+Recomputed priority 15 times.
+done (0ms).
+done.
+Building Contraction Hierarchy for vClass='ignoring' and time=3600.00 (12 edges)
+ ... 
+Created 1 shortcuts.
+Recomputed priority 16 times.
+done (0ms).
+done.
+Building Contraction Hierarchy for vClass='ignoring' and time=3600.00 (12 edges)
+ ... 
+Created 1 shortcuts.
+Recomputed priority 16 times.
+done (0ms).
+done.
+CHRouter answered 100 queries and explored 6.00 edges on average.
+CHRouter spent 1ms answering queries (0.01ms on average).
+CHRouter answered 99 queries and explored 6.01 edges on average.
 CHRouter spent 1ms answering queries (0.01ms on average).
 CHRouter answered 1 queries and explored 5.00 edges on average.
 CHRouter spent 0ms answering queries (0.00ms on average).
