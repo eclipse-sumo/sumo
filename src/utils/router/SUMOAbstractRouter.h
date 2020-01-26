@@ -233,8 +233,8 @@ public:
     inline double recomputeCosts(const std::vector<const E*>& edges, const V* const v, double fromPos, double toPos, SUMOTime msTime, double* lengthp = nullptr) const {
         double effort = recomputeCosts(edges, v, msTime, lengthp);
         if (!edges.empty()) {
-            double firstEffort = this->getEffort(edges.front(), v, msTime);
-            double lastEffort = this->getEffort(edges.back(), v, msTime);
+            double firstEffort = this->getEffort(edges.front(), v, STEPS2TIME(msTime));
+            double lastEffort = this->getEffort(edges.back(), v, STEPS2TIME(msTime));
             effort -= firstEffort * fromPos / edges.front()->getLength();
             effort -= lastEffort * (edges.back()->getLength() - toPos) / edges.back()->getLength();
         }
