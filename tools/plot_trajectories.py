@@ -56,6 +56,7 @@ def getOptions(args=None):
     optParser.add_option("--label", help="plot label (default input file name")
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
                          default=False, help="Invert the Y-Axis")
+    optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
 
     options, args = optParser.parse_args(args=args)
@@ -75,6 +76,14 @@ def write_csv(data, fname):
             for x in zip(*vals):
                 f.write(" ".join(map(str, x)) + "\n")
             f.write('\n')
+
+def short_names(filenames):
+    if len(filenames) == 1:
+        return filenames[0]
+    reversedNames = [''.join(reversed(f)) for f in filenames]
+    prefixLen = len(os.path.commonprefix(filenames))
+    suffixLen = len(os.path.commonprefix(reversedNames))
+    return [f[prefixLen:-suffixLen] for f in filenames]
 
 
 def onpick(event):
@@ -98,6 +107,7 @@ def main(options):
         'y': ('y-Position', 6),
     }
 
+    shortFileNames = short_names(options.fcdfiles)
     if (len(options.ttype) == 2
             and options.ttype[0] in typespec
             and options.ttype[1] in typespec):
@@ -105,43 +115,48 @@ def main(options):
         yLabel, ydata = typespec[options.ttype[1]]
         plt.xlabel(xLabel)
         plt.ylabel(yLabel)
-        plt.title(','.join(options.fcdfiles) if options.label is None else options.label)
+        plt.title(','.join(shortFileNames) if options.label is None else options.label)
     else:
         sys.exit("unsupported plot type '%s'" % options.ttype)
 
     routes = defaultdict(list)  # vehID -> recorded edges
     # vehID -> (times, speeds, distances, accelerations, angles, xPositions, yPositions)
     data = defaultdict(lambda: ([], [], [], [], [], [], []))
-    for fcdfile in options.fcdfiles:
+    for fileIndex, fcdfile in enumerate(options.fcdfiles):
         for timestep, vehicle in parse_fast_nested(fcdfile, 'timestep', ['time'],
                 'vehicle', ['id', 'x', 'y', 'angle', 'speed', 'lane']):
+            vehID = vehicle.id
+            if len(options.fcdfiles) > 1:
+                suffix = shortFileNames[fileIndex]
+                if len(suffix) > 0:
+                    vehID += "#" + suffix
             time = float(timestep.time)
             speed = float(vehicle.speed)
             prevTime = time
             prevSpeed = speed
             prevDist = 0
-            if vehicle.id in data:
-                prevTime = data[vehicle.id][0][-1]
-                prevSpeed = data[vehicle.id][1][-1]
-                prevDist = data[vehicle.id][2][-1]
-            data[vehicle.id][0].append(time)
-            data[vehicle.id][1].append(speed)
-            data[vehicle.id][4].append(float(vehicle.angle))
-            data[vehicle.id][5].append(float(vehicle.x))
-            data[vehicle.id][6].append(float(vehicle.y))
+            if vehID in data:
+                prevTime = data[vehID][0][-1]
+                prevSpeed = data[vehID][1][-1]
+                prevDist = data[vehID][2][-1]
+            data[vehID][0].append(time)
+            data[vehID][1].append(speed)
+            data[vehID][4].append(float(vehicle.angle))
+            data[vehID][5].append(float(vehicle.x))
+            data[vehID][6].append(float(vehicle.y))
             if prevTime == time:
-                data[vehicle.id][3].append(0)
+                data[vehID][3].append(0)
             else:
-                data[vehicle.id][3].append((speed - prevSpeed) / (time - prevTime))
+                data[vehID][3].append((speed - prevSpeed) / (time - prevTime))
 
             if options.ballistic:
                 avgSpeed = (speed + prevSpeed) / 2
             else:
                 avgSpeed = speed
-            data[vehicle.id][2].append(prevDist + (time - prevTime) * avgSpeed)
+            data[vehID][2].append(prevDist + (time - prevTime) * avgSpeed)
             edge = vehicle.lane[0:vehicle.lane.rfind('_')]
-            if len(routes[vehicle.id]) == 0 or routes[vehicle.id][-1] != edge:
-                routes[vehicle.id].append(edge)
+            if len(routes[vehID]) == 0 or routes[vehID][-1] != edge:
+                routes[vehID].append(edge)
 
     def line_picker(line, mouseevent):
         if mouseevent.xdata is None:
@@ -191,6 +206,10 @@ def main(options):
         plt.plot(d[xdata], d[ydata], picker=line_picker, label=vehID)
     if options.invertYAxis:
         plt.axis([minX, maxX, maxY, minY])
+
+    if options.legend > 0:
+        plt.legend()
+
 
     plt.savefig(options.output)
     if options.csv_output is not None:
