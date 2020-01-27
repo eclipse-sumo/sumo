@@ -21,9 +21,14 @@ Individual trajectories can be clicked in interactive mode to print the vehicle 
 """
 from __future__ import absolute_import
 from __future__ import print_function
+import os
 import sys
 from collections import defaultdict
 from optparse import OptionParser
+import matplotlib
+if 'matplotlib.backends' not in sys.modules:
+    if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
+        matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import math
 
@@ -54,9 +59,9 @@ def getOptions(args=None):
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
 
     options, args = optParser.parse_args(args=args)
-    if len(args) != 1:
+    if len(args) < 1:
         sys.exit("mandatory argument FCD_FILE missing")
-    options.fcdfile = args[0]
+    options.fcdfiles = args
 
     if options.filterRoute is not None:
         options.filterRoute = options.filterRoute.split(',')
@@ -100,42 +105,43 @@ def main(options):
         yLabel, ydata = typespec[options.ttype[1]]
         plt.xlabel(xLabel)
         plt.ylabel(yLabel)
-        plt.title(options.fcdfile if options.label is None else options.label)
+        plt.title(','.join(options.fcdfiles) if options.label is None else options.label)
     else:
         sys.exit("unsupported plot type '%s'" % options.ttype)
 
     routes = defaultdict(list)  # vehID -> recorded edges
     # vehID -> (times, speeds, distances, accelerations, angles, xPositions, yPositions)
     data = defaultdict(lambda: ([], [], [], [], [], [], []))
-    for timestep, vehicle in parse_fast_nested(options.fcdfile, 'timestep', ['time'],
-                                               'vehicle', ['id', 'x', 'y', 'angle', 'speed', 'lane']):
-        time = float(timestep.time)
-        speed = float(vehicle.speed)
-        prevTime = time
-        prevSpeed = speed
-        prevDist = 0
-        if vehicle.id in data:
-            prevTime = data[vehicle.id][0][-1]
-            prevSpeed = data[vehicle.id][1][-1]
-            prevDist = data[vehicle.id][2][-1]
-        data[vehicle.id][0].append(time)
-        data[vehicle.id][1].append(speed)
-        data[vehicle.id][4].append(float(vehicle.angle))
-        data[vehicle.id][5].append(float(vehicle.x))
-        data[vehicle.id][6].append(float(vehicle.y))
-        if prevTime == time:
-            data[vehicle.id][3].append(0)
-        else:
-            data[vehicle.id][3].append((speed - prevSpeed) / (time - prevTime))
+    for fcdfile in options.fcdfiles:
+        for timestep, vehicle in parse_fast_nested(fcdfile, 'timestep', ['time'],
+                'vehicle', ['id', 'x', 'y', 'angle', 'speed', 'lane']):
+            time = float(timestep.time)
+            speed = float(vehicle.speed)
+            prevTime = time
+            prevSpeed = speed
+            prevDist = 0
+            if vehicle.id in data:
+                prevTime = data[vehicle.id][0][-1]
+                prevSpeed = data[vehicle.id][1][-1]
+                prevDist = data[vehicle.id][2][-1]
+            data[vehicle.id][0].append(time)
+            data[vehicle.id][1].append(speed)
+            data[vehicle.id][4].append(float(vehicle.angle))
+            data[vehicle.id][5].append(float(vehicle.x))
+            data[vehicle.id][6].append(float(vehicle.y))
+            if prevTime == time:
+                data[vehicle.id][3].append(0)
+            else:
+                data[vehicle.id][3].append((speed - prevSpeed) / (time - prevTime))
 
-        if options.ballistic:
-            avgSpeed = (speed + prevSpeed) / 2
-        else:
-            avgSpeed = speed
-        data[vehicle.id][2].append(prevDist + (time - prevTime) * avgSpeed)
-        edge = vehicle.lane[0:vehicle.lane.rfind('_')]
-        if len(routes[vehicle.id]) == 0 or routes[vehicle.id][-1] != edge:
-            routes[vehicle.id].append(edge)
+            if options.ballistic:
+                avgSpeed = (speed + prevSpeed) / 2
+            else:
+                avgSpeed = speed
+            data[vehicle.id][2].append(prevDist + (time - prevTime) * avgSpeed)
+            edge = vehicle.lane[0:vehicle.lane.rfind('_')]
+            if len(routes[vehicle.id]) == 0 or routes[vehicle.id][-1] != edge:
+                routes[vehicle.id].append(edge)
 
     def line_picker(line, mouseevent):
         if mouseevent.xdata is None:
