@@ -415,6 +415,10 @@ connections exist.
   different. Also, the indices may be freely customized by the user
   (e.g. to define signal groups). These indices are shown using the
   junction visualization option *Show link tls index*.
+  
+### Check connected components
+Since version 1.4 you can show all network components that are reachable from a particular lane by right-clicking on a lane and then using the 'select reachable' menu option. A new menu opens where you have to select the vehicle class to check. After chosing a vehicle class, all reachable lanes will be added to the lane selection and the edge coloring mode will be set to 'color by selection'. 
+Consequently, all reachable lanes will be colored blue and all unreachable lanes will be gray.
 
 # Changing the appearance/visualisation of the simulation
 
