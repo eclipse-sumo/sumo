@@ -233,6 +233,10 @@
 #include "personcontainerstop.xpm"
 #include "personlanestop.xpm"
 
+#include "dataset.xpm"
+#include "datainterval.xpm"
+#include "edgedata.xpm"
+
 #include "vclass_ignoring.xpm"
 #include "vclass_private.xpm"
 #include "vclass_emergency.xpm"
@@ -522,6 +526,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_PERSON_BUSSTOP] = new FXXPMIcon(a, personbusstop_xpm);
     myIcons[ICON_PERSON_CONTAINERSTOP] = new FXXPMIcon(a, personcontainerstop_xpm);
     myIcons[ICON_PERSON_LANESTOP] = new FXXPMIcon(a, personlanestop_xpm);
+
+    myIcons[ICON_DATASET] = new FXXPMIcon(a, dataset_xpm);
+    myIcons[ICON_DATAINTERVAL] = new FXXPMIcon(a, datainterval_xpm);
+    myIcons[ICON_EDGEDATA] = new FXXPMIcon(a, edgedata_xpm);
 
     myIcons[ICON_VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
     myIcons[ICON_VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);
