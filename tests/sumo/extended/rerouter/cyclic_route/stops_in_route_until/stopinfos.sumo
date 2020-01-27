@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Jan 27 08:39:45 2020 by Eclipse SUMO Version v1_4_0+0803-c6e5395
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.write-unfinished value="true"/>
+        <stop-output value="stopinfos.xml"/>
+    </output>
+
+    <time>
+        <end value="1000"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1fi_0" pos="6.00" parking="0" started="3.00" ended="62.00" delay="1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1si_0" pos="4.00" parking="0" started="87.00" ended="122.00" delay="1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1fi_0" pos="6.00" parking="0" started="189.00" ended="190.00" delay="130.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1si_0" pos="4.00" parking="0" started="215.00" ended="216.00" delay="96.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1fi_0" pos="6.00" parking="0" started="283.00" ended="284.00" delay="224.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1si_0" pos="4.00" parking="0" started="309.00" ended="310.00" delay="190.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1fi_0" pos="6.00" parking="0" started="377.00" ended="378.00" delay="318.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1si_0" pos="4.00" parking="0" started="403.00" ended="404.00" delay="284.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1fi_0" pos="6.00" parking="0" started="471.00" ended="472.00" delay="412.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1si_0" pos="4.00" parking="0" started="497.00" ended="498.00" delay="378.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1fi_0" pos="6.00" parking="0" started="565.00" ended="566.00" delay="506.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1si_0" pos="4.00" parking="0" started="591.00" ended="592.00" delay="472.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1fi_0" pos="6.00" parking="0" started="659.00" ended="660.00" delay="600.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1si_0" pos="4.00" parking="0" started="685.00" ended="686.00" delay="566.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1fi_0" pos="6.00" parking="0" started="753.00" ended="754.00" delay="694.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1si_0" pos="4.00" parking="0" started="779.00" ended="780.00" delay="660.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1fi_0" pos="6.00" parking="0" started="847.00" ended="848.00" delay="788.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1si_0" pos="4.00" parking="0" started="873.00" ended="874.00" delay="754.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1fi_0" pos="6.00" parking="0" started="940.00" ended="941.00" delay="881.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="1si_0" pos="4.00" parking="0" started="966.00" ended="967.00" delay="847.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+</stops>
