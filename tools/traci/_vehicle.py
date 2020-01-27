@@ -1761,8 +1761,10 @@ class VehicleDomain(Domain):
     def addSubscriptionFilterLateralDistance(self, lateralDist, downstreamDist=None, upstreamDist=None):
         """addSubscriptionFilterLateralDist(double, double, double) -> None
 
-        Adds a lateral distance filter to the last modified vehicle context subscription (call it just after subscribing).
-        downstreamDist and upstreamDist specify the longitudinal range of the search for surrounding vehicles along the ego vehicle's route.
+        Adds a lateral distance filter to the last modified vehicle context subscription
+        (call it just after subscribing).
+        downstreamDist and upstreamDist specify the longitudinal range of the search
+        for surrounding vehicles along the ego vehicle's route.
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LATERAL_DIST, lateralDist)
         if downstreamDist is not None:

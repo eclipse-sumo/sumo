@@ -193,7 +193,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         if os.path.exists(os.path.join("src", "libsumo", "_libsumo.vcxproj")):
             ret = subprocess.call(["cmake", "--build", ".", "--target", "_libsumo"],
-                                cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
+                                  cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         ret = subprocess.call(["cmake", "--build", ".", "--target", "cadyts"],
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         ret = subprocess.call(["cmake", "--build", ".", "--target", "lisum-gui"],
@@ -239,7 +239,8 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                     if os.path.basename(f) != "Helper.h":
                         zipf.write(f, includeDir + f[len(srcDir):])
                 zipf.write(os.path.join(buildDir, "src", "version.h"), os.path.join(includeDir, "version.h"))
-                for f in glob.glob(os.path.join(toolsLibsumoDir, "*.py")) + glob.glob(os.path.join(toolsLibsumoDir, "*.pyd")):
+                for f in (glob.glob(os.path.join(toolsLibsumoDir, "*.py")) +
+                          glob.glob(os.path.join(toolsLibsumoDir, "*.pyd"))):
                     # no os.path.join here, since the namelist uses only "/"
                     nameInZip = binDir.replace("bin", "tools") + "libsumo/" + os.path.basename(f)
                     if nameInZip not in zipf.namelist():

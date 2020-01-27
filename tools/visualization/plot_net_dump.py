@@ -96,12 +96,12 @@ def main(args=None):
 
     # Override the help string for the output option
     outputOpt = optParser.get_option("--output")
-    outputOpt.help = "Comma separated list of filename(s) the figure shall be written to; " +\
-                     "for multiple time intervals use \'\%s\' in the filename as a " +\
-                     "placeholder for the beginning of the time interval"
+    outputOpt.help = ("Comma separated list of filename(s) the figure shall be written to; " +
+                      "for multiple time intervals use '%s' in the filename as a " +
+                      "placeholder for the beginning of the time interval")
 
     # parse
-    options, remaining_args = optParser.parse_args(args=args)
+    options, _ = optParser.parse_args(args=args)
 
     if options.net is None:
         print("Error: a network to load must be given.")

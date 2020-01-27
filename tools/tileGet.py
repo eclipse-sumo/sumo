@@ -97,7 +97,8 @@ optParser.add_option("-t", "--tiles", type="int",
                      default=1, help="maximum number of tiles the output gets split into")
 optParser.add_option("-d", "--output-dir", default=".", help="optional output directory (must already exist)")
 optParser.add_option("-s", "--decals-file", default="settings.xml", help="name of decals settings file")
-optParser.add_option("-l", "--layer", type="int", default=0, help="(int) layer at which the image will appear, default 0")
+optParser.add_option("-l", "--layer", type="int", default=0,
+                     help="(int) layer at which the image will appear, default 0")
 optParser.add_option("-x", "--polygon", help="calculate bounding box from polygon data in file")
 optParser.add_option("-n", "--net", help="get bounding box from net file")
 optParser.add_option("-k", "--key", help="API key to use")
@@ -106,6 +107,7 @@ optParser.add_option("-u", "--url",
                      default="services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
                      help="Download from the given tile server")
 # alternatives: open.mapquestapi.com/staticmap/v4/getmap, maps.googleapis.com/maps/api/staticmap
+
 
 def get(args=None):
     options, _ = optParser.parse_args(args=args)

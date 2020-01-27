@@ -271,7 +271,7 @@ class Builder(object):
                 os.mkdir("background_images")
                 tileGet.get(tileOptions)
                 self.report("Success.")
-            except:
+            except Exception:
                 os.chdir(self.tmp)
                 shutil.rmtree("background_images", ignore_errors=True)
                 self.report("Error while downloading background images")

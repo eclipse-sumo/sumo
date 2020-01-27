@@ -109,7 +109,7 @@ class Node:
                         continue
                     if candidate_conn == conn:
                         return ret
-                    ret += 1                    
+                    ret += 1
         return -1
 
     def forbids(self, possProhibitor, possProhibited):

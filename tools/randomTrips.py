@@ -220,7 +220,7 @@ class RandomTripGenerator:
         self.pedestrians = pedestrians
 
     def get_trip(self, min_distance, max_distance, maxtries=100):
-        for i in range(maxtries):
+        for _ in range(maxtries):
             source_edge = self.source_generator.get()
             intermediate = [self.via_generator.get()
                             for i in range(self.intermediate)]
@@ -477,20 +477,19 @@ def main(options):
             else:
                 if options.jtrrouter:
                     attrTo = ''
-
+                combined_attrs = attrFrom + attrTo + via + combined_attrs
                 if options.flows > 0:
                     if options.binomial:
                         for j in range(options.binomial):
-                            fouttrips.write(('    <flow id="%s#%s" begin="%s" end="%s" probability="%s"%s%s%s%s/>\n') % (
+                            fouttrips.write(('    <flow id="%s#%s" begin="%s" end="%s" probability="%s"%s/>\n') % (
                                 label, j, options.begin, options.end, 1.0 / options.period / options.binomial,
-                                attrFrom, attrTo, via, combined_attrs))
+                                combined_attrs))
                     else:
-                        fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s"%s%s%s%s/>\n') % (
-                            label, options.begin, options.end, options.period *
-                            options.flows, attrFrom, attrTo, via, combined_attrs))
+                        fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s"%s/>\n') % (
+                            label, options.begin, options.end, options.period * options.flows, combined_attrs))
                 else:
-                    fouttrips.write('    <trip id="%s" depart="%.2f"%s%s%s%s/>\n' % (
-                        label, depart, attrFrom, attrTo, via, combined_attrs))
+                    fouttrips.write('    <trip id="%s" depart="%.2f"%s/>\n' % (
+                        label, depart, combined_attrs))
         except Exception as exc:
             print(exc, file=sys.stderr)
         return idx + 1
@@ -514,12 +513,12 @@ def main(options):
                         # draw n times from a Bernoulli distribution
                         # for an average arrival rate of 1 / period
                         prob = 1.0 / options.period / options.binomial
-                        for i in range(options.binomial):
+                        for _ in range(options.binomial):
                             if random.random() < prob:
                                 idx = generate_one(idx)
                         depart += 1
             else:
-                for i in range(options.flows):
+                for _ in range(options.flows):
                     idx = generate_one(idx)
 
         fouttrips.write("</routes>\n")

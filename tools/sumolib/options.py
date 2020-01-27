@@ -25,7 +25,7 @@ from xml.sax import parse, handler
 def get_long_option_names(application):
     # @todo using option "--save-template stdout" and parsing xml would be prettier
     output = subprocess.check_output([application, '--help'])
-    reprog = re.compile(b'(--\S*)\s')
+    reprog = re.compile(r'(--\S*)\s')
     result = []
     for line in output.splitlines():
         m = reprog.search(line)

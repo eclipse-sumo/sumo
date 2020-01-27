@@ -142,7 +142,8 @@ class AttributeStore:
     def __str__(self):
         return ("AttributeStore(level=%s, attrnames=%s, id_attrs:%s)" % (
             self.level, self.attrnames,
-            ''.join(["\n%s%s: n=%s, v=%s, c=%s" % ('  ' * self.level, k, n, v, c) for k, (n,v,c) in self.id_attrs.items()])))
+            ''.join(["\n%s%s: n=%s, v=%s, c=%s" % ('  ' * self.level, k, n, v, c)
+                     for k, (n, v, c) in self.id_attrs.items()])))
 
     # getAttribute returns "" if not present
     def getValue(self, node, name):
@@ -245,16 +246,14 @@ class AttributeStore:
                             if k2[0] == TAG_NEIGH:
                                 deletedNeigh = True
                         if deletedNeigh:
-                            #print("k2=%s n2=%s v2=%s c2=%s" % (k2, n2, v2, c2))
+                            # print("k2=%s n2=%s v2=%s c2=%s" % (k2, n2, v2, c2))
                             delkey = (TAG_NEIGH, ("",))
-                            children.id_attrs[k][2].id_attrs = {delkey : ([], [], None)}
+                            children.id_attrs[k][2].id_attrs = {delkey: ([], [], None)}
                             children.id_attrs[k][2].ids_created.add(delkey)
                             children.ids_deleted.discard(k)
                         else:
                             del children.id_attrs[k]
-                self.id_attrs[tagid] = self.id_attrs[
-                        tagid][0:2] + (children,)
-
+                self.id_attrs[tagid] = self.id_attrs[tagid][0:2] + (children,)
 
         else:
             self.no_children_supported(children, tag)

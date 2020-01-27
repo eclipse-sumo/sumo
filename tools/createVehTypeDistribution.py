@@ -170,12 +170,12 @@ def get_options(args=None):
 def readConfigFile(options):
     filePath = options.configFile
     result = {}
-    floatRegex = ['\s*(-?[0-9]+(\.[0-9]+)?)\s*']
-    distSyntaxes = {'normal': 'normal\(%s\)' % (",".join(2 * floatRegex)),
-                    'lognormal': 'lognormal\(%s\)' % (",".join(2 * floatRegex)),
-                    'normalCapped': 'normalCapped\(%s\)' % (",".join(4 * floatRegex)),
-                    'uniform': 'uniform\(%s\)' % (",".join(2 * floatRegex)),
-                    'gamma': 'gamma\(%s\)' % (",".join(2 * floatRegex))}
+    floatRegex = [r'\s*(-?[0-9]+(\.[0-9]+)?)\s*']
+    distSyntaxes = {'normal': r'normal\(%s\)' % (",".join(2 * floatRegex)),
+                    'lognormal': r'lognormal\(%s\)' % (",".join(2 * floatRegex)),
+                    'normalCapped': r'normalCapped\(%s\)' % (",".join(4 * floatRegex)),
+                    'uniform': r'uniform\(%s\)' % (",".join(2 * floatRegex)),
+                    'gamma': r'gamma\(%s\)' % (",".join(2 * floatRegex))}
 
     with open(filePath) as f:
         reader = csv.reader(f, delimiter=';')
@@ -224,15 +224,13 @@ def readConfigFile(options):
                             break
 
                     if not distFound:
-                        isNumeric = len(re.findall(
-                            '(-?[0-9]+(\.[0-9]+)?)', attValue)) > 0
+                        isNumeric = len(re.findall(r'(-?[0-9]+(\.[0-9]+)?)', attValue)) > 0
                         value = FixDistribution((attValue,), isNumeric)
 
                     # get optional limits
                     if len(row) == 3:
                         limitValue = row[2].strip()
-                        items = re.findall(
-                            '\[\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\]', limitValue)
+                        items = re.findall(r'\[\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\]', limitValue)
                         if len(items) > 0:
                             lowerLimit = float(items[0][0])
                             upperLimit = float(items[0][2])
