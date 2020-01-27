@@ -29,14 +29,12 @@
 #include "GNEAttributeCarrier.h"
 
 
-
 // ===========================================================================
 // static members
 // ===========================================================================
 
 std::map<SumoXMLTag, GNETagProperties> GNEAttributeCarrier::myTagProperties;
 GNETagProperties GNEAttributeCarrier::dummyTagProperty;
-
 const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
@@ -3640,7 +3638,52 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
 
 void 
 GNEAttributeCarrier::fillDataElements() {
-    //
+    // declare empty GNEAttributeProperties
+    GNEAttributeProperties attrProperty;
+    // fill data set element
+    SumoXMLTag currentTag = SUMO_TAG_DATASET;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::TAGTYPE_DATAELEMENT, GNETagProperties::TAGPROPERTY_AUTOMATICSORTING, ICON_DATASET);
+    
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+            GNEAttributeProperties::ATTRPROPERTY_STRING | GNEAttributeProperties::ATTRPROPERTY_UNIQUE,
+            "Data set ID");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+    }
+    // fill data interval element
+    currentTag = SUMO_TAG_DATAINTERVAL;
+    {    
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::TAGTYPE_DATAELEMENT, GNETagProperties::TAGPROPERTY_PARENT, ICON_DATAINTERVAL);
+        
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_BEGIN,
+            GNEAttributeProperties::ATTRPROPERTY_SUMOTIME | GNEAttributeProperties::ATTRPROPERTY_DEFAULTVALUESTATIC,
+            "First " + toString(currentTag) + " departure time",
+            "0.00");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_END,
+            GNEAttributeProperties::ATTRPROPERTY_SUMOTIME | GNEAttributeProperties::ATTRPROPERTY_DEFAULTVALUESTATIC,
+            "End of departure interval",
+            "3600.00");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    // fill edge data element
+    currentTag = SUMO_TAG_MEANDATA_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::TAGTYPE_DATAELEMENT, GNETagProperties::TAGPROPERTY_PARENT, ICON_EDGEDATA);
+        
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
+            GNEAttributeProperties::ATTRPROPERTY_STRING | GNEAttributeProperties::ATTRPROPERTY_UNIQUE | GNEAttributeProperties::ATTRPROPERTY_UPDATEGEOMETRY,
+            "edge data");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
 }
 
 
