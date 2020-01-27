@@ -56,6 +56,7 @@ copy_test_path:dest.con.xml
 copy_test_path:dest.tll.xml
 copy_test_path:dest.xml
 copy_test_path:fcd.xml
+copy_test_path:fcd2.xml
 copy_test_path:data.txt
 copy_test_path:source.csv
 copy_test_path:osm.xml
