@@ -512,6 +512,7 @@ if __name__ == "__main__":
                 u'poly': True,
                 u'publicTransport': True,
                 u'leftHand': False,
+                u'decal': False,
                 u'testOutputDir': args.testOutputDir,
                 }
         builder = Builder(data, True)
