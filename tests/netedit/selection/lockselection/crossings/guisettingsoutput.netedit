@@ -132,17 +132,18 @@
             </colorScheme>
         </containers>
         <junctions junctionMode="0"
-                   drawLinkTLIndex_show="0" drawLinkTLIndex_size="50.00" drawLinkTLIndex_color="128,128,255" drawLinkTLIndex_bgColor="128,0,0,0" drawLinkTLIndex_constantSize="1"
-                   drawLinkJunctionIndex_show="0" drawLinkJunctionIndex_size="50.00" drawLinkJunctionIndex_color="128,128,255" drawLinkJunctionIndex_bgColor="128,0,0,0" drawLinkJunctionIndex_constantSize="1"
+                   drawLinkTLIndex_show="0" drawLinkTLIndex_size="65.00" drawLinkTLIndex_color="128,128,255" drawLinkTLIndex_bgColor="0,0,0,0" drawLinkTLIndex_constantSize="0"
+                   drawLinkJunctionIndex_show="0" drawLinkJunctionIndex_size="65.00" drawLinkJunctionIndex_color="128,128,255" drawLinkJunctionIndex_bgColor="0,0,0,0" drawLinkJunctionIndex_constantSize="0"
                    junctionName_show="0" junctionName_size="60.00" junctionName_color="0,255,128" junctionName_bgColor="128,0,0,0" junctionName_constantSize="1"
                    internalJunctionName_show="0" internalJunctionName_size="50.00" internalJunctionName_color="0,204,128" internalJunctionName_bgColor="128,0,0,0" internalJunctionName_constantSize="1"
-                   tlsPhaseIndex_show="0" tlsPhaseIndex_size="150.00" tlsPhaseIndex_color="yellow" tlsPhaseIndex_bgColor="128,0,0,0" tlsPhaseIndex_constantSize="1"
-                   showLane2Lane="1" drawShape="1" drawCrossingsAndWalkingareas="1" junction_minSize="1.00" junction_exaggeration="1.00" junction_constantSize="0" junction_constantSizeSelected="0">
+                   tlsPhaseIndex_show="0" tlsPhaseIndex_size="150.00" tlsPhaseIndex_color="yellow" tlsPhaseIndex_bgColor="128,0,0,0" tlsPhaseIndex_constantSize="1" tlsPhaseName_show="0" tlsPhaseName_size="150.00" tlsPhaseName_color="orange" tlsPhaseName_bgColor="128,0,0,0" tlsPhaseName_constantSize="1"
+                   showLane2Lane="0" drawShape="1" drawCrossingsAndWalkingareas="1" junction_minSize="1.00" junction_exaggeration="1.00" junction_constantSize="0" junction_constantSizeSelected="0">
             <colorScheme name="uniform">
                 <entry color="102,0,0"/>
-                <entry color="204,0,0" name="shape not computed"/>
-                <entry color="153,0,0" name="geometry points"/>
+                <entry color="204,0,0" name="junction bubble"/>
+                <entry color="orange" name="geometry points"/>
                 <entry color="green" name="custom shape"/>
+                <entry color="magenta" name="connections missing"/>
             </colorScheme>
             <colorScheme name="by selection">
                 <entry color="grey" name="unselected"/>

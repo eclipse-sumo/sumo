@@ -28,7 +28,7 @@ Debug: Adding flow 'flow_2' in GNEChange_DemandElement
 Debug: Adding flow 'flow_3' in GNEChange_DemandElement
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved
-Debug: Enabled show demand elements throught alt + 1
+Debug: Enabled toogle show grid throught alt + 1
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -88,6 +88,7 @@ Debug: Adding flow 'flow_1' in GNEChange_DemandElement
 Debug: Adding flow 'flow_2' in GNEChange_DemandElement
 Debug: Adding flow 'flow_3' in GNEChange_DemandElement
 Debug: Additionals saved
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

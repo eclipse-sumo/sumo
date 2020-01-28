@@ -72,7 +72,7 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Setting new attribute selected 'true' into flow 'flowA'
 Debug: Setting new attribute selected 'true' into flow 'flowB'
-Debug: ObjectsUnderCursor: GUIGlObjects: 3, AttributeCarriers: 3, NetElements: 1, Additionals: 0, DemandElements: 2, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, DemandElements: 1, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Setting new attribute arrivalLane 'current' into flow 'flowA'
 Debug: Value 'dummyLane' for attribute arrivalLane of flow isn't valid
 Debug: Setting new attribute arrivalLane '500' into flow 'flowA'
