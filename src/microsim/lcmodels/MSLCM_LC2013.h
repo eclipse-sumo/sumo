@@ -255,6 +255,8 @@ protected:
     double myAssertive;
     // @brief lookahead for speedGain in seconds
     double mySpeedGainLookahead;
+    // @brief bounus factor staying on the inside of multi-lane roundabout
+    double myRoundaboutBonus;
     // allow overtaking right even though it is prohibited
     double myOvertakeRightParam;
 

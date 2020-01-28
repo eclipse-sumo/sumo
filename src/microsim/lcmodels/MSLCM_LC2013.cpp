@@ -113,6 +113,7 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)),
     myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1)),
     mySpeedGainLookahead(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD, 0)),
+    myRoundaboutBonus(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT, myCooperativeParam)),
     myOvertakeRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_OVERTAKE_RIGHT, 0)),
     myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)) {
     initDerivedParameters();
@@ -1936,7 +1937,7 @@ MSLCM_LC2013::getRoundaboutDistBonus(const MSVehicle::LaneQ& curr, const MSVehic
     const double relativeJam = (occupancyOuter - occupancyInner + bonus) / (maxOccupancy + bonus);
     // no bonus if the inner lane or the left lane entering the roundabout is jammed
     const double jamFactor = MAX2(0.0, relativeJam);
-    const double result = distanceInRoundabout * jamFactor * myCooperativeParam * (ROUNDABOUT_DIST_FACTOR - 1.);
+    const double result = distanceInRoundabout * jamFactor * myRoundaboutBonus * 9; // the 9 is abitrary and only there for backward compatibility
 #ifdef DEBUG_WANTS_CHANGE
     if (debugVehicle()) {
         std::cout << "   relativeJam=" << relativeJam
@@ -2131,6 +2132,8 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
         return toString(mySigma);
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         return toString(mySpeedGainLookahead);
+    } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
+        return toString(myRoundaboutBonus);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
@@ -2166,6 +2169,8 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
         mySigma = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         mySpeedGainLookahead = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
+        myRoundaboutBonus = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }
