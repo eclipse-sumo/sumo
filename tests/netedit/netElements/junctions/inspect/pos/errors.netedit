@@ -103,13 +103,13 @@ GLDebug: <-- Invalidating shape of junction 'C' -->
 GLDebug: 	Removed object junction:C from SUMORTree with boundary -10.00,33.60,10.00,66.40
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -10.00,33.60,10.00,66.40
 GLDebug: 	Removed object junction:Center from SUMORTree with boundary 29.60,29.60,70.40,70.40
-GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.60,-10.00,66.40,10.00
+GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.60,90.00,66.40,110.00
 GLDebug: 	Removed object edge:1 from SUMORTree with boundary 35.20,-10.00,60.00,60.00
 GLDebug: 	Inserted edge:1 into SUMORTree with boundary 25.34,-11.16,60.00,50.00
-GLDebug: 	Removed object edge:3 from SUMORTree with boundary -10.00,40.00,60.00,64.80
-GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,30.00,51.16,64.66
 GLDebug: 	Removed object edge:2 from SUMORTree with boundary 40.00,40.00,64.80,110.00
 GLDebug: 	Inserted edge:2 into SUMORTree with boundary 30.00,29.21,64.73,110.00
+GLDebug: 	Removed object edge:3 from SUMORTree with boundary -10.00,40.00,60.00,64.80
+GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,30.00,51.16,64.66
 GLDebug: 	Removed object edge:4 from SUMORTree with boundary 40.00,35.20,110.00,60.00
 GLDebug: 	Inserted edge:4 into SUMORTree with boundary 30.00,25.27,110.79,60.00
 GLDebug: 	Removed object edge:5 from SUMORTree with boundary 40.00,-10.00,64.80,60.00
@@ -120,13 +120,13 @@ GLDebug: 	Removed object edge:7 from SUMORTree with boundary -10.00,35.20,60.00,
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -11.16,25.34,50.00,60.00
 GLDebug: 	Removed object edge:8 from SUMORTree with boundary 40.00,40.00,110.00,64.80
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 29.21,30.00,110.00,64.73
-GLDebug: 	Inserted junction:A into SUMORTree with boundary 38.00,-12.00,62.00,12.00
-GLDebug: 	Removed object junction:D from SUMORTree with boundary 90.00,33.60,110.00,66.40
-GLDebug: 	Inserted junction:D into SUMORTree with boundary 88.00,38.00,112.00,62.00
+GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
 GLDebug: 	Removed object junction:C from SUMORTree with boundary -10.00,33.60,10.00,66.40
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -12.00,38.00,12.00,62.00
-GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.60,90.00,66.40,110.00
-GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
+GLDebug: 	Removed object junction:D from SUMORTree with boundary 90.00,33.60,110.00,66.40
+GLDebug: 	Inserted junction:D into SUMORTree with boundary 88.00,38.00,112.00,62.00
+GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.60,-10.00,66.40,10.00
+GLDebug: 	Inserted junction:A into SUMORTree with boundary 38.00,-12.00,62.00,12.00
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 28.00,28.00,52.00,52.00
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
@@ -182,13 +182,13 @@ GLDebug: <-- Invalidating shape of junction 'C' -->
 GLDebug: 	Removed object junction:C from SUMORTree with boundary -11.55,33.79,11.55,66.21
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -11.55,33.79,11.55,66.21
 GLDebug: 	Removed object junction:Center from SUMORTree with boundary 17.84,17.84,63.84,63.84
-GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.79,-11.55,66.21,11.55
+GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.69,88.95,66.31,111.05
 GLDebug: 	Removed object edge:1 from SUMORTree with boundary 27.99,-11.16,60.00,50.00
 GLDebug: 	Inserted edge:1 into SUMORTree with boundary 35.20,-10.00,60.00,60.00
-GLDebug: 	Removed object edge:3 from SUMORTree with boundary -10.00,30.00,50.00,64.66
-GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,40.00,60.00,64.80
 GLDebug: 	Removed object edge:2 from SUMORTree with boundary 30.00,30.00,64.73,110.00
 GLDebug: 	Inserted edge:2 into SUMORTree with boundary 40.00,40.00,64.80,110.00
+GLDebug: 	Removed object edge:3 from SUMORTree with boundary -10.00,30.00,50.00,64.66
+GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,40.00,60.00,64.80
 GLDebug: 	Removed object edge:4 from SUMORTree with boundary 30.00,27.40,110.79,60.00
 GLDebug: 	Inserted edge:4 into SUMORTree with boundary 40.00,35.20,110.00,60.00
 GLDebug: 	Removed object edge:5 from SUMORTree with boundary 30.00,-10.00,64.66,50.00
@@ -199,13 +199,13 @@ GLDebug: 	Removed object edge:7 from SUMORTree with boundary -11.16,27.99,50.00,
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,35.20,60.00,60.00
 GLDebug: 	Removed object edge:8 from SUMORTree with boundary 30.00,30.00,110.00,64.73
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
-GLDebug: 	Inserted junction:A into SUMORTree with boundary 38.00,-12.00,62.00,12.00
-GLDebug: 	Removed object junction:D from SUMORTree with boundary 88.95,33.69,111.05,66.31
-GLDebug: 	Inserted junction:D into SUMORTree with boundary 88.00,38.00,112.00,62.00
+GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
 GLDebug: 	Removed object junction:C from SUMORTree with boundary -11.55,33.79,11.55,66.21
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -12.00,38.00,12.00,62.00
-GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.69,88.95,66.31,111.05
-GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
+GLDebug: 	Removed object junction:D from SUMORTree with boundary 88.95,33.69,111.05,66.31
+GLDebug: 	Inserted junction:D into SUMORTree with boundary 88.00,38.00,112.00,62.00
+GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.79,-11.55,66.21,11.55
+GLDebug: 	Inserted junction:A into SUMORTree with boundary 38.00,-12.00,62.00,12.00
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 38.00,38.00,62.00,62.00
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
@@ -259,13 +259,13 @@ GLDebug: <-- Invalidating shape of junction 'C' -->
 GLDebug: 	Removed object junction:C from SUMORTree with boundary -10.00,33.60,10.00,66.40
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -10.00,33.60,10.00,66.40
 GLDebug: 	Removed object junction:Center from SUMORTree with boundary 29.60,29.60,70.40,70.40
-GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.60,-10.00,66.40,10.00
+GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.60,90.00,66.40,110.00
 GLDebug: 	Removed object edge:1 from SUMORTree with boundary 35.20,-10.00,60.00,60.00
 GLDebug: 	Inserted edge:1 into SUMORTree with boundary 25.34,-11.16,60.00,50.00
-GLDebug: 	Removed object edge:3 from SUMORTree with boundary -10.00,40.00,60.00,64.80
-GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,30.00,51.16,64.66
 GLDebug: 	Removed object edge:2 from SUMORTree with boundary 40.00,40.00,64.80,110.00
 GLDebug: 	Inserted edge:2 into SUMORTree with boundary 30.00,29.21,64.73,110.00
+GLDebug: 	Removed object edge:3 from SUMORTree with boundary -10.00,40.00,60.00,64.80
+GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,30.00,51.16,64.66
 GLDebug: 	Removed object edge:4 from SUMORTree with boundary 40.00,35.20,110.00,60.00
 GLDebug: 	Inserted edge:4 into SUMORTree with boundary 30.00,25.27,110.79,60.00
 GLDebug: 	Removed object edge:5 from SUMORTree with boundary 40.00,-10.00,64.80,60.00
@@ -276,13 +276,13 @@ GLDebug: 	Removed object edge:7 from SUMORTree with boundary -10.00,35.20,60.00,
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -11.16,25.34,50.00,60.00
 GLDebug: 	Removed object edge:8 from SUMORTree with boundary 40.00,40.00,110.00,64.80
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 29.21,30.00,110.00,64.73
-GLDebug: 	Inserted junction:A into SUMORTree with boundary 38.00,-12.00,62.00,12.00
-GLDebug: 	Removed object junction:D from SUMORTree with boundary 90.00,33.60,110.00,66.40
-GLDebug: 	Inserted junction:D into SUMORTree with boundary 88.00,38.00,112.00,62.00
+GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
 GLDebug: 	Removed object junction:C from SUMORTree with boundary -10.00,33.60,10.00,66.40
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -12.00,38.00,12.00,62.00
-GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.60,90.00,66.40,110.00
-GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
+GLDebug: 	Removed object junction:D from SUMORTree with boundary 90.00,33.60,110.00,66.40
+GLDebug: 	Inserted junction:D into SUMORTree with boundary 88.00,38.00,112.00,62.00
+GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.60,-10.00,66.40,10.00
+GLDebug: 	Inserted junction:A into SUMORTree with boundary 38.00,-12.00,62.00,12.00
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 28.00,28.00,52.00,52.00
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
