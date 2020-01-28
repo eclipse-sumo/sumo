@@ -34,6 +34,7 @@
 class GNEViewNet;
 class GNEEdge;
 class GNEEdgeData;
+class GNEGenericData;
 class GNEDataElement;
 class GNEUndoList;
 
@@ -45,6 +46,29 @@ class GNEUndoList;
 /// @brief Builds data objects for GNENet (busStops, chargingStations, detectors, etc..)
 class GNEDataHandler : public SUMOSAXHandler {
 public:
+
+    /// @brief Stack used to save the last inserted element
+    struct HierarchyInsertedDatas {
+
+        /// @brief insert new element (called only in function myStartElement)
+        void insertElement(SumoXMLTag tag);
+
+        /// @brief commit element insertion (used to save last correct created element)
+        void commitElementInsertion(GNEGenericData* additionalCreated);
+
+        /// @brief pop last inserted element (used only in function myEndElement)
+        void popElement();
+
+        /// @brief retrieve parent generic data correspond to current status of myInsertedElements
+        GNEGenericData* retrieveParentGenericData(GNEViewNet* viewNet, SumoXMLTag expectedTag) const;
+
+        /// @brief return last generic data inserted
+        GNEGenericData* getLastInsertedGenericData() const;
+
+    private:
+        /// @brief vector used as stack
+        std::vector<std::pair<SumoXMLTag, GNEGenericData*> > myInsertedElements;
+    };
 
     /// @brief Constructor
     GNEDataHandler(const std::string& file, GNEViewNet* viewNet);
@@ -75,14 +99,15 @@ public:
     ///
     /// Called with parsed values, these methods build the data.
     /// @{
-    /**@brief Build datas
-     * @param[in] viewNet pointer to viewNet in wich data element will be created
-     * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
-     * @param[in] tag tag of the data to create
+    /**@brief Build additionals
+     * @param[in] viewNet pointer to viewNet in wich additional will be created
+     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
+     * @param[in] tag tag of the additiona lto create
      * @param[in] attrs SUMOSAXAttributes with attributes
+     * @param[in] HierarchyInsertedAdditionals pointer to HierarchyInsertedAdditionals (can be null)
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildData(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs);
+    static bool buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Builds a bus stop
      * @param[in] viewNet viewNet in which element will be inserted
@@ -114,6 +139,9 @@ private:
 
     /// @brief pointer to View's Net
     GNEViewNet* myViewNet;
+
+    /// @brief HierarchyInsertedDatas used for insert children
+    HierarchyInsertedDatas myHierarchyInsertedGenericDatas;
 
     /// @brief invalidate copy constructor
     GNEDataHandler(const GNEDataHandler& s) = delete;

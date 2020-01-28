@@ -19,12 +19,88 @@
 // ===========================================================================
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
+
 #include "GNEDataHandler.h"
 
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNEAdditionalHandler::HierarchyInsertedDatas method definitions
+// ---------------------------------------------------------------------------
+
+void
+GNEDataHandler::HierarchyInsertedDatas::insertElement(SumoXMLTag tag) {
+    myInsertedElements.push_back(std::make_pair(tag, nullptr));
+}
+
+
+void
+GNEDataHandler::HierarchyInsertedDatas::commitElementInsertion(GNEGenericData* genericData) {
+    myInsertedElements.back().second = genericData;
+}
+
+
+void
+GNEDataHandler::HierarchyInsertedDatas::popElement() {
+    if (!myInsertedElements.empty()) {
+        myInsertedElements.pop_back();
+    }
+}
+
+
+GNEGenericData*
+GNEDataHandler::HierarchyInsertedDatas::retrieveParentGenericData(GNEViewNet* viewNet, SumoXMLTag expectedTag) const {
+    if (myInsertedElements.size() < 2) {
+        // currently we're finding parent additional in the additional XML root
+        WRITE_WARNING("A " + toString(myInsertedElements.back().first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
+        return nullptr;
+    } else {
+        if (myInsertedElements.size() < 2) {
+            // additional was hierarchically bad loaded, then return nullptr
+            return nullptr;
+        } else if ((myInsertedElements.end() - 2)->second == nullptr) {
+            WRITE_WARNING(toString(expectedTag) + " parent of " + toString((myInsertedElements.end() - 1)->first) + " was not loaded sucesfully.");
+            // parent additional wasn't sucesfully loaded, then return nullptr
+            return nullptr;
+        }
+        /*
+        GNEGenericData* retrievedAdditional = viewNet->getNet()->retrieveAdditional((myInsertedElements.end() - 2)->first, (myInsertedElements.end() - 2)->second->getID(), false);
+        if (retrievedAdditional == nullptr) {
+            // additional doesn't exist
+            WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
+            return nullptr;
+        } else if (retrievedAdditional->getTagProperty().getTag() != expectedTag) {
+            // invalid parent additional
+            WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->first) + " cannot be declared within the definition of a " + retrievedAdditional->getTagStr() + ".");
+            return nullptr;
+        } else {
+            return retrievedAdditional;
+        }
+        */
+        return nullptr;
+    }
+}
+
+
+GNEGenericData*
+GNEDataHandler::HierarchyInsertedDatas::getLastInsertedGenericData() const {
+    // ierate in reverse mode over myInsertedElements to obtain last inserted additional
+    for (std::vector<std::pair<SumoXMLTag, GNEGenericData*> >::const_reverse_iterator i = myInsertedElements.rbegin(); i != myInsertedElements.rend(); i++) {
+        // we need to avoid Tag Param because isn't an additional
+        if (i->first != SUMO_TAG_PARAM) {
+            return i->second;
+        }
+    }
+    return nullptr;
+}
+
+// ---------------------------------------------------------------------------
+// GNEAdditionalHandler::HierarchyInsertedDatas method definitions
+// ---------------------------------------------------------------------------
 
 GNEDataHandler::GNEDataHandler(const std::string& file, GNEViewNet* viewNet) :
     SUMOSAXHandler(file),
@@ -39,11 +115,10 @@ void
 GNEDataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
-    /*
     // check if we're parsing a parameter
     if (tag == SUMO_TAG_PARAM) {
         // push element int stack
-        myHierarchyInsertedDatas.insertElement(tag);
+        // myHierarchyInsertedDatas.insertElement(tag);
         // parse parameter
         parseParameter(attrs);
     } else if (tag != SUMO_TAG_NOTHING) {
@@ -52,19 +127,11 @@ GNEDataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             // ensure that access elements can find their parent in myHierarchyInsertedDatas
             tag = SUMO_TAG_BUS_STOP;
         }
-        myHierarchyInsertedDatas.insertElement(tag);
-        // Call parse and build depending of tag
-        switch (tag) {
-            case SUMO_TAG_POLY:
-                return parseAndBuildPoly(attrs);
-            case SUMO_TAG_POI:
-                return parseAndBuildPOI(attrs);
-            default:
-                // build data
-                buildData(myViewNet, true, tag, attrs, &myHierarchyInsertedDatas);
+        // myHierarchyInsertedDatas.insertElement(tag);
+        // build data
+        buildData(myViewNet, true, tag, attrs, &myHierarchyInsertedGenericDatas);
         }
     }
-    */
 }
 
 
