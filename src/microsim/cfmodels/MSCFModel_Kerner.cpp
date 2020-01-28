@@ -36,6 +36,8 @@ MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype) :
     myK(vtype->getParameter().getCFParam(SUMO_ATTR_K, 0.5)),
     myPhi(vtype->getParameter().getCFParam(SUMO_ATTR_CF_KERNER_PHI, 5.0)),
     myTauDecel(myDecel * myHeadwayTime) {
+    // Kerner does not drive very precise and may violate minGap on occasion
+    myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
 }
 
 
