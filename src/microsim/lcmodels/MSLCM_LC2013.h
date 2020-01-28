@@ -164,6 +164,8 @@ protected:
     /// @brief compute useful slowdowns for blocked vehicles
     int slowDownForBlocked(MSVehicle** blocked, int state);
 
+    /// @brief anticipate future follow speed for the given leader
+    double anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderDist, double dist, double vMax, bool acceleratingLeader); 
 
     /// @brief Computes the artificial bonus distance for roundabout lanes
     ///        this additional distance reduces the sense of urgency within
