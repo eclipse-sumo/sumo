@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <netbuild/NBFrame.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/dialogs/GNEAbout.h>
 #include <netedit/frames/network/GNETAZFrame.h>
@@ -792,7 +793,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto");
         // Create additional handler
-        GNERouteHandler dataHandler(file, myNet->getViewNet());
+        GNEDataHandler dataHandler(file, myNet->getViewNet());
         // begin undoList operation
         myUndoList->p_begin("Loading data elements from '" + file + "'");
         // Run parser for additionals
@@ -1067,6 +1068,12 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // overwrite "route-files" with value "demandelements-output"
         oc.resetWritable();
         oc.set("route-files", oc.getString("demandelements-output"));
+    }
+    // check if data elements output must be changed
+    if (oc.isSet("dataelements-output")) {
+        // overwrite "data-files" with value "dataelements-output"
+        oc.resetWritable();
+        oc.set("data-files", oc.getString("dataelements-output"));
     }
     // after loading net shouldn't be saved
     if (myNet) {
