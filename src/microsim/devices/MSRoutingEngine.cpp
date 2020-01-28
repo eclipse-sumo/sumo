@@ -234,17 +234,17 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
             vehicle->setChosenSpeedFactor(1);
             CHRouterWrapper<MSEdge, SUMOVehicle> router(
                 MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
-                string2time(oc.getString("begin")), string2time(oc.getString("end")), std::numeric_limits<int>::max(), 1);
+                string2time(oc.getString("begin")), string2time(oc.getString("end")), SUMOTime_MAX, 1);
             lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &router, vehicle, "", oc.getInt("device.rerouting.threads"));
             vehicle->setChosenSpeedFactor(speedFactor);
         }
         myRouter = new AStar(MSEdge::getAllEdges(), true, myEffortFunc, lookup, true);
     } else if (routingAlgorithm == "CH") {
-        const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : std::numeric_limits<int>::max();
+        const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : SUMOTime_MAX;
         myRouter = new CHRouter<MSEdge, SUMOVehicle>(
             MSEdge::getAllEdges(), true, myEffortFunc, vehicle->getVClass(), weightPeriod, true, false);
     } else if (routingAlgorithm == "CHWrapper") {
-        const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : std::numeric_limits<int>::max();
+        const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : SUMOTime_MAX;
         myRouter = new CHRouterWrapper<MSEdge, SUMOVehicle>(
             MSEdge::getAllEdges(), true, myEffortFunc,
             string2time(oc.getString("begin")), string2time(oc.getString("end")), weightPeriod, oc.getInt("device.rerouting.threads"));

@@ -109,7 +109,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             } else if (oc.isSet("astar.landmark-distances")) {
                 CHRouterWrapper<ROEdge, ROVehicle> chrouter(
                     ROEdge::getAllEdges(), true, &ROEdge::getTravelTimeStatic,
-                    begin, end, std::numeric_limits<int>::max(), 1);
+                    begin, end, SUMOTime_MAX, 1);
                 ROVehicle defaultVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
                 lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), &chrouter, &defaultVehicle,
                          oc.isSet("astar.save-landmark-distances") ? oc.getString("astar.save-landmark-distances") : "", oc.getInt("routing-threads"));
