@@ -39,6 +39,8 @@ MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype) :
     myDecelDivTau(myDecel / myHeadwayTime),
     myTauLastDecel(myDecel * vtype->getParameter().getCFParam(SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0.3)),
     myActionPointProbability(vtype->getParameter().getCFParam(SUMO_ATTR_CF_PWAGNER2009_APPROB, 0.5)) {
+    // PWag2009 does not drive very precise and may violate minGap on occasion
+    myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
 }
 
 
