@@ -657,6 +657,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "limitTurnSpeed",         SUMO_ATTR_LIMIT_TURN_SPEED },
     { "checkLaneFoesAll",       SUMO_ATTR_CHECKLANEFOES_ALL },
     { "checkLaneFoesRoundabout", SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT },
+    { "tlsIgnoreInternalJunctionJam", SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM },
 
     { "actorConfig",            SUMO_ATTR_ACTORCONFIG },
     { "vehicle",                SUMO_ATTR_VEHICLE },

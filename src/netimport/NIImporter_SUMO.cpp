@@ -82,7 +82,9 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myWalkingAreas(false),
       myLimitTurnSpeed(-1),
       myCheckLaneFoesAll(false),
-      myCheckLaneFoesRoundabout(true) {
+      myCheckLaneFoesRoundabout(true),
+      myTlsIgnoreInternalJunctionJam(false)
+{
 }
 
 
@@ -315,6 +317,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (oc.isDefault("check-lane-foes.roundabout") && oc.getBool("check-lane-foes.roundabout") != myCheckLaneFoesRoundabout) {
         oc.set("check-lane-foes.roundabout", toString(myCheckLaneFoesRoundabout));
     }
+    if (oc.isDefault("tls.ignore-internal-junction-jam") && oc.getBool("tls.ignore-internal-junction-jam") != myTlsIgnoreInternalJunctionJam) {
+        oc.set("tls.ignore-internal-junction-jam", toString(myTlsIgnoreInternalJunctionJam));
+    }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
         deprecatedVehicleClassesSeen.clear();
@@ -415,7 +420,8 @@ NIImporter_SUMO::myStartElement(int element,
             myLimitTurnSpeed = attrs.getOpt<double>(SUMO_ATTR_LIMIT_TURN_SPEED, nullptr, ok, -1);
             myWalkingAreas = attrs.getOpt<bool>(SUMO_ATTR_WALKINGAREAS, nullptr, ok, false);
             myCheckLaneFoesAll = attrs.getOpt<bool>(SUMO_ATTR_CHECKLANEFOES_ALL, nullptr, ok, false);
-            myCheckLaneFoesRoundabout = attrs.getOpt<bool>(SUMO_ATTR_CHECKLANEFOES_ALL, nullptr, ok, true);
+            myCheckLaneFoesRoundabout = attrs.getOpt<bool>(SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT, nullptr, ok, true);
+            myTlsIgnoreInternalJunctionJam = attrs.getOpt<bool>(SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM, nullptr, ok, false);
             break;
         }
         case SUMO_TAG_EDGE:

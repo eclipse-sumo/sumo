@@ -387,6 +387,8 @@ private:
     /// @brief whether foe-relationships where checked at lane-level
     bool myCheckLaneFoesAll;
     bool myCheckLaneFoesRoundabout;
+    /// @brief whether some right-of-way checks at traffic light junctions should be disabled
+    bool myTlsIgnoreInternalJunctionJam;
 
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;

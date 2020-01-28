@@ -45,6 +45,7 @@
         <xsd:attribute name="limitTurnSpeed" type="xsd:float"/>
         <xsd:attribute name="checkLaneFoesAll" type="boolType"/>
         <xsd:attribute name="checkLaneFoesRoundabout" type="boolType"/>
+        <xsd:attribute name="tlsIgnoreInternalJunctionJam" type="boolType"/>
     </xsd:complexType>
 
     <xsd:complexType name="edgeType">

@@ -86,6 +86,9 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.isDefault("check-lane-foes.roundabout")) {
         attrs[SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT] = toString(oc.getBool("check-lane-foes.roundabout"));
     }
+    if (!oc.isDefault("tls.ignore-internal-junction-jam")) {
+        attrs[SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM] = toString(oc.getBool("tls.ignore-internal-junction-jam"));
+    }
     device.writeXMLHeader("net", "net_file.xsd", attrs); // street names may contain non-ascii chars
     device.lf();
     // get involved container
