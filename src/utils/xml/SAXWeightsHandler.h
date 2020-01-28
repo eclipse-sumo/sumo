@@ -70,6 +70,7 @@ public:
      * @brief Interface for a class which obtains read weights for named edges
      */
     class EdgeFloatTimeLineRetriever {
+
     public:
         /// @brief Constructor
         EdgeFloatTimeLineRetriever() { }
@@ -84,8 +85,7 @@ public:
          * @param[in] beg The begin of the interval the weight is valid for
          * @param[in] end The end of the interval the weight is valid for
          */
-        virtual void addEdgeWeight(const std::string& id,
-                                   double val, double beg, double end) const = 0;
+        virtual void addEdgeWeight(const std::string& id, double val, double beg, double end) const = 0;
 
         virtual void addEdgeRelWeight(const std::string& from, const std::string& to,
                                    double val, double beg, double end) const {
@@ -97,7 +97,8 @@ public:
         }
 
     private:
-        EdgeFloatTimeLineRetriever& operator=(const EdgeFloatTimeLineRetriever&); // just to avoid a compiler warning
+    /// @brief we made the assignment operator invalid
+        EdgeFloatTimeLineRetriever& operator=(const EdgeFloatTimeLineRetriever&) = delete;
     };
 
     /**
@@ -106,7 +107,7 @@ public:
      */
     class ToRetrieveDefinition {
     public:
-        /// Constructor
+        /// @brief Constructor
         ToRetrieveDefinition(const std::string& attributeName, bool edgeBased,
                              EdgeFloatTimeLineRetriever& destination);
 
@@ -114,31 +115,30 @@ public:
         ~ToRetrieveDefinition();
 
     public:
-        /// The attribute name that shall be parsed
+        /// @brief The attribute name that shall be parsed
         std::string myAttributeName;
 
-        /// Information whether edge values shall be used (lane value if false)
+        /// @brief Information whether edge values shall be used (lane value if false)
         bool myAmEdgeBased;
 
-        /// The class that shall be called when new data is avaiable
+        /// @brief The class that shall be called when new data is avaiable
         EdgeFloatTimeLineRetriever& myDestination;
 
-        /// aggregated value over the lanes read within the current edge
+        /// @brief Aggregated value over the lanes read within the current edge
         double myAggValue;
 
-        /// The number of lanes read for the current edge
+        /// @brief The number of lanes read for the current edge
         int myNoLanes;
 
-        /// Information whether the attribute has been found for the current edge
+        /// @brief Information whether the attribute has been found for the current edge
         bool myHadAttribute;
 
     private:
         /// @brief Invalidated copy constructor.
-        ToRetrieveDefinition(const ToRetrieveDefinition&);
+        ToRetrieveDefinition(const ToRetrieveDefinition&) = delete;
 
         /// @brief Invalidated assignment operator.
-        ToRetrieveDefinition& operator=(const ToRetrieveDefinition&);
-
+        ToRetrieveDefinition& operator=(const ToRetrieveDefinition&) = delete;
     };
 
     /**
@@ -147,22 +147,17 @@ public:
      * Gets a list of retriever definitions. Please note that the retrievers are
      *  not deleted!
      */
-    SAXWeightsHandler(const std::vector<ToRetrieveDefinition*>& defs,
-                      const std::string& file);
-
+    SAXWeightsHandler(const std::vector<ToRetrieveDefinition*>& defs, const std::string& file);
 
     /**
      * @brief Constructor
      *
      * Gets a single definition. Please note that the retrievers are not deleted!
      */
-    SAXWeightsHandler(ToRetrieveDefinition* def,
-                      const std::string& file);
+    SAXWeightsHandler(ToRetrieveDefinition* def, const std::string& file);
 
-
-    /// Destructor
+    /// @brief Destructor
     ~SAXWeightsHandler();
-
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -175,9 +170,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
      */
-    void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs);
-
+    void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
     /** @brief Called when a closing tag occurs
      *
@@ -186,35 +179,28 @@ protected:
      * @see GenericSAXHandler::myEndElement
      */
     void myEndElement(int elemente);
+
     //@}
 
-
 private:
-    /// @brief Parses the data of an edge or lane for the previously read times
+    /// @brief Parses the efforts of a lane for the previously read times
     void tryParse(const SUMOSAXAttributes& attrs, bool isEdge);
 
-    /// @brief Parses the data of an edgeRel for the previously read times
-    void tryParseEdgeRel(const SUMOSAXAttributes& attrs);
-
-private:
-    /// List of definitions what shall be read and whereto stored while parsing the file
+    /// @brief List of definitions what shall be read and whereto stored while parsing the file
     std::vector<ToRetrieveDefinition*> myDefinitions;
 
-    /// the begin of the time period that is currently processed
+    /// @brief the begin of the time period that is currently processed
     double myCurrentTimeBeg;
 
-    /// the end of the time period that is currently processed
+    /// @brief the end of the time period that is currently processed
     double myCurrentTimeEnd;
 
-    /// the edge which is currently being processed
+    /// @brief the edge which is currently being processed
     std::string myCurrentEdgeID;
 
+    /// @brief we made the copy constructor invalid
+    SAXWeightsHandler(const SAXWeightsHandler& src) = delete;
 
-private:
-    /// we made the copy constructor invalid
-    SAXWeightsHandler(const SAXWeightsHandler& src);
-
-    /// we made the assignment operator invalid
-    SAXWeightsHandler& operator=(const SAXWeightsHandler& src);
-
+    /// @brief we made the assignment operator invalid
+    SAXWeightsHandler& operator=(const SAXWeightsHandler& src) = delete;
 };

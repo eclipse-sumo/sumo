@@ -21,13 +21,8 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <string>
-#include <utils/options/OptionsCont.h>
-#include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/ToString.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/xml/SUMOSAXHandler.h>
+
 #include "SAXWeightsHandler.h"
 
 
@@ -38,8 +33,13 @@
 // SAXWeightsHandler::ToRetrieveDefinition methods
 // ---------------------------------------------------------------------------
 SAXWeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string& attributeName,
-        bool edgeBased, EdgeFloatTimeLineRetriever& destination)
-    : myAttributeName(attributeName), myAmEdgeBased(edgeBased), myDestination(destination) {
+    bool edgeBased, EdgeFloatTimeLineRetriever& destination) : 
+    myAttributeName(attributeName), 
+    myAmEdgeBased(edgeBased), 
+    myDestination(destination),
+    myAggValue(0),
+    myNoLanes(0),
+    myHadAttribute(0) {
 }
 
 
@@ -50,30 +50,30 @@ SAXWeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition() {
 // ---------------------------------------------------------------------------
 // SAXWeightsHandler methods
 // ---------------------------------------------------------------------------
-SAXWeightsHandler::SAXWeightsHandler(const std::vector<ToRetrieveDefinition*>& defs,
-                                     const std::string& file)
-    : SUMOSAXHandler(file), myDefinitions(defs),
-      myCurrentTimeBeg(-1), myCurrentTimeEnd(-1) {}
+SAXWeightsHandler::SAXWeightsHandler(const std::vector<ToRetrieveDefinition*>& defs, const std::string& file) : 
+    SUMOSAXHandler(file), 
+    myDefinitions(defs),
+    myCurrentTimeBeg(-1), 
+    myCurrentTimeEnd(-1) {
+}
 
 
-SAXWeightsHandler::SAXWeightsHandler(ToRetrieveDefinition* def,
-                                     const std::string& file)
-    : SUMOSAXHandler(file),
-      myCurrentTimeBeg(-1), myCurrentTimeEnd(-1) {
+SAXWeightsHandler::SAXWeightsHandler(ToRetrieveDefinition* def, const std::string& file) : 
+    SUMOSAXHandler(file),
+    myCurrentTimeBeg(-1), 
+    myCurrentTimeEnd(-1) {
     myDefinitions.push_back(def);
 }
 
 
 SAXWeightsHandler::~SAXWeightsHandler() {
-    std::vector<ToRetrieveDefinition*>::iterator i;
-    for (i = myDefinitions.begin(); i != myDefinitions.end(); ++i) {
-        delete *i;
+    for (const auto &definition : myDefinitions) {
+        delete definition;
     }
 }
 
 
-void SAXWeightsHandler::myStartElement(int element,
-                                       const SUMOSAXAttributes& attrs) {
+void SAXWeightsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_INTERVAL: {
             bool ok = true;
@@ -104,35 +104,35 @@ void SAXWeightsHandler::myStartElement(int element,
 void
 SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
     // !!!! no error handling!
-    std::vector<ToRetrieveDefinition*>::iterator i;
     if (isEdge) {
         // process all that want values directly from the edge
-        for (i = myDefinitions.begin(); i != myDefinitions.end(); ++i) {
-            if ((*i)->myAmEdgeBased) {
-                if (attrs.hasAttribute((*i)->myAttributeName)) {
-                    (*i)->myAggValue = attrs.getFloat((*i)->myAttributeName);
-                    (*i)->myNoLanes = 1;
-                    (*i)->myHadAttribute = true;
+        for (const auto &definition : myDefinitions) {
+            if (definition->myAmEdgeBased) {
+                if (attrs.hasAttribute(definition->myAttributeName)) {
+                    definition->myAggValue = attrs.getFloat(definition->myAttributeName);
+                    definition->myNoLanes = 1;
+                    definition->myHadAttribute = true;
                 } else {
-                    (*i)->myHadAttribute = false;
+                    definition->myHadAttribute = false;
                 }
             } else {
-                (*i)->myAggValue = 0;
-                (*i)->myNoLanes = 0;
+                definition->myAggValue = 0;
+                definition->myNoLanes = 0;
             }
         }
     } else {
         // process the current lane values
-        for (i = myDefinitions.begin(); i != myDefinitions.end(); ++i) {
-            if (!(*i)->myAmEdgeBased) {
+        for (const auto &definition : myDefinitions) {
+            if (!definition->myAmEdgeBased) {
                 try {
-                    (*i)->myAggValue += attrs.getFloat((*i)->myAttributeName);
-                    ++((*i)->myNoLanes);
-                    (*i)->myHadAttribute = true;
+                    definition->myAggValue += attrs.getFloat(definition->myAttributeName);
+                    definition->myNoLanes++;
+                    definition->myHadAttribute = true;
                 } catch (EmptyData&) {
-                    WRITE_ERROR("Missing value '" + (*i)->myAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
+                    WRITE_ERROR("Missing value '" + definition->myAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
                 } catch (NumberFormatException&) {
-                    WRITE_ERROR("The value should be numeric, but is not.\n In edge '" + myCurrentEdgeID + "' at time step " + toString(myCurrentTimeBeg) + ".");
+                    WRITE_ERROR("The value should be numeric, but is not.\n In edge '" + myCurrentEdgeID + 
+                                "' at time step " + toString(myCurrentTimeBeg) + ".");
                 }
             }
         }
@@ -161,11 +161,11 @@ void
 SAXWeightsHandler::myEndElement(int element) {
     if (element == SUMO_TAG_EDGE) {
         std::vector<ToRetrieveDefinition*>::iterator i;
-        for (i = myDefinitions.begin(); i != myDefinitions.end(); ++i) {
-            if ((*i)->myHadAttribute) {
-                (*i)->myDestination.addEdgeWeight(myCurrentEdgeID,
-                                                  (*i)->myAggValue / (double)(*i)->myNoLanes,
-                                                  myCurrentTimeBeg, myCurrentTimeEnd);
+        for (const auto &definition : myDefinitions) {
+            if (definition->myHadAttribute) {
+                definition->myDestination.addEdgeWeight(myCurrentEdgeID,
+                    definition->myAggValue / (double)definition->myNoLanes,
+                    myCurrentTimeBeg, myCurrentTimeEnd);
             }
         }
     }
