@@ -253,6 +253,8 @@ protected:
 
     // @brief willingness to undercut longitudinal safe gaps
     double myAssertive;
+    // @brief lookahead for speedGain in seconds
+    double mySpeedGainLookahead;
     // allow overtaking right even though it is prohibited
     double myOvertakeRightParam;
 

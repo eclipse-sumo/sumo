@@ -59,6 +59,7 @@
         <xsd:attribute name="lcAssertive" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcLookaheadLeft" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcSpeedGainRight" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcSpeedGainLookahead" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcTurnAlignmentDistance" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcImpatience" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcTimeToImpatience" type="nonNegativeFloatType"/>
