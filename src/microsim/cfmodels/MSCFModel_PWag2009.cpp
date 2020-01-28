@@ -54,6 +54,11 @@ MSCFModel_PWag2009::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     return vNext;
 }
 
+double
+MSCFModel_PWag2009::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
+    return vMax;
+}
+
 // in addition, the parameters myTauLast, probAP, and sigmaAcc are needed; sigmaAcc can use myDawdle
 // myTauLast might use the current time-step size, but this yields eventually an extreme model, I would be
 // more careful and set it to something around 0.3 or 0.4, which are among the shortest headways I have
@@ -99,36 +104,6 @@ MSCFModel_PWag2009::stopSpeed(const MSVehicle* const /* veh */, const double spe
     return MAX2(0., vsafe + ACCEL2SPEED(apref));
 }
 
-// this method should not do anything, since followSpeed() has taken care of dawdling already...
-double
-MSCFModel_PWag2009::dawdle(double speed) const {
-    return speed;
-//    return MAX2(0., speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand()));
-}
-
-// eventually, this method isn't needed anymore
-//double
-//MSCFModel_PWag2009::_v(const MSVehicle* const veh, double speed, double gap, double predSpeed) const {
-//    if (predSpeed == 0 && gap < 0.01) {
-//        return 0;
-//    }
-//    const double vsafe = -myTauLastDecel + sqrt(myTauLastDecel * myTauLastDecel + predSpeed * predSpeed + 2.0 * myDecel * gap);
-//  const double asafe = SPEED2ACCEL(vsafe - speed);
-//    VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
-//  double apref = vars->aOld;
-//  if (apref <= asafe && RandHelper::rand() <= myActionPointProbability * TS) {
-//    apref = myDecelDivTau * (gap + (predSpeed - speed) * myHeadwayTime - speed * myHeadwayTime) / (speed + myTauDecel);
-//    if (apref>myAccel)
-//      apref = myAccel;
-//    if (apref<-myDecel)
-//      apref = -myDecel;
-//    apref += myDawdle * RandHelper::rand((double) - 1., (double)1.);
-//  }
-//  if (apref > asafe)
-//    apref = asafe;
-//    return MAX2(0, vsafe+ACCEL2SPEED(apref));
-//}
-//
 
 MSCFModel*
 MSCFModel_PWag2009::duplicate(const MSVehicleType* vtype) const {

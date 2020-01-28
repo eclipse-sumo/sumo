@@ -56,6 +56,8 @@ public:
      */
     double finalizeSpeed(MSVehicle* const veh, double vPos) const;
 
+    /// @brief apply dawdling
+    double patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const;
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
      * @param[in] veh The vehicle (EGO)
