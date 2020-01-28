@@ -52,6 +52,8 @@ MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype) :
     myAX(vtype->getLength() + 1. + 2. * mySecurity),
     myCX(25. *(1. + mySecurity + myEstimation)),
     myMinAccel(0.2 * myAccel) { // +noise?
+    // Wiedemann does not drive very precise and may violate minGap on occasion
+    myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
 }
 
 
