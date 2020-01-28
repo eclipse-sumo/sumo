@@ -657,8 +657,8 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme("by time since lane change", RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor(189, 189, 179, 255), -180);
     scheme.addColor(RGBColor(255, 255, 0, 255), -20);
-    scheme.addColor(RGBColor(255,   0, 0, 255), -0.001);
-    scheme.addColor(RGBColor(0,   0, 255, 255),  0.001);
+    scheme.addColor(RGBColor(255,   0, 0, 255), -0.01);
+    scheme.addColor(RGBColor(0,   0, 255, 255),  0.01);
     scheme.addColor(RGBColor(0, 255, 255, 255),  20);
     scheme.addColor(RGBColor(179, 189, 189, 255),  180);
     scheme.setAllowsNegativeValues(true);
