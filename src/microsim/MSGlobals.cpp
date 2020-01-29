@@ -80,5 +80,7 @@ bool MSGlobals::gSublane(false);
 
 double MSGlobals::gStopTolerance;
 
+bool MSGlobals::gLefthand(false);
+
 /****************************************************************************/
 

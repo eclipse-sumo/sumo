@@ -142,6 +142,9 @@ public:
 
     /// @brief The tolerance to apply when matching waiting persons and vehicles
     static double gStopTolerance;
+
+    /// @brief Whether lefthand-drive is being simulated
+    static bool gLefthand;
 };
 
 

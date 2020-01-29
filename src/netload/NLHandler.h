@@ -113,10 +113,6 @@ public:
         return myHaveSeenAdditionalSpeedRestrictions;
     }
 
-    bool lefthand() const {
-        return myLefthand;
-    }
-
     double networkVersion() const {
         return myNetworkVersion;
     }
@@ -335,9 +331,6 @@ protected:
 
     /// @brief whether additional files contained type-specific speed limits
     bool myHaveSeenAdditionalSpeedRestrictions;
-
-    /// @brief whether the loaded network was built for left hand traffic
-    bool myLefthand;
 
     /// @brief the loaded network version
     double myNetworkVersion;

@@ -69,7 +69,6 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myHaveSeenInternalEdge(false),
     myHaveSeenNeighs(false),
     myHaveSeenAdditionalSpeedRestrictions(false),
-    myLefthand(false),
     myNetworkVersion(0),
     myNetIsLoaded(false) {
 }
@@ -85,7 +84,7 @@ NLHandler::myStartElement(int element,
         switch (element) {
             case SUMO_TAG_NET: {
                 bool ok;
-                myLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, nullptr, ok, false);
+                MSGlobals::gLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, nullptr, ok, false);
                 myNetworkVersion = attrs.get<double>(SUMO_ATTR_VERSION, nullptr, ok, false);
                 break;
             }

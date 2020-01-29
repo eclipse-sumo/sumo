@@ -359,7 +359,6 @@ NLBuilder::buildNet() {
     myNet.closeBuilding(myOptions, edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles,
                         myXMLHandler.haveSeenInternalEdge(),
                         myXMLHandler.haveSeenNeighs(),
-                        myXMLHandler.lefthand(),
                         myXMLHandler.networkVersion());
 }
 
