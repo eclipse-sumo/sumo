@@ -52,6 +52,8 @@
 #include "NILoader.h"
 #include "NIImporter_OpenStreetMap.h"
 
+#define KM_PER_MILE 1.609344
+
 //#define DEBUG_LAYER_ELEVATION
 
 // ---------------------------------------------------------------------------
@@ -748,15 +750,89 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     myOSMNodes(osmNodes),
     myEdgeMap(toFill),
     myPlatformShapesMap(platformShapes) {
+    mySpeedMap["sign"] = MAXSPEED_UNGIVEN;
     mySpeedMap["signals"] = MAXSPEED_UNGIVEN;
     mySpeedMap["none"] = 142.; // Auswirkungen eines allgemeinen Tempolimits auf Autobahnen im Land Brandeburg (2007)
     mySpeedMap["no"] = 142.;
     mySpeedMap["walk"] = 5.;
-    mySpeedMap["DE:rural"] = 100.;
-    mySpeedMap["DE:urban"] = 50.;
-    mySpeedMap["DE:living_street"] = 10.;
+    // https://wiki.openstreetmap.org/wiki/Key:source:maxspeed#Commonly_used_values
+    mySpeedMap["AT:urban"] = 50;
+    mySpeedMap["AT:rural"] = 100;
+    mySpeedMap["AT:trunk"] = 100;
+    mySpeedMap["AT:motorway"] = 130;
+    mySpeedMap["AU:urban"] = 50;
+    mySpeedMap["BE:urban"] = 50;
+    mySpeedMap["BE:zone"] = 30;
+    mySpeedMap["BE:motorway"] = 120;
+    mySpeedMap["BE:zone30"] = 30;
+    mySpeedMap["BE-VLG:rural"] = 70;
+    mySpeedMap["BE-WAL:rural"] = 90;
+    mySpeedMap["BE:school"] = 30;
+    mySpeedMap["CZ:motorway"] = 130;
+    mySpeedMap["CZ:trunk"] = 110;
+    mySpeedMap["CZ:rural"] = 90;
+    mySpeedMap["CZ:urban_motorway"] = 80;
+    mySpeedMap["CZ:urban_trunk"] = 80;
+    mySpeedMap["CZ:urban"] = 50;
+    mySpeedMap["DE:motorway"] = mySpeedMap["none"];
+    mySpeedMap["DE:rural"] = 100;
+    mySpeedMap["DE:urban"] = 50;
+    mySpeedMap["DE:bicycle_road"] = 30;
+    mySpeedMap["DK:motorway"] = 130;
+    mySpeedMap["DK:rural"] = 80;
+    mySpeedMap["DK:urban"] = 50;
+    mySpeedMap["EE:urban"] = 50;
+    mySpeedMap["EE:rural"] = 90;
+    mySpeedMap["ES:urban"] = 50;
+    mySpeedMap["ES:zone30"] = 30;
+    mySpeedMap["FR:motorway"] = 130; // 110 (raining)
+    mySpeedMap["FR:rural"] = 80;
+    mySpeedMap["FR:urban"] = 50;
+    mySpeedMap["FR:zone30"] = 30;
+    mySpeedMap["HU:living_street"] = 20;
+    mySpeedMap["HU:motorway"] = 130;
+    mySpeedMap["HU:rural"] = 90;
+    mySpeedMap["HU:trunk"] = 110;
+    mySpeedMap["HU:urban"] = 50;
+    mySpeedMap["IT:rural"] = 90;
+    mySpeedMap["IT:motorway"] = 130;
+    mySpeedMap["IT:urban"] = 50;
+    mySpeedMap["JP:nsl"] = 60;
+    mySpeedMap["JP:express"] = 100;
+    mySpeedMap["LT:rural"] = 90;
+    mySpeedMap["LT:urban"] = 50;
+    mySpeedMap["NO:rural"] = 80;
+    mySpeedMap["NO:urban"] = 50;
+    mySpeedMap["ON:urban"] = 50;
+    mySpeedMap["ON:rural"] = 80;
+    mySpeedMap["PT:motorway"] = 120;
+    mySpeedMap["PT:rural"] = 90;
+    mySpeedMap["PT:trunk"] = 100;
+    mySpeedMap["PT:urban"] = 50;
+    mySpeedMap["RO:motorway"] = 130;
+    mySpeedMap["RO:rural"] = 90;
+    mySpeedMap["RO:trunk"] = 100;
+    mySpeedMap["RO:urban"] = 50;
+    mySpeedMap["RS:living_street"] = 30;
+    mySpeedMap["RS:motorway"] = 130;
+    mySpeedMap["RS:rural"] = 80;
+    mySpeedMap["RS:trunk"] = 100;
+    mySpeedMap["RS:urban"] = 50;
+    mySpeedMap["RU:living_street"] = 20;
+    mySpeedMap["RU:urban"] = 60;
+    mySpeedMap["RU:rural"] = 90;
+    mySpeedMap["RU:motorway"] = 110;
+    mySpeedMap["GB:motorway"] = 70 * KM_PER_MILE;
+    mySpeedMap["GB:nsl_dual"] = 70 * KM_PER_MILE;
+    mySpeedMap["GB:nsl_single"] = 60 * KM_PER_MILE;
+    mySpeedMap["UK:motorway"] = 70 * KM_PER_MILE;
+    mySpeedMap["UK:nsl_dual"] = 70 * KM_PER_MILE;
+    mySpeedMap["UK:nsl_single"] = 60 * KM_PER_MILE;
+    mySpeedMap["UZ:living_street"] = 30;
+    mySpeedMap["UZ:urban"] = 70;
+    mySpeedMap["UZ:rural"] = 100;
+    mySpeedMap["UZ:motorway"] = 110;
     myAllAttributes = OptionsCont::getOptions().getBool("osm.all-attributes");
-
 }
 
 NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() = default;
@@ -839,7 +915,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         }
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes")
-                && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks" && key != "layer"
+                && key != "maxspeed" && key != "maxspeed:type"
+                && key != "junction" && key != "name" && key != "tracks" && key != "layer"
                 && key != "route"
                 && key != "sidewalk"
                 && key != "ref"
@@ -960,7 +1037,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                               toString(myCurrentEdge->id) + "'.");
             }
-        } else if (key == "maxspeed") {
+        } else if (myCurrentEdge->myMaxSpeed == MAXSPEED_UNGIVEN &&
+                (key == "maxspeed" || key == "maxspeed:type")) {
+                // both 'maxspeed' and 'maxspeed:type' may be given so we must take care not to overwrite an already seen value
             if (mySpeedMap.find(value) != mySpeedMap.end()) {
                 myCurrentEdge->myMaxSpeed = mySpeedMap[value];
             } else {
@@ -969,7 +1048,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                     value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));
                 } else if (StringUtils::to_lower_case(value).find("mph") != std::string::npos) {
                     value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));
-                    conversion = 1.609344; // kilometers per mile
+                    conversion = KM_PER_MILE;
                 }
                 try {
                     myCurrentEdge->myMaxSpeed = StringUtils::toDouble(value) * conversion;
