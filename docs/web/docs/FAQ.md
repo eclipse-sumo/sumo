@@ -323,15 +323,23 @@ client version and SUMO version match.
 
 ### Can SUMO be run in parallel (on multiple cores or computers)?
 
-  The simulation itself always runs on a single core. However, routing
+  The simulation itself runs on a single core. However, routing
   in [SUMO](SUMO.md) or [DUAROUTER](DUAROUTER.md) can
   be parallelized by setting the option **--device.rerouting.threads** {{DT_INT}} and **--routing-threads** {{DT_INT}} respectively.
-
+  When these optionsare are used, multiple cores on the machine are used.
+  
+  There is no support for multi-node parallelization.
+  
+  When running [SUMO-GUI](SUMO-GUI.md), an additional thread is used for visualization.
+  
   The python TraCI library allows controlling multiple simulations
   from a single script either by calling *traci.connect* and storing
   the returned connection object or by calling
   *traci.start(label=...)* and retrieving the connection object with
   *traci.getConnection(label)*.
+  
+  The work to make the core (microscopic) simulation run in parallel is ongoing (Issue #4767). 
+  Some parts of the simulation can already be run in parallel when setting option **--threads** but this does not lead to meaningful speedup yet.
 
 ## Building / Installation
 
