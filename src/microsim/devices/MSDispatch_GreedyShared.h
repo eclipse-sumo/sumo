@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    MSDispatch.h
+/// @file    MSDispatch_GreedyShared.h
 /// @author  Jakob Erdmann
 /// @date    16.12.2019
 ///
