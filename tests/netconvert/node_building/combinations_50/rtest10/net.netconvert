@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 23:29:49 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Wed Jan 29 12:11:43 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -40,8 +41,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":61057980_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="27.67" shape="43.83,43.99 60.92,65.75"/>
     </edge>
     <edge id=":61057980_3" function="internal">
-        <lane id=":61057980_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="27.47" shape="40.68,46.37 45.27,51.12 49.07,55.51 53.10,60.65 58.35,67.66"/>
-        <lane id=":61057980_3_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="27.47" shape="38.42,48.63 42.98,53.35 46.71,57.66 50.64,62.70 55.78,69.57"/>
+        <lane id=":61057980_3_0" index="0" allow="emergency vip passenger hov taxi bus coach delivery truck trailer custom1" speed="13.89" length="27.47" shape="40.68,46.37 45.27,51.12 49.07,55.51 53.10,60.65 58.35,67.66"/>
+        <lane id=":61057980_3_1" index="1" allow="emergency vip passenger hov taxi bus coach delivery truck trailer custom1" speed="13.89" length="27.47" shape="38.42,48.63 42.98,53.35 46.71,57.66 50.64,62.70 55.78,69.57"/>
     </edge>
     <edge id=":61057981_0" function="internal">
         <lane id=":61057981_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="65.88,49.64 67.30,49.43 68.14,49.76 68.38,50.62 68.02,52.02"/>

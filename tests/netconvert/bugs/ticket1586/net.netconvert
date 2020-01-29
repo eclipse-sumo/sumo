@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 23:30:30 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Wed Jan 29 12:12:06 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -33,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="43.24,-44.37" convBoundary="0.00,0.00,299.61,35.08" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" disallow="pedestrian" speed="7.37" length="10.52" shape="171.64,15.31 170.81,12.12 169.50,9.84 167.69,8.48 165.40,8.04"/>
+        <lane id=":gneJ0_0_0" index="0" allow="bicycle" speed="7.37" length="10.52" shape="171.64,15.31 170.81,12.12 169.50,9.84 167.69,8.48 165.40,8.04"/>
     </edge>
     <edge id=":gneJ0_1" function="internal">
         <lane id=":gneJ0_1_0" index="0" disallow="pedestrian" speed="13.89" length="10.90" shape="176.23,4.91 165.38,4.84"/>

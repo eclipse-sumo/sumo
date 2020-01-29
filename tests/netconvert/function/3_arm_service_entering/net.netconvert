@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 23:30:28 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Wed Jan 29 12:12:05 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -37,19 +38,19 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_0_0" index="0" disallow="pedestrian" speed="13.89" length="9.40" shape="104.70,101.60 95.30,101.60"/>
     </edge>
     <edge id=":C_1" function="internal">
-        <lane id=":C_1_0" index="0" allow="pedestrian delivery" speed="7.35" length="4.55" shape="104.70,101.60 101.94,101.08 100.58,100.00"/>
+        <lane id=":C_1_0" index="0" allow="delivery" speed="7.35" length="4.55" shape="104.70,101.60 101.94,101.08 100.58,100.00"/>
     </edge>
     <edge id=":C_6" function="internal">
-        <lane id=":C_6_0" index="0" allow="pedestrian delivery" speed="7.35" length="7.27" shape="100.58,100.00 99.97,99.52 98.79,96.93 98.40,93.30"/>
+        <lane id=":C_6_0" index="0" allow="delivery" speed="7.35" length="7.27" shape="100.58,100.00 99.97,99.52 98.79,96.93 98.40,93.30"/>
     </edge>
     <edge id=":C_2" function="internal">
-        <lane id=":C_2_0" index="0" disallow="pedestrian" speed="5.70" length="6.69" shape="101.60,93.30 101.79,95.53 102.37,97.12 103.34,98.08 104.70,98.40"/>
+        <lane id=":C_2_0" index="0" allow="delivery" speed="5.70" length="6.69" shape="101.60,93.30 101.79,95.53 102.37,97.12 103.34,98.08 104.70,98.40"/>
     </edge>
     <edge id=":C_3" function="internal">
-        <lane id=":C_3_0" index="0" disallow="pedestrian" speed="7.35" length="11.82" shape="101.60,93.30 101.21,96.93 100.02,99.53 98.06,101.08 95.30,101.60"/>
+        <lane id=":C_3_0" index="0" allow="delivery" speed="7.35" length="11.82" shape="101.60,93.30 101.21,96.93 100.02,99.53 98.06,101.08 95.30,101.60"/>
     </edge>
     <edge id=":C_4" function="internal">
-        <lane id=":C_4_0" index="0" allow="pedestrian delivery" speed="5.70" length="6.69" shape="95.30,98.40 96.66,98.08 97.63,97.13 98.21,95.53 98.40,93.30"/>
+        <lane id=":C_4_0" index="0" allow="delivery" speed="5.70" length="6.69" shape="95.30,98.40 96.66,98.08 97.63,97.13 98.21,95.53 98.40,93.30"/>
     </edge>
     <edge id=":C_5" function="internal">
         <lane id=":C_5_0" index="0" disallow="pedestrian" speed="13.89" length="9.40" shape="95.30,98.40 104.70,98.40"/>

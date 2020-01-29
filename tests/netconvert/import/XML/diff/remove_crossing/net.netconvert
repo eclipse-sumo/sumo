@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 29 23:24:59 2019 by Eclipse SUMO netconvert Version v1_2_0+0149-6b40db9d1b
+<!-- generated on Wed Jan 29 12:11:49 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -41,6 +42,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -134,8 +136,8 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id=":3366620112_0" function="internal">
         <lane id=":3366620112_0_0" index="0" allow="bicycle" speed="13.89" length="0.30" width="1.50" shape="3834.70,1101.02 3834.96,1101.16"/>
-        <lane id=":3366620112_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="3833.56,1103.08 3833.83,1103.22"/>
-        <lane id=":3366620112_0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="3832.01,1105.87 3832.28,1106.02"/>
+        <lane id=":3366620112_0_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="3833.56,1103.08 3833.83,1103.22"/>
+        <lane id=":3366620112_0_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="3832.01,1105.87 3832.28,1106.02"/>
     </edge>
     <edge id=":3366620112_w0" function="walkingarea">
         <lane id=":3366620112_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.29" width="3.00" shape="3835.33,1100.51 3836.78,1097.88 3836.53,1097.74 3835.07,1100.37"/>
@@ -158,8 +160,8 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id=":3366620117_0" function="internal">
         <lane id=":3366620117_0_0" index="0" allow="bicycle" speed="13.89" length="0.18" width="1.50" shape="3842.70,1134.61 3842.55,1134.52"/>
-        <lane id=":3366620117_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.18" shape="3843.92,1132.60 3843.76,1132.51"/>
-        <lane id=":3366620117_0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.18" shape="3845.58,1129.87 3845.42,1129.77"/>
+        <lane id=":3366620117_0_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.18" shape="3843.92,1132.60 3843.76,1132.51"/>
+        <lane id=":3366620117_0_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.18" shape="3845.58,1129.87 3845.42,1129.77"/>
     </edge>
     <edge id=":3366620117_w0" function="walkingarea">
         <lane id=":3366620117_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.17" width="3.00" shape="3842.17,1135.17 3840.60,1137.73 3840.75,1137.82 3842.31,1135.25"/>
@@ -182,8 +184,8 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id=":945142252_0" function="internal">
         <lane id=":945142252_0_0" index="0" allow="bicycle" speed="13.89" length="0.30" width="1.50" shape="3798.60,1108.06 3798.34,1107.91"/>
-        <lane id=":945142252_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="3799.81,1106.05 3799.56,1105.90"/>
-        <lane id=":945142252_0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="3801.46,1103.31 3801.21,1103.16"/>
+        <lane id=":945142252_0_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="3799.81,1106.05 3799.56,1105.90"/>
+        <lane id=":945142252_0_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="3801.46,1103.31 3801.21,1103.16"/>
     </edge>
     <edge id=":945142252_w0" function="walkingarea">
         <lane id=":945142252_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.31" width="3.00" shape="3797.95,1108.55 3796.40,1111.12 3796.68,1111.28 3798.22,1108.71"/>

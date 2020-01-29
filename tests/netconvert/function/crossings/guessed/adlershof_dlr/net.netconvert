@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan  7 15:04:02 2020 by Eclipse SUMO netconvert Version v1_4_0+0358-70c11de
+<!-- generated on Wed Jan 29 12:12:05 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -155,28 +155,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1370020156_0_0" index="0" disallow="pedestrian" speed="22.22" length="9.48" shape="4537.25,787.63 4528.37,784.30"/>
     </edge>
     <edge id=":1370020156_1" function="internal">
-        <lane id=":1370020156_1_0" index="0" allow="pedestrian delivery" speed="7.33" length="4.63" shape="4537.25,787.63 4534.79,786.16 4533.88,784.65"/>
+        <lane id=":1370020156_1_0" index="0" allow="delivery" speed="7.33" length="4.63" shape="4537.25,787.63 4534.79,786.16 4533.88,784.65"/>
     </edge>
     <edge id=":1370020156_2" function="internal">
         <lane id=":1370020156_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4537.25,787.63 4536.40,786.46 4536.30,785.58"/>
     </edge>
     <edge id=":1370020156_9" function="internal">
-        <lane id=":1370020156_9_0" index="0" allow="pedestrian delivery" speed="7.33" length="7.33" shape="4533.88,784.65 4533.48,784.00 4533.31,781.13 4534.29,777.57"/>
+        <lane id=":1370020156_9_0" index="0" allow="delivery" speed="7.33" length="7.33" shape="4533.88,784.65 4533.48,784.00 4533.31,781.13 4534.29,777.57"/>
     </edge>
     <edge id=":1370020156_10" function="internal">
         <lane id=":1370020156_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4536.30,785.58 4536.96,784.96 4538.36,784.63"/>
     </edge>
     <edge id=":1370020156_3" function="internal">
-        <lane id=":1370020156_3_0" index="0" disallow="pedestrian" speed="5.68" length="6.74" shape="4537.26,778.75 4536.62,780.91 4536.59,782.61 4537.17,783.85 4538.36,784.63"/>
+        <lane id=":1370020156_3_0" index="0" allow="delivery" speed="5.68" length="6.74" shape="4537.26,778.75 4536.62,780.91 4536.59,782.61 4537.17,783.85 4538.36,784.63"/>
     </edge>
     <edge id=":1370020156_4" function="internal">
-        <lane id=":1370020156_4_0" index="0" disallow="pedestrian" speed="7.39" length="11.84" shape="4537.26,778.75 4535.55,782.01 4533.50,784.02 4531.11,784.78 4528.37,784.30"/>
+        <lane id=":1370020156_4_0" index="0" allow="delivery" speed="7.39" length="11.84" shape="4537.26,778.75 4535.55,782.01 4533.50,784.02 4531.11,784.78 4528.37,784.30"/>
     </edge>
     <edge id=":1370020156_5" function="internal">
         <lane id=":1370020156_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4537.26,778.75 4536.08,779.57 4535.19,779.65 4534.59,778.98 4534.29,777.57"/>
     </edge>
     <edge id=":1370020156_6" function="internal">
-        <lane id=":1370020156_6_0" index="0" allow="pedestrian delivery" speed="5.75" length="6.76" shape="4529.52,781.31 4530.89,781.48 4532.14,780.92 4533.27,779.62 4534.29,777.57"/>
+        <lane id=":1370020156_6_0" index="0" allow="delivery" speed="5.75" length="6.76" shape="4529.52,781.31 4530.89,781.48 4532.14,780.92 4533.27,779.62 4534.29,777.57"/>
     </edge>
     <edge id=":1370020156_7" function="internal">
         <lane id=":1370020156_7_0" index="0" disallow="pedestrian" speed="22.22" length="9.44" shape="4529.52,781.31 4538.36,784.63"/>
@@ -375,7 +375,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1472995255_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="3.20" shape="4296.75,850.79 4297.91,847.81 4297.99,847.84 4296.67,850.76"/>
     </edge>
     <edge id=":1472997321_0" function="internal">
-        <lane id=":1472997321_0_0" index="0" allow="pedestrian delivery" speed="5.77" length="6.77" shape="4407.12,804.08 4405.78,803.78 4404.49,804.23 4403.23,805.43 4402.01,807.37"/>
+        <lane id=":1472997321_0_0" index="0" allow="delivery" speed="5.77" length="6.77" shape="4407.12,804.08 4405.78,803.78 4404.49,804.23 4403.23,805.43 4402.01,807.37"/>
     </edge>
     <edge id=":1472997321_1" function="internal">
         <lane id=":1472997321_1_0" index="0" disallow="pedestrian" speed="22.22" length="9.40" shape="4407.12,804.08 4398.68,799.93"/>
@@ -390,22 +390,22 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1472997321_3_0" index="0" disallow="pedestrian" speed="22.22" length="9.40" shape="4400.09,797.06 4408.53,801.20"/>
     </edge>
     <edge id=":1472997321_4" function="internal">
-        <lane id=":1472997321_4_0" index="0" allow="pedestrian delivery" speed="7.33" length="4.59" shape="4400.09,797.06 4402.38,798.77 4403.12,800.33"/>
+        <lane id=":1472997321_4_0" index="0" allow="delivery" speed="7.33" length="4.59" shape="4400.09,797.06 4402.38,798.77 4403.12,800.33"/>
     </edge>
     <edge id=":1472997321_5" function="internal">
         <lane id=":1472997321_5_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4400.09,797.06 4400.82,798.31 4400.82,799.20"/>
     </edge>
     <edge id=":1472997321_10" function="internal">
-        <lane id=":1472997321_10_0" index="0" allow="pedestrian delivery" speed="7.33" length="7.37" shape="4403.12,800.33 4403.47,801.06 4403.34,803.93 4402.01,807.37"/>
+        <lane id=":1472997321_10_0" index="0" allow="delivery" speed="7.33" length="7.37" shape="4403.12,800.33 4403.47,801.06 4403.34,803.93 4402.01,807.37"/>
     </edge>
     <edge id=":1472997321_11" function="internal">
         <lane id=":1472997321_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4400.82,799.20 4400.11,799.74 4398.68,799.93"/>
     </edge>
     <edge id=":1472997321_6" function="internal">
-        <lane id=":1472997321_6_0" index="0" disallow="pedestrian" speed="5.68" length="6.74" shape="4399.17,805.89 4400.03,803.81 4400.23,802.12 4399.78,800.83 4398.68,799.93"/>
+        <lane id=":1472997321_6_0" index="0" allow="delivery" speed="5.68" length="6.74" shape="4399.17,805.89 4400.03,803.81 4400.23,802.12 4399.78,800.83 4398.68,799.93"/>
     </edge>
     <edge id=":1472997321_7" function="internal">
-        <lane id=":1472997321_7_0" index="0" disallow="pedestrian" speed="7.41" length="11.80" shape="4399.17,805.89 4401.20,802.83 4403.43,801.02 4405.88,800.48 4408.53,801.20"/>
+        <lane id=":1472997321_7_0" index="0" allow="delivery" speed="7.41" length="11.80" shape="4399.17,805.89 4401.20,802.83 4403.43,801.02 4405.88,800.48 4408.53,801.20"/>
     </edge>
     <edge id=":1472997321_8" function="internal">
         <lane id=":1472997321_8_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4399.17,805.89 4400.43,805.20 4401.33,805.21 4401.85,805.93 4402.01,807.37"/>
@@ -516,7 +516,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1520039998_2_0" index="0" speed="2.78" length="4.67" shape="3513.96,802.30 3513.26,801.04 3513.27,800.15 3513.99,799.62 3515.42,799.46"/>
     </edge>
     <edge id=":1520039998_3" function="internal">
-        <lane id=":1520039998_3_0" index="0" speed="5.55" length="7.64" shape="3510.89,793.96 3510.89,795.34 3511.65,796.72 3513.16,798.09 3515.42,799.46"/>
+        <lane id=":1520039998_3_0" index="0" disallow="pedestrian" speed="5.55" length="7.64" shape="3510.89,793.96 3510.89,795.34 3511.65,796.72 3513.16,798.09 3515.42,799.46"/>
     </edge>
     <edge id=":1520039998_4" function="internal">
         <lane id=":1520039998_4_0" index="0" disallow="pedestrian" speed="8.33" length="9.74" shape="3510.89,793.96 3510.10,796.74 3509.44,798.60 3508.62,800.41 3507.33,802.99"/>
@@ -531,13 +531,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1520039998_6_0" index="0" disallow="pedestrian" speed="8.33" length="9.11" shape="3504.47,801.57 3505.68,799.15 3506.45,797.46 3507.06,795.72 3507.80,793.12"/>
     </edge>
     <edge id=":1520039998_7" function="internal">
-        <lane id=":1520039998_7_0" index="0" speed="5.55" length="4.68" shape="3504.47,801.57 3506.31,799.12 3507.77,798.42"/>
+        <lane id=":1520039998_7_0" index="0" disallow="pedestrian" speed="5.55" length="4.68" shape="3504.47,801.57 3506.31,799.12 3507.77,798.42"/>
     </edge>
     <edge id=":1520039998_8" function="internal">
         <lane id=":1520039998_8_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3504.47,801.57 3505.72,800.85 3506.61,800.85"/>
     </edge>
     <edge id=":1520039998_10" function="internal">
-        <lane id=":1520039998_10_0" index="0" speed="5.55" length="8.02" shape="3507.77,798.42 3508.74,797.95 3511.78,798.06 3515.42,799.46"/>
+        <lane id=":1520039998_10_0" index="0" disallow="pedestrian" speed="5.55" length="8.02" shape="3507.77,798.42 3508.74,797.95 3511.78,798.06 3515.42,799.46"/>
     </edge>
     <edge id=":1520039998_11" function="internal">
         <lane id=":1520039998_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3506.61,800.85 3507.15,801.56 3507.33,802.99"/>
@@ -561,7 +561,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1520040021_2_0" index="0" speed="2.78" length="4.67" shape="3483.01,864.09 3482.33,862.82 3482.36,861.93 3483.09,861.41 3484.53,861.27"/>
     </edge>
     <edge id=":1520040021_3" function="internal">
-        <lane id=":1520040021_3_0" index="0" speed="5.55" length="7.36" shape="3481.18,855.59 3480.81,857.09 3481.25,858.54 3482.49,859.94 3484.53,861.27"/>
+        <lane id=":1520040021_3_0" index="0" disallow="pedestrian" speed="5.55" length="7.36" shape="3481.18,855.59 3480.81,857.09 3481.25,858.54 3482.49,859.94 3484.53,861.27"/>
     </edge>
     <edge id=":1520040021_4" function="internal">
         <lane id=":1520040021_4_0" index="0" disallow="pedestrian" speed="8.33" length="10.10" shape="3481.18,855.59 3476.46,864.52"/>
@@ -576,13 +576,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1520040021_6_0" index="0" disallow="pedestrian" speed="8.33" length="9.94" shape="3473.67,862.96 3478.31,854.17"/>
     </edge>
     <edge id=":1520040021_7" function="internal">
-        <lane id=":1520040021_7_0" index="0" speed="5.55" length="4.52" shape="3473.67,862.96 3475.56,860.68 3477.00,860.07"/>
+        <lane id=":1520040021_7_0" index="0" disallow="pedestrian" speed="5.55" length="4.52" shape="3473.67,862.96 3475.56,860.68 3477.00,860.07"/>
     </edge>
     <edge id=":1520040021_8" function="internal">
         <lane id=":1520040021_8_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3473.67,862.96 3474.95,862.30 3475.85,862.34"/>
     </edge>
     <edge id=":1520040021_10" function="internal">
-        <lane id=":1520040021_10_0" index="0" speed="5.55" length="7.90" shape="3477.00,860.07 3478.00,859.65 3480.99,859.84 3484.53,861.27"/>
+        <lane id=":1520040021_10_0" index="0" disallow="pedestrian" speed="5.55" length="7.90" shape="3477.00,860.07 3478.00,859.65 3480.99,859.84 3484.53,861.27"/>
     </edge>
     <edge id=":1520040021_11" function="internal">
         <lane id=":1520040021_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3475.85,862.34 3476.35,863.08 3476.46,864.52"/>
@@ -654,7 +654,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1520040094_2_0" index="0" speed="2.78" length="4.67" shape="3417.71,983.87 3417.03,982.59 3417.06,981.70 3417.79,981.18 3419.23,981.05"/>
     </edge>
     <edge id=":1520040094_3" function="internal">
-        <lane id=":1520040094_3_0" index="0" speed="5.55" length="7.49" shape="3415.98,975.23 3415.55,976.78 3415.94,978.27 3417.17,979.69 3419.23,981.05"/>
+        <lane id=":1520040094_3_0" index="0" disallow="pedestrian" speed="5.55" length="7.49" shape="3415.98,975.23 3415.55,976.78 3415.94,978.27 3417.17,979.69 3419.23,981.05"/>
     </edge>
     <edge id=":1520040094_4" function="internal">
         <lane id=":1520040094_4_0" index="0" disallow="pedestrian" speed="8.33" length="10.40" shape="3415.98,975.23 3411.08,984.40"/>
@@ -669,13 +669,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1520040094_6_0" index="0" disallow="pedestrian" speed="8.33" length="10.40" shape="3408.25,982.89 3413.15,973.72"/>
     </edge>
     <edge id=":1520040094_7" function="internal">
-        <lane id=":1520040094_7_0" index="0" speed="5.55" length="4.74" shape="3408.25,982.89 3410.14,980.52 3411.71,979.83"/>
+        <lane id=":1520040094_7_0" index="0" disallow="pedestrian" speed="5.55" length="4.74" shape="3408.25,982.89 3410.14,980.52 3411.71,979.83"/>
     </edge>
     <edge id=":1520040094_8" function="internal">
         <lane id=":1520040094_8_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3408.25,982.89 3409.53,982.21 3410.42,982.23"/>
     </edge>
     <edge id=":1520040094_10" function="internal">
-        <lane id=":1520040094_10_0" index="0" speed="5.55" length="7.89" shape="3411.71,979.83 3412.60,979.43 3415.63,979.60 3419.23,981.05"/>
+        <lane id=":1520040094_10_0" index="0" disallow="pedestrian" speed="5.55" length="7.89" shape="3411.71,979.83 3412.60,979.43 3415.63,979.60 3419.23,981.05"/>
     </edge>
     <edge id=":1520040094_11" function="internal">
         <lane id=":1520040094_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3410.42,982.23 3410.94,982.96 3411.08,984.40"/>
@@ -729,7 +729,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1520040140_2_0" index="0" speed="2.78" length="4.67" shape="3317.52,1168.89 3316.80,1167.64 3316.80,1166.75 3317.52,1166.21 3318.95,1166.03"/>
     </edge>
     <edge id=":1520040140_3" function="internal">
-        <lane id=":1520040140_3_0" index="0" speed="5.55" length="7.54" shape="3315.65,1160.25 3315.20,1161.83 3315.60,1163.32 3316.85,1164.72 3318.95,1166.03"/>
+        <lane id=":1520040140_3_0" index="0" disallow="pedestrian" speed="5.55" length="7.54" shape="3315.65,1160.25 3315.20,1161.83 3315.60,1163.32 3316.85,1164.72 3318.95,1166.03"/>
     </edge>
     <edge id=":1520040140_4" function="internal">
         <lane id=":1520040140_4_0" index="0" disallow="pedestrian" speed="8.33" length="10.28" shape="3315.65,1160.25 3310.65,1169.23"/>
@@ -744,13 +744,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1520040140_6_0" index="0" disallow="pedestrian" speed="8.33" length="10.17" shape="3307.88,1167.62 3312.83,1158.74"/>
     </edge>
     <edge id=":1520040140_7" function="internal">
-        <lane id=":1520040140_7_0" index="0" speed="5.55" length="4.46" shape="3307.88,1167.62 3309.78,1165.45 3311.25,1164.86"/>
+        <lane id=":1520040140_7_0" index="0" disallow="pedestrian" speed="5.55" length="4.46" shape="3307.88,1167.62 3309.78,1165.45 3311.25,1164.86"/>
     </edge>
     <edge id=":1520040140_8" function="internal">
         <lane id=":1520040140_8_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3307.88,1167.62 3309.18,1166.99 3310.07,1167.04"/>
     </edge>
     <edge id=":1520040140_10" function="internal">
-        <lane id=":1520040140_10_0" index="0" speed="5.55" length="8.04" shape="3311.25,1164.86 3312.25,1164.46 3315.31,1164.66 3318.95,1166.03"/>
+        <lane id=":1520040140_10_0" index="0" disallow="pedestrian" speed="5.55" length="8.04" shape="3311.25,1164.86 3312.25,1164.46 3315.31,1164.66 3318.95,1166.03"/>
     </edge>
     <edge id=":1520040140_11" function="internal">
         <lane id=":1520040140_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3310.07,1167.04 3310.56,1167.79 3310.65,1169.23"/>
@@ -1312,31 +1312,31 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560223615_1_0" index="0" disallow="pedestrian" speed="22.22" length="14.37" shape="4251.61,535.76 4237.29,534.63"/>
     </edge>
     <edge id=":1560223615_2" function="internal">
-        <lane id=":1560223615_2_0" index="0" allow="pedestrian delivery" speed="8.05" length="6.05" shape="4251.61,535.76 4247.75,534.92 4246.03,533.72"/>
+        <lane id=":1560223615_2_0" index="0" allow="delivery" speed="8.05" length="6.05" shape="4251.61,535.76 4247.75,534.92 4246.03,533.72"/>
     </edge>
     <edge id=":1560223615_3" function="internal">
         <lane id=":1560223615_3_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4251.61,535.76 4250.47,534.88 4250.13,534.05"/>
     </edge>
     <edge id=":1560223615_16" function="internal">
-        <lane id=":1560223615_16_0" index="0" allow="pedestrian delivery" speed="8.05" length="8.31" shape="4246.03,533.72 4245.08,533.06 4243.61,530.17 4243.33,526.26"/>
+        <lane id=":1560223615_16_0" index="0" allow="delivery" speed="8.05" length="8.31" shape="4246.03,533.72 4245.08,533.06 4243.61,530.17 4243.33,526.26"/>
     </edge>
     <edge id=":1560223615_17" function="internal">
         <lane id=":1560223615_17_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4250.13,534.05 4250.59,533.28 4251.85,532.57"/>
     </edge>
     <edge id=":1560223615_4" function="internal">
-        <lane id=":1560223615_4_0" index="0" disallow="pedestrian" speed="6.58" length="9.26" shape="4246.53,526.44 4246.70,528.96 4247.65,530.83 4249.36,532.03 4251.85,532.57"/>
+        <lane id=":1560223615_4_0" index="0" allow="delivery" speed="6.58" length="9.26" shape="4246.53,526.44 4246.70,528.96 4247.65,530.83 4249.36,532.03 4251.85,532.57"/>
     </edge>
     <edge id=":1560223615_5" function="internal">
-        <lane id=":1560223615_5_0" index="0" disallow="pedestrian" speed="13.89" length="14.56" shape="4246.53,526.44 4245.63,540.97"/>
+        <lane id=":1560223615_5_0" index="0" allow="delivery" speed="13.89" length="14.56" shape="4246.53,526.44 4245.63,540.97"/>
     </edge>
     <edge id=":1560223615_6" function="internal">
-        <lane id=":1560223615_6_0" index="0" disallow="pedestrian" speed="7.95" length="14.12" shape="4246.53,526.44 4245.71,530.29 4243.89,532.94 4241.08,534.39 4237.29,534.63"/>
+        <lane id=":1560223615_6_0" index="0" allow="delivery" speed="7.95" length="14.12" shape="4246.53,526.44 4245.71,530.29 4243.89,532.94 4241.08,534.39 4237.29,534.63"/>
     </edge>
     <edge id=":1560223615_7" function="internal">
         <lane id=":1560223615_7_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4246.53,526.44 4245.66,527.59 4244.84,527.95 4244.07,527.51 4243.33,526.26"/>
     </edge>
     <edge id=":1560223615_8" function="internal">
-        <lane id=":1560223615_8_0" index="0" allow="pedestrian delivery" speed="6.43" length="8.87" shape="4237.55,531.45 4239.93,531.29 4241.68,530.37 4242.82,528.70 4243.33,526.26"/>
+        <lane id=":1560223615_8_0" index="0" allow="delivery" speed="6.43" length="8.87" shape="4237.55,531.45 4239.93,531.29 4241.68,530.37 4242.82,528.70 4243.33,526.26"/>
     </edge>
     <edge id=":1560223615_9" function="internal">
         <lane id=":1560223615_9_0" index="0" disallow="pedestrian" speed="22.22" length="14.34" shape="4237.55,531.45 4251.85,532.57"/>
@@ -1357,7 +1357,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560223615_12_0" index="0" disallow="pedestrian" speed="6.57" length="9.09" shape="4242.43,540.76 4242.25,538.25 4241.33,536.40 4239.68,535.19 4237.29,534.63"/>
     </edge>
     <edge id=":1560223615_13" function="internal">
-        <lane id=":1560223615_13_0" index="0" allow="pedestrian delivery" speed="13.89" length="14.53" shape="4242.43,540.76 4243.33,526.26"/>
+        <lane id=":1560223615_13_0" index="0" allow="delivery" speed="13.89" length="14.53" shape="4242.43,540.76 4243.33,526.26"/>
     </edge>
     <edge id=":1560223615_14" function="internal">
         <lane id=":1560223615_14_0" index="0" disallow="pedestrian" speed="7.99" length="14.26" shape="4242.43,540.76 4243.24,536.93 4245.07,534.29 4247.95,532.84 4251.85,532.57"/>
@@ -1454,16 +1454,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560223734_0_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4635.50,594.74 4636.77,595.42 4637.24,596.18 4636.92,597.01 4635.80,597.92"/>
     </edge>
     <edge id=":1560223789_0" function="internal">
-        <lane id=":1560223789_0_0" index="0" disallow="pedestrian" speed="5.89" length="6.79" shape="3936.80,639.41 3934.47,639.28 3932.72,639.57 3931.55,640.31 3930.96,641.47"/>
+        <lane id=":1560223789_0_0" index="0" allow="delivery" speed="5.89" length="6.79" shape="3936.80,639.41 3934.47,639.28 3932.72,639.57 3931.55,640.31 3930.96,641.47"/>
     </edge>
     <edge id=":1560223789_1" function="internal">
-        <lane id=":1560223789_1_0" index="0" disallow="pedestrian" speed="7.33" length="11.96" shape="3936.80,639.41 3933.22,638.52 3930.80,636.97 3929.55,634.77 3929.48,631.91"/>
+        <lane id=":1560223789_1_0" index="0" allow="delivery" speed="7.33" length="11.96" shape="3936.80,639.41 3933.22,638.52 3930.80,636.97 3929.55,634.77 3929.48,631.91"/>
     </edge>
     <edge id=":1560223789_2" function="internal">
         <lane id=":1560223789_2_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="3936.80,639.41 3935.72,638.46 3935.43,637.61 3935.93,636.88 3937.23,636.24"/>
     </edge>
     <edge id=":1560223789_3" function="internal">
-        <lane id=":1560223789_3_0" index="0" allow="pedestrian delivery" speed="5.68" length="6.74" shape="3932.64,632.41 3932.74,633.83 3933.54,634.94 3935.03,635.75 3937.23,636.24"/>
+        <lane id=":1560223789_3_0" index="0" allow="delivery" speed="5.68" length="6.74" shape="3932.64,632.41 3932.74,633.83 3933.54,634.94 3935.03,635.75 3937.23,636.24"/>
     </edge>
     <edge id=":1560223789_4" function="internal">
         <lane id=":1560223789_4_0" index="0" disallow="pedestrian" speed="13.89" length="9.22" shape="3932.64,632.41 3930.96,641.47"/>
@@ -1479,13 +1479,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560223789_6_1" index="1" disallow="pedestrian" speed="13.89" length="8.96" shape="3927.83,640.80 3929.48,631.91"/>
     </edge>
     <edge id=":1560223789_8" function="internal">
-        <lane id=":1560223789_8_0" index="0" allow="pedestrian delivery" speed="7.50" length="4.19" shape="3927.83,640.80 3928.88,638.39 3930.09,637.40"/>
+        <lane id=":1560223789_8_0" index="0" allow="delivery" speed="7.50" length="4.19" shape="3927.83,640.80 3928.88,638.39 3930.09,637.40"/>
     </edge>
     <edge id=":1560223789_9" function="internal">
         <lane id=":1560223789_9_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3927.83,640.80 3928.87,639.80 3929.73,639.57"/>
     </edge>
     <edge id=":1560223789_11" function="internal">
-        <lane id=":1560223789_11_0" index="0" allow="pedestrian delivery" speed="7.50" length="7.44" shape="3930.09,637.40 3930.79,636.83 3933.57,636.11 3937.23,636.24"/>
+        <lane id=":1560223789_11_0" index="0" allow="delivery" speed="7.50" length="7.44" shape="3930.09,637.40 3930.79,636.83 3933.57,636.11 3937.23,636.24"/>
     </edge>
     <edge id=":1560223789_12" function="internal">
         <lane id=":1560223789_12_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3929.73,639.57 3930.43,640.13 3930.96,641.47"/>
@@ -1533,28 +1533,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560223834_0_0" index="0" disallow="pedestrian" speed="22.22" length="9.43" shape="4123.65,649.47 4123.03,658.89"/>
     </edge>
     <edge id=":1560223834_1" function="internal">
-        <lane id=":1560223834_1_0" index="0" allow="pedestrian delivery" speed="7.34" length="4.58" shape="4123.65,649.47 4122.95,652.22 4121.78,653.52"/>
+        <lane id=":1560223834_1_0" index="0" allow="delivery" speed="7.34" length="4.58" shape="4123.65,649.47 4122.95,652.22 4121.78,653.52"/>
     </edge>
     <edge id=":1560223834_2" function="internal">
         <lane id=":1560223834_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4123.65,649.47 4122.77,650.62 4121.95,650.97"/>
     </edge>
     <edge id=":1560223834_9" function="internal">
-        <lane id=":1560223834_9_0" index="0" allow="pedestrian delivery" speed="7.34" length="7.30" shape="4121.78,653.52 4121.26,654.09 4118.58,655.09 4114.91,655.22"/>
+        <lane id=":1560223834_9_0" index="0" allow="delivery" speed="7.34" length="7.30" shape="4121.78,653.52 4121.26,654.09 4118.58,655.09 4114.91,655.22"/>
     </edge>
     <edge id=":1560223834_10" function="internal">
         <lane id=":1560223834_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4121.95,650.97 4121.18,650.52 4120.45,649.27"/>
     </edge>
     <edge id=":1560223834_3" function="internal">
-        <lane id=":1560223834_3_0" index="0" disallow="pedestrian" speed="5.69" length="6.72" shape="4115.15,652.03 4117.40,652.00 4119.03,651.53 4120.05,650.62 4120.45,649.27"/>
+        <lane id=":1560223834_3_0" index="0" allow="delivery" speed="5.69" length="6.72" shape="4115.15,652.03 4117.40,652.00 4119.03,651.53 4120.05,650.62 4120.45,649.27"/>
     </edge>
     <edge id=":1560223834_4" function="internal">
-        <lane id=":1560223834_4_0" index="0" disallow="pedestrian" speed="7.37" length="11.83" shape="4115.15,652.03 4118.76,652.69 4121.27,654.05 4122.70,656.12 4123.03,658.89"/>
+        <lane id=":1560223834_4_0" index="0" allow="delivery" speed="7.37" length="11.83" shape="4115.15,652.03 4118.76,652.69 4121.27,654.05 4122.70,656.12 4123.03,658.89"/>
     </edge>
     <edge id=":1560223834_5" function="internal">
         <lane id=":1560223834_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4115.15,652.03 4116.29,652.91 4116.63,653.74 4116.17,654.51 4114.91,655.22"/>
     </edge>
     <edge id=":1560223834_6" function="internal">
-        <lane id=":1560223834_6_0" index="0" allow="pedestrian delivery" speed="5.73" length="6.72" shape="4119.84,658.67 4119.61,657.30 4118.71,656.27 4117.15,655.58 4114.91,655.22"/>
+        <lane id=":1560223834_6_0" index="0" allow="delivery" speed="5.73" length="6.72" shape="4119.84,658.67 4119.61,657.30 4118.71,656.27 4117.15,655.58 4114.91,655.22"/>
     </edge>
     <edge id=":1560223834_7" function="internal">
         <lane id=":1560223834_7_0" index="0" disallow="pedestrian" speed="22.22" length="9.42" shape="4119.84,658.67 4120.45,649.27"/>
@@ -1702,28 +1702,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560224080_0_0" index="0" disallow="pedestrian" speed="22.22" length="10.52" shape="4112.83,784.23 4111.81,794.70"/>
     </edge>
     <edge id=":1560224080_1" function="internal">
-        <lane id=":1560224080_1_0" index="0" allow="pedestrian delivery" speed="7.32" length="4.91" shape="4112.83,784.23 4112.13,787.07 4110.80,788.54"/>
+        <lane id=":1560224080_1_0" index="0" allow="delivery" speed="7.32" length="4.91" shape="4112.83,784.23 4112.13,787.07 4110.80,788.54"/>
     </edge>
     <edge id=":1560224080_2" function="internal">
         <lane id=":1560224080_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4112.83,784.23 4111.96,785.38 4111.14,785.73"/>
     </edge>
     <edge id=":1560224080_9" function="internal">
-        <lane id=":1560224080_9_0" index="0" allow="pedestrian delivery" speed="7.32" length="7.25" shape="4110.80,788.54 4110.41,788.97 4107.67,789.93 4103.90,789.95"/>
+        <lane id=":1560224080_9_0" index="0" allow="delivery" speed="7.32" length="7.25" shape="4110.80,788.54 4110.41,788.97 4107.67,789.93 4103.90,789.95"/>
     </edge>
     <edge id=":1560224080_10" function="internal">
         <lane id=":1560224080_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4111.14,785.73 4110.36,785.29 4109.63,784.04"/>
     </edge>
     <edge id=":1560224080_3" function="internal">
-        <lane id=":1560224080_3_0" index="0" disallow="pedestrian" speed="5.67" length="6.85" shape="4104.24,786.76 4106.53,786.80 4108.19,786.36 4109.23,785.44 4109.63,784.04"/>
+        <lane id=":1560224080_3_0" index="0" allow="delivery" speed="5.67" length="6.85" shape="4104.24,786.76 4106.53,786.80 4108.19,786.36 4109.23,785.44 4109.63,784.04"/>
     </edge>
     <edge id=":1560224080_4" function="internal">
-        <lane id=":1560224080_4_0" index="0" disallow="pedestrian" speed="7.60" length="12.41" shape="4104.24,786.76 4107.76,787.59 4110.19,789.18 4111.54,791.55 4111.81,794.70"/>
+        <lane id=":1560224080_4_0" index="0" allow="delivery" speed="7.60" length="12.41" shape="4104.24,786.76 4107.76,787.59 4110.19,789.18 4111.54,791.55 4111.81,794.70"/>
     </edge>
     <edge id=":1560224080_5" function="internal">
         <lane id=":1560224080_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4104.24,786.76 4105.35,787.69 4105.66,788.52 4105.18,789.28 4103.90,789.95"/>
     </edge>
     <edge id=":1560224080_6" function="internal">
-        <lane id=":1560224080_6_0" index="0" allow="pedestrian delivery" speed="5.87" length="7.01" shape="4108.65,793.99 4108.46,792.42 4107.60,791.23 4106.08,790.40 4103.90,789.95"/>
+        <lane id=":1560224080_6_0" index="0" allow="delivery" speed="5.87" length="7.01" shape="4108.65,793.99 4108.46,792.42 4107.60,791.23 4106.08,790.40 4103.90,789.95"/>
     </edge>
     <edge id=":1560224080_7" function="internal">
         <lane id=":1560224080_7_0" index="0" disallow="pedestrian" speed="22.22" length="9.99" shape="4108.65,793.99 4109.63,784.04"/>
@@ -1852,16 +1852,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560224195_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.78" width="2.00" shape="4563.91,813.65 4563.86,811.65 4562.75,809.91 4560.95,809.02 4560.38,810.47 4560.24,811.65 4560.52,812.56 4561.22,813.19 4562.35,813.56"/>
     </edge>
     <edge id=":1560224201_0" function="internal">
-        <lane id=":1560224201_0_0" index="0" disallow="pedestrian" speed="5.83" length="6.78" shape="4457.43,826.64 4457.12,824.35 4456.48,822.72 4455.51,821.74 4454.21,821.42"/>
+        <lane id=":1560224201_0_0" index="0" allow="delivery" speed="5.83" length="6.78" shape="4457.43,826.64 4457.12,824.35 4456.48,822.72 4455.51,821.74 4454.21,821.42"/>
     </edge>
     <edge id=":1560224201_1" function="internal">
-        <lane id=":1560224201_1_0" index="0" disallow="pedestrian" speed="7.33" length="11.96" shape="4457.43,826.64 4457.63,822.96 4458.70,820.29 4460.64,818.66 4463.44,818.05"/>
+        <lane id=":1560224201_1_0" index="0" allow="delivery" speed="7.33" length="11.96" shape="4457.43,826.64 4457.63,822.96 4458.70,820.29 4460.64,818.66 4463.44,818.05"/>
     </edge>
     <edge id=":1560224201_2" function="internal">
         <lane id=":1560224201_2_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4457.43,826.64 4458.16,825.40 4458.94,824.96 4459.76,825.32 4460.62,826.47"/>
     </edge>
     <edge id=":1560224201_3" function="internal">
-        <lane id=":1560224201_3_0" index="0" allow="pedestrian delivery" speed="5.68" length="6.75" shape="4463.53,821.24 4462.16,821.61 4461.21,822.60 4460.70,824.22 4460.62,826.47"/>
+        <lane id=":1560224201_3_0" index="0" allow="delivery" speed="5.68" length="6.75" shape="4463.53,821.24 4462.16,821.61 4461.21,822.60 4460.70,824.22 4460.62,826.47"/>
     </edge>
     <edge id=":1560224201_4" function="internal">
         <lane id=":1560224201_4_0" index="0" disallow="pedestrian" speed="22.22" length="9.32" shape="4463.53,821.24 4454.21,821.42"/>
@@ -1876,13 +1876,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560224201_6_0" index="0" disallow="pedestrian" speed="22.22" length="9.25" shape="4454.19,818.22 4463.44,818.05"/>
     </edge>
     <edge id=":1560224201_7" function="internal">
-        <lane id=":1560224201_7_0" index="0" allow="pedestrian delivery" speed="7.45" length="4.35" shape="4454.19,818.22 4456.84,818.72 4458.14,819.75"/>
+        <lane id=":1560224201_7_0" index="0" allow="delivery" speed="7.45" length="4.35" shape="4454.19,818.22 4456.84,818.72 4458.14,819.75"/>
     </edge>
     <edge id=":1560224201_8" function="internal">
         <lane id=":1560224201_8_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4454.19,818.22 4455.39,819.01 4455.80,819.81"/>
     </edge>
     <edge id=":1560224201_10" function="internal">
-        <lane id=":1560224201_10_0" index="0" allow="pedestrian delivery" speed="7.45" length="7.38" shape="4458.14,819.75 4458.79,820.26 4460.05,822.85 4460.62,826.47"/>
+        <lane id=":1560224201_10_0" index="0" allow="delivery" speed="7.45" length="7.38" shape="4458.14,819.75 4458.79,820.26 4460.05,822.85 4460.62,826.47"/>
     </edge>
     <edge id=":1560224201_11" function="internal">
         <lane id=":1560224201_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4455.80,819.81 4455.41,820.61 4454.21,821.42"/>
@@ -1894,13 +1894,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560224201_w1_0" index="0" allow="pedestrian" speed="1.00" length="9.19" width="2.00" shape="4463.39,816.45 4463.33,814.45 4454.16,814.62 4454.18,816.62"/>
     </edge>
     <edge id=":1560224281_0" function="internal">
-        <lane id=":1560224281_0_0" index="0" disallow="pedestrian" speed="5.49" length="7.31" shape="4526.07,888.33 4524.15,887.02 4522.51,886.63 4521.14,887.17 4520.06,888.64"/>
+        <lane id=":1560224281_0_0" index="0" allow="delivery" speed="5.49" length="7.31" shape="4526.07,888.33 4524.15,887.02 4522.51,886.63 4521.14,887.17 4520.06,888.64"/>
     </edge>
     <edge id=":1560224281_1" function="internal">
         <lane id=":1560224281_1_0" index="0" allow="pedestrian delivery" speed="3.71" length="4.67" shape="4526.07,888.33 4525.49,887.01 4525.58,886.12 4526.35,885.66 4527.79,885.63"/>
     </edge>
     <edge id=":1560224281_2" function="internal">
-        <lane id=":1560224281_2_0" index="0" allow="pedestrian delivery" speed="5.65" length="6.01" shape="4523.47,881.69 4523.57,882.28 4524.33,883.13 4525.73,884.25 4527.79,885.63"/>
+        <lane id=":1560224281_2_0" index="0" allow="delivery" speed="5.65" length="6.01" shape="4523.47,881.69 4523.57,882.28 4524.33,883.13 4525.73,884.25 4527.79,885.63"/>
     </edge>
     <edge id=":1560224281_3" function="internal">
         <lane id=":1560224281_3_0" index="0" disallow="pedestrian" speed="22.22" length="7.74" shape="4523.47,881.69 4520.06,888.64"/>
@@ -1963,28 +1963,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560224328_0_0" index="0" disallow="pedestrian" speed="22.22" length="9.29" shape="4287.05,921.45 4278.70,917.37"/>
     </edge>
     <edge id=":1560224328_1" function="internal">
-        <lane id=":1560224328_1_0" index="0" allow="pedestrian delivery" speed="7.35" length="4.49" shape="4287.05,921.45 4284.82,919.75 4284.10,918.22"/>
+        <lane id=":1560224328_1_0" index="0" allow="delivery" speed="7.35" length="4.49" shape="4287.05,921.45 4284.82,919.75 4284.10,918.22"/>
     </edge>
     <edge id=":1560224328_2" function="internal">
         <lane id=":1560224328_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4287.05,921.45 4286.34,920.19 4286.33,919.30"/>
     </edge>
     <edge id=":1560224328_9" function="internal">
-        <lane id=":1560224328_9_0" index="0" allow="pedestrian delivery" speed="7.35" length="7.32" shape="4284.10,918.22 4283.75,917.48 4283.85,914.64 4285.11,911.21"/>
+        <lane id=":1560224328_9_0" index="0" allow="delivery" speed="7.35" length="7.32" shape="4284.10,918.22 4283.75,917.48 4283.85,914.64 4285.11,911.21"/>
     </edge>
     <edge id=":1560224328_10" function="internal">
         <lane id=":1560224328_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4286.33,919.30 4287.05,918.76 4288.48,918.58"/>
     </edge>
     <edge id=":1560224328_3" function="internal">
-        <lane id=":1560224328_3_0" index="0" disallow="pedestrian" speed="5.70" length="6.69" shape="4287.97,912.63 4287.16,914.72 4286.97,916.40 4287.41,917.69 4288.48,918.58"/>
+        <lane id=":1560224328_3_0" index="0" allow="delivery" speed="5.70" length="6.69" shape="4287.97,912.63 4287.16,914.72 4286.97,916.40 4287.41,917.69 4288.48,918.58"/>
     </edge>
     <edge id=":1560224328_4" function="internal">
-        <lane id=":1560224328_4_0" index="0" disallow="pedestrian" speed="7.38" length="11.76" shape="4287.97,912.63 4286.01,915.71 4283.82,917.52 4281.38,918.08 4278.70,917.37"/>
+        <lane id=":1560224328_4_0" index="0" allow="delivery" speed="7.38" length="11.76" shape="4287.97,912.63 4286.01,915.71 4283.82,917.52 4281.38,918.08 4278.70,917.37"/>
     </edge>
     <edge id=":1560224328_5" function="internal">
         <lane id=":1560224328_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4287.97,912.63 4286.72,913.35 4285.83,913.35 4285.29,912.64 4285.11,911.21"/>
     </edge>
     <edge id=":1560224328_6" function="internal">
-        <lane id=":1560224328_6_0" index="0" allow="pedestrian delivery" speed="5.73" length="6.70" shape="4280.08,914.49 4281.43,914.77 4282.71,914.32 4283.94,913.13 4285.11,911.21"/>
+        <lane id=":1560224328_6_0" index="0" allow="delivery" speed="5.73" length="6.70" shape="4280.08,914.49 4281.43,914.77 4282.71,914.32 4283.94,913.13 4285.11,911.21"/>
     </edge>
     <edge id=":1560224328_7" function="internal">
         <lane id=":1560224328_7_0" index="0" disallow="pedestrian" speed="22.22" length="9.34" shape="4280.08,914.49 4288.48,918.58"/>
@@ -2002,13 +2002,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560224328_w1_0" index="0" allow="pedestrian" speed="1.00" length="5.69" width="3.20" shape="4289.19,917.15 4290.08,915.36 4289.41,913.35 4286.54,911.92 4286.54,911.92 4283.68,910.50 4281.63,911.24 4280.77,913.04"/>
     </edge>
     <edge id=":1560224386_0" function="internal">
-        <lane id=":1560224386_0_0" index="0" disallow="pedestrian" speed="5.66" length="6.79" shape="4480.46,935.96 4482.54,936.85 4484.23,937.06 4485.52,936.61 4486.43,935.48"/>
+        <lane id=":1560224386_0_0" index="0" allow="delivery" speed="5.66" length="6.79" shape="4480.46,935.96 4482.54,936.85 4484.23,937.06 4485.52,936.61 4486.43,935.48"/>
     </edge>
     <edge id=":1560224386_1" function="internal">
         <lane id=":1560224386_1_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4480.46,935.96 4481.13,937.23 4481.11,938.13 4480.38,938.64 4478.94,938.78"/>
     </edge>
     <edge id=":1560224386_2" function="internal">
-        <lane id=":1560224386_2_0" index="0" allow="pedestrian delivery" speed="5.76" length="6.82" shape="4482.12,943.99 4482.47,942.64 4482.05,941.32 4480.87,940.04 4478.94,938.78"/>
+        <lane id=":1560224386_2_0" index="0" allow="delivery" speed="5.76" length="6.82" shape="4482.12,943.99 4482.47,942.64 4482.05,941.32 4480.87,940.04 4478.94,938.78"/>
     </edge>
     <edge id=":1560224386_3" function="internal">
         <lane id=":1560224386_3_0" index="0" disallow="pedestrian" speed="22.22" length="9.53" shape="4482.12,943.99 4486.43,935.48"/>
@@ -2020,28 +2020,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560224444_0_0" index="0" disallow="pedestrian" speed="22.22" length="9.49" shape="4386.96,970.82 4378.45,966.61"/>
     </edge>
     <edge id=":1560224444_1" function="internal">
-        <lane id=":1560224444_1_0" index="0" allow="pedestrian delivery" speed="7.45" length="4.48" shape="4386.96,970.82 4384.78,969.18 4384.04,967.59"/>
+        <lane id=":1560224444_1_0" index="0" allow="delivery" speed="7.45" length="4.48" shape="4386.96,970.82 4384.78,969.18 4384.04,967.59"/>
     </edge>
     <edge id=":1560224444_2" function="internal">
         <lane id=":1560224444_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4386.96,970.82 4386.23,969.57 4386.22,968.68"/>
     </edge>
     <edge id=":1560224444_9" function="internal">
-        <lane id=":1560224444_9_0" index="0" allow="pedestrian delivery" speed="7.45" length="7.36" shape="4384.04,967.59 4383.72,966.91 4383.76,964.01 4384.92,960.49"/>
+        <lane id=":1560224444_9_0" index="0" allow="delivery" speed="7.45" length="7.36" shape="4384.04,967.59 4383.72,966.91 4383.76,964.01 4384.92,960.49"/>
     </edge>
     <edge id=":1560224444_10" function="internal">
         <lane id=":1560224444_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4386.22,968.68 4386.93,968.13 4388.36,967.94"/>
     </edge>
     <edge id=":1560224444_3" function="internal">
-        <lane id=":1560224444_3_0" index="0" disallow="pedestrian" speed="5.82" length="6.85" shape="4387.84,961.79 4387.06,963.99 4386.89,965.75 4387.32,967.07 4388.36,967.94"/>
+        <lane id=":1560224444_3_0" index="0" allow="delivery" speed="5.82" length="6.85" shape="4387.84,961.79 4387.06,963.99 4386.89,965.75 4387.32,967.07 4388.36,967.94"/>
     </edge>
     <edge id=":1560224444_4" function="internal">
-        <lane id=":1560224444_4_0" index="0" disallow="pedestrian" speed="7.31" length="12.10" shape="4387.84,961.79 4385.95,965.01 4383.76,966.89 4381.26,967.42 4378.45,966.61"/>
+        <lane id=":1560224444_4_0" index="0" allow="delivery" speed="7.31" length="12.10" shape="4387.84,961.79 4385.95,965.01 4383.76,966.89 4381.26,967.42 4378.45,966.61"/>
     </edge>
     <edge id=":1560224444_5" function="internal">
         <lane id=":1560224444_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4387.84,961.79 4386.62,962.56 4385.73,962.60 4385.16,961.91 4384.92,960.49"/>
     </edge>
     <edge id=":1560224444_6" function="internal">
-        <lane id=":1560224444_6_0" index="0" allow="pedestrian delivery" speed="5.65" length="6.80" shape="4379.89,963.75 4381.30,964.10 4382.61,963.67 4383.81,962.46 4384.92,960.49"/>
+        <lane id=":1560224444_6_0" index="0" allow="delivery" speed="5.65" length="6.80" shape="4379.89,963.75 4381.30,964.10 4382.61,963.67 4383.81,962.46 4384.92,960.49"/>
     </edge>
     <edge id=":1560224444_7" function="internal">
         <lane id=":1560224444_7_0" index="0" disallow="pedestrian" speed="22.22" length="9.45" shape="4379.89,963.75 4388.36,967.94"/>
@@ -2104,7 +2104,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560225335_w2_0" index="0" allow="pedestrian" speed="1.00" length="3.55" width="4.00" shape="4025.91,1235.90 4024.43,1234.55 4021.57,1234.76 4020.25,1236.26 4021.23,1236.98 4022.20,1237.38 4023.15,1237.47 4024.09,1237.26 4025.01,1236.73"/>
     </edge>
     <edge id=":1560592097_0" function="internal">
-        <lane id=":1560592097_0_0" index="0" allow="pedestrian delivery" speed="5.60" length="6.95" shape="4584.62,433.59 4583.38,432.69 4581.98,432.62 4580.44,433.37 4578.76,434.95"/>
+        <lane id=":1560592097_0_0" index="0" allow="delivery" speed="5.60" length="6.95" shape="4584.62,433.59 4583.38,432.69 4581.98,432.62 4580.44,433.37 4578.76,434.95"/>
     </edge>
     <edge id=":1560592097_1" function="internal">
         <lane id=":1560592097_1_0" index="0" disallow="pedestrian" speed="13.89" length="8.50" shape="4584.62,433.59 4582.91,431.74 4581.75,430.44 4580.78,429.01 4579.64,426.77"/>
@@ -2119,22 +2119,22 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560592097_3_0" index="0" disallow="pedestrian" speed="13.89" length="7.57" shape="4582.53,425.40 4583.55,427.39 4584.42,428.65 4585.47,429.80 4587.00,431.44"/>
     </edge>
     <edge id=":1560592097_4" function="internal">
-        <lane id=":1560592097_4_0" index="0" allow="pedestrian delivery" speed="8.36" length="3.46" shape="4582.53,425.40 4582.90,427.29 4582.56,428.79"/>
+        <lane id=":1560592097_4_0" index="0" allow="delivery" speed="8.36" length="3.46" shape="4582.53,425.40 4582.90,427.29 4582.56,428.79"/>
     </edge>
     <edge id=":1560592097_5" function="internal">
         <lane id=":1560592097_5_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4582.53,425.40 4582.32,426.83 4581.77,427.53"/>
     </edge>
     <edge id=":1560592097_10" function="internal">
-        <lane id=":1560592097_10_0" index="0" allow="pedestrian delivery" speed="8.36" length="7.31" shape="4582.56,428.79 4582.40,429.51 4581.02,432.06 4578.76,434.95"/>
+        <lane id=":1560592097_10_0" index="0" allow="delivery" speed="8.36" length="7.31" shape="4582.56,428.79 4582.40,429.51 4581.02,432.06 4578.76,434.95"/>
     </edge>
     <edge id=":1560592097_11" function="internal">
         <lane id=":1560592097_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4581.77,427.53 4580.87,427.51 4579.64,426.77"/>
     </edge>
     <edge id=":1560592097_6" function="internal">
-        <lane id=":1560592097_6_0" index="0" disallow="pedestrian" speed="6.90" length="7.10" shape="4576.36,432.83 4578.07,430.75 4579.18,429.05 4579.70,427.73 4579.64,426.77"/>
+        <lane id=":1560592097_6_0" index="0" allow="delivery" speed="6.90" length="7.10" shape="4576.36,432.83 4578.07,430.75 4579.18,429.05 4579.70,427.73 4579.64,426.77"/>
     </edge>
     <edge id=":1560592097_7" function="internal">
-        <lane id=":1560592097_7_0" index="0" disallow="pedestrian" speed="7.27" length="12.51" shape="4576.36,432.83 4579.23,430.25 4581.96,429.16 4584.55,429.56 4587.00,431.44"/>
+        <lane id=":1560592097_7_0" index="0" allow="delivery" speed="7.27" length="12.51" shape="4576.36,432.83 4579.23,430.25 4581.96,429.16 4584.55,429.56 4587.00,431.44"/>
     </edge>
     <edge id=":1560592097_8" function="internal">
         <lane id=":1560592097_8_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4576.36,432.83 4577.75,432.46 4578.62,432.69 4578.95,433.52 4578.76,434.95"/>
@@ -2203,16 +2203,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1568241231_w1_0" index="0" allow="pedestrian" speed="1.00" length="9.53" width="4.00" shape="4492.88,155.43 4494.82,154.93 4480.77,147.91 4481.54,149.76 4484.33,148.89 4486.77,148.75 4488.84,149.33 4490.55,150.64 4491.90,152.67"/>
     </edge>
     <edge id=":1568241232_0" function="internal">
-        <lane id=":1568241232_0_0" index="0" disallow="pedestrian" speed="5.77" length="6.59" shape="4462.19,168.54 4461.13,166.49 4460.01,165.16 4458.85,164.54 4457.63,164.63"/>
+        <lane id=":1568241232_0_0" index="0" allow="delivery" speed="5.77" length="6.59" shape="4462.19,168.54 4461.13,166.49 4460.01,165.16 4458.85,164.54 4457.63,164.63"/>
     </edge>
     <edge id=":1568241232_1" function="internal">
-        <lane id=":1568241232_1_0" index="0" disallow="pedestrian" speed="7.34" length="11.90" shape="4462.19,168.54 4461.11,165.02 4461.18,162.16 4462.41,159.96 4464.79,158.41"/>
+        <lane id=":1568241232_1_0" index="0" allow="delivery" speed="7.34" length="11.90" shape="4462.19,168.54 4461.11,165.02 4461.18,162.16 4462.41,159.96 4464.79,158.41"/>
     </edge>
     <edge id=":1568241232_2" function="internal">
         <lane id=":1568241232_2_0" index="0" allow="pedestrian delivery" speed="2.78" length="4.67" shape="4462.19,168.54 4462.45,167.12 4463.02,166.44 4463.92,166.49 4465.13,167.28"/>
     </edge>
     <edge id=":1568241232_3" function="internal">
-        <lane id=":1568241232_3_0" index="0" allow="pedestrian delivery" speed="5.69" length="6.72" shape="4466.01,161.36 4464.87,162.19 4464.34,163.44 4464.42,165.14 4465.13,167.28"/>
+        <lane id=":1568241232_3_0" index="0" allow="delivery" speed="5.69" length="6.72" shape="4466.01,161.36 4464.87,162.19 4464.34,163.44 4464.42,165.14 4465.13,167.28"/>
     </edge>
     <edge id=":1568241232_4" function="internal">
         <lane id=":1568241232_4_0" index="0" disallow="pedestrian" speed="13.89" length="9.00" shape="4466.01,161.36 4457.63,164.63"/>
@@ -2227,13 +2227,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1568241232_6_0" index="0" disallow="pedestrian" speed="13.89" length="8.86" shape="4456.54,161.63 4464.79,158.41"/>
     </edge>
     <edge id=":1568241232_7" function="internal">
-        <lane id=":1568241232_7_0" index="0" allow="pedestrian delivery" speed="7.41" length="4.13" shape="4456.54,161.63 4459.07,161.25 4460.54,161.78"/>
+        <lane id=":1568241232_7_0" index="0" allow="delivery" speed="7.41" length="4.13" shape="4456.54,161.63 4459.07,161.25 4460.54,161.78"/>
     </edge>
     <edge id=":1568241232_8" function="internal">
         <lane id=":1568241232_8_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4456.54,161.63 4457.94,161.97 4458.59,162.58"/>
     </edge>
     <edge id=":1568241232_10" function="internal">
-        <lane id=":1568241232_10_0" index="0" allow="pedestrian delivery" speed="7.41" length="7.35" shape="4460.54,161.78 4461.35,162.07 4463.37,164.08 4465.13,167.28"/>
+        <lane id=":1568241232_10_0" index="0" allow="delivery" speed="7.41" length="7.35" shape="4460.54,161.78 4461.35,162.07 4463.37,164.08 4465.13,167.28"/>
     </edge>
     <edge id=":1568241232_11" function="internal">
         <lane id=":1568241232_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4458.59,162.58 4458.48,163.47 4457.63,164.63"/>
@@ -2251,28 +2251,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1568241247_0_0" index="0" disallow="pedestrian" speed="8.33" length="9.13" shape="4351.04,178.08 4341.94,178.78"/>
     </edge>
     <edge id=":1568241247_1" function="internal">
-        <lane id=":1568241247_1_0" index="0" allow="pedestrian delivery" speed="6.95" length="3.97" shape="4351.04,178.08 4348.64,177.67 4347.41,176.76"/>
+        <lane id=":1568241247_1_0" index="0" allow="delivery" speed="6.95" length="3.97" shape="4351.04,178.08 4348.64,177.67 4347.41,176.76"/>
     </edge>
     <edge id=":1568241247_2" function="internal">
         <lane id=":1568241247_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4351.04,178.08 4349.80,177.34 4349.37,176.56"/>
     </edge>
     <edge id=":1568241247_9" function="internal">
-        <lane id=":1568241247_9_0" index="0" allow="pedestrian delivery" speed="6.95" length="7.66" shape="4347.41,176.76 4346.67,176.20 4345.13,173.66 4344.03,170.06"/>
+        <lane id=":1568241247_9_0" index="0" allow="delivery" speed="6.95" length="7.66" shape="4347.41,176.76 4346.67,176.20 4345.13,173.66 4344.03,170.06"/>
     </edge>
     <edge id=":1568241247_10" function="internal">
         <lane id=":1568241247_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4349.37,176.56 4349.73,175.74 4350.89,174.89"/>
     </edge>
     <edge id=":1568241247_3" function="internal">
-        <lane id=":1568241247_3_0" index="0" disallow="pedestrian" speed="6.21" length="7.13" shape="4347.16,169.39 4347.84,171.84 4348.69,173.57 4349.71,174.59 4350.89,174.89"/>
+        <lane id=":1568241247_3_0" index="0" allow="delivery" speed="6.21" length="7.13" shape="4347.16,169.39 4347.84,171.84 4348.69,173.57 4349.71,174.59 4350.89,174.89"/>
     </edge>
     <edge id=":1568241247_4" function="internal">
-        <lane id=":1568241247_4_0" index="0" disallow="pedestrian" speed="6.95" length="12.53" shape="4347.16,169.39 4347.53,173.24 4346.78,176.09 4344.92,177.93 4341.94,178.78"/>
+        <lane id=":1568241247_4_0" index="0" allow="delivery" speed="6.95" length="12.53" shape="4347.16,169.39 4347.53,173.24 4346.78,176.09 4344.92,177.93 4341.94,178.78"/>
     </edge>
     <edge id=":1568241247_5" function="internal">
         <lane id=":1568241247_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4347.16,169.39 4346.63,170.73 4345.93,171.29 4345.06,171.07 4344.03,170.06"/>
     </edge>
     <edge id=":1568241247_6" function="internal">
-        <lane id=":1568241247_6_0" index="0" allow="pedestrian delivery" speed="5.59" length="6.96" shape="4341.63,175.59 4343.10,175.12 4343.99,174.04 4344.30,172.35 4344.03,170.06"/>
+        <lane id=":1568241247_6_0" index="0" allow="delivery" speed="5.59" length="6.96" shape="4341.63,175.59 4343.10,175.12 4343.99,174.04 4344.30,172.35 4344.03,170.06"/>
     </edge>
     <edge id=":1568241247_7" function="internal">
         <lane id=":1568241247_7_0" index="0" disallow="pedestrian" speed="8.33" length="9.28" shape="4341.63,175.59 4350.89,174.89"/>
@@ -2446,28 +2446,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1568241558_0_0" index="0" disallow="pedestrian" speed="22.22" length="9.35" shape="4394.06,739.21 4384.95,737.11"/>
     </edge>
     <edge id=":1568241558_1" function="internal">
-        <lane id=":1568241558_1_0" index="0" allow="pedestrian delivery" speed="7.44" length="4.41" shape="4394.06,739.21 4391.58,738.09 4390.54,736.75"/>
+        <lane id=":1568241558_1_0" index="0" allow="delivery" speed="7.44" length="4.41" shape="4394.06,739.21 4391.58,738.09 4390.54,736.75"/>
     </edge>
     <edge id=":1568241558_2" function="internal">
         <lane id=":1568241558_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4394.06,739.21 4393.07,738.16 4392.87,737.29"/>
     </edge>
     <edge id=":1568241558_9" function="internal">
-        <lane id=":1568241558_9_0" index="0" allow="pedestrian delivery" speed="7.44" length="7.36" shape="4390.54,736.75 4390.04,736.12 4389.44,733.31 4389.77,729.64"/>
+        <lane id=":1568241558_9_0" index="0" allow="delivery" speed="7.44" length="7.36" shape="4390.54,736.75 4390.04,736.12 4389.44,733.31 4389.77,729.64"/>
     </edge>
     <edge id=":1568241558_10" function="internal">
         <lane id=":1568241558_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4392.87,737.29 4393.44,736.60 4394.79,736.09"/>
     </edge>
     <edge id=":1568241558_3" function="internal">
-        <lane id=":1568241558_3_0" index="0" disallow="pedestrian" speed="5.82" length="6.80" shape="4392.91,730.25 4392.65,732.56 4392.88,734.30 4393.59,735.47 4394.79,736.09"/>
+        <lane id=":1568241558_3_0" index="0" allow="delivery" speed="5.82" length="6.80" shape="4392.91,730.25 4392.65,732.56 4392.88,734.30 4393.59,735.47 4394.79,736.09"/>
     </edge>
     <edge id=":1568241558_4" function="internal">
-        <lane id=":1568241558_4_0" index="0" disallow="pedestrian" speed="7.33" length="12.00" shape="4392.91,730.25 4391.81,733.79 4390.11,736.11 4387.83,737.22 4384.95,737.11"/>
+        <lane id=":1568241558_4_0" index="0" allow="delivery" speed="7.33" length="12.00" shape="4392.91,730.25 4391.81,733.79 4390.11,736.11 4387.83,737.22 4384.95,737.11"/>
     </edge>
     <edge id=":1568241558_5" function="internal">
         <lane id=":1568241558_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4392.91,730.25 4391.90,731.28 4391.04,731.52 4390.33,730.97 4389.77,729.64"/>
     </edge>
     <edge id=":1568241558_6" function="internal">
-        <lane id=":1568241558_6_0" index="0" allow="pedestrian delivery" speed="5.67" length="6.76" shape="4385.66,733.99 4387.09,733.98 4388.25,733.25 4389.15,731.81 4389.77,729.64"/>
+        <lane id=":1568241558_6_0" index="0" allow="delivery" speed="5.67" length="6.76" shape="4385.66,733.99 4387.09,733.98 4388.25,733.25 4389.15,731.81 4389.77,729.64"/>
     </edge>
     <edge id=":1568241558_7" function="internal">
         <lane id=":1568241558_7_0" index="0" disallow="pedestrian" speed="22.22" length="9.37" shape="4385.66,733.99 4394.79,736.09"/>
@@ -2555,17 +2555,17 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":158710664_7_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" shape="3510.26,560.29 3509.23,561.30 3508.36,561.52 3507.66,560.96 3507.13,559.62"/>
     </edge>
     <edge id=":158710664_8" function="internal">
-        <lane id=":158710664_8_0" index="0" disallow="pedestrian" speed="9.79" length="10.06" shape="3495.51,569.33 3498.53,568.05 3500.95,565.89 3502.78,562.86"/>
+        <lane id=":158710664_8_0" index="0" disallow="pedestrian bicycle" speed="9.79" length="10.06" shape="3495.51,569.33 3498.53,568.05 3500.95,565.89 3502.78,562.86"/>
     </edge>
     <edge id=":158710664_9" function="internal">
         <lane id=":158710664_9_0" index="0" disallow="pedestrian bicycle" speed="19.45" length="24.05" shape="3495.51,569.33 3501.92,567.77 3507.31,566.63 3512.75,565.70 3519.28,564.76"/>
         <lane id=":158710664_9_1" index="1" disallow="pedestrian bicycle" speed="19.45" length="24.05" shape="3496.29,572.43 3502.65,570.88 3507.93,569.77 3513.24,568.86 3519.72,567.93"/>
     </edge>
     <edge id=":158710664_11" function="internal">
-        <lane id=":158710664_11_0" index="0" disallow="pedestrian" speed="7.66" length="14.26" shape="3496.29,572.43 3501.76,571.34 3505.74,571.21 3508.24,572.05 3509.24,573.85"/>
+        <lane id=":158710664_11_0" index="0" disallow="pedestrian bicycle" speed="7.66" length="14.26" shape="3496.29,572.43 3501.76,571.34 3505.74,571.21 3508.24,572.05 3509.24,573.85"/>
     </edge>
     <edge id=":158710664_12" function="internal">
-        <lane id=":158710664_12_0" index="0" disallow="pedestrian" speed="9.79" length="4.09" shape="3502.78,562.86 3504.00,558.96"/>
+        <lane id=":158710664_12_0" index="0" disallow="pedestrian bicycle" speed="9.79" length="4.09" shape="3502.78,562.86 3504.00,558.96"/>
     </edge>
     <edge id=":158710664_c0" function="crossing" crossingEdges="96834893 -96834893">
         <lane id=":158710664_c0_0" index="0" allow="pedestrian" speed="1.00" length="12.80" width="4.00" shape="3513.78,571.32 3501.07,572.77"/>
@@ -2590,10 +2590,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":158710666_0_1" index="1" disallow="pedestrian bicycle" speed="22.22" length="21.85" shape="3523.79,618.51 3502.26,622.20"/>
     </edge>
     <edge id=":158710666_2" function="internal">
-        <lane id=":158710666_2_0" index="0" disallow="pedestrian" speed="8.52" length="16.95" shape="3523.79,618.51 3516.94,619.45 3511.99,619.56 3508.92,618.85 3507.75,617.31"/>
+        <lane id=":158710666_2_0" index="0" disallow="pedestrian bicycle" speed="8.52" length="16.95" shape="3523.79,618.51 3516.94,619.45 3511.99,619.56 3508.92,618.85 3507.75,617.31"/>
     </edge>
     <edge id=":158710666_3" function="internal">
-        <lane id=":158710666_3_0" index="0" disallow="pedestrian" speed="7.75" length="13.83" shape="3523.79,618.51 3518.32,619.22 3514.36,619.20 3511.90,618.44 3510.93,616.94"/>
+        <lane id=":158710666_3_0" index="0" disallow="pedestrian bicycle" speed="7.75" length="13.83" shape="3523.79,618.51 3518.32,619.22 3514.36,619.20 3511.90,618.44 3510.93,616.94"/>
     </edge>
     <edge id=":158710666_4" function="internal">
         <lane id=":158710666_4_0" index="0" disallow="pedestrian bicycle" speed="9.27" length="18.60" shape="3517.29,616.22 3516.67,619.25 3514.04,621.78 3509.42,623.82 3502.80,625.36"/>
@@ -2789,7 +2789,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1653119638_0_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4312.12,138.90 4310.76,138.42 4310.18,137.74 4310.37,136.87 4311.34,135.80"/>
     </edge>
     <edge id=":1653119660_0" function="internal">
-        <lane id=":1653119660_0_0" index="0" allow="pedestrian delivery" speed="5.95" length="6.27" shape="4517.12,246.80 4515.97,246.66 4514.77,247.14 4513.52,248.23 4512.21,249.95"/>
+        <lane id=":1653119660_0_0" index="0" allow="delivery" speed="5.95" length="6.27" shape="4517.12,246.80 4515.97,246.66 4514.77,247.14 4513.52,248.23 4512.21,249.95"/>
     </edge>
     <edge id=":1653119660_1" function="internal">
         <lane id=":1653119660_1_0" index="0" disallow="pedestrian" speed="10.33" length="8.06" shape="4517.12,246.80 4514.94,245.87 4513.52,244.99 4512.44,243.73 4511.25,241.69"/>
@@ -2804,22 +2804,22 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1653119660_3_0" index="0" disallow="pedestrian" speed="8.83" length="5.80" shape="4514.08,240.18 4514.93,241.65 4515.72,242.54 4516.75,243.17 4518.32,243.84"/>
     </edge>
     <edge id=":1653119660_4" function="internal">
-        <lane id=":1653119660_4_0" index="0" allow="pedestrian delivery" speed="8.34" length="3.73" shape="4514.08,240.18 4514.73,242.23 4514.66,243.81"/>
+        <lane id=":1653119660_4_0" index="0" allow="delivery" speed="8.34" length="3.73" shape="4514.08,240.18 4514.73,242.23 4514.66,243.81"/>
     </edge>
     <edge id=":1653119660_5" function="internal">
         <lane id=":1653119660_5_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4514.08,240.18 4513.94,241.62 4513.42,242.35"/>
     </edge>
     <edge id=":1653119660_10" function="internal">
-        <lane id=":1653119660_10_0" index="0" allow="pedestrian delivery" speed="8.34" length="6.68" shape="4514.66,243.81 4514.63,244.54 4513.79,247.11 4512.21,249.95"/>
+        <lane id=":1653119660_10_0" index="0" allow="delivery" speed="8.34" length="6.68" shape="4514.66,243.81 4514.63,244.54 4513.79,247.11 4512.21,249.95"/>
     </edge>
     <edge id=":1653119660_11" function="internal">
         <lane id=":1653119660_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4513.42,242.35 4512.52,242.37 4511.25,241.69"/>
     </edge>
     <edge id=":1653119660_6" function="internal">
-        <lane id=":1653119660_6_0" index="0" disallow="pedestrian" speed="7.21" length="7.00" shape="4509.54,248.20 4510.72,246.15 4511.40,244.39 4511.58,242.90 4511.25,241.69"/>
+        <lane id=":1653119660_6_0" index="0" allow="delivery" speed="7.21" length="7.00" shape="4509.54,248.20 4510.72,246.15 4511.40,244.39 4511.58,242.90 4511.25,241.69"/>
     </edge>
     <edge id=":1653119660_7" function="internal">
-        <lane id=":1653119660_7_0" index="0" disallow="pedestrian" speed="7.56" length="10.68" shape="4509.54,248.20 4511.63,245.58 4513.79,243.98 4516.02,243.40 4518.32,243.84"/>
+        <lane id=":1653119660_7_0" index="0" allow="delivery" speed="7.56" length="10.68" shape="4509.54,248.20 4511.63,245.58 4513.79,243.98 4516.02,243.40 4518.32,243.84"/>
     </edge>
     <edge id=":1653119660_8" function="internal">
         <lane id=":1653119660_8_0" index="0" allow="pedestrian delivery" speed="2.78" length="4.67" shape="4509.54,248.20 4510.87,247.63 4511.75,247.74 4512.20,248.51 4512.21,249.95"/>
@@ -2838,28 +2838,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1654992589_0_1" index="1" disallow="pedestrian" speed="13.89" length="9.96" shape="4378.63,107.86 4376.25,98.19"/>
     </edge>
     <edge id=":1654992589_2" function="internal">
-        <lane id=":1654992589_2_0" index="0" allow="pedestrian delivery" speed="9.72" length="2.43" shape="4378.63,107.86 4379.12,106.46 4379.76,105.75"/>
+        <lane id=":1654992589_2_0" index="0" allow="delivery" speed="9.72" length="2.43" shape="4378.63,107.86 4379.12,106.46 4379.76,105.75"/>
     </edge>
     <edge id=":1654992589_3" function="internal">
         <lane id=":1654992589_3_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4378.63,107.86 4379.12,106.50 4379.80,105.92"/>
     </edge>
     <edge id=":1654992589_11" function="internal">
-        <lane id=":1654992589_11_0" index="0" allow="pedestrian delivery" speed="9.72" length="12.82" shape="4379.76,105.75 4381.09,104.26 4384.54,101.23 4389.45,97.40"/>
+        <lane id=":1654992589_11_0" index="0" allow="delivery" speed="9.72" length="12.82" shape="4379.76,105.75 4381.09,104.26 4384.54,101.23 4389.45,97.40"/>
     </edge>
     <edge id=":1654992589_12" function="internal">
         <lane id=":1654992589_12_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4379.80,105.92 4380.67,106.12 4381.74,107.09"/>
     </edge>
     <edge id=":1654992589_4" function="internal">
-        <lane id=":1654992589_4_0" index="0" disallow="pedestrian" speed="7.78" length="9.25" shape="4391.37,99.96 4388.40,102.28 4386.32,104.12 4385.14,105.47 4384.84,106.33"/>
+        <lane id=":1654992589_4_0" index="0" allow="delivery" speed="7.78" length="9.25" shape="4391.37,99.96 4388.40,102.28 4386.32,104.12 4385.14,105.47 4384.84,106.33"/>
     </edge>
     <edge id=":1654992589_5" function="internal">
-        <lane id=":1654992589_5_0" index="0" disallow="pedestrian" speed="8.15" length="19.30" shape="4391.37,99.96 4385.78,103.34 4381.39,104.17 4378.22,102.45 4376.25,98.19"/>
+        <lane id=":1654992589_5_0" index="0" allow="delivery" speed="8.15" length="19.30" shape="4391.37,99.96 4385.78,103.34 4381.39,104.17 4378.22,102.45 4376.25,98.19"/>
     </edge>
     <edge id=":1654992589_6" function="internal">
         <lane id=":1654992589_6_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4391.37,99.96 4389.93,100.04 4389.13,99.64 4388.97,98.76 4389.45,97.40"/>
     </edge>
     <edge id=":1654992589_7" function="internal">
-        <lane id=":1654992589_7_0" index="0" allow="pedestrian delivery" speed="5.74" length="8.89" shape="4382.47,96.66 4383.37,98.60 4384.83,99.37 4386.86,98.97 4389.45,97.40"/>
+        <lane id=":1654992589_7_0" index="0" allow="delivery" speed="5.74" length="8.89" shape="4382.47,96.66 4383.37,98.60 4384.83,99.37 4386.86,98.97 4389.45,97.40"/>
     </edge>
     <edge id=":1654992589_8" function="internal">
         <lane id=":1654992589_8_0" index="0" disallow="pedestrian" speed="13.89" length="9.96" shape="4382.47,96.66 4384.84,106.33"/>
@@ -2884,28 +2884,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1654992651_0_0" index="0" disallow="pedestrian" speed="13.89" length="9.70" shape="4457.40,164.72 4448.28,168.03"/>
     </edge>
     <edge id=":1654992651_1" function="internal">
-        <lane id=":1654992651_1_0" index="0" allow="pedestrian delivery" speed="8.75" length="3.45" shape="4457.40,164.72 4455.51,164.82 4454.07,164.23"/>
+        <lane id=":1654992651_1_0" index="0" allow="delivery" speed="8.75" length="3.45" shape="4457.40,164.72 4455.51,164.82 4454.07,164.23"/>
     </edge>
     <edge id=":1654992651_2" function="internal">
         <lane id=":1654992651_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4457.40,164.72 4456.00,164.38 4455.35,163.76"/>
     </edge>
     <edge id=":1654992651_9" function="internal">
-        <lane id=":1654992651_9_0" index="0" allow="pedestrian delivery" speed="8.75" length="8.48" shape="4454.07,164.23 4453.24,163.89 4450.57,161.93 4447.52,158.94"/>
+        <lane id=":1654992651_9_0" index="0" allow="delivery" speed="8.75" length="8.48" shape="4454.07,164.23 4453.24,163.89 4450.57,161.93 4447.52,158.94"/>
     </edge>
     <edge id=":1654992651_10" function="internal">
         <lane id=":1654992651_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4455.35,163.76 4455.45,162.87 4456.30,161.71"/>
     </edge>
     <edge id=":1654992651_3" function="internal">
-        <lane id=":1654992651_3_0" index="0" disallow="pedestrian" speed="7.38" length="8.29" shape="4449.86,156.76 4452.16,159.12 4454.00,160.73 4455.38,161.59 4456.30,161.71"/>
+        <lane id=":1654992651_3_0" index="0" allow="delivery" speed="7.38" length="8.29" shape="4449.86,156.76 4452.16,159.12 4454.00,160.73 4455.38,161.59 4456.30,161.71"/>
     </edge>
     <edge id=":1654992651_4" function="internal">
-        <lane id=":1654992651_4_0" index="0" disallow="pedestrian" speed="7.17" length="14.62" shape="4449.86,156.76 4452.55,160.47 4453.18,163.58 4451.75,166.10 4448.28,168.03"/>
+        <lane id=":1654992651_4_0" index="0" allow="delivery" speed="7.17" length="14.62" shape="4449.86,156.76 4452.55,160.47 4453.18,163.58 4451.75,166.10 4448.28,168.03"/>
     </edge>
     <edge id=":1654992651_5" function="internal">
         <lane id=":1654992651_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4449.86,156.76 4450.09,158.19 4449.78,159.02 4448.92,159.27 4447.52,158.94"/>
     </edge>
     <edge id=":1654992651_6" function="internal">
-        <lane id=":1654992651_6_0" index="0" allow="pedestrian delivery" speed="5.42" length="7.76" shape="4447.18,165.02 4448.88,164.03 4449.50,162.69 4449.05,160.99 4447.52,158.94"/>
+        <lane id=":1654992651_6_0" index="0" allow="delivery" speed="5.42" length="7.76" shape="4447.18,165.02 4448.88,164.03 4449.50,162.69 4449.05,160.99 4447.52,158.94"/>
     </edge>
     <edge id=":1654992651_7" function="internal">
         <lane id=":1654992651_7_0" index="0" disallow="pedestrian" speed="13.89" length="9.70" shape="4447.18,165.02 4456.30,161.71"/>
@@ -3034,40 +3034,40 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1789928382_5_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" shape="4454.24,1000.27 4454.78,1001.60 4454.67,1002.49 4453.89,1002.93 4452.45,1002.92"/>
     </edge>
     <edge id=":1789928382_6" function="internal">
-        <lane id=":1789928382_6_0" index="0" disallow="pedestrian" speed="6.31" length="6.26" shape="4451.57,1008.51 4452.72,1006.58 4453.25,1005.01 4453.16,1003.79 4452.45,1002.92"/>
+        <lane id=":1789928382_6_0" index="0" allow="tram" speed="6.31" length="6.26" shape="4451.57,1008.51 4452.72,1006.58 4453.25,1005.01 4453.16,1003.79 4452.45,1002.92"/>
     </edge>
     <edge id=":1789928382_7" function="internal">
         <lane id=":1789928382_7_0" index="0" allow="tram" speed="27.78" length="13.59" shape="4451.57,1008.51 4453.57,1005.59 4455.33,1002.84 4456.95,1000.01 4458.54,996.86"/>
     </edge>
     <edge id=":1789928382_8" function="internal">
-        <lane id=":1789928382_8_0" index="0" disallow="pedestrian" speed="7.71" length="9.29" shape="4451.57,1008.51 4453.78,1005.60 4455.66,1003.72 4457.20,1002.86 4458.41,1003.03"/>
+        <lane id=":1789928382_8_0" index="0" allow="tram" speed="7.71" length="9.29" shape="4451.57,1008.51 4453.78,1005.60 4455.66,1003.72 4457.20,1002.86 4458.41,1003.03"/>
     </edge>
     <edge id=":1832089444_0" function="internal">
         <lane id=":1832089444_0_0" index="0" disallow="pedestrian" speed="8.33" length="9.40" shape="3389.38,197.96 3384.79,189.75"/>
     </edge>
     <edge id=":1832089444_1" function="internal">
-        <lane id=":1832089444_1_0" index="0" allow="pedestrian delivery" speed="6.95" length="4.59" shape="3389.38,197.96 3388.46,195.24 3388.74,193.54"/>
+        <lane id=":1832089444_1_0" index="0" allow="delivery" speed="6.95" length="4.59" shape="3389.38,197.96 3388.46,195.24 3388.74,193.54"/>
     </edge>
     <edge id=":1832089444_2" function="internal">
         <lane id=":1832089444_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3389.38,197.96 3389.49,196.52 3389.99,195.78"/>
     </edge>
     <edge id=":1832089444_9" function="internal">
-        <lane id=":1832089444_9_0" index="0" allow="pedestrian delivery" speed="6.95" length="7.37" shape="3388.74,193.54 3388.87,192.75 3390.60,190.46 3393.65,188.38"/>
+        <lane id=":1832089444_9_0" index="0" allow="delivery" speed="6.95" length="7.37" shape="3388.74,193.54 3388.87,192.75 3390.60,190.46 3393.65,188.38"/>
     </edge>
     <edge id=":1832089444_10" function="internal">
         <lane id=":1832089444_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3389.99,195.78 3390.88,195.74 3392.17,196.39"/>
     </edge>
     <edge id=":1832089444_3" function="internal">
-        <lane id=":1832089444_3_0" index="0" disallow="pedestrian" speed="5.68" length="6.74" shape="3395.15,191.21 3393.26,192.44 3392.14,193.71 3391.77,195.03 3392.17,196.39"/>
+        <lane id=":1832089444_3_0" index="0" allow="delivery" speed="5.68" length="6.74" shape="3395.15,191.21 3393.26,192.44 3392.14,193.71 3391.77,195.03 3392.17,196.39"/>
     </edge>
     <edge id=":1832089444_4" function="internal">
-        <lane id=":1832089444_4_0" index="0" disallow="pedestrian" speed="6.95" length="11.80" shape="3395.15,191.21 3391.74,192.58 3388.88,192.80 3386.56,191.85 3384.79,189.75"/>
+        <lane id=":1832089444_4_0" index="0" allow="delivery" speed="6.95" length="11.80" shape="3395.15,191.21 3391.74,192.58 3388.88,192.80 3386.56,191.85 3384.79,189.75"/>
     </edge>
     <edge id=":1832089444_5" function="internal">
         <lane id=":1832089444_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="3395.15,191.21 3393.72,191.07 3392.99,190.55 3392.97,189.65 3393.65,188.38"/>
     </edge>
     <edge id=":1832089444_6" function="internal">
-        <lane id=":1832089444_6_0" index="0" allow="pedestrian delivery" speed="5.77" length="6.77" shape="3387.58,188.19 3388.51,189.19 3389.83,189.55 3391.55,189.29 3393.65,188.38"/>
+        <lane id=":1832089444_6_0" index="0" allow="delivery" speed="5.77" length="6.77" shape="3387.58,188.19 3388.51,189.19 3389.83,189.55 3391.55,189.29 3393.65,188.38"/>
     </edge>
     <edge id=":1832089444_7" function="internal">
         <lane id=":1832089444_7_0" index="0" disallow="pedestrian" speed="8.33" length="9.40" shape="3387.58,188.19 3392.17,196.39"/>
@@ -3091,28 +3091,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1832089447_0_0" index="0" disallow="pedestrian" speed="13.89" length="9.41" shape="3455.73,198.41 3447.56,203.07"/>
     </edge>
     <edge id=":1832089447_1" function="internal">
-        <lane id=":1832089447_1_0" index="0" allow="pedestrian delivery" speed="7.57" length="4.43" shape="3455.73,198.41 3452.96,199.31 3451.48,198.99"/>
+        <lane id=":1832089447_1_0" index="0" allow="delivery" speed="7.57" length="4.43" shape="3455.73,198.41 3452.96,199.31 3451.48,198.99"/>
     </edge>
     <edge id=":1832089447_2" function="internal">
         <lane id=":1832089447_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3455.73,198.41 3454.29,198.31 3453.55,197.81"/>
     </edge>
     <edge id=":1832089447_9" function="internal">
-        <lane id=":1832089447_9_0" index="0" allow="pedestrian delivery" speed="7.57" length="8.46" shape="3451.48,198.99 3450.36,198.76 3447.91,196.75 3445.62,193.29"/>
+        <lane id=":1832089447_9_0" index="0" allow="delivery" speed="7.57" length="8.46" shape="3451.48,198.99 3450.36,198.76 3447.91,196.75 3445.62,193.29"/>
     </edge>
     <edge id=":1832089447_10" function="internal">
         <lane id=":1832089447_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3453.55,197.81 3453.50,196.92 3454.15,195.63"/>
     </edge>
     <edge id=":1832089447_3" function="internal">
-        <lane id=":1832089447_3_0" index="0" disallow="pedestrian" speed="5.99" length="7.67" shape="3448.45,191.80 3449.89,194.08 3451.31,195.48 3452.73,196.00 3454.15,195.63"/>
+        <lane id=":1832089447_3_0" index="0" allow="delivery" speed="5.99" length="7.67" shape="3448.45,191.80 3449.89,194.08 3451.31,195.48 3452.73,196.00 3454.15,195.63"/>
     </edge>
     <edge id=":1832089447_4" function="internal">
-        <lane id=":1832089447_4_0" index="0" disallow="pedestrian" speed="7.67" length="12.64" shape="3448.45,191.80 3450.03,195.61 3450.41,198.75 3449.59,201.24 3447.56,203.07"/>
+        <lane id=":1832089447_4_0" index="0" allow="delivery" speed="7.67" length="12.64" shape="3448.45,191.80 3450.03,195.61 3450.41,198.75 3449.59,201.24 3447.56,203.07"/>
     </edge>
     <edge id=":1832089447_5" function="internal">
         <lane id=":1832089447_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="3448.45,191.80 3448.31,193.23 3447.78,193.96 3446.89,193.98 3445.62,193.29"/>
     </edge>
     <edge id=":1832089447_6" function="internal">
-        <lane id=":1832089447_6_0" index="0" allow="pedestrian delivery" speed="6.12" length="7.68" shape="3445.98,200.29 3446.92,199.30 3447.17,197.81 3446.74,195.80 3445.62,193.29"/>
+        <lane id=":1832089447_6_0" index="0" allow="delivery" speed="6.12" length="7.68" shape="3445.98,200.29 3446.92,199.30 3447.17,197.81 3446.74,195.80 3445.62,193.29"/>
     </edge>
     <edge id=":1832089447_7" function="internal">
         <lane id=":1832089447_7_0" index="0" disallow="pedestrian" speed="13.89" length="9.40" shape="3445.98,200.29 3454.15,195.63"/>
@@ -3333,10 +3333,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1906767056_10_0" index="0" speed="2.78" length="2.34" shape="3637.88,864.51 3638.63,864.02 3640.07,863.93"/>
     </edge>
     <edge id=":1906767056_3" function="internal">
-        <lane id=":1906767056_3_0" index="0" speed="4.17" length="5.17" shape="3638.94,859.46 3638.47,860.85 3638.50,862.06 3639.03,863.09 3640.07,863.93"/>
+        <lane id=":1906767056_3_0" index="0" allow="pedestrian delivery" speed="4.17" length="5.17" shape="3638.94,859.46 3638.47,860.85 3638.50,862.06 3639.03,863.09 3640.07,863.93"/>
     </edge>
     <edge id=":1906767056_4" function="internal">
-        <lane id=":1906767056_4_0" index="0" speed="4.17" length="10.28" shape="3638.94,859.46 3637.35,861.80 3635.41,863.06 3633.10,863.22 3630.43,862.30"/>
+        <lane id=":1906767056_4_0" index="0" allow="pedestrian delivery" speed="4.17" length="10.28" shape="3638.94,859.46 3637.35,861.80 3635.41,863.06 3633.10,863.22 3630.43,862.30"/>
     </edge>
     <edge id=":1906767056_5" function="internal">
         <lane id=":1906767056_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="3638.94,859.46 3637.69,860.19 3636.80,860.20 3636.25,859.49 3636.06,858.07"/>
@@ -3384,10 +3384,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1906767068_11_0" index="0" speed="2.78" length="2.34" shape="3551.38,899.01 3550.65,899.53 3549.21,899.67"/>
     </edge>
     <edge id=":1906767068_6" function="internal">
-        <lane id=":1906767068_6_0" index="0" speed="4.17" length="5.03" shape="3550.47,903.90 3550.94,902.59 3550.89,901.45 3550.31,900.48 3549.21,899.67"/>
+        <lane id=":1906767068_6_0" index="0" allow="pedestrian delivery" speed="4.17" length="5.03" shape="3550.47,903.90 3550.94,902.59 3550.89,901.45 3550.31,900.48 3549.21,899.67"/>
     </edge>
     <edge id=":1906767068_7" function="internal">
-        <lane id=":1906767068_7_0" index="0" speed="4.17" length="10.19" shape="3550.47,903.90 3552.11,901.64 3554.08,900.45 3556.38,900.33 3559.01,901.30"/>
+        <lane id=":1906767068_7_0" index="0" allow="pedestrian delivery" speed="4.17" length="10.19" shape="3550.47,903.90 3552.11,901.64 3554.08,900.45 3556.38,900.33 3559.01,901.30"/>
     </edge>
     <edge id=":1906767068_8" function="internal">
         <lane id=":1906767068_8_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="3550.47,903.90 3551.74,903.21 3552.63,903.23 3553.15,903.96 3553.30,905.39"/>
@@ -3411,10 +3411,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1906767081_10_0" index="0" speed="2.78" length="2.34" shape="3516.94,957.13 3517.67,956.61 3519.11,956.47"/>
     </edge>
     <edge id=":1906767081_3" function="internal">
-        <lane id=":1906767081_3_0" index="0" speed="4.17" length="5.76" shape="3518.89,952.19 3517.60,953.32 3517.21,954.42 3517.71,955.47 3519.11,956.47"/>
+        <lane id=":1906767081_3_0" index="0" allow="pedestrian delivery" speed="4.17" length="5.76" shape="3518.89,952.19 3517.60,953.32 3517.21,954.42 3517.71,955.47 3519.11,956.47"/>
     </edge>
     <edge id=":1906767081_4" function="internal">
-        <lane id=":1906767081_4_0" index="0" speed="4.17" length="11.08" shape="3518.89,952.19 3515.81,953.96 3513.06,954.93 3510.64,955.11 3508.54,954.48"/>
+        <lane id=":1906767081_4_0" index="0" allow="pedestrian delivery" speed="4.17" length="11.08" shape="3518.89,952.19 3515.81,953.96 3513.06,954.93 3510.64,955.11 3508.54,954.48"/>
     </edge>
     <edge id=":1906767081_5" function="internal">
         <lane id=":1906767081_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="3518.89,952.19 3517.44,952.19 3516.67,951.75 3516.55,950.86 3517.10,949.53"/>
@@ -3463,28 +3463,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2007005081_0_0" index="0" disallow="pedestrian" speed="13.89" length="9.41" shape="4136.17,475.96 4135.48,485.35"/>
     </edge>
     <edge id=":2007005081_1" function="internal">
-        <lane id=":2007005081_1_0" index="0" allow="pedestrian delivery" speed="7.51" length="4.37" shape="4136.17,475.96 4135.45,478.53 4134.28,479.77"/>
+        <lane id=":2007005081_1_0" index="0" allow="delivery" speed="7.51" length="4.37" shape="4136.17,475.96 4135.45,478.53 4134.28,479.77"/>
     </edge>
     <edge id=":2007005081_2" function="internal">
         <lane id=":2007005081_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4136.17,475.96 4135.28,477.10 4134.45,477.44"/>
     </edge>
     <edge id=":2007005081_9" function="internal">
-        <lane id=":2007005081_9_0" index="0" allow="pedestrian delivery" speed="7.51" length="7.42" shape="4134.28,479.77 4133.74,480.34 4131.03,481.41 4127.33,481.74"/>
+        <lane id=":2007005081_9_0" index="0" allow="delivery" speed="7.51" length="7.42" shape="4134.28,479.77 4133.74,480.34 4131.03,481.41 4127.33,481.74"/>
     </edge>
     <edge id=":2007005081_10" function="internal">
         <lane id=":2007005081_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4134.45,477.44 4133.68,476.98 4132.97,475.73"/>
     </edge>
     <edge id=":2007005081_3" function="internal">
-        <lane id=":2007005081_3_0" index="0" disallow="pedestrian" speed="5.90" length="6.90" shape="4127.37,478.54 4129.74,478.39 4131.47,477.87 4132.55,476.98 4132.97,475.73"/>
+        <lane id=":2007005081_3_0" index="0" allow="delivery" speed="5.90" length="6.90" shape="4127.37,478.54 4129.74,478.39 4131.47,477.87 4132.55,476.98 4132.97,475.73"/>
     </edge>
     <edge id=":2007005081_4" function="internal">
-        <lane id=":2007005081_4_0" index="0" disallow="pedestrian" speed="7.30" length="12.19" shape="4127.37,478.54 4131.10,479.00 4133.70,480.29 4135.16,482.41 4135.48,485.35"/>
+        <lane id=":2007005081_4_0" index="0" allow="delivery" speed="7.30" length="12.19" shape="4127.37,478.54 4131.10,479.00 4133.70,480.29 4135.16,482.41 4135.48,485.35"/>
     </edge>
     <edge id=":2007005081_5" function="internal">
         <lane id=":2007005081_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4127.37,478.54 4128.56,479.35 4128.95,480.16 4128.54,480.95 4127.33,481.74"/>
     </edge>
     <edge id=":2007005081_6" function="internal">
-        <lane id=":2007005081_6_0" index="0" allow="pedestrian delivery" speed="5.64" length="6.83" shape="4132.29,485.11 4132.07,483.66 4131.17,482.61 4129.59,481.97 4127.33,481.74"/>
+        <lane id=":2007005081_6_0" index="0" allow="delivery" speed="5.64" length="6.83" shape="4132.29,485.11 4132.07,483.66 4131.17,482.61 4129.59,481.97 4127.33,481.74"/>
     </edge>
     <edge id=":2007005081_7" function="internal">
         <lane id=":2007005081_7_0" index="0" disallow="pedestrian" speed="13.89" length="9.41" shape="4132.29,485.11 4132.97,475.73"/>
@@ -3505,16 +3505,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2007005081_w1_0" index="0" allow="pedestrian" speed="1.00" length="5.39" width="4.00" shape="4131.09,479.60 4131.38,475.61 4129.38,475.46 4127.38,476.94 4127.35,480.14 4127.35,480.14 4127.31,483.34 4128.70,484.85 4130.69,485.00"/>
     </edge>
     <edge id=":2007005083_0" function="internal">
-        <lane id=":2007005083_0_0" index="0" disallow="pedestrian" speed="7.58" length="11.21" shape="3963.51,507.00 3959.87,507.10 3957.13,507.88 3955.28,509.35 3954.32,511.50"/>
+        <lane id=":2007005083_0_0" index="0" allow="delivery" speed="7.58" length="11.21" shape="3963.51,507.00 3959.87,507.10 3957.13,507.88 3955.28,509.35 3954.32,511.50"/>
     </edge>
     <edge id=":2007005083_1" function="internal">
-        <lane id=":2007005083_1_0" index="0" disallow="pedestrian" speed="8.25" length="16.36" shape="3963.51,507.00 3958.65,506.12 3955.41,504.15 3953.76,501.09 3953.72,496.93"/>
+        <lane id=":2007005083_1_0" index="0" allow="delivery" speed="8.25" length="16.36" shape="3963.51,507.00 3958.65,506.12 3955.41,504.15 3953.76,501.09 3953.72,496.93"/>
     </edge>
     <edge id=":2007005083_2" function="internal">
         <lane id=":2007005083_2_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="3963.51,507.00 3962.36,506.13 3962.00,505.30 3962.45,504.53 3963.69,503.80"/>
     </edge>
     <edge id=":2007005083_3" function="internal">
-        <lane id=":2007005083_3_0" index="0" allow="pedestrian delivery" speed="6.82" length="10.82" shape="3956.88,497.44 3956.95,500.05 3958.11,501.98 3960.35,503.23 3963.69,503.80"/>
+        <lane id=":2007005083_3_0" index="0" allow="delivery" speed="6.82" length="10.82" shape="3956.88,497.44 3956.95,500.05 3958.11,501.98 3960.35,503.23 3963.69,503.80"/>
     </edge>
     <edge id=":2007005083_4" function="internal">
         <lane id=":2007005083_4_0" index="0" disallow="pedestrian" speed="13.89" length="14.29" shape="3956.88,497.44 3954.32,511.50"/>
@@ -3529,13 +3529,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2007005083_6_0" index="0" disallow="pedestrian" speed="13.89" length="14.57" shape="3951.18,510.85 3951.54,506.62 3950.99,503.66 3950.38,500.69 3950.57,496.42"/>
     </edge>
     <edge id=":2007005083_7" function="internal">
-        <lane id=":2007005083_7_0" index="0" allow="pedestrian delivery" speed="8.90" length="4.97" shape="3951.18,510.85 3952.56,507.53 3953.58,506.61"/>
+        <lane id=":2007005083_7_0" index="0" allow="delivery" speed="8.90" length="4.97" shape="3951.18,510.85 3952.56,507.53 3953.58,506.61"/>
     </edge>
     <edge id=":2007005083_8" function="internal">
         <lane id=":2007005083_8_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3951.18,510.85 3952.21,509.84 3953.07,509.61"/>
     </edge>
     <edge id=":2007005083_10" function="internal">
-        <lane id=":2007005083_10_0" index="0" allow="pedestrian delivery" speed="8.90" length="10.84" shape="3953.58,506.61 3955.11,505.24 3958.82,504.00 3963.69,503.80"/>
+        <lane id=":2007005083_10_0" index="0" allow="delivery" speed="8.90" length="10.84" shape="3953.58,506.61 3955.11,505.24 3958.82,504.00 3963.69,503.80"/>
     </edge>
     <edge id=":2007005083_11" function="internal">
         <lane id=":2007005083_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3953.07,509.61 3953.78,510.16 3954.32,511.50"/>
@@ -3550,16 +3550,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2007005083_w1_0" index="0" allow="pedestrian" speed="1.00" length="9.59" width="4.00" shape="3948.99,496.16 3947.01,495.84 3947.66,510.13 3949.62,510.53 3949.99,507.51 3949.84,505.25 3949.41,503.37 3948.96,501.48 3948.73,499.20"/>
     </edge>
     <edge id=":2007005087_0" function="internal">
-        <lane id=":2007005087_0_0" index="0" disallow="pedestrian" speed="6.27" length="7.25" shape="3957.44,541.64 3954.83,541.72 3952.90,542.12 3951.65,542.86 3951.07,543.93"/>
+        <lane id=":2007005087_0_0" index="0" allow="delivery" speed="6.27" length="7.25" shape="3957.44,541.64 3954.83,541.72 3952.90,542.12 3951.65,542.86 3951.07,543.93"/>
     </edge>
     <edge id=":2007005087_1" function="internal">
-        <lane id=":2007005087_1_0" index="0" disallow="pedestrian" speed="7.74" length="14.75" shape="3957.44,541.64 3952.11,541.09 3948.47,539.81 3946.51,537.82 3946.23,535.09"/>
+        <lane id=":2007005087_1_0" index="0" allow="delivery" speed="7.74" length="14.75" shape="3957.44,541.64 3952.11,541.09 3948.47,539.81 3946.51,537.82 3946.23,535.09"/>
     </edge>
     <edge id=":2007005087_2" function="internal">
         <lane id=":2007005087_2_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="3957.44,541.64 3956.26,540.80 3955.89,539.99 3956.31,539.20 3957.54,538.44"/>
     </edge>
     <edge id=":2007005087_3" function="internal">
-        <lane id=":2007005087_3_0" index="0" allow="pedestrian delivery" speed="5.21" length="6.04" shape="3952.53,536.25 3952.70,537.15 3953.59,537.81 3955.20,538.24 3957.54,538.44"/>
+        <lane id=":2007005087_3_0" index="0" allow="delivery" speed="5.21" length="6.04" shape="3952.53,536.25 3952.70,537.15 3953.59,537.81 3955.20,538.24 3957.54,538.44"/>
     </edge>
     <edge id=":2007005087_4" function="internal">
         <lane id=":2007005087_4_0" index="0" disallow="pedestrian" speed="13.89" length="7.80" shape="3952.53,536.25 3951.07,543.93"/>
@@ -3575,13 +3575,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2007005087_7_0" index="0" disallow="pedestrian" speed="13.89" length="7.72" shape="3944.79,542.68 3946.23,535.09"/>
     </edge>
     <edge id=":2007005087_8" function="internal">
-        <lane id=":2007005087_8_0" index="0" allow="pedestrian delivery" speed="8.56" length="3.40" shape="3944.79,542.68 3945.93,540.69 3946.90,540.16"/>
+        <lane id=":2007005087_8_0" index="0" allow="delivery" speed="8.56" length="3.40" shape="3944.79,542.68 3945.93,540.69 3946.90,540.16"/>
     </edge>
     <edge id=":2007005087_9" function="internal">
         <lane id=":2007005087_9_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3944.79,542.68 3945.81,541.66 3946.67,541.43"/>
     </edge>
     <edge id=":2007005087_11" function="internal">
-        <lane id=":2007005087_11_0" index="0" allow="pedestrian delivery" speed="8.56" length="10.93" shape="3946.90,540.16 3948.43,539.32 3952.30,538.57 3957.54,538.44"/>
+        <lane id=":2007005087_11_0" index="0" allow="delivery" speed="8.56" length="10.93" shape="3946.90,540.16 3948.43,539.32 3952.30,538.57 3957.54,538.44"/>
     </edge>
     <edge id=":2007005087_12" function="internal">
         <lane id=":2007005087_12_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3946.67,541.43 3947.38,541.98 3947.93,543.31"/>
@@ -3629,28 +3629,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2007005091_0_0" index="0" disallow="pedestrian" speed="13.89" length="9.40" shape="4131.25,542.71 4130.54,552.09"/>
     </edge>
     <edge id=":2007005091_1" function="internal">
-        <lane id=":2007005091_1_0" index="0" allow="pedestrian delivery" speed="7.43" length="4.45" shape="4131.25,542.71 4130.52,545.34 4129.35,546.60"/>
+        <lane id=":2007005091_1_0" index="0" allow="delivery" speed="7.43" length="4.45" shape="4131.25,542.71 4130.52,545.34 4129.35,546.60"/>
     </edge>
     <edge id=":2007005091_2" function="internal">
         <lane id=":2007005091_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4131.25,542.71 4130.36,543.85 4129.53,544.19"/>
     </edge>
     <edge id=":2007005091_9" function="internal">
-        <lane id=":2007005091_9_0" index="0" allow="pedestrian delivery" speed="7.43" length="7.35" shape="4129.35,546.60 4128.82,547.17 4126.12,548.20 4122.44,548.42"/>
+        <lane id=":2007005091_9_0" index="0" allow="delivery" speed="7.43" length="7.35" shape="4129.35,546.60 4128.82,547.17 4126.12,548.20 4122.44,548.42"/>
     </edge>
     <edge id=":2007005091_10" function="internal">
         <lane id=":2007005091_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4129.53,544.19 4128.76,543.73 4128.06,542.47"/>
     </edge>
     <edge id=":2007005091_3" function="internal">
-        <lane id=":2007005091_3_0" index="0" disallow="pedestrian" speed="5.81" length="6.80" shape="4122.57,545.22 4124.89,545.14 4126.57,544.65 4127.63,543.76 4128.06,542.47"/>
+        <lane id=":2007005091_3_0" index="0" allow="delivery" speed="5.81" length="6.80" shape="4122.57,545.22 4124.89,545.14 4126.57,544.65 4127.63,543.76 4128.06,542.47"/>
     </edge>
     <edge id=":2007005091_4" function="internal">
-        <lane id=":2007005091_4_0" index="0" disallow="pedestrian" speed="7.32" length="12.02" shape="4122.57,545.22 4126.24,545.79 4128.79,547.12 4130.23,549.22 4130.54,552.09"/>
+        <lane id=":2007005091_4_0" index="0" allow="delivery" speed="7.32" length="12.02" shape="4122.57,545.22 4126.24,545.79 4128.79,547.12 4130.23,549.22 4130.54,552.09"/>
     </edge>
     <edge id=":2007005091_5" function="internal">
         <lane id=":2007005091_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4122.57,545.22 4123.74,546.07 4124.11,546.89 4123.67,547.67 4122.44,548.42"/>
     </edge>
     <edge id=":2007005091_6" function="internal">
-        <lane id=":2007005091_6_0" index="0" allow="pedestrian delivery" speed="5.67" length="6.77" shape="4127.35,551.85 4127.13,550.43 4126.24,549.39 4124.68,548.72 4122.44,548.42"/>
+        <lane id=":2007005091_6_0" index="0" allow="delivery" speed="5.67" length="6.77" shape="4127.35,551.85 4127.13,550.43 4126.24,549.39 4124.68,548.72 4122.44,548.42"/>
     </edge>
     <edge id=":2007005091_7" function="internal">
         <lane id=":2007005091_7_0" index="0" disallow="pedestrian" speed="13.89" length="9.40" shape="4127.35,551.85 4128.06,542.47"/>
@@ -3726,16 +3726,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2177702821_0_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4142.91,902.02 4142.44,900.66 4142.61,899.78 4143.41,899.39 4144.85,899.48"/>
     </edge>
     <edge id=":2177702825_0" function="internal">
-        <lane id=":2177702825_0_0" index="0" disallow="pedestrian" speed="7.34" length="8.36" shape="4129.66,922.48 4128.22,919.59 4126.93,917.53 4125.80,916.32 4124.83,915.94"/>
+        <lane id=":2177702825_0_0" index="0" allow="delivery" speed="7.34" length="8.36" shape="4129.66,922.48 4128.22,919.59 4126.93,917.53 4125.80,916.32 4124.83,915.94"/>
     </edge>
     <edge id=":2177702825_1" function="internal">
-        <lane id=":2177702825_1_0" index="0" disallow="pedestrian" speed="7.17" length="14.46" shape="4129.66,922.48 4128.28,918.18 4128.64,915.04 4130.72,913.06 4134.55,912.24"/>
+        <lane id=":2177702825_1_0" index="0" allow="delivery" speed="7.17" length="14.46" shape="4129.66,922.48 4128.28,918.18 4128.64,915.04 4130.72,913.06 4134.55,912.24"/>
     </edge>
     <edge id=":2177702825_2" function="internal">
         <lane id=":2177702825_2_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4129.66,922.48 4129.89,921.06 4130.45,920.36 4131.34,920.39 4132.57,921.14"/>
     </edge>
     <edge id=":2177702825_3" function="internal">
-        <lane id=":2177702825_3_0" index="0" allow="pedestrian delivery" speed="5.43" length="7.70" shape="4134.71,915.44 4132.83,915.89 4131.85,916.98 4131.76,918.74 4132.57,921.14"/>
+        <lane id=":2177702825_3_0" index="0" allow="delivery" speed="5.43" length="7.70" shape="4134.71,915.44 4132.83,915.89 4131.85,916.98 4131.76,918.74 4132.57,921.14"/>
     </edge>
     <edge id=":2177702825_4" function="internal">
         <lane id=":2177702825_4_0" index="0" disallow="pedestrian" speed="22.22" length="9.89" shape="4134.71,915.44 4124.83,915.94"/>
@@ -3750,13 +3750,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2177702825_6_0" index="0" disallow="pedestrian" speed="22.22" length="9.89" shape="4124.67,912.75 4134.55,912.24"/>
     </edge>
     <edge id=":2177702825_7" function="internal">
-        <lane id=":2177702825_7_0" index="0" allow="pedestrian delivery" speed="8.72" length="3.62" shape="4124.67,912.75 4126.64,913.20 4127.90,914.18"/>
+        <lane id=":2177702825_7_0" index="0" allow="delivery" speed="8.72" length="3.62" shape="4124.67,912.75 4126.64,913.20 4127.90,914.18"/>
     </edge>
     <edge id=":2177702825_8" function="internal">
         <lane id=":2177702825_8_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4124.67,912.75 4125.91,913.49 4126.35,914.26"/>
     </edge>
     <edge id=":2177702825_10" function="internal">
-        <lane id=":2177702825_10_0" index="0" allow="pedestrian delivery" speed="8.72" length="8.45" shape="4127.90,914.18 4128.61,914.75 4130.59,917.39 4132.57,921.14"/>
+        <lane id=":2177702825_10_0" index="0" allow="delivery" speed="8.72" length="8.45" shape="4127.90,914.18 4128.61,914.75 4130.59,917.39 4132.57,921.14"/>
     </edge>
     <edge id=":2177702825_11" function="internal">
         <lane id=":2177702825_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4126.35,914.26 4125.99,915.08 4124.83,915.94"/>
@@ -3873,16 +3873,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2222982129_w0_0" index="0" allow="pedestrian" speed="1.00" length="6.93" width="3.20" shape="3376.73,375.68 3379.60,374.26 3379.60,374.26 3382.47,372.84 3382.97,370.47 3381.40,367.68 3381.40,367.68 3379.84,364.89 3371.63,369.49 3373.19,372.28 3373.19,372.28 3374.76,375.07 3376.49,375.29 3376.22,375.02 3375.91,374.86 3375.56,374.81 3375.18,374.88"/>
     </edge>
     <edge id=":2222983836_0" function="internal">
-        <lane id=":2222983836_0_0" index="0" disallow="pedestrian" speed="6.16" length="7.75" shape="3178.63,360.13 3176.98,357.87 3175.44,356.47 3174.02,355.93 3172.70,356.23"/>
+        <lane id=":2222983836_0_0" index="0" allow="delivery" speed="6.16" length="7.75" shape="3178.63,360.13 3176.98,357.87 3175.44,356.47 3174.02,355.93 3172.70,356.23"/>
     </edge>
     <edge id=":2222983836_1" function="internal">
-        <lane id=":2222983836_1_0" index="0" disallow="pedestrian" speed="7.55" length="13.04" shape="3178.63,360.13 3176.75,356.38 3176.25,353.24 3177.13,350.69 3179.38,348.75"/>
+        <lane id=":2222983836_1_0" index="0" allow="delivery" speed="7.55" length="13.04" shape="3178.63,360.13 3176.75,356.38 3176.25,353.24 3177.13,350.69 3179.38,348.75"/>
     </edge>
     <edge id=":2222983836_2" function="internal">
         <lane id=":2222983836_2_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="3178.63,360.13 3178.66,358.69 3179.12,357.92 3180.01,357.83 3181.33,358.41"/>
     </edge>
     <edge id=":2222983836_3" function="internal">
-        <lane id=":2222983836_3_0" index="0" allow="pedestrian delivery" speed="5.96" length="7.73" shape="3180.94,351.54 3179.87,352.59 3179.57,354.08 3180.06,356.02 3181.33,358.41"/>
+        <lane id=":2222983836_3_0" index="0" allow="delivery" speed="5.96" length="7.73" shape="3180.94,351.54 3179.87,352.59 3179.57,354.08 3180.06,356.02 3181.33,358.41"/>
     </edge>
     <edge id=":2222983836_4" function="internal">
         <lane id=":2222983836_4_0" index="0" disallow="pedestrian" speed="13.89" length="9.48" shape="3180.94,351.54 3172.70,356.23"/>
@@ -3897,13 +3897,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2222983836_6_0" index="0" disallow="pedestrian" speed="13.89" length="9.54" shape="3171.09,353.46 3179.38,348.75"/>
     </edge>
     <edge id=":2222983836_7" function="internal">
-        <lane id=":2222983836_7_0" index="0" allow="pedestrian delivery" speed="7.71" length="4.26" shape="3171.09,353.46 3173.68,352.64 3175.19,352.97"/>
+        <lane id=":2222983836_7_0" index="0" allow="delivery" speed="7.71" length="4.26" shape="3171.09,353.46 3173.68,352.64 3175.19,352.97"/>
     </edge>
     <edge id=":2222983836_8" function="internal">
         <lane id=":2222983836_8_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3171.09,353.46 3172.53,353.55 3173.28,354.04"/>
     </edge>
     <edge id=":2222983836_10" function="internal">
-        <lane id=":2222983836_10_0" index="0" allow="pedestrian delivery" speed="7.71" length="8.42" shape="3175.19,352.97 3176.24,353.20 3178.79,355.12 3181.33,358.41"/>
+        <lane id=":2222983836_10_0" index="0" allow="delivery" speed="7.71" length="8.42" shape="3175.19,352.97 3176.24,353.20 3178.79,355.12 3181.33,358.41"/>
     </edge>
     <edge id=":2222983836_11" function="internal">
         <lane id=":2222983836_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3173.28,354.04 3173.34,354.94 3172.70,356.23"/>
@@ -4485,19 +4485,19 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2247697355_0_0" index="0" disallow="pedestrian" speed="22.22" length="6.20" shape="4237.40,1010.01 4233.28,1014.65"/>
     </edge>
     <edge id=":2247697355_1" function="internal">
-        <lane id=":2247697355_1_0" index="0" allow="pedestrian delivery" speed="6.79" length="2.59" shape="4237.40,1010.01 4236.19,1010.58 4234.96,1010.35"/>
+        <lane id=":2247697355_1_0" index="0" allow="delivery" speed="6.79" length="2.59" shape="4237.40,1010.01 4236.19,1010.58 4234.96,1010.35"/>
     </edge>
     <edge id=":2247697355_2" function="internal">
         <lane id=":2247697355_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4237.40,1010.01 4236.01,1010.38 4235.14,1010.14"/>
     </edge>
     <edge id=":2247697355_6" function="internal">
-        <lane id=":2247697355_6_0" index="0" allow="pedestrian delivery" speed="6.79" length="6.96" shape="4234.96,1010.35 4234.39,1010.24 4232.00,1008.99 4229.03,1006.82"/>
+        <lane id=":2247697355_6_0" index="0" allow="delivery" speed="6.79" length="6.96" shape="4234.96,1010.35 4234.39,1010.24 4232.00,1008.99 4229.03,1006.82"/>
     </edge>
     <edge id=":2247697355_7" function="internal">
         <lane id=":2247697355_7_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4235.14,1010.14 4234.81,1009.31 4235.01,1007.88"/>
     </edge>
     <edge id=":2247697355_3" function="internal">
-        <lane id=":2247697355_3_0" index="0" allow="pedestrian delivery" speed="5.65" length="6.80" shape="4230.89,1012.52 4231.59,1011.24 4231.52,1009.87 4230.66,1008.39 4229.03,1006.82"/>
+        <lane id=":2247697355_3_0" index="0" allow="delivery" speed="5.65" length="6.80" shape="4230.89,1012.52 4231.59,1011.24 4231.52,1009.87 4230.66,1008.39 4229.03,1006.82"/>
     </edge>
     <edge id=":2247697355_4" function="internal">
         <lane id=":2247697355_4_0" index="0" disallow="pedestrian" speed="22.22" length="6.20" shape="4230.89,1012.52 4235.01,1007.88"/>
@@ -4989,16 +4989,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":283017899_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.65" width="3.20" shape="3832.82,488.91 3831.04,486.25 3828.98,485.99 3826.41,487.91 3826.81,490.49 3829.56,492.14 3832.00,489.46 3831.39,489.88 3830.92,490.26 3830.50,490.71 3830.08,491.30"/>
     </edge>
     <edge id=":283018497_0" function="internal">
-        <lane id=":283018497_0_0" index="0" disallow="pedestrian" speed="5.63" length="6.87" shape="4435.34,177.82 4434.89,175.58 4434.09,174.07 4432.94,173.29 4431.45,173.24"/>
+        <lane id=":283018497_0_0" index="0" allow="delivery" speed="5.63" length="6.87" shape="4435.34,177.82 4434.89,175.58 4434.09,174.07 4432.94,173.29 4431.45,173.24"/>
     </edge>
     <edge id=":283018497_1" function="internal">
-        <lane id=":283018497_1_0" index="0" disallow="pedestrian" speed="7.89" length="11.25" shape="4435.34,177.82 4435.24,174.14 4435.80,171.28 4437.04,169.24 4438.95,168.01"/>
+        <lane id=":283018497_1_0" index="0" allow="delivery" speed="7.89" length="11.25" shape="4435.34,177.82 4435.24,174.14 4435.80,171.28 4437.04,169.24 4438.95,168.01"/>
     </edge>
     <edge id=":283018497_2" function="internal">
         <lane id=":283018497_2_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4435.34,177.82 4436.01,176.54 4436.76,176.05 4437.60,176.36 4438.53,177.47"/>
     </edge>
     <edge id=":283018497_3" function="internal">
-        <lane id=":283018497_3_0" index="0" allow="pedestrian delivery" speed="6.36" length="7.01" shape="4440.04,171.02 4439.14,171.71 4438.59,173.02 4438.39,174.94 4438.53,177.47"/>
+        <lane id=":283018497_3_0" index="0" allow="delivery" speed="6.36" length="7.01" shape="4440.04,171.02 4439.14,171.71 4438.59,173.02 4438.39,174.94 4438.53,177.47"/>
     </edge>
     <edge id=":283018497_4" function="internal">
         <lane id=":283018497_4_0" index="0" disallow="pedestrian" speed="13.89" length="8.89" shape="4440.04,171.02 4437.55,171.89 4435.82,172.39 4434.04,172.76 4431.45,173.24"/>
@@ -5013,13 +5013,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":283018497_6_0" index="0" disallow="pedestrian" speed="13.89" length="8.37" shape="4430.86,170.09 4433.30,169.64 4434.97,169.30 4436.60,168.83 4438.95,168.01"/>
     </edge>
     <edge id=":283018497_7" function="internal">
-        <lane id=":283018497_7_0" index="0" allow="pedestrian delivery" speed="7.29" length="4.65" shape="4430.86,170.09 4433.86,170.08 4435.31,170.86"/>
+        <lane id=":283018497_7_0" index="0" allow="delivery" speed="7.29" length="4.65" shape="4430.86,170.09 4433.86,170.08 4435.31,170.86"/>
     </edge>
     <edge id=":283018497_8" function="internal">
         <lane id=":283018497_8_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4430.86,170.09 4432.19,170.66 4432.73,171.37"/>
     </edge>
     <edge id=":283018497_10" function="internal">
-        <lane id=":283018497_10_0" index="0" allow="pedestrian delivery" speed="7.29" length="7.65" shape="4435.31,170.86 4436.14,171.30 4437.69,173.77 4438.53,177.47"/>
+        <lane id=":283018497_10_0" index="0" allow="delivery" speed="7.29" length="7.65" shape="4435.31,170.86 4436.14,171.30 4437.69,173.77 4438.53,177.47"/>
     </edge>
     <edge id=":283018497_11" function="internal">
         <lane id=":283018497_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4432.73,171.37 4432.48,172.23 4431.45,173.24"/>
@@ -5133,28 +5133,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":283018845_0_0" index="0" disallow="pedestrian" speed="22.22" length="16.71" shape="4306.98,718.42 4302.18,717.17 4298.89,716.31 4295.57,715.59 4290.69,714.74"/>
     </edge>
     <edge id=":283018845_1" function="internal">
-        <lane id=":283018845_1_0" index="0" allow="pedestrian delivery" speed="9.27" length="9.51" shape="4306.98,718.42 4301.27,716.46 4298.36,714.56"/>
+        <lane id=":283018845_1_0" index="0" allow="delivery" speed="9.27" length="9.51" shape="4306.98,718.42 4301.27,716.46 4298.36,714.56"/>
     </edge>
     <edge id=":283018845_2" function="internal">
         <lane id=":283018845_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4306.98,718.42 4306.01,717.35 4305.82,716.48"/>
     </edge>
     <edge id=":283018845_9" function="internal">
-        <lane id=":283018845_9_0" index="0" allow="pedestrian delivery" speed="9.27" length="8.67" shape="4298.36,714.56 4297.38,713.91 4295.31,710.78 4295.07,707.05"/>
+        <lane id=":283018845_9_0" index="0" allow="delivery" speed="9.27" length="8.67" shape="4298.36,714.56 4297.38,713.91 4295.31,710.78 4295.07,707.05"/>
     </edge>
     <edge id=":283018845_10" function="internal">
         <lane id=":283018845_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4305.82,716.48 4306.40,715.80 4307.76,715.32"/>
     </edge>
     <edge id=":283018845_3" function="internal">
-        <lane id=":283018845_3_0" index="0" disallow="pedestrian" speed="8.03" length="13.40" shape="4298.22,707.57 4298.50,709.98 4300.18,712.08 4303.27,713.85 4307.76,715.32"/>
+        <lane id=":283018845_3_0" index="0" allow="delivery" speed="8.03" length="13.40" shape="4298.22,707.57 4298.50,709.98 4300.18,712.08 4303.27,713.85 4307.76,715.32"/>
     </edge>
     <edge id=":283018845_4" function="internal">
-        <lane id=":283018845_4_0" index="0" disallow="pedestrian" speed="7.36" length="11.78" shape="4298.22,707.57 4297.24,711.08 4295.66,713.44 4293.48,714.67 4290.69,714.74"/>
+        <lane id=":283018845_4_0" index="0" allow="delivery" speed="7.36" length="11.78" shape="4298.22,707.57 4297.24,711.08 4295.66,713.44 4293.48,714.67 4290.69,714.74"/>
     </edge>
     <edge id=":283018845_5" function="internal">
         <lane id=":283018845_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4298.22,707.57 4297.24,708.62 4296.38,708.89 4295.66,708.36 4295.07,707.05"/>
     </edge>
     <edge id=":283018845_6" function="internal">
-        <lane id=":283018845_6_0" index="0" allow="pedestrian delivery" speed="5.71" length="6.68" shape="4291.19,711.58 4292.57,711.48 4293.68,710.69 4294.51,709.21 4295.07,707.05"/>
+        <lane id=":283018845_6_0" index="0" allow="delivery" speed="5.71" length="6.68" shape="4291.19,711.58 4292.57,711.48 4293.68,710.69 4294.51,709.21 4295.07,707.05"/>
     </edge>
     <edge id=":283018845_7" function="internal">
         <lane id=":283018845_7_0" index="0" disallow="pedestrian" speed="22.22" length="16.99" shape="4291.19,711.58 4296.16,712.44 4299.53,713.18 4302.88,714.05 4307.76,715.32"/>
@@ -5304,28 +5304,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":294169342_0_0" index="0" disallow="pedestrian" speed="13.89" length="9.40" shape="4427.01,567.67 4426.11,558.32"/>
     </edge>
     <edge id=":294169342_1" function="internal">
-        <lane id=":294169342_1_0" index="0" allow="pedestrian delivery" speed="7.62" length="4.32" shape="4427.01,567.67 4427.33,564.90 4428.23,563.67"/>
+        <lane id=":294169342_1_0" index="0" allow="delivery" speed="7.62" length="4.32" shape="4427.01,567.67 4427.33,564.90 4428.23,563.67"/>
     </edge>
     <edge id=":294169342_2" function="internal">
         <lane id=":294169342_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4427.01,567.67 4427.69,566.40 4428.45,565.93"/>
     </edge>
     <edge id=":294169342_9" function="internal">
-        <lane id=":294169342_9_0" index="0" allow="pedestrian delivery" speed="7.62" length="8.34" shape="4428.23,563.67 4428.88,562.78 4431.66,561.31 4435.68,560.49"/>
+        <lane id=":294169342_9_0" index="0" allow="delivery" speed="7.62" length="8.34" shape="4428.23,563.67 4428.88,562.78 4431.66,561.31 4435.68,560.49"/>
     </edge>
     <edge id=":294169342_10" function="internal">
         <lane id=":294169342_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4428.45,565.93 4429.29,566.25 4430.20,567.37"/>
     </edge>
     <edge id=":294169342_3" function="internal">
-        <lane id=":294169342_3_0" index="0" disallow="pedestrian" speed="6.05" length="7.61" shape="4436.02,563.67 4433.36,564.15 4431.51,564.92 4430.45,566.00 4430.20,567.37"/>
+        <lane id=":294169342_3_0" index="0" allow="delivery" speed="6.05" length="7.61" shape="4436.02,563.67 4433.36,564.15 4431.51,564.92 4430.45,566.00 4430.20,567.37"/>
     </edge>
     <edge id=":294169342_4" function="internal">
-        <lane id=":294169342_4_0" index="0" disallow="pedestrian" speed="7.58" length="12.75" shape="4436.02,563.67 4431.92,563.71 4428.89,562.83 4426.96,561.04 4426.11,558.32"/>
+        <lane id=":294169342_4_0" index="0" allow="delivery" speed="7.58" length="12.75" shape="4436.02,563.67 4431.92,563.71 4428.89,562.83 4426.96,561.04 4426.11,558.32"/>
     </edge>
     <edge id=":294169342_5" function="internal">
         <lane id=":294169342_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4436.02,563.67 4434.74,563.00 4434.26,562.25 4434.57,561.41 4435.68,560.49"/>
     </edge>
     <edge id=":294169342_6" function="internal">
-        <lane id=":294169342_6_0" index="0" allow="pedestrian delivery" speed="6.01" length="7.61" shape="4429.29,558.01 4429.81,559.34 4431.04,560.20 4433.00,560.58 4435.68,560.49"/>
+        <lane id=":294169342_6_0" index="0" allow="delivery" speed="6.01" length="7.61" shape="4429.29,558.01 4429.81,559.34 4431.04,560.20 4433.00,560.58 4435.68,560.49"/>
     </edge>
     <edge id=":294169342_7" function="internal">
         <lane id=":294169342_7_0" index="0" disallow="pedestrian" speed="13.89" length="9.40" shape="4429.29,558.01 4430.20,567.37"/>
@@ -5485,7 +5485,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":38919841_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.90" width="3.20" shape="4442.60,815.14 4443.04,813.19 4442.24,811.50 4439.36,810.10 4437.14,811.24 4436.26,813.04 4437.54,813.65 4438.51,814.07 4439.33,814.36 4440.17,814.59 4441.20,814.82"/>
     </edge>
     <edge id=":38919854_0" function="internal">
-        <lane id=":38919854_0_0" index="0" allow="pedestrian delivery" speed="5.44" length="7.58" shape="4325.74,764.12 4323.94,763.62 4322.56,764.10 4321.59,765.56 4321.05,768.00"/>
+        <lane id=":38919854_0_0" index="0" allow="delivery" speed="5.44" length="7.58" shape="4325.74,764.12 4323.94,763.62 4322.56,764.10 4321.59,765.56 4321.05,768.00"/>
     </edge>
     <edge id=":38919854_1" function="internal">
         <lane id=":38919854_1_0" index="0" disallow="pedestrian" speed="22.22" length="9.36" shape="4325.74,764.12 4323.23,762.93 4321.50,762.12 4319.84,761.20 4317.53,759.67"/>
@@ -5500,22 +5500,22 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":38919854_3_0" index="0" disallow="pedestrian" speed="22.22" length="8.87" shape="4319.36,757.04 4321.55,758.49 4323.13,759.36 4324.77,760.12 4327.15,761.25"/>
     </edge>
     <edge id=":38919854_4" function="internal">
-        <lane id=":38919854_4_0" index="0" allow="pedestrian delivery" speed="9.04" length="3.39" shape="4319.36,757.04 4320.49,758.44 4320.93,759.98"/>
+        <lane id=":38919854_4_0" index="0" allow="delivery" speed="9.04" length="3.39" shape="4319.36,757.04 4320.49,758.44 4320.93,759.98"/>
     </edge>
     <edge id=":38919854_5" function="internal">
         <lane id=":38919854_5_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4319.36,757.04 4319.89,758.39 4319.76,759.27"/>
     </edge>
     <edge id=":38919854_10" function="internal">
-        <lane id=":38919854_10_0" index="0" allow="pedestrian delivery" speed="9.04" length="8.07" shape="4320.93,759.98 4321.15,760.73 4321.33,763.92 4321.05,768.00"/>
+        <lane id=":38919854_10_0" index="0" allow="delivery" speed="9.04" length="8.07" shape="4320.93,759.98 4321.15,760.73 4321.33,763.92 4321.05,768.00"/>
     </edge>
     <edge id=":38919854_11" function="internal">
         <lane id=":38919854_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4319.76,759.27 4318.97,759.70 4317.53,759.67"/>
     </edge>
     <edge id=":38919854_6" function="internal">
-        <lane id=":38919854_6_0" index="0" disallow="pedestrian" speed="7.69" length="8.11" shape="4317.87,767.63 4318.16,764.45 4318.20,762.06 4317.99,760.47 4317.53,759.67"/>
+        <lane id=":38919854_6_0" index="0" allow="delivery" speed="7.69" length="8.11" shape="4317.87,767.63 4318.16,764.45 4318.20,762.06 4317.99,760.47 4317.53,759.67"/>
     </edge>
     <edge id=":38919854_7" function="internal">
-        <lane id=":38919854_7_0" index="0" disallow="pedestrian" speed="7.18" length="14.15" shape="4317.87,767.63 4318.89,763.35 4320.78,760.86 4323.54,760.16 4327.15,761.25"/>
+        <lane id=":38919854_7_0" index="0" allow="delivery" speed="7.18" length="14.15" shape="4317.87,767.63 4318.89,763.35 4320.78,760.86 4323.54,760.16 4327.15,761.25"/>
     </edge>
     <edge id=":38919854_8" function="internal">
         <lane id=":38919854_8_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4317.87,767.63 4318.80,766.53 4319.64,766.22 4320.39,766.71 4321.05,768.00"/>
@@ -5581,7 +5581,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":456813366_2_0" index="0" speed="2.78" length="4.67" shape="3450.06,923.46 3449.38,922.19 3449.40,921.30 3450.13,920.78 3451.56,920.63"/>
     </edge>
     <edge id=":456813366_3" function="internal">
-        <lane id=":456813366_3_0" index="0" speed="5.55" length="7.53" shape="3448.38,914.78 3447.90,916.35 3448.28,917.85 3449.50,919.28 3451.56,920.63"/>
+        <lane id=":456813366_3_0" index="0" disallow="pedestrian" speed="5.55" length="7.53" shape="3448.38,914.78 3447.90,916.35 3448.28,917.85 3449.50,919.28 3451.56,920.63"/>
     </edge>
     <edge id=":456813366_4" function="internal">
         <lane id=":456813366_4_0" index="0" disallow="pedestrian" speed="8.33" length="10.47" shape="3448.38,914.78 3443.36,923.97"/>
@@ -5596,13 +5596,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":456813366_6_0" index="0" disallow="pedestrian" speed="8.33" length="10.53" shape="3440.54,922.46 3445.59,913.22"/>
     </edge>
     <edge id=":456813366_7" function="internal">
-        <lane id=":456813366_7_0" index="0" speed="5.55" length="4.78" shape="3440.54,922.46 3442.42,920.10 3444.04,919.39"/>
+        <lane id=":456813366_7_0" index="0" disallow="pedestrian" speed="5.55" length="4.78" shape="3440.54,922.46 3442.42,920.10 3444.04,919.39"/>
     </edge>
     <edge id=":456813366_8" function="internal">
         <lane id=":456813366_8_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3440.54,922.46 3441.81,921.78 3442.70,921.80"/>
     </edge>
     <edge id=":456813366_10" function="internal">
-        <lane id=":456813366_10_0" index="0" speed="5.55" length="7.89" shape="3444.04,919.39 3444.89,919.01 3447.94,919.19 3451.56,920.63"/>
+        <lane id=":456813366_10_0" index="0" disallow="pedestrian" speed="5.55" length="7.89" shape="3444.04,919.39 3444.89,919.01 3447.94,919.19 3451.56,920.63"/>
     </edge>
     <edge id=":456813366_11" function="internal">
         <lane id=":456813366_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3442.70,921.80 3443.22,922.53 3443.36,923.97"/>
@@ -5816,7 +5816,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":59992997_w1_0" index="0" allow="pedestrian" speed="1.00" length="5.45" width="4.00" shape="4420.49,450.06 4420.87,454.04 4423.86,453.75 4423.21,446.00 4420.22,446.22"/>
     </edge>
     <edge id=":607601623_0" function="internal">
-        <lane id=":607601623_0_0" index="0" allow="pedestrian delivery" speed="5.71" length="6.71" shape="4183.74,700.13 4182.36,700.34 4181.32,701.22 4180.61,702.76 4180.24,704.98"/>
+        <lane id=":607601623_0_0" index="0" allow="delivery" speed="5.71" length="6.71" shape="4183.74,700.13 4182.36,700.34 4181.32,701.22 4180.61,702.76 4180.24,704.98"/>
     </edge>
     <edge id=":607601623_1" function="internal">
         <lane id=":607601623_1_0" index="0" disallow="pedestrian" speed="22.22" length="9.43" shape="4183.74,700.13 4174.34,699.40"/>
@@ -5831,22 +5831,22 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":607601623_3_0" index="0" disallow="pedestrian" speed="22.22" length="9.46" shape="4174.57,696.21 4184.00,696.94"/>
     </edge>
     <edge id=":607601623_4" function="internal">
-        <lane id=":607601623_4_0" index="0" allow="pedestrian delivery" speed="7.35" length="4.59" shape="4174.57,696.21 4177.30,696.93 4178.60,698.13"/>
+        <lane id=":607601623_4_0" index="0" allow="delivery" speed="7.35" length="4.59" shape="4174.57,696.21 4177.30,696.93 4178.60,698.13"/>
     </edge>
     <edge id=":607601623_5" function="internal">
         <lane id=":607601623_5_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4174.57,696.21 4175.71,697.09 4176.05,697.92"/>
     </edge>
     <edge id=":607601623_10" function="internal">
-        <lane id=":607601623_10_0" index="0" allow="pedestrian delivery" speed="7.35" length="7.27" shape="4178.60,698.13 4179.15,698.63 4180.13,701.32 4180.24,704.98"/>
+        <lane id=":607601623_10_0" index="0" allow="delivery" speed="7.35" length="7.27" shape="4178.60,698.13 4179.15,698.63 4180.13,701.32 4180.24,704.98"/>
     </edge>
     <edge id=":607601623_11" function="internal">
         <lane id=":607601623_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4176.05,697.92 4175.59,698.69 4174.34,699.40"/>
     </edge>
     <edge id=":607601623_6" function="internal">
-        <lane id=":607601623_6_0" index="0" disallow="pedestrian" speed="5.69" length="6.71" shape="4177.05,704.72 4177.03,702.48 4176.57,700.84 4175.68,699.82 4174.34,699.40"/>
+        <lane id=":607601623_6_0" index="0" allow="delivery" speed="5.69" length="6.71" shape="4177.05,704.72 4177.03,702.48 4176.57,700.84 4175.68,699.82 4174.34,699.40"/>
     </edge>
     <edge id=":607601623_7" function="internal">
-        <lane id=":607601623_7_0" index="0" disallow="pedestrian" speed="7.35" length="11.84" shape="4177.05,704.72 4177.73,701.12 4179.12,698.63 4181.21,697.23 4184.00,696.94"/>
+        <lane id=":607601623_7_0" index="0" allow="delivery" speed="7.35" length="11.84" shape="4177.05,704.72 4177.73,701.12 4179.12,698.63 4181.21,697.23 4184.00,696.94"/>
     </edge>
     <edge id=":607601623_8" function="internal">
         <lane id=":607601623_8_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4177.05,704.72 4177.94,703.59 4178.77,703.26 4179.53,703.72 4180.24,704.98"/>
@@ -5891,28 +5891,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":607601672_0_0" index="0" disallow="pedestrian" speed="22.22" length="9.19" shape="4224.44,837.78 4223.55,846.93"/>
     </edge>
     <edge id=":607601672_1" function="internal">
-        <lane id=":607601672_1_0" index="0" allow="pedestrian delivery" speed="7.44" length="4.33" shape="4224.44,837.78 4223.63,840.35 4222.47,841.50"/>
+        <lane id=":607601672_1_0" index="0" allow="delivery" speed="7.44" length="4.33" shape="4224.44,837.78 4223.63,840.35 4222.47,841.50"/>
     </edge>
     <edge id=":607601672_2" function="internal">
         <lane id=":607601672_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4224.44,837.78 4223.51,838.88 4222.67,839.19"/>
     </edge>
     <edge id=":607601672_9" function="internal">
-        <lane id=":607601672_9_0" index="0" allow="pedestrian delivery" speed="7.44" length="7.38" shape="4222.47,841.50 4221.87,842.10 4219.16,843.05 4215.51,843.18"/>
+        <lane id=":607601672_9_0" index="0" allow="delivery" speed="7.44" length="7.38" shape="4222.47,841.50 4221.87,842.10 4219.16,843.05 4215.51,843.18"/>
     </edge>
     <edge id=":607601672_10" function="internal">
         <lane id=":607601672_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4222.67,839.19 4221.92,838.70 4221.26,837.42"/>
     </edge>
     <edge id=":607601672_3" function="internal">
-        <lane id=":607601672_3_0" index="0" disallow="pedestrian" speed="5.82" length="6.76" shape="4215.72,839.99 4218.02,839.96 4219.71,839.52 4220.79,838.67 4221.26,837.42"/>
+        <lane id=":607601672_3_0" index="0" allow="delivery" speed="5.82" length="6.76" shape="4215.72,839.99 4218.02,839.96 4219.71,839.52 4220.79,838.67 4221.26,837.42"/>
     </edge>
     <edge id=":607601672_4" function="internal">
-        <lane id=":607601672_4_0" index="0" disallow="pedestrian" speed="7.34" length="11.91" shape="4215.72,839.99 4219.34,840.63 4221.86,842.00 4223.26,844.10 4223.55,846.93"/>
+        <lane id=":607601672_4_0" index="0" allow="delivery" speed="7.34" length="11.91" shape="4215.72,839.99 4219.34,840.63 4221.86,842.00 4223.26,844.10 4223.55,846.93"/>
     </edge>
     <edge id=":607601672_5" function="internal">
         <lane id=":607601672_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4215.72,839.99 4216.86,840.87 4217.21,841.69 4216.76,842.47 4215.51,843.18"/>
     </edge>
     <edge id=":607601672_6" function="internal">
-        <lane id=":607601672_6_0" index="0" allow="pedestrian delivery" speed="5.69" length="6.73" shape="4220.37,846.67 4220.16,845.27 4219.28,844.22 4217.73,843.53 4215.51,843.18"/>
+        <lane id=":607601672_6_0" index="0" allow="delivery" speed="5.69" length="6.73" shape="4220.37,846.67 4220.16,845.27 4219.28,844.22 4217.73,843.53 4215.51,843.18"/>
     </edge>
     <edge id=":607601672_7" function="internal">
         <lane id=":607601672_7_0" index="0" disallow="pedestrian" speed="22.22" length="9.29" shape="4220.37,846.67 4221.26,837.42"/>
@@ -5939,28 +5939,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":607638014_0_0" index="0" disallow="pedestrian" speed="22.22" length="8.69" shape="4359.11,731.25 4350.63,729.35"/>
     </edge>
     <edge id=":607638014_1" function="internal">
-        <lane id=":607638014_1_0" index="0" allow="pedestrian delivery" speed="6.99" length="4.93" shape="4359.11,731.25 4356.51,730.23 4355.02,728.69"/>
+        <lane id=":607638014_1_0" index="0" allow="delivery" speed="6.99" length="4.93" shape="4359.11,731.25 4356.51,730.23 4355.02,728.69"/>
     </edge>
     <edge id=":607638014_2" function="internal">
         <lane id=":607638014_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4359.11,731.25 4358.12,730.21 4357.91,729.34"/>
     </edge>
     <edge id=":607638014_9" function="internal">
-        <lane id=":607638014_9_0" index="0" allow="pedestrian delivery" speed="6.99" length="5.66" shape="4355.02,728.69 4354.87,728.54 4354.20,726.20 4354.48,723.21"/>
+        <lane id=":607638014_9_0" index="0" allow="delivery" speed="6.99" length="5.66" shape="4355.02,728.69 4354.87,728.54 4354.20,726.20 4354.48,723.21"/>
     </edge>
     <edge id=":607638014_10" function="internal">
         <lane id=":607638014_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4357.91,729.34 4358.47,728.65 4359.82,728.13"/>
     </edge>
     <edge id=":607638014_3" function="internal">
-        <lane id=":607638014_3_0" index="0" disallow="pedestrian" speed="5.21" length="5.42" shape="4357.60,723.92 4357.43,725.51 4357.75,726.74 4358.55,727.61 4359.82,728.13"/>
+        <lane id=":607638014_3_0" index="0" allow="delivery" speed="5.21" length="5.42" shape="4357.60,723.92 4357.43,725.51 4357.75,726.74 4358.55,727.61 4359.82,728.13"/>
     </edge>
     <edge id=":607638014_4" function="internal">
-        <lane id=":607638014_4_0" index="0" disallow="pedestrian" speed="6.84" length="10.02" shape="4357.60,723.92 4356.59,726.75 4355.09,728.60 4353.11,729.46 4350.63,729.35"/>
+        <lane id=":607638014_4_0" index="0" allow="delivery" speed="6.84" length="10.02" shape="4357.60,723.92 4356.59,726.75 4355.09,728.60 4353.11,729.46 4350.63,729.35"/>
     </edge>
     <edge id=":607638014_5" function="internal">
         <lane id=":607638014_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4357.60,723.92 4356.55,724.91 4355.68,725.12 4354.99,724.56 4354.48,723.21"/>
     </edge>
     <edge id=":607638014_6" function="internal">
-        <lane id=":607638014_6_0" index="0" allow="pedestrian delivery" speed="5.01" length="4.91" shape="4351.33,726.23 4352.40,726.23 4353.28,725.73 4353.98,724.72 4354.48,723.21"/>
+        <lane id=":607638014_6_0" index="0" allow="delivery" speed="5.01" length="4.91" shape="4351.33,726.23 4352.40,726.23 4353.28,725.73 4353.98,724.72 4354.48,723.21"/>
     </edge>
     <edge id=":607638014_7" function="internal">
         <lane id=":607638014_7_0" index="0" disallow="pedestrian" speed="22.22" length="8.71" shape="4351.33,726.23 4359.82,728.13"/>
@@ -5978,16 +5978,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":607638014_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.98" width="3.20" shape="4360.18,726.57 4360.62,724.62 4359.16,724.28 4356.04,723.57 4356.04,723.57 4352.92,722.85 4352.11,722.71 4351.67,724.66"/>
     </edge>
     <edge id=":607684208_0" function="internal">
-        <lane id=":607684208_0_0" index="0" disallow="pedestrian" speed="5.67" length="6.76" shape="4118.47,775.79 4116.21,775.79 4114.57,776.25 4113.55,777.17 4113.15,778.54"/>
+        <lane id=":607684208_0_0" index="0" allow="delivery" speed="5.67" length="6.76" shape="4118.47,775.79 4116.21,775.79 4114.57,776.25 4113.55,777.17 4113.15,778.54"/>
     </edge>
     <edge id=":607684208_1" function="internal">
-        <lane id=":607684208_1_0" index="0" disallow="pedestrian" speed="7.38" length="11.91" shape="4118.47,775.79 4114.84,775.07 4112.33,773.66 4110.93,771.56 4110.66,768.76"/>
+        <lane id=":607684208_1_0" index="0" allow="delivery" speed="7.38" length="11.91" shape="4118.47,775.79 4114.84,775.07 4112.33,773.66 4110.93,771.56 4110.66,768.76"/>
     </edge>
     <edge id=":607684208_2" function="internal">
         <lane id=":607684208_2_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4118.47,775.79 4117.34,774.89 4117.02,774.05 4117.49,773.29 4118.75,772.60"/>
     </edge>
     <edge id=":607684208_3" function="internal">
-        <lane id=":607684208_3_0" index="0" allow="pedestrian delivery" speed="5.73" length="6.78" shape="4113.85,769.05 4114.05,770.43 4114.93,771.48 4116.50,772.21 4118.75,772.60"/>
+        <lane id=":607684208_3_0" index="0" allow="delivery" speed="5.73" length="6.78" shape="4113.85,769.05 4114.05,770.43 4114.93,771.48 4116.50,772.21 4118.75,772.60"/>
     </edge>
     <edge id=":607684208_4" function="internal">
         <lane id=":607684208_4_0" index="0" disallow="pedestrian" speed="22.22" length="9.52" shape="4113.85,769.05 4113.15,778.54"/>
@@ -6002,13 +6002,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":607684208_6_0" index="0" disallow="pedestrian" speed="22.22" length="9.63" shape="4109.96,778.36 4110.66,768.76"/>
     </edge>
     <edge id=":607684208_7" function="internal">
-        <lane id=":607684208_7_0" index="0" allow="pedestrian delivery" speed="7.33" length="4.71" shape="4109.96,778.36 4110.64,775.56 4111.86,774.20"/>
+        <lane id=":607684208_7_0" index="0" allow="delivery" speed="7.33" length="4.71" shape="4109.96,778.36 4110.64,775.56 4111.86,774.20"/>
     </edge>
     <edge id=":607684208_8" function="internal">
         <lane id=":607684208_8_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4109.96,778.36 4110.82,777.21 4111.64,776.85"/>
     </edge>
     <edge id=":607684208_10" function="internal">
-        <lane id=":607684208_10_0" index="0" allow="pedestrian delivery" speed="7.33" length="7.30" shape="4111.86,774.20 4112.34,773.67 4115.04,772.68 4118.75,772.60"/>
+        <lane id=":607684208_10_0" index="0" allow="delivery" speed="7.33" length="7.30" shape="4111.86,774.20 4112.34,773.67 4115.04,772.68 4118.75,772.60"/>
     </edge>
     <edge id=":607684208_11" function="internal">
         <lane id=":607684208_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4111.64,776.85 4112.42,777.30 4113.15,778.54"/>
@@ -6020,16 +6020,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":607684208_w1_0" index="0" allow="pedestrian" speed="1.00" length="9.71" width="2.00" shape="4109.06,768.62 4107.07,768.44 4106.36,778.16 4108.36,778.27"/>
     </edge>
     <edge id=":607684229_0" function="internal">
-        <lane id=":607684229_0_0" index="0" disallow="pedestrian" speed="5.68" length="6.74" shape="4113.83,835.15 4111.58,835.15 4109.94,835.60 4108.92,836.51 4108.51,837.87"/>
+        <lane id=":607684229_0_0" index="0" allow="delivery" speed="5.68" length="6.74" shape="4113.83,835.15 4111.58,835.15 4109.94,835.60 4108.92,836.51 4108.51,837.87"/>
     </edge>
     <edge id=":607684229_1" function="internal">
-        <lane id=":607684229_1_0" index="0" disallow="pedestrian" speed="7.39" length="11.84" shape="4113.83,835.15 4110.22,834.44 4107.71,833.05 4106.30,830.97 4106.00,828.20"/>
+        <lane id=":607684229_1_0" index="0" allow="delivery" speed="7.39" length="11.84" shape="4113.83,835.15 4110.22,834.44 4107.71,833.05 4106.30,830.97 4106.00,828.20"/>
     </edge>
     <edge id=":607684229_2" function="internal">
         <lane id=":607684229_2_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4113.83,835.15 4112.71,834.25 4112.38,833.41 4112.85,832.65 4114.12,831.96"/>
     </edge>
     <edge id=":607684229_3" function="internal">
-        <lane id=":607684229_3_0" index="0" allow="pedestrian delivery" speed="5.75" length="6.76" shape="4109.19,828.45 4109.40,829.82 4110.30,830.86 4111.87,831.57 4114.12,831.96"/>
+        <lane id=":607684229_3_0" index="0" allow="delivery" speed="5.75" length="6.76" shape="4109.19,828.45 4109.40,829.82 4110.30,830.86 4111.87,831.57 4114.12,831.96"/>
     </edge>
     <edge id=":607684229_4" function="internal">
         <lane id=":607684229_4_0" index="0" disallow="pedestrian" speed="22.22" length="9.44" shape="4109.19,828.45 4108.51,837.87"/>
@@ -6044,13 +6044,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":607684229_6_0" index="0" disallow="pedestrian" speed="22.22" length="9.48" shape="4105.31,837.66 4106.00,828.20"/>
     </edge>
     <edge id=":607684229_7" function="internal">
-        <lane id=":607684229_7_0" index="0" allow="pedestrian delivery" speed="7.33" length="4.62" shape="4105.31,837.66 4106.03,834.89 4107.21,833.58"/>
+        <lane id=":607684229_7_0" index="0" allow="delivery" speed="7.33" length="4.62" shape="4105.31,837.66 4106.03,834.89 4107.21,833.58"/>
     </edge>
     <edge id=":607684229_8" function="internal">
         <lane id=":607684229_8_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4105.31,837.66 4106.19,836.51 4107.02,836.17"/>
     </edge>
     <edge id=":607684229_10" function="internal">
-        <lane id=":607684229_10_0" index="0" allow="pedestrian delivery" speed="7.33" length="7.33" shape="4107.21,833.58 4107.73,833.02 4110.43,832.04 4114.12,831.96"/>
+        <lane id=":607684229_10_0" index="0" allow="delivery" speed="7.33" length="7.33" shape="4107.21,833.58 4107.73,833.02 4110.43,832.04 4114.12,831.96"/>
     </edge>
     <edge id=":607684229_11" function="internal">
         <lane id=":607684229_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4107.02,836.17 4107.79,836.62 4108.51,837.87"/>
@@ -6260,13 +6260,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":835806371_0_0" index="0" speed="3.65" length="4.67" shape="2940.92,881.68 2939.49,881.85 2938.66,881.50 2938.45,880.63 2938.84,879.24"/>
     </edge>
     <edge id=":837749839_0" function="internal">
-        <lane id=":837749839_0_0" index="0" disallow="pedestrian" speed="5.61" length="6.90" shape="4511.82,871.08 4513.88,872.09 4515.57,872.37 4516.88,871.93 4517.83,870.75"/>
+        <lane id=":837749839_0_0" index="0" allow="delivery" speed="5.61" length="6.90" shape="4511.82,871.08 4513.88,872.09 4515.57,872.37 4516.88,871.93 4517.83,870.75"/>
     </edge>
     <edge id=":837749839_1" function="internal">
         <lane id=":837749839_1_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4511.82,871.08 4512.43,872.39 4512.35,873.28 4511.59,873.75 4510.15,873.80"/>
     </edge>
     <edge id=":837749839_2" function="internal">
-        <lane id=":837749839_2_0" index="0" allow="pedestrian delivery" speed="6.03" length="7.02" shape="4513.69,879.19 4513.92,877.93 4513.41,876.61 4512.15,875.23 4510.15,873.80"/>
+        <lane id=":837749839_2_0" index="0" allow="delivery" speed="6.03" length="7.02" shape="4513.69,879.19 4513.92,877.93 4513.41,876.61 4512.15,875.23 4510.15,873.80"/>
     </edge>
     <edge id=":837749839_3" function="internal">
         <lane id=":837749839_3_0" index="0" disallow="pedestrian" speed="22.22" length="9.40" shape="4513.69,879.19 4517.83,870.75"/>
@@ -6552,28 +6552,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1292264830_1787023432_0_0" index="0" disallow="pedestrian" speed="13.89" length="18.95" shape="4421.82,513.86 4420.00,495.00"/>
     </edge>
     <edge id=":cluster_1292264830_1787023432_1" function="internal">
-        <lane id=":cluster_1292264830_1787023432_1_0" index="0" allow="pedestrian delivery" speed="7.71" length="4.20" shape="4421.82,513.86 4422.15,511.19 4423.05,509.98"/>
+        <lane id=":cluster_1292264830_1787023432_1_0" index="0" allow="delivery" speed="7.71" length="4.20" shape="4421.82,513.86 4422.15,511.19 4423.05,509.98"/>
     </edge>
     <edge id=":cluster_1292264830_1787023432_2" function="internal">
         <lane id=":cluster_1292264830_1787023432_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4421.82,513.86 4422.50,512.59 4423.26,512.12"/>
     </edge>
     <edge id=":cluster_1292264830_1787023432_9" function="internal">
-        <lane id=":cluster_1292264830_1787023432_9_0" index="0" allow="pedestrian delivery" speed="7.71" length="8.43" shape="4423.05,509.98 4423.71,509.09 4426.51,507.57 4430.54,506.62"/>
+        <lane id=":cluster_1292264830_1787023432_9_0" index="0" allow="delivery" speed="7.71" length="8.43" shape="4423.05,509.98 4423.71,509.09 4426.51,507.57 4430.54,506.62"/>
     </edge>
     <edge id=":cluster_1292264830_1787023432_10" function="internal">
         <lane id=":cluster_1292264830_1787023432_10_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4423.26,512.12 4424.10,512.44 4425.01,513.56"/>
     </edge>
     <edge id=":cluster_1292264830_1787023432_3" function="internal">
-        <lane id=":cluster_1292264830_1787023432_3_0" index="0" disallow="pedestrian" speed="6.16" length="7.72" shape="4430.99,509.79 4428.27,510.36 4426.36,511.17 4425.28,512.24 4425.01,513.56"/>
+        <lane id=":cluster_1292264830_1787023432_3_0" index="0" allow="delivery" speed="6.16" length="7.72" shape="4430.99,509.79 4428.27,510.36 4426.36,511.17 4425.28,512.24 4425.01,513.56"/>
     </edge>
     <edge id=":cluster_1292264830_1787023432_4" function="internal">
-        <lane id=":cluster_1292264830_1787023432_4_0" index="0" disallow="pedestrian" speed="9.42" length="20.78" shape="4430.99,509.79 4426.76,509.37 4423.53,506.76 4421.27,501.97 4420.00,495.00"/>
+        <lane id=":cluster_1292264830_1787023432_4_0" index="0" allow="delivery" speed="9.42" length="20.78" shape="4430.99,509.79 4426.76,509.37 4423.53,506.76 4421.27,501.97 4420.00,495.00"/>
     </edge>
     <edge id=":cluster_1292264830_1787023432_5" function="internal">
         <lane id=":cluster_1292264830_1787023432_5_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4430.99,509.79 4429.69,509.16 4429.18,508.43 4429.46,507.58 4430.54,506.62"/>
     </edge>
     <edge id=":cluster_1292264830_1787023432_6" function="internal">
-        <lane id=":cluster_1292264830_1787023432_6_0" index="0" allow="pedestrian delivery" speed="8.22" length="15.55" shape="4423.19,494.69 4424.11,500.24 4425.64,504.07 4427.78,506.20 4430.54,506.62"/>
+        <lane id=":cluster_1292264830_1787023432_6_0" index="0" allow="delivery" speed="8.22" length="15.55" shape="4423.19,494.69 4424.11,500.24 4425.64,504.07 4427.78,506.20 4430.54,506.62"/>
     </edge>
     <edge id=":cluster_1292264830_1787023432_7" function="internal">
         <lane id=":cluster_1292264830_1787023432_7_0" index="0" disallow="pedestrian" speed="13.89" length="18.95" shape="4423.19,494.69 4425.01,513.56"/>
@@ -6876,31 +6876,31 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1560224356_1560224368_1_0" index="0" disallow="pedestrian" speed="22.22" length="28.52" shape="4324.64,939.58 4298.89,927.33"/>
     </edge>
     <edge id=":cluster_1560224356_1560224368_2" function="internal">
-        <lane id=":cluster_1560224356_1560224368_2_0" index="0" allow="pedestrian delivery" speed="7.59" length="4.57" shape="4324.64,939.58 4322.25,937.77 4321.57,936.35"/>
+        <lane id=":cluster_1560224356_1560224368_2_0" index="0" allow="delivery" speed="7.59" length="4.57" shape="4324.64,939.58 4322.25,937.77 4321.57,936.35"/>
     </edge>
     <edge id=":cluster_1560224356_1560224368_3" function="internal">
         <lane id=":cluster_1560224356_1560224368_3_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4324.64,939.58 4323.93,938.33 4323.93,937.44"/>
     </edge>
     <edge id=":cluster_1560224356_1560224368_16" function="internal">
-        <lane id=":cluster_1560224356_1560224368_16_0" index="0" allow="pedestrian delivery" speed="7.59" length="7.98" shape="4321.57,936.35 4321.10,935.36 4321.17,932.34 4322.47,928.71"/>
+        <lane id=":cluster_1560224356_1560224368_16_0" index="0" allow="delivery" speed="7.59" length="7.98" shape="4321.57,936.35 4321.10,935.36 4321.17,932.34 4322.47,928.71"/>
     </edge>
     <edge id=":cluster_1560224356_1560224368_17" function="internal">
         <lane id=":cluster_1560224356_1560224368_17_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4323.93,937.44 4324.65,936.90 4326.08,936.73"/>
     </edge>
     <edge id=":cluster_1560224356_1560224368_4" function="internal">
-        <lane id=":cluster_1560224356_1560224368_4_0" index="0" disallow="pedestrian" speed="6.00" length="7.46" shape="4325.34,930.11 4324.47,932.41 4324.31,934.27 4324.84,935.71 4326.08,936.73"/>
+        <lane id=":cluster_1560224356_1560224368_4_0" index="0" allow="delivery" speed="6.00" length="7.46" shape="4325.34,930.11 4324.47,932.41 4324.31,934.27 4324.84,935.71 4326.08,936.73"/>
     </edge>
     <edge id=":cluster_1560224356_1560224368_5" function="internal">
-        <lane id=":cluster_1560224356_1560224368_5_0" index="0" disallow="pedestrian" speed="13.89" length="24.25" shape="4325.34,930.11 4321.84,932.12 4315.75,932.71 4308.82,933.85 4302.77,937.50"/>
+        <lane id=":cluster_1560224356_1560224368_5_0" index="0" allow="delivery" speed="13.89" length="24.25" shape="4325.34,930.11 4321.84,932.12 4315.75,932.71 4308.82,933.85 4302.77,937.50"/>
     </edge>
     <edge id=":cluster_1560224356_1560224368_6" function="internal">
-        <lane id=":cluster_1560224356_1560224368_6_0" index="0" disallow="pedestrian" speed="10.93" length="27.56" shape="4325.34,930.11 4321.47,932.00 4314.33,931.77 4306.08,930.02 4298.89,927.33"/>
+        <lane id=":cluster_1560224356_1560224368_6_0" index="0" allow="delivery" speed="10.93" length="27.56" shape="4325.34,930.11 4321.47,932.00 4314.33,931.77 4306.08,930.02 4298.89,927.33"/>
     </edge>
     <edge id=":cluster_1560224356_1560224368_7" function="internal">
         <lane id=":cluster_1560224356_1560224368_7_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4325.34,930.11 4324.10,930.84 4323.20,930.85 4322.66,930.14 4322.47,928.71"/>
     </edge>
     <edge id=":cluster_1560224356_1560224368_8" function="internal">
-        <lane id=":cluster_1560224356_1560224368_8_0" index="0" allow="pedestrian delivery" speed="10.20" length="23.88" shape="4300.31,924.47 4309.01,928.37 4315.60,930.38 4320.09,930.49 4322.47,928.71"/>
+        <lane id=":cluster_1560224356_1560224368_8_0" index="0" allow="delivery" speed="10.20" length="23.88" shape="4300.31,924.47 4309.01,928.37 4315.60,930.38 4320.09,930.49 4322.47,928.71"/>
     </edge>
     <edge id=":cluster_1560224356_1560224368_9" function="internal">
         <lane id=":cluster_1560224356_1560224368_9_0" index="0" disallow="pedestrian" speed="22.22" length="28.53" shape="4300.31,924.47 4326.08,936.73"/>
@@ -6921,7 +6921,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1560224356_1560224368_12_0" index="0" disallow="pedestrian" speed="6.26" length="10.03" shape="4300.40,935.35 4302.00,932.97 4302.29,930.84 4301.25,928.96 4298.89,927.33"/>
     </edge>
     <edge id=":cluster_1560224356_1560224368_13" function="internal">
-        <lane id=":cluster_1560224356_1560224368_13_0" index="0" allow="pedestrian delivery" speed="13.89" length="23.59" shape="4300.40,935.35 4306.37,931.82 4313.13,930.94 4319.04,930.60 4322.47,928.71"/>
+        <lane id=":cluster_1560224356_1560224368_13_0" index="0" allow="delivery" speed="13.89" length="23.59" shape="4300.40,935.35 4306.37,931.82 4313.13,930.94 4319.04,930.60 4322.47,928.71"/>
     </edge>
     <edge id=":cluster_1560224356_1560224368_14" function="internal">
         <lane id=":cluster_1560224356_1560224368_14_0" index="0" disallow="pedestrian" speed="12.24" length="27.46" shape="4300.40,935.35 4304.69,932.46 4310.41,931.73 4317.53,933.15 4326.08,936.73"/>
@@ -6942,7 +6942,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1568241251_260702783_0_0" index="0" disallow="pedestrian" speed="7.62" length="15.35" shape="4316.37,186.87 4315.31,184.01 4312.83,182.62 4308.92,182.70 4303.59,184.25"/>
     </edge>
     <edge id=":cluster_1568241251_260702783_1" function="internal">
-        <lane id=":cluster_1568241251_260702783_1_0" index="0" speed="5.55" length="18.48" shape="4316.37,186.87 4314.22,181.80 4310.24,178.93 4306.27,176.79 4304.13,173.94"/>
+        <lane id=":cluster_1568241251_260702783_1_0" index="0" disallow="pedestrian" speed="5.55" length="18.48" shape="4316.37,186.87 4314.22,181.80 4310.24,178.93 4306.27,176.79 4304.13,173.94"/>
     </edge>
     <edge id=":cluster_1568241251_260702783_2" function="internal">
         <lane id=":cluster_1568241251_260702783_2_0" index="0" disallow="pedestrian" speed="8.00" length="14.18" shape="4316.37,186.87 4316.55,182.99 4317.93,180.10 4320.51,178.19 4324.28,177.27"/>
@@ -6957,7 +6957,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1568241251_260702783_5_0" index="0" disallow="pedestrian" speed="8.33" length="21.45" shape="4324.59,180.46 4318.42,180.96 4313.86,181.39 4309.42,182.30 4303.59,184.25"/>
     </edge>
     <edge id=":cluster_1568241251_260702783_6" function="internal">
-        <lane id=":cluster_1568241251_260702783_6_0" index="0" speed="5.55" length="12.39" shape="4324.59,180.46 4318.49,180.32 4312.32,179.10"/>
+        <lane id=":cluster_1568241251_260702783_6_0" index="0" disallow="pedestrian" speed="5.55" length="12.39" shape="4324.59,180.46 4318.49,180.32 4312.32,179.10"/>
     </edge>
     <edge id=":cluster_1568241251_260702783_7" function="internal">
         <lane id=":cluster_1568241251_260702783_7_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4324.59,180.46 4323.32,179.78 4322.84,179.02"/>
@@ -6966,7 +6966,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1568241251_260702783_16_0" index="0" disallow="pedestrian" speed="6.51" length="4.28" shape="4320.45,182.46 4319.67,184.10 4319.55,186.57"/>
     </edge>
     <edge id=":cluster_1568241251_260702783_17" function="internal">
-        <lane id=":cluster_1568241251_260702783_17_0" index="0" speed="5.55" length="9.95" shape="4312.32,179.10 4311.95,179.03 4306.62,176.82 4304.13,173.94"/>
+        <lane id=":cluster_1568241251_260702783_17_0" index="0" disallow="pedestrian" speed="5.55" length="9.95" shape="4312.32,179.10 4311.95,179.03 4306.62,176.82 4304.13,173.94"/>
     </edge>
     <edge id=":cluster_1568241251_260702783_18" function="internal">
         <lane id=":cluster_1568241251_260702783_18_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4322.84,179.02 4323.16,178.19 4324.28,177.27"/>
@@ -6984,7 +6984,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1568241251_260702783_11_0" index="0" speed="2.78" length="4.67" shape="4307.29,173.41 4306.70,174.73 4305.98,175.25 4305.12,174.99 4304.13,173.94"/>
     </edge>
     <edge id=":cluster_1568241251_260702783_12" function="internal">
-        <lane id=":cluster_1568241251_260702783_12_0" index="0" speed="5.55" length="8.05" shape="4302.46,181.26 4303.58,180.41 4304.24,178.91 4304.42,176.75 4304.13,173.94"/>
+        <lane id=":cluster_1568241251_260702783_12_0" index="0" disallow="pedestrian" speed="5.55" length="8.05" shape="4302.46,181.26 4303.58,180.41 4304.24,178.91 4304.42,176.75 4304.13,173.94"/>
     </edge>
     <edge id=":cluster_1568241251_260702783_13" function="internal">
         <lane id=":cluster_1568241251_260702783_13_0" index="0" disallow="pedestrian" speed="8.33" length="22.29" shape="4302.46,181.26 4308.41,179.28 4313.14,178.30 4317.99,177.81 4324.28,177.27"/>
@@ -7023,7 +7023,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1568241274_735390335_0_0" index="0" disallow="pedestrian" speed="8.33" length="18.53" shape="4210.81,225.17 4209.43,222.77 4206.19,221.78 4201.06,222.19 4194.06,224.01"/>
     </edge>
     <edge id=":cluster_1568241274_735390335_1" function="internal">
-        <lane id=":cluster_1568241274_735390335_1_0" index="0" allow="pedestrian delivery" speed="6.95" length="20.13" shape="4210.81,225.17 4207.95,220.21 4202.86,218.15 4197.78,216.95 4194.95,214.58"/>
+        <lane id=":cluster_1568241274_735390335_1_0" index="0" allow="delivery" speed="6.95" length="20.13" shape="4210.81,225.17 4207.95,220.21 4202.86,218.15 4197.78,216.95 4194.95,214.58"/>
     </edge>
     <edge id=":cluster_1568241274_735390335_2" function="internal">
         <lane id=":cluster_1568241274_735390335_2_0" index="0" disallow="pedestrian" speed="8.33" length="13.96" shape="4210.81,225.17 4210.70,221.15 4211.62,217.90 4213.56,215.43 4216.53,213.73"/>
@@ -7038,7 +7038,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1568241274_735390335_5_0" index="0" disallow="pedestrian" speed="8.33" length="24.70" shape="4217.66,216.72 4194.06,224.01"/>
     </edge>
     <edge id=":cluster_1568241274_735390335_6" function="internal">
-        <lane id=":cluster_1568241274_735390335_6_0" index="0" allow="pedestrian delivery" speed="6.95" length="16.71" shape="4217.66,216.72 4211.29,218.20 4204.12,218.49 4201.17,217.94"/>
+        <lane id=":cluster_1568241274_735390335_6_0" index="0" allow="delivery" speed="6.95" length="16.71" shape="4217.66,216.72 4211.29,218.20 4204.12,218.49 4201.17,217.94"/>
     </edge>
     <edge id=":cluster_1568241274_735390335_7" function="internal">
         <lane id=":cluster_1568241274_735390335_7_0" index="0" disallow="pedestrian" speed="3.65" length="2.44" shape="4217.66,216.72 4216.25,216.40 4215.60,215.79 4215.61,215.68"/>
@@ -7047,25 +7047,25 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1568241274_735390335_16_0" index="0" disallow="pedestrian" speed="7.28" length="4.11" shape="4214.18,220.65 4213.88,221.87 4213.98,224.72"/>
     </edge>
     <edge id=":cluster_1568241274_735390335_17" function="internal">
-        <lane id=":cluster_1568241274_735390335_17_0" index="0" allow="pedestrian delivery" speed="6.95" length="7.34" shape="4201.17,217.94 4198.04,217.35 4194.95,214.58"/>
+        <lane id=":cluster_1568241274_735390335_17_0" index="0" allow="delivery" speed="6.95" length="7.34" shape="4201.17,217.94 4198.04,217.35 4194.95,214.58"/>
     </edge>
     <edge id=":cluster_1568241274_735390335_18" function="internal">
         <lane id=":cluster_1568241274_735390335_18_0" index="0" disallow="pedestrian" speed="3.65" length="2.23" shape="4215.61,215.68 4215.69,214.90 4216.53,213.73"/>
     </edge>
     <edge id=":cluster_1568241274_735390335_8" function="internal">
-        <lane id=":cluster_1568241274_735390335_8_0" index="0" disallow="pedestrian" speed="6.95" length="20.18" shape="4198.04,213.77 4199.82,216.13 4203.49,216.91 4209.06,216.11 4216.53,213.73"/>
+        <lane id=":cluster_1568241274_735390335_8_0" index="0" allow="delivery" speed="6.95" length="20.18" shape="4198.04,213.77 4199.82,216.13 4203.49,216.91 4209.06,216.11 4216.53,213.73"/>
     </edge>
     <edge id=":cluster_1568241274_735390335_9" function="internal">
-        <lane id=":cluster_1568241274_735390335_9_0" index="0" disallow="pedestrian" speed="6.95" length="20.38" shape="4198.04,213.77 4200.88,216.17 4205.98,217.47 4211.10,219.65 4213.98,224.72"/>
+        <lane id=":cluster_1568241274_735390335_9_0" index="0" allow="delivery" speed="6.95" length="20.38" shape="4198.04,213.77 4200.88,216.17 4205.98,217.47 4211.10,219.65 4213.98,224.72"/>
     </edge>
     <edge id=":cluster_1568241274_735390335_10" function="internal">
-        <lane id=":cluster_1568241274_735390335_10_0" index="0" disallow="pedestrian" speed="6.95" length="12.33" shape="4198.04,213.77 4198.61,217.52 4198.14,220.47 4196.62,222.64 4194.06,224.01"/>
+        <lane id=":cluster_1568241274_735390335_10_0" index="0" allow="delivery" speed="6.95" length="12.33" shape="4198.04,213.77 4198.61,217.52 4198.14,220.47 4196.62,222.64 4194.06,224.01"/>
     </edge>
     <edge id=":cluster_1568241274_735390335_11" function="internal">
         <lane id=":cluster_1568241274_735390335_11_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4198.04,213.77 4197.57,215.13 4196.90,215.72 4196.03,215.54 4194.95,214.58"/>
     </edge>
     <edge id=":cluster_1568241274_735390335_12" function="internal">
-        <lane id=":cluster_1568241274_735390335_12_0" index="0" allow="pedestrian delivery" speed="6.06" length="7.39" shape="4193.09,220.96 4194.43,220.17 4195.19,218.85 4195.36,216.99 4194.95,214.58"/>
+        <lane id=":cluster_1568241274_735390335_12_0" index="0" allow="delivery" speed="6.06" length="7.39" shape="4193.09,220.96 4194.43,220.17 4195.19,218.85 4195.36,216.99 4194.95,214.58"/>
     </edge>
     <edge id=":cluster_1568241274_735390335_13" function="internal">
         <lane id=":cluster_1568241274_735390335_13_0" index="0" disallow="pedestrian" speed="8.33" length="24.53" shape="4193.09,220.96 4216.53,213.73"/>
@@ -7155,28 +7155,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1568241686_2177702824_0_0" index="0" disallow="pedestrian" speed="22.22" length="13.09" shape="4160.00,914.15 4146.92,914.82"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_1" function="internal">
-        <lane id=":cluster_1568241686_2177702824_1_0" index="0" allow="pedestrian delivery" speed="13.89" length="5.57" shape="4160.00,914.15 4155.45,913.40 4154.69,912.82"/>
+        <lane id=":cluster_1568241686_2177702824_1_0" index="0" allow="delivery" speed="13.89" length="5.57" shape="4160.00,914.15 4155.45,913.40 4154.69,912.82"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_2" function="internal">
-        <lane id=":cluster_1568241686_2177702824_2_0" index="0" allow="pedestrian delivery" speed="8.41" length="3.93" shape="4160.00,914.15 4157.12,913.46 4156.48,912.73"/>
+        <lane id=":cluster_1568241686_2177702824_2_0" index="0" allow="delivery" speed="8.41" length="3.93" shape="4160.00,914.15 4157.12,913.46 4156.48,912.73"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_3" function="internal">
         <lane id=":cluster_1568241686_2177702824_3_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4160.00,914.15 4158.76,913.41 4158.32,912.63"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_16" function="internal">
-        <lane id=":cluster_1568241686_2177702824_16_0" index="0" allow="pedestrian delivery" speed="13.89" length="10.17" shape="4154.69,912.82 4152.48,911.14 4150.17,908.25 4147.61,905.59"/>
+        <lane id=":cluster_1568241686_2177702824_16_0" index="0" allow="delivery" speed="13.89" length="10.17" shape="4154.69,912.82 4152.48,911.14 4150.17,908.25 4147.61,905.59"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_17" function="internal">
-        <lane id=":cluster_1568241686_2177702824_17_0" index="0" allow="pedestrian delivery" speed="8.41" length="12.33" shape="4156.48,912.73 4155.04,911.07 4153.76,906.96 4153.29,901.15"/>
+        <lane id=":cluster_1568241686_2177702824_17_0" index="0" allow="delivery" speed="8.41" length="12.33" shape="4156.48,912.73 4155.04,911.07 4153.76,906.96 4153.29,901.15"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_18" function="internal">
         <lane id=":cluster_1568241686_2177702824_18_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="4158.32,912.63 4158.68,911.81 4159.84,910.95"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_4" function="internal">
-        <lane id=":cluster_1568241686_2177702824_4_0" index="0" disallow="pedestrian" speed="7.07" length="11.16" shape="4156.49,901.11 4156.74,905.48 4157.38,908.58 4158.42,910.40 4159.84,910.95"/>
+        <lane id=":cluster_1568241686_2177702824_4_0" index="0" allow="delivery" speed="7.07" length="11.16" shape="4156.49,901.11 4156.74,905.48 4157.38,908.58 4158.42,910.40 4159.84,910.95"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_5" function="internal">
-        <lane id=":cluster_1568241686_2177702824_5_0" index="0" disallow="pedestrian" speed="9.26" length="18.78" shape="4156.49,901.11 4155.95,906.92 4154.17,911.14 4151.16,913.77 4146.92,914.82"/>
+        <lane id=":cluster_1568241686_2177702824_5_0" index="0" allow="delivery" speed="9.26" length="18.78" shape="4156.49,901.11 4155.95,906.92 4154.17,911.14 4151.16,913.77 4146.92,914.82"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_6" function="internal">
         <lane id=":cluster_1568241686_2177702824_6_0" index="0" allow="pedestrian delivery" speed="5.56" length="14.68" shape="4156.49,901.11 4155.98,905.63 4154.33,907.89 4151.54,907.87 4147.61,905.59"/>
@@ -7188,19 +7188,19 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1568241686_2177702824_8_0" index="0" allow="pedestrian delivery" speed="4.66" length="6.19" shape="4149.54,903.04 4151.20,904.00 4152.38,904.01 4153.07,903.06 4153.29,901.15"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_9" function="internal">
-        <lane id=":cluster_1568241686_2177702824_9_0" index="0" disallow="pedestrian" speed="13.26" length="13.63" shape="4149.54,903.04 4151.92,905.59 4153.75,908.25 4156.05,910.28 4159.84,910.95"/>
+        <lane id=":cluster_1568241686_2177702824_9_0" index="0" allow="delivery" speed="13.26" length="13.63" shape="4149.54,903.04 4151.92,905.59 4153.75,908.25 4156.05,910.28 4159.84,910.95"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_10" function="internal">
-        <lane id=":cluster_1568241686_2177702824_10_0" index="0" disallow="pedestrian" speed="7.58" length="21.04" shape="4149.54,903.04 4154.77,907.86 4156.08,911.44 4153.46,913.75 4146.92,914.82"/>
+        <lane id=":cluster_1568241686_2177702824_10_0" index="0" allow="delivery" speed="7.58" length="21.04" shape="4149.54,903.04 4154.77,907.86 4156.08,911.44 4153.46,913.75 4146.92,914.82"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_11" function="internal">
         <lane id=":cluster_1568241686_2177702824_11_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="4149.54,903.04 4150.01,904.40 4149.85,905.28 4149.05,905.67 4147.61,905.59"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_12" function="internal">
-        <lane id=":cluster_1568241686_2177702824_12_0" index="0" allow="pedestrian delivery" speed="5.57" length="10.54" shape="4146.76,911.62 4149.91,911.08 4151.10,909.90 4150.33,908.07 4147.61,905.59"/>
+        <lane id=":cluster_1568241686_2177702824_12_0" index="0" allow="delivery" speed="5.57" length="10.54" shape="4146.76,911.62 4149.91,911.08 4151.10,909.90 4150.33,908.07 4147.61,905.59"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_13" function="internal">
-        <lane id=":cluster_1568241686_2177702824_13_0" index="0" allow="pedestrian delivery" speed="8.01" length="13.79" shape="4146.76,911.62 4149.66,910.84 4151.71,908.83 4152.92,905.60 4153.29,901.15"/>
+        <lane id=":cluster_1568241686_2177702824_13_0" index="0" allow="delivery" speed="8.01" length="13.79" shape="4146.76,911.62 4149.66,910.84 4151.71,908.83 4152.92,905.60 4153.29,901.15"/>
     </edge>
     <edge id=":cluster_1568241686_2177702824_14" function="internal">
         <lane id=":cluster_1568241686_2177702824_14_0" index="0" disallow="pedestrian" speed="22.22" length="13.10" shape="4146.76,911.62 4159.84,910.95"/>
@@ -7221,19 +7221,19 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1877998863_456893957_w0_0" index="0" allow="pedestrian" speed="1.00" length="11.90" width="3.20" shape="3811.67,948.19 3814.87,948.15 3816.27,933.93 3816.14,930.73 3813.93,928.55 3810.88,929.52 3809.83,931.02 3809.98,934.21 3808.25,945.73 3810.67,947.83 3811.62,947.95 3811.48,947.77 3811.30,947.66 3811.08,947.62 3810.86,947.68"/>
     </edge>
     <edge id=":cluster_2222976660_35215926_0" function="internal">
-        <lane id=":cluster_2222976660_35215926_0_0" index="0" disallow="pedestrian" speed="6.63" length="9.74" shape="3253.05,318.32 3251.51,316.09 3249.65,314.92 3247.48,314.80 3245.00,315.75"/>
+        <lane id=":cluster_2222976660_35215926_0_0" index="0" allow="delivery" speed="6.63" length="9.74" shape="3253.05,318.32 3251.51,316.09 3249.65,314.92 3247.48,314.80 3245.00,315.75"/>
     </edge>
     <edge id=":cluster_2222976660_35215926_1" function="internal">
-        <lane id=":cluster_2222976660_35215926_1_0" index="0" disallow="pedestrian" speed="6.95" length="15.49" shape="3253.05,318.32 3244.92,305.13"/>
+        <lane id=":cluster_2222976660_35215926_1_0" index="0" allow="delivery" speed="6.95" length="15.49" shape="3253.05,318.32 3244.92,305.13"/>
     </edge>
     <edge id=":cluster_2222976660_35215926_2" function="internal">
-        <lane id=":cluster_2222976660_35215926_2_0" index="0" disallow="pedestrian" speed="7.70" length="12.63" shape="3253.05,318.32 3251.54,314.47 3251.19,311.31 3252.03,308.83 3254.04,307.03"/>
+        <lane id=":cluster_2222976660_35215926_2_0" index="0" allow="delivery" speed="7.70" length="12.63" shape="3253.05,318.32 3251.54,314.47 3251.19,311.31 3252.03,308.83 3254.04,307.03"/>
     </edge>
     <edge id=":cluster_2222976660_35215926_3" function="internal">
         <lane id=":cluster_2222976660_35215926_3_0" index="0" allow="pedestrian delivery" speed="3.65" length="4.67" shape="3253.05,318.32 3253.23,316.89 3253.76,316.17 3254.66,316.17 3255.91,316.88"/>
     </edge>
     <edge id=":cluster_2222976660_35215926_4" function="internal">
-        <lane id=":cluster_2222976660_35215926_4_0" index="0" allow="pedestrian delivery" speed="6.16" length="7.71" shape="3255.60,309.82 3254.67,310.79 3254.42,312.29 3254.83,314.32 3255.91,316.88"/>
+        <lane id=":cluster_2222976660_35215926_4_0" index="0" allow="delivery" speed="6.16" length="7.71" shape="3255.60,309.82 3254.67,310.79 3254.42,312.29 3254.83,314.32 3255.91,316.88"/>
     </edge>
     <edge id=":cluster_2222976660_35215926_5" function="internal">
         <lane id=":cluster_2222976660_35215926_5_0" index="0" disallow="pedestrian" speed="13.89" length="12.14" shape="3255.60,309.82 3245.00,315.75"/>
@@ -7257,7 +7257,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_2222976660_35215926_9_0" index="0" disallow="pedestrian" speed="13.89" length="12.14" shape="3243.44,312.96 3254.04,307.03"/>
     </edge>
     <edge id=":cluster_2222976660_35215926_10" function="internal">
-        <lane id=":cluster_2222976660_35215926_10_0" index="0" allow="pedestrian delivery" speed="7.87" length="6.02" shape="3243.44,312.96 3246.72,312.12 3249.33,312.51"/>
+        <lane id=":cluster_2222976660_35215926_10_0" index="0" allow="delivery" speed="7.87" length="6.02" shape="3243.44,312.96 3246.72,312.12 3249.33,312.51"/>
     </edge>
     <edge id=":cluster_2222976660_35215926_11" function="internal">
         <lane id=":cluster_2222976660_35215926_11_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3243.44,312.96 3244.88,313.07 3245.62,313.57"/>
@@ -7266,7 +7266,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_2222976660_35215926_14_0" index="0" disallow="pedestrian" speed="6.53" length="4.17" shape="3245.99,309.10 3245.93,307.63 3244.92,305.13"/>
     </edge>
     <edge id=":cluster_2222976660_35215926_15" function="internal">
-        <lane id=":cluster_2222976660_35215926_15_0" index="0" allow="pedestrian delivery" speed="7.87" length="8.15" shape="3249.33,312.51 3250.37,312.66 3253.67,314.32 3255.91,316.88"/>
+        <lane id=":cluster_2222976660_35215926_15_0" index="0" allow="delivery" speed="7.87" length="8.15" shape="3249.33,312.51 3250.37,312.66 3253.67,314.32 3255.91,316.88"/>
     </edge>
     <edge id=":cluster_2222976660_35215926_16" function="internal">
         <lane id=":cluster_2222976660_35215926_16_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="3245.62,313.57 3245.66,314.47 3245.00,315.75"/>
@@ -7454,28 +7454,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_0_1" index="1" disallow="pedestrian" speed="13.89" length="16.15" shape="4546.92,682.71 4531.36,677.86"/>
     </edge>
     <edge id=":cluster_56231598_56242441_945141647_945141732_945141877_2" function="internal">
-        <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_2_0" index="0" allow="pedestrian delivery" speed="11.11" length="19.88" shape="4546.92,682.71 4549.06,681.66 4551.12,676.88 4553.12,668.34 4553.66,664.86"/>
+        <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_2_0" index="0" allow="delivery" speed="11.11" length="19.88" shape="4546.92,682.71 4549.06,681.66 4551.12,676.88 4553.12,668.34 4553.66,664.86"/>
     </edge>
     <edge id=":cluster_56231598_56242441_945141647_945141732_945141877_3" function="internal">
         <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_3_0" index="0" disallow="pedestrian" speed="4.69" length="6.25" shape="4546.92,682.71 4545.29,680.38 4545.13,678.62 4546.35,677.52"/>
     </edge>
     <edge id=":cluster_56231598_56242441_945141647_945141732_945141877_11" function="internal">
-        <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_11_0" index="0" allow="pedestrian delivery" speed="11.11" length="8.92" shape="4553.66,664.86 4555.04,656.06"/>
+        <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_11_0" index="0" allow="delivery" speed="11.11" length="8.92" shape="4553.66,664.86 4555.04,656.06"/>
     </edge>
     <edge id=":cluster_56231598_56242441_945141647_945141732_945141877_12" function="internal">
         <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_12_0" index="0" disallow="pedestrian" speed="4.69" length="2.95" shape="4546.35,677.52 4546.44,677.44 4549.21,676.84"/>
     </edge>
     <edge id=":cluster_56231598_56242441_945141647_945141732_945141877_4" function="internal">
-        <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_4_0" index="0" disallow="pedestrian" speed="8.31" length="19.54" shape="4558.62,657.70 4553.30,664.10 4550.15,668.92 4549.18,672.18 4550.38,673.86"/>
+        <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_4_0" index="0" allow="delivery" speed="8.31" length="19.54" shape="4558.62,657.70 4553.30,664.10 4550.15,668.92 4549.18,672.18 4550.38,673.86"/>
     </edge>
     <edge id=":cluster_56231598_56242441_945141647_945141732_945141877_5" function="internal">
-        <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_5_0" index="0" disallow="pedestrian" speed="11.11" length="34.80" shape="4558.62,657.70 4549.47,667.32 4541.87,673.88 4535.84,677.40 4531.36,677.86"/>
+        <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_5_0" index="0" allow="delivery" speed="11.11" length="34.80" shape="4558.62,657.70 4549.47,667.32 4541.87,673.88 4535.84,677.40 4531.36,677.86"/>
     </edge>
     <edge id=":cluster_56231598_56242441_945141647_945141732_945141877_6" function="internal">
         <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_6_0" index="0" allow="pedestrian delivery" speed="4.27" length="5.75" shape="4558.62,657.70 4557.11,658.63 4556.00,658.67 4555.31,657.81 4555.04,656.06"/>
     </edge>
     <edge id=":cluster_56231598_56242441_945141647_945141732_945141877_7" function="internal">
-        <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_7_0" index="0" allow="pedestrian delivery" speed="10.57" length="28.56" shape="4534.16,668.10 4542.42,669.40 4548.65,667.83 4552.86,663.38 4555.04,656.06"/>
+        <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_7_0" index="0" allow="delivery" speed="10.57" length="28.56" shape="4534.16,668.10 4542.42,669.40 4548.65,667.83 4552.86,663.38 4555.04,656.06"/>
     </edge>
     <edge id=":cluster_56231598_56242441_945141647_945141732_945141877_8" function="internal">
         <lane id=":cluster_56231598_56242441_945141647_945141732_945141877_8_0" index="0" disallow="pedestrian" speed="13.89" length="17.07" shape="4534.16,668.10 4550.38,673.86"/>

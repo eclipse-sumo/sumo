@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 23:29:51 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Wed Jan 29 12:11:44 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -31,8 +32,8 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="100.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" speed="13.89" length="3.00" width="1.00" shape="44.50,-3.50 47.50,-3.50"/>
-        <lane id=":gneJ0_0_1" index="1" speed="13.89" length="3.00" width="3.00" shape="44.50,-1.50 47.50,-1.50"/>
+        <lane id=":gneJ0_0_0" index="0" allow="bicycle" speed="13.89" length="3.00" width="1.00" shape="44.50,-3.50 47.50,-3.50"/>
+        <lane id=":gneJ0_0_1" index="1" disallow="bicycle" speed="13.89" length="3.00" width="3.00" shape="44.50,-1.50 47.50,-1.50"/>
     </edge>
 
     <edge id="beg" from="W" to="gneJ0" priority="2">

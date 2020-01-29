@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 23:30:30 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Wed Jan 29 12:12:06 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
@@ -115,10 +116,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":829260313_11_0" index="0" disallow="rail_urban rail rail_electric" speed="3.65" length="2.22" shape="80.66,50.90 81.07,51.56 81.13,53.00"/>
     </edge>
     <edge id=":829260314_0" function="internal">
-        <lane id=":829260314_0_0" index="0" disallow="rail_urban rail rail_electric" speed="4.78" length="4.88" shape="81.50,57.94 80.41,56.99 79.36,56.63 78.35,56.87 77.37,57.71"/>
+        <lane id=":829260314_0_0" index="0" allow="pedestrian delivery bicycle" speed="4.78" length="4.88" shape="81.50,57.94 80.41,56.99 79.36,56.63 78.35,56.87 77.37,57.71"/>
     </edge>
     <edge id=":829260314_1" function="internal">
-        <lane id=":829260314_1_0" index="0" disallow="rail_urban rail rail_electric" speed="6.67" length="7.50" shape="81.50,57.94 79.71,55.75 78.57,53.94 78.10,52.53 78.29,51.50"/>
+        <lane id=":829260314_1_0" index="0" allow="pedestrian delivery bicycle" speed="6.67" length="7.50" shape="81.50,57.94 79.71,55.75 78.57,53.94 78.10,52.53 78.29,51.50"/>
     </edge>
     <edge id=":829260314_2" function="internal">
         <lane id=":829260314_2_0" index="0" allow="pedestrian delivery bicycle" speed="3.73" length="4.70" shape="81.50,57.94 81.30,56.50 81.63,55.67 82.50,55.43 83.91,55.80"/>

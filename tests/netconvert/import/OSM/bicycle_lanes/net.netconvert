@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 23:30:14 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Wed Jan 29 12:11:57 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -74,10 +75,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560223378_0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="2940.26,187.84 2938.99,187.16 2938.51,186.40 2938.83,185.57 2939.95,184.65"/>
     </edge>
     <edge id=":1665723004_0" function="internal">
-        <lane id=":1665723004_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="7.83" length="9.09" shape="571.37,676.71 570.60,679.15 570.47,681.40 570.97,683.45 572.11,685.30"/>
+        <lane id=":1665723004_0_0" index="0" allow="bicycle" speed="7.83" length="9.09" shape="571.37,676.71 570.60,679.15 570.47,681.40 570.97,683.45 572.11,685.30"/>
     </edge>
     <edge id=":1665723004_1" function="internal">
-        <lane id=":1665723004_1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="3.21" length="4.67" shape="571.37,676.71 570.17,677.50 569.27,677.55 568.69,676.87 568.43,675.45"/>
+        <lane id=":1665723004_1_0" index="0" allow="bicycle" speed="3.21" length="4.67" shape="571.37,676.71 570.17,677.50 569.27,677.55 568.69,676.87 568.43,675.45"/>
     </edge>
     <edge id=":1665723004_2" function="internal">
         <lane id=":1665723004_2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="5.59" length="8.74" shape="562.85,675.78 564.90,677.79 566.68,678.47 568.19,677.84 569.44,675.88"/>

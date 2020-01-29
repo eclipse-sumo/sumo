@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar  8 09:06:33 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
+<!-- generated on Wed Jan 29 12:11:44 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -155,16 +156,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_43_0" index="0" speed="4.72" length="3.38" shape="78.62,102.76 78.40,103.20 76.00,104.80"/>
     </edge>
     <edge id=":E_0" function="internal">
-        <lane id=":E_0_0" index="0" speed="3.65" length="4.67" shape="183.25,16.03 184.67,15.76 185.51,16.05 185.79,16.90 185.49,18.31"/>
+        <lane id=":E_0_0" index="0" disallow="all" speed="3.65" length="4.67" shape="183.25,16.03 184.67,15.76 185.51,16.05 185.79,16.90 185.49,18.31"/>
     </edge>
     <edge id=":N_0" function="internal">
-        <lane id=":N_0_0" index="0" speed="3.65" length="4.67" shape="101.60,200.00 100.80,201.20 100.00,201.60 99.20,201.20 98.40,200.00"/>
+        <lane id=":N_0_0" index="0" disallow="all" speed="3.65" length="4.67" shape="101.60,200.00 100.80,201.20 100.00,201.60 99.20,201.20 98.40,200.00"/>
     </edge>
     <edge id=":S_0" function="internal">
-        <lane id=":S_0_0" index="0" speed="3.65" length="4.67" shape="98.40,0.00 99.20,-1.20 100.00,-1.60 100.80,-1.20 101.60,0.00"/>
+        <lane id=":S_0_0" index="0" disallow="all" speed="3.65" length="4.67" shape="98.40,0.00 99.20,-1.20 100.00,-1.60 100.80,-1.20 101.60,0.00"/>
     </edge>
     <edge id=":W_0" function="internal">
-        <lane id=":W_0_0" index="0" speed="3.65" length="4.67" shape="0.00,101.60 -1.20,100.80 -1.60,100.00 -1.20,99.20 0.00,98.40"/>
+        <lane id=":W_0_0" index="0" disallow="all" speed="3.65" length="4.67" shape="0.00,101.60 -1.20,100.80 -1.60,100.00 -1.20,99.20 0.00,98.40"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="2">

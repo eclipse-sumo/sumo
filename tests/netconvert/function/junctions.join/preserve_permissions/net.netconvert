@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Feb 15 13:34:39 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Wed Jan 29 12:12:01 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -37,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_301292612_38919945_56231397_59993001_0_0" index="0" allow="vip" speed="18.05" length="24.71" shape="49.55,61.58 42.78,58.66 36.33,56.33 30.64,54.69 26.16,53.86"/>
     </edge>
     <edge id=":cluster_301292612_38919945_56231397_59993001_1" function="internal">
-        <lane id=":cluster_301292612_38919945_56231397_59993001_1_0" index="0" speed="11.61" length="26.57" shape="50.89,58.68 43.59,54.42 38.80,49.68 36.54,44.47 36.79,38.77"/>
+        <lane id=":cluster_301292612_38919945_56231397_59993001_1_0" index="0" allow="vip" speed="11.61" length="26.57" shape="50.89,58.68 43.59,54.42 38.80,49.68 36.54,44.47 36.79,38.77"/>
     </edge>
     <edge id=":cluster_301292612_38919945_56231397_59993001_2" function="internal">
         <lane id=":cluster_301292612_38919945_56231397_59993001_2_0" index="0" allow="vip" speed="4.91" length="5.14" shape="50.89,58.68 49.22,55.98 49.16,54.01"/>
@@ -61,7 +62,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_301292612_38919945_56231397_59993001_11_0" index="0" speed="6.34" length="4.29" shape="38.21,42.82 36.79,38.77"/>
     </edge>
     <edge id=":cluster_301292612_38919945_56231397_59993001_6" function="internal">
-        <lane id=":cluster_301292612_38919945_56231397_59993001_6_0" index="0" speed="6.96" length="9.35" shape="27.27,43.50 29.50,43.36 31.32,42.39 32.71,40.59 33.69,37.98"/>
+        <lane id=":cluster_301292612_38919945_56231397_59993001_6_0" index="0" allow="vip" speed="6.96" length="9.35" shape="27.27,43.50 29.50,43.36 31.32,42.39 32.71,40.59 33.69,37.98"/>
     </edge>
     <edge id=":cluster_301292612_38919945_56231397_59993001_7" function="internal">
         <lane id=":cluster_301292612_38919945_56231397_59993001_7_0" index="0" allow="vip" speed="18.05" length="28.03" shape="27.27,43.50 32.24,44.51 39.00,46.53 46.54,49.23 53.82,52.28"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 11 13:08:32 2019 by Eclipse SUMO netconvert Version v1_3_1+0580-e6dd46c
+<!-- generated on Wed Jan 29 12:11:57 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -80,7 +81,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":3790696291_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="404.47,197.38 404.27,197.61"/>
     </edge>
     <edge id=":3790696292_0" function="internal">
-        <lane id=":3790696292_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="4.87" length="4.68" shape="392.22,197.34 393.21,197.99 394.22,198.13 395.24,197.74 396.27,196.82"/>
+        <lane id=":3790696292_0_0" index="0" allow="pedestrian delivery bicycle" speed="4.87" length="4.68" shape="392.22,197.34 393.21,197.99 394.22,198.13 395.24,197.74 396.27,196.82"/>
     </edge>
     <edge id=":3790696292_1" function="internal">
         <lane id=":3790696292_1_0" index="0" allow="pedestrian delivery bicycle" speed="3.65" length="4.67" shape="392.22,197.34 392.55,198.74 392.30,199.60 391.46,199.91 390.04,199.68"/>
@@ -147,7 +148,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":3815833413_0_0" index="0" allow="pedestrian bicycle" speed="2.78" length="2.92" width="2.00" shape="391.14,229.41 391.94,229.00 392.50,229.04 392.81,229.50 392.88,230.40"/>
     </edge>
     <edge id=":3815833414_0" function="internal">
-        <lane id=":3815833414_0_0" index="0" allow="pedestrian bicycle" speed="5.55" length="6.39" width="2.00" shape="361.68,232.37 363.13,232.19 364.46,231.57 365.68,230.52 366.79,229.03"/>
+        <lane id=":3815833414_0_0" index="0" allow="bicycle" speed="5.55" length="6.39" width="2.00" shape="361.68,232.37 363.13,232.19 364.46,231.57 365.68,230.52 366.79,229.03"/>
     </edge>
     <edge id=":3815833414_1" function="internal">
         <lane id=":3815833414_1_0" index="0" allow="bicycle" speed="2.04" length="1.46" width="1.00" shape="361.68,232.37 362.05,232.63 362.17,232.89 362.04,233.13 361.66,233.37"/>
@@ -188,13 +189,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":3971103570_11_0" index="0" allow="pedestrian delivery bicycle" speed="3.65" length="2.34" shape="388.61,196.25 387.79,196.62 386.36,196.49"/>
     </edge>
     <edge id=":3971103570_6" function="internal">
-        <lane id=":3971103570_6_0" index="0" allow="pedestrian delivery bicycle" speed="4.17" length="4.60" shape="386.31,200.54 387.06,199.36 387.32,198.29 387.08,197.33 386.36,196.49"/>
+        <lane id=":3971103570_6_0" index="0" allow="pedestrian bicycle" speed="4.17" length="4.60" shape="386.31,200.54 387.06,199.36 387.32,198.29 387.08,197.33 386.36,196.49"/>
     </edge>
     <edge id=":3971103570_7" function="internal">
         <lane id=":3971103570_7_0" index="0" allow="pedestrian bicycle" speed="2.78" length="9.48" width="2.00" shape="386.31,200.54 392.31,193.20"/>
     </edge>
     <edge id=":3971103570_8" function="internal">
-        <lane id=":3971103570_8_0" index="0" allow="pedestrian delivery bicycle" speed="4.17" length="7.27" shape="386.31,200.54 388.17,198.47 389.75,197.22 391.05,196.80 392.07,197.20"/>
+        <lane id=":3971103570_8_0" index="0" allow="pedestrian bicycle" speed="4.17" length="7.27" shape="386.31,200.54 388.17,198.47 389.75,197.22 391.05,196.80 392.07,197.20"/>
     </edge>
     <edge id=":3971103577_0" function="internal">
         <lane id=":3971103577_0_0" index="0" allow="pedestrian delivery bicycle" speed="3.65" length="4.67" shape="319.66,171.02 318.23,171.23 317.40,170.91 317.16,170.05 317.51,168.65"/>

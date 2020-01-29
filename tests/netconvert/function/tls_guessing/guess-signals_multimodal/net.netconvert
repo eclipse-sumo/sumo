@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 30 14:27:01 2019 by Eclipse SUMO netconvert Version v1_3_1+0086-05b6f16
+<!-- generated on Wed Jan 29 12:12:02 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
@@ -51,13 +52,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":313575_0_1" index="1" speed="13.89" length="0.28" shape="158.95,143.39 159.12,143.65"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_0" function="internal">
-        <lane id=":cluster_2292787672_259083790_0_0" index="0" speed="5.70" length="5.05" shape="164.49,165.21 163.51,164.22 162.45,163.80 161.33,163.93 160.13,164.63"/>
+        <lane id=":cluster_2292787672_259083790_0_0" index="0" allow="tram" speed="5.70" length="5.05" shape="164.49,165.21 163.51,164.22 162.45,163.80 161.33,163.93 160.13,164.63"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_1" function="internal">
         <lane id=":cluster_2292787672_259083790_1_0" index="0" allow="tram" speed="13.89" length="9.35" shape="164.49,165.21 159.07,157.59"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_2" function="internal">
-        <lane id=":cluster_2292787672_259083790_2_0" index="0" speed="5.56" length="12.12" shape="164.49,165.21 164.33,161.47 165.40,159.41 167.69,159.03 171.20,160.32"/>
+        <lane id=":cluster_2292787672_259083790_2_0" index="0" allow="tram" speed="5.56" length="12.12" shape="164.49,165.21 164.33,161.47 165.40,159.41 167.69,159.03 171.20,160.32"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_3" function="internal">
         <lane id=":cluster_2292787672_259083790_3_0" index="0" speed="13.89" length="9.02" shape="168.51,151.20 173.78,158.44"/>

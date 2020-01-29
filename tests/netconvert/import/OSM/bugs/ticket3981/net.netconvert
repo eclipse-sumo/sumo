@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 15 16:30:43 2020 by Eclipse SUMO netconvert Version v1_4_0+0550-7896e2c
+<!-- generated on Wed Jan 29 12:11:58 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -130,8 +130,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_12688349_885182683_3_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="23.89" shape="258.94,317.39 260.49,324.56 261.28,329.83 261.26,334.77 260.39,340.99"/>
     </edge>
     <edge id=":cluster_1453571442_443097_0" function="internal">
-        <lane id=":cluster_1453571442_443097_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="11.92" length="12.93" shape="286.19,345.25 288.77,347.69 290.55,349.60 292.57,350.80 295.82,351.07"/>
-        <lane id=":cluster_1453571442_443097_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.01" length="12.93" shape="284.20,347.76 287.33,350.60 289.57,352.74 292.07,354.01 296.02,354.27"/>
+        <lane id=":cluster_1453571442_443097_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="11.92" length="12.93" shape="286.19,345.25 288.77,347.69 290.55,349.60 292.57,350.80 295.82,351.07"/>
+        <lane id=":cluster_1453571442_443097_0_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.01" length="12.93" shape="284.20,347.76 287.33,350.60 289.57,352.74 292.07,354.01 296.02,354.27"/>
     </edge>
     <edge id=":cluster_1453571442_443097_2" function="internal">
         <lane id=":cluster_1453571442_443097_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="12.93" shape="282.94,351.63 295.82,351.07"/>
@@ -142,10 +142,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="26.62" shape="269.96,370.31 243.31,371.99"/>
     </edge>
     <edge id=":cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960_2" function="internal">
-        <lane id=":cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="36.73" shape="262.64,346.57 259.62,358.63 255.44,367.42 250.10,372.93 243.59,375.17"/>
+        <lane id=":cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960_2_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="36.73" shape="262.64,346.57 259.62,358.63 255.44,367.42 250.10,372.93 243.59,375.17"/>
     </edge>
     <edge id=":cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960_3" function="internal">
-        <lane id=":cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960_3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.24" length="32.56" shape="259.49,346.01 256.82,357.00 253.23,364.99 248.73,369.99 243.31,371.99"/>
+        <lane id=":cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960_3_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.24" length="32.56" shape="259.49,346.01 256.82,357.00 253.23,364.99 248.73,369.99 243.31,371.99"/>
     </edge>
     <edge id=":cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960_4" function="internal">
         <lane id=":cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960_4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="19.25" shape="250.16,352.67 269.29,352.17"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 23:29:58 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Wed Jan 29 12:11:49 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -40,6 +41,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -107,7 +109,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":node_D_0_0" index="0" speed="14.50" length="4.67" shape="-1.60,-10.00 -0.80,-11.20 0.00,-11.60 0.80,-11.20 1.60,-10.00"/>
     </edge>
     <edge id=":node_L_0" function="internal">
-        <lane id=":node_L_0_0" index="0" speed="12.45" length="9.05" shape="-34.20,2.55 -36.74,2.51 -38.55,3.32 -39.64,4.98 -40.00,7.50"/>
+        <lane id=":node_L_0_0" index="0" disallow="bus" speed="12.45" length="9.05" shape="-34.20,2.55 -36.74,2.51 -38.55,3.32 -39.64,4.98 -40.00,7.50"/>
     </edge>
     <edge id=":node_R_0" function="internal">
         <lane id=":node_R_0_0" index="0" speed="12.50" length="6.44" shape="37.14,-5.92 39.11,-5.66 40.09,-4.92 40.08,-3.69 39.09,-1.97"/>

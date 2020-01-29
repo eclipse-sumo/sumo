@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 13 16:00:36 2020 by Eclipse SUMO netconvert Version v1_4_0+0471-8685f21
+<!-- generated on Wed Jan 29 12:11:58 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -345,7 +345,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":470340646_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="7.27" length="4.22" shape="159.65,353.29 160.07,352.13 160.51,351.38 161.17,350.80 162.23,350.16"/>
     </edge>
     <edge id=":470340674_0" function="internal">
-        <lane id=":470340674_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="27.81" shape="204.97,365.10 199.94,364.76 192.96,364.77 185.04,365.09 177.19,365.66"/>
+        <lane id=":470340674_0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="27.81" shape="204.97,365.10 199.94,364.76 192.96,364.77 185.04,365.09 177.19,365.66"/>
     </edge>
     <edge id=":470340674_1" function="internal">
         <lane id=":470340674_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="28.18" shape="205.04,361.14 176.90,362.48"/>
@@ -414,7 +414,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":5392230195_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="18.05" length="8.52" shape="180.78,229.05 178.56,230.24 176.96,230.93 175.27,231.35 172.78,231.74"/>
     </edge>
     <edge id=":566598577_0" function="internal">
-        <lane id=":566598577_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="0.30" shape="176.00,380.69 175.74,380.84"/>
+        <lane id=":566598577_0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="0.30" shape="176.00,380.69 175.74,380.84"/>
     </edge>
     <edge id=":566598582_0" function="internal">
         <lane id=":566598582_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="7.18" shape="156.06,399.83 152.46,393.61"/>

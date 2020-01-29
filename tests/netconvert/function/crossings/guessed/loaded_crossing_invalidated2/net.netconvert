@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:59 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Wed Jan 29 12:12:05 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -38,6 +39,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -64,10 +66,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_2_1" index="1" allow="passenger" speed="13.89" length="24.80" shape="87.60,-1.60 112.40,-1.60"/>
     </edge>
     <edge id=":C_4" function="internal">
-        <lane id=":C_4_0" index="0" speed="13.89" length="18.03" shape="87.60,-1.60 95.12,-1.41 100.50,-0.83 103.72,0.14 104.80,1.50"/>
+        <lane id=":C_4_0" index="0" allow="passenger" speed="13.89" length="18.03" shape="87.60,-1.60 95.12,-1.41 100.50,-0.83 103.72,0.14 104.80,1.50"/>
     </edge>
     <edge id=":C_5" function="internal">
-        <lane id=":C_5_0" index="0" speed="13.89" length="14.95" shape="87.60,-1.60 93.72,-1.41 98.10,-0.83 100.72,0.14 101.60,1.50"/>
+        <lane id=":C_5_0" index="0" allow="passenger" speed="13.89" length="14.95" shape="87.60,-1.60 93.72,-1.41 98.10,-0.83 100.72,0.14 101.60,1.50"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
         <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.75" width="4.50" shape="89.10,1.50 92.10,1.50 93.60,1.50 93.60,-3.00"/>

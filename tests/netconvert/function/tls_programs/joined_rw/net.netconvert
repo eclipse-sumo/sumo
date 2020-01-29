@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 23:30:18 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Wed Jan 29 12:11:59 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
@@ -62,7 +63,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":27978463_0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="7.83" shape="231.85,320.97 226.52,315.24"/>
     </edge>
     <edge id=":27978463_2" function="internal">
-        <lane id=":27978463_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.26" length="7.50" shape="225.40,324.58 225.62,322.27 225.49,320.31 225.01,318.69 224.17,317.42"/>
+        <lane id=":27978463_2_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="8.26" length="7.50" shape="225.40,324.58 225.62,322.27 225.49,320.31 225.01,318.69 224.17,317.42"/>
     </edge>
     <edge id=":27978467_0" function="internal">
         <lane id=":27978467_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="23.49" shape="205.41,374.43 215.77,353.35"/>
@@ -80,8 +81,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":27989672_1_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="10.39" shape="264.86,289.63 265.88,286.77 266.55,284.70 267.39,282.71 268.88,280.08"/>
     </edge>
     <edge id=":28089476_0" function="internal">
-        <lane id=":28089476_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.91" length="13.33" shape="309.78,360.83 309.69,364.54 310.19,367.65 311.28,370.17 312.95,372.09"/>
-        <lane id=":28089476_0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.37" length="13.33" shape="306.57,361.34 306.96,365.68 307.14,368.86 308.12,371.59 310.91,374.56"/>
+        <lane id=":28089476_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="9.91" length="13.33" shape="309.78,360.83 309.69,364.54 310.19,367.65 311.28,370.17 312.95,372.09"/>
+        <lane id=":28089476_0_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.37" length="13.33" shape="306.57,361.34 306.96,365.68 307.14,368.86 308.12,371.59 310.91,374.56"/>
     </edge>
     <edge id=":28089476_2" function="internal">
         <lane id=":28089476_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="13.36" shape="303.04,363.25 312.95,372.09"/>
@@ -98,19 +99,19 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":A391_AS_Weststadt_0_0" index="0" allow="tram" speed="13.89" length="59.95" shape="285.45,367.25 277.64,359.83 263.96,346.36 250.34,332.83 242.71,325.22"/>
     </edge>
     <edge id=":A391_AS_Weststadt_1" function="internal">
-        <lane id=":A391_AS_Weststadt_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="7.80" length="19.89" shape="287.45,341.26 285.32,342.74 285.93,345.74 289.30,350.26 295.41,356.31"/>
+        <lane id=":A391_AS_Weststadt_1_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="7.80" length="19.89" shape="287.45,341.26 285.32,342.74 285.93,345.74 289.30,350.26 295.41,356.31"/>
     </edge>
     <edge id=":A391_AS_Weststadt_2" function="internal">
         <lane id=":A391_AS_Weststadt_2_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="41.72" shape="287.45,341.26 282.92,344.31 278.77,351.53 274.98,362.92 271.57,378.48"/>
     </edge>
     <edge id=":A391_AS_Weststadt_3" function="internal">
-        <lane id=":A391_AS_Weststadt_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="36.49" shape="287.45,341.26 272.86,342.84 259.93,341.26 251.82,337.87"/>
+        <lane id=":A391_AS_Weststadt_3_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="36.49" shape="287.45,341.26 272.86,342.84 259.93,341.26 251.82,337.87"/>
     </edge>
     <edge id=":A391_AS_Weststadt_4" function="internal">
         <lane id=":A391_AS_Weststadt_4_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="12.09" length="38.90" shape="287.45,341.26 279.32,338.69 270.02,330.64 262.57,320.59 260.95,315.26"/>
     </edge>
     <edge id=":A391_AS_Weststadt_21" function="internal">
-        <lane id=":A391_AS_Weststadt_21_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="15.89" shape="251.82,337.87 248.64,336.53 239.01,328.66"/>
+        <lane id=":A391_AS_Weststadt_21_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="15.89" shape="251.82,337.87 248.64,336.53 239.01,328.66"/>
     </edge>
     <edge id=":A391_AS_Weststadt_22" function="internal">
         <lane id=":A391_AS_Weststadt_22_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="12.09" length="3.35" shape="260.95,315.26 259.98,312.06"/>
@@ -138,25 +139,25 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":A391_AS_Weststadt_10_0" index="0" allow="tram" speed="13.89" length="59.65" shape="245.28,322.83 252.88,330.41 266.43,343.87 280.04,357.27 287.81,364.66"/>
     </edge>
     <edge id=":A391_AS_Weststadt_11" function="internal">
-        <lane id=":A391_AS_Weststadt_11_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="7.58" length="16.29" shape="241.08,344.21 243.02,342.51 242.93,339.72 240.82,335.83 236.67,330.83"/>
+        <lane id=":A391_AS_Weststadt_11_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="7.58" length="16.29" shape="241.08,344.21 243.02,342.51 242.93,339.72 240.82,335.83 236.67,330.83"/>
     </edge>
     <edge id=":A391_AS_Weststadt_12" function="internal">
         <lane id=":A391_AS_Weststadt_12_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="39.08" shape="241.08,344.21 248.08,339.94 253.57,333.17 257.54,323.87 259.98,312.06"/>
     </edge>
     <edge id=":A391_AS_Weststadt_13" function="internal">
-        <lane id=":A391_AS_Weststadt_13_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="40.29" shape="241.08,344.21 255.27,340.79 269.05,341.66 280.13,345.95"/>
+        <lane id=":A391_AS_Weststadt_13_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="40.29" shape="241.08,344.21 255.27,340.79 269.05,341.66 280.13,345.95"/>
     </edge>
     <edge id=":A391_AS_Weststadt_14" function="internal">
-        <lane id=":A391_AS_Weststadt_14_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="38.00" shape="241.63,347.42 255.18,344.13 268.31,344.91 278.49,348.80"/>
+        <lane id=":A391_AS_Weststadt_14_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="38.00" shape="241.63,347.42 255.18,344.13 268.31,344.91 278.49,348.80"/>
     </edge>
     <edge id=":A391_AS_Weststadt_15" function="internal">
         <lane id=":A391_AS_Weststadt_15_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="11.79" length="45.52" shape="241.63,347.42 250.03,349.69 260.31,358.47 268.73,369.49 271.57,378.48"/>
     </edge>
     <edge id=":A391_AS_Weststadt_25" function="internal">
-        <lane id=":A391_AS_Weststadt_25_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="18.53" shape="280.13,345.95 282.43,346.84 295.41,356.31"/>
+        <lane id=":A391_AS_Weststadt_25_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="18.53" shape="280.13,345.95 282.43,346.84 295.41,356.31"/>
     </edge>
     <edge id=":A391_AS_Weststadt_26" function="internal">
-        <lane id=":A391_AS_Weststadt_26_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="17.84" shape="278.49,348.80 281.00,349.76 293.25,358.67"/>
+        <lane id=":A391_AS_Weststadt_26_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="17.84" shape="278.49,348.80 281.00,349.76 293.25,358.67"/>
     </edge>
     <edge id=":A391_AS_Weststadt_16" function="internal">
         <lane id=":A391_AS_Weststadt_16_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="5.53" length="8.98" shape="277.48,376.01 275.37,374.51 273.68,374.42 272.41,375.74 271.57,378.48"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 15 14:27:34 2019 by Eclipse SUMO netconvert Version v1_3_1+0893-7aca76e
+<!-- generated on Wed Jan 29 12:11:56 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,6 +28,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -192,10 +193,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":588394574_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="6.36" shape="608.12,109.23 606.88,110.63 605.89,111.45 604.76,112.11 603.10,113.02"/>
     </edge>
     <edge id=":663353215_0" function="internal">
-        <lane id=":663353215_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="4.67" length="4.53" shape="744.36,62.08 743.82,60.83 743.09,60.04 742.17,59.71 741.07,59.84"/>
+        <lane id=":663353215_0_0" index="0" allow="pedestrian bicycle" speed="4.67" length="4.53" shape="744.36,62.08 743.82,60.83 743.09,60.04 742.17,59.71 741.07,59.84"/>
     </edge>
     <edge id=":663353215_1" function="internal">
-        <lane id=":663353215_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="5.80" length="7.36" shape="744.36,62.08 743.71,59.40 743.58,57.38 743.98,56.02 744.91,55.32"/>
+        <lane id=":663353215_1_0" index="0" allow="pedestrian bicycle" speed="5.80" length="7.36" shape="744.36,62.08 743.71,59.40 743.58,57.38 743.98,56.02 744.91,55.32"/>
     </edge>
     <edge id=":663353215_2" function="internal">
         <lane id=":663353215_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="4.99" shape="745.85,58.38 741.07,59.84"/>

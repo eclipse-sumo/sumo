@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 23:30:27 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Wed Jan 29 12:12:05 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
@@ -46,10 +47,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":635894914_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="664.61,0.28 665.19,-1.04 665.91,-1.58 666.77,-1.32 667.77,-0.28"/>
     </edge>
     <edge id=":C_0" function="internal">
-        <lane id=":C_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="30.42" shape="692.96,575.34 693.26,544.92"/>
+        <lane id=":C_0_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="30.42" shape="692.96,575.34 693.26,544.92"/>
     </edge>
     <edge id=":C_1" function="internal">
-        <lane id=":C_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="29.71" shape="692.96,575.34 693.15,565.08 694.80,557.30 697.90,552.00 702.46,549.18"/>
+        <lane id=":C_1_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="29.71" shape="692.96,575.34 693.15,565.08 694.80,557.30 697.90,552.00 702.46,549.18"/>
     </edge>
     <edge id=":C_2" function="internal">
         <lane id=":C_2_0" index="0" allow="pedestrian delivery bicycle" speed="3.65" length="4.67" shape="692.96,575.34 693.70,574.11 694.48,573.67 695.30,574.03 696.16,575.19"/>

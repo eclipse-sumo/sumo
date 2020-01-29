@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 29 23:25:18 2019 by Eclipse SUMO netconvert Version v1_2_0+0149-6b40db9d1b
+<!-- generated on Wed Jan 29 12:12:07 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -36,6 +37,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -46,13 +48,13 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="-690084.16,-5335366.27" convBoundary="0.00,0.00,600.07,286.25" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="18.84" width="3.50" shape="375.04,166.34 368.21,166.54 363.30,167.71 360.29,169.84 359.19,172.92"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0" index="0" allow="bicycle" speed="13.89" length="18.84" width="3.50" shape="375.04,166.34 368.21,166.54 363.30,167.71 360.29,169.84 359.19,172.92"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0" index="0" allow="bicycle" speed="13.89" length="38.77" width="1.50" shape="375.04,166.34 336.30,164.79"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="24.00" width="3.50" shape="375.04,166.34 372.25,166.24 357.76,165.99 353.55,167.48 351.32,167.74"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0" index="0" allow="bicycle" speed="13.89" length="24.00" width="3.50" shape="375.04,166.34 372.25,166.24 357.76,165.99 353.55,167.48 351.32,167.74"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="10.41" width="3.50" shape="379.04,163.93 370.14,164.22 368.68,164.58"/>
@@ -64,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="14.23" width="3.50" shape="379.13,160.68 367.28,159.38 365.10,158.61"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_21" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_21_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="22.80" width="3.50" shape="351.32,167.74 350.79,167.80 350.86,161.94 350.99,157.02 350.95,152.83 351.70,145.57"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_21_0" index="0" allow="bicycle" speed="13.89" length="22.80" width="3.50" shape="351.32,167.74 350.79,167.80 350.86,161.94 350.99,157.02 350.95,152.83 351.70,145.57"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_22" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_22_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="14.40" width="3.50" shape="368.68,164.58 363.73,165.81 359.81,168.70 358.37,172.89"/>
@@ -94,13 +96,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_25_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="22.93" width="3.50" shape="354.72,151.47 354.68,151.68 350.84,157.73 344.72,161.27 336.31,162.29"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="19.83" width="3.50" shape="335.16,152.77 342.29,152.47 347.43,151.17 350.57,148.87 351.73,145.57"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0" index="0" allow="bicycle" speed="13.89" length="19.83" width="3.50" shape="335.16,152.77 342.29,152.47 347.43,151.17 350.57,148.87 351.73,145.57"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0" index="0" allow="bicycle" speed="13.89" length="37.49" width="1.50" shape="335.16,152.77 372.60,154.73"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="27.12" width="3.50" shape="335.75,152.78 337.00,152.81 348.42,153.11 353.22,153.40 357.54,151.97 361.70,151.95 361.69,152.88"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0" index="0" allow="bicycle" speed="13.89" length="27.12" width="3.50" shape="335.75,152.78 337.00,152.81 348.42,153.11 353.22,153.40 357.54,151.97 361.70,151.95 361.69,152.88"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="9.16" width="3.50" shape="332.99,155.26 341.39,154.84 342.10,154.63"/>
@@ -112,7 +114,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="15.45" width="3.50" shape="332.95,158.51 344.27,159.66 348.11,160.99"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="20.26" width="3.50" shape="361.69,152.88 361.64,158.96 361.35,162.97 360.52,167.30 359.37,172.93"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0" index="0" allow="bicycle" speed="13.89" length="20.26" width="3.50" shape="361.69,152.88 361.64,158.96 361.35,162.97 360.52,167.30 359.37,172.93"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_27" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_27_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="15.01" width="3.50" shape="342.10,154.63 347.45,153.09 351.17,150.01 352.55,145.61"/>
