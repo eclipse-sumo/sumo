@@ -303,31 +303,31 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         }
     }
 
-    for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
-        const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
+    for (NBEdge* e : incoming) {
+        const std::vector<NBEdge::Connection>& elv = e->getConnections();
         if (elv.size() > 0) {
             bool haveVia = false;
             std::string edgeID = "";
             // second pass: write non-via edges
-            for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                if ((*k).toEdge == nullptr) {
+            for (const NBEdge::Connection& k : elv) {
+                if (k.toEdge == nullptr) {
                     assert(false); // should never happen. tell me when it does
                     continue;
                 }
-                if (edgeID != (*k).id) {
+                if (edgeID != k.id) {
                     if (edgeID != "") {
                         // close the previous edge
                         into.closeTag();
                     }
-                    edgeID = (*k).id;
+                    edgeID = k.id;
                     into.openTag(SUMO_TAG_EDGE);
                     into.writeAttr(SUMO_ATTR_ID, edgeID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
-                    if ((*i)->isBidiRail() && (*k).toEdge->isBidiRail() &&
-                            (*i) != (*k).toEdge->getTurnDestination(true)) {
+                    if (e->isBidiRail() && k.toEdge->isBidiRail() &&
+                            e != k.toEdge->getTurnDestination(true)) {
                         try {
-                            NBEdge::Connection bidiCon = (*k).toEdge->getTurnDestination(true)->getConnection(
-                                                             0, (*i)->getTurnDestination(true), 0);
+                            NBEdge::Connection bidiCon = k.toEdge->getTurnDestination(true)->getConnection(
+                                                             0, e->getTurnDestination(true), 0);
                             into.writeAttr(SUMO_ATTR_BIDI, bidiCon.id);
                         } catch (ProcessError&) {
                             WRITE_WARNINGF("Could not find bidi-connection for edge '%'", edgeID)
@@ -337,37 +337,37 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 }
                 // to avoid changing to an internal lane which has a successor
                 // with the wrong permissions we need to inherit them from the successor
-                const NBEdge::Lane& successor = (*k).toEdge->getLanes()[(*k).toLane];
-                SVCPermissions permissions = ((*k).permissions != SVC_UNSPECIFIED) ? (*k).permissions : successor.permissions;
-                const double width = n.isConstantWidthTransition() && (*i)->getNumLanes() > (*k).toEdge->getNumLanes() ? (*i)->getLaneWidth((*k).fromLane) : successor.width;
-                writeLane(into, (*k).getInternalLaneID(), (*k).vmax,
+                const NBEdge::Lane& successor = k.toEdge->getLanes()[k.toLane];
+                SVCPermissions permissions = (k.permissions != SVC_UNSPECIFIED) ? k.permissions : successor.permissions;
+                const double width = n.isConstantWidthTransition() && e->getNumLanes() > k.toEdge->getNumLanes() ? e->getLaneWidth(k.fromLane) : successor.width;
+                writeLane(into, k.getInternalLaneID(), k.vmax,
                           permissions, successor.preferred,
                           NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
-                          std::map<int, double>(), width, (*k).shape, &(*k),
-                          (*k).length, (*k).internalLaneIndex, oppositeLaneID[(*k).getInternalLaneID()], "");
-                haveVia = haveVia || (*k).haveVia;
+                          std::map<int, double>(), width, k.shape, &k,
+                          k.length, k.internalLaneIndex, oppositeLaneID[k.getInternalLaneID()], "");
+                haveVia = haveVia || k.haveVia;
             }
             ret = true;
             into.closeTag(); // close the last edge
             // third pass: write via edges
             if (haveVia) {
-                for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                    if (!(*k).haveVia) {
+                for (const NBEdge::Connection& k : elv) {
+                    if (!k.haveVia) {
                         continue;
                     }
-                    if ((*k).toEdge == nullptr) {
+                    if (k.toEdge == nullptr) {
                         assert(false); // should never happen. tell me when it does
                         continue;
                     }
-                    const NBEdge::Lane& successor = (*k).toEdge->getLanes()[(*k).toLane];
+                    const NBEdge::Lane& successor = k.toEdge->getLanes()[k.toLane];
                     into.openTag(SUMO_TAG_EDGE);
-                    into.writeAttr(SUMO_ATTR_ID, (*k).viaID);
+                    into.writeAttr(SUMO_ATTR_ID, k.viaID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
-                    SVCPermissions permissions = ((*k).permissions != SVC_UNSPECIFIED) ? (*k).permissions : successor.permissions;
-                    writeLane(into, (*k).viaID + "_0", (*k).vmax, permissions, successor.preferred,
+                    SVCPermissions permissions = (k.permissions != SVC_UNSPECIFIED) ? k.permissions : successor.permissions;
+                    writeLane(into, k.viaID + "_0", k.vmax, permissions, successor.preferred,
                               NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
-                              std::map<int, double>(), successor.width, (*k).viaShape, &(*k),
-                              MAX2((*k).viaShape.length(), POSITION_EPS), // microsim needs positive length
+                              std::map<int, double>(), successor.width, k.viaShape, &k,
+                              MAX2(k.viaShape.length(), POSITION_EPS), // microsim needs positive length
                               0, "", "");
                     into.closeTag();
                 }
