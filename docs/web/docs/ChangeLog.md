@@ -13,6 +13,7 @@ permalink: /ChangeLog/
   - Fixed unsafe insertion speed when using 'stopOffset'. Issue #6411
   - Extra device output (emissions etc.) is now included in tripinfo-output when using option **--tripinfo-output.write-unfinished**. Issue #6422
   - Time spent parking is now included in tripinfo-output 'stopTime'. Issue #6423
+  - Fixed lateral jump when driving across lanes with different width in a left-hand network and using sublane simulation. Issue #6573
 
 - SUMO-GUI
   - Fixed visualisation of containers. Issue #6426
