@@ -6,10 +6,6 @@
 	path = tools/contributed/sumolib4matlab
 	url = https://github.com/pipeacosta/sumolib4matlab
 	ignore = untracked
-[submodule "tools/contributed/calibration"]
-	path = tools/contributed/calibration
-	url = https://github.com/gunnarfloetteroed/java
-	ignore = untracked
 [submodule "build/brew"]
 	path = build/brew
 	url = https://github.com/DLR-TS/homebrew-sumo
