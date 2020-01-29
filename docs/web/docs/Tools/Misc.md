@@ -64,6 +64,11 @@ the data set. The following is recommenced:
 - **speedFactor**: the maximum (or high percentile) quotient of
   speed/speedLimit for each vehicle
 
+
+# extractTest.py
+
+This scripts extracts test scenarios if you like to run a simulation scenario which is included in the test folder <SUMO_HOME>/tests. In order to do so you can either download the complete sumo package or use the online test extraction. I In order to do so you can either [download the complete sumo package](Downloads.md#all-inclusive-tarball) or use the [online test extraction](https://sumo.dlr.de/extractTest.php). In the online tool you enter the path to the test you like (e.g. [{{SUMO}}/tests/sumo/extended/rerouter/use_routing_device](https://github.com/eclipse/sumo/blob/master/tests/sumo/extended/rerouter/use_routing_device) into the form and get a zip containing all the files.
+
 # generateTurnDefs.py
 
 This script allows generation of the turn definitions based on the
