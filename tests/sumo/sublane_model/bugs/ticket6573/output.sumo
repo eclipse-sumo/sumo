@@ -1,4 +1,0 @@
- lateral shift link=gneE4.85_0->:gneJ1_1_0 dist=3.20 shift=3.20
- lateral shift link=:gneJ5_0_0->gneE4.85_0 dist=3.20 shift=-3.20
- lateral shift link=:gneJ5_0_1->gneE4.85_0 dist=0.60 shift=-0.60
- lateral shift link=:gneJ5_0_2->gneE4.85_0 dist=2.60 shift=2.60
