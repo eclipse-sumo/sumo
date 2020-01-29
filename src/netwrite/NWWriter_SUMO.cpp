@@ -338,7 +338,8 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 // to avoid changing to an internal lane which has a successor
                 // with the wrong permissions we need to inherit them from the successor
                 const NBEdge::Lane& successor = k.toEdge->getLanes()[k.toLane];
-                SVCPermissions permissions = (k.permissions != SVC_UNSPECIFIED) ? k.permissions : successor.permissions;
+                SVCPermissions permissions = (k.permissions != SVC_UNSPECIFIED) ? k.permissions : (
+                        successor.permissions & e->getPermissions(k.fromLane));
                 const double width = n.isConstantWidthTransition() && e->getNumLanes() > k.toEdge->getNumLanes() ? e->getLaneWidth(k.fromLane) : successor.width;
                 writeLane(into, k.getInternalLaneID(), k.vmax,
                           permissions, successor.preferred,
@@ -363,7 +364,8 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     into.openTag(SUMO_TAG_EDGE);
                     into.writeAttr(SUMO_ATTR_ID, k.viaID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
-                    SVCPermissions permissions = (k.permissions != SVC_UNSPECIFIED) ? k.permissions : successor.permissions;
+                    SVCPermissions permissions = (k.permissions != SVC_UNSPECIFIED) ? k.permissions : (
+                            successor.permissions & e->getPermissions(k.fromLane));
                     writeLane(into, k.viaID + "_0", k.vmax, permissions, successor.preferred,
                               NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                               std::map<int, double>(), successor.width, k.viaShape, &k,
