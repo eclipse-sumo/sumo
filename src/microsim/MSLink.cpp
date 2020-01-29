@@ -113,6 +113,9 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
             } catch (InvalidArgument&) {
             }
             myLateralShift = (from.back().distanceTo2D(to.front()) < dist) ? dist : -dist;
+            if (MSGlobals::gLefthand) {
+                myLateralShift *= -1;
+            }
             //std::cout << " lateral shift link=" << myLaneBefore->getID() << "->" << getViaLaneOrLane()->getID() << " dist=" << dist << " shift=" << myLateralShift << "\n";
         }
     }
