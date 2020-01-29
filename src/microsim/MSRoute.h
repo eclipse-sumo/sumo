@@ -220,6 +220,9 @@ public:
      */
     static const MSRoute* dictionary(const std::string& id, std::mt19937* rng = 0);
 
+    /// @brief returns whether a route with the given id exists
+    static bool hasRoute(const std::string& id);
+
     /** @brief Returns the named route distribution.
      *
      *  Returns 0 if no route distribution with the given name exists.

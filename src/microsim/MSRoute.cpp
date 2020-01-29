@@ -152,6 +152,15 @@ MSRoute::dictionary(const std::string& id, std::mt19937* rng) {
 }
 
 
+bool
+MSRoute::hasRoute(const std::string& id) {
+#ifdef HAVE_FOX
+    FXMutexLock f(myDictMutex);
+#endif
+    return myDict.find(id) != myDict.end();
+}
+
+
 RandomDistributor<const MSRoute*>*
 MSRoute::distDictionary(const std::string& id) {
 #ifdef HAVE_FOX

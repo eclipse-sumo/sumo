@@ -310,10 +310,11 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
     if (id[0] != '!') {
         id = "!" + id;
     }
-    if (myRoute->getID().find("!var#") != std::string::npos) {
-        id = myRoute->getID().substr(0, myRoute->getID().rfind("!var#") + 5) + toString(getNumberReroutes() + 1);
-    } else {
-        id = id + "!var#1";
+    const std::string idSuffix = id + "!var#";
+    int varIndex = 1;
+    id = idSuffix + toString(varIndex);
+    while (MSRoute::hasRoute(id)) {
+        id = idSuffix + toString(++varIndex);
     }
     int oldSize = (int)edges.size();
     if (!onInit) {
