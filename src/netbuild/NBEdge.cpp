@@ -2837,7 +2837,8 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool onlyTurnl
     const int fromLane = (int)myLanes.size() - 1;
     if (onlyTurnlane) {
         for (const Connection& c : getConnectionsFromLane(fromLane)) {
-            if (myTo->getDirection(this, c.toEdge) != LINKDIR_LEFT) {
+            LinkDirection dir = myTo->getDirection(this, c.toEdge);
+            if (dir != LINKDIR_LEFT && dir != LINKDIR_PARTLEFT) {
                 return;
             }
         }
