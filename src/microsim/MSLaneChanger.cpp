@@ -1030,14 +1030,18 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         // prevent by appropriate bestLane distances
         return false;
     }
+    const bool isOpposite = vehicle->getLaneChangeModel().isOpposite();
     int ret = 0;
     ret = vehicle->influenceChangeDecision(ret);
     bool oppositeChangeByTraci = false;
     // Check whether a lane change to the opposite direction was requested via TraCI
     if ((ret & (LCA_TRACI)) != 0) {
+        if (isOpposite && (ret & LCA_LEFT) != 0) {
+            // stay on the opposite side
+            return false;
+        }
         oppositeChangeByTraci = true;
     }
-    const bool isOpposite = vehicle->getLaneChangeModel().isOpposite();
     if (!isOpposite && leader.first == 0 && !oppositeChangeByTraci) {
         // no reason to change unless there is a leader
         // or we are changing back to the propper direction
