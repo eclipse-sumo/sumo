@@ -36,6 +36,7 @@ class GNEEdge;
 class GNEEdgeData;
 class GNEGenericData;
 class GNEDataElement;
+class GNEDataInterval;
 class GNEUndoList;
 
 // ===========================================================================
@@ -99,24 +100,24 @@ public:
     ///
     /// Called with parsed values, these methods build the data.
     /// @{
-    /**@brief Build additionals
-     * @param[in] viewNet pointer to viewNet in wich additional will be created
-     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
-     * @param[in] tag tag of the additiona lto create
+    /**@brief Build datas
+     * @param[in] viewNet pointer to viewNet in wich data will be created
+     * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
+     * @param[in] tag tag of the data to create
      * @param[in] attrs SUMOSAXAttributes with attributes
-     * @param[in] HierarchyInsertedAdditionals pointer to HierarchyInsertedAdditionals (can be null)
+     * @param[in] HierarchyInsertedDatas pointer to HierarchyInsertedDatas (can be null)
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool buildData(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
 
-    /**@brief Builds a bus stop
+    /**@brief Builds a edgeData
      * @param[in] viewNet viewNet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
-     * @param[in] id The id of the bus stop
-
+     * @param[in] dataInterval GNEDataInterval in which this edgeData is saved
+     * @param[in] edge GNEEdge parent
      * @exception InvalidArgument If the edgeData can not be added to the net
      */
-    static GNEEdgeData* buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge);
+    static GNEEdgeData* buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval *dataInterval, GNEEdge* edge);
 
 protected:
     /// @name parsing methods
@@ -127,7 +128,7 @@ protected:
     /**@brief Parses his values and builds a bus stop
      * @param[in] attrs SAX-attributes which define the data
      */
-    static bool parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs);
+    static bool parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
 
     /// @}
 
