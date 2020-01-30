@@ -3679,9 +3679,9 @@ GNEAttributeCarrier::fillDataElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::TAGTYPE_DATAELEMENT, GNETagProperties::TAGPROPERTY_PARENT, ICON_EDGEDATA);
         
         // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
             GNEAttributeProperties::ATTRPROPERTY_STRING | GNEAttributeProperties::ATTRPROPERTY_UNIQUE | GNEAttributeProperties::ATTRPROPERTY_UPDATEGEOMETRY,
-            "edge data");
+            "edge ID");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }

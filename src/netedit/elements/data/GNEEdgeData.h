@@ -36,8 +36,9 @@ class GNEEdgeData : public GNEGenericData {
 public:
     /**@brief Constructor
      * @param[in] dataIntervalParent pointer to data interval parent
+     * @param[in] edgeParent poinetr to Edge parent
      */
-    GNEEdgeData(GNEDataInterval* dataIntervalParent);
+    GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge *edgeParent);
 
     /// @brief Destructor
     ~GNEEdgeData();
