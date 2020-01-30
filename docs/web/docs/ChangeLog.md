@@ -39,6 +39,8 @@ permalink: /ChangeLog/
 
 - TraCI
   - Context subscriptions can now be removed individually from the python client (before every unsubscribeContext removed all)
+  - Fixed invalid changing to the opposite side when using changeLaneRelative(vehID, -1) on lane 0. Issue #6576
+  - Fixed premature changing from the opposide side when a duration was set for changeLaneRelative. Issue #6577
 
 ### Enhancements
 - Simulation
