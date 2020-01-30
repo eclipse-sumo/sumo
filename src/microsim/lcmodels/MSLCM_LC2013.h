@@ -257,6 +257,8 @@ protected:
     double mySpeedGainLookahead;
     // @brief bounus factor staying on the inside of multi-lane roundabout
     double myRoundaboutBonus;
+    // @brief factor for cooperative speed adjustment
+    double myCooperativeSpeed;
     // allow overtaking right even though it is prohibited
     double myOvertakeRightParam;
 
