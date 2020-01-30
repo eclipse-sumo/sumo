@@ -20,6 +20,7 @@ import subprocess
 from collections import namedtuple
 import re
 from xml.sax import parse, handler
+import argparse
 
 
 def get_long_option_names(application):
@@ -46,18 +47,95 @@ class OptionReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if 'value' in attrs:
-            self.opts.append(
-                Option(name, attrs['value'], attrs.get('type'), attrs.get('help')))
+            self.opts.append(Option(name, attrs['value'], attrs.get('type'), attrs.get('help')))
 
 
 def readOptions(filename):
     optionReader = OptionReader()
-    try:
-        if not os.path.isfile(filename):
-            print("Option file '%s' not found" % filename, file=sys.stderr)
-            sys.exit(1)
-        parse(filename, optionReader)
-    except None:
-        print("Invalid option file '%s'" % filename, file=sys.stderr)
-        sys.exit(1)
+    parse(filename, optionReader)
     return optionReader.opts
+
+
+class ArgumentParser(argparse.ArgumentParser):
+    """Drop-in replacement for argparse.ArgumentParser that adds support for
+    sumo-style config files.
+    Inspired by https://github.com/bw2/ConfigArgParse
+    """
+    def __init__(self, *args, **kwargs):
+        argparse.ArgumentParser.__init__(self, *args, **kwargs)
+        self.add_argument('-c', '--configuration-file', help='read configuration from FILE', metavar="FILE")
+        self.add_argument('-C', '--save-configuration', help='save configuration to FILE and exit', metavar="FILE")
+        self.add_argument('--save-template', help='save configuration template to FILE and exit', metavar="FILE")
+
+    def write_config_file(self, namespace, exit=True):
+        if namespace.save_configuration:
+            out_file = namespace.save_configuration
+            print_template = False
+        elif namespace.save_template:
+            out_file = namespace.save_template
+            print_template = True
+        else:
+            return
+        with open(out_file, "w") as out:
+            out.write('<configuration>\n')
+            for k, v in vars(namespace).items():
+                if k not in ("save_configuration", "save_template", "configuration_file"):
+                    key = k
+                    default = ''
+                    help = ''
+                    for a in self._actions:
+                        if a.dest == k:
+                            for s in a.option_strings:
+                                if s.startswith("--"):
+                                    key = s[2:]
+                                    break
+                            if print_template:
+                                if a.default is not None:
+                                    v = a.default
+                                if a.help is not None:
+                                    help = ' help="%s"' % a.help
+                            break
+                    if print_template or v != a.default:
+                        out.write('    <%s value="%s"%s%s/>\n' % (key, v, default, help))
+            out.write('</configuration>\n')
+        if exit:
+            sys.exit()
+
+    def parse_args(self, args=None, namespace=None):
+        args, argv = self.parse_known_args(args, namespace)
+        if argv:
+            self.error('unrecognized arguments: %s' % ' '.join(argv))
+        return args
+
+    def parse_known_args(self, args = None, namespace = None):
+        if args is None:
+            args = sys.argv[1:]
+        elif isinstance(args, str):
+            args = args.split()
+        else:
+            args = list(args)
+        idx = -1
+        if '-c' in args:
+            idx = args.index('-c') + 1
+        if '--configuration-file' in args:
+            idx = args.index('--configuration-file') + 1
+        # add each config item to the commandline unless it's there already
+        config_args = []
+        if idx > 0:
+            act_map = {}
+            for a in self._actions:
+                for s in a.option_strings:
+                    if s.startswith("--"):
+                        act_map[s[2:]] = a.option_strings
+            for option in readOptions(args[idx]):
+                is_set = False
+                for s in act_map.get(option.name, []):
+                    if s in args:
+                        is_set = True
+                        break
+                if not is_set:
+                    config_args += ["--" + option.name, option.value]
+        namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
+            self, args=args+config_args, namespace=namespace)
+        self.write_config_file(namespace)
+        return namespace, unknown_args
