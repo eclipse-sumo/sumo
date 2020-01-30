@@ -58,6 +58,8 @@ MSCFModel_PWag2009::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 double
 MSCFModel_PWag2009::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
+    UNUSED_PARAMETER(veh);
+    UNUSED_PARAMETER(vMin);
     return vMax;
 }
 
