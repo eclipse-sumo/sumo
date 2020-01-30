@@ -46,9 +46,9 @@ A typical use case for *netdiff.py* is this:
 5.  re-apply the *diff*-files to avoid repeating manual corrections with
     [NETEDIT](../NETEDIT.md)
 
-![](images/mergeA.png)
-![](images/mergeB.png)
-![](images/mergeAB.png)
+![](../images/mergeA.png)
+![](../images/mergeB.png)
+![](../images/mergeAB.png)
 
 ## patching on import
 
