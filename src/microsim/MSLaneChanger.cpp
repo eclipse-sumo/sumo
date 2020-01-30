@@ -1047,7 +1047,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     if (!isOpposite && !oppositeChangeByTraci
             && vehicle->getVClass() != SVC_EMERGENCY
             && leader.first != 0) {
-        if (leader.first->signalSet(MSNet::getInstance()->lefthand()
+        if (leader.first->signalSet(MSGlobals::gLefthand
                                     ? MSVehicle::VEH_SIGNAL_BLINKER_RIGHT : MSVehicle::VEH_SIGNAL_BLINKER_LEFT)) {
             // do not try to overtake a vehicle that is about to turn left or wants
             // to change left itself

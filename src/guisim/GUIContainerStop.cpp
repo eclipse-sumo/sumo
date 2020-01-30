@@ -54,7 +54,7 @@ GUIContainerStop::GUIContainerStop(const std::string& id, const std::vector<std:
                                    double frompos, double topos, const std::string& name, int containerCapacity) :
     MSStoppingPlace(id, lines, lane, frompos, topos, name, containerCapacity),
     GUIGlObject_AbstractAdd(GLO_CONTAINER_STOP, id) {
-    const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
+    const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
     myFGShape = lane.getShape();
     myFGShape.move2side(1.65 * offsetSign);
     myFGShape = myFGShape.getSubpart(
@@ -128,7 +128,7 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
         glPushMatrix();
         // draw the lines
-        const double rotSign = MSNet::getInstance()->lefthand() ? -1 : 1;
+        const double rotSign = MSGlobals::gLefthand ? -1 : 1;
         // Iterate over every line
         for (int i = 0; i < (int)myLines.size(); ++i) {
             // push a new matrix for every line

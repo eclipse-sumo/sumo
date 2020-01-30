@@ -71,7 +71,7 @@ MSParkingArea::MSParkingArea(const std::string& id,
         myLength = spaceDim;
     }
 
-    const double offset = MSNet::getInstance()->lefthand() ? -1 : 1;
+    const double offset = MSGlobals::gLefthand ? -1 : 1;
     myShape = lane.getShape().getSubpart(
                   lane.interpolateLanePosToGeometryPos(begPos),
                   lane.interpolateLanePosToGeometryPos(endPos));

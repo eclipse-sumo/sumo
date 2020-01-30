@@ -403,7 +403,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     if (fabs(latDist) > NUMERICAL_EPS) {
         // angle is between vehicle front and vehicle back (and depending on travelled distance)
         changeAngle = atan2(latDist, vehicle->getVehicleType().getLength() + SPEED2DIST(vehicle->getSpeed()));
-        if (MSNet::getInstance()->lefthand()) {
+        if (MSGlobals::gLefthand) {
             changeAngle *= -1;
         }
     }

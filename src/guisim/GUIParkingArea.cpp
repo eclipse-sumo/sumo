@@ -58,7 +58,7 @@ GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::str
                                bool onRoad) :
     MSParkingArea(id, lines, lane, frompos, topos, capacity, width, length, angle, name, onRoad),
     GUIGlObject_AbstractAdd(GLO_PARKING_AREA, id) {
-    const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
+    const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
     int e = (int) myShape.size() - 1;

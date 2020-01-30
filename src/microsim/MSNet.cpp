@@ -321,11 +321,6 @@ MSNet::~MSNet() {
 }
 
 
-bool
-MSNet::lefthand() const {
-    return MSGlobals::gLefthand;
-}
-
 void
 MSNet::addRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed) {
     myRestrictions[id][svc] = speed;

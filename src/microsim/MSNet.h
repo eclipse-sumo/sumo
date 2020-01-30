@@ -684,9 +684,6 @@ public:
         return myHasBidiEdges;
     }
 
-    /// @brief return whether the network was built for lefthand traffic
-    bool lefthand() const; // @todo refactor
-
     /// @brief return the network version
     double getNetworkVersion() const {
         return myVersion;

@@ -107,7 +107,7 @@ MSStageDriving::getPosition(SUMOTime /* now */) const {
             return myStopWaitPos;
         }
         return getEdgePosition(myWaitingEdge, myWaitingPos,
-                               ROADSIDE_OFFSET * (MSNet::getInstance()->lefthand() ? -1 : 1));
+                               ROADSIDE_OFFSET * (MSGlobals::gLefthand ? -1 : 1));
     }
     return myVehicle->getPosition();
 }
@@ -123,7 +123,7 @@ MSStageDriving::getAngle(SUMOTime /* now */) const {
             return 0;
         }
     }
-    return getEdgeAngle(myWaitingEdge, myWaitingPos) + M_PI / 2. * (MSNet::getInstance()->lefthand() ? -1 : 1);
+    return getEdgeAngle(myWaitingEdge, myWaitingPos) + M_PI / 2. * (MSGlobals::gLefthand ? -1 : 1);
 }
 
 

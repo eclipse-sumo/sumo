@@ -1284,12 +1284,12 @@ MSVehicle::getPosition(const double offset) const {
         } else {
             // position beside the road
             PositionVector shp = myLane->getEdge().getLanes()[0]->getShape();
-            shp.move2side(SUMO_const_laneWidth * (MSNet::getInstance()->lefthand() ? -1 : 1));
+            shp.move2side(SUMO_const_laneWidth * (MSGlobals::gLefthand ? -1 : 1));
             return shp.positionAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane() + offset));
         }
     }
     const bool changingLanes = getLaneChangeModel().isChangingLanes();
-    const double posLat = (MSNet::getInstance()->lefthand() ? 1 : -1) * getLateralPositionOnLane();
+    const double posLat = (MSGlobals::gLefthand ? 1 : -1) * getLateralPositionOnLane();
     if (offset == 0. && !changingLanes) {
         if (myCachedPosition == Position::INVALID) {
             myCachedPosition = validatePosition(myLane->geometryPositionAtOffset(myState.myPos, posLat));
@@ -1485,7 +1485,7 @@ MSVehicle::computeAngle() const {
 
 const Position
 MSVehicle::getBackPosition() const {
-    const double posLat = MSNet::getInstance()->lefthand() ? myState.myPosLat : -myState.myPosLat;
+    const double posLat = MSGlobals::gLefthand ? myState.myPosLat : -myState.myPosLat;
     if (myState.myPos >= myType->getLength()) {
         // vehicle is fully on the new lane
         return myLane->geometryPositionAtOffset(myState.myPos - myType->getLength(), posLat);
@@ -1505,7 +1505,7 @@ MSVehicle::getBackPosition() const {
             }
 #endif
             return myFurtherLanes.size() > 0 && !getLaneChangeModel().isChangingLanes()
-                   ? myFurtherLanes.back()->geometryPositionAtOffset(getBackPositionOnLane(myFurtherLanes.back()), -myFurtherLanesPosLat.back() * (MSNet::getInstance()->lefthand() ? -1 : 1))
+                   ? myFurtherLanes.back()->geometryPositionAtOffset(getBackPositionOnLane(myFurtherLanes.back()), -myFurtherLanesPosLat.back() * (MSGlobals::gLefthand ? -1 : 1))
                    : myLane->geometryPositionAtOffset(0, posLat);
         }
     }
@@ -5476,7 +5476,7 @@ MSVehicle::setBlinkerInformation() {
                                        (state & LCA_KEEPRIGHT) == 0 || (state & LCA_BLOCKED) == 0));
     Signalling left = VEH_SIGNAL_BLINKER_LEFT;
     Signalling right = VEH_SIGNAL_BLINKER_RIGHT;
-    if (MSNet::getInstance()->lefthand()) {
+    if (MSGlobals::gLefthand) {
         // lane indices increase from left to right
         std::swap(left, right);
     }
@@ -5514,7 +5514,7 @@ MSVehicle::setBlinkerInformation() {
             && hasStops()
             && myStops.begin()->pars.parking
             && myStopDist < getCarFollowModel().brakeGap(myLane->getVehicleMaxSpeed(this), getCarFollowModel().getMaxDecel(), 3)) {
-        switchOnSignal(MSNet::getInstance()->lefthand() ? VEH_SIGNAL_BLINKER_LEFT : VEH_SIGNAL_BLINKER_RIGHT);
+        switchOnSignal(MSGlobals::gLefthand ? VEH_SIGNAL_BLINKER_LEFT : VEH_SIGNAL_BLINKER_RIGHT);
     }
     if (myInfluencer != nullptr && myInfluencer->getSignals() >= 0) {
         mySignals = myInfluencer->getSignals();

@@ -499,7 +499,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
         }
         // check for foes on the same lane with a different target edge
         // (straight movers take precedence if the paths cross)
-        const int lhSign = MSNet::getInstance()->lefthand() ? -1 : 1;
+        const int lhSign = MSGlobals::gLefthand ? -1 : 1;
         for (const MSLink* foeLink : mySublaneFoeLinks2) {
             assert(myDirection != LINKDIR_STRAIGHT);
             for (const auto& it : foeLink->myApproachingVehicles) {

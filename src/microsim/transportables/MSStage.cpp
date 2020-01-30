@@ -196,14 +196,14 @@ MSStageTrip::clone() const {
 Position
 MSStageTrip::getPosition(SUMOTime /* now */) const {
     // may be called concurrently while the trip is still being routed
-    return getEdgePosition(myOrigin, myDepartPos, ROADSIDE_OFFSET * (MSNet::getInstance()->lefthand() ? -1 : 1));
+    return getEdgePosition(myOrigin, myDepartPos, ROADSIDE_OFFSET * (MSGlobals::gLefthand ? -1 : 1));
 }
 
 
 double
 MSStageTrip::getAngle(SUMOTime /* now */) const {
     // may be called concurrently while the trip is still being routed
-    return getEdgeAngle(myOrigin, myDepartPos) + M_PI / 2 * (MSNet::getInstance()->lefthand() ? -1 : 1);
+    return getEdgeAngle(myOrigin, myDepartPos) + M_PI / 2 * (MSGlobals::gLefthand ? -1 : 1);
 }
 
 
@@ -429,13 +429,13 @@ MSStageWaiting::getUntil() const {
 Position
 MSStageWaiting::getPosition(SUMOTime /* now */) const {
     return getEdgePosition(myDestination, myArrivalPos,
-                           ROADSIDE_OFFSET * (MSNet::getInstance()->lefthand() ? -1 : 1));
+                           ROADSIDE_OFFSET * (MSGlobals::gLefthand ? -1 : 1));
 }
 
 
 double
 MSStageWaiting::getAngle(SUMOTime /* now */) const {
-    return getEdgeAngle(myDestination, myArrivalPos) + M_PI / 2 * (MSNet::getInstance()->lefthand() ? -1 : 1);
+    return getEdgeAngle(myDestination, myArrivalPos) + M_PI / 2 * (MSGlobals::gLefthand ? -1 : 1);
 }
 
 

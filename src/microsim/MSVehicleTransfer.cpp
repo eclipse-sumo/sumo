@@ -133,7 +133,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                 // blocked from entering the road
                 if (!desc.myVeh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_RIGHT)) {
                     // signal wish to re-enter the road
-                    desc.myVeh->switchOnSignal(MSNet::getInstance()->lefthand() ? MSVehicle::VEH_SIGNAL_BLINKER_RIGHT : MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
+                    desc.myVeh->switchOnSignal(MSGlobals::gLefthand ? MSVehicle::VEH_SIGNAL_BLINKER_RIGHT : MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
                     if (pa) {
                         // update freePosition so other vehicles can help with insertion
                         desc.myVeh->getCurrentParkingArea()->notifyEgressBlocked();

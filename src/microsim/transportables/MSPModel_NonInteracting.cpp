@@ -25,6 +25,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/router/IntermodalNetwork.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -158,7 +159,7 @@ MSPModel_NonInteracting::PState::getPosition(const MSStageMoving& stage, SUMOTim
         lane = stage.getEdge()->getLanes().front();
     }
     const double lateral_offset = (lane->allowsVehicleClass(SVC_PEDESTRIAN) ? 0 : SIDEWALK_OFFSET
-                                   * (MSNet::getInstance()->lefthand() ? -1 : 1));
+                                   * (MSGlobals::gLefthand ? -1 : 1));
     return stage.getLanePosition(lane, getEdgePos(stage, now), lateral_offset);
 }
 

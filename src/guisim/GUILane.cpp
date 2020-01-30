@@ -224,10 +224,9 @@ GUILane::drawLinkNo(const GUIVisualizationSettings& s) const {
     // draw all links
     double w = myWidth / (double) noLinks;
     double x1 = myHalfLaneWidth;
-    const bool lefthand = MSNet::getInstance()->lefthand();
     for (int i = noLinks; --i >= 0;) {
         double x2 = x1 - (double)(w / 2.);
-        GLHelper::drawTextAtEnd(toString(myLinks[lefthand ? noLinks - 1 - i : i]->getIndex()), getShape(), x2, s.drawLinkJunctionIndex, s.scale);
+        GLHelper::drawTextAtEnd(toString(myLinks[MSGlobals::gLefthand ? noLinks - 1 - i : i]->getIndex()), getShape(), x2, s.drawLinkJunctionIndex, s.scale);
         x1 -= w;
     }
 }
@@ -260,10 +259,9 @@ GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) con
     // draw all links
     double w = myWidth / (double) noLinks;
     double x1 = myHalfLaneWidth;
-    const bool lefthand = MSNet::getInstance()->lefthand();
     for (int i = noLinks; --i >= 0;) {
         double x2 = x1 - (double)(w / 2.);
-        int linkNo = net.getLinkTLIndex(myLinks[lefthand ? noLinks - 1 - i : i]);
+        int linkNo = net.getLinkTLIndex(myLinks[MSGlobals::gLefthand ? noLinks - 1 - i : i]);
         if (linkNo < 0) {
             continue;
         }
@@ -296,10 +294,9 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
     // draw all links
     const double w = myWidth / (double) noLinks;
     double x1 = myEdge->getToJunction()->getType() == NODETYPE_RAIL_SIGNAL ? -myWidth * 0.5 : 0;
-    const bool lefthand = MSNet::getInstance()->lefthand();
     for (int i = 0; i < noLinks; ++i) {
         double x2 = x1 + w;
-        drawLinkRule(s, net, myLinks[lefthand ? noLinks - 1 - i : i], getShape(), x1, x2);
+        drawLinkRule(s, net, myLinks[MSGlobals::gLefthand ? noLinks - 1 - i : i], getShape(), x1, x2);
         x1 = x2;
     }
     // draw stopOffset for passenger cars
@@ -641,7 +638,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                                 || (getLinkCont()[0]->isInternalJunctionLink() && getLinkCont()[0]->getTLLogic() != nullptr)) {
                         if (MSGlobals::gLateralResolution > 0 && s.showSublanes && !hiddenBidi && (myPermissions & ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
                             // draw sublane-borders
-                            const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
+                            const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
                             GLHelper::setColor(color.changedBrightness(51));
                             for (double offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
                                 GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, -offset * offsetSign);
@@ -712,7 +709,7 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
     if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
         double mw = (myHalfLaneWidth + SUMO_const_laneMarkWidth) * scale;
         double mw2 = (myHalfLaneWidth - SUMO_const_laneMarkWidth) * scale;
-        if (MSNet::getInstance()->lefthand()) {
+        if (MSGlobals::gLefthand) {
             mw *= -1;
             mw2 *= -1;
         }
