@@ -33,3 +33,9 @@ getNeighborsSublane
 
 # use changeLaneRelative to change to the opposite side and back
 changeOpposite
+
+# test reaction to an invalid changeRelative command in a network that allows opposite direction driving (#6576)
+changeRelative_invalid
+
+# use changeLaneRelative to change to the opposite side and back using the default laneChangeMode
+changeOpposite_default
