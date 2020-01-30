@@ -147,6 +147,9 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)),
     mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)),
     myLaneDiscipline(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LANE_DISCIPLINE, 0.0)),
+    mySpeedGainLookahead(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD, 5)),
+    myRoundaboutBonus(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT, myCooperativeParam)),
+    myCooperativeSpeed(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_SPEED, myCooperativeParam)),
     mySigmaState(0) {
     initDerivedParameters();
 }
@@ -352,10 +355,11 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
     }
     double nVSafe = wanted;
     bool gotOne = false;
+    const double coopWeight = MAX2(0.0, MIN2(1.0, myCooperativeSpeed));
     for (std::vector<double>::const_iterator i = myLCAccelerationAdvices.begin(); i != myLCAccelerationAdvices.end(); ++i) {
         double v = myVehicle.getSpeed() + ACCEL2SPEED(*i);
         if (v >= min && v <= max) {
-            nVSafe = MIN2(v, nVSafe);
+            nVSafe = MIN2(v * coopWeight + (1 - coopWeight) * wanted, nVSafe);
             gotOne = true;
 #ifdef DEBUG_PATCHSPEED
             if (gDebugFlag2) {
@@ -1208,8 +1212,8 @@ MSLCM_SL2015::_wantsChangeSublane(
         }
     }
     if (roundaboutEdgesAhead > 1) {
-        currentDist += roundaboutEdgesAhead * ROUNDABOUT_DIST_BONUS * myCooperativeParam;
-        neighDist += roundaboutEdgesAheadNeigh * ROUNDABOUT_DIST_BONUS * myCooperativeParam;
+        currentDist += roundaboutEdgesAhead * ROUNDABOUT_DIST_BONUS * myRoundaboutBonus;
+        neighDist += roundaboutEdgesAheadNeigh * ROUNDABOUT_DIST_BONUS * myRoundaboutBonus;
     }
     if (roundaboutEdgesAhead > 0) {
 #ifdef DEBUG_ROUNDABOUTS
@@ -1987,10 +1991,10 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                     }
 #endif
                     const double deltaV = vMax - leader->getSpeed();
-                    if (deltaV > 0 && gap / deltaV < 5) {
+                    if (deltaV > 0 && gap / deltaV < mySpeedGainLookahead) {
                         // anticipate future braking by computing the average
                         // speed over the next few seconds
-                        const double foreCastTime = 10;
+                        const double foreCastTime = mySpeedGainLookahead * 2;
                         const double gapClosingTime = gap / deltaV;
                         vSafe = (gapClosingTime * vSafe + (foreCastTime - gapClosingTime) * leader->getSpeed()) / foreCastTime;
                     }
@@ -3371,6 +3375,12 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myLaneDiscipline);
     } else if (key == toString(SUMO_ATTR_LCA_SIGMA)) {
         return toString(mySigma);
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
+        return toString(mySpeedGainLookahead);
+    } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
+        return toString(myRoundaboutBonus);
+    } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
+        return toString(myCooperativeSpeed);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
@@ -3414,6 +3424,12 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myLaneDiscipline = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SIGMA)) {
         mySigma = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
+        mySpeedGainLookahead = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
+        myRoundaboutBonus = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
+        myCooperativeSpeed = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }

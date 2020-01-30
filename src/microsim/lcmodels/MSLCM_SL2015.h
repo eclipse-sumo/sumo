@@ -412,6 +412,12 @@ protected:
     double mySpeedGainRight;
     // @brief lane discipline factor
     double myLaneDiscipline;
+    // @brief lookahead for speedGain in seconds
+    double mySpeedGainLookahead;
+    // @brief bounus factor staying on the inside of multi-lane roundabout
+    double myRoundaboutBonus;
+    // @brief factor for cooperative speed adjustment
+    double myCooperativeSpeed;
     //@}
 
     /// @name derived parameters
