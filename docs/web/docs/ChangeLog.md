@@ -14,6 +14,7 @@ permalink: /ChangeLog/
   - Extra device output (emissions etc.) is now included in tripinfo-output when using option **--tripinfo-output.write-unfinished**. Issue #6422
   - Time spent parking is now included in tripinfo-output 'stopTime'. Issue #6423
   - Fixed lateral jump when driving across lanes with different width in a left-hand network and using sublane simulation. Issue #6573
+  - Fixed bug where rerouting failed for no reason. Issue #6572
 
 - SUMO-GUI
   - Fixed visualisation of containers. Issue #6426
@@ -52,6 +53,7 @@ permalink: /ChangeLog/
   - Calibrators can now be used to update vehicle types by defining flows with the 'type' attribute and without the 'vehsPerHour' attribute. Issue #6219
   - When definining [automated switching between traffic light programs](Simulation/Traffic_Lights.md#defining_program_switch_times_and_procedure), the new attribute 'period' can now be used to define repeating switch times. Issue #6540
   - Cooperative lane changing at roundabouts can now be configured independently from other cooperation by setting the new vType attribute 'lcCooperativeRoundabout'. Issue #6565
+  - Cooperative speed adjustment can now be configured independently from other cooperation by setting the new vType attribute 'lcCooperativeSpeed'. Issue #6534
   - Vehicles can now foresee speed reductions on their lane and change before being slowed down (configurable by new vType attribute 'lcSpeedGainLookahead'. Issue #6547
 
 - SUMO-GUI
