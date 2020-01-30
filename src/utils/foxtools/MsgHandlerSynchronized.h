@@ -93,6 +93,12 @@ public:
         MsgHandler::removeRetriever(retriever);
     }
 
+protected:
+    bool aggregationThresholdReached(const std::string& format) {
+        FXMutexLock locker(myLock);
+        return MsgHandler::aggregationThresholdReached(format);
+    }
+
 private:
     /// @brief standard constructor
     MsgHandlerSynchronized(MsgType type) :

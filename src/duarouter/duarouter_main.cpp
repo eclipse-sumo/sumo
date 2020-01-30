@@ -39,6 +39,9 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
+#ifdef HAVE_FOX
+#include <utils/foxtools/MsgHandlerSynchronized.h>
+#endif
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
@@ -81,7 +84,6 @@ initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
         loader.loadWeights(net, "lane-weight-files", oc.getString("weight-attribute"), true, oc.getBool("weights.expand"));
     }
 }
-
 
 
 /**
@@ -204,6 +206,12 @@ main(int argc, char** argv) {
             return 0;
         }
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+#ifdef HAVE_FOX
+        if (oc.getInt("routing-threads") > 1) {
+            // make the output aware of threading
+            MsgHandler::setFactory(&MsgHandlerSynchronized::create);
+        }
+#endif
         MsgHandler::initOutputOptions();
         if (!(RODUAFrame::checkOptions() && SystemFrame::checkOptions())) {
             throw ProcessError();
