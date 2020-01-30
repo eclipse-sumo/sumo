@@ -944,10 +944,15 @@ Vehicle::changeLane(const std::string& vehicleID, int laneIndex, double duration
 void
 Vehicle::changeLaneRelative(const std::string& vehicleID, int indexOffset, double duration) {
     std::vector<std::pair<SUMOTime, int> > laneTimeLine;
-    int laneIndex = Helper::getVehicle(vehicleID)->getLaneIndex() + indexOffset;
-    laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
-    laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), laneIndex));
-    Helper::getVehicle(vehicleID)->getInfluencer().setLaneTimeLine(laneTimeLine);
+    MSVehicle* veh = Helper::getVehicle(vehicleID);
+    int laneIndex = veh->getLaneIndex() + indexOffset;
+    if (laneIndex < 0 && !veh->getLaneChangeModel().isOpposite()) {
+        WRITE_WARNING("Ignoring indexOffset -1 for vehicle '" + vehicleID + "' which is already on laneIndex 0");
+    } else {
+        laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
+        laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), laneIndex));
+        Helper::getVehicle(vehicleID)->getInfluencer().setLaneTimeLine(laneTimeLine);
+    }
 }
 
 
