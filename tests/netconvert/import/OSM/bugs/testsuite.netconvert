@@ -33,3 +33,6 @@ ticket6495
 
 # missing green phase
 ticket6582
+
+# guess.signals failure
+ticket6584
