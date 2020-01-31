@@ -32,7 +32,7 @@ permalink: /ChangeLog/
   - Fixed bug where loaded connection was not created. Issue #6470
   - Fixed bug where turning restrictions from OSM were violated. Issue #6482
   - Option **--flip-y-axis** is now working. In can be used to turn a right-hand network into a left-hand network and vice versa. Issue #3838
-  - Fixed bug where option **--tls.guess-signals** failed to detect signals on incoming edges. Issue #6493
+  - Fixed bug where option **--tls.guess-signals** failed to detect signals on incoming edges. Issue #6493, Issue #6585
   - Fixed invalid right-of-way rules in left-hand network. Issue #6496
   - Connection attribute 'pass' now overrides conflicts between straight and turning connections from the same edge. Issue #6497
   - Fixed invalid permissions for internal lanes when the incoming lane has more restrictions than the outgoing lane. Issue #5557
