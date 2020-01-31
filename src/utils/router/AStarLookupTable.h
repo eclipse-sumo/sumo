@@ -24,10 +24,10 @@
 
 #include <iostream>
 #include <fstream>
-
 #ifdef HAVE_FOX
 #include <utils/foxtools/FXWorkerThread.h>
 #endif
+#include <utils/router/ReversedEdge.h>
 
 #define UNREACHABLE (std::numeric_limits<double>::max() / 1000.0)
 
@@ -99,7 +99,9 @@ private:
 template<class E, class V>
 class LandmarkLookupTable : public AbstractLookupTable<E, V> {
 public:
-    LandmarkLookupTable(const std::string& filename, const std::vector<E*>& edges, SUMOAbstractRouter<E, V>* router, const V* defaultVehicle, const std::string& outfile, const int maxNumThreads) {
+    LandmarkLookupTable(const std::string& filename, const std::vector<E*>& edges, SUMOAbstractRouter<E, V>* router,
+                        SUMOAbstractRouter<ReversedEdge<E, V>, V>* reverseRouter,
+                        const V* defaultVehicle, const std::string& outfile, const int maxNumThreads) {
         myFirstNonInternal = -1;
         std::map<std::string, int> numericID;
         for (E* e : edges) {
@@ -157,6 +159,7 @@ public:
         }
 #ifdef HAVE_FOX
         FXWorkerThread::Pool threadPool;
+        std::vector<RoutingTask*> currentTasks;
 #endif
         for (int i = 0; i < (int)myLandmarks.size(); ++i) {
             if ((int)myFromLandmarkDists[i].size() != (int)edges.size() - myFirstNonInternal) {
@@ -182,92 +185,83 @@ public:
                             throw ProcessError("Could not open file '" + missing + "' for writing.");
                         }
                     }
-                } else {
+                }
+                else {
                     throw ProcessError("Not all network edges were found in the lookup table '" + filename + "' for landmark '" + landmarkID + "'.");
                 }
                 std::vector<const E*> routeLM(1, landmark);
                 const double lmCost = router->recomputeCosts(routeLM, defaultVehicle, 0);
                 std::vector<const E*> route;
+                std::vector<const ReversedEdge<E, V>*> reversedRoute;
 #ifdef HAVE_FOX
                 if (maxNumThreads > 0) {
                     if (threadPool.size() == 0) {
                         // The CHRouter needs initialization
                         // before it gets cloned, so we do a dummy routing which is not in parallel
                         router->compute(landmark, landmark, defaultVehicle, 0, route);
-                        route.clear();
                         while ((int)threadPool.size() < maxNumThreads) {
-                            new WorkerThread(threadPool, router->clone(), defaultVehicle);
+                            auto revClone = reverseRouter == nullptr ? nullptr : reverseRouter->clone();
+                            new WorkerThread(threadPool, router->clone(), revClone, defaultVehicle);
                         }
+                        route.clear();
                     }
-                    std::vector<RoutingTask*> currentTasks;
+                    bool firstTask = true;
                     for (int j = (int)myFromLandmarkDists[i].size() + myFirstNonInternal; j < (int)edges.size(); ++j) {
                         const E* edge = edges[j];
                         if (landmark != edge) {
                             std::vector<const E*> routeE(1, edge);
                             const double sourceDestCost = lmCost + router->recomputeCosts(routeE, defaultVehicle, 0);
+                            currentTasks.push_back(new RoutingTask(landmark, edge, sourceDestCost));
+                            threadPool.add(currentTasks.back(), i % maxNumThreads);
+                            if (firstTask) {
+                                threadPool.add(new BulkmodeTask(true), i % maxNumThreads);
+                                firstTask = false;
+                            }
+                        }
+                    }
+                    threadPool.add(new BulkmodeTask(false), i % maxNumThreads);
+                }
+#endif
+            }
+        }
+#ifdef HAVE_FOX
+        threadPool.waitAll(false);
+        int taskIndex = 0;
+#endif
+        for (int i = 0; i < (int)myLandmarks.size(); ++i) {
+            if ((int)myFromLandmarkDists[i].size() != (int)edges.size() - myFirstNonInternal) {
+                for (int j = (int)myFromLandmarkDists[i].size() + myFirstNonInternal; j < (int)edges.size(); ++j) {
+                    const E* edge = edges[j];
+                    double distFrom = -1;
+                    double distTo = -1;
+                    if (landmark == edge) {
+                        distFrom = 0;
+                        distTo = 0;
+                    } else {
+                        if (maxNumThreads > 0) {
+#ifdef HAVE_FOX
+                            distFrom = currentTasks[taskIndex]->getFromCost();
+                            distTo = currentTasks[taskIndex]->getToCost();
+                            delete currentTasks[taskIndex++];
+#endif
+                        } else {
+                            std::vector<const E*> routeE(1, edge);
+                            const double sourceDestCost = lmCost + router->recomputeCosts(routeE, defaultVehicle, 0);
+                            std::vector<const E*> route;
+                            std::vector<const ReversedEdge<E, V>*> reversedRoute;
                             // compute from-distance (skip taz-sources and other unreachable edges)
                             if (edge->getPredecessors().size() > 0 && landmark->getSuccessors().size() > 0) {
-                                currentTasks.push_back(new RoutingTask(landmark, edge, sourceDestCost));
-                                threadPool.add(currentTasks.back());
+                                if (router->compute(landmark, edge, defaultVehicle, 0, route)) {
+                                    distFrom = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
+                                    route.clear();
+                                }
                             }
                             // compute to-distance (skip unreachable landmarks)
                             if (landmark->getPredecessors().size() > 0 && edge->getSuccessors().size() > 0) {
-                                currentTasks.push_back(new RoutingTask(edge, landmark, sourceDestCost));
-                                threadPool.add(currentTasks.back());
-                            }
-                        }
-                    }
-                    threadPool.waitAll(false);
-                    int taskIndex = 0;
-                    for (int j = (int)myFromLandmarkDists[i].size() + myFirstNonInternal; j < (int)edges.size(); ++j) {
-                        const E* edge = edges[j];
-                        double distFrom = -1;
-                        double distTo = -1;
-                        if (landmark == edge) {
-                            distFrom = 0;
-                            distTo = 0;
-                        } else {
-                            if (edge->getPredecessors().size() > 0 && landmark->getSuccessors().size() > 0) {
-                                distFrom = currentTasks[taskIndex]->getCost();
-                                delete currentTasks[taskIndex++];
-                            }
-                            if (landmark->getPredecessors().size() > 0 && edge->getSuccessors().size() > 0) {
-                                distTo = currentTasks[taskIndex]->getCost();
-                                delete currentTasks[taskIndex++];
-                            }
-                        }
-                        myFromLandmarkDists[i].push_back(distFrom);
-                        myToLandmarkDists[i].push_back(distTo);
-                        (*ostrm) << landmarkID << " " << edge->getID() << " " << distFrom << " " << distTo << "\n";
-                    }
-                    currentTasks.clear();
-                    continue;
-                }
-#else
-                UNUSED_PARAMETER(maxNumThreads);
-#endif
-                for (int j = (int)myFromLandmarkDists[i].size() + myFirstNonInternal; j < (int)edges.size(); ++j) {
-                    const E* edge = edges[j];
-                    double distFrom = -1.;
-                    double distTo = -1.;
-                    if (landmark == edge) {
-                        distFrom = 0.;
-                        distTo = 0.;
-                    } else {
-                        std::vector<const E*> routeE(1, edge);
-                        const double sourceDestCost = lmCost + router->recomputeCosts(routeE, defaultVehicle, 0);
-                        // compute from-distance (skip taz-sources and other unreachable edges)
-                        if (edge->getPredecessors().size() > 0 && landmark->getSuccessors().size() > 0) {
-                            if (router->compute(landmark, edge, defaultVehicle, 0, route)) {
-                                distFrom = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
-                                route.clear();
-                            }
-                        }
-                        // compute to-distance (skip unreachable landmarks)
-                        if (landmark->getPredecessors().size() > 0 && edge->getSuccessors().size() > 0) {
-                            if (router->compute(edge, landmark, defaultVehicle, 0, route)) {
-                                distTo = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
-                                route.clear();
+                                if (router->compute(edge, landmark, defaultVehicle, 0, route)) {
+                                    distTo = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
+                                    route.clear();
+                                }
                             }
                         }
                     }
@@ -346,44 +340,84 @@ private:
     class WorkerThread : public FXWorkerThread {
     public:
         WorkerThread(FXWorkerThread::Pool& pool,
-                     SUMOAbstractRouter<E, V>* router, const V* vehicle)
-            : FXWorkerThread(pool), myRouter(router), myVehicle(vehicle) {}
+                     SUMOAbstractRouter<E, V>* router,
+                     SUMOAbstractRouter<ReversedEdge<E, V>, V>* reverseRouter, const V* vehicle)
+            : FXWorkerThread(pool), myRouter(router), myReversedRouter(reverseRouter), myVehicle(vehicle) {}
+        
         virtual ~WorkerThread() {
             delete myRouter;
         }
-        double compute(const E* src, const E* dest, const double costOff) {
-            double result = -1.;
+
+        std::pair<double, double> compute(const E* src, const E* dest, const double costOff) {
+            double fromResult = -1.;
             if (myRouter->compute(src, dest, myVehicle, 0, myRoute)) {
-                result = MAX2(0.0, myRouter->recomputeCosts(myRoute, myVehicle, 0) + costOff);
+                fromResult = MAX2(0.0, myRouter->recomputeCosts(myRoute, myVehicle, 0) + costOff);
                 myRoute.clear();
             }
-            return result;
+            double toResult = -1.;
+            if (myReversedRouter != nullptr) {
+                if (myReversedRouter->compute(dest->getReversedRoutingEdge(), src->getReversedRoutingEdge(), myVehicle, 0, myReversedRoute)) {
+                    toResult = MAX2(0.0, myReversedRouter->recomputeCosts(myReversedRoute, myVehicle, 0) + costOff);
+                    myReversedRoute.clear();
+                }
+            } else {
+                if (myRouter->compute(dest, src, myVehicle, 0, myRoute)) {
+                    toResult = MAX2(0.0, myRouter->recomputeCosts(myRoute, myVehicle, 0) + costOff);
+                    myRoute.clear();
+                }
+            }
+            return std::make_pair(fromResult, toResult);
+        }
+
+        void setBulkMode(const bool value) {
+            myRouter->setBulkMode(value);
+            if (myReversedRouter != nullptr) {
+                myReversedRouter->setBulkMode(value);
+            }
         }
     private:
         SUMOAbstractRouter<E, V>* myRouter;
+        SUMOAbstractRouter<ReversedEdge<E, V>, V>* myReversedRouter;
         const V* myVehicle;
         std::vector<const E*> myRoute;
+        std::vector<const ReversedEdge<E, V>*> myReversedRoute;
     };
 
     class RoutingTask : public FXWorkerThread::Task {
     public:
         RoutingTask(const E* src, const E* dest, const double costOff)
-            : mySrc(src), myDest(dest), myCost(-costOff) {}
+            : mySrc(src), myDest(dest), myCostOff(-costOff) {}
         void run(FXWorkerThread* context) {
-            myCost = ((WorkerThread*)context)->compute(mySrc, myDest, myCost);
+            myCost = ((WorkerThread*)context)->compute(mySrc, myDest, myCostOff);
         }
-        double getCost() {
-            return myCost;
+        double getFromCost() {
+            return myCost.first;
+        }
+        double getToCost() {
+            return myCost.second;
         }
     private:
         const E* const mySrc;
         const E* const myDest;
-        double myCost;
+        const double   myCostOff;
+        std::pair<double, double> myCost;
     private:
         /// @brief Invalidated assignment operator.
-        RoutingTask& operator=(const RoutingTask&);
+        RoutingTask& operator=(const RoutingTask&) = delete;
     };
 
+    class BulkmodeTask : public FXWorkerThread::Task {
+    public:
+        BulkmodeTask(const bool value) : myValue(value) {}
+        void run(FXWorkerThread* context) {
+            static_cast<WorkerThread*>(context)->setBulkMode(myValue);
+        }
+    private:
+        const bool myValue;
+    private:
+        /// @brief Invalidated assignment operator.
+        BulkmodeTask& operator=(const BulkmodeTask&) = delete;
+    };
 
 private:
     /// @brief for multi threaded routing

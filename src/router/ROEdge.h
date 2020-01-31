@@ -491,7 +491,6 @@ public:
         return myToJunction;
     }
 
-
     /** @brief Returns this edge's lanes
      *
      * @return This edge's lanes
@@ -499,6 +498,14 @@ public:
     const std::vector<ROLane*>& getLanes() const {
         return myLanes;
     }
+
+    ReversedEdge<ROEdge, ROVehicle>* getReversedRoutingEdge() const {
+        if (myReversedRoutingEdge == nullptr) {
+            myReversedRoutingEdge = new ReversedEdge<ROEdge, ROVehicle>(this);
+        }
+        return myReversedRoutingEdge;
+    }
+
 protected:
     /** @brief Retrieves the stored effort
      *
@@ -587,6 +594,9 @@ protected:
 
     /// @brief The successors with vias available for a given vClass
     mutable std::map<SUMOVehicleClass, ROConstEdgePairVector> myClassesViaSuccessorMap;
+
+    /// @brief a reversed version for backward routing
+    mutable ReversedEdge<ROEdge, ROVehicle>* myReversedRoutingEdge = nullptr;
 
 #ifdef HAVE_FOX
     /// The mutex used to avoid concurrent updates of myClassesSuccessorMap
