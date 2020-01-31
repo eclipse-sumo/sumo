@@ -38,6 +38,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/geom/Boundary.h>
+#include <utils/router/ReversedEdge.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/vehicle/SUMOTrafficObject.h>
 #include "MSNet.h"
@@ -753,6 +754,13 @@ public:
     /// @}
 
 
+    ReversedEdge<MSEdge, SUMOVehicle>* getReversedRoutingEdge() const {
+        if (myReversedRoutingEdge == nullptr) {
+            myReversedRoutingEdge = new ReversedEdge<MSEdge, SUMOVehicle>(this);
+        }
+        return myReversedRoutingEdge;
+    }
+
 protected:
     /** @class by_id_sorter
      * @brief Sorts edges by their ids
@@ -928,6 +936,9 @@ private:
 
     /// @brief the oppositing superposable edge
     const MSEdge* myBidiEdge;
+
+    /// @brief a reversed version for backward routing
+    mutable ReversedEdge<MSEdge, SUMOVehicle>* myReversedRoutingEdge = nullptr;
 
     /// @brief Invalidated copy constructor.
     MSEdge(const MSEdge&);

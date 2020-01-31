@@ -27,4 +27,4 @@ SET TEXTTESTPY=texttest.py
 python -c "import texttestlib"
 IF NOT ERRORLEVEL 1 SET TEXTTESTPY=texttest.pyw
 where.exe texttest.exe > NUL 2> NUL
-IF NOT ERRORLEVEL 1 SET TEXTTESTPY=texttest.exe
+IF NOT ERRORLEVEL 1 SET TEXTTESTPY=C:\Users\behr_mi\Projekte\texttest\installer3\build\bdist.mingw\msi\texttestc.exe
