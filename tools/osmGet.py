@@ -25,6 +25,7 @@ except ImportError:
     import urllib.parse as urlparse
 
 import optparse
+import base64
 from os import path
 
 import sumolib  # noqa
@@ -96,9 +97,13 @@ def get(args=None):
     else:
         url = urlparse.urlparse("https://" + options.url)
     if os.environ.get("https_proxy") is not None:
+        headers = {}
         proxy_url = urlparse.urlparse(os.environ.get("https_proxy"))
+        if proxy_url.username and proxy_url.password:
+            auth = '%s:%s' % (proxy_url.username, proxy_url.password)
+            headers['Proxy-Authorization'] = 'Basic ' + base64.b64encode(auth)
         conn = httplib.HTTPSConnection(proxy_url.hostname, proxy_url.port)
-        conn.set_tunnel(url.hostname, 443, {})
+        conn.set_tunnel(url.hostname, 443, headers)
     else:
         if url.scheme == "https":
             conn = httplib.HTTPSConnection(url.hostname, url.port)
