@@ -66,7 +66,7 @@
 
 //#define DEBUG_JOINJUNCTIONS
 //#define DEBUG_GUESSSIGNALS
-#define DEBUGNODEID "354916004"
+#define DEBUGNODEID ""
 #define DEBUGNODEID2 ""
 //#define DEBUGNODEID "5548037023"
 #define DEBUGCOND(obj) ((obj) != 0 && ((obj)->getID() == DEBUGNODEID || (obj)->getID() == DEBUGNODEID2))
@@ -1704,7 +1704,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         const double signalDist = oc.getFloat("tls.guess-signals.dist");
         for (const auto& item : myNodes) {
             const NBNode* node = item.second;
-            if (node->isTLControlled() && node->geometryLike()) {
+            if (node->isTLControlled() && (node->getIncomingEdges().size() == 1 || node->geometryLike())) {
 #ifdef DEBUG_GUESSSIGNALS
                 if (DEBUGCOND(node) || true) std::cout << " propagate TLS from " << node->getID() << " downstream\n";
 #endif
