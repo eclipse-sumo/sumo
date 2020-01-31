@@ -39,6 +39,7 @@
 class OutputDevice;
 class OptionsCont;
 class NBNetBuilder;
+class NBTrafficLightLogic;
 class NBTrafficLightLogicCont;
 class NBNode;
 class NBDistrict;
@@ -85,6 +86,9 @@ public:
 
     /// @brief writes the traffic light logics to the given device
     static void writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicCont& tllCont);
+
+    /// @brief writes a single traffic light logic to the given device
+    static void writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* logic); 
 
     /** @brief Writes roundabouts
      * @param[in] into The device to write the edge into
