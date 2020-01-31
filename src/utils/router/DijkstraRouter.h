@@ -131,8 +131,9 @@ public:
 #ifdef DijkstraRouter_DEBUG_QUERY
         std::cout << "DEBUG: starting search for '" << Named::getIDSecure(vehicle) << "' time: " << STEPS2TIME(msTime) << "\n";
 #endif
-        const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
-        if (this->myBulkMode) {
+        const SUMOVehicleClass vClass = vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass();
+        std::tuple<const E*, const V*, SUMOTime> query = std::make_tuple(from, vehicle, msTime);
+        if (this->myBulkMode || query == myLastQuery) {
             const auto& toInfo = myEdgeInfos[to->getNumericalID()];
             if (toInfo.visited) {
                 buildPathFrom(&toInfo, into);
@@ -151,6 +152,7 @@ public:
             }
             myFrontierList.push_back(fromInfo);
         }
+        myLastQuery = query;
         // loop
         int num_visited = 0;
         while (!myFrontierList.empty()) {
@@ -264,8 +266,11 @@ private:
     }
 
 private:
-    /// @brief whether to supress warning/error if no route was found
+    /// @brief whether to suppress warning/error if no route was found
     bool mySilent;
+
+    /// cache of the last query to enable automated bulk routing
+    std::tuple<const E*, const V*, SUMOTime> myLastQuery;
 
     EffortCalculator* const myExternalEffort;
 
