@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 20 11:02:51 2020 by Eclipse SUMO netconvert Version v1_4_0+0658-8b07cc4
+<!-- generated on Fri Jan 31 10:20:56 2020 by Eclipse SUMO netconvert Version v1_4_0+0878-e007d24
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -82,7 +82,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="WC_1" index="1" speed="13.89" length="96.00" shape="0.00,98.40 96.00,98.40"/>
     </edge>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="EC_0 EC_1 EC_2 SC_0 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_1_2 :C_4_0 :C_5_0 :C_5_1" shape="100.00,113.60 103.20,113.60 103.64,111.38 104.20,110.60 104.98,110.04 105.98,109.71 107.20,109.60 107.20,90.40 104.98,89.96 104.20,89.40 103.64,88.62 103.31,87.62 103.20,86.40 100.00,86.40 99.89,88.60 99.56,90.40 99.00,91.80 98.22,92.80 97.22,93.40 96.00,93.60 96.00,109.60 98.22,110.04 99.00,110.60 99.56,111.38 99.89,112.38">
+    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="EC_0 EC_1 EC_2 SC_0 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_1_2 :C_4_0 :C_5_0 :C_5_1" shape="100.00,113.60 103.20,113.60 103.64,111.38 104.20,110.60 104.98,110.04 105.98,109.71 107.20,109.60 107.20,90.40 104.98,89.96 104.20,89.40 103.64,88.62 103.31,87.62 103.20,86.40 100.00,86.40 99.89,88.60 99.56,90.40 99.00,91.80 98.22,92.80 97.22,93.40 96.00,93.60 96.00,109.60 98.22,110.04 99.00,110.60 99.56,111.38 99.89,112.38">
         <request index="0" response="0000000" foes="0000000" cont="0"/>
         <request index="1" response="0000000" foes="0000000" cont="0"/>
         <request index="2" response="0000000" foes="0000000" cont="0"/>

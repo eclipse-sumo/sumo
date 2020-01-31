@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 20 12:11:30 2020 by Eclipse SUMO netconvert Version v1_4_0+0658-8b07cc4
+<!-- generated on Fri Jan 31 10:20:56 2020 by Eclipse SUMO netconvert Version v1_4_0+0878-e007d24
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -755,10 +755,10 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrrrrrryyyy"/>
     </tlLogic>
     <tlLogic id="joinedG_0" type="static" programID="0" offset="0">
+        <phase duration="42" state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="3"  state="rrrrryyyyyrrrrryyyyy"/>
         <phase duration="42" state="GGGggrrrrrGGGggrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrryyyyyrrrrr"/>
-        <phase duration="42" state="GrrrrrrrrrrrrrrGGGGg"/>
-        <phase duration="3"  state="yrrrrrrrrrrrrrryyyyy"/>
     </tlLogic>
     <tlLogic id="joinedG_1" type="static" programID="0" offset="0">
         <phase duration="21" state="ggggrrrrGGGGrrrrrrrrGGGG"/>
@@ -982,7 +982,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3" response="00111" foes="00111"/>
         <request index="4" response="00100" foes="00100"/>
     </junction>
-    <junction id="3645211939" type="traffic_light" x="288.36" y="599.38" incLanes="47795739_0 47795739_1 -547275315_0 -547275315_1" intLanes="" shape="293.62,603.03 283.27,595.49 283.07,595.78 293.48,603.22">
+    <junction id="3645211939" type="priority" x="288.36" y="599.38" incLanes="47795739_0 47795739_1 -547275315_0 -547275315_1" intLanes="" shape="293.62,603.03 283.27,595.49 283.07,595.78 293.48,603.22">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>

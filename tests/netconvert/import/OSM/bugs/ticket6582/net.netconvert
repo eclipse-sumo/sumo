@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 31 08:45:39 2020 by Eclipse SUMO netconvert Version v1_4_0+0876-7ae4ce1
+<!-- generated on Fri Jan 31 10:14:30 2020 by Eclipse SUMO netconvert Version v1_4_0+0878-e007d24
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -297,9 +297,13 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="joinedS_0" type="static" programID="0" offset="0">
-        <phase duration="40" state="GrrrrrrGrrrrrGGGg"/>
+        <phase duration="20" state="rGGGGGGrGGGGrrrrr"/>
+        <phase duration="5"  state="ryyyyyyryyyyrrrrr"/>
+        <phase duration="6"  state="rGGGrrrrGGGGGrrrr"/>
+        <phase duration="5"  state="ryyyrrrryyyyyrrrr"/>
+        <phase duration="22" state="GrrrrrrGrrrrrGGGg"/>
         <phase duration="5"  state="yrrrrrryrrrrryyyy"/>
-        <phase duration="40" state="GrrrGGGrGrrrrrrrG"/>
+        <phase duration="22" state="GrrrGGGrGrrrrrrrG"/>
         <phase duration="5"  state="yrrryyyryrrrrrrry"/>
     </tlLogic>
 
@@ -314,7 +318,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>
-    <junction id="32048730" type="traffic_light" x="82.95" y="129.02" incLanes="321451888#0_0 321451888#0_1 321451888#0_2 321451888#0_3 321451888#0_4" intLanes=":32048730_0_0 :32048730_1_0 :32048730_1_1 :32048730_1_2 :32048730_1_3 :32048730_1_4" shape="78.87,137.67 92.51,129.31 91.76,127.19 91.87,126.25 92.31,125.38 93.07,124.59 94.15,123.89 92.31,121.24 90.08,121.94 89.12,121.83 88.25,121.41 87.48,120.69 86.82,119.66 72.96,127.70">
+    <junction id="32048730" type="priority" x="82.95" y="129.02" incLanes="321451888#0_0 321451888#0_1 321451888#0_2 321451888#0_3 321451888#0_4" intLanes=":32048730_0_0 :32048730_1_0 :32048730_1_1 :32048730_1_2 :32048730_1_3 :32048730_1_4" shape="78.87,137.67 92.51,129.31 91.76,127.19 91.87,126.25 92.31,125.38 93.07,124.59 94.15,123.89 92.31,121.24 90.08,121.94 89.12,121.83 88.25,121.41 87.48,120.69 86.82,119.66 72.96,127.70">
         <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="000000" cont="0"/>
         <request index="2" response="000000" foes="000000" cont="0"/>

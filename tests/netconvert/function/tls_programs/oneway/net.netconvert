@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 20 11:28:35 2020 by Eclipse SUMO netconvert Version v1_4_0+0658-8b07cc4
+<!-- generated on Fri Jan 31 10:20:54 2020 by Eclipse SUMO netconvert Version v1_4_0+0878-e007d24
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -278,14 +278,14 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0001" cont="0"/>
         <request index="3" response="0000" foes="0001" cont="0"/>
     </junction>
-    <junction id="468121395" type="traffic_light" x="524.55" y="397.54" incLanes="172592921#3_0 172592921#3_1 172592921#3_2 172592921#3_3" intLanes=":468121395_0_0 :468121395_0_1 :468121395_0_2 :468121395_0_3 :468121395_4_0" shape="528.62,404.90 531.17,392.35 520.07,390.15 517.63,402.72 519.71,403.57 520.35,404.26 520.73,405.13 520.83,406.17 520.67,407.38 523.79,408.09 524.73,405.96 525.45,405.30 526.34,404.90 527.40,404.76">
+    <junction id="468121395" type="priority" x="524.55" y="397.54" incLanes="172592921#3_0 172592921#3_1 172592921#3_2 172592921#3_3" intLanes=":468121395_0_0 :468121395_0_1 :468121395_0_2 :468121395_0_3 :468121395_4_0" shape="528.62,404.90 531.17,392.35 520.07,390.15 517.63,402.72 519.71,403.57 520.35,404.26 520.73,405.13 520.83,406.17 520.67,407.38 523.79,408.09 524.73,405.96 525.45,405.30 526.34,404.90 527.40,404.76">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00000" foes="00000" cont="0"/>
         <request index="3" response="00000" foes="00000" cont="0"/>
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
-    <junction id="468121561" type="traffic_light" x="464.64" y="385.90" incLanes="172592921#2_0 172592921#2_1 172592921#2_2 172592921#2_3" intLanes=":468121561_0_0 :468121561_1_0 :468121561_1_1 :468121561_1_2 :468121561_1_3" shape="469.22,393.31 471.66,380.74 469.88,380.01 469.36,379.42 469.10,378.68 469.09,377.79 469.32,376.76 466.28,375.76 465.23,377.75 464.51,378.39 463.67,378.78 462.71,378.93 461.63,378.84 459.32,391.43">
+    <junction id="468121561" type="priority" x="464.64" y="385.90" incLanes="172592921#2_0 172592921#2_1 172592921#2_2 172592921#2_3" intLanes=":468121561_0_0 :468121561_1_0 :468121561_1_1 :468121561_1_2 :468121561_1_3" shape="469.22,393.31 471.66,380.74 469.88,380.01 469.36,379.42 469.10,378.68 469.09,377.79 469.32,376.76 466.28,375.76 465.23,377.75 464.51,378.39 463.67,378.78 462.71,378.93 461.63,378.84 459.32,391.43">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00000" foes="00000" cont="0"/>
