@@ -1036,8 +1036,8 @@ public:
     }
 
     /// @brief Marks this edge being within an intersection
-    void setInsideTLS() {
-        myAmInTLS = true;
+    void setInsideTLS(bool inside) {
+        myAmInTLS = inside;
     }
 
     /** @brief Returns whether this edge was marked as being within an intersection

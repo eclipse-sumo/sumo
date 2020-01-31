@@ -256,6 +256,7 @@ NBLoadedSUMOTLDef::collectEdges() {
     // and which are uncontrolled as well (we already know myControlledLinks)
     for (EdgeVector::iterator j = myIncomingEdges.begin(); j != myIncomingEdges.end();) {
         NBEdge* edge = *j;
+        edge->setInsideTLS(false); // reset
         // an edge lies within the logic if it is outgoing as well as incoming
         EdgeVector::iterator k = std::find(myOutgoing.begin(), myOutgoing.end(), edge);
         if (k != myOutgoing.end()) {
@@ -271,7 +272,7 @@ NBLoadedSUMOTLDef::collectEdges() {
                     myControlledInnerEdges.insert(edge->getID());
                 } else {
                     myEdgesWithin.push_back(edge);
-                    (*j)->setInsideTLS();
+                    edge->setInsideTLS(true);
                     ++j; //j = myIncomingEdges.erase(j);
                     continue;
                 }

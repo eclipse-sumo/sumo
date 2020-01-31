@@ -375,10 +375,14 @@ NBNode::removeTrafficLight(NBTrafficLightDefinition* tlDef) {
 
 
 void
-NBNode::removeTrafficLights() {
+NBNode::removeTrafficLights(bool setAsPriority) {
     std::set<NBTrafficLightDefinition*> trafficLights = myTrafficLights; // make a copy because we will modify the original
     for (std::set<NBTrafficLightDefinition*>::const_iterator i = trafficLights.begin(); i != trafficLights.end(); ++i) {
         removeTrafficLight(*i);
+    }
+    if (setAsPriority) {
+        myType = myRequest != nullptr ? NODETYPE_PRIORITY : (
+                myType == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION ? NODETYPE_NOJUNCTION : NODETYPE_DEAD_END);
     }
 }
 

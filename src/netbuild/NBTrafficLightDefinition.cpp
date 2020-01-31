@@ -196,8 +196,8 @@ NBTrafficLightDefinition::collectEdges() {
     EdgeVector outer;
     // check which of the edges are completely within the junction
     //  add them to the list of edges lying within the node
-    for (EdgeVector::iterator j = myIncomingEdges.begin(); j != myIncomingEdges.end(); ++j) {
-        NBEdge* edge = *j;
+    for (NBEdge* edge : myIncomingEdges) {
+        edge->setInsideTLS(false); // reset
         // an edge lies within the logic if it is outgoing as well as incoming
         EdgeVector::iterator k = std::find(myOutgoing.begin(), myOutgoing.end(), edge);
         if (k != myOutgoing.end()) {
@@ -217,7 +217,7 @@ NBTrafficLightDefinition::collectEdges() {
         // edges that are marked as 'inner' will not get their own phase when
         // computing traffic light logics (unless they cannot be reached from the outside at all)
         if (reachable.count(edge) == 1) {
-            edge->setInsideTLS();
+            edge->setInsideTLS(true);
             // legacy behavior
             if (uncontrolledWithin && myControlledInnerEdges.count(edge->getID()) == 0) {
                 myIncomingEdges.erase(find(myIncomingEdges.begin(), myIncomingEdges.end(), edge));

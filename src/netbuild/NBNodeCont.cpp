@@ -1895,7 +1895,7 @@ void NBNodeCont::recheckGuessedTLS(NBTrafficLightLogicCont& tlc) {
         if (!node->hasConflict()) {
             const std::set<NBTrafficLightDefinition*>& tlDefs = node->getControllingTLS();
             recompute.insert(tlDefs.begin(), tlDefs.end());
-            node->removeTrafficLights();
+            node->removeTrafficLights(true);
             for (NBEdge* edge : node->getIncomingEdges()) {
                 edge->clearControllingTLInformation();
             }

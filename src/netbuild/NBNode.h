@@ -305,7 +305,7 @@ public:
     void removeTrafficLight(NBTrafficLightDefinition* tlDef);
 
     /// @brief Removes all references to traffic lights that control this tls
-    void removeTrafficLights();
+    void removeTrafficLights(bool setAsPriority = false);
 
     /**@brief Returns whether this node is controlled by any tls
      * @return Whether a traffic light was assigned to this node
