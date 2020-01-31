@@ -160,6 +160,7 @@ public:
 #ifdef HAVE_FOX
         FXWorkerThread::Pool threadPool;
         std::vector<RoutingTask*> currentTasks;
+        std::vector<const E*> landmarks;
 #endif
         for (int i = 0; i < (int)myLandmarks.size(); ++i) {
             if ((int)myFromLandmarkDists[i].size() != (int)edges.size() - myFirstNonInternal) {
@@ -169,6 +170,7 @@ public:
                 for (const E* const edge : edges) {
                     if (edge->getID() == landmarkID) {
                         landmark = edge;
+                        landmarks.push_back(edge);
                         break;
                     }
                 }
@@ -189,8 +191,7 @@ public:
                 else {
                     throw ProcessError("Not all network edges were found in the lookup table '" + filename + "' for landmark '" + landmarkID + "'.");
                 }
-                std::vector<const E*> routeLM(1, landmark);
-                const double lmCost = router->recomputeCosts(routeLM, defaultVehicle, 0);
+                const double lmCost = router->recomputeCosts({landmark}, defaultVehicle, 0);
                 std::vector<const E*> route;
                 std::vector<const ReversedEdge<E, V>*> reversedRoute;
 #ifdef HAVE_FOX
@@ -205,21 +206,15 @@ public:
                         }
                         route.clear();
                     }
-                    bool firstTask = true;
                     for (int j = (int)myFromLandmarkDists[i].size() + myFirstNonInternal; j < (int)edges.size(); ++j) {
-                        const E* edge = edges[j];
+                        const E* const edge = edges[j];
                         if (landmark != edge) {
                             std::vector<const E*> routeE(1, edge);
                             const double sourceDestCost = lmCost + router->recomputeCosts(routeE, defaultVehicle, 0);
                             currentTasks.push_back(new RoutingTask(landmark, edge, sourceDestCost));
                             threadPool.add(currentTasks.back(), i % maxNumThreads);
-                            if (firstTask) {
-                                threadPool.add(new BulkmodeTask(true), i % maxNumThreads);
-                                firstTask = false;
-                            }
                         }
                     }
-                    threadPool.add(new BulkmodeTask(false), i % maxNumThreads);
                 }
 #endif
             }
@@ -230,6 +225,8 @@ public:
 #endif
         for (int i = 0; i < (int)myLandmarks.size(); ++i) {
             if ((int)myFromLandmarkDists[i].size() != (int)edges.size() - myFirstNonInternal) {
+                const E* landmark = landmarks[i];
+                const double lmCost = router->recomputeCosts({landmark}, defaultVehicle, 0);
                 for (int j = (int)myFromLandmarkDists[i].size() + myFirstNonInternal; j < (int)edges.size(); ++j) {
                     const E* edge = edges[j];
                     double distFrom = -1;
@@ -267,7 +264,7 @@ public:
                     }
                     myFromLandmarkDists[i].push_back(distFrom);
                     myToLandmarkDists[i].push_back(distTo);
-                    (*ostrm) << landmarkID << " " << edge->getID() << " " << distFrom << " " << distTo << "\n";
+                    (*ostrm) << landmark->getID() << " " << edge->getID() << " " << distFrom << " " << distTo << "\n";
                 }
             }
         }
@@ -404,19 +401,6 @@ private:
     private:
         /// @brief Invalidated assignment operator.
         RoutingTask& operator=(const RoutingTask&) = delete;
-    };
-
-    class BulkmodeTask : public FXWorkerThread::Task {
-    public:
-        BulkmodeTask(const bool value) : myValue(value) {}
-        void run(FXWorkerThread* context) {
-            static_cast<WorkerThread*>(context)->setBulkMode(myValue);
-        }
-    private:
-        const bool myValue;
-    private:
-        /// @brief Invalidated assignment operator.
-        BulkmodeTask& operator=(const BulkmodeTask&) = delete;
     };
 
 private:
