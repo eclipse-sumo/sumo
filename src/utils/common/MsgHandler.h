@@ -115,6 +115,7 @@ public:
     void informf(const std::string& format, T value, Targs... Fargs) {
         if (!aggregationThresholdReached(format)) {
             std::ostringstream os;
+            os << std::fixed << std::setprecision(gPrecision);
             _informf(format.c_str(), os, value, Fargs...);
             inform(os.str(), true);
         }
