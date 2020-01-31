@@ -35,7 +35,8 @@ permalink: /ChangeLog/
   - Fixed bug where option **--tls.guess-signals** failed to detect signals on incoming edges. Issue #6493
   - Fixed invalid right-of-way rules in left-hand network. Issue #6496
   - Connection attribute 'pass' now overrides conflicts between straight and turning connections from the same edge. Issue #6497
-  - Fixed invalid permissions for internal lanes when the incoming lane has more restrictions than the outgoing lane. Issue #5557  
+  - Fixed invalid permissions for internal lanes when the incoming lane has more restrictions than the outgoing lane. Issue #5557
+  - Fixed bug that was causing missing green phases for some connections at joined traffic lights. Issue #6582
 
 - TraCI
   - Context subscriptions can now be removed individually from the python client (before every unsubscribeContext removed all)
