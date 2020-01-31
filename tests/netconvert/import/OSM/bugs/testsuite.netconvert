@@ -30,3 +30,6 @@ ticket6493
 
 # guess-signals must work in intermodal networks
 ticket6495
+
+# missing green phase
+ticket6582
