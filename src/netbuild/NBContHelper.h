@@ -76,15 +76,17 @@ public:
     class relative_outgoing_edge_sorter {
     public:
         /// constructor
-        explicit relative_outgoing_edge_sorter(NBEdge* e) : myEdge(e) {}
+        explicit relative_outgoing_edge_sorter(NBEdge* e) : myAngle(e->getEndAngle()) {}
+        /// constructor
+        explicit relative_outgoing_edge_sorter(double angle) : myAngle(angle) {}
 
     public:
         /// comparing operation
-        int operator()(NBEdge* e1, NBEdge* e2) const;
+        int operator()(const NBEdge* e1, const NBEdge* e2) const;
 
     private:
-        /// the edge to compute the relative angle of
-        NBEdge* myEdge;
+        /// @brief the reference angle to compare edges agains
+        double myAngle;
     };
 
 
@@ -98,15 +100,17 @@ public:
     class relative_incoming_edge_sorter {
     public:
         /// constructor
-        explicit relative_incoming_edge_sorter(NBEdge* e) : myEdge(e) {}
+        explicit relative_incoming_edge_sorter(NBEdge* e) : myAngle(e->getStartAngle()) {}
+        /// constructor
+        explicit relative_incoming_edge_sorter(double angle) : myAngle(angle) {}
 
     public:
         /// comparing operation
-        int operator()(NBEdge* e1, NBEdge* e2) const;
+        int operator()(const NBEdge* e1, const NBEdge* e2) const;
 
     private:
-        /// the edge to compute the relative angle of
-        NBEdge* myEdge;
+        /// @brief the reference angle to compare edges agains
+        double myAngle;
     };
 
 
