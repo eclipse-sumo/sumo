@@ -682,12 +682,18 @@ NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, double 
     }
     geom1 = geom1.getSubpart2D(0, commonLength);
     geom2 = geom2.getSubpart2D(0, commonLength);
+    double endAngleDiff = 0;
+    if (geom1.size() >= 2 && geom2.size() >= 2) {
+        endAngleDiff = fabs(RAD2DEG(GeomHelper::angleDiff(
+                    geom1.angleAt2D(geom1.size() - 2),
+                    geom2.angleAt2D(geom2.size() - 2))));
+    }
     const double minDistanceThreshold = (e1->getTotalWidth() + e2->getTotalWidth()) / 2 + POSITION_EPS;
     std::vector<double> distances = geom1.distances(geom2, true);
     const double minDist = VectorHelper<double>::minValue(distances);
     const double maxDist = VectorHelper<double>::maxValue(distances);
     const bool curvingTowards = geom1[0].distanceTo2D(geom2[0]) > minDistanceThreshold && minDist < minDistanceThreshold;
-    const bool onTop = maxDist - POSITION_EPS < minDistanceThreshold;
+    const bool onTop = (maxDist - POSITION_EPS < minDistanceThreshold) && endAngleDiff < 30;
     geom1.extrapolate2D(EXT);
     geom2.extrapolate2D(EXT);
     Position intersect = geom1.intersectionPosition2D(geom2);
@@ -695,7 +701,9 @@ NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, double 
 #ifdef DEBUG_NODE_SHAPE
     if (DEBUGCOND) {
         std::cout << "    badIntersect: onTop=" << onTop << " curveTo=" << curvingTowards << " intersects=" << intersects
-                  << "  geom1=" << geom1 << " geom2=" << geom2
+                  << " endAngleDiff=" << endAngleDiff
+                  << " geom1=" << geom1 << " geom2=" << geom2
+                  << " distances=" << toString(distances) << " minDist=" << minDist << " maxDist=" << maxDist << " thresh=" << minDistanceThreshold
                   << " intersectPos=" << intersect
                   << "\n";
     }
