@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:56 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Sat Feb  1 12:53:48 2020 by Eclipse SUMO netconvert Version v1_4_0+0890-659a406d0b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,6 +29,7 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -62,15 +63,15 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="2" type="traffic_light" x="1500.00" y="0.00" incLanes="1to21_0 1to22_0" intLanes="" shape="1501.50,0.00 1501.50,-3.20 1498.50,-3.20 1498.50,0.00">
-        <request index="0" response="00" foes="10"/>
-        <request index="1" response="01" foes="01"/>
+    <junction id="2" type="traffic_light" x="1500.00" y="0.00" incLanes="1to21_0 1to22_0" intLanes="" shape="1501.50,-0.00 1501.50,-3.20 1498.50,-3.20 1498.50,0.00">
+        <request index="0" response="10" foes="10"/>
+        <request index="1" response="00" foes="01"/>
     </junction>
     <junction id="3" type="dead_end" x="1800.00" y="0.00" incLanes="out_0" intLanes="" shape="1800.00,-3.20 1800.00,0.00"/>
     <junction id="91" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
 
-    <connection from="1to21" to="out" fromLane="0" toLane="0" tl="2" linkIndex="0" dir="s" state="O"/>
-    <connection from="1to22" to="out" fromLane="0" toLane="0" tl="2" linkIndex="1" dir="s" state="o"/>
+    <connection from="1to21" to="out" fromLane="0" toLane="0" tl="2" linkIndex="0" dir="s" state="o"/>
+    <connection from="1to22" to="out" fromLane="0" toLane="0" tl="2" linkIndex="1" dir="s" state="O"/>
     <connection from="91to1" to="1to21" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="91to1" to="1to22" fromLane="0" toLane="0" dir="s" state="M"/>
 

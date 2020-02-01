@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:55 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Sat Feb  1 12:53:47 2020 by Eclipse SUMO netconvert Version v1_4_0+0890-659a406d0b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <opposites.guess value="true"/>
@@ -40,6 +41,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -66,7 +68,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="E" type="dead_end" x="200.00" y="0.00" incLanes="VODUGES_beg_0" intLanes="" shape="200.00,-3.20 200.00,0.00 200.00,3.20"/>
-    <junction id="W" type="priority" x="0.00" y="0.00" incLanes="-VODUGES_beg_0 anotherone_0" intLanes="" shape="0.00,3.20 0.00,0.00 0.00,-3.20">
+    <junction id="W" type="priority" x="0.00" y="0.00" incLanes="-VODUGES_beg_0 anotherone_0" intLanes="" shape="0.00,3.20 0.00,-3.20 0.00,0.00">
         <request index="0" response="0" foes="0"/>
     </junction>
 

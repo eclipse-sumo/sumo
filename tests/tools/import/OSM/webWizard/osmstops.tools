@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 29 11:33:32 2019 by Eclipse SUMO netconvert Version v1_3_1+1200-cd23805
+<!-- generated on Sat Feb  1 12:53:24 2020 by Eclipse SUMO netconvert Version v1_4_0+0890-659a406d0b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
+        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertShips.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
         <osm-files value="osm_bbox.osm.xml"/>
     </input>
 
@@ -51,6 +51,7 @@
 
     <report>
         <verbose value="true"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -287,7 +288,7 @@
     <busStop id="247600965" name="S+U Friedrichstraße" lane="22820560#2_0" startPos="37.19" endPos="62.19" friendlyPos="true">
         <access lane="175885743_0" pos="4.47" length="26.10" friendlyPos="1"/>
         <access lane="465376239_0" pos="22.13" length="19.14" friendlyPos="1"/>
-        <access lane="465376240_0" pos="45.63" length="14.93" friendlyPos="1"/>
+        <access lane="465376240_0" pos="47.69" length="14.62" friendlyPos="1"/>
         <access lane="465376241_0" pos="28.05" length="18.90" friendlyPos="1"/>
         <access lane="465376242_0" pos="45.36" length="15.36" friendlyPos="1"/>
     </busStop>
@@ -381,9 +382,9 @@
     <busStop id="29805120" name="Berlin Friedrichstraße" lane="25946657_0" startPos="0.00" endPos="153.60" friendlyPos="true" lines="RE1 RE2 RB14 RE7">
         <access lane="237526578#0_0" pos="33.02" length="14.70" friendlyPos="1"/>
         <access lane="254339584_0" pos="0.00" length="18.47" friendlyPos="1"/>
-        <access lane="274524378_0" pos="0.00" length="15.96" friendlyPos="1"/>
+        <access lane="274524378_0" pos="0.00" length="16.41" friendlyPos="1"/>
         <access lane="274524379#0_0" pos="0.00" length="12.65" friendlyPos="1"/>
-        <access lane="274524379#1_0" pos="0.00" length="15.96" friendlyPos="1"/>
+        <access lane="274524379#1_0" pos="0.00" length="16.41" friendlyPos="1"/>
     </busStop>
     <busStop id="30353449" name="S Oranienburger Straße" lane="230976793_0" startPos="0.00" endPos="117.67" friendlyPos="true" lines="S1 S2 S25 S26">
         <access lane="165415464#0_0" pos="0.00" length="8.80" friendlyPos="1"/>
@@ -403,7 +404,7 @@
         <access lane="202157002#2_0" pos="32.44" length="18.76" friendlyPos="1"/>
         <access lane="473149641_0" pos="13.85" length="30.80" friendlyPos="1"/>
         <access lane="473149643_0" pos="11.50" length="30.56" friendlyPos="1"/>
-        <access lane="4773465#1_0" pos="32.06" length="27.26" friendlyPos="1"/>
+        <access lane="4773465#1_0" pos="28.93" length="27.26" friendlyPos="1"/>
         <access lane="557076767#1_0" pos="82.35" length="35.33" friendlyPos="1"/>
     </busStop>
     <busStop id="30731497" name="U Alexanderplatz" lane="93628049#4_0" startPos="47.53" endPos="72.53" friendlyPos="true" lines="M4 M5 M6">
@@ -447,14 +448,14 @@
     <busStop id="366500581" name="Berlin Friedrichstraße" lane="29384662_0" startPos="0.00" endPos="145.59" friendlyPos="true">
         <access lane="254339569_0" pos="21.28" length="17.57" friendlyPos="1"/>
         <access lane="254339584_0" pos="0.00" length="19.22" friendlyPos="1"/>
-        <access lane="274524378_0" pos="0.20" length="15.32" friendlyPos="1"/>
-        <access lane="274524379#1_0" pos="0.20" length="15.32" friendlyPos="1"/>
+        <access lane="274524378_0" pos="0.20" length="14.86" friendlyPos="1"/>
+        <access lane="274524379#1_0" pos="0.20" length="14.86" friendlyPos="1"/>
         <access lane="274524379#2_0" pos="2.23" length="11.67" friendlyPos="1"/>
     </busStop>
     <busStop id="366500582" name="Berlin Friedrichstraße" lane="25946670_0" startPos="0.00" endPos="77.61" friendlyPos="true" lines="RB21 RB22">
         <access lane="274524364#0_0" pos="0.00" length="21.09" friendlyPos="1"/>
-        <access lane="274524378_0" pos="0.20" length="20.44" friendlyPos="1"/>
-        <access lane="274524379#1_0" pos="0.20" length="20.44" friendlyPos="1"/>
+        <access lane="274524378_0" pos="0.20" length="19.85" friendlyPos="1"/>
+        <access lane="274524379#1_0" pos="0.20" length="19.85" friendlyPos="1"/>
         <access lane="274524379#2_0" pos="2.23" length="14.14" friendlyPos="1"/>
         <access lane="274524381#0_0" pos="0.00" length="20.12" friendlyPos="1"/>
     </busStop>
