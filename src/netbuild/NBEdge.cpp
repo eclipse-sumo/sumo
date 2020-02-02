@@ -51,7 +51,7 @@
 //#define DEBUG_ANGLES
 //#define DEBUG_NODE_BORDER
 //#define DEBUG_REPLACECONNECTION
-#define DEBUGID "132406495"
+#define DEBUGID ""
 #define DEBUGCOND (getID() == DEBUGID)
 //#define DEBUGCOND (StringUtils::startsWith(getID(), DEBUGID))
 //#define DEBUGCOND (getID() == "22762377#1" || getID() == "146511467")
@@ -2003,12 +2003,12 @@ NBEdge::computeAngle() {
     }
 
     // if the junction shape is suspicious we cannot trust the angle to the centroid
-    if (hasFromShape && (myFrom->getShape().distance2D(shape[0]) > 2 * POSITION_EPS
+    if (hasFromShape && shape.length() > 1 && (myFrom->getShape().distance2D(shape[0]) > 2 * POSITION_EPS
                          || myFrom->getShape().around(shape[-1])
                          || !(myFrom->getShape().around(fromCenter)))) {
         fromCenter = myFrom->getPosition();
     }
-    if (hasToShape && (myTo->getShape().distance2D(shape[-1]) > 2 * POSITION_EPS
+    if (hasToShape && shape.length() > 1 && (myTo->getShape().distance2D(shape[-1]) > 2 * POSITION_EPS
                        || myTo->getShape().around(shape[0])
                        || !(myTo->getShape().around(toCenter)))) {
         toCenter = myTo->getPosition();
