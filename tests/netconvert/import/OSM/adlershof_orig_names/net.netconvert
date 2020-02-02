@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Feb  1 23:17:57 2020 by Eclipse SUMO netconvert Version v1_4_0+0896-c766e0c359
+<!-- generated on Sun Feb  2 18:08:27 2020 by Eclipse SUMO netconvert Version v1_4_0+0901-95f7fea03c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -318,12 +318,12 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
     </edge>
     <edge id="-5784968#2" from="283719904" to="36268403" priority="3" type="highway.residential">
-        <lane id="-5784968#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="6.46" shape="933.24,551.87 933.37,551.72">
+        <lane id="-5784968#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="8.66" shape="932.06,553.22 932.20,553.06">
             <param key="origId" value="5784968"/>
         </lane>
     </edge>
     <edge id="-5784968#3" from="38920778" to="283719904" priority="3" type="highway.residential">
-        <lane id="-5784968#3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="51.12" shape="906.22,586.59 930.72,554.64">
+        <lane id="-5784968#3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="44.99" shape="906.22,586.59 929.03,556.85">
             <param key="origId" value="5784968"/>
         </lane>
     </edge>
@@ -531,7 +531,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
     </edge>
     <edge id="26004787#2" from="283722837" to="283719904" priority="1" type="highway.footway" spreadType="center">
-        <lane id="26004787#2_0" index="0" allow="pedestrian" speed="2.78" length="40.58" width="2.00" shape="973.81,544.07 939.94,554.00">
+        <lane id="26004787#2_0" index="0" allow="pedestrian" speed="2.78" length="46.41" width="2.00" shape="973.81,544.07 934.22,555.68">
             <param key="origId" value="26004787"/>
         </lane>
     </edge>
@@ -901,12 +901,12 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
     </edge>
     <edge id="5784968#2" from="36268403" to="283719904" priority="3" type="highway.residential">
-        <lane id="5784968#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="6.46" shape="935.78,553.83 935.65,553.98">
+        <lane id="5784968#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="8.66" shape="935.52,554.12 935.39,554.27">
             <param key="origId" value="5784968"/>
         </lane>
     </edge>
     <edge id="5784968#3" from="283719904" to="38920778" priority="3" type="highway.residential">
-        <lane id="5784968#3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="51.12" shape="933.26,556.58 908.76,588.54">
+        <lane id="5784968#3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="44.99" shape="931.56,558.80 908.76,588.54">
             <param key="origId" value="5784968"/>
         </lane>
     </edge>
@@ -1101,7 +1101,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
     </junction>
-    <junction id="283719904" type="priority" x="931.27" y="556.55" incLanes="26004787#2_0 5784968#2_0 -5784968#3_0" intLanes="" shape="940.23,554.96 939.66,553.05 939.21,552.34 934.40,548.12 929.45,553.66 934.53,557.56 936.19,555.98 936.97,555.66 937.84,555.48 938.89,555.29">
+    <junction id="283719904" type="priority" x="931.27" y="556.55" incLanes="26004787#2_0 -5784968#3_0 5784968#2_0" intLanes="" shape="934.50,556.64 933.94,554.72 934.59,552.76 932.18,550.65 927.76,555.88 932.83,559.77 938.69,552.93 936.28,550.83">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>

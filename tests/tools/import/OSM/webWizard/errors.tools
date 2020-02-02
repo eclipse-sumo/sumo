@@ -164,10 +164,10 @@ Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:3.0', lane='-148458500#1_0', gap=-1.00, time=499.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 499.00.
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=499.00.
-Warning: Person 'ped166' aborted waiting for 147:1 at busStop '3869306767'.
+Warning: Person 'ped84' aborted waiting for 147:1 at busStop '3869306767'.
 Warning: Person 'ped70' aborted waiting for M5:0 at busStop '1633759766'.
-Warning: Person 'ped15' aborted waiting for 12:1 at busStop '30731700'.
 Warning: Person 'ped162' aborted waiting for 147:1 at busStop '3869306774'.
 Warning: Person 'ped28' aborted waiting for 147:0 at busStop '3869306762'.
-Warning: Person 'ped134' aborted waiting for 147:0 at busStop '3869306762'.
 Warning: Person 'ped160' aborted waiting for 147:0 at busStop '3869306762'.
+Warning: Person 'ped134' aborted waiting for 147:0 at busStop '3869306762'.
+Warning: Person 'ped127' aborted waiting for S5:1 at busStop '27411231'.

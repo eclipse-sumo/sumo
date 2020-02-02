@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Feb  1 23:17:56 2020 by Eclipse SUMO netconvert Version v1_4_0+0896-c766e0c359
+<!-- generated on Sun Feb  2 18:08:27 2020 by Eclipse SUMO netconvert Version v1_4_0+0901-95f7fea03c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -156,7 +156,7 @@ SPDX-License-Identifier: EPL-2.0
     <busStop id="3895454719" name="Zur Nachtheide" lane="93704176#0_1" startPos="339.11" endPos="354.11" friendlyPos="true"/>
     <busStop id="94951410" name="Pablo-Neruda-Straße" lane="10699464#0_0" startPos="140.69" endPos="156.92" friendlyPos="true">
         <access lane="-70415298#0_0" pos="39.49" length="13.04" friendlyPos="1"/>
-        <access lane="10780554_0" pos="0.00" length="18.23" friendlyPos="1"/>
+        <access lane="10780554_0" pos="0.00" length="9.64" friendlyPos="1"/>
         <access lane="356886642#1_0" pos="0.00" length="21.90" friendlyPos="1"/>
         <access lane="70415298#0_0" pos="0.00" length="10.65" friendlyPos="1"/>
     </busStop>
