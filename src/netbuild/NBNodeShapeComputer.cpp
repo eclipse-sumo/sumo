@@ -42,6 +42,7 @@
 
 
 #define EXT 100.0
+#define EXT2 10.0
 
 // ===========================================================================
 // method definitions
@@ -300,6 +301,10 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
 #ifdef DEBUG_NODE_SHAPE
             if (DEBUGCOND) {
                 std::cout << " i=" << (*i)->getID() << " neigh=" << (*ccwi)->getID() << " neigh2=" << (*cwi)->getID() << "\n";
+                std::cout << "    ccwCloser=" << ccwCloser
+                    << "\n      currGeom=" << currGeom << " neighGeom=" << neighGeom
+                    << "\n      currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2
+                    << "\n";
             }
 #endif
             if (!simpleContinuation) {
@@ -483,7 +488,7 @@ NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector end
                                      const Position& begPoint, const Position& endPoint, int cornerDetail) {
     PositionVector ret;
     if (cornerDetail > 0) {
-        PositionVector begShape2 = begShape.reverse();
+        PositionVector begShape2 = begShape.reverse().getSubpart2D(EXT2, begShape.length());
         const double begSplit = begShape2.nearest_offset_to_point2D(begPoint, false);
 #ifdef DEBUG_SMOOTH_CORNERS
         if (DEBUGCOND) {
@@ -495,7 +500,7 @@ NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector end
         } else {
             return ret;
         }
-        PositionVector endShape2 = endShape;
+        PositionVector endShape2 = endShape.getSubpart(0, endShape.length() - EXT2);
         const double endSplit = endShape2.nearest_offset_to_point2D(endPoint, false);
 #ifdef DEBUG_SMOOTH_CORNERS
         if (DEBUGCOND) {
@@ -538,7 +543,7 @@ NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector end
         const double curvature = curve.length2D() / MAX2(NUMERICAL_EPS, begPoint.distanceTo2D(endPoint));
 #ifdef DEBUG_SMOOTH_CORNERS
         if (DEBUGCOND) {
-            std::cout << "   curveLength=" << curve.length2D() << " dist=" << begPoint.distanceTo2D(endPoint) << " curvature=" << curvature << "\n";
+            std::cout << "   curve=" << curve << " curveLength=" << curve.length2D() << " dist=" << begPoint.distanceTo2D(endPoint) << " curvature=" << curvature << "\n";
         }
 #endif
         if (curvature > 2 && angle > DEG2RAD(85)) {
@@ -583,6 +588,8 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
         // extend the boundary by extroplating it by EXT m
         geomsCCW[edge].extrapolate2D(EXT, true);
         geomsCW[edge].extrapolate2D(EXT, true);
+        geomsCCW[edge].extrapolate(EXT2, false, true);
+        geomsCW[edge].extrapolate(EXT2, false, true);
     }
     // compute same (edges where an intersection doesn't work well
     // (always check an edge and its cw neightbor)
