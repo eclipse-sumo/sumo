@@ -329,7 +329,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                         //if (RAD2DEG(farAngleDist) < 175) {
                         //    distances[*i] = MAX2(a1, MIN2(a2, a1 + 180 - RAD2DEG(farAngleDist)));
                         //}
-                        if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
+                        if (a2 <= EXT) {
+                            distances[*i] = MAX2(a1, a2);
+                        } else if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
                             // do nothing.
                         } else if (farAngleDist < DEG2RAD(135) || (fabs(RAD2DEG(farAngleDist) - 180) > 1 && fabs(a2 - a1) < 10)) {
                             distances[*i] = MAX2(a1, a2);
@@ -466,6 +468,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     }
     // final curve segment
     ret.append(getSmoothCorner(geomsCW[*(newAll.end() - 1)], geomsCCW[*newAll.begin()], ret[-1], ret[0], cornerDetail));
+#ifdef DEBUG_NODE_SHAPE
+        if (DEBUGCOND) std::cout << " final shape=" << ret << "\n";
+#endif
     return ret;
 }
 
