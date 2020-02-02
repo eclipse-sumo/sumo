@@ -36,3 +36,6 @@ ticket6582
 
 # guess.signals failure
 ticket6584
+
+# difficult junction shape impacts junction joining
+ticket6585
