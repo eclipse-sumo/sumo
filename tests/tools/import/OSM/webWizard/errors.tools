@@ -121,6 +121,9 @@ Warning: The rail crossing '4567083494' does not have any roads.
 Warning: The rail crossing '4603453625' does not have any roads.
 Warning: The traffic light '4363312288' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '4363312288'
+Warning: The traffic light 'cluster_1673527224_1673527227_21487161_303436603_3781110311_3781110312_3781110313_3918673901_3918673903_3918673904_4603453181_4603453187_51974030' cannot be adapted to a cycle time of 90.00.
+Warning: The traffic light 'cluster_1673527224_1673527227_21487161_303436603_3781110311_3781110312_3781110313_3918673901_3918673903_3918673904_4603453181_4603453187_51974030' has a high cycle time of 213.00.
+Warning: Intersecting left turns at junction 'cluster_1673527224_1673527227_21487161_303436603_3781110311_3781110312_3781110313_3918673901_3918673903_3918673904_4603453181_4603453187_51974030' from lane '388702047#4_1' and lane '-111251382#2_2' (increase junction radius to avoid this).
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
 Warning: 15 total messages of type: Discarding unusable type '%' (first occurence for edge '%').
@@ -164,10 +167,9 @@ Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:3.0', lane='-148458500#1_0', gap=-1.00, time=499.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 499.00.
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=499.00.
-Warning: Person 'ped84' aborted waiting for 147:1 at busStop '3869306767'.
+Warning: Person 'ped200' aborted waiting for 147:1 at busStop '-3867910422'.
 Warning: Person 'ped70' aborted waiting for M5:0 at busStop '1633759766'.
-Warning: Person 'ped162' aborted waiting for 147:1 at busStop '3869306774'.
+Warning: Person 'ped128' aborted waiting for N2:0 at busStop '272408975'.
 Warning: Person 'ped28' aborted waiting for 147:0 at busStop '3869306762'.
-Warning: Person 'ped160' aborted waiting for 147:0 at busStop '3869306762'.
 Warning: Person 'ped134' aborted waiting for 147:0 at busStop '3869306762'.
-Warning: Person 'ped127' aborted waiting for S5:1 at busStop '27411231'.
+Warning: Person 'ped160' aborted waiting for 147:0 at busStop '3869306762'.

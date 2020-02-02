@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Feb  2 18:08:20 2020 by Eclipse SUMO netconvert Version v1_4_0+0901-95f7fea03c
+<!-- generated on Mon Feb  3 00:05:08 2020 by Eclipse SUMO netconvert Version v1_4_0+0903-fc237432b6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -105,10 +105,8 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="20002" from="17" to="18" priority="-1" type="1" spreadType="center" shape="1436.88,1642.15 1448.38,1649.86 1459.45,1659.54 1465.30,1667.09">
         <lane id="20002_0" index="0" speed="13.89" length="60.94" shape="1455.68,1656.24 1459.45,1659.54 1459.93,1660.17"/>
     </edge>
-    <edge id="20003+31[1][1][0]" from="25" to="26" priority="0" spreadType="center">
-        <lane id="20003+31[1][1][0]_0" index="0" speed="13.89" length="11.64" shape="712.28,1935.81 713.52,1934.52"/>
-        <lane id="20003+31[1][1][0]_1" index="1" speed="13.89" length="11.64" shape="714.58,1938.02 715.83,1936.73"/>
-        <lane id="20003+31[1][1][0]_2" index="2" speed="13.89" length="11.64" shape="716.89,1940.24 718.13,1938.95"/>
+    <edge id="20003" from="25" to="26" priority="-1" type="1" spreadType="center" shape="715.57,1931.22 729.89,1922.08">
+        <lane id="20003_0" index="0" speed="13.89" length="23.67" shape="716.84,1930.41 726.52,1924.23"/>
     </edge>
     <edge id="20004" from="3" to="4" priority="-1" type="1" spreadType="center" shape="1530.00,1891.54 1524.42,1875.52">
         <lane id="20004_0" index="0" speed="13.89" length="56.94" shape="1532.47,1898.61 1525.86,1879.67"/>
@@ -315,12 +313,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="31[0]_1" index="1" speed="13.89" length="30.84" shape="684.03,1955.25 709.32,1942.47"/>
     </edge>
     <edge id="31[1][0]" from="22" to="25" priority="-1" type="1" spreadType="center" shape="709.84,1940.42 714.59,1938.02">
-        <lane id="31[1][0]_0" index="0" speed="13.89" length="8.61" shape="708.20,1939.45 708.38,1939.36"/>
-        <lane id="31[1][0]_1" index="1" speed="13.89" length="8.61" shape="709.65,1942.31 709.82,1942.22"/>
+        <lane id="31[1][0]_0" index="0" speed="13.89" length="5.63" shape="711.08,1938.00 712.47,1937.30"/>
+        <lane id="31[1][0]_1" index="1" speed="13.89" length="5.63" shape="712.52,1940.86 713.91,1940.16"/>
+    </edge>
+    <edge id="31[1][1][0]" from="25" to="26" priority="-1" type="1" spreadType="center" shape="714.59,1938.02 716.09,1937.26 732.70,1926.35">
+        <lane id="31[1][1][0]_0" index="0" speed="13.89" length="22.40" shape="718.84,1933.54 728.47,1927.21"/>
+        <lane id="31[1][1][0]_1" index="1" speed="13.89" length="22.40" shape="720.56,1936.24 730.23,1929.89"/>
     </edge>
     <edge id="31[1][1][1][0]" from="26" to="27" priority="-1" type="1" spreadType="center" shape="732.70,1926.35 745.25,1918.11 801.66,1870.05 818.92,1847.97 843.93,1805.71 844.37,1804.64">
-        <lane id="31[1][1][1][0]_0" index="0" speed="13.89" length="177.38" shape="731.82,1925.02 744.28,1916.83 800.50,1868.94 817.59,1847.07 840.99,1807.53"/>
-        <lane id="31[1][1][1][0]_1" index="1" speed="13.89" length="177.38" shape="733.58,1927.69 746.21,1919.39 802.82,1871.17 820.24,1848.87 843.98,1808.77"/>
+        <lane id="31[1][1][1][0]_0" index="0" speed="13.89" length="168.70" shape="735.16,1922.82 744.28,1916.83 800.50,1868.94 817.59,1847.07 840.99,1807.53"/>
+        <lane id="31[1][1][1][0]_1" index="1" speed="13.89" length="168.70" shape="736.92,1925.50 746.21,1919.39 802.82,1871.17 820.24,1848.87 843.98,1808.77"/>
     </edge>
     <edge id="31[1][1][1][1][0]" from="27" to="28" priority="-1" type="1" spreadType="center" shape="844.37,1804.64 857.55,1772.93 887.27,1704.36">
         <lane id="31[1][1][1][1][0]_0" index="0" speed="13.89" length="114.42" shape="844.43,1800.33 856.08,1772.31 885.08,1705.41"/>
@@ -900,16 +902,17 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="24-DestinationNode" type="dead_end" x="993.97" y="1391.75" incLanes="24_0" intLanes="" shape="994.65,1390.31 993.28,1393.20"/>
     <junction id="24-SourceNode" type="dead_end" x="968.45" y="1379.72" incLanes="" intLanes="" shape="967.77,1381.16 969.13,1378.27"/>
-    <junction id="25" type="priority" x="714.59" y="1938.02" incLanes="31[1][0]_0 31[1][0]_1" intLanes="" shape="718.05,1941.35 711.12,1934.70 704.78,1939.39 707.67,1945.10">
+    <junction id="25" type="priority" x="714.59" y="1938.02" incLanes="31[1][0]_0 31[1][0]_1" intLanes="" shape="721.42,1937.59 715.98,1929.06 714.18,1931.39 713.94,1932.60 713.68,1933.78 713.07,1934.89 711.75,1935.87 714.63,1941.58 717.22,1940.24 718.11,1939.73 718.98,1939.19 720.02,1938.51">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
     <junction id="25-DestinationNode" type="dead_end" x="1005.38" y="1519.20" incLanes="25_0 25_1" intLanes="" shape="1007.80,1521.29 1002.96,1517.10"/>
     <junction id="25-SourceNode" type="dead_end" x="1043.12" y="1517.43" incLanes="" intLanes="" shape="1044.45,1514.52 1041.79,1520.34"/>
-    <junction id="26" type="priority" x="729.89" y="1922.08" incLanes="20003+31[1][1][0]_0 20003+31[1][1][0]_1 20003+31[1][1][0]_2" intLanes="" shape="734.45,1929.03 730.94,1923.68 727.03,1925.87 723.84,1927.08 721.09,1927.87 718.46,1928.80 715.65,1930.46 712.36,1933.41 719.29,1940.06 722.12,1937.25 724.36,1935.33 726.37,1933.94 728.48,1932.67 731.06,1931.16">
-        <request index="0" response="00" foes="00"/>
-        <request index="1" response="00" foes="00"/>
+    <junction id="26" type="priority" x="729.89" y="1922.08" incLanes="20003_0 31[1][1][0]_0 31[1][1][0]_1" intLanes="" shape="737.80,1926.83 734.28,1921.48 731.23,1922.39 729.97,1922.21 728.71,1922.02 727.31,1922.14 725.64,1922.90 731.11,1931.23">
+        <request index="0" response="110" foes="110"/>
+        <request index="1" response="000" foes="001"/>
+        <request index="2" response="000" foes="001"/>
     </junction>
     <junction id="26-end" type="dead_end" x="731.27" y="1952.27" incLanes="26[1][1][1][1]_0 26[1][1][1][1]_1" intLanes="" shape="733.12,1954.88 729.42,1949.66"/>
     <junction id="27" type="priority" x="844.37" y="1804.64" incLanes="31[1][1][1][0]_0 31[1][1][1][0]_1" intLanes="" shape="853.24,1803.99 842.96,1799.72 841.83,1802.46 841.42,1803.41 840.96,1804.34 840.36,1805.44 839.50,1806.91 845.47,1809.40 848.13,1807.15 849.54,1806.79 850.91,1806.41 852.17,1805.61">
@@ -1314,8 +1317,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="20000" to="6[1][1][0]" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="20001" to="3[1][1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="20002" to="6[1][1][1][1][0]" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="20003+31[1][1][0]" to="31[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="20003+31[1][1][0]" to="31[1][1][1][0]" fromLane="2" toLane="1" dir="s" state="M"/>
+    <connection from="20003" to="31[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="20004" to="3[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="20005" to="3[1][1][1][1][1][1][1][1][1][1][1][1]" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="26[0]" to="26[1][0]" fromLane="0" toLane="0" dir="s" state="m"/>
@@ -1408,9 +1410,11 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="30026" to="30023" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="31[0]" to="31[1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="31[0]" to="31[1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="31[1][0]" to="20003+31[1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="31[1][0]" to="20003+31[1][1][0]" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="31[1][0]" to="20003+31[1][1][0]" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from="31[1][0]" to="20003" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="31[1][0]" to="31[1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="31[1][0]" to="31[1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="31[1][1][0]" to="31[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="31[1][1][0]" to="31[1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="31[1][1][1][0]" to="31[1][1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="31[1][1][1][0]" to="31[1][1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="31[1][1][1][0]" to="38" fromLane="1" toLane="0" dir="s" state="M"/>
