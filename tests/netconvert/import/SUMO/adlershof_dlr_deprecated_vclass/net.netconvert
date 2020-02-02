@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Feb  1 23:17:51 2020 by Eclipse SUMO netconvert Version v1_4_0+0896-c766e0c359
+<!-- generated on Sun Feb  2 17:33:11 2020 by Eclipse SUMO netconvert Version v1_4_0+0899-42d4789873
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -779,8 +779,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-239335494#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="11.23" shape="4414.73,369.34 4414.74,369.54"/>
     </edge>
     <edge id="-24214694#0" from="294169342" to="1560223686" name="Wegedornstraße" priority="7" type="highway.secondary">
-        <lane id="-24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="27.47" width="3.00" shape="4433.28,567.07 4434.59,580.61"/>
-        <lane id="-24214694#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="27.47" shape="4430.20,567.37 4431.50,580.91"/>
+        <lane id="-24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="26.38" width="3.00" shape="4433.28,567.07 4434.27,577.35"/>
+        <lane id="-24214694#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="26.38" shape="4430.20,567.37 4431.19,577.65"/>
     </edge>
     <edge id="-24214694#1" from="1560223635" to="294169342" name="Wegedornstraße" priority="7" type="highway.secondary">
         <lane id="-24214694#1_0" index="0" allow="pedestrian" speed="13.89" length="16.14" width="3.00" shape="4431.84,552.11 4432.38,557.71"/>
@@ -1653,13 +1653,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="143308581_2" index="2" disallow="pedestrian rail_fast" speed="27.78" length="10.76" shape="4427.47,645.56 4427.42,645.75"/>
     </edge>
     <edge id="143308587" from="1560223815" to="1560223686" name="Wegedornstraße" priority="7" type="highway.secondary" spreadType="center" shape="4421.87,639.86 4423.65,629.94 4426.41,590.63 4429.24,574.12">
-        <lane id="143308587_0" index="0" allow="pedestrian" speed="13.89" length="51.27" width="3.00" shape="4421.42,633.30 4422.06,629.74 4424.49,595.07"/>
-        <lane id="143308587_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="51.27" shape="4424.47,633.85 4425.14,630.13 4427.57,595.60"/>
+        <lane id="143308587_0" index="0" allow="pedestrian" speed="13.89" length="52.08" width="3.00" shape="4421.42,633.30 4422.06,629.74 4424.49,595.07"/>
+        <lane id="143308587_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="52.08" shape="4424.47,633.85 4425.14,630.13 4427.57,595.60"/>
     </edge>
     <edge id="143308590#0" from="1560223686" to="56231397" name="Wegedornstraße" priority="7" type="highway.secondary" spreadType="center" shape="4429.24,574.12 4434.62,592.93 4433.84,616.97 4433.41,631.36 4431.46,642.46">
-        <lane id="143308590#0_0" index="0" allow="pedestrian" speed="13.89" length="54.23" width="3.00" shape="4437.80,593.59 4437.04,617.07 4436.60,631.69 4435.76,636.47"/>
-        <lane id="143308590#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="54.23" shape="4434.67,594.46 4433.94,616.97 4433.51,631.37 4432.71,635.93"/>
-        <lane id="143308590#0_2" index="2" disallow="pedestrian rail_fast" speed="13.89" length="54.23" shape="4431.44,595.36 4430.74,616.87 4430.32,631.04 4429.56,635.38"/>
+        <lane id="143308590#0_0" index="0" allow="pedestrian" speed="13.89" length="55.09" width="3.00" shape="4437.80,593.59 4437.04,617.07 4436.60,631.69 4435.76,636.47"/>
+        <lane id="143308590#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="55.09" shape="4434.67,594.46 4433.94,616.97 4433.51,631.37 4432.71,635.93"/>
+        <lane id="143308590#0_2" index="2" disallow="pedestrian rail_fast" speed="13.89" length="55.09" shape="4431.44,595.36 4430.74,616.87 4430.32,631.04 4429.56,635.38"/>
     </edge>
     <edge id="143308600#0" from="664166133" to="1421174996" name="Zum Trudelturm" priority="2" type="highway.service">
         <lane id="143308600#0_0" index="0" allow="pedestrian delivery" speed="5.56" length="13.19" shape="4594.20,947.35 4586.55,940.72"/>
@@ -2247,8 +2247,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="239335494#1_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="143.48" shape="4411.24,365.87 4410.95,362.28 4404.44,306.81 4397.67,227.21"/>
     </edge>
     <edge id="24214694#0" from="1560223686" to="294169342" name="Wegedornstraße" priority="7" type="highway.secondary">
-        <lane id="24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="27.47" width="3.00" shape="4425.23,581.51 4423.93,567.97"/>
-        <lane id="24214694#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="27.47" shape="4428.32,581.21 4427.01,567.67"/>
+        <lane id="24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="26.38" width="3.00" shape="4424.92,578.25 4423.93,567.97"/>
+        <lane id="24214694#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="26.38" shape="4428.00,577.95 4427.01,567.67"/>
     </edge>
     <edge id="24214694#1" from="294169342" to="1560223635" name="Wegedornstraße" priority="7" type="highway.secondary">
         <lane id="24214694#1_0" index="0" allow="pedestrian" speed="13.89" length="16.14" width="3.00" shape="4423.02,558.61 4422.48,553.01"/>
@@ -3303,7 +3303,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="9"  response="00001100110" foes="00001101110"/>
         <request index="10" response="00001000000" foes="00001000000"/>
     </junction>
-    <junction id="1560223686" type="priority" x="4429.24" y="574.12" incLanes="-24214694#0_0 -24214694#0_1 143308587_0 143308587_1" intLanes="" shape="4429.82,595.81 4439.31,593.17 4436.08,580.47 4423.74,581.65 4423.01,594.82 4429.15,595.87">
+    <junction id="1560223686" type="priority" x="4429.24" y="574.12" incLanes="-24214694#0_0 -24214694#0_1 143308587_0 143308587_1" intLanes="" shape="4429.82,595.81 4439.31,593.17 4435.77,577.20 4423.42,578.39 4423.01,594.82 4429.15,595.87">
         <request index="0" response="0000000" foes="0000000"/>
         <request index="1" response="0000000" foes="1100000"/>
         <request index="2" response="0010000" foes="0010000"/>
