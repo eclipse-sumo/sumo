@@ -36,11 +36,17 @@ public:
     }
 
     void init() {
-        for (const E* edge : myOriginal->getPredecessors()) {
-            for (const auto& viaPair : edge->getViaSuccessors()) {
-                if (viaPair.first == edge) {
-                    myViaSuccessors.push_back(std::make_pair(viaPair.first->getReversedRoutingEdge(), viaPair.second->getReversedRoutingEdge()));
+        if (!myOriginal->isInternal()) {
+            for (const auto& viaPair : myOriginal->getViaSuccessors()) {
+                const ReversedEdge<E, V>* revSource = viaPair.first->getReversedRoutingEdge();
+                const E* via = viaPair.second;
+                const ReversedEdge<E, V>* preVia = nullptr;
+                while (via != nullptr && via->isInternal()) {
+                    via->getReversedRoutingEdge()->myViaSuccessors.push_back(std::make_pair(this, preVia));
+                    preVia = via->getReversedRoutingEdge();
+                    via = via->getViaSuccessors().front().second;
                 }
+                revSource->myViaSuccessors.push_back(std::make_pair(this, preVia));
             }
         }
     }

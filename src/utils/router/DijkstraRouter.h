@@ -221,7 +221,7 @@ public:
 #ifdef DijkstraRouter_DEBUG_QUERY_PERF
         std::cout << "visited " + toString(num_visited) + " edges (unsuccessful path length: " + toString(into.size()) + ")\n";
 #endif
-        if (to != 0 && !mySilent && !silent) {
+        if (to != nullptr && !mySilent && !silent) {
             this->myErrorMsgHandler->informf("No connection between edge '%' and edge '%' found.", from->getID(), to->getID());
         }
         return false;

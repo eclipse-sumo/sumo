@@ -1,17 +1,9 @@
 Loading net ... done.
 Skipped until: 0.00
-Building Contraction Hierarchy for vClass='passenger' and time=0.00 (2048 edges)
- ... 
-Created 4647 shortcuts.
-Recomputed priority 2518 times.
-done (96ms).
-done.
-CHRouterClone answered 718 queries and explored 75.53 edges on average.
-CHRouterClone spent 27ms answering queries (0.04ms on average).
-CHRouterClone answered 718 queries and explored 66.85 edges on average.
-CHRouterClone spent 18ms answering queries (0.03ms on average).
-CHRouter answered 1 queries and explored 3.00 edges on average.
-CHRouter spent 0ms answering queries (0.00ms on average).
+DijkstraRouter answered 359 queries and explored 2.00 edges on average.
+DijkstraRouter spent 0ms answering queries (0.00ms on average).
+DijkstraRouter answered 359 queries and explored 2.00 edges on average.
+DijkstraRouter spent 0ms answering queries (0.00ms on average).
 AStarRouter answered 1 queries and explored 91.00 edges on average.
 AStarRouter spent 0ms answering queries (0.00ms on average).
 Success.
