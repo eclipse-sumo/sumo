@@ -538,6 +538,7 @@ NBEdge::reshiftPosition(double xoff, double yoff) {
     }
     myFromBorder.add(xoff, yoff, 0);
     myToBorder.add(xoff, yoff, 0);
+    computeEdgeShape();
     computeAngle(); // update angles because they are numerically sensitive (especially where based on centroids)
 }
 
