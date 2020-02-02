@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 23:30:20 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Sat Feb  1 23:18:03 2020 by Eclipse SUMO netconvert Version v1_4_0+0896-c766e0c359
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,6 +29,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
@@ -66,10 +67,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="30417941#2_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="53.49" shape="846.53,340.49 846.71,341.22 846.44,349.26 843.99,356.93 839.53,363.67 836.40,366.37"/>
     </edge>
     <edge id="30417941#3" from="2149919279" to="492500988" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="835.98,373.05 833.79,374.34">
-        <lane id="30417941#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.17" shape="837.49,377.73 837.32,377.83"/>
-        <lane id="30417941#3_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.17" shape="835.83,375.00 835.65,375.10"/>
-        <lane id="30417941#3_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.17" shape="834.25,372.21 834.07,372.32"/>
-        <lane id="30417941#3_3" index="3" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.17" shape="832.58,369.48 832.41,369.58"/>
+        <lane id="30417941#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.22" shape="837.07,377.98 836.89,378.08"/>
+        <lane id="30417941#3_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.22" shape="835.44,375.22 835.27,375.33"/>
+        <lane id="30417941#3_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.22" shape="833.82,372.47 833.64,372.57"/>
+        <lane id="30417941#3_3" index="3" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.22" shape="832.19,369.71 832.02,369.81"/>
     </edge>
     <edge id="30417941#4" from="492500988" to="335691182" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="832.98,372.96 824.93,376.05 816.36,376.95 807.84,375.61 799.97,372.11 793.28,366.71">
         <lane id="30417941#4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="43.08" shape="831.55,376.94 825.68,379.19 816.28,380.18 806.93,378.71 798.29,374.86 794.83,372.07"/>
@@ -100,7 +101,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction id="1877878467" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-3.09,0.83 3.09,-0.83"/>
     <junction id="205013618#0-AddedOffRampNode" type="dead_end" x="744.57" y="338.57" incLanes="205013618#0_0 205013618#0_1" intLanes="" shape="744.04,341.73 745.10,335.41"/>
-    <junction id="2149919279" type="priority" x="835.16" y="371.67" incLanes="324041278#5_0 30417941#2_0 30417941#2_1 30417941#2_2" intLanes="" shape="844.18,375.28 842.34,372.66 841.63,372.42 835.35,365.16 830.54,368.83 837.04,379.85">
+    <junction id="2149919279" type="priority" x="835.16" y="371.67" incLanes="324041278#5_0 30417941#2_0 30417941#2_1 30417941#2_2" intLanes="" shape="844.18,375.28 842.34,372.66 841.63,372.42 835.35,365.16 828.88,369.80 835.38,380.83">
         <request index="0" response="00000" foes="00000"/>
         <request index="1" response="00100" foes="00100"/>
         <request index="2" response="00000" foes="00010"/>
@@ -135,7 +136,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="4" response="00000" foes="00000"/>
     </junction>
     <junction id="38922730#0-AddedOffRampNode" type="dead_end" x="1063.08" y="724.10" incLanes="38922730#0_0" intLanes="" shape="1064.65,723.82 1061.51,724.38"/>
-    <junction id="492500988" type="priority" x="832.98" y="372.96" incLanes="30417941#3_0 30417941#3_1 30417941#3_2 30417941#3_3" intLanes="" shape="839.23,378.56 832.73,367.54 828.84,369.41 833.16,381.43">
+    <junction id="492500988" type="priority" x="832.98" y="372.96" incLanes="30417941#3_0 30417941#3_1 30417941#3_2 30417941#3_3" intLanes="" shape="840.20,377.99 833.71,366.96 828.84,369.41 833.16,381.43">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 30 12:23:47 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Sat Feb  1 23:18:01 2020 by Eclipse SUMO netconvert Version v1_4_0+0896-c766e0c359
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,6 +34,7 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -50,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-26004787#1_0" index="0" allow="pedestrian" speed="8.33" length="45.25" shape="424.04,538.45 450.15,531.26"/>
     </edge>
     <edge id="-26004787#2" from="283719904" to="283722837" priority="1">
-        <lane id="-26004787#2_0" index="0" allow="pedestrian" speed="8.33" length="46.45" shape="369.55,554.28 408.45,542.81"/>
+        <lane id="-26004787#2_0" index="0" allow="pedestrian" speed="8.33" length="46.45" shape="379.06,551.48 408.45,542.81"/>
     </edge>
     <edge id="-26004861#0" from="283721344" to="287944369" priority="1">
         <lane id="-26004861#0_0" index="0" allow="pedestrian" speed="8.33" length="20.23" shape="459.16,535.38 462.51,543.33"/>
@@ -173,7 +174,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-5784968#1_0" index="0" speed="13.89" length="89.39" shape="376.93,543.69 428.65,488.12"/>
     </edge>
     <edge id="-5784968#2" from="283719904" to="36268403" priority="4">
-        <lane id="-5784968#2_0" index="0" speed="13.89" length="8.71" shape="367.27,554.43 367.34,554.36"/>
+        <lane id="-5784968#2_0" index="0" speed="13.89" length="8.71" shape="370.87,550.30 371.00,550.15"/>
     </edge>
     <edge id="-5784968#3" from="38920778" to="283719904" priority="4">
         <lane id="-5784968#3_0" index="0" speed="13.89" length="44.99" shape="342.52,586.59 364.74,557.58"/>
@@ -215,7 +216,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="26004787#1_0" index="0" allow="pedestrian" speed="8.33" length="45.25" shape="451.00,534.35 424.89,541.54"/>
     </edge>
     <edge id="26004787#2" from="283722837" to="283719904" priority="1">
-        <lane id="26004787#2_0" index="0" allow="pedestrian" speed="8.33" length="46.45" shape="409.35,545.88 370.45,557.35"/>
+        <lane id="26004787#2_0" index="0" allow="pedestrian" speed="8.33" length="46.45" shape="409.35,545.88 379.97,554.55"/>
     </edge>
     <edge id="26004861#0" from="287944369" to="283721344" priority="1">
         <lane id="26004861#0_0" index="0" allow="pedestrian" speed="8.33" length="20.23" shape="459.56,544.57 456.21,536.63"/>
@@ -353,7 +354,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="5784968#1_0" index="0" speed="13.89" length="89.39" shape="430.99,490.30 379.27,545.87"/>
     </edge>
     <edge id="5784968#2" from="36268403" to="283719904" priority="4">
-        <lane id="5784968#2_0" index="0" speed="13.89" length="8.71" shape="369.75,556.46 369.68,556.53"/>
+        <lane id="5784968#2_0" index="0" speed="13.89" length="8.71" shape="373.41,552.25 373.28,552.40"/>
     </edge>
     <edge id="5784968#3" from="283719904" to="38920778" priority="4">
         <lane id="5784968#3_0" index="0" speed="13.89" length="44.99" shape="367.28,559.53 345.06,588.53"/>
@@ -411,7 +412,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
     </junction>
-    <junction id="283719904" type="priority" x="367.56" y="556.54" incLanes="26004787#2_0 5784968#2_0 -5784968#3_0" intLanes="" shape="370.90,558.89 369.09,552.75 370.89,557.58 366.06,553.38 363.47,556.61 368.55,560.50 369.24,559.67 369.54,559.42 369.88,559.23 370.31,559.07">
+    <junction id="283719904" type="priority" x="367.56" y="556.54" incLanes="26004787#2_0 5784968#2_0 -5784968#3_0" intLanes="" shape="380.42,556.08 378.61,549.94 378.15,549.24 373.33,545.03 363.47,556.61 368.55,560.50 370.35,558.55 371.99,557.52 373.65,557.08 375.50,556.91 377.70,556.68">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>

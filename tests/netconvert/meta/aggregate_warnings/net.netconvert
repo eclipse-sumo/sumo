@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan  7 13:56:07 2020 by Eclipse SUMO netconvert Version v1_4_0+0358-70c11de
+<!-- generated on Sat Feb  1 23:17:32 2020 by Eclipse SUMO netconvert Version v1_4_0+0896-c766e0c359
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -9,7 +9,7 @@ SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
+        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -330,8 +330,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-143308521#1_1" index="1" disallow="pedestrian" speed="22.22" length="27.72" shape="4146.93,914.82 4134.71,915.44"/>
     </edge>
     <edge id="-143308521#10" from="664166125" to="cluster_1789928382_664166124" priority="5" type="highway.unclassified" shape="4457.71,1004.48 4455.41,1002.99">
-        <lane id="-143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="4.96" width="2.00" shape="4455.43,1008.00 4455.35,1007.95"/>
-        <lane id="-143308521#10_1" index="1" disallow="pedestrian" speed="22.22" length="4.96" shape="4455.78,1005.13 4455.61,1005.02"/>
+        <lane id="-143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="5.62" width="2.00" shape="4455.71,1008.18 4455.43,1008.00"/>
+        <lane id="-143308521#10_1" index="1" disallow="pedestrian" speed="22.22" length="5.62" shape="4457.13,1006.00 4456.85,1005.82"/>
     </edge>
     <edge id="-143308521#2" from="2012430927" to="cluster_1568241686_2177702824" priority="5" type="highway.unclassified" shape="4188.50,911.11 4155.02,912.80">
         <lane id="-143308521#2_0" index="0" allow="pedestrian" speed="22.22" length="33.78" width="2.00" shape="4188.71,915.30 4160.14,916.75"/>
@@ -799,7 +799,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-24733697#1_0" index="0" allow="pedestrian delivery" speed="5.56" length="58.06" shape="4580.75,841.28 4618.58,875.33"/>
     </edge>
     <edge id="-24733697#2" from="268816953" to="1568241634" priority="2" type="highway.service">
-        <lane id="-24733697#2_0" index="0" allow="pedestrian delivery" speed="5.56" length="31.60" shape="4556.87,819.81 4577.03,837.94"/>
+        <lane id="-24733697#2_0" index="0" allow="pedestrian delivery" speed="5.56" length="31.65" shape="4556.87,819.81 4577.03,837.94"/>
     </edge>
     <edge id="-24791992" from="269366969" to="269366968" priority="2" type="highway.service">
         <lane id="-24791992_0" index="0" allow="pedestrian delivery" speed="5.56" length="67.11" shape="4578.59,925.45 4616.64,882.14"/>
@@ -1348,8 +1348,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="142575693#5_1" index="1" disallow="pedestrian" speed="22.22" length="88.50" shape="4559.28,786.77 4594.49,714.32"/>
     </edge>
     <edge id="142575693#6" from="473482354" to="38919703" priority="5" type="highway.unclassified" spreadType="center" shape="4593.65,713.75 4597.25,707.09">
-        <lane id="142575693#6_0" index="0" allow="pedestrian" speed="22.22" length="8.63" width="2.00" shape="4592.25,713.00 4592.29,712.90"/>
-        <lane id="142575693#6_1" index="1" disallow="pedestrian" speed="22.22" length="8.63" shape="4594.53,714.23 4594.58,714.14"/>
+        <lane id="142575693#6_0" index="0" allow="pedestrian" speed="22.22" length="8.92" width="2.00" shape="4592.12,713.22 4592.22,713.04"/>
+        <lane id="142575693#6_1" index="1" disallow="pedestrian" speed="22.22" length="8.92" shape="4594.41,714.45 4594.51,714.28"/>
     </edge>
     <edge id="142575699#0" from="1560223484" to="2007005081" priority="4" type="highway.residential">
         <lane id="142575699#0_0" index="0" allow="pedestrian" speed="13.89" length="74.15" width="2.00" shape="4142.98,418.50 4138.76,476.15"/>
@@ -1396,7 +1396,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="143308484_1" index="1" disallow="pedestrian" speed="8.33" length="60.91" shape="4215.63,270.95 4211.00,226.54 4210.85,225.46"/>
     </edge>
     <edge id="143308491" from="268816953" to="cluster_1560224191_1560224195" priority="1" type="highway.footway" spreadType="center" shape="4561.80,826.40 4555.21,817.06">
-        <lane id="143308491_0" index="0" allow="pedestrian" speed="8.33" length="11.94" width="2.00" shape="4557.87,820.83 4557.76,820.67"/>
+        <lane id="143308491_0" index="0" allow="pedestrian" speed="8.33" length="11.79" width="2.00" shape="4557.81,820.74 4557.69,820.58"/>
     </edge>
     <edge id="143308515" from="cluster_1568241251_260702783" to="1568241285" priority="4" type="highway.residential" shape="4317.28,179.56 4325.55,266.84">
         <lane id="143308515_0" index="0" allow="pedestrian" speed="8.33" length="89.07" width="2.00" shape="4322.14,186.32 4329.05,259.24"/>
@@ -1411,8 +1411,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="143308521#1_1" index="1" disallow="pedestrian" speed="22.22" length="27.72" shape="4134.55,912.24 4146.77,911.62"/>
     </edge>
     <edge id="143308521#10" from="cluster_1789928382_664166124" to="664166125" priority="5" type="highway.unclassified" shape="4455.41,1002.99 4457.71,1004.48">
-        <lane id="143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="4.96" width="2.00" shape="4459.83,1000.84 4460.00,1000.95"/>
-        <lane id="143308521#10_1" index="1" disallow="pedestrian" speed="22.22" length="4.96" shape="4458.50,1003.08 4458.58,1003.13"/>
+        <lane id="143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="5.62" width="2.00" shape="4460.00,1000.95 4460.28,1001.13"/>
+        <lane id="143308521#10_1" index="1" disallow="pedestrian" speed="22.22" length="5.62" shape="4458.58,1003.13 4458.86,1003.31"/>
     </edge>
     <edge id="143308521#2" from="cluster_1568241686_2177702824" to="2012430927" priority="5" type="highway.unclassified" shape="4155.02,912.80 4188.50,911.11">
         <lane id="143308521#2_0" index="0" allow="pedestrian" speed="22.22" length="33.78" width="2.00" shape="4159.71,908.36 4188.29,906.91"/>
@@ -2219,7 +2219,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="24733697#1_0" index="0" allow="pedestrian delivery" speed="5.56" length="58.06" shape="4616.43,877.71 4578.61,843.66"/>
     </edge>
     <edge id="24733697#2" from="1568241634" to="268816953" priority="2" type="highway.service">
-        <lane id="24733697#2_0" index="0" allow="pedestrian delivery" speed="5.56" length="31.60" shape="4574.89,840.32 4554.73,822.19"/>
+        <lane id="24733697#2_0" index="0" allow="pedestrian delivery" speed="5.56" length="31.65" shape="4574.89,840.32 4554.73,822.19"/>
     </edge>
     <edge id="24791992" from="269366968" to="269366969" priority="2" type="highway.service">
         <lane id="24791992_0" index="0" allow="pedestrian delivery" speed="5.56" length="67.11" shape="4619.04,884.25 4581.00,927.56"/>
@@ -4008,7 +4008,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000011000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="268816953" type="priority" x="4561.80" y="826.40" incLanes="24733697#2_0" intLanes="" shape="4553.66,823.38 4557.94,818.62 4556.02,816.49 4554.39,817.64">
+    <junction id="268816953" type="priority" x="4561.80" y="826.40" incLanes="24733697#2_0" intLanes="" shape="4553.66,823.38 4557.94,818.62 4555.96,816.39 4554.32,817.54">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="269366968" type="right_before_left" x="4620.97" y="879.64" incLanes="24733697#0_0 -24733697#1_0 -24791992_0" intLanes="" shape="4622.35,885.19 4626.63,880.43 4619.65,874.14 4615.36,878.90 4615.87,879.58 4615.94,879.94 4615.89,880.31 4615.72,880.69 4615.44,881.08 4620.25,885.31 4620.92,884.79 4621.27,884.71 4621.62,884.75 4621.98,884.91">
@@ -4241,7 +4241,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="38919594" type="priority" x="4647.36" y="903.39" incLanes="-24733697#0_0" intLanes="" shape="4647.36,903.39 4649.50,901.01 4647.36,903.39">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="38919703" type="priority" x="4598.13" y="707.57" incLanes="143308546#4_0 143308546#4_1 143308546#4_2 142575693#6_0 142575693#6_1" intLanes="" shape="4597.67,714.92 4603.22,707.33 4595.88,702.36 4590.86,710.31 4591.37,712.52 4595.94,714.99">
+    <junction id="38919703" type="priority" x="4598.13" y="707.57" incLanes="143308546#4_0 143308546#4_1 143308546#4_2 142575693#6_0 142575693#6_1" intLanes="" shape="4597.67,714.92 4603.22,707.33 4595.88,702.36 4590.86,710.31 4591.17,712.88 4595.75,715.35">
         <request index="0" response="000" foes="100"/>
         <request index="1" response="000" foes="100"/>
         <request index="2" response="011" foes="011"/>
@@ -4856,7 +4856,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="14" response="0000000000000000" foes="0000011000111110"/>
         <request index="15" response="0000010000100001" foes="0000010000100001"/>
     </junction>
-    <junction id="cluster_1789928382_664166124" type="priority" x="4453.57" y="1001.75" incLanes="-143308521#10_0 -143308521#10_1 143308521#8_0 143308521#8_1 158236729#0_0" intLanes="" shape="4454.89,1008.84 4460.54,1000.11 4459.90,997.75 4451.98,993.04 4451.35,993.76 4450.97,993.94 4450.57,994.00 4450.12,993.94 4449.65,993.77 4445.19,1003.16 4447.03,1004.10 4448.47,1004.96 4449.51,1005.74 4450.15,1006.45 4450.39,1007.09 4450.22,1007.66 4452.85,1009.48">
+    <junction id="cluster_1789928382_664166124" type="priority" x="4453.57" y="1001.75" incLanes="-143308521#10_0 -143308521#10_1 143308521#8_0 143308521#8_1 158236729#0_0" intLanes="" shape="4455.17,1009.02 4460.82,1000.29 4459.90,997.75 4451.98,993.04 4451.35,993.76 4450.97,993.94 4450.57,994.00 4450.12,993.94 4449.65,993.77 4445.19,1003.16 4447.03,1004.10 4448.47,1004.96 4449.51,1005.74 4450.15,1006.45 4450.39,1007.09 4450.22,1007.66 4452.85,1009.48">
         <request index="0"  response="111100000000" foes="111110000000"/>
         <request index="1"  response="111001110000" foes="111001110000"/>
         <request index="2"  response="110001100000" foes="110001100000"/>

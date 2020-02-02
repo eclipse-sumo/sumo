@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Feb  1 12:53:49 2020 by Eclipse SUMO netconvert Version v1_4_0+0890-659a406d0b
+<!-- generated on Sat Feb  1 23:18:05 2020 by Eclipse SUMO netconvert Version v1_4_0+0896-c766e0c359
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -297,8 +297,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-143308521#1_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="27.72" shape="4146.92,914.82 4134.71,915.44"/>
     </edge>
     <edge id="-143308521#10" from="664166125" to="cluster_1789928382_664166124" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified" shape="4457.71,1004.48 4455.41,1002.99">
-        <lane id="-143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="4.95" width="2.00" shape="4455.43,1008.00 4455.34,1007.95"/>
-        <lane id="-143308521#10_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="4.95" shape="4456.84,1005.82 4456.76,1005.77"/>
+        <lane id="-143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="5.63" width="2.00" shape="4455.71,1008.19 4455.43,1008.00"/>
+        <lane id="-143308521#10_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="5.63" shape="4457.12,1006.01 4456.84,1005.82"/>
     </edge>
     <edge id="-143308521#3" from="664166095" to="cluster_1568241686_2177702824" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified" shape="4216.82,909.67 4188.50,911.11 4155.02,912.80">
         <lane id="-143308521#3_0" index="0" allow="pedestrian" speed="22.22" length="62.14" width="2.00" shape="4210.49,914.20 4188.71,915.30 4160.13,916.75"/>
@@ -1364,8 +1364,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="143308521#1_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="27.72" shape="4134.55,912.24 4146.76,911.62"/>
     </edge>
     <edge id="143308521#10" from="cluster_1789928382_664166124" to="664166125" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified" shape="4455.41,1002.99 4457.71,1004.48">
-        <lane id="143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="4.95" width="2.00" shape="4459.83,1000.85 4459.99,1000.96"/>
-        <lane id="143308521#10_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="4.95" shape="4458.41,1003.03 4458.58,1003.14"/>
+        <lane id="143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="5.63" width="2.00" shape="4459.99,1000.96 4460.28,1001.14"/>
+        <lane id="143308521#10_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="5.63" shape="4458.58,1003.14 4458.86,1003.32"/>
     </edge>
     <edge id="143308521#2" from="cluster_1568241686_2177702824" to="664166095" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified" shape="4155.02,912.80 4188.50,911.11 4216.82,909.67">
         <lane id="143308521#2_0" index="0" allow="pedestrian" speed="22.22" length="62.14" width="2.00" shape="4159.71,908.36 4188.29,906.92 4210.06,905.81"/>
@@ -5080,7 +5080,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="12" response="00000000000000" foes="00011000111110"/>
         <request index="13" response="00010000100001" foes="00010000100001"/>
     </junction>
-    <junction id="cluster_1789928382_664166124" type="priority" x="4453.57" y="1001.75" incLanes="-143308521#10_0 -143308521#10_1 143308521#8_0 143308521#8_1 158236729#0_0" intLanes="" shape="4454.88,1008.84 4460.54,1000.12 4459.93,997.68 4452.88,993.48 4450.56,994.19 4446.10,1003.59 4450.22,1007.66 4452.85,1009.48">
+    <junction id="cluster_1789928382_664166124" type="priority" x="4453.57" y="1001.75" incLanes="-143308521#10_0 -143308521#10_1 143308521#8_0 143308521#8_1 158236729#0_0" intLanes="" shape="4455.17,1009.03 4460.82,1000.30 4459.93,997.68 4452.88,993.48 4450.56,994.19 4446.10,1003.59 4450.22,1007.66 4452.85,1009.48">
         <request index="0" response="110001000" foes="110001000"/>
         <request index="1" response="100001000" foes="100001000"/>
         <request index="2" response="001000000" foes="001000000"/>
