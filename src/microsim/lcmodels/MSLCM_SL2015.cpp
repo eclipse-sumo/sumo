@@ -1724,12 +1724,12 @@ MSLCM_SL2015::_wantsChangeSublane(
                         case LINKDIR_TURN:
                         case LINKDIR_LEFT:
                         case LINKDIR_PARTLEFT:
-                            align = LATALIGN_LEFT;
+                            align = MSGlobals::gLefthand ? LATALIGN_RIGHT : LATALIGN_LEFT;
                             break;
                         case LINKDIR_TURN_LEFTHAND:
                         case LINKDIR_RIGHT:
                         case LINKDIR_PARTRIGHT:
-                            align = LATALIGN_RIGHT;
+                            align = MSGlobals::gLefthand ? LATALIGN_LEFT : LATALIGN_RIGHT;
                             break;
                         case LINKDIR_STRAIGHT:
                         case LINKDIR_NODIR:
