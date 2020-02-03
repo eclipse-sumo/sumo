@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 27 11:59:13 2020 by Eclipse SUMO Version v1_4_0+0806-d703acf
+<!-- generated on Mon Feb  3 11:56:04 2020 by Eclipse SUMO Version v1_4_0+0895-97d758f096
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -198,8 +198,17 @@
         <!-- Record end of lane change manoeuvres -->
         <lanechange-output.ended value="false" type="BOOL"/>
 
+        <!-- Record coordinates of lane change manoeuvres -->
+        <lanechange-output.xy value="false" type="BOOL"/>
+
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
+
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR[]"/>
 
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
@@ -899,9 +908,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_4_0+0806-d703acf
+Eclipse SUMO Version v1_4_0+0895-97d758f096
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -113,9 +113,15 @@ Output Options:
                                          motivations for all vehicles into FILE
   --lanechange-output.started          Record start of lane change manoeuvres
   --lanechange-output.ended            Record end of lane change manoeuvres
+  --lanechange-output.xy               Record coordinates of lane change
+                                         manoeuvres
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                         vehicles into FILE
+  --movereminder-output.vehicles STR[]  List of vehicle ids which shall save
+                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -637,8 +643,6 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing
