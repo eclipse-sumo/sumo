@@ -1477,13 +1477,13 @@ original junction positions.
 2.  Delete the central intersection
 3.  Connect the new intersections with one-way roads going in a circle
 4.  Tweak the geometry of the roundabout by creating additional geometry
-    points in [move mode](#move) to make it more rounded
-5.  Ensure correct right of way by either
-  - Assigning a higher priority value to the roundabout roads
+    points in [move mode](#move) to make it more rounded. 
+    You can also use the function 'smooth edge' from the edge context menu.
+5.  Check for correct right of way (the inside edge should have priority over the entering edges).
+    This should work by default but may fail if the shape of the roundabout is not 'round' enough.
+    Either correct the geometry or assign a higher priority value to the roundabout roads
     (compared to the adjoining roads)
-  - or seting the option *roundabouts.guess* in the [Processing
-    menu](#processing_menu_options)
-
+  
 Assuming you have a regular intersection
 
 - **Visual example**
