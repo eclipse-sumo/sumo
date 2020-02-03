@@ -1,3 +1,6 @@
+# tests effects of lcTurnAlignmentDistance
+turnAlignment
+
 # a lane has two follower lanes on the next edge and vehicle paths might cross
 lane_split_conflict
 
@@ -31,9 +34,6 @@ wide_lane_merge2_unregulated
 
 # 2 lanes merge into a wide lane
 wide_lane_merge2_zipper
-
-# This tests the effect of the attribute lcTurnAlignmentDistance. Left- and right-turning vehicles should align at the corresponding side of the turn lane from the given distance on.
-turnAlignment
 
 # test lane changing while on an intersection
 2lanes_turn
