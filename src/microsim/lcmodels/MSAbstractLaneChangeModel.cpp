@@ -52,6 +52,7 @@ bool MSAbstractLaneChangeModel::myAllowOvertakingRight(false);
 bool MSAbstractLaneChangeModel::myLCOutput(false);
 bool MSAbstractLaneChangeModel::myLCStartedOutput(false);
 bool MSAbstractLaneChangeModel::myLCEndedOutput(false);
+bool MSAbstractLaneChangeModel::myLCXYOutput(false);
 const double MSAbstractLaneChangeModel::NO_NEIGHBOR(std::numeric_limits<double>::max());
 
 /* -------------------------------------------------------------------------
@@ -64,6 +65,7 @@ MSAbstractLaneChangeModel::initGlobalOptions(const OptionsCont& oc) {
     myLCOutput = oc.isSet("lanechange-output");
     myLCStartedOutput = oc.getBool("lanechange-output.started");
     myLCEndedOutput = oc.getBool("lanechange-output.ended");
+    myLCXYOutput = oc.getBool("lanechange-output.xy");
 }
 
 
@@ -361,6 +363,10 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
             if (maneuverDist != 0) {
                 of.writeAttr("maneuverDistance", toString(maneuverDist));
             }
+        }
+        if (myLCXYOutput) {
+            of.writeAttr(SUMO_ATTR_X, myVehicle.getPosition().x());
+            of.writeAttr(SUMO_ATTR_Y, myVehicle.getPosition().y());
         }
         of.closeTag();
         if (MSGlobals::gLaneChangeDuration > DELTA_T) {

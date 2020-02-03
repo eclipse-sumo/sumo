@@ -242,6 +242,9 @@ MSFrame::fillOptions() {
     oc.doRegister("lanechange-output.ended", new Option_Bool(false));
     oc.addDescription("lanechange-output.ended", "Output", "Record end of lane change manoeuvres");
 
+    oc.doRegister("lanechange-output.xy", new Option_Bool(false));
+    oc.addDescription("lanechange-output.xy", "Output", "Record coordinates of lane change manoeuvres");
+
     oc.doRegister("stop-output", new Option_FileName());
     oc.addDescription("stop-output", "Output", "Record stops and loading/unloading of passenger and containers for all vehicles into FILE");
 

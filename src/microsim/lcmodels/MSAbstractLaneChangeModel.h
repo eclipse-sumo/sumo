@@ -717,6 +717,7 @@ protected:
     static bool myLCOutput;
     static bool myLCStartedOutput;
     static bool myLCEndedOutput;
+    static bool myLCXYOutput;
 
 
 private:
