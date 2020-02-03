@@ -2004,25 +2004,70 @@ NBEdge::computeAngle() {
     }
 
     // if the junction shape is suspicious we cannot trust the angle to the centroid
-    if (hasFromShape && shape.length() > 1 && (myFrom->getShape().distance2D(shape[0]) > 2 * POSITION_EPS
+    const bool suspiciousFromShape = hasFromShape && (myFrom->getShape().distance2D(shape[0]) > 2 * POSITION_EPS
                          || myFrom->getShape().around(shape[-1])
-                         || !(myFrom->getShape().around(fromCenter)))) {
-        fromCenter = myFrom->getPosition();
-    }
-    if (hasToShape && shape.length() > 1 && (myTo->getShape().distance2D(shape[-1]) > 2 * POSITION_EPS
+                         || !(myFrom->getShape().around(fromCenter)));
+    const bool suspiciousToShape = hasToShape && (myTo->getShape().distance2D(shape[-1]) > 2 * POSITION_EPS
                        || myTo->getShape().around(shape[0])
-                       || !(myTo->getShape().around(toCenter)))) {
-        toCenter = myTo->getPosition();
-    }
+                       || !(myTo->getShape().around(toCenter)));
 
     const double angleLookahead = MIN2(shape.length2D() / 2, ANGLE_LOOKAHEAD);
     const Position referencePosStart = shape.positionAtOffset2D(angleLookahead);
-    myStartAngle = GeomHelper::legacyDegree(fromCenter.angleTo2D(referencePosStart), true);
     const Position referencePosEnd = shape.positionAtOffset2D(shape.length() - angleLookahead);
+
+    myStartAngle = GeomHelper::legacyDegree(fromCenter.angleTo2D(referencePosStart), true);
+    const double myStartAngle2 = GeomHelper::legacyDegree(myFrom->getPosition().angleTo2D(referencePosStart), true);
+    const double myStartAngle3 = getAngleAtNode(myFrom);
     myEndAngle = GeomHelper::legacyDegree(referencePosEnd.angleTo2D(toCenter), true);
+    const double myEndAngle2 = GeomHelper::legacyDegree(referencePosEnd.angleTo2D(myTo->getPosition()), true);
+    const double myEndAngle3 = getAngleAtNode(myTo);
+
+#ifdef DEBUG_ANGLES
+    if (DEBUGCOND) {
+        if (suspiciousFromShape) {
+            std::cout << "  len=" << shape.length() << " startA=" << myStartAngle << " startA2=" << myStartAngle2 << " startA3=" << myStartAngle3
+                << " rel=" << NBHelpers::normRelAngle(myStartAngle, myStartAngle2)
+                << " fromCenter=" << fromCenter
+                << " fromPos=" << myFrom->getPosition()
+                << " refStart=" << referencePosStart
+                << "\n";
+        }
+        if (suspiciousToShape) {
+            std::cout << " len=" << shape.length() << "  endA=" << myEndAngle << " endA2=" << myEndAngle2 << " endA3=" << myEndAngle3
+                << " rel=" << NBHelpers::normRelAngle(myEndAngle, myEndAngle2)
+                << " toCenter=" << toCenter
+                << " toPos=" << myTo->getPosition()
+                << " refEnd=" << referencePosEnd
+                << "\n";
+        }
+    }
+#endif
+
+    if (suspiciousFromShape && shape.length() > 1) {
+        myStartAngle = myStartAngle2;
+    } else if (suspiciousToShape && fabs(NBHelpers::normRelAngle(myStartAngle, myStartAngle3)) > 90
+            // don't trust footpath angles
+            && (getPermissions() & ~SVC_PEDESTRIAN) != 0) {
+        myStartAngle = myStartAngle3;
+        if (myStartAngle < 0) {
+            myStartAngle += 360;
+        }
+    }
+
+    if (suspiciousToShape && shape.length() > 1) {
+        myEndAngle = myEndAngle2;
+    } else if (suspiciousToShape && fabs(NBHelpers::normRelAngle(myEndAngle, myEndAngle3)) > 90
+            // don't trust footpath angles
+            && (getPermissions() & ~SVC_PEDESTRIAN) != 0) {
+        myEndAngle = myEndAngle3;
+        if (myEndAngle < 0) {
+            myEndAngle += 360;
+        }
+    }
+
     myTotalAngle = GeomHelper::legacyDegree(myFrom->getPosition().angleTo2D(myTo->getPosition()), true);
 #ifdef DEBUG_ANGLES
-    if (DEBUGCOND) std::cout << "computeAngle edge=" << getID() 
+    if (DEBUGCOND) std::cout << "computeAngle edge=" << getID()
                              << " fromCenter=" << fromCenter << " toCenter=" << toCenter
                              << " refStart=" << referencePosStart << " refEnd=" << referencePosEnd << " shape=" << shape
                              << " hasFromShape=" << hasFromShape
