@@ -280,7 +280,7 @@ MSCalibrator::removePending() {
                 vehicle->getLane()->removeVehicle(vehicle, MSMoveReminder::NOTIFICATION_VAPORIZED);
                 vc.scheduleVehicleRemoval(vehicle, true);
             } else {
-                WRITE_WARNING("Calibrator '" + getID() + "' could not remove vehicle '" + *it + "'.");
+                WRITE_WARNING("Calibrator '" + getID() + "' could not remove vehicle '" + *it + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             }
         }
         myToRemove.clear();
