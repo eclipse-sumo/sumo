@@ -91,8 +91,11 @@ public:
     virtual ~DijkstraRouter() { }
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new DijkstraRouter<E, V>(myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(),
-                                        this->myOperation, this->myTTOperation, mySilent, myExternalEffort, this->myHavePermissions, this->myHaveRestrictions);
+        auto clone = new DijkstraRouter<E, V>(myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(),
+                                              this->myOperation, this->myTTOperation, mySilent, myExternalEffort,
+                                              this->myHavePermissions, this->myHaveRestrictions);
+        clone->setAutoBulkMode(this->myAutoBulkMode);
+        return clone;
     }
 
     void init() {
@@ -133,7 +136,7 @@ public:
 #endif
         const SUMOVehicleClass vClass = vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass();
         std::tuple<const E*, const V*, SUMOTime> query = std::make_tuple(from, vehicle, msTime);
-        if (this->myBulkMode || query == myLastQuery) {
+        if (this->myBulkMode || (this->myAutoBulkMode && query == myLastQuery)) {
             const auto& toInfo = myEdgeInfos[to->getNumericalID()];
             if (toInfo.visited) {
                 buildPathFrom(&toInfo, into);

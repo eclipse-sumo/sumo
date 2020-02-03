@@ -101,6 +101,7 @@ public:
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myOperation(operation), myTTOperation(ttOperation),
         myBulkMode(false),
+        myAutoBulkMode(false),
         myHavePermissions(havePermissions),
         myHaveRestrictions(haveRestrictions),
         myType(type),
@@ -260,6 +261,10 @@ public:
         myBulkMode = mode;
     }
 
+    inline void setAutoBulkMode(const bool mode) {
+        myAutoBulkMode = mode;
+    }
+
 protected:
     /// @brief the handler for routing errors
     MsgHandler* const myErrorMsgHandler;
@@ -272,6 +277,9 @@ protected:
 
     /// @brief whether we are currently operating several route queries in a bulk
     bool myBulkMode;
+
+    /// @brief whether we are currently trying to detect bulk mode automatically
+    bool myAutoBulkMode;
 
     /// @brief whether edge permissions need to be considered
     const bool myHavePermissions;

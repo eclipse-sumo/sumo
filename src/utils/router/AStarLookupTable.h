@@ -193,12 +193,15 @@ public:
 #ifdef HAVE_FOX
                 if (maxNumThreads > 0) {
                     const double lmCost = router->recomputeCosts({landmark}, defaultVehicle, 0);
+                    router->setAutoBulkMode(true);
                     if (threadPool.size() == 0) {
                         if (reverseRouter == nullptr) {
                             // The CHRouter needs initialization
                             // before it gets cloned, so we do a dummy routing which is not in parallel
                             std::vector<const E*> route;
                             router->compute(landmark, landmark, defaultVehicle, 0, route);
+                        } else {
+                            reverseRouter->setAutoBulkMode(true);
                         }
                         while ((int)threadPool.size() < maxNumThreads) {
                             auto revClone = reverseRouter == nullptr ? nullptr : reverseRouter->clone();
