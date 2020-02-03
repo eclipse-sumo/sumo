@@ -2,4 +2,4 @@
 --lateral-resolution 0.4
 --step-length 0.1
 --fcd-output fcd.xml
--e 10
+-e 40
