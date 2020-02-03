@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb  3 00:05:04 2020 by Eclipse SUMO netconvert Version v1_4_0+0903-fc237432b6
+<!-- generated on Mon Feb  3 13:34:25 2020 by Eclipse SUMO netconvert Version v1_4_0+0905-23ed11b1c4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -274,9 +274,9 @@
     <busStop id="2175753204" name="Am Kupfergraben" lane="207364192#0_0" startPos="0.00" endPos="12.50" friendlyPos="true" lines="12">
         <access lane="-122820534#1_0" pos="0.00" length="7.58" friendlyPos="1"/>
         <access lane="-330840136_0" pos="0.00" length="13.30" friendlyPos="1"/>
-        <access lane="-340498976#2_0" pos="0.00" length="15.95" friendlyPos="1"/>
-        <access lane="122820534#1_0" pos="27.37" length="14.07" friendlyPos="1"/>
+        <access lane="-340498976#2_0" pos="19.47" length="3.78" friendlyPos="1"/>
         <access lane="330840136_0" pos="15.31" length="9.73" friendlyPos="1"/>
+        <access lane="340498976#2_0" pos="43.81" length="4.02" friendlyPos="1"/>
     </busStop>
     <busStop id="244486083" name="S+U Alexanderplatz/Dircksenstraße" lane="148458497#0_0" startPos="44.33" endPos="69.33" friendlyPos="true">
         <access lane="199434277_0" pos="4.10" length="16.02" friendlyPos="1"/>
