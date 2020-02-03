@@ -45,6 +45,10 @@
 
 //#define MSCalibrator_DEBUG
 
+#define DEBUGID ""
+#define DEBUGCOND (getID() == DEBUGID)
+#define DEBUGCOND2(id) ((id) == DEBUGID)
+
 // ===========================================================================
 // static members
 // ===========================================================================
@@ -335,18 +339,20 @@ MSCalibrator::execute(SUMOTime currentTime) {
     const int totalWishedNum = totalWished();
     int adaptedNum = passed() + myClearedInJam;
 #ifdef MSCalibrator_DEBUG
-    std::cout << time2string(currentTime) << " " << getID()
-              << " q=" << myCurrentStateInterval->q
-              << " totalWished=" << totalWishedNum
-              << " adapted=" << adaptedNum
-              << " jam=" << myHaveInvalidJam
-              << " entered=" << myEdgeMeanData.nVehEntered
-              << " departed=" << myEdgeMeanData.nVehDeparted
-              << " arrived=" << myEdgeMeanData.nVehArrived
-              << " left=" << myEdgeMeanData.nVehLeft
-              << " waitSecs=" << myEdgeMeanData.waitSeconds
-              << " vaporized=" << myEdgeMeanData.nVehVaporized
-              << "\n";
+    if (DEBUGCOND) {
+        std::cout << time2string(currentTime) << " " << getID()
+            << " q=" << myCurrentStateInterval->q
+            << " totalWished=" << totalWishedNum
+            << " adapted=" << adaptedNum
+            << " jam=" << myHaveInvalidJam
+            << " entered=" << myEdgeMeanData.nVehEntered
+            << " departed=" << myEdgeMeanData.nVehDeparted
+            << " arrived=" << myEdgeMeanData.nVehArrived
+            << " left=" << myEdgeMeanData.nVehLeft
+            << " waitSecs=" << myEdgeMeanData.waitSeconds
+            << " vaporized=" << myEdgeMeanData.nVehVaporized
+            << "\n";
+    }
 #endif
     if (calibrateFlow && adaptedNum < totalWishedNum && !hadRemovals) {
         // we need to insert some vehicles
@@ -359,11 +365,12 @@ MSCalibrator::execute(SUMOTime currentTime) {
         const int insertionSlack = MAX2(0, adaptedNum + relaxedInsertion - totalWishedNum);
         // increase number of vehicles
 #ifdef MSCalibrator_DEBUG
-        std::cout
-                << "   wished:" << wishedNum
+        if (DEBUGCOND) {
+            std::cout << "   wished:" << wishedNum
                 << " slack:" << insertionSlack
                 << " before:" << adaptedNum
                 << "\n";
+        }
 #endif
         while (wishedNum > adaptedNum + insertionSlack) {
             SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
@@ -403,7 +410,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
                 }
             }
 #ifdef MSCalibrator_DEBUG
-            std::cout << " resetting route pos: " << routeIndex << "\n";
+            if (DEBUGCOND) std::cout << " resetting route pos: " << routeIndex << "\n";
 #endif
             vehicle->resetRoutePosition(routeIndex, pars->departLaneProcedure);
             if (myEdge->insertVehicle(*vehicle, currentTime)) {
@@ -413,12 +420,12 @@ MSCalibrator::execute(SUMOTime currentTime) {
                 myInserted++;
                 adaptedNum++;
 #ifdef MSCalibrator_DEBUG
-                std::cout << "I ";
+                if (DEBUGCOND) std::cout << "I ";
 #endif
             } else {
                 // could not insert vehicle
 #ifdef MSCalibrator_DEBUG
-                std::cout << "F ";
+                if (DEBUGCOND) std::cout << "F ";
 #endif
                 MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
                 break;
@@ -530,16 +537,16 @@ MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /
         MSVehicle* vehicle = dynamic_cast<MSVehicle*>(&veh);
         if (calibrateFlow && adaptedNum > totalWishedNum) {
 #ifdef MSCalibrator_DEBUG
-            std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
-                      << " vaporizing " << vehicle->getID() << " to reduce flow\n";
+            if (DEBUGCOND2(myParent->getID())) std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
+                << " vaporizing " << vehicle->getID() << " to reduce flow\n";
 #endif
             if (myParent->scheduleRemoval(vehicle)) {
                 myParent->myRemoved++;
             }
         } else if (myParent->myHaveInvalidJam) {
 #ifdef MSCalibrator_DEBUG
-            std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
-                      << " vaporizing " << vehicle->getID() << " to clear jam\n";
+            if (DEBUGCOND2(myParent->getID())) std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
+                << " vaporizing " << vehicle->getID() << " to clear jam\n";
 #endif
             if (!myParent->myHaveWarnedAboutClearingJam) {
                 WRITE_WARNING("Clearing jam at calibrator '" + myParent->getID() + "' at time "
