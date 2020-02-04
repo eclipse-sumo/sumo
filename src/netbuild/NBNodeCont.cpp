@@ -704,8 +704,10 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         std::string origReason;
         std::string origCluster;
         bool feasible = feasibleCluster(cluster, ec, sc, origReason);
-        //if (!feasible) std::cout << "\ntry to reduce cluster " << joinNamedToString(cluster, ',') << "\n";
         if (!feasible) {
+#ifdef DEBUG_JOINJUNCTIONS
+            if (gDebugFlag1) std::cout << "   try to reduce to 4-circle nodes=" << joinNamedToString(cluster, ',') << "\n";
+#endif
             origCluster = joinNamedToString(cluster, ',');
             if (reduceToCircle(cluster, 4, cluster)) {
                 feasible = feasibleCluster(cluster, ec, sc, reason);
@@ -715,6 +717,9 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
             }
         }
         if (!feasible) {
+#ifdef DEBUG_JOINJUNCTIONS
+            if (gDebugFlag1) std::cout << "   try to reduce to 2-circle nodes=" << joinNamedToString(cluster, ',') << "\n";
+#endif
             origCluster = joinNamedToString(cluster, ',');
             if (reduceToCircle(cluster, 2, cluster)) {
                 feasible = feasibleCluster(cluster, ec, sc, reason);
