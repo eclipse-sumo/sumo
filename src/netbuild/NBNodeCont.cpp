@@ -835,9 +835,10 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
                                             << " in=" << joinNamedToString(clusterNeighbors, ',')
                                             << "\n";
 #endif
-            if (outsideNeighbors.size() <= 1
+            if (clusterNeighbors.size() == 0 
+                    || (outsideNeighbors.size() <= 1
                     && clusterNeighbors.size() == 1
-                    && !n->isTLControlled()) {
+                    && !n->isTLControlled())) {
                 cluster.erase(check);
                 pruneFringe = true; // other nodes could belong to the fringe now
 #ifdef DEBUG_JOINJUNCTIONS
