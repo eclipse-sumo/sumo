@@ -20,6 +20,7 @@ permalink: /ChangeLog/
   - Fixed visualisation of containers. Issue #6426
   - Text setting options 'constant size' and 'background' are now working for 'link junction index' and 'link tls index'. Issue #6376
   - Traffic light parameter 'running duration' is now correct when switching phases via TraCI. Issue #6520
+  - Fixed bug where Locator-Dialog 'Center' button remained disabled after successfully locating objects via substring filtering. Issue #6593
   
 - NETEDIT
   - Creating new traffic light plans where a plan already exists no longer results in invalid plans at joined traffic lights or traffic lights with signal groups. Instead a copy of the existing plan is created. Accordingly the button caption now varies between 'Create' and 'Copy'. Issue #6536, #6537
@@ -32,11 +33,12 @@ permalink: /ChangeLog/
   - Fixed bug where loaded connection was not created. Issue #6470
   - Fixed bug where turning restrictions from OSM were violated. Issue #6482
   - Option **--flip-y-axis** is now working. In can be used to turn a right-hand network into a left-hand network and vice versa. Issue #3838
-  - Fixed bug where option **--tls.guess-signals** failed to detect signals on incoming edges. Issue #6493, Issue #6585
+  - Fixed bug where option **--tls.guess-signals** failed to detect signals on incoming edges. Issue #6493, Issue #6584
   - Fixed invalid right-of-way rules in left-hand network. Issue #6496
   - Connection attribute 'pass' now overrides conflicts between straight and turning connections from the same edge. Issue #6497
   - Fixed invalid permissions for internal lanes when the incoming lane has more restrictions than the outgoing lane. Issue #5557
   - Fixed bug that was causing missing green phases for some connections at joined traffic lights. Issue #6582
+  - Fixed node shape computation for difficult geometries. Issue #6585
 
 - TraCI
   - Context subscriptions can now be removed individually from the python client (before every unsubscribeContext removed all)
@@ -51,6 +53,7 @@ permalink: /ChangeLog/
   - Added new ['taxi' device](Simulation/Taxi.md) to allow simulation of demand-responsive transport. Issue #6418
   - Added option **--step-log.period INT** to set the number of simulation steps between outputs. The new default is 100 which brings a major execution speedup when running sumo on windows with step-log (where command-line output is slow). Issue #6377
   - Added option **--fcd-output.acceleration** to inlcude acceleration values in fcd-output. When sublane simulation is enabled, attribute 'accelerationLat' is added as well. Issue #6448
+  - Added option **--lanechange-output.xy** to inlcude acceleration coordinaet values in lanechange-output. Issue #6588
   - [Aggregated tripinfo output](Simulation/Output.md#aggregated_traffic_measures) now includes average speed. Issue #6480
   - Trips, flows, personTrips and walks with attributes `fromJunction`, `toJunction` and `viaJunctions` are now supported when setting option **--junction-taz**. Issue #6474
   - Calibrators can now be used to update vehicle types by defining flows with the 'type' attribute and without the 'vehsPerHour' attribute. Issue #6219
