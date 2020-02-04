@@ -1,0 +1,15 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <vehicle id="EC" depart="0" departSpeed="max" type="t0">
+        <route edges="EC CW"/>
+    </vehicle>
+    <vehicle id="SC" depart="2" departSpeed="max" type="t0">
+        <route edges="SC CN"/>
+    </vehicle>
+    <vehicle id="NC" depart="4" departSpeed="max" type="t0">
+        <route edges="NC CS"/>
+    </vehicle>
+    <vehicle id="WC" depart="6" departSpeed="max" type="t0">
+        <route edges="WC CE"/>
+    </vehicle>
+</routes>
