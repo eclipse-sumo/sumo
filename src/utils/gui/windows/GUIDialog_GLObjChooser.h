@@ -151,6 +151,9 @@ private:
     /// @brief whether to locate by object name instead of id
     bool myLocateByName;
 
+    /// @brief whether the list was filter by substring
+    bool myHaveFilteredSubstring;
+
 protected:
     FOX_CONSTRUCTOR(GUIDialog_GLObjChooser)
 

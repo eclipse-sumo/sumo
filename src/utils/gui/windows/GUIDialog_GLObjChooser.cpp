@@ -62,7 +62,9 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids, GUIGlObjectStorage& /*glStorage*/) :
     FXMainWindow(parent->getApp(), title, icon, nullptr, GUIDesignChooserDialog),
     myParent(parent),
-    myLocateByName(false) {
+    myLocateByName(false),
+    myHaveFilteredSubstring(false)
+{
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     // build the list
     FXVerticalFrame* layoutLeft = new FXVerticalFrame(hbox, GUIDesignChooserLayoutLeft);
@@ -143,7 +145,7 @@ GUIDialog_GLObjChooser::onCmdClose(FXObject*, FXSelector, void*) {
 long
 GUIDialog_GLObjChooser::onChgText(FXObject*, FXSelector, void*) {
     int id = -1;
-    if (myLocateByName) {
+    if (myLocateByName || myHaveFilteredSubstring) {
         // findItem does not support substring search
         const int numItems = myList->getNumItems();
         FXString t = myTextEntry->getText().lower();
@@ -227,6 +229,8 @@ GUIDialog_GLObjChooser::onCmdFilterSubstr(FXObject*, FXSelector, void*) {
         }
     }
     refreshList(selectedGlIDs);
+    myHaveFilteredSubstring = true;
+    onChgText(nullptr, 0, nullptr);
     return 1;
 }
 
