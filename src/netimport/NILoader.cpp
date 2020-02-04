@@ -144,36 +144,42 @@ NILoader::load(OptionsCont& oc) {
 /* -------------------------------------------------------------------------
  * file loading methods
  * ----------------------------------------------------------------------- */
-void
+bool
 NILoader::loadXML(OptionsCont& oc) {
     // load nodes
-    NITypeLoader::load(new NIXMLNodesHandler(myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
+    bool ok = NITypeLoader::load(new NIXMLNodesHandler(myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
                        myNetBuilder.getTLLogicCont(), oc),
                        oc.getStringVector("node-files"), "nodes");
     // load the edges
-    NITypeLoader::load(new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
+    if (ok) {
+        ok = NITypeLoader::load(new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
                        myNetBuilder.getEdgeCont(),
                        myNetBuilder.getTypeCont(),
                        myNetBuilder.getDistrictCont(),
                        myNetBuilder.getTLLogicCont(),
                        oc),
                        oc.getStringVector("edge-files"), "edges");
+    }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input edge files.");
     }
     // load the connections
-    NITypeLoader::load(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont(),
-                       myNetBuilder.getNodeCont(),
-                       myNetBuilder.getTLLogicCont()),
-                       oc.getStringVector("connection-files"), "connections");
+    if (ok) {
+        ok = NITypeLoader::load(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont(),
+                    myNetBuilder.getNodeCont(),
+                    myNetBuilder.getTLLogicCont()),
+                oc.getStringVector("connection-files"), "connections");
+    }
     // load traffic lights (needs to come last, references loaded edges and connections)
-    NITypeLoader::load(new NIXMLTrafficLightsHandler(
-                           myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont()),
-                       oc.getStringVector("tllogic-files"), "traffic lights");
+    if (ok) {
+        ok = NITypeLoader::load(new NIXMLTrafficLightsHandler(
+                    myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont()),
+                oc.getStringVector("tllogic-files"), "traffic lights");
+    }
 
     // load public transport stops (used for restricting edge removal and as input when repairing railroad topology)
-    if (oc.exists("ptstop-files")) {
-        NITypeLoader::load(new NIXMLPTHandler(
+    if (ok && oc.exists("ptstop-files")) {
+        ok = NITypeLoader::load(new NIXMLPTHandler(
                                myNetBuilder.getEdgeCont(),
                                myNetBuilder.getPTStopCont(),
                                myNetBuilder.getPTLineCont()),
@@ -181,8 +187,8 @@ NILoader::loadXML(OptionsCont& oc) {
     }
 
     // load public transport lines (used as input when repairing railroad topology)
-    if (oc.exists("ptline-files")) {
-        NITypeLoader::load(new NIXMLPTHandler(
+    if (ok && oc.exists("ptline-files")) {
+        ok = NITypeLoader::load(new NIXMLPTHandler(
                                myNetBuilder.getEdgeCont(),
                                myNetBuilder.getPTStopCont(),
                                myNetBuilder.getPTLineCont()),
@@ -190,12 +196,13 @@ NILoader::loadXML(OptionsCont& oc) {
     }
 
     // load shapes for output formats that embed shape data
-    if (oc.exists("polygon-files")) {
-        NITypeLoader::load(new NIXMLShapeHandler(
-                               myNetBuilder.getShapeCont(),
-                               myNetBuilder.getEdgeCont()),
-                           oc.getStringVector("polygon-files"), "polygon data");
+    if (ok && oc.exists("polygon-files")) {
+        ok = NITypeLoader::load(new NIXMLShapeHandler(
+                    myNetBuilder.getShapeCont(),
+                    myNetBuilder.getEdgeCont()),
+                oc.getStringVector("polygon-files"), "polygon data");
     }
+    return ok;
 }
 
 /****************************************************************************/

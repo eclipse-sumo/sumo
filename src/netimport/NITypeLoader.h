@@ -48,7 +48,7 @@ class NITypeLoader {
      */
 public:
     /** loads data from the list of xml-files of certain type */
-    static void load(SUMOSAXHandler* handler, const std::vector<std::string>& files,
+    static bool load(SUMOSAXHandler* handler, const std::vector<std::string>& files,
                      const std::string& type, const bool stringParse = false);
 };
 

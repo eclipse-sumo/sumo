@@ -68,7 +68,7 @@ private:
     //void loadSUMO(OptionsCont &oc);
 
     /** loads data from XML-files */
-    void loadXML(OptionsCont& oc);
+    bool loadXML(OptionsCont& oc);
 
 
 private:
