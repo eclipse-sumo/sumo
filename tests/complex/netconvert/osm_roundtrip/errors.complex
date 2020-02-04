@@ -11,15 +11,6 @@ Warning: Minor green from edge '7727483#1' to edge '-7216737#3' exceeds 19.44m/s
 Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 --- 
 +++ 
-@@ -219,7 +219,7 @@
-         <lane id="-7216737#3_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="162.74" shape="486.04,118.77 633.84,105.16"/>
-     </edge>
-     <edge id="-7727483#0" from="294169342" to="38920501" priority="10" type="highway.tertiary">
--        <lane id="-7727483#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="4.46" shape="496.86,309.53 496.88,309.73"/>
-+        <lane id="-7727483#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="4.46" shape="497.05,311.65 497.06,311.85"/>
-     </edge>
-     <edge id="-7727483#3" from="32266935" to="294169342" priority="10" type="highway.tertiary" shape="478.98,121.02 482.98,167.40 484.69,187.19 488.69,233.50 492.80,281.09 495.08,307.55">
-         <lane id="-7727483#3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="187.22" shape="481.48,131.37 484.58,167.26 486.29,187.05 490.29,233.36 494.40,280.95 496.27,302.68"/>
 @@ -977,7 +977,7 @@
      <junction id="38919927" type="priority" x="297.39" y="446.01" incLanes="-6137233#0_0" intLanes="" shape="297.39,446.01 296.76,449.15 297.39,446.01">
          <request index="0" response="0" foes="0"/>

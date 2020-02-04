@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Nov 10 18:44:17 2019 by Eclipse SUMO netconvert Version v1_3_1+0814-be0565a24f
+<!-- generated on Tue Feb  4 13:52:25 2020 by Eclipse SUMO netconvert Version v1_4_0+0930-c681826
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -13,6 +13,7 @@
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -29,6 +30,10 @@
     <pedestrian>
         <walkingareas value="false"/>
     </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
 
 </configuration>
 -->
@@ -255,7 +260,7 @@
         <lane id="-7216737#3_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="162.73" shape="486.04,118.76 633.84,105.16"/>
     </edge>
     <edge id="-7727483#0" from="294169342" to="38920501" priority="10" type="highway.tertiary">
-        <lane id="-7727483#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="4.46" shape="497.05,311.65 497.06,311.85"/>
+        <lane id="-7727483#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="4.87" shape="497.05,311.71 497.08,312.05"/>
     </edge>
     <edge id="-7727483#3" from="32266935" to="294169342" priority="10" type="highway.tertiary" shape="478.98,121.02 482.98,167.40 484.69,187.19 488.69,233.50 492.80,281.09 495.08,307.55">
         <lane id="-7727483#3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="187.22" shape="481.48,131.36 484.57,167.26 486.28,187.05 490.28,233.36 494.39,280.95 496.27,302.69"/>
@@ -583,7 +588,7 @@
         <lane id="7727482_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="82.99" shape="497.06,311.83 498.64,344.10 500.14,379.28"/>
     </edge>
     <edge id="7727483#0" from="38920501" to="294169342" priority="10" type="highway.tertiary">
-        <lane id="7727483#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="4.46" shape="493.88,312.13 493.86,311.99"/>
+        <lane id="7727483#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="4.87" shape="493.89,312.33 493.86,311.99"/>
     </edge>
     <edge id="7727483#1" from="294169342" to="32266935" priority="10" type="highway.tertiary" shape="495.08,307.55 492.80,281.09 488.69,233.50 484.69,187.19 482.98,167.40 478.98,121.02">
         <lane id="7727483#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="187.22" shape="493.08,302.96 491.21,281.23 487.10,233.64 483.10,187.33 481.39,167.54 478.29,131.64"/>
@@ -711,7 +716,7 @@
         <request index="7" response="000011000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="294169342" type="priority" x="495.08" y="307.55" incLanes="7727483#0_0 26816590#2_0 -7727483#3_0" intLanes="" shape="492.28,312.27 498.66,311.71 500.12,310.26 499.48,303.89 498.64,303.81 498.33,303.63 498.10,303.36 497.94,303.00 497.86,302.55 491.48,303.10">
+    <junction id="294169342" type="priority" x="495.08" y="307.55" incLanes="7727483#0_0 26816590#2_0 -7727483#3_0" intLanes="" shape="492.30,312.47 498.68,311.91 500.12,310.26 499.48,303.89 498.64,303.81 498.33,303.63 498.10,303.36 497.94,303.00 497.86,302.55 491.48,303.10">
         <request index="0" response="000000000" foes="100010000"/>
         <request index="1" response="011000000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
