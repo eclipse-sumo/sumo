@@ -21,3 +21,6 @@ ticket6471
 
 # infinite loop when when trying to detect deadlock at right_before_left junction
 ticket6471b
+
+# network with special characters
+ticket6597

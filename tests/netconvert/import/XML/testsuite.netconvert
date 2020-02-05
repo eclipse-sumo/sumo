@@ -85,3 +85,6 @@ connection_guessing
 
 # import params from plain xml
 params
+
+# test special characters in edge ids
+special_chars
