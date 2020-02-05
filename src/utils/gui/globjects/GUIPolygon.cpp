@@ -33,7 +33,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include "GUIPolygon.h"
 
-#define GUIPolygon_DEBUG_DRAW_VERTICES
+//#define GUIPolygon_DEBUG_DRAW_VERTICES
 
 // ===========================================================================
 // callbacks definitions
