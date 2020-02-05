@@ -539,7 +539,7 @@ NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
 void
 NLHandler::parseLanes(const std::string& junctionID,
                       const std::string& def, std::vector<MSLane*>& into, bool& ok) {
-    StringTokenizer st(def);
+    StringTokenizer st(def, " ");
     while (ok && st.hasNext()) {
         std::string laneID = st.next();
         MSLane* lane = MSLane::dictionary(laneID);
