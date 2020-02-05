@@ -171,6 +171,9 @@ public:
                     into.back().traveltime += time - prevTime;
                     into.back().cost += effort - prevEffort;
                     into.back().length += length - prevLength;
+                    if (into.back().depart < 0) {
+                        into.back().depart = prevTime;
+                    }
                 }
             }
         }
