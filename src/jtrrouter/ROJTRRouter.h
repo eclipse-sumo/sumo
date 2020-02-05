@@ -50,17 +50,19 @@ public:
      * @param[in] maxEdges The maximum number of edges a route may have
      * @param[in] ignoreClasses Whether routing shall be done without regarding vehicle classes
      * @param[in] allowLoops Whether a vehicle may reuse a road
+     * @param[in] discountSources Whether upstream flow shall be discounted from source flows
      */
     ROJTRRouter(bool unbuildIsWarningOnly,
                 bool acceptAllDestinations, int maxEdges, bool ignoreClasses,
-                bool allowLoops);
+                bool allowLoops,
+                bool discountSources);
 
 
     /// @brief Destructor
     ~ROJTRRouter();
 
     virtual SUMOAbstractRouter<ROEdge, ROVehicle>* clone() {
-        return new ROJTRRouter(myUnbuildIsWarningOnly, myAcceptAllDestination, myMaxEdges, myIgnoreClasses, myAllowLoops);
+        return new ROJTRRouter(myUnbuildIsWarningOnly, myAcceptAllDestination, myMaxEdges, myIgnoreClasses, myAllowLoops, myDiscountSources);
     }
 
     /// @name Implementatios of SUMOAbstractRouter
@@ -88,7 +90,6 @@ public:
     double recomputeCosts(const ConstROEdgeVector& edges, const ROVehicle* const v, SUMOTime msTime) const;
     /// @}
 
-
 private:
     /// @brief Whether unbuildable routes shall be reported as warniings, not errors
     const bool myUnbuildIsWarningOnly;
@@ -105,6 +106,8 @@ private:
     /// @brief Whether a vehicle may reuse a road
     const bool myAllowLoops;
 
+    /// @brief Whether upstream flows shall be discounted from source flows
+    const bool myDiscountSources;
 };
 
 

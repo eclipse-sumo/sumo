@@ -51,7 +51,10 @@ bool RORouteDef::myUsingJTRR(false);
 RORouteDef::RORouteDef(const std::string& id, const int lastUsed,
                        const bool tryRepair, const bool mayBeDisconnected) :
     Named(StringUtils::convertUmlaute(id)),
-    myPrecomputed(nullptr), myLastUsed(lastUsed), myTryRepair(tryRepair), myMayBeDisconnected(mayBeDisconnected) {
+    myPrecomputed(nullptr), myLastUsed(lastUsed), myTryRepair(tryRepair), 
+    myMayBeDisconnected(mayBeDisconnected),
+    myDiscardSilent(false)
+{
 }
 
 
@@ -169,7 +172,8 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     if (initialSize == 1) {
         if (myUsingJTRR) {
             /// only ROJTRRouter is supposed to handle this type of input
-            router.compute(oldEdges.front(), nullptr, &veh, begin, newEdges);
+            bool ok = router.compute(oldEdges.front(), nullptr, &veh, begin, newEdges);
+            myDiscardSilent = ok && newEdges.size() == 0;
         } else {
             newEdges = oldEdges;
         }

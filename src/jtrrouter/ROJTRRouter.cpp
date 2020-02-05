@@ -32,12 +32,16 @@
 // method definitions
 // ===========================================================================
 ROJTRRouter::ROJTRRouter(bool unbuildIsWarningOnly, bool acceptAllDestinations,
-                         int maxEdges, bool ignoreClasses, bool allowLoops) :
+                         int maxEdges, bool ignoreClasses,
+                         bool allowLoops,
+                         bool discountSources) :
     SUMOAbstractRouter<ROEdge, ROVehicle>("JTRRouter", unbuildIsWarningOnly, &ROEdge::getTravelTimeStatic, nullptr, false, false),
     myUnbuildIsWarningOnly(unbuildIsWarningOnly),
     myAcceptAllDestination(acceptAllDestinations), myMaxEdges(maxEdges),
-    myIgnoreClasses(ignoreClasses), myAllowLoops(allowLoops) {
-}
+    myIgnoreClasses(ignoreClasses),
+    myAllowLoops(allowLoops),
+    myDiscountSources(discountSources)
+{ }
 
 
 ROJTRRouter::~ROJTRRouter() {}
@@ -48,13 +52,17 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* to,
                      const ROVehicle* const vehicle,
                      SUMOTime time, ConstROEdgeVector& into, bool silent) {
     const ROJTREdge* current = static_cast<const ROJTREdge*>(from);
+    if (myDiscountSources && current->getSourceFlow() <= 0) {
+        return true;
+    }
     double timeS = STEPS2TIME(time);
     std::set<const ROEdge*> avoidEdges;
     // route until a sinks has been found
     while (current != nullptr && current != to &&
-            !current->isSink() &&
+            (!current->isSink() || current == from || current->getSourceFlow() > 0) &&
             (int)into.size() < myMaxEdges) {
         into.push_back(current);
+        const_cast<ROJTREdge*>(current)->changeSourceFlow(-1);
         if (!myAllowLoops) {
             avoidEdges.insert(current);
         }

@@ -83,6 +83,12 @@ ROJTRFrame::fillOptions() {
     oc.doRegister("allow-loops", new Option_Bool(false));
     oc.addDescription("allow-loops", "Processing", "Allow to re-use a road");
 
+    oc.doRegister("sources-are-sinks", 'S', new Option_Bool(false));
+    oc.addDescription("sources-are-sinks", "Processing", "Use all source edges as sink edges.");
+
+    oc.doRegister("discount-sources", 'D',  new Option_Bool(false));
+    oc.addDescription("discount-sources", "Processing", "Subtract upstream flow when inserting a new flow. When option --sources-are-sinks is set, the upstream flow is limited to the value of the source flow and the remainig part termines.");
+
     // add rand options
     RandHelper::insertRandOptions();
 }

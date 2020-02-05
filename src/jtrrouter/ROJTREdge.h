@@ -101,6 +101,15 @@ public:
      */
     void setTurnDefaults(const std::vector<double>& defs);
 
+    /// @brief register source flow on this edge
+    int getSourceFlow() const {
+        return mySourceFlows;
+    }
+
+    /// @brief register flow on this edge
+    void changeSourceFlow(int value) {
+        mySourceFlows += value;
+    }
 
 private:
     /// @brief Definition of a map that stores the probabilities of using a certain follower over time
@@ -112,6 +121,9 @@ private:
     /// @brief The defaults for turnings
     std::vector<double> myParsedTurnings;
 
+    /// @brief the flows departing from this edge in the given time
+    //ValueTimeLine<int> mySourceFlows;
+    int mySourceFlows;
 
 private:
     /// @brief invalidated copy constructor

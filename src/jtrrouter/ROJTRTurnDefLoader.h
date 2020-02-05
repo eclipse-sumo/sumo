@@ -119,7 +119,11 @@ private:
     /// @brief The current incoming edge the turning probabilities are set into
     ROJTREdge* myEdge;
 
+    /// @brief whether all sources are sinks
+    bool mySourcesAreSinks;
 
+    /// @brief whether upstream flows should be discounted from source flows
+    bool myDiscountSources;
 };
 
 

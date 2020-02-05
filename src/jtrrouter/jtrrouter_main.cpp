@@ -110,6 +110,18 @@ loadJTRDefinitions(RONet& net, OptionsCont& oc) {
             }
         }
     }
+    if (oc.getBool("sources-are-sinks") || oc.getBool("discount-sources")) {
+        // load all route-files and additional files to discover sink edges and flow discount values
+        ROJTRTurnDefLoader loader(net);
+        for (std::string fileOption : {"route-files", "additional-files"}) {
+            for (std::string file : oc.getStringVector(fileOption)) {
+                if (!XMLSubSys::runParser(loader, file)) {
+                    throw ProcessError();
+                }
+            }
+        }
+    }
+
     if (MsgHandler::getErrorInstance()->wasInformed() && oc.getBool("ignore-errors")) {
         MsgHandler::getErrorInstance()->clear();
     }
@@ -139,7 +151,9 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // build the router
     ROJTRRouter* router = new ROJTRRouter(oc.getBool("ignore-errors"), oc.getBool("accept-all-destinations"),
                                           (int)(((double) net.getEdgeNumber()) * OptionsCont::getOptions().getFloat("max-edges-factor")),
-                                          oc.getBool("ignore-vclasses"), oc.getBool("allow-loops"));
+                                          oc.getBool("ignore-vclasses"),
+                                          oc.getBool("allow-loops"), 
+                                          oc.getBool("discount-sources"));
     RORouteDef::setUsingJTRR();
     RORouterProvider provider(router, new PedestrianRouter<ROEdge, ROLane, RONode, ROVehicle>(),
                               new ROIntermodalRouter(RONet::adaptIntermodalRouter, 0, "dijkstra"));

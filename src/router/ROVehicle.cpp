@@ -136,7 +136,9 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
     RORoute* current = routeDef->buildCurrentRoute(router, getDepartureTime(), *this);
     if (current == nullptr || current->size() == 0) {
         delete current;
-        errorHandler->inform(noRouteMsg);
+        if (current == nullptr || !routeDef->discardSilent()) {
+            errorHandler->inform(noRouteMsg);
+        }
         myRoutingSuccess = false;
         return;
     }

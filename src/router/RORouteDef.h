@@ -139,6 +139,13 @@ public:
     /** @brief Returns the sum of the probablities of the contained routes */
     double getOverallProb() const;
 
+
+    /// @brief whether this route shall be silently discarded
+    bool discardSilent() const {
+        return myDiscardSilent;
+    }
+
+
     static void setUsingJTRR() {
         myUsingJTRR = true;
     }
@@ -161,6 +168,9 @@ protected:
 
     const bool myTryRepair;
     const bool myMayBeDisconnected;
+    
+    /// @brief Whether this route should be silently discarded
+    mutable bool myDiscardSilent;
 
     static bool myUsingJTRR;
 
