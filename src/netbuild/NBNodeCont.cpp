@@ -621,8 +621,12 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster, NBNode* node) {
             }
         }
     }
-    myJoined.insert(validCluster.begin(), validCluster.end());
-    myClusters2Join.push_back(std::make_pair(validCluster, node));
+    if (validCluster.size() > 1) {
+        myJoined.insert(validCluster.begin(), validCluster.end());
+        myClusters2Join.push_back(std::make_pair(validCluster, node));
+    } else {
+        WRITE_WARNINGF("Ignoring join-cluster '%s' because it has size '%'.", node->getID(), validCluster.size());
+    }
 }
 
 
