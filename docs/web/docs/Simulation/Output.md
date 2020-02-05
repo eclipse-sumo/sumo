@@ -231,7 +231,7 @@ will report
 
 ## Aggregated Traffic Measures
 
-When setting the option **--duration-log.statistics**, verbose output is automatically enabled
+When setting the option **--duration-log.statistics**, (shortcut **-t**) verbose output is automatically enabled
 (unless explicitly set to *false*) and the following averages for all
 vehicle trips will be printed:
 
