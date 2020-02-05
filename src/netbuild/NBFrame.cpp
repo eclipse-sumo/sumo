@@ -216,6 +216,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("railway.access-factor", new Option_Float(1.5));
         oc.addDescription("railway.access-factor", "Railway", "The walking length of the access is computed as air-line distance multiplied by FLOAT");
         oc.addSynonyme("railway.access-factor", "osm.stop-output.footway-access-factor", true);
+
+        oc.doRegister("ptstop-output.no-bidi", new Option_Bool(false));
+        oc.addDescription("ptstop-output.no-bidi", "Processing", "Skips automatic generation of stops on the bidi-edge of a loaded stop");
     }
 
     oc.doRegister("geometry.max-grade", new Option_Float(10));

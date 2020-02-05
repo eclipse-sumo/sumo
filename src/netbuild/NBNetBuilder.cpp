@@ -551,7 +551,10 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     //find accesses for pt rail stops and add bidi-stops
     if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
         before = SysUtils::getCurrentMillis();
-        const int numBidiStops = myPTStopCont.generateBidiStops(myEdgeCont);
+        int numBidiStops = 0;
+        if (!oc.getBool("ptstop-output.no-bidi")) {
+            numBidiStops = myPTStopCont.generateBidiStops(myEdgeCont);
+        }
         PROGRESS_BEGIN_MESSAGE("Find accesses for pt rail stops");
         double maxRadius = oc.getFloat("railway.access-distance");
         double accessFactor = oc.getFloat("railway.access-factor");
