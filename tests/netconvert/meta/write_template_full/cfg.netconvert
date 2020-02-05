@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jan 18 02:31:07 2020 by Eclipse SUMO netconvert Version v1_4_0+0632-3958f5e20f
+<!-- generated on Wed Feb  5 16:18:21 2020 by Eclipse SUMO netconvert Version v1_4_0+0935-fc42273
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -103,6 +103,7 @@
         <geometry.avoid-overlap value="true" type="BOOL" help="Modify edge geometries to avoid overlap at junctions"/>
         <join-lanes value="false" type="BOOL" help="join adjacent lanes that have the same permissions and which do not admit lane-changing (sidewalks and disallowed lanes)"/>
         <ptline.match-dist value="100" type="FLOAT" help="Matches stops outside the road network to the referencing pt line when below the given distance"/>
+        <ptstop-output.no-bidi value="false" type="BOOL" help="Skips automatic generation of stops on the bidi-edge of a loaded stop"/>
         <geometry.max-grade value="10" type="FLOAT" help="Warn about edge geometries with a grade in % above FLOAT."/>
         <geometry.max-grade.fix value="true" type="BOOL" help="Smooth edge edge geometries with a grade in above the warning threshold."/>
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>

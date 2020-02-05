@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jan 18 02:31:07 2020 by Eclipse SUMO netconvert Version v1_4_0+0632-3958f5e20f
+<!-- generated on Wed Feb  5 16:18:21 2020 by Eclipse SUMO netconvert Version v1_4_0+0935-fc42273
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -272,6 +272,9 @@
 
         <!-- Matches stops outside the road network to the referencing pt line when below the given distance -->
         <ptline.match-dist value="100" type="FLOAT"/>
+
+        <!-- Skips automatic generation of stops on the bidi-edge of a loaded stop -->
+        <ptstop-output.no-bidi value="false" type="BOOL"/>
 
         <!-- Warn about edge geometries with a grade in % above FLOAT. -->
         <geometry.max-grade value="10" type="FLOAT"/>
