@@ -12,6 +12,9 @@ all-bidi.input-file
 # make all tracks usable in both directions and duplicate loaded stops
 all-bidi_stops
 
+# make all tracks usable in both directions but do not duplicate loaded stops
+all-bidi_single_stops
+
 # make all tracks usable in both directions, take into account custom edge lengths
 all-bidi_customLength
 
