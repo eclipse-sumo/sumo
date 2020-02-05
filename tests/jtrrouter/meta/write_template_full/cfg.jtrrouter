@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 13 21:46:22 2020 by Eclipse SUMO jtrrouter Version v1_4_0+0477-e6fc36ca7d
+<!-- generated on Wed Feb  5 23:37:59 2020 by Eclipse SUMO jtrrouter Version v1_4_0+0947-40275488a3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -58,6 +58,8 @@
         <accept-all-destinations value="false" synonymes="A" type="BOOL" help="Whether all edges are allowed as sink edges"/>
         <ignore-vclasses value="false" synonymes="i" type="BOOL" help="Ignore road restrictions based on vehicle class"/>
         <allow-loops value="false" type="BOOL" help="Allow to re-use a road"/>
+        <sources-are-sinks value="false" synonymes="S" type="BOOL" help="Use all source edges as sink edges."/>
+        <discount-sources value="false" synonymes="D" type="BOOL" help="Subtract upstream flow when inserting a new flow. When option --sources-are-sinks is set, the upstream flow is limited to the value of the source flow and the remainig part termines."/>
     </processing>
 
     <defaults>
