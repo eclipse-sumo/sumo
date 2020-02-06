@@ -54,12 +54,16 @@ def get_options(args=None):
 
 def getFlows(routeFiles, verbose):
     # get flows for each edge pair
+    minDepart = 1e20
+    maxDepart = 0
     for file in routeFiles.split(','):
         edgePairFlowsMap = {}
         if verbose:
             print("route file:%s" % file)
         for veh in sumolib.output.parse(file, 'vehicle'):
             edgesList = veh.route[0].edges.split()
+            minDepart = min(minDepart, float(veh.depart))
+            maxDepart = max(maxDepart, float(veh.depart))
             for i, e in enumerate(edgesList):
                 if i < len(edgesList)-1:
                     next = edgesList[i+1]
@@ -69,16 +73,16 @@ def getFlows(routeFiles, verbose):
                         edgePairFlowsMap[e][next] = 0
 
                     edgePairFlowsMap[e][next] += 1
-    return edgePairFlowsMap
+    return edgePairFlowsMap, minDepart, maxDepart
 
 
 def main(options):
     # get traffic flows for each edge pair
-    edgePairFlowsMap = getFlows(options.routefiles, options.verbose)
+    edgePairFlowsMap, minDepart, maxDepart = getFlows(options.routefiles, options.verbose)
 
     with open(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "turns")  # noqa
-        outf.write('    <interval begin="0" end="86400">\n')
+        outf.write('    <interval begin="%s" end="%s">\n' % (minDepart, maxDepart))
         for from_edge in edgePairFlowsMap:
             outf.write('        <fromEdge id="%s">\n' % from_edge)
             if options.prob:
@@ -86,11 +90,11 @@ def main(options):
                 for to_edge in edgePairFlowsMap[from_edge]:
                     sum += edgePairFlowsMap[from_edge][to_edge]
                 for to_edge in edgePairFlowsMap[from_edge]:
-                    outf.write('            <toEdge id="%s" probability="%.2f">\n' %
+                    outf.write('            <toEdge id="%s" probability="%.2f"/>\n' %
                                (to_edge, edgePairFlowsMap[from_edge][to_edge]/sum))
             else:
                 for to_edge in edgePairFlowsMap[from_edge]:
-                    outf.write('            <toEdge id="%s" probability="%s">\n' %
+                    outf.write('            <toEdge id="%s" probability="%s"/>\n' %
                                (to_edge, edgePairFlowsMap[from_edge][to_edge]))
             outf.write('        </fromEdge>\n')
 
