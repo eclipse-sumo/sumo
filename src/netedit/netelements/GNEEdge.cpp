@@ -1480,7 +1480,11 @@ GNEEdge::updateVehicleStackLabels() {
             // get vehicle's depart pos and lenght
             const double departPos = vehicle->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
             const double length = vehicle->getAttributeDouble(SUMO_ATTR_LENGTH);
-            const double posOverLane = vehicle->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+            double posOverLane = vehicle->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+            // check if we have to adapt posOverLane
+            if (posOverLane < 0) {
+                posOverLane += vehicleMap.first->getLaneShape().length();
+            }
             // make a stack position using departPos and length
             departPosVehicles.push_back(std::make_pair(StackPosition(departPos, length), vehicle));
             // update depart element geometry
