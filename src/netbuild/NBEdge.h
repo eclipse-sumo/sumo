@@ -681,6 +681,9 @@ public:
     /// @brief return all permission variants within the specified lane range [iStart, iEnd[
     std::set<SVCPermissions> getPermissionVariants(int iStart, int iEnd) const;
 
+    /// @brief get lane indices that allow the given permissions
+    int getNumLanesThatAllow(SVCPermissions permissions) const;
+
     /// @brief return the angle for computing pedestrian crossings at the given node
     double getCrossingAngle(NBNode* node);
 
@@ -1399,6 +1402,13 @@ public:
 
     /// @brief reset lane shapes to what they would be before cutting with the junction shapes
     void resetLaneShapes();
+
+    /// @brief return the straightest follower edge for the given permissions or nullptr (never returns turn-arounds)
+    /// @note: this method is called before connections are built and simply goes by node graph topology
+    NBEdge* getStraightContinuation(SVCPermissions permissions) const;
+
+    /// @brief return only those edges that permit at least one of the give permissions
+    static EdgeVector filterByPermissions(const EdgeVector& edges, SVCPermissions permissions);
 
 private:
     /** @class ToEdgeConnectionsAdder

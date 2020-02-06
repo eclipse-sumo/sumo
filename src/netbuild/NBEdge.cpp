@@ -3681,6 +3681,16 @@ NBEdge::getPermissionVariants(int iStart, int iEnd) const {
     return result;
 }
 
+int
+NBEdge::getNumLanesThatAllow(SVCPermissions permissions) const {
+    int result = 0;
+    for (const Lane& lane : myLanes) {
+        if ((lane.permissions & permissions) == permissions) {
+            result++;
+        }
+    }
+    return result;
+}
 
 double
 NBEdge::getCrossingAngle(NBNode* node) {
@@ -3978,6 +3988,33 @@ NBEdge::joinLanes(SVCPermissions perms) {
         }
     }
     return haveJoined;
+}
+
+
+EdgeVector
+NBEdge::filterByPermissions(const EdgeVector& edges, SVCPermissions permissions) {
+    EdgeVector result;
+    for (NBEdge* edge : edges) {
+        if ((edge->getPermissions() & permissions) != 0) {
+            result.push_back(edge);
+        }
+    }
+    return result;
+}
+
+NBEdge*
+NBEdge::getStraightContinuation(SVCPermissions permissions) const {
+    EdgeVector cands = filterByPermissions(myTo->getOutgoingEdges(), permissions);
+    if (cands.size() == 0) {
+        return nullptr;
+    }
+    sort(cands.begin(), cands.end(), NBContHelper::edge_similar_direction_sorter(this));
+    NBEdge* best = cands.front();
+    if (isTurningDirectionAt(best)) {
+        return nullptr;
+    } else {
+        return best;
+    }
 }
 
 /****************************************************************************/
