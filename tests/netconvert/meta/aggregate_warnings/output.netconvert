@@ -1,4 +1,4 @@
-Parsing types from '/home/micha/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
 Parsing types from 'input_types.typ.xml' ... done.
 Parsing nodes from osm-file 'osm.xml' ... done.
 Parsing edges from osm-file 'osm.xml' ... done.
@@ -13,28 +13,28 @@ done.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (0ms).
 Joining junction clusters ... 
-done (4ms).
- Joined 20 junction cluster(s).
-Removing empty nodes and geometry nodes ... done (2ms).
+done (3ms).
+ Joined 19 junction cluster(s).
+Removing empty nodes and geometry nodes ... done (3ms).
    79 nodes removed.
-Moving network to origin ... done (3ms).
+Moving network to origin ... done (19ms).
 Computing turning directions ... done (1ms).
 Assigning nodes to traffic lights ... done (0ms).
-Sorting nodes' edges ... done (2ms).
-Computing node shapes ... done (15ms).
+Sorting nodes' edges ... done (1ms).
+Computing node shapes ... done (13ms).
 Computing edge shapes ... done (12ms).
 Computing node types ... done (1ms).
-Computing priorities ... done (1ms).
-Computing approached edges ... done (2ms).
+Computing priorities ... done (0ms).
+Computing approached edges ... done (1ms).
 Guessing and setting roundabouts ... 
  Guessed 1 roundabout(s).
 done (0ms).
-Computing approaching lanes ... done (6ms).
-Dividing of lanes on approached lanes ... done (2ms).
-Processing turnarounds ... done (1ms).
+Computing approaching lanes ... done (3ms).
+Dividing of lanes on approached lanes ... done (1ms).
+Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
 Computing traffic light control information ... done (0ms).
-Computing node logics ... done (8ms).
+Computing node logics ... done (5ms).
 Computing traffic light logics ... done (0ms).
  3 traffic light(s) computed.
 -----------------------------------------------------
@@ -42,7 +42,7 @@ Summary:
  Node type statistics:
   Unregulated junctions       : 0
   Dead-end junctions          : 66
-  Priority junctions          : 211
+  Priority junctions          : 214
   Right-before-left junctions : 64
   Traffic light junctions      : 3
   Rail signal junctions      : 1
@@ -72,5 +72,5 @@ could not find edge for parkingArea '143308542#2'
 could not find edge for parkingArea '143308546#7'
 could not find edge for parkingArea '143308562#4'
 could not find edge for parkingArea '-143308562#4'
-done (95ms).
+done (70ms).
 Success.

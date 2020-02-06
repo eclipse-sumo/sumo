@@ -98,10 +98,8 @@ Warning: Last stop edge '25946670' is not part of the route of line '300432'
 Warning: First stop edge '25946670' is not part of the route of line '6593455'
 Warning: Last stop edge '25946670' is not part of the route of line '6593455'
 Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node).
-Warning: Not joining junctions 1803575761,2480337678,2656298207,29219440,341340978,3831343134,4566145594,4566145597,5747234974,5747234975,768074054 (7 incoming edges).
 Warning: Not joining junctions 28373970,540698421 (only 1 edge within and no cross-traffic).
 Warning: Not joining junctions 28373972,3513423889,3513425993 (not compact (maxEdge=4612964#0 length=8.21)).
-Warning: Reducing junction cluster 3513423870,3513423873,3513423879,3513423880,3513423881,3513423882 (parallel outgoing -310176513#6,54698846#0).
 Warning: Ambiguous node type for node cluster 'cluster_1673527224_1673527227_21487161_303436603_3781110311_3781110312_3781110313_3918673901_3918673903_3918673904_4603453181_4603453187_51974030' (rail_crossing,unknown), setting to 'priority'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
@@ -140,6 +138,7 @@ Warning: busStop '1827996414' on lane '72157174#1_1' is too short for vehicle '3
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle '4_bus_TXL:1'.
 Warning: busStop '1633759766' on lane '421641064_0' is too short for vehicle '14_tram_M4:0'.
 Warning: busStop '1661927028' on lane '101699679#3_0' is too short for vehicle '18_tram_M5:0'.
+Warning: busStop '2175753204' on lane '207364192#0_0' is too short for vehicle '20_tram_12:0'.
 Warning: busStop '1673526976' on lane '167272512#2_0' is too short for vehicle '21_tram_12:1'.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle '21_tram_12:1'.
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle '28_tram_M1:2'.
@@ -154,6 +153,7 @@ Warning: At actuated tlLogic 'joinedS_0', linkIndex 23 has no controlling detect
 Warning: busStop '1827996414' on lane '72157174#1_1' is too short for vehicle 'pt_bus_TXL:0.0'.
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle 'pt_bus_TXL:1.0'.
 Warning: busStop '1633759766' on lane '421641064_0' is too short for vehicle 'pt_tram_M4:0.0'.
+Warning: busStop '2175753204' on lane '207364192#0_0' is too short for vehicle 'pt_tram_12:0.0'.
 Warning: busStop '1661927028' on lane '101699679#3_0' is too short for vehicle 'pt_tram_M5:0.0'.
 Warning: busStop '1673526976' on lane '167272512#2_0' is too short for vehicle 'pt_tram_12:1.0'.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
@@ -165,4 +165,7 @@ Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:3.0', lane='-148458500#1_0', gap=-1.00, time=499.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 499.00.
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=499.00.
-Warning: Person 'ped128' aborted waiting for N2:0 at busStop '272408975'.
+Warning: Person 'ped27' aborted waiting for M5:0 at busStop '1661927028'.
+Warning: Person 'ped158' aborted waiting for N2:0 at busStop '272408975'.
+Warning: Person 'ped123' aborted waiting for S7:0 at busStop '2603331695'.
+Warning: Person 'ped115' aborted waiting for U6:1 at busStop '2071423334'.
