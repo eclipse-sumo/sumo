@@ -77,7 +77,7 @@ permalink: /ChangeLog/
 
 - NETCONVERT
   - Improved connection building heuristic. Issue #6295, #6467, #6468
-  - Improved heuristic for option **--junctions.join**. Issue #872
+  - Improved heuristic for option **--junctions.join**. Issue #872, Issue #5398
   - Improved heuristic for option **--tls.guess**. Issue #6512
   - Added options **--numerical-ids.edge-start INT**, **--numerical-ids.node-start INT** to relabel network elements with numbers starting at the given value. Issue #6372
   - Added option **--no-turnarounds.except-turnlane** which causes turnlanes to be built only if there is an exclusive (left) turn lane. Issue #6444
