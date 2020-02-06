@@ -635,6 +635,11 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
         if ((i.getAttr() == SUMO_ATTR_ID) && (i.getTagPropertyParent().getTag() == SUMO_TAG_VAPORIZER)) {
             showAttribute = false;
         }
+            // check special case for VType IDs in vehicle Frame
+        if ((i.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) &&
+            (myFrameParent->getViewNet()->getEditModes().demandEditMode == GNE_DMODE_VEHICLE)) {
+            showAttribute = false;
+        }
         // show attribute depending of showAttribute flag
         if (showAttribute) {
             myAttributesCreatorRows.at(i.getPositionListed()) = new AttributesCreatorRow(this, i);
