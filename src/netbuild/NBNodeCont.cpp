@@ -66,8 +66,7 @@
 
 //#define DEBUG_JOINJUNCTIONS
 //#define DEBUG_GUESSSIGNALS
-//#define DEBUGNODEID "21487209"
-#define DEBUGNODEID ""
+#define DEBUGNODEID "3513423881"
 #define DEBUGNODEID2 ""
 //#define DEBUGNODEID "5548037023"
 #define DEBUGCOND(obj) ((obj) != 0 && ((obj)->getID() == DEBUGNODEID || (obj)->getID() == DEBUGNODEID2))
@@ -842,7 +841,7 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
 
 
 void
-NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist) const {
+NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist) {
     std::set<NBNode*> toRemove;
     int maxPassengerLanes = 0;
     for (NBNode* n : cluster) {
@@ -855,18 +854,18 @@ NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist) const {
             // we must track the edge length accross geometry like nodes
             // Also, intersecions that are geometry-like
             // from the perspective of passenger traffic should be tracked accross
-            std::set<NBNode*> passed;
+            std::vector<NBNode*> passed;
             double length = 0;
             NBEdge* cur = edge;
             NBNode* to = edge->getToNode();
             while (cluster.count(to) != 0) {
                 length += cur->getLoadedLength();
-                bool goStraight = (passed.count(to) == 0 
+                bool goStraight = (std::find(passed.begin(), passed.end(), to) == passed.end()
                         && (edge->getPermissions() & SVC_PASSENGER) != 0
                         && to->geometryLike(
                             NBEdge::filterByPermissions(to->getIncomingEdges(), SVC_PASSENGER),
                             NBEdge::filterByPermissions(to->getOutgoingEdges(), SVC_PASSENGER)));
-                passed.insert(to);
+                passed.push_back(to);
                 if (goStraight) {
                     cur = cur->getStraightContinuation(SVC_PASSENGER);
                     if (cur != nullptr) {
@@ -883,12 +882,23 @@ NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist) const {
 #ifdef DEBUG_JOINJUNCTIONS
             if (gDebugFlag1) std::cout << "check edge length " << edge->getID() << " (" << length << ", passed=" << passed.size() << ", max=" << longThreshold << ")\n";
 #endif
-            if (length > longThreshold /*&& (edge->getPermissions() & SVC_PASSENGER) != 0*/) {
+            if (length > longThreshold) {
+                // we found an edge that should not be removed. Maybe we can
+                // still keep the start or end in the cluster
+                // (keep the start if the end can be removed and vice versa)
+                const bool keepStart = getClusterNeighbors(passed.back(), cluster).size() == 1;
+                const bool keepEnd = !keepStart && getClusterNeighbors(n, cluster).size() == 1;
 #ifdef DEBUG_JOINJUNCTIONS
-                if (gDebugFlag1) std::cout << "long edge " << edge->getID() << " (" << length << ", passed=" << passed.size() << ", max=" << longThreshold << ")\n";
+                if (gDebugFlag1) std::cout << "node=" << n->getID() << " long edge " << edge->getID() << " (" << length << ", passed=" << toString(passed) << ", max=" << longThreshold << ") keepStart=" << keepStart << " keepEnd=" << keepEnd << "\n";
 #endif
-                toRemove.insert(n);
-                toRemove.insert(passed.begin(), passed.end());
+                if (!keepStart) {
+                    toRemove.insert(n);
+                }
+                toRemove.insert(passed.begin(), passed.end() - 1);
+                if (!keepEnd) {
+                    toRemove.insert(passed.back());
+                }
+
             }
         }
     }
@@ -896,6 +906,20 @@ NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist) const {
         cluster.erase(*j);
     }
 }
+
+
+NBNodeCont::NodeSet
+NBNodeCont::getClusterNeighbors(const NBNode* n, NodeSet& cluster) {
+    NodeSet result;
+    for (NBEdge* e : n->getEdges()) {
+        NBNode* neighbor = e->getFromNode() == n ? e->getToNode() : e->getFromNode();
+        if (cluster.count(neighbor) != 0) {
+            result.insert(neighbor);
+        }
+    }
+    return result;
+}
+
 
 void
 NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {

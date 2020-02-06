@@ -146,10 +146,13 @@ public:
     void pruneClusterFringe(NodeSet& cluster) const;
 
     /// @brief avoid removal of long edges when joinining junction clusters
-    void pruneLongEdges(NodeSet& cluster, double maxDist) const; 
+    static void pruneLongEdges(NodeSet& cluster, double maxDist); 
 
     /// @brief remove nodes that form a slip lane from cluster
     void pruneSlipLaneNodes(NodeSet& cluster) const;
+
+    /// @brief return all cluster neighbors for the given node
+    static NodeSet getClusterNeighbors(const NBNode* n, NodeSet& cluster); 
 
     /// @brief check whether the given node maybe the start of a slip lane
     bool maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing, double& inAngle) const; 
