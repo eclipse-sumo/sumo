@@ -194,6 +194,10 @@ GNEChange_DemandElement::undo() {
     if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
     }
+    // update stack labels
+    if (myParentEdges.size() > 0) {
+        myParentEdges.front()->updateVehicleStackLabels();
+    }
     // Requiere always save elements
     myNet->requireSaveDemandElements(true);
 }
@@ -283,6 +287,10 @@ GNEChange_DemandElement::redo() {
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
     if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+    }
+    // update stack labels
+    if (myParentEdges.size() > 0) {
+        myParentEdges.front()->updateVehicleStackLabels();
     }
     // Requiere always save elements
     myNet->requireSaveDemandElements(true);
