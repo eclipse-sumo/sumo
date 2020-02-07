@@ -5509,12 +5509,18 @@ MSVehicle::setBlinkerInformation() {
             }
         }
     }
-    if (myStopDist < (myLane->getLength() - getPositionOnLane())
-            // signal parking stop on the current lane when within braking distance (~2 seconds before braking)
-            && hasStops()
-            && myStops.begin()->pars.parking
-            && myStopDist < getCarFollowModel().brakeGap(myLane->getVehicleMaxSpeed(this), getCarFollowModel().getMaxDecel(), 3)) {
-        switchOnSignal(MSGlobals::gLefthand ? VEH_SIGNAL_BLINKER_LEFT : VEH_SIGNAL_BLINKER_RIGHT);
+    // stopping related signals
+    if (hasStops()
+            && (myStops.begin()->reached ||
+                (myStopDist < (myLane->getLength() - getPositionOnLane())
+                 && myStopDist < getCarFollowModel().brakeGap(myLane->getVehicleMaxSpeed(this), getCarFollowModel().getMaxDecel(), 3)))) {
+        if (myStops.begin()->lane->getIndex() > 0 && myStops.begin()->lane->getParallelLane(-1)->allowsVehicleClass(getVClass())) {
+            // not stopping on the right. Activate emergency blinkers
+            switchOnSignal(VEH_SIGNAL_BLINKER_LEFT | VEH_SIGNAL_BLINKER_RIGHT);
+        } else if (!myStops.begin()->reached && myStops.begin()->pars.parking) {
+            // signal upcoming parking stop on the current lane when within braking distance (~2 seconds before braking)
+            switchOnSignal(MSGlobals::gLefthand ? VEH_SIGNAL_BLINKER_LEFT : VEH_SIGNAL_BLINKER_RIGHT);
+        }
     }
     if (myInfluencer != nullptr && myInfluencer->getSignals() >= 0) {
         mySignals = myInfluencer->getSignals();
