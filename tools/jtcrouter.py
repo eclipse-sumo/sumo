@@ -30,7 +30,7 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    parser = ArgumentParser(description="Analyze person plans")
+    parser = ArgumentParser(description="Route by turn counts")
     parser.add_argument("-n", "--net-file", dest="net", help="Input net file")
     parser.add_argument("-t", "--turn-file", dest="turnFile", help="Input turn-count file")
     parser.add_argument("-o", "--output-file", dest="out", default="out.rou.xml",
