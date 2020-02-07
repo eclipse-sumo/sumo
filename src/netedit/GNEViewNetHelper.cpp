@@ -149,7 +149,8 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
             }
         }
     }
-    // write information in debug mode
+    /*
+    // write information in debug mode (Currently disabled)
     WRITE_DEBUG("ObjectsUnderCursor: GUIGlObjects: " + toString(GUIGlObjects.size()) +
                 ", AttributeCarriers: " + toString(myAttributeCarriers.size()) +
                 ", NetElements: " + toString(myNetElements.size()) +
@@ -164,6 +165,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                 ", TAZs: " + toString(myTAZs.size()) +
                 ", POIs: " + toString(myPOIs.size()) +
                 ", Polys: " + toString(myPolys.size()));
+    */
 }
 
 
