@@ -45,8 +45,6 @@ Debug: Setting new attribute selected 'true' into embeddedRoute 'embeddedRoute_0
 Debug: Setting new attribute selected 'true' into vehicle 'vehicle'
 Debug: Setting new attribute selected 'true' into stopParkingArea 'vehiclestopParkingArea1'
 Debug: Setting new attribute selected 'true' into stopParkingArea 'vehiclestopParkingArea2'
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 0, Additionals: 1, DemandElements: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 0, Additionals: 1, DemandElements: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Setting new attribute triggered 'true' into stopParkingArea 'vehiclestopParkingArea1'
 Debug: Setting new attribute triggered 'true' into stopParkingArea 'vehiclestopParkingArea2'
 Debug: Setting new attribute expected 'dummyValue' into stopParkingArea 'vehiclestopParkingArea1'
@@ -58,8 +56,6 @@ Debug: Setting new attribute expected 'ID1' into stopParkingArea 'vehiclestopPar
 Debug: Setting new attribute expected 'ID1' into stopParkingArea 'vehiclestopParkingArea2'
 Debug: Setting new attribute expected 'ID2' into stopParkingArea 'vehiclestopParkingArea1'
 Debug: Setting new attribute expected 'ID2' into stopParkingArea 'vehiclestopParkingArea2'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute expected 'ID1' into stopParkingArea 'vehiclestopParkingArea2'
@@ -80,8 +76,6 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute triggered '0' into stopParkingArea 'vehiclestopParkingArea2'
 Debug: Setting previous attribute triggered '1' into stopParkingArea 'vehiclestopParkingArea1'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute triggered 'true' into stopParkingArea 'vehiclestopParkingArea1'
@@ -103,8 +97,6 @@ Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute expected 'ID2' into stopParkingArea 'vehiclestopParkingArea1'
 Debug: Setting new attribute expected 'ID2' into stopParkingArea 'vehiclestopParkingArea2'
 Debug: Additionals saved
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20

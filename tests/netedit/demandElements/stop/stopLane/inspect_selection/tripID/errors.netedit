@@ -49,13 +49,11 @@ Debug: Setting new attribute selected 'false' into embeddedRoute 'embeddedRoute_
 Debug: Setting new attribute selected 'false' into vehicle 'vehicle_0'
 Debug: Setting new attribute selected 'false' into stopLane 'vehicle_0stopLane1'
 Debug: Setting new attribute selected 'false' into stopLane 'vehicle_0stopLane2'
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 0, Additionals: 1, DemandElements: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Setting new attribute tripId 'dummyValue' into stopLane 'vehicle_0stopLane2'
 Debug: Value '' for attribute tripId of stopLane isn't valid
 Debug: Value ';;;;;' for attribute tripId of stopLane isn't valid
 Debug: Setting new attribute tripId 'ID1' into stopLane 'vehicle_0stopLane2'
 Debug: Setting new attribute tripId 'ID2' into stopLane 'vehicle_0stopLane2'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute tripId 'ID1' into stopLane 'vehicle_0stopLane2'
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -72,7 +70,6 @@ Debug: Setting previous attribute selected '0' into stopLane 'vehicle_0stopLane2
 Debug: Setting previous attribute selected '0' into stopLane 'vehicle_0stopLane1'
 Debug: Setting previous attribute selected '0' into vehicle 'vehicle_0'
 Debug: Setting previous attribute selected '0' into embeddedRoute 'embeddedRoute_0'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute selected 'true' into embeddedRoute 'embeddedRoute_0'
 Debug: Setting new attribute selected 'true' into vehicle 'vehicle_0'
@@ -90,7 +87,6 @@ Debug: Setting new attribute tripId 'ID1' into stopLane 'vehicle_0stopLane2'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute tripId 'ID2' into stopLane 'vehicle_0stopLane2'
 Debug: Additionals saved
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
