@@ -47,7 +47,7 @@ def get_options(args=None):
             help="prefix for the vehicle ids")
     parser.add_argument("-a", "--attributes", dest="vehattrs", default="", 
             help="additional vehicle attributes")
-    parser.add_argument("-s", "--seed", type=int,
+    parser.add_argument("-s", "--seed", type=int, default=42,
             help="random seed")
 
     options = parser.parse_args(args=args)
