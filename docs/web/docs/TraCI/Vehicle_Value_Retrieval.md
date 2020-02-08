@@ -318,7 +318,7 @@ value is also shown in the table.
 <tr class="odd">
 <td><p>waiting time (0x7a)</p></td>
 <td><p>double</p></td>
-<td><p>Returns the waiting time [s]</p></td>
+<td><p>Returns the consecutive time in where this vehicle was standing [s] (voluntary stopping is excluded) </p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getWaitingTime">getWaitingTime</a></p></td>
 </tr>
 <tr class="even">
