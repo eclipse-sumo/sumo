@@ -1,2 +1,11 @@
 # Tests for generateTurnDefs.py script
 generateTurnDefs
+
+# tests for generateTurnRatios.py
+generateTurnRatios
+
+# tests for jtcrouter.py
+jtcrouter
+
+# tests for routeSampler.py
+routeSampler

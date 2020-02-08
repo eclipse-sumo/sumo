@@ -14,6 +14,7 @@ copy_test_path:input_trips.trips.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_routes2.rou.xml
 copy_test_path:input_flows.flows.xml
+copy_test_path:input_turns.xml
 copy_test_path:input_detectors.det.xml
 copy_test_path:tracefile.xml
 copy_test_path:tracefile.txt
@@ -79,6 +80,7 @@ meandata:edge-mean-data.add.xml
 meandata:lane-mean-data.add.xml
 connections:connections.con.xml
 turndefs:turn-defs.xml
+turns:turns.xml
 changednet:input_net.net.xml.chg
 edges:edges.edg.xml
 nodes:nodes.nod.xml
@@ -181,6 +183,7 @@ errors:column ([0-9]*) \(line [0-9]*\){REPLACE column \1}
 omnet:<!-- generated on
 shawn:<!-- generated on
 flows:<!-- generated on{[->]}-->
+turns:<!-- generated on{[->]}-->
 net:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
 additional:<!--{[->]}-->
