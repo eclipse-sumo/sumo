@@ -596,19 +596,23 @@ MSCalibrator::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime sto
     //assert(discrepancy >= 0); may go negative for lane calibrator when vehicles change lane before removal
     const std::string ds = (discrepancy > 0 ? "\" vaporizedOnNextEdge=\"" + toString(discrepancy) : "");
     const double durationSeconds = STEPS2TIME(stopTime - startTime);
-    dev << "    <interval begin=\"" << time2string(startTime) <<
-        "\" end=\"" << time2string(stopTime) <<
-        "\" id=\"" << getID() <<
-        "\" nVehContrib=\"" << p <<
-        "\" removed=\"" << myRemoved <<
-        "\" inserted=\"" << myInserted <<
-        "\" cleared=\"" << myClearedInJam <<
-        "\" flow=\"" << p * 3600.0 / durationSeconds <<
-        "\" aspiredFlow=\"" << myCurrentStateInterval->q <<
-        "\" speed=\"" << myEdgeMeanData.getTravelledDistance() / myEdgeMeanData.getSamples() <<
-        "\" aspiredSpeed=\"" << myCurrentStateInterval->v <<
-        ds << //optional
-        "\"/>\n";
+    dev.openTag(SUMO_TAG_INTERVAL);
+    dev.writeAttr(SUMO_ATTR_BEGIN, time2string(startTime));
+    dev.writeAttr(SUMO_ATTR_END, time2string(stopTime));
+    dev.writeAttr(SUMO_ATTR_ID, getID());
+    dev.writeAttr("nVehContrib", p);
+    dev.writeAttr("removed", myRemoved);
+    dev.writeAttr("inserted", myInserted);
+    dev.writeAttr("cleared", myClearedInJam);
+    dev.writeAttr("flow", p * 3600.0 / durationSeconds);
+    dev.writeAttr("aspiredFlow", myCurrentStateInterval->q);
+    dev.writeAttr(SUMO_ATTR_SPEED, myEdgeMeanData.getSamples() != 0
+            ? myEdgeMeanData.getTravelledDistance() / myEdgeMeanData.getSamples() : -1);
+    dev.writeAttr("aspiredSpeed", myCurrentStateInterval->v);
+    if (discrepancy > 0) {
+        dev.writeAttr("vaporizedOnNextEdge", discrepancy);
+    }
+    dev.closeTag();
 }
 
 void
