@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_4_0+0988-321fbaaac9
+Eclipse SUMO netgenerate Version v1_4_0+0995-3d963feed3
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -158,6 +158,7 @@ Processing Options:
                                          lanes usable for overtaking
   --opposites.guess.fix-lengths        Ensure that opposite edges have the same
                                          length
+  --fringe.guess                       Enable guessing of network fringe nodes
   --lefthand                           Assumes left-hand traffic on the network
   --edges.join                         Merges edges which connect the same
                                          nodes and are close to each other

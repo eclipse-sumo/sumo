@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Feb  9 16:10:06 2020 by Eclipse SUMO netgenerate Version v1_4_0+0988-321fbaaac9
+<!-- generated on Sun Feb  9 21:00:20 2020 by Eclipse SUMO netgenerate Version v1_4_0+0995-3d963feed3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -245,6 +245,9 @@
 
         <!-- Ensure that opposite edges have the same length -->
         <opposites.guess.fix-lengths value="false" type="BOOL"/>
+
+        <!-- Enable guessing of network fringe nodes -->
+        <fringe.guess value="false" type="BOOL"/>
 
         <!-- Assumes left-hand traffic on the network -->
         <lefthand value="false" type="BOOL"/>
