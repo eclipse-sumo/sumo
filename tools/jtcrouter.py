@@ -47,10 +47,16 @@ def get_options(args=None):
             help="Avoid overlapping flows (start only on the outside of the network)")
     parser.add_argument("--discount-sources", "-D",  action="store_true", default=False, dest="discountSources",
             help="passes option --discount-sources to jtrrouter")
+    parser.add_argument("--prefix", dest="prefix", default="",
+            help="prefix for the flow ids")
+    parser.add_argument("-a", "--attributes", dest="flowattrs", default="",
+            help="additional flow attributes")
     options = parser.parse_args(args=args)
     if options.net is None:
         parser.print_help()
         sys.exit()
+    if options.flowattrs and options.flowattrs[0] != ' ':
+        options.flowattrs = ' ' + options.flowattrs
     return options
 
 
@@ -97,8 +103,10 @@ def main(options):
                     if options.fringe_flows:
                         fromEdge = findFringe(edge, options.countParam)
                     if fromEdge:
-                        ff.write('    <flow id="%s" from="%s" begin="%s" end="%s" number="%s"/>\n' % (
-                            edge.getID(), fromEdge.getID(), options.begin, options.end, totalCount))
+                        ff.write('    <flow id="%s%s" from="%s" begin="%s" end="%s" number="%s"%s/>\n' % (
+                            options.prefix, edge.getID(), fromEdge.getID(),
+                            options.begin, options.end, 
+                            totalCount, options.flowattrs))
             tf.write('    </interval>\n')
             tf.write('</turns>\n')
             ff.write('</routes>\n')
@@ -116,8 +124,11 @@ def main(options):
                         flowID = edge.id
                         if i > 0:
                             flowID += "#%s" % i
-                        ff.write('    <flow id="%s" from="%s" begin="%s" end="%s" number="%s"/>\n' % (
-                            flowID, edge.id, interval.begin, interval.end, int(count)))
+                        ff.write('    <flow id="%s%s" from="%s" begin="%s" end="%s" number="%s"%s/>\n' % (
+                            options.prefix, 
+                            flowID, edge.id, interval.begin, interval.end,
+                            int(count),
+                            options.flowattrs))
             ff.write('</routes>\n')
 
 

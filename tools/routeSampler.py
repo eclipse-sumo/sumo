@@ -57,6 +57,8 @@ def get_options(args=None):
         sys.exit()
     options.turnFile = options.turnFile.split(',') if options.turnFile is not None else []
     options.edgeDataFile = options.edgeDataFile.split(',') if options.edgeDataFile is not None else []
+    if options.vehattrs and options.vehattrs[0] != ' ':
+        options.vehattrs = ' ' + options.vehattrs
     return options
 
 class CountData:
