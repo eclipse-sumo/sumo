@@ -47,15 +47,11 @@
     <edge id="A1left1" from="A1" to="left1" priority="-1" numLanes="2" speed="13.89"/>
     <edge id="A1top0" from="A1" to="top0" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="B0A0" from="B0" to="A0" priority="-1" numLanes="1" speed="13.89"/>
-    <edge id="B0B1" from="B0" to="B1" priority="-1" numLanes="1" speed="13.89"/>
-    <edge id="B0bottom1" from="B0" to="bottom1" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="B0right0" from="B0" to="right0" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="B1A1" from="B1" to="A1" priority="-1" numLanes="2" speed="13.89"/>
-    <edge id="B1B0" from="B1" to="B0" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="B1right1" from="B1" to="right1" priority="-1" numLanes="2" speed="13.89"/>
     <edge id="B1top1" from="B1" to="top1" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="bottom0A0" from="bottom0" to="A0" priority="-1" numLanes="2" speed="13.89"/>
-    <edge id="bottom1B0" from="bottom1" to="B0" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="left0A0" from="left0" to="A0" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="left1A1" from="left1" to="A1" priority="-1" numLanes="2" speed="13.89"/>
     <edge id="right0B0" from="right0" to="B0" priority="-1" numLanes="1" speed="13.89"/>
