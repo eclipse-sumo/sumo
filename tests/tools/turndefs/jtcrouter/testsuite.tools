@@ -6,3 +6,6 @@ fringe_flows
 
 # passing option -D to jtrrouter
 discount-sources
+
+# setting additional flow attributes
+attrs
