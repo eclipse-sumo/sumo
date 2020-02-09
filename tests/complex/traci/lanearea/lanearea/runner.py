@@ -24,29 +24,37 @@ sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
+def check():
+    t = traci.simulation.getTime()
+    print("step", t)
+    if int(t) == t:
+        # only report at full seconds to simplify comparison of different step-lengths
+        for detID in traci.lanearea.getIDList():
+            print("  examining", detID)
+            print("     pos", traci.lanearea.getPosition(detID))
+            print("     length", traci.lanearea.getLength(detID))
+            print("     lane", traci.lanearea.getLaneID(detID))
+            print("     vehNum", traci.lanearea.getLastStepVehicleNumber(detID))
+            print("     haltNum", traci.lanearea.getLastStepHaltingNumber(detID))
+            print("     meanSpeed", traci.lanearea.getLastStepMeanSpeed(detID))
+            print("     vehIDs", traci.lanearea.getLastStepVehicleIDs(detID))
+            print("     occupancy", traci.lanearea.getLastStepOccupancy(detID))
+
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
-for step in range(4):
-    print("step", step)
+while traci.simulation.getTime() < 4:
     traci.simulationStep()
+    check()
+
 print("laneareas", traci.lanearea.getIDList())
 print("lanearea count", traci.lanearea.getIDCount())
 
 for detID in traci.lanearea.getIDList():
-    print("examining", detID)
-    print("pos", traci.lanearea.getPosition(detID))
-    print("length", traci.lanearea.getLength(detID))
-    print("lane", traci.lanearea.getLaneID(detID))
-    print("vehNum", traci.lanearea.getLastStepVehicleNumber(detID))
-    print("haltNum", traci.lanearea.getLastStepHaltingNumber(detID))
-    print("meanSpeed", traci.lanearea.getLastStepMeanSpeed(detID))
-    print("vehIDs", traci.lanearea.getLastStepVehicleIDs(detID))
-    print("occupancy", traci.lanearea.getLastStepOccupancy(detID))
-
-traci.lanearea.subscribe(detID)
-print(traci.lanearea.getSubscriptionResults(detID))
-for step in range(3, 6):
-    print("step", step)
+    traci.lanearea.subscribe(detID)
+    print("subscriptionResults: ", traci.lanearea.getSubscriptionResults(detID))
+while traci.simulation.getTime() < 10:
     traci.simulationStep()
-    print(traci.lanearea.getSubscriptionResults(detID))
+    check()
+    for detID in traci.lanearea.getIDList():
+        print("subscriptionResults: ", traci.lanearea.getSubscriptionResults(detID))
 traci.simulationStep()
 traci.close()
