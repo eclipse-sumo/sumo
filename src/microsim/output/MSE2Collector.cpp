@@ -866,6 +866,7 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     std::sort(myMoveNotifications.begin(), myMoveNotifications.end(), compareMoveNotification);
 
     // reset values concerning current time step (these are updated in integrateMoveNotification() and aggregateOutputValues())
+    myCurrentVehicleSamples = 0;
     myCurrentMeanSpeed = 0;
     myCurrentMeanLength = 0;
     myCurrentStartedHalts = 0;
@@ -967,7 +968,7 @@ MSE2Collector::aggregateOutputValues() {
     myMeanVehicleNumber += numVehicles;
     myMaxVehicleNumber = MAX2(numVehicles, myMaxVehicleNumber);
     // norm current values
-    myCurrentMeanSpeed = numVehicles != 0 ? myCurrentMeanSpeed / (double) numVehicles : -1;
+    myCurrentMeanSpeed = numVehicles != 0 ? myCurrentMeanSpeed / myCurrentVehicleSamples : -1;
     myCurrentMeanLength = numVehicles != 0 ? myCurrentMeanLength / (double) numVehicles : -1;
 }
 
@@ -991,6 +992,7 @@ MSE2Collector::integrateMoveNotification(VehicleInfo* vi, const MoveNotification
     myVehicleSamples += mni->timeOnDetector;
     myTotalTimeLoss += mni->timeLoss;
     mySpeedSum += mni->speed * mni->timeOnDetector;
+    myCurrentVehicleSamples += mni->timeOnDetector;
     myCurrentMeanSpeed += mni->speed * mni->timeOnDetector;
     myCurrentMeanLength += mni->lengthOnDetector;
 

@@ -745,6 +745,8 @@ private:
     /// @brief The maximal number of vehicles located on the detector simultaneously since the last reset
     int myMaxVehicleNumber;
 
+    /// @brief The current vehicle samples
+    double myCurrentVehicleSamples;
     /// @brief The current occupancy
     double myCurrentOccupancy;
     /// @brief The current mean speed
