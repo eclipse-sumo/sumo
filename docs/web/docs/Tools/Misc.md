@@ -67,37 +67,7 @@ the data set. The following is recommenced:
 
 # extractTest.py
 
-This scripts extracts test scenarios if you like to run a simulation scenario which is included in the test folder <SUMO_HOME>/tests. In order to do so you can either download the complete sumo package or use the online test extraction. I In order to do so you can either [download the complete sumo package](Downloads.md#all-inclusive-tarball) or use the [online test extraction](https://sumo.dlr.de/extractTest.php). In the online tool you enter the path to the test you like (e.g. [{{SUMO}}/tests/sumo/extended/rerouter/use_routing_device](https://github.com/eclipse/sumo/blob/master/tests/sumo/extended/rerouter/use_routing_device) into the form and get a zip containing all the files.
-
-# generateTurnDefs.py
-
-This script allows generation of the turn definitions based on the
-number of lanes allowing particular turns. The basic functionality
-distributes the traffic uniformly, that is:
-
-1.  distribute the incoming traffic uniformly across the lanes forming
-    the road
-2.  distribute the amount of traffic assigned to each lane uniformly
-    among the destinations that the lane allows turns to.
-3.  sum up the values for each of the destinations that the road being
-    processed allows turning to.
-
-Example use
-
-```
-<SUMO_HOME>/tools/turn-defs/generateTurnDefs.py --connections-file connections.con.xml --turn-definitions-file output.turndefs.xml
-```
-
-The script allows to be extended with new traffic distribution policies
-(for example, based on Gaussian distribution) easily. See the
-*DestinationWeightCalculator* class for details.
-
-The script processes the connections given in the provided *\*.con.xml*
-file. For usage details, execute the *generateTurnDefs.py* script with
-*--help* option.
-
-!!! note
-    You can generate a connections file with all the connections in the network using [NETCONVERT](../NETCONVERT.md) - see the *--plain-output-prefix* option.
+This scripts extracts test scenarios if you like to run a simulation scenario which is included in the test folder <SUMO_HOME>/tests. In order to do so you can either download the complete sumo package or use the online test extraction. I In order to do so you can either [download the complete sumo package](../Downloads.md#all-inclusive-tarball) or use the [online test extraction](https://sumo.dlr.de/extractTest.php). In the online tool you enter the path to the test you like (e.g. [{{SUMO}}/tests/sumo/extended/rerouter/use_routing_device](https://github.com/eclipse/sumo/blob/master/tests/sumo/extended/rerouter/use_routing_device) into the form and get a zip containing all the files.
 
 # generateParkingLots.py
 

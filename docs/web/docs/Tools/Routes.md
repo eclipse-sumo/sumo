@@ -257,20 +257,6 @@ The option --geo enables the conversion of the input coordinates with
 the parameters given in the network. The mapping algorithm is also
 available in the python library function sumolib.route.mapTrace.
 
-# generateTurnRatios.py
-
-This script is to calculate the turn ratios or turn movements from a
-link to its downstream links with a given route file. The output file
-can be directly used as input in jtrrouter, where the time interval will
-be set for one day. The call is
-
-```
-<SUMO_HOME>/tools/generateTurnRatios.py -r <route-file>
-```
-
-The standard output is the traffic volumes. With the option -p turning
-ratios will be calculated and outputted.
-
 # tlsCycleAdaptation.py
 
 This script is to adapt the cycle lengths of the signalized
