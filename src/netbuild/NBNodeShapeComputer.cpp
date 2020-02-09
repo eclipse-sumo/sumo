@@ -697,8 +697,8 @@ NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, double 
     double endAngleDiff = 0;
     if (geom1.size() >= 2 && geom2.size() >= 2) {
         endAngleDiff = fabs(RAD2DEG(GeomHelper::angleDiff(
-                    geom1.angleAt2D(geom1.size() - 2),
-                    geom2.angleAt2D(geom2.size() - 2))));
+                    geom1.angleAt2D((int)geom1.size() - 2),
+                    geom2.angleAt2D((int)geom2.size() - 2))));
     }
     const double minDistanceThreshold = (e1->getTotalWidth() + e2->getTotalWidth()) / 2 + POSITION_EPS;
     std::vector<double> distances = geom1.distances(geom2, true);
