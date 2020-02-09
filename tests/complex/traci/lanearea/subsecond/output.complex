@@ -68,7 +68,7 @@ step 4.0
      lane 2fi_0
      vehNum 1
      haltNum 0
-     meanSpeed 5.60678179762
+     meanSpeed 11.2135635952
      vehIDs ('veh0',)
      occupancy 20.0
   examining det1
@@ -77,7 +77,7 @@ step 4.0
      lane 2o_0
      vehNum 1
      haltNum 0
-     meanSpeed 5.12672718547
+     meanSpeed 10.2534543709
      vehIDs ('veh1',)
      occupancy 1.25
 laneareas ('det0', 'det1')
@@ -94,7 +94,7 @@ step 5.0
      lane 2fi_0
      vehNum 1
      haltNum 0
-     meanSpeed 5.7330491304
+     meanSpeed 11.4660982608
      vehIDs ('veh0',)
      occupancy 20.0
   examining det1
@@ -103,7 +103,7 @@ step 5.0
      lane 2o_0
      vehNum 1
      haltNum 0
-     meanSpeed 5.10668267653
+     meanSpeed 10.2133653531
      vehIDs ('veh1',)
      occupancy 1.25
 subscriptionResults:  {16: 1}
@@ -118,7 +118,7 @@ step 6.0
      lane 2fi_0
      vehNum 0
      haltNum 0
-     meanSpeed 2.80601251034
+     meanSpeed 11.6908957189
      vehIDs ()
      occupancy 0.0
   examining det1
@@ -127,7 +127,7 @@ step 6.0
      lane 2o_0
      vehNum 1
      haltNum 0
-     meanSpeed 4.97669301625
+     meanSpeed 9.95338603251
      vehIDs ('veh1',)
      occupancy 1.25
 subscriptionResults:  {16: 0}
@@ -151,7 +151,7 @@ step 7.0
      lane 2o_0
      vehNum 1
      haltNum 0
-     meanSpeed 4.90688809698
+     meanSpeed 9.81377619395
      vehIDs ('veh1',)
      occupancy 1.25
 subscriptionResults:  {16: 0}
@@ -175,7 +175,7 @@ step 8.0
      lane 2o_0
      vehNum 1
      haltNum 0
-     meanSpeed 5.17458521126
+     meanSpeed 10.3491704225
      vehIDs ('veh1',)
      occupancy 1.25
 subscriptionResults:  {16: 0}
@@ -199,7 +199,7 @@ step 9.0
      lane 2o_0
      vehNum 1
      haltNum 0
-     meanSpeed 4.93418085348
+     meanSpeed 9.86836170696
      vehIDs ('veh1',)
      occupancy 1.25
 subscriptionResults:  {16: 0}
@@ -223,7 +223,7 @@ step 10.0
      lane 2o_0
      vehNum 1
      haltNum 0
-     meanSpeed 5.01808946498
+     meanSpeed 10.03617893
      vehIDs ('veh1',)
      occupancy 1.25
 subscriptionResults:  {16: 0}
