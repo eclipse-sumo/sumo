@@ -89,11 +89,11 @@ public:
     }
 
     const ConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
-        //if (vClass == SVC_IGNORING) { // || !MSNet::getInstance()->hasPermissions() || myFunction == EDGEFUNC_CONNECTOR) {
+        if (vClass == SVC_IGNORING || myOriginal->isTazConnector()) { // || !MSNet::getInstance()->hasPermissions()) {
             return myViaSuccessors;
-        /*}
+        }
 #ifdef HAVE_FOX
-        FXLock lock(mySuccessorMutex);
+        FXMutexLock lock(mySuccessorMutex);
 #endif
         auto i = myClassesViaSuccessorMap.find(vClass);
         if (i != myClassesViaSuccessorMap.end()) {
@@ -104,16 +104,11 @@ public:
         ConstEdgePairVector& result = myClassesViaSuccessorMap[vClass];
         // this vClass is requested for the first time. rebuild all successors
         for (const auto& viaPair : myViaSuccessors) {
-            if (viaPair.first->isTazConnector()) {
+            if (viaPair.first->myOriginal->isTazConnector() || viaPair.first->myOriginal->isConnectedTo(*myOriginal, vClass)) {
                 result.push_back(viaPair);
-            } else {
-                const std::vector<MSLane*>* allowed = allowedLanes(*viaPair.first, vClass);
-                if (allowed != nullptr && allowed->size() > 0) {
-                    result.push_back(viaPair);
-                }
             }
         }
-        return result;*/
+        return result;
     }
 
 private:

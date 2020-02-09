@@ -428,10 +428,9 @@ ROEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
 
 
 bool
-ROEdge::isConnectedTo(const ROEdge* const e, const ROVehicle* const vehicle) const {
-    const SUMOVehicleClass vClass = (vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass());
+ROEdge::isConnectedTo(const ROEdge& e, const SUMOVehicleClass vClass) const {
     const ROEdgeVector& followers = getSuccessors(vClass);
-    return std::find(followers.begin(), followers.end(), e) != followers.end();
+    return std::find(followers.begin(), followers.end(), &e) != followers.end();
 }
 
 

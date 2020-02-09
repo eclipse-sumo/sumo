@@ -192,7 +192,7 @@ public:
 
     /** @brief Get the allowed lanes to reach the destination-edge.
      *
-     * If there is no such edge, get 0. Then you are on the wrong edge.
+     * If there is no such edge, return nullptr. Then you are on the wrong edge.
      *
      * @param[in] destination The edge to reach
      * @param[in] vclass The vehicle class for which this information shall be returned
@@ -205,12 +205,17 @@ public:
 
     /** @brief Get the allowed lanes for the given vehicle class.
      *
-     * If there is no such edge, get 0. Then you are on the wrong edge.
+     * If there is no such edge, return nullptr. Then you are on the wrong edge.
      *
      * @param[in] vclass The vehicle class for which this information shall be returned
      * @return The lanes that may be used by the given vclass
      */
     const std::vector<MSLane*>* allowedLanes(SUMOVehicleClass vclass = SVC_IGNORING) const;
+
+    inline bool isConnectedTo(const MSEdge& destination, SUMOVehicleClass vclass) const {
+        const std::vector<MSLane*>* const lanes = allowedLanes(destination, vclass);
+        return lanes != nullptr && !lanes->empty();
+    }
     /// @}
 
 
