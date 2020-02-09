@@ -80,3 +80,10 @@ file. For usage details, execute the *generateTurnDefs.py* script with
 !!! note
     You can generate a connections file with all the connections in the network using [NETCONVERT](../NETCONVERT.md) - see the *--plain-output-prefix* option.
 
+# turnCount2EdgeCount.py
+
+This script converts turn-count data into [edgeData](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md).
+
+```
+<SUMO_HOME>/tools/turn-defs/turnCount2EdgeCount.py -t <turn-file> -o <output-file>
+```
