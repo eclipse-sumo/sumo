@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Feb  9 12:01:41 2020 by Eclipse SUMO jtrrouter Version v1_4_0+0980-21032e852d
+<!-- generated on Sun Feb  9 21:42:52 2020 by Eclipse SUMO jtrrouter Version v1_4_0+0998-aef8131ac4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
 
     <input>
@@ -1221,9 +1221,6 @@
     <vehicle id="foo-148.80.00.6" depart="142.57" color="blue">
         <route edges="-148.80.00 144"/>
     </vehicle>
-    <vehicle id="foo-5.6" depart="142.57" color="blue">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
     <vehicle id="foo-79.80.00.2" depart="142.57" color="blue">
         <route edges="-79.80.00 -60"/>
     </vehicle>
@@ -1233,35 +1230,23 @@
     <vehicle id="foo-148.80.00.7" depart="166.33" color="blue">
         <route edges="-148.80.00 144"/>
     </vehicle>
-    <vehicle id="foo-5.7" depart="166.33" color="blue">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
     <vehicle id="foo-148.5" depart="166.33" color="blue">
-        <route edges="-148 -148.80.00 148"/>
+        <route edges="-148 -148.80.00 -131"/>
     </vehicle>
     <vehicle id="foo-148.80.00.8" depart="190.09" color="blue">
         <route edges="-148.80.00 -131"/>
     </vehicle>
-    <vehicle id="foo-5.8" depart="190.09" color="blue">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
     <vehicle id="foo-148.6" depart="199.60" color="blue">
-        <route edges="-148 -148.80.00 144"/>
+        <route edges="-148 -148.80.00 -131"/>
     </vehicle>
     <vehicle id="foo-148.80.00.9" depart="213.85" color="blue">
-        <route edges="-148.80.00 144"/>
-    </vehicle>
-    <vehicle id="foo-5.9" depart="213.85" color="blue">
-        <route edges="-5 -5.80.00"/>
+        <route edges="-148.80.00 -131"/>
     </vehicle>
     <vehicle id="foo-79.80.00.3" depart="213.86" color="blue">
-        <route edges="-79.80.00 75"/>
+        <route edges="-79.80.00 -60"/>
     </vehicle>
     <vehicle id="foo-148.7" depart="232.86" color="blue">
         <route edges="-148 -148.80.00"/>
-    </vehicle>
-    <vehicle id="foo-5.10" depart="237.61" color="blue">
-        <route edges="-5 -5.80.00"/>
     </vehicle>
     <vehicle id="foo-79.2" depart="249.50" color="blue">
         <route edges="-79 -79.80.00"/>
@@ -1269,43 +1254,13 @@
     <vehicle id="foo79.1" depart="249.50" color="blue">
         <route edges="79 -79"/>
     </vehicle>
-    <vehicle id="foo-5.11" depart="261.37" color="blue">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
     <vehicle id="foo-148.8" depart="266.13" color="blue">
         <route edges="-148 -148.80.00"/>
-    </vehicle>
-    <vehicle id="foo-5.12" depart="285.13" color="blue">
-        <route edges="-5 -5.80.00"/>
     </vehicle>
     <vehicle id="foo-148.9" depart="299.39" color="blue">
         <route edges="-148 -148.80.00"/>
     </vehicle>
-    <vehicle id="foo-5.13" depart="308.89" color="blue">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
-    <vehicle id="foo-5.14" depart="332.65" color="blue">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
     <vehicle id="foo-148.10" depart="332.66" color="blue">
         <route edges="-148 -148.80.00"/>
-    </vehicle>
-    <vehicle id="foo-5.15" depart="356.42" color="blue">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
-    <vehicle id="foo-5.16" depart="380.18" color="blue">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
-    <vehicle id="foo-5.17" depart="403.94" color="blue">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
-    <vehicle id="foo-5.18" depart="427.70" color="blue">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
-    <vehicle id="foo-5.19" depart="451.46" color="blue">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
-    <vehicle id="foo-5.20" depart="475.22" color="blue">
-        <route edges="-5 -5.80.00"/>
     </vehicle>
 </routes>

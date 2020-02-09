@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Feb  8 23:15:01 2020 by Eclipse SUMO jtrrouter Version v1_4_0+0968-ae7250a8a4
+<!-- generated on Sun Feb  9 21:42:52 2020 by Eclipse SUMO jtrrouter Version v1_4_0+0998-aef8131ac4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
-        <route-files value="flows.tmp.xml"/>
+        <route-files value="out.flows.xml"/>
         <turn-ratio-files value="input_turns.xml"/>
     </input>
 
@@ -1221,9 +1221,6 @@
     <vehicle id="-148.80.00.6" depart="142.57">
         <route edges="-148.80.00 144"/>
     </vehicle>
-    <vehicle id="-5.6" depart="142.57">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
     <vehicle id="-79.80.00.2" depart="142.57">
         <route edges="-79.80.00 -60"/>
     </vehicle>
@@ -1233,35 +1230,23 @@
     <vehicle id="-148.80.00.7" depart="166.33">
         <route edges="-148.80.00 144"/>
     </vehicle>
-    <vehicle id="-5.7" depart="166.33">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
     <vehicle id="-148.5" depart="166.33">
-        <route edges="-148 -148.80.00 148"/>
+        <route edges="-148 -148.80.00 -131"/>
     </vehicle>
     <vehicle id="-148.80.00.8" depart="190.09">
         <route edges="-148.80.00 -131"/>
     </vehicle>
-    <vehicle id="-5.8" depart="190.09">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
     <vehicle id="-148.6" depart="199.60">
-        <route edges="-148 -148.80.00 144"/>
+        <route edges="-148 -148.80.00 -131"/>
     </vehicle>
     <vehicle id="-148.80.00.9" depart="213.85">
-        <route edges="-148.80.00 144"/>
-    </vehicle>
-    <vehicle id="-5.9" depart="213.85">
-        <route edges="-5 -5.80.00"/>
+        <route edges="-148.80.00 -131"/>
     </vehicle>
     <vehicle id="-79.80.00.3" depart="213.86">
-        <route edges="-79.80.00 75"/>
+        <route edges="-79.80.00 -60"/>
     </vehicle>
     <vehicle id="-148.7" depart="232.86">
         <route edges="-148 -148.80.00"/>
-    </vehicle>
-    <vehicle id="-5.10" depart="237.61">
-        <route edges="-5 -5.80.00"/>
     </vehicle>
     <vehicle id="-79.2" depart="249.50">
         <route edges="-79 -79.80.00"/>
@@ -1269,43 +1254,13 @@
     <vehicle id="79.1" depart="249.50">
         <route edges="79 -79"/>
     </vehicle>
-    <vehicle id="-5.11" depart="261.37">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
     <vehicle id="-148.8" depart="266.13">
         <route edges="-148 -148.80.00"/>
-    </vehicle>
-    <vehicle id="-5.12" depart="285.13">
-        <route edges="-5 -5.80.00"/>
     </vehicle>
     <vehicle id="-148.9" depart="299.39">
         <route edges="-148 -148.80.00"/>
     </vehicle>
-    <vehicle id="-5.13" depart="308.89">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
-    <vehicle id="-5.14" depart="332.65">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
     <vehicle id="-148.10" depart="332.66">
         <route edges="-148 -148.80.00"/>
-    </vehicle>
-    <vehicle id="-5.15" depart="356.42">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
-    <vehicle id="-5.16" depart="380.18">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
-    <vehicle id="-5.17" depart="403.94">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
-    <vehicle id="-5.18" depart="427.70">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
-    <vehicle id="-5.19" depart="451.46">
-        <route edges="-5 -5.80.00"/>
-    </vehicle>
-    <vehicle id="-5.20" depart="475.22">
-        <route edges="-5 -5.80.00"/>
     </vehicle>
 </routes>
