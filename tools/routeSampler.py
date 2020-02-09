@@ -52,7 +52,7 @@ def get_options(args=None):
 
     options = parser.parse_args(args=args)
     if (options.routeFile is None or
-            (options.turnFile is "" and options.edgeDataFile is "")):
+            (options.turnFile is None and options.edgeDataFile is None)):
         parser.print_help()
         sys.exit()
     options.turnFile = options.turnFile.split(',') if options.turnFile is not None else []
@@ -158,7 +158,7 @@ def main(options):
 
     begin, end = parseTimeRange(options.turnFile + options.edgeDataFile)
     with open(options.out, 'w') as outf:
-        outf.write('<routes>\n')
+        sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
         period = (end - begin) / len(usedRoutes)
         depart = begin
         for i, routeIndex in enumerate(usedRoutes):

@@ -81,8 +81,8 @@ def main(options):
         # read data from connection params
         net = sumolib.net.readNet(options.net)
         with open(options.turnOutput, 'w') as tf, open(options.flowOuput, 'w') as ff:
-            tf.write('<turns>\n')
-            ff.write('<routes>\n')
+            sumolib.writeXMLHeader(tf, "$Id$", "turns")  # noqa
+            sumolib.writeXMLHeader(ff, "$Id$", "routes")  # noqa
             tf.write('    <interval begin="%s" end="%s">\n' % (options.begin, options.end))
             for edge in net.getEdges():
                 counts = getCounts(edge, options.countParam)
