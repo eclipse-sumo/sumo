@@ -411,12 +411,13 @@ public:
      * Calls "NBEdge::appendTurnaround" for all edges within the container.
      *
      * @param[in] noTLSControlled Whether the turnaround shall not be connected if the edge is controlled by a tls
+     * @param[in] noFringe Whether the turnaround shall not be connected if the junction is at the (outer) fringe
      * @param[in] onlyDeadends Whether the turnaround shall only be built at deadends
      * @param[in] onlyTurnlane Whether the turnaround shall only be built when there is an exclusive (left) turn lane
      * @param[in] noGeometryLike Whether the turnaround shall be built at geometry-like nodes
      * @see NBEdge::appendTurnaround
      */
-    void appendTurnarounds(bool noTLSControlled, bool onlyDeadends, bool onlyTurnlane, bool noGeometryLike);
+    void appendTurnarounds(bool noTLSControlled, bool noFringe, bool onlyDeadends, bool onlyTurnlane, bool noGeometryLike);
 
 
     /** @brief Appends turnarounds to all edges stored in the container

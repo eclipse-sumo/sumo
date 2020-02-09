@@ -129,6 +129,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("no-turnarounds.except-turnlane", new Option_Bool(false));
     oc.addDescription("no-turnarounds.except-turnlane", "Junctions", "Disables building turnarounds except at at junctions with a dedicated turning lane");
 
+    oc.doRegister("no-turnarounds.fringe", new Option_Bool(false));
+    oc.addDescription("no-turnarounds.fringe", "Junctions", "Disables building turnarounds at fringe junctions");
+
     oc.doRegister("no-left-connections", new Option_Bool(false));
     oc.addDescription("no-left-connections", "Junctions", "Disables building connections to left");
 

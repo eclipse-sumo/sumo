@@ -1128,11 +1128,12 @@ public:
     /** @brief Add a connection to the previously computed turnaround, if wished
      * and a turning direction exists (myTurnDestination!=0)
      * @param[in] noTLSControlled Whether the turnaround shall not be connected if the edge is controlled by a tls
+     * @param[in] noFringe Whether the turnaround shall not be connected if the junction is at the (outer) fringe
      * @param[in] onlyDeadends Whether the turnaround shall only be built at deadends
      * @param[in] onlyTurnlane Whether the turnaround shall only be built when there is an exclusive (left) turn lane
      * @param[in] noGeometryLike Whether the turnaround shall be built at geometry-like nodes
      */
-    void appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool onlyTurnlane, bool noGeometryLike, bool checkPermissions);
+    void appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends, bool onlyTurnlane, bool noGeometryLike, bool checkPermissions);
 
     /** @brief Returns the node at the given edges length (using an epsilon)
         @note When no node is existing at the given position, 0 is returned

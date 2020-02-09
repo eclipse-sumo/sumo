@@ -2857,7 +2857,7 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing, const std::vector<int>
 
 
 void
-NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool onlyTurnlane, bool noGeometryLike, bool checkPermissions) {
+NBEdge::appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends, bool onlyTurnlane, bool noGeometryLike, bool checkPermissions) {
     // do nothing if no turnaround is known
     if (myTurnDestination == nullptr || myTo->getType() == NODETYPE_RAIL_CROSSING) {
         return;
@@ -2865,6 +2865,9 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool onlyTurnl
     // do nothing if the destination node is controlled by a tls and no turnarounds
     //  shall be appended for such junctions
     if (noTLSControlled && myTo->isTLControlled()) {
+        return;
+    }
+    if (noFringe && myTo->getFringeType() == FRINGE_TYPE_OUTER) {
         return;
     }
     bool isDeadEnd = true;

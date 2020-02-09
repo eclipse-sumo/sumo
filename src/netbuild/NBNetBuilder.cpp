@@ -434,6 +434,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (!oc.getBool("no-turnarounds")) {
         myEdgeCont.appendTurnarounds(
                 oc.getBool("no-turnarounds.tls"),
+                oc.getBool("no-turnarounds.fringe"),
                 oc.getBool("no-turnarounds.except-deadend"),
                 oc.getBool("no-turnarounds.except-turnlane"),
                 oc.getBool("no-turnarounds.geometry"));
