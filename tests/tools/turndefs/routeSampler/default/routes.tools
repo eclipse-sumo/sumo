@@ -1,4 +1,8 @@
-<routes>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-02-09 11:39:02.876808 by routeSampler.py v1_4_0+0980-21032e852d
+  options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="0" depart="0.0">
         <route edges="71 71.121.42 -71"/>
     </vehicle>

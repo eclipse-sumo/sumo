@@ -4,6 +4,9 @@ generateTurnDefs
 # tests for generateTurnRatios.py
 generateTurnRatios
 
+# tests for turnCount2EdgeCount.py
+turnCount2EdgeCount
+
 # tests for jtcrouter.py
 jtcrouter
 

@@ -81,6 +81,7 @@ meandata:lane-mean-data.add.xml
 connections:connections.con.xml
 turndefs:turn-defs.xml
 turns:turns.xml
+edgedata:edgedata.xml
 changednet:input_net.net.xml.chg
 edges:edges.edg.xml
 nodes:nodes.nod.xml
@@ -184,6 +185,7 @@ omnet:<!-- generated on
 shawn:<!-- generated on
 flows:<!-- generated on{[->]}-->
 turns:<!-- generated on{[->]}-->
+edgedata:<!-- generated on{[->]}-->
 net:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
 additional:<!--{[->]}-->
