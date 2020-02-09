@@ -1,368 +1,310 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-02-08 23:04:14.089969 by generateTurnRatios.py v1_4_0+0975-a82bb75ba1
+<!-- generated on 2020-02-09 22:00:02.613195 by generateTurnRatios.py v1_4_0+1001-ebe76855e2
   options: -r input_routes.rou.xml -o turns.xml -v
 -->
 <turns xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/turns_file.xsd">
-    <interval begin="0.0" end="499.0">
-        <fromEdge id="131">
-            <toEdge id="131.180.00" probability="29"/>
+    <interval begin="0.0" end="99.0">
+        <fromEdge id="-58.121.42">
+            <toEdge id="64" probability="1"/>
+            <toEdge id="-31" probability="3"/>
         </fromEdge>
-        <fromEdge id="27">
-            <toEdge id="27.80.00" probability="80"/>
-        </fromEdge>
-        <fromEdge id="23">
-            <toEdge id="23.80.00" probability="104"/>
-        </fromEdge>
-        <fromEdge id="-43">
-            <toEdge id="-43.80.00" probability="25"/>
-        </fromEdge>
-        <fromEdge id="-45">
-            <toEdge id="-45.80.00" probability="26"/>
-        </fromEdge>
-        <fromEdge id="-144">
-            <toEdge id="-144.121.42" probability="30"/>
-        </fromEdge>
-        <fromEdge id="-11.80.00">
-            <toEdge id="15" probability="12"/>
-            <toEdge id="3" probability="74"/>
-            <toEdge id="5" probability="14"/>
-        </fromEdge>
-        <fromEdge id="31.80.00">
-            <toEdge id="60" probability="24"/>
-            <toEdge id="64" probability="33"/>
-            <toEdge id="58" probability="9"/>
-            <toEdge id="-31" probability="12"/>
-        </fromEdge>
-        <fromEdge id="-148">
-            <toEdge id="-148.80.00" probability="15"/>
-        </fromEdge>
-        <fromEdge id="-120">
-            <toEdge id="-120.180.00" probability="29"/>
-        </fromEdge>
-        <fromEdge id="11.80.00">
-            <toEdge id="-11" probability="10"/>
-            <toEdge id="109" probability="24"/>
-            <toEdge id="23" probability="62"/>
-        </fromEdge>
-        <fromEdge id="-123">
-            <toEdge id="-123.121.42" probability="28"/>
-        </fromEdge>
-        <fromEdge id="-60.80.00">
-            <toEdge id="60" probability="3"/>
-            <toEdge id="64" probability="2"/>
-            <toEdge id="58" probability="3"/>
-            <toEdge id="-31" probability="25"/>
-        </fromEdge>
-        <fromEdge id="120">
-            <toEdge id="120.180.00" probability="42"/>
-        </fromEdge>
-        <fromEdge id="123">
-            <toEdge id="123.121.42" probability="32"/>
-        </fromEdge>
-        <fromEdge id="23.80.00">
-            <toEdge id="31" probability="72"/>
-            <toEdge id="37" probability="12"/>
-            <toEdge id="-23" probability="21"/>
-        </fromEdge>
-        <fromEdge id="58">
-            <toEdge id="-37" probability="12"/>
-        </fromEdge>
-        <fromEdge id="55">
-            <toEdge id="71" probability="19"/>
-        </fromEdge>
-        <fromEdge id="-31">
-            <toEdge id="-31.80.00" probability="64"/>
-        </fromEdge>
-        <fromEdge id="-5">
-            <toEdge id="-5.80.00" probability="21"/>
-        </fromEdge>
-        <fromEdge id="-37">
-            <toEdge id="-37.80.00" probability="15"/>
-        </fromEdge>
-        <fromEdge id="-152">
-            <toEdge id="-152.80.00" probability="13"/>
-        </fromEdge>
-        <fromEdge id="-3">
-            <toEdge id="-3.180.00" probability="112"/>
-        </fromEdge>
-        <fromEdge id="-152.80.00">
-            <toEdge id="144" probability="4"/>
-            <toEdge id="148" probability="1"/>
-            <toEdge id="-131" probability="4"/>
-        </fromEdge>
-        <fromEdge id="-131">
-            <toEdge id="-131.180.00" probability="38"/>
-        </fromEdge>
-        <fromEdge id="-55.80.00">
-            <toEdge id="-27" probability="15"/>
-            <toEdge id="45" probability="1"/>
-        </fromEdge>
-        <fromEdge id="-120.180.00">
-            <toEdge id="120" probability="2"/>
-            <toEdge id="-64" probability="11"/>
-            <toEdge id="-75" probability="15"/>
-        </fromEdge>
-        <fromEdge id="123.121.42">
-            <toEdge id="-144" probability="8"/>
-            <toEdge id="-15" probability="11"/>
-            <toEdge id="-123" probability="11"/>
-        </fromEdge>
-        <fromEdge id="109.80.00">
-            <toEdge id="123" probability="16"/>
-            <toEdge id="131" probability="15"/>
-            <toEdge id="-109" probability="13"/>
-            <toEdge id="-120" probability="9"/>
-        </fromEdge>
-        <fromEdge id="-27">
-            <toEdge id="-27.80.00" probability="89"/>
-        </fromEdge>
-        <fromEdge id="-23">
-            <toEdge id="-23.80.00" probability="92"/>
-        </fromEdge>
-        <fromEdge id="3">
-            <toEdge id="3.180.00" probability="99"/>
-        </fromEdge>
-        <fromEdge id="-148.80.00">
-            <toEdge id="144" probability="8"/>
-            <toEdge id="148" probability="1"/>
-            <toEdge id="-131" probability="12"/>
-        </fromEdge>
-        <fromEdge id="-45.80.00">
-            <toEdge id="55" probability="1"/>
-            <toEdge id="-27" probability="26"/>
-        </fromEdge>
-        <fromEdge id="-109">
-            <toEdge id="-109.80.00" probability="70"/>
-        </fromEdge>
-        <fromEdge id="-92">
-            <toEdge id="-92.180.00" probability="9"/>
-        </fromEdge>
-        <fromEdge id="-11">
-            <toEdge id="-11.80.00" probability="96"/>
-        </fromEdge>
-        <fromEdge id="109">
-            <toEdge id="109.80.00" probability="56"/>
-        </fromEdge>
-        <fromEdge id="-15">
-            <toEdge id="-15.180.00" probability="39"/>
-        </fromEdge>
-        <fromEdge id="-109.80.00">
-            <toEdge id="-11" probability="26"/>
-            <toEdge id="109" probability="11"/>
-            <toEdge id="23" probability="33"/>
-        </fromEdge>
-        <fromEdge id="-5.80.00">
-            <toEdge id="11" probability="11"/>
-            <toEdge id="3" probability="5"/>
-            <toEdge id="15" probability="2"/>
-        </fromEdge>
-        <fromEdge id="27.80.00">
-            <toEdge id="55" probability="18"/>
-            <toEdge id="45" probability="15"/>
-            <toEdge id="43" probability="34"/>
-            <toEdge id="-27" probability="9"/>
-        </fromEdge>
-        <fromEdge id="-79.80.00">
-            <toEdge id="-60" probability="4"/>
-            <toEdge id="75" probability="3"/>
-        </fromEdge>
-        <fromEdge id="-144.121.42">
-            <toEdge id="144" probability="12"/>
-            <toEdge id="152" probability="6"/>
-            <toEdge id="148" probability="3"/>
-            <toEdge id="-131" probability="10"/>
-        </fromEdge>
-        <fromEdge id="31">
-            <toEdge id="31.80.00" probability="78"/>
-        </fromEdge>
-        <fromEdge id="37">
-            <toEdge id="-58" probability="20"/>
-        </fromEdge>
-        <fromEdge id="-43.80.00">
-            <toEdge id="55" probability="1"/>
-            <toEdge id="-27" probability="32"/>
-            <toEdge id="43" probability="1"/>
+        <fromEdge id="45">
+            <toEdge id="-68" probability="3"/>
         </fromEdge>
         <fromEdge id="-31.80.00">
-            <toEdge id="31" probability="3"/>
-            <toEdge id="37" probability="4"/>
-            <toEdge id="-23" probability="58"/>
+            <toEdge id="31" probability="1"/>
+            <toEdge id="37" probability="1"/>
+            <toEdge id="-23" probability="13"/>
         </fromEdge>
         <fromEdge id="-92.180.00">
-            <toEdge id="-60" probability="8"/>
-            <toEdge id="75" probability="3"/>
+            <toEdge id="-60" probability="1"/>
         </fromEdge>
-        <fromEdge id="60">
-            <toEdge id="60.80.00" probability="34"/>
+        <fromEdge id="-131">
+            <toEdge id="-131.180.00" probability="6"/>
         </fromEdge>
-        <fromEdge id="64">
-            <toEdge id="64.80.00" probability="39"/>
+        <fromEdge id="-23.80.00">
+            <toEdge id="-11" probability="12"/>
+            <toEdge id="109" probability="6"/>
+            <toEdge id="23" probability="1"/>
         </fromEdge>
-        <fromEdge id="68">
-            <toEdge id="-45" probability="33"/>
+        <fromEdge id="-55.80.00">
+            <toEdge id="-27" probability="5"/>
         </fromEdge>
-        <fromEdge id="75.121.42">
-            <toEdge id="120" probability="15"/>
-            <toEdge id="-64" probability="4"/>
+        <fromEdge id="-120.180.00">
+            <toEdge id="-64" probability="3"/>
             <toEdge id="-75" probability="2"/>
         </fromEdge>
-        <fromEdge id="-131.180.00">
-            <toEdge id="123" probability="4"/>
-            <toEdge id="-109" probability="27"/>
-            <toEdge id="-120" probability="12"/>
-            <toEdge id="131" probability="3"/>
+        <fromEdge id="144">
+            <toEdge id="144.121.42" probability="7"/>
+        </fromEdge>
+        <fromEdge id="-152.80.00">
+            <toEdge id="-131" probability="2"/>
+        </fromEdge>
+        <fromEdge id="60">
+            <toEdge id="60.80.00" probability="3"/>
+        </fromEdge>
+        <fromEdge id="144.121.42">
+            <toEdge id="-15" probability="4"/>
+            <toEdge id="-123" probability="2"/>
+        </fromEdge>
+        <fromEdge id="131">
+            <toEdge id="131.180.00" probability="9"/>
+        </fromEdge>
+        <fromEdge id="-148.80.00">
+            <toEdge id="144" probability="1"/>
+            <toEdge id="-131" probability="1"/>
+        </fromEdge>
+        <fromEdge id="64">
+            <toEdge id="64.80.00" probability="10"/>
         </fromEdge>
         <fromEdge id="131.180.00">
-            <toEdge id="144" probability="10"/>
-            <toEdge id="152" probability="8"/>
-            <toEdge id="148" probability="3"/>
-            <toEdge id="-131" probability="9"/>
+            <toEdge id="144" probability="3"/>
+            <toEdge id="-131" probability="3"/>
+        </fromEdge>
+        <fromEdge id="68">
+            <toEdge id="-45" probability="6"/>
+        </fromEdge>
+        <fromEdge id="75.121.42">
+            <toEdge id="120" probability="3"/>
+            <toEdge id="-75" probability="1"/>
+        </fromEdge>
+        <fromEdge id="123.121.42">
+            <toEdge id="-15" probability="1"/>
+            <toEdge id="-123" probability="1"/>
+        </fromEdge>
+        <fromEdge id="-45">
+            <toEdge id="-45.80.00" probability="4"/>
+        </fromEdge>
+        <fromEdge id="-60">
+            <toEdge id="-60.80.00" probability="8"/>
+        </fromEdge>
+        <fromEdge id="11">
+            <toEdge id="11.80.00" probability="20"/>
+        </fromEdge>
+        <fromEdge id="27">
+            <toEdge id="27.80.00" probability="18"/>
+        </fromEdge>
+        <fromEdge id="-64">
+            <toEdge id="-64.80.00" probability="6"/>
+        </fromEdge>
+        <fromEdge id="109.80.00">
+            <toEdge id="131" probability="4"/>
+            <toEdge id="123" probability="2"/>
+            <toEdge id="-120" probability="1"/>
+            <toEdge id="-109" probability="3"/>
+        </fromEdge>
+        <fromEdge id="-131.180.00">
+            <toEdge id="131" probability="2"/>
+            <toEdge id="-109" probability="3"/>
+        </fromEdge>
+        <fromEdge id="23">
+            <toEdge id="23.80.00" probability="20"/>
+        </fromEdge>
+        <fromEdge id="-68">
+            <toEdge id="-43" probability="3"/>
+        </fromEdge>
+        <fromEdge id="-43">
+            <toEdge id="-43.80.00" probability="5"/>
+        </fromEdge>
+        <fromEdge id="-3.180.00">
+            <toEdge id="11" probability="17"/>
+            <toEdge id="3" probability="1"/>
+            <toEdge id="15" probability="5"/>
+        </fromEdge>
+        <fromEdge id="-27">
+            <toEdge id="-27.80.00" probability="22"/>
         </fromEdge>
         <fromEdge id="-123.121.42">
             <toEdge id="131" probability="2"/>
-            <toEdge id="-109" probability="15"/>
-            <toEdge id="-120" probability="8"/>
-        </fromEdge>
-        <fromEdge id="-23.80.00">
-            <toEdge id="-11" probability="62"/>
-            <toEdge id="109" probability="18"/>
-            <toEdge id="23" probability="9"/>
-        </fromEdge>
-        <fromEdge id="3.180.00">
-            <toEdge id="-71" probability="11"/>
-            <toEdge id="27" probability="71"/>
-            <toEdge id="-3" probability="18"/>
-        </fromEdge>
-        <fromEdge id="71.121.42">
-            <toEdge id="-71" probability="3"/>
-            <toEdge id="27" probability="3"/>
-            <toEdge id="-3" probability="13"/>
-        </fromEdge>
-        <fromEdge id="92">
-            <toEdge id="-92" probability="6"/>
-        </fromEdge>
-        <fromEdge id="11">
-            <toEdge id="11.80.00" probability="97"/>
-        </fromEdge>
-        <fromEdge id="-71">
-            <toEdge id="-55" probability="15"/>
-        </fromEdge>
-        <fromEdge id="15">
-            <toEdge id="15.180.00" probability="44"/>
-        </fromEdge>
-        <fromEdge id="-75">
-            <toEdge id="-75.121.42" probability="22"/>
-        </fromEdge>
-        <fromEdge id="-79">
-            <toEdge id="-79.80.00" probability="4"/>
-        </fromEdge>
-        <fromEdge id="-37.80.00">
-            <toEdge id="31" probability="4"/>
-            <toEdge id="37" probability="2"/>
-            <toEdge id="-23" probability="10"/>
-        </fromEdge>
-        <fromEdge id="64.80.00">
-            <toEdge id="120" probability="23"/>
-            <toEdge id="-64" probability="10"/>
-            <toEdge id="-75" probability="5"/>
-        </fromEdge>
-        <fromEdge id="-58.121.42">
-            <toEdge id="60" probability="3"/>
-            <toEdge id="64" probability="4"/>
-            <toEdge id="-31" probability="5"/>
-        </fromEdge>
-        <fromEdge id="152">
-            <toEdge id="-152" probability="8"/>
-        </fromEdge>
-        <fromEdge id="-58">
-            <toEdge id="-58.121.42" probability="13"/>
-        </fromEdge>
-        <fromEdge id="-60">
-            <toEdge id="-60.80.00" probability="38"/>
-        </fromEdge>
-        <fromEdge id="144.121.42">
-            <toEdge id="-144" probability="4"/>
-            <toEdge id="-15" probability="23"/>
-            <toEdge id="-123" probability="6"/>
-        </fromEdge>
-        <fromEdge id="-64">
-            <toEdge id="-64.80.00" probability="27"/>
-        </fromEdge>
-        <fromEdge id="-68">
-            <toEdge id="-43" probability="21"/>
-        </fromEdge>
-        <fromEdge id="-3.180.00">
-            <toEdge id="11" probability="79"/>
-            <toEdge id="5" probability="5"/>
-            <toEdge id="3" probability="5"/>
-            <toEdge id="15" probability="25"/>
-        </fromEdge>
-        <fromEdge id="45">
-            <toEdge id="-68" probability="17"/>
-        </fromEdge>
-        <fromEdge id="43">
-            <toEdge id="68" probability="36"/>
+            <toEdge id="-109" probability="1"/>
+            <toEdge id="-120" probability="4"/>
         </fromEdge>
         <fromEdge id="-64.80.00">
-            <toEdge id="60" probability="3"/>
-            <toEdge id="64" probability="4"/>
+            <toEdge id="64" probability="2"/>
             <toEdge id="58" probability="2"/>
-            <toEdge id="-31" probability="23"/>
+            <toEdge id="-31" probability="3"/>
         </fromEdge>
-        <fromEdge id="5">
-            <toEdge id="-5" probability="16"/>
+        <fromEdge id="-23">
+            <toEdge id="-23.80.00" probability="19"/>
         </fromEdge>
-        <fromEdge id="144">
-            <toEdge id="144.121.42" probability="37"/>
+        <fromEdge id="-144">
+            <toEdge id="-144.121.42" probability="5"/>
+        </fromEdge>
+        <fromEdge id="3">
+            <toEdge id="3.180.00" probability="23"/>
+        </fromEdge>
+        <fromEdge id="31">
+            <toEdge id="31.80.00" probability="15"/>
+        </fromEdge>
+        <fromEdge id="-11.80.00">
+            <toEdge id="5" probability="2"/>
+            <toEdge id="3" probability="17"/>
+            <toEdge id="15" probability="2"/>
+        </fromEdge>
+        <fromEdge id="31.80.00">
+            <toEdge id="60" probability="3"/>
+            <toEdge id="64" probability="6"/>
+            <toEdge id="58" probability="4"/>
+            <toEdge id="-31" probability="2"/>
+        </fromEdge>
+        <fromEdge id="-79.80.00">
+            <toEdge id="-60" probability="3"/>
+            <toEdge id="75" probability="3"/>
+        </fromEdge>
+        <fromEdge id="-148">
+            <toEdge id="-148.80.00" probability="2"/>
+        </fromEdge>
+        <fromEdge id="-45.80.00">
+            <toEdge id="-27" probability="5"/>
+        </fromEdge>
+        <fromEdge id="3.180.00">
+            <toEdge id="-71" probability="5"/>
+            <toEdge id="27" probability="13"/>
+            <toEdge id="-3" probability="6"/>
+        </fromEdge>
+        <fromEdge id="-120">
+            <toEdge id="-120.180.00" probability="7"/>
+        </fromEdge>
+        <fromEdge id="-3">
+            <toEdge id="-3.180.00" probability="22"/>
+        </fromEdge>
+        <fromEdge id="11.80.00">
+            <toEdge id="-11" probability="1"/>
+            <toEdge id="109" probability="4"/>
+            <toEdge id="23" probability="15"/>
+        </fromEdge>
+        <fromEdge id="-123">
+            <toEdge id="-123.121.42" probability="6"/>
+        </fromEdge>
+        <fromEdge id="43">
+            <toEdge id="68" probability="5"/>
+        </fromEdge>
+        <fromEdge id="-60.80.00">
+            <toEdge id="64" probability="1"/>
+            <toEdge id="-31" probability="7"/>
+        </fromEdge>
+        <fromEdge id="-109">
+            <toEdge id="-109.80.00" probability="10"/>
         </fromEdge>
         <fromEdge id="-15.180.00">
-            <toEdge id="11" probability="4"/>
+            <toEdge id="11" probability="2"/>
+            <toEdge id="15" probability="1"/>
+            <toEdge id="3" probability="4"/>
             <toEdge id="5" probability="1"/>
-            <toEdge id="3" probability="21"/>
-            <toEdge id="15" probability="4"/>
         </fromEdge>
-        <fromEdge id="148">
-            <toEdge id="-148" probability="5"/>
+        <fromEdge id="71.121.42">
+            <toEdge id="-3" probability="2"/>
         </fromEdge>
-        <fromEdge id="15.180.00">
-            <toEdge id="-144" probability="20"/>
-            <toEdge id="-15" probability="8"/>
-            <toEdge id="-123" probability="10"/>
+        <fromEdge id="-11">
+            <toEdge id="-11.80.00" probability="21"/>
         </fromEdge>
         <fromEdge id="75">
-            <toEdge id="75.121.42" probability="23"/>
+            <toEdge id="75.121.42" probability="7"/>
+        </fromEdge>
+        <fromEdge id="109">
+            <toEdge id="109.80.00" probability="11"/>
+        </fromEdge>
+        <fromEdge id="15.180.00">
+            <toEdge id="-144" probability="3"/>
+            <toEdge id="-15" probability="1"/>
+            <toEdge id="-123" probability="3"/>
+        </fromEdge>
+        <fromEdge id="-109.80.00">
+            <toEdge id="-11" probability="9"/>
+            <toEdge id="23" probability="4"/>
         </fromEdge>
         <fromEdge id="71">
-            <toEdge id="71.121.42" probability="16"/>
+            <toEdge id="71.121.42" probability="1"/>
         </fromEdge>
-        <fromEdge id="79">
-            <toEdge id="-79" probability="2"/>
+        <fromEdge id="27.80.00">
+            <toEdge id="55" probability="3"/>
+            <toEdge id="45" probability="2"/>
+            <toEdge id="-27" probability="7"/>
+            <toEdge id="43" probability="4"/>
+        </fromEdge>
+        <fromEdge id="-58">
+            <toEdge id="-58.121.42" probability="6"/>
+        </fromEdge>
+        <fromEdge id="23.80.00">
+            <toEdge id="31" probability="15"/>
+            <toEdge id="37" probability="3"/>
+            <toEdge id="-23" probability="1"/>
         </fromEdge>
         <fromEdge id="-75.121.42">
-            <toEdge id="-60" probability="9"/>
-            <toEdge id="75" probability="5"/>
-            <toEdge id="92" probability="6"/>
-            <toEdge id="79" probability="1"/>
+            <toEdge id="-60" probability="3"/>
+            <toEdge id="75" probability="1"/>
         </fromEdge>
         <fromEdge id="-55">
-            <toEdge id="-55.80.00" probability="17"/>
+            <toEdge id="-55.80.00" probability="10"/>
+        </fromEdge>
+        <fromEdge id="120">
+            <toEdge id="120.180.00" probability="11"/>
+        </fromEdge>
+        <fromEdge id="-71">
+            <toEdge id="-55" probability="8"/>
+        </fromEdge>
+        <fromEdge id="15">
+            <toEdge id="15.180.00" probability="10"/>
+        </fromEdge>
+        <fromEdge id="58">
+            <toEdge id="-37" probability="3"/>
+        </fromEdge>
+        <fromEdge id="-75">
+            <toEdge id="-75.121.42" probability="3"/>
+        </fromEdge>
+        <fromEdge id="55">
+            <toEdge id="71" probability="3"/>
+        </fromEdge>
+        <fromEdge id="-144.121.42">
+            <toEdge id="144" probability="2"/>
+            <toEdge id="152" probability="2"/>
+            <toEdge id="-131" probability="2"/>
+        </fromEdge>
+        <fromEdge id="-79">
+            <toEdge id="-79.80.00" probability="3"/>
+        </fromEdge>
+        <fromEdge id="37">
+            <toEdge id="-58" probability="6"/>
         </fromEdge>
         <fromEdge id="120.180.00">
-            <toEdge id="123" probability="15"/>
-            <toEdge id="-109" probability="12"/>
-            <toEdge id="-120" probability="1"/>
-            <toEdge id="131" probability="13"/>
+            <toEdge id="123" probability="1"/>
+            <toEdge id="131" probability="3"/>
+            <toEdge id="-109" probability="4"/>
+            <toEdge id="-120" probability="2"/>
+        </fromEdge>
+        <fromEdge id="-31">
+            <toEdge id="-31.80.00" probability="15"/>
+        </fromEdge>
+        <fromEdge id="-43.80.00">
+            <toEdge id="-27" probability="6"/>
+            <toEdge id="43" probability="1"/>
+        </fromEdge>
+        <fromEdge id="-37">
+            <toEdge id="-37.80.00" probability="4"/>
+        </fromEdge>
+        <fromEdge id="-37.80.00">
+            <toEdge id="-23" probability="6"/>
+        </fromEdge>
+        <fromEdge id="123">
+            <toEdge id="123.121.42" probability="4"/>
         </fromEdge>
         <fromEdge id="60.80.00">
-            <toEdge id="-60" probability="17"/>
-            <toEdge id="75" probability="13"/>
-            <toEdge id="92" probability="4"/>
-            <toEdge id="79" probability="3"/>
+            <toEdge id="-60" probability="1"/>
+            <toEdge id="75" probability="3"/>
+            <toEdge id="92" probability="1"/>
+        </fromEdge>
+        <fromEdge id="-15">
+            <toEdge id="-15.180.00" probability="7"/>
+        </fromEdge>
+        <fromEdge id="64.80.00">
+            <toEdge id="120" probability="5"/>
+            <toEdge id="-64" probability="2"/>
+            <toEdge id="-75" probability="1"/>
         </fromEdge>
         <fromEdge id="-27.80.00">
-            <toEdge id="-71" probability="1"/>
-            <toEdge id="27" probability="8"/>
-            <toEdge id="-3" probability="86"/>
+            <toEdge id="-71" probability="2"/>
+            <toEdge id="27" probability="2"/>
+            <toEdge id="-3" probability="17"/>
         </fromEdge>
     </interval>
 </turns>
