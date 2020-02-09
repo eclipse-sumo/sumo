@@ -58,6 +58,9 @@ bikeLanes
 # test building of pedestrian crossings
 crossings
 
+# tests various turnaround related options
+turnarounds
+
 # tests for railway related network analysis and modification
 railway
 
