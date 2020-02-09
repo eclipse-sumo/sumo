@@ -43,15 +43,15 @@
 // method definitions
 // ===========================================================================
 NGNode::NGNode(const std::string& id)
-    : Named(id), xID(-1), yID(-1), myAmCenter(false) {}
+    : Named(id), xID(-1), yID(-1), myAmCenter(false), myAmFringe(false) {}
 
 
 NGNode::NGNode(const std::string& id, int xIDa, int yIDa)
-    : Named(id), xID(xIDa), yID(yIDa), myAmCenter(false) {}
+    : Named(id), xID(xIDa), yID(yIDa), myAmCenter(false), myAmFringe(false) {}
 
 
 NGNode::NGNode(const std::string& id, int xIDa, int yIDa, bool amCenter)
-    : Named(id), xID(xIDa), yID(yIDa), myAmCenter(amCenter) {}
+    : Named(id), xID(xIDa), yID(yIDa), myAmCenter(amCenter), myAmFringe(false) {}
 
 
 NGNode::~NGNode() {
@@ -93,6 +93,9 @@ NGNode::buildNBNode(NBNetBuilder& nb, const Position& perturb) const {
     } else {
         // otherwise netbuild may guess NODETYPE_TRAFFIC_LIGHT without actually building one
         node = new NBNode(myID, pos, NODETYPE_PRIORITY);
+    }
+    if (myAmFringe) {
+        node->setFringeType(FRINGE_TYPE_OUTER);
     }
 
     return node;

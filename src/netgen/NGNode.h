@@ -123,6 +123,10 @@ public:
         myPosition.set(myPosition.x(), y);
     }
 
+    /// @brief mark node as fringe
+    void setFringe() {
+        myAmFringe = true;
+    }
 
     /** @brief Builds and returns this node's netbuild-representation
      *
@@ -197,6 +201,9 @@ private:
 
     /// @brief Information whether this is the center of a cpider-net
     bool myAmCenter;
+
+    /// @brief Information whether this is the center of a cpider-net
+    bool myAmFringe;
 
 };
 
