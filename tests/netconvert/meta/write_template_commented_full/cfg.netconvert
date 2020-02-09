@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb  5 16:18:21 2020 by Eclipse SUMO netconvert Version v1_4_0+0935-fc42273
+<!-- generated on Sun Feb  9 16:09:30 2020 by Eclipse SUMO netconvert Version v1_4_0+0988-321fbaaac9
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -575,6 +575,9 @@
 
         <!-- Disables building turnarounds except at at junctions with a dedicated turning lane -->
         <no-turnarounds.except-turnlane value="false" type="BOOL"/>
+
+        <!-- Disables building turnarounds at fringe junctions -->
+        <no-turnarounds.fringe value="false" type="BOOL"/>
 
         <!-- Disables building connections to left -->
         <no-left-connections value="false" type="BOOL"/>
