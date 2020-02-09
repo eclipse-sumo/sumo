@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Feb  9 15:08:15 2020 by Eclipse SUMO netconvert Version v1_4_0+0980-21032e852d
+<!-- generated on Sun Feb  9 16:08:19 2020 by Eclipse SUMO netconvert Version v1_4_0+0988-321fbaaac9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,7 +20,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <junctions>
         <no-internal-links value="true"/>
-        <no-turnarounds.tls value="true"/>
+        <no-turnarounds.fringe value="true"/>
     </junctions>
 
     <report>
@@ -116,18 +116,18 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="A1" type="static" programID="0" offset="0">
-        <phase duration="38" state="rrrGGGgrrrGGg"/>
-        <phase duration="3"  state="rrryyygrrryyg"/>
-        <phase duration="6"  state="rrrrrrGrrrrrG"/>
-        <phase duration="3"  state="rrrrrryrrrrry"/>
-        <phase duration="37" state="GGgrrrrGGgrrr"/>
-        <phase duration="3"  state="yyyrrrryyyrrr"/>
+        <phase duration="38" state="rrrrGGGggrrrrGGgg"/>
+        <phase duration="3"  state="rrrryyyggrrrryygg"/>
+        <phase duration="6"  state="rrrrrrrGGrrrrrrGG"/>
+        <phase duration="3"  state="rrrrrrryyrrrrrryy"/>
+        <phase duration="37" state="GGggrrrrrGGggrrrr"/>
+        <phase duration="3"  state="yyyyrrrrryyyyrrrr"/>
     </tlLogic>
     <tlLogic id="B1" type="static" programID="0" offset="0">
-        <phase duration="42" state="rrrGGGgrrrGGg"/>
-        <phase duration="3"  state="rrryyyyrrryyy"/>
-        <phase duration="42" state="GGgrrrrGGgrrr"/>
-        <phase duration="3"  state="yyyrrrryyyrrr"/>
+        <phase duration="42" state="rrrrGGGggrrrrGGgg"/>
+        <phase duration="3"  state="rrrryyyyyrrrryyyy"/>
+        <phase duration="42" state="GGggrrrrrGGggrrrr"/>
+        <phase duration="3"  state="yyyyrrrrryyyyrrrr"/>
     </tlLogic>
 
     <junction id="A0" type="priority" x="100.00" y="100.00" incLanes="A1A0_0 B0A0_0 bottom0A0_0 bottom0A0_1 left0A0_0" intLanes="" shape="96.80,107.20 103.20,107.20 104.00,104.98 105.00,104.20 106.40,103.64 108.20,103.31 110.40,103.20 110.40,96.80 108.18,96.36 107.40,95.80 106.84,95.02 106.51,94.02 106.40,92.80 93.60,92.80 93.16,95.02 92.60,95.80 91.82,96.36 90.82,96.69 89.60,96.80 89.60,103.20 91.80,103.31 93.60,103.64 95.00,104.20 96.00,104.98 96.60,105.98">
@@ -149,19 +149,23 @@ SPDX-License-Identifier: EPL-2.0
         <request index="15" response="0000010000100001" foes="0000010000100001"/>
     </junction>
     <junction id="A1" type="traffic_light" x="100.00" y="200.00" incLanes="top0A1_0 B1A1_0 B1A1_1 A0A1_0 left1A1_0 left1A1_1" intLanes="" shape="96.80,210.40 103.20,210.40 103.64,208.18 104.20,207.40 104.98,206.84 105.98,206.51 107.20,206.40 107.20,196.80 104.98,196.00 104.20,195.00 103.64,193.60 103.31,191.80 103.20,189.60 96.80,189.60 96.36,191.82 95.80,192.60 95.02,193.16 94.02,193.49 92.80,193.60 92.80,206.40 95.02,206.84 95.80,207.40 96.36,208.18 96.69,209.18">
-        <request index="0"  response="0000000110000" foes="0000000110000"/>
-        <request index="1"  response="1110001110000" foes="1111001110000"/>
-        <request index="2"  response="1100111110000" foes="1100111110000"/>
-        <request index="3"  response="0000000000000" foes="1000100000000"/>
-        <request index="4"  response="0000000000000" foes="1001100000111"/>
-        <request index="5"  response="0000000000000" foes="1001100000111"/>
-        <request index="6"  response="0110000000000" foes="0111100000110"/>
-        <request index="7"  response="0100000000000" foes="0100000000100"/>
-        <request index="8"  response="1100001111000" foes="1100001111100"/>
-        <request index="9"  response="1100001110010" foes="1100001110010"/>
-        <request index="10" response="0000000000000" foes="0000001000010"/>
-        <request index="11" response="0000000000000" foes="0001111000110"/>
-        <request index="12" response="0000000111000" foes="0001100111110"/>
+        <request index="0"  response="00000000001100000" foes="00000000001100000"/>
+        <request index="1"  response="01110000011100000" foes="01111100011100000"/>
+        <request index="2"  response="01100011011100000" foes="01100011111100000"/>
+        <request index="3"  response="01000010000010000" foes="01000010000010000"/>
+        <request index="4"  response="00000000000000000" foes="01000010000001000"/>
+        <request index="5"  response="00000000000000000" foes="11000110000000111"/>
+        <request index="6"  response="00000000000000000" foes="11000110000000111"/>
+        <request index="7"  response="00110000000000000" foes="00111110000000110"/>
+        <request index="8"  response="00100001000000100" foes="00100001000000100"/>
+        <request index="9"  response="00100000000000000" foes="00100000100000100"/>
+        <request index="10" response="01100000011110000" foes="01100000011111100"/>
+        <request index="11" response="01100000011100010" foes="11100000011100010"/>
+        <request index="12" response="00010000010000010" foes="00010000010000010"/>
+        <request index="13" response="00000000000000000" foes="00001000010000010"/>
+        <request index="14" response="00000000000000000" foes="00000111110000110"/>
+        <request index="15" response="00000000001110000" foes="00000110001111110"/>
+        <request index="16" response="00000100001100000" foes="00000100001100000"/>
     </junction>
     <junction id="B0" type="priority" x="200.00" y="100.00" incLanes="B1B0_0 right0B0_0 bottom1B0_0 A0B0_0" intLanes="" shape="196.80,107.20 203.20,107.20 203.64,104.98 204.20,104.20 204.98,103.64 205.98,103.31 207.20,103.20 207.20,96.80 204.98,96.36 204.20,95.80 203.64,95.02 203.31,94.02 203.20,92.80 196.80,92.80 196.36,95.02 195.80,95.80 195.02,96.36 194.02,96.69 192.80,96.80 192.80,103.20 195.02,103.64 195.80,104.20 196.36,104.98 196.69,105.98">
         <request index="0"  response="0000000000000000" foes="1000010000100000"/>
@@ -182,82 +186,66 @@ SPDX-License-Identifier: EPL-2.0
         <request index="15" response="0000010000100001" foes="0000010000100001"/>
     </junction>
     <junction id="B1" type="traffic_light" x="200.00" y="200.00" incLanes="top1B1_0 right1B1_0 right1B1_1 B0B1_0 A1B1_0" intLanes="" shape="196.80,210.40 203.20,210.40 203.64,208.18 204.20,207.40 204.98,206.84 205.98,206.51 207.20,206.40 207.20,193.60 204.98,193.16 204.20,192.60 203.64,191.82 203.31,190.82 203.20,189.60 196.80,189.60 196.69,191.80 196.36,193.60 195.80,195.00 195.02,196.00 194.02,196.60 192.80,196.80 192.80,206.40 195.02,206.84 195.80,207.40 196.36,208.18 196.69,209.18">
-        <request index="0"  response="0000000110000" foes="0000000110000"/>
-        <request index="1"  response="1110001110000" foes="1111001110000"/>
-        <request index="2"  response="1100101110000" foes="1100101110000"/>
-        <request index="3"  response="0000000000000" foes="1000100000000"/>
-        <request index="4"  response="0000000000000" foes="1001100000111"/>
-        <request index="5"  response="0000000000000" foes="1001100000111"/>
-        <request index="6"  response="0110000000000" foes="0111100000110"/>
-        <request index="7"  response="0000000000000" foes="0000000000000"/>
-        <request index="8"  response="1100001111000" foes="1100001111100"/>
-        <request index="9"  response="1100001110010" foes="1100001110010"/>
-        <request index="10" response="0000000000000" foes="0000001000010"/>
-        <request index="11" response="0000000000000" foes="0001101000110"/>
-        <request index="12" response="0000000111000" foes="0001100111110"/>
+        <request index="0"  response="00000000001100000" foes="00000000001100000"/>
+        <request index="1"  response="01110000011100000" foes="01111100011100000"/>
+        <request index="2"  response="01100010011100000" foes="01100010111100000"/>
+        <request index="3"  response="01000010000010000" foes="01000010000010000"/>
+        <request index="4"  response="00000000000000000" foes="01000010000001000"/>
+        <request index="5"  response="00000000000000000" foes="11000110000000111"/>
+        <request index="6"  response="00000000000000000" foes="11000110000000111"/>
+        <request index="7"  response="00110000000000000" foes="00111110000000110"/>
+        <request index="8"  response="00100000000000100" foes="00100000000000100"/>
+        <request index="9"  response="00000000000000000" foes="00000000000000000"/>
+        <request index="10" response="01100000011110000" foes="01100000011111100"/>
+        <request index="11" response="01100000011100010" foes="11100000011100010"/>
+        <request index="12" response="00010000010000010" foes="00010000010000010"/>
+        <request index="13" response="00000000000000000" foes="00001000010000010"/>
+        <request index="14" response="00000000000000000" foes="00000110110000110"/>
+        <request index="15" response="00000000001110000" foes="00000110001111110"/>
+        <request index="16" response="00000100001100000" foes="00000100001100000"/>
     </junction>
-    <junction id="bottom0" type="priority" x="100.00" y="0.00" incLanes="A0bottom0_0 A0bottom0_1" intLanes="" shape="100.00,0.00 93.60,0.00 100.00,0.00" fringe="outer">
-        <request index="0" response="0" foes="0"/>
-    </junction>
-    <junction id="bottom1" type="priority" x="200.00" y="0.00" incLanes="B0bottom1_0" intLanes="" shape="200.00,0.00 196.80,0.00 200.00,0.00" fringe="outer">
-        <request index="0" response="0" foes="0"/>
-    </junction>
-    <junction id="left0" type="priority" x="0.00" y="100.00" incLanes="A0left0_0" intLanes="" shape="0.00,100.00 0.00,103.20 0.00,100.00" fringe="outer">
-        <request index="0" response="0" foes="0"/>
-    </junction>
-    <junction id="left1" type="priority" x="0.00" y="200.00" incLanes="A1left1_0 A1left1_1" intLanes="" shape="0.00,200.00 0.00,206.40 0.00,200.00" fringe="outer">
-        <request index="0" response="0" foes="0"/>
-    </junction>
-    <junction id="right0" type="priority" x="300.00" y="100.00" incLanes="B0right0_0" intLanes="" shape="300.00,100.00 300.00,96.80 300.00,100.00" fringe="outer">
-        <request index="0" response="0" foes="0"/>
-    </junction>
-    <junction id="right1" type="priority" x="300.00" y="200.00" incLanes="B1right1_0 B1right1_1" intLanes="" shape="300.00,200.00 300.00,193.60 300.00,200.00" fringe="outer">
-        <request index="0" response="0" foes="0"/>
-    </junction>
-    <junction id="top0" type="priority" x="100.00" y="300.00" incLanes="A1top0_0" intLanes="" shape="100.00,300.00 103.20,300.00 100.00,300.00" fringe="outer">
-        <request index="0" response="0" foes="0"/>
-    </junction>
-    <junction id="top1" type="priority" x="200.00" y="300.00" incLanes="B1top1_0" intLanes="" shape="200.00,300.00 203.20,300.00 200.00,300.00" fringe="outer">
-        <request index="0" response="0" foes="0"/>
-    </junction>
+    <junction id="bottom0" type="dead_end" x="100.00" y="0.00" incLanes="A0bottom0_0 A0bottom0_1" intLanes="" shape="100.00,0.00 93.60,0.00 100.00,0.00" fringe="outer"/>
+    <junction id="bottom1" type="dead_end" x="200.00" y="0.00" incLanes="B0bottom1_0" intLanes="" shape="200.00,0.00 196.80,0.00 200.00,0.00" fringe="outer"/>
+    <junction id="left0" type="dead_end" x="0.00" y="100.00" incLanes="A0left0_0" intLanes="" shape="0.00,100.00 0.00,103.20 0.00,100.00" fringe="outer"/>
+    <junction id="left1" type="dead_end" x="0.00" y="200.00" incLanes="A1left1_0 A1left1_1" intLanes="" shape="0.00,200.00 0.00,206.40 0.00,200.00" fringe="outer"/>
+    <junction id="right0" type="dead_end" x="300.00" y="100.00" incLanes="B0right0_0" intLanes="" shape="300.00,100.00 300.00,96.80 300.00,100.00" fringe="outer"/>
+    <junction id="right1" type="dead_end" x="300.00" y="200.00" incLanes="B1right1_0 B1right1_1" intLanes="" shape="300.00,200.00 300.00,193.60 300.00,200.00" fringe="outer"/>
+    <junction id="top0" type="dead_end" x="100.00" y="300.00" incLanes="A1top0_0" intLanes="" shape="100.00,300.00 103.20,300.00 100.00,300.00" fringe="outer"/>
+    <junction id="top1" type="dead_end" x="200.00" y="300.00" incLanes="B1top1_0" intLanes="" shape="200.00,300.00 203.20,300.00 200.00,300.00" fringe="outer"/>
 
-    <connection from="A0A1" to="A1B1" fromLane="0" toLane="0" tl="A1" linkIndex="7" dir="r" state="o"/>
-    <connection from="A0A1" to="A1top0" fromLane="0" toLane="0" tl="A1" linkIndex="8" dir="s" state="o"/>
-    <connection from="A0A1" to="A1left1" fromLane="0" toLane="1" tl="A1" linkIndex="9" dir="l" state="o"/>
+    <connection from="A0A1" to="A1B1" fromLane="0" toLane="0" tl="A1" linkIndex="9" dir="r" state="o"/>
+    <connection from="A0A1" to="A1top0" fromLane="0" toLane="0" tl="A1" linkIndex="10" dir="s" state="o"/>
+    <connection from="A0A1" to="A1left1" fromLane="0" toLane="1" tl="A1" linkIndex="11" dir="l" state="o"/>
+    <connection from="A0A1" to="A1A0" fromLane="0" toLane="0" tl="A1" linkIndex="12" dir="t" state="o"/>
     <connection from="A0B0" to="B0bottom1" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="A0B0" to="B0right0" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="A0B0" to="B0B1" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="A0B0" to="B0A0" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="A0bottom0" to="bottom0A0" fromLane="1" toLane="1" dir="t" state="M"/>
-    <connection from="A0left0" to="left0A0" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="A1A0" to="A0left0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="A1A0" to="A0bottom0" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="A1A0" to="A0B0" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="A1A0" to="A0A1" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="A1B1" to="B1B0" fromLane="0" toLane="0" tl="B1" linkIndex="10" dir="r" state="O"/>
-    <connection from="A1B1" to="B1right1" fromLane="0" toLane="1" tl="B1" linkIndex="11" dir="s" state="O"/>
-    <connection from="A1B1" to="B1top1" fromLane="0" toLane="0" tl="B1" linkIndex="12" dir="l" state="o"/>
-    <connection from="A1left1" to="left1A1" fromLane="1" toLane="1" dir="t" state="M"/>
-    <connection from="A1top0" to="top0A1" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="A1B1" to="B1B0" fromLane="0" toLane="0" tl="B1" linkIndex="13" dir="r" state="O"/>
+    <connection from="A1B1" to="B1right1" fromLane="0" toLane="1" tl="B1" linkIndex="14" dir="s" state="O"/>
+    <connection from="A1B1" to="B1top1" fromLane="0" toLane="0" tl="B1" linkIndex="15" dir="l" state="o"/>
+    <connection from="A1B1" to="B1A1" fromLane="0" toLane="1" tl="B1" linkIndex="16" dir="t" state="o"/>
     <connection from="B0A0" to="A0A1" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="B0A0" to="A0left0" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="B0A0" to="A0bottom0" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from="B0A0" to="A0B0" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="B0B1" to="B1right1" fromLane="0" toLane="0" tl="B1" linkIndex="7" dir="r" state="O"/>
-    <connection from="B0B1" to="B1top1" fromLane="0" toLane="0" tl="B1" linkIndex="8" dir="s" state="o"/>
-    <connection from="B0B1" to="B1A1" fromLane="0" toLane="1" tl="B1" linkIndex="9" dir="l" state="o"/>
-    <connection from="B0bottom1" to="bottom1B0" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="B0right0" to="right0B0" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="B1A1" to="A1top0" fromLane="0" toLane="0" tl="A1" linkIndex="3" dir="r" state="O"/>
-    <connection from="B1A1" to="A1left1" fromLane="0" toLane="0" tl="A1" linkIndex="4" dir="s" state="O"/>
-    <connection from="B1A1" to="A1left1" fromLane="1" toLane="1" tl="A1" linkIndex="5" dir="s" state="O"/>
-    <connection from="B1A1" to="A1A0" fromLane="1" toLane="0" tl="A1" linkIndex="6" dir="l" state="o"/>
+    <connection from="B0B1" to="B1right1" fromLane="0" toLane="0" tl="B1" linkIndex="9" dir="r" state="O"/>
+    <connection from="B0B1" to="B1top1" fromLane="0" toLane="0" tl="B1" linkIndex="10" dir="s" state="o"/>
+    <connection from="B0B1" to="B1A1" fromLane="0" toLane="1" tl="B1" linkIndex="11" dir="l" state="o"/>
+    <connection from="B0B1" to="B1B0" fromLane="0" toLane="0" tl="B1" linkIndex="12" dir="t" state="o"/>
+    <connection from="B1A1" to="A1top0" fromLane="0" toLane="0" tl="A1" linkIndex="4" dir="r" state="O"/>
+    <connection from="B1A1" to="A1left1" fromLane="0" toLane="0" tl="A1" linkIndex="5" dir="s" state="O"/>
+    <connection from="B1A1" to="A1left1" fromLane="1" toLane="1" tl="A1" linkIndex="6" dir="s" state="O"/>
+    <connection from="B1A1" to="A1A0" fromLane="1" toLane="0" tl="A1" linkIndex="7" dir="l" state="o"/>
+    <connection from="B1A1" to="A1B1" fromLane="1" toLane="0" tl="A1" linkIndex="8" dir="t" state="o"/>
     <connection from="B1B0" to="B0A0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="B1B0" to="B0bottom1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B1B0" to="B0right0" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="B1B0" to="B0B1" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="B1right1" to="right1B1" fromLane="1" toLane="1" dir="t" state="M"/>
-    <connection from="B1top1" to="top1B1" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="bottom0A0" to="A0B0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="bottom0A0" to="A0A1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="bottom0A0" to="A0left0" fromLane="1" toLane="0" dir="l" state="m"/>
@@ -270,22 +258,26 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="left0A0" to="A0B0" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="left0A0" to="A0A1" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="left0A0" to="A0left0" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="left1A1" to="A1A0" fromLane="0" toLane="0" tl="A1" linkIndex="10" dir="r" state="O"/>
-    <connection from="left1A1" to="A1B1" fromLane="0" toLane="0" tl="A1" linkIndex="11" dir="s" state="O"/>
-    <connection from="left1A1" to="A1top0" fromLane="1" toLane="0" tl="A1" linkIndex="12" dir="l" state="o"/>
+    <connection from="left1A1" to="A1A0" fromLane="0" toLane="0" tl="A1" linkIndex="13" dir="r" state="O"/>
+    <connection from="left1A1" to="A1B1" fromLane="0" toLane="0" tl="A1" linkIndex="14" dir="s" state="O"/>
+    <connection from="left1A1" to="A1top0" fromLane="1" toLane="0" tl="A1" linkIndex="15" dir="l" state="o"/>
+    <connection from="left1A1" to="A1left1" fromLane="1" toLane="1" tl="A1" linkIndex="16" dir="t" state="o"/>
     <connection from="right0B0" to="B0B1" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="right0B0" to="B0A0" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="right0B0" to="B0bottom1" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="right0B0" to="B0right0" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="right1B1" to="B1top1" fromLane="0" toLane="0" tl="B1" linkIndex="3" dir="r" state="O"/>
-    <connection from="right1B1" to="B1A1" fromLane="0" toLane="0" tl="B1" linkIndex="4" dir="s" state="O"/>
-    <connection from="right1B1" to="B1A1" fromLane="1" toLane="1" tl="B1" linkIndex="5" dir="s" state="O"/>
-    <connection from="right1B1" to="B1B0" fromLane="1" toLane="0" tl="B1" linkIndex="6" dir="l" state="o"/>
+    <connection from="right1B1" to="B1top1" fromLane="0" toLane="0" tl="B1" linkIndex="4" dir="r" state="O"/>
+    <connection from="right1B1" to="B1A1" fromLane="0" toLane="0" tl="B1" linkIndex="5" dir="s" state="O"/>
+    <connection from="right1B1" to="B1A1" fromLane="1" toLane="1" tl="B1" linkIndex="6" dir="s" state="O"/>
+    <connection from="right1B1" to="B1B0" fromLane="1" toLane="0" tl="B1" linkIndex="7" dir="l" state="o"/>
+    <connection from="right1B1" to="B1right1" fromLane="1" toLane="1" tl="B1" linkIndex="8" dir="t" state="o"/>
     <connection from="top0A1" to="A1left1" fromLane="0" toLane="0" tl="A1" linkIndex="0" dir="r" state="o"/>
     <connection from="top0A1" to="A1A0" fromLane="0" toLane="0" tl="A1" linkIndex="1" dir="s" state="o"/>
     <connection from="top0A1" to="A1B1" fromLane="0" toLane="0" tl="A1" linkIndex="2" dir="l" state="o"/>
+    <connection from="top0A1" to="A1top0" fromLane="0" toLane="0" tl="A1" linkIndex="3" dir="t" state="o"/>
     <connection from="top1B1" to="B1A1" fromLane="0" toLane="0" tl="B1" linkIndex="0" dir="r" state="o"/>
     <connection from="top1B1" to="B1B0" fromLane="0" toLane="0" tl="B1" linkIndex="1" dir="s" state="o"/>
     <connection from="top1B1" to="B1right1" fromLane="0" toLane="1" tl="B1" linkIndex="2" dir="l" state="o"/>
+    <connection from="top1B1" to="B1top1" fromLane="0" toLane="0" tl="B1" linkIndex="3" dir="t" state="o"/>
 
 </net>

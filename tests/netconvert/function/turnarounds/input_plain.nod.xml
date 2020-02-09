@@ -44,12 +44,12 @@
     <node id="A1" x="100.00" y="200.00" type="traffic_light" tl="A1"/>
     <node id="B0" x="200.00" y="100.00" type="priority"/>
     <node id="B1" x="200.00" y="200.00" type="traffic_light" tl="B1"/>
-    <node id="bottom0" x="100.00" y="0.00" type="priority"/>
-    <node id="bottom1" x="200.00" y="0.00" type="priority"/>
-    <node id="left0" x="0.00" y="100.00" type="priority"/>
-    <node id="left1" x="0.00" y="200.00" type="priority"/>
-    <node id="right0" x="300.00" y="100.00" type="priority"/>
-    <node id="right1" x="300.00" y="200.00" type="priority"/>
-    <node id="top0" x="100.00" y="300.00" type="priority"/>
-    <node id="top1" x="200.00" y="300.00" type="priority"/>
+    <node id="bottom0" x="100.00" y="0.00" type="priority" fringe="outer"/>
+    <node id="bottom1" x="200.00" y="0.00" type="priority" fringe="outer"/>
+    <node id="left0" x="0.00" y="100.00" type="priority" fringe="outer"/>
+    <node id="left1" x="0.00" y="200.00" type="priority" fringe="outer"/>
+    <node id="right0" x="300.00" y="100.00" type="priority" fringe="outer"/>
+    <node id="right1" x="300.00" y="200.00" type="priority" fringe="outer"/>
+    <node id="top0" x="100.00" y="300.00" type="priority" fringe="outer"/>
+    <node id="top1" x="200.00" y="300.00" type="priority" fringe="outer"/>
 </nodes>

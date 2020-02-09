@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Feb  9 14:50:33 2020 by Eclipse SUMO netconvert Version v1_4_0+0980-21032e852d
+<!-- generated on Sun Feb  9 15:08:15 2020 by Eclipse SUMO netconvert Version v1_4_0+0980-21032e852d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -188,28 +188,28 @@ SPDX-License-Identifier: EPL-2.0
         <request index="11" response="0000000000000" foes="0001101000110"/>
         <request index="12" response="0000000111000" foes="0001100111110"/>
     </junction>
-    <junction id="bottom0" type="priority" x="100.00" y="0.00" incLanes="A0bottom0_0 A0bottom0_1" intLanes="" shape="100.00,0.00 93.60,0.00 100.00,0.00">
+    <junction id="bottom0" type="priority" x="100.00" y="0.00" incLanes="A0bottom0_0 A0bottom0_1" intLanes="" shape="100.00,0.00 93.60,0.00 100.00,0.00" fringe="outer">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="bottom1" type="priority" x="200.00" y="0.00" incLanes="B0bottom1_0" intLanes="" shape="200.00,0.00 196.80,0.00 200.00,0.00">
+    <junction id="bottom1" type="priority" x="200.00" y="0.00" incLanes="B0bottom1_0" intLanes="" shape="200.00,0.00 196.80,0.00 200.00,0.00" fringe="outer">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="left0" type="priority" x="0.00" y="100.00" incLanes="A0left0_0" intLanes="" shape="0.00,100.00 0.00,103.20 0.00,100.00">
+    <junction id="left0" type="priority" x="0.00" y="100.00" incLanes="A0left0_0" intLanes="" shape="0.00,100.00 0.00,103.20 0.00,100.00" fringe="outer">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="left1" type="priority" x="0.00" y="200.00" incLanes="A1left1_0 A1left1_1" intLanes="" shape="0.00,200.00 0.00,206.40 0.00,200.00">
+    <junction id="left1" type="priority" x="0.00" y="200.00" incLanes="A1left1_0 A1left1_1" intLanes="" shape="0.00,200.00 0.00,206.40 0.00,200.00" fringe="outer">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="right0" type="priority" x="300.00" y="100.00" incLanes="B0right0_0" intLanes="" shape="300.00,100.00 300.00,96.80 300.00,100.00">
+    <junction id="right0" type="priority" x="300.00" y="100.00" incLanes="B0right0_0" intLanes="" shape="300.00,100.00 300.00,96.80 300.00,100.00" fringe="outer">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="right1" type="priority" x="300.00" y="200.00" incLanes="B1right1_0 B1right1_1" intLanes="" shape="300.00,200.00 300.00,193.60 300.00,200.00">
+    <junction id="right1" type="priority" x="300.00" y="200.00" incLanes="B1right1_0 B1right1_1" intLanes="" shape="300.00,200.00 300.00,193.60 300.00,200.00" fringe="outer">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="top0" type="priority" x="100.00" y="300.00" incLanes="A1top0_0" intLanes="" shape="100.00,300.00 103.20,300.00 100.00,300.00">
+    <junction id="top0" type="priority" x="100.00" y="300.00" incLanes="A1top0_0" intLanes="" shape="100.00,300.00 103.20,300.00 100.00,300.00" fringe="outer">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="top1" type="priority" x="200.00" y="300.00" incLanes="B1top1_0" intLanes="" shape="200.00,300.00 203.20,300.00 200.00,300.00">
+    <junction id="top1" type="priority" x="200.00" y="300.00" incLanes="B1top1_0" intLanes="" shape="200.00,300.00 203.20,300.00 200.00,300.00" fringe="outer">
         <request index="0" response="0" foes="0"/>
     </junction>
 
