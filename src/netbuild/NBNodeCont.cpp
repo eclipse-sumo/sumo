@@ -2334,5 +2334,58 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
     }
 }
 
+
+int
+NBNodeCont::guessFringe() {
+    NodeSet topRightFront;
+    NodeSet topLeftFront;
+    NodeSet bottomRightFront;
+    NodeSet bottomLeftFront;
+    for (const auto& item : myNodes) {
+        paretoCheck(item.second, topRightFront, 1, 1);
+        paretoCheck(item.second, topLeftFront, -1, 1);
+        paretoCheck(item.second, bottomRightFront, 1, -1);
+        paretoCheck(item.second, bottomLeftFront, -1, -1);
+    }
+    NodeSet front;
+    front.insert(topRightFront.begin(), topRightFront.end());
+    front.insert(topLeftFront.begin(), topLeftFront.end());
+    front.insert(bottomRightFront.begin(), bottomRightFront.end());
+    front.insert(bottomLeftFront.begin(), bottomLeftFront.end());
+    int numFringe = 0;
+    for (NBNode* n : front) {
+        const int in = n->getIncomingEdges().size();
+        const int out = n->getOutgoingEdges().size();
+        if ((in <= 1 && out <= 1) &&
+                (in == 0 || out == 0
+                 || n->getIncomingEdges().front()->isTurningDirectionAt(n->getOutgoingEdges().front()))) {
+            n->setFringeType(FRINGE_TYPE_OUTER);
+            numFringe++;
+        }
+    }
+    return numFringe;
+}
+
+
+void
+NBNodeCont::paretoCheck(NBNode* node, NodeSet& frontier, int xSign, int ySign) {
+    const double x = node->getPosition().x() * xSign;
+    const double y = node->getPosition().y() * ySign;
+    std::vector<NBNode*> dominated;
+    for (NBNode* fn : frontier) {
+        const double x2 = fn->getPosition().x() * xSign;
+        const double y2 = fn->getPosition().y() * ySign;
+        if (x2 >= x && y2 >= y) {
+            return;
+        } else if (x2 <= x && y2 <= y) {
+            dominated.push_back(fn);
+        }
+    }
+    frontier.insert(node);
+    for (NBNode* r : dominated) {
+        frontier.erase(r);
+    }
+}
+
 /****************************************************************************/
 

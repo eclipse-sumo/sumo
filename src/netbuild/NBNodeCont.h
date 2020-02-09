@@ -337,6 +337,9 @@ public:
     /// @brief remap node IDs accoring to options --numerical-ids and --reserved-ids
     int remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix);
 
+    /// @brief guess and mark fringe nodes
+    int guessFringe();
+
 private:
 
     /// @name Helper methods for for joining nodes
@@ -372,6 +375,8 @@ private:
     bool customTLID(const NodeSet& c) const;
     /// @}
 
+    /// @brief update pareto frontier with the given node
+    void paretoCheck(NBNode* node, NodeSet& frontier, int xSign, int ySign);
 
 private:
     /// @brief The running internal id

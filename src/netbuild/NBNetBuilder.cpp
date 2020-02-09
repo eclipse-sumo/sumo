@@ -430,6 +430,15 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     myEdgeCont.sortOutgoingLanesConnections();
     PROGRESS_TIME_MESSAGE(before);
     //
+    if (oc.getBool("fringe.guess")) {
+        before = PROGRESS_BEGIN_TIME_MESSAGE("Guessing Network fringe");
+        const int numGuessed = myNodeCont.guessFringe();
+        if (numGuessed > 0) {
+            WRITE_MESSAGE(" Guessed " + toString(numGuessed) + " fringe nodes.");
+        }
+        PROGRESS_TIME_MESSAGE(before);
+    }
+    //
     before = PROGRESS_BEGIN_TIME_MESSAGE("Processing turnarounds");
     if (!oc.getBool("no-turnarounds")) {
         myEdgeCont.appendTurnarounds(
