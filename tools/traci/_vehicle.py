@@ -857,7 +857,7 @@ class VehicleDomain(Domain):
             9: 'blocked by left leader',
             10: 'blocked by left follower',
             11: 'blocked by right leader',
-            12: 'bloecked by right follower',
+            12: 'blocked by right follower',
             13: 'overlapping',
             14: 'insufficient space',
             15: 'sublane',
