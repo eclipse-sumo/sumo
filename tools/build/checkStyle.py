@@ -145,7 +145,6 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 license = EPL_HEADER.replace("2001", year)
                 newLicense = EPL_GPL_HEADER.replace("2001", year)
                 if "module" in lines[idx + 3]:
-                    end += 2
                     fileLicense = "".join(lines[idx:idx + 3]) + "".join(lines[idx + 5:end])
                 else:
                     fileLicense = "".join(lines[idx:end])
