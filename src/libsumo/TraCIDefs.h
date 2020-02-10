@@ -352,13 +352,13 @@ struct TraCIBestLanesData {
 
 class TraCIStage {
 public:
-    TraCIStage(int type=INVALID_INT_VALUE, const std::string& vType="", const std::string& line="", const std::string& destStop="",
-               const std::vector<std::string>& edges=std::vector<std::string>(),
-               double travelTime=INVALID_DOUBLE_VALUE, double cost=INVALID_DOUBLE_VALUE, double length=INVALID_DOUBLE_VALUE,
-               const std::string& intended="", double depart=INVALID_DOUBLE_VALUE, double departPos=INVALID_DOUBLE_VALUE,
-               double arrivalPos=INVALID_DOUBLE_VALUE, const std::string& description="") :
-               type(type), vType(vType), line(line), destStop(destStop), edges(edges), travelTime(travelTime), cost(cost),
-               length(length), intended(intended), depart(depart), departPos(departPos), arrivalPos(arrivalPos), description(description) {}
+    TraCIStage(int type = INVALID_INT_VALUE, const std::string& vType = "", const std::string& line = "", const std::string& destStop = "",
+               const std::vector<std::string>& edges = std::vector<std::string>(),
+               double travelTime = INVALID_DOUBLE_VALUE, double cost = INVALID_DOUBLE_VALUE, double length = INVALID_DOUBLE_VALUE,
+               const std::string& intended = "", double depart = INVALID_DOUBLE_VALUE, double departPos = INVALID_DOUBLE_VALUE,
+               double arrivalPos = INVALID_DOUBLE_VALUE, const std::string& description = "") :
+        type(type), vType(vType), line(line), destStop(destStop), edges(edges), travelTime(travelTime), cost(cost),
+        length(length), intended(intended), depart(depart), departPos(departPos), arrivalPos(arrivalPos), description(description) {}
     /// @brief The type of stage (walking, driving, ...)
     int type;
     /// @brief The vehicle type when using a private car or bike

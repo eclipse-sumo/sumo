@@ -2290,7 +2290,7 @@ GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector sel, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdToogleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
     // compute vehicle geometry
     for (const auto& vehicle : myNet->getAttributeCarriers().demandElements.at(SUMO_TAG_VEHICLE)) {

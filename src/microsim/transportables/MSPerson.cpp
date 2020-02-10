@@ -545,7 +545,7 @@ MSPerson::Influencer::postProcessRemoteControl(MSPerson* p) {
             MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
             assert(s != nullptr);
             s->getState()->moveToXY(p, myRemoteXYPos, myRemoteLane, myRemotePos, myRemotePosLat, myRemoteAngle, myRemoteEdgeOffset, myRemoteRoute,
-                                              MSNet::getInstance()->getCurrentTimeStep());
+                                    MSNet::getInstance()->getCurrentTimeStep());
         }
         break;
         default:

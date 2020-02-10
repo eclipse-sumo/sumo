@@ -148,7 +148,9 @@ public:
 
                This, however, still generates an ugly warning in VS2017. Go figure ...
             */
-            std::transform(eclower.begin(), eclower.end(), eclower.begin(), [](unsigned char c) { return std::tolower(c); });
+            std::transform(eclower.begin(), eclower.end(), eclower.begin(), [](unsigned char c) {
+                return std::tolower(c);
+            });
             return myEmissionClassStrings.get(eclower);
         }
 

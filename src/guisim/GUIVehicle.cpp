@@ -182,9 +182,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     }
     if (isElecHybrid) {
         ret->mkItem("actual state of charge [Wh]", true,
-            new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getStateOfCharge));
+                    new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getStateOfCharge));
         ret->mkItem("actual electric current [A]", true,
-            new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getElecHybridCurrent));
+                    new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getElecHybridCurrent));
     }
     ret->closeBuilding(&getParameter());
     return ret;

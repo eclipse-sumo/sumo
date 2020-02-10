@@ -92,7 +92,7 @@ public:
     static void writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicCont& tllCont);
 
     /// @brief writes a single traffic light logic to the given device
-    static void writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* logic); 
+    static void writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* logic);
 
     /** @brief Writes roundabouts
      * @param[in] into The device to write the edge into

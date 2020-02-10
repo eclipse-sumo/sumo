@@ -167,11 +167,10 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
 
     if (P > 0) {
         // Assumption: Efficiency of myPropulsionEfficiency when accelerating
-        Prest = P*3600 * param->find(SUMO_ATTR_PROPULSIONEFFICIENCY)->second;
-    }
-    else {
+        Prest = P * 3600 * param->find(SUMO_ATTR_PROPULSIONEFFICIENCY)->second;
+    } else {
         // Assumption: Efficiency of myRecuperationEfficiency when recuperating
-        Prest = P*3600 / param->find(SUMO_ATTR_RECUPERATIONEFFICIENCY)->second;
+        Prest = P * 3600 / param->find(SUMO_ATTR_RECUPERATIONEFFICIENCY)->second;
     }
 
     // calculate power drop due to a potential energy difference
@@ -211,19 +210,19 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
     // Prest = const1*a + const2*a^2 + const3*a^3
     // solve cubic equation in a
 
-    std::tie(numX, x1, x2, x3) = PolySolver::cubicSolve(const3,const2,const1,-Prest);
-    
+    std::tie(numX, x1, x2, x3) = PolySolver::cubicSolve(const3, const2, const1, -Prest);
+
 
     switch (numX) {
-    case 1:
-        return x1;
-    case 2:
-        return MAX2(x1, x2);
-    case 3:
-        return MAX3(x1, x2, x3);
-    default: 
-        WRITE_ERROR("An acceleration given by the power was not found.");
-        return 0;
+        case 1:
+            return x1;
+        case 2:
+            return MAX2(x1, x2);
+        case 3:
+            return MAX3(x1, x2, x3);
+        default:
+            WRITE_ERROR("An acceleration given by the power was not found.");
+            return 0;
     }
 
 }

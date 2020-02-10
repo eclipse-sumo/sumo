@@ -736,9 +736,8 @@ MSNet::writeOutput() {
         if (oc.getBool("elechybrid-output.aggregated")) {
             //build an aggregated xml files
             MSElecHybridExport::writeAggregated(OutputDevice::getDeviceByOption("elechybrid-output"), myStep,
-                oc.getInt("elechybrid-output.precision"));
-        }
-        else {
+                                                oc.getInt("elechybrid-output.precision"));
+        } else {
             // @TODORICE a necessity of placing here in MSNet.cpp ?
             MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
             for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {

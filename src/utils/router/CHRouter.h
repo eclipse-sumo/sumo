@@ -239,9 +239,9 @@ public:
     /** @brief Cloning constructor, should be used only for time independent instances which build a hierarchy only once
      */
     CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation,
-        const SUMOVehicleClass svc,
-        const typename CHBuilder<E, V>::Hierarchy* hierarchy,
-        const bool havePermissions, const bool haveRestrictions) :
+             const SUMOVehicleClass svc,
+             const typename CHBuilder<E, V>::Hierarchy* hierarchy,
+             const bool havePermissions, const bool haveRestrictions) :
         SUMOAbstractRouter<E, V>("CHRouterClone", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
         myEdges(edges),
         myForwardSearch(edges, true),
@@ -266,10 +266,10 @@ public:
         if (myWeightPeriod == SUMOTime_MAX) {
             // we only need one hierarchy
             return new CHRouter<E, V>(myEdges, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
-                mySVC, myHierarchy, this->myHavePermissions, this->myHaveRestrictions);
+                                      mySVC, myHierarchy, this->myHavePermissions, this->myHaveRestrictions);
         }
         return new CHRouter<E, V>(myEdges, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
-            mySVC, myWeightPeriod, this->myHavePermissions, this->myHaveRestrictions);
+                                  mySVC, myWeightPeriod, this->myHavePermissions, this->myHaveRestrictions);
     }
 
     /** @brief Builds the route between the given edges using the minimum traveltime in the contracted graph

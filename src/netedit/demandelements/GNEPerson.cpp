@@ -325,7 +325,7 @@ GNEPerson::updateGeometry() {
     }
 }
 
-void 
+void
 GNEPerson::updateDottedContour() {
     //
 }

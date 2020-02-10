@@ -193,7 +193,7 @@ GNEPoly::updateGeometry() {
 }
 
 
-void 
+void
 GNEPoly::updateDottedContour() {
     if (myShape.isClosed()) {
         myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myShape);

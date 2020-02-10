@@ -43,7 +43,7 @@ public:
      *
      * @param[in] a The coefficient of the quadratic term x^2
      * @param[in] b The coefficient of the linear term x
-     * @param[in] c The coefficient of the constant term 
+     * @param[in] c The coefficient of the constant term
      * @return The number of real roots and these real roots
      */
     static std::tuple<int, double, double> quadraticSolve(double a, double b, double c);

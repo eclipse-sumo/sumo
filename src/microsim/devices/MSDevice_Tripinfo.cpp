@@ -60,15 +60,15 @@ int MSDevice_Tripinfo::myWalkCount(0);
 double MSDevice_Tripinfo::myTotalWalkRouteLength(0);
 SUMOTime MSDevice_Tripinfo::myTotalWalkDuration(0);
 SUMOTime MSDevice_Tripinfo::myTotalWalkTimeLoss(0);
-std::vector<int> MSDevice_Tripinfo::myRideCount({0,0});
-std::vector<int> MSDevice_Tripinfo::myRideBusCount({0,0});
-std::vector<int> MSDevice_Tripinfo::myRideRailCount({0,0});
-std::vector<int> MSDevice_Tripinfo::myRideTaxiCount({0,0});
-std::vector<int> MSDevice_Tripinfo::myRideBikeCount({0,0});
-std::vector<int> MSDevice_Tripinfo::myRideAbortCount({0,0});
-std::vector<double> MSDevice_Tripinfo::myTotalRideWaitingTime({0.,0.});
-std::vector<double> MSDevice_Tripinfo::myTotalRideRouteLength({0.,0.});
-std::vector<SUMOTime> MSDevice_Tripinfo::myTotalRideDuration({0,0});
+std::vector<int> MSDevice_Tripinfo::myRideCount({0, 0});
+std::vector<int> MSDevice_Tripinfo::myRideBusCount({0, 0});
+std::vector<int> MSDevice_Tripinfo::myRideRailCount({0, 0});
+std::vector<int> MSDevice_Tripinfo::myRideTaxiCount({0, 0});
+std::vector<int> MSDevice_Tripinfo::myRideBikeCount({0, 0});
+std::vector<int> MSDevice_Tripinfo::myRideAbortCount({0, 0});
+std::vector<double> MSDevice_Tripinfo::myTotalRideWaitingTime({0., 0.});
+std::vector<double> MSDevice_Tripinfo::myTotalRideRouteLength({0., 0.});
+std::vector<SUMOTime> MSDevice_Tripinfo::myTotalRideDuration({0, 0});
 
 // ===========================================================================
 // method definitions
@@ -139,15 +139,15 @@ MSDevice_Tripinfo::cleanup() {
     myTotalWalkDuration = 0;
     myTotalWalkTimeLoss = 0;
 
-    myRideCount = {0,0};
-    myRideBusCount = {0,0};
-    myRideRailCount = {0,0};
-    myRideTaxiCount = {0,0};
-    myRideBikeCount = {0,0};
-    myRideAbortCount = {0,0};
-    myTotalRideWaitingTime = {0.,0.};
-    myTotalRideRouteLength = {0.,0.};
-    myTotalRideDuration = {0,0};
+    myRideCount = {0, 0};
+    myRideBusCount = {0, 0};
+    myRideRailCount = {0, 0};
+    myRideTaxiCount = {0, 0};
+    myRideBikeCount = {0, 0};
+    myRideAbortCount = {0, 0};
+    myTotalRideWaitingTime = {0., 0.};
+    myTotalRideRouteLength = {0., 0.};
+    myTotalRideDuration = {0, 0};
 }
 
 bool
@@ -301,7 +301,7 @@ void
 MSDevice_Tripinfo::generateOutputForUnfinished() {
     MSNet* net = MSNet::getInstance();
     OutputDevice* tripinfoOut = (OptionsCont::getOptions().isSet("tripinfo-output") ?
-        &OutputDevice::getDeviceByOption("tripinfo-output") : nullptr);
+                                 &OutputDevice::getDeviceByOption("tripinfo-output") : nullptr);
     myWaitingDepartDelay = 0;
     int undeparted = 0;
     int departed = 0;

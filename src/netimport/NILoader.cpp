@@ -152,17 +152,17 @@ bool
 NILoader::loadXML(OptionsCont& oc) {
     // load nodes
     bool ok = NITypeLoader::load(new NIXMLNodesHandler(myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
-                       myNetBuilder.getTLLogicCont(), oc),
-                       oc.getStringVector("node-files"), "nodes");
+                                 myNetBuilder.getTLLogicCont(), oc),
+                                 oc.getStringVector("node-files"), "nodes");
     // load the edges
     if (ok) {
         ok = NITypeLoader::load(new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
-                       myNetBuilder.getEdgeCont(),
-                       myNetBuilder.getTypeCont(),
-                       myNetBuilder.getDistrictCont(),
-                       myNetBuilder.getTLLogicCont(),
-                       oc),
-                       oc.getStringVector("edge-files"), "edges");
+                                myNetBuilder.getEdgeCont(),
+                                myNetBuilder.getTypeCont(),
+                                myNetBuilder.getDistrictCont(),
+                                myNetBuilder.getTLLogicCont(),
+                                oc),
+                                oc.getStringVector("edge-files"), "edges");
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input edge files.");
@@ -170,41 +170,41 @@ NILoader::loadXML(OptionsCont& oc) {
     // load the connections
     if (ok) {
         ok = NITypeLoader::load(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont(),
-                    myNetBuilder.getNodeCont(),
-                    myNetBuilder.getTLLogicCont()),
-                oc.getStringVector("connection-files"), "connections");
+                                myNetBuilder.getNodeCont(),
+                                myNetBuilder.getTLLogicCont()),
+                                oc.getStringVector("connection-files"), "connections");
     }
     // load traffic lights (needs to come last, references loaded edges and connections)
     if (ok) {
         ok = NITypeLoader::load(new NIXMLTrafficLightsHandler(
-                    myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont()),
-                oc.getStringVector("tllogic-files"), "traffic lights");
+                                    myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont()),
+                                oc.getStringVector("tllogic-files"), "traffic lights");
     }
 
     // load public transport stops (used for restricting edge removal and as input when repairing railroad topology)
     if (ok && oc.exists("ptstop-files")) {
         ok = NITypeLoader::load(new NIXMLPTHandler(
-                               myNetBuilder.getEdgeCont(),
-                               myNetBuilder.getPTStopCont(),
-                               myNetBuilder.getPTLineCont()),
-                           oc.getStringVector("ptstop-files"), "public transport stops");
+                                    myNetBuilder.getEdgeCont(),
+                                    myNetBuilder.getPTStopCont(),
+                                    myNetBuilder.getPTLineCont()),
+                                oc.getStringVector("ptstop-files"), "public transport stops");
     }
 
     // load public transport lines (used as input when repairing railroad topology)
     if (ok && oc.exists("ptline-files")) {
         ok = NITypeLoader::load(new NIXMLPTHandler(
-                               myNetBuilder.getEdgeCont(),
-                               myNetBuilder.getPTStopCont(),
-                               myNetBuilder.getPTLineCont()),
-                           oc.getStringVector("ptline-files"), "public transport lines");
+                                    myNetBuilder.getEdgeCont(),
+                                    myNetBuilder.getPTStopCont(),
+                                    myNetBuilder.getPTLineCont()),
+                                oc.getStringVector("ptline-files"), "public transport lines");
     }
 
     // load shapes for output formats that embed shape data
     if (ok && oc.exists("polygon-files")) {
         ok = NITypeLoader::load(new NIXMLShapeHandler(
-                    myNetBuilder.getShapeCont(),
-                    myNetBuilder.getEdgeCont()),
-                oc.getStringVector("polygon-files"), "polygon data");
+                                    myNetBuilder.getShapeCont(),
+                                    myNetBuilder.getEdgeCont()),
+                                oc.getStringVector("polygon-files"), "polygon data");
     }
     return ok;
 }

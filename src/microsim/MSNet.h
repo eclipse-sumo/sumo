@@ -264,7 +264,7 @@ public:
      *
      * @param[in] start The step the simulation was started with
      */
-    void closeSimulation(SUMOTime start, const std::string& reason="");
+    void closeSimulation(SUMOTime start, const std::string& reason = "");
 
 
     /** @brief This method returns the current simulation state. It should not modify status.
@@ -841,8 +841,8 @@ protected:
     /// @brief Dictionary of bus / container stops
     std::map<SumoXMLTag, NamedObjectCont<MSStoppingPlace*> > myStoppingPlaces;
 
-	/// @brief Dictionary of traction substations
-	std::vector<MSTractionSubstation*> myTractionSubstations;
+    /// @brief Dictionary of traction substations
+    std::vector<MSTractionSubstation*> myTractionSubstations;
 
     /// @brief Container for vehicle state listener
     std::vector<VehicleStateListener*> myVehicleStateListeners;

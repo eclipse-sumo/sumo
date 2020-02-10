@@ -38,18 +38,18 @@ Element::Element(string name, ElementType type, double value) {
     this->voltage = 0;
     this->powerWanted = NAN;
     switch (type) {
-    case CURRENT_SOURCE_traction_wire:
-        this->current = value;
-        break;
-    case VOLTAGE_SOURCE_traction_wire:
-        this->voltage = value;
-        break;
-    case RESISTOR_traction_wire:
-        this->resistance = value;
-        break;
-    default:
-        cout << "ERROR: TYPE UNDEFINED.\n";
-        break;
+        case CURRENT_SOURCE_traction_wire:
+            this->current = value;
+            break;
+        case VOLTAGE_SOURCE_traction_wire:
+            this->voltage = value;
+            break;
+        case RESISTOR_traction_wire:
+            this->resistance = value;
+            break;
+        default:
+            cout << "ERROR: TYPE UNDEFINED.\n";
+            break;
     }
     this->pNode = nullptr;
     this->nNode = nullptr;
@@ -64,8 +64,7 @@ void Element::setCurrent(double currentIn) {
 void Element::setResistance(double resistanceIn) {
     if (resistanceIn <= 1e-6) {
         this->resistance = 1e-6;
-    }
-    else {
+    } else {
         this->resistance = resistanceIn;
     }
 }
@@ -73,20 +72,26 @@ void Element::setPowerWanted(double powerWantedIn) {
     this->powerWanted = powerWantedIn;
 }
 double Element::getVoltage() {
-    if (this->isenabled == false) return DBL_MAX;
-    if (getType() == Element::ElementType::VOLTAGE_SOURCE_traction_wire) return voltage;
+    if (this->isenabled == false) {
+        return DBL_MAX;
+    }
+    if (getType() == Element::ElementType::VOLTAGE_SOURCE_traction_wire) {
+        return voltage;
+    }
     return this->pNode->getVoltage() - this->nNode->getVoltage();
 }
 double Element::getCurrent() {
-    if (this->isenabled == false) return DBL_MAX;
+    if (this->isenabled == false) {
+        return DBL_MAX;
+    }
     switch (this->type) {
-    case Element::ElementType::RESISTOR_traction_wire:
-        return -1 * getVoltage() / resistance;
-    case Element::ElementType::CURRENT_SOURCE_traction_wire:
-    case Element::ElementType::VOLTAGE_SOURCE_traction_wire:
-        return current;
-    default:
-        return 0;
+        case Element::ElementType::RESISTOR_traction_wire:
+            return -1 * getVoltage() / resistance;
+        case Element::ElementType::CURRENT_SOURCE_traction_wire:
+        case Element::ElementType::VOLTAGE_SOURCE_traction_wire:
+            return current;
+        default:
+            return 0;
     }
 }
 double Element::getResistance() {
@@ -96,7 +101,7 @@ double Element::getPowerWanted() {
     return 	this->powerWanted;
 }
 double Element::getPower() {
-    return 	-1 * getCurrent()*getVoltage();
+    return 	-1 * getCurrent() * getVoltage();
 }
 int Element::getId() {
 
@@ -129,13 +134,13 @@ void Element::setId(int newId) {
 
 // if node == pNode, return nNode, else if node == nNode return pNode, else return nullptr
 Node* Element::getTheOtherNode(Node* node) {
-    if (node == pNode)
+    if (node == pNode) {
         return nNode;
-    else
-        if (node == nNode)
-            return pNode;
-        else
-            return nullptr;
+    } else if (node == nNode) {
+        return pNode;
+    } else {
+        return nullptr;
+    }
 }
 
 bool Element::isEnabled() {

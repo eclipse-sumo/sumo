@@ -82,9 +82,9 @@ GNEChargingStation::updateGeometry() {
 }
 
 
-void 
+void
 GNEChargingStation::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(),
                                           myAdditionalGeometry.getShape(),
                                           myViewNet->getVisualisationSettings().stoppingPlaceSettings.chargingStationWidth);
 }

@@ -73,7 +73,7 @@ GNETAZSourceSink::updateGeometry() {
     // This additional doesn't own a geometry
 }
 
-void 
+void
 GNETAZSourceSink::updateDottedContour() {
     // This additional doesn't own a dotted contour
 }

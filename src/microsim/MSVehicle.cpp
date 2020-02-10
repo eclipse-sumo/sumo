@@ -2056,8 +2056,8 @@ MSVehicle::processNextStop(double currentVelocity) {
                         MSNet::getInstance()->getInsertionControl().add(splitVeh);
                         splitVeh->getRoute().getEdges()[0]->removeWaiting(splitVeh);
                         MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(false);
-                        const double newLength = MAX2( myType->getLength() - splitVeh->getVehicleType().getLength(),
-                                myType->getParameter().locomotiveLength);
+                        const double newLength = MAX2(myType->getLength() - splitVeh->getVehicleType().getLength(),
+                                                      myType->getParameter().locomotiveLength);
                         getSingularType().setLength(newLength);
                     }
                 }
@@ -2380,7 +2380,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
 #endif
             PersonDist leader = lane->nextBlocking(relativePos,
-                                getRightSideOnLane(), getRightSideOnLane() + getVehicleType().getWidth(), ceil(getSpeed() / cfModel.getMaxDecel()));
+                                                   getRightSideOnLane(), getRightSideOnLane() + getVehicleType().getWidth(), ceil(getSpeed() / cfModel.getMaxDecel()));
             if (leader.first != 0) {
                 const double stopSpeed = cfModel.stopSpeed(this, getSpeed(), leader.second - getVehicleType().getMinGap());
                 v = MIN2(v, stopSpeed);
@@ -3882,7 +3882,7 @@ MSVehicle::executeMove() {
     MSDevice_ElecHybrid* elecHybridOfVehicle = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
     if (elecHybridOfVehicle != nullptr) {
         elecHybridOfVehicle->setConsum(elecHybridOfVehicle->consumption(*this, (vNext - this->getSpeed()) / TS, vNext));
-        double maxPower = elecHybridOfVehicle->getParameterDouble(toString(SUMO_ATTR_MAXIMUMPOWER))/3600;
+        double maxPower = elecHybridOfVehicle->getParameterDouble(toString(SUMO_ATTR_MAXIMUMPOWER)) / 3600;
         if (elecHybridOfVehicle->getConsum() > maxPower) {
             double accel = elecHybridOfVehicle->acceleration(*this, maxPower, this->getSpeed());
             vNext = MIN2(vNext, this->getSpeed() + accel * TS);
@@ -5101,8 +5101,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             if (overheadWireID != "") {
                 for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j, ++index) {
                     (*j).bestLaneOffset = bestThisIndex - index;
-        }
-    }
+                }
+            }
         }
     }
     updateOccupancyAndCurrentBestLane(startLane);
@@ -5427,8 +5427,7 @@ MSVehicle::getStateOfCharge() const {
     if (static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery))) != 0) {
         MSDevice_Battery* batteryOfVehicle = dynamic_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery)));
         return batteryOfVehicle->getActualBatteryCapacity();
-    }
-    else {
+    } else {
         if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
             MSDevice_ElecHybrid* batteryOfVehicle = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
             return batteryOfVehicle->getActualBatteryCapacity();
@@ -6151,7 +6150,7 @@ MSVehicle::abortNextStop() {
         } else {
             myStops.erase(myStops.begin());
         }
-    } 
+    }
 }
 
 std::list<MSVehicle::Stop>

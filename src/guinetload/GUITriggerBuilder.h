@@ -174,7 +174,7 @@ protected:
     * @exception InvalidArgument If the overhead wire segment can not be added to the net (is duplicate according to the id)
     */
     virtual void buildOverheadWireSegment(MSNet& net, const std::string& id, MSLane* lane,
-        double frompos, double topos, bool voltageSource);
+                                          double frompos, double topos, bool voltageSource);
 
     /** @brief Builds an overhead wire clamp
     *

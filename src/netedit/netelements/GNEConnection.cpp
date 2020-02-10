@@ -119,14 +119,14 @@ GNEConnection::updateGeometry() {
             } else {
                 // Calculate shape so something can be drawn immidiately
                 myConnectionGeometry.updateGeometry(getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
-                            laneShapeFrom, laneShapeTo, NUM_POINTS,
-                            getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
-                            (double) 5. * (double) getEdgeFrom()->getNBEdge()->getNumLanes(),
-                            (double) 5. * (double) nbCon.toEdge->getNumLanes()));
+                                                        laneShapeFrom, laneShapeTo, NUM_POINTS,
+                                                        getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
+                                                        (double) 5. * (double) getEdgeFrom()->getNBEdge()->getNumLanes(),
+                                                        (double) 5. * (double) nbCon.toEdge->getNumLanes()));
             }
         } else {
             myConnectionGeometry.updateGeometry({laneShapeFrom.positionAtOffset(MAX2(0.0, laneShapeFrom.length() - 1)),
-                    laneShapeTo.positionAtOffset(MIN2(1.0, laneShapeFrom.length()))});
+                                                 laneShapeTo.positionAtOffset(MIN2(1.0, laneShapeFrom.length()))});
         }
         // check if internal junction marker must be calculated
         if (nbCon.haveVia && (nbCon.shape.size() != 0)) {
@@ -655,7 +655,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEConnection::updateDottedContour() {
     // build contour using connection geometry
     PositionVector contourFront = myConnectionGeometry.getShape();
@@ -666,7 +666,7 @@ GNEConnection::updateDottedContour() {
     // reverse contourback
     contourback = contourback.reverse();
     // add contour back to contourfront
-    for (const auto &position : contourback) {
+    for (const auto& position : contourback) {
         contourFront.push_back(position);
     }
     // close contour front

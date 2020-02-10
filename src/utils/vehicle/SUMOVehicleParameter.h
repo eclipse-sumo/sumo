@@ -573,7 +573,7 @@ public:
     static bool parsePersonModes(const std::string& modes, const std::string& element, const std::string& id, SVCPermissions& modeSet, std::string& error);
 
     /// @brief parses stop trigger values
-    static void parseStopTriggers(const std::vector<std::string>& triggers, bool expectTrigger, Stop& stop); 
+    static void parseStopTriggers(const std::vector<std::string>& triggers, bool expectTrigger, Stop& stop);
 
     /// @brief The vehicle tag
     SumoXMLTag tag;

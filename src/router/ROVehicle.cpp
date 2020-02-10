@@ -280,8 +280,8 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
         if (getParameter().via.size() > 0) {
             std::vector<std::string> viaOut;
             SumoXMLAttr viaAttr = (writeGeoTrip
-                ? (GeoConvHelper::getFinal().usingGeoProjection() ? SUMO_ATTR_VIALONLAT : SUMO_ATTR_VIAXY)
-                : (writeJunctions ? SUMO_ATTR_VIAJUNCTIONS : SUMO_ATTR_VIA));
+                                   ? (GeoConvHelper::getFinal().usingGeoProjection() ? SUMO_ATTR_VIALONLAT : SUMO_ATTR_VIAXY)
+                                   : (writeJunctions ? SUMO_ATTR_VIAJUNCTIONS : SUMO_ATTR_VIA));
             for (const std::string& viaID : getParameter().via) {
                 const ROEdge* viaEdge = RONet::getInstance()->getEdge(viaID);
                 if (viaEdge->isTazConnector()) {

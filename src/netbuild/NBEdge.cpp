@@ -2009,11 +2009,11 @@ NBEdge::computeAngle() {
 
     // if the junction shape is suspicious we cannot trust the angle to the centroid
     const bool suspiciousFromShape = hasFromShape && (myFrom->getShape().distance2D(shape[0]) > 2 * POSITION_EPS
-                         || myFrom->getShape().around(shape[-1])
-                         || !(myFrom->getShape().around(fromCenter)));
+                                     || myFrom->getShape().around(shape[-1])
+                                     || !(myFrom->getShape().around(fromCenter)));
     const bool suspiciousToShape = hasToShape && (myTo->getShape().distance2D(shape[-1]) > 2 * POSITION_EPS
-                       || myTo->getShape().around(shape[0])
-                       || !(myTo->getShape().around(toCenter)));
+                                   || myTo->getShape().around(shape[0])
+                                   || !(myTo->getShape().around(toCenter)));
 
     const double angleLookahead = MIN2(shape.length2D() / 2, ANGLE_LOOKAHEAD);
     const Position referencePosStart = shape.positionAtOffset2D(angleLookahead);
@@ -2030,19 +2030,19 @@ NBEdge::computeAngle() {
     if (DEBUGCOND) {
         if (suspiciousFromShape) {
             std::cout << "  len=" << shape.length() << " startA=" << myStartAngle << " startA2=" << myStartAngle2 << " startA3=" << myStartAngle3
-                << " rel=" << NBHelpers::normRelAngle(myStartAngle, myStartAngle2)
-                << " fromCenter=" << fromCenter
-                << " fromPos=" << myFrom->getPosition()
-                << " refStart=" << referencePosStart
-                << "\n";
+                      << " rel=" << NBHelpers::normRelAngle(myStartAngle, myStartAngle2)
+                      << " fromCenter=" << fromCenter
+                      << " fromPos=" << myFrom->getPosition()
+                      << " refStart=" << referencePosStart
+                      << "\n";
         }
         if (suspiciousToShape) {
             std::cout << " len=" << shape.length() << "  endA=" << myEndAngle << " endA2=" << myEndAngle2 << " endA3=" << myEndAngle3
-                << " rel=" << NBHelpers::normRelAngle(myEndAngle, myEndAngle2)
-                << " toCenter=" << toCenter
-                << " toPos=" << myTo->getPosition()
-                << " refEnd=" << referencePosEnd
-                << "\n";
+                      << " rel=" << NBHelpers::normRelAngle(myEndAngle, myEndAngle2)
+                      << " toCenter=" << toCenter
+                      << " toPos=" << myTo->getPosition()
+                      << " refEnd=" << referencePosEnd
+                      << "\n";
         }
     }
 #endif
@@ -2050,8 +2050,8 @@ NBEdge::computeAngle() {
     if (suspiciousFromShape && shape.length() > 1) {
         myStartAngle = myStartAngle2;
     } else if (suspiciousToShape && fabs(NBHelpers::normRelAngle(myStartAngle, myStartAngle3)) > 90
-            // don't trust footpath angles
-            && (getPermissions() & ~SVC_PEDESTRIAN) != 0) {
+               // don't trust footpath angles
+               && (getPermissions() & ~SVC_PEDESTRIAN) != 0) {
         myStartAngle = myStartAngle3;
         if (myStartAngle < 0) {
             myStartAngle += 360;
@@ -2061,8 +2061,8 @@ NBEdge::computeAngle() {
     if (suspiciousToShape && shape.length() > 1) {
         myEndAngle = myEndAngle2;
     } else if (suspiciousToShape && fabs(NBHelpers::normRelAngle(myEndAngle, myEndAngle3)) > 90
-            // don't trust footpath angles
-            && (getPermissions() & ~SVC_PEDESTRIAN) != 0) {
+               // don't trust footpath angles
+               && (getPermissions() & ~SVC_PEDESTRIAN) != 0) {
         myEndAngle = myEndAngle3;
         if (myEndAngle < 0) {
             myEndAngle += 360;
@@ -2072,13 +2072,13 @@ NBEdge::computeAngle() {
     myTotalAngle = GeomHelper::legacyDegree(myFrom->getPosition().angleTo2D(myTo->getPosition()), true);
 #ifdef DEBUG_ANGLES
     if (DEBUGCOND) std::cout << "computeAngle edge=" << getID()
-                             << " fromCenter=" << fromCenter << " toCenter=" << toCenter
-                             << " refStart=" << referencePosStart << " refEnd=" << referencePosEnd << " shape=" << shape
-                             << " hasFromShape=" << hasFromShape
-                             << " hasToShape=" << hasToShape
-                             << " numLanes=" << getNumLanes()
-                             << " shapeLane=" << getNumLanes() / 2
-                             << " startA=" << myStartAngle << " endA=" << myEndAngle << " totA=" << myTotalAngle << "\n";
+                                 << " fromCenter=" << fromCenter << " toCenter=" << toCenter
+                                 << " refStart=" << referencePosStart << " refEnd=" << referencePosEnd << " shape=" << shape
+                                 << " hasFromShape=" << hasFromShape
+                                 << " hasToShape=" << hasToShape
+                                 << " numLanes=" << getNumLanes()
+                                 << " shapeLane=" << getNumLanes() / 2
+                                 << " startA=" << myStartAngle << " endA=" << myEndAngle << " totA=" << myTotalAngle << "\n";
 #endif
 }
 
@@ -3630,7 +3630,7 @@ NBEdge::getSignalOffset() const {
         return UNSPECIFIED_SIGNAL_OFFSET;
     } else {
         Position laneEnd = myLaneSpreadFunction == LANESPREAD_RIGHT ?
-            myLanes.back().shape.back() : myLanes[getNumLanes() / 2].shape.back();
+                           myLanes.back().shape.back() : myLanes[getNumLanes() / 2].shape.back();
         //std::cout << getID() << " signalPos=" << mySignalPosition << " laneEnd=" << laneEnd << " toShape=" << myTo->getShape() << " toBorder=" << myToBorder << "\n";
         return mySignalPosition.distanceTo2D(laneEnd);
     }

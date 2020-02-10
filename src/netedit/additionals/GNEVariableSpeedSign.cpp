@@ -68,7 +68,7 @@ GNEVariableSpeedSign::updateGeometry() {
 }
 
 
-void 
+void
 GNEVariableSpeedSign::updateDottedContour() {
     myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myPosition, 0,
                                           myViewNet->getVisualisationSettings().additionalSettings.VSSSize,

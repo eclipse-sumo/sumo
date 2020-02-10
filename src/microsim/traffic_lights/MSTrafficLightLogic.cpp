@@ -187,18 +187,18 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
             }
         }
     }
-    // check incompatible junction logic 
+    // check incompatible junction logic
     // this can happen if the network was built with a very different signal
     // plan from the one currently being used.
     // Cconnections that never had a common green phase during network building may
     // have a symmetric response relation to avoid certain kinds of jam but this
     // can lead to deadlock if a different program gives minor green to both
-    // connections at the same time 
+    // connections at the same time
     // Note: mutual conflict between 'g' and 'G' is expected for traffic_light_right_on_red
-    
+
     const bool mustCheck = MSNet::getInstance()->hasInternalLinks();
     // The checks only runs for definitions from additional file and this is sufficient.
-    // The distinction is implicit because original logics are loaded earlier and at that time hasInternalLinks is alwas false 
+    // The distinction is implicit because original logics are loaded earlier and at that time hasInternalLinks is alwas false
     // Also, when the network has no internal links, mutual conflicts are not built by netconvert
     //std::cout << "init tlLogic=" << getID() << " prog=" << getProgramID() << " links=" << myLinks.size() << " internal=" << MSNet::getInstance()->hasInternalLinks() << "\n";
     if (mustCheck && phases.size() > 0) {
@@ -245,9 +245,9 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                                         if (minor.find(p->getState()[tlu]) != std::string::npos
                                                 && minor.find(p->getState()[tlv]) != std::string::npos) {
                                             WRITE_ERROR("Program '" + getProgramID() + "' at tlLogic '" + getID() + "' is incompatible with logic at junction '" + junction->getID() + "'"
-                                                    + " (mututal conflict between link indices " + toString(u) + "," + toString(v) 
-                                                    + " tl indices " + toString(tlu) + "," + toString(tlv) + " phase " + toString(phaseIndex) + ")."
-                                                    + "\n       Rebuild the network with option '--tls.ignore-internal-junction-jam or include the program when building.");
+                                                        + " (mututal conflict between link indices " + toString(u) + "," + toString(v)
+                                                        + " tl indices " + toString(tlu) + "," + toString(tlv) + " phase " + toString(phaseIndex) + ")."
+                                                        + "\n       Rebuild the network with option '--tls.ignore-internal-junction-jam or include the program when building.");
                                             return;
                                         }
                                         phaseIndex++;

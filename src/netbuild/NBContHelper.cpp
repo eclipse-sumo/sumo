@@ -173,8 +173,8 @@ NBContHelper::relative_outgoing_edge_sorter::operator()(const NBEdge* e1, const 
 bool
 NBContHelper::relative_incoming_edge_sorter::operator()(const NBEdge* e1, const NBEdge* e2) const {
     assert(e1 != nullptr && e2 != nullptr);
-    double relAngle1 = NBHelpers::normRelAngle( myAngle, e1->getEndAngle());
-    double relAngle2 = NBHelpers::normRelAngle( myAngle, e2->getEndAngle());
+    double relAngle1 = NBHelpers::normRelAngle(myAngle, e1->getEndAngle());
+    double relAngle2 = NBHelpers::normRelAngle(myAngle, e2->getEndAngle());
     const double length1 = e1->getGeometry().length();
     const double length2 = e2->getGeometry().length();
 
@@ -276,7 +276,7 @@ NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter::operator()(const NBEdge
                 // @note relative_incoming_edge_sorter sorts connections in ccw order but we need cw ordering here
                 return !relative_incoming_edge_sorter(angle1)(e1, e2);
             }
-       } else {
+        } else {
             // sort incoming before outgoing, no need to break ties here
             return e1->getToNode() == myNode;
         }

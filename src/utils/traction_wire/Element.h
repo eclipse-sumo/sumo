@@ -42,7 +42,7 @@ class Node;
 
 class Element {
 
-public: 
+public:
     enum ElementType {
         RESISTOR_traction_wire,
         CURRENT_SOURCE_traction_wire,

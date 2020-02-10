@@ -99,7 +99,7 @@ public:
     const std::map<std::string, std::string>& getParametersMap() const;
 
     /// @brief Returns the inner key/value map in string format "key1=value1|key2=value2|...|keyN=valueN"
-    std::string getParametersStr(const std::string& kvsep="=", const std::string& sep="|") const;
+    std::string getParametersStr(const std::string& kvsep = "=", const std::string& sep = "|") const;
 
     /// @brief set the inner key/value map in map<string, string> format
     void setParameters(const Parameterised& params);
@@ -112,19 +112,19 @@ public:
      * @param[in] kvsep The separater between key and value
      * @param[in] sep The separater between map entries
      */
-    void setParametersStr(const std::string& paramsString, const std::string& kvsep="=", const std::string& sep="|");
+    void setParametersStr(const std::string& paramsString, const std::string& kvsep = "=", const std::string& sep = "|");
 
     /// @brief write Params in the given outputdevice
     void writeParams(OutputDevice& device) const;
 
     /// @brief check if given string can be parsed to a parameters map "key1=value1|key2=value2|...|keyN=valueN"
     static bool areParametersValid(const std::string& value,
-            bool report = false, const std::string& kvsep="=", const std::string& sep="|");
+                                   bool report = false, const std::string& kvsep = "=", const std::string& sep = "|");
 
 private:
     /// @brief check if given string can be parsed to a parameter of type "key=value"
-    static bool isParameterValid(const std::string& value, bool report, 
-            const std::string& kvsep="=", const std::string& sep="|");
+    static bool isParameterValid(const std::string& value, bool report,
+                                 const std::string& kvsep = "=", const std::string& sep = "|");
 
     /// @brief The key->value map
     std::map<std::string, std::string> myMap;

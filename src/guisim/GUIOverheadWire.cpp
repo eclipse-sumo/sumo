@@ -60,8 +60,8 @@ GUIOverheadWire::GUIOverheadWire(const std::string& id, MSLane& lane, double fro
     GUIGlObject_AbstractAdd(GLO_OVERHEAD_WIRE_SEGMENT, id) {
     myFGShape = lane.getShape();
     myFGShape = myFGShape.getSubpart(
-        lane.interpolateLanePosToGeometryPos(frompos),
-        lane.interpolateLanePosToGeometryPos(topos));
+                    lane.interpolateLanePosToGeometryPos(frompos),
+                    lane.interpolateLanePosToGeometryPos(topos));
     myFGShapeRotations.reserve(myFGShape.size() - 1);
     myFGShapeLengths.reserve(myFGShape.size() - 1);
     int e = (int)myFGShape.size() - 1;
@@ -167,16 +167,14 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
     //right catenary
     if (getElecHybridCount() > 0) {
         GLHelper::setColor(redChargeOverheadWire);
-    }
-    else if (myTractionSubstation != NULL && myTractionSubstation->getElecHybridCount() > 0) {
+    } else if (myTractionSubstation != NULL && myTractionSubstation->getElecHybridCount() > 0) {
         //GLHelper::setColor(redCharge);
         GLHelper::setColor(yellowCharge);
-    }
-    else {
+    } else {
         //GLHelper::setColor(lightgray);
         GLHelper::setColor(green);
     }
-    
+
     const double exaggeration = s.addSize.getExaggeration(s, this);
     //exaggeration - wide of line
 
@@ -201,12 +199,14 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
     //for (auto it = myChargingVehicles.begin(); it != myChargingVehicles.end(); ++it) {
     for (std::vector<SUMOVehicle*>::const_iterator it = myChargingVehicles.begin(); it != myChargingVehicles.end(); ++it) {
         fromPos = (*it)->getPositionOnLane() - ((*it)->getVehicleType().getLength() / 2);
-        if (fromPos < 0) { fromPos = 0; };
+        if (fromPos < 0) {
+            fromPos = 0;
+        };
 
         myFGShape_aux = myFGShape;
         myFGShape_aux = myFGShape_aux.getSubpart(
-            lane_aux.interpolateLanePosToGeometryPos(fromPos),
-            lane_aux.interpolateLanePosToGeometryPos(toPos));
+                            lane_aux.interpolateLanePosToGeometryPos(fromPos),
+                            lane_aux.interpolateLanePosToGeometryPos(toPos));
 
         myFGShapeRotations_aux.clear();
         myFGShapeLengths_aux.clear();
@@ -221,7 +221,7 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
             myFGShapeLengths_aux.push_back(f_aux.distanceTo(s_aux));
             myFGShapeRotations_aux.push_back((double)atan2((s_aux.x() - f_aux.x()), (f_aux.y() - s_aux.y())) * (double) 180.0 / (double)M_PI);
         }
-        
+
         voltage = 0;
         if (getCircuit() != nullptr) {
             //TODORICE it causes crash of SUMO GUI often in debug mode and
@@ -232,7 +232,7 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
                 voltage = node->getVoltage();
             }
         }
-        GLHelper::setColor(scheme.getColor(MAX2(0.0,voltage-400)));
+        GLHelper::setColor(scheme.getColor(MAX2(0.0, voltage - 400)));
         GLHelper::drawBoxLines(myFGShape_aux, myFGShapeRotations_aux, myFGShapeLengths_aux, exaggeration / 8, 0, 0.5);
 
         toPos = fromPos;
@@ -241,8 +241,8 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
     myFGShape_aux = myFGShape;
 
     myFGShape_aux = myFGShape_aux.getSubpart(
-        lane_aux.interpolateLanePosToGeometryPos(getBeginLanePosition()),
-        lane_aux.interpolateLanePosToGeometryPos(toPos));
+                        lane_aux.interpolateLanePosToGeometryPos(getBeginLanePosition()),
+                        lane_aux.interpolateLanePosToGeometryPos(toPos));
 
     myFGShapeRotations_aux.clear();
     myFGShapeLengths_aux.clear();
@@ -257,7 +257,7 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
         myFGShapeLengths_aux.push_back(f_aux.distanceTo(s_aux));
         myFGShapeRotations_aux.push_back((double)atan2((s_aux.x() - f_aux.x()), (f_aux.y() - s_aux.y())) * (double) 180.0 / (double)M_PI);
     }
-    
+
     //GLHelper::setColor(green);
     GLHelper::drawBoxLines(myFGShape_aux, myFGShapeRotations_aux, myFGShapeLengths_aux, exaggeration / 8, 0, 0.5);
 
@@ -266,22 +266,20 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
     if (getElecHybridCount() > 0) {
         //GLHelper::setColor(yellowCharge);
         GLHelper::setColor(redChargeOverheadWire);
-    }
-    else if (myTractionSubstation != NULL && myTractionSubstation->getElecHybridCount() > 0) {
+    } else if (myTractionSubstation != NULL && myTractionSubstation->getElecHybridCount() > 0) {
         //GLHelper::setColor(yellow);
         GLHelper::setColor(yellowCharge);
-    }
-    else {
+    } else {
         //GLHelper::setColor(lightgray);
         GLHelper::setColor(green);
     }
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration / 8, 0, -0.5);
-    
-    //a catenary in the centre of lane 
+
+    //a catenary in the centre of lane
     //GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration / 4);
 
     // draw details unless zoomed out to far
-    if (s.scale * exaggeration >= 10 && myVoltageSource ) {
+    if (s.scale * exaggeration >= 10 && myVoltageSource) {
 
         // push charging power matrix
         glPushMatrix();
@@ -319,7 +317,7 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-GUIParameterTableWindow* 
+GUIParameterTableWindow*
 GUIOverheadWireClamp::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table items
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);

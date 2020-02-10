@@ -303,9 +303,9 @@ GNEDetectorE2::updateGeometry() {
 }
 
 
-void 
+void
 GNEDetectorE2::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(),
                                           myAdditionalGeometry.getShape(),
                                           myViewNet->getVisualisationSettings().detectorSettings.E2Width);
 }

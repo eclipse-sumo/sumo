@@ -318,7 +318,7 @@ public:
 
     /// @brief draw text and the end of shape
     static void drawTextAtEnd(const std::string& text, const PositionVector& shape, double x,
-            const GUIVisualizationTextSettings& settings, const double scale);
+                              const GUIVisualizationTextSettings& settings, const double scale);
 
     /// @brief draw crossties for railroads or pedestrian crossings
     static void drawCrossTies(const PositionVector& geom,

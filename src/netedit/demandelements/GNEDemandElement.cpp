@@ -216,7 +216,7 @@ GNEDemandElement::generateChildID(SumoXMLTag childTag) {
 }
 
 
-const GNEGeometry::Geometry& 
+const GNEGeometry::Geometry&
 GNEDemandElement::getDemandElementGeometry() {
     return myDemandElementGeometry;
 }
@@ -228,7 +228,7 @@ GNEDemandElement::getDemandElementSegmentGeometry() const {
 }
 
 
-void 
+void
 GNEDemandElement::updateDemandElementGeometry(const GNELane* lane, const double posOverLane) {
     myDemandElementGeometry.updateGeometry(lane, posOverLane);
 }
@@ -240,13 +240,13 @@ GNEDemandElement::updateDemandElementStackLabel(const int stack) {
 }
 
 
-const GNEGeometry::SegmentGeometry& 
+const GNEGeometry::SegmentGeometry&
 GNEDemandElement::getDemandElementSegmentSpreadGeometry() const {
     return mySpreadSegmentGeometry;
 }
 
 
-void 
+void
 GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane) {
     mySpreadGeometry.updateGeometry(lane, posOverLane);
 }

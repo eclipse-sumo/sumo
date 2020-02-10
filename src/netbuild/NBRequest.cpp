@@ -738,14 +738,14 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
 
 bool
 NBRequest::rightTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
-                         const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon) const {
-    return (!con.mayDefinitelyPass && 
-                (NBNode::rightTurnConflict(from, con.toEdge, con.fromLane, prohibitorFrom, prohibitorCon.toEdge, prohibitorCon.fromLane)
-                 // reverse conflicht (override)
-                 || (prohibitorCon.mayDefinitelyPass &&
-                     NBNode::rightTurnConflict(prohibitorFrom, prohibitorCon.toEdge, prohibitorCon.fromLane, from, con.toEdge, con.fromLane))));
+                             const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon) const {
+    return (!con.mayDefinitelyPass &&
+            (NBNode::rightTurnConflict(from, con.toEdge, con.fromLane, prohibitorFrom, prohibitorCon.toEdge, prohibitorCon.fromLane)
+             // reverse conflicht (override)
+             || (prohibitorCon.mayDefinitelyPass &&
+                 NBNode::rightTurnConflict(prohibitorFrom, prohibitorCon.toEdge, prohibitorCon.fromLane, from, con.toEdge, con.fromLane))));
 
-            
+
 }
 
 
@@ -1067,12 +1067,12 @@ NBRequest::resetCooperating() {
 
 bool
 NBRequest::hasConflict() const {
-  for (std::string foes : myFoes) {
-      if (foes.find_first_of("1") != std::string::npos) {
-          return true;
-      }
-  }
-  return false;
+    for (std::string foes : myFoes) {
+        if (foes.find_first_of("1") != std::string::npos) {
+            return true;
+        }
+    }
+    return false;
 }
 
 

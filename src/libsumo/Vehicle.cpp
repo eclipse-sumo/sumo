@@ -1799,7 +1799,7 @@ Vehicle::addSubscriptionFilterCFManeuver(double downstreamDist, double upstreamD
 void
 Vehicle::addSubscriptionFilterLCManeuver(int direction, bool noOpposite, double downstreamDist, double upstreamDist) {
     std::vector<int> lanes;
-    if (direction ==INVALID_INT_VALUE) {
+    if (direction == INVALID_INT_VALUE) {
         // Using default: both directions
         lanes = std::vector<int>({-1, 0, 1});
     } else if (direction != -1 && direction != 1) {

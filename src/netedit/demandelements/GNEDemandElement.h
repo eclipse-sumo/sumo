@@ -162,7 +162,7 @@ public:
 
     /// @brief Destructor
     ~GNEDemandElement();
-    
+
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
 
@@ -176,7 +176,7 @@ public:
 
     /// @brief update element stacked geometry (stacked)
     void updateDemandElementGeometry(const GNELane* lane, const double posOverLane);
-    
+
     /// @brief update stack label
     void updateDemandElementStackLabel(const int stack);
     /// @}

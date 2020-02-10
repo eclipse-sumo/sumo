@@ -1263,7 +1263,8 @@ TraCIServer::addSubscriptionFilter() {
             myInputStorage.readByte();  // read type double
             double dist = myInputStorage.readDouble();
             addSubscriptionFilterLateralDistance(dist);
-        } break;
+        }
+        break;
         default:
             writeStatusCmd(filterType, libsumo::RTYPE_NOTIMPLEMENTED, "'" + toString(filterType) + "' is no valid filter type code.");
             success  = false;

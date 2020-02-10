@@ -72,7 +72,7 @@ GNEParkingAreaReroute::updateGeometry() {
 }
 
 
-void 
+void
 GNEParkingAreaReroute::updateDottedContour() {
     // This additional doesn't own a dotted contour
 }

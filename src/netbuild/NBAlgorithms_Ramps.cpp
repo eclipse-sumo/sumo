@@ -293,8 +293,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
 
 void
 NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, double rampLength, bool dontSplit, bool addLanes,
-        const std::set<NBNode*, ComparatorIdLess>& potOnRamps)
-{
+                              const std::set<NBNode*, ComparatorIdLess>& potOnRamps) {
     NBEdge* potHighway, *potRamp, *prev;
     getOffRampEdges(cur, &potHighway, &potRamp, &prev);
 #ifdef DEBUG_RAMPS

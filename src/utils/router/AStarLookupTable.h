@@ -344,7 +344,7 @@ private:
                      SUMOAbstractRouter<E, V>* router,
                      SUMOAbstractRouter<ReversedEdge<E, V>, V>* reverseRouter, const V* vehicle)
             : FXWorkerThread(pool), myRouter(router), myReversedRouter(reverseRouter), myVehicle(vehicle) {}
-        
+
         virtual ~WorkerThread() {
             delete myRouter;
         }

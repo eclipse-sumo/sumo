@@ -74,7 +74,7 @@ GNEParkingSpace::updateGeometry() {
 }
 
 
-void 
+void
 GNEParkingSpace::updateDottedContour() {
     // calculate shape using a Position vector as reference
     PositionVector shape({

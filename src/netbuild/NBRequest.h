@@ -150,7 +150,7 @@ public:
 
     /// @brief whether the given connections crosses the foe connection from the same lane and must yield
     bool rightTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
-            const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon) const; 
+                           const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon) const;
 
     /// @brief whether multple connections from the same edge target the same lane
     bool mergeConflict(const NBEdge* from, const NBEdge::Connection& con,

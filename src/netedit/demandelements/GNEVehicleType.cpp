@@ -153,7 +153,7 @@ GNEVehicleType::updateGeometry() {
 }
 
 
-void 
+void
 GNEVehicleType::updateDottedContour() {
     //
 }

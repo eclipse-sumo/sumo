@@ -632,8 +632,8 @@ MSPModel_Striping::getNeighboringObstacles(const Pedestrians& pedestrians, int e
     for (int index = egoIndex + 1; index < (int)pedestrians.size(); index++) {
         const PState& p = *pedestrians[index];
         if DEBUGCOND(ego) {
-            std::cout << SIMTIME << " ped=" << ego.getID() << " cur=" << egoStripe << " checking neighbor " << p.getID() 
-                << " nCur=" << p.stripe() << " nOth=" << p.otherStripe();
+            std::cout << SIMTIME << " ped=" << ego.getID() << " cur=" << egoStripe << " checking neighbor " << p.getID()
+                      << " nCur=" << p.stripe() << " nOth=" << p.otherStripe();
         }
         if (!p.myWaitingToEnter && !p.myAmJammed) {
             const Obstacle o(p);
@@ -856,13 +856,13 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                     if (p->myWalkingAreaPath == path) {
                         transformedPeds.push_back(p);
                         if (path == debugPath) std::cout << "  ped=" << p->myPerson->getID() << "  relX=" << p->myRelX << " relY=" << p->myRelY << " (untransformed), vecCoord="
-                            << path->shape.transformToVectorCoordinates(p->getPosition(*p->myStage, -1)) << "\n";
+                                                             << path->shape.transformToVectorCoordinates(p->getPosition(*p->myStage, -1)) << "\n";
                     } else if (p->myWalkingAreaPath->from == path->to && p->myWalkingAreaPath->to == path->from) {
                         if (p->myWalkingAreaPath->dir != path->dir) {
                             // opposite direction is already in the correct coordinate system
                             transformedPeds.push_back(p);
                             if (path == debugPath) std::cout << "  ped=" << p->myPerson->getID() << "  relX=" << p->myRelX << " relY=" << p->myRelY << " (untransformed), vecCoord="
-                                << path->shape.transformToVectorCoordinates(p->getPosition(*p->myStage, -1)) << "\n";
+                                                                 << path->shape.transformToVectorCoordinates(p->getPosition(*p->myStage, -1)) << "\n";
                         } else {
                             // x position must be reversed
                             PState* tp = new PState(*p);
@@ -873,7 +873,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                             toDelete.push_back(tp);
                             transformedPeds.push_back(tp);
                             if (path == debugPath) std::cout << "  ped=" << p->myPerson->getID() << "  relX=" << p->myRelX << " relY=" << p->myRelY << " (semi-transformed), vecCoord="
-                                << path->shape.transformToVectorCoordinates(p->getPosition(*p->myStage, -1)) << "\n";
+                                                                 << path->shape.transformToVectorCoordinates(p->getPosition(*p->myStage, -1)) << "\n";
                         }
                     } else {
                         const Position relPos = path->shape.transformToVectorCoordinates(p->getPosition(*p->myStage, -1));

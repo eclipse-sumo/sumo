@@ -139,7 +139,7 @@ public:
     bool addDistrictEdge(const std::string tazID, const std::string edgeID, const bool isSource);
 
     /// @brief add a taz for every junction unless a taz with the same id already exists
-    void addJunctionTaz(ROAbstractEdgeBuilder& eb); 
+    void addJunctionTaz(ROAbstractEdgeBuilder& eb);
 
     /** @brief Retrieves all TAZ (districts) from the network
      *

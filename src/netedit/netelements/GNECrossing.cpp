@@ -471,7 +471,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNECrossing::updateDottedContour() {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     // build contour using connection geometry
@@ -483,7 +483,7 @@ GNECrossing::updateDottedContour() {
     // reverse contourback
     contourback = contourback.reverse();
     // add contour back to contourfront
-    for (const auto &position : contourback) {
+    for (const auto& position : contourback) {
         contourFront.push_back(position);
     }
     // close contour front

@@ -79,9 +79,9 @@ GNEContainerStop::updateGeometry() {
 }
 
 
-void 
+void
 GNEContainerStop::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(),
                                           myAdditionalGeometry.getShape(),
                                           myViewNet->getVisualisationSettings().stoppingPlaceSettings.containerStopWidth);
 }

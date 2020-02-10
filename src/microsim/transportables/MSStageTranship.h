@@ -99,7 +99,7 @@ public:
 
 
     /// @brief the maximum speed of the transportable
-    inline double getMaxSpeed(const MSTransportable* const transportable=nullptr) const {
+    inline double getMaxSpeed(const MSTransportable* const transportable = nullptr) const {
         UNUSED_PARAMETER(transportable);
         return mySpeed;
     }

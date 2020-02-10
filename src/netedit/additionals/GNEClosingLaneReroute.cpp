@@ -76,7 +76,7 @@ GNEClosingLaneReroute::updateGeometry() {
 }
 
 
-void 
+void
 GNEClosingLaneReroute::updateDottedContour() {
     // This additional doesn't own a dotted contour
 }

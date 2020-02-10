@@ -638,8 +638,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                         }
                     }
                     if (!isInternal || isCrossing
-                                // controlled internal junction
-                                || (getLinkCont()[0]->isInternalJunctionLink() && getLinkCont()[0]->getTLLogic() != nullptr)) {
+                            // controlled internal junction
+                            || (getLinkCont()[0]->isInternalJunctionLink() && getLinkCont()[0]->getTLLogic() != nullptr)) {
                         if (MSGlobals::gLateralResolution > 0 && s.showSublanes && !hiddenBidi && (myPermissions & ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
                             // draw sublane-borders
                             const double offsetSign = MSGlobals::gLefthand ? -1 : 1;

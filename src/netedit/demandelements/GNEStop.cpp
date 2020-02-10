@@ -298,7 +298,7 @@ GNEStop::updateGeometry() {
 }
 
 
-void 
+void
 GNEStop::updateDottedContour() {
     //
 }
@@ -452,9 +452,9 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDetail(s.detailSettings.stopsDetails, exaggeration) && getParentLanes().size() > 0) {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GLHelper::drawBoxLines(myDemandElementGeometry.getShape(), myDemandElementGeometry.getShapeRotations(), myDemandElementGeometry.getShapeLengths(), exaggeration * 0.1, 0,
-                getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
+                                   getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
             GLHelper::drawBoxLines(myDemandElementGeometry.getShape(), myDemandElementGeometry.getShapeRotations(), myDemandElementGeometry.getShapeLengths(), exaggeration * 0.1, 0,
-                getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * -0.5);
+                                   getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * -0.5);
             // pop draw matrix
             glPopMatrix();
             // Add a draw matrix
@@ -493,8 +493,8 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             if (myViewNet->getDottedAC() == this) {
                 // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
                 if (getParentLanes().size() > 0) {
-                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(), 
-                        getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
+                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(),
+                            getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
                 } else {
                     GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(), exaggeration);
                 }

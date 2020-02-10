@@ -181,8 +181,8 @@ MSTransportable::tripInfoOutput(OutputDevice& os) const {
 void
 MSTransportable::routeOutput(OutputDevice& os, const bool withRouteLength) const {
     const std::string typeID = (
-            (isPerson() && getVehicleType().getID() == DEFAULT_PEDTYPE_ID)
-            || (isContainer() && getVehicleType().getID() == DEFAULT_CONTAINERTYPE_ID)) ? "" : getVehicleType().getID();
+                                   (isPerson() && getVehicleType().getID() == DEFAULT_PEDTYPE_ID)
+                                   || (isContainer() && getVehicleType().getID() == DEFAULT_CONTAINERTYPE_ID)) ? "" : getVehicleType().getID();
     myParameter->write(os, OptionsCont::getOptions(), isPerson() ? SUMO_TAG_PERSON : SUMO_TAG_CONTAINER, typeID);
     if (hasArrived()) {
         os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));

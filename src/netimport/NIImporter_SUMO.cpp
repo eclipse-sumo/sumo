@@ -87,8 +87,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myLimitTurnSpeed(-1),
       myCheckLaneFoesAll(false),
       myCheckLaneFoesRoundabout(true),
-      myTlsIgnoreInternalJunctionJam(false)
-{
+      myTlsIgnoreInternalJunctionJam(false) {
 }
 
 

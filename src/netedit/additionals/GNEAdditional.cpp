@@ -307,7 +307,7 @@ GNEAdditional::endGeometryMoving() {
 }
 
 
-void 
+void
 GNEAdditional::updateDottedContour() {
     //
 }

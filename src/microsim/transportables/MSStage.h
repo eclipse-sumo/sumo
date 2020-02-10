@@ -463,7 +463,7 @@ public:
     double getSpeed() const;
 
     /// @brief the maximum speed of the transportable
-    virtual double getMaxSpeed(const MSTransportable* const transportable=nullptr) const = 0;
+    virtual double getMaxSpeed(const MSTransportable* const transportable = nullptr) const = 0;
 
     /// @brief move forward and return whether the transportable arrived
     virtual bool moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, MSEdge* nextInternal = 0) = 0;

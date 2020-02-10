@@ -55,10 +55,9 @@ bool RORouteDef::myUsingJTRR(false);
 RORouteDef::RORouteDef(const std::string& id, const int lastUsed,
                        const bool tryRepair, const bool mayBeDisconnected) :
     Named(StringUtils::convertUmlaute(id)),
-    myPrecomputed(nullptr), myLastUsed(lastUsed), myTryRepair(tryRepair), 
+    myPrecomputed(nullptr), myLastUsed(lastUsed), myTryRepair(tryRepair),
     myMayBeDisconnected(mayBeDisconnected),
-    myDiscardSilent(false)
-{
+    myDiscardSilent(false) {
 }
 
 

@@ -42,9 +42,9 @@
 GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name) :
     GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, {
     edge
-    }, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myBegin(begin),
-    myEnd(end) {
+}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+myBegin(begin),
+myEnd(end) {
 }
 
 
@@ -77,10 +77,10 @@ GNEVaporizer::updateGeometry() {
 }
 
 
-void 
+void
 GNEVaporizer::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
-                                          myAdditionalGeometry.getPosition(), 
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(),
+                                          myAdditionalGeometry.getPosition(),
                                           myAdditionalGeometry.getRotation(),
                                           myViewNet->getVisualisationSettings().additionalSettings.vaporizerSize,
                                           myViewNet->getVisualisationSettings().additionalSettings.vaporizerSize);

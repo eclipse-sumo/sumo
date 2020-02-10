@@ -106,7 +106,7 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
         const MSEdge* fromTaz = MSEdge::dictionary(tazID + "-source");
         if (fromTaz == nullptr) {
             throw ProcessError("Source " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
-                    + (useJunction ? JUNCTION_TAZ_MISSING_HELP : ""));
+                               + (useJunction ? JUNCTION_TAZ_MISSING_HELP : ""));
         } else if (fromTaz->getNumSuccessors() == 0 && tag != SUMO_TAG_PERSON) {
             throw ProcessError("Source " + tazType + " '" + tazID + "' has no outgoing edges for " + element + " '" + myVehicleParameter->id + "'!");
         } else {
@@ -133,9 +133,9 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
         }
     } else {
         MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true),
-                viaEdges, "for " + element + " '" + myVehicleParameter->id + "'");
+                               viaEdges, "for " + element + " '" + myVehicleParameter->id + "'");
     }
-    for (const MSEdge* e: viaEdges) {
+    for (const MSEdge* e : viaEdges) {
         myActiveRoute.push_back(e);
         myVehicleParameter->via.push_back(e->getID());
     }
@@ -149,7 +149,7 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
         const MSEdge* toTaz = MSEdge::dictionary(tazID + "-sink");
         if (toTaz == nullptr) {
             throw ProcessError("Sink " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
-                    + (useJunction ? JUNCTION_TAZ_MISSING_HELP : ""));
+                               + (useJunction ? JUNCTION_TAZ_MISSING_HELP : ""));
         } else if (toTaz->getNumPredecessors() == 0 && tag != SUMO_TAG_PERSON) {
             throw ProcessError("Sink " + tazType + " '" + tazID + "' has no incoming edges for " + element + " '" + myVehicleParameter->id + "'!");
         } else {

@@ -525,7 +525,7 @@ public:
     virtual ~GNEAttributeCarrier();
 
     /// @brief get dotted geometry
-    const GNEGeometry::DottedGeometry &getDottedGeometry() const;
+    const GNEGeometry::DottedGeometry& getDottedGeometry() const;
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;

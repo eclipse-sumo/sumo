@@ -794,10 +794,10 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 #endif
             // 1st pass: downstream
             applySubscriptionFilterLateralDistanceSinglePass(objIDs, vehs, v->getUpcomingLanesUntil(downstreamDist), lateralDist,
-                                                             downstreamDist, v->getPositionOnLane(), true);
+                    downstreamDist, v->getPositionOnLane(), true);
             // 2nd pass: upstream
             applySubscriptionFilterLateralDistanceSinglePass(objIDs, vehs, v->getPastLanesUntil(upstreamDist), lateralDist,
-                                                             upstreamDist, v->getPositionOnLane(), false);
+                    upstreamDist, v->getPositionOnLane(), false);
 
             objIDs.clear();
         } else {

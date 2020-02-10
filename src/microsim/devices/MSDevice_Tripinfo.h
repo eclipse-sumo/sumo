@@ -193,7 +193,7 @@ protected:
     /// @brief update stopping time after parking
     void updateParkingStopTime();
 
-    static void printRideStatistics(std::ostringstream& msg, const std::string& category, const std::string& modeName, const int index); 
+    static void printRideStatistics(std::ostringstream& msg, const std::string& category, const std::string& modeName, const int index);
 
 private:
     /// @brief The lane the vehicle departed at

@@ -69,8 +69,7 @@ MSVehicleControl::MSVehicleControl() :
     myWaitingForContainer(0),
     myMaxSpeedFactor(1),
     myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)),
-    myPendingRemovals(MSGlobals::gNumSimThreads > 1) 
-{
+    myPendingRemovals(MSGlobals::gNumSimThreads > 1) {
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
 
@@ -427,8 +426,8 @@ MSVehicleControl::getVTypeDistribution(const std::string& typeDistID) const {
 void
 MSVehicleControl::abortWaiting() {
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
-        WRITE_WARNINGF("Vehicle '%' aborted waiting for a % that will never come.", i->first, 
-                i->second->getParameter().departProcedure == DEPART_SPLIT ? "split" : "person or container")
+        WRITE_WARNINGF("Vehicle '%' aborted waiting for a % that will never come.", i->first,
+                       i->second->getParameter().departProcedure == DEPART_SPLIT ? "split" : "person or container")
     }
 }
 

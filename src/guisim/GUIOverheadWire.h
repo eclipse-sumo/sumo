@@ -75,7 +75,7 @@ public:
     * @param[in] voltageSource If the segment is the place of the connection of a traction substation
     */
     GUIOverheadWire(const std::string& id, MSLane& lane, double frompos, double topos,
-        bool voltageSource);
+                    bool voltageSource);
 
     /// @brief Destructor
     ~GUIOverheadWire();

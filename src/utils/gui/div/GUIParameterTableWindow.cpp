@@ -69,8 +69,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
     myObject(&o),
     myApplication(&app),
     myTrackerY(0),
-    myCurrentPos(0) 
-{
+    myCurrentPos(0) {
     myTable = new FXTable(this, this, MID_TABLE, TABLE_COL_SIZABLE | TABLE_ROW_SIZABLE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     myTable->setTableSize(1, 3);
     myTable->setVisibleColumns(3);

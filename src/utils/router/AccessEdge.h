@@ -39,30 +39,30 @@ private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
 
 public:
-    AccessEdge(int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge, const double length, 
-            SVCPermissions modeRestriction = SVC_IGNORING,
-            SVCPermissions vehicleRestriction = SVC_IGNORING) :
+    AccessEdge(int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge, const double length,
+               SVCPermissions modeRestriction = SVC_IGNORING,
+               SVCPermissions vehicleRestriction = SVC_IGNORING) :
         _IntermodalEdge(inEdge->getID() + ":" + outEdge->getID(), numericalID, outEdge->getEdge(), "!access"),
         myLength(length > 0. ? length : NUMERICAL_EPS),
         myModeRestrictions(modeRestriction),
         myVehicleRestriction(vehicleRestriction)
-        { }
+    { }
 
     AccessEdge(int numericalID, const std::string& id, const E* edge, const double length = 0,
-            SVCPermissions modeRestriction = SVC_IGNORING,
-            SVCPermissions vehicleRestriction = SVC_IGNORING) :
+               SVCPermissions modeRestriction = SVC_IGNORING,
+               SVCPermissions vehicleRestriction = SVC_IGNORING) :
         _IntermodalEdge(id, numericalID, edge, "!access"),
         myLength(length > 0. ? length : NUMERICAL_EPS),
         myModeRestrictions(modeRestriction),
         myVehicleRestriction(vehicleRestriction)
-        { }
+    { }
 
     double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double /* time */) const {
         return myLength / trip->speed;
     }
 
     bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
-        return ((trip->modeSet & myModeRestrictions) != myModeRestrictions 
+        return ((trip->modeSet & myModeRestrictions) != myModeRestrictions
                 || ((trip->vehicle == nullptr ? SVC_IGNORING : trip->vehicle->getVClass()) & myVehicleRestriction) != myVehicleRestriction);
     }
 

@@ -59,7 +59,7 @@ const double MSStage::ROADSIDE_OFFSET(3);
 /* -------------------------------------------------------------------------
  * MSStage - methods
  * ----------------------------------------------------------------------- */
-MSStage::MSStage(const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos, MSStageType type, const std::string& group) : 
+MSStage::MSStage(const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos, MSStageType type, const std::string& group) :
     myDestination(destination),
     myDestinationStop(toStop),
     myArrivalPos(arrivalPos),

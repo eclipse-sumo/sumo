@@ -66,13 +66,13 @@ GNERerouter::updateGeometry() {
 
     // update connection positions
     myChildConnections.update();
-    
+
     // mark dotted geometry deprecated
     myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
-void 
+void
 GNERerouter::updateDottedContour() {
     myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myPosition, 0,
                                           myViewNet->getVisualisationSettings().additionalSettings.rerouterSize,

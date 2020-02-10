@@ -156,7 +156,7 @@ GNEPOI::updateGeometry() {
 }
 
 
-void 
+void
 GNEPOI::updateDottedContour() {
     // check if we have to calculate buuble or shape
     if (getShapeImgFile() != DEFAULT_IMG_FILE) {

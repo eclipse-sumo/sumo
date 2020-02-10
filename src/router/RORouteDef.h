@@ -172,7 +172,7 @@ protected:
 
     const bool myTryRepair;
     const bool myMayBeDisconnected;
-    
+
     /// @brief Whether this route should be silently discarded
     mutable bool myDiscardSilent;
 

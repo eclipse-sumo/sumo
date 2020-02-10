@@ -31,7 +31,7 @@
 using namespace std;
 
 // A constructor, same functionality as "init" functions
-Node::Node(string name, int id){
+Node::Node(string name, int id) {
     isground = false;
     this->name = name;		// unique property, each object has distinctive and unique name
     this->id = id;				// a sequential ID number, might be useful when making the equation
@@ -80,28 +80,23 @@ int Node::getId() {
     return this->id;
 }
 
-void Node::setId(int newId)
-{
+void Node::setId(int newId) {
     this->id = newId;
 }
 
-void Node::setNumMatrixRow(int num)
-{
+void Node::setNumMatrixRow(int num) {
     this->num_matrixRow = num;
 }
 
-int Node::getNumMatrixRow()
-{
+int Node::getNumMatrixRow() {
     return this->num_matrixRow;
 }
 
-void Node::setNumMatrixCol(int num)
-{
+void Node::setNumMatrixCol(int num) {
     this->num_matrixCol = num;
 }
 
-int Node::getNumMatrixCol()
-{
+int Node::getNumMatrixCol() {
     return this->num_matrixCol;
 }
 
@@ -115,8 +110,10 @@ void Node::setRemovability(bool newIsRemovable) {
 
 Element* Node::getAnOtherElement(Element* element) {
     // for (vector<Element*>::iterator it = this->getElements()->begin(); it != this->getElements()->end(); it++) {
-    for (Element *it: *this->getElements()) {
-        if (it != element) return it;
+    for (Element* it : *this->getElements()) {
+        if (it != element) {
+            return it;
+        }
     }
     return nullptr;
 }

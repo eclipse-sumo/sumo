@@ -76,7 +76,7 @@ GNERouteProbReroute::updateGeometry() {
 }
 
 
-void 
+void
 GNERouteProbReroute::updateDottedContour() {
     // This additional doesn't own a dotted contour
 }

@@ -134,7 +134,7 @@ GNEDetectorE1Instant::updateGeometry() {
 
 
 void GNEDetectorE1Instant::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(),
                                           myAdditionalGeometry.getPosition(),
                                           myAdditionalGeometry.getRotation(),
                                           myViewNet->getVisualisationSettings().detectorSettings.E1InstantWidth,

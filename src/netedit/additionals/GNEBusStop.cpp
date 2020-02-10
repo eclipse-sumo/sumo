@@ -101,9 +101,9 @@ GNEBusStop::updateGeometry() {
 }
 
 
-void 
+void
 GNEBusStop::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), 
+    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(),
                                           myAdditionalGeometry.getShape(),
                                           myViewNet->getVisualisationSettings().stoppingPlaceSettings.busStopWidth);
 }

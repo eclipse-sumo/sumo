@@ -744,8 +744,8 @@ NBLoadedSUMOTLDef::copyIndices(NBTrafficLightDefinition* def) {
         std::string states = getStates(oldIndex);
         oldStates[oldIndex] = states;
         if (newStates.count(newIndex) != 0 && newStates[newIndex] != states) {
-            WRITE_WARNING("Signal groups from program '" + def->getProgramID() + "' are incompatible with the states of program '" + getProgramID() + "' at tlLogic '" + getID() 
-                    + "'. Possibly unsafe program.");
+            WRITE_WARNING("Signal groups from program '" + def->getProgramID() + "' are incompatible with the states of program '" + getProgramID() + "' at tlLogic '" + getID()
+                          + "'. Possibly unsafe program.");
         } else {
             newStates[newIndex] = states;
         }

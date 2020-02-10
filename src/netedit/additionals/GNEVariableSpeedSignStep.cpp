@@ -84,7 +84,7 @@ GNEVariableSpeedSignStep::updateGeometry() {
 }
 
 
-void 
+void
 GNEVariableSpeedSignStep::updateDottedContour() {
     // This additional doesn't own a dotted contour
 }

@@ -73,7 +73,7 @@ GNEDestProbReroute::updateGeometry() {
 }
 
 
-void 
+void
 GNEDestProbReroute::updateDottedContour() {
     // This additional doesn't own a dotted contour
 }

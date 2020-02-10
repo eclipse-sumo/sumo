@@ -482,7 +482,7 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
             if (stage.line.empty()) {
                 throw TraCIException("Empty lines parameter for person: '" + personID + "'");
             }
-            return new MSStageDriving(edge, bs, edge->getLength()-NUMERICAL_EPS, StringTokenizer(stage.line).getVector());
+            return new MSStageDriving(edge, bs, edge->getLength() - NUMERICAL_EPS, StringTokenizer(stage.line).getVector());
         }
 
         case STAGE_WALKING: {
@@ -572,7 +572,7 @@ Person::appendDrivingStage(const std::string& personID, const std::string& toEdg
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }
     }
-    p->appendStage(new MSStageDriving(edge, bs, edge->getLength()-NUMERICAL_EPS, StringTokenizer(lines).getVector()));
+    p->appendStage(new MSStageDriving(edge, bs, edge->getLength() - NUMERICAL_EPS, StringTokenizer(lines).getVector()));
 }
 
 

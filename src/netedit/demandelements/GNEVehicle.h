@@ -358,10 +358,10 @@ private:
     void updatePartialStackedGeometry(const GNEEdge* edge);
 
     /// @brief draw stack label
-    void drawStackLabel(const Position &vehiclePosition, const double vehicleRotation, const double width, const double length) const;
+    void drawStackLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const;
 
     /// @brief draw flow label
-    void drawFlowLabel(const Position &vehiclePosition, const double vehicleRotation, const double width, const double length) const;
+    void drawFlowLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const;
 
     /// @brief Invalidated copy constructor.
     GNEVehicle(const GNEVehicle&) = delete;

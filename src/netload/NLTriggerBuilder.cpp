@@ -231,8 +231,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
     MSTractionSubstation* substation = MSNet::getInstance()->findTractionSubstation(substationId);
     if (substation == nullptr) {
         throw InvalidArgument("Traction substation '" + substationId + "' refereced by an OverheadWire Section is not known.");
-    }
-    else if (substation->isAnySectionPreviouslyDefined()) {
+    } else if (substation->isAnySectionPreviouslyDefined()) {
         throw InvalidArgument("Traction substation '" + substationId + "' refereced by an OverheadWire Section is probably referenced twice (a known limitation of the actual version of overhead wire simulation).");
     }
 
@@ -298,7 +297,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
             neigboringInnerLanes.push_back(outgoingLanesAndEdges[it].first);
         }
 
-        // Check if an outgoing lane has an overhead wire segment. If not, do nothing, otherwise find connnecting internal lanes and 
+        // Check if an outgoing lane has an overhead wire segment. If not, do nothing, otherwise find connnecting internal lanes and
         // add overhead wire segments over all detected internal lanes
         for (std::vector<const MSLane*>::iterator it = neigboringInnerLanes.begin(); it != neigboringInnerLanes.end(); ++it) {
             // If the overhead wire segment is over the outgoing (not internal) lane
@@ -306,8 +305,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
             if (neigboringOvrhdSegmentID != "") {
                 neigboringOvrhdSegment = dynamic_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace(neigboringOvrhdSegmentID, SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
                 neigboringOvrhdSegmentTractionSubstation = neigboringOvrhdSegment->getTractionSubstation();
-            }
-            else {
+            } else {
                 neigboringOvrhdSegment = nullptr;
                 neigboringOvrhdSegmentTractionSubstation = nullptr;
             }
@@ -323,7 +321,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
             }
         }
 
-        // Check if an incoming lane has an overhead wire segment. If not, do nothing, otherwise find connnecting internal lanes and 
+        // Check if an incoming lane has an overhead wire segment. If not, do nothing, otherwise find connnecting internal lanes and
         // add overhead wire segments over all detected internal lanes
         neigboringInnerLanes = lane->getNormalIncomingLanes();
         for (std::vector<const MSLane*>::iterator it = neigboringInnerLanes.begin(); it != neigboringInnerLanes.end(); ++it) {
@@ -332,8 +330,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
             if (neigboringOvrhdSegmentID != "") {
                 neigboringOvrhdSegment = dynamic_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace(neigboringOvrhdSegmentID, SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
                 neigboringOvrhdSegmentTractionSubstation = neigboringOvrhdSegment->getTractionSubstation();
-            }
-            else {
+            } else {
                 neigboringOvrhdSegment = nullptr;
                 neigboringOvrhdSegmentTractionSubstation = nullptr;
             }
@@ -381,17 +378,14 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
                     substation->addOverheadWireClampToCircuit(clamp->id, clamp->start, clamp->end);
                     buildOverheadWireClamp(net, clamp->id, const_cast<MSLane*>(&clamp->start->getLane()), const_cast<MSLane*>(&clamp->end->getLane()));
                     clamp->usage = true;
-                }
-                else {
+                } else {
                     if (clamp->start->getTractionSubstation() != substation) {
                         WRITE_WARNING("A connecting overhead wire start segment '" + clamp->start->getID() + "' defined for overhead wire clamp '" + (*it_clamp) + "' is not assigned to the traction substation '" + substationId + "'.");
-                    }
-                    else {
+                    } else {
                         WRITE_WARNING("A connecting overhead wire end segment '" + clamp->end->getID() + "' defined for overhead wire clamp '" + (*it_clamp) + "' is not assigned to the traction substation '" + substationId + "'.");
                     }
                 }
-            }
-            else {
+            } else {
                 WRITE_WARNING("The overhead wire clamp '" + (*it_clamp) + "' defined in an overhead wire section was not assigned to the substation '" + substationId + "'. Please define proper <overheadWireClamp .../> in additional files before defining overhead wire section.");
             }
         }
@@ -402,8 +396,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
 
     if (segments.size() == 0) {
         throw InvalidArgument("No segments found for overHeadWireSection '" + substationId + "'.");
-    }
-    else if (MSGlobals::gOverheadWireSolver) {
+    } else if (MSGlobals::gOverheadWireSolver) {
 #ifdef HAVE_EIGEN
         // check that the electric circuit makes sense
         segments[0]->getCircuit()->checkCircuit(substationId);
@@ -473,16 +466,14 @@ NLTriggerBuilder::parseAndBuildOverheadWireClamp(MSNet& /*net*/, const SUMOSAXAt
         */
         if (substation->findClamp(id) == nullptr) {
             substation->addClamp(id, ovrhdSegment_fromItsStart, ovrhdSegment_fromItsEnd);
-        }
-        else {
+        } else {
             WRITE_ERROR("The overhead wire clamp '" + id + "' is probably declared twice.")
         }
 #else
         UNUSED_PARAMETER(attrs);
         WRITE_WARNING("Not building overhead wire clamps, overhead wire solver support (Eigen) not compiled in.");
 #endif
-    }
-    else {
+    } else {
         WRITE_WARNING("Ignoring overhead wire clamps, they make no sense when overhead wire circuit solver is off.");
     }
 }
@@ -826,7 +817,7 @@ NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane
 
 void
 NLTriggerBuilder::buildOverheadWireSegment(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
-    bool voltageSource) {
+        bool voltageSource) {
     MSOverheadWire* overheadWireSegment = new MSOverheadWire(id, *lane, frompos, topos, voltageSource);
     if (!net.addStoppingPlace(SUMO_TAG_OVERHEAD_WIRE_SEGMENT, overheadWireSegment)) {
         delete overheadWireSegment;
@@ -838,16 +829,13 @@ void
 NLTriggerBuilder::buildInnerOverheadWireSegments(MSNet& net, const MSLane* connection, const MSLane* frontConnection, const MSLane* behindConnection) {
     if (frontConnection == NULL && behindConnection == NULL) {
         buildOverheadWireSegment(net, "ovrhd_inner_" + connection->getID(), const_cast<MSLane*>(connection), 0, connection->getLength(), false);
-    }
-    else if (frontConnection != NULL && behindConnection == NULL) {
+    } else if (frontConnection != NULL && behindConnection == NULL) {
         buildOverheadWireSegment(net, "ovrhd_inner_" + frontConnection->getID(), const_cast<MSLane*>(frontConnection), 0, frontConnection->getLength(), false);
         buildOverheadWireSegment(net, "ovrhd_inner_" + connection->getID(), const_cast<MSLane*>(connection), 0, connection->getLength(), false);
-    }
-    else if (frontConnection == NULL && behindConnection != NULL) {
+    } else if (frontConnection == NULL && behindConnection != NULL) {
         buildOverheadWireSegment(net, "ovrhd_inner_" + behindConnection->getID(), const_cast<MSLane*>(behindConnection), 0, behindConnection->getLength(), false);
         buildOverheadWireSegment(net, "ovrhd_inner_" + connection->getID(), const_cast<MSLane*>(connection), 0, connection->getLength(), false);
-    }
-    else if (frontConnection != NULL && behindConnection != NULL) {
+    } else if (frontConnection != NULL && behindConnection != NULL) {
         buildOverheadWireSegment(net, "ovrhd_inner_" + frontConnection->getID(), const_cast<MSLane*>(frontConnection), 0, frontConnection->getLength(), false);
         buildOverheadWireSegment(net, "ovrhd_inner_" + behindConnection->getID(), const_cast<MSLane*>(behindConnection), 0, behindConnection->getLength(), false);
         buildOverheadWireSegment(net, "ovrhd_inner_" + connection->getID(), const_cast<MSLane*>(connection), 0, connection->getLength(), false);
@@ -898,7 +886,9 @@ NLTriggerBuilder::getLane(const SUMOSAXAttributes& attrs,
     if (lane == nullptr) {
         // Either a lane that is non-existent/broken, or a lane that is internal and has been ignored.
         // We assume that internal lane names start with ':'.
-        if (objectid[0] == ':' && !MSGlobals::gUsingInternalLanes) return nullptr;
+        if (objectid[0] == ':' && !MSGlobals::gUsingInternalLanes) {
+            return nullptr;
+        }
         // Throw the exception only in case that the lane really does not exist in the network file
         // or it is broken.
         throw InvalidArgument("The lane " + objectid + " to use within the " + tt + " '" + tid + "' is not known.");

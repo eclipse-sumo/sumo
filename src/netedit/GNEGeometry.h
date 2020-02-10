@@ -78,7 +78,7 @@ struct GNEGeometry {
                             const Position& extraLastPosition = Position::INVALID);
 
         /// @brief update position and rotation
-        void updateGeometry(const Position &position, const double rotation);
+        void updateGeometry(const Position& position, const double rotation);
 
         /// @brief update position and rotation (using a lane and a position over lane)
         void updateGeometry(const GNELane* lane, const double posOverLane);
@@ -140,7 +140,7 @@ struct GNEGeometry {
 
         /// @brief update DottedGeometry (using a position, rotation, width and height)
         void updateDottedGeometry(const GUIVisualizationSettings& s, const Position& position, const double rotation, const double width, const double height);
-        
+
         /// @brief mark dotted geometry deprecated
         void markDottedGeometryDeprecated();
 
@@ -148,7 +148,7 @@ struct GNEGeometry {
         bool isGeometryDeprecated() const;
 
         /// @brief get Centroid
-        const Position &getCentroid() const;
+        const Position& getCentroid() const;
 
         /// @brief get rotation
         double getRotation() const;
@@ -183,9 +183,9 @@ struct GNEGeometry {
 
         /// @brief The lengths of the dotted shape
         std::vector<double> myShapeLengths;
-    
+
         /// @brief The colors  of the dotted shape
-        std::vector<RGBColor> myShapeColors; 
+        std::vector<RGBColor> myShapeColors;
 
         /// @brief flag to mark dotted geometry depreciated
         bool myDottedGeometryDeprecated;
@@ -427,7 +427,7 @@ struct GNEGeometry {
     static void drawShapeDottedContour(const GUIVisualizationSettings& s, const int type, const double exaggeration, const DottedGeometry& dottedGeometry);
 
     /// @brief get a circle around the given position
-    static PositionVector getVertexCircleAroundPosition(const Position &pos, const double width, const int steps = 8);
+    static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);
 
 private:
     /// @brief Storage for precomputed sin/cos-values describing a circle

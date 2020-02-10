@@ -270,10 +270,10 @@ GNERide::updateGeometry() {
     // calculate geometry path
     if (getPathEdges().size() > 0) {
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
-            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
-            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
@@ -281,7 +281,7 @@ GNERide::updateGeometry() {
     }
 }
 
-void 
+void
 GNERide::updateDottedContour() {
     //
 }

@@ -57,8 +57,8 @@ ODMatrix::ODMatrix(const ODDistrictCont& dc)
 
 
 ODMatrix::~ODMatrix() {
-    for (ODCell* const cell: myContainer) {
-        for (RORoute* const r :cell->pathsVector) {
+    for (ODCell* const cell : myContainer) {
+        for (RORoute* const r : cell->pathsVector) {
             delete r;
         }
         delete cell;

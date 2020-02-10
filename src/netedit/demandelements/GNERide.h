@@ -233,7 +233,7 @@ protected:
     /// @brief valid line or vehicle ids or ANY
     std::vector<std::string> myLines;
 
-private:    
+private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

@@ -301,7 +301,7 @@ struct GNEViewNetHelper {
 
         /// @brief chekable button for save additional elements
         FXButton* saveAdditionalElements;
-        
+
         /// @brief chekable button for save demand elements
         FXButton* saveDemandElements;
 

@@ -159,6 +159,8 @@ public:
     }
 
     /// @brief whether the transportable is jammed
-    virtual bool isJammed() const { return false;}
+    virtual bool isJammed() const {
+        return false;
+    }
 
 };

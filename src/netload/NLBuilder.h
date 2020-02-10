@@ -99,7 +99,7 @@ public:
     /**
     * loads the net, additional routes and the detectors
     */
-    static MSNet* init(const bool isLibsumo=false);
+    static MSNet* init(const bool isLibsumo = false);
 
     /// @brief initializes all RNGs
     static void initRandomness();

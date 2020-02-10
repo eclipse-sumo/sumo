@@ -384,10 +384,10 @@ private:
         void addDemandElements(GNEDemandElement* demandElement);
 
         /// @brief get stack position
-        const StackPosition &getStackPosition() const;
+        const StackPosition& getStackPosition() const;
 
         /// @brief get demand elements
-        const std::vector<GNEDemandElement*> &getDemandElements() const;
+        const std::vector<GNEDemandElement*>& getDemandElements() const;
     };
 
     /// @brif flag to enable/disable update geomtetry of lanes (used mainly by setNumLanes)
@@ -444,7 +444,7 @@ private:
     void drawDemandElements(const GUIVisualizationSettings& s) const;
 
     /// @brief check if given stacked positions are overlapped
-    bool areStackPositionOverlapped(const GNEEdge::StackPosition &vehicleA, const GNEEdge::StackPosition &vehicleB) const;
+    bool areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, const GNEEdge::StackPosition& vehicleB) const;
 
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;

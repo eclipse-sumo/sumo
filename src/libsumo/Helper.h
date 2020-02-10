@@ -143,7 +143,7 @@ public:
     static void collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<const Named*>& into);
     static void collectObjectIDsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into);
 
-    /** 
+    /**
      * @brief Filter the given ID-Set (which was obtained from an R-Tree search)
      *        according to the filters set by the subscription or firstly build the object ID list if
      *        the filters rather demand searching along the road network than considering a geometric range.
@@ -156,8 +156,8 @@ public:
     static void applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std::string>& objIDs);
 
     static void applySubscriptionFilterLateralDistanceSinglePass(std::set<std::string>& objIDs, std::set<const MSVehicle*>& vehs,
-                                                                 const std::vector<const MSLane*>& lanes, double lateralDist, double streamDist,
-                                                                 double posOnLane, bool isDownstream);
+            const std::vector<const MSLane*>& lanes, double lateralDist, double streamDist,
+            double posOnLane, bool isDownstream);
 
     static void setRemoteControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                                     int edgeOffset, ConstMSEdgeVector route, SUMOTime t);

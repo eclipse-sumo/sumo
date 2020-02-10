@@ -150,18 +150,18 @@ public:
     void pruneClusterFringe(NodeSet& cluster) const;
 
     /// @brief avoid removal of long edges when joinining junction clusters
-    static void pruneLongEdges(NodeSet& cluster, double maxDist); 
+    static void pruneLongEdges(NodeSet& cluster, double maxDist);
 
     /// @brief remove nodes that form a slip lane from cluster
     void pruneSlipLaneNodes(NodeSet& cluster) const;
 
     /// @brief return all cluster neighbors for the given node
-    static NodeSet getClusterNeighbors(const NBNode* n, NodeSet& cluster); 
+    static NodeSet getClusterNeighbors(const NBNode* n, NodeSet& cluster);
 
     /// @brief check whether the given node maybe the start of a slip lane
-    bool maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing, double& inAngle) const; 
+    bool maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing, double& inAngle) const;
     /// @brief check whether the given node maybe the end of a slip lane
-    bool maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outAngle) const; 
+    bool maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outAngle) const;
 
     /// @brief determine wether the cluster is not too complex for joining
     bool feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const NBPTStopCont& sc, std::string& reason) const;
@@ -242,7 +242,7 @@ public:
     void guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc);
 
     /// @brief recheck myGuessedTLS after node logics are computed
-    void recheckGuessedTLS(NBTrafficLightLogicCont& tlc); 
+    void recheckGuessedTLS(NBTrafficLightLogicCont& tlc);
 
     /** @brief Builds clusters of tls-controlled junctions and joins the control if possible
      * @param[changed] tlc The traffic lights control for adding/removing new/prior tls

@@ -700,7 +700,9 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         bool feasible = feasibleCluster(cluster, ec, sc, origReason);
         if (!feasible) {
 #ifdef DEBUG_JOINJUNCTIONS
-            if (gDebugFlag1) std::cout << "   try to reduce to 4-circle nodes=" << joinNamedToString(cluster, ',') << "\n";
+            if (gDebugFlag1) {
+                std::cout << "   try to reduce to 4-circle nodes=" << joinNamedToString(cluster, ',') << "\n";
+            }
 #endif
             origCluster = joinNamedToString(cluster, ',');
             if (reduceToCircle(cluster, 4, cluster)) {
@@ -712,7 +714,9 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         }
         if (!feasible) {
 #ifdef DEBUG_JOINJUNCTIONS
-            if (gDebugFlag1) std::cout << "   try to reduce to 2-circle nodes=" << joinNamedToString(cluster, ',') << "\n";
+            if (gDebugFlag1) {
+                std::cout << "   try to reduce to 2-circle nodes=" << joinNamedToString(cluster, ',') << "\n";
+            }
 #endif
             origCluster = joinNamedToString(cluster, ',');
             if (reduceToCircle(cluster, 2, cluster)) {
@@ -772,7 +776,9 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
 void
 NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
 #ifdef DEBUG_JOINJUNCTIONS
-    if (gDebugFlag1) std::cout << "pruning cluster=" << joinNamedToString(cluster, ' ') << "\n";
+    if (gDebugFlag1) {
+        std::cout << "pruning cluster=" << joinNamedToString(cluster, ' ') << "\n";
+    }
 #endif
     // iteratively remove the fringe
     bool pruneFringe = true;
@@ -822,21 +828,23 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
             }
 #ifdef DEBUG_JOINJUNCTIONS
             if (gDebugFlag1) std::cout << "  check n=" << n->getID()
-                                            << " clusterDist=" << clusterDist
-                                            << " cd<th=" << (clusterDist <= pedestrianFringeThreshold)
-                                            << " touching=" << touchingCluster
-                                            << " out=" << joinNamedToString(outsideNeighbors, ',')
-                                            << " in=" << joinNamedToString(clusterNeighbors, ',')
-                                            << "\n";
+                                           << " clusterDist=" << clusterDist
+                                           << " cd<th=" << (clusterDist <= pedestrianFringeThreshold)
+                                           << " touching=" << touchingCluster
+                                           << " out=" << joinNamedToString(outsideNeighbors, ',')
+                                           << " in=" << joinNamedToString(clusterNeighbors, ',')
+                                           << "\n";
 #endif
-            if (clusterNeighbors.size() == 0 
+            if (clusterNeighbors.size() == 0
                     || (outsideNeighbors.size() <= 1
-                    && clusterNeighbors.size() == 1
-                    && !n->isTLControlled())) {
+                        && clusterNeighbors.size() == 1
+                        && !n->isTLControlled())) {
                 cluster.erase(check);
                 pruneFringe = true; // other nodes could belong to the fringe now
 #ifdef DEBUG_JOINJUNCTIONS
-                if (gDebugFlag1) std::cout << "  pruned n=" << n->getID() << "\n";
+                if (gDebugFlag1) {
+                    std::cout << "  pruned n=" << n->getID() << "\n";
+                }
 #endif
             }
         }
@@ -865,10 +873,10 @@ NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist) {
             while (cluster.count(to) != 0) {
                 length += cur->getLoadedLength();
                 bool goStraight = (std::find(passed.begin(), passed.end(), to) == passed.end()
-                        && (edge->getPermissions() & SVC_PASSENGER) != 0
-                        && to->geometryLike(
-                            NBEdge::filterByPermissions(to->getIncomingEdges(), SVC_PASSENGER),
-                            NBEdge::filterByPermissions(to->getOutgoingEdges(), SVC_PASSENGER)));
+                                   && (edge->getPermissions() & SVC_PASSENGER) != 0
+                                   && to->geometryLike(
+                                       NBEdge::filterByPermissions(to->getIncomingEdges(), SVC_PASSENGER),
+                                       NBEdge::filterByPermissions(to->getOutgoingEdges(), SVC_PASSENGER)));
                 passed.push_back(to);
                 if (goStraight) {
                     cur = cur->getStraightContinuation(SVC_PASSENGER);
@@ -884,7 +892,9 @@ NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist) {
             // allow higher threshold at larger junctions
             double longThreshold = maxDist + SUMO_const_laneWidth * MAX2(0, maxPassengerLanes - 1);
 #ifdef DEBUG_JOINJUNCTIONS
-            if (gDebugFlag1) std::cout << "check edge length " << edge->getID() << " (" << length << ", passed=" << passed.size() << ", max=" << longThreshold << ")\n";
+            if (gDebugFlag1) {
+                std::cout << "check edge length " << edge->getID() << " (" << length << ", passed=" << passed.size() << ", max=" << longThreshold << ")\n";
+            }
 #endif
             if (length > longThreshold) {
                 // we found an edge that should not be removed. Maybe we can
@@ -893,7 +903,9 @@ NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist) {
                 const bool keepStart = getClusterNeighbors(passed.back(), cluster).size() == 1;
                 const bool keepEnd = !keepStart && getClusterNeighbors(n, cluster).size() == 1;
 #ifdef DEBUG_JOINJUNCTIONS
-                if (gDebugFlag1) std::cout << "node=" << n->getID() << " long edge " << edge->getID() << " (" << length << ", passed=" << toString(passed) << ", max=" << longThreshold << ") keepStart=" << keepStart << " keepEnd=" << keepEnd << "\n";
+                if (gDebugFlag1) {
+                    std::cout << "node=" << n->getID() << " long edge " << edge->getID() << " (" << length << ", passed=" << toString(passed) << ", max=" << longThreshold << ") keepStart=" << keepStart << " keepEnd=" << keepEnd << "\n";
+                }
 #endif
                 if (!keepStart) {
                     toRemove.insert(n);
@@ -928,7 +940,9 @@ NBNodeCont::getClusterNeighbors(const NBNode* n, NodeSet& cluster) {
 void
 NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
 #ifdef DEBUG_JOINJUNCTIONS
-    if (gDebugFlag1) std::cout << "pruning slip-lanes at cluster=" << joinNamedToString(cluster, ' ') << "\n";
+    if (gDebugFlag1) {
+        std::cout << "pruning slip-lanes at cluster=" << joinNamedToString(cluster, ' ') << "\n";
+    }
 #endif
     // fringe has already been removed
     if (cluster.size() <= 2) {
@@ -942,7 +956,9 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
         if (maybeSlipLaneStart(n, outgoing, inAngle)) {
             // potential slip lane start but we don't know which of the outgoing edges it is
 #ifdef DEBUG_JOINJUNCTIONS
-            if (gDebugFlag1) std::cout << "   candidate slip-lane start=" << n->getID() << " outgoing=" << toString(outgoing) << "\n";
+            if (gDebugFlag1) {
+                std::cout << "   candidate slip-lane start=" << n->getID() << " outgoing=" << toString(outgoing) << "\n";
+            }
 #endif
             for (NBEdge* contEdge : outgoing) {
                 if ((contEdge->getPermissions() & SVC_PASSENGER) == 0) {
@@ -958,14 +974,18 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
                     }
                     cands.insert(cont);
 #ifdef DEBUG_JOINJUNCTIONS
-                    if (gDebugFlag1) std::cout << "   candidate slip-lane cont=" << cont->getID() << "\n";
+                    if (gDebugFlag1) {
+                        std::cout << "   candidate slip-lane cont=" << cont->getID() << "\n";
+                    }
 #endif
                     NBEdge* next = cont->getOutgoingEdges().front();
                     slipLength += next->getLength();
                     cont = next->getToNode();
                 }
 #ifdef DEBUG_JOINJUNCTIONS
-                if (gDebugFlag1) std::cout << "   candidate slip-lane end=" << cont->getID() << " slipLength=" << slipLength << "\n";
+                if (gDebugFlag1) {
+                    std::cout << "   candidate slip-lane end=" << cont->getID() << " slipLength=" << slipLength << "\n";
+                }
 #endif
                 if (cont->getIncomingEdges().size() >= 2 && cont->getOutgoingEdges().size() == 1 &&
                         // slip lanes are for turning so there needs to be a sufficient angle
@@ -985,7 +1005,9 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
                         NBNode* cont2 = nodeAndDist.first;
                         double dist = nodeAndDist.second;
 #ifdef DEBUG_JOINJUNCTIONS
-                        if (gDebugFlag1) std::cout << "   search alternative cont2=" << cont2->getID() << " dist=" << dist << "\n";
+                        if (gDebugFlag1) {
+                            std::cout << "   search alternative cont2=" << cont2->getID() << " dist=" << dist << "\n";
+                        }
 #endif
                         toProc.pop_back();
                         if (visited.find(cont2) != visited.end()) {
@@ -1008,7 +1030,9 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
                         cands.insert(cont);
                         toRemove.insert(cands.begin(), cands.end());
 #ifdef DEBUG_JOINJUNCTIONS
-                        if (gDebugFlag1) std::cout << "   found slip-lane with nodes=" << joinNamedToString(cands, ' ') << "\n";
+                        if (gDebugFlag1) {
+                            std::cout << "   found slip-lane with nodes=" << joinNamedToString(cands, ' ') << "\n";
+                        }
 #endif
                     }
                 }
@@ -1021,7 +1045,9 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
         if (maybeSlipLaneEnd(n, incoming, outAngle)) {
             // potential slip lane end but we don't know which of the incoming edges it is
 #ifdef DEBUG_JOINJUNCTIONS
-            if (gDebugFlag1) std::cout << "   candidate slip-lane end=" << n->getID() << " incoming=" << toString(incoming) << "\n";
+            if (gDebugFlag1) {
+                std::cout << "   candidate slip-lane end=" << n->getID() << " incoming=" << toString(incoming) << "\n";
+            }
 #endif
             for (NBEdge* contEdge : incoming) {
                 if ((contEdge->getPermissions() & SVC_PASSENGER) == 0) {
@@ -1037,14 +1063,18 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
                     }
                     cands.insert(cont);
 #ifdef DEBUG_JOINJUNCTIONS
-                    if (gDebugFlag1) std::cout << "   candidate slip-lane cont=" << cont->getID() << "\n";
+                    if (gDebugFlag1) {
+                        std::cout << "   candidate slip-lane cont=" << cont->getID() << "\n";
+                    }
 #endif
                     NBEdge* next = cont->getIncomingEdges().front();
                     slipLength += next->getLength();
                     cont = next->getFromNode();
                 }
 #ifdef DEBUG_JOINJUNCTIONS
-                if (gDebugFlag1) std::cout << "   candidate slip-lane start=" << cont->getID() << " slipLength=" << slipLength << "\n";
+                if (gDebugFlag1) {
+                    std::cout << "   candidate slip-lane start=" << cont->getID() << " slipLength=" << slipLength << "\n";
+                }
 #endif
                 if (cont->getOutgoingEdges().size() >= 2 && cont->getIncomingEdges().size() == 1 &&
                         // slip lanes are for turning so there needs to be a sufficient angle
@@ -1064,7 +1094,9 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
                         NBNode* cont2 = nodeAndDist.first;
                         double dist = nodeAndDist.second;
 #ifdef DEBUG_JOINJUNCTIONS
-                        if (gDebugFlag1) std::cout << "   search alternative cont2=" << cont2->getID() << " dist=" << dist << "\n";
+                        if (gDebugFlag1) {
+                            std::cout << "   search alternative cont2=" << cont2->getID() << " dist=" << dist << "\n";
+                        }
 #endif
                         toProc.pop_back();
                         if (visited.find(cont2) != visited.end()) {
@@ -1087,7 +1119,9 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
                         cands.insert(cont);
                         toRemove.insert(cands.begin(), cands.end());
 #ifdef DEBUG_JOINJUNCTIONS
-                        if (gDebugFlag1) std::cout << "   found slip-lane start with nodes=" << joinNamedToString(cands, ' ') << "\n";
+                        if (gDebugFlag1) {
+                            std::cout << "   found slip-lane start with nodes=" << joinNamedToString(cands, ' ') << "\n";
+                        }
 #endif
                     }
                 }
@@ -1787,7 +1821,9 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             const NBNode* node = item.second;
             if (node->isTLControlled() && (node->getIncomingEdges().size() == 1 || node->geometryLike())) {
 #ifdef DEBUG_GUESSSIGNALS
-                if (DEBUGCOND(node) || true) std::cout << " propagate TLS from " << node->getID() << " downstream\n";
+                if (DEBUGCOND(node) || true) {
+                    std::cout << " propagate TLS from " << node->getID() << " downstream\n";
+                }
 #endif
                 for (NBEdge* edge : node->getOutgoingEdges()) {
                     edge->setSignalPosition(node->getPosition(), node);
@@ -1802,7 +1838,9 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                     check.insert(edge);
                     seen.insert(edge);
 #ifdef DEBUG_GUESSSIGNALS
-                    if (DEBUGCOND(edge->getSignalNode()) || true) std::cout << "   primary signalPosition edge=" << edge->getID() << " pos=" << edge->getSignalPosition() << "\n";
+                    if (DEBUGCOND(edge->getSignalNode()) || true) {
+                        std::cout << "   primary signalPosition edge=" << edge->getID() << " pos=" << edge->getSignalPosition() << "\n";
+                    }
 #endif
                 }
             }
@@ -1818,14 +1856,16 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                     if (seen.count(outEdge) == 0) {
                         outEdge->setSignalPosition(edge->getSignalPosition(), edge->getSignalNode());
 #ifdef DEBUG_GUESSSIGNALS
-                        if (DEBUGCOND(edge->getSignalNode()) || true) std::cout << "   setSignalPosition edge=" << outEdge->getID() << " pos=" << edge->getSignalPosition() << "\n";
+                        if (DEBUGCOND(edge->getSignalNode()) || true) {
+                            std::cout << "   setSignalPosition edge=" << outEdge->getID() << " pos=" << edge->getSignalPosition() << "\n";
+                        }
 #endif
                         check.insert(outEdge);
                     }
                 }
             }
         }
-       
+
         // check which nodes should be controlled
         for (std::map<std::string, NBNode*>::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
             NBNode* node = i->second;
@@ -1844,7 +1884,9 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                     const NBEdge* inEdge = *it_i;
                     if (inEdge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET && inEdge->getPermissions() != SVC_TRAM) {
 #ifdef DEBUG_GUESSSIGNALS
-                        if (DEBUGCOND(node)) std::cout << " noTLS, edge=" << inEdge->getID() << "\n";
+                        if (DEBUGCOND(node)) {
+                            std::cout << " noTLS, edge=" << inEdge->getID() << "\n";
+                        }
 #endif
                         isTLS = false;
                         break;
@@ -1859,7 +1901,9 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                         if ((inEdge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET || inEdge->getSignalOffset() > signalDist)
                                 && inEdge->getPermissions() != SVC_TRAM) {
 #ifdef DEBUG_GUESSSIGNALS
-                            if (DEBUGCOND(node)) std::cout << " noTLS, edge=" << inEdge->getID() << " offset=" << inEdge->getSignalOffset() << " tlsPos=" << inEdge->getSignalPosition() << "\n";
+                            if (DEBUGCOND(node)) {
+                                std::cout << " noTLS, edge=" << inEdge->getID() << " offset=" << inEdge->getSignalOffset() << " tlsPos=" << inEdge->getSignalPosition() << "\n";
+                            }
 #endif
                             isTLS = false;
                             break;
@@ -1875,7 +1919,9 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                         NBNode* cand = outEdge->getToNode();
                         if (cand->isTLControlled() && cand->geometryLike() && outEdge->getLength() <= signalDist) {
 #ifdef DEBUG_GUESSSIGNALS
-                            if (DEBUGCOND(node))  std::cout << " node=" << node->getID() << " outEdge=" << outEdge->getID() << " signalNode=" << cand->getID() << " len=" << outEdge->getLength() << "\n";
+                            if (DEBUGCOND(node)) {
+                                std::cout << " node=" << node->getID() << " outEdge=" << outEdge->getID() << " signalNode=" << cand->getID() << " len=" << outEdge->getLength() << "\n";
+                            }
 #endif
                             signals.push_back(cand);
                         }
@@ -1972,7 +2018,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
 
 void NBNodeCont::recheckGuessedTLS(NBTrafficLightLogicCont& tlc) {
     std::set<NBTrafficLightDefinition*> recompute;
-    for (NBNode* node: myGuessedTLS) {
+    for (NBNode* node : myGuessedTLS) {
         if (!node->hasConflict()) {
             const std::set<NBTrafficLightDefinition*>& tlDefs = node->getControllingTLS();
             recompute.insert(tlDefs.begin(), tlDefs.end());

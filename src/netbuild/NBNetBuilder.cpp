@@ -160,9 +160,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         NBRailwayTopologyAnalyzer::analyzeTopology(*this);
     }
 
-    if (oc.getBool("junctions.join") 
-            || (oc.exists("ramps.guess") && oc.getBool("ramps.guess")) 
-            || oc.getBool("tls.guess.joining") 
+    if (oc.getBool("junctions.join")
+            || (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))
+            || oc.getBool("tls.guess.joining")
             || (oc.exists("tls.guess-signals") && oc.getBool("tls.guess-signals"))) {
         // preliminary geometry computations to determine the length of edges
         // This depends on turning directions and sorting of edge list
@@ -287,8 +287,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
 
     // guess ramps (after guessing tls because ramps should not be build at traffic lights)
     const bool modifyRamps = mayAddOrRemove && (
-            (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))
-            || (oc.exists("ramps.set") && oc.isSet("ramps.set")));
+                                 (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))
+                                 || (oc.exists("ramps.set") && oc.isSet("ramps.set")));
     if (modifyRamps || (oc.exists("ramps.guess-acceleration-lanes") && oc.getBool("ramps.guess-acceleration-lanes"))) {
         before = SysUtils::getCurrentMillis();
         if (modifyRamps) {
@@ -446,11 +446,11 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     before = PROGRESS_BEGIN_TIME_MESSAGE("Processing turnarounds");
     if (!oc.getBool("no-turnarounds")) {
         myEdgeCont.appendTurnarounds(
-                oc.getBool("no-turnarounds.tls"),
-                oc.getBool("no-turnarounds.fringe"),
-                oc.getBool("no-turnarounds.except-deadend"),
-                oc.getBool("no-turnarounds.except-turnlane"),
-                oc.getBool("no-turnarounds.geometry"));
+            oc.getBool("no-turnarounds.tls"),
+            oc.getBool("no-turnarounds.fringe"),
+            oc.getBool("no-turnarounds.except-deadend"),
+            oc.getBool("no-turnarounds.except-turnlane"),
+            oc.getBool("no-turnarounds.geometry"));
     } else {
         myEdgeCont.appendTurnarounds(explicitTurnarounds, oc.getBool("no-turnarounds.tls"));
     }

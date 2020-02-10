@@ -40,9 +40,9 @@ class Circuit {
 
 private:
 
-    vector<Node*> *nodes;
-    vector<Element*> *elements;
-    vector<Element*> *voltageSources;
+    vector<Node*>* nodes;
+    vector<Element*>* elements;
+    vector<Element*>* voltageSources;
 
     int lastId;
     bool iscleaned;
@@ -52,11 +52,11 @@ public:
     Element* getElement(string name);
     Node* getNode(int id);
     Element* getVoltageSource(int id);
-    vector<Element*> *getCurrentSources();
+    vector<Element*>* getCurrentSources();
 
     void lock();
     void unlock();
-    
+
     /**
      * @brief Best alpha scaling value.
      *
@@ -70,8 +70,8 @@ public:
     double alphaBest;
 
 private:
-    Element * getElement(int id);
-    
+    Element* getElement(int id);
+
     /*
     *    detects removable nodes = sets node variable "isremovable" to true if node is removable and adds id of such node to "removable_ids" vector
     *    node is denoted as removable if it is connected just to 2 elements and both of them are resistor
@@ -114,7 +114,7 @@ private:
     bool createEquation(Element* vsource, double* eqn, double& val);
 
     /*
-     *    removes the "colToRemove"-th column from matrix "matrix" 
+     *    removes the "colToRemove"-th column from matrix "matrix"
      */
     void removeColumn(Eigen::MatrixXd& matrix, const unsigned int colToRemove);
 
@@ -171,9 +171,13 @@ public:
     void replaceAndDeleteNode(Node* unusedNode, Node* newNode);
 
     // returns lastId
-    int getLastId() { return lastId; };
+    int getLastId() {
+        return lastId;
+    };
 
     // decreases lastId by one
-    void descreaseLastId() { lastId--; };
+    void descreaseLastId() {
+        lastId--;
+    };
 };
 #endif

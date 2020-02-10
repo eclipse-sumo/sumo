@@ -59,7 +59,7 @@ public:
     ~GNENetElement();
 
     /// @brief updated dotted geometry
-    void updateDottedGeometry(const PositionVector &shape);
+    void updateDottedGeometry(const PositionVector& shape);
 
     /// @brief gererate a new ID for an element child
     virtual std::string generateChildID(SumoXMLTag childTag) = 0;

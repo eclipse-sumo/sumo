@@ -70,7 +70,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
             const SUMOVehicle* veh = it->second;
             MSDevice_FCD* fcdDevice = (MSDevice_FCD*)veh->getDevice(typeid(MSDevice_FCD));
-            if (fcdDevice != nullptr 
+            if (fcdDevice != nullptr
                     && (veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
                     && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)) {
                 PositionVector shape;
@@ -87,7 +87,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
         if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
                 // only filter on normal edges
-                && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0) 
+                && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)
                 && (veh->getDevice(typeid(MSDevice_FCD)) != nullptr || (radius > 0 && inRadius.count(veh) > 0))) {
             Position pos = veh->getPosition();
             if (useGeo) {

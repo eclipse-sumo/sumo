@@ -303,13 +303,13 @@ GNEWalk::updateGeometry() {
     if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
         // use edges of route parent
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
-            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else if (getPathEdges().empty()) {
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
-            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
-            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
+                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
@@ -318,7 +318,7 @@ GNEWalk::updateGeometry() {
 }
 
 
-void 
+void
 GNEWalk::updateDottedContour() {
     //
 }

@@ -40,7 +40,7 @@ private:
     int num_matrixCol;    // number of matrix column during solving the equations
     double voltage;
     vector<Element*>* elements; // too lazy to implement a linked list
-                                // each node is connected to one or more element, an element is a resistor or voltage/current source
+    // each node is connected to one or more element, an element is a resistor or voltage/current source
 
 public:
     // A constructor, same functionality as "init" functions
@@ -58,7 +58,9 @@ public:
     Element* getAnOtherElement(Element* element);
     string& getName();
     bool isGround();
-    bool isRemovable() { return isremovable; };
+    bool isRemovable() {
+        return isremovable;
+    };
     void setGround(bool isground);
     int getId();
     void setNumMatrixRow(int num);

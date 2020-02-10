@@ -1067,8 +1067,7 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorParent) :
-    FXGroupBox(TLSEditorParent->myContentFrame, "Traffic Light Programs", GUIDesignGroupBoxFrame) 
-{
+    FXGroupBox(TLSEditorParent->myContentFrame, "Traffic Light Programs", GUIDesignGroupBoxFrame) {
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
     myNewTLProgram = new FXButton(buttonsFrame, "Create\t\tCreate a new traffic light program",
@@ -1109,10 +1108,10 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     // using FXMatrix for tabular button layout would have been cleaner but the
     // below attempt did not make the buttons fill available horizontal space
     // FXMatrix* phaseButtons = new FXMatrix(this, 2, LAYOUT_FILL_X | MATRIX_BY_COLUMNS);
-    
+
     FXHorizontalFrame* phaseButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    FXVerticalFrame* col1 = new FXVerticalFrame(phaseButtons, LAYOUT_FILL_X, 0,0,0,0, 0,0,0,0, 0,0); // left button columm
-    FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, LAYOUT_FILL_X, 0,0,0,0, 0,0,0,0, 0,0); // right button column
+    FXVerticalFrame* col1 = new FXVerticalFrame(phaseButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // left button columm
+    FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // right button column
 
     // create new phase button
     myInsertDuplicateButton = new FXButton(col1, "Insert Phase\t\tInsert new phase after the selected phase. The new state is deduced from the selected phase.", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_CREATE, GUIDesignButton);

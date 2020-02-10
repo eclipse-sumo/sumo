@@ -92,9 +92,9 @@ GUIEdge::closeBuilding() {
         }
     }
     myShowDeadEnd = (!isTazConnector() && !hasNormalSuccessors && getToJunction()->getOutgoing().size() > 0
-            && (getPermissions() & ~SVC_PEDESTRIAN) != 0
-            && (getToJunction()->getOutgoing().size() > 1 || 
-                getToJunction()->getOutgoing().front()->getToJunction() != getFromJunction())); 
+                     && (getPermissions() & ~SVC_PEDESTRIAN) != 0
+                     && (getToJunction()->getOutgoing().size() > 1 ||
+                         getToJunction()->getOutgoing().front()->getToJunction() != getFromJunction()));
 }
 
 MSLane&

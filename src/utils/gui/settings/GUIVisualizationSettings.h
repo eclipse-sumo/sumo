@@ -331,7 +331,7 @@ struct GUIVisualizationStoppingPlaceSettings {
 
 /// @brief struct for dotted contour settings
 struct GUIVisualizationDottedContourSettings {
-    
+
     /// @brief width of dotted contour segments
     static const double segmentWidth;
 

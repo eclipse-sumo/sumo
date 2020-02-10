@@ -931,7 +931,7 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag) :
 GNEAttributeCarrier::~GNEAttributeCarrier() {}
 
 
-const GNEGeometry::DottedGeometry& 
+const GNEGeometry::DottedGeometry&
 GNEAttributeCarrier::getDottedGeometry() const {
     return myDottedGeometry;
 }

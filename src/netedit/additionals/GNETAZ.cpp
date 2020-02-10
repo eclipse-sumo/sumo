@@ -74,7 +74,7 @@ GNETAZ::updateGeometry() {
 }
 
 
-void 
+void
 GNETAZ::updateDottedContour() {
     myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myTAZShape);
 }
@@ -321,7 +321,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 glPopMatrix();
                 // draw shape points only in Network supemode
                 if (myViewNet->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND) {
-                    for (const auto &TAZVertex : myTAZShape) {
+                    for (const auto& TAZVertex : myTAZShape) {
                         if (!s.drawForRectangleSelection || (myViewNet->getPositionInformation().distanceSquaredTo2D(TAZVertex) <= (myHintSizeSquared + 2))) {
                             glPushMatrix();
                             glTranslated(TAZVertex.x(), TAZVertex.y(), GLO_POLYGON + 0.02);

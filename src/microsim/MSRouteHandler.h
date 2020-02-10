@@ -88,7 +88,7 @@ protected:
      * @param[in] attrs Attributes within the currently opened element
      * @exception ProcessError If something fails
      */
-    void parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs); 
+    void parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
 
     /// @brief opens a type distribution for reading
     void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);

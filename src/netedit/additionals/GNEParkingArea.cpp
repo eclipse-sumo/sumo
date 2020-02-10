@@ -93,7 +93,7 @@ GNEParkingArea::updateGeometry() {
 }
 
 
-void 
+void
 GNEParkingArea::updateDottedContour() {
     myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myAdditionalGeometry.getShape(), myWidth);
 }

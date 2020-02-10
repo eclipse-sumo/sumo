@@ -386,7 +386,7 @@ NBNode::removeTrafficLights(bool setAsPriority) {
     }
     if (setAsPriority) {
         myType = myRequest != nullptr ? NODETYPE_PRIORITY : (
-                myType == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION ? NODETYPE_NOJUNCTION : NODETYPE_DEAD_END);
+                     myType == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION ? NODETYPE_NOJUNCTION : NODETYPE_DEAD_END);
     }
 }
 
@@ -1069,7 +1069,7 @@ NBNode::computeLanes2Lanes() {
         int inOffset, outOffset, addedLanes;
         getReduction(out, in, outOffset, inOffset, addedLanes);
         if (in->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES
-                && addedLanes > 0 
+                && addedLanes > 0
                 && in->isConnectedTo(out)) {
             const int addedRight = addedLanesRight(out, addedLanes);
             const int addedLeft = addedLanes - addedRight;
@@ -1427,9 +1427,9 @@ NBNode::addedLanesRight(NBEdge* out, int addedLanes) const {
     const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
     const int usableLanes = out->getNumLanes() - outOffset;
     int addedTurnLanes = MIN3(
-            addedLanes,
-            MAX2(0, usableLanes - outLanesStraight),
-            outLanesRight + outLanesLeft);
+                             addedLanes,
+                             MAX2(0, usableLanes - outLanesStraight),
+                             outLanesRight + outLanesLeft);
     if (outLanesLeft == 0) {
         return addedTurnLanes;
     } else {
@@ -1833,7 +1833,7 @@ NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
         const double toAngleAtNode = fmod(to->getStartAngle() + 180, (double)360.0);
         const double prohibitorToAngleAtNode = fmod(prohibitorTo->getStartAngle() + 180, (double)360.0);
         return (flip != (GeomHelper::getCWAngleDiff(from->getEndAngle(), toAngleAtNode) <
-                             GeomHelper::getCWAngleDiff(from->getEndAngle(), prohibitorToAngleAtNode)));
+                         GeomHelper::getCWAngleDiff(from->getEndAngle(), prohibitorToAngleAtNode)));
     }
 }
 

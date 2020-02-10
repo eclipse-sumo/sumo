@@ -136,10 +136,10 @@ public:
      * handling of looped routes
      * The definition of the effort depends on the wished routing scheme */
     inline bool compute(
-            const E* from, double fromPos, 
-            const E* to, double toPos,
-            const V* const vehicle,
-            SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
+        const E* from, double fromPos,
+        const E* to, double toPos,
+        const V* const vehicle,
+        SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         if (from != to || fromPos <= toPos) {
             return compute(from, to, vehicle, msTime, into, silent);
         } else {

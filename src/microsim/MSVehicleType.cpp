@@ -413,7 +413,7 @@ MSVehicleType::check() {
             warning2 = " This may cause collisions.";
         }
         WRITE_WARNINGF("Action step length '%' is used for vehicle type '%' but step-method.ballistic was not set." + warning2
-                , STEPS2TIME(myParameter.actionStepLength), getID())
+                       , STEPS2TIME(myParameter.actionStepLength), getID())
     }
 }
 

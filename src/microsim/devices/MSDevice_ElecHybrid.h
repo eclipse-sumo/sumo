@@ -193,7 +193,9 @@ public:
     double acceleration(SUMOVehicle& veh, double power, double oldSpeed);
     double consumption(SUMOVehicle& veh, double a, double newSpeed);
 
-    MSOverheadWire* getActOverheadWireSegment() {return myActOverheadWireSegment;};
+    MSOverheadWire* getActOverheadWireSegment() {
+        return myActOverheadWireSegment;
+    };
 
     Element* getVehElem() {
         return veh_elem;
@@ -206,7 +208,7 @@ private:
     * @param[in] id The ID of the device
     */
     MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string& id,
-        const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower, const std::map<int, double>& param);
+                        const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower, const std::map<int, double>& param);
 
     void checkParam(const SumoXMLAttr paramKey, const double lower = 0., const double upper = std::numeric_limits<double>::infinity());
 
@@ -249,7 +251,7 @@ protected:
     double myMinBatteryPower;
     double myTotalPowerConsumed;
     double myTotalPowerRegenerated;
-    
+
     /// @brief Energy that could not be stored back to the battery or traction station
     /// and was wasted on resistors. This is approximate, we ignore the use of classical
     /// brakes in lower speeds.

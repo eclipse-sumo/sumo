@@ -651,7 +651,7 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
 
 void
 GLHelper::drawTextAtEnd(const std::string& text, const PositionVector& shape, double x,
-        const GUIVisualizationTextSettings& settings, const double scale) {
+                        const GUIVisualizationTextSettings& settings, const double scale) {
     glPushMatrix();
     const Position& end = shape.back();
     const Position& f = shape[-2];

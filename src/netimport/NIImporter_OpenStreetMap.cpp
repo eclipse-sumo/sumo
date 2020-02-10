@@ -1016,7 +1016,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                             minLanes = MIN2(minLanes, numLanes);
                         }
                         myCurrentEdge->myNoLanes = minLanes;
-                        WRITE_WARNINGF( "Using minimum lane number from list (%) for edge '%'.", value, toString(myCurrentEdge->id));
+                        WRITE_WARNINGF("Using minimum lane number from list (%) for edge '%'.", value, toString(myCurrentEdge->id));
                     } catch (NumberFormatException&) {
                         WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                                       toString(myCurrentEdge->id) + "'.");
@@ -1042,8 +1042,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                               toString(myCurrentEdge->id) + "'.");
             }
         } else if (myCurrentEdge->myMaxSpeed == MAXSPEED_UNGIVEN &&
-                (key == "maxspeed" || key == "maxspeed:type")) {
-                // both 'maxspeed' and 'maxspeed:type' may be given so we must take care not to overwrite an already seen value
+                   (key == "maxspeed" || key == "maxspeed:type")) {
+            // both 'maxspeed' and 'maxspeed:type' may be given so we must take care not to overwrite an already seen value
             if (mySpeedMap.find(value) != mySpeedMap.end()) {
                 myCurrentEdge->myMaxSpeed = mySpeedMap[value];
             } else {
@@ -1214,7 +1214,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
                 if (myOSMNodes.find(ref) != myOSMNodes.end()) {
                     myViaNode = ref;
                 } else {
-                    WRITE_WARNINGF( "No node found for reference '%' in relation '%'.", toString(ref), toString(myCurrentRelation));
+                    WRITE_WARNINGF("No node found for reference '%' in relation '%'.", toString(ref), toString(myCurrentRelation));
                 }
             }
         } else if (role == "from" && checkEdgeRef(ref)) {
@@ -1382,7 +1382,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                         }
                         if (p.size() == 0) {
                             WRITE_WARNINGF("Referenced platform: '%' in relation: '%' is corrupt. Probably OSM file is incomplete.",
-                                    toString(myPlatform.ref), toString(myCurrentRelation));
+                                           toString(myPlatform.ref), toString(myCurrentRelation));
                             continue;
                         }
                         NBPTPlatform platform(p[(int)p.size() / 2], p.length());

@@ -71,8 +71,7 @@ GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     myAmResponsible(false),
     myHasValidLogic(loaded),
     myAmTLSSelected(false),
-    myColorForMissingConnections(false)
-{
+    myColorForMissingConnections(false) {
 }
 
 
@@ -1248,7 +1247,7 @@ GNEJunction::drawJunctionChilds(const GUIVisualizationSettings& s) const {
         if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
             // draw demand elements
             drawDemandElements(s, incomingEdge);
-        } 
+        }
     }
 }
 
@@ -1276,13 +1275,13 @@ GNEJunction::drawDemandElements(const GUIVisualizationSettings& s, const GNEEdge
         if (edge->getChildDemandElementsByType(SUMO_TAG_ROUTE).size() > 0) {
             const auto& route = edge->getChildDemandElementsByType(SUMO_TAG_ROUTE).front();
             if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(route)) {
-                 edge->drawPartialRoute(s, route, this);
+                edge->drawPartialRoute(s, route, this);
             }
         }
         if (edge->getChildDemandElementsByType(SUMO_TAG_EMBEDDEDROUTE).size() > 0) {
             const auto& embeddedRoute = edge->getChildDemandElementsByType(SUMO_TAG_EMBEDDEDROUTE).front();
             if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(embeddedRoute)) {
-                 edge->drawPartialRoute(s, embeddedRoute, this);
+                edge->drawPartialRoute(s, embeddedRoute, this);
             }
         }
     }
@@ -1456,7 +1455,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEJunction::updateDottedContour() {
     // obtain junction shape
     PositionVector shape = myNBNode->getShape();

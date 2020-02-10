@@ -3698,7 +3698,7 @@ MSLane::checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& di
         }
 #endif
         PersonDist leader = nextBlocking(pos - aVehicle->getVehicleType().getLength(),
-                            aVehicle->getRightSideOnLane(), aVehicle->getRightSideOnLane() + aVehicle->getVehicleType().getWidth(), ceil(speed / aVehicle->getCarFollowModel().getMaxDecel()));
+                                         aVehicle->getRightSideOnLane(), aVehicle->getRightSideOnLane() + aVehicle->getVehicleType().getWidth(), ceil(speed / aVehicle->getCarFollowModel().getMaxDecel()));
         if (leader.first != 0) {
             const double gap = leader.second - aVehicle->getVehicleType().getLengthWithGap();
             const double stopSpeed = aVehicle->getCarFollowModel().stopSpeed(aVehicle, speed, gap);

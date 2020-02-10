@@ -77,7 +77,7 @@ Simulation::load(const std::vector<std::string>& args) {
             MSNet::getInstance()->setCurrentTimeStep(begin); // needed for state loading
             WRITE_MESSAGE("Simulation started via Libsumo with time: " + time2string(begin));
         }
-    } catch(ProcessError& e) {
+    } catch (ProcessError& e) {
         throw TraCIException(e.what());
     }
 }
@@ -607,19 +607,19 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         } else {
             throw TraCIException("Invalid chargingStation parameter '" + attrName + "'");
         }
-	} else if (StringUtils::startsWith(key, "overheadWire.")) {
-		const std::string attrName = key.substr(16);
-		MSOverheadWire* cs = static_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
-		if (cs == 0) {
-			throw TraCIException("Invalid overhead wire '" + objectID + "'");
-		}
-		if (attrName == toString(SUMO_ATTR_TOTALENERGYCHARGED)) {
-			return toString(cs->getTotalCharged());
+    } else if (StringUtils::startsWith(key, "overheadWire.")) {
+        const std::string attrName = key.substr(16);
+        MSOverheadWire* cs = static_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
+        if (cs == 0) {
+            throw TraCIException("Invalid overhead wire '" + objectID + "'");
+        }
+        if (attrName == toString(SUMO_ATTR_TOTALENERGYCHARGED)) {
+            return toString(cs->getTotalCharged());
         } else if (attrName == toString(SUMO_ATTR_NAME)) {
             return toString(cs->getMyName());
-		} else {
-			throw TraCIException("Invalid overhead wire parameter '" + attrName + "'");
-		}
+        } else {
+            throw TraCIException("Invalid overhead wire parameter '" + attrName + "'");
+        }
     } else if (StringUtils::startsWith(key, "parkingArea.")) {
         const std::string attrName = key.substr(12);
         MSParkingArea* pa = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_PARKING_AREA));

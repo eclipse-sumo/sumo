@@ -45,9 +45,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet& net) : 
+ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet& net) :
     SUMOSAXHandler("turn-ratio-file"), myNet(net),
-    myIntervalBegin(0), myIntervalEnd(STEPS2TIME(SUMOTime_MAX)), 
+    myIntervalBegin(0), myIntervalEnd(STEPS2TIME(SUMOTime_MAX)),
     myEdge(nullptr),
     mySourcesAreSinks(OptionsCont::getOptions().getBool("sources-are-sinks")),
     myDiscountSources(OptionsCont::getOptions().getBool("discount-sources"))

@@ -482,8 +482,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // If there are texture of restricted lanes to draw, check if icons can be drawn
-        if (!s.drawForRectangleSelection && !s.drawForPositionSelection && !s.disableLaneIcons && 
-            (myLaneRestrictedTexturePositions.size() > 0) && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        if (!s.drawForRectangleSelection && !s.drawForPositionSelection && !s.disableLaneIcons &&
+                (myLaneRestrictedTexturePositions.size() > 0) && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
             // Declare default width of icon (3)
             double iconWidth = 1;
             // Obtain width of icon, if width of lane is different
@@ -1058,7 +1058,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNELane::updateDottedContour() {
     //
 }

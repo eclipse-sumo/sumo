@@ -67,8 +67,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon*
     FXMainWindow(parent->getApp(), title, icon, nullptr, GUIDesignChooserDialog),
     myParent(parent),
     myLocateByName(false),
-    myHaveFilteredSubstring(false)
-{
+    myHaveFilteredSubstring(false) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     // build the list
     FXVerticalFrame* layoutLeft = new FXVerticalFrame(hbox, GUIDesignChooserLayoutLeft);

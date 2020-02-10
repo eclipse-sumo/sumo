@@ -306,9 +306,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             if (DEBUGCOND) {
                 std::cout << " i=" << (*i)->getID() << " neigh=" << (*ccwi)->getID() << " neigh2=" << (*cwi)->getID() << "\n";
                 std::cout << "    ccwCloser=" << ccwCloser
-                    << "\n      currGeom=" << currGeom << " neighGeom=" << neighGeom
-                    << "\n      currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2
-                    << "\n";
+                          << "\n      currGeom=" << currGeom << " neighGeom=" << neighGeom
+                          << "\n      currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2
+                          << "\n";
             }
 #endif
             if (!simpleContinuation) {
@@ -473,7 +473,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     // final curve segment
     ret.append(getSmoothCorner(geomsCW[*(newAll.end() - 1)], geomsCCW[*newAll.begin()], ret[-1], ret[0], cornerDetail));
 #ifdef DEBUG_NODE_SHAPE
-        if (DEBUGCOND) std::cout << " final shape=" << ret << "\n";
+    if (DEBUGCOND) {
+        std::cout << " final shape=" << ret << "\n";
+    }
 #endif
     return ret;
 }
@@ -701,8 +703,8 @@ NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, double 
     double endAngleDiff = 0;
     if (geom1.size() >= 2 && geom2.size() >= 2) {
         endAngleDiff = fabs(RAD2DEG(GeomHelper::angleDiff(
-                    geom1.angleAt2D((int)geom1.size() - 2),
-                    geom2.angleAt2D((int)geom2.size() - 2))));
+                                        geom1.angleAt2D((int)geom1.size() - 2),
+                                        geom2.angleAt2D((int)geom2.size() - 2))));
     }
     const double minDistanceThreshold = (e1->getTotalWidth() + e2->getTotalWidth()) / 2 + POSITION_EPS;
     std::vector<double> distances = geom1.distances(geom2, true);

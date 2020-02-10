@@ -66,13 +66,12 @@ MSOverheadWire::MSOverheadWire(const std::string& overheadWireSegmentID, MSLane&
     myChargingVehicle(false),
     myTotalCharge(0),
     myChargingVehicles({}),
-    //TODORICE: some better structure with circuit pointers
-    myTractionSubstation(nullptr),
-    myVoltageSource(voltageSource),
-    myCircuitElement_pos(nullptr),
-    myCircuitStartNode_pos(nullptr),
-    myCircuitEndNode_pos(nullptr)
-    {
+                   //TODORICE: some better structure with circuit pointers
+                   myTractionSubstation(nullptr),
+                   myVoltageSource(voltageSource),
+                   myCircuitElement_pos(nullptr),
+                   myCircuitStartNode_pos(nullptr),
+myCircuitEndNode_pos(nullptr) {
     if (getBeginLanePosition() > getEndLanePosition()) {
         WRITE_WARNING(toString(SUMO_TAG_OVERHEAD_WIRE_SEGMENT) + " with ID = " + getID() + " doesn't have a valid range (" + toString(getBeginLanePosition()) + " < " + toString(getEndLanePosition()) + ").");
     }
@@ -98,8 +97,7 @@ MSOverheadWire::~MSOverheadWire() {
         if (myTractionSubstation->numberOfOverheadSegments() <= 1) {
             myTractionSubstation->eraseOverheadWireSegmentFromCircuit(this);
             //delete myTractionSubstation;
-        }
-        else {
+        } else {
             myTractionSubstation->eraseOverheadWireSegmentFromCircuit(this);
         }
     }
@@ -122,7 +120,9 @@ MSTractionSubstation::MSTractionSubstation(const std::string& substationId, doub
 void
 MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverheadWireSegment) {
     MSLane& lane = const_cast<MSLane&>(newOverheadWireSegment->getLane());
-    if (lane.isInternal()) { return; }
+    if (lane.isInternal()) {
+        return;
+    }
 
     myOverheadWireSegments.push_back(newOverheadWireSegment);
     newOverheadWireSegment->setTractionSubstation(this);
@@ -156,7 +156,7 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
         neigboringInnerLanes.push_back(outgoingLanesAndEdges[it].first);
     }
 
-    // Check if there is an overhead wire segment on the outgoing lane. If not, do nothing, otherwise find connnecting internal lanes and 
+    // Check if there is an overhead wire segment on the outgoing lane. If not, do nothing, otherwise find connnecting internal lanes and
     // add all lane (this and inner) to circuit
     for (std::vector<const MSLane*>::iterator it = neigboringInnerLanes.begin(); it != neigboringInnerLanes.end(); ++it) {
         ovrhdSegmentID = MSNet::getInstance()->getStoppingPlaceID(*it, NUMERICAL_EPS, SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
@@ -169,9 +169,8 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
                 if (connection != nullptr) {
                     //is connection a forbidden lane?
                     if (!(ovrhdSegment->getTractionSubstation()->isForbidden(connection) ||
-                          ovrhdSegment->getTractionSubstation()->isForbidden(MSLinkContHelper::getInternalFollowingLane(&lane, connection)) ||
-                          ovrhdSegment->getTractionSubstation()->isForbidden(MSLinkContHelper::getInternalFollowingLane(connection, *it)))) 
-                        {
+                            ovrhdSegment->getTractionSubstation()->isForbidden(MSLinkContHelper::getInternalFollowingLane(&lane, connection)) ||
+                            ovrhdSegment->getTractionSubstation()->isForbidden(MSLinkContHelper::getInternalFollowingLane(connection, *it)))) {
                         addOverheadWireInnerSegmentToCircuit(newOverheadWireSegment, ovrhdSegment, connection, MSLinkContHelper::getInternalFollowingLane(&lane, connection), MSLinkContHelper::getInternalFollowingLane(connection, *it));
                     }
 
@@ -200,7 +199,7 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
         }
     }
 
-    // Check if an incoming lane has an overhead wire segment. If not, do nothing, otherwise find connnecting internal lanes and 
+    // Check if an incoming lane has an overhead wire segment. If not, do nothing, otherwise find connnecting internal lanes and
     // add all lane (this, incoming and inner)to circuit
     neigboringInnerLanes = lane.getNormalIncomingLanes();
     for (std::vector<const MSLane*>::iterator it = neigboringInnerLanes.begin(); it != neigboringInnerLanes.end(); ++it) {
@@ -214,13 +213,11 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
                 if (connection != nullptr) {
                     //is connection a forbidden lane?
                     if (!(ovrhdSegment->getTractionSubstation()->isForbidden(connection) ||
-                        ovrhdSegment->getTractionSubstation()->isForbidden(MSLinkContHelper::getInternalFollowingLane(*it, connection)) ||
-                        ovrhdSegment->getTractionSubstation()->isForbidden(MSLinkContHelper::getInternalFollowingLane(connection, &lane))))
-                        {
+                            ovrhdSegment->getTractionSubstation()->isForbidden(MSLinkContHelper::getInternalFollowingLane(*it, connection)) ||
+                            ovrhdSegment->getTractionSubstation()->isForbidden(MSLinkContHelper::getInternalFollowingLane(connection, &lane)))) {
                         addOverheadWireInnerSegmentToCircuit(ovrhdSegment, newOverheadWireSegment, connection, MSLinkContHelper::getInternalFollowingLane((*it), connection), MSLinkContHelper::getInternalFollowingLane(connection, &lane));
                     }
-                }
-                else {
+                } else {
                     if (MSGlobals::gOverheadWireSolver) {
 #ifdef HAVE_EIGEN
                         Node* unusedNode = newOverheadWireSegment->getCircuitStartNode_pos();
@@ -254,7 +251,7 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
 }
 
 
-void 
+void
 MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incomingSegment, MSOverheadWire* outgoingSegment, const MSLane* connection, const MSLane* frontConnection, const MSLane* behindConnection) {
     if (frontConnection == nullptr && behindConnection == nullptr) {
         //addOverheadWire from nNode of newOverheadWireSegment to pNode
@@ -267,7 +264,7 @@ MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incom
         innerSegment->setTractionSubstation(incomingSegment->getTractionSubstation());
         if (MSGlobals::gOverheadWireSolver) {
 #ifdef HAVE_EIGEN
-            Element* elem = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + connection->getID(), (connection->getLength())*WIRE_RESISTIVITY, incomingSegment->getCircuitEndNode_pos(), outgoingSegment->getCircuitStartNode_pos(), Element::ElementType::RESISTOR_traction_wire);
+            Element* elem = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + connection->getID(), (connection->getLength()) * WIRE_RESISTIVITY, incomingSegment->getCircuitEndNode_pos(), outgoingSegment->getCircuitStartNode_pos(), Element::ElementType::RESISTOR_traction_wire);
             innerSegment->setCircuitElement_pos(elem);
             innerSegment->setCircuitStartNode_pos(incomingSegment->getCircuitEndNode_pos());
             innerSegment->setCircuitEndNode_pos(outgoingSegment->getCircuitStartNode_pos());
@@ -276,11 +273,10 @@ MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incom
             WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
 #endif
         }
-    }
-    else if (frontConnection != nullptr && behindConnection == nullptr) {      
+    } else if (frontConnection != nullptr && behindConnection == nullptr) {
         MSOverheadWire* innerSegment = dynamic_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace("ovrhd_inner_" + frontConnection->getID(), SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
         MSOverheadWire* innerSegment2 = dynamic_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace("ovrhd_inner_" + connection->getID(), SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
-        
+
         innerSegment->setTractionSubstation(incomingSegment->getTractionSubstation());
         myOverheadWireSegments.push_back(innerSegment);
         innerSegment2->setTractionSubstation(incomingSegment->getTractionSubstation());
@@ -289,8 +285,8 @@ MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incom
         if (MSGlobals::gOverheadWireSolver) {
 #ifdef HAVE_EIGEN
             Node* betweenFrontNode_pos = incomingSegment->getCircuit()->addNode("betweenFrontNode_pos_" + connection->getID());
-            Element* elem = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + frontConnection->getID(), (frontConnection->getLength())*WIRE_RESISTIVITY, incomingSegment->getCircuitEndNode_pos(), betweenFrontNode_pos, Element::ElementType::RESISTOR_traction_wire);
-            Element* elem2 = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + connection->getID(), (connection->getLength())*WIRE_RESISTIVITY, betweenFrontNode_pos, outgoingSegment->getCircuitStartNode_pos(), Element::ElementType::RESISTOR_traction_wire);
+            Element* elem = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + frontConnection->getID(), (frontConnection->getLength()) * WIRE_RESISTIVITY, incomingSegment->getCircuitEndNode_pos(), betweenFrontNode_pos, Element::ElementType::RESISTOR_traction_wire);
+            Element* elem2 = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + connection->getID(), (connection->getLength()) * WIRE_RESISTIVITY, betweenFrontNode_pos, outgoingSegment->getCircuitStartNode_pos(), Element::ElementType::RESISTOR_traction_wire);
 
             innerSegment->setCircuitElement_pos(elem);
             innerSegment->setCircuitStartNode_pos(incomingSegment->getCircuitEndNode_pos());
@@ -303,8 +299,7 @@ MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incom
             WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
 #endif
         }
-    }
-    else if (frontConnection == nullptr && behindConnection != nullptr) {
+    } else if (frontConnection == nullptr && behindConnection != nullptr) {
         MSOverheadWire* innerSegment = dynamic_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace("ovrhd_inner_" + connection->getID(), SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
         MSOverheadWire* innerSegment2 = dynamic_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace("ovrhd_inner_" + behindConnection->getID(), SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
 
@@ -316,8 +311,8 @@ MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incom
         if (MSGlobals::gOverheadWireSolver) {
 #ifdef HAVE_EIGEN
             Node* betweenBehindNode_pos = incomingSegment->getCircuit()->addNode("betweenBehindNode_pos_" + connection->getID());
-            Element* elem = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + connection->getID(), (connection->getLength())*WIRE_RESISTIVITY, incomingSegment->getCircuitEndNode_pos(), betweenBehindNode_pos, Element::ElementType::RESISTOR_traction_wire);
-            Element* elem2 = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + behindConnection->getID(), (behindConnection->getLength())*WIRE_RESISTIVITY, betweenBehindNode_pos, outgoingSegment->getCircuitStartNode_pos(), Element::ElementType::RESISTOR_traction_wire);
+            Element* elem = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + connection->getID(), (connection->getLength()) * WIRE_RESISTIVITY, incomingSegment->getCircuitEndNode_pos(), betweenBehindNode_pos, Element::ElementType::RESISTOR_traction_wire);
+            Element* elem2 = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + behindConnection->getID(), (behindConnection->getLength()) * WIRE_RESISTIVITY, betweenBehindNode_pos, outgoingSegment->getCircuitStartNode_pos(), Element::ElementType::RESISTOR_traction_wire);
 
             innerSegment->setCircuitElement_pos(elem);
             innerSegment->setCircuitStartNode_pos(incomingSegment->getCircuitEndNode_pos());
@@ -330,11 +325,10 @@ MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incom
             WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
 #endif
         }
-    }
-    else if (frontConnection != nullptr && behindConnection != nullptr) {
+    } else if (frontConnection != nullptr && behindConnection != nullptr) {
         MSOverheadWire* innerSegment = dynamic_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace("ovrhd_inner_" + frontConnection->getID(), SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
         MSOverheadWire* innerSegment2 = dynamic_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace("ovrhd_inner_" + connection->getID(), SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
-        MSOverheadWire* innerSegment3 = dynamic_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace("ovrhd_inner_" + behindConnection->getID(), SUMO_TAG_OVERHEAD_WIRE_SEGMENT));	
+        MSOverheadWire* innerSegment3 = dynamic_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace("ovrhd_inner_" + behindConnection->getID(), SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
 
         innerSegment->setTractionSubstation(incomingSegment->getTractionSubstation());
         myOverheadWireSegments.push_back(innerSegment);
@@ -347,9 +341,9 @@ MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incom
 #ifdef HAVE_EIGEN
             Node* betweenFrontNode_pos = incomingSegment->getCircuit()->addNode("betweenFrontNode_pos_" + connection->getID());
             Node* betweenBehindNode_pos = incomingSegment->getCircuit()->addNode("betweenBehindNode_pos_" + connection->getID());
-            Element* elem = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + frontConnection->getID(), (frontConnection->getLength())*WIRE_RESISTIVITY, incomingSegment->getCircuitEndNode_pos(), betweenFrontNode_pos, Element::ElementType::RESISTOR_traction_wire);
-            Element* elem2 = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + connection->getID(), (connection->getLength())*WIRE_RESISTIVITY, betweenFrontNode_pos, betweenBehindNode_pos, Element::ElementType::RESISTOR_traction_wire);
-            Element* elem3 = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + behindConnection->getID(), (behindConnection->getLength())*WIRE_RESISTIVITY, betweenBehindNode_pos, outgoingSegment->getCircuitStartNode_pos(), Element::ElementType::RESISTOR_traction_wire);
+            Element* elem = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + frontConnection->getID(), (frontConnection->getLength()) * WIRE_RESISTIVITY, incomingSegment->getCircuitEndNode_pos(), betweenFrontNode_pos, Element::ElementType::RESISTOR_traction_wire);
+            Element* elem2 = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + connection->getID(), (connection->getLength()) * WIRE_RESISTIVITY, betweenFrontNode_pos, betweenBehindNode_pos, Element::ElementType::RESISTOR_traction_wire);
+            Element* elem3 = incomingSegment->getCircuit()->addElement("pos_ovrhd_inner_" + behindConnection->getID(), (behindConnection->getLength()) * WIRE_RESISTIVITY, betweenBehindNode_pos, outgoingSegment->getCircuitStartNode_pos(), Element::ElementType::RESISTOR_traction_wire);
 
             innerSegment->setCircuitElement_pos(elem);
             innerSegment->setCircuitStartNode_pos(incomingSegment->getCircuitEndNode_pos());
@@ -371,13 +365,13 @@ MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incom
 
 void MSTractionSubstation::addOverheadWireClampToCircuit(const std::string id, MSOverheadWire* startSegment, MSOverheadWire* endSegment) {
     PositionVector pos_start = startSegment->getLane().getShape();
-    PositionVector pos_end = endSegment->getLane().getShape(); 
+    PositionVector pos_end = endSegment->getLane().getShape();
     double distance = pos_start[0].distanceTo2D(pos_end.back());
 
     if (distance > 10) {
         WRITE_WARNING("The distance between two overhead wires during adding overhead wire clamp '" + id + "' defined for traction substation '" + startSegment->getTractionSubstation()->getID() + "' is " + toString(distance) + " m.")
     }
-    getCircuit()->addElement(id, distance*WIRE_RESISTIVITY, startSegment->getCircuitStartNode_pos(), endSegment->getCircuitEndNode_pos(), Element::ElementType::RESISTOR_traction_wire);
+    getCircuit()->addElement(id, distance * WIRE_RESISTIVITY, startSegment->getCircuitStartNode_pos(), endSegment->getCircuitEndNode_pos(), Element::ElementType::RESISTOR_traction_wire);
 }
 
 void
@@ -426,7 +420,7 @@ MSTractionSubstation::eraseVehicle(MSDevice_ElecHybrid* veh) {
 
 void
 MSTractionSubstation::writeOut() {
-    std::cout << "substation "<< getID() << " constrols segments: \n";
+    std::cout << "substation " << getID() << " constrols segments: \n";
     for (std::vector<MSOverheadWire*>::iterator it = myOverheadWireSegments.begin(); it != myOverheadWireSegments.end(); ++it) {
         std::cout << "        " << (*it)->getOverheadWireSegmentName() << "\n";
     }
@@ -440,7 +434,7 @@ std::string MSOverheadWire::getOverheadWireSegmentName() {
 MSTractionSubstation::~MSTractionSubstation() {
 }
 
-Circuit* 
+Circuit*
 MSOverheadWire::getCircuit() const {
     if (getTractionSubstation() != nullptr) {
         return getTractionSubstation()->getCircuit();
@@ -457,8 +451,7 @@ void
 MSOverheadWire::setVoltage(double voltage) {
     if (voltage < 0) {
         WRITE_WARNING("New " + toString(SUMO_ATTR_VOLTAGE) + " for " + toString(SUMO_TAG_OVERHEAD_WIRE_SEGMENT) + " with ID = " + getID() + " isn't valid (" + toString(voltage) + ").")
-    }
-    else {
+    } else {
         myVoltage = voltage;
     }
 }
@@ -478,8 +471,7 @@ bool
 MSOverheadWire::vehicleIsInside(const double position) const {
     if ((position >= getBeginLanePosition()) && (position <= getEndLanePosition())) {
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
@@ -520,7 +512,7 @@ bool MSTractionSubstation::isForbidden(const MSLane* lane) {
 
 void
 MSTractionSubstation::addClamp(const std::string& id, MSOverheadWire* startPos, MSOverheadWire* endPos) {
-    OverheadWireClamp clamp(id,startPos,endPos,false);
+    OverheadWireClamp clamp(id, startPos, endPos, false);
     myOverheadWireClamps.push_back(clamp);
 }
 
@@ -545,7 +537,7 @@ MSTractionSubstation::isAnySectionPreviouslyDefined() {
 void
 MSTractionSubstation::addSolvingCirucitToEndOfTimestepEvents() {
     if (!myChargingVehicle) {
-       // myCommandForSolvingCircuit = new StaticCommand<MSTractionSubstation>(&MSTractionSubstation::solveCircuit);
+        // myCommandForSolvingCircuit = new StaticCommand<MSTractionSubstation>(&MSTractionSubstation::solveCircuit);
         myCommandForSolvingCircuit = new WrappingCommand<MSTractionSubstation>(this, &MSTractionSubstation::solveCircuit);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myCommandForSolvingCircuit);
         setChargingVehicle(true);
@@ -563,9 +555,9 @@ MSTractionSubstation::solveCircuit(SUMOTime /*currentTime*/) {
     // RICE_TODO: This is a relict of original code without alpha scaling, shall we still keep it here?
     vector<Element*>* elecHybridSources = myCircuit->getCurrentSources();
     double err = 0.0;
-    for (auto *it : *elecHybridSources) {
+    for (auto* it : *elecHybridSources) {
         if (!ISNAN(it->getPowerWanted())) {
-            err = MAX2(abs(myCircuit->alphaBest * (it->getPowerWanted() - (-it->getCurrent())*it->getVoltage())), err);
+            err = MAX2(abs(myCircuit->alphaBest * (it->getPowerWanted() - (-it->getCurrent()) * it->getVoltage())), err);
         }
     }
 
@@ -578,11 +570,11 @@ MSTractionSubstation::solveCircuit(SUMOTime /*currentTime*/) {
     }
 #endif
 
-    for (auto *it : myElecHybrid) {
-      
+    for (auto* it : myElecHybrid) {
+
         Element* vehElem = it->getVehElem();
         double voltage = vehElem->getVoltage();
-        double current = -vehElem->getCurrent();  // Vehicle is a power source, hence its current flows in opposite direction 
+        double current = -vehElem->getCurrent();  // Vehicle is a power source, hence its current flows in opposite direction
 
         it->setCurrentFromOverheadWire(current);
         it->setVoltageOfOverheadWire(voltage);
@@ -611,7 +603,7 @@ MSTractionSubstation::solveCircuit(SUMOTime /*currentTime*/) {
 }
 
 void
-MSOverheadWire::addChargeValueForOutput(double WCharged, MSDevice_ElecHybrid* elecHybrid,bool ischarging) {
+MSOverheadWire::addChargeValueForOutput(double WCharged, MSDevice_ElecHybrid* elecHybrid, bool ischarging) {
     std::string status = "charging";
     if (!ischarging) {
         status = "not-charging";
@@ -621,8 +613,8 @@ MSOverheadWire::addChargeValueForOutput(double WCharged, MSDevice_ElecHybrid* el
     myTotalCharge += WCharged;
     // create charge row and insert it in myChargeValues
     charge C(MSNet::getInstance()->getCurrentTimeStep(), elecHybrid->getHolder().getID(), elecHybrid->getHolder().getVehicleType().getID(),
-        status, WCharged, elecHybrid->getActualBatteryCapacity(), elecHybrid->getMaximumBatteryCapacity(),
-        elecHybrid->getVoltageOfOverheadWire(), myTotalCharge);
+             status, WCharged, elecHybrid->getActualBatteryCapacity(), elecHybrid->getMaximumBatteryCapacity(),
+             elecHybrid->getVoltageOfOverheadWire(), myTotalCharge);
     myChargeValues.push_back(C);
 }
 
@@ -633,8 +625,7 @@ MSOverheadWire::writeOverheadWireSegmentOutput(OutputDevice& output) {
     output.writeAttr(SUMO_ATTR_ID, myID);
     if (getTractionSubstation() != nullptr) {
         output.writeAttr(SUMO_ATTR_TRACTIONSUBSTATIONID, getTractionSubstation()->getID());
-    }
-    else {
+    } else {
         output.writeAttr(SUMO_ATTR_TRACTIONSUBSTATIONID, "");
     }
     output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED, myTotalCharge);
@@ -672,8 +663,8 @@ MSOverheadWire::writeOverheadWireSegmentOutput(OutputDevice& output) {
         output.writeAttr(SUMO_ATTR_ID, myChargeValues.at(0).vehicleID);
         output.writeAttr(SUMO_ATTR_TYPE, myChargeValues.at(0).vehicleType);
         output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE, charge.at(0));
-        output.writeAttr(SUMO_ATTR_CHARGINGBEGIN, time2string( std::get<0>(vectorBeginEndCharge.at(0)) ));
-        output.writeAttr(SUMO_ATTR_CHARGINGEND, time2string( std::get<1>(vectorBeginEndCharge.at(0)) ));
+        output.writeAttr(SUMO_ATTR_CHARGINGBEGIN, time2string(std::get<0>(vectorBeginEndCharge.at(0))));
+        output.writeAttr(SUMO_ATTR_CHARGINGEND, time2string(std::get<1>(vectorBeginEndCharge.at(0))));
         output.writeAttr(SUMO_ATTR_MAXIMUMBATTERYCAPACITY, myChargeValues.at(0).maxBatteryCapacity);
         // iterate over charging values
         for (std::vector<MSOverheadWire::charge>::const_iterator i = myChargeValues.begin(); i != myChargeValues.end(); i++) {
