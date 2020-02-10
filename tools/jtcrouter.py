@@ -43,6 +43,8 @@ def get_options(args=None):
                         help="Intermediate turn-ratio-file")
     parser.add_argument("--flow-output", dest="flowOuput", default="flows.tmp.xml",
                         help="Intermediate flow file")
+    parser.add_argument("--turn-attribute", dest="turnAttr", default="probability",
+                        help="Read turning counts from the given attribute")
     parser.add_argument("-b", "--begin",  default=0, help="begin time")
     parser.add_argument("-e", "--end",  default=3600, help="end time (default 3600)")
     parser.add_argument("-p", "--count-param", dest="countParam", default="count",
@@ -123,7 +125,7 @@ def main(options):
                 for edge in interval.fromEdge:
                     count = 0
                     for toEdge in edge.toEdge:
-                        count += float(toEdge.probability)
+                        count += float(getattr(toEdge, options.turnAttr))
                     if count > 0:
                         flowID = edge.id
                         if i > 0:
