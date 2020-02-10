@@ -50,7 +50,7 @@ the resulting routes fullfill the turn-count data.
 <SUMO_HOME>/tools/routeSampler.py -r <input-route-file> -t <turn-file. -o <output-file>
 ```
 
-The turn-count data format is the same as as described [above](#turncountdataformat).
+The turn-count data format is the same as as described [above](#turn-count-data-format).
 In addition to loading a turn-count file, routeSampler can also load an [edgeData
 file](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) using option **--edgedata-file**.
 The attributes for reading the counts from the turn-data file and edgedata-file
@@ -61,17 +61,15 @@ can be set with options
  
 # generateTurnRatios.py
 
-This script is to calculate the turn ratios or turn movements from a
-link to its downstream links with a given route file. The output file
-can be directly used as input in jtrrouter, where the time interval will
-be set for one day. The call is
+This script is used to calculate the turn ratios from a
+an edge to its downstream edge with a given route file. The output file
+can be directly used as input in [JTRROUTER](../JTRROUTER.md). The time interval will span the minimum and maximum departure times of the route file.
 
 ```
 <SUMO_HOME>/tools/generateTurnRatios.py -r <route-file>
 ```
 
-The standard output is the traffic volumes. With the option -p turning
-ratios will be calculated and outputted.
+The standard output is the traffic volumes (which JTRROUTER normalizes automatically). With the option **-p**,  turning ratios will be written as values from [0,1].
 
 
 # generateTurnDefs.py
