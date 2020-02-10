@@ -65,7 +65,7 @@ OptionsCont::getOptions() {
 
 OptionsCont::OptionsCont()
     : myAddresses(), myValues(), myDeprecatedSynonymes() {
-    myCopyrightNotices.push_back("Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de");
+    myCopyrightNotices.push_back("Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de");
 }
 
 

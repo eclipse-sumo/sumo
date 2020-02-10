@@ -67,7 +67,7 @@ GNEAbout::GNEAbout(FXWindow* parent) :
     WRITE_DEBUG(("Modules: " + modules).c_str());
 
     // copyright notice
-    new FXLabel(this, "Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(this, "Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(this, "This application is based on code provided by the Eclipse SUMO project.", nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(this, "These core components are available under the conditions of the Eclipse Public License v2.", nullptr, GUIDesignLabelAboutInfo);
     (new FXLinkLabel(this, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("https://www.eclipse.org/legal/epl-v20.html");
