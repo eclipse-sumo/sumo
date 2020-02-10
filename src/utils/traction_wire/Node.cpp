@@ -15,9 +15,9 @@
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-12-15
-/// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 ///
 // Representation of electric circuit nodes, i.e. wire junctions and connection points.
+/// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
 
 // ===========================================================================
