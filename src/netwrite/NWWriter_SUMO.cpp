@@ -63,6 +63,10 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION, 1);
     if (oc.getBool("lefthand") != oc.getBool("flip-y-axis")) {
         attrs[SUMO_ATTR_LEFTHAND] = "true";
+    } else if (oc.getBool("lefthand")) {
+        // network was flipped, correct written link directions
+        OptionsCont::getOptions().resetWritable();
+        OptionsCont::getOptions().set("lefthand", "false"); 
     }
     const int cornerDetail = oc.getInt("junctions.corner-detail");
     if (cornerDetail > 0) {
