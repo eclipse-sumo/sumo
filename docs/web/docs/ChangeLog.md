@@ -15,6 +15,7 @@ permalink: /ChangeLog/
   - Time spent parking is now included in tripinfo-output 'stopTime'. Issue #6423
   - Fixed lateral jump when driving across lanes with different width in a left-hand network and using sublane simulation. Issue #6573
   - Fixed bug where rerouting failed for no reason. Issue #6572
+  - Fixed invalid error when loading a network where edge-IDs have non-ascii characters. Issue #6597
 
 - SUMO-GUI
   - Fixed visualisation of containers. Issue #6426
@@ -24,6 +25,7 @@ permalink: /ChangeLog/
   
 - NETEDIT
   - Creating new traffic light plans where a plan already exists no longer results in invalid plans at joined traffic lights or traffic lights with signal groups. Instead a copy of the existing plan is created. Accordingly the button caption now varies between 'Create' and 'Copy'. Issue #6536, #6537
+  - Fixed invalid position of Vehicle with negative departPos. Issue #6473
 
 - MESO
   - Fixed invalid simulation state when vehicles are teleporting. Issue #6408
@@ -39,11 +41,14 @@ permalink: /ChangeLog/
   - Fixed invalid permissions for internal lanes when the incoming lane has more restrictions than the outgoing lane. Issue #5557
   - Fixed bug that was causing missing green phases for some connections at joined traffic lights. Issue #6582
   - Fixed node shape computation for difficult geometries. Issue #6585
+  - The status of option **--tls.ignore-internal-junction-jam** is no longer lost when loading a '.net.xml' file. Issue #6559
 
 - TraCI
   - Context subscriptions can now be removed individually from the python client (before every unsubscribeContext removed all)
   - Fixed invalid changing to the opposite side when using changeLaneRelative(vehID, -1) on lane 0. Issue #6576
   - Fixed premature changing from the opposide side when a duration was set for changeLaneRelative. Issue #6577
+  - Fixed invalid result when calling traci.lanearea.getLastStepMeanSpeed in subsecond simulation. Issue #6605
+  - Fixed invalid stage depart values when calling traci.simulation.findIntermodalRoute. Issue #6600
 
 ### Enhancements
 - Simulation
@@ -64,6 +69,7 @@ permalink: /ChangeLog/
 
 - SUMO-GUI
   - Dead-end links in the middle of a road are now colored in magenta to highlight connectivity problems. Issue #6391
+  - Vehicles that stop (with a `<stop>`) in the middle of the road now activate emergency blinkers. Issue #6608
 
 - NETEDIT
   - Stacked vehicles (overlapping due to similar departPos) are now indicated by a number. Issue #6485
@@ -74,6 +80,7 @@ permalink: /ChangeLog/
   - Traffic light mode now allows grouping and ungrouping signals. Issue #2958
   - Traffic light mode 'Clean States' function now also compactifies state and removes all unused indices. Issue #3828
   - The background grid size can now be increased and decreased with hotkeys CTRL+PAGE_UP, CTRL+PAGE_DOWN. Issue #6542
+  - Demand objects (vehicles, routes, ...) can now be located by ID. Issue #5110
 
 - NETCONVERT
   - Improved connection building heuristic. Issue #6295, #6467, #6468
@@ -83,7 +90,12 @@ permalink: /ChangeLog/
   - Added option **--no-turnarounds.except-turnlane** which causes turnlanes to be built only if there is an exclusive (left) turn lane. Issue #6444
   - Added option **--tls.group-signals** which assigns the same signal index to connections that share the same sequence signal states. Added option **--tls.ungroup-signals** which reverts grouping and assigns a distinct signal index to every connection. Issue #2958
   - Symbolic speed limits in OSM are now supported for all countries. Issue #6566
-  - The status of option **--tls.ignore-internal-junction-jam** is no longer lost when loading a '.net.xml' file. Issue #6559
+  - Added option **--fringe.guess** to heuristically mark nodes on the outer network boundary. Issue #6624
+  - Added option **--no-turnarounds.fringe** to prevent building of turnaround-connections at the network fringe. Issue #6621
+  - Added option **--ptstop-output.no-bidi** to skip automatic generation of a bidi-stop on a bidirectional rail edge. Issue #6598
+  
+- NETGENERATE
+  - Fringe nodes are now automatically marked in grid networks when setting **--grid.attach-length** > 0. Issue #6622
 
 - DUAROUTER
   - The maximum [map-matching](Demand/Shortest_or_Optimal_Path_Routing.md#mapmatching) distance is now configurable using option **--mapmatch.distance**. Also, mapmatching with large distance is now computationally efficient. Issue #6476
@@ -106,6 +118,10 @@ permalink: /ChangeLog/
   - Added [randomTrips.py](Tools/Trip.md) option **--personrides LINE** to generated person rides with the give line id.
   - Added [randomTrips.py](Tools/Trip.md) option **--junction-taz** to generated trips, flows, personTrips and walks between junctions. Issue #6474
   - Added the ability to download Satellite image backgrounds (using [tileGet.py](Tools/Misc.md#tilegetpy)) in [osmWebWizard](Tools/Import/OSM.md#osmwebwizardpy). Issue #6481
+  - Added new tool [jtcrouter.py](Tools/Turns.md#jtcrouterpy) to build a traffic demand scenario based on turn-count data (this uses [JTRROUTER](JTRROUTER.md) in the background). Issue #6229
+  - Added new tool [routeSampler.py](Tools/Turns.md#routesampler.py) to build a traffic demand scenario based on turn-count and edge-count data. This tool samples from a given set of routes to meet the detected counts. Issue #6616
+  - Added new tool [turnCount2EdgeCount.py](Tools/Turns.md#turncount2edgecountpy) which converts turn-count data into edge-count data. Issue #6619
+  
 
 ### Other
 - Build
