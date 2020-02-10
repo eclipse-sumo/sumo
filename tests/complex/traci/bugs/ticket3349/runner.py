@@ -27,7 +27,8 @@ import sumolib  # noqa
 import traci.constants as tc  # noqa
 
 
-traci.start([sumolib.checkBinary("sumo"), '-n', 'input_net.net.xml', '-r', 'input_routes.rou.xml', '--no-step-log', '--begin', '5', '-S', '-Q'])
+traci.start([sumolib.checkBinary("sumo"), '-n', 'input_net.net.xml', '-r',
+             'input_routes.rou.xml', '--no-step-log', '--begin', '5', '-S', '-Q'])
 vehID = "v0"
 traci.vehicle.add(vehID, "r0")
 traci.vehicle.subscribeContext(vehID, tc.CMD_GET_VEHICLE_VARIABLE,

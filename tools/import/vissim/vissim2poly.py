@@ -19,10 +19,12 @@
 Parses a vissim .inpx file and exports link geometrys as <poly> elements
 Usage: vissim2poly.py inpxFile outputFile
 """
-import os,sys
+import os
+import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
-import sumolib
+
 vissimfile, outfile = sys.argv[1:]
 with open(outfile, 'w') as outf:
     outf.write('<add>\n')

@@ -25,8 +25,6 @@ import os
 import sys
 import random
 from argparse import ArgumentParser
-from collections import defaultdict
-import subprocess
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -36,23 +34,23 @@ import sumolib  # noqa
 def get_options(args=None):
     parser = ArgumentParser(description="Sample routes to match counts")
     parser.add_argument("-t", "--turn-file", dest="turnFile",
-            help="Input turn-count file")
+                        help="Input turn-count file")
     parser.add_argument("-d", "--edgedata-file", dest="edgeDataFile",
-            help="Input edgeData file file (for counts)")
+                        help="Input edgeData file file (for counts)")
     parser.add_argument("--edgedata-attribute", dest="edgeDataAttr", default="entered",
-            help="Read edgeData counts from the given attribute")
+                        help="Read edgeData counts from the given attribute")
     parser.add_argument("--turn-attribute", dest="turnAttr", default="probability",
-            help="Read turning counts from the given attribute")
+                        help="Read turning counts from the given attribute")
     parser.add_argument("-r", "--route-file", dest="routeFile",
-            help="Input route file file")
+                        help="Input route file file")
     parser.add_argument("-o", "--output-file", dest="out", default="out.rou.xml",
-            help="Output route file")
+                        help="Output route file")
     parser.add_argument("--prefix", dest="prefix", default="",
-            help="prefix for the vehicle ids")
-    parser.add_argument("-a", "--attributes", dest="vehattrs", default="", 
-            help="additional vehicle attributes")
+                        help="prefix for the vehicle ids")
+    parser.add_argument("-a", "--attributes", dest="vehattrs", default="",
+                        help="additional vehicle attributes")
     parser.add_argument("-s", "--seed", type=int, default=42,
-            help="random seed")
+                        help="random seed")
 
     options = parser.parse_args(args=args)
     if (options.routeFile is None or
@@ -65,6 +63,7 @@ def get_options(args=None):
         options.vehattrs = ' ' + options.vehattrs
     return options
 
+
 class CountData:
     def __init__(self, count, edgeTuple, allRoutes):
         self.count = count
@@ -75,7 +74,7 @@ class CountData:
                 self.routeSet.add(routeIndex)
         if self.count > 0 and not self.routeSet:
             print("Warning: no routes pass edge '%s' (count %s)" %
-                    (' '.join(self.edgeTuple), self.count), file=sys.stderr)
+                  (' '.join(self.edgeTuple), self.count), file=sys.stderr)
 
     def routePasses(self, edges):
         try:
@@ -87,6 +86,7 @@ class CountData:
             return False
         return True
 
+
 def parseTurnCounts(fnames, allRoutes, attr):
     result = []
     for fname in fnames:
@@ -94,8 +94,9 @@ def parseTurnCounts(fnames, allRoutes, attr):
             for fromEdge in interval.fromEdge:
                 for toEdge in fromEdge.toEdge:
                     result.append(CountData(int(getattr(toEdge, attr)),
-                        (fromEdge.id, toEdge.id), allRoutes))
+                                            (fromEdge.id, toEdge.id), allRoutes))
     return result
+
 
 def parseEdgeCounts(fnames, allRoutes, attr):
     result = []
@@ -103,8 +104,9 @@ def parseEdgeCounts(fnames, allRoutes, attr):
         for interval in sumolib.xml.parse(fname, 'interval'):
             for edge in interval.edge:
                 result.append(CountData(int(getattr(edge, attr)),
-                    (edge.id,), allRoutes))
+                                        (edge.id,), allRoutes))
     return result
+
 
 def parseTimeRange(fnames):
     begin = 1e20
@@ -122,11 +124,14 @@ def hasCapacity(dataIndices, countData):
             return False
     return True
 
+
 def updateOpenRoutes(openRoutes, routeUsage, countData):
-    return filter(lambda r : hasCapacity(routeUsage[r], countData), openRoutes) 
+    return filter(lambda r: hasCapacity(routeUsage[r], countData), openRoutes)
+
 
 def updateOpenCounts(openCounts, countData, openRoutes):
-    return filter(lambda i : countData[i].routeSet.intersection(openRoutes), openCounts)
+    return filter(lambda i: countData[i].routeSet.intersection(openRoutes), openCounts)
+
 
 def main(options):
     if options.seed:
@@ -134,8 +139,8 @@ def main(options):
 
     # store which routes are passing each counting location (using route index)
     routes = [r.edges.split() for r in sumolib.xml.parse_fast(options.routeFile, 'route', ['edges'])]
-    countData = (parseTurnCounts(options.turnFile, routes, options.turnAttr) 
-        + parseEdgeCounts(options.edgeDataFile, routes, options.edgeDataAttr))
+    countData = (parseTurnCounts(options.turnFile, routes, options.turnAttr)
+                 + parseEdgeCounts(options.edgeDataFile, routes, options.edgeDataAttr))
 
     # store which counting locations are used by each route (using countData index)
     routeUsage = [set() for r in routes]
@@ -152,7 +157,7 @@ def main(options):
 
     usedRoutes = []
     totalCount = 0
-    while openCounts:   
+    while openCounts:
         cd = countData[random.sample(openCounts, 1)[0]]
         routeIndex = random.sample(cd.routeSet.intersection(openRoutes), 1)[0]
         usedRoutes.append(routeIndex)
@@ -187,7 +192,8 @@ def main(options):
 
     if unfilledLocations > 0:
         print("Warning: Count deficit of %s for %s locations" %
-                    (missingCount, unfilledLocations))
+              (missingCount, unfilledLocations))
+
 
 if __name__ == "__main__":
     main(get_options())

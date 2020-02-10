@@ -30,9 +30,9 @@ import sumolib  # noqa
 
 
 traci.start([sumolib.checkBinary('sumo-gui'),
-    "-n", "input_net.net.xml",
-    "-r", "input_routes.rou.xml",
-    "-S", "-Q"])
+             "-n", "input_net.net.xml",
+             "-r", "input_routes.rou.xml",
+             "-S", "-Q"])
 
 trackedVehIDs = []
 
@@ -42,7 +42,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
     for newVehID in newVehIDs:
         pos = traci.vehicle.getPosition(newVehID)
         shape = [pos, (pos[0]+1, pos[1]), (pos[0]+1, pos[1]+1), (pos[0], pos[1]+1)]
-        traci.polygon.add(newVehID, shape, (255,0,0), fill=True, layer=100)
+        traci.polygon.add(newVehID, shape, (255, 0, 0), fill=True, layer=100)
         traci.polygon.addDynamics(newVehID, trackedObjectID=newVehID)
         trackedVehIDs.append(newVehID)
     leavingVehIDs = [vehID for vehID in traci.lane.getLastStepVehicleIDs('gneE5_0') if vehID in trackedVehIDs]

@@ -28,6 +28,7 @@ sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
+
 def check():
     t = traci.simulation.getTime()
     print("step", t)
@@ -43,6 +44,7 @@ def check():
             print("     meanSpeed", traci.lanearea.getLastStepMeanSpeed(detID))
             print("     vehIDs", traci.lanearea.getLastStepVehicleIDs(detID))
             print("     occupancy", traci.lanearea.getLastStepOccupancy(detID))
+
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 while traci.simulation.getTime() < 4:

@@ -18,7 +18,6 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
-import os
 import sys
 import subprocess
 from collections import namedtuple
@@ -65,6 +64,7 @@ class ArgumentParser(argparse.ArgumentParser):
     sumo-style config files.
     Inspired by https://github.com/bw2/ConfigArgParse
     """
+
     def __init__(self, *args, **kwargs):
         argparse.ArgumentParser.__init__(self, *args, **kwargs)
         self.add_argument('-c', '--configuration-file', help='read configuration from FILE', metavar="FILE")
@@ -111,7 +111,7 @@ class ArgumentParser(argparse.ArgumentParser):
             self.error('unrecognized arguments: %s' % ' '.join(argv))
         return args
 
-    def parse_known_args(self, args = None, namespace = None):
+    def parse_known_args(self, args=None, namespace=None):
         if args is None:
             args = sys.argv[1:]
         elif isinstance(args, str):

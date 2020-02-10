@@ -48,13 +48,13 @@ def get_options(args=None):
     parser.add_argument("-p", "--count-param", dest="countParam", default="count",
                         help="the connection parameter to use as count")
     parser.add_argument("--fringe-flows", action="store_true", default=False, dest="fringe_flows",
-            help="Avoid overlapping flows (start only on the outside of the network)")
+                        help="Avoid overlapping flows (start only on the outside of the network)")
     parser.add_argument("--discount-sources", "-D",  action="store_true", default=False, dest="discountSources",
-            help="passes option --discount-sources to jtrrouter")
+                        help="passes option --discount-sources to jtrrouter")
     parser.add_argument("--prefix", dest="prefix", default="",
-            help="prefix for the flow ids")
+                        help="prefix for the flow ids")
     parser.add_argument("-a", "--attributes", dest="flowattrs", default="",
-            help="additional flow attributes")
+                        help="additional flow attributes")
     options = parser.parse_args(args=args)
     if options.net is None:
         parser.print_help()
@@ -109,7 +109,7 @@ def main(options):
                     if fromEdge:
                         ff.write('    <flow id="%s%s" from="%s" begin="%s" end="%s" number="%s"%s/>\n' % (
                             options.prefix, edge.getID(), fromEdge.getID(),
-                            options.begin, options.end, 
+                            options.begin, options.end,
                             totalCount, options.flowattrs))
             tf.write('    </interval>\n')
             tf.write('</turns>\n')
@@ -129,12 +129,11 @@ def main(options):
                         if i > 0:
                             flowID += "#%s" % i
                         ff.write('    <flow id="%s%s" from="%s" begin="%s" end="%s" number="%s"%s/>\n' % (
-                            options.prefix, 
+                            options.prefix,
                             flowID, edge.id, interval.begin, interval.end,
                             int(count),
                             options.flowattrs))
             ff.write('</routes>\n')
-
 
     JTRROUTER = sumolib.checkBinary('jtrrouter')
     args = [JTRROUTER,
