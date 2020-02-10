@@ -277,3 +277,24 @@ options. Option R is to restrict the maximal cycle length as the given
 one, while Option u is to use the calculated max cycle length as the
 cycle length for all intersections. With Option e only the green time
 splits will be adapted.
+
+
+# implausibleRoutes.py
+
+This tool analyzes a give route file and computes a implausibility score for each route.
+```
+<SUMO_HOME>/tools/route/implausibleRoutes.py <net-file> <route-file>
+```
+
+The implausibility score is a weighted sum of individual measures of implausibility (with configurable weights):
+- The quotient of (routeLength / airDistance)
+- The relative detour time: (routeDuration / shortestRouteDuration)
+- The absolute detour time: (routeDuration - shortestRouteDuration)
+- Short route penalty: max(0, minimumDistanceParameter - routeDistance)
+- Short air-distance penalty: max(0, minimumAirDistanceParameter - routeAirDistance)
+
+The tool reports routes with an implausibility score above a given threshold.
+It can also be used to generated restrictions for [flowrouter](../Detector.md#flowrouterpy).
+
+
+
