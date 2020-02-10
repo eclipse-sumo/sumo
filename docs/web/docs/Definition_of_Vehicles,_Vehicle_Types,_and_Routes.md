@@ -192,7 +192,7 @@ empty-network travel times as default). When loading trips into
 used as determined by the [rerouting
 device](Demand/Automatic_Routing.md).
 
-```
+```xml
 <routes>
   <trip id="t" depart="0" fromTaz="taz1" toTaz="taz2"/>
 </routes>
@@ -327,7 +327,7 @@ Determines the speed at which the vehicle should end its route;
 
 A vehicle is defined using the `vType`-element as shown below:
 
-```
+```xml
 <routes>
     <vType id="type1" accel="2.6" decel="4.5" sigma="0.5" length="5" maxSpeed="70"/>
 </routes>
@@ -337,7 +337,7 @@ Having defined this, one can build vehicles of type "type1". The values
 used above are the ones most of the examples use. They resemble a
 standard vehicle as used within the Stefan Krauß' thesis.
 
-```
+```xml
 <routes>
     <vType id="type1" accel="2.6" decel="4.5" sigma="0.5" length="5" maxSpeed="70"/>
     <vehicle id="veh1" type="type1" depart="0">
