@@ -80,6 +80,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **-d** {{DT_FILE}}<br> **--additional-files** {{DT_FILE}} | Read additional network data (districts, bus stops) from FILE(s) |
 | **-t** {{DT_FILE}}<br> **--route-files** {{DT_FILE}} | Read sumo routes, alternatives, flows, and trips from FILE(s) |
 | **--phemlight-path** {{DT_FILE}} | Determines where to load PHEMlight definitions from.; *default:* **./PHEMlight/** |
+| **--junction-taz** {{DT_BOOL}} | Initialize a TAZ for every junction to use attributes toJunction and fromJunction; *default:* **false** |
 | **-w** {{DT_FILE}}<br> **--weight-files** {{DT_FILE}} | Read network weights from FILE(s) |
 | **--lane-weight-files** {{DT_FILE}} | Read lane-based network weights from FILE(s) |
 | **-x** {{DT_STR}}<br> **--weight-attribute** {{DT_STR}} | Name of the xml attribute which gives the edge weight; *default:* **traveltime** |
@@ -101,6 +102,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--intermodal-weight-output** {{DT_FILE}} | Write intermodal edges with lengths and travel times to FILE |
 | **--write-trips** {{DT_BOOL}} | Write trips instead of vehicles (for validating trip input); *default:* **false** |
 | **--write-trips.geo** {{DT_BOOL}} | Write trips with geo-coordinates; *default:* **false** |
+| **--write-trips.junctions** {{DT_BOOL}} | Write trips with fromJunction and toJunction; *default:* **false** |
 | **--exit-times** {{DT_BOOL}} | Write exit times (weights) for each edge; *default:* **false** |
 
 ### Processing
@@ -119,6 +121,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--weights.interpolate** {{DT_BOOL}} | Interpolate edge weights at interval boundaries; *default:* **false** |
 | **--weights.minor-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing routing costs for minor-link internal lanes; *default:* **1.5** |
 | **--with-taz** {{DT_BOOL}} | Use origin and destination zones (districts) for in- and output; *default:* **false** |
+| **--mapmatch.distance** {{DT_FLOAT}} | Maximum distance when mapping input coordinates (fromXY etc.) to the road network; *default:* **100** |
+| **--mapmatch.junctions** {{DT_BOOL}} | Match postions to junctions instead of edges; *default:* **false** |
 | **--bulk-routing** {{DT_BOOL}} | Aggregate routing queries with the same origin; *default:* **false** |
 | **--routing-threads** {{DT_INT}} | The number of parallel execution threads used for routing; *default:* **0** |
 | **--restriction-params** {{DT_STR[]}} | Comma separated list of param keys to compare for additional restrictions |
@@ -140,7 +144,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--logit.gamma** {{DT_FLOAT}} | Use FLOAT as logit's gamma; *default:* **1** |
 | **--logit.theta** {{DT_FLOAT}} | Use FLOAT as logit's theta (negative values mean auto-estimation); *default:* **-1** |
 | **--persontrip.walkfactor** {{DT_FLOAT}} | Use FLOAT as a factor on pedestrian maximum speed during intermodal routing; *default:* **0.75** |
-| **--persontrip.transfer.car-walk** {{DT_STR[]}} | Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations); *default:* **parkingAreas** |
+| **--persontrip.transfer.car-walk** {{DT_STR[]}} | Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions', 'taxi' and combinations); *default:* **parkingAreas** |
 
 ### Defaults
 

@@ -63,6 +63,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **-d** {{DT_FILE}}<br> **--additional-files** {{DT_FILE}} | Read additional network data (districts, bus stops) from FILE(s) |
 | **-r** {{DT_FILE}}<br> **--route-files** {{DT_FILE}} | Read sumo routes, alternatives, flows, and trips from FILE(s) |
 | **--phemlight-path** {{DT_FILE}} | Determines where to load PHEMlight definitions from.; *default:* **./PHEMlight/** |
+| **--junction-taz** {{DT_BOOL}} | Initialize a TAZ for every junction to use attributes toJunction and fromJunction; *default:* **false** |
 | **-t** {{DT_FILE}}<br> **--turn-ratio-files** {{DT_FILE}} | Read turning ratios from FILE(s) |
 
 ### Output
@@ -95,6 +96,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--weights.interpolate** {{DT_BOOL}} | Interpolate edge weights at interval boundaries; *default:* **false** |
 | **--weights.minor-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing routing costs for minor-link internal lanes; *default:* **1.5** |
 | **--with-taz** {{DT_BOOL}} | Use origin and destination zones (districts) for in- and output; *default:* **false** |
+| **--mapmatch.distance** {{DT_FLOAT}} | Maximum distance when mapping input coordinates (fromXY etc.) to the road network; *default:* **100** |
+| **--mapmatch.junctions** {{DT_BOOL}} | Match postions to junctions instead of edges; *default:* **false** |
 | **--bulk-routing** {{DT_BOOL}} | Aggregate routing queries with the same origin; *default:* **false** |
 | **--routing-threads** {{DT_INT}} | The number of parallel execution threads used for routing; *default:* **0** |
 | **--restriction-params** {{DT_STR[]}} | Comma separated list of param keys to compare for additional restrictions |
@@ -104,6 +107,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **-A** {{DT_BOOL}}<br> **--accept-all-destinations** {{DT_BOOL}} | Whether all edges are allowed as sink edges; *default:* **false** |
 | **-i** {{DT_BOOL}}<br> **--ignore-vclasses** {{DT_BOOL}} | Ignore road restrictions based on vehicle class; *default:* **false** |
 | **--allow-loops** {{DT_BOOL}} | Allow to re-use a road; *default:* **false** |
+| **-S** {{DT_BOOL}}<br> **--sources-are-sinks** {{DT_BOOL}} | Use all source edges as sink edges.; *default:* **false** |
+| **-D** {{DT_BOOL}}<br> **--discount-sources** {{DT_BOOL}} | Subtract upstream flow when inserting a new flow. When option --sources-are-sinks is set, the upstream flow is limited to the value of the source flow and the remainig part termines.; *default:* **false** |
 
 ### Defaults
 
