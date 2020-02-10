@@ -294,7 +294,7 @@ The implausibility score is a weighted sum of individual measures of implausibil
 - Short air-distance penalty: max(0, minimumAirDistanceParameter - routeAirDistance)
 
 The tool reports routes with an implausibility score above a given threshold.
-It can also be used to generated restrictions for [flowrouter](../Detector.md#flowrouterpy).
+It can also be used to generated restrictions for [flowrouter](Detector.md#flowrouterpy).
 
 
 
