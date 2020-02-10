@@ -67,15 +67,30 @@ EPL_HEADER = """/***************************************************************
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
 """
+EPL_GPL_HEADER = """/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+"""
 
 
 class PropertyReader(xml.sax.handler.ContentHandler):
 
     """Reads the svn properties of files as written by svn pl -v --xml"""
 
-    def __init__(self, doFix, doPep):
+    def __init__(self, doFix, doPep, doLicense):
         self._fix = doFix
         self._pep = doPep
+        self._license = doFix or doLicense
         self._file = ""
         self._property = None
         self._value = ""
@@ -122,14 +137,25 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         if ext in (".cpp", ".h", ".java"):
             if lines[idx] == SEPARATOR:
                 year = lines[idx + 2][17:21]
-                end = idx + 9
+                end = lines.index(SEPARATOR, idx + 1) + 1
                 license = EPL_HEADER.replace("2001", year)
+                newLicense = EPL_GPL_HEADER.replace("2001", year)
                 if "module" in lines[idx + 3]:
                     end += 2
                     fileLicense = "".join(lines[idx:idx + 3]) + "".join(lines[idx + 5:end])
                 else:
                     fileLicense = "".join(lines[idx:end])
-                if fileLicense != license:
+                if fileLicense == license:
+                    print(self._file, "old license")
+                    if self._license:
+                        if "module" in lines[idx + 3]:
+                            lines[idx:idx+3] = newLicense.splitlines(True)[:3]
+                            lines[idx+5:end] = newLicense.splitlines(True)[3:]
+                        else:
+                            lines[idx:end] = newLicense.splitlines(True)
+                        end += 4
+                        self._haveFixed = True
+                elif fileLicense != newLicense:
                     print(self._file, "invalid license")
                     if options.verbose:
                         print(fileLicense)
@@ -147,18 +173,30 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                         self._haveFixed = True
             if lines[idx][:5] == '# -*-':
                 idx += 1
-            license = EPL_HEADER.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "")
             end = lines.index("\n", idx)
             if len(lines) < 13:
                 print(self._file, "is too short (%s lines, at least 13 required for valid header)" % len(lines))
                 return
             year = lines[idx + 1][16:20]
+            license = EPL_HEADER.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "")
             license = license.replace("2001", year).replace(SEPARATOR, "")
+            newLicense = EPL_GPL_HEADER.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "")
+            newLicense = newLicense.replace("2001", year).replace(SEPARATOR, "")
             if "module" in lines[idx + 2]:
                 fileLicense = "".join(lines[idx:idx + 2]) + "".join(lines[idx + 4:end])
             else:
                 fileLicense = "".join(lines[idx:end])
-            if fileLicense != license:
+            if fileLicense == license:
+                print(self._file, "old license")
+                if self._license:
+                    if "module" in lines[idx + 2]:
+                        lines[idx:idx+2] = newLicense.splitlines(True)[:2]
+                        lines[idx+4:end] = newLicense.splitlines(True)[2:]
+                    else:
+                        lines[idx:end] = newLicense.splitlines(True)
+                    end += 4
+                    self._haveFixed = True
+            elif fileLicense != newLicense:
                 print(self._file, "different license:")
                 print(fileLicense)
                 if options.verbose:
@@ -267,6 +305,8 @@ optParser.add_option("-v", "--verbose", action="store_true",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-f", "--fix", action="store_true",
                      default=False, help="fix invalid svn properties, run astyle and autopep8")
+optParser.add_option("-l", "--license", action="store_true",
+                     default=False, help="fix license only")
 optParser.add_option("-s", "--skip-pep", action="store_true",
                      default=False, help="skip autopep8 and flake8 tests")
 optParser.add_option("-d", "--directory", help="check given subdirectory of sumo tree")
@@ -285,7 +325,7 @@ procs = []
 for repoRoot in repoRoots:
     if options.verbose:
         print("checking", repoRoot)
-    propRead = PropertyReader(options.fix, not options.skip_pep)
+    propRead = PropertyReader(options.fix, not options.skip_pep, options.license)
     if os.path.isfile(repoRoot):
         proc = propRead.checkFile(repoRoot)
         if proc is not None:
