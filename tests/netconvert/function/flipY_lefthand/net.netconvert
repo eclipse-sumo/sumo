@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 15 22:10:49 2020 by Eclipse SUMO netconvert Version v1_4_0+0556-6117f21322
+<!-- generated on Mon Feb 10 11:33:04 2020 by Eclipse SUMO netconvert Version v1_4_0+1007-2b92ca3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,7 +21,7 @@ SPDX-License-Identifier: EPL-2.0
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <flip-y-axis value="true"/>
-        <lefthand value="true"/>
+        <lefthand value="false"/>
     </processing>
 
     <junctions>
@@ -270,18 +270,18 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":gneJ5_8_0" type="internal" x="21.13" y="-31.19" incLanes=":gneJ5_5_0 gneE10_0" intLanes=":gneJ5_4_0"/>
     <junction id=":gneJ8_8_0" type="internal" x="28.87" y="31.19" incLanes=":gneJ8_5_0 gneE6_0" intLanes=":gneJ8_4_0"/>
 
-    <connection from="-gneE0" to="gneE0" fromLane="1" toLane="2" via=":gneJ0_0_0" dir="T" state="M"/>
+    <connection from="-gneE0" to="gneE0" fromLane="1" toLane="2" via=":gneJ0_0_0" dir="t" state="M"/>
     <connection from="-gneE1" to="gneE6" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="r" state="m"/>
     <connection from="-gneE1" to="gneE6" fromLane="1" toLane="1" via=":gneJ2_1_0" dir="r" state="m"/>
-    <connection from="-gneE2" to="gneE2" fromLane="1" toLane="2" via=":gneJ4_0_0" dir="T" state="M"/>
-    <connection from="-gneE3" to="gneE3" fromLane="1" toLane="2" via=":gneJ7_0_0" dir="T" state="M"/>
+    <connection from="-gneE2" to="gneE2" fromLane="1" toLane="2" via=":gneJ4_0_0" dir="t" state="M"/>
+    <connection from="-gneE3" to="gneE3" fromLane="1" toLane="2" via=":gneJ7_0_0" dir="t" state="M"/>
     <connection from="gneE0" to="gneE10" fromLane="0" toLane="0" via=":gneJ1_5_0" dir="r" state="m"/>
     <connection from="gneE0" to="gneE10" fromLane="1" toLane="1" via=":gneJ1_6_0" dir="r" state="m"/>
     <connection from="gneE0" to="gneE10" fromLane="2" toLane="2" via=":gneJ1_7_0" dir="r" state="m"/>
-    <connection from="gneE1" to="-gneE1" fromLane="1" toLane="1" via=":gneJ3_0_0" dir="T" state="M"/>
-    <connection from="gneE10" to="-gneE2" fromLane="0" toLane="0" via=":gneJ5_3_0" dir="R" state="M"/>
+    <connection from="gneE1" to="-gneE1" fromLane="1" toLane="1" via=":gneJ3_0_0" dir="t" state="M"/>
+    <connection from="gneE10" to="-gneE2" fromLane="0" toLane="0" via=":gneJ5_3_0" dir="r" state="M"/>
     <connection from="gneE10" to="gneE4" fromLane="0" toLane="0" via=":gneJ5_4_0" dir="s" state="M"/>
-    <connection from="gneE10" to="-gneE2" fromLane="1" toLane="1" via=":gneJ5_5_0" dir="R" state="m"/>
+    <connection from="gneE10" to="-gneE2" fromLane="1" toLane="1" via=":gneJ5_5_0" dir="r" state="m"/>
     <connection from="gneE10" to="gneE4" fromLane="1" toLane="1" via=":gneJ5_6_0" dir="s" state="M"/>
     <connection from="gneE10" to="gneE4" fromLane="2" toLane="2" via=":gneJ5_6_1" dir="s" state="M"/>
     <connection from="gneE2" to="gneE4" fromLane="0" toLane="0" via=":gneJ5_0_0" dir="r" state="m"/>
@@ -290,27 +290,27 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="gneE3" to="gneE8" fromLane="0" toLane="0" via=":gneJ8_0_0" dir="r" state="m"/>
     <connection from="gneE3" to="gneE8" fromLane="1" toLane="1" via=":gneJ8_1_0" dir="r" state="m"/>
     <connection from="gneE3" to="gneE8" fromLane="2" toLane="2" via=":gneJ8_2_0" dir="r" state="m"/>
-    <connection from="gneE4" to="gneE1" fromLane="0" toLane="0" via=":gneJ2_2_0" dir="R" state="M"/>
+    <connection from="gneE4" to="gneE1" fromLane="0" toLane="0" via=":gneJ2_2_0" dir="r" state="M"/>
     <connection from="gneE4" to="gneE6" fromLane="0" toLane="0" via=":gneJ2_3_0" dir="s" state="M"/>
-    <connection from="gneE4" to="gneE1" fromLane="1" toLane="1" via=":gneJ2_4_0" dir="R" state="m"/>
+    <connection from="gneE4" to="gneE1" fromLane="1" toLane="1" via=":gneJ2_4_0" dir="r" state="m"/>
     <connection from="gneE4" to="gneE6" fromLane="1" toLane="1" via=":gneJ2_5_0" dir="s" state="M"/>
     <connection from="gneE4" to="gneE6" fromLane="2" toLane="2" via=":gneJ2_5_1" dir="s" state="M"/>
-    <connection from="gneE6" to="-gneE3" fromLane="0" toLane="0" via=":gneJ8_3_0" dir="R" state="M"/>
+    <connection from="gneE6" to="-gneE3" fromLane="0" toLane="0" via=":gneJ8_3_0" dir="r" state="M"/>
     <connection from="gneE6" to="gneE8" fromLane="0" toLane="0" via=":gneJ8_4_0" dir="s" state="M"/>
-    <connection from="gneE6" to="-gneE3" fromLane="1" toLane="1" via=":gneJ8_5_0" dir="R" state="m"/>
+    <connection from="gneE6" to="-gneE3" fromLane="1" toLane="1" via=":gneJ8_5_0" dir="r" state="m"/>
     <connection from="gneE6" to="gneE8" fromLane="1" toLane="1" via=":gneJ8_6_0" dir="s" state="M"/>
     <connection from="gneE6" to="gneE8" fromLane="2" toLane="2" via=":gneJ8_6_1" dir="s" state="M"/>
-    <connection from="gneE8" to="-gneE0" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="R" state="M"/>
+    <connection from="gneE8" to="-gneE0" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="r" state="M"/>
     <connection from="gneE8" to="gneE10" fromLane="0" toLane="0" via=":gneJ1_1_0" dir="s" state="M"/>
-    <connection from="gneE8" to="-gneE0" fromLane="1" toLane="1" via=":gneJ1_2_0" dir="R" state="m"/>
+    <connection from="gneE8" to="-gneE0" fromLane="1" toLane="1" via=":gneJ1_2_0" dir="r" state="m"/>
     <connection from="gneE8" to="gneE10" fromLane="1" toLane="1" via=":gneJ1_3_0" dir="s" state="M"/>
     <connection from="gneE8" to="gneE10" fromLane="2" toLane="2" via=":gneJ1_3_1" dir="s" state="M"/>
 
-    <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="2" dir="T" state="M"/>
-    <connection from=":gneJ1_0" to="-gneE0" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="2" dir="t" state="M"/>
+    <connection from=":gneJ1_0" to="-gneE0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":gneJ1_1" to="gneE10" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_2" to="-gneE0" fromLane="0" toLane="1" via=":gneJ1_8_0" dir="R" state="m"/>
-    <connection from=":gneJ1_8" to="-gneE0" fromLane="0" toLane="1" dir="R" state="M"/>
+    <connection from=":gneJ1_2" to="-gneE0" fromLane="0" toLane="1" via=":gneJ1_8_0" dir="r" state="m"/>
+    <connection from=":gneJ1_8" to="-gneE0" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ1_3" to="gneE10" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":gneJ1_3" to="gneE10" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from=":gneJ1_5" to="gneE10" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -318,31 +318,31 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":gneJ1_7" to="gneE10" fromLane="0" toLane="2" dir="r" state="M"/>
     <connection from=":gneJ2_0" to="gneE6" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":gneJ2_1" to="gneE6" fromLane="0" toLane="1" dir="r" state="M"/>
-    <connection from=":gneJ2_2" to="gneE1" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":gneJ2_2" to="gneE1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":gneJ2_3" to="gneE6" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ2_4" to="gneE1" fromLane="0" toLane="1" via=":gneJ2_7_0" dir="R" state="m"/>
-    <connection from=":gneJ2_7" to="gneE1" fromLane="0" toLane="1" dir="R" state="M"/>
+    <connection from=":gneJ2_4" to="gneE1" fromLane="0" toLane="1" via=":gneJ2_7_0" dir="r" state="m"/>
+    <connection from=":gneJ2_7" to="gneE1" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ2_5" to="gneE6" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":gneJ2_5" to="gneE6" fromLane="1" toLane="2" dir="s" state="M"/>
-    <connection from=":gneJ3_0" to="-gneE1" fromLane="0" toLane="1" dir="T" state="M"/>
-    <connection from=":gneJ4_0" to="gneE2" fromLane="0" toLane="2" dir="T" state="M"/>
+    <connection from=":gneJ3_0" to="-gneE1" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":gneJ4_0" to="gneE2" fromLane="0" toLane="2" dir="t" state="M"/>
     <connection from=":gneJ5_0" to="gneE4" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":gneJ5_1" to="gneE4" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ5_2" to="gneE4" fromLane="0" toLane="2" dir="r" state="M"/>
-    <connection from=":gneJ5_3" to="-gneE2" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":gneJ5_3" to="-gneE2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":gneJ5_4" to="gneE4" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ5_5" to="-gneE2" fromLane="0" toLane="1" via=":gneJ5_8_0" dir="R" state="m"/>
-    <connection from=":gneJ5_8" to="-gneE2" fromLane="0" toLane="1" dir="R" state="M"/>
+    <connection from=":gneJ5_5" to="-gneE2" fromLane="0" toLane="1" via=":gneJ5_8_0" dir="r" state="m"/>
+    <connection from=":gneJ5_8" to="-gneE2" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ5_6" to="gneE4" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":gneJ5_6" to="gneE4" fromLane="1" toLane="2" dir="s" state="M"/>
-    <connection from=":gneJ7_0" to="gneE3" fromLane="0" toLane="2" dir="T" state="M"/>
+    <connection from=":gneJ7_0" to="gneE3" fromLane="0" toLane="2" dir="t" state="M"/>
     <connection from=":gneJ8_0" to="gneE8" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":gneJ8_1" to="gneE8" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ8_2" to="gneE8" fromLane="0" toLane="2" dir="r" state="M"/>
-    <connection from=":gneJ8_3" to="-gneE3" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":gneJ8_3" to="-gneE3" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":gneJ8_4" to="gneE8" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ8_5" to="-gneE3" fromLane="0" toLane="1" via=":gneJ8_8_0" dir="R" state="m"/>
-    <connection from=":gneJ8_8" to="-gneE3" fromLane="0" toLane="1" dir="R" state="M"/>
+    <connection from=":gneJ8_5" to="-gneE3" fromLane="0" toLane="1" via=":gneJ8_8_0" dir="r" state="m"/>
+    <connection from=":gneJ8_8" to="-gneE3" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ8_6" to="gneE8" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":gneJ8_6" to="gneE8" fromLane="1" toLane="2" dir="s" state="M"/>
 
