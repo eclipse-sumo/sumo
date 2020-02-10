@@ -2,7 +2,19 @@
 title: Demand/Routes from Observation Points
 permalink: /Demand/Routes_from_Observation_Points/
 ---
+# Introduction
+Traffic counts are a common form of traffic data. This data may be available from automated counting devices such as induction loops or radar detectors or it may be obtained from manual counts. The counts apply to a specifc time range and the data may cover multiple time slices. It is also possible to distinguish counts for differet types of vehicles.
 
+SUMO provides several tools to generate traffic demand from such counting data. The generated traffic demand typically describes vehicles and their routes through the network along with their departure time. Sometimes vehicles that use the same route are grouped into `<flow>`-definitions. 
+
+The generated traffic should obviously match the counting data but this requirement alone does not define a unique solution. The provided SUMO tools differ in their algorithm to resolve the ambiguity and arrive at a specific set of routes and vehicles. The tools can also be distinguished by the type of counting data they consume:
+
+- [DFROUTER](../DFROUTER.md) uses edge based counts
+- [flowrouter](../Tools/Detector.md#flowrouterpy) uses edge based counts
+- [jtcrouter](../Tools/Turns.md#jtcrouterpy) uses turn-counts
+- [routeSampler](..Tools/Turns.md#routesampler.py) uses turn-counts and edge counts
+
+# DFROUTER
 Since version 0.9.5, the SUMO-package contains a routing module named
 [DFROUTER](../DFROUTER.md). The idea behind this router is that
 nowadays, most highways are well equipped with induction loops,
@@ -237,3 +249,20 @@ to sort the emitters, either of the following will work:
 sumo --net-file net.net.xml --route-files routes.rou.xml,sorted_emitters.rou.xml
 sumo --net-file net.net.xml --route-files sorted_emitters.rou.xml --additional-files routes.rou.xml
 ```
+
+# flowrouter.py
+
+The [flowrouter](../Tools/Detector.md#flowrouterpy) tool [improves on DFROUTER](https://doi.org/10.29007/rjj7) by dealing better with missing data and finding a set of routes that maximize the total flow (within the limits given by the count data). It provides several options to restrict the set of generated routes and thus allows for calibrating the generated traffic.
+
+# jtcrouter.py
+
+The [jtcrouter.py](../Tools/Turns.md#jtcrouterpy) tool (available since version 1.5.0) can build a traffic demand from turn-count data. It does so by transforming the counts into flows and turn-ratios and then passing these files to [JTRROUTER](../JTRROUTER.md). 
+
+# routeSampler.py
+The [routeSampler.py](Tools/Turns.md#routesampler.py) tool (available since version 1.5.0) builds traffic demand from turn-count data as well as edge-count data. It uses a route file as input and then repeatedly selects from this set of routes to fulfill the given count data.
+
+A suitable route file for a given network can be generated with [randomTrips.py](Tools/Trip.md#randomtripspy). Such a route file covers the network with shortest-path routes. Routes that deviate from the shortest path can also be generated with the help of [DUAROUTER](../DUAROUTER.md) option **--weights.random-factor**.
+
+By changing the route file used as input, the generated traffic can be calibrated. 
+
+
