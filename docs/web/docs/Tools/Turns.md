@@ -17,6 +17,29 @@ There are three basic styles of converting turn-counts to routes:
 - Flows start at all turn-count locations in the network and are discounted when reaching the next count location (**--discount-sources**)
 - Flows only start on the fringe of the network (**--fringe-flows**)
 
+## Turn count data format
+The turn-count data must be provided in the format:
+```
+<turns>
+   <interval begin="0" end="3600">
+      <fromEdge id="myEdge0">
+         <toEdge id="myEdge1" probability="25"/>
+         <toEdge id="myEdge2" probability="100"/>
+         <toEdge id="myEdge3" probability="42"/>
+      </fromEdge>
+
+      ... any other edges ...
+
+   </interval>
+
+   ... some further intervals ...
+
+</turns>
+```
+
+!!! note
+    The attribute 'probability' can replaced with any other attribute name by setting the option **--turn-attribute <attrname>**. The default value of 'probability' is used for consistency with [JTRROUTER](../JTRROUTER.md) and [generateTurnRatios.py](#generateturnratiospy).
+
 
 # routeSampler.py
 The script generates routes from turn-count data. It requires a route file as
@@ -27,6 +50,7 @@ the resulting routes fullfill the turn-count data.
 <SUMO_HOME>/tools/routeSampler.py -r <input-route-file> -t <turn-file. -o <output-file>
 ```
 
+The turn-count data format is the same as as described [above](#turncountdataformat).
 In addition to loading a turn-count file, routeSampler can also load an [edgeData
 file](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) using option **--edgedata-file**.
 The attributes for reading the counts from the turn-data file and edgedata-file
