@@ -3,7 +3,7 @@ title: ChangeLog
 permalink: /ChangeLog/
 ---
 
-## Git Master
+## Version 1.5.0 (11.02.2020)
 
 ### Bugfixes
 - Simulation

@@ -58,8 +58,8 @@ markdown_extensions:
       repo: sumo
 
 extra:
-    Version: 1.4.0
-    ReleaseDate: 10.12.2019
+    Version: 1.5.0
+    ReleaseDate: 11.02.2020
 
     AdditionalFile: '[*additional-file*](/docs/SUMO.html#format_of_additional_files)'
     AdditionalFiles: '[*additional-files*](/docs/SUMO.html#format_of_additional_files)'
