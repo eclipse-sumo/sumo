@@ -1,6 +1,9 @@
 # tests effects of lcTurnAlignmentDistance
 turnAlignment
 
+# tests related to bicycle simulation
+bicycle_box
+
 # a lane has two follower lanes on the next edge and vehicle paths might cross
 lane_split_conflict
 
