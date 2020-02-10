@@ -50,11 +50,9 @@ software (Veins, VSimRTI, flow etc.) at this stage.
 - check the documentation
   - update the [ChangeLog](../ChangeLog.md)
   - generate options documentation from configuration templates
-    using configTemplateToWiki.py (for instance
-    `tools/build/configTemplateToWiki.py activitygen | xclip` which
-    copies it directly to the clipboard)
+    using `tools/build/configTemplateToWiki.py`
   - recheck/rebuild the configuration schemata (if options were
-    added) using tools/xml/rebuildSchemata.py (use the internal
+    added) using `tools/xml/rebuildSchemata.py` (use the internal
     build to include all options)
 - check the internal tests (same procedure as above), especially the
   (to be) published scenarios
