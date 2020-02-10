@@ -135,11 +135,9 @@ NBContHelper::edge_with_destination_finder::operator()(NBEdge* e) const {
 /* -------------------------------------------------------------------------
  * methods from relative_outgoing_edge_sorter
  * ----------------------------------------------------------------------- */
-int
+bool
 NBContHelper::relative_outgoing_edge_sorter::operator()(const NBEdge* e1, const NBEdge* e2) const {
-    if (e1 == nullptr || e2 == nullptr) {
-        return -1;
-    }
+    assert(e1 != nullptr && e2 != nullptr);
     double relAngle1 = NBHelpers::normRelAngle(myAngle, e1->getStartAngle());
     double relAngle2 = NBHelpers::normRelAngle(myAngle, e2->getStartAngle());
     const double length1 = e1->getGeometry().length();

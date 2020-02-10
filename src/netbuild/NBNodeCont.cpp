@@ -2354,8 +2354,8 @@ NBNodeCont::guessFringe() {
     front.insert(bottomLeftFront.begin(), bottomLeftFront.end());
     int numFringe = 0;
     for (NBNode* n : front) {
-        const int in = n->getIncomingEdges().size();
-        const int out = n->getOutgoingEdges().size();
+        const int in = (int)n->getIncomingEdges().size();
+        const int out = (int)n->getOutgoingEdges().size();
         if ((in <= 1 && out <= 1) &&
                 (in == 0 || out == 0
                  || n->getIncomingEdges().front()->isTurningDirectionAt(n->getOutgoingEdges().front()))) {

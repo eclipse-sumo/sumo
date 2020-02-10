@@ -82,7 +82,7 @@ public:
 
     public:
         /// comparing operation
-        int operator()(const NBEdge* e1, const NBEdge* e2) const;
+        bool operator()(const NBEdge* e1, const NBEdge* e2) const;
 
     private:
         /// @brief the reference angle to compare edges agains
