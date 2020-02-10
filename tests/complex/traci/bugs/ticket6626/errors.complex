@@ -1,0 +1,12 @@
+Error: Departure speed for vehicle 'v0' is too high for the departure edge 'gneE0'.
+Quitting (on error).
+Traceback (most recent call last):
+  File "/scr1/sumo/tests/../tests/complex/traci/bugs/ticket6626/runner.py", line 34, in <module>
+    traci.simulationStep()
+  File "/scr1/sumo/tools/traci/main.py", line 167, in simulationStep
+    return _connections[""].simulationStep(step)
+  File "/scr1/sumo/tools/traci/connection.py", line 319, in simulationStep
+    result = self._sendExact()
+  File "/scr1/sumo/tools/traci/connection.py", line 97, in _sendExact
+    raise FatalTraCIError("connection closed by SUMO")
+traci.exceptions.FatalTraCIError: connection closed by SUMO
