@@ -1,5 +1,5 @@
-Eclipse SUMO jtrrouter Version v1_4_0+0947-40275488a3
- Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO jtrrouter Version v1_4_0+1029-d1b8be6105
+ Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
   junction turning ratios.
 

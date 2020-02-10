@@ -1,8 +1,8 @@
-Eclipse SUMO od2trips Version v1_1_0+0040-b68edb7a21e
- Build features: Windows-6.1.7601 AMD64 MSVC 18.0.40629.0 Proj GUI GDAL FFmpeg OSG GL2PS SWIG
- Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO od2trips Version v1_4_0+1029-d1b8be6105
+ Build features: Linux-4.12.14-lp150.12.58-default x86_64 GNU 7.4.0 Release Proj GUI SWIG GDAL GL2PS Eigen
+ Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 
-Eclipse SUMO od2trips Version v1_1_0+0040-b68edb7a21e is part of SUMO.
+Eclipse SUMO od2trips Version v1_4_0+1029-d1b8be6105 is part of SUMO.
 This program and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
