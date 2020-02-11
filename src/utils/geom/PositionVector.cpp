@@ -537,7 +537,7 @@ PositionVector::partialWithin(const AbstractPoly& poly, double offset) const {
     if (size() < 2) {
         return false;
     }
-    for (const_iterator i = begin(); i != end() - 1; i++) {
+    for (const_iterator i = begin(); i != end(); i++) {
         if (poly.around(*i, offset)) {
             return true;
         }

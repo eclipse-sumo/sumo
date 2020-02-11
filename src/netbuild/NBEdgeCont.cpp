@@ -237,6 +237,10 @@ NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
         }
         if (!(edge->getGeometry().getBoxBoundary().grow(POSITION_EPS).overlapsWith(myPruningBoundary))) {
             return true;
+        } else if (!(edge->getGeometry().partialWithin(myPruningBoundary, 2 * POSITION_EPS) || edge->getGeometry().intersects(myPruningBoundary))) {
+            // a more detailed check is necessary because the bounding box may be much bigger than the edge 
+            // @note: overlapsWith implicitly closes the edge shape but this is not wanted here
+            return true;
         }
     }
     if (myTypeCont.knows(edge->getTypeID()) && myTypeCont.getShallBeDiscarded(edge->getTypeID())) {
