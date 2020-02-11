@@ -6359,7 +6359,8 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh) const {
                 // leader was on the junction first
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
                 if (DEBUG_COND) {
-                    std::cout << "       egoET=" << egoET << " foeET=" << foeET << " isLeader=" << (egoET > foeET) << "\n";
+                    std::cout << SIMTIME << " veh=" << getID() << " egoET " << egoET << " with foe " << veh->getID()
+                        << " foeET=" << foeET  << " isLeader=" << (egoET > foeET) << "\n";
                 }
 #endif
                 return egoET > foeET;
