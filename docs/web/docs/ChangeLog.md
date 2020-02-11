@@ -6,6 +6,8 @@ permalink: /ChangeLog/
 ## Git Master
 
 ### Bugfixes
+- NETCONVERT
+  - Fixed precision when filtering network with a given boundary. Issue #6206
 
 ### Enhancements
 - Tools
