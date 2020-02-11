@@ -12,7 +12,7 @@ The generated traffic should obviously match the counting data but this requirem
 - [DFROUTER](../DFROUTER.md) uses edge based counts
 - [flowrouter](../Tools/Detector.md#flowrouterpy) uses edge based counts
 - [jtcrouter](../Tools/Turns.md#jtcrouterpy) uses turn-counts
-- [routeSampler](..Tools/Turns.md#routesampler.py) uses turn-counts and edge counts
+- [routeSampler](../Tools/Turns.md#routesamplerpy) uses turn-counts and edge counts
 
 # DFROUTER
 Since version 0.9.5, the SUMO-package contains a routing module named
@@ -259,9 +259,9 @@ The [flowrouter](../Tools/Detector.md#flowrouterpy) tool [improves on DFROUTER](
 The [jtcrouter.py](../Tools/Turns.md#jtcrouterpy) tool (available since version 1.5.0) can build a traffic demand from turn-count data. It does so by transforming the counts into flows and turn-ratios and then passing these files to [JTRROUTER](../JTRROUTER.md). 
 
 # routeSampler.py
-The [routeSampler.py](Tools/Turns.md#routesampler.py) tool (available since version 1.5.0) builds traffic demand from turn-count data as well as edge-count data. It uses a route file as input and then repeatedly selects from this set of routes to fulfill the given count data.
+The [routeSampler.py](../Tools/Turns.md#routesamplerpy) tool (available since version 1.5.0) builds traffic demand from turn-count data as well as edge-count data. It uses a route file as input and then repeatedly selects from this set of routes to fulfill the given count data.
 
-A suitable route file for a given network can be generated with [randomTrips.py](Tools/Trip.md#randomtripspy). Such a route file covers the network with shortest-path routes. Routes that deviate from the shortest path can also be generated with the help of [DUAROUTER](../DUAROUTER.md) option **--weights.random-factor**.
+A suitable route file for a given network can be generated with [randomTrips.py](../Tools/Trip.md#randomtripspy). Such a route file covers the network with shortest-path routes. Routes that deviate from the shortest path can also be generated with the help of [DUAROUTER](../DUAROUTER.md) option **--weights.random-factor**.
 
 By changing the route file used as input, the generated traffic can be calibrated. 
 
