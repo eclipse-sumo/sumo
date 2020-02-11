@@ -239,7 +239,7 @@ function getNightlyFreshness($fname){
 $zip = new ZipArchive;
 $zip->open($_SERVER['DOCUMENT_ROOT']. "/releases/{{Version}}/" . $fname);
 $freshnessIs = str_replace("\"","",str_replace("#define VERSION_STRING ","",$zip->getFromName('sumo-git/include/version.h')));
-$zip->close();
 echo $freshnessIs;
+$zip->close();
 }
 ?>
