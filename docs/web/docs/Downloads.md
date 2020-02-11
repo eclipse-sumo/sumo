@@ -144,7 +144,8 @@ list of bug-fixes and enhancements at our
 [(and to give us pre-release feedback)](Contact.md) we encourage
 you to use the latest version from our [code repository](https://github.com/eclipse/sumo/).
 
-### Nightly Snapshots
+### Nightly Snapshots 
+<span class="badge badge-pill badge-dark"><?php getNightlyFreshness("sumo-win64-git.zip");?></span>
 
 The code within the repository is [compiled each
 night](Developer/Nightly_Build.md). The following resulting
@@ -234,4 +235,11 @@ $file = $_SERVER['DOCUMENT_ROOT']. $file;
 if(file_exists($file)){
 echo round(((filesize($file))/1048576),1) . " MB";
 }}
+function getNightlyFreshness($fname){
+$zip = new ZipArchive;
+$zip->open($_SERVER['DOCUMENT_ROOT']. "/releases/{{Version}}/" . $fname);
+$freshnessIs = str_replace("\"","",str_replace("#define VERSION_STRING ","",$zip->getFromName('sumo-git/include/version.h')));
+$zip->close();
+echo $freshnessIs;
+}
 ?>
