@@ -111,7 +111,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     // Processing pt stops and lines
     if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE("Processing public transport stops");
-        if (!(oc.exists("ptline-output") && oc.isSet("ptline-output"))) {
+        if (!(oc.exists("ptline-output") && oc.isSet("ptline-output"))
+                && !oc.getBool("ptstop-output.no-bidi")) {
             myPTStopCont.localizePTStops(myEdgeCont);
         }
         myPTStopCont.assignLanes(myEdgeCont);
@@ -137,7 +138,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         }
     }
 
-    if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
+    if (oc.exists("ptstop-output") && oc.isSet("ptstop-output") && !oc.getBool("ptstop-output.no-bidi")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE("Align pt stop id signs with corresponding edge id signs");
         myPTStopCont.alignIdSigns();
         PROGRESS_TIME_MESSAGE(before);
