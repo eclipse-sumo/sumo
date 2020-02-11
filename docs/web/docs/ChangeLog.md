@@ -12,7 +12,6 @@ permalink: /ChangeLog/
 ### Enhancements
 - Tools
   - added osmWebWizard option to import a simplified network that is only for cars. Issue #6595
-  - Added the ability to download a simplified Car-only Network in osmWebWizard. Issue #6595
 
 ### Other
 
