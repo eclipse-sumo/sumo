@@ -5,7 +5,6 @@ Parsing public transport stops from 'input_ptstops.xml' ... done.
    3 edges loaded.
 Removing self-loops ... done (0ms).
 Processing public transport stops ... done (0ms).
-Align pt stop id signs with corresponding edge id signs ... done (0ms).
 Added 3 bidi-edges to ensure that all tracks are usable in both directions.
 Found 6 railway edges and 4 railway nodes (0 signals).
 Railway nodes by number of incoming,outgoing edges:
@@ -19,8 +18,8 @@ Removing empty nodes ... done (0ms).
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (1ms).
-Computing edge shapes ... done (0ms).
+Computing node shapes ... done (0ms).
+Computing edge shapes ... done (1ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
 Computing approached edges ... done (0ms).
