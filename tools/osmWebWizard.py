@@ -229,6 +229,8 @@ class Builder(object):
             netconvertOptions += ",--railway.topology.repair"
         if self.data["leftHand"]:
             netconvertOptions += ",--lefthand"
+        if self.data["carOnlyNetwork"]:
+            netconvertOptions += ",--keep-edges.by-vclass,passenger"
 
         options += ["--netconvert-typemap", ','.join(typefiles)]
         options += ["--netconvert-options", netconvertOptions]
@@ -517,6 +519,7 @@ if __name__ == "__main__":
                 u'publicTransport': True,
                 u'leftHand': False,
                 u'decal': False,
+                u'carOnlyNetwork': False,
                 u'testOutputDir': args.testOutputDir,
                 }
         builder = Builder(data, True)

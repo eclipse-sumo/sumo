@@ -432,6 +432,7 @@ on("ready", function(){
             publicTransport: elem("#publicTransport").checked,
             leftHand: elem("#leftHand").checked,
             decal: elem("#decal").checked,
+            carOnlyNetwork: elem("#carOnlyNetwork").checked,
             vehicles: {}
         };
 
