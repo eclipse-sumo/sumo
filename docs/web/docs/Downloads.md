@@ -145,6 +145,7 @@ list of bug-fixes and enhancements at our
 you to use the latest version from our [code repository](https://github.com/eclipse/sumo/).
 
 ### Nightly Snapshots 
+
 <span class="badge badge-pill badge-dark"><?php getNightlyFreshness("sumo-win64-git.zip");?></span>
 
 The code within the repository is [compiled each
