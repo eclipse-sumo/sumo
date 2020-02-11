@@ -3,6 +3,17 @@ title: ChangeLog
 permalink: /ChangeLog/
 ---
 
+## Git Master
+
+### Bugfixes
+
+### Enhancements
+- Tools
+  - Added the ability to download a simplified Car-only Network in osmWebWizard. Issue #6595
+
+### Other
+
+
 ## Version 1.5.0 (11.02.2020)
 
 ### Bugfixes
