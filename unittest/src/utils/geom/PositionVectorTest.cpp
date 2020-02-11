@@ -561,6 +561,11 @@ TEST_F(PositionVectorTest, test_method_overlapsWith) {
     vec5.push_back(Position(5, 7));
     vec5.push_back(Position(4, 7));
 
+    PositionVector vec6;
+    vec6.push_back(Position(4, 0));
+    vec6.push_back(Position(4, 8));
+    vec6.push_back(Position(-4, 8));
+
     PositionVector empty;
 
     EXPECT_TRUE(vec1.overlapsWith(vec1));
@@ -568,6 +573,8 @@ TEST_F(PositionVectorTest, test_method_overlapsWith) {
     EXPECT_TRUE(vec1.overlapsWith(vec3));
     EXPECT_TRUE(vec1.overlapsWith(vec4));
     EXPECT_FALSE(vec1.overlapsWith(vec5, 0));
+    EXPECT_TRUE(vec1.overlapsWith(vec6)); // overlapsWith implicitly closes the shape of vec6
+    EXPECT_TRUE(vec6.overlapsWith(vec1)); // overlapsWith implicitly closes the shape of vec6
     // growth is from centroid and thus different from Boundary behavior
     EXPECT_FALSE(vec1.overlapsWith(vec5, 1));
     EXPECT_TRUE(vec1.overlapsWith(vec5, 3));
