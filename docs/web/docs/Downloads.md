@@ -237,7 +237,7 @@ echo round(((filesize($file))/1048576),1) . " MB";
 }}
 function getNightlyFreshness($fname){
 $zip = new ZipArchive;
-$zip->open($_SERVER['DOCUMENT_ROOT']. "/releases/{{Version}}/" . $fname);
+$zip->open($_SERVER['DOCUMENT_ROOT']. "/daily/{{Version}}/" . $fname);
 $freshnessIs = str_replace("\"","",str_replace("#define VERSION_STRING ","",$zip->getFromName('sumo-git/include/version.h')));
 echo $freshnessIs;
 $zip->close();
