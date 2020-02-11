@@ -117,7 +117,7 @@ GUILoadThread::run() {
             }
             myEventQue.push_back(new GUIEvent_Message("Loading '" + myFile + "'."));
             myEventThrow.signal();
-            myParent->addRecentFile(FXPath::absolute(myFile.c_str()), myLoadNet);
+            myParent->addRecentFile(FXPath::absolute(myFile.c_str()));
         }
         myTitle = myFile;
         // within gui-based applications, nothing is reported to the console

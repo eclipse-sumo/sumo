@@ -100,7 +100,7 @@ public:
 
     void setStatusBarText(const std::string& text);
 
-    void addRecentFile(const FX::FXString& f, const bool isNet);
+    void addRecentFile(const FX::FXString& f);
 
     FXGLCanvas* getBuildGLCanvas() const;
     SUMOTime getCurrentSimTime() const;
@@ -403,11 +403,8 @@ protected:
     /// @brief io-event with the run-thread
     FXEX::FXThreadEvent myRunThreadEvent;
 
-    /// @brief List of recent config files
-    FXRecentFiles myRecentConfigs;
-
-    /// @brief List of recent nets
-    FXRecentFiles myRecentNets;
+    /// @brief List of recent files
+    FXRecentFiles myRecentFiles;
 
     /// @brief Input file pattern
     std::string myConfigPattern;
