@@ -96,6 +96,7 @@
 /src/utils/empty.cpp
 /unittest/src/sumo-unittest
 # tools dir
+/tools/[0-9]*
 /tools/game/*.netstate.xml
 /tools/game/*.tlsstate.xml
 /tools/game/*.tripinfos.xml
