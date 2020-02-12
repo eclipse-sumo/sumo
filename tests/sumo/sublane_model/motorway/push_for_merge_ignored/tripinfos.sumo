@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar 26 22:42:21 2018 by SUMO Version v0_32_0+0903-eae183f
+<!-- generated on Wed Feb 12 15:16:42 2020 by Eclipse SUMO Version v1_5_0+0030-33ecf87
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <lateral-resolution value="0.4"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -33,6 +34,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="B" depart="0.00" departLane="beg_1" departPos="3.00" departPosLat="0.00" departSpeed="13.89" departDelay="0.00" arrival="22.00" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="22.00" routeLength="297.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_B fcd_B" vType="t1" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="A" depart="0.00" departLane="beg_0" departPos="0.00" departPosLat="0.00" departSpeed="13.89" departDelay="0.00" arrival="23.00" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="23.00" routeLength="300.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.32" rerouteNo="0" devices="tripinfo_A fcd_A" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="B" depart="0.00" departLane="beg_1" departPos="3.00" departPosLat="0.00" departSpeed="13.89" departDelay="0.00" arrival="22.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="22.00" routeLength="297.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_B fcd_B" vType="t1" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="A" depart="0.00" departLane="beg_0" departPos="0.00" departPosLat="0.00" departSpeed="13.89" departDelay="0.00" arrival="23.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="23.00" routeLength="300.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.32" rerouteNo="0" devices="tripinfo_A fcd_A" vType="t0" speedFactor="1.00" vaporized=""/>
 </tripinfos>
