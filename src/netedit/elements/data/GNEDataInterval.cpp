@@ -78,6 +78,35 @@ GNEDataInterval::getDataSetParent() const {
 
 
 void 
+GNEDataInterval::addGenericDataChild(GNEGenericData* GenericData) {
+    // check that GenericData wasn't previously inserted
+    if (std::find(myGenericDataChildren.begin(), myGenericDataChildren.end(), GenericData) == myGenericDataChildren.end()) {
+        myGenericDataChildren.push_back(GenericData);
+    } else {
+        throw ProcessError("GenericData was already inserted");
+    }
+}
+
+
+void 
+GNEDataInterval::removeGenericDataChild(GNEGenericData* GenericData) {
+    auto it = std::find(myGenericDataChildren.begin(), myGenericDataChildren.end(), GenericData);
+    // check that GenericData was previously inserted
+    if (it != myGenericDataChildren.end()) {
+        myGenericDataChildren.erase(it);
+    } else {
+        throw ProcessError("GenericData wasn't previously inserted");
+    }
+}
+
+
+const std::vector<GNEGenericData*>& 
+GNEDataInterval::getGenericDataChildren() const {
+    return myGenericDataChildren;
+}
+
+
+void 
 GNEDataInterval::selectAttributeCarrier(bool /*changeFlag*/) {
     // GNEDataInterval cannot be selected
 }

@@ -71,6 +71,19 @@ public:
     /// @brief Returns a pointer to GNEDataSet parent
     GNEDataSet* getDataSetParent() const;
 
+    /// @name generic data children
+    /// @{
+
+    /// @brief add generic data child
+    void addGenericDataChild(GNEGenericData* GenericData);
+
+    /// @brief add generic data child
+    void removeGenericDataChild(GNEGenericData* GenericData);
+
+    /// @brief get generic data children
+    const std::vector<GNEGenericData*> &getGenericDataChildren() const;
+
+    /// @}
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /// @brief select attribute carrier using GUIGlobalSelection
@@ -146,6 +159,9 @@ protected:
 
     /// @brief end interval
     double myEnd;
+
+    /// @brief vector with generic data children
+    std::vector<GNEGenericData*> myGenericDataChildren;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
