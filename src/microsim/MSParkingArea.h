@@ -198,6 +198,25 @@ public:
      */
     int getLastFreeLotAngle() const;
 
+    /** @brief Return the GUI angle of myLastFreeLot - the angle the GUI uses to rotate into the next parking lot
+     *         as above, only expected to be called after we have established there is space in the parking area
+     *
+     * @return The GUI angle, relative to the lane, in radians
+     */
+        double getLastFreeLotGUIAngle() const;
+
+    /** @brief Return the manoeuver angle of the lot where the vehicle is parked
+     *
+     * @return The manoeuver angle in degrees
+     */
+     int getManoeuverAngle(const SUMOVehicle& forVehicle) const;
+
+    /** @brief  Return the GUI angle of the lot where the vehicle is parked
+     *
+     * @return The GUI angle, relative to the lane, in radians
+     */
+     double getGUIAngle(const SUMOVehicle& forVehicle) const;
+
     /** @brief Add a lot entry to parking area
      *
      * @param[in] x X position of the lot center
@@ -265,7 +284,9 @@ protected:
         /// @brief The position along the lane that the vehicle needs to reach for entering this lot
         double myEndPos;
         ///@brief The angle between lane and lot through which a vehicle must manoeuver to enter the lot
-        int myManoeuverAngle;
+        double myManoeuverAngle;
+        ///@brief Whether the lot is on the LHS of the lane relative to the lane direction
+        bool mySideIsLHS;
     };
 
 

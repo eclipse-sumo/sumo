@@ -13,9 +13,9 @@
       "variables": []
     },
     {
-      "name": "x64-Release",
+      "name": "x64-ReleasewDbg",
       "generator": "Ninja",
-      "configurationType": "Release",
+      "configurationType": "RelWithDebInfo",
       "buildRoot": "${projectDir}\\out\\build\\${name}",
       "installRoot": "${projectDir}\\out\\install\\${name}",
       "cmakeCommandArgs": "",
