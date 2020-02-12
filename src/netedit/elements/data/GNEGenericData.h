@@ -83,6 +83,18 @@ public:
     /// @brief Destructor
     ~GNEGenericData();
 
+    /// @brief gererate a new ID for an element child
+    std::string generateChildID(SumoXMLTag childTag);
+
+    /// @brief update pre-computed geometry information
+    virtual void updateGeometry() = 0;
+
+    /// @brief update dotted contour
+    virtual void updateDottedContour() = 0;
+
+    /// @brief Returns element position in view
+    virtual Position getPositionInView() const = 0;
+
     /// @name members and functions relative to write data sets into XML
     /// @{
     /**@brief writte data set element into a xml file
@@ -176,6 +188,9 @@ protected:
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
+    virtual void setEnabledAttribute(const int enabledAttributes) = 0;
 
     /// @brief Invalidated copy constructor.
     GNEGenericData(const GNEGenericData&) = delete;

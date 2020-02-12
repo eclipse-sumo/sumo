@@ -43,21 +43,30 @@ public:
     /// @brief Destructor
     ~GNEEdgeData();
 
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
+
+    /// @brief update dotted contour
+    void updateDottedContour();
+
+    /// @brief Returns element position in view
+    Position getPositionInView() const;
+
     /// @name members and functions relative to write data sets into XML
     /// @{
     /**@brief writte data set element into a xml file
      * @param[in] device device in which write parameters of data set element
      */
-    void writeEdgeData(OutputDevice& device) const;
+    void writeGenericData(OutputDevice& device) const;
 
     /// @brief check if current data set is valid to be writed into XML (by default true, can be reimplemented in children)
-    bool isEdgeDataValid() const;
+    bool isGenericDataValid() const;
 
     /// @brief return a string with the current data set problem (by default empty, can be reimplemented in children)
-    std::string getEdgeDataProblem() const;
+    std::string getGenericDataProblem() const;
 
     /// @brief fix data set problem (by default throw an exception, has to be reimplemented in children)
-    void fixEdgeDataProblem();
+    void fixGenericDataProblem();
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -131,6 +140,9 @@ protected:
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
+    void setEnabledAttribute(const int enabledAttributes);
 
     /// @brief Invalidated copy constructor.
     GNEEdgeData(const GNEEdgeData&) = delete;

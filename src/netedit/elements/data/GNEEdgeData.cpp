@@ -46,7 +46,25 @@ GNEEdgeData::~GNEEdgeData() {}
 
 
 void 
-GNEEdgeData::writeEdgeData(OutputDevice& device) const {
+GNEEdgeData::updateGeometry() {
+    // nothing to update
+}
+
+
+void 
+GNEEdgeData::updateDottedContour() {
+    // nothing to update
+}
+
+
+Position 
+GNEEdgeData::getPositionInView() const {
+    return getParentEdges().front()->getPositionInView();
+}
+
+
+void 
+GNEEdgeData::writeGenericData(OutputDevice& device) const {
     // open device
     device.openTag(myTagProperty.getTag());
     // write edge ID
@@ -59,19 +77,19 @@ GNEEdgeData::writeEdgeData(OutputDevice& device) const {
 
 
 bool
-GNEEdgeData::isEdgeDataValid() const {
+GNEEdgeData::isGenericDataValid() const {
     return true;
 }
 
 
 std::string
-GNEEdgeData::getEdgeDataProblem() const {
+GNEEdgeData::getGenericDataProblem() const {
     return "";
 }
 
 
 void
-GNEEdgeData::fixEdgeDataProblem() {
+GNEEdgeData::fixGenericDataProblem() {
     throw InvalidArgument(getTagStr() + " cannot fix any problem");
 }
 
@@ -187,6 +205,12 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNEEdgeData::setEnabledAttribute(const int /*enabledAttributes*/) {
+    throw InvalidArgument("Nothing to enable");
 }
 
 /****************************************************************************/
