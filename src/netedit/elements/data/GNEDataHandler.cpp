@@ -20,11 +20,19 @@
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
+#include <netedit/changes/GNEChange_DataSet.h>
+#include <netedit/changes/GNEChange_DataInterval.h>
+#include <netedit/changes/GNEChange_GenericData.h>
 #include <netedit/elements/data/GNEEdgeData.h>
+#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 
 #include "GNEDataHandler.h"
+#include "GNEDataInterval.h"
+#include "GNEDataSet.h"
+#include "GNEEdgeData.h"
 
 
 // ===========================================================================
@@ -152,26 +160,34 @@ GNEDataHandler::buildData(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag ta
 }
 
 
-GNEEdgeData*
-GNEDataHandler::buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval *dataInterval, GNEEdge* edge) {
-    /*
-    if (viewNet->getNet()->retrieveData(SUMO_TAG_BUS_STOP, id, false) == nullptr) {
-        GNEBusStop* busStop = new GNEBusStop(id, lane, viewNet, startPos, endPos, parametersSet, name, lines, personCapacity, friendlyPosition, blockMovement);
-        if (allowUndoRedo) {
-            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_BUS_STOP));
-            viewNet->getUndoList()->add(new GNEChange_Data(busStop, true), true);
-            viewNet->getUndoList()->p_end();
-        } else {
-            viewNet->getNet()->insertData(busStop);
-            lane->addChildData(busStop);
-            busStop->incRef("buildBusStop");
-        }
-        return busStop;
+GNEDataInterval*
+GNEDataHandler::buildDataInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataSet *dataSetParent, const double begin, const double end) {
+    GNEDataInterval* dataInterval = new GNEDataInterval(dataSetParent, begin, end);
+    if (allowUndoRedo) {
+        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DATAINTERVAL));
+        viewNet->getUndoList()->add(new GNEChange_DataInterval(dataInterval, true), true);
+        viewNet->getUndoList()->p_end();
     } else {
-        throw ProcessError("Could not build " + toString(SUMO_TAG_BUS_STOP) + " with ID '" + id + "' in netedit; probably declared twice.");
+        dataSetParent->addDataIntervalChild(dataInterval);
+        dataInterval->incRef("buildDataInterval");
     }
-    */
-    return nullptr;
+    return dataInterval;
+}
+
+
+GNEEdgeData*
+GNEDataHandler::buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval *dataIntervalParent, GNEEdge* edge) {
+    GNEEdgeData* edgeData = new GNEEdgeData(dataIntervalParent, edge);
+    if (allowUndoRedo) {
+        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_MEANDATA_EDGE));
+        viewNet->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
+        viewNet->getUndoList()->p_end();
+    } else {
+        dataIntervalParent->addGenericDataChild(edgeData);
+        edge->addChildGenericDataElement(edgeData);
+        edgeData->incRef("buildEdgeData");
+    }
+    return edgeData;
 }
 
 bool

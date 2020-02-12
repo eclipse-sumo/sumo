@@ -37,6 +37,7 @@ class GNEEdgeData;
 class GNEGenericData;
 class GNEDataElement;
 class GNEDataInterval;
+class GNEDataSet;
 class GNEUndoList;
 
 // ===========================================================================
@@ -110,14 +111,24 @@ public:
      */
     static bool buildData(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
 
-    /**@brief Builds a edgeData
+    /**@brief Builds DataInterval
      * @param[in] viewNet viewNet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
-     * @param[in] dataInterval GNEDataInterval in which this edgeData is saved
+     * @param[in] dataSet GNEDataInterval in which this DataInterval is saved
+     * @param[in] begin interval begin
+     * @param[in] end interval end
+     * @exception InvalidArgument If the DataInterval can not be added to the net
+     */
+    static GNEDataInterval* buildDataInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataSet *dataSetParent, const double begin, const double end);
+
+    /**@brief Builds edgeData
+     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
+     * @param[in] dataIntervalParent GNEDataInterval in which this edgeData is saved
      * @param[in] edge GNEEdge parent
      * @exception InvalidArgument If the edgeData can not be added to the net
      */
-    static GNEEdgeData* buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval *dataInterval, GNEEdge* edge);
+    static GNEEdgeData* buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval *dataIntervalParent, GNEEdge* edge);
 
 protected:
     /// @name parsing methods

@@ -51,6 +51,15 @@ public:
     /// @brief Destructor
     ~GNEDataInterval();
 
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
+
+    /// @brief update dotted contour
+    void updateDottedContour();
+
+    /// @brief Returns element position in view
+    Position getPositionInView() const;
+
     /// @name members and functions relative to write data elements into XML
     /// @{
     /**@brief writte data element element into a xml file
@@ -166,6 +175,9 @@ protected:
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
+    void setEnabledAttribute(const int enabledAttributes);
 
     /// @brief Invalidated copy constructor.
     GNEDataInterval(const GNEDataInterval&) = delete;

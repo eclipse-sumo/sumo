@@ -48,6 +48,24 @@ GNEDataInterval::~GNEDataInterval() {}
 
 
 void 
+GNEDataInterval::updateGeometry() {
+    // nothing to update
+}
+
+
+void 
+GNEDataInterval::updateDottedContour() {
+    // nothing to update
+}
+
+
+Position 
+GNEDataInterval::getPositionInView() const {
+    return Position();
+}
+
+
+void 
 GNEDataInterval::writeDataInterval(OutputDevice& /*device*/) const {
 
 }
@@ -226,6 +244,12 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNEDataInterval::setEnabledAttribute(const int /*enabledAttributes*/) {
+    throw InvalidArgument("Nothing to enable");
 }
 
 /****************************************************************************/
