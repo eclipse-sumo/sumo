@@ -1909,7 +1909,7 @@ MSLCM_SL2015::saveBlockerLength(const MSVehicle* blocker, int lcaCounter) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
                   << " saveBlockerLength blocker=" << Named::getIDSecure(blocker)
-                  << " bState=" << (blocker == 0 ? "None" : toString(blocker->getLaneChangeModel().getOwnState()))
+                  << " bState=" << (blocker == 0 ? "None" : toString((LaneChangeAction)blocker->getLaneChangeModel().getOwnState()))
                   << "\n";
     }
 #endif
@@ -1921,26 +1921,13 @@ MSLCM_SL2015::saveBlockerLength(const MSVehicle* blocker, int lcaCounter) {
             // save at least his length in myLeadingBlockerLength
             myLeadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), myLeadingBlockerLength);
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
-            if (gDebugFlag2) {
-                std::cout << SIMTIME
-                          << " veh=" << myVehicle.getID()
-                          << " blocker=" << Named::getIDSecure(blocker)
-                          << " saving myLeadingBlockerLength=" << myLeadingBlockerLength
-                          << "\n";
-            }
+            if (gDebugFlag2) std::cout << "    saving myLeadingBlockerLength=" << myLeadingBlockerLength << "\n";
 #endif
         } else {
             // we cannot save enough space for the blocker. It needs to save
             // space for ego instead
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
-            if (gDebugFlag2) {
-                std::cout << SIMTIME
-                          << " veh=" << myVehicle.getID()
-                          << " blocker=" << Named::getIDSecure(blocker)
-                          << " cannot save space=" << blocker->getVehicleType().getLengthWithGap()
-                          << " potential=" << potential
-                          << "\n";
-            }
+            if (gDebugFlag2) std::cout << "    cannot save space=" << blocker->getVehicleType().getLengthWithGap() << " potential=" << potential << " (blocker must save)\n";
 #endif
             ((MSVehicle*)blocker)->getLaneChangeModel().saveBlockerLength(myVehicle.getVehicleType().getLengthWithGap());
         }
