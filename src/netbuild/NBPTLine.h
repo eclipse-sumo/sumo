@@ -97,7 +97,10 @@ private:
     std::string myCurrentWay;
     std::string myPTLineId;
     std::string myRef;
+
+    // @brief the service interval in minutes
     int myInterval;
+
     std::string myNightService;
     SUMOVehicleClass myVClass;
 
