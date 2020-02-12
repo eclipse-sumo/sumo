@@ -198,8 +198,6 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
         if os.path.exists(os.path.join("src", "libsumo", "_libsumo.vcxproj")):
             ret = subprocess.call(["cmake", "--build", ".", "--target", "_libsumo"],
                                   cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-        ret = subprocess.call(["cmake", "--build", ".", "--target", "cadyts"],
-                              cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         ret = subprocess.call(["cmake", "--build", ".", "--target", "lisum-gui"],
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         if ret == 0 and sumoAllZip:
