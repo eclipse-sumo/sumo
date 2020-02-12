@@ -1921,20 +1921,24 @@ NIImporter_OpenStreetMap::interpretDistance(NIOSMNode* node) {
 SUMOVehicleClass
 NIImporter_OpenStreetMap::interpretTransportType(const std::string& type, NIOSMNode* toSet) {
     SUMOVehicleClass result = SVC_IGNORING;
-    std::string stop = type;
     if (type == "train") {
         result = SVC_RAIL;
     } else if (type == "subway" || type == "light_rail") {
         result = SVC_RAIL_URBAN;
-        stop = "train";
-    } else if (type == "bus") {
-        result = SVC_BUS;
-    } else if (type == "tram") {
-        result = SVC_TRAM;
+    } else if (SumoVehicleClassStrings.hasString(type)) {
+        result = SumoVehicleClassStrings.get(type);
+    }
+    std::string stop = "";
+    if (result == SVC_TRAM) {
+        stop = ".tram";
+    } else if (result == SVC_BUS) {
+        stop = ".bus";
+    } else if (isRailway(result)) {
+        stop = ".train";
     }
     if (toSet != nullptr && result != SVC_IGNORING) {
         toSet->permissions |= result;
-        toSet->ptStopLength = OptionsCont::getOptions().getFloat("osm.stop-output.length." + stop);
+        toSet->ptStopLength = OptionsCont::getOptions().getFloat("osm.stop-output.length" + stop);
     }
     return result;
 }

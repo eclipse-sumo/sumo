@@ -70,7 +70,10 @@ NIXMLPTHandler::myStartElement(int element,
     switch (element) {
         case SUMO_TAG_BUS_STOP:
         case SUMO_TAG_TRAIN_STOP:
-            if (myCurrentLine == nullptr) {
+        case SUMO_TAG_STOP:
+            if (myCurrentRouteID != "") {
+                addRouteStop(attrs);
+            } else if (myCurrentLine == nullptr) {
                 addPTStop(attrs);
             } else {
                 addPTLineStop(attrs);
@@ -83,7 +86,14 @@ NIXMLPTHandler::myStartElement(int element,
             addPTLine(attrs);
             break;
         case SUMO_TAG_ROUTE:
-            addRoute(attrs);
+            if (myCurrentLine == nullptr) {
+                addRoute(attrs);
+            } else {
+                addPTLineRoute(attrs);
+            }
+            break;
+        case SUMO_TAG_FLOW:
+            addPTLineFromFlow(attrs);
             break;
         case SUMO_TAG_PARAM:
             if (myLastParameterised.size() != 0) {
@@ -109,6 +119,9 @@ NIXMLPTHandler::myEndElement(int element) {
         case SUMO_TAG_PT_LINE:
             myCurrentLine->setMyNumOfStops((int)(myCurrentLine->getStops().size() / myCurrentCompletion));
             myCurrentLine = nullptr;
+            break;
+        case SUMO_TAG_ROUTE:
+            myCurrentRouteID = "";
             break;
         default:
             break;
@@ -179,8 +192,29 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
     }
 }
 
+
 void
-NIXMLPTHandler::addRoute(const SUMOSAXAttributes& attrs) {
+NIXMLPTHandler::addPTLineFromFlow(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "flow", ok);
+    const std::string line = attrs.get<std::string>(SUMO_ATTR_LINE, id.c_str(), ok);
+    const std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok);
+    const std::string route = attrs.get<std::string>(SUMO_ATTR_ROUTE, id.c_str(), ok);
+    SUMOVehicleClass vClass = NIImporter_OpenStreetMap::interpretTransportType(type);
+    const int intervalS = attrs.getOpt<int>(SUMO_ATTR_PERIOD, id.c_str(), ok, -1);
+    if (ok) {
+        NBPTLine* ptLine = new NBPTLine(id, "", type, line, intervalS / 60, "", vClass);
+        ptLine->setEdges(myRouteEdges[route]);
+        for (NBPTStop* stop : myRouteStops[route]) {
+            ptLine->addPTStop(stop);
+        }
+        myLineCont.insert(ptLine);
+    }
+}
+
+
+void
+NIXMLPTHandler::addPTLineRoute(const SUMOSAXAttributes& attrs) {
     if (myCurrentLine == nullptr) {
         WRITE_ERROR("Found route outside line definition");
         return;
@@ -198,17 +232,51 @@ NIXMLPTHandler::addRoute(const SUMOSAXAttributes& attrs) {
     myCurrentLine->setEdges(edges);
 }
 
+void
+NIXMLPTHandler::addRoute(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    myCurrentRouteID = attrs.get<std::string>(SUMO_ATTR_ID, "route", ok);
+    const std::vector<std::string>& edgeIDs = attrs.getStringVector(SUMO_ATTR_EDGES);
+    EdgeVector edges;
+    for (const std::string& edgeID : edgeIDs) {
+        NBEdge* edge = myEdgeCont.retrieve(edgeID);
+        if (edge == nullptr) {
+            WRITE_ERROR("Edge '" + edgeID + "' in route of line '" + myCurrentLine->getName() + "' not found");
+        } else {
+            edges.push_back(edge);
+        }
+    }
+    myRouteEdges[myCurrentRouteID] = edges;
+}
+
 
 void
 NIXMLPTHandler::addPTLineStop(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "ptLine", ok);
+    const std::string id = attrs.hasAttribute(SUMO_ATTR_ID) 
+        ? attrs.get<std::string>(SUMO_ATTR_ID, "ptLine", ok) 
+        : attrs.get<std::string>(SUMO_ATTR_BUS_STOP, "ptline", ok);
     NBPTStop* stop = myStopCont.get(id);
     if (stop == nullptr) {
         WRITE_ERROR("Stop '" + id + "' within line '" + toString(myCurrentLine->getLineID()) + "' not found");
         return;
     }
     myCurrentLine->addPTStop(stop);
+}
+
+void
+NIXMLPTHandler::addRouteStop(const SUMOSAXAttributes& attrs) {
+    assert(myCurrentRouteID != "");
+    bool ok = true;
+    const std::string id = attrs.hasAttribute(SUMO_ATTR_ID) 
+        ? attrs.get<std::string>(SUMO_ATTR_ID, "ptLine", ok) 
+        : attrs.get<std::string>(SUMO_ATTR_BUS_STOP, "ptline", ok);
+    NBPTStop* stop = myStopCont.get(id);
+    if (stop == nullptr) {
+        WRITE_ERROR("Stop '" + id + "' within route '" + toString(myCurrentRouteID) + "' not found");
+        return;
+    }
+    myRouteStops[myCurrentRouteID].push_back(stop);
 }
 
 
