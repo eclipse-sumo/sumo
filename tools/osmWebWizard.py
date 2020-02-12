@@ -277,10 +277,12 @@ class Builder(object):
                 os.mkdir("background_images")
                 tileGet.get(tileOptions)
                 self.report("Success.")
+                self.decalError = False
             except Exception:
                 os.chdir(self.tmp)
                 shutil.rmtree("background_images", ignore_errors=True)
                 self.report("Error while downloading background images")
+                self.decalError = True
 
         if self.data["vehicles"] or ptOptions:
             # routenames stores all routefiles and will join the items later, will
@@ -364,7 +366,7 @@ class Builder(object):
 
         self.filename("guisettings", ".view.xml")
         with open(self.files["guisettings"], 'w') as f:
-            if self.data["decal"]:
+            if self.data["decal"] and not self.decalError:
                 f.write("""
 <viewsettings>
     <scheme name="real world"/>
