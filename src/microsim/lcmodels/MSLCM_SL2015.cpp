@@ -2478,8 +2478,8 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
                                   << " want2=" << (sd2.state & LCA_WANTS_LANECHANGE)
                                   << " dist2=" << sd2.latDist
                                   << " dir2=" << sd2.dir
-                                  << " reason1=" << reason1
-                                  << " reason2=" << reason2
+                                  << " reason1=" << toString((LaneChangeAction)reason1)
+                                  << " reason2=" << toString((LaneChangeAction)reason2)
                                   << "\n";
 #endif
     if (want1) {
