@@ -160,6 +160,20 @@ GNEDataHandler::buildData(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag ta
 }
 
 
+GNEDataSet* 
+GNEDataHandler::buildDataSet(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &dataSetID) {
+    GNEDataSet* dataSet = new GNEDataSet(viewNet, dataSetID);
+    if (allowUndoRedo) {
+        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DATASET));
+        viewNet->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
+        viewNet->getUndoList()->p_end();
+    } else {
+        dataSet->incRef("buildDataSet");
+    }
+    return dataSet;
+}
+
+
 GNEDataInterval*
 GNEDataHandler::buildDataInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataSet *dataSetParent, const double begin, const double end) {
     GNEDataInterval* dataInterval = new GNEDataInterval(dataSetParent, begin, end);

@@ -3839,7 +3839,17 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
                 }
             }
             break;
-        //
+        case GNE_DATAMODE_EDGEDATA:
+            // avoid create edgeData if control key is pressed
+            if (!myKeyPressed.controlKeyPressed()) {
+                if (myViewParent->getEdgeDataFrame()->addEdgeData(myObjectsUnderCursor)) {
+                    // update view to show the new edge data
+                    update();
+                }
+            }
+            // process click
+            processClick(eventData);
+            break;
         default: {
             // process click
             processClick(eventData);

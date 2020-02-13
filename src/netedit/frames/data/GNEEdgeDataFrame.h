@@ -61,14 +61,14 @@ public:
         /// @brief get new interval ID (or return empty string if isn't valid)
         std::string getIntervalID() const;
 
-        /// @brief check if create data interval
-        bool getCreateDataInterval() const;
+        /// @brief check if create data set
+        bool getCreateDataSet() const;
 
         /// @brief get begin
-        std::string getBegin() const;
+        double getBegin() const;
 
         /// @brief get end
-        std::string getEnd() const;
+        double getEnd() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -91,7 +91,7 @@ public:
         FXComboBox* myIntervalsComboBox;
 
         /// @brief horizontal frame for new ID
-        FXHorizontalFrame *myHorizontalFrameBegin;
+        FXHorizontalFrame *myHorizontalFrameNewID;
 
         /// @brief interval new id
         FXTextField *myNewIDTextField; 
@@ -101,9 +101,6 @@ public:
 
         /// @brief interval end
         FXTextField *myEndTextField; 
-
-        /// @brief flag to create data interval
-        bool myCreateDataInterval;
     };
 
     /**@brief Constructor
@@ -127,6 +124,9 @@ public:
 protected:
     /// @brief IntervalSelector modul
     IntervalSelector *myIntervalSelector;
+
+    /// @brief parameters editor
+    GNEFrameAttributesModuls::ParametersEditor *myParametersEditor;
 
     /// @brief interval selected
     void intervalSelected();

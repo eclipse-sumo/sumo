@@ -21,6 +21,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/elements/data/GNEDataSet.h>
+#include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/GNEViewNet.h>
 
 #include "GNEChange_DataSet.h"
@@ -36,19 +37,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DataSet, GNEChange, nullptr, 0)
 
 GNEChange_DataSet::GNEChange_DataSet(GNEDataSet* dataSet, bool forward) :
     GNEChange(dataSet->getViewNet()->getNet(), forward),
-    myDataSet(dataSet)
-    /*
-    myEdgePath(dataSet->getPathEdges()),
-    myParentEdges(dataSet->getParentEdges()),
-    myParentLanes(dataSet->getParentLanes()),
-    myParentShapes(dataSet->getParentShapes()),
-    myParentAdditionals(dataSet->getParentAdditionals()),
-    myParentDataSets(dataSet->getParentDataSets()),
-    myChildEdges(dataSet->getChildEdges()),
-    myChildLanes(dataSet->getChildLanes()),
-    myChildShapes(dataSet->getChildShapes()),
-    myChildAdditionals(dataSet->getChildAdditionals()),
-    myChildDataSets(dataSet->getChildDataSets())*/{
+    myDataSet(dataSet) {
     myDataSet->incRef("GNEChange_DataSet");
 }
 
@@ -59,48 +48,10 @@ GNEChange_DataSet::~GNEChange_DataSet() {
     if (myDataSet->unreferenced()) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
-        /*
         // make sure that element isn't in net before removing
         if (myNet->dataSetExist(myDataSet)) {
-            myNet->deleteDataSet(myDataSet, false);
-            // remove element from path
-            for (const auto& i : myEdgePath) {
-                i->removePathElement(myDataSet);
-            }
-            // Remove element from parent elements
-            for (const auto& i : myParentEdges) {
-                i->removeChildDataSet(myDataSet);
-            }
-            for (const auto& i : myParentLanes) {
-                i->removeChildDataSet(myDataSet);
-            }
-            for (const auto& i : myParentShapes) {
-                i->removeChildDataSet(myDataSet);
-            }
-            for (const auto& i : myParentAdditionals) {
-                i->removeChildDataSet(myDataSet);
-            }
-            for (const auto& i : myParentDataSets) {
-                i->removeChildDataSet(myDataSet);
-            }
-            // Remove element from child elements
-            for (const auto& i : myChildEdges) {
-                i->removeParentDataSet(myDataSet);
-            }
-            for (const auto& i : myChildLanes) {
-                i->removeParentDataSet(myDataSet);
-            }
-            for (const auto& i : myChildShapes) {
-                i->removeParentDataSet(myDataSet);
-            }
-            for (const auto& i : myChildAdditionals) {
-                i->removeParentDataSet(myDataSet);
-            }
-            for (const auto& i : myChildDataSets) {
-                i->removeParentDataSet(myDataSet);
-            }
+            myNet->deleteDataSet(myDataSet);
         }
-        */
         delete myDataSet;
     }
 }
@@ -112,84 +63,12 @@ GNEChange_DataSet::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // delete data set from net
-        //myNet->deleteDataSet(myDataSet, false);
-        /*
-        // remove element from path
-        for (const auto& i : myEdgePath) {
-            i->removePathElement(myDataSet);
-        }
-        // Remove element from parent elements
-        for (const auto& i : myParentEdges) {
-            i->removeChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentLanes) {
-            i->removeChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentShapes) {
-            i->removeChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->removeChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentDataSets) {
-            i->removeChildDataSet(myDataSet);
-        }
-        // Remove element from child elements
-        for (const auto& i : myChildEdges) {
-            i->removeParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildLanes) {
-            i->removeParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildShapes) {
-            i->removeParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->removeParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildDataSets) {
-            i->removeParentDataSet(myDataSet);
-        }
-        */
+        myNet->deleteDataSet(myDataSet);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // insert data set into net
-        //myNet->insertDataSet(myDataSet);
-        /*
-        // add element in parent elements
-        for (const auto& i : myParentEdges) {
-            i->addChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentLanes) {
-            i->addChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentShapes) {
-            i->addChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->addChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentDataSets) {
-            i->addChildDataSet(myDataSet);
-        }
-        // add element in child elements
-        for (const auto& i : myChildEdges) {
-            i->addParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildLanes) {
-            i->addParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildShapes) {
-            i->addParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->addParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildDataSets) {
-            i->addParentDataSet(myDataSet);
-        }
-        */
+        myNet->insertDataSet(myDataSet);
     }
     // Requiere always save elements
     myNet->requireSaveDataElements(true);
@@ -202,84 +81,12 @@ GNEChange_DataSet::redo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // insert data set into net
-        //myNet->insertDataSet(myDataSet);
-        /*
-        // add element in parent elements
-        for (const auto& i : myParentEdges) {
-            i->addChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentLanes) {
-            i->addChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentShapes) {
-            i->addChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->addChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentDataSets) {
-            i->addChildDataSet(myDataSet);
-        }
-        // add element in child elements
-        for (const auto& i : myChildEdges) {
-            i->addParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildLanes) {
-            i->addParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildShapes) {
-            i->addParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->addParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildDataSets) {
-            i->addParentDataSet(myDataSet);
-        }
-        */
+        myNet->insertDataSet(myDataSet);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // delete data set from net
-        //myNet->deleteDataSet(myDataSet, false);
-        /*
-        // remove element from path
-        for (const auto& i : myEdgePath) {
-            i->removePathElement(myDataSet);
-        }
-        // Remove element from parent elements
-        for (const auto& i : myParentEdges) {
-            i->removeChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentLanes) {
-            i->removeChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentShapes) {
-            i->removeChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->removeChildDataSet(myDataSet);
-        }
-        for (const auto& i : myParentDataSets) {
-            i->removeChildDataSet(myDataSet);
-        }
-        // Remove element from child elements
-        for (const auto& i : myChildEdges) {
-            i->removeParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildLanes) {
-            i->removeParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildShapes) {
-            i->removeParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->removeParentDataSet(myDataSet);
-        }
-        for (const auto& i : myChildDataSets) {
-            i->removeParentDataSet(myDataSet);
-        }
-        */
+        myNet->deleteDataSet(myDataSet);
     }
     // Requiere always save elements
     myNet->requireSaveDataElements(true);

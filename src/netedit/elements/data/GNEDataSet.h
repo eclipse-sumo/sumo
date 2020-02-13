@@ -35,10 +35,6 @@ class GNEDataInterval;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEDataSet
- * @brief An Element which don't belongs to GNENet but has influency in the simulation
- */
 class GNEDataSet : public GNEAttributeCarrier {
 
 public:
@@ -49,6 +45,15 @@ public:
 
     /// @brief Destructor
     ~GNEDataSet();
+
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
+
+    /// @brief update dotted contour
+    void updateDottedContour();
+
+    /// @brief Returns element position in view
+    Position getPositionInView() const;
 
     /// @brief Returns a pointer to GNEViewNet in which data element element is located
     GNEViewNet* getViewNet() const;
@@ -155,6 +160,9 @@ protected:
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
+    void setEnabledAttribute(const int enabledAttributes);
 
     /// @brief check if a new GNEDataInterval with the given begin and end can be inserted in current GNEDataSet
     static bool checkNewInterval(const std::map<const double, GNEDataInterval*> &dataIntervalMap, const double newBegin, const double newEnd);

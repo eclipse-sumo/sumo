@@ -42,6 +42,24 @@ GNEDataSet::GNEDataSet(GNEViewNet* viewNet, const std::string dataSetID) :
 GNEDataSet::~GNEDataSet() {}
 
 
+void 
+GNEDataSet::updateGeometry() {
+    // nothing to update
+}
+
+
+void 
+GNEDataSet::updateDottedContour() {
+    // nothing to update
+}
+
+
+Position 
+GNEDataSet::getPositionInView() const {
+    return Position(0,0);
+}
+
+
 GNEViewNet*
 GNEDataSet::getViewNet() const {
     return myViewNet;
@@ -207,6 +225,12 @@ GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void
+GNEDataSet::setEnabledAttribute(const int /*enabledAttributes*/) {
+    throw InvalidArgument("Nothing to enable");
 }
 
 

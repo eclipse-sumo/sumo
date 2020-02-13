@@ -86,6 +86,7 @@ class GNENet : public GUIGlObject, public ShapeContainer {
     friend class GNEChange_CalibratorItem;
     friend class GNEChange_Additional;
     friend class GNEChange_DemandElement;
+    friend class GNEChange_DataSet;
 
 public:
     /// @brief struct used for saving all attribute carriers of net, in different formats

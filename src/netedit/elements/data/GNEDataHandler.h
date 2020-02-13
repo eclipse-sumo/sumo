@@ -111,6 +111,14 @@ public:
      */
     static bool buildData(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
 
+    /**@brief Builds DataSet
+     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
+     * @param[in] dataSetID data set interval
+     * @exception InvalidArgument If the DataSet can not be added to the net
+     */
+    static GNEDataSet* buildDataSet(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &dataSetID);
+
     /**@brief Builds DataInterval
      * @param[in] viewNet viewNet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
