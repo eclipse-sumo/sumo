@@ -25,6 +25,12 @@
 
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEDataInterval;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -34,6 +40,72 @@
 class GNEEdgeDataFrame : public GNEFrame {
 
 public:
+    // ===========================================================================
+    // class IntervalSelector
+    // ===========================================================================
+
+    class IntervalSelector : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEEdgeDataFrame::IntervalSelector)
+
+    public:
+        /// @brief constructor
+        IntervalSelector(GNEEdgeDataFrame* edgeDataFrameParent);
+
+        /// @brief destructor
+        ~IntervalSelector();
+
+        /// @brief refresh interval selector
+        void refreshIntervalSelector();
+
+        /// @brief get new interval ID (or return empty string if isn't valid)
+        std::string getIntervalID() const;
+
+        /// @brief check if create data interval
+        bool getCreateDataInterval() const;
+
+        /// @brief get begin
+        std::string getBegin() const;
+
+        /// @brief get end
+        std::string getEnd() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user select a interval in ComboBox
+        long onCmdSelectInterval(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user edit an attribute
+        long onCmdSetAttribute(FXObject* obj, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        FOX_CONSTRUCTOR(IntervalSelector)
+
+    private:
+        /// @brief pointer to edgeData frame Parent
+        GNEEdgeDataFrame* myEdgeDataFrameParent;
+
+        /// @brief comboBox with intervals
+        FXComboBox* myIntervalsComboBox;
+
+        /// @brief horizontal frame for new ID
+        FXHorizontalFrame *myHorizontalFrameBegin;
+
+        /// @brief interval new id
+        FXTextField *myNewIDTextField; 
+
+        /// @brief interval begin
+        FXTextField *myBeginTextField; 
+
+        /// @brief interval end
+        FXTextField *myEndTextField; 
+
+        /// @brief flag to create data interval
+        bool myCreateDataInterval;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -53,7 +125,11 @@ public:
     bool addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
 protected:
-    //
+    /// @brief IntervalSelector modul
+    IntervalSelector *myIntervalSelector;
+
+    /// @brief interval selected
+    void intervalSelected();
 
 private:
     //

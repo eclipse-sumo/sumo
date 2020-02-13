@@ -680,6 +680,8 @@ enum {
     MID_GNE_TAGTYPE_SELECTED,
     /// @brief tag selected in ComboBox
     MID_GNE_TAG_SELECTED,
+    /// @brief interval selected in ComboBox
+    MID_GNE_INTERVAL_SELECTED,
     /// @brief text attribute edited
     MID_GNE_SET_ATTRIBUTE_TEXT,
     /// @brief bool attribute edited
