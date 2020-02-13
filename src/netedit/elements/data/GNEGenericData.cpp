@@ -51,7 +51,7 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, GNEDataInterval* dataInterv
     Parameterised(),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
-    myViewNet(nullptr) {
+    myDataIntervalParent(dataIntervalParent) {
 }
 
 
@@ -84,7 +84,7 @@ GNEGenericData::fixGenericDataProblem() {
 
 GNEViewNet*
 GNEGenericData::getViewNet() const {
-    return myViewNet;
+    return myDataIntervalParent->getViewNet();
 }
 
 
@@ -96,7 +96,7 @@ GNEGenericData::isAttributeCarrierSelected() const {
 
 bool
 GNEGenericData::drawUsingSelectColor() const {
-    if (mySelected && (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) {
+    if (mySelected && (myDataIntervalParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) {
         return true;
     } else {
         return false;

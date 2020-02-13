@@ -47,6 +47,12 @@ GNEDataInterval::GNEDataInterval(GNEDataSet *dataSetParent, const double begin, 
 GNEDataInterval::~GNEDataInterval() {}
 
 
+GNEViewNet* 
+GNEDataInterval::getViewNet() const {
+    return myDataSetParent->getViewNet();
+}
+
+
 void 
 GNEDataInterval::updateGeometry() {
     // nothing to update

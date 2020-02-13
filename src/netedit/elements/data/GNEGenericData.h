@@ -182,8 +182,8 @@ public:
     /// @}
 
 protected:
-    /// @brief The GNEViewNet this data set element belongs
-    GNEViewNet* myViewNet;
+    /// @brief dataInterval Parent
+    GNEDataInterval* myDataIntervalParent;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

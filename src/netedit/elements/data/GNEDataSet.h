@@ -76,6 +76,9 @@ public:
     /// @brief check if new begin or end for given GNEDataInterval is given
     bool checkNewBeginEnd(const GNEDataInterval* dataInterval, const double newBegin, const double newEnd);
 
+    /// @brief return interval 
+    GNEDataInterval* retrieveInterval(const double begin, const double end) const;
+
     /// @brief get data interval children
     const std::map<const double, GNEDataInterval*> & getDataIntervalChildren() const;
 

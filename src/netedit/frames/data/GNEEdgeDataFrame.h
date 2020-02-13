@@ -58,17 +58,20 @@ public:
         /// @brief refresh interval selector
         void refreshIntervalSelector();
 
-        /// @brief get new interval ID (or return empty string if isn't valid)
-        std::string getIntervalID() const;
+        /// @brief get new data set ID (or return empty string if isn't valid)
+        std::string getDataSetID() const;
 
         /// @brief check if create data set
-        bool getCreateDataSet() const;
+        bool createNewDataSet() const;
 
         /// @brief get begin
         double getBegin() const;
 
         /// @brief get end
         double getEnd() const;
+
+        /// @brief check if given interval is valid
+        bool isIntervalValid() const;
 
         /// @name FOX-callbacks
         /// @{

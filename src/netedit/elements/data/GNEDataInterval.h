@@ -52,6 +52,9 @@ public:
     /// @brief Destructor
     ~GNEDataInterval();
 
+    /// @brief Returns a pointer to GNEViewNet in which data set element is located
+    GNEViewNet* getViewNet() const;
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 

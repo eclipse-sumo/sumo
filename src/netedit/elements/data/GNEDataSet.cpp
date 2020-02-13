@@ -121,6 +121,18 @@ GNEDataSet::checkNewBeginEnd(const GNEDataInterval* dataInterval, const double n
 }
 
 
+GNEDataInterval* 
+GNEDataSet::retrieveInterval(const double begin, const double end) const {
+    if (myDataIntervalChildren.count(begin) == 0) {
+        return nullptr;
+    } else if (myDataIntervalChildren.at(begin)->getAttributeDouble(SUMO_ATTR_END) != end) {
+        return nullptr;
+    } else {
+        return myDataIntervalChildren.at(begin);
+    }
+}
+
+
 const std::map<const double, GNEDataInterval*>& 
 GNEDataSet::getDataIntervalChildren() const {
     return myDataIntervalChildren;

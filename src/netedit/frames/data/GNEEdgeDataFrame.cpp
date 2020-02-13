@@ -111,7 +111,7 @@ GNEEdgeDataFrame::IntervalSelector::refreshIntervalSelector() {
 
 
 std::string 
-GNEEdgeDataFrame::IntervalSelector::getIntervalID() const {
+GNEEdgeDataFrame::IntervalSelector::getDataSetID() const {
     if (myNewIDTextField->shown()) {
         if (myNewIDTextField->getTextColor() == FXRGB(0, 0, 0)) {
             return myNewIDTextField->getText().text();
@@ -125,7 +125,7 @@ GNEEdgeDataFrame::IntervalSelector::getIntervalID() const {
 
 
 bool
-GNEEdgeDataFrame::IntervalSelector::getCreateDataSet() const {
+GNEEdgeDataFrame::IntervalSelector::createNewDataSet() const {
     return myHorizontalFrameNewID->shown();
 }
 
@@ -150,6 +150,12 @@ GNEEdgeDataFrame::IntervalSelector::getEnd() const {
 }
 
 
+bool 
+GNEEdgeDataFrame::IntervalSelector::isIntervalValid() const {
+    return (myBeginTextField->getTextColor() == FXRGB(0, 0, 0)) && (myEndTextField->getTextColor() == FXRGB(0, 0, 0));
+}
+
+
 long 
 GNEEdgeDataFrame::IntervalSelector::onCmdSelectInterval(FXObject*, FXSelector, void*) {
     // get interval ID
@@ -162,6 +168,7 @@ GNEEdgeDataFrame::IntervalSelector::onCmdSelectInterval(FXObject*, FXSelector, v
     } else {
         // hide newID text field
         myHorizontalFrameNewID->hide();
+        // check if given interval exist
     }
     // recalc frame
     recalc();
@@ -174,50 +181,30 @@ GNEEdgeDataFrame::IntervalSelector::onCmdSetAttribute(FXObject* obj, FXSelector,
     if (obj == myNewIDTextField) {
         // check new ID
         if (myNewIDTextField->getText().empty() || 
-            myEdgeDataFrameParent->getViewNet()->getNet()->retrieveDataSet(myNewIDTextField->getText().text(), false) == nullptr) {
+            (myEdgeDataFrameParent->getViewNet()->getNet()->retrieveDataSet(myNewIDTextField->getText().text(), false) == nullptr) &&
+            (SUMOXMLDefinitions::isValidNetID(myNewIDTextField->getText().text()))) {
             myNewIDTextField->setTextColor(FXRGB(0, 0, 0));
+            myNewIDTextField->killFocus();
         } else {
             myNewIDTextField->setTextColor(FXRGB(255, 0, 0));
         }
     } else if (obj == myBeginTextField) {
-        //
+        // check if begin value can be parsed to double
+        if (GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text())) {
+            myBeginTextField->setTextColor(FXRGB(0, 0, 0));
+            myBeginTextField->killFocus();
+        } else {
+            myBeginTextField->setTextColor(FXRGB(255, 0, 0));
+        }
     } else if (obj == myEndTextField) {
-        //
-    }
-    /*
-    // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& i : myListOfTagTypes) {
-        if (i.first == myTagTypesMatchBox->getText().text()) {
-            // set color of myTagTypesMatchBox to black (valid)
-            myTagTypesMatchBox->setTextColor(FXRGB(0, 0, 0));
-            // fill myListOfTags with personTrips (the first Tag Type)
-            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(i.second, true);
-            // show and clear myTagsMatchBox
-            myTagsMatchBox->show();
-            myTagsMatchBox->clearItems();
-            // fill myTypeMatchBox with list of tags
-            for (const auto& j : myListOfTags) {
-                myTagsMatchBox->appendItem(toString(j).c_str());
-            }
-            // Set visible items
-            myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTagsMatchBox->getText() + "' in TagTypeSelector").text());
-            // call onCmdSelectTag
-            return onCmdSelectTag(nullptr, 0, nullptr);
+        // check if end value can be parsed to double
+        if (GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
+            myEndTextField->setTextColor(FXRGB(0, 0, 0));
+            myEndTextField->killFocus();
+        } else {
+            myEndTextField->setTextColor(FXRGB(255, 0, 0));
         }
     }
-    // if TagType isn't valid, hide myTagsMatchBox
-    myTagsMatchBox->hide();
-    // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
-    myCurrentTagProperties = myInvalidTagProperty;
-    // call interval selected function
-    myEdgeDataFrameParent->intervalSelected();
-    // set color of myTagTypesMatchBox to red (invalid)
-    myTagTypesMatchBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in TagTypeSelector");
-    */
     return 1;
 }
 
@@ -248,21 +235,40 @@ GNEEdgeDataFrame::show() {
 bool
 GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if we clicked over an edge
-    if (objectsUnderCursor.getEdgeFront()) {
+    if (objectsUnderCursor.getEdgeFront() && myIntervalSelector->isIntervalValid()) {
         GNEDataInterval *dataInterval = nullptr;
-        // check if we have to create a new Interval
-        if (myIntervalSelector->getCreateDataSet()) {
-            GNEDataSet *dataSet = nullptr;
-            if (myIntervalSelector->getIntervalID().empty()) {
+        GNEDataSet *dataSet = nullptr;
+        // check if we have to create a new dataSet
+        if (myIntervalSelector->createNewDataSet()) {
+            // check if we can create the new dataSet
+            if (myIntervalSelector->getDataSetID().empty()) {
+                // if obtained dataSet ID is empty, then given ID isn't valid (duplicated/invalid characters, etc.)
                 return false;
             } else {
-                dataSet = GNEDataHandler::buildDataSet(myViewNet, true, myIntervalSelector->getIntervalID());
+                dataSet = GNEDataHandler::buildDataSet(myViewNet, true, myIntervalSelector->getDataSetID());
                 // refresh interval selector
                 myIntervalSelector->refreshIntervalSelector();
             }
-            return true;
+        } else {
+            dataSet = myViewNet->getNet()->retrieveDataSet(myIntervalSelector->getDataSetID());
         }
+        // now check if there is another interval with the given begin/end
+        dataInterval = dataSet->retrieveInterval(myIntervalSelector->getBegin(), myIntervalSelector->getEnd());
+        // if not, create it
+        if (dataInterval == nullptr) {
+            // check if given interval is valid
+            if (dataSet->checkNewInterval(myIntervalSelector->getBegin(), myIntervalSelector->getEnd())) {
+                dataInterval = GNEDataHandler::buildDataInterval(myViewNet, true, dataSet, myIntervalSelector->getBegin(), myIntervalSelector->getEnd());
+            } else {
+                return false;
+            }
+        }
+        // finally create edgeData
+        GNEDataHandler::buildEdgeData(myViewNet, true, dataInterval, objectsUnderCursor.getEdgeFront());
+        // edgeData created, then return true
+        return true;
     } else {
+        // invalid parameters
         return false;
     }
 }

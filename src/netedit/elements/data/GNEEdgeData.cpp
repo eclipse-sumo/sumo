@@ -114,7 +114,7 @@ GNEEdgeData::isAttributeCarrierSelected() const {
 
 bool
 GNEEdgeData::drawUsingSelectColor() const {
-    if (mySelected && (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) {
+    if (mySelected && (getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) {
         return true;
     } else {
         return false;
@@ -148,7 +148,7 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
     }
     switch (key) {
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, getViewNet()->getNet(), key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
