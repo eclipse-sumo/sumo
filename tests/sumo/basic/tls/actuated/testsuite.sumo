@@ -6,6 +6,9 @@ from_additional
 # test supplying additional parameters
 parameters
 
+# test using custom detectors
+custom_detector
+
 # check that the initialization can handle different begin times
 simstart_at_100
 minDur_too_short
