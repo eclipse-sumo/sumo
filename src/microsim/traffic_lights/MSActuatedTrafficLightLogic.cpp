@@ -119,10 +119,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     std::map<const MSLane*, MSInductLoop*> laneInductLoopMap;
     std::map<MSInductLoop*, const MSLane*> inductLoopLaneMap; // in case loops are placed further upstream
     double maxDetectorGap = 0;
-    for (i2 = myLanes.begin(); i2 != myLanes.end(); ++i2) {
-        const LaneVector& lanes = *i2;
-        for (i = lanes.begin(); i != lanes.end(); i++) {
-            MSLane* lane = (*i);
+    for (LaneVector& lanes : myLanes) {
+        for (MSLane* lane : lanes) {
             if (noVehicles(lane->getPermissions())) {
                 // do not build detectors on green verges or sidewalks
                 continue;
@@ -136,29 +134,43 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 // only build detector if this lane is relevant for an actuated phase
                 continue;
             }
+            const std::string customID = getParameter(lane->getID());
             double length = lane->getLength();
-            double speed = lane->getSpeedLimit();
-            double inductLoopPosition = MIN2(
-                                            myDetectorGap * speed,
-                                            (STEPS2TIME(minDur) / myPassingTime + 0.5) * DEFAULT_LENGTH_WITH_GAP);
+            double ilpos;
+            double inductLoopPosition;
+            MSInductLoop* loop = nullptr;
+            if (customID == "") {
+                double speed = lane->getSpeedLimit();
+                inductLoopPosition = MIN2(
+                        myDetectorGap * speed,
+                        (STEPS2TIME(minDur) / myPassingTime + 0.5) * DEFAULT_LENGTH_WITH_GAP);
 
-            // check whether the lane is long enough
-            double ilpos = length - inductLoopPosition;
-            MSLane* placementLane = lane;
-            while (ilpos < 0 && placementLane->getIncomingLanes().size() == 1) {
-                placementLane = placementLane->getLogicalPredecessorLane();
-                ilpos += placementLane->getLength();
+                // check whether the lane is long enough
+                ilpos = length - inductLoopPosition;
+                MSLane* placementLane = lane;
+                while (ilpos < 0 && placementLane->getIncomingLanes().size() == 1) {
+                    placementLane = placementLane->getLogicalPredecessorLane();
+                    ilpos += placementLane->getLength();
+                }
+                if (ilpos < 0) {
+                    ilpos = 0;
+                }
+                // Build the induct loop and set it into the container
+                std::string id = "TLS" + myID + "_" + myProgramID + "_InductLoopOn_" + lane->getID();
+                loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, myVehicleTypes, myShowDetectors));
+                MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, myFile, myFreq);
+            } else {
+                loop = dynamic_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(customID));
+                if (loop == nullptr) {
+                    WRITE_ERROR("Unknown inductionLoop '" + customID + "' given as custom detector for actuated tlLogic '" + getID() + "', program '" + getProgramID() + ".");
+                    continue;
+                }
+                ilpos = loop->getPosition();
+                inductLoopPosition = length - ilpos;
             }
-            if (ilpos < 0) {
-                ilpos = 0;
-            }
-            // Build the induct loop and set it into the container
-            std::string id = "TLS" + myID + "_" + myProgramID + "_InductLoopOn_" + lane->getID();
-            MSInductLoop* loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, myVehicleTypes, myShowDetectors));
             laneInductLoopMap[lane] = loop;
             inductLoopLaneMap[loop] = lane;
             myInductLoops.push_back(InductLoopInfo(loop, (int)myPhases.size()));
-            MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, myFile, myFreq);
             maxDetectorGap = MAX2(maxDetectorGap, length - ilpos);
 
             if (warn && floor(floor(inductLoopPosition / DEFAULT_LENGTH_WITH_GAP) * myPassingTime) > STEPS2TIME(minDur)) {
