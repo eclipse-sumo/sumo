@@ -1568,7 +1568,7 @@ NBEdgeCont::checkOverlap(double threshold, double zThreshold) const {
                 outline2.append(e2->getCCWBoundaryLine(*e2->getToNode()));
                 const double overlap = outline1.getOverlapWith(outline2, zThreshold);
                 if (overlap > threshold) {
-                    WRITE_WARNING("Edge '" + e1->getID() + "' overlaps with edge '" + e2->getID() + "' by " + toString(overlap) + ".");
+                    WRITE_WARNINGF("Edge '%' overlaps with edge '%' by %.", e1->getID(), e2->getID(), toString(overlap));
                 }
             }
         }
@@ -1584,9 +1584,9 @@ NBEdgeCont::checkGrade(double threshold) const {
             double maxJump = 0;
             const double grade = edge->getLaneShape(i).getMaxGrade(maxJump);
             if (maxJump > 0.01) {
-                WRITE_WARNING("Edge '" + edge->getID() + "' has a vertical jump of " + toString(maxJump) + "m.");
+                WRITE_WARNINGF("Edge '%s' has a vertical jump of %sm.", edge->getID(), toString(maxJump));
             } else if (grade > threshold) {
-                WRITE_WARNING("Edge '" + edge->getID() + "' has a grade of " + toString(grade * 100) + "%.");
+                WRITE_WARNINGF("Edge '%' has a grade of %%.", edge->getID(), toString(grade * 100), "%");
                 break;
             }
         }
@@ -1596,9 +1596,9 @@ NBEdgeCont::checkGrade(double threshold) const {
             double maxJump = 0;
             const double grade = MAX2(c.shape.getMaxGrade(maxJump), c.viaShape.getMaxGrade(maxJump));
             if (maxJump > 0.01) {
-                WRITE_WARNING("Connection '" + c.getDescription(edge) + "' has a vertical jump of " + toString(maxJump) + "m.");
+                WRITE_WARNINGF("Connection '%' has a vertical jump of %m.", c.getDescription(edge), toString(maxJump));
             } else if (grade > threshold) {
-                WRITE_WARNING("Connection '" + c.getDescription(edge) + "' has a grade of " + toString(grade * 100) + "%.");
+                WRITE_WARNINGF("Connection '%' has a grade of %%.", c.getDescription(edge), toString(grade * 100), "%");
                 break;
             }
         }
