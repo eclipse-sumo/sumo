@@ -1060,7 +1060,8 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                                   << " latGap=" << latGap
                                   << "\n";
                     }
-                    if (latGap > 0) {
+                    if (latGap > 0
+                            && ((posLat > posLatLeader) == (myIndex > foeLane->getIncomingLanes().front().viaLink->getIndex()))) {
                         continue;
                     }
                 }
