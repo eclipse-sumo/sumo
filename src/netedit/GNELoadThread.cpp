@@ -238,6 +238,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("demandelements-output", new Option_String());
     oc.addDescription("demandelements-output", "Netedit", "file in which demand elements must be saved");
 
+    oc.doRegister("data-files", 'd', new Option_FileName());
+    oc.addDescription("data-files", "Netedit", "Load data elements descriptions from FILE(s)");
+
     oc.doRegister("dataelements-output", new Option_String());
     oc.addDescription("dataelements-output", "Netedit", "file in which data elements must be saved");
 

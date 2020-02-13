@@ -1475,7 +1475,7 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
 
 
 void
-GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath, std::string demandPath) {
+GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath, std::string demandPath, std::string dataPath) {
     if (!myNeedRecompute) {
         if (force) {
             if (volatileOptions) {
@@ -2703,7 +2703,13 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
 void
 GNENet::saveDataElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.writeXMLHeader("routes", "routes_file.xsd");
+    //device.writeXMLHeader("data", "data_file.xsd");
+    //write all data sets
+/*
+    for (auto dataSet : myAttributeCarriers.dataSets) {
+        dataSet.second->writeDataSet(device);
+    }
+*/
     /*
     // first  write all vehicle types
     for (auto i : myAttributeCarriers.dataSets.at(SUMO_TAG_VTYPE)) {

@@ -1057,6 +1057,27 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
 
         myUndoList->p_end();
     }
+    // check if data elements has to be loaded at start
+    if (oc.isSet("data-files") && !oc.getString("data-files").empty() && myNet) {
+        // obtain vector of data files
+        std::vector<std::string> dataElementsFiles = oc.getStringVector("data-files");
+        // begin undolist
+        myUndoList->p_begin("Loading data elements from '" + toString(dataElementsFiles) + "'");
+        // iterate over every data file
+        for (const auto& dataElementsFile : dataElementsFiles) {
+            WRITE_MESSAGE("Loading data elements from '" + dataElementsFile + "'");
+            GNEDataHandler dataHandler(dataElementsFile, myNet->getViewNet());
+            // disable validation for data elements
+            XMLSubSys::setValidation("never", "auto");
+            if (!XMLSubSys::runParser(dataHandler, dataElementsFile, false)) {
+                WRITE_ERROR("Loading of " + dataElementsFile + " failed.");
+            }
+            // disable validation for data elements
+            XMLSubSys::setValidation("auto", "auto");
+        }
+
+        myUndoList->p_end();
+    }
     // check if additionals output must be changed
     if (oc.isSet("additionals-output")) {
         // overwrite "additional-files" with value "additionals-output"
@@ -1900,9 +1921,10 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     // declare variable to save FXMessageBox outputs.
     FXuint answer = 0;
-    // declare string to save paths in wich additionals, shapes and demand will be saved
+    // declare string to save paths in wich additionals, shapes demand and data elements will be saved
     std::string additionalsSavePath = oc.getString("additional-files");
     std::string demandElementsSavePath = oc.getString("route-files");
+    std::string dataElementsSavePath = oc.getString("data-files");
     // write warning if netedit is running in testing mode
     WRITE_DEBUG("Opening FXMessageBox 'Volatile Recomputing'");
     // open question dialog box
@@ -2040,8 +2062,68 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             // clear demand element path
             demandElementsSavePath = "";
         }
+        // Check if there are data elements in our net
+        if (myNet->getNumberOfDataSets() > 0) {
+            // ask user if want to save data elements if weren't saved previously
+            if (oc.getString("data-files") == "") {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox 'Save data elements before recomputing'");
+                // open question dialog box
+                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save data elements before recomputing with volatile options",
+                                                "Would you like to save data elements before recomputing?");
+                if (answer != 1) { //1:yes, 2:no, 4:esc
+                    // write warning if netedit is running in testing mode
+                    if (answer == 2) {
+                        WRITE_DEBUG("Closed FXMessageBox 'Save data elements before recomputing' with 'No'");
+                    } else if (answer == 4) {
+                        WRITE_DEBUG("Closed FXMessageBox 'Save data elements before recomputing' with 'ESC'");
+                    }
+                } else {
+                    // write warning if netedit is running in testing mode
+                    WRITE_DEBUG("Closed FXMessageBox 'Save data elements before recomputing' with 'Yes'");
+                    // Open a dialog to set filename output
+                    FXString file = MFXUtils::getFilename2Write(this,
+                                    "Select name of the data element file", ".rou.xml",
+                                    GUIIconSubSys::getIcon(ICON_MODETLS),
+                                    gCurrentFolder).text();
+                    // add xml extension
+                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
+                    // check that file is valid
+                    if (fileWithExtension != "") {
+                        // update data files
+                        oc.resetWritable();
+                        oc.set("data-files", fileWithExtension);
+                        // set obtanied filename output into data elementSavePath (can be "")
+                        dataElementsSavePath = oc.getString("data-files");
+                    }
+                }
+            }
+            // Check if data element must be saved in a temporal directory, if user didn't define a directory for data elements
+            if (oc.getString("data-files") == "") {
+                // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
+                dataElementsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpDataElementsNetedit.xml");
+            }
+            // Start saving data elements
+            getApp()->beginWaitCursor();
+            try {
+                myNet->saveDataElements(dataElementsSavePath);
+            } catch (IOError& e) {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox 'Error saving data elements before recomputing'");
+                // open error message box
+                FXMessageBox::error(this, MBOX_OK, "Saving data elements in temporal folder failed!", "%s", e.what());
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox 'Error saving data elements before recomputing' with 'OK'");
+            }
+            // end saving data elements
+            myMessageWindow->addSeparator();
+            getApp()->endWaitCursor();
+        } else {
+            // clear data element path
+            dataElementsSavePath = "";
+        }
         // compute with volatile options
-        myNet->computeNetwork(this, true, true, additionalsSavePath, demandElementsSavePath);
+        myNet->computeNetwork(this, true, true, additionalsSavePath, demandElementsSavePath, dataElementsSavePath);
         updateControls();
         return 1;
     }
@@ -3160,18 +3242,18 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
     // check if save data element menu is enabled
     if (myFileMenuCommands.saveDataElements->isEnabled()) {
         // Check if data elements file was already set at start of netedit or with a previous save
-        if (oc.getString("route-files").empty()) {
+        if (oc.getString("data-files").empty()) {
             FXString file = MFXUtils::getFilename2Write(this,
                             "Select name of the data element file", ".dat.xml",
                             GUIIconSubSys::getIcon(ICON_MODEADDITIONAL),
                             gCurrentFolder);
             // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".dat.xml");
             // check tat file is valid
             if (fileWithExtension != "") {
                 // change value of "route-files"
                 oc.resetWritable();
-                oc.set("route-files", fileWithExtension);
+                oc.set("data-files", fileWithExtension);
             } else {
                 // None data elements file was selected, then stop function
                 return 0;
@@ -3180,8 +3262,8 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
         // Start saving data elements
         getApp()->beginWaitCursor();
         try {
-            myNet->saveDataElements(oc.getString("route-files"));
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Data elements saved in " + oc.getString("route-files") + ".\n");
+            myNet->saveDataElements(oc.getString("data-files"));
+            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Data elements saved in " + oc.getString("data-files") + ".\n");
             myFileMenuCommands.saveDataElements->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
