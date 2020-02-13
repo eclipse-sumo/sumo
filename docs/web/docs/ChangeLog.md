@@ -10,6 +10,8 @@ permalink: /ChangeLog/
   - Fixed precision when filtering network with a given boundary. Issue #6206
 
 ### Enhancements
+- Simulation
+  - Actuated traffic lights now support the use of [custom detectors](Simulation/Traffic_Lights.md#custom-detectors). Issue #5125
 - Tools
   - added osmWebWizard option to import a simplified network that is only for cars. Issue #6595
 
