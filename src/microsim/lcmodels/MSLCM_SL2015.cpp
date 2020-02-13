@@ -1775,6 +1775,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                                        << " relGainSublane=" << computeSpeedGain(latDistSublane, defaultNextSpeed)
                                        << " maneuverDist=" << maneuverDist
                                        << " myCanChangeFully=" << myCanChangeFully
+                                       << " myTurnAlignmentDist=" << myTurnAlignmentDist
+                                       << " nextTurn=" << myVehicle.getNextTurn().first << ":" << toString(myVehicle.getNextTurn().second)
                                        << " prevState=" << toString((LaneChangeAction)myPreviousState)
                                        << "\n";
 #endif
