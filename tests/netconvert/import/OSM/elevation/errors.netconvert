@@ -18,15 +18,4 @@ Warning: Edge '-24214694#1' has a grade of 16.46%.
 Warning: Edge '-24214694#4' has a grade of 11.61%.
 Warning: Edge '-26816590#0' has a grade of 47.65%.
 Warning: Edge '128643753#0' has a grade of 254.75%.
-Warning: Edge '128643753#1' has a grade of 10.94%.
-Warning: Edge '142575693#1' has a grade of 171.49%.
-Warning: Edge '142575745' has a grade of 15.50%.
-Warning: Edge '143308542#4' has a grade of 10.26%.
-Warning: Edge '143308546#3' has a grade of 10.06%.
-Warning: Edge '143308546#4' has a grade of 32.57%.
-Warning: Edge '143308587#0' has a grade of 13.70%.
-Warning: Edge '24214694#1' has a grade of 16.46%.
-Warning: Edge '24214694#4' has a grade of 14.56%.
-Warning: Edge '26816590#0' has a grade of 27.36%.
-Warning: Edge '71596029#1' has a grade of 14.87%.
-Warning: Edge '81096614' has a grade of 51.00%.
+Warning: 17 total messages of type: Edge '%' has a grade of %%.
