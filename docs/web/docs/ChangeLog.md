@@ -6,12 +6,14 @@ permalink: /ChangeLog/
 ## Git Master
 
 ### Bugfixes
+- Simulation
+  - Fixed sublane model bug that reduced flow on intersections and caused emergency braking. Issue #6649
 - NETCONVERT
   - Fixed precision when filtering network with a given boundary. Issue #6206
 
 ### Enhancements
 - Simulation
-  - Actuated traffic lights now support the use of [custom detectors](Simulation/Traffic_Lights.md#custom-detectors). Issue #5125
+  - Actuated traffic lights now support the use of [custom detectors](Simulation/Traffic_Lights.md#custom_detectors). Issue #5125
 - Tools
   - added osmWebWizard option to import a simplified network that is only for cars. Issue #6595
 
