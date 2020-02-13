@@ -1043,6 +1043,27 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         && !leader->willStop()) {
                     continue;
                 }
+                if (MSGlobals::gSublane && ego!= nullptr && sameSource) {
+                    const double posLat = ego->getLateralPositionOnLane();
+                    const double posLatLeader = leader->getLateralPositionOnLane() + leader->getLatOffset(foeLane);
+                    const double latGap = (fabs(posLat - posLatLeader)
+                            - 0.5 * ego->getVehicleType().getWidth() + leader->getVehicleType().getWidth());
+                    if (gDebugFlag1) {
+                        std::cout << " sameSource-sublaneFoe lane=" << myInternalLaneBefore->getID()
+                                  << " foeLane=" << foeLane->getID()
+                                  << " leader=" << leader->getID()
+                                  << " egoLane=" << ego->getLane()->getID()
+                                  << " leaderLane=" << leader->getLane()->getID()
+                                  << " egoLat=" << posLat
+                                  << " leaderLat=" << posLatLeader
+                                  << " leaderLatOffset=" << leader->getLatOffset(foeLane)
+                                  << " latGap=" << latGap
+                                  << "\n";
+                    }
+                    if (latGap > 0) {
+                        continue;
+                    }
+                }
                 if (cannotIgnore || inTheWay || leader->getWaitingTime() < MSGlobals::gIgnoreJunctionBlocker) {
                     // compute distance between vehicles on the the superimposition of both lanes
                     // where the crossing point is the common point
