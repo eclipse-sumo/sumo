@@ -261,6 +261,7 @@ In the current implementation, detectors for actuation are only used if all conn
 This is done to prevent useless phase extensions when the first vehicle on a given lane is not allowed to drive.
 Sumo will issue a warning a phase or link index does not have usable detectors.
 
+
 #### Example
 
 ```
@@ -287,6 +288,12 @@ parameters **file** and **freq** have the same meaning as for [regular
 induction loop
 detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
 The examples values are the default values for these parameters.
+
+#### Custom Detectors
+To use custom detectors (i.e. for custom placement or output) additional paremters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined indunctionLoop (that doesn't could also lie on another upstream lane).
+```
+   <param key="gneE42_2" value="customDetector1"/>
+```
 
 #### Dynamic Phase Selection (Phase Skipping)
 When a phase uses attribute 'next' with a list of indices. The next phase is chosen dynamically based on the detector status of all candidate phases according to the following algorithm:
