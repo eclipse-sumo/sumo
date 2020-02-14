@@ -17,7 +17,8 @@ permalink: /ChangeLog/
 ### Enhancements
 - Simulation
   - Actuated traffic lights now support the use of [custom detectors](Simulation/Traffic_Lights.md#custom_detectors). Issue #5125
-  - The new route attribute `repeat` can now be used to define repeating routes. When the route contains stop definitions with the `until`-attribute, the new route attribute `period` must be used to shift the repeated stop times. Issue #6554
+  - The new route attriubte `period` is now applied repeatedly when rerouting the vehicle and the new route contains stops with attribute `until` to shift those times forward (e.g. on cyclical rerouters for public transport vehicles). Issue #6550
+  - The new route attribute `repeat` can now be used to define repeating routes. When the route contains stop definitions with the `until`-attribute, the new route attribute `period` must be used to shift the repeated stop times. Issue #6554  
 - Tools
   - added osmWebWizard option to import a simplified network that is only for cars. Issue #6595
 
