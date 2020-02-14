@@ -1,1 +1,3 @@
-Warning: Vehicle 'mixed.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=48.00.
+Warning: Vehicle 'mixed.15' performs emergency braking with decel=-10.00 wished=7.00 severity=1.00, time=46.80.
+Warning: Vehicle 'mixed.60' performs emergency braking with decel=-10.00 wished=7.00 severity=1.00, time=75.10.
+Warning: Vehicle 'mixed.85' performs emergency braking with decel=-10.00 wished=7.00 severity=1.00, time=257.00.
