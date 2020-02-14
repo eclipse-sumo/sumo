@@ -58,6 +58,12 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, GNEDataInterval* dataInterv
 GNEGenericData::~GNEGenericData() {}
 
 
+GNEDataInterval*
+GNEGenericData::getDataIntervalParent() const {
+    return myDataIntervalParent;
+}
+
+
 std::string 
 GNEGenericData::generateChildID(SumoXMLTag /*childTag*/) {
     return "";

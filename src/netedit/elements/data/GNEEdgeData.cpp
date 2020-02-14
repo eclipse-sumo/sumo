@@ -72,7 +72,7 @@ GNEEdgeData::writeGenericData(OutputDevice& device) const {
     // write params
     writeParams(device);
     // close device
-    device.close();
+    device.closeTag();
 }
 
 

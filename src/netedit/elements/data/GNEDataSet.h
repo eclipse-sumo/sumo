@@ -58,6 +58,9 @@ public:
     /// @brief Returns a pointer to GNEViewNet in which data element element is located
     GNEViewNet* getViewNet() const;
 
+    /// @brief write data set
+    void writeDataSet(OutputDevice& device) const;
+
     /// @name data interval children
     /// @{
 
@@ -66,6 +69,9 @@ public:
 
     /// @brief add data interval child
     void removeDataIntervalChild(GNEDataInterval* dataInterval);
+
+    /// @brief check if given data interval exist
+    bool dataIntervalChildrenExist(GNEDataInterval* dataInterval) const;
 
     /// @brief update data interval begin
     void updateDataIntervalBegin(const double oldBegin);

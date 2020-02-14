@@ -26,6 +26,7 @@
 
 #include "GNEDataSet.h"
 #include "GNEDataInterval.h"
+#include "GNEGenericData.h"
 
 
 // ===========================================================================
@@ -67,6 +68,29 @@ GNEDataSet::getViewNet() const {
 
 
 void 
+GNEDataSet::writeDataSet(OutputDevice& device) const {
+    // iterate over intervals
+    for (const auto &interval : myDataIntervalChildren) {
+        // open device
+        device.openTag(SUMO_TAG_INTERVAL);
+        // write ID
+        device.writeAttr(SUMO_ATTR_ID, getID());
+        // write begin
+        device.writeAttr(SUMO_ATTR_BEGIN, interval.second->getAttribute(SUMO_ATTR_BEGIN));
+        // write end
+        device.writeAttr(SUMO_ATTR_BEGIN, interval.second->getAttribute(SUMO_ATTR_END));
+        // iterate over interval generic datas
+        for (const auto &genericData : interval.second->getGenericDataChildren()) {
+            // write generic data
+            genericData->writeGenericData(device);
+        }
+        // close device
+        device.closeTag();
+    }
+}
+
+
+void 
 GNEDataSet::addDataIntervalChild(GNEDataInterval* dataInterval) {
     // check that dataInterval wasn't previously inserted
     if (myDataIntervalChildren.count(dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN)) == 0) {
@@ -87,6 +111,16 @@ GNEDataSet::removeDataIntervalChild(GNEDataInterval* dataInterval) {
     }
 }
 
+
+bool 
+GNEDataSet::dataIntervalChildrenExist(GNEDataInterval* dataInterval) const {
+    for (const auto &interval : myDataIntervalChildren) {
+        if (interval.second == dataInterval) {
+            return true;
+        }
+    }
+    return false;
+}
 
 void 
 GNEDataSet::updateDataIntervalBegin(const double oldBegin) {

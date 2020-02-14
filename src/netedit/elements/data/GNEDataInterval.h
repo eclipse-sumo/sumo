@@ -88,10 +88,13 @@ public:
     /// @{
 
     /// @brief add generic data child
-    void addGenericDataChild(GNEGenericData* GenericData);
+    void addGenericDataChild(GNEGenericData* genericData);
 
     /// @brief add generic data child
-    void removeGenericDataChild(GNEGenericData* GenericData);
+    void removeGenericDataChild(GNEGenericData* genericData);
+
+    /// @brief check if given generic data is child of this data interval
+    bool hasGenericDataChild(GNEGenericData* genericData) const;
 
     /// @brief get generic data children
     const std::vector<GNEGenericData*> &getGenericDataChildren() const;

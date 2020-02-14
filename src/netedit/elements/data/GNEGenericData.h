@@ -83,6 +83,9 @@ public:
     /// @brief Destructor
     ~GNEGenericData();
 
+    /// @brief get data interval parent
+    GNEDataInterval *getDataIntervalParent() const;
+
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
 

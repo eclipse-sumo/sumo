@@ -102,10 +102,10 @@ GNEDataInterval::getDataSetParent() const {
 
 
 void 
-GNEDataInterval::addGenericDataChild(GNEGenericData* GenericData) {
+GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
     // check that GenericData wasn't previously inserted
-    if (std::find(myGenericDataChildren.begin(), myGenericDataChildren.end(), GenericData) == myGenericDataChildren.end()) {
-        myGenericDataChildren.push_back(GenericData);
+    if (!hasGenericDataChild(genericData)) {
+        myGenericDataChildren.push_back(genericData);
     } else {
         throw ProcessError("GenericData was already inserted");
     }
@@ -113,14 +113,20 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* GenericData) {
 
 
 void 
-GNEDataInterval::removeGenericDataChild(GNEGenericData* GenericData) {
-    auto it = std::find(myGenericDataChildren.begin(), myGenericDataChildren.end(), GenericData);
+GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
+    auto it = std::find(myGenericDataChildren.begin(), myGenericDataChildren.end(), genericData);
     // check that GenericData was previously inserted
     if (it != myGenericDataChildren.end()) {
         myGenericDataChildren.erase(it);
     } else {
         throw ProcessError("GenericData wasn't previously inserted");
     }
+}
+
+
+bool 
+GNEDataInterval::hasGenericDataChild(GNEGenericData* genericData) const {
+    return std::find(myGenericDataChildren.begin(), myGenericDataChildren.end(), genericData) != myGenericDataChildren.end();
 }
 
 
