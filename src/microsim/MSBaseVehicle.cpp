@@ -90,6 +90,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myArrivalPos(-1),
     myArrivalLane(-1),
     myNumberReroutes(0),
+    myStopUntilOffset(0),
     myOdometer(0.),
     myNumericalID(myCurrentNumericalIndex++)
 #ifdef _DEBUG

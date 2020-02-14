@@ -59,6 +59,7 @@ MSRoute::MSRoute(const std::string& id,
     Named(id), myEdges(edges), myAmPermanent(isPermanent),
     myReferenceCounter(isPermanent ? 1 : 0),
     myColor(c),
+    myPeriod(0),
     myCosts(-1),
     mySavings(0),
     myStops(stops) {}

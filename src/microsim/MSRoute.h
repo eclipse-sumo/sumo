@@ -153,8 +153,13 @@ public:
      */
     double getDistanceBetween(double fromPos, double toPos, const MSRouteIterator& fromEdge, const MSRouteIterator& toEdge, bool includeInternal = true) const;
 
-    /// Returns the color
+    /// @brief Returns the color
     const RGBColor& getColor() const;
+
+    /// @brief returns the period
+    SUMOTime getPeriod() const {
+        return myPeriod;
+    }
 
     /** @brief Returns the costs of the route
      *
@@ -170,6 +175,11 @@ public:
      */
     double getSavings() const {
         return mySavings;
+    }
+
+    /// @brief sets the period
+    void setPeriod(SUMOTime period) {
+        myPeriod = period;
     }
 
     /** @brief Sets the costs of the route
@@ -256,6 +266,9 @@ private:
 
     /// The color
     const RGBColor* const myColor;
+
+    /// The period when repeating this route
+    SUMOTime myPeriod;
 
     /// @brief The assigned or calculated costs
     double myCosts;

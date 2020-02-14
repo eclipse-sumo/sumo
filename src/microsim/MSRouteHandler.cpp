@@ -55,7 +55,7 @@ std::mt19937 MSRouteHandler::myParsingRNG;
 MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly) :
     SUMORouteHandler(file, addVehiclesDirectly ? "" : "routes", true),
     myActiveRouteRepeat(0),
-    myActiveRoutePeriod(-1),
+    myActiveRoutePeriod(0),
     myActivePlan(nullptr),
     myActiveContainerPlan(nullptr),
     myAddVehiclesDirectly(addVehiclesDirectly),
@@ -468,7 +468,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     myActiveRouteProbability = attrs.getOpt<double>(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? new RGBColor(attrs.get<RGBColor>(SUMO_ATTR_COLOR, myActiveRouteID.c_str(), ok)) : nullptr;
     myActiveRouteRepeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, myActiveRouteID.c_str(), ok, 0);
-    myActiveRoutePeriod = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, -1);
+    myActiveRoutePeriod = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, 0);
     if (myActiveRouteRepeat > 0) {
         if (MSGlobals::gCheckRoutes) {
             SUMOVehicleClass vClass = SVC_IGNORING;
@@ -562,6 +562,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
         MSRoute* route = new MSRoute(myActiveRouteID, myActiveRoute,
                                      myVehicleParameter == nullptr || myVehicleParameter->repetitionNumber >= 1,
                                      myActiveRouteColor, myActiveRouteStops);
+        route->setPeriod(myActiveRoutePeriod);
         route->setCosts(myCurrentCosts);
         myActiveRoute.clear();
         if (!MSRoute::dictionary(myActiveRouteID, route)) {

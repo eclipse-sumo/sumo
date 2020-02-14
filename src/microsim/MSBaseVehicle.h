@@ -558,6 +558,9 @@ protected:
     /// @brief The number of reroutings
     int myNumberReroutes;
 
+    /// @brief The offset when adding route stops with 'until' on route replacement
+    SUMOTime myStopUntilOffset;
+
     /// @brief A simple odometer to keep track of the length of the route already driven
     double myOdometer;
 
