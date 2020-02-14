@@ -2,4 +2,3 @@
 --net-file=net.net.xml
 --r input_trips.trips.xml
 --vehroute-output=vehroutes.xml 
---ignore-route-errors
