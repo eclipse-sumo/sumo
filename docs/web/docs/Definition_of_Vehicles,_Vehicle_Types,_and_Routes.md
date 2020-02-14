@@ -126,7 +126,9 @@ are:
 | -------------- | --------------------------- | ----------------------------------------------------------------------------------- |
 | **id**         | id (string)                 | The name of the route                                                               |
 | **edges**      | id list                     | The edges the vehicle shall drive along, given as their ids, separated using spaces |
-| color          | [color](#colors) | This route's color                                                                  |
+| color          | [color](#colors) | This route's color                 |
+| repeat         | int | The number of times that the edges of this route shall be repeated (default 0)  |
+| period         | time (s) | When defining a repeating route with stops and those stops use the `until` attribute, the times will be shifted forward by 'period' on each repeat |
 
 There are a few important things to consider when building your own
 routes:
