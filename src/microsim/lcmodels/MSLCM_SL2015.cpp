@@ -114,7 +114,7 @@
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "disabled") // test stops_overtaking
-//#define DEBUG_COND false
+//#define DEBUG_COND true
 
 
 // ===========================================================================
@@ -277,7 +277,6 @@ MSLCM_SL2015::setOwnState(const int state) {
         }
 #endif
         if ((state & LCA_STAY) != 0) {
-            myManeuverDist = 0;
             myCanChangeFully = true;
 //            if (DEBUG_COND) {
 //                std::cout << "    myCanChangeFully=true\n";
@@ -861,9 +860,6 @@ MSLCM_SL2015::prepareStep() {
     MSAbstractLaneChangeModel::prepareStep();
     // keep information about strategic change direction
     myOwnState = (myOwnState & (LCA_STRATEGIC | LCA_COOPERATIVE)) ? (myOwnState & LCA_WANTS_LANECHANGE) : 0;
-    if (myCanChangeFully) {
-        myManeuverDist = 0;
-    }
 #ifdef DEBUG_INFORM
     if (debugVehicle()) {
         std::cout << SIMTIME
@@ -1277,7 +1273,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         std::vector<CLeaderDist> collectLeadBlockers;
         std::vector<CLeaderDist> collectFollowBlockers;
         int blockedFully = 0; // wether execution of the full maneuver is blocked
-
+        maneuverDist = latDist;
         const double gapFactor = computeGapFactor(LCA_STRATEGIC);
         blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                 leaders, followers, blockers,
@@ -1326,6 +1322,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         if (!cancelRequest(ret, laneOffset)) {
             if ((ret & LCA_STAY) == 0) {
                 latDist = latLaneDist;
+                maneuverDist = latLaneDist;
                 blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                         leaders, followers, blockers,
                                         neighLeaders, neighFollowers, neighBlockers);
@@ -1355,7 +1352,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                 ((myPreviousState & LCA_COOPERATIVE) != 0
                  && !myCanChangeFully
                  // change is in the right direction
-                 && (laneOffset * myManeuverDist > 0)))
+                 && (laneOffset * getManeuverDist() > 0)))
             && (inconvenience < myCooperativeParam)
             && (changeToBest || currentDistAllows(neighDist, abs(bestLaneOffset) + 1, laDist))) {
 
@@ -1366,7 +1363,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                       << " veh=" << myVehicle.getID()
                       << " amBlocking=" << amBlockingFollowerPlusNB()
                       << " prevState=" << toString((LaneChangeAction)myPreviousState)
-                      << " origLatDist=" << myManeuverDist
+                      << " origLatDist=" << getManeuverDist()
                       << " wantsChangeToHelp=" << (right ? "right" : "left")
                       << " state=" << myOwnState
                       //<< (((myOwnState & myLca) == 0) ? " (counter)" : "")
@@ -1376,7 +1373,8 @@ MSLCM_SL2015::_wantsChangeSublane(
 
         ret |= LCA_COOPERATIVE | LCA_URGENT ;//| LCA_CHANGE_TO_HELP;
         if (!cancelRequest(ret, laneOffset)) {
-            latDist = amBlockingFollowerPlusNB() ? latLaneDist : myManeuverDist;
+            latDist = amBlockingFollowerPlusNB() ? latLaneDist : getManeuverDist();
+            maneuverDist = latDist;
             blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                     leaders, followers, blockers,
                                     neighLeaders, neighFollowers, neighBlockers);
@@ -1615,6 +1613,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                 assert(myVehicle.getLane()->getIndex() > neighLane.getIndex());
                 if (!cancelRequest(ret, laneOffset)) {
                     latDist = latLaneDist;
+                    maneuverDist = latLaneDist;
                     blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                             leaders, followers, blockers,
                                             neighLeaders, neighFollowers, neighBlockers);
@@ -1641,6 +1640,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             ret |= LCA_SPEEDGAIN;
             if (!cancelRequest(ret, laneOffset)) {
                 int blockedFully = 0;
+                maneuverDist = latDist;
                 blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                         leaders, followers, blockers,
                                         neighLeaders, neighFollowers, neighBlockers,
@@ -1674,6 +1674,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             ret |= LCA_SPEEDGAIN;
             if (!cancelRequest(ret, laneOffset)) {
                 int blockedFully = 0;
+                maneuverDist = latDist;
                 blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                         leaders, followers, blockers,
                                         neighLeaders, neighFollowers, neighBlockers,
@@ -1794,7 +1795,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         // Ignore preferred lateral alignment if we are in the middle of an unfinished non-alignment maneuver into the opposite direction
         if (!myCanChangeFully
                 && (myPreviousState & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_KEEPRIGHT | LCA_SPEEDGAIN)) != 0
-                && ((myManeuverDist < 0 && latDistSublane > 0) || (myManeuverDist > 0 && latDistSublane < 0))) {
+                && ((getManeuverDist() < 0 && latDistSublane > 0) || (getManeuverDist() > 0 && latDistSublane < 0))) {
 #if defined(DEBUG_WANTSCHANGE)
             if (gDebugFlag2) {
                 std::cout << "   aborting sublane change due to prior maneuver\n";
@@ -1815,15 +1816,16 @@ MSLCM_SL2015::_wantsChangeSublane(
 #endif
             ret |= LCA_SUBLANE;
             // include prior motivation when sublane-change is part of finishing an ongoing maneuver in the same direction
-            if (myPreviousManeuverDist * latDist > 0) {
+            if (getPreviousManeuverDist() * latDist > 0) {
                 int priorReason = (myPreviousState & LCA_CHANGE_REASONS & ~LCA_SUBLANE);
                 ret |= priorReason;
 #ifdef DEBUG_WANTSCHANGE
                 if (gDebugFlag2 && priorReason != 0) std::cout << "   including prior reason " << toString((LaneChangeAction)priorReason)
-                            << " prevManeuverDist=" << myPreviousManeuverDist << "\n";
+                            << " prevManeuverDist=" << getPreviousManeuverDist() << "\n";
 #endif
             }
             if (!cancelRequest(ret, laneOffset)) {
+                maneuverDist = latDist;
                 blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                         leaders, followers, blockers,
                                         neighLeaders, neighFollowers, neighBlockers);
@@ -2073,7 +2075,7 @@ MSLCM_SL2015::getSlowest(const MSLeaderDistanceInfo& ldi) {
 
 
 int
-MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& maneuverDist, int laneOffset,
+MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double maneuverDist, int laneOffset,
                             const MSLeaderDistanceInfo& leaders,
                             const MSLeaderDistanceInfo& followers,
                             const MSLeaderDistanceInfo& /*blockers */,
@@ -2086,10 +2088,6 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& ma
                             double gapFactor,
                             int* retBlockedFully) {
     // truncate latDist according to maxSpeedLat
-    if (!keepLatGapManeuver) {
-        myManeuverDist = latDist;
-        maneuverDist = latDist;
-    }
     const double maxDist = SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat());
     latDist = MAX2(MIN2(latDist, maxDist), -maxDist);
     if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0 && myVehicle.getInfluencer().ignoreOverlap()) {
@@ -2137,10 +2135,10 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& ma
         }
     }
 
-    myCanChangeFully = (myManeuverDist == 0 || latDist == myManeuverDist);
+    myCanChangeFully = (maneuverDist == 0 || latDist == maneuverDist);
 #ifdef DEBUG_BLOCKING
     if (gDebugFlag2) {
-        std::cout << "    checkBlocking fully=" << myCanChangeFully << " latDist=" << latDist << " myManeuverDist=" << myManeuverDist << "\n";
+        std::cout << "    checkBlocking fully=" << myCanChangeFully << " latDist=" << latDist << " maneuverDist=" << maneuverDist << "\n";
     }
 #endif
     // destination sublanes must be safe
@@ -2164,15 +2162,15 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& ma
     }
 
     int blockedFully = 0;
-    blockedFully |= checkBlockingVehicles(&myVehicle, leaders, myManeuverDist, myVehicle.getLane()->getRightSideOnEdge(), true, LCA_BLOCKED_BY_LEADER,
+    blockedFully |= checkBlockingVehicles(&myVehicle, leaders, maneuverDist, myVehicle.getLane()->getRightSideOnEdge(), true, LCA_BLOCKED_BY_LEADER,
                                           mySafeLatDistRight, mySafeLatDistLeft, collectLeadBlockers);
-    blockedFully |= checkBlockingVehicles(&myVehicle, followers, myManeuverDist, myVehicle.getLane()->getRightSideOnEdge(), false, LCA_BLOCKED_BY_FOLLOWER,
+    blockedFully |= checkBlockingVehicles(&myVehicle, followers, maneuverDist, myVehicle.getLane()->getRightSideOnEdge(), false, LCA_BLOCKED_BY_FOLLOWER,
                                           mySafeLatDistRight, mySafeLatDistLeft, collectFollowBlockers);
     if (laneOffset != 0) {
-        blockedFully |= checkBlockingVehicles(&myVehicle, neighLeaders, myManeuverDist, neighLane.getRightSideOnEdge(), true,
+        blockedFully |= checkBlockingVehicles(&myVehicle, neighLeaders, maneuverDist, neighLane.getRightSideOnEdge(), true,
                                               (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_LEADER : LCA_BLOCKED_BY_LEFT_LEADER),
                                               mySafeLatDistRight, mySafeLatDistLeft, collectLeadBlockers);
-        blockedFully |= checkBlockingVehicles(&myVehicle, neighFollowers, myManeuverDist, neighLane.getRightSideOnEdge(), false,
+        blockedFully |= checkBlockingVehicles(&myVehicle, neighFollowers, maneuverDist, neighLane.getRightSideOnEdge(), false,
                                               (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_FOLLOWER : LCA_BLOCKED_BY_LEFT_FOLLOWER),
                                               mySafeLatDistRight, mySafeLatDistLeft, collectFollowBlockers);
     }
@@ -2187,7 +2185,7 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& ma
         blocked |= blockedFully;
     } else {
         // XXX: in case of action step length > simulation step length, pushing may lead to collisions,
-        //      because maneuver is continued until myManeuverDist is reached (perhaps set myManeuverDist=latDist)
+        //      because maneuver is continued until maneuverDist is reached (perhaps set maneuverDist=latDist)
     }
     if (collectFollowBlockers != nullptr && collectLeadBlockers != nullptr) {
         // prevent vehicles from being classified as leader and follower simultaneously
@@ -3013,10 +3011,10 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                 // If foe is maneuvering towards ego, reserve some additional distance.
                 // But don't expect the foe to come closer than currentMinGap if it isn't already there.
                 //   (XXX: How can the ego know the foe's maneuver dist?)
-                if (foeCenter < oldCenter) {
+                if (foeCenter < oldCenter) { // && foe->getLaneChangeModel().getSpeedLat() > 0) {
                     const double foeManeuverDist = MAX2(0., foe->getLaneChangeModel().getManeuverDist());
                     surplusGapRight = MIN3(surplusGapRight, gap - currentMinGap, MAX2(currentMinGap, gap - foeManeuverDist));
-                } else {
+                } else { //if (foeCenter > oldCenter && foe->getLaneChangeModel().getSpeedLat() < 0) {
                     const double foeManeuverDist = -MIN2(0., foe->getLaneChangeModel().getManeuverDist());
                     surplusGapLeft = MIN3(surplusGapLeft, gap - currentMinGap, MAX2(currentMinGap, gap - foeManeuverDist));
                 }
@@ -3477,7 +3475,6 @@ MSLCM_SL2015::wantsChange(
                                      neighLane, preb,
                                      lastBlocked, firstBlocked, latDist, maneuverDist, blocked);
 
-    myManeuverDist = 0;
     myCanChangeFully = true;
     // ignore sublane motivation
     result &= ~LCA_SUBLANE;

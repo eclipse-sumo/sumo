@@ -633,13 +633,6 @@ protected:
     /// @brief direction of the lane change maneuver -1 means right, 1 means left
     int myLaneChangeDirection;
 
-    /// @brief The complete lateral distance the vehicle wants to travel to finish its maneuver
-    ///        Only used by sublane model, currently.
-    double myManeuverDist;
-
-    /// @brief Maneuver distance from the previous simulation step
-    double myPreviousManeuverDist;
-
     /// @brief whether the vehicle has already moved this step
     bool myAlreadyChanged;
 
@@ -735,6 +728,13 @@ private:
 
     /// @brief whether the vehicle is driving in the opposite direction
     bool myAmOpposite;
+
+    /// @brief The complete lateral distance the vehicle wants to travel to finish its maneuver
+    ///        Only used by sublane model, currently.
+    double myManeuverDist;
+
+    /// @brief Maneuver distance from the previous simulation step
+    double myPreviousManeuverDist;
 
 
 private:

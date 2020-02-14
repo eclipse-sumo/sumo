@@ -110,8 +110,6 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myCommittedSpeed(0),
     myLaneChangeCompletion(1.0),
     myLaneChangeDirection(0),
-    myManeuverDist(0.),
-    myPreviousManeuverDist(0.),
     myAlreadyChanged(false),
     myShadowLane(nullptr),
     myTargetLane(nullptr),
@@ -133,7 +131,10 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myMaxSpeedLatFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1)),
     mySigma(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SIGMA, 0.0)),
     myLastLaneChangeOffset(0),
-    myAmOpposite(false) {
+    myAmOpposite(false),
+    myManeuverDist(0.),
+    myPreviousManeuverDist(0.)
+{
     saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
     saveLCState(0, LCA_UNKNOWN, LCA_UNKNOWN);
     saveLCState(1, LCA_UNKNOWN, LCA_UNKNOWN);
