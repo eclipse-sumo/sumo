@@ -1439,8 +1439,8 @@ public:
         bool
         manoeuvreIsComplete() const;
 
-        /// @brief Accessor for manoeuvre angle
-        int getManoeuvreAngle() const;
+        /// @brief Accessor for GUI rotation step when parking (radians)
+        double getGUIIncrement() const;
 
         /// @brief Accessor (get) for manoeuvre type
         MSVehicle::ManoeuvreType getManoeuvreType() const;
@@ -1464,8 +1464,8 @@ public:
         /// @brief Manoeuvre type - currently entry, exit or none
         ManoeuvreType myManoeuvreType;
 
-        // @brief Angle (degrees) through which manoeuver will turn vehicle - used to determine manouevre timing
-        int myManoeuvreAngle;
+        // @brief Angle (radians) through which parking vehicle moves in each sim step
+        double myGUIIncrement;
     };
 
     // Current or previous (completed) manoeuvre
