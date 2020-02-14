@@ -8,6 +8,7 @@ permalink: /ChangeLog/
 ### Bugfixes
 - Simulation
   - Fixed sublane model bug that reduced flow on intersections and caused emergency braking. Issue #6649
+  - Fixed sublane model bug that was causing cyclical switching between keep-right and sublane-alignment choices. Issue #6084
 - NETCONVERT
   - Fixed precision when filtering network with a given boundary. Issue #6206
 - SUMO-GUI
