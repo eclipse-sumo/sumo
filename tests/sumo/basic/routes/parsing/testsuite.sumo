@@ -22,7 +22,7 @@ edgeattr_nested
 edgeattr
 
 # Test repeated vehicle creation
-repeat
+flow
 
 # Tests whether the include mechanism works
 include
