@@ -1447,6 +1447,11 @@ double
 MSVehicle::computeAngle() const {
     Position p1;
     const double posLat = -myState.myPosLat; // @todo get rid of the '-'
+
+    // if parking manoeuvre is happening then rotate vehicle on each step
+    if (MSGlobals::gModelParkingManoeuver && !manoeuvreIsComplete())
+        return getAngle() + myManoeuvre.getGUIIncrement();
+
     if (isParking()) {
         if (myStops.begin()->parkingarea != nullptr) {
             return myStops.begin()->parkingarea->getVehicleAngle(*this);
@@ -6494,14 +6499,14 @@ MSVehicle::setExitManoeuvre() {
  * methods of MSVehicle::manoeuvre
  * ----------------------------------------------------------------------- */
 
-MSVehicle::Manoeuvre::Manoeuvre() : myManoeuvreStop(""), myManoeuvreStartTime(0), myManoeuvreCompleteTime(0), myManoeuvreType(MSVehicle::MANOEUVRE_NONE), myManoeuvreAngle(0) {}
+MSVehicle::Manoeuvre::Manoeuvre() : myManoeuvreStop(""), myManoeuvreStartTime(0), myManoeuvreCompleteTime(0), myManoeuvreType(MSVehicle::MANOEUVRE_NONE), myGUIIncrement(0) {}
 
 MSVehicle::Manoeuvre::Manoeuvre(const Manoeuvre& manoeuvre) {
     myManoeuvreStop = manoeuvre.myManoeuvreStop;
     myManoeuvreStartTime = manoeuvre.myManoeuvreStartTime;
     myManoeuvreCompleteTime = manoeuvre.myManoeuvreCompleteTime;
     myManoeuvreType = manoeuvre.myManoeuvreType;
-    myManoeuvreAngle = manoeuvre.myManoeuvreAngle;
+    myGUIIncrement = manoeuvre.myGUIIncrement;
 }
 
 MSVehicle::Manoeuvre&
@@ -6510,7 +6515,7 @@ MSVehicle::Manoeuvre::operator=(const Manoeuvre& manoeuvre) {
     myManoeuvreStartTime = manoeuvre.myManoeuvreStartTime;
     myManoeuvreCompleteTime = manoeuvre.myManoeuvreCompleteTime;
     myManoeuvreType = manoeuvre.myManoeuvreType;
-    myManoeuvreAngle = manoeuvre.myManoeuvreAngle;
+    myGUIIncrement = manoeuvre.myGUIIncrement;
     return *this;
 }
 
@@ -6520,13 +6525,13 @@ MSVehicle::Manoeuvre::operator!=(const Manoeuvre& manoeuvre) {
             myManoeuvreStartTime != manoeuvre.myManoeuvreStartTime ||
             myManoeuvreCompleteTime != manoeuvre.myManoeuvreCompleteTime ||
             myManoeuvreType != manoeuvre.myManoeuvreType ||
-            myManoeuvreAngle != manoeuvre.myManoeuvreAngle
-           );
+            myGUIIncrement != manoeuvre.myGUIIncrement
+            );
 }
 
-int
-MSVehicle::Manoeuvre::getManoeuvreAngle() const {
-    return (myManoeuvreAngle);
+double
+MSVehicle::Manoeuvre::getGUIIncrement() const {
+    return (myGUIIncrement);
 }
 
 MSVehicle::ManoeuvreType
@@ -6560,16 +6565,20 @@ MSVehicle::Manoeuvre::configureEntryManoeuvre(MSVehicle* veh) {
     const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     const Stop& stop = veh->getMyStops().front();
 
+    int manoeuverAngle = stop.parkingarea->getLastFreeLotAngle();
+    double GUIAngle = stop.parkingarea->getLastFreeLotGUIAngle();
+    if (abs(GUIAngle) < 0.1) GUIAngle = -0.1; // Wiggle vehicle on parallel entry
     myManoeuvreVehicleID = veh->getID();
     myManoeuvreStop = stop.parkingarea->getID();
     myManoeuvreType = MSVehicle::MANOEUVRE_ENTRY;
-    myManoeuvreAngle = stop.parkingarea->getLastFreeLotAngle();
     myManoeuvreStartTime = currentTime;
-    myManoeuvreCompleteTime = currentTime + veh->myType->getEntryManoeuvreTime(myManoeuvreAngle);
+    myManoeuvreCompleteTime = currentTime + veh->myType->getEntryManoeuvreTime(manoeuverAngle);
+    myGUIIncrement = GUIAngle / ((myManoeuvreCompleteTime - myManoeuvreStartTime) / (TS * 1000.));
+
 #ifdef DEBUG_STOPS
     if (veh->isSelected()) {
-        std::cout << "ENTRY manoeuvre start: vehicle=" << veh->getID() << " Angle=" << myManoeuvreAngle << " currentTime=" << currentTime <<
-                  " endTime=" << myManoeuvreCompleteTime << " manoeuvre time=" << myManoeuvreCompleteTime - currentTime << " parkArea=" << myManoeuvreStop << std::endl;
+       std::cout << "ENTRY manoeuvre start: vehicle=" << veh->getID() << " Manoeuvre Angle=" << manoeuverAngle << " Rotation angle=" << RAD2DEG(GUIAngle) << " Road Angle" << RAD2DEG(veh->getAngle()) << " increment=" << RAD2DEG(myGUIIncrement) << " currentTime=" << currentTime <<
+                    " endTime=" << myManoeuvreCompleteTime << " manoeuvre time=" << myManoeuvreCompleteTime - currentTime << " parkArea="<< myManoeuvreStop << std::endl;
     }
 #endif
 
@@ -6592,18 +6601,23 @@ MSVehicle::Manoeuvre::configureExitManoeuvre(MSVehicle* veh) {
 
     const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
 
+    int manoeuverAngle = veh->getCurrentParkingArea()->getManoeuverAngle(*veh);
+    double GUIAngle = veh->getCurrentParkingArea()->getGUIAngle(*veh);
+    if (abs(GUIAngle) < 0.1) GUIAngle = 0.1; // Wiggle vehicle on parallel exit
+
     myManoeuvreVehicleID = veh->getID();
     myManoeuvreStop = veh->getCurrentParkingArea()->getID();
     myManoeuvreType = MSVehicle::MANOEUVRE_EXIT;
     myManoeuvreStartTime = currentTime;
-    myManoeuvreCompleteTime = currentTime + veh->myType->getExitManoeuvreTime(myManoeuvreAngle);
+    myManoeuvreCompleteTime = currentTime + veh->myType->getExitManoeuvreTime(manoeuverAngle);
+    myGUIIncrement = (-GUIAngle) / ((myManoeuvreCompleteTime - myManoeuvreStartTime) / (TS * 1000.));
     if (veh->remainingStopDuration() > 0) {
         myManoeuvreCompleteTime += veh->remainingStopDuration();
     }
 
 #ifdef DEBUG_STOPS
     if (veh->isSelected()) {
-        std::cout << "EXIT manoeuvre start: vehicle=" << veh->getID() << " Angle=" << myManoeuvreAngle << " currentTime=" << currentTime
+        std::cout << "EXIT manoeuvre start: vehicle=" << veh->getID() << " Manoeuvre Angle=" << manoeuverAngle  << " increment=" << RAD2DEG(myGUIIncrement) << " currentTime=" << currentTime
                   << " endTime=" << myManoeuvreCompleteTime << " manoeuvre time=" << myManoeuvreCompleteTime - currentTime << " parkArea=" << myManoeuvreStop << std::endl;
     }
 #endif
@@ -6630,8 +6644,6 @@ MSVehicle::Manoeuvre::entryManoeuvreIsComplete(MSVehicle* veh) {
     } else if (MSNet::getInstance()->getCurrentTimeStep() < myManoeuvreCompleteTime) {
         return false;
     } else { // manoeuvre complete
-        // in case we ended up in a different lot - reset the angle for exit - to allow recompute
-        myManoeuvreAngle = currentStop->parkingarea->getLastFreeLotAngle();
         myManoeuvreType = MSVehicle::MANOEUVRE_NONE;
         return true;
     }
