@@ -10,6 +10,8 @@ permalink: /ChangeLog/
   - Fixed sublane model bug that reduced flow on intersections and caused emergency braking. Issue #6649
 - NETCONVERT
   - Fixed precision when filtering network with a given boundary. Issue #6206
+- SUMO-GUI
+  - fixed layout of meso edge parameter dialog at high occupancy (regression in 1.5.0)
 
 ### Enhancements
 - Simulation
