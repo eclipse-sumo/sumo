@@ -21,6 +21,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/elements/data/GNEGenericData.h>
+#include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/GNEViewNet.h>
 
 #include "GNEChange_GenericData.h"
@@ -36,7 +37,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_GenericData, GNEChange, nullptr, 0)
 
 GNEChange_GenericData::GNEChange_GenericData(GNEGenericData* genericData, bool forward) :
     GNEChange(genericData->getViewNet()->getNet(), genericData, genericData, forward),
-    myGenericData(genericData) {
+    myGenericData(genericData),
+    myDataIntervalParent(genericData->getDataIntervalParent()) {
     myGenericData->incRef("GNEChange_GenericData");
 }
 
@@ -47,48 +49,10 @@ GNEChange_GenericData::~GNEChange_GenericData() {
     if (myGenericData->unreferenced()) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "'");
-        /*
-        // make sure that element isn't in net before removing
-        if (myNet->genericDataExist(myGenericData)) {
-            myNet->deleteGenericData(myGenericData, false);
-            // remove element from path
-            for (const auto& i : myEdgePath) {
-                i->removePathElement(myGenericData);
-            }
-            // Remove element from parent elements
-            for (const auto& i : myParentEdges) {
-                i->removeChildGenericData(myGenericData);
-            }
-            for (const auto& i : myParentLanes) {
-                i->removeChildGenericData(myGenericData);
-            }
-            for (const auto& i : myParentShapes) {
-                i->removeChildGenericData(myGenericData);
-            }
-            for (const auto& i : myParentAdditionals) {
-                i->removeChildGenericData(myGenericData);
-            }
-            for (const auto& i : myParentGenericDatas) {
-                i->removeChildGenericData(myGenericData);
-            }
-            // Remove element from child elements
-            for (const auto& i : myChildEdges) {
-                i->removeParentGenericData(myGenericData);
-            }
-            for (const auto& i : myChildLanes) {
-                i->removeParentGenericData(myGenericData);
-            }
-            for (const auto& i : myChildShapes) {
-                i->removeParentGenericData(myGenericData);
-            }
-            for (const auto& i : myChildAdditionals) {
-                i->removeParentGenericData(myGenericData);
-            }
-            for (const auto& i : myChildGenericDatas) {
-                i->removeParentGenericData(myGenericData);
-            }
+        // make sure that element isn't in interval parent before removing
+        if (myDataIntervalParent->hasGenericDataChild(myGenericData)) {
+            myDataIntervalParent->removeGenericDataChild(myGenericData);
         }
-        */
         delete myGenericData;
     }
 }
@@ -99,15 +63,15 @@ GNEChange_GenericData::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
-        // delete generic data from net
-//      myNet->deleteGenericData(myGenericData, false);
+        // delete generic data from interval parent
+        myDataIntervalParent->removeGenericDataChild(myGenericData);
         // remove genericData from parents and children
         removeGenericData(myGenericData);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
-        // insert generic data into net
-//      myNet->insertGenericData(myGenericData);
+        // insert generic data into interval parent
+        myDataIntervalParent->addGenericDataChild(myGenericData);
         // add genericData in parents and children
         addGenericData(myGenericData);
     }
@@ -121,15 +85,15 @@ GNEChange_GenericData::redo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
-        // insert generic data into net
-//      myNet->insertGenericData(myGenericData);
+        // insert generic data into interval parent
+        myDataIntervalParent->addGenericDataChild(myGenericData);
         // add genericData in parents and children
         addGenericData(myGenericData);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
-        // delete generic data from net
-//      myNet->deleteGenericData(myGenericData, false);
+        // delete generic data from interval parent
+        myDataIntervalParent->removeGenericDataChild(myGenericData);
         // remove genericData from parents and children
         removeGenericData(myGenericData);
     }

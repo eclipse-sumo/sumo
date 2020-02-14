@@ -37,19 +37,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DataInterval, GNEChange, nullptr, 0)
 
 GNEChange_DataInterval::GNEChange_DataInterval(GNEDataInterval* dataInterval, bool forward) :
     GNEChange(dataInterval->getDataSetParent()->getViewNet()->getNet(), forward),
-    myDataInterval(dataInterval) {
-    /*
-    myEdgePath(dataInterval->getPathEdges()),
-    myParentEdges(dataInterval->getParentEdges()),
-    myParentLanes(dataInterval->getParentLanes()),
-    myParentShapes(dataInterval->getParentShapes()),
-    myParentAdditionals(dataInterval->getParentAdditionals()),
-    myParentDataIntervals(dataInterval->getParentDataIntervals()),
-    myChildEdges(dataInterval->getChildEdges()),
-    myChildLanes(dataInterval->getChildLanes()),
-    myChildShapes(dataInterval->getChildShapes()),
-    myChildAdditionals(dataInterval->getChildAdditionals()),
-    myChildDataIntervals(dataInterval->getChildDataIntervals()) */
+    myDataInterval(dataInterval),
+    myDataSetParent(dataInterval->getDataSetParent()) {
     myDataInterval->incRef("GNEChange_DataInterval");
 }
 
@@ -60,48 +49,11 @@ GNEChange_DataInterval::~GNEChange_DataInterval() {
     if (myDataInterval->unreferenced()) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myDataInterval->getTagStr() + " '" + myDataInterval->getID() + "'");
-        /*
         // make sure that element isn't in net before removing
-        if (myNet->dataIntervalExist(myDataInterval)) {
-            myNet->deleteDataInterval(myDataInterval, false);
-            // remove element from path
-            for (const auto& i : myEdgePath) {
-                i->removePathElement(myDataInterval);
-            }
-            // Remove element from parent elements
-            for (const auto& i : myParentEdges) {
-                i->removeChildDataInterval(myDataInterval);
-            }
-            for (const auto& i : myParentLanes) {
-                i->removeChildDataInterval(myDataInterval);
-            }
-            for (const auto& i : myParentShapes) {
-                i->removeChildDataInterval(myDataInterval);
-            }
-            for (const auto& i : myParentAdditionals) {
-                i->removeChildDataInterval(myDataInterval);
-            }
-            for (const auto& i : myParentDataIntervals) {
-                i->removeChildDataInterval(myDataInterval);
-            }
-            // Remove element from child elements
-            for (const auto& i : myChildEdges) {
-                i->removeParentDataInterval(myDataInterval);
-            }
-            for (const auto& i : myChildLanes) {
-                i->removeParentDataInterval(myDataInterval);
-            }
-            for (const auto& i : myChildShapes) {
-                i->removeParentDataInterval(myDataInterval);
-            }
-            for (const auto& i : myChildAdditionals) {
-                i->removeParentDataInterval(myDataInterval);
-            }
-            for (const auto& i : myChildDataIntervals) {
-                i->removeParentDataInterval(myDataInterval);
-            }
+        if (myDataSetParent->dataIntervalChildrenExist(myDataInterval)) {
+             // remove data interval from data set parent
+            myDataSetParent->removeDataIntervalChild(myDataInterval);
         }
-        */
         delete myDataInterval;
     }
 }
@@ -112,85 +64,13 @@ GNEChange_DataInterval::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDataInterval->getTagStr() + " '" + myDataInterval->getID() + "' in GNEChange_DataInterval");
-        // delete data interval from net
-        //myNet->deleteDataInterval(myDataInterval, false);
-        /*
-        // remove element from path
-        for (const auto& i : myEdgePath) {
-            i->removePathElement(myDataInterval);
-        }
-        // Remove element from parent elements
-        for (const auto& i : myParentEdges) {
-            i->removeChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentLanes) {
-            i->removeChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentShapes) {
-            i->removeChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->removeChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentDataIntervals) {
-            i->removeChildDataInterval(myDataInterval);
-        }
-        // Remove element from child elements
-        for (const auto& i : myChildEdges) {
-            i->removeParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildLanes) {
-            i->removeParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildShapes) {
-            i->removeParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->removeParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildDataIntervals) {
-            i->removeParentDataInterval(myDataInterval);
-        }
-        */
+         // remove data interval from data set parent
+        myDataSetParent->removeDataIntervalChild(myDataInterval);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDataInterval->getTagStr() + " '" + myDataInterval->getID() + "' in GNEChange_DataInterval");
-        // insert data interval into net
-        //myNet->insertDataInterval(myDataInterval);
-        /*
-        // add element in parent elements
-        for (const auto& i : myParentEdges) {
-            i->addChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentLanes) {
-            i->addChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentShapes) {
-            i->addChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->addChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentDataIntervals) {
-            i->addChildDataInterval(myDataInterval);
-        }
-        // add element in child elements
-        for (const auto& i : myChildEdges) {
-            i->addParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildLanes) {
-            i->addParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildShapes) {
-            i->addParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->addParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildDataIntervals) {
-            i->addParentDataInterval(myDataInterval);
-        }
-        */
+        // add data interval into data set parent
+        myDataSetParent->addDataIntervalChild(myDataInterval);
     }
     // Requiere always save elements
     myNet->requireSaveDataElements(true);
@@ -202,85 +82,13 @@ GNEChange_DataInterval::redo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDataInterval->getTagStr() + " '" + myDataInterval->getID() + "' in GNEChange_DataInterval");
-        // insert data interval into net
-        //myNet->insertDataInterval(myDataInterval);
-        /*
-        // add element in parent elements
-        for (const auto& i : myParentEdges) {
-            i->addChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentLanes) {
-            i->addChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentShapes) {
-            i->addChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->addChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentDataIntervals) {
-            i->addChildDataInterval(myDataInterval);
-        }
-        // add element in child elements
-        for (const auto& i : myChildEdges) {
-            i->addParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildLanes) {
-            i->addParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildShapes) {
-            i->addParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->addParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildDataIntervals) {
-            i->addParentDataInterval(myDataInterval);
-        }
-        */
+        // add data interval into data set parent
+        myDataSetParent->addDataIntervalChild(myDataInterval);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDataInterval->getTagStr() + " '" + myDataInterval->getID() + "' in GNEChange_DataInterval");
-        // delete data interval from net
-        //myNet->deleteDataInterval(myDataInterval, false);
-        /*
-        // remove element from path
-        for (const auto& i : myEdgePath) {
-            i->removePathElement(myDataInterval);
-        }
-        // Remove element from parent elements
-        for (const auto& i : myParentEdges) {
-            i->removeChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentLanes) {
-            i->removeChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentShapes) {
-            i->removeChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentAdditionals) {
-            i->removeChildDataInterval(myDataInterval);
-        }
-        for (const auto& i : myParentDataIntervals) {
-            i->removeChildDataInterval(myDataInterval);
-        }
-        // Remove element from child elements
-        for (const auto& i : myChildEdges) {
-            i->removeParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildLanes) {
-            i->removeParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildShapes) {
-            i->removeParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildAdditionals) {
-            i->removeParentDataInterval(myDataInterval);
-        }
-        for (const auto& i : myChildDataIntervals) {
-            i->removeParentDataInterval(myDataInterval);
-        }
-        */
+        // remove data interval from data set parent
+        myDataSetParent->removeDataIntervalChild(myDataInterval);
     }
     // Requiere always save elements
     myNet->requireSaveDataElements(true);

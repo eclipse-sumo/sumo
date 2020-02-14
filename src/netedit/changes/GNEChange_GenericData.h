@@ -63,6 +63,9 @@ private:
      * @note we assume shared responsibility for the pointer (via reference counting)
      */
     GNEGenericData* myGenericData;
+
+    /// @brief data interval parent
+    GNEDataInterval *myDataIntervalParent;
 };
 
 #endif

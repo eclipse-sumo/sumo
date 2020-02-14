@@ -2703,13 +2703,11 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
 void
 GNENet::saveDataElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    //device.writeXMLHeader("data", "data_file.xsd");
-    //write all data sets
-/*
-    for (auto dataSet : myAttributeCarriers.dataSets) {
+    device.writeXMLHeader("meandata", "meandata_file.xsd");
+    // write all data sets
+    for (const auto &dataSet : myAttributeCarriers.dataSets) {
         dataSet.second->writeDataSet(device);
     }
-*/
     /*
     // first  write all vehicle types
     for (auto i : myAttributeCarriers.dataSets.at(SUMO_TAG_VTYPE)) {
@@ -2728,6 +2726,7 @@ GNENet::saveDataElementsConfirmed(const std::string& filename) {
         i.second->writeDataSet(device);
     }
     */
+    // close device
     device.close();
 }
 
