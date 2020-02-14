@@ -174,6 +174,10 @@ protected:
     /// @brief The current route
     ConstMSEdgeVector myActiveRoute;
 
+    /// @brief number of repetitions of the active route
+    int myActiveRouteRepeat;
+    SUMOTime myActiveRoutePeriod;
+
     /// @brief The plan of the current person
     MSTransportable::MSTransportablePlan* myActivePlan;
 

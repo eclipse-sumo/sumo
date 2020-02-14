@@ -54,6 +54,8 @@ std::mt19937 MSRouteHandler::myParsingRNG;
 // ===========================================================================
 MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly) :
     SUMORouteHandler(file, addVehiclesDirectly ? "" : "routes", true),
+    myActiveRouteRepeat(0),
+    myActiveRoutePeriod(-1),
     myActivePlan(nullptr),
     myActiveContainerPlan(nullptr),
     myAddVehiclesDirectly(addVehiclesDirectly),
@@ -465,6 +467,23 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     }
     myActiveRouteProbability = attrs.getOpt<double>(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? new RGBColor(attrs.get<RGBColor>(SUMO_ATTR_COLOR, myActiveRouteID.c_str(), ok)) : nullptr;
+    myActiveRouteRepeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, myActiveRouteID.c_str(), ok, 0);
+    myActiveRoutePeriod = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, -1);
+    if (myActiveRouteRepeat > 0) {
+        if (MSGlobals::gCheckRoutes) {
+            SUMOVehicleClass vClass = SVC_IGNORING;
+            if (myVehicleParameter != nullptr) {
+                MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
+                MSVehicleType* vtype = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
+                if (vtype != nullptr) {
+                    vClass = vtype->getVehicleClass();
+                }
+            }
+            if (!myActiveRoute.front()->isConnectedTo(*myActiveRoute.back(), vClass)) {
+                WRITE_ERROR("Disconnected route " + rid + " when repeating.");
+            }
+        }
+    }
     myCurrentCosts = attrs.getOpt<double>(SUMO_ATTR_COST, myActiveRouteID.c_str(), ok, -1);
     if (ok && myCurrentCosts != -1 && myCurrentCosts < 0) {
         WRITE_ERROR("Invalid cost for route '" + myActiveRouteID + "'.");
@@ -518,6 +537,27 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
         }
         if (myActiveRoute.size() == 1 && myActiveRoute.front()->isTazConnector()) {
             throw ProcessError("The routing information for " + type + " '" + myVehicleParameter->id + "' is insufficient.");
+        }
+        if (myActiveRouteRepeat > 0) {
+            // duplicate route
+            ConstMSEdgeVector tmpEdges = myActiveRoute;
+            auto tmpStops = myActiveRouteStops;
+            for (int i = 0; i < myActiveRouteRepeat; i++) {
+                myActiveRoute.insert(myActiveRoute.begin(), tmpEdges.begin(), tmpEdges.end());
+                for (SUMOVehicleParameter::Stop stop : tmpStops) {
+                    if (stop.until > 0) {
+                        if (myActiveRoutePeriod <= 0) {
+                            if (myVehicleParameter != nullptr) {
+                                throw ProcessError("Cannot repeat stops with 'until' in route for " + type + " '" + myVehicleParameter->id + "' because no period is defined.");
+                            } else {
+                                throw ProcessError("Cannot repeat stops with 'until' in route '" + myActiveRouteID + "' because no period is defined.");
+                            }
+                        }
+                        stop.until += myActiveRoutePeriod * (i + 1);
+                    }
+                    myActiveRouteStops.push_back(stop);
+                }
+            }
         }
         MSRoute* route = new MSRoute(myActiveRouteID, myActiveRoute,
                                      myVehicleParameter == nullptr || myVehicleParameter->repetitionNumber >= 1,
