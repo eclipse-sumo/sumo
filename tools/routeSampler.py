@@ -53,6 +53,8 @@ def get_options(args=None):
                         help="random seed")
     parser.add_argument("--deficit-output", dest="deficitOut",
                         help="write edge-data with deficit information to FILE")
+    #parser.add_argument("--optimize",
+    #                    help="set optimization method ('full', ")
 
     options = parser.parse_args(args=args)
     if (options.routeFile is None or
@@ -183,19 +185,16 @@ def main(options):
             depart += period
         outf.write('</routes>\n')
 
-    unfilledLocations = 0
-    missingCount = 0
+    missingStats = sumolib.miscutils.Statistics("mismatched locations", printMin=False)
     for cd in countData:
         if cd.count > 0:
-            unfilledLocations += 1
-            missingCount += cd.count
+            missingStats.add(cd.count, cd.edgeTuple)
 
     print("Wrote %s routes to meet total count %s at %s locations" % (
         len(usedRoutes), totalCount, len(countData)))
 
-    if unfilledLocations > 0:
-        print("Warning: Count deficit of %s for %s locations" %
-              (missingCount, unfilledLocations))
+    if missingStats.count() > 0:
+        print("Warning: %s (total %s)" % (missingStats, sum(missingStats.values)))
 
     if options.deficitOut:
         with open(options.deficitOut, 'w') as outf:
