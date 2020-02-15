@@ -168,50 +168,56 @@ def optimize(optimize, countData, routes, usedRoutes, routeUsage):
 
     k = len(routes)
     m = len(countData)
+
     if optimize == "full":
         # allow changing all prior usedRoutes
-        #
-        # Ax <= b
-        # x + s = b
-        # min s
-        # -> x2 = [x, s]
-
-        c = np.concatenate((np.zeros(k), np.ones(m))) # [x, s], only s counts for minimization
-        b = np.asarray([cd.origCount for cd in countData])
-
-        A = np.zeros((m, k))
-        for i in range(0, m):
-            for j in range(0, k):
-                A[i][j] = int(j in countData[i].routeSet)
-        A_eq = np.concatenate((A, np.identity(m)), 1)
-
-        res = opt.linprog(c, A_eq=A_eq, b_eq=b)
-        if res.success:
-            print("Full optimization succeeded")
-            routeCounts = res.x[:k] # cut of slack variables
-            slack = res.x[k:]
-            #print("routeCounts (n=%s, sum=%s, intSum=%s, roundSum=%s) %s" % (
-            #    len(routeCounts),
-            #    sum(routeCounts),
-            #    sum(map(int, routeCounts)),
-            #    sum(map(round, routeCounts)),
-            #    routeCounts))
-            #print("slack (n=%s, sum=%s) %s" % (len(slack), sum(slack), slack))
-            del usedRoutes[:]
-            usedRoutes.extend(sum([[i] * int(round(c)) for i, c in enumerate(routeCounts)], []))
-            random.shuffle(usedRoutes)
-            #print("#usedRoutes=%s" % len(usedRoutes))
-            # update countData
-            for cd in countData:
-                cd.count = cd.origCount
-            for r in usedRoutes:
-                for i in routeUsage[r]:
-                    countData[i].count -= 1
-        else:
-            print("Full optimization failed")
+        bounds = None
     else:
-        # limited optimization
-        optimize = int(optimize)
+        u = int(optimize)
+        # limited optimization: change prior routeCounts by at most u per route
+        priorRouteCounts = [0] * k
+        for r in usedRoutes:
+            priorRouteCounts[r] += 1
+        bounds = [(max(0, c - u), c + u) for c in priorRouteCounts] + [(0, None)] * m
+
+    # Ax <= b
+    # x + s = b
+    # min s
+    # -> x2 = [x, s]
+
+    c = np.concatenate((np.zeros(k), np.ones(m))) # [x, s], only s counts for minimization
+    b = np.asarray([cd.origCount for cd in countData])
+
+    A = np.zeros((m, k))
+    for i in range(0, m):
+        for j in range(0, k):
+            A[i][j] = int(j in countData[i].routeSet)
+    A_eq = np.concatenate((A, np.identity(m)), 1)
+
+    res = opt.linprog(c, A_eq=A_eq, b_eq=b, bounds=bounds)
+    if res.success:
+        print("Optimization succeeded")
+        routeCounts = res.x[:k] # cut of slack variables
+        slack = res.x[k:]
+        #print("routeCounts (n=%s, sum=%s, intSum=%s, roundSum=%s) %s" % (
+        #    len(routeCounts),
+        #    sum(routeCounts),
+        #    sum(map(int, routeCounts)),
+        #    sum(map(round, routeCounts)),
+        #    routeCounts))
+        #print("slack (n=%s, sum=%s) %s" % (len(slack), sum(slack), slack))
+        del usedRoutes[:]
+        usedRoutes.extend(sum([[i] * int(round(c)) for i, c in enumerate(routeCounts)], []))
+        random.shuffle(usedRoutes)
+        #print("#usedRoutes=%s" % len(usedRoutes))
+        # update countData
+        for cd in countData:
+            cd.count = cd.origCount
+        for r in usedRoutes:
+            for i in routeUsage[r]:
+                countData[i].count -= 1
+    else:
+        print("Optimization failed")
 
 
 def main(options):
