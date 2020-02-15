@@ -3,10 +3,10 @@ name: build
 on: 
   push:                 # run on push events, 
     paths-ignore:       # but ignore everything in the docs subfolder 
-      - 'docs/**'      
+      - 'docs/**'
   pull_request:         # run on pull requests,
     paths-ignore:       # but ignore everything in the docs subfolder
-      - 'docs/**' 
+      - 'docs/**'
 
 jobs:
   
@@ -35,7 +35,7 @@ jobs:
       with:
         repository: DLR-TS/SUMOLibraries 
         path: sumolibraries
-    
+
     - name: Cloning SUMO Libraries Submodules
       run: |
         cd sumolibraries
@@ -47,10 +47,10 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }} 
         architecture: x64
-      
+
     - name: Installing Python Wheel
       run: python -m pip install wheel
-   
+
     - name: Building SUMO
       env:
         # Allow CMake build to use multiple processors (4)
@@ -65,19 +65,19 @@ jobs:
         cd ..
         python -c "import sys; print('[bdist_wheel]\npython-tag=cp%s%s' % sys.version_info[0:2], file=open('tools/build/setup.cfg', 'w'))"
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
- 
-    - name: Upload artifacts (SUMO binaries)
+
+    - name: Uploading artifacts (SUMO binaries)
       uses: actions/upload-artifact@v1
       with:
         name: Windows-py${{ matrix.python-version }}
         path: sumo/bin
 
-    - name: Upload artifacts (Python wheels)
+    - name: Uploading artifacts (Python wheels)
       uses: actions/upload-artifact@v1
       with:
         name: Py${{ matrix.python-version }}-wheels
         path: sumo/dist
-        
+
   ###########################
   # BUILDING ON LINUX
   ###########################
@@ -95,12 +95,17 @@ jobs:
       uses: actions/checkout@v2
       with:
         path: sumo
-   
+
+    - name: Fetching SUMO tags
+      run: |
+        cd sumo
+        git fetch --prune --unshallow
+
     - name: Preparing Build System
       run: |
         sudo apt-get update 
         sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgtest-dev libgl2ps-dev python3-dev swig openjdk-8-jdk maven
-    
+
     - name: Preparing Gtest
       run: |
         pushd /usr/src/gtest
@@ -110,7 +115,7 @@ jobs:
         if [[ "${{ matrix.compiler }}" == "clang" ]]; then sudo CC=clang CXX=clang++ cmake ..; fi
         sudo make
         sudo cp libgtest* /usr/lib/
-    
+
     - name: Building SUMO
       run: |
         mkdir -p sumo/cmake-build 
@@ -125,18 +130,18 @@ jobs:
       run: |
         cd sumo/cmake-build 
         make traas
-      
+
     - name: Installing SUMO
       run: |
         cd sumo/cmake-build 
         sudo make install
-      
+
     - name: Building Examples and Tests
       run: |
         cd sumo/cmake-build
         if [[ "${{ matrix.build_type }}" == "full" ]]; then make CTEST_OUTPUT_ON_FAILURE=1 examples test; fi
 
-    - name: Upload artifacts (SUMO binaries)
+    - name: Uploading artifacts (SUMO binaries)
       uses: actions/upload-artifact@v1
       with:
         name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}
@@ -152,6 +157,11 @@ jobs:
       uses: actions/checkout@v2
       with:
         path: sumo
+
+    - name: Fetching SUMO tags
+      run: |
+        cd sumo
+        git fetch --prune --unshallow
 
     - name: Preparing Build System
       run: |
@@ -181,18 +191,18 @@ jobs:
       run: |
         cd sumo/cmake-build 
         make traas
-      
+
     - name: Installing SUMO
       run: |
         cd sumo/cmake-build 
         sudo make install
-    
+
     - name: Building Examples and Tests
       run: |
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
-     
-    - name: Upload artifacts (SUMO binaries)
+
+    - name: Uploading artifacts (SUMO binaries)
       uses: actions/upload-artifact@v1
       with:
         name: MacOS
