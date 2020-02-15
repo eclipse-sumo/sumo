@@ -3,7 +3,7 @@
   options: -r input_routes.rou.xml -o turns.xml -v
 -->
 <turns xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/turns_file.xsd">
-    <interval begin="0.0" end="99.0">
+    <interval id="generated" begin="0.0" end="99.0">
         <fromEdge id="-58.121.42">
             <toEdge id="64" probability="1"/>
             <toEdge id="-31" probability="3"/>

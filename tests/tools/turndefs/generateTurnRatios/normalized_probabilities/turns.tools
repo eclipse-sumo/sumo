@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-02-09 22:00:02.635953 by generateTurnRatios.py v1_4_0+1001-ebe76855e2
+<!-- generated on 2020-02-15 15:19:58.466970 by generateTurnRatios.py v1_5_0+0077-0aee8c6c33
   options: -r input_routes.rou.xml -o turns.xml -p
 -->
 <turns xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/turns_file.xsd">
-    <interval begin="0.0" end="99.0">
+    <interval id="generated" begin="0.0" end="99.0">
         <fromEdge id="-58.121.42">
             <toEdge id="64" probability="0.25"/>
             <toEdge id="-31" probability="0.75"/>

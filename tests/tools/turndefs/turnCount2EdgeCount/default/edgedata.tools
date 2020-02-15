@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-02-09 22:01:02.012818 by turnCount2EdgeCount.py v1_4_0+1001-ebe76855e2
+<!-- generated on 2020-02-15 15:20:21.534162 by turnCount2EdgeCount.py v1_5_0+0077-0aee8c6c33
   options: -t input_turns.xml -o edgedata.xml
 -->
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
-    <interval begin="0.0" end="99.0">
+    <interval id="generated" begin="0.0" end="99.0">
         <edge id="-58.121.42" entered="4"/>
         <edge id="45" entered="3"/>
         <edge id="-31.80.00" entered="15"/>
