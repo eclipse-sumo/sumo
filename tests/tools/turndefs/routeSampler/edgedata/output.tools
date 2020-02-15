@@ -1,2 +1,2 @@
-Wrote 424 routes (281 distinct) to meet total count 3548 at 91 locations
-Warning: underflow locations: count 36, min 1.00 (('31.80.00',)), max 12.00 (('-27.80.00',)), mean 4.14 Q1 1.00, median 3.00, Q3 7.00 (total 149)
+Wrote 80 routes (58 distinct) to meet total count 662 at 82 locations
+Warning: underflow locations: count 38, min 1.00 (('-92.180.00',)), max 6.00 (('11',)), mean 2.34 Q1 1.00, median 2.00, Q3 3.00 (total 89)
