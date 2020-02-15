@@ -169,6 +169,8 @@ enum SumoXMLTag {
     SUMO_TAG_STEP,
     /// @brief an aggreagated-output interval
     SUMO_TAG_INTERVAL,
+    /// @brief a relation between two edges
+    SUMO_TAG_EDGEREL,
     /// @brief The definition of a periodic event
     SUMO_TAG_TIMEDEVENT,
     /// @brief Incoming edge specification (jtrrouter)

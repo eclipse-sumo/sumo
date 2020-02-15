@@ -92,6 +92,10 @@ void SAXWeightsHandler::myStartElement(int element,
             tryParse(attrs, true);
         }
         break;
+        case SUMO_TAG_EDGEREL: {
+            tryParseEdgeRel(attrs);
+        }
+        break;
         case SUMO_TAG_LANE: {
             tryParse(attrs, false);
         }
@@ -140,6 +144,23 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
     }
 }
 
+void
+SAXWeightsHandler::tryParseEdgeRel(const SUMOSAXAttributes& attrs) {
+    std::vector<ToRetrieveDefinition*>::iterator i;
+    if (attrs.hasAttribute(SUMO_ATTR_FROM) 
+            && attrs.hasAttribute(SUMO_ATTR_TO)) {
+        bool ok = true;
+        const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
+        const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
+        for (ToRetrieveDefinition* ret : myDefinitions) {
+            if (attrs.hasAttribute(ret->myAttributeName)) { 
+                ret->myDestination.addEdgeRelWeight(from, to,
+                        attrs.getFloat(ret->myAttributeName),
+                        myCurrentTimeBeg, myCurrentTimeEnd);
+            }
+        }
+    }
+}
 
 void
 SAXWeightsHandler::myEndElement(int element) {

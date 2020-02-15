@@ -580,6 +580,12 @@ GUINet::DiscoverAttributes::myStartElement(int element, const SUMOSAXAttributes&
     if (element == SUMO_TAG_EDGE || element == SUMO_TAG_LANE) {
         std::vector<std::string> tmp = attrs.getAttributeNames();
         edgeAttrs.insert(tmp.begin(), tmp.end());
+    } else if (element == SUMO_TAG_EDGEREL) {
+        for (const std::string& a : attrs.getAttributeNames()) {
+            if (a != "from" && a != "to") {
+                edgeAttrs.insert(a);
+            }
+        }
     } else if (element == SUMO_TAG_INTERVAL) {
         bool ok;
         lastIntervalEnd = MAX2(lastIntervalEnd, attrs.getSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok));
@@ -603,6 +609,27 @@ GUINet::EdgeFloatTimeLineRetriever_GUI::addEdgeWeight(const std::string& id,
     }
 }
 
+void
+GUINet::EdgeFloatTimeLineRetriever_GUI::addEdgeRelWeight(const std::string& from, const std::string& to,
+        double val, double beg, double end) const {
+    MSEdge* fromEdge = MSEdge::dictionary(from);
+    MSEdge* toEdge = MSEdge::dictionary(to);
+    if (fromEdge != nullptr && toEdge != nullptr) {
+        for (auto item : fromEdge->getViaSuccessors()) {
+            if (item.first == toEdge) {
+                const MSEdge* edge = item.second;
+                while (edge != nullptr && edge->isInternal()) {
+                    myWeightStorage->addEffort(edge, beg, end, val);
+                    edge = edge->getViaSuccessors().front().second;
+                }
+            }
+        }
+    } else if (fromEdge == nullptr) {
+        WRITE_ERROR("Trying to set the effort for the unknown edge '" + from + "'.");
+    } else {
+        WRITE_ERROR("Trying to set the effort for the unknown edge '" + to + "'.");
+    }
+}
 
 bool
 GUINet::loadEdgeData(const std::string& file) {

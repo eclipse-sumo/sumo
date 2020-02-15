@@ -93,6 +93,15 @@ public:
         virtual void addEdgeWeight(const std::string& id,
                                    double val, double beg, double end) const = 0;
 
+        virtual void addEdgeRelWeight(const std::string& from, const std::string& to,
+                                   double val, double beg, double end) const {
+            UNUSED_PARAMETER(from);
+            UNUSED_PARAMETER(to);
+            UNUSED_PARAMETER(val);
+            UNUSED_PARAMETER(beg);
+            UNUSED_PARAMETER(end);
+        }
+
     private:
         EdgeFloatTimeLineRetriever& operator=(const EdgeFloatTimeLineRetriever&); // just to avoid a compiler warning
     };
@@ -187,9 +196,11 @@ protected:
 
 
 private:
-    /// Parses the efforts of a lane for the previously read times
+    /// @brief Parses the data of an edge or lane for the previously read times
     void tryParse(const SUMOSAXAttributes& attrs, bool isEdge);
 
+    /// @brief Parses the data of an edgeRel for the previously read times
+    void tryParseEdgeRel(const SUMOSAXAttributes& attrs);
 
 private:
     /// List of definitions what shall be read and whereto stored while parsing the file
