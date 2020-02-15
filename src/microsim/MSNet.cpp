@@ -374,6 +374,10 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         postSimStepOutput();
     }
     // exit simulation loop
+    if (myLogStepNumber) {
+        // start new line for final verbose output
+        std::cout << "\n";
+    }
     closeSimulation(start, getStateMessage(state));
     return state;
 }
@@ -446,10 +450,6 @@ MSNet::generateStatistics(SUMOTime start) {
 void
 MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     // report the end when wished
-    if (myLogStepNumber) {
-        // start new line for final verbose output
-        std::cout << "\n";
-    }
     WRITE_MESSAGE("Simulation ended at time: " + time2string(getCurrentTimeStep()));
     if (reason != "") {
         WRITE_MESSAGE("Reason: " + reason);
