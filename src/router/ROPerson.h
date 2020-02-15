@@ -65,10 +65,11 @@ public:
     virtual ~ROPerson();
 
     void addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                 const std::string& vTypes, const double departPos, const double arrivalPos, const std::string& busStop,
-                 double walkFactor);
+                 const std::string& vTypes, const double departPos, const double arrivalPos,
+                 const std::string& busStop, double walkFactor, const std::string& group);
 
-    void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines, double arrivalPos, const std::string& destStop);
+    void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines,
+            double arrivalPos, const std::string& destStop, const std::string& group);
 
     void addWalk(const ConstROEdgeVector& edges, const double duration, const double speed,
                  const double departPos, const double arrivalPos, const std::string& busStop);
@@ -183,11 +184,12 @@ public:
     class Ride : public TripItem {
     public:
         Ride(const ROEdge* const _from, const ROEdge* const _to,
-             const std::string& _lines, const double _cost, const double arrivalPos,
+             const std::string& _lines, const std::string& _group, const double _cost, const double arrivalPos,
              const std::string& _destStop = "", const std::string& _intended = "", const SUMOTime _depart = -1) :
             TripItem(_cost),
             from(_from), to(_to),
             lines(_lines),
+            group(_group),
             destStop(_destStop),
             intended(_intended),
             depart(_depart),
@@ -195,7 +197,7 @@ public:
         }
 
         TripItem* clone() const {
-            return new Ride(from, to, lines, cost, arr, destStop, intended, depart);
+            return new Ride(from, to, lines, group, cost, arr, destStop, intended, depart);
         }
 
         const ROEdge* getOrigin() const {
@@ -213,6 +215,7 @@ public:
         const ROEdge* const from;
         const ROEdge* const to;
         const std::string lines;
+        const std::string group;
         const std::string destStop;
         const std::string intended;
         const SUMOTime depart;
@@ -274,8 +277,8 @@ public:
         PersonTrip()
             : from(0), to(0), modes(SVC_PEDESTRIAN), dep(0), arr(0), stopDest(""), walkFactor(1.0) {}
         PersonTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                   const double departPos, const double arrivalPos, const std::string& _stopDest, double _walkFactor)
-            : from(from), to(to), modes(modeSet), dep(departPos), arr(arrivalPos), stopDest(_stopDest), walkFactor(_walkFactor) {}
+                   const double departPos, const double arrivalPos, const std::string& _stopDest, double _walkFactor, const std::string& _group)
+            : from(from), to(to), modes(modeSet), dep(departPos), arr(arrivalPos), stopDest(_stopDest), walkFactor(_walkFactor), group(_group) {}
         /// @brief Destructor
         virtual ~PersonTrip() {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
@@ -320,6 +323,11 @@ public:
         SVCPermissions getModes() const {
             return modes;
         }
+
+        const std::string& getGroup() const {
+            return group;
+        }
+
         const std::string& getStopDest() const {
             return stopDest;
         }
@@ -348,6 +356,8 @@ public:
         std::vector<ROVehicle*> myVehicles;
         /// @brief walking speed factor
         double walkFactor;
+        /// @brief group id for travelling in groups
+        const std::string group;
 
     private:
         /// @brief Invalidated assignment operator
