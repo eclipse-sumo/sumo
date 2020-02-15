@@ -53,8 +53,8 @@ def get_options(args=None):
                         help="random seed")
     parser.add_argument("--deficit-output", dest="deficitOut",
                         help="write edge-data with deficit information to FILE")
-    #parser.add_argument("--optimize",
-    #                    help="set optimization method ('full', ")
+    parser.add_argument("--optimize",
+                        help="set optimization method level (full, INT boundary)")
 
     options = parser.parse_args(args=args)
     if (options.routeFile is None or
@@ -65,6 +65,20 @@ def get_options(args=None):
     options.edgeDataFile = options.edgeDataFile.split(',') if options.edgeDataFile is not None else []
     if options.vehattrs and options.vehattrs[0] != ' ':
         options.vehattrs = ' ' + options.vehattrs
+
+    if options.optimize is not None:
+        try:
+            import scipy.optimize
+            if options.optimize != "full":
+                try:
+                    bound = int(options.optimize)
+                except:
+                    print("Option optimize requires the value 'full' or an integer", file=sys.stderr)
+                    sys.exit(1)
+        except ImportError:
+            print("Cannot use optimization (scipy not installed)", file=sys.stderr)
+            sys.exit(1)
+
     return options
 
 
@@ -137,6 +151,68 @@ def updateOpenRoutes(openRoutes, routeUsage, countData):
 def updateOpenCounts(openCounts, countData, openRoutes):
     return filter(lambda i: countData[i].routeSet.intersection(openRoutes), openCounts)
 
+def optimize(optimize, countData, routes, usedRoutes, routeUsage):
+    """ use relaxtion of the ILP problem for picking the number of times that each route is used
+    x = usageCount vector (count for each route index)
+    c = weight vector (vector of 1s)
+    A_eq = routeUsage encoding
+    b_eq = counts
+
+    Rationale:
+      c: costs for using each route,
+         when minimizing x @ c, routes that pass multiple counting stations are getting an advantage
+
+    """
+    import scipy.optimize as opt
+    import numpy as np
+
+    k = len(routes)
+    m = len(countData)
+    if optimize == "full":
+        # allow changing all prior usedRoutes
+        #
+        # Ax <= b
+        # x + s = b
+        # min s
+        # -> x2 = [x, s]
+
+        c = np.concatenate((np.zeros(k), np.ones(m))) # [x, s], only s counts for minimization
+        b = np.asarray([cd.origCount for cd in countData])
+
+        A = np.zeros((m, k))
+        for i in range(0, m):
+            for j in range(0, k):
+                A[i][j] = int(j in countData[i].routeSet)
+        A_eq = np.concatenate((A, np.identity(m)), 1)
+
+        res = opt.linprog(c, A_eq=A_eq, b_eq=b)
+        if res.success:
+            print("Full optimization succeeded")
+            routeCounts = res.x[:k] # cut of slack variables
+            slack = res.x[k:]
+            #print("routeCounts (n=%s, sum=%s, intSum=%s, roundSum=%s) %s" % (
+            #    len(routeCounts),
+            #    sum(routeCounts),
+            #    sum(map(int, routeCounts)),
+            #    sum(map(round, routeCounts)),
+            #    routeCounts))
+            #print("slack (n=%s, sum=%s) %s" % (len(slack), sum(slack), slack))
+            del usedRoutes[:]
+            usedRoutes.extend(sum([[i] * int(round(c)) for i, c in enumerate(routeCounts)], []))
+            random.shuffle(usedRoutes)
+            #print("#usedRoutes=%s" % len(usedRoutes))
+            # update countData
+            for cd in countData:
+                cd.count = cd.origCount
+            for r in usedRoutes:
+                for i in routeUsage[r]:
+                    countData[i].count -= 1
+        else:
+            print("Full optimization failed")
+    else:
+        # limited optimization
+        optimize = int(optimize)
+
 
 def main(options):
     if options.seed:
@@ -172,6 +248,10 @@ def main(options):
         openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
         openCounts = updateOpenCounts(openCounts, countData, openRoutes)
 
+    hasMismatch = sum([cd.count for cd in countData]) > 0
+    if hasMismatch and options.optimize is not None:
+        optimize(options.optimize, countData, routes, usedRoutes, routeUsage)
+
     begin, end = parseTimeRange(options.turnFile + options.edgeDataFile)
     with open(options.out, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
@@ -185,16 +265,21 @@ def main(options):
             depart += period
         outf.write('</routes>\n')
 
-    missingStats = sumolib.miscutils.Statistics("mismatched locations", printMin=False)
+    underflow = sumolib.miscutils.Statistics("underflow locations")
+    overflow = sumolib.miscutils.Statistics("overflow locations")
     for cd in countData:
         if cd.count > 0:
-            missingStats.add(cd.count, cd.edgeTuple)
+            underflow.add(cd.count, cd.edgeTuple)
+        elif cd.count < 0:
+            overflow.add(cd.count, cd.edgeTuple)
 
-    print("Wrote %s routes to meet total count %s at %s locations" % (
-        len(usedRoutes), totalCount, len(countData)))
+    print("Wrote %s routes (%s distinct) to meet total count %s at %s locations" % (
+        len(usedRoutes), len(set(usedRoutes)), totalCount, len(countData)))
 
-    if missingStats.count() > 0:
-        print("Warning: %s (total %s)" % (missingStats, sum(missingStats.values)))
+    if underflow.count() > 0:
+        print("Warning: %s (total %s)" % (underflow, sum(underflow.values)))
+    if overflow.count() > 0:
+        print("Warning: %s (total %s)" % (overflow, sum(overflow.values)))
 
     if options.deficitOut:
         with open(options.deficitOut, 'w') as outf:
