@@ -96,12 +96,14 @@ NIXMLPTHandler::myStartElement(int element,
             addPTLineFromFlow(attrs);
             break;
         case SUMO_TAG_PARAM:
-            if (myLastParameterised.size() != 0) {
+            if (myCurrentLine != nullptr) {
                 bool ok = true;
                 const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
-                // circumventing empty string test
-                const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-                myLastParameterised.back()->setParameter(key, val);
+                if (key == "completeness") {
+                    myCurrentCompletion = attrs.get<double>(SUMO_ATTR_VALUE, nullptr, ok);
+                } else if (key == "name") {
+                    myCurrentLine->setName(attrs.get<std::string>(SUMO_ATTR_VALUE, nullptr, ok));
+                }
             }
             break;
         default:
@@ -117,6 +119,7 @@ NIXMLPTHandler::myEndElement(int element) {
             myCurrentStop = nullptr;
             break;
         case SUMO_TAG_PT_LINE:
+        case SUMO_TAG_FLOW:
             myCurrentLine->setMyNumOfStops((int)(myCurrentLine->getStops().size() / myCurrentCompletion));
             myCurrentLine = nullptr;
             break;
@@ -203,12 +206,12 @@ NIXMLPTHandler::addPTLineFromFlow(const SUMOSAXAttributes& attrs) {
     SUMOVehicleClass vClass = NIImporter_OpenStreetMap::interpretTransportType(type);
     const int intervalS = attrs.getOpt<int>(SUMO_ATTR_PERIOD, id.c_str(), ok, -1);
     if (ok) {
-        NBPTLine* ptLine = new NBPTLine(id, "", type, line, intervalS / 60, "", vClass);
-        ptLine->setEdges(myRouteEdges[route]);
+        myCurrentLine = new NBPTLine(id, "", type, line, intervalS / 60, "", vClass);
+        myCurrentLine->setEdges(myRouteEdges[route]);
         for (NBPTStop* stop : myRouteStops[route]) {
-            ptLine->addPTStop(stop);
+            myCurrentLine->addPTStop(stop);
         }
-        myLineCont.insert(ptLine);
+        myLineCont.insert(myCurrentLine);
     }
 }
 

@@ -81,6 +81,10 @@ public:
     /// @brief replace the given stop
     void replaceStop(NBPTStop* oldStop, NBPTStop* newStop);
 
+    void setName(const std::string& name) {
+        myName = name;
+    }
+
 private:
     std::string myName;
     std::string myType;
