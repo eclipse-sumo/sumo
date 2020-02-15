@@ -200,12 +200,18 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
         for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
             if (MSGlobals::gUseMesoSim) {
                 const double val = static_cast<GUIEdge*>(*it)->getColorValue(s, active);
+                if (val == s.MISSING_DATA) {
+                    continue;
+                }
                 minValue = MIN2(minValue, val);
                 maxValue = MAX2(maxValue, val);
             } else {
                 const std::vector<MSLane*>& lanes = (*it)->getLanes();
                 for (std::vector<MSLane*>::const_iterator it_l = lanes.begin(); it_l != lanes.end(); it_l++) {
                     const double val = static_cast<GUILane*>(*it_l)->getColorValue(s, active);
+                    if (val == s.MISSING_DATA) {
+                        continue;
+                    }
                     minValue = MIN2(minValue, val);
                     maxValue = MAX2(maxValue, val);
                 }
@@ -245,6 +251,9 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
     if (minValue != std::numeric_limits<double>::infinity()) {
         scheme.clear();
         // add new thresholds
+        if (scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
+            scheme.addColor(RGBColor(204, 204, 204), std::numeric_limits<double>::max(), "missing data");
+        }
         if (hide) {
             minValue = MAX2(hideThreshold + 1, minValue);
             scheme.addColor(RGBColor(204, 204, 204), hideThreshold);

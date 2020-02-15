@@ -766,6 +766,8 @@ public:
     static const std::string SCHEME_NAME_TYPE;
     static const std::string SCHEME_NAME_PERMISSION_CODE;
 
+    static const double MISSING_DATA;
+
     /// @brief color settings
     GUIVisualizationColorSettings colorSettings;
 

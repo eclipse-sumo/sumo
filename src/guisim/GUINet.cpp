@@ -567,10 +567,10 @@ GUINet::getEdgeData(const MSEdge* edge, const std::string& attr) {
         if (found) {
             return value;
         } else {
-            return -1;
+            return GUIVisualizationSettings::MISSING_DATA;
         }
     } else {
-        return -2;
+        return GUIVisualizationSettings::MISSING_DATA;
     }
 }
 
