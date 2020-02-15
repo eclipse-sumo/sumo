@@ -8,5 +8,11 @@ edgedata
 attrs
 deficit-output
 
-# use linear programming to opimize route usage
+# use linear programming to optimize route usage
 optimize_full
+
+# use linear programming to optimize route usage (limit 1)
+optimize_1
+
+# use linear programming to optimize route usage (limit 2)
+optimize_2
