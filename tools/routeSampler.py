@@ -51,6 +51,8 @@ def get_options(args=None):
                         help="additional vehicle attributes")
     parser.add_argument("-s", "--seed", type=int, default=42,
                         help="random seed")
+    parser.add_argument("--deficit-output", dest="deficitOut",
+                        help="write edge-data with deficit information to FILE")
 
     options = parser.parse_args(args=args)
     if (options.routeFile is None or
@@ -66,6 +68,7 @@ def get_options(args=None):
 
 class CountData:
     def __init__(self, count, edgeTuple, allRoutes):
+        self.origCount = count
         self.count = count
         self.edgeTuple = edgeTuple
         self.routeSet = set()
@@ -193,6 +196,23 @@ def main(options):
     if unfilledLocations > 0:
         print("Warning: Count deficit of %s for %s locations" %
               (missingCount, unfilledLocations))
+
+    if options.deficitOut:
+        with open(options.deficitOut, 'w') as outf:
+            sumolib.writeXMLHeader(outf, "$Id$")  # noqa
+            outf.write('<data>\n')
+            outf.write('    <interval id="deficit" begin="0" end="3600">\n')
+            for cd in countData:
+                if len(cd.edgeTuple) == 1:
+                    outf.write('        <edge id="%s" measuredCount="%s" deficit="%s"/>\n' % (
+                        cd.edgeTuple[0], cd.origCount, cd.count))
+                elif len(cd.edgeTuple) == 2:
+                    outf.write('        <edgeRel from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (
+                        cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, cd.count))
+                else:
+                    print("Warning: output for edge relations with more than 2 edges not supported (%s)" % cd.edgeTuple, file=sys.stderr)
+            outf.write('    </interval>\n')
+            outf.write('</data>\n')
 
 
 if __name__ == "__main__":
