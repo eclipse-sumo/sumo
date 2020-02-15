@@ -152,23 +152,24 @@ jobs:
       uses: actions/checkout@v2
       with:
         path: sumo
-   
+
     - name: Preparing Build System
       run: |
         brew update
         brew cask install xquartz
         brew install xerces-c fox proj gdal gl2ps  
-   
+
     - name: Installing Google Test
       run: |
         git clone https://github.com/google/googletest
         cd googletest
+        git checkout release-1.10.0
         mkdir build
         cd build
         cmake ..
         make
-        make install  
-        
+        make install
+
     - name: Building SUMO
       run: |
         mkdir -p sumo/cmake-build 
