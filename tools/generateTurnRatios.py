@@ -45,6 +45,8 @@ def get_options(args=None):
                          help="define the route file seperated by comma(mandatory)")
     optParser.add_option("-p", "--probabilities", dest="prob", action="store_true", default=False,
                          help=" calculate the turning probabilities instead of traffic volumes")
+    optParser.add_option("--id", default="generated",
+                         help="define the interval id")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
@@ -86,7 +88,7 @@ def main(options):
 
     with open(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "turns")  # noqa
-        outf.write('    <interval begin="%s" end="%s">\n' % (minDepart, maxDepart))
+        outf.write('    <interval id="%s" begin="%s" end="%s">\n' % (options.id, minDepart, maxDepart))
         for from_edge in edgePairFlowsMap:
             outf.write('        <fromEdge id="%s">\n' % from_edge)
             if options.prob:

@@ -52,8 +52,8 @@ def main(options):
     with open(options.out, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "meandata")  # noqa
         for interval in sumolib.xml.parse(options.turnFile, 'interval'):
-            outf.write('    <interval begin="%s" end="%s">\n' % (
-                interval.begin, interval.end))
+            outf.write('    <interval id="%s" begin="%s" end="%s">\n' % (
+                interval.id, interval.begin, interval.end))
             for fromEdge in interval.fromEdge:
                 count = int(sum([float(getattr(toEdge, options.turnAttr)) for toEdge in fromEdge.toEdge]))
                 outf.write('        <edge id="%s" %s="%s"/>\n' % (
