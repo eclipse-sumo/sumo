@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 12 12:27:57 2020 by Eclipse SUMO netconvert Version v1_5_0+0025-248849b
+<!-- generated on Sat Feb 15 12:33:57 2020 by Eclipse SUMO netconvert Version v1_5_0+0071-5216e07fd3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -53,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <ptLine id="light_rail_S46:0" line="S46:0" type="light_rail" vClass="rail_urban" period="600" completeness="0.00">
+    <ptLine id="light_rail_S46:0" name="Testline" line="S46:0" type="light_rail" vClass="rail_urban" period="600" completeness="0.50">
         <route edges="c a"/>
         <busStop id="-stopC" name="Kolonnenbrücke"/>
         <busStop id="-stopA" name="Dudenstraße"/>
