@@ -145,11 +145,11 @@ def hasCapacity(dataIndices, countData):
 
 
 def updateOpenRoutes(openRoutes, routeUsage, countData):
-    return filter(lambda r: hasCapacity(routeUsage[r], countData), openRoutes)
+    return set(filter(lambda r: hasCapacity(routeUsage[r], countData), openRoutes))
 
 
 def updateOpenCounts(openCounts, countData, openRoutes):
-    return filter(lambda i: countData[i].routeSet.intersection(openRoutes), openCounts)
+    return set(filter(lambda i: countData[i].routeSet.intersection(openRoutes), openCounts))
 
 def optimize(optimize, countData, routes, usedRoutes, routeUsage):
     """ use relaxtion of the ILP problem for picking the number of times that each route is used
@@ -225,7 +225,7 @@ def main(options):
         random.seed(options.seed)
 
     # store which routes are passing each counting location (using route index)
-    routes = [r.edges.split() for r in sumolib.xml.parse_fast(options.routeFile, 'route', ['edges'])]
+    routes = [r.edges.split() for r in sumolib.xml.parse(options.routeFile, 'route')]
     countData = (parseTurnCounts(options.turnFile, routes, options.turnAttr)
                  + parseEdgeCounts(options.edgeDataFile, routes, options.edgeDataAttr))
 
@@ -243,14 +243,12 @@ def main(options):
     openCounts = updateOpenCounts(openCounts, countData, openRoutes)
 
     usedRoutes = []
-    totalCount = 0
     while openCounts:
         cd = countData[random.sample(openCounts, 1)[0]]
         routeIndex = random.sample(cd.routeSet.intersection(openRoutes), 1)[0]
         usedRoutes.append(routeIndex)
         for dataIndex in routeUsage[routeIndex]:
             countData[dataIndex].count -= 1
-            totalCount += 1
         openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
         openCounts = updateOpenCounts(openCounts, countData, openRoutes)
 
@@ -273,13 +271,15 @@ def main(options):
 
     underflow = sumolib.miscutils.Statistics("underflow locations")
     overflow = sumolib.miscutils.Statistics("overflow locations")
+    totalCount = 0
     for cd in countData:
+        totalCount += cd.origCount - cd.count
         if cd.count > 0:
             underflow.add(cd.count, cd.edgeTuple)
         elif cd.count < 0:
             overflow.add(cd.count, cd.edgeTuple)
 
-    print("Wrote %s routes (%s distinct) to meet total count %s at %s locations" % (
+    print("Wrote %s routes (%s distinct) achieving total count %s at %s locations" % (
         len(usedRoutes), len(set(usedRoutes)), totalCount, len(countData)))
 
     if underflow.count() > 0:
