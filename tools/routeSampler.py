@@ -55,6 +55,8 @@ def get_options(args=None):
                         help="write edge-data with deficit information to FILE")
     parser.add_argument("--optimize",
                         help="set optimization method level (full, INT boundary)")
+    parser.add_argument("-v", "--verbose", action="store_true", default=False,
+                        help="tell me what you are doing")
 
     options = parser.parse_args(args=args)
     if (options.routeFile is None or
@@ -235,6 +237,15 @@ def main(options):
         for routeIndex in cd.routeSet:
             routeUsage[routeIndex].add(i)
 
+    if options.verbose:
+        edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
+        detectorCount = sumolib.miscutils.Statistics("route detector count", histogram=True)
+        for i, edges in enumerate(routes):
+            edgeCount.add(len(edges), i)
+            detectorCount.add(len(routeUsage[i]), i)
+        print("input %s" % edgeCount);
+        print("input %s" % detectorCount);
+
     # pick a random couting location and select a new route that passes it until
     # all counts are satisfied or no routes can be used anymore
     openRoutes = set(range(0, len(routes)))
@@ -281,6 +292,15 @@ def main(options):
 
     print("Wrote %s routes (%s distinct) achieving total count %s at %s locations" % (
         len(usedRoutes), len(set(usedRoutes)), totalCount, len(countData)))
+
+    if options.verbose:
+        edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
+        detectorCount = sumolib.miscutils.Statistics("route detector count", histogram=True)
+        for i, r in enumerate(usedRoutes):
+            edgeCount.add(len(routes[r]), i)
+            detectorCount.add(len(routeUsage[r]), i)
+        print("result %s" % edgeCount);
+        print("result %s" % detectorCount);
 
     if underflow.count() > 0:
         print("Warning: %s (total %s)" % (underflow, sum(underflow.values)))
