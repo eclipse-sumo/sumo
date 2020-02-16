@@ -1197,7 +1197,7 @@ MSE2Collector::processJams(std::vector<JamInfo*>& jams, JamInfo* currentJam) {
         MoveNotificationInfo* lastVeh = *((*i)->lastStandingVehicle);
         MoveNotificationInfo* firstVeh = *((*i)->firstStandingVehicle);
         const double jamLengthInMeters = lastVeh->distToDetectorEnd
-                                         - firstVeh->distToDetectorEnd
+                                         - MAX2(0., firstVeh->distToDetectorEnd)
                                          + lastVeh->lengthOnDetector;
         const int jamLengthInVehicles = (int) distance((*i)->firstStandingVehicle, (*i)->lastStandingVehicle) + 1;
         // apply them to the statistics
