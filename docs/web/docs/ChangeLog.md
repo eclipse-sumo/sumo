@@ -24,10 +24,14 @@ permalink: /ChangeLog/
 - SUMO-GUI
   - Missing data values (color by edgeData) can now be distinguished from negative data values. Issue #6660
   - `<edgeRel>`-data files can now be visualized. Issue #6659
+- NETCONVERT
+  - Edge attribute `spreadType` now supports value `roadCenter` which aligns edges with common geometry so that the geometry reflects the middle of the road regardless of differences in lane numbers (causing natural alignment for turning lanes). Issue #1758
 - Tools
   - added osmWebWizard option to import a simplified network that is only for cars. Issue #6595
-  - [routeSampler.py](Tools/Turns.md#routesampler.py) now supports optimization by linear programming using option **--optimize** (requires scipy)
-  - [routeSampler.py](Tools/Turns.md#routesampler.py) now supports output of mismatch between measured counts and sampled counts for visualization in SUMO-GUI via `edgeData` and `edgeRel` files.
+  - [routeSampler.py](Tools/Turns.md#routesampler.py) improvements
+    - supports optimization by linear programming using option **--optimize** (requires scipy)
+    - supports output of mismatch between measured counts and sampled counts for visualization in SUMO-GUI via `edgeData` and `edgeRel` files using option **--mismatch-output**
+    - supports limited optimization route input (without resampling) by setting option **--optimize-input**
 
 ### Other
 
