@@ -55,6 +55,8 @@ def get_options(args=None):
                         help="write edge-data with deficit information to FILE")
     parser.add_argument("--optimize",
                         help="set optimization method level (full, INT boundary)")
+    parser.add_argument("--optimize-input", dest="optimizeInput", action="store_true", default=False,
+                        help="Skip resampling and run optimize directly on the input routes")
     parser.add_argument("-v", "--verbose", action="store_true", default=False,
                         help="tell me what you are doing")
 
@@ -73,13 +75,17 @@ def get_options(args=None):
             import scipy.optimize
             if options.optimize != "full":
                 try:
-                    bound = int(options.optimize)
+                    options.optimize = int(options.optimize)
                 except:
                     print("Option optimize requires the value 'full' or an integer", file=sys.stderr)
                     sys.exit(1)
         except ImportError:
             print("Cannot use optimization (scipy not installed)", file=sys.stderr)
             sys.exit(1)
+
+    if options.optimizeInput and type(options.optimize) != int:
+        print("Option --optimize-input requires an integer argument for --optimize", file=sys.stderr)
+        sys.exit(1)
 
     return options
 
@@ -254,14 +260,20 @@ def main(options):
     openCounts = updateOpenCounts(openCounts, countData, openRoutes)
 
     usedRoutes = []
-    while openCounts:
-        cd = countData[random.sample(openCounts, 1)[0]]
-        routeIndex = random.sample(cd.routeSet.intersection(openRoutes), 1)[0]
-        usedRoutes.append(routeIndex)
-        for dataIndex in routeUsage[routeIndex]:
-            countData[dataIndex].count -= 1
-        openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
-        openCounts = updateOpenCounts(openCounts, countData, openRoutes)
+    if options.optimizeInput:
+        for routeIndex in range(len(routes)):
+            usedRoutes.append(routeIndex)
+            for dataIndex in routeUsage[routeIndex]:
+                countData[dataIndex].count -= 1
+    else:
+        while openCounts:
+            cd = countData[random.sample(openCounts, 1)[0]]
+            routeIndex = random.sample(cd.routeSet.intersection(openRoutes), 1)[0]
+            usedRoutes.append(routeIndex)
+            for dataIndex in routeUsage[routeIndex]:
+                countData[dataIndex].count -= 1
+            openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
+            openCounts = updateOpenCounts(openCounts, countData, openRoutes)
 
     hasMismatch = sum([cd.count for cd in countData]) > 0
     if hasMismatch and options.optimize is not None:
