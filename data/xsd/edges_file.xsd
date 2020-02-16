@@ -55,6 +55,7 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="center"/>
+                    <xsd:enumeration value="roadCenter"/>
                     <xsd:enumeration value="right"/>
                 </xsd:restriction>
             </xsd:simpleType>

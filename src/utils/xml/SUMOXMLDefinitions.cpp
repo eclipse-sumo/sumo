@@ -787,8 +787,9 @@ StringBijection<SumoXMLEdgeFunc>::Entry SUMOXMLDefinitions::sumoEdgeFuncValues[]
 
 
 StringBijection<LaneSpreadFunction>::Entry SUMOXMLDefinitions::laneSpreadFunctionValues[] = {
-    {"right",   LANESPREAD_RIGHT }, // default
-    {"center",  LANESPREAD_CENTER } //< must be the last one
+    {"right",      LANESPREAD_RIGHT }, // default: geometry is left edge border, lanes flare to the right
+    {"roadCenter", LANESPREAD_ROADCENTER }, // geometry is center of the bidirectional road
+    {"center",     LANESPREAD_CENTER } // geometry is center of the edge (must be the last one)
 };
 
 StringBijection<RightOfWay>::Entry SUMOXMLDefinitions::rightOfWayValuesInitializer[] = {

@@ -1165,6 +1165,7 @@ enum SumoXMLEdgeFunc {
  */
 enum LaneSpreadFunction {
     LANESPREAD_RIGHT,
+    LANESPREAD_ROADCENTER,
     LANESPREAD_CENTER
 };
 

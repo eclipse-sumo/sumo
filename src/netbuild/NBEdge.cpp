@@ -1942,17 +1942,26 @@ NBEdge::computeLaneShapes() {
         offset += (getLaneWidth(i) + getLaneWidth(i + 1)) / 2. + SUMO_const_laneOffset;
         offsets[i] = offset;
     }
-    if (myLaneSpreadFunction == LANESPREAD_RIGHT) {
-        double laneWidth = myLanes.back().width != UNSPECIFIED_WIDTH ? myLanes.back().width : SUMO_const_laneWidth;
-        offset = (laneWidth + SUMO_const_laneOffset) / 2.; // @note: offset for half of the center-line marking of the road
-    } else {
+    if (myLaneSpreadFunction == LANESPREAD_CENTER) {
         double width = 0;
         for (int i = 0; i < (int)myLanes.size(); ++i) {
             width += getLaneWidth(i);
         }
         width += SUMO_const_laneOffset * double(myLanes.size() - 1);
         offset = -width / 2. + getLaneWidth((int)myLanes.size() - 1) / 2.;
+    } else {
+        double laneWidth = myLanes.back().width != UNSPECIFIED_WIDTH ? myLanes.back().width : SUMO_const_laneWidth;
+        offset = (laneWidth + SUMO_const_laneOffset) / 2.; // @note: offset for half of the center-line marking of the road
     }
+    if (myLaneSpreadFunction == LANESPREAD_ROADCENTER) {
+        for (NBEdge* e : myTo->getOutgoingEdges()) {
+            if (e->getToNode() == myFrom && getInnerGeometry().reverse() == e->getInnerGeometry()) {
+                offset += (e->getTotalWidth() - getTotalWidth()) / 2;
+                break;
+            }
+        }
+    }
+
     for (int i = 0; i < (int)myLanes.size(); ++i) {
         offsets[i] += offset;
     }
