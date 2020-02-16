@@ -51,8 +51,8 @@ def get_options(args=None):
                         help="additional vehicle attributes")
     parser.add_argument("-s", "--seed", type=int, default=42,
                         help="random seed")
-    parser.add_argument("--deficit-output", dest="deficitOut",
-                        help="write edge-data with deficit information to FILE")
+    parser.add_argument("--mismatch-output", dest="mismatchOut",
+                        help="write cout-data with overflow/underflow information to FILE")
     parser.add_argument("--optimize",
                         help="set optimization method level (full, INT boundary)")
     parser.add_argument("--optimize-input", dest="optimizeInput", action="store_true", default=False,
@@ -319,8 +319,8 @@ def main(options):
     if overflow.count() > 0:
         print("Warning: %s (total %s)" % (overflow, sum(overflow.values)))
 
-    if options.deficitOut:
-        with open(options.deficitOut, 'w') as outf:
+    if options.mismatchOut:
+        with open(options.mismatchOut, 'w') as outf:
             sumolib.writeXMLHeader(outf, "$Id$")  # noqa
             outf.write('<data>\n')
             outf.write('    <interval id="deficit" begin="0" end="3600">\n')
