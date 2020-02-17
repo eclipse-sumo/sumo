@@ -32,7 +32,7 @@ permalink: /ChangeLog/
   - [routeSampler.py](Tools/Turns.md#routesampler.py) improvements
     - supports optimization by linear programming using option **--optimize** (requires scipy)
     - supports output of mismatch between measured counts and sampled counts for visualization in SUMO-GUI via `edgeData` and `edgeRelation` files using option **--mismatch-output**
-    - supports limited optimization route input (without resampling) by setting option **--optimize-input**
+    - supports limited optimization of route input (without resampling) by setting option **--optimize-input**
 
 ### Other
 - Network version is now 1.6 (Issue #1758)
