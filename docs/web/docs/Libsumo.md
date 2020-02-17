@@ -64,5 +64,5 @@ import libsumo as traci
 ```
 
 In case you have a lot of scripts you can also set the environment
-variable LIBSUMO_AS_TRACI to a non empty value which will trigger the
+variable `LIBSUMO_AS_TRACI` to a non empty value which will trigger the
 import as above.
