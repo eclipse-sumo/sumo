@@ -31,7 +31,7 @@ permalink: /ChangeLog/
   - added osmWebWizard option to import a simplified network that is only for cars. Issue #6595
   - [routeSampler.py](Tools/Turns.md#routesampler.py) improvements
     - supports optimization by linear programming using option **--optimize** (requires scipy)
-    - supports output of mismatch between measured counts and sampled counts for visualization in SUMO-GUI via `edgeData` and `edgeRel` files using option **--mismatch-output**
+    - supports output of mismatch between measured counts and sampled counts for visualization in SUMO-GUI via `edgeData` and `edgeRelation` files using option **--mismatch-output**
     - supports limited optimization route input (without resampling) by setting option **--optimize-input**
 
 ### Other
