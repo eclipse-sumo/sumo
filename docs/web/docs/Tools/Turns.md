@@ -109,3 +109,11 @@ This script converts turn-count data into [edgeData](../Simulation/Output/Lane-_
 ```
 <SUMO_HOME>/tools/turn-defs/turnCount2EdgeCount.py -t <turn-file> -o <output-file>
 ```
+
+# turnFile2EdgeRelations.py
+
+This script converts the deprecated turn-file format into edgeRelation format
+
+```
+<SUMO_HOME>/tools/turn-defs/turnFile2EdgeRelations.py -t <turn-file> -o <output-file>
+```
