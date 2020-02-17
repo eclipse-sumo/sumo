@@ -30,7 +30,9 @@ import subprocess
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools/turn-defs'))
 import sumolib  # noqa
+from turnCount2EdgeCount import parseEdgeCounts
 
 
 def get_options(args=None):
@@ -43,7 +45,7 @@ def get_options(args=None):
                         help="Intermediate turn-ratio-file")
     parser.add_argument("--flow-output", dest="flowOuput", default="flows.tmp.xml",
                         help="Intermediate flow file")
-    parser.add_argument("--turn-attribute", dest="turnAttr", default="probability",
+    parser.add_argument("--turn-attribute", dest="turnAttr", default="count",
                         help="Read turning counts from the given attribute")
     parser.add_argument("-b", "--begin",  default=0, help="begin time")
     parser.add_argument("-e", "--end",  default=3600, help="end time (default 3600)")
@@ -121,18 +123,16 @@ def main(options):
         options.turnOutput = options.turnFile
         with open(options.flowOuput, 'w') as ff:
             ff.write('<routes>\n')
-            for i, interval in enumerate(sumolib.xml.parse(options.turnFile, 'interval')):
-                for edge in interval.fromEdge:
-                    count = 0
-                    for toEdge in edge.toEdge:
-                        count += float(getattr(toEdge, options.turnAttr))
+            for i, (interval_id, interval_begin, interval_end, counts) in enumerate(parseEdgeCounts(options.turnFile, options.turnAttr)):
+                for edge in sorted(counts.keys()):
+                    count = counts[edge]
                     if count > 0:
-                        flowID = edge.id
+                        flowID = edge
                         if i > 0:
                             flowID += "#%s" % i
                         ff.write('    <flow id="%s%s" from="%s" begin="%s" end="%s" number="%s"%s/>\n' % (
                             options.prefix,
-                            flowID, edge.id, interval.begin, interval.end,
+                            flowID, edge, interval_begin, interval_end,
                             int(count),
                             options.flowattrs))
             ff.write('</routes>\n')

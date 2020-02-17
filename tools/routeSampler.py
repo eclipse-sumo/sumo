@@ -39,7 +39,7 @@ def get_options(args=None):
                         help="Input edgeData file file (for counts)")
     parser.add_argument("--edgedata-attribute", dest="edgeDataAttr", default="entered",
                         help="Read edgeData counts from the given attribute")
-    parser.add_argument("--turn-attribute", dest="turnAttr", default="probability",
+    parser.add_argument("--turn-attribute", dest="turnAttr", default="count",
                         help="Read turning counts from the given attribute")
     parser.add_argument("-r", "--route-file", dest="routeFile",
                         help="Input route file file")
@@ -118,10 +118,9 @@ def parseTurnCounts(fnames, allRoutes, attr):
     result = []
     for fname in fnames:
         for interval in sumolib.xml.parse(fname, 'interval'):
-            for fromEdge in interval.fromEdge:
-                for toEdge in fromEdge.toEdge:
-                    result.append(CountData(int(getattr(toEdge, attr)),
-                                            (fromEdge.id, toEdge.id), allRoutes))
+            for edgeRel in interval.edgeRelation:
+                result.append(CountData(int(getattr(edgeRel, attr)),
+                    (edgeRel.attr_from, edgeRel.to), allRoutes))
     return result
 
 

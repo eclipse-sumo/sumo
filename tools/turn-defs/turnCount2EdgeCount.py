@@ -24,6 +24,7 @@ from __future__ import print_function
 import os
 import sys
 from argparse import ArgumentParser
+from collections import defaultdict
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -38,7 +39,7 @@ def get_options(args=None):
                         help="Output edgeData file")
     parser.add_argument("--edgedata-attribute", dest="edgeDataAttr", default="entered",
                         help="Write edgeData counts with the given attribute")
-    parser.add_argument("--turn-attribute", dest="turnAttr", default="probability",
+    parser.add_argument("--turn-attribute", dest="turnAttr", default="count",
                         help="Read turning counts from the given attribute")
 
     options = parser.parse_args(args=args)
@@ -47,17 +48,24 @@ def get_options(args=None):
         sys.exit()
     return options
 
+def parseEdgeCounts(turnfile, attr):
+    for interval in sumolib.xml.parse(turnfile, 'interval'):
+        counts = defaultdict(lambda : 0)
+        for edgeRel in interval.edgeRelation:
+            count = float(getattr(edgeRel, attr))
+            if count == int(count):
+                count = int(count)
+            counts[edgeRel.attr_from] += count
+        yield interval.id, interval.begin, interval.end, counts
 
 def main(options):
     with open(options.out, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "meandata")  # noqa
-        for interval in sumolib.xml.parse(options.turnFile, 'interval'):
+        for interval_id, interval_begin, interval_end, counts in parseEdgeCounts(options.turnFile, options.turnAttr):
             outf.write('    <interval id="%s" begin="%s" end="%s">\n' % (
-                interval.id, interval.begin, interval.end))
-            for fromEdge in interval.fromEdge:
-                count = int(sum([float(getattr(toEdge, options.turnAttr)) for toEdge in fromEdge.toEdge]))
-                outf.write('        <edge id="%s" %s="%s"/>\n' % (
-                    fromEdge.id, options.edgeDataAttr, count))
+                interval_id, interval_begin, interval_end))
+            for edge in sorted(counts.keys()):
+                outf.write(' ' * 8 + '<edge id="%s" %s="%s"/>\n' % (edge, options.edgeDataAttr, counts[edge]))
             outf.write('    </interval>\n')
         outf.write('</meandata>\n')
 

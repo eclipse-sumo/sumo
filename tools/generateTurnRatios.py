@@ -95,14 +95,14 @@ def main(options):
                 for to_edge in edgePairFlowsMap[from_edge]:
                     sum += edgePairFlowsMap[from_edge][to_edge]
                 for to_edge in edgePairFlowsMap[from_edge]:
-                    outf.write('            <edgeRelation from="%s" to="%s" probability="%.2f"/>\n' %
+                    outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" probability="%.2f"/>\n' %
                                (from_edge, to_edge, edgePairFlowsMap[from_edge][to_edge]/sum))
             else:
                 for to_edge in edgePairFlowsMap[from_edge]:
-                    outf.write('            <edgeRelation from="%s" to="%s" count="%s"/>\n' %
+                    outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" count="%s"/>\n' %
                                (from_edge, to_edge, edgePairFlowsMap[from_edge][to_edge]))
         outf.write('    </interval>\n')
-        outf.write('</turns>\n')
+        outf.write('</edgeRelations>\n')
     outf.close()
 
 
