@@ -188,7 +188,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myCurrentWidth = myTypeCont.getWidth(myCurrentType);
     }
     myShape = PositionVector();
-    myLanesSpread = LANESPREAD_RIGHT;
+    myLanesSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(myOptions.getString("default.spreadtype"));
     myLength = NBEdge::UNSPECIFIED_LOADED_LENGTH;
     myCurrentStreetName = "";
     myReinitKeepEdgeShape = false;

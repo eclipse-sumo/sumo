@@ -87,7 +87,9 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myLimitTurnSpeed(-1),
       myCheckLaneFoesAll(false),
       myCheckLaneFoesRoundabout(true),
-      myTlsIgnoreInternalJunctionJam(false) {
+      myTlsIgnoreInternalJunctionJam(false),
+      myDefaultSpreadType(toString(LANESPREAD_RIGHT))
+{
 }
 
 
@@ -323,6 +325,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (oc.isDefault("tls.ignore-internal-junction-jam") && oc.getBool("tls.ignore-internal-junction-jam") != myTlsIgnoreInternalJunctionJam) {
         oc.set("tls.ignore-internal-junction-jam", toString(myTlsIgnoreInternalJunctionJam));
     }
+    if (oc.isDefault("default.spreadtype") && oc.getString("default.spreadtype") != myDefaultSpreadType) {
+        oc.set("default.spreadtype", myDefaultSpreadType);
+    }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
         deprecatedVehicleClassesSeen.clear();
@@ -425,6 +430,8 @@ NIImporter_SUMO::myStartElement(int element,
             myCheckLaneFoesAll = attrs.getOpt<bool>(SUMO_ATTR_CHECKLANEFOES_ALL, nullptr, ok, false);
             myCheckLaneFoesRoundabout = attrs.getOpt<bool>(SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT, nullptr, ok, true);
             myTlsIgnoreInternalJunctionJam = attrs.getOpt<bool>(SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM, nullptr, ok, false);
+            myDefaultSpreadType = attrs.getOpt<std::string>(SUMO_ATTR_SPREADTYPE, nullptr, ok, myDefaultSpreadType);
+                
             break;
         }
         case SUMO_TAG_EDGE:
@@ -576,8 +583,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
         OptionsCont::getOptions().set("output.street-names", "true");
     }
 
-    std::string lsfS = toString(LANESPREAD_RIGHT);
-    lsfS = attrs.getOpt<std::string>(SUMO_ATTR_SPREADTYPE, id.c_str(), ok, lsfS);
+    std::string lsfS = attrs.getOpt<std::string>(SUMO_ATTR_SPREADTYPE, id.c_str(), ok, myDefaultSpreadType);
     if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
         myCurrentEdge->lsf = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
     } else {

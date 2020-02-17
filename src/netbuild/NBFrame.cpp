@@ -60,6 +60,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("default.lanewidth", "lanewidth", true);
     oc.addDescription("default.lanewidth", "Building Defaults", "The default width of lanes");
 
+    oc.doRegister("default.spreadtype", new Option_String("right"));
+    oc.addDescription("default.spreadtype", "Building Defaults", "The default method for computing lane shapes from edge shapes");
+
     oc.doRegister("default.speed", 'S', new Option_Float((double) 13.89));
     oc.addSynonyme("default.speed", "speed", true);
     oc.addDescription("default.speed", "Building Defaults", "The default speed on an edge (in m/s)");
@@ -676,6 +679,10 @@ NBFrame::checkOptions() {
     }
     if (oc.isDefault("railway.topology.all-bidi") && !oc.isDefault("railway.topology.all-bidi.input-file")) {
         oc.set("railway.topology.all-bidi", "true");
+    }
+    if (!SUMOXMLDefinitions::LaneSpreadFunctions.hasString(oc.getString("default.spreadtype"))) {
+        WRITE_ERROR("Unknown value for default.spreadtype '" + oc.getString("default.spreadtype") + "'.");
+        ok = false;
     }
     return ok;
 }

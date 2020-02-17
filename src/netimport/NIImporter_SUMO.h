@@ -393,6 +393,7 @@ private:
     bool myCheckLaneFoesRoundabout;
     /// @brief whether some right-of-way checks at traffic light junctions should be disabled
     bool myTlsIgnoreInternalJunctionJam;
+    std::string myDefaultSpreadType;
 
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;
