@@ -8,6 +8,9 @@ set(sumolibs
 add_subdirectory(activitygen)
 add_subdirectory(dfrouter)
 add_subdirectory(duarouter)
+if (FMI)
+    add_subdirectory(fmi)
+endif ()
 add_subdirectory(foreign)
 add_subdirectory(jtrrouter)
 add_subdirectory(libsumo)
@@ -34,6 +37,7 @@ if (FOX_FOUND)
     add_subdirectory(mesogui)
     add_subdirectory(netedit)
 endif ()
+
 
 add_executable(sumo sumo_main.cpp)
 set_target_properties(sumo PROPERTIES OUTPUT_NAME sumo${BINARY_SUFFIX})

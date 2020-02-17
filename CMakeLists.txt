@@ -8,6 +8,7 @@ option(MULTITHREADED_BUILD "Use all available cores for building (applies to Vis
 option(PROFILING "Enable output of profiling data (applies to gcc/clang builds only)" false)
 option(COVERAGE "Enable output of coverage data (applies to gcc/clang builds only)" false)
 option(SUMO_UTILS "Enable generation of a shared library for the utility functions for option handling, XML parsing etc." false)
+option(FMI "Enable generation of an FMI library for SUMO" false)
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 
@@ -81,6 +82,9 @@ endif ()
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 if (SUMO_UTILS)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} SumoUtilsLibrary")
+endif ()
+if (FMI)
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} FMI")
 endif ()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
