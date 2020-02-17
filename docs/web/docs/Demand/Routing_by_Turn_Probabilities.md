@@ -19,7 +19,7 @@ jtrrouter --flow-files=<FLOW_DEFS> --turn-ratio-files=<TURN_DEFINITIONS> --ne
   --output-file=MySUMORoutes.rou.xml --begin <UINT> --end <UINT>
 ```
 
-!!! note:
+!!! note
     When turn-counts instead of turn-ratios are available, [other tools may be used](Routes_from_Observation_Points.md).
 
 ## Turn Definitions
