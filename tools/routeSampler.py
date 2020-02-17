@@ -329,7 +329,7 @@ def main(options):
                     outf.write('        <edge id="%s" measuredCount="%s" deficit="%s"/>\n' % (
                         cd.edgeTuple[0], cd.origCount, cd.count))
                 elif len(cd.edgeTuple) == 2:
-                    outf.write('        <edgeRel from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (
+                    outf.write('        <edgeRelation from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (
                         cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, cd.count))
                 else:
                     print("Warning: output for edge relations with more than 2 edges not supported (%s)" % cd.edgeTuple, file=sys.stderr)

@@ -103,7 +103,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "flowState",                  SUMO_TAG_FLOWSTATE },
     { "step",                       SUMO_TAG_STEP },
     { "interval",                   SUMO_TAG_INTERVAL },
-    { "edgeRel",                    SUMO_TAG_EDGEREL },
+    { "edgeRelation",               SUMO_TAG_EDGEREL },
     { "timedEvent",                 SUMO_TAG_TIMEDEVENT },
     { "fromEdge",                   SUMO_TAG_FROMEDGE },
     { "toEdge",                     SUMO_TAG_TOEDGE },
