@@ -26,6 +26,7 @@ permalink: /ChangeLog/
   - `<edgeRelation>`-data files can now be visualized. Issue #6659
 - NETCONVERT
   - Edge attribute `spreadType` now supports value `roadCenter` which aligns edges with common geometry so that the geometry reflects the middle of the road regardless of differences in lane numbers (causing natural alignment for turning lanes). Issue #1758
+  - Added option **--default.spreadtype** to set the default spread type for edges. Issue #6662
 - Tools
   - added osmWebWizard option to import a simplified network that is only for cars. Issue #6595
   - [routeSampler.py](Tools/Turns.md#routesampler.py) improvements
@@ -34,6 +35,7 @@ permalink: /ChangeLog/
     - supports limited optimization route input (without resampling) by setting option **--optimize-input**
 
 ### Other
+- Network version is now 1.6 (Issue #1758)
 - The turn-file format used by JTRROUTER is now deprecated. Instead the new edgeRelation-file format should be used. To convert old files into the new format, the tool turnFile2EdgeRelations.py can be used. The tools jtcrouter.py and routeSampler.py will only accept the new file format as input.
 
 ## Version 1.5.0 (11.02.2020)
