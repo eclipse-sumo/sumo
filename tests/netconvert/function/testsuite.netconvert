@@ -64,6 +64,9 @@ turnarounds
 # test fringe-related functions
 fringe
 
+# test differt spreadType values and options
+spreadType
+
 # tests for railway related network analysis and modification
 railway
 

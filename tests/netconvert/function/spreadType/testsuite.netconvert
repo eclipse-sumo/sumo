@@ -1,2 +1,5 @@
-# Ordered list of tests in test suite. Add as appropriate
+default_right
+default_roadCenter
 
+# test spreadType=roadCenter
+roadCenter

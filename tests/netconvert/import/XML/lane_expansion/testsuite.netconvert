@@ -4,7 +4,4 @@ right_spread
 # splitting should preserve edge geometry
 preserve_geometry
 deprecated
-
-# test spreadType=roadCenter
-roadCenter
 errors
