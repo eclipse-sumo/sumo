@@ -117,6 +117,9 @@ Even the trip attributes 'from' and 'to' can be ommitted to let the bus start at
 # Public Transport Schedules
 In most cases, public transport runs according to a fixed schedule. Such a schedule must be defined using the `until` attribute in the stops. Vehicles in the simulation will adhere to the schedule as they cannot leave a stop before the until-time is reached but they may still be delayed due to traffic. When `until` and `duration` are used, duration defines the minimum stopping time which can also cause delayed departures when already arriving late at a stop.
 
+!!! note
+    Defining a public transport schedule is necessary for [intermodal routing](../IntermodalRouting.md).
+
 ## Single vehicles and trips
 When defining until values for a vehicle and trip, the values denote absolute simulation. Times. Note, that seconds or human-readable times may be used.
 
