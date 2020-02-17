@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 29 12:12:02 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
+<!-- generated on Mon Feb 17 15:31:06 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.3" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -50,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_0_0" index="0" allow="bicycle" speed="5.65" length="6.56" width="1.00" shape="98.40,107.20 98.11,105.67 97.25,104.57 95.81,103.92 93.80,103.70"/>
     </edge>
     <edge id=":C_1" function="internal">
-        <lane id=":C_1_0" index="0" allow="bicycle" speed="8.25" length="15.16" width="1.00" shape="98.40,107.20 98.89,102.43 100.35,99.02 102.79,96.98 106.20,96.30"/>
+        <lane id=":C_1_0" index="0" allow="bicycle" speed="8.25" length="15.16" width="1.00" shape="98.40,107.20 98.89,102.43 100.35,99.03 102.79,96.98 106.20,96.30"/>
     </edge>
     <edge id=":C_2" function="internal">
         <lane id=":C_2_0" index="0" allow="bicycle" speed="5.38" length="6.56" shape="106.20,103.70 104.19,103.92 102.75,104.58 101.89,105.67 101.60,107.20"/>
@@ -114,7 +114,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yyyrrrrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 EC_2 SC_0 WC_0 WC_1 WC_2" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_3_1 :C_5_0 :C_8_0 :C_7_0" shape="95.30,107.20 104.70,107.20 104.87,106.37 105.08,106.07 105.37,105.87 105.74,105.74 106.20,105.70 106.20,94.30 104.53,94.13 103.95,93.92 103.53,93.63 103.28,93.26 103.20,92.80 96.80,92.80 96.47,93.63 96.05,93.93 95.47,94.13 94.72,94.26 93.80,94.30 93.80,105.70 94.63,105.87 94.93,106.08 95.13,106.37 95.26,106.74">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 EC_2 SC_0 WC_0 WC_1 WC_2" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_3_1 :C_5_0 :C_8_0 :C_7_0" shape="95.30,107.20 104.70,107.20 104.87,106.37 105.08,106.07 105.37,105.87 105.74,105.74 106.20,105.70 106.20,94.30 104.53,94.13 103.95,93.92 103.53,93.63 103.28,93.26 103.20,92.80 96.80,92.80 96.47,93.63 96.05,93.93 95.47,94.13 94.72,94.26 93.80,94.30 93.80,105.70 94.63,105.87 94.92,106.08 95.13,106.37 95.26,106.74">
         <request index="0" response="00001000" foes="00001000" cont="0"/>
         <request index="1" response="11111000" foes="11111000" cont="0"/>
         <request index="2" response="00000000" foes="01000000" cont="0"/>

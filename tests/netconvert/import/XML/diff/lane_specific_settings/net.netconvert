@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 29 12:11:49 2020 by Eclipse SUMO netconvert Version v1_4_0+0833-c10d0a8
+<!-- generated on Mon Feb 17 15:30:51 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.3" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,100.00,200.00,200.00" origBoundary="0.00,0.00,200.00,200.00" projParameter="!"/>
 
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_2_0" index="0" speed="10.07" length="22.50" width="4.00" shape="97.50,117.90 97.50,113.90 96.62,110.09 94.00,107.38 89.62,105.74 83.50,105.20"/>
     </edge>
     <edge id=":C_3" function="internal">
-        <lane id=":C_3_0" index="0" speed="11.67" length="30.78" shape="97.50,117.90 97.50,113.90 98.40,105.72 101.10,99.87 105.60,96.37 111.90,95.20"/>
+        <lane id=":C_3_0" index="0" speed="11.67" length="30.78" shape="97.50,117.90 97.50,113.90 98.40,105.72 101.10,99.88 105.60,96.37 111.90,95.20"/>
     </edge>
     <edge id=":C_4" function="internal">
         <lane id=":C_4_0" index="0" speed="11.18" length="28.12" shape="97.50,117.90 97.50,113.90 98.40,107.12 101.10,102.28 105.60,99.37 111.90,98.40"/>
@@ -71,7 +71,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_9_2" index="2" speed="26.95" length="28.47" shape="111.90,103.00 83.50,101.60"/>
     </edge>
     <edge id=":C_12" function="internal">
-        <lane id=":C_12_0" index="0" speed="4.59" length="6.72" shape="111.90,103.00 110.18,101.85 109.60,100.70 110.18,99.55 111.90,98.40"/>
+        <lane id=":C_12_0" index="0" speed="4.59" length="6.72" shape="111.90,103.00 110.17,101.85 109.60,100.70 110.17,99.55 111.90,98.40"/>
     </edge>
     <edge id=":E_0" function="internal">
         <lane id=":E_0_0" index="0" speed="4.15" length="6.72" width="6.00" shape="200.00,98.40 201.72,99.55 202.30,100.70 201.72,101.85 200.00,103.00"/>
