@@ -23,7 +23,7 @@ permalink: /ChangeLog/
   - The new route attribute `repeat` can now be used to define repeating routes. When the route contains stop definitions with the `until`-attribute, the new route attribute `period` must be used to shift the repeated stop times. Issue #6554  
 - SUMO-GUI
   - Missing data values (color by edgeData) can now be distinguished from negative data values. Issue #6660
-  - `<edgeRel>`-data files can now be visualized. Issue #6659
+  - `<edgeRelation>`-data files can now be visualized. Issue #6659
 - NETCONVERT
   - Edge attribute `spreadType` now supports value `roadCenter` which aligns edges with common geometry so that the geometry reflects the middle of the road regardless of differences in lane numbers (causing natural alignment for turning lanes). Issue #1758
 - Tools
@@ -34,7 +34,7 @@ permalink: /ChangeLog/
     - supports limited optimization route input (without resampling) by setting option **--optimize-input**
 
 ### Other
-
+- The turn-file format used by JTRROUTER is now deprecated. Instead the new edgeRelation-file format should be used. To convert old files into the new format, the tool turnFile2EdgeRelations.py can be used. The tools jtcrouter.py and routeSampler.py will only accept the new file format as input.
 
 ## Version 1.5.0 (11.02.2020)
 
