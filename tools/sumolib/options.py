@@ -131,14 +131,18 @@ class ArgumentParser(argparse.ArgumentParser):
                 for s in a.option_strings:
                     if s.startswith("--"):
                         act_map[s[2:]] = a.option_strings
-            for option in readOptions(args[idx]):
-                is_set = False
-                for s in act_map.get(option.name, []):
-                    if s in args:
-                        is_set = True
-                        break
-                if not is_set:
-                    config_args += ["--" + option.name, option.value]
+            for cfg_file in args[idx].split(","):
+                for option in readOptions(cfg_file):
+                    is_set = False
+                    for s in act_map.get(option.name, []):
+                        if s in args:
+                            is_set = True
+                            break
+                    if not is_set:
+                        if option.value == "True":
+                            config_args += ["--" + option.name, option.value]
+                        elif option.value != "False":
+                            config_args += ["--" + option.name, option.value]
         namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
             self, args=args+config_args, namespace=namespace)
         self.write_config_file(namespace)
