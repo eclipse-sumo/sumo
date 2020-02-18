@@ -93,6 +93,7 @@ NIXMLPTHandler::myStartElement(int element,
             }
             break;
         case SUMO_TAG_FLOW:
+        case SUMO_TAG_TRIP:
             addPTLineFromFlow(attrs);
             break;
         case SUMO_TAG_PARAM:
@@ -120,6 +121,7 @@ NIXMLPTHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_PT_LINE:
         case SUMO_TAG_FLOW:
+        case SUMO_TAG_TRIP:
             myCurrentLine->setMyNumOfStops((int)(myCurrentLine->getStops().size() / myCurrentCompletion));
             myCurrentLine = nullptr;
             break;
