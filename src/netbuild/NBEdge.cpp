@@ -1766,6 +1766,8 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                 //    std::cout << con.getDescription(this) << " angleRaw=" << angleRaw << " angle=" << RAD2DEG(angle) << " length=" << length << " radius=" << length / angle
                 //        << " vmaxTurn=" << sqrt(limitTurnSpeed * length / angle) << " vmax=" << con.vmax << "\n";
                 //}
+            } else if (fromRail && dir == LINKDIR_TURN) {
+                con.vmax = 0.01;
             }
         } else {
             con.vmax = con.speed;
