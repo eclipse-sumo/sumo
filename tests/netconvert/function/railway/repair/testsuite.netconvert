@@ -18,6 +18,10 @@ switches
 
 # add bidirectional edges at disconnected stops
 stops
+stops_disableConnectionRepair
+
+# add bidirectional edges at disconnected stops
+stops_onlyConnectionRepair
 
 # repair connectivity for ptlines but read them from flows/routes
 stops_ptline_flows
