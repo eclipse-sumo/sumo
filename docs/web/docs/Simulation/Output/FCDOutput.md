@@ -120,10 +120,12 @@ When not all vehicles are equipped with an **fcd**-device, other ehicles and per
 
 ## Further Options
 
-- using the option **--fcd-output.geo** will toggle output coordinates to WGS84 (for
+- **--fcd-output.geo** will toggle output coordinates to WGS84 (for
   geo-referenced networks)
-- using the option **--fcd-output.signals** will add [signal state
+- **--fcd-output.signals** will add [signal state
   information](../../TraCI/Vehicle_Signalling.md) to the output
+- **--fcd-output.distance** will add [kilometrage](../Railways.md#kilometrage-mileage-chainage) information to the output
+- **--fcd-output.acceleration** will acceleration data to the output (also lateral acceleration when using the [sublane model](../SublaneModel.md)
 
 ## NOTES
 
