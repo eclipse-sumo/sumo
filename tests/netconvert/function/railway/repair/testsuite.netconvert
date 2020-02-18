@@ -22,6 +22,9 @@ stops
 # repair connectivity for ptlines but read them from flows/routes
 stops_ptline_flows
 
+# repair connectivity for ptlines but read them from trips/routes
+stops_ptline_trips
+
 # add bidirectional edges at disconnected stops (like test 'stops' but every direction reversed)
 stops_reversed
 
