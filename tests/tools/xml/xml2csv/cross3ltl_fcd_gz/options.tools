@@ -1,0 +1,1 @@
+{CLEAR} -o out source.xml.gz tools/xml/xml2csv.py

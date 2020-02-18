@@ -50,6 +50,7 @@ copy_test_path:source.edg.xml
 copy_test_path:source.con.xml
 copy_test_path:source.tll.xml
 copy_test_path:source.xml
+copy_test_path:source.xml.gz
 copy_test_path:dest.net.xml
 copy_test_path:dest.nod.xml
 copy_test_path:dest.edg.xml
