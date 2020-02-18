@@ -46,7 +46,7 @@
         <xsd:attribute name="checkLaneFoesAll" type="boolType"/>
         <xsd:attribute name="checkLaneFoesRoundabout" type="boolType"/>
         <xsd:attribute name="tlsIgnoreInternalJunctionJam" type="boolType"/>
-        <xsd:attribute name="defaultSpreadType" type="spreadTypeType"/>
+        <xsd:attribute name="spreadType" type="spreadTypeType"/>
     </xsd:complexType>
 
     <xsd:complexType name="edgeType">

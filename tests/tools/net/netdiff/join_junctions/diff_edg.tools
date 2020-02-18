@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<edges version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+<edges version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
     <!-- Deleted Elements -->
     <delete id="27441168"/>
     <delete id="27441189"/>
