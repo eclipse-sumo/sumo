@@ -33,7 +33,12 @@ traci.start([sumoBinary,
              "--no-step-log",
              ])
 vehID = "v0"
-traci.vehicle.add(vehID, "r0", departLane="1", departSpeed="14")
+try:
+    traci.vehicle.add(vehID, "r0", departLane="1", departSpeed="14")
+except traci.TraCIException as e:
+    print("caught exception")
+    pass
+
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
 
