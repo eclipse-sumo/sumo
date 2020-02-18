@@ -689,6 +689,11 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh, R
             col = RGBColor::fromHSV(hue, sat, 1.);
             return true;
         }
+        case 32: { // color by angle
+            double hue = GeomHelper::naviDegree(veh->getAngle());
+            col = RGBColor::fromHSV(hue, 1., 1.);
+            return true;
+        }
     }
     return false;
 }
