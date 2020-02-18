@@ -150,6 +150,22 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 // emergency vehicles should not react
                 continue;
             }
+            const int numLanes = (int)veh2->getEdge()->getLanes().size();
+            //make sure that vehicle are still building the a rescue lane
+            if (influencedVehicles.count(veh2->getID()) > 0) {
+               //Vehicle gets a new Vehicletype to change the alignment and the lanechange options
+                MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
+                //Setting the lateral alignment to build a rescue lane
+                if (veh2->getLane()->getIndex() == numLanes - 1) {
+                    t.setPreferredLateralAlignment(LATALIGN_LEFT);
+                    // the alignement is changet to left for the vehicle std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                }
+                else {
+                    t.setPreferredLateralAlignment(LATALIGN_RIGHT);
+                    // the alignement is changet to right for the vehicle std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                }
+            }
+
             double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
             //emergency vehicle has to slow down when entering the resuce lane
             if (distanceDelta <= 10 && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) > 0 && veh2->getSpeed() < 1) {
@@ -169,9 +185,13 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
 
                 //other vehicle should not use the rescue lane so they should not make any lane changes
                 lanechange.setLaneChangeMode(1605);//todo change lane back
-                const int numLanes = (int)veh2->getEdge()->getLanes().size();
+                //const int numLanes = (int)veh2->getEdge()->getLanes().size();
                 // the vehicles should react according to the distance to the emergency vehicle taken from real world data
-                if (reaction < (distanceDelta * -1.6 + 100) / 100) {
+                double reactionProb = 0.189; // todo works only for one second steps
+                if (distanceDelta < 12.5) {
+                    reactionProb = 0.577;
+                }
+                if (reaction < reactionProb) {
                     influencedVehicles.insert(static_cast<std::string>(veh2->getID()));
                     influencedTypes.insert(std::make_pair(static_cast<std::string>(veh2->getID()), veh2->getVehicleType().getID()));
 
