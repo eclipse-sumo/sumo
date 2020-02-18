@@ -71,15 +71,15 @@ OwnClass::getParameter1() const {
 
 ```cpp
 // ---------------------------------------------------------------------------
-// Class::Subclass - methods <LEAVE OUT IF METHODS ARE OF ONE CLASS ONLY>
+// Class::InnerClass - methods <LEAVE OUT IF METHODS ARE OF ONE CLASS ONLY>
 // ---------------------------------------------------------------------------
-OwnClass::SubClass::SubClass() :
+OwnClass::InnerClass::InnerClass() :
     myPrivateParameter(0) {
     // code of constructor
 }
 
 
-OwnClass::SubClass::~SubClass() {}
+OwnClass::InnerClass::~InnerClass() {}
 
 
 /****************************************************************************/

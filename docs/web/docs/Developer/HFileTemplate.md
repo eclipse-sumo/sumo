@@ -7,12 +7,15 @@ permalink: /Developer/HFileTemplate/
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see <https://eclipse.org/sumo>
 // Copyright (C) <YEAR OF CREATION>-<CURRENT YEAR> German Aerospace Center (DLR) and others.
-// <You can add an additional copyright line for your institution here>
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// <http://www.eclipse.org/legal/epl-v20.html>
-// SPDX-License-Identifier: EPL-2.0
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    <FILENAME>
 /// @author  <AUTHOR'S NAME, ONE SEPARATE LINE FOR EACH AUTHOR>
@@ -22,8 +25,7 @@ permalink: /Developer/HFileTemplate/
 ///
 // <A BRIEF DESCRIPTION OF THE FILE'S CONTENTS>
 /****************************************************************************/
-#ifndef <FILENAME_h>
-#define <FILENAME_h>
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -34,7 +36,7 @@ permalink: /Developer/HFileTemplate/
 #include "myOwnClass2.h"
 ```
 
-```
+```cpp
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -53,17 +55,17 @@ class OwnClass : public ParentClass  {
 
 public:
      /**
-      * @class SubClass 
-      * brief description of the sub-class
+      * @class InnerClass
+      * brief description of the inner class
       */
-     class SubClass {
+     class InnerClass {
 
      public:
          /// @brief Constructor
-         SubClass();
+         InnerClass();
 
          /// @brief Destructor
-         ~SubClass();
+         ~InnerClass();
 
      private:
          /// @brief description of parameter
@@ -95,7 +97,7 @@ public:
     virtual void pureVirtualFunction() = 0;
 
 protected:
-    /// @brief briefly description of the parameter
+    /// @brief description of the parameter
     <parameterType> myProtectedParameter1;
 
 private:
@@ -105,6 +107,4 @@ private:
     /// @brief C++ Standard Library classes must be preceded by std::
     std::vector<std::string> myPrivateParameter3;
 };
-
-#endif
 ```
