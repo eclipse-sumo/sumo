@@ -562,8 +562,12 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
                 WRITE_WARNING("Choosing new speed factor " + toString(v.getChosenSpeedFactor()) + " for vehicle '" + pars.id + "' to match departure speed.");
             }
         } else {
-            throw ProcessError("Departure speed for vehicle '" + pars.id +
-                               "' is too high for the departure edge '" + getID() + "'.");
+            const std::string errorMsg = "Departure speed for vehicle '" + pars.id + "' is too high for the departure edge '" + getID() + "'.";
+            if (MSGlobals::gCheckRoutes) {
+                 throw ProcessError(errorMsg);
+            } else {
+                WRITE_WARNING(errorMsg);
+            }
         }
     }
     if (MSGlobals::gUseMesoSim) {
