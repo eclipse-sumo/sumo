@@ -96,6 +96,9 @@ vehicle.
 
 ## Filtering / Restricting Output
 
+!!! caution
+    The generated output files can become quite large. To write [gzipped](https://en.wikipedia.org/wiki/Gzip) output files, simply name the output file with an `.gz` extension.
+
 ### Restricting the set of vehicles that generate output
 Output can be restricted to specific vehicle types or vehicle ids by [controlling the set of vehicles that are equipped](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)   with the **fcd**-device. The following example restricts output to a
   single vehicle called *ego*:
