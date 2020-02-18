@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:12:16 2020 by Eclipse SUMO netconvert Version v1_5_0+0122-508cb81
+<!-- generated on Tue Feb 18 15:48:08 2020 by Eclipse SUMO netconvert Version v1_5_0+0143-35f4fb3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -261,6 +261,7 @@
         <railway.signals.discard value="false" type="BOOL" help="Discard all railway signal information loaded from other formats than plain-xml"/>
         <railway.topology.repair value="false" type="BOOL" help="Repair topology of the railway network"/>
         <railway.topology.repair.connect-straight value="false" type="BOOL" help="Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle"/>
+        <railway.topology.repair.stop-turn value="false" type="BOOL" help="Add turn-around connections at all loaded stops."/>
         <railway.topology.all-bidi value="false" type="BOOL" help="Make all rails usable in both direction"/>
         <railway.topology.all-bidi.input-file value="" type="FILE" help="Make all rails edge ids from FILE usable in both direction"/>
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT" help="The search radius for finding suitable road accesses for rail stops"/>

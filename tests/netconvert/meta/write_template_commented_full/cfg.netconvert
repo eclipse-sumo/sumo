@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:12:21 2020 by Eclipse SUMO netconvert Version v1_5_0+0122-508cb81
+<!-- generated on Tue Feb 18 15:48:08 2020 by Eclipse SUMO netconvert Version v1_5_0+0143-35f4fb3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -692,6 +692,9 @@
 
         <!-- Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle -->
         <railway.topology.repair.connect-straight value="false" type="BOOL"/>
+
+        <!-- Add turn-around connections at all loaded stops. -->
+        <railway.topology.repair.stop-turn value="false" type="BOOL"/>
 
         <!-- Make all rails usable in both direction -->
         <railway.topology.all-bidi value="false" type="BOOL"/>
