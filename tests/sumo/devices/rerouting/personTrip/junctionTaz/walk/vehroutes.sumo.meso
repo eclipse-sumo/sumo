@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 16 20:58:09 2019 by Eclipse SUMO Version v1_3_1+0348-1784406169
+<!-- generated on Wed Feb 19 22:17:48 2020 by Eclipse SUMO Version v1_5_0+0174-0b4d252505
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,12 +11,13 @@ SPDX-License-Identifier: EPL-2.0
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
-        <additional-files value="input_additional.add.xml"/>
+        <junction-taz value="true"/>
     </input>
 
     <output>
         <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.skip-ptlines value="true"/>
     </output>
 
     <processing>
@@ -38,8 +39,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0" depart="0.00" fromTaz="taz_0" toTaz="taz_1" arrival="46.00">
-        <route edges="A1toB1 B1toB2 B2toB3 B3toB2 B2toB1 B1toC1 C1toC0"/>
-    </vehicle>
+    <person id="0" depart="0.00" arrival="200.00">
+        <walk edges="A0toB0 B0toC0 C0toD0"/>
+    </person>
 
 </routes>

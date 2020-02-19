@@ -1,2 +1,2 @@
-Error: Departure speed for vehicle '1' is too high for the vehicle type 'DEFAULT_VEHTYPE'.
+Error: Departure speed for vehicle '1' is too high for the departure edge 'beg'.
 Quitting (on error).
