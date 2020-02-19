@@ -294,9 +294,7 @@ client version and SUMO version match.
 ### Can SUMO simulate lefthand traffic?
 
   Yes. It is supported since version 0.24.0. To build a network for
-  lefthand traffic, the option **--lefthand** must be set. Note, that this option
-  
-  in earlier versions but only works correctly since 0.24.0.
+  lefthand traffic, the option **--lefthand** must be set. 
 
 ### Can SUMO generate movement traces?
 
