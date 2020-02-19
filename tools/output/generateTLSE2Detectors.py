@@ -104,6 +104,10 @@ if __name__ == "__main__":
                              help="The name of the file the detectors write "
                              "their output into. Defaults to e2output.xml.",
                              default="e2output.xml")
+    argParser.add_argument("--tl-coupled", action="store_true",
+                           dest="tlCoupled",
+                           default=False,
+                           help="Couple output frequency to traffic light phase")
 
     options = argParser.parse_args()
     if not options.net_file:
@@ -142,7 +146,10 @@ if __name__ == "__main__":
 
             detector_xml = detectors_xml.addChild("laneAreaDetector")
             detector_xml.setAttribute("file", options.results)
-            detector_xml.setAttribute("freq", str(options.frequency))
+            if options.tlCoupled:
+                detector_xml.setAttribute("tl", tls.getID())
+            else:
+                detector_xml.setAttribute("freq", str(options.frequency))
             detector_xml.setAttribute("friendlyPos", "x")
             detector_xml.setAttribute("id", "e2det_" + str(lane_id))
             detector_xml.setAttribute("lane", str(lane_id))
