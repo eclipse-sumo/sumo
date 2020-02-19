@@ -24,3 +24,4 @@ optional arguments:
   -r RESULTS, --results-file RESULTS
                         The name of the file the detectors write their output
                         into. Defaults to e2output.xml.
+  --tl-coupled          Couple output frequency to traffic light phase
