@@ -474,34 +474,35 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) {
     // the names and the coordinates of the beginning and the end node
     // may be found, try
     bool ok = true;
-    std::string begNodeID = myIsUpdate ? myCurrentEdge->getFromNode()->getID() : "";
-    std::string endNodeID = myIsUpdate ? myCurrentEdge->getToNode()->getID() : "";
-    std::string oldBegID = begNodeID;
-    std::string oldEndID = endNodeID;
+    if (myIsUpdate) {
+        myFromNode = myCurrentEdge->getFromNode();
+        myToNode = myCurrentEdge->getToNode();
+    }
     if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
-        begNodeID = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
+        const std::string begNodeID = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
+        if (begNodeID != "") {
+            myFromNode = myNodeCont.retrieve(begNodeID);
+            if (myFromNode == nullptr) {
+                WRITE_ERROR("Edge's '" + myCurrentID + "' from-node '" + begNodeID + "' is not known.");
+            }
+        }
     } else if (!myIsUpdate) {
         WRITE_ERROR("The from-node is not given for edge '" + myCurrentID + "'.");
         ok = false;
     }
     if (attrs.hasAttribute(SUMO_ATTR_TO)) {
-        endNodeID = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
+        const std::string endNodeID = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
+        if (endNodeID != "") {
+            myToNode = myNodeCont.retrieve(endNodeID);
+            if (myToNode == nullptr) {
+                WRITE_ERROR("Edge's '" + myCurrentID + "' to-node '" + endNodeID + "' is not known.");
+            }
+        }
     } else if (!myIsUpdate) {
         WRITE_ERROR("The to-node is not given for edge '" + myCurrentID + "'.");
         ok = false;
     }
-    if (!ok) {
-        return false;
-    }
-    myFromNode = myNodeCont.retrieve(begNodeID);
-    myToNode = myNodeCont.retrieve(endNodeID);
-    if (myFromNode == nullptr) {
-        WRITE_ERROR("Edge's '" + myCurrentID + "' from-node '" + begNodeID + "' is not known.");
-    }
-    if (myToNode == nullptr) {
-        WRITE_ERROR("Edge's '" + myCurrentID + "' to-node '" + endNodeID + "' is not known.");
-    }
-    return myFromNode != nullptr && myToNode != nullptr;
+    return ok && myFromNode != nullptr && myToNode != nullptr;
 }
 
 
