@@ -7,6 +7,9 @@ delete_edge
 # delete a node (and all incident edges)
 delete_node
 
+# delete a node (but not all incident edges)
+delete_node_invalid
+
 # test the diff after applying --junctions.join to a network
 join_junctions
 
