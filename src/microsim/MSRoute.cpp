@@ -32,7 +32,6 @@
 #include <limits>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RGBColor.h>
-#include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSEdge.h"
 #include "MSLane.h"

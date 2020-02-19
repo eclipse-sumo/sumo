@@ -839,15 +839,8 @@ MSEdge::insertIDs(std::vector<std::string>& into) {
 void
 MSEdge::parseEdgesList(const std::string& desc, ConstMSEdgeVector& into,
                        const std::string& rid) {
-    if (desc[0] == BinaryFormatter::BF_ROUTE) {
-        std::istringstream in(desc, std::ios::binary);
-        char c;
-        in >> c;
-        FileHelpers::readEdgeVector(in, into, rid);
-    } else {
-        StringTokenizer st(desc);
-        parseEdgesList(st.getVector(), into, rid);
-    }
+    StringTokenizer st(desc);
+    parseEdgesList(st.getVector(), into, rid);
 }
 
 

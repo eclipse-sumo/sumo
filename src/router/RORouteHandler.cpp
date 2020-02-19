@@ -35,6 +35,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
@@ -233,7 +234,7 @@ RORouteHandler::myStartElement(int element,
             break;
         }
         case SUMO_TAG_CONTAINER:
-            myActiveContainerPlan = new OutputDevice_String(false, 1);
+            myActiveContainerPlan = new OutputDevice_String(1);
             myActiveContainerPlanSize = 0;
             myActiveContainerPlan->openTag(SUMO_TAG_CONTAINER);
             (*myActiveContainerPlan) << attrs;
@@ -807,21 +808,14 @@ RORouteHandler::addTranship(const SUMOSAXAttributes& /*attrs*/) {
 void
 RORouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
                            const std::string& rid, bool& ok) {
-    if (desc[0] == BinaryFormatter::BF_ROUTE) {
-        std::istringstream in(desc, std::ios::binary);
-        char c;
-        in >> c;
-        FileHelpers::readEdgeVector(in, into, rid);
-    } else {
-        for (StringTokenizer st(desc); st.hasNext();) {
-            const std::string id = st.next();
-            const ROEdge* edge = myNet.getEdge(id);
-            if (edge == nullptr) {
-                myErrorOutput->inform("The edge '" + id + "' within the route " + rid + " is not known.");
-                ok = false;
-            } else {
-                into.push_back(edge);
-            }
+    for (StringTokenizer st(desc); st.hasNext();) {
+        const std::string id = st.next();
+        const ROEdge* edge = myNet.getEdge(id);
+        if (edge == nullptr) {
+            myErrorOutput->inform("The edge '" + id + "' within the route " + rid + " is not known.");
+            ok = false;
+        } else {
+            into.push_back(edge);
         }
     }
 }

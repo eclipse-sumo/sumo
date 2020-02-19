@@ -123,7 +123,7 @@ MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& i
     myDepartPos(-1),
     myDepartSpeed(-1),
     myDepartPosLat(0),
-    myStopOut(false, 2) {
+    myStopOut(2) {
     myCurrentRoute->addReference();
 }
 
@@ -271,7 +271,7 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
         return;
     }
     OutputDevice& routeOut = OutputDevice::getDeviceByOption("vehroute-output");
-    OutputDevice_String od(routeOut.isBinary(), 1);
+    OutputDevice_String od(1);
     SUMOVehicleParameter tmp = myHolder.getParameter();
     tmp.depart = myIntendedDepart ? myHolder.getParameter().depart : myHolder.getDeparture();
     if (!MSGlobals::gUseMesoSim) {

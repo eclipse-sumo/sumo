@@ -29,6 +29,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <utils/common/FileHelpers.h>
 #include <utils/common/Parameterised.h>
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>

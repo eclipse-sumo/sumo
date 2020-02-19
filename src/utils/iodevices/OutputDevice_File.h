@@ -44,10 +44,11 @@
 class OutputDevice_File : public OutputDevice {
 public:
     /** @brief Constructor
-     * @param[in] strm The output stream to used
+     * @param[in] fullName The name of the output file to use
+     * @param[in] compressed whether to apply gzip compression
      * @exception IOError Should not be thrown by this implementation
      */
-    OutputDevice_File(const std::string& fullName, const bool binary, const bool compressed = false);
+    OutputDevice_File(const std::string& fullName, const bool compressed = false);
 
 
     /// @brief Destructor

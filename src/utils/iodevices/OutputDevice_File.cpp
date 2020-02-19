@@ -39,8 +39,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool binary, const bool compressed)
-    : OutputDevice(binary, 0, fullName), myFileStream(nullptr) {
+OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool compressed)
+    : OutputDevice(0, fullName), myFileStream(nullptr) {
 #ifdef WIN32
     if (fullName == "/dev/null") {
         myFileStream = new std::ofstream("NUL");
@@ -54,12 +54,12 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool bin
 #ifdef HAVE_ZLIB
     if (compressed) {
         try {
-            myFileStream = new zstr::ofstream(fullName.c_str(), binary ? std::ios::binary : std::ios_base::out);
+            myFileStream = new zstr::ofstream(fullName.c_str(), std::ios_base::out);
         } catch (zstr::Exception& e) {
             throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
         }
     } else {
-        myFileStream = new std::ofstream(fullName.c_str(), binary ? std::ios::binary : std::ios_base::out);
+        myFileStream = new std::ofstream(fullName.c_str(), std::ios_base::out);
     }
 #else
     UNUSED_PARAMETER(compressed);

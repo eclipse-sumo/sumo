@@ -39,7 +39,6 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/devices/MSDevice.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/RandHelper.h>
 #include "MEVehicle.h"

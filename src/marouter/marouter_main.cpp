@@ -38,6 +38,7 @@
 #include <vector>
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
@@ -118,7 +119,8 @@ getTravelTime(const ROEdge* const edge, const ROVehicle* const /* veh */, double
  */
 void
 computeAllPairs(RONet& net, OptionsCont& oc) {
-    std::ofstream outFile(oc.getString("all-pairs-output").c_str(), std::ios::binary);
+    OutputDevice::createDeviceByOption("all-pairs-output");
+    OutputDevice& outFile = OutputDevice::getDeviceByOption("all-pairs-output");
     // build the router
     typedef DijkstraRouter<ROEdge, ROVehicle> Dijkstra;
     Dijkstra router(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &getTravelTime);
@@ -132,7 +134,7 @@ computeAllPairs(RONet& net, OptionsCont& oc) {
             double fromEffort = router.getEffort(ei.edge, nullptr, 0);
             for (int j = numInternalEdges; j < numTotalEdges; j++) {
                 double heuTT = router.getEdgeInfo(j).effort - fromEffort;
-                FileHelpers::writeFloat(outFile, heuTT);
+                outFile << heuTT;
                 /*
                 if (heuTT >
                         ei.edge->getDistanceTo(router.getEdgeInfo(j).edge)
@@ -287,7 +289,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                     const SUMOTime b = MAX2(begin, c->begin);
                     const SUMOTime e = MIN2(end, c->end);
                     const int numVehs = int(c->vehicleNumber * (e - b) / (c->end - c->begin));
-                    OutputDevice_String od(dev->isBinary(), 1);
+                    OutputDevice_String od(1);
                     od.openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, oc.getString("prefix") + toString(num++));
                     od.writeAttr(SUMO_ATTR_BEGIN, time2string(b)).writeAttr(SUMO_ATTR_END, time2string(e));
                     od.writeAttr(SUMO_ATTR_NUMBER, numVehs);
@@ -307,7 +309,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                         }
                         const std::string routeDistId = c->origin + "_" + c->destination + "_" + time2string(c->begin) + "_" + time2string(c->end);
                         for (const std::string& id : deps->second) {
-                            OutputDevice_String od(dev->isBinary(), 1);
+                            OutputDevice_String od(1);
                             od.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, id).writeAttr(SUMO_ATTR_DEPART, time2string(deps->first));
                             matrix.writeDefaultAttrs(od, oc.getBool("ignore-vehicle-type"), c);
                             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);

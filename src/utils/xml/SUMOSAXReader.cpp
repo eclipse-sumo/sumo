@@ -33,12 +33,10 @@
 #include <xercesc/framework/LocalFileInputSource.hpp>
 #include <xercesc/framework/MemBufInputSource.hpp>
 
+#include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
-#include <utils/iodevices/BinaryFormatter.h>
-#include <utils/iodevices/BinaryInputDevice.h>
-#include "SUMOSAXAttributesImpl_Binary.h"
 #include "GenericSAXHandler.h"
 #ifdef HAVE_ZLIB
 #include <foreign/zstr/zstr.hpp>
@@ -129,95 +127,29 @@ SUMOSAXReader::parseString(std::string content) {
 
 bool
 SUMOSAXReader::parseFirst(std::string systemID) {
-    if (systemID.length() >= 4 && systemID.substr(systemID.length() - 4) == ".sbx") {
-        myBinaryInput = new BinaryInputDevice(systemID, true, myValidationScheme == XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Always);
-        *myBinaryInput >> mySbxVersion;
-        if (mySbxVersion < 1 || mySbxVersion > 2) {
-            throw ProcessError("Unknown sbx version");
-        }
-        std::string sumoVer;
-        *myBinaryInput >> sumoVer;
-        std::vector<std::string> elems;
-        *myBinaryInput >> elems;
-        // !!! check elems here
-        elems.clear();
-        *myBinaryInput >> elems;
-        // !!! check attrs here
-        elems.clear();
-        *myBinaryInput >> elems;
-        // !!! check node types here
-        elems.clear();
-        *myBinaryInput >> elems;
-        // !!! check edge types here
-        elems.clear();
-        *myBinaryInput >> elems;
-        // !!! check edges here
-        std::vector< std::vector<int> > followers;
-        *myBinaryInput >> followers;
-        // !!! check followers here
-        return parseNext();
-    } else {
-        if (!FileHelpers::isReadable(systemID)) {
-            throw ProcessError("Cannot read file '" + systemID + "'!");
-        }
-        if (myXMLReader == nullptr) {
-            myXMLReader = getSAXReader();
-        }
-        myToken = XERCES_CPP_NAMESPACE::XMLPScanToken();
-#ifdef HAVE_ZLIB
-        myIStream = std::unique_ptr<zstr::ifstream>(new zstr::ifstream(systemID.c_str(), std::fstream::in | std::fstream::binary));
-        myInputStream = std::unique_ptr<IStreamInputSource>(new IStreamInputSource(*myIStream));
-        return myXMLReader->parseFirst(*myInputStream, myToken);
-#else
-        return myXMLReader->parseFirst(systemID.c_str(), myToken);
-#endif
+    if (!FileHelpers::isReadable(systemID)) {
+        throw ProcessError("Cannot read file '" + systemID + "'!");
     }
+    if (myXMLReader == nullptr) {
+        myXMLReader = getSAXReader();
+    }
+    myToken = XERCES_CPP_NAMESPACE::XMLPScanToken();
+#ifdef HAVE_ZLIB
+    myIStream = std::unique_ptr<zstr::ifstream>(new zstr::ifstream(systemID.c_str(), std::fstream::in | std::fstream::binary));
+    myInputStream = std::unique_ptr<IStreamInputSource>(new IStreamInputSource(*myIStream));
+    return myXMLReader->parseFirst(*myInputStream, myToken);
+#else
+    return myXMLReader->parseFirst(systemID.c_str(), myToken);
+#endif
 }
 
 
 bool
 SUMOSAXReader::parseNext() {
-    if (myBinaryInput != nullptr) {
-        int next = myBinaryInput->peek();
-        switch (next) {
-            case EOF:
-                delete myBinaryInput;
-                myBinaryInput = nullptr;
-                return false;
-            case BinaryFormatter::BF_XML_TAG_START: {
-                int tag;
-                unsigned char tagByte;
-                *myBinaryInput >> tagByte;
-                tag = tagByte;
-                if (mySbxVersion > 1) {
-                    myBinaryInput->putback(BinaryFormatter::BF_BYTE);
-                    *myBinaryInput >> tagByte;
-                    tag += 256 * tagByte;
-                }
-                myXMLStack.push_back((SumoXMLTag)tag);
-                SUMOSAXAttributesImpl_Binary attrs(myHandler->myPredefinedTagsMML, toString((SumoXMLTag)tag), myBinaryInput, mySbxVersion);
-                myHandler->myStartElement(tag, attrs);
-                break;
-            }
-            case BinaryFormatter::BF_XML_TAG_END: {
-                if (myXMLStack.empty()) {
-                    throw ProcessError("Binary file is invalid, unexpected tag end.");
-                }
-                myHandler->myEndElement(myXMLStack.back());
-                myXMLStack.pop_back();
-                myBinaryInput->read(mySbxVersion > 1 ? 1 : 2);
-                break;
-            }
-            default:
-                throw ProcessError("Binary file is invalid, expected tag start or tag end.");
-        }
-        return true;
-    } else {
-        if (myXMLReader == nullptr) {
-            throw ProcessError("The XML-parser was not initialized.");
-        }
-        return myXMLReader->parseNext(myToken);
+    if (myXMLReader == nullptr) {
+        throw ProcessError("The XML-parser was not initialized.");
     }
+    return myXMLReader->parseNext(myToken);
 }
 
 

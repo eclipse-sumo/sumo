@@ -32,6 +32,7 @@
 #include <list>
 #include <iterator>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
