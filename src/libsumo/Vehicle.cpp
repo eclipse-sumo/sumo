@@ -1068,7 +1068,7 @@ Vehicle::add(const std::string& vehicleID,
         SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, true, false);
         if (fromTaz == "" && !route->getEdges().front()->validateDepartSpeed(*vehicle)) {
             MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
-            throw TraCIException("Departure speed for vehicle '" + vehicle->getID() + "' is too high for the departure edge '" + route->getEdges().front()->getID() + "'.");
+            throw TraCIException("Departure speed for vehicle '" + vehicleID + "' is too high for the departure edge '" + route->getEdges().front()->getID() + "'.");
         }
         MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams.id, vehicle);
         MSNet::getInstance()->getInsertionControl().add(vehicle);
