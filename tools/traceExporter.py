@@ -23,6 +23,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
+import gzip
 import random
 import datetime
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'tools'))
@@ -52,6 +53,8 @@ def disturb_gps(x, y, deviation):
 def _getOutputStream(name):
     if not name:
         return None
+    if name.endswith(".gz"):
+        return gzip.open(name, "wt")
     return open(name, "w")
 
 
