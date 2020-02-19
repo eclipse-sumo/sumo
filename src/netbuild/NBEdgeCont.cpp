@@ -1632,4 +1632,23 @@ NBEdgeCont::getAllRouterEdges() const {
     return RouterEdgeVector(all.begin(), all.end());
 }
 
+bool
+NBEdgeCont::checkConsistency(const NBNodeCont& nc) {
+    bool ok = true;
+    for (const auto& item : myEdges) {
+        NBEdge* e = item.second;
+        if (nc.retrieve(e->getFromNode()->getID()) == nullptr) {
+            WRITE_ERROR("Edge's '" + e->getID() + "' from-node '" + e->getFromNode()->getID() + "' is not known.");
+            ok = false;
+        }
+        if (nc.retrieve(e->getToNode()->getID()) == nullptr) {
+            WRITE_ERROR("Edge's '" + e->getID() + "' to-node '" + e->getToNode()->getID() + "' is not known.");
+            ok = false;
+        }
+
+    }
+    return ok;
+}
+
+
 /****************************************************************************/

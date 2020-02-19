@@ -119,6 +119,9 @@ NILoader::load(OptionsCont& oc) {
     if (myNetBuilder.getEdgeCont().size() == 0) {
         throw ProcessError("No edges loaded.");
     }
+    if (!myNetBuilder.getEdgeCont().checkConsistency(myNetBuilder.getNodeCont())) {
+        throw ProcessError();
+    }
     // report loaded structures
     WRITE_MESSAGE(" Import done:");
     if (myNetBuilder.getDistrictCont().size() > 0) {

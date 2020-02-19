@@ -608,6 +608,9 @@ public:
     EdgeVector getAllEdges() const;
     RouterEdgeVector getAllRouterEdges() const;
 
+    /// @brief ensure that all edges have valid nodes
+    bool checkConsistency(const NBNodeCont& nc);
+
 private:
     /// @brief compute the form factor for a loop of edges
     static double formFactor(const EdgeVector& loopEdges);
