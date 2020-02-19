@@ -107,6 +107,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             of.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
             if (microVeh != nullptr) {
                 of.writeAttr(SUMO_ATTR_LANE, microVeh->getLane()->getID());
+            } else {
+                of.writeAttr(SUMO_ATTR_EDGE, veh->getEdge()->getID());
             }
             of.writeAttr(SUMO_ATTR_SLOPE, veh->getSlope());
             if (microVeh != nullptr) {
