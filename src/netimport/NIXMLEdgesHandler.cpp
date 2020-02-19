@@ -283,6 +283,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     // try to set the nodes
     if (!setNodes(attrs)) {
         // return if this failed
+        myCurrentEdge = nullptr;
         return;
     }
     // try to get the shape
@@ -297,6 +298,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myBikeLaneWidth = attrs.getOpt<double>(SUMO_ATTR_BIKELANEWIDTH, myCurrentID.c_str(), ok, myBikeLaneWidth);
     // insert the parsed edge into the edges map
     if (!ok) {
+        myCurrentEdge = nullptr;
         return;
     }
     // check whether a previously defined edge shall be overwritten
