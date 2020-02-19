@@ -35,6 +35,8 @@ set(microsim_cfmodels_STAT_SRCS
    MSCFModel_CC.cpp
    MSCFModel_CC.h
    ParBuffer.h
+   MSCFModel_Haider's.cpp
+   MSCFModel_Haider's.h
 )
 
 add_library(microsim_cfmodels STATIC ${microsim_cfmodels_STAT_SRCS})
