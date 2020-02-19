@@ -325,7 +325,7 @@ def _createRecordAndPattern(element_name, attrnames, warn, optional):
 
 def _open(xmlfile):
     if isinstance(xmlfile, str):
-        return gzip.open(xmlfile) if xmlfile.endswith(".gz") else open(xmlfile)
+        return gzip.open(xmlfile, "rt") if xmlfile.endswith(".gz") else open(xmlfile)
     return xmlfile
 
 
