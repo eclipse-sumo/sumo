@@ -18,6 +18,9 @@ all-bidi_single_stops
 # make all tracks usable in both directions, take into account custom edge lengths
 all-bidi_customLength
 
+# make all tracks usable in both directions, reduce geometry points
+all-bidi_simplifyGeometry
+
 # apply endOffset to both directions
 bidi_endOffset
 
