@@ -49,14 +49,13 @@
 // method definitions
 // ===========================================================================
 SUMOSAXReader::SUMOSAXReader(GenericSAXHandler& handler, const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme)
-    : myHandler(nullptr), myValidationScheme(validationScheme), myXMLReader(nullptr), myBinaryInput(nullptr), myIStream(nullptr), myInputStream(nullptr) {
+    : myHandler(nullptr), myValidationScheme(validationScheme), myXMLReader(nullptr), myIStream(nullptr), myInputStream(nullptr) {
     setHandler(handler);
 }
 
 
 SUMOSAXReader::~SUMOSAXReader() {
     delete myXMLReader;
-    delete myBinaryInput;
 }
 
 
