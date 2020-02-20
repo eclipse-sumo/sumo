@@ -169,7 +169,7 @@ MSInductLoop::getOccupancy() const {
     const SUMOTime tbeg = SIMSTEP - DELTA_T;
     double occupancy = 0;
     const double csecond = SIMTIME;
-    for (const VehicleData& i : collectVehiclesOnDet(tbeg)) {
+    for (const VehicleData& i : collectVehiclesOnDet(tbeg, false, true)) {
         const double leaveTime = i.leaveTimeM == HAS_NOT_LEFT_DETECTOR ? csecond : MIN2(i.leaveTimeM, csecond);
         const double entryTime = MAX2(i.entryTimeM, STEPS2TIME(tbeg));
         occupancy += MIN2(leaveTime - entryTime, TS);
@@ -282,7 +282,7 @@ MSInductLoop::leaveDetectorByLaneChange(SUMOTrafficObject& veh, double /* lastPo
 
 
 std::vector<MSInductLoop::VehicleData>
-MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool leaveTime) const {
+MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool leaveTime, bool forOccupancy) const {
     const double t = STEPS2TIME(tMS);
     std::vector<VehicleData> ret;
     for (const VehicleData& i : myVehicleDataCont) {
@@ -296,7 +296,7 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool leaveTime) const {
         }
     }
     for (const auto& i : myVehiclesOnDet) {
-        if (i.second >= t || leaveTime) { // no need to check leave time, they are still on the detector
+        if (i.second >= t || leaveTime || (i.second < t && forOccupancy)) { // no need to check leave time, they are still on the detector
             SUMOTrafficObject* const v = i.first;
             VehicleData d(v->getID(), v->getVehicleType().getLength(), i.second, HAS_NOT_LEFT_DETECTOR, v->getVehicleType().getID());
             d.speedM = v->getSpeed();

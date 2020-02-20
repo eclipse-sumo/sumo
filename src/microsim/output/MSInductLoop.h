@@ -285,9 +285,11 @@ public:
      * @param[in] t The time from which vehicles shall be counted
      * @param[in] leaveTime Whether entryTime or leaveTime shall be compared against t
      *            (the latter gives a more complete picture but may include vehicles in multiple steps even if they did not stay on the detector)
+     * @param[in] forOccupancy Whether the vehicle data shall be used for occupancy calculation and thus include vehicles which where already on the 
+                  detector before time t
      * @return The list of vehicles
      */
-    virtual std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool leaveTime = false) const;
+    virtual std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool leaveTime = false, bool forOccupancy = false) const;
 
     /// @brief allows for special color in the gui version
     virtual void setSpecialColor(const RGBColor* /*color*/) {};
