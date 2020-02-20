@@ -293,8 +293,19 @@ client version and SUMO version match.
 
 ### Can SUMO simulate lefthand traffic?
 
-  Yes. It is supported since version 0.24.0. To build a network for
-  lefthand traffic, the option **--lefthand** must be set. 
+  Yes. It is supported since version 0.24.0. To create a new network for
+  lefthand traffic, the option **--lefthand** must be set.
+  
+  To convert an existing network to lefthand driving, there are two options. Abstract networks (no geo-reference, coordinates do not matter much) can be processed with netconvert:
+```
+    netconvert -s righthand.net.xml --flip-y-axis -o lefthand.net.xml
+```
+
+   To convert an existing network and preserve coordinates, the network must first be disaggregated into nodes and edges and then re-assembled:
+```
+    netconvert -s righthand.net.xml --plain-output-prefix righthand
+    netconvert -e righthand.edg.xml -n righthand.nod.xml --lefthand -o lefthand.net.xml
+```
 
 ### Can SUMO generate movement traces?
 
