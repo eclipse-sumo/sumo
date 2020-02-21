@@ -21,7 +21,7 @@ permalink: /ChangeLog/
   - Actuated traffic lights now support the use of [custom detectors](Simulation/Traffic_Lights.md#custom_detectors). Issue #5125
   - The new route attriubte `period` is now applied repeatedly when rerouting the vehicle and the new route contains stops with attribute `until` to shift those times forward (e.g. on cyclical rerouters for public transport vehicles). Issue #6550
   - The new route attribute `repeat` can now be used to define repeating routes. When the route contains stop definitions with the `until`-attribute, the new route attribute `period` must be used to shift the repeated stop times. Issue #6554  
-  - Added option **--fcd-output.params KEY1,KEY2,...** to allow output of additional vehicle [generic parameters](Simulation/GenericParameters.md). Issue #6685
+  - Added option **--fcd-output.params KEY1,KEY2,...** to extend fcd-output with additional vehicle [generic parameters](Simulation/GenericParameters.md). Issue #6685
 - SUMO-GUI
   - Missing data values (color by edgeData) can now be distinguished from negative data values. Issue #6660
   - `<edgeRelation>`-data files can now be visualized. Issue #6659
