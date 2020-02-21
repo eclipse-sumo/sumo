@@ -68,7 +68,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
     FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 20, 200, 500),
     myObject(&o),
     myApplication(&app),
-    myTrackerY(0),
+    myTrackerY(50),
     myCurrentPos(0) {
     myTable = new FXTable(this, this, MID_TABLE, TABLE_COL_SIZABLE | TABLE_ROW_SIZABLE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     myTable->setTableSize(1, 3);
