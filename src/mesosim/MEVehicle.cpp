@@ -57,7 +57,8 @@ MEVehicle::MEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myQueIndex(0),
     myEventTime(SUMOTime_MIN),
     myLastEntryTime(SUMOTime_MIN),
-    myBlockTime(SUMOTime_MAX) {
+    myBlockTime(SUMOTime_MAX),
+    myInfluencer(nullptr) {
     if (!(*myCurrEdge)->isTazConnector()) {
         if ((*myCurrEdge)->allowedLanes(type->getVehicleClass()) == nullptr) {
             throw ProcessError("Vehicle '" + pars->id + "' is not allowed to depart on any lane of its first edge.");
@@ -153,6 +154,7 @@ MEVehicle::moveRoutePointer() {
     }
     return hasArrived();
 }
+
 
 
 bool
@@ -431,6 +433,28 @@ MEVehicle::updateDetectors(SUMOTime currentTime, const bool isLeave, const MSMov
     }
 }
 
+
+MEVehicle::BaseInfluencer&
+MEVehicle::getBaseInfluencer() {
+    if (myInfluencer == nullptr) {
+        myInfluencer = new BaseInfluencer();
+    }
+    return *myInfluencer;
+}
+
+
+const MEVehicle::BaseInfluencer*
+MEVehicle::getBaseInfluencer() const {
+    return myInfluencer;
+}
+
+
+void
+MEVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
+    MSGlobals::gMesoNet->removeLeaderCar(this);
+    MESegment* target = reason == MSMoveReminder::NOTIFICATION_VAPORIZED ? MESegment::getVaporizationTarget() : nullptr;
+    MSGlobals::gMesoNet->changeSegment(this, MSNet::getInstance()->getCurrentTimeStep(), target);
+}
 
 void
 MEVehicle::saveState(OutputDevice& out) {

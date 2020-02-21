@@ -121,6 +121,19 @@ public:
      */
     double getConservativeSpeed(SUMOTime& earliestArrival) const;
 
+    /// @name insertion/removal
+    //@{
+
+    /** @brief Called when the vehicle is removed from the network.
+     *
+     * Moves along work reminders and
+     *  informs all devices about quitting. Calls "leaveLane" then.
+     *
+     * @param[in] reason why the vehicle leaves (reached its destination, parking, teleport)
+     */
+    void onRemovalFromNet(const MSMoveReminder::Notification reason);
+    //@}
+
 
     /** @brief Update when the vehicle enters a new edge in the move step.
      * @return Whether the vehicle's route has ended (due to vaporization, or because the destination was reached)
@@ -354,6 +367,19 @@ public:
     void updateDetectors(SUMOTime currentTime, const bool isLeave,
                          const MSMoveReminder::Notification reason = MSMoveReminder::NOTIFICATION_JUNCTION);
 
+    /** @brief Returns the velocity/lane influencer
+     *
+     * If no influencer was existing before, one is built, first
+     * @return Reference to this vehicle's speed influencer
+     */
+    BaseInfluencer& getBaseInfluencer();
+
+    const BaseInfluencer* getBaseInfluencer() const;
+
+    bool hasInfluencer() const {
+        return myInfluencer != nullptr;
+    }
+
     /// @name state io
     //@{
 
@@ -387,6 +413,9 @@ protected:
 
     /// @brief edges to stop
     ConstMSEdgeVector myStopEdges;
+
+    /// @brief An instance of a velocity/lane influencing instance; built in "getInfluencer"
+    BaseInfluencer* myInfluencer;
 
 };
 

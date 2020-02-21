@@ -346,6 +346,10 @@ public:
         return segment == 0 || segment == &myVaporizationTarget;
     }
 
+    static MESegment* getVaporizationTarget() {
+        return &myVaporizationTarget;
+    }
+
     /// @brief return a time after earliestEntry at which a vehicle may be inserted at full speed
     SUMOTime getNextInsertionTime(SUMOTime earliestEntry) const;
 

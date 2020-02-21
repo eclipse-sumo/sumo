@@ -47,8 +47,6 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/router/DijkstraRouter.h>
 #include <utils/common/RandHelper.h>
-#include <utils/emissions/PollutantsInterface.h>
-#include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeomHelper.h>
@@ -60,9 +58,7 @@
 #include <microsim/transportables/MSPModel.h>
 #include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/devices/MSDevice_DriverState.h>
-#include <microsim/devices/MSRoutingEngine.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
-#include <microsim/devices/MSDevice_Battery.h>
 #include <microsim/devices/MSDevice_ElecHybrid.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/trigger/MSChargingStation.h>
@@ -77,7 +73,6 @@
 #include "MSStoppingPlace.h"
 #include "MSParkingArea.h"
 #include "devices/MSDevice_Transportable.h"
-#include "MSEdgeWeightsStorage.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSMoveReminder.h"
 #include <microsim/transportables/MSTransportableControl.h>
@@ -372,8 +367,7 @@ MSVehicle::Influencer::Influencer() :
     myRightDriveLC(LC_NOCONFLICT),
     mySublaneLC(LC_NOCONFLICT),
     myTraciLaneChangePriority(LCP_URGENT),
-    myTraCISignals(-1),
-    myRoutingMode(0)
+    myTraCISignals(-1)
 {}
 
 
@@ -904,16 +898,6 @@ MSVehicle::Influencer::implicitDeltaPosRemote(const MSVehicle* veh) {
 }
 
 
-SUMOAbstractRouter<MSEdge, SUMOVehicle>&
-MSVehicle::Influencer::getRouterTT(const int rngIndex) const {
-    if (myRoutingMode == 1) {
-        return MSRoutingEngine::getRouterTT(rngIndex);
-    } else {
-        return MSNet::getInstance()->getRouterTT(rngIndex);
-    }
-}
-
-
 /* -------------------------------------------------------------------------
  * Stop-methods
  * ----------------------------------------------------------------------- */
@@ -1017,7 +1001,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myJunctionEntryTime(SUMOTime_MAX),
     myJunctionEntryTimeNeverYield(SUMOTime_MAX),
     myJunctionConflictEntryTime(SUMOTime_MAX),
-    myEdgeWeights(nullptr),
     myInfluencer(nullptr) {
     if (!(*myCurrEdge)->isTazConnector()) {
         if (pars->departLaneProcedure == DEPART_LANE_GIVEN) {
@@ -1042,7 +1025,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
 
 
 MSVehicle::~MSVehicle() {
-    delete myEdgeWeights;
     for (std::vector<MSLane*>::iterator i = myFurtherLanes.begin(); i != myFurtherLanes.end(); ++i) {
         (*i)->resetPartialOccupation(this);
     }
@@ -1185,27 +1167,6 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
     updateBestLanes(true, onInit ? (*myCurrEdge)->getLanes().front() : 0);
     assert(!removeStops || haveValidStopEdges());
     return true;
-}
-
-
-const MSEdgeWeightsStorage&
-MSVehicle::getWeightsStorage() const {
-    return _getWeightsStorage();
-}
-
-
-MSEdgeWeightsStorage&
-MSVehicle::getWeightsStorage() {
-    return _getWeightsStorage();
-}
-
-
-MSEdgeWeightsStorage&
-MSVehicle::_getWeightsStorage() const {
-    if (myEdgeWeights == nullptr) {
-        myEdgeWeights = new MSEdgeWeightsStorage();
-    }
-    return *myEdgeWeights;
 }
 
 
@@ -5386,78 +5347,6 @@ MSVehicle::getTimeGapOnLane() const {
 }
 
 
-double
-MSVehicle::getCO2Emissions() const {
-    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::CO2, myState.speed(), myAcceleration, getSlope());
-}
-
-
-double
-MSVehicle::getCOEmissions() const {
-    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::CO, myState.speed(), myAcceleration, getSlope());
-}
-
-
-double
-MSVehicle::getHCEmissions() const {
-    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::HC, myState.speed(), myAcceleration, getSlope());
-}
-
-
-double
-MSVehicle::getNOxEmissions() const {
-    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::NO_X, myState.speed(), myAcceleration, getSlope());
-}
-
-
-double
-MSVehicle::getPMxEmissions() const {
-    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::PM_X, myState.speed(), myAcceleration, getSlope());
-}
-
-
-double
-MSVehicle::getFuelConsumption() const {
-    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::FUEL, myState.speed(), myAcceleration, getSlope());
-}
-
-
-double
-MSVehicle::getElectricityConsumption() const {
-    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::ELEC, myState.speed(), myAcceleration, getSlope());
-}
-
-double
-MSVehicle::getStateOfCharge() const {
-    if (static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery))) != 0) {
-        MSDevice_Battery* batteryOfVehicle = dynamic_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery)));
-        return batteryOfVehicle->getActualBatteryCapacity();
-    } else {
-        if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
-            MSDevice_ElecHybrid* batteryOfVehicle = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
-            return batteryOfVehicle->getActualBatteryCapacity();
-        }
-    }
-
-    return -1;
-}
-
-double
-MSVehicle::getElecHybridCurrent() const {
-    if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
-        MSDevice_ElecHybrid* batteryOfVehicle = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
-        return batteryOfVehicle->getCurrentFromOverheadWire();
-    }
-
-    return NAN;
-}
-
-double
-MSVehicle::getHarmonoise_NoiseEmissions() const {
-    return HelpersHarmonoise::computeNoise(myType->getEmissionClass(), myState.speed(), myAcceleration);
-}
-
-
 void
 MSVehicle::addTransportable(MSTransportable* transportable) {
     MSBaseVehicle::addTransportable(transportable);
@@ -6171,9 +6060,19 @@ MSVehicle::getInfluencer() {
     return *myInfluencer;
 }
 
+MSVehicle::BaseInfluencer&
+MSVehicle::getBaseInfluencer() {
+    return getInfluencer();
+}
+
 
 const MSVehicle::Influencer*
 MSVehicle::getInfluencer() const {
+    return myInfluencer;
+}
+
+const MSVehicle::BaseInfluencer*
+MSVehicle::getBaseInfluencer() const {
     return myInfluencer;
 }
 

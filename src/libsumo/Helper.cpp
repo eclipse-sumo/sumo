@@ -459,15 +459,15 @@ Helper::getDrivingDistance(std::pair<const MSLane*, double>& roadPos1, std::pair
 }
 
 
-MSVehicle*
+MSBaseVehicle*
 Helper::getVehicle(const std::string& id) {
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
     if (sumoVehicle == nullptr) {
         throw TraCIException("Vehicle '" + id + "' is not known.");
     }
-    MSVehicle* v = dynamic_cast<MSVehicle*>(sumoVehicle);
+    MSBaseVehicle* v = dynamic_cast<MSBaseVehicle*>(sumoVehicle);
     if (v == nullptr) {
-        throw TraCIException("Vehicle '" + id + "' is not a micro-simulation vehicle.");
+        throw TraCIException("Vehicle '" + id + "' is not a proper vehicle.");
     }
     return v;
 }
@@ -615,7 +615,7 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
 void
 Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& objIDs) {
 #ifdef DEBUG_SURROUNDING
-    MSVehicle* _veh = getVehicle(s.id);
+    MSBaseVehicle* _veh = getVehicle(s.id);
     std::cout << SIMTIME << " applySubscriptionFilters for vehicle '" << _veh->getID() << "' on lane '" << _veh->getLane()->getID() << "'"
               << "\n       on edge '" << _veh->getLane()->getEdge().getID() << "' (" << toString(_veh->getLane()->getEdge().getLanes()) << ")\n"
               << "objIDs = " << toString(objIDs) << std::endl;
@@ -640,7 +640,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 
     // TODO: Treat case, where ego vehicle is currently on opposite lane
 
-    std::set<const MSVehicle*> vehs;
+    std::set<const MSBaseVehicle*> vehs;
     if (s.activeFilters & SUBS_FILTER_NO_RTREE) {
         // Set defaults for upstream/downstream/lateral distances
         double downstreamDist = s.range, upstreamDist = s.range, lateralDist = s.range;
@@ -656,7 +656,11 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             // Specifies maximal lateral distance for vehicles in context subscription result
             lateralDist = s.filterLateralDist;
         }
-        MSVehicle* v = getVehicle(s.id);
+        MSBaseVehicle* veh = getVehicle(s.id);
+        MSVehicle* v = dynamic_cast<MSVehicle*>(veh);
+        if (v == nullptr) {
+            throw TraCIException("Subscription filter not yet implemented for meso vehicle");
+        }
         if (!v->isOnRoad()) {
             return;
         }
@@ -915,7 +919,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             }
         }
         // Write vehs IDs in objIDs
-        for (const MSVehicle* veh : vehs) {
+        for (const MSBaseVehicle* veh : vehs) {
             if (veh != nullptr) {
                 objIDs.insert(objIDs.end(), veh->getID());
             }
@@ -925,7 +929,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             // Only return vehicles of the given vClass in context subscription result
             auto i = objIDs.begin();
             while (i != objIDs.end()) {
-                MSVehicle* veh = getVehicle(*i);
+                MSBaseVehicle* veh = getVehicle(*i);
                 if ((veh->getVehicleType().getVehicleClass() & s.filterVClasses) == 0) {
                     i = objIDs.erase(i);
                 } else {
@@ -937,7 +941,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             // Only return vehicles of the given vType in context subscription result
             auto i = objIDs.begin();
             while (i != objIDs.end()) {
-                MSVehicle* veh = getVehicle(*i);
+                MSBaseVehicle* veh = getVehicle(*i);
                 if (s.filterVTypes.find(veh->getVehicleType().getID()) == s.filterVTypes.end()) {
                     i = objIDs.erase(i);
                 } else {
@@ -959,7 +963,7 @@ Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std
         return;
     }
 
-    MSVehicle* egoVehicle = getVehicle(s.id);
+    MSBaseVehicle* egoVehicle = getVehicle(s.id);
     Position egoPosition = egoVehicle->getPosition();
     double openingAngle = DEG2RAD(s.filterFieldOfVisionOpeningAngle);
 
@@ -973,7 +977,7 @@ Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std
             ++i;
             continue;
         }
-        MSVehicle* veh = getVehicle(*i);
+        MSBaseVehicle* veh = getVehicle(*i);
         double angleEgoToVeh = egoPosition.angleTo2D(veh->getPosition());
         double alpha = GeomHelper::angleDiff(egoVehicle->getAngle(), angleEgoToVeh);
 
@@ -991,7 +995,7 @@ Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std
 }
 
 void
-Helper::applySubscriptionFilterLateralDistanceSinglePass(std::set<std::string>& objIDs, std::set<const MSVehicle*>& vehs, const std::vector<const MSLane*>& lanes, double lateralDist, double streamDist, double posOnLane, bool isDownstream) {
+Helper::applySubscriptionFilterLateralDistanceSinglePass(std::set<std::string>& objIDs, std::set<const MSBaseVehicle*>& vehs, const std::vector<const MSLane*>& lanes, double lateralDist, double streamDist, double posOnLane, bool isDownstream) {
     double distRemaining = streamDist;
     bool isFirstLane = true;
     for (const MSLane* lane : lanes) {
@@ -1017,7 +1021,7 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(std::set<std::string>& 
         // check remaining objects' distances to this lane
         auto i = objIDs.begin();
         while (i != objIDs.end()) {
-            MSVehicle* veh = getVehicle(*i);
+            MSBaseVehicle* veh = getVehicle(*i);
             double minPerpendicularDist = laneShape.distance2D(veh->getPosition(), true);
             if ((minPerpendicularDist != GeomHelper::INVALID_OFFSET) && (minPerpendicularDist <= lateralDist)) {
                 vehs.insert(veh);

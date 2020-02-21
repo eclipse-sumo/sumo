@@ -32,6 +32,8 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/emissions/PollutantsInterface.h>
+#include <utils/emissions/HelpersHarmonoise.h>
 #include <microsim/transportables/MSPerson.h>
 #include "MSGlobals.h"
 #include "MSVehicleControl.h"
@@ -39,12 +41,16 @@
 #include "MSEdge.h"
 #include "MSLane.h"
 #include "MSMoveReminder.h"
+#include "MSEdgeWeightsStorage.h"
 #include "MSBaseVehicle.h"
 #include "MSNet.h"
 #include "devices/MSDevice.h"
 #include "devices/MSDevice_Routing.h"
 #include "devices/MSDevice_Battery.h"
+#include <microsim/devices/MSRoutingEngine.h>
 #include <microsim/devices/MSDevice_Transportable.h>
+#include <microsim/devices/MSDevice_Battery.h>
+#include <microsim/devices/MSDevice_ElecHybrid.h>
 #include <microsim/devices/MSDevice_Taxi.h>
 #include "MSInsertionControl.h"
 
@@ -62,6 +68,24 @@ std::vector<MSTransportable*> MSBaseVehicle::myEmptyTransportableVector;
 std::set<std::string> MSBaseVehicle::myShallTraceMoveReminders;
 #endif
 SUMOVehicle::NumericalID MSBaseVehicle::myCurrentNumericalIndex = 0;
+
+// ===========================================================================
+// Influencer method definitions
+// ===========================================================================
+
+MSBaseVehicle::BaseInfluencer::BaseInfluencer() :
+    myRoutingMode(0)
+{}
+
+SUMOAbstractRouter<MSEdge, SUMOVehicle>&
+MSBaseVehicle::BaseInfluencer::getRouterTT(const int rngIndex) const {
+    if (myRoutingMode == 1) {
+        return MSRoutingEngine::getRouterTT(rngIndex);
+    } else {
+        return MSNet::getInstance()->getRouterTT(rngIndex);
+    }
+}
+
 
 
 // ===========================================================================
@@ -92,7 +116,8 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myNumberReroutes(0),
     myStopUntilOffset(0),
     myOdometer(0.),
-    myNumericalID(myCurrentNumericalIndex++)
+    myNumericalID(myCurrentNumericalIndex++),
+    myEdgeWeights(nullptr)
 #ifdef _DEBUG
     , myTraceMoveReminders(myShallTraceMoveReminders.count(pars->id) > 0)
 #endif
@@ -129,6 +154,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
 
 
 MSBaseVehicle::~MSBaseVehicle() {
+    delete myEdgeWeights;
     myRoute->release();
     if (myParameter->repetitionNumber == 0) {
         MSRoute::checkDist(myParameter->routeid);
@@ -629,6 +655,101 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors) {
         }
     }
 }
+
+
+double
+MSBaseVehicle::getCO2Emissions() const {
+    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::CO2, getSpeed(), getAcceleration(), getSlope());
+}
+
+
+double
+MSBaseVehicle::getCOEmissions() const {
+    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::CO, getSpeed(), getAcceleration(), getSlope());
+}
+
+
+double
+MSBaseVehicle::getHCEmissions() const {
+    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::HC, getSpeed(), getAcceleration(), getSlope());
+}
+
+
+double
+MSBaseVehicle::getNOxEmissions() const {
+    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::NO_X, getSpeed(), getAcceleration(), getSlope());
+}
+
+
+double
+MSBaseVehicle::getPMxEmissions() const {
+    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::PM_X, getSpeed(), getAcceleration(), getSlope());
+}
+
+
+double
+MSBaseVehicle::getFuelConsumption() const {
+    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::FUEL, getSpeed(), getAcceleration(), getSlope());
+}
+
+
+double
+MSBaseVehicle::getElectricityConsumption() const {
+    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::ELEC, getSpeed(), getAcceleration(), getSlope());
+}
+
+double
+MSBaseVehicle::getStateOfCharge() const {
+    if (static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery))) != 0) {
+        MSDevice_Battery* batteryOfVehicle = dynamic_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery)));
+        return batteryOfVehicle->getActualBatteryCapacity();
+    } else {
+        if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
+            MSDevice_ElecHybrid* batteryOfVehicle = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
+            return batteryOfVehicle->getActualBatteryCapacity();
+        }
+    }
+
+    return -1;
+}
+
+double
+MSBaseVehicle::getElecHybridCurrent() const {
+    if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
+        MSDevice_ElecHybrid* batteryOfVehicle = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
+        return batteryOfVehicle->getCurrentFromOverheadWire();
+    }
+
+    return NAN;
+}
+
+double
+MSBaseVehicle::getHarmonoise_NoiseEmissions() const {
+    return HelpersHarmonoise::computeNoise(myType->getEmissionClass(), getSpeed(), getAcceleration());
+}
+
+
+const MSEdgeWeightsStorage&
+MSBaseVehicle::getWeightsStorage() const {
+    return _getWeightsStorage();
+}
+
+
+MSEdgeWeightsStorage&
+MSBaseVehicle::getWeightsStorage() {
+    return _getWeightsStorage();
+}
+
+
+MSEdgeWeightsStorage&
+MSBaseVehicle::_getWeightsStorage() const {
+    if (myEdgeWeights == nullptr) {
+        myEdgeWeights = new MSEdgeWeightsStorage();
+    }
+    return *myEdgeWeights;
+}
+
+
 
 
 int

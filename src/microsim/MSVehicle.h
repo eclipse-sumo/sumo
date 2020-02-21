@@ -65,7 +65,6 @@ class MSOverheadWire;
 class MSParkingArea;
 class MSPerson;
 class MSDevice;
-class MSEdgeWeightsStorage;
 class OutputDevice;
 class Position;
 class MSJunction;
@@ -279,13 +278,6 @@ public:
      */
     bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);
 
-    /** @brief Returns the vehicle's internal edge travel times/efforts container
-     *
-     * If the vehicle does not have such a container, it is built.
-     * @return The vehicle's knowledge about edge weights
-     */
-    const MSEdgeWeightsStorage& getWeightsStorage() const;
-    MSEdgeWeightsStorage& getWeightsStorage();
     //@}
 
 
@@ -1131,67 +1123,6 @@ public:
      */
     double getTimeGapOnLane() const;
 
-    /// @name Emission retrieval
-    //@{
-
-    /** @brief Returns CO2 emission of the current state
-     * @return The current CO2 emission
-     */
-    double getCO2Emissions() const;
-
-
-    /** @brief Returns CO emission of the current state
-     * @return The current CO emission
-     */
-    double getCOEmissions() const;
-
-
-    /** @brief Returns HC emission of the current state
-     * @return The current HC emission
-     */
-    double getHCEmissions() const;
-
-
-    /** @brief Returns NOx emission of the current state
-     * @return The current NOx emission
-     */
-    double getNOxEmissions() const;
-
-
-    /** @brief Returns PMx emission of the current state
-     * @return The current PMx emission
-     */
-    double getPMxEmissions() const;
-
-
-    /** @brief Returns fuel consumption of the current state
-    * @return The current fuel consumption
-    */
-    double getFuelConsumption() const;
-
-
-    /** @brief Returns electricity consumption of the current state
-    * @return The current electricity consumption
-    */
-    double getElectricityConsumption() const;
-
-    /** @brief Returns actual state of charge of battery (Wh)
-    * RICE_CHECK: This may be a misnomer, SOC is typically percentage of the maximum battery capacity.
-    * @return The actual battery state of charge
-    */
-    double getStateOfCharge() const;
-
-    /** @brief Returns actual current (A) of ElecHybrid device
-    * RICE_CHECK: Is this the current consumed from the overhead wire or the current driving the poweertrain of the vehicle?
-    * @return The current of ElecHybrid device
-    */
-    double getElecHybridCurrent() const;
-
-    /** @brief Returns noise emissions of the current state
-     * @return The noise produced
-     */
-    double getHarmonoise_NoiseEmissions() const;
-    //@}
 
     /** @brief Adds a person or container to this vehicle
      *
@@ -1483,7 +1414,7 @@ public:
       * Furthermore this class is used to affect lane changing decisions according to
       * LaneChangeMode and any given laneTimeLine
       */
-    class Influencer {
+    class Influencer : public BaseInfluencer {
     private:
 
         /// @brief A static instance of this class in GapControlState deactivates gap control
@@ -1547,6 +1478,8 @@ public:
         private:
             static GapControlVehStateListener vehStateListener;
         };
+
+
     public:
         /// @brief Constructor
         Influencer();
@@ -1593,10 +1526,6 @@ public:
         /// @brief return the current lane change mode
         int getLaneChangeMode() const;
 
-        /// @brief return the current routing mode
-        int getRoutingMode() const {
-            return myRoutingMode;
-        }
         SUMOTime getLaneTimeLineDuration();
 
         SUMOTime getLaneTimeLineEnd();
@@ -1676,13 +1605,6 @@ public:
          */
         void setLaneChangeMode(int value);
 
-        /** @brief Sets routing behavior
-         * @param[in] value an enum value controlling the different modes
-         */
-        void setRoutingMode(int value) {
-            myRoutingMode = value;
-        }
-
         /** @brief Returns the originally longitudinal speed to use
          * @return The speed given before influence or -1 if no influence is active
          */
@@ -1725,8 +1647,6 @@ public:
         bool ignoreOverlap() const {
             return myTraciLaneChangePriority == LCP_ALWAYS;
         }
-
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex) const;
 
     private:
         /// @brief The velocity time line to apply
@@ -1790,9 +1710,6 @@ public:
         // @brief the signals set via TraCI
         int myTraCISignals;
 
-        ///@brief routing mode (see TraCIConstants.h)
-        int myRoutingMode;
-
     };
 
 
@@ -1801,8 +1718,10 @@ public:
      * If no influencer was existing before, one is built, first
      * @return Reference to this vehicle's speed influencer
      */
+    BaseInfluencer& getBaseInfluencer();
     Influencer& getInfluencer();
 
+    const BaseInfluencer* getBaseInfluencer() const;
     const Influencer* getInfluencer() const;
 
     bool hasInfluencer() const {
@@ -2199,16 +2118,11 @@ protected:
     bool haveValidStopEdges() const;
 
 private:
-    /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
-     * @note member is initialized on first access */
-    mutable MSEdgeWeightsStorage* myEdgeWeights;
-
     /// @brief The per vehicle variables of the car following model
     MSCFModel::VehicleVariables* myCFVariables;
 
     /// @brief An instance of a velocity/lane influencing instance; built in "getInfluencer"
     Influencer* myInfluencer;
-
 
 
 private:
@@ -2220,8 +2134,6 @@ private:
 
     /// @brief invalidated assignment operator
     MSVehicle& operator=(const MSVehicle&);
-
-    MSEdgeWeightsStorage& _getWeightsStorage() const;
 
 };
 

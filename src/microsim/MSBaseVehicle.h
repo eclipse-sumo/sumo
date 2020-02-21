@@ -43,6 +43,7 @@
 class MSLane;
 class MSDevice_Transportable;
 class MSVehicleDevice;
+class MSEdgeWeightsStorage;
 
 
 // ===========================================================================
@@ -293,6 +294,15 @@ public:
         myArrivalPos = arrivalPos;
     }
 
+    /** @brief Called when the vehicle is removed from the network.
+     *
+     * Moves along work reminders and
+     *  informs all devices about quitting. Calls "leaveLane" then.
+     *
+     * @param[in] reason why the vehicle leaves (reached its destination, parking, teleport)
+     */
+    virtual void onRemovalFromNet(const MSMoveReminder::Notification /*reason*/) {}
+
     /** @brief Returns whether this vehicle has already departed
      */
     bool hasDeparted() const;
@@ -494,6 +504,151 @@ public:
         return myContainerDevice;
     }
 
+
+    /// @name Emission retrieval
+    //@{
+
+    /** @brief Returns CO2 emission of the current state
+     * @return The current CO2 emission
+     */
+    double getCO2Emissions() const;
+
+
+    /** @brief Returns CO emission of the current state
+     * @return The current CO emission
+     */
+    double getCOEmissions() const;
+
+
+    /** @brief Returns HC emission of the current state
+     * @return The current HC emission
+     */
+    double getHCEmissions() const;
+
+
+    /** @brief Returns NOx emission of the current state
+     * @return The current NOx emission
+     */
+    double getNOxEmissions() const;
+
+
+    /** @brief Returns PMx emission of the current state
+     * @return The current PMx emission
+     */
+    double getPMxEmissions() const;
+
+
+    /** @brief Returns fuel consumption of the current state
+    * @return The current fuel consumption
+    */
+    double getFuelConsumption() const;
+
+
+    /** @brief Returns electricity consumption of the current state
+    * @return The current electricity consumption
+    */
+    double getElectricityConsumption() const;
+
+    /** @brief Returns actual state of charge of battery (Wh)
+    * RICE_CHECK: This may be a misnomer, SOC is typically percentage of the maximum battery capacity.
+    * @return The actual battery state of charge
+    */
+    double getStateOfCharge() const;
+
+    /** @brief Returns actual current (A) of ElecHybrid device
+    * RICE_CHECK: Is this the current consumed from the overhead wire or the current driving the poweertrain of the vehicle?
+    * @return The current of ElecHybrid device
+    */
+    double getElecHybridCurrent() const;
+
+    /** @brief Returns noise emissions of the current state
+     * @return The noise produced
+     */
+    double getHarmonoise_NoiseEmissions() const;
+    //@}
+
+    /** @class Influencer
+      * @brief Changes the wished vehicle speed / lanes
+      *
+      * The class is used for passing velocities or velocity profiles obtained via TraCI to the vehicle.
+      * The speed adaptation is controlled by the stored speedTimeLine
+      * Additionally, the variables myConsiderSafeVelocity, myConsiderMaxAcceleration, and myConsiderMaxDeceleration
+      * control whether the safe velocity, the maximum acceleration, and the maximum deceleration
+      * have to be regarded.
+      *
+      * Furthermore this class is used to affect lane changing decisions according to
+      * LaneChangeMode and any given laneTimeLine
+      */
+    class BaseInfluencer {
+    public:
+        /// @brief Constructor
+        BaseInfluencer();
+
+        /// @brief Destructor
+        virtual ~BaseInfluencer() {}
+
+        /// @brief Static initalization
+        static void init();
+        /// @brief Static cleanup
+        static void cleanup();
+
+
+        /// @brief return the current routing mode
+        int getRoutingMode() const {
+            return myRoutingMode;
+        }
+
+        /** @brief Sets routing behavior
+         * @param[in] value an enum value controlling the different modes
+         */
+        void setRoutingMode(int value) {
+            myRoutingMode = value;
+        }
+
+
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex) const;
+
+    protected:
+        ///@brief routing mode (see TraCIConstants.h)
+        int myRoutingMode;
+
+    };
+
+
+
+    /** @brief Returns the velocity/lane influencer
+     *
+     * If no influencer was existing before, one is built, first
+     * @return Reference to this vehicle's speed influencer
+     */
+    virtual BaseInfluencer& getBaseInfluencer() = 0;
+
+    virtual const BaseInfluencer* getBaseInfluencer() const = 0;
+
+    virtual bool hasInfluencer() const  = 0;
+
+    
+    /** @brief Returns the vehicle's internal edge travel times/efforts container
+     *
+     * If the vehicle does not have such a container, it is built.
+     * @return The vehicle's knowledge about edge weights
+     */
+    const MSEdgeWeightsStorage& getWeightsStorage() const;
+    MSEdgeWeightsStorage& getWeightsStorage();
+
+    /** @brief Returns the leader of the vehicle looking for a fixed distance.
+     *
+     * If the distance is not given it is calculated from the brake gap.
+     * The gap returned does not include the minGap.
+     * @param dist    up to which distance to look for a leader
+     * @return The leading vehicle together with the gap; (0, -1) if no leader was found.
+     */
+    virtual std::pair<const MSVehicle* const, double> getLeader(double dist = 0) const {
+        UNUSED_PARAMETER(dist);
+        return std::make_pair(nullptr, -1);
+        WRITE_WARNING("getLeader not yet implemented for meso");
+    }
+
 protected:
     /** @brief (Re-)Calculates the arrival position and lane from the vehicle parameters
      */
@@ -573,6 +728,12 @@ protected:
 
 private:
     const NumericalID myNumericalID;
+
+    /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
+     * @note member is initialized on first access */
+    mutable MSEdgeWeightsStorage* myEdgeWeights;
+
+    MSEdgeWeightsStorage& _getWeightsStorage() const;
 
     static NumericalID myCurrentNumericalIndex;
 

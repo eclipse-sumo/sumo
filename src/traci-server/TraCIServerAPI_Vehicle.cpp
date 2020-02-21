@@ -339,9 +339,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Vehicle '" + id + "' is not known", outputStorage);
         }
     }
-    MSVehicle* v = dynamic_cast<MSVehicle*>(sumoVehicle);
+    MSBaseVehicle* v = dynamic_cast<MSBaseVehicle*>(sumoVehicle);
     if (v == nullptr && shouldExist) {
-        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Vehicle '" + id + "' is not a micro-simulation vehicle", outputStorage);
+        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Vehicle '" + id + "' is not a proper vehicle", outputStorage);
     }
     try {
         switch (variable) {
