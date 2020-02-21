@@ -112,7 +112,7 @@ def check(vehID):
     print("waiting time", traci.vehicle.getWaitingTime(vehID))
     print("accumulated waiting time", traci.vehicle.getAccumulatedWaitingTime(vehID))
     print("driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.))
-    print("driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 100., 100.))
+    print("driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 99., 100.))
     print("line", traci.vehicle.getLine(vehID))
     print("via", traci.vehicle.getVia(vehID))
     print("lane change state right", traci.vehicle.getLaneChangeState(vehID, -1))
