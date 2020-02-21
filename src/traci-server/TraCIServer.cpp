@@ -231,7 +231,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myDoCloseConnection = false;
 
     // display warning if internal lanes are not used
-    if (!MSGlobals::gUsingInternalLanes) {
+    if (!MSGlobals::gUsingInternalLanes && !MSGlobals::gUseMesoSim) {
         WRITE_WARNING("Starting TraCI without using internal lanes!");
         MsgHandler::getWarningInstance()->inform("Vehicles will jump over junctions.", false);
         MsgHandler::getWarningInstance()->inform("Use without option --no-internal-links to avoid unexpected behavior", false);
