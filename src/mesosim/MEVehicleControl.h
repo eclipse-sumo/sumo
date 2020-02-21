@@ -17,8 +17,7 @@
 ///
 // The class responsible for building and deletion of vehicles (meso-version)
 /****************************************************************************/
-#ifndef MEVehicleControl_h
-#define MEVehicleControl_h
+#pragma once
 
 
 // ===========================================================================
@@ -84,8 +83,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

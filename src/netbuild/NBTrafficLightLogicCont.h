@@ -19,8 +19,7 @@
 ///
 // A container for traffic light definitions and built programs
 /****************************************************************************/
-#ifndef NBTrafficLightLogicCont_h
-#define NBTrafficLightLogicCont_h
+#pragma once
 
 
 // ===========================================================================
@@ -248,8 +247,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

@@ -17,8 +17,7 @@
 ///
 // The Widget for edit person type (VTypes with vclass='pedestrian) elements
 /****************************************************************************/
-#ifndef GNEPersonTypeFrame_h
-#define GNEPersonTypeFrame_h
+#pragma once
 
 
 // ===========================================================================
@@ -175,7 +174,5 @@ private:
     PersonTypeEditor* myPersonTypeEditor;
 };
 
-
-#endif
 
 /****************************************************************************/

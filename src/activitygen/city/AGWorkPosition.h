@@ -22,8 +22,7 @@
 ///
 // Location and schedules of a work position: linked with one adult
 /****************************************************************************/
-#ifndef AGWORKPOSITION_H
-#define AGWORKPOSITION_H
+#pragma once
 
 
 // ===========================================================================
@@ -76,7 +75,5 @@ private:
     int myOpeningTime;
     int myClosingTime;
 };
-
-#endif
 
 /****************************************************************************/

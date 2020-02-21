@@ -18,8 +18,7 @@
 // Class for the window that allows to choose a street, junction or vehicle
 /****************************************************************************/
 
-#ifndef GNEDialogACChooser_h
-#define GNEDialogACChooser_h
+#pragma once
 
 
 // ===========================================================================
@@ -82,8 +81,6 @@ private:
     bool myLocateTLS;
 };
 
-
-#endif
 
 /****************************************************************************/
 

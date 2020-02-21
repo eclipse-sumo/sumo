@@ -18,8 +18,7 @@
 ///
 // car-following model by B. Kerner
 /****************************************************************************/
-#ifndef MSCFModel_Kerner_h
-#define MSCFModel_Kerner_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -131,5 +130,4 @@ private:
 
 };
 
-#endif /* MSCFModel_Kerner_H */
 

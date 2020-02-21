@@ -19,8 +19,7 @@
 ///
 // A wrapper for tl-logics to allow their visualisation and interaction
 /****************************************************************************/
-#ifndef GUITrafficLightLogicWrapper_h
-#define GUITrafficLightLogicWrapper_h
+#pragma once
 
 
 // ===========================================================================
@@ -168,8 +167,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

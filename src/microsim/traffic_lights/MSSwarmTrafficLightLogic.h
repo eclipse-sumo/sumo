@@ -18,8 +18,7 @@
 ///
 // The class for Swarm-based logics
 /****************************************************************************/
-#ifndef MSSwarmTrafficLightLogic_h
-#define MSSwarmTrafficLightLogic_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -453,5 +452,5 @@ protected:
 
 
 
-#endif
+
 /****************************************************************************/

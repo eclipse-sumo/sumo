@@ -17,8 +17,7 @@
 ///
 // The Widget for add additional elements
 /****************************************************************************/
-#ifndef GNEAdditionalFrame_h
-#define GNEAdditionalFrame_h
+#pragma once
 
 
 // ===========================================================================
@@ -332,7 +331,5 @@ private:
     SelectorChildLanes* mySelectorChildLanes;
 };
 
-
-#endif
 
 /****************************************************************************/

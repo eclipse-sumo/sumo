@@ -20,8 +20,7 @@
 ///
 // The car-following model abstraction
 /****************************************************************************/
-#ifndef MSCFModel_h
-#define MSCFModel_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -637,5 +636,4 @@ protected:
 };
 
 
-#endif /* MSCFModel_h */
 

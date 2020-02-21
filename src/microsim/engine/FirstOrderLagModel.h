@@ -18,8 +18,7 @@
 // An engine model using a first order lag
 /****************************************************************************/
 
-#ifndef FIRSTORDERLAGMODEL_H_
-#define FIRSTORDERLAGMODEL_H_
+#pragma once
 
 #include "GenericEngineModel.h"
 
@@ -82,4 +81,3 @@ public:
 
 };
 
-#endif /* FIRSTORDERLAGMODEL_H_ */

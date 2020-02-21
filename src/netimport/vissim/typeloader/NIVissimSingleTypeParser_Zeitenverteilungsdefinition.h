@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef NIVissimSingleTypeParser_Zeitenverteilungsdefinition_h
-#define NIVissimSingleTypeParser_Zeitenverteilungsdefinition_h
+#pragma once
 
 
 // ===========================================================================
@@ -51,8 +50,6 @@ public:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

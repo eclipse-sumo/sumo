@@ -20,8 +20,7 @@
 ///
 // Stores all persons or containers in the net and handles their waiting for cars.
 /****************************************************************************/
-#ifndef MSTransportableControl_h
-#define MSTransportableControl_h
+#pragma once
 
 
 // ===========================================================================
@@ -259,7 +258,5 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/

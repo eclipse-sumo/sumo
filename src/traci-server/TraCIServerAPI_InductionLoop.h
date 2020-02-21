@@ -18,8 +18,7 @@
 ///
 // APIs for getting/setting induction loop values via TraCI
 /****************************************************************************/
-#ifndef TraCIServerAPI_InductionLoop_h
-#define TraCIServerAPI_InductionLoop_h
+#pragma once
 
 
 // ===========================================================================
@@ -60,8 +59,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

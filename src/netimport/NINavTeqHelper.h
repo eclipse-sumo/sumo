@@ -19,8 +19,7 @@
 ///
 // Some parser methods shared around several formats containing NavTeq-Nets
 /****************************************************************************/
-#ifndef NINavTeqHelper_h
-#define NINavTeqHelper_h
+#pragma once
 
 
 // ===========================================================================
@@ -96,8 +95,6 @@ public:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

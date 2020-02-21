@@ -17,8 +17,7 @@
 ///
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
-#ifndef GNEApplicationWindow_h
-#define GNEApplicationWindow_h
+#pragma once
 
 
 // ===========================================================================
@@ -816,8 +815,6 @@ private:
     bool continueWithUnsavedDemandElementChanges(const std::string& operation);
 };
 
-
-#endif
 
 /****************************************************************************/
 

@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef NIVissimSingleTypeParser__XVerteilungsdefinition_h
-#define NIVissimSingleTypeParser__XVerteilungsdefinition_h
+#pragma once
 
 
 // ===========================================================================
@@ -51,8 +50,6 @@ public:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

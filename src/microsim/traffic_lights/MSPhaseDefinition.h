@@ -21,8 +21,7 @@
 ///
 // The definition of a single phase of a tls logic
 /****************************************************************************/
-#ifndef MSPhaseDefinition_h
-#define MSPhaseDefinition_h
+#pragma once
 
 #define TARGET_BIT 0
 #define TRANSIENT_NOTDECISIONAL_BIT 1
@@ -298,8 +297,6 @@ public:
     }
 
 };
-
-#endif
 
 /****************************************************************************/
 

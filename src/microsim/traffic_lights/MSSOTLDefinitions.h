@@ -18,8 +18,7 @@
 // The repository for definitions about SOTL and Swarm-based logics
 /****************************************************************************/
 
-#ifndef MSSOTLDefinitions_h
-#define MSSOTLDefinitions_h
+#pragma once
 
 ///For MSSOTLSensors
 //SENSOR_START in meters, counting from the traffic light and moving backward with respect to traffic direction
@@ -79,5 +78,5 @@ typedef std::set<std::string> MSLaneID_set;
 typedef std::map<MSLane*, bool> LaneCheckMap;
 typedef std::vector<std::string> LaneIdVector;
 
-#endif
+
 /****************************************************************************/

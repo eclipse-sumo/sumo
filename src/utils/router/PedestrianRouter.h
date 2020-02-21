@@ -17,8 +17,7 @@
 ///
 // The Pedestrian Router builds a special network and delegates to a SUMOAbstractRouter.
 /****************************************************************************/
-#ifndef PedestrianRouter_h
-#define PedestrianRouter_h
+#pragma once
 
 
 // ===========================================================================
@@ -150,7 +149,5 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/

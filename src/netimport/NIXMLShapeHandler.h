@@ -17,8 +17,7 @@
 ///
 // Importer for static public transport information
 /****************************************************************************/
-#ifndef NIXMLShapeHandler_h
-#define NIXMLShapeHandler_h
+#pragma once
 
 #include <config.h>
 
@@ -55,6 +54,4 @@ public:
 
     const NBEdgeCont& myEdgeCont;
 };
-#endif
-
 /****************************************************************************/

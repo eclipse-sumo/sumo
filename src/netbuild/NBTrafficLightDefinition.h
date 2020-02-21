@@ -19,8 +19,7 @@
 ///
 // The base class for traffic light logic definitions
 /****************************************************************************/
-#ifndef NBTrafficLightDefinition_h
-#define NBTrafficLightDefinition_h
+#pragma once
 
 
 // ===========================================================================
@@ -475,8 +474,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

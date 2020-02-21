@@ -18,8 +18,7 @@
 // Container for NBPTLine during netbuild
 /****************************************************************************/
 
-#ifndef SUMO_NBPTLINECONT_H
-#define SUMO_NBPTLINECONT_H
+#pragma once
 
 
 #include <vector>
@@ -78,4 +77,3 @@ private:
 };
 
 
-#endif //SUMO_NBPTLINECONT_H

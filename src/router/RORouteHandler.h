@@ -19,8 +19,7 @@
 ///
 // Parser and container for routes during their loading
 /****************************************************************************/
-#ifndef RORouteHandler_h
-#define RORouteHandler_h
+#pragma once
 
 
 // ===========================================================================
@@ -250,8 +249,6 @@ private:
     RORouteHandler& operator=(const RORouteHandler& s) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/
 

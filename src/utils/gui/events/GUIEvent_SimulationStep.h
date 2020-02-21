@@ -17,8 +17,7 @@
 ///
 // Event send when the a simulation step has been performed by GUIRunThread
 /****************************************************************************/
-#ifndef GUIEvent_SimulationStep_h
-#define GUIEvent_SimulationStep_h
+#pragma once
 
 
 // ===========================================================================
@@ -48,8 +47,6 @@ public:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

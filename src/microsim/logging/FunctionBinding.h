@@ -20,8 +20,7 @@
 ///
 //  Function type template
 /****************************************************************************/
-#ifndef FunctionBinding_h
-#define FunctionBinding_h
+#pragma once
 
 
 
@@ -120,8 +119,6 @@ private:
     FunctionBindingString<T>& operator=(const FunctionBindingString<T>&);
 
 };
-
-#endif
 
 /****************************************************************************/
 

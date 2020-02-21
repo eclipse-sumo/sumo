@@ -19,8 +19,7 @@
 ///
 // Importer for networks stored in SUMO format
 /****************************************************************************/
-#ifndef NIImporter_SUMO_h
-#define NIImporter_SUMO_h
+#pragma once
 
 
 // ===========================================================================
@@ -419,8 +418,6 @@ private:
     void parseProhibitionConnection(const std::string& attr, std::string& from, std::string& to, bool& ok);
 };
 
-
-#endif
 
 /****************************************************************************/
 

@@ -21,8 +21,7 @@
 ///
 // Builds trigger objects for microsim
 /****************************************************************************/
-#ifndef NLTriggerBuilder_h
-#define NLTriggerBuilder_h
+#pragma once
 
 
 // ===========================================================================
@@ -492,8 +491,6 @@ protected:
     bool myHaveWarnedAboutEigen = false;
 };
 
-
-#endif
 
 /****************************************************************************/
 

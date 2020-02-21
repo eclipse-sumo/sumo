@@ -17,8 +17,7 @@
 ///
 // A class for visualizing chargingStation geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
-#ifndef GNEChargingStation_h
-#define GNEChargingStation_h
+#pragma once
 
 
 // ===========================================================================
@@ -126,4 +125,3 @@ private:
 };
 
 
-#endif

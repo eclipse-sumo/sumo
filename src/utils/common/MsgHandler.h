@@ -19,8 +19,7 @@
 ///
 // Retrieves messages about the process and gives them further to output
 /****************************************************************************/
-#ifndef MsgHandler_h
-#define MsgHandler_h
+#pragma once
 
 
 // ===========================================================================
@@ -290,7 +289,5 @@ private:
 #define WRITE_ERROR(msg) MsgHandler::getErrorInstance()->inform(msg);
 #define WRITE_DEBUG(msg) if(MsgHandler::writeDebugMessages()){MsgHandler::getDebugInstance()->inform(msg);};
 #define WRITE_GLDEBUG(msg) if(MsgHandler::writeDebugGLMessages()){MsgHandler::getGLDebugInstance()->inform(msg);};
-
-#endif
 
 /****************************************************************************/

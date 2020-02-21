@@ -17,8 +17,7 @@
 ///
 // Encapsulated xml-attributes that use a map from string-attr-names to string-attr-values as backend
 /****************************************************************************/
-#ifndef SUMOSAXAttributesImpl_Cached_h
-#define SUMOSAXAttributesImpl_Cached_h
+#pragma once
 
 
 // ===========================================================================
@@ -299,8 +298,6 @@ private:
     SUMOSAXAttributesImpl_Cached& operator=(const SUMOSAXAttributesImpl_Cached& src) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/
 

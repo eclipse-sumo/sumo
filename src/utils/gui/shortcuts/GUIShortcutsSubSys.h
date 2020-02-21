@@ -17,8 +17,7 @@
 ///
 // Helper for Shortcuts
 /****************************************************************************/
-#ifndef GUIShortcutsSubSys_h
-#define GUIShortcutsSubSys_h
+#pragma once
 
 
 // ===========================================================================
@@ -57,8 +56,6 @@ private:
     static int parseKey(GUIShortcut key, GUIShortcutModifier firstModifier, GUIShortcutModifier secondModifier);
 };
 
-
-#endif
 
 /****************************************************************************/
 

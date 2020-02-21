@@ -19,8 +19,7 @@
 ///
 // A reader for a SUMO network's projection description
 /****************************************************************************/
-#ifndef PCNetProjectionLoader_h
-#define PCNetProjectionLoader_h
+#pragma once
 
 
 // ===========================================================================
@@ -99,8 +98,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

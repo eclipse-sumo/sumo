@@ -19,8 +19,7 @@
 ///
 // Abstract in-vehicle device
 /****************************************************************************/
-#ifndef MSDevice_h
-#define MSDevice_h
+#pragma once
 
 
 // ===========================================================================
@@ -257,7 +256,5 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
     }
 }
 
-
-#endif
 
 /****************************************************************************/

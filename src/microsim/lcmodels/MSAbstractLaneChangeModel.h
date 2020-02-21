@@ -22,8 +22,7 @@
 ///
 // Interface for lane-change models
 /****************************************************************************/
-#ifndef MSAbstractLaneChangeModel_h
-#define MSAbstractLaneChangeModel_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -742,8 +741,6 @@ private:
     MSAbstractLaneChangeModel& operator=(const MSAbstractLaneChangeModel& s);
 };
 
-
-#endif
 
 /****************************************************************************/
 

@@ -18,8 +18,7 @@
 ///
 // APIs for getting/setting vehicle type values via TraCI
 /****************************************************************************/
-#ifndef TraCIServerAPI_VehicleType_h
-#define TraCIServerAPI_VehicleType_h
+#pragma once
 
 
 // ===========================================================================
@@ -77,8 +76,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

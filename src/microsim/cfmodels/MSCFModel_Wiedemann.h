@@ -18,8 +18,7 @@
 ///
 // The psycho-physical model of Wiedemann
 /****************************************************************************/
-#ifndef MSCFModel_Wiedemann_H
-#define MSCFModel_Wiedemann_H
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -179,4 +178,3 @@ private:
     MSCFModel_Wiedemann& operator=(const MSCFModel_Wiedemann& s);
 };
 
-#endif /* MSCFModel_Wiedemann_H */

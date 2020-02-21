@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef NIVissimSingleTypeParser_Streckentypdefinition_h
-#define NIVissimSingleTypeParser_Streckentypdefinition_h
+#pragma once
 
 
 // ===========================================================================
@@ -51,8 +50,6 @@ public:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

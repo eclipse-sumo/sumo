@@ -17,8 +17,7 @@
 ///
 // Exporter writing networks using the openDRIVE format
 /****************************************************************************/
-#ifndef NWWriter_OpenDrive_h
-#define NWWriter_OpenDrive_h
+#pragma once
 
 
 // ===========================================================================
@@ -115,8 +114,6 @@ protected:
     static void writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc);
 };
 
-
-#endif
 
 /****************************************************************************/
 

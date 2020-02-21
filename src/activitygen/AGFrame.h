@@ -20,8 +20,7 @@
 ///
 // Configuration of the options of ActivityGen
 /****************************************************************************/
-#ifndef AGFRAME_H
-#define AGFRAME_H
+#pragma once
 
 
 // ===========================================================================
@@ -54,4 +53,3 @@ public:
 
 };
 
-#endif /* AGFRAME_H */

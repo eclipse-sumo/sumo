@@ -19,8 +19,7 @@
 ///
 // The class responsible for building and deletion of vehicles (gui-version)
 /****************************************************************************/
-#ifndef GUIVehicleControl_h
-#define GUIVehicleControl_h
+#pragma once
 
 
 // ===========================================================================
@@ -138,8 +137,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

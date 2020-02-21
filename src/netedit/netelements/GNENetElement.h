@@ -17,8 +17,7 @@
 ///
 // A abstract class for net elements
 /****************************************************************************/
-#ifndef GNENetElement_h
-#define GNENetElement_h
+#pragma once
 
 
 // ===========================================================================
@@ -192,8 +191,6 @@ private:
     GNENetElement& operator=(const GNENetElement&) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/
 

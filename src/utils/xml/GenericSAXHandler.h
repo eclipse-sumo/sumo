@@ -19,8 +19,7 @@
 ///
 // A handler which converts occuring elements and attributes into enums
 /****************************************************************************/
-#ifndef GenericSAXHandler_h
-#define GenericSAXHandler_h
+#pragma once
 
 
 // ===========================================================================
@@ -332,8 +331,6 @@ private:
     const GenericSAXHandler& operator=(const GenericSAXHandler& s);
 
 };
-
-#endif
 
 /****************************************************************************/
 

@@ -18,8 +18,7 @@
 ///
 // A device which stands as an implementation example and which outputs movereminder calls
 /****************************************************************************/
-#ifndef MSDevice_Example_h
-#define MSDevice_Example_h
+#pragma once
 
 
 // ===========================================================================
@@ -173,8 +172,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

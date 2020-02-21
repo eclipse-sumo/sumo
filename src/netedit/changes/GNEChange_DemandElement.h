@@ -17,8 +17,7 @@
 ///
 // A network change in which a demand element element is created or deleted
 /****************************************************************************/
-#ifndef GNEChange_DemandElement_h
-#define GNEChange_DemandElement_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -114,5 +113,5 @@ private:
     const std::vector<GNEDemandElement*>& myChildDemandElements;
 };
 
-#endif
+
 /****************************************************************************/

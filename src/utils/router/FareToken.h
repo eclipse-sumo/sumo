@@ -18,8 +18,7 @@
 // Fare Modul for calculating prices during intermodal routing
 /****************************************************************************/
 
-#ifndef SUMO_FARETOKEN_H
-#define SUMO_FARETOKEN_H
+#pragma once
 enum class FareToken : int {
     None =  0,
     Free =  1, // walking and other things can be free
@@ -206,4 +205,3 @@ inline FareToken stringToToken(std::string str) {
 }
 
 }
-#endif //SUMO_FARETOKEN_H

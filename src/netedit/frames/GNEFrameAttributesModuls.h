@@ -17,8 +17,7 @@
 ///
 // Auxiliar class for GNEFrame Moduls (only for attributes edition)
 /****************************************************************************/
-#ifndef GNEFrameAttributesModuls_h
-#define GNEFrameAttributesModuls_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -809,7 +808,5 @@ public:
     };
 };
 
-
-#endif
 
 /****************************************************************************/

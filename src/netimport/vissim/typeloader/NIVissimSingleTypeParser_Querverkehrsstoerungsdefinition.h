@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition_h
-#define NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition_h
+#pragma once
 
 
 // ===========================================================================
@@ -63,8 +62,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

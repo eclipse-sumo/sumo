@@ -18,8 +18,7 @@
 ///
 // A device which stands as an implementation ElecHybrid and which outputs movereminder calls
 /****************************************************************************/
-#ifndef MSDevice_ElecHybrid_h
-#define MSDevice_ElecHybrid_h
+#pragma once
 
 
 // ===========================================================================
@@ -300,8 +299,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef GNERerouter_h
-#define GNERerouter_h
+#pragma once
 
 
 // ===========================================================================
@@ -173,7 +172,5 @@ private:
     /// @brief Invalidated assignment operator.
     GNERerouter& operator=(const GNERerouter&) = delete;
 };
-
-#endif
 
 /****************************************************************************/

@@ -18,8 +18,7 @@
 ///
 // Realises dumping Electric hybrid vehicle data
 /****************************************************************************/
-#ifndef MSElecHybridExport_h
-#define MSElecHybridExport_h
+#pragma once
 
 
 // ===========================================================================
@@ -73,5 +72,4 @@ private:
 };
 
 
-#endif
 

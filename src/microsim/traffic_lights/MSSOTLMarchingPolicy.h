@@ -20,8 +20,7 @@
 // The class for SOTL Marching logics
 /****************************************************************************/
 
-#ifndef MSTLMARCHINGPOLICY_H_
-#define MSTLMARCHINGPOLICY_H_
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -52,5 +51,5 @@ protected:
 
 };
 
-#endif /* MSSOTLMARCHINGTRAFFICLIGHTLOGIC_H_ */
+
 /****************************************************************************/

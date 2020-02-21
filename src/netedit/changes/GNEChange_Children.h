@@ -17,8 +17,7 @@
 ///
 // A network change used to modify sorting of hierarchical element childrens
 /****************************************************************************/
-#ifndef GNEChange_Children_h
-#define GNEChange_Children_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -94,5 +93,5 @@ private:
     std::vector<GNEDemandElement*> myEditedChildElements;
 };
 
-#endif
+
 /****************************************************************************/

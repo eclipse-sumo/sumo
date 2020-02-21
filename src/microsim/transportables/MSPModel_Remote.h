@@ -18,8 +18,7 @@
 // The pedestrian following model for remote controlled pedestrian movement
 /****************************************************************************/
 
-#ifndef SUMO_MSPMODEL_REMOTE_H
-#define SUMO_MSPMODEL_REMOTE_H
+#pragma once
 
 
 #include <utils/options/OptionsCont.h>
@@ -99,4 +98,3 @@ private:
 };
 
 
-#endif //SUMO_MSPMODEL_REMOTE_H

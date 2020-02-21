@@ -21,8 +21,7 @@
 ///
 // A road/street connecting two junctions
 /****************************************************************************/
-#ifndef MSEdge_h
-#define MSEdge_h
+#pragma once
 
 
 // ===========================================================================
@@ -979,8 +978,6 @@ private:
     void addToAllowed(const SVCPermissions permissions, std::shared_ptr<const std::vector<MSLane*> > allowedLanes, AllowedLanesCont& laneCont) const;
 };
 
-
-#endif
 
 /****************************************************************************/
 

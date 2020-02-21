@@ -27,8 +27,7 @@
 ///
 // holds codes used for TraCI
 /****************************************************************************/
-#ifndef TRACICONSTANTS_H
-#define TRACICONSTANTS_H
+#pragma once
 
 #if __cplusplus >= 201103L
 #define TRACI_CONST constexpr
@@ -1030,4 +1029,3 @@ TRACI_CONST int VAR_HAS_VIEW = 0xa7;
 
 #undef TRACI_CONST
 
-#endif

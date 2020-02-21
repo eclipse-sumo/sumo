@@ -17,8 +17,7 @@
 ///
 // Subscription representation for libsumo and TraCI
 /****************************************************************************/
-#ifndef Subscription_h
-#define Subscription_h
+#pragma once
 
 
 // ===========================================================================
@@ -164,4 +163,3 @@ public:
 }
 
 
-#endif

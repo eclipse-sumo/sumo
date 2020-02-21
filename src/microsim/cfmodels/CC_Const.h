@@ -17,8 +17,7 @@
 ///
 // File defining constants, structs, and enums for cruise controllers
 /****************************************************************************/
-#ifndef CC_CONST_H
-#define CC_CONST_H
+#pragma once
 
 #include <string>
 #include <sstream>
@@ -184,4 +183,3 @@ struct VEHICLE_DATA {
 
 }
 
-#endif /* CC_CONST_H */

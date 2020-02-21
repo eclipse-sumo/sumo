@@ -20,8 +20,7 @@
 ///
 // Exceptions for used by some utility classes
 /****************************************************************************/
-#ifndef UtilExceptions_h
-#define UtilExceptions_h
+#pragma once
 
 
 // ===========================================================================
@@ -178,8 +177,6 @@ public:
 #endif
 #else
 #define SOFT_ASSERT(expr) assert(expr);
-#endif
-
 #endif
 
 /****************************************************************************/

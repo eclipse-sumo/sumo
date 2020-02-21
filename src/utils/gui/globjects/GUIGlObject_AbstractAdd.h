@@ -19,8 +19,7 @@
 ///
 // Base class for additional objects (detectors etc.)
 /****************************************************************************/
-#ifndef GUIGlObject_AbstractAdd_h
-#define GUIGlObject_AbstractAdd_h
+#pragma once
 
 
 // ===========================================================================
@@ -72,8 +71,6 @@ protected:
     static std::vector<GUIGlObject_AbstractAdd*> myObjectList;
 };
 
-
-#endif
 
 /****************************************************************************/
 

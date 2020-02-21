@@ -18,8 +18,7 @@
 // Fare Modul for calculating prices during intermodal routing
 /****************************************************************************/
 
-#ifndef SUMO_FAREZONES_H
-#define SUMO_FAREZONES_H
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -209,4 +208,3 @@ inline int getOverlayZone(int zoneNumber) {
     }
 }
 
-#endif //SUMO_FAREZONES_H

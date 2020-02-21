@@ -17,8 +17,7 @@
 ///
 // A class for visualizing Inner Lanes (used when editing traffic lights)
 /****************************************************************************/
-#ifndef GNECrossing_h
-#define GNECrossing_h
+#pragma once
 
 
 // ===========================================================================
@@ -167,8 +166,6 @@ private:
     GNECrossing& operator=(const GNECrossing&) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/
 

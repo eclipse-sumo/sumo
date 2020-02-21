@@ -18,8 +18,7 @@
 ///
 // Overhead wires for Electric (equipped with elecHybrid device) vehicles (Overhead wire segments, overhead wire sections, traction substations)
 /****************************************************************************/
-#ifndef MSOverheadWire_h
-#define MSOverheadWire_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -346,4 +345,3 @@ public:
     OverheadWireClamp* findClamp(std::string id);
     //bool findClamp(std::string id);
 };
-#endif

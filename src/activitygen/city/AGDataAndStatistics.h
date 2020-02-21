@@ -23,8 +23,7 @@
 // Contains various data, statistical values and functions from input used
 // by various objects
 /****************************************************************************/
-#ifndef AGDATAANDSTATISTICS_H
-#define AGDATAANDSTATISTICS_H
+#pragma once
 
 
 // ===========================================================================
@@ -182,7 +181,5 @@ private:
     //function normalizing the map's probabilities: Sum(floats) = 1
     void normalizeMapProb(std::map<int, double>* myMap);
 };
-
-#endif
 
 /****************************************************************************/

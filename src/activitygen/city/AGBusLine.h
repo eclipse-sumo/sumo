@@ -21,8 +21,7 @@
 ///
 // Bus line of the city: contains all the buses of this line
 /****************************************************************************/
-#ifndef AGBUSLINE_H
-#define AGBUSLINE_H
+#pragma once
 
 
 // ===========================================================================
@@ -74,7 +73,5 @@ private:
     int maxTripTime;
     int busNbr;
 };
-
-#endif
 
 /****************************************************************************/

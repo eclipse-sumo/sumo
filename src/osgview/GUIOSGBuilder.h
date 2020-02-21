@@ -17,8 +17,7 @@
 ///
 // Builds OSG nodes from microsim objects
 /****************************************************************************/
-#ifndef GUIOSGBuilder_h
-#define GUIOSGBuilder_h
+#pragma once
 
 
 // ===========================================================================
@@ -82,8 +81,6 @@ private:
 
 };
 
-
-#endif
 
 #endif
 

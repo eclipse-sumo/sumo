@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef NIVissimSingleTypeParser_Lichtsignalanlagendefinition_h
-#define NIVissimSingleTypeParser_Lichtsignalanlagendefinition_h
+#pragma once
 
 
 // ===========================================================================
@@ -65,8 +64,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

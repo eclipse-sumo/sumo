@@ -17,8 +17,7 @@
 ///
 // The XML-Handler for network loading
 /****************************************************************************/
-#ifndef ShapeHandler_h
-#define ShapeHandler_h
+#pragma once
 
 
 // ===========================================================================
@@ -139,8 +138,6 @@ protected:
     ShapeHandler& operator=(const ShapeHandler& s) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/
 

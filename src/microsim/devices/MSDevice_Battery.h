@@ -18,8 +18,7 @@
 ///
 // The Battery parameters for the vehicle
 /****************************************************************************/
-#ifndef MSDevice_Battery_h
-#define MSDevice_Battery_h
+#pragma once
 
 
 // ===========================================================================
@@ -221,5 +220,4 @@ private:
     MSDevice_Battery& operator=(const MSDevice_Battery&);
 };
 
-#endif
 

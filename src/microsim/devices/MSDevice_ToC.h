@@ -20,8 +20,7 @@
 // The ToC Device controls the transition of control between automated and manual driving.
 //
 /****************************************************************************/
-#ifndef MSDevice_ToC_h
-#define MSDevice_ToC_h
+#pragma once
 
 
 // ===========================================================================
@@ -392,8 +391,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

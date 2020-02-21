@@ -18,8 +18,7 @@
 // Information about vehicles ahead (may be multiple vehicles if
 // lateral-resolution is active)
 /****************************************************************************/
-#ifndef MSLeaderInfo_h
-#define MSLeaderInfo_h
+#pragma once
 
 
 // ===========================================================================
@@ -229,8 +228,6 @@ protected:
     std::vector<double> myMissingGaps;
 
 };
-
-#endif
 
 /****************************************************************************/
 

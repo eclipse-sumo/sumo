@@ -20,8 +20,7 @@
 ///
 // The original Krauss (1998) car-following model and parameter
 /****************************************************************************/
-#ifndef MSCFModel_KraussOrig1_h
-#define MSCFModel_KraussOrig1_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -155,5 +154,4 @@ protected:
     double myTauDecel;
 };
 
-#endif /* MSCFModel_KraussOrig1_H */
 

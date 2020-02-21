@@ -17,8 +17,7 @@
 ///
 // Functions used in GUIPerson and GNEPerson for drawing persons
 /****************************************************************************/
-#ifndef GUIBasePersonHelper_h
-#define GUIBasePersonHelper_h
+#pragma once
 
 
 // ===========================================================================
@@ -53,8 +52,6 @@ public:
                                        const SUMOVehicleShape guiShape, const double exaggeration);
 };
 
-
-#endif
 
 /****************************************************************************/
 

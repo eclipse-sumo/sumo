@@ -19,8 +19,7 @@
 ///
 // A netgen-representation of an edge
 /****************************************************************************/
-#ifndef NGNetElements_h
-#define NGNetElements_h
+#pragma once
 
 
 // ===========================================================================
@@ -120,8 +119,6 @@ private:
  * @brief A list of edges (edge pointers)
  */
 typedef std::list<NGEdge*> NGEdgeList;
-
-#endif
 
 /****************************************************************************/
 

@@ -19,8 +19,7 @@
 ///
 // Reroutes vehicles passing an edge (gui-version)
 /****************************************************************************/
-#ifndef GUITriggeredRerouter_h
-#define GUITriggeredRerouter_h
+#pragma once
 
 
 // ===========================================================================
@@ -300,8 +299,6 @@ private:
     int myShiftProbDistIndex;
 };
 
-
-#endif
 
 /****************************************************************************/
 

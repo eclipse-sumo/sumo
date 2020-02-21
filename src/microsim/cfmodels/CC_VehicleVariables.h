@@ -16,8 +16,7 @@
 /// @date    Mon, 7 Mar 2016
 ///
 /****************************************************************************/
-#ifndef CC_VEHICLEVARIABLES_H
-#define CC_VEHICLEVARIABLES_H
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -210,4 +209,3 @@ public:
     bool autoLaneChange;
 };
 
-#endif

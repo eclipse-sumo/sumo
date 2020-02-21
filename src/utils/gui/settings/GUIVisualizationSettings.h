@@ -19,8 +19,7 @@
 ///
 // Stores the information about how to visualize structures
 /****************************************************************************/
-#ifndef GUIVisualizationSettings_h
-#define GUIVisualizationSettings_h
+#pragma once
 
 
 // ===========================================================================
@@ -790,8 +789,6 @@ public:
     GUIVisualizationDetailSettings detailSettings;
 };
 
-
-#endif
 
 /****************************************************************************/
 

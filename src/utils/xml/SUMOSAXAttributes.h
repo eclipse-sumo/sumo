@@ -19,8 +19,7 @@
 ///
 // Encapsulated SAX-Attributes
 /****************************************************************************/
-#ifndef SUMOSAXAttributes_h
-#define SUMOSAXAttributes_h
+#pragma once
 
 
 // ===========================================================================
@@ -539,8 +538,6 @@ T SUMOSAXAttributes::getOpt(int attr, const char* objectid,
     return invalid_return<T>::value;
 }
 
-
-#endif
 
 /****************************************************************************/
 

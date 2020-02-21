@@ -18,8 +18,7 @@
 ///
 // An edge imported from Vissim together for a container for
 /****************************************************************************/
-#ifndef NIVissimDistrictConnection_h
-#define NIVissimDistrictConnection_h
+#pragma once
 
 
 // ===========================================================================
@@ -140,8 +139,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

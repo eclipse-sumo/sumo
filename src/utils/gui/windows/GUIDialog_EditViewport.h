@@ -18,8 +18,7 @@
 ///
 // A dialog to change the viewport
 /****************************************************************************/
-#ifndef GUIDialog_EditViewport_h
-#define GUIDialog_EditViewport_h
+#pragma once
 
 
 // ===========================================================================
@@ -150,8 +149,6 @@ private:
     FXButton* myCancelButton;
 };
 
-
-#endif
 
 /****************************************************************************/
 

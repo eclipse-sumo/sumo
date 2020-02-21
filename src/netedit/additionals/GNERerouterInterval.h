@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef GNERerouterInterval_h
-#define GNERerouterInterval_h
+#pragma once
 
 
 // ===========================================================================
@@ -157,7 +156,5 @@ private:
     /// @brief Invalidated assignment operator.
     GNERerouterInterval& operator=(GNERerouterInterval*) = delete;
 };
-
-#endif
 
 /****************************************************************************/

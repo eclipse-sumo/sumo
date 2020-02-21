@@ -23,8 +23,7 @@
 // Generates trips related to after-work activities
 // like visiting the family or party.
 /****************************************************************************/
-#ifndef AGFREETIME_H
-#define AGFREETIME_H
+#pragma once
 
 
 // ===========================================================================
@@ -122,7 +121,5 @@ private:
     static const int TE_NIGHT;// = 500;
 
 };
-
-#endif
 
 /****************************************************************************/

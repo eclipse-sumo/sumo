@@ -21,8 +21,7 @@
 ///
 // A device which is used to keep track of persons and containers riding with a vehicle
 /****************************************************************************/
-#ifndef MSDevice_Transportable_h
-#define MSDevice_Transportable_h
+#pragma once
 
 
 // ===========================================================================
@@ -183,8 +182,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

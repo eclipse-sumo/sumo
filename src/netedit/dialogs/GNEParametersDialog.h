@@ -17,8 +17,7 @@
 ///
 // Dialog for edit parameters
 /****************************************************************************/
-#ifndef GNEParametersDialog_h
-#define GNEParametersDialog_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -282,4 +281,3 @@ private:
     GNEParametersDialog& operator=(const GNEParametersDialog&) = delete;
 };
 
-#endif

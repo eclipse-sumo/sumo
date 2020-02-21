@@ -18,8 +18,7 @@
 // The class for a PushButton
 /****************************************************************************/
 
-#ifndef SRC_MICROSIM_TRAFFIC_LIGHTS_MSPUSHBUTTON_H_
-#define SRC_MICROSIM_TRAFFIC_LIGHTS_MSPUSHBUTTON_H_
+#pragma once
 
 #include <vector>
 #include <map>
@@ -104,4 +103,3 @@ private:
     static void loadCrossingEdgeMap();
 };
 
-#endif /* SRC_MICROSIM_TRAFFIC_LIGHTS_MSPUSHBUTTON_H_ */

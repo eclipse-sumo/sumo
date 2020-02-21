@@ -19,8 +19,7 @@
 ///
 // Structure representing possible vehicle parameter
 /****************************************************************************/
-#ifndef SUMOVTypeParameter_h
-#define SUMOVTypeParameter_h
+#pragma once
 
 
 // ===========================================================================
@@ -382,8 +381,6 @@ public:
      */
     std::string getManoeuverAngleTimesS() const;
 };
-
-#endif
 
 /****************************************************************************/
 

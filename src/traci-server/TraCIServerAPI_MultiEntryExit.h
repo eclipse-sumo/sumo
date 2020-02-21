@@ -18,8 +18,7 @@
 ///
 // APIs for getting/setting multi-entry/multi-exit detector values via TraCI
 /****************************************************************************/
-#ifndef TraCIServerAPI_MultiEntryExit_h
-#define TraCIServerAPI_MultiEntryExit_h
+#pragma once
 
 
 // ===========================================================================
@@ -60,8 +59,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

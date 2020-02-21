@@ -20,8 +20,7 @@
 ///
 // Network state mean data collector for edges/lanes
 /****************************************************************************/
-#ifndef MSMeanData_Net_h
-#define MSMeanData_Net_h
+#pragma once
 
 
 // ===========================================================================
@@ -254,8 +253,6 @@ private:
     MSMeanData_Net& operator=(const MSMeanData_Net&);
 
 };
-
-#endif
 
 /****************************************************************************/
 

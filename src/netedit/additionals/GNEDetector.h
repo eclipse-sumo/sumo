@@ -17,8 +17,7 @@
 ///
 // A abstract class to define common parameters of detectors placed over lanes
 /****************************************************************************/
-#ifndef GNEDetector_h
-#define GNEDetector_h
+#pragma once
 
 
 // ===========================================================================
@@ -202,7 +201,5 @@ private:
     /// @brief Invalidate set new position in the view
     void setPosition(const Position& pos) = delete;
 };
-
-#endif
 
 /****************************************************************************/

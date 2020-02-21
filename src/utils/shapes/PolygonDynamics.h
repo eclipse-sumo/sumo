@@ -19,8 +19,7 @@
 /****************************************************************************/
 
 
-#ifndef UTILS_SHAPES_POLYGONDYNAMICS_H_
-#define UTILS_SHAPES_POLYGONDYNAMICS_H_
+#pragma once
 
 #include <memory>
 #include "SUMOPolygon.h"
@@ -143,4 +142,3 @@ private:
 
 };
 
-#endif /* UTILS_SHAPES_POLYGONDYNAMICS_H_ */

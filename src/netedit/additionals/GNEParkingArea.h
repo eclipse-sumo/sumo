@@ -17,8 +17,7 @@
 ///
 // A class for visualizing ParkingArea geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
-#ifndef GNEParkingArea_h
-#define GNEParkingArea_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -135,4 +134,3 @@ private:
 };
 
 
-#endif

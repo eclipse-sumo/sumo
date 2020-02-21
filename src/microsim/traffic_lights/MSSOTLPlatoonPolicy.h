@@ -18,8 +18,7 @@
 ///
 // The class for SOTL Platoon logics
 /****************************************************************************/
-#ifndef MSTLPlatoonPolicy_h
-#define MSTLPlatoonPolicy_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -52,5 +51,5 @@ protected:
     void init();
 };
 
-#endif
+
 /****************************************************************************/

@@ -18,8 +18,7 @@
 ///
 // Writes the switch times of a tls into a file when the tls switches
 /****************************************************************************/
-#ifndef Command_SaveTLSSwitchStates_h
-#define Command_SaveTLSSwitchStates_h
+#pragma once
 
 
 // ===========================================================================
@@ -104,8 +103,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

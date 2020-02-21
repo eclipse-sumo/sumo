@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef GNEClosingReroute_h
-#define GNEClosingReroute_h
+#pragma once
 
 
 // ===========================================================================
@@ -152,7 +151,5 @@ private:
     /// @brief Invalidated assignment operator.
     GNEClosingReroute& operator=(const GNEClosingReroute&) = delete;
 };
-
-#endif
 
 /****************************************************************************/

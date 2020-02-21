@@ -18,8 +18,7 @@
 ///
 // Some typedef definitions fir containers
 /****************************************************************************/
-#ifndef NBCont_h
-#define NBCont_h
+#pragma once
 
 
 // ===========================================================================
@@ -55,8 +54,6 @@ typedef std::set<NBEdge*> EdgeSet;
 /// @brief container for (sorted) lanes. The lanes are sorted from rightmost (id=0) to leftmost (id=nolanes-1)
 typedef std::vector<int> LaneVector;
 
-
-#endif
 
 /****************************************************************************/
 

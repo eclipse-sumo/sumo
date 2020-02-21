@@ -22,8 +22,7 @@
 // Main class that manages activities taken in account and generates the
 // inhabitants' trip list.
 /****************************************************************************/
-#ifndef AGACTIVITIES_H
-#define AGACTIVITIES_H
+#pragma once
 
 
 // ===========================================================================
@@ -74,7 +73,5 @@ private:
     int nbrDays;
 
 };
-
-#endif
 
 /****************************************************************************/

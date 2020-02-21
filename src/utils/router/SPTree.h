@@ -18,8 +18,7 @@
 ///
 // Shortest Path tree of limited depth using Dijkstras algorithm
 /****************************************************************************/
-#ifndef SPTree_h
-#define SPTree_h
+#pragma once
 
 
 // ===========================================================================
@@ -239,8 +238,6 @@ private:
     /// @brief vector of needed shortcuts after validation
     CHConnectionPairs myNeededShortcuts;
 };
-
-#endif
 
 /****************************************************************************/
 

@@ -20,8 +20,7 @@
 // A* Algorithm using euclidean distance heuristic.
 // Based on DijkstraRouter. For routing by effort a novel heuristic would be needed.
 /****************************************************************************/
-#ifndef AStarRouter_h
-#define AStarRouter_h
+#pragma once
 
 
 // ===========================================================================
@@ -324,8 +323,6 @@ protected:
     double myMaxSpeed;
 };
 
-
-#endif
 
 /****************************************************************************/
 

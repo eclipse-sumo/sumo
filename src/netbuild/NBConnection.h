@@ -19,8 +19,7 @@
 ///
 // The class holds a description of a connection between two edges
 /****************************************************************************/
-#ifndef NBConnection_h
-#define NBConnection_h
+#pragma once
 
 
 // ===========================================================================
@@ -152,8 +151,6 @@ private:
     int myTlIndex2;
 };
 
-
-#endif
 
 /****************************************************************************/
 

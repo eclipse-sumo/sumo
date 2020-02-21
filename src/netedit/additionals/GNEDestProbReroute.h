@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef GNEDestProbReroute_h
-#define GNEDestProbReroute_h
+#pragma once
 
 
 // ===========================================================================
@@ -153,7 +152,5 @@ private:
     /// @brief Invalidated assignment operator.
     GNEDestProbReroute& operator=(const GNEDestProbReroute&) = delete;
 };
-
-#endif
 
 /****************************************************************************/

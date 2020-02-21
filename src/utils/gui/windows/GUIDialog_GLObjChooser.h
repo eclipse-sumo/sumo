@@ -19,8 +19,7 @@
 ///
 // Class for the window that allows to choose a street, junction or vehicle
 /****************************************************************************/
-#ifndef GUIDialog_GLObjChooser_h
-#define GUIDialog_GLObjChooser_h
+#pragma once
 
 
 // ===========================================================================
@@ -163,8 +162,6 @@ protected:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

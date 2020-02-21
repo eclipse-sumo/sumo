@@ -23,8 +23,7 @@
 ///
 // Class containing all information of a given trip (car, bus)
 /****************************************************************************/
-#ifndef AGTRIP_H
-#define AGTRIP_H
+#pragma once
 
 
 // ===========================================================================
@@ -142,7 +141,5 @@ private:
     int myDay;
     std::list<AGPosition> myPassBy;
 };
-
-#endif
 
 /****************************************************************************/

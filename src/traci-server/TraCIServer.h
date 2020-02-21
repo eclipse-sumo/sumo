@@ -25,8 +25,7 @@
 ///
 // TraCI server used to control sumo by a remote TraCI client
 /****************************************************************************/
-#ifndef TRACISERVER_H
-#define TRACISERVER_H
+#pragma once
 
 
 // ===========================================================================
@@ -444,4 +443,3 @@ private:
 };
 
 
-#endif

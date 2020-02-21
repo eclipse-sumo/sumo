@@ -18,8 +18,7 @@
 // A detailed engine model
 /****************************************************************************/
 
-#ifndef ENGINEMODEL_H_
-#define ENGINEMODEL_H_
+#pragma once
 
 #include "GenericEngineModel.h"
 
@@ -381,4 +380,3 @@ private:
 #endif
 };
 
-#endif /* ENGINEMODEL_H_ */

@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef GNETAZSourceSink_h
-#define GNETAZSourceSink_h
+#pragma once
 
 
 // ===========================================================================
@@ -156,7 +155,5 @@ private:
     /// @brief Invalidated assignment operator
     GNETAZSourceSink& operator=(const GNETAZSourceSink&) = delete;
 };
-
-#endif
 
 /****************************************************************************/

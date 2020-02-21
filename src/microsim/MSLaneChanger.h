@@ -20,8 +20,7 @@
 ///
 // Performs lane changing of vehicles
 /****************************************************************************/
-#ifndef MSLaneChanger_h
-#define MSLaneChanger_h
+#pragma once
 
 
 // ===========================================================================
@@ -250,8 +249,6 @@ private:
     MSLaneChanger& operator=(const MSLaneChanger&);
 };
 
-
-#endif
 
 /****************************************************************************/
 

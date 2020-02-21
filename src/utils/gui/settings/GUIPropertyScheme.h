@@ -19,8 +19,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef GUIPropertyScheme_h
-#define GUIPropertyScheme_h
+#pragma once
 
 
 // ===========================================================================
@@ -246,7 +245,5 @@ private:
 
 typedef GUIPropertyScheme<RGBColor> GUIColorScheme;
 typedef GUIPropertyScheme<double> GUIScaleScheme;
-
-#endif
 
 /****************************************************************************/

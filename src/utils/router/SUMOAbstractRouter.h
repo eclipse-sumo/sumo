@@ -19,8 +19,7 @@
 ///
 // An abstract router base class
 /****************************************************************************/
-#ifndef SUMOAbstractRouter_h
-#define SUMOAbstractRouter_h
+#pragma once
 
 
 // ===========================================================================
@@ -308,7 +307,5 @@ private:
     SUMOAbstractRouter& operator=(const SUMOAbstractRouter& s);
 };
 
-
-#endif
 
 /****************************************************************************/

@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef NIVissimSingleTypeParser_Fahrzeugklassendefinition_h
-#define NIVissimSingleTypeParser_Fahrzeugklassendefinition_h
+#pragma once
 
 
 // ===========================================================================
@@ -56,8 +55,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

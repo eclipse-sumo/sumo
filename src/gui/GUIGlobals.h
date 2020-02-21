@@ -19,8 +19,7 @@
 ///
 // Some global variables (yep)
 /****************************************************************************/
-#ifndef GUIGlobals_h
-#define GUIGlobals_h
+#pragma once
 
 
 // ===========================================================================
@@ -56,8 +55,6 @@ public:
     /// the aggregation period for tracker windows in seconds
     static double gTrackerInterval;
 };
-
-#endif
 
 /****************************************************************************/
 

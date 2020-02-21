@@ -20,8 +20,7 @@
 ///
 // Inserts vehicles into the network when their departure time is reached
 /****************************************************************************/
-#ifndef MSInsertionControl_h
-#define MSInsertionControl_h
+#pragma once
 
 
 // ===========================================================================
@@ -255,8 +254,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

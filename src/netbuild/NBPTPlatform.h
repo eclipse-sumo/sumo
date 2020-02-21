@@ -18,8 +18,7 @@
 // The representation of a pt platform
 /****************************************************************************/
 
-#ifndef SUMO_NBPTPLATFORM_H
-#define SUMO_NBPTPLATFORM_H
+#pragma once
 
 
 #include <utils/geom/Position.h>
@@ -36,4 +35,3 @@ private:
 };
 
 
-#endif //SUMO_NBPTPLATFORM_H

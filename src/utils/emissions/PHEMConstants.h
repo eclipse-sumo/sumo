@@ -19,8 +19,7 @@
 // Holds constants and data version info for PHEM Light
 /****************************************************************************/
 
-#ifndef PHEMConstants_h
-#define PHEMConstants_h
+#pragma once
 
 const double GRAVITY_CONST = 9.81;
 const double AIR_DENSITY_CONST = 1.182;
@@ -39,4 +38,3 @@ const double NNORM_INCREMENT = 0.05;
 
 const std::string PHEM_DATA_VERSION = "V5";
 
-#endif

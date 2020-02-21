@@ -19,8 +19,7 @@
 ///
 // Calculators for route costs and probabilities
 /****************************************************************************/
-#ifndef GawronCalculator_h
-#define GawronCalculator_h
+#pragma once
 
 
 // ===========================================================================
@@ -115,7 +114,5 @@ private:
     GawronCalculator& operator=(const GawronCalculator& s);
 
 };
-#endif
-
 /****************************************************************************/
 

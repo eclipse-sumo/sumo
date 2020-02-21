@@ -18,8 +18,7 @@
 ///
 // Computes routes using junction turning percentages
 /****************************************************************************/
-#ifndef ROJTRRouter_h
-#define ROJTRRouter_h
+#pragma once
 
 
 // ===========================================================================
@@ -114,8 +113,6 @@ private:
     const bool myDiscountSources;
 };
 
-
-#endif
 
 /****************************************************************************/
 

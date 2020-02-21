@@ -18,8 +18,7 @@
 ///
 // The gui-version of a MSOverheadWire
 /****************************************************************************/
-#ifndef GUIOverheadWire_h
-#define GUIOverheadWire_h
+#pragma once
 
 
 // ===========================================================================
@@ -190,5 +189,4 @@ private:
     PositionVector myFGShape;
 };
 
-#endif
 

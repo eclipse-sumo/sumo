@@ -17,8 +17,7 @@
 ///
 // Dialog used to fix additional elements
 /****************************************************************************/
-#ifndef GNEFixAdditionalElements_h
-#define GNEFixAdditionalElements_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -173,4 +172,3 @@ private:
     GNEFixAdditionalElements& operator=(const GNEFixAdditionalElements&) = delete;
 };
 
-#endif

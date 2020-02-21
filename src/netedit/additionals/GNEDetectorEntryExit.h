@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef GNEDetectorEntryExit_h
-#define GNEDetectorEntryExit_h
+#pragma once
 
 
 // ===========================================================================
@@ -134,7 +133,5 @@ private:
     /// @brief Invalidated assignment operator.
     GNEDetectorEntryExit& operator=(const GNEDetectorEntryExit&) = delete;
 };
-
-#endif
 
 /****************************************************************************/

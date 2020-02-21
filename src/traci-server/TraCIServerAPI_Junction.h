@@ -18,8 +18,7 @@
 ///
 // APIs for getting/setting junction values via TraCI
 /****************************************************************************/
-#ifndef TraCIServerAPI_Junction_h
-#define TraCIServerAPI_Junction_h
+#pragma once
 
 
 // ===========================================================================
@@ -64,7 +63,5 @@ private:
     TraCIServerAPI_Junction& operator=(const TraCIServerAPI_Junction& s);
 };
 
-
-#endif
 
 /****************************************************************************/

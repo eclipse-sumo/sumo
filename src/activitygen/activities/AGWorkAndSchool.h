@@ -21,8 +21,7 @@
 ///
 // Generates trips to work and to school
 /****************************************************************************/
-#ifndef AGWORKANDSCHOOL_H
-#define AGWORKANDSCHOOL_H
+#pragma once
 
 
 // ===========================================================================
@@ -138,7 +137,5 @@ private:
     std::list<AGTrip> tempAccTrip;
     std::list<AGTrip> tempTrip;
 };
-
-#endif
 
 /****************************************************************************/

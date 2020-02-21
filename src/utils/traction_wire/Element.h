@@ -19,8 +19,7 @@
 // Representation of electric circuit elements: resistors, voltage and current sources
 /// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
-#ifndef ELEMENT_H
-#define ELEMENT_H
+#pragma once
 
 #include <string>
 #include <iostream>
@@ -94,4 +93,3 @@ public:
     void setType(ElementType ET);
 
 };
-#endif

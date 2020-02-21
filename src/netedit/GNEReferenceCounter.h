@@ -19,8 +19,7 @@
 // We may wish to keep references to junctions/nodes either in the network or in the undoList
 // to clean up properly we have to resort to reference counting
 /****************************************************************************/
-#ifndef GNEReferenceCounter_h
-#define GNEReferenceCounter_h
+#pragma once
 
 
 // ===========================================================================
@@ -93,8 +92,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

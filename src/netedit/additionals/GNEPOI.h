@@ -18,8 +18,7 @@
 // A class for visualizing and editing POIS in netedit (adapted from
 // GUIPointOfInterest and NLHandler)
 /****************************************************************************/
-#ifndef GNEPOI_h
-#define GNEPOI_h
+#pragma once
 
 
 // ===========================================================================
@@ -219,8 +218,6 @@ private:
     /// @brief Invalidated assignment operator.
     GNEPOI& operator=(const GNEPOI&) = delete;
 };
-
-#endif
 
 /****************************************************************************/
 

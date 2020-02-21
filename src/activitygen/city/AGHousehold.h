@@ -23,8 +23,7 @@
 // A household contains the people and cars of the city: roughly represents
 // families with their address, cars, adults and possibly children
 /****************************************************************************/
-#ifndef HOUSEHOLD_H
-#define HOUSEHOLD_H
+#pragma once
 
 
 // ===========================================================================
@@ -126,7 +125,5 @@ private:
     std::list<AGChild> myChildren;
     std::list<AGCar> myCars;
 };
-
-#endif
 
 /****************************************************************************/

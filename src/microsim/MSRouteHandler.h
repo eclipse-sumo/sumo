@@ -19,8 +19,7 @@
 ///
 // Parser and container for routes during their loading
 /****************************************************************************/
-#ifndef MSRouteHandler_h
-#define MSRouteHandler_h
+#pragma once
 
 
 // ===========================================================================
@@ -219,8 +218,6 @@ private:
     MSRouteHandler& operator=(const MSRouteHandler& s) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/
 

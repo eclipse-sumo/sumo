@@ -17,8 +17,7 @@
 ///
 // The PublicTransportEdge is a special intermodal edge connecting the stop edges with scheduled traffic
 /****************************************************************************/
-#ifndef PublicTransportEdge_h
-#define PublicTransportEdge_h
+#pragma once
 
 
 // ===========================================================================
@@ -162,7 +161,5 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/

@@ -21,8 +21,7 @@
 // The class for low-level policy
 /****************************************************************************/
 
-#ifndef MSTLPolicy_h
-#define MSTLPolicy_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -132,4 +131,3 @@ public:
     double computeDesirability(double vehInMeasure, double vehOutMeasure);
 };
 
-#endif

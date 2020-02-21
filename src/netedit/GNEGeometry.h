@@ -17,8 +17,7 @@
 ///
 // File for geometry classes and functions
 /****************************************************************************/
-#ifndef GNEGeometry_h
-#define GNEGeometry_h
+#pragma once
 
 
 // ===========================================================================
@@ -436,8 +435,6 @@ private:
     /// @brief normalize angle for lookup in myCircleCoords
     static int angleLookup(const double angleDeg);
 };
-
-#endif
 
 /****************************************************************************/
 

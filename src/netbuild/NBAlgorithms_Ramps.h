@@ -18,8 +18,7 @@
 ///
 // Algorithms for highway on-/off-ramps computation
 /****************************************************************************/
-#ifndef NBAlgorithms_Ramps_h
-#define NBAlgorithms_Ramps_h
+#pragma once
 
 
 // ===========================================================================
@@ -144,8 +143,6 @@ private:
     static void patchRampGeometry(NBEdge* potRamp, NBEdge* first, NBEdge* potHighway, bool onRamp);
 };
 
-
-#endif
 
 /****************************************************************************/
 

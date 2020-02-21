@@ -21,8 +21,7 @@
 ///
 // Definitions of SUMO vehicle classes and helper functions
 /****************************************************************************/
-#ifndef SUMOVehicleClass_h
-#define SUMOVehicleClass_h
+#pragma once
 
 
 // ===========================================================================
@@ -366,8 +365,6 @@ extern const double DEFAULT_VEH_PROB; // !!! does this belong here?
 extern const double DEFAULT_PEDESTRIAN_SPEED;
 
 extern const double DEFAULT_CONTAINER_TRANSHIP_SPEED;
-
-#endif
 
 /****************************************************************************/
 

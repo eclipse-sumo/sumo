@@ -18,8 +18,7 @@
 ///
 // Encapsulates an object's method for using it as a message retriever
 /****************************************************************************/
-#ifndef MsgRetrievingFunction_h
-#define MsgRetrievingFunction_h
+#pragma once
 
 
 // ===========================================================================
@@ -104,8 +103,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

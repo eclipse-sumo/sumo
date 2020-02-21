@@ -20,8 +20,7 @@
 ///
 // Event send when the simulation has been loaded by GUILadThread
 /****************************************************************************/
-#ifndef GUIEvent_SimulationLoaded_h
-#define GUIEvent_SimulationLoaded_h
+#pragma once
 
 
 // ===========================================================================
@@ -96,8 +95,6 @@ private:
     GUIEvent_SimulationLoaded& operator=(const GUIEvent_SimulationLoaded& s);
 };
 
-
-#endif
 
 /****************************************************************************/
 

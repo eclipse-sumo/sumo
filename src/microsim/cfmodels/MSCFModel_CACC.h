@@ -24,8 +24,7 @@
 //     Control Vehicles. Transportation Research Record: Journal of the
 //     Transportation Research Board, No. 2623, 2017. (DOI: 10.3141/2623-01).
 /****************************************************************************/
-#ifndef MSCFModel_CACC_H
-#define MSCFModel_CACC_H
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -176,4 +175,3 @@ private:
     MSCFModel_CACC& operator=(const MSCFModel_CACC& s);
 };
 
-#endif /* MSCFModel_CACC_H */

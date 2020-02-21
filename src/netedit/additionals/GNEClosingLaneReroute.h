@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef GNEClosingLaneReroute_h
-#define GNEClosingLaneReroute_h
+#pragma once
 
 
 // ===========================================================================
@@ -153,7 +152,5 @@ private:
     /// @brief Invalidated assignment operator.
     GNEClosingLaneReroute& operator=(const GNEClosingLaneReroute&) = delete;
 };
-
-#endif
 
 /****************************************************************************/

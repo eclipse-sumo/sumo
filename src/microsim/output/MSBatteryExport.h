@@ -19,8 +19,7 @@
 ///
 // Realises dumping Battery Data
 /****************************************************************************/
-#ifndef MSBatteryExport_h
-#define MSBatteryExport_h
+#pragma once
 
 
 // ===========================================================================
@@ -73,5 +72,4 @@ private:
 };
 
 
-#endif
 

@@ -19,8 +19,7 @@
 ///
 // Shortest Path search using a Contraction Hierarchy
 /****************************************************************************/
-#ifndef CHRouter_h
-#define CHRouter_h
+#pragma once
 
 
 // ===========================================================================
@@ -395,8 +394,6 @@ private:
     const SUMOVehicleClass mySVC;
 };
 
-
-#endif
 
 /****************************************************************************/
 

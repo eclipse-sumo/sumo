@@ -18,8 +18,7 @@
 ///
 // APIs for getting/setting traffic light values via TraCI
 /****************************************************************************/
-#ifndef TraCIServerAPI_TrafficLight_h
-#define TraCIServerAPI_TrafficLight_h
+#pragma once
 
 
 // ===========================================================================
@@ -70,8 +69,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

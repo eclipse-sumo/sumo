@@ -17,8 +17,7 @@
 ///
 // An actuated traffic light logic based on time delay of approaching vehicles
 /****************************************************************************/
-#ifndef MSDelayBasedTrafficLightLogic_h
-#define MSDelayBasedTrafficLightLogic_h
+#pragma once
 
 
 // ===========================================================================
@@ -142,8 +141,6 @@ protected:
     std::string myVehicleTypes;
 };
 
-
-#endif
 
 /****************************************************************************/
 

@@ -17,8 +17,7 @@
 ///
 // The Widget for modifying traffic lights
 /****************************************************************************/
-#ifndef GNETLSEditorFrame_h
-#define GNETLSEditorFrame_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -476,8 +475,6 @@ private:
     static std::string varDurString(SUMOTime dur);
 };
 
-
-#endif
 
 /****************************************************************************/
 

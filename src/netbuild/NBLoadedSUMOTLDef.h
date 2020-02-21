@@ -19,8 +19,7 @@
 // A complete traffic light logic loaded from a sumo-net. (opted to reimplement
 // since NBLoadedTLDef is quite vissim specific)
 /****************************************************************************/
-#ifndef NBLoadedSUMOTLDef_h
-#define NBLoadedSUMOTLDef_h
+#pragma once
 
 
 // ===========================================================================
@@ -261,8 +260,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

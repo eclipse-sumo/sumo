@@ -17,8 +17,7 @@
 ///
 // The Widget for remove network-elements
 /****************************************************************************/
-#ifndef GNEDeleteFrame_h
-#define GNEDeleteFrame_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -144,8 +143,6 @@ private:
     GNEFrameModuls::AttributeCarrierHierarchy* myAttributeCarrierHierarchy;
 };
 
-
-#endif
 
 /****************************************************************************/
 

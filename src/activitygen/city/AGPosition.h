@@ -22,8 +22,7 @@
 ///
 // References a street of the city and defines a position in this street
 /****************************************************************************/
-#ifndef AGPOSITION_H
-#define AGPOSITION_H
+#pragma once
 
 
 // ===========================================================================
@@ -155,6 +154,5 @@ private:
     Position compute2dPosition() const;
 };
 
-#endif /* AGPOSITION_H */
 
 /****************************************************************************/

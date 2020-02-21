@@ -18,8 +18,7 @@
 // A class for visualizing and editing POIS in netedit (adapted from
 // GUIPolygon and NLHandler)
 /****************************************************************************/
-#ifndef GNEPoly_h
-#define GNEPoly_h
+#pragma once
 
 
 // ===========================================================================
@@ -259,8 +258,6 @@ private:
     GNEPoly& operator=(const GNEPoly&) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/
 

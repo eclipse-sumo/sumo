@@ -18,8 +18,7 @@
 ///
 // APIs for getting/setting edge values via TraCI
 /****************************************************************************/
-#ifndef TraCIServerAPI_Simulation_h
-#define TraCIServerAPI_Simulation_h
+#pragma once
 
 
 // ===========================================================================
@@ -93,8 +92,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

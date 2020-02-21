@@ -19,8 +19,7 @@
 ///
 // A class that allows to steer the visual output in dependence to
 /****************************************************************************/
-#ifndef GUIDanielPerspectiveChanger_h
-#define GUIDanielPerspectiveChanger_h
+#pragma once
 
 
 // ===========================================================================
@@ -161,8 +160,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

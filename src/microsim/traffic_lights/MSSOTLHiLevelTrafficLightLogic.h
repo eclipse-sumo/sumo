@@ -19,8 +19,7 @@
 /// @date    Jun 2013
 ///
 /****************************************************************************/
-#ifndef MSSOTLTrafficLightLogic_H
-#define MSSOTLTrafficLightLogic_H
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -123,4 +122,3 @@ private:
 
 };
 
-#endif

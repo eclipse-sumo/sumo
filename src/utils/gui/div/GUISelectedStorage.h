@@ -19,8 +19,7 @@
 ///
 // Storage for "selected" objects
 /****************************************************************************/
-#ifndef GUISelectedStorage_h
-#define GUISelectedStorage_h
+#pragma once
 
 
 // ===========================================================================
@@ -289,8 +288,6 @@ private:
     static void save(const std::string& filename, const std::set<GUIGlID>& ids);
 };
 
-
-#endif
 
 /****************************************************************************/
 

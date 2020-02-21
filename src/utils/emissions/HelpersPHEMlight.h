@@ -18,8 +18,7 @@
 ///
 // Helper methods for PHEMlight-based emission computation
 /****************************************************************************/
-#ifndef HelpersPHEMlight_h
-#define HelpersPHEMlight_h
+#pragma once
 
 
 // ===========================================================================
@@ -136,8 +135,6 @@ private:
     std::map<SUMOEmissionClass, PHEMlightdll::CEP*> myCEPs;
 };
 
-
-#endif
 
 /****************************************************************************/
 

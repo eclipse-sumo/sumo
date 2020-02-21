@@ -18,8 +18,7 @@
 ///
 // A logging window for the gui
 /****************************************************************************/
-#ifndef GUIMessageWindow_h
-#define GUIMessageWindow_h
+#pragma once
 
 
 // ===========================================================================
@@ -148,8 +147,6 @@ private:
     OutputDevice* myErrorRetriever, *myDebugRetriever, *myGLDebugRetriever, *myMessageRetriever, *myWarningRetriever;
 };
 
-
-#endif
 
 /****************************************************************************/
 

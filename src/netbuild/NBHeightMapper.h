@@ -19,8 +19,7 @@
 ///
 // Set z-values for all network positions based on data from a height map
 /****************************************************************************/
-#ifndef NBHeightMapper_h
-#define NBHeightMapper_h
+#pragma once
 
 
 // ===========================================================================
@@ -199,8 +198,6 @@ inline TRIANGLE_RTREE_QUAL::Rect TRIANGLE_RTREE_QUAL::CombineRect(Rect* a_rectA,
     return newRect;
 }
 
-
-#endif
 
 /****************************************************************************/
 

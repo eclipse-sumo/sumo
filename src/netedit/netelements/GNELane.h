@@ -17,8 +17,7 @@
 ///
 // A class for visualizing Lane geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
-#ifndef GNELane_h
-#define GNELane_h
+#pragma once
 
 
 // ===========================================================================
@@ -294,8 +293,6 @@ private:
     GNELane& operator=(const GNELane&) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/
 

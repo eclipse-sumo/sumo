@@ -21,8 +21,7 @@
 ///
 // Parent object of every person, contains age and any natural characteristic
 /****************************************************************************/
-#ifndef AGPERSON_H
-#define AGPERSON_H
+#pragma once
 
 
 // ===========================================================================
@@ -78,6 +77,5 @@ protected:
     virtual ~AGPerson();
 };
 
-#endif /* AGPerson */
 
 /****************************************************************************/

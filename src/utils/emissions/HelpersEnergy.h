@@ -18,8 +18,7 @@
 ///
 // Helper methods for HBEFA-based emission computation
 /****************************************************************************/
-#ifndef HelpersEnergy_h
-#define HelpersEnergy_h
+#pragma once
 
 
 // ===========================================================================
@@ -86,8 +85,6 @@ private:
     std::map<int, double> myDefaultParameter;
 };
 
-
-#endif
 
 /****************************************************************************/
 

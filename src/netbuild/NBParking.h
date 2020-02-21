@@ -17,8 +17,7 @@
 ///
 // The representation of an imported parking area
 /****************************************************************************/
-#ifndef SUMO_NBParking_H
-#define SUMO_NBParking_H
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -74,4 +73,3 @@ public:
     void addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into);
 };
 
-#endif //SUMO_NBParking_H

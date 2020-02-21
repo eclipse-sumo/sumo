@@ -19,8 +19,7 @@
 ///
 // Parser for routes during their loading
 /****************************************************************************/
-#ifndef SUMORouteHandler_h
-#define SUMORouteHandler_h
+#pragma once
 
 
 // ===========================================================================
@@ -259,7 +258,5 @@ private:
     SUMORouteHandler& operator=(const SUMORouteHandler& s) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/

@@ -23,8 +23,7 @@
 // Parent object for all activities. Derived classes generate trips for each
 // household.
 /****************************************************************************/
-#ifndef AGACTIVITY_H
-#define AGACTIVITY_H
+#pragma once
 
 
 // ===========================================================================
@@ -123,7 +122,5 @@ protected:
     double carPreference;
 
 };
-
-#endif
 
 /****************************************************************************/

@@ -18,8 +18,7 @@
 ///
 // The IntermodalRouter builds a special network and (delegates to a SUMOAbstractRouter)
 /****************************************************************************/
-#ifndef IntermodalRouter_h
-#define IntermodalRouter_h
+#pragma once
 
 
 // ===========================================================================
@@ -318,7 +317,5 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/

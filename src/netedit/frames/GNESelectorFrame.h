@@ -18,8 +18,7 @@
 // The Widget for modifying selections of network-elements
 // (some elements adapted from GUIDialog_GLChosenEditor)
 /****************************************************************************/
-#ifndef GNESelectorFrame_h
-#define GNESelectorFrame_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -439,8 +438,6 @@ private:
     std::vector<GNEAttributeCarrier*> getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, double val, const std::string& expr);
 };
 
-
-#endif
 
 /****************************************************************************/
 

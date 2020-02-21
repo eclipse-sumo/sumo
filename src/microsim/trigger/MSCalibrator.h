@@ -19,8 +19,7 @@
 ///
 // Calibrates the flow on an edge by removing an inserting vehicles
 /****************************************************************************/
-#ifndef MSCalibrator_h
-#define MSCalibrator_h
+#pragma once
 
 
 // ===========================================================================
@@ -321,7 +320,5 @@ protected:
     static std::set<MSCalibrator*> myInstances;
 
 };
-
-#endif
 
 /****************************************************************************/

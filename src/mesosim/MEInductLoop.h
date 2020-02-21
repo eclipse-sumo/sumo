@@ -17,8 +17,7 @@
 ///
 // An induction loop for mesoscopic simulation
 /****************************************************************************/
-#ifndef MEInductLoop_h
-#define MEInductLoop_h
+#pragma once
 
 
 // ===========================================================================
@@ -111,8 +110,6 @@ private:
     /// Hidden assignment operator.
     MEInductLoop& operator=(const MEInductLoop&);
 };
-
-#endif
 
 /****************************************************************************/
 

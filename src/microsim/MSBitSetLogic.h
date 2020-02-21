@@ -20,8 +20,7 @@
 ///
 // Container for holding a right-of-way matrix
 /****************************************************************************/
-#ifndef MSBitSetLogic_h
-#define MSBitSetLogic_h
+#pragma once
 
 
 // ===========================================================================
@@ -123,8 +122,6 @@ private:
     So, here comes the type which should be used by the netbuilder. */
 typedef MSBitSetLogic<SUMO_MAX_CONNECTIONS> MSBitsetLogic;
 
-
-#endif
 
 /****************************************************************************/
 

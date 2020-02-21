@@ -17,8 +17,7 @@
 ///
 // A class for edit phases of Variable Speed Signals
 /****************************************************************************/
-#ifndef GNEVariableSpeedSignDialog_h
-#define GNEVariableSpeedSignDialog_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -106,4 +105,3 @@ private:
     GNEVariableSpeedSignDialog& operator=(const GNEVariableSpeedSignDialog&) = delete;
 };
 
-#endif

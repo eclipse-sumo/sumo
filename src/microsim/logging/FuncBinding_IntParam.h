@@ -19,8 +19,7 @@
 ///
 // �Function type template
 /****************************************************************************/
-#ifndef FuncBinding_IntParam_h
-#define FuncBinding_IntParam_h
+#pragma once
 
 
 
@@ -80,8 +79,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

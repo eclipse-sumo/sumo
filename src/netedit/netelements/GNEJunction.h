@@ -18,8 +18,7 @@
 // A class for visualizing and editing junctions in netedit (adapted from
 // GUIJunctionWrapper)
 /****************************************************************************/
-#ifndef GNEJunction_h
-#define GNEJunction_h
+#pragma once
 
 
 // ===========================================================================
@@ -340,7 +339,5 @@ private:
     GNEJunction& operator=(const GNEJunction&) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/

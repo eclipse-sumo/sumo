@@ -20,8 +20,7 @@
 ///
 // Class responsible for loading of routes from some files
 /****************************************************************************/
-#ifndef SUMORouteLoaderControl_h
-#define SUMORouteLoaderControl_h
+#pragma once
 
 
 // ===========================================================================
@@ -98,8 +97,6 @@ private:
     SUMORouteLoaderControl& operator=(const SUMORouteLoaderControl& src);
 };
 
-
-#endif
 
 /****************************************************************************/
 

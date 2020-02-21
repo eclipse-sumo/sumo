@@ -17,8 +17,7 @@
 ///
 // A global holder of selected objects
 /****************************************************************************/
-#ifndef GUIGlobalSelection_h
-#define GUIGlobalSelection_h
+#pragma once
 
 
 // ===========================================================================
@@ -38,8 +37,6 @@
  */
 extern GUISelectedStorage gSelected;
 
-
-#endif
 
 /****************************************************************************/
 

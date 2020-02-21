@@ -19,8 +19,7 @@
 ///
 // Exporter writing networks using XML (native input) format
 /****************************************************************************/
-#ifndef NWWriter_XML_h
-#define NWWriter_XML_h
+#pragma once
 
 
 // ===========================================================================
@@ -122,8 +121,6 @@ private:
     static void writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVector shape, SumoXMLAttr attr, bool useGeo, bool geoAccuracy);
 };
 
-
-#endif
 
 /****************************************************************************/
 

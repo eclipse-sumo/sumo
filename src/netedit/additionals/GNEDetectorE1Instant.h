@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef GNEDetectorE1Instant_h
-#define GNEDetectorE1Instant_h
+#pragma once
 
 
 // ===========================================================================
@@ -142,5 +141,5 @@ private:
     GNEDetectorE1Instant& operator=(const GNEDetectorE1Instant&) = delete;
 };
 
-#endif
+
 /****************************************************************************/

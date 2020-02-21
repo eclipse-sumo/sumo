@@ -20,8 +20,7 @@
 ///
 // The base class for a view
 /****************************************************************************/
-#ifndef GUISUMOAbstractView_h
-#define GUISUMOAbstractView_h
+#pragma once
 
 
 // ===========================================================================
@@ -518,8 +517,6 @@ private:
     static const double SENSITIVITY;
 };
 
-
-#endif
 
 /****************************************************************************/
 

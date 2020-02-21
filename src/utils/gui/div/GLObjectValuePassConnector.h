@@ -20,8 +20,7 @@
 ///
 // Class passing values from a GUIGlObject to another object
 /****************************************************************************/
-#ifndef GLObjectValuePassConnector_h
-#define GLObjectValuePassConnector_h
+#pragma once
 
 
 // ===========================================================================
@@ -172,8 +171,6 @@ std::vector< GLObjectValuePassConnector<T>* > GLObjectValuePassConnector<T>::myC
 template<typename T>
 FXMutex GLObjectValuePassConnector<T>::myLock;
 
-
-#endif
 
 /****************************************************************************/
 

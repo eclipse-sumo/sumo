@@ -23,8 +23,7 @@
 ///
 // An areal detector covering to a sequence of consecutive lanes
 /****************************************************************************/
-#ifndef MSE2Collector_h
-#define MSE2Collector_h
+#pragma once
 
 
 // ===========================================================================
@@ -782,8 +781,6 @@ private:
     MSE2Collector& operator=(const MSE2Collector&);
 };
 
-
-#endif
 
 /****************************************************************************/
 

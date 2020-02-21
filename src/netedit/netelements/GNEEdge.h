@@ -18,8 +18,7 @@
 // A road/street connecting two junctions (netedit-version, adapted from GUIEdge)
 // Basically a container for an NBEdge with drawing and editing capabilities
 /****************************************************************************/
-#ifndef GNEEdge_h
-#define GNEEdge_h
+#pragma once
 
 
 // ===========================================================================
@@ -453,8 +452,6 @@ private:
     GNEEdge& operator=(const GNEEdge& s) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/
 

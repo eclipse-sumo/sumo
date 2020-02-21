@@ -20,8 +20,7 @@
 // While we don't actually need MDI for netedit it is easier to adapt existing
 // structures than to write everything from scratch.
 /****************************************************************************/
-#ifndef GNEViewParent_h
-#define GNEViewParent_h
+#pragma once
 
 
 // ===========================================================================
@@ -345,7 +344,5 @@ private:
     ACChoosers myACChoosers;
 };
 
-
-#endif
 
 /****************************************************************************/

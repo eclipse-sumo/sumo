@@ -17,8 +17,7 @@
 ///
 // File with the definitions of standard style of FXObjects in SUMO
 /****************************************************************************/
-#ifndef GUIDesigns_h
-#define GUIDesigns_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -527,7 +526,5 @@
 
 /// @brief desgin for TabBooks
 #define GUIDesignTabBook                        (TABBOOK_LEFTTABS | PACK_UNIFORM_WIDTH | PACK_UNIFORM_HEIGHT | LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_RIGHT)
-
-#endif
 
 /****************************************************************************/

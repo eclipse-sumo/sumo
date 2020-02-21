@@ -17,8 +17,7 @@
 ///
 // Dialog for edit rerouters
 /****************************************************************************/
-#ifndef GNERerouterDialog_h
-#define GNERerouterDialog_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -100,4 +99,3 @@ private:
     GNERerouterDialog& operator=(const GNERerouterDialog&) = delete;
 };
 
-#endif

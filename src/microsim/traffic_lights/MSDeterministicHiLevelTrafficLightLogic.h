@@ -17,8 +17,7 @@
 ///
 // The class for deterministic high level traffic light logic
 /****************************************************************************/
-#ifndef MSDeterministicHiLevelTrafficLightLogic_h
-#define MSDeterministicHiLevelTrafficLightLogic_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -122,5 +121,5 @@ protected:
 
 };
 
-#endif
+
 /****************************************************************************/

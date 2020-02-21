@@ -19,8 +19,7 @@
 ///
 // Storage for geometrical objects extended by mutexes
 /****************************************************************************/
-#ifndef GUIShapeContainer_h
-#define GUIShapeContainer_h
+#pragma once
 
 
 // ===========================================================================
@@ -163,7 +162,5 @@ private:
     bool myAllowReplacement;
 };
 
-
-#endif
 
 /****************************************************************************/

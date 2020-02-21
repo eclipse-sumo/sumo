@@ -17,8 +17,7 @@
 ///
 // A class for represent connections between Lanes
 /****************************************************************************/
-#ifndef GNEConnection_h
-#define GNEConnection_h
+#pragma once
 
 
 // ===========================================================================
@@ -202,8 +201,6 @@ private:
     GNEConnection& operator=(const GNEConnection&) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/
 

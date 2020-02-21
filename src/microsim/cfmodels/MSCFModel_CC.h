@@ -17,8 +17,7 @@
 ///
 // A series of automatic Cruise Controllers (CC, ACC, CACC)
 /****************************************************************************/
-#ifndef MSCFMODEL_CC_H
-#define MSCFMODEL_CC_H
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -404,4 +403,3 @@ private:
     MSCFModel_CC& operator=(const MSCFModel_CC&) = delete;
 };
 
-#endif /* MSCFMODEL_CC_H */

@@ -20,8 +20,7 @@
 ///
 // A super class for objects with additional parameters
 /****************************************************************************/
-#ifndef Parameterised_h
-#define Parameterised_h
+#pragma once
 
 
 // ===========================================================================
@@ -130,8 +129,6 @@ private:
     std::map<std::string, std::string> myMap;
 };
 
-
-#endif
 
 /****************************************************************************/
 

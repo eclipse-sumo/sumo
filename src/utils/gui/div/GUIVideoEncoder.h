@@ -21,8 +21,7 @@
 // https://github.com/leixiaohua1020/simplest_ffmpeg_video_encoder and
 // https://github.com/codefromabove/FFmpegRGBAToYUV
 /****************************************************************************/
-#ifndef GUIVideoEncoder_h
-#define GUIVideoEncoder_h
+#pragma once
 
 
 // ===========================================================================
@@ -241,7 +240,5 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/

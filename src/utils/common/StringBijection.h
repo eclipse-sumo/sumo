@@ -19,8 +19,7 @@
 ///
 // Bidirectional map between string and something else
 /****************************************************************************/
-#ifndef StringBijection_h
-#define StringBijection_h
+#pragma once
 
 
 // ===========================================================================
@@ -155,8 +154,6 @@ private:
     std::map<T, std::string> myT2String;
 
 };
-
-#endif
 
 /****************************************************************************/
 

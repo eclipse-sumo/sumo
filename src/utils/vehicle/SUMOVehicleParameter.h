@@ -20,8 +20,7 @@
 ///
 // Structure representing possible vehicle parameter
 /****************************************************************************/
-#ifndef SUMOVehicleParameter_h
-#define SUMOVehicleParameter_h
+#pragma once
 
 
 // ===========================================================================
@@ -726,8 +725,6 @@ protected:
     /// @brief obtain arrival speed parameter in string format
     std::string getArrivalSpeed() const;
 };
-
-#endif
 
 /****************************************************************************/
 

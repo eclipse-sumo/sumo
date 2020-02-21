@@ -17,8 +17,7 @@
 ///
 // Dialog for edit vehicleTypes
 /****************************************************************************/
-#ifndef GNEVehicleTypeDialog_h
-#define GNEVehicleTypeDialog_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -568,4 +567,3 @@ private:
     GNEVehicleTypeDialog& operator=(const GNEVehicleTypeDialog&) = delete;
 };
 
-#endif

@@ -17,8 +17,7 @@
 ///
 // Dialog for edit allow and disallow attributes
 /****************************************************************************/
-#ifndef GNEAllowDisallow_h
-#define GNEAllowDisallow_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -118,4 +117,3 @@ private:
     GNEAllowDisallow& operator=(const GNEAllowDisallow&) = delete;
 };
 
-#endif

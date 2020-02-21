@@ -17,8 +17,7 @@
 ///
 // -------------------
 /****************************************************************************/
-#ifndef NIVissimNodeParticipatingEdgeVector_h
-#define NIVissimNodeParticipatingEdgeVector_h
+#pragma once
 
 
 // ===========================================================================
@@ -32,8 +31,6 @@
 
 typedef std::vector<NIVissimNodeParticipatingEdge*> NIVissimNodeParticipatingEdgeVector;
 
-
-#endif
 
 /****************************************************************************/
 

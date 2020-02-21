@@ -17,8 +17,7 @@
 ///
 // A abstract class for representation of additional elements
 /****************************************************************************/
-#ifndef GNEAdditional_h
-#define GNEAdditional_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -403,4 +402,3 @@ private:
     GNEAdditional& operator=(const GNEAdditional&) = delete;
 };
 
-#endif

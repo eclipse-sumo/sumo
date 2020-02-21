@@ -18,8 +18,7 @@
 // The thread that performs the loading of a Netedit-net (adapted from
 // GUILoadThread)
 /****************************************************************************/
-#ifndef GNELoadThread_h
-#define GNELoadThread_h
+#pragma once
 
 
 // ===========================================================================
@@ -108,7 +107,5 @@ protected:
     bool myNewNet;
 };
 
-
-#endif
 
 /****************************************************************************/

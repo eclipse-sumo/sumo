@@ -17,8 +17,7 @@
 ///
 // Functions used in GUIBaseVehicleHelper and GNEVehicle
 /****************************************************************************/
-#ifndef GUIBaseVehicleHelper_h
-#define GUIBaseVehicleHelper_h
+#pragma once
 
 
 // ===========================================================================
@@ -66,8 +65,6 @@ public:
             const GUIGlObject* o, const double width, double length);
 };
 
-
-#endif
 
 /****************************************************************************/
 

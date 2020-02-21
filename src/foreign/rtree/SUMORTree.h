@@ -17,8 +17,7 @@
 ///
 // A RT-tree for efficient storing of SUMO's GL-objects
 /****************************************************************************/
-#ifndef SUMORTree_h
-#define SUMORTree_h
+#pragma once
 
 
 // ===========================================================================
@@ -196,8 +195,6 @@ private:
     std::map<GUIGlObject*, Boundary> myTreeDebug;
 };
 
-
-#endif
 
 /****************************************************************************/
 

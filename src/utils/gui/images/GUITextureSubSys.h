@@ -17,8 +17,7 @@
 ///
 // A class to manage gifs of SUMO
 /****************************************************************************/
-#ifndef GUITextureSubSys_h
-#define GUITextureSubSys_h
+#pragma once
 
 
 // ===========================================================================
@@ -71,8 +70,6 @@ private:
     std::map<GUITexture, GUIGlID> myTextures;
 };
 
-
-#endif
 
 /****************************************************************************/
 

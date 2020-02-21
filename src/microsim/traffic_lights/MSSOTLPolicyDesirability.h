@@ -17,13 +17,7 @@
 ///
 // The class a low-level policy desirability
 /****************************************************************************/
-
-#ifndef MSSOTLPOLICYDESIRABILITY_H_
-#define MSSOTLPOLICYDESIRABILITY_H_
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <utils/common/SwarmDebug.h>
@@ -68,4 +62,3 @@ public:
 
 };
 
-#endif /* MSSOTLPOLICYDESIRABILITY_H_ */

@@ -20,8 +20,7 @@
 // An SSM-device logs encounters / conflicts of the carrying vehicle with other surrounding vehicles.
 // XXX: Preliminary implementation. Use with care. Especially rerouting vehicles could be problematic.
 /****************************************************************************/
-#ifndef MSDevice_SSM_h
-#define MSDevice_SSM_h
+#pragma once
 
 
 // ===========================================================================
@@ -776,8 +775,6 @@ private:
 
 
 };
-
-#endif
 
 /****************************************************************************/
 

@@ -18,8 +18,7 @@
 // Generic interface for an engine model
 /****************************************************************************/
 
-#ifndef GENERICENGINEMODEL_H_
-#define GENERICENGINEMODEL_H_
+#pragma once
 
 #include <map>
 #include <string>
@@ -122,4 +121,3 @@ public:
 
 };
 
-#endif /* GENERICENGINEMODEL_H_ */

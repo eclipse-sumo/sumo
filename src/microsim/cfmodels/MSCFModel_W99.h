@@ -19,8 +19,7 @@
 // code adapted from https://github.com/glgh/w99-demo
 // (MIT License, Copyright (c) 2016 glgh)
 /****************************************************************************/
-#ifndef MSCFModel_W99_H
-#define MSCFModel_W99_H
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -161,4 +160,3 @@ private:
     MSCFModel_W99& operator=(const MSCFModel_W99& s);
 };
 
-#endif /* MSCFModel_W99_H */

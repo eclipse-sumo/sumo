@@ -18,8 +18,7 @@
 ///
 // Stores time-dependant events and executes them at the proper time (guisim)
 /****************************************************************************/
-#ifndef GUIEventControl_h
-#define GUIEventControl_h
+#pragma once
 
 
 // ===========================================================================
@@ -90,8 +89,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

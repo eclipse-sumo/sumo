@@ -19,8 +19,7 @@
 ///
 // Parser and output filter for routes and vehicles state saving and loading
 /****************************************************************************/
-#ifndef MSStateHandler_h
-#define MSStateHandler_h
+#pragma once
 
 
 // ===========================================================================
@@ -130,7 +129,5 @@ private:
     MSStateHandler& operator=(const MSStateHandler& s) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/

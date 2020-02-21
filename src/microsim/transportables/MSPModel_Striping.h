@@ -18,8 +18,7 @@
 ///
 // The pedestrian following model (prototype)
 /****************************************************************************/
-#ifndef MSPModel_Striping_h
-#define MSPModel_Striping_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -502,5 +501,4 @@ private:
 };
 
 
-#endif /* MSPModel_Striping_h */
 

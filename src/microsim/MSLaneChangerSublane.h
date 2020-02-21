@@ -18,8 +18,7 @@
 ///
 // Performs sub-lane changing of vehicles
 /****************************************************************************/
-#ifndef MSLaneChangerSublane_h
-#define MSLaneChangerSublane_h
+#pragma once
 
 
 // ===========================================================================
@@ -114,8 +113,6 @@ private:
     MSLaneChangerSublane& operator=(const MSLaneChangerSublane&);
 };
 
-
-#endif
 
 /****************************************************************************/
 

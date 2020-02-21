@@ -17,8 +17,7 @@
 ///
 // A class for visualizing Inner Lanes (used when editing traffic lights)
 /****************************************************************************/
-#ifndef GNEInternalLane_h
-#define GNEInternalLane_h
+#pragma once
 
 
 // ===========================================================================
@@ -153,8 +152,6 @@ private:
     GNEInternalLane& operator=(const GNEInternalLane&);
 };
 
-
-#endif
 
 /****************************************************************************/
 

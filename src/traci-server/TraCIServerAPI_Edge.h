@@ -18,8 +18,7 @@
 ///
 // APIs for getting/setting edge values via TraCI
 /****************************************************************************/
-#ifndef TraCIServerAPI_Edge_h
-#define TraCIServerAPI_Edge_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -69,8 +68,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

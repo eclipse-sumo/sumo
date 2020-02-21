@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef GNEParkingAreaReroute_h
-#define GNEParkingAreaReroute_h
+#pragma once
 
 
 // ===========================================================================
@@ -154,7 +153,5 @@ private:
     /// @brief Invalidated assignment operator.
     GNEParkingAreaReroute& operator=(const GNEParkingAreaReroute&) = delete;
 };
-
-#endif
 
 /****************************************************************************/

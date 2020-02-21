@@ -19,8 +19,7 @@
 ///
 // A smarter SK
 /****************************************************************************/
-#ifndef MSCFModel_SmartSK_h
-#define MSCFModel_SmartSK_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -197,5 +196,4 @@ protected:
 
 };
 
-#endif /* MSCFModel_SmartSK_H */
 

@@ -20,8 +20,7 @@
 ///
 // Class describing the thread that performs the loading of a simulation
 /****************************************************************************/
-#ifndef GUILoadThread_h
-#define GUILoadThread_h
+#pragma once
 
 
 // ===========================================================================
@@ -105,7 +104,5 @@ protected:
 
 };
 
-
-#endif
 
 /****************************************************************************/

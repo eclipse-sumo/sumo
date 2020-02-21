@@ -17,8 +17,7 @@
 ///
 // The Widget for remove network-elements
 /****************************************************************************/
-#ifndef GNEProhibitionFrame_h
-#define GNEProhibitionFrame_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -195,8 +194,6 @@ private:
     std::set<GNEConnection*> myConcernedConns;
 };
 
-
-#endif
 
 /****************************************************************************/
 

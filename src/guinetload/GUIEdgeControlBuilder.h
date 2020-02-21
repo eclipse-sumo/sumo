@@ -20,8 +20,7 @@
 ///
 // Derivation of NLEdgeControlBuilder which builds gui-edges
 /****************************************************************************/
-#ifndef GUIEdgeControlBuilder_h
-#define GUIEdgeControlBuilder_h
+#pragma once
 
 
 // ===========================================================================
@@ -107,8 +106,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

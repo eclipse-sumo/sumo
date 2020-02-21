@@ -17,8 +17,7 @@
 ///
 // A class for visualizing busStop geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
-#ifndef GNEBusStop_h
-#define GNEBusStop_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -119,4 +118,3 @@ private:
 };
 
 
-#endif

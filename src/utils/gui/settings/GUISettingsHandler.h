@@ -19,8 +19,7 @@
 ///
 // The handler for parsing gui settings from xml.
 /****************************************************************************/
-#ifndef GUISettingsHandler_h
-#define GUISettingsHandler_h
+#pragma once
 
 
 // ===========================================================================
@@ -187,7 +186,5 @@ private:
         GUIVisualizationSizeSettings defaults);
 
 };
-
-#endif
 
 /****************************************************************************/

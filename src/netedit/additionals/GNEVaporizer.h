@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef GNEVaporizer_h
-#define GNEVaporizer_h
+#pragma once
 
 
 // ===========================================================================
@@ -148,7 +147,5 @@ private:
     /// @brief Invalidated assignment operator.
     GNEVaporizer& operator=(const GNEVaporizer&) = delete;
 };
-
-#endif
 
 /****************************************************************************/

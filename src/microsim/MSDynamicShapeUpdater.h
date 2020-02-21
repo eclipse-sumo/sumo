@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef MICROSIM_MSDYNAMICSHAPEUPDATER_H_
-#define MICROSIM_MSDYNAMICSHAPEUPDATER_H_
+#pragma once
 
 #include "MSNet.h"
 #include "utils/shapes/ShapeContainer.h"
@@ -42,4 +41,3 @@ private:
     MSDynamicShapeUpdater& operator=(const MSDynamicShapeUpdater& s) = delete;
 };
 
-#endif /* MICROSIM_MSDYNAMICSHAPEUPDATER_H_ */

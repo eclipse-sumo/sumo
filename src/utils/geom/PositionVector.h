@@ -19,8 +19,7 @@
 ///
 // A list of positions
 /****************************************************************************/
-#ifndef PositionVector_h
-#define PositionVector_h
+#pragma once
 
 
 // ===========================================================================
@@ -424,8 +423,6 @@ private:
     static bool intersects(const Position& p11, const Position& p12, const Position& p21, const Position& p22, const double withinDist = 0., double* x = 0, double* y = 0, double* mu = 0);
 };
 
-
-#endif
 
 /****************************************************************************/
 

@@ -22,8 +22,7 @@
 /// @todo: check parameter admissibility in setter methods
 
 
-#ifndef MSDriverState_h
-#define MSDriverState_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -712,7 +711,5 @@ struct DriverStateDefaults {
 };
 
 
-
-#endif
 
 /****************************************************************************/

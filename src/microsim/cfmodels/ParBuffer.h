@@ -18,8 +18,7 @@
 // Class for the string serialization and deserialization of parameters
 /****************************************************************************/
 
-#ifndef PARBUFFER_H_
-#define PARBUFFER_H_
+#pragma once
 
 #include <cstddef>
 #include <string>
@@ -159,4 +158,3 @@ private:
 
 };
 
-#endif

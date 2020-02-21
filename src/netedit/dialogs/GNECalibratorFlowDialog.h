@@ -17,8 +17,7 @@
 ///
 // Dialog for edit calibrator flows
 /****************************************************************************/
-#ifndef GNECalibratorFlowDialog_h
-#define GNECalibratorFlowDialog_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -146,4 +145,3 @@ private:
     GNECalibratorFlowDialog& operator=(const GNECalibratorFlowDialog&) = delete;
 };
 
-#endif

@@ -19,8 +19,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef GUIGlChildWindow_h
-#define GUIGlChildWindow_h
+#pragma once
 
 
 
@@ -137,8 +136,6 @@ private:
     GUIGlChildWindow& operator=(const GUIGlChildWindow&) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/
 

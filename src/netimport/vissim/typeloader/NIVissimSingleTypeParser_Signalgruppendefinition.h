@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef NIVissimSingleTypeParser_Signalgruppendefinition_h
-#define NIVissimSingleTypeParser_Signalgruppendefinition_h
+#pragma once
 
 
 // ===========================================================================
@@ -84,8 +83,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

@@ -19,8 +19,7 @@
 ///
 // Contraction Hierarchy Builder for the shortest path search
 /****************************************************************************/
-#ifndef CHBuilder_h
-#define CHBuilder_h
+#pragma once
 
 
 // ===========================================================================
@@ -525,8 +524,6 @@ private:
     CHBuilder& operator=(const CHBuilder& s);
 };
 
-
-#endif
 
 /****************************************************************************/
 

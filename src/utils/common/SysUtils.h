@@ -17,8 +17,7 @@
 ///
 // A few system-specific functions
 /****************************************************************************/
-#ifndef SysUtils_h
-#define SysUtils_h
+#pragma once
 
 
 // ===========================================================================
@@ -54,8 +53,6 @@ public:
     /// @brief run a shell command without popping up any windows (particuarly on win32)
     static unsigned long runHiddenCommand(const std::string& cmd);
 };
-
-#endif
 
 /****************************************************************************/
 

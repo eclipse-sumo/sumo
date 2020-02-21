@@ -19,8 +19,7 @@
 ///
 // The Intelligent Driver Model (IDM) car-following model
 /****************************************************************************/
-#ifndef MSCFMODEL_IDM_H
-#define MSCFMODEL_IDM_H
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -215,4 +214,3 @@ private:
     MSCFModel_IDM& operator=(const MSCFModel_IDM& s);
 };
 
-#endif /* MSCFMODEL_IDM_H */

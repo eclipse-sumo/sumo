@@ -22,8 +22,7 @@
 ///
 // Represents a SUMO edge and contains people and work densities
 /****************************************************************************/
-#ifndef AGSTREET_H
-#define AGSTREET_H
+#pragma once
 
 
 // ===========================================================================
@@ -112,7 +111,5 @@ private:
     double myPopulation;
     double myNumWorkplaces;
 };
-
-#endif
 
 /****************************************************************************/

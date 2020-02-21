@@ -19,8 +19,7 @@
 ///
 // A traffic lights logic which represents a tls in an off-mode
 /****************************************************************************/
-#ifndef MSOffTrafficLightLogic_h
-#define MSOffTrafficLightLogic_h
+#pragma once
 
 
 // ===========================================================================
@@ -204,8 +203,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

@@ -18,8 +18,7 @@
 ///
 // The base class for polygons
 /****************************************************************************/
-#ifndef AbstractPoly_h
-#define AbstractPoly_h
+#pragma once
 
 
 // ===========================================================================
@@ -60,8 +59,6 @@ public:
     virtual bool crosses(const Position& p1, const Position& p2) const = 0;
 };
 
-
-#endif
 
 /****************************************************************************/
 

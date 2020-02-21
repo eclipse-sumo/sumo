@@ -18,8 +18,7 @@
 ///
 // Helper methods for Harmonoise-based noise emission computation
 /****************************************************************************/
-#ifndef HelpersHarmonoise_h
-#define HelpersHarmonoise_h
+#pragma once
 
 
 // ===========================================================================
@@ -102,8 +101,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

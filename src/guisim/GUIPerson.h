@@ -20,8 +20,7 @@
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
-#ifndef GUIPerson_h
-#define GUIPerson_h
+#pragma once
 
 
 // ===========================================================================
@@ -270,8 +269,6 @@ private:
     std::map<GUISUMOAbstractView*, int> myAdditionalVisualizations;
 };
 
-
-#endif
 
 /****************************************************************************/
 

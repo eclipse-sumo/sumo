@@ -17,8 +17,7 @@
 ///
 // The "About" - dialog for NETEDIT, (adapted from GUIDialog_AboutSUMO)
 /****************************************************************************/
-#ifndef GNEAbout_h
-#define GNEAbout_h
+#pragma once
 
 
 // ===========================================================================
@@ -54,8 +53,6 @@ private:
     FXFont* myHeadlineFont;
 };
 
-
-#endif
 
 /****************************************************************************/
 

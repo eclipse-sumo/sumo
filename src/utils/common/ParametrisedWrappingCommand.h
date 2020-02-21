@@ -18,8 +18,7 @@
 // A wrapper for a Command function with parameter
 /****************************************************************************/
 
-#ifndef UTILS_COMMON_PARAMETRISEDWRAPPINGCOMMAND_H_
-#define UTILS_COMMON_PARAMETRISEDWRAPPINGCOMMAND_H_
+#pragma once
 
 #include "Command.h"
 
@@ -110,4 +109,3 @@ private:
 
 };
 
-#endif /* UTILS_COMMON_PARAMETRISEDWRAPPINGCOMMAND_H_ */

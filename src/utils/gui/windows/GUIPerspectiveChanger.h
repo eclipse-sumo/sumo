@@ -19,8 +19,7 @@
 ///
 // A virtual class that allows to steer the visual output in dependence to
 /****************************************************************************/
-#ifndef GUIPerspectiveChanger_h
-#define GUIPerspectiveChanger_h
+#pragma once
 
 
 // ===========================================================================
@@ -176,8 +175,6 @@ private:
     GUIPerspectiveChanger& operator=(const GUIPerspectiveChanger&);
 };
 
-
-#endif
 
 /****************************************************************************/
 

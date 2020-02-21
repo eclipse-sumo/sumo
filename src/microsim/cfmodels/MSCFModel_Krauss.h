@@ -20,8 +20,7 @@
 ///
 // Krauss car-following model, with acceleration decrease and faster start
 /****************************************************************************/
-#ifndef MSCFModel_Krauss_h
-#define MSCFModel_Krauss_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -105,5 +104,4 @@ protected:
 
 };
 
-#endif /* MSCFMODEL_KRAUSS_H */
 

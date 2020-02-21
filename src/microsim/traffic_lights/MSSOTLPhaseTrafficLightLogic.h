@@ -17,8 +17,7 @@
 ///
 // The class for SOTL Phase logics
 /****************************************************************************/
-#ifndef MSSOTLPhaseTrafficLightLogic_h
-#define MSSOTLPhaseTrafficLightLogic_h
+#pragma once
 
 
 // ===========================================================================
@@ -64,5 +63,5 @@ protected:
     bool canRelease();
 };
 
-#endif
+
 /****************************************************************************/

@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef GNEVariableSpeedSignStep_h
-#define GNEVariableSpeedSignStep_h
+#pragma once
 
 
 // ===========================================================================
@@ -156,7 +155,5 @@ private:
     /// @brief Invalidated assignment operator
     GNEVariableSpeedSignStep& operator=(const GNEVariableSpeedSignStep&) = delete;
 };
-
-#endif
 
 /****************************************************************************/

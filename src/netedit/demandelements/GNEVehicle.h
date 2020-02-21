@@ -17,8 +17,7 @@
 ///
 // Representation of vehicles in NETEDIT
 /****************************************************************************/
-#ifndef GNEVehicle_h
-#define GNEVehicle_h
+#pragma once
 
 
 // ===========================================================================
@@ -370,5 +369,5 @@ private:
     GNEVehicle& operator=(const GNEVehicle&) = delete;
 };
 
-#endif
+
 /****************************************************************************/

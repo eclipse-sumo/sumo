@@ -17,8 +17,7 @@
 ///
 // A network change in which a single crossing is created or deleted
 /****************************************************************************/
-#ifndef GNEChange_Crossing_h
-#define GNEChange_Crossing_h
+#pragma once
 
 
 // ===========================================================================
@@ -113,5 +112,5 @@ private:
     bool mySelected;
 };
 
-#endif
+
 /****************************************************************************/

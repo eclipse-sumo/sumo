@@ -17,8 +17,7 @@
 ///
 // Builds additional objects for netedit
 /****************************************************************************/
-#ifndef GNEAdditionalHandler_h
-#define GNEAdditionalHandler_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -752,4 +751,3 @@ private:
 };
 
 
-#endif

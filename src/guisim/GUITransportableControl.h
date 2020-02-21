@@ -19,8 +19,7 @@
 ///
 // GUI-version of the transportable control for building gui persons and containers
 /****************************************************************************/
-#ifndef GUITransportableControl_h
-#define GUITransportableControl_h
+#pragma once
 
 
 // ===========================================================================
@@ -71,7 +70,5 @@ public:
     void insertPersonIDs(std::vector<GUIGlID>& into);
 };
 
-
-#endif
 
 /****************************************************************************/

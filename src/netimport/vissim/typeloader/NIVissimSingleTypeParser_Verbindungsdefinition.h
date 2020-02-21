@@ -17,8 +17,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef NIVissimSingleTypeParser_Verbindungsdefinition_h
-#define NIVissimSingleTypeParser_Verbindungsdefinition_h
+#pragma once
 
 
 // ===========================================================================
@@ -52,8 +51,6 @@ public:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

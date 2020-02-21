@@ -17,8 +17,7 @@
 ///
 // Dialog for edit rerouter intervals
 /****************************************************************************/
-#ifndef GNERerouterIntervalDialog_h
-#define GNERerouterIntervalDialog_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -220,4 +219,3 @@ private:
     GNERerouterIntervalDialog& operator=(const GNERerouterIntervalDialog&) = delete;
 };
 
-#endif

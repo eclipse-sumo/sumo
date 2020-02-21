@@ -20,8 +20,7 @@
 ///
 // A single child window which contains a view of the simulation area
 /****************************************************************************/
-#ifndef GUISUMOViewParent_h
-#define GUISUMOViewParent_h
+#pragma once
 
 
 // ===========================================================================
@@ -139,8 +138,6 @@ protected:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

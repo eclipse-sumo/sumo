@@ -20,8 +20,7 @@
 ///
 // The car-following model and parameter
 /****************************************************************************/
-#ifndef MSVehicleType_h
-#define MSVehicleType_h
+#pragma once
 
 
 // ===========================================================================
@@ -608,8 +607,6 @@ private:
     MSVehicleType& operator=(const MSVehicleType&) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/
 

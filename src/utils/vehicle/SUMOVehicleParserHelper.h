@@ -20,8 +20,7 @@
 ///
 // Helper methods for parsing vehicle attributes
 /****************************************************************************/
-#ifndef SUMOVehicleParserHelper_h
-#define SUMOVehicleParserHelper_h
+#pragma once
 
 
 // ===========================================================================
@@ -209,8 +208,6 @@ private:
     static std::set<SumoXMLAttr> allowedJMAttrs;
 };
 
-
-#endif
 
 /****************************************************************************/
 

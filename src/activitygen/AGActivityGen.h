@@ -22,8 +22,7 @@
 ///
 // Main class that handles City, Activities and Trips
 /****************************************************************************/
-#ifndef AGACTIVITYGEN_H
-#define AGACTIVITYGEN_H
+#pragma once
 
 
 // ===========================================================================
@@ -125,8 +124,6 @@ private:
     /// @brief invalidated assignment operator
     AGActivityGen& operator=(const AGActivityGen&);
 };
-
-#endif
 
 /****************************************************************************/
 

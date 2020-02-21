@@ -21,8 +21,7 @@
 ///
 // A class that stores and controls tls and switching of their programs
 /****************************************************************************/
-#ifndef MSTLLogicControl_h
-#define MSTLLogicControl_h
+#pragma once
 
 
 // ===========================================================================
@@ -831,8 +830,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

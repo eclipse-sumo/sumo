@@ -17,8 +17,7 @@
 ///
 /****************************************************************************/
 
-#ifndef ENGINEPARAMETERS_H_
-#define ENGINEPARAMETERS_H_
+#pragma once
 
 #include <iostream>
 #include <iomanip>
@@ -137,4 +136,3 @@ public:
 
 };
 
-#endif /* ENGINEPARAMETERS_H_ */

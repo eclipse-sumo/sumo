@@ -20,8 +20,7 @@
 ///
 // Builds trigger objects for guisim
 /****************************************************************************/
-#ifndef GUITriggerBuilder_h
-#define GUITriggerBuilder_h
+#pragma once
 
 
 // ===========================================================================
@@ -201,8 +200,6 @@ protected:
     virtual void endStoppingPlace();
 };
 
-
-#endif
 
 /****************************************************************************/
 

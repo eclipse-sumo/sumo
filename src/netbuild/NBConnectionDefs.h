@@ -17,8 +17,7 @@
 ///
 // Some container for connections
 /****************************************************************************/
-#ifndef NBConnectionDefs_h
-#define NBConnectionDefs_h
+#pragma once
 
 
 // ===========================================================================
@@ -42,8 +41,6 @@ typedef std::vector<NBConnection> NBConnectionVector;
     Includes a list of all connections which prohibit the key connection */
 typedef std::map<NBConnection, NBConnectionVector> NBConnectionProhibits;
 
-
-#endif
 
 /****************************************************************************/
 

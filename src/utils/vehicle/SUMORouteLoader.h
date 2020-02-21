@@ -18,8 +18,7 @@
 ///
 // A class that performs the loading of routes
 /****************************************************************************/
-#ifndef SUMORouteLoader_h
-#define SUMORouteLoader_h
+#pragma once
 
 
 // ===========================================================================
@@ -71,8 +70,6 @@ private:
     SUMORouteHandler* myHandler;
 };
 
-
-#endif
 
 /****************************************************************************/
 

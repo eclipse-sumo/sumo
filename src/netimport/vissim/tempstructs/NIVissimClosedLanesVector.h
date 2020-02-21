@@ -17,8 +17,7 @@
 ///
 // -------------------
 /****************************************************************************/
-#ifndef NIVissimClosedLanesVector_h
-#define NIVissimClosedLanesVector_h
+#pragma once
 
 
 // ===========================================================================
@@ -32,8 +31,6 @@
 
 typedef std::vector<NIVissimClosedLaneDef*> NIVissimClosedLanesVector;
 
-
-#endif
 
 /****************************************************************************/
 

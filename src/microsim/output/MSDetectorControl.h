@@ -21,8 +21,7 @@
 ///
 // Detectors container; responsible for string and output generation
 /****************************************************************************/
-#ifndef MSDetectorControl_h
-#define MSDetectorControl_h
+#pragma once
 
 
 // ===========================================================================
@@ -244,8 +243,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

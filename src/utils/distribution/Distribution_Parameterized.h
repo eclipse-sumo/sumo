@@ -18,8 +18,7 @@
 ///
 // A distribution described by parameters such as the mean value and std-dev
 /****************************************************************************/
-#ifndef Distribution_MeanDev_h
-#define Distribution_MeanDev_h
+#pragma once
 
 
 // ===========================================================================
@@ -87,8 +86,6 @@ private:
     std::vector<double> myParameter;
 };
 
-
-#endif
 
 /****************************************************************************/
 

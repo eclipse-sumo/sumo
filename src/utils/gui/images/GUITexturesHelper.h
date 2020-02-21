@@ -19,8 +19,7 @@
 ///
 // Global storage for textures; manages and draws them
 /****************************************************************************/
-#ifndef GUITexturesHelper_h
-#define GUITexturesHelper_h
+#pragma once
 
 
 // ===========================================================================
@@ -79,7 +78,5 @@ private:
     static bool myAllowTextures;
 };
 
-
-#endif
 
 /****************************************************************************/

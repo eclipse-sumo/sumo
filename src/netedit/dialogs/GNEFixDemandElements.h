@@ -17,8 +17,7 @@
 ///
 // Dialog used to fix demand elements during saving
 /****************************************************************************/
-#ifndef GNEFixDemandElements_h
-#define GNEFixDemandElements_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -201,4 +200,3 @@ private:
     GNEFixDemandElements& operator=(const GNEFixDemandElements&) = delete;
 };
 
-#endif

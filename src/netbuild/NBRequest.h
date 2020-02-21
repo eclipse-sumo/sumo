@@ -20,8 +20,7 @@
 ///
 // This class computes the logic of a junction
 /****************************************************************************/
-#ifndef NBRequest_h
-#define NBRequest_h
+#pragma once
 
 
 // ===========================================================================
@@ -283,8 +282,6 @@ private:
     /// @brief Invalidated assignment operator
     NBRequest& operator=(const NBRequest& s) = delete;
 };
-
-#endif
 
 /****************************************************************************/
 

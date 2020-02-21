@@ -19,8 +19,7 @@
 ///
 // A window displaying the phase diagram of a tl-logic
 /****************************************************************************/
-#ifndef GUITLLogicPhasesTrackerWindow_h
-#define GUITLLogicPhasesTrackerWindow_h
+#pragma once
 
 
 // ===========================================================================
@@ -248,7 +247,5 @@ protected:
 
 };
 
-
-#endif
 
 /****************************************************************************/

@@ -18,8 +18,7 @@
 ///
 // Output formatter for plain XML output
 /****************************************************************************/
-#ifndef PlainXMLFormatter_h
-#define PlainXMLFormatter_h
+#pragma once
 
 
 // ===========================================================================
@@ -153,8 +152,6 @@ private:
     bool myHavePendingOpener;
 };
 
-
-#endif
 
 /****************************************************************************/
 

@@ -18,8 +18,7 @@
 ///
 // A class to realise a uniform n:m - relationship using the
 /****************************************************************************/
-#ifndef Bresenham_h
-#define Bresenham_h
+#pragma once
 
 
 // ===========================================================================
@@ -64,8 +63,6 @@ public:
     static void compute(BresenhamCallBack* callBack, const int val1, const int val2);
 };
 
-
-#endif
 
 /****************************************************************************/
 

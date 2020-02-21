@@ -18,8 +18,7 @@
 ///
 // A parser to retrieve information from a table with known columns
 /****************************************************************************/
-#ifndef NamedColumnsParser_h
-#define NamedColumnsParser_h
+#pragma once
 
 
 // ===========================================================================
@@ -187,8 +186,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

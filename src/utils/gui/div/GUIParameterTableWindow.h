@@ -19,8 +19,7 @@
 ///
 // The window that holds the table of an object's parameter
 /****************************************************************************/
-#ifndef GUIParameterTableWindow_h
-#define GUIParameterTableWindow_h
+#pragma once
 
 
 // ===========================================================================
@@ -251,8 +250,6 @@ protected:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

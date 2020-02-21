@@ -18,8 +18,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef PolySolver_h
-#define PolySolver_h
+#pragma once
 
 
 // ===========================================================================
@@ -61,7 +60,5 @@ public:
     static std::tuple<int, double, double, double> cubicSolve(double a, double b, double c, double d);
 
 };
-
-#endif
 
 /****************************************************************************/

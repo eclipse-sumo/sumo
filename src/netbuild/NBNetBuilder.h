@@ -21,8 +21,7 @@
 ///
 // Instance responsible for building networks
 /****************************************************************************/
-#ifndef NBNetBuilder_h
-#define NBNetBuilder_h
+#pragma once
 
 
 // ===========================================================================
@@ -284,8 +283,6 @@ private:
     NBNetBuilder& operator=(const NBNetBuilder& s);
 };
 
-
-#endif
 
 /****************************************************************************/
 

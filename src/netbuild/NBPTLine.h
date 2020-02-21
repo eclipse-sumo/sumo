@@ -18,8 +18,7 @@
 ///
 // The representation of one direction of a single pt line
 /****************************************************************************/
-#ifndef SUMO_NBPTLINE_H
-#define SUMO_NBPTLINE_H
+#pragma once
 
 
 #include <string>
@@ -121,4 +120,3 @@ private:
 };
 
 
-#endif //SUMO_NBPTLINE_H

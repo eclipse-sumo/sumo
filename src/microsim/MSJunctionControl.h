@@ -20,8 +20,7 @@
 ///
 // Container for junctions; performs operations on all stored junctions
 /****************************************************************************/
-#ifndef MSJunctionControl_h
-#define MSJunctionControl_h
+#pragma once
 
 
 // ===========================================================================
@@ -73,8 +72,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

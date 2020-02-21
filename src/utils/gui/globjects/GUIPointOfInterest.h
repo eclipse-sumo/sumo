@@ -19,8 +19,7 @@
 ///
 // missing_desc
 /****************************************************************************/
-#ifndef GUIPointOfInterest_h
-#define GUIPointOfInterest_h
+#pragma once
 
 
 // ===========================================================================
@@ -126,8 +125,6 @@ protected:
     void drawInnerPOI(const GUIVisualizationSettings& s, bool forceSelectionColor) const;
 };
 
-
-#endif
 
 /****************************************************************************/
 

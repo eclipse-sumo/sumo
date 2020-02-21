@@ -19,8 +19,7 @@
 ///
 // Loader for the of turning percentages and source/sink definitions
 /****************************************************************************/
-#ifndef ROJTRTurnDefLoader_h
-#define ROJTRTurnDefLoader_h
+#pragma once
 
 
 // ===========================================================================
@@ -138,8 +137,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

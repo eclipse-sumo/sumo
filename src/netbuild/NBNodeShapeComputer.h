@@ -19,8 +19,7 @@
 ///
 // This class computes shapes of junctions
 /****************************************************************************/
-#ifndef NBNodeShapeComputer_h
-#define NBNodeShapeComputer_h
+#pragma once
 
 
 // ===========================================================================
@@ -163,8 +162,6 @@ private:
     NBNodeShapeComputer& operator=(const NBNodeShapeComputer& s);
 
 };
-
-#endif
 
 /****************************************************************************/
 

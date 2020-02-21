@@ -17,8 +17,7 @@
 ///
 // An enumeration of shortcuts used by the gui applications
 /****************************************************************************/
-#ifndef GUIShortcuts_h
-#define GUIShortcuts_h
+#pragma once
 
 
 // ===========================================================================
@@ -125,8 +124,6 @@ enum GUIShortcutModifier {
     KEYMODIFIER_ALT,
     KEYMODIFIER_CONTROL
 };
-
-#endif
 
 /****************************************************************************/
 

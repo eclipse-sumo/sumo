@@ -22,8 +22,7 @@
 ///
 // Time manager: able to manipulate the time using Sumo's format (seconds)
 /****************************************************************************/
-#ifndef AGTIME_H
-#define AGTIME_H
+#pragma once
 
 
 // ===========================================================================
@@ -131,7 +130,5 @@ private:
     // @brief: used for in/out
     int mySeconds;
 };
-
-#endif
 
 /****************************************************************************/

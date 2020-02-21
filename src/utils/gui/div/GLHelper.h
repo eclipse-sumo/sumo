@@ -19,8 +19,7 @@
 ///
 // Some methods which help to draw certain geometrical objects in openGL
 /****************************************************************************/
-#ifndef GLHelper_h
-#define GLHelper_h
+#pragma once
 
 
 // ===========================================================================
@@ -366,8 +365,6 @@ private:
     static std::vector<RGBColor> myDottedcontourColors;
 };
 
-
-#endif
 
 /****************************************************************************/
 

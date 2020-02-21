@@ -18,8 +18,7 @@
 ///
 // Algorithms for network computation
 /****************************************************************************/
-#ifndef NBAlgorithms_h
-#define NBAlgorithms_h
+#pragma once
 
 
 // ===========================================================================
@@ -262,8 +261,6 @@ private:
     static bool hasDifferentPriorities(const EdgeVector& edges, const NBEdge* excluded);
 
 };
-
-#endif
 
 /****************************************************************************/
 

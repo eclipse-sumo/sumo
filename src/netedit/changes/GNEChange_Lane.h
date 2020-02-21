@@ -17,8 +17,7 @@
 ///
 // A network change in which a single lane is created or deleted
 /****************************************************************************/
-#ifndef GNEChange_Lane_h
-#define GNEChange_Lane_h
+#pragma once
 
 
 // ===========================================================================
@@ -111,5 +110,5 @@ private:
     std::vector<GNEDemandElement*> myChildDemandElements;
 };
 
-#endif
+
 /****************************************************************************/

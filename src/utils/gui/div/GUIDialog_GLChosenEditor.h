@@ -18,8 +18,7 @@
 ///
 // Editor for the list of chosen objects
 /****************************************************************************/
-#ifndef GUIDialog_GLChosenEditor_h
-#define GUIDialog_GLChosenEditor_h
+#pragma once
 
 
 // ===========================================================================
@@ -130,8 +129,6 @@ private:
     GUISelectedStorage* myStorage;
 };
 
-
-#endif
 
 /****************************************************************************/
 

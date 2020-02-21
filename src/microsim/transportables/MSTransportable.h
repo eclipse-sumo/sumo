@@ -17,8 +17,7 @@
 ///
 // The common superclass for modelling transportable objects like persons and containers
 /****************************************************************************/
-#ifndef MSTransportable_h
-#define MSTransportable_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -352,7 +351,5 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/

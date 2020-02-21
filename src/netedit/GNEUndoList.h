@@ -23,8 +23,7 @@
 // GNEUndoList inherits from FXUndoList and patches some methods. these are
 // prefixed with p_
 /****************************************************************************/
-#ifndef GNEUndoList_h
-#define GNEUndoList_h
+#pragma once
 
 
 // ===========================================================================
@@ -133,8 +132,6 @@ private:
     GNEApplicationWindow* const myGNEApplicationWindowParent;
 };
 
-
-#endif
 
 /****************************************************************************/
 

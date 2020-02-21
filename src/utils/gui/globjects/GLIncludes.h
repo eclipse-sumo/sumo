@@ -19,8 +19,7 @@
 ///
 // collection of includes for GL usage
 /****************************************************************************/
-#ifndef GLIncludes_h
-#define GLIncludes_h
+#pragma once
 
 
 // ===========================================================================
@@ -38,4 +37,3 @@
 #include <GL/glu.h>
 
 
-#endif

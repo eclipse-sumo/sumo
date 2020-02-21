@@ -19,8 +19,7 @@
 ///
 // A device that performs vehicle rerouting based on current edge speeds
 /****************************************************************************/
-#ifndef MSTransportableDevice_Routing_h
-#define MSTransportableDevice_Routing_h
+#pragma once
 
 
 // ===========================================================================
@@ -161,7 +160,5 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/

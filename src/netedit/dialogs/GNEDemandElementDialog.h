@@ -17,8 +17,7 @@
 ///
 // A abstract class for editing additional elements
 /****************************************************************************/
-#ifndef GNEDemandElementDialog_h
-#define GNEDemandElementDialog_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -131,4 +130,3 @@ private:
     GNEDemandElementDialog& operator=(const GNEDemandElementDialog&) = delete;
 };
 
-#endif

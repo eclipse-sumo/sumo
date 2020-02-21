@@ -19,8 +19,7 @@
 ///
 // Dijkstra shortest path algorithm using travel time or other values
 /****************************************************************************/
-#ifndef DijkstraRouter_h
-#define DijkstraRouter_h
+#pragma once
 
 
 // ===========================================================================
@@ -292,7 +291,5 @@ private:
     EdgeInfoByEffortComparator myComparator;
 };
 
-
-#endif
 
 /****************************************************************************/

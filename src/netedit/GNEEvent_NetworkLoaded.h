@@ -17,8 +17,7 @@
 ///
 // Event to send when the network has been loaded by GNELoadThread
 /****************************************************************************/
-#ifndef GNEEvent_NetworkLoaded_h
-#define GNEEvent_NetworkLoaded_h
+#pragma once
 
 
 // ===========================================================================
@@ -71,8 +70,6 @@ public:
     bool myViewportFromRegistry;
 };
 
-
-#endif
 
 /****************************************************************************/
 

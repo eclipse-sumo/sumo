@@ -19,8 +19,7 @@
 // The class for SOTL Policy-based logics
 /****************************************************************************/
 
-#ifndef MSSOTLPOLICYBASEDTRAFFICLIGHTLOGIC_H_
-#define MSSOTLPOLICYBASEDTRAFFICLIGHTLOGIC_H_
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -110,4 +109,3 @@ private:
     MSSOTLPolicy* myPolicy;
 };
 
-#endif /* MSSOTLPOLICYBASEDTRAFFICLIGHTLOGIC_H_ */

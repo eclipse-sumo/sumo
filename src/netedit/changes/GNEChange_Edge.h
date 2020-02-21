@@ -17,8 +17,7 @@
 ///
 // A network change in which a single edge is created or deleted
 /****************************************************************************/
-#ifndef GNEChange_Edge_h
-#define GNEChange_Edge_h
+#pragma once
 
 
 // ===========================================================================
@@ -121,5 +120,5 @@ private:
     std::vector<std::vector<GNEDemandElement*> > myChildLaneDemandElements;
 };
 
-#endif
+
 /****************************************************************************/

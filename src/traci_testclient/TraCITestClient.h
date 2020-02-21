@@ -20,8 +20,7 @@
 ///
 // A test execution class
 /****************************************************************************/
-#ifndef TRACITESTCLIENT_H
-#define TRACITESTCLIENT_H
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -198,4 +197,3 @@ private:
 
 };
 
-#endif

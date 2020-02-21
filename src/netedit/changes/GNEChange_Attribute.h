@@ -17,8 +17,7 @@
 ///
 // A network change in which the attribute of some object is modified
 /****************************************************************************/
-#ifndef GNEChange_Attribute_h
-#define GNEChange_Attribute_h
+#pragma once
 
 
 // ===========================================================================
@@ -118,5 +117,5 @@ private:
     const std::string myNewValue;
 };
 
-#endif
+
 /****************************************************************************/

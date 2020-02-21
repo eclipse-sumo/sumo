@@ -19,8 +19,7 @@
 ///
 // The base abstract class for SOTL logics
 /****************************************************************************/
-#ifndef MSSOTLTrafficLightLogic_h
-#define MSSOTLTrafficLightLogic_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -293,5 +292,4 @@ private:
 
 };
 
-#endif
 /****************************************************************************/

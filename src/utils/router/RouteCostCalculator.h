@@ -19,8 +19,7 @@
 ///
 // Calculators for route costs and probabilities
 /****************************************************************************/
-#ifndef RouteCostCalculator_h
-#define RouteCostCalculator_h
+#pragma once
 
 
 // ===========================================================================
@@ -119,7 +118,5 @@ RouteCostCalculator<R, E, V>& RouteCostCalculator<R, E, V>::getCalculator() {
     }
     return *myInstance;
 }
-#endif
-
 /****************************************************************************/
 

@@ -17,8 +17,7 @@
 ///
 // Abstract class for lateral frames in NetEdit
 /****************************************************************************/
-#ifndef GNEFrame_h
-#define GNEFrame_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -162,7 +161,5 @@ private:
     GNEFrame& operator=(const GNEFrame&) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/

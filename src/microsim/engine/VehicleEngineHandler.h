@@ -17,8 +17,7 @@
 ///
 /****************************************************************************/
 
-#ifndef VEHICLEENGINEHANDLER_H
-#define VEHICLEENGINEHANDLER_H
+#pragma once
 
 #include <string>
 #include <map>
@@ -213,8 +212,6 @@ private:
     const VehicleEngineHandler& operator=(const VehicleEngineHandler& s);
 
 };
-
-#endif
 
 /****************************************************************************/
 

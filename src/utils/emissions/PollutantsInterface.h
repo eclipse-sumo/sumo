@@ -18,8 +18,7 @@
 ///
 // Interface to capsulate different emission models
 /****************************************************************************/
-#ifndef PollutantsInterface_h
-#define PollutantsInterface_h
+#pragma once
 
 
 // ===========================================================================
@@ -417,7 +416,5 @@ private:
     static std::vector<std::string> myAllClassesStr;
 };
 
-
-#endif
 
 /****************************************************************************/

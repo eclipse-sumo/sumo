@@ -19,8 +19,7 @@
 ///
 // static methods for processing the coordinates conversion for the current net
 /****************************************************************************/
-#ifndef GeoConvHelper_h
-#define GeoConvHelper_h
+#pragma once
 
 
 // ===========================================================================
@@ -234,8 +233,6 @@ private:
     GeoConvHelper(const GeoConvHelper&) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/
 

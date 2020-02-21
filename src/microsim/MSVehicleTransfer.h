@@ -20,8 +20,7 @@
 // A mover of vehicles that got stucked due to grid locks
 // This class also serves as container for parking vehicles
 /****************************************************************************/
-#ifndef MSVehicleTransfer_h
-#define MSVehicleTransfer_h
+#pragma once
 
 
 // ===========================================================================
@@ -157,8 +156,6 @@ protected:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

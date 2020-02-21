@@ -18,8 +18,7 @@
 ///
 // A vector of links
 /****************************************************************************/
-#ifndef MSLinkCont_h
-#define MSLinkCont_h
+#pragma once
 
 
 // ===========================================================================
@@ -68,8 +67,6 @@ public:
     static MSLink* getConnectingLink(const MSLane& from, const MSLane& to);
 };
 
-
-#endif
 
 /****************************************************************************/
 

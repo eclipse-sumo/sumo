@@ -19,8 +19,7 @@
 ///
 // Wraps multiple CHRouters for different vehicle types
 /****************************************************************************/
-#ifndef CHRouterWrapper_h
-#define CHRouterWrapper_h
+#pragma once
 
 
 // ===========================================================================
@@ -128,8 +127,6 @@ private:
     const int myMaxNumInstances;
 };
 
-
-#endif
 
 /****************************************************************************/
 

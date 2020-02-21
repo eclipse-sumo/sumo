@@ -17,8 +17,7 @@
 ///
 // Flow used by GNECalibrators
 /****************************************************************************/
-#ifndef GNECalibratorFlow_h
-#define GNECalibratorFlow_h
+#pragma once
 
 
 // ===========================================================================
@@ -211,5 +210,5 @@ private:
     GNECalibratorFlow& operator=(const GNECalibratorFlow&) = delete;
 };
 
-#endif
+
 /****************************************************************************/

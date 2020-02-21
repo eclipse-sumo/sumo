@@ -17,8 +17,7 @@
 ///
 // -------------------
 /****************************************************************************/
-#ifndef NIVissimVehicleClassVector_h
-#define NIVissimVehicleClassVector_h
+#pragma once
 
 
 // ===========================================================================
@@ -32,8 +31,6 @@
 
 typedef std::vector<NIVissimVehicleClass*> NIVissimVehicleClassVector;
 
-
-#endif
 
 /****************************************************************************/
 

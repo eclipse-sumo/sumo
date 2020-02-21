@@ -18,8 +18,7 @@
 // The class the low-level policy stimulus
 /****************************************************************************/
 
-#ifndef MSSOTLPOLICY3DSTIMULUS_H_
-#define MSSOTLPOLICY3DSTIMULUS_H_
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -48,4 +47,3 @@ public:
 
 };
 
-#endif /* MSSOTLPOLICYSTIMULUS_H_ */

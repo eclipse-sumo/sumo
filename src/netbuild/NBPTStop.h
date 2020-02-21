@@ -17,8 +17,7 @@
 ///
 // The representation of a single pt stop
 /****************************************************************************/
-#ifndef SUMO_NBPTSTOP_H
-#define SUMO_NBPTSTOP_H
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -141,4 +140,3 @@ private:
     bool myIsMultipleStopPositions;
 };
 
-#endif //SUMO_NBPTSTOP_H

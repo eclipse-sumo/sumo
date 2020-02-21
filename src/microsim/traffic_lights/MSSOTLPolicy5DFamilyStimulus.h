@@ -18,13 +18,7 @@
 ///
 // The class the low-level policy stimulus
 /****************************************************************************/
-
-#ifndef MSSOTLPOLICY5DFAMILYSTIMULUS_H_
-#define MSSOTLPOLICY5DFAMILYSTIMULUS_H_
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 //#define SWARM_DEBUG
@@ -78,4 +72,3 @@ public:
     virtual double computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure, double vehOutDispersionMeasure);
 };
 
-#endif /* MSSOTLPOLICY5DFAMILYSTIMULUS_H_ */

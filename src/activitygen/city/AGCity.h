@@ -23,8 +23,7 @@
 // City class that contains all other objects of the city: in particular
 // streets, households, bus lines, work positions and schools
 /****************************************************************************/
-#ifndef AGCITY_H
-#define AGCITY_H
+#pragma once
 
 
 // ===========================================================================
@@ -115,7 +114,5 @@ private:
     /// @brief invalidated assignment operator
     AGCity& operator=(const AGCity&);
 };
-
-#endif
 
 /****************************************************************************/

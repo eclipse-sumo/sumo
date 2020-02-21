@@ -17,8 +17,7 @@
 ///
 // Calibrates the flow on a segment to a specified one
 /****************************************************************************/
-#ifndef METriggeredCalibrator_h
-#define METriggeredCalibrator_h
+#pragma once
 
 
 // ===========================================================================
@@ -89,7 +88,5 @@ private:
     MESegment* mySegment;
 
 };
-
-#endif
 
 /****************************************************************************/

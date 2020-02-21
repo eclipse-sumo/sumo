@@ -19,8 +19,7 @@
 ///
 // An actuated (adaptive) traffic light logic
 /****************************************************************************/
-#ifndef MSActuatedTrafficLightLogic_h
-#define MSActuatedTrafficLightLogic_h
+#pragma once
 
 
 // ===========================================================================
@@ -181,8 +180,6 @@ protected:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

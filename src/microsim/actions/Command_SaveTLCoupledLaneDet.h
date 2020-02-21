@@ -19,8 +19,7 @@
 ///
 // Writes e2 state of a link for the time the link has yellow/red
 /****************************************************************************/
-#ifndef Command_SaveTLCoupledLaneDet_h
-#define Command_SaveTLCoupledLaneDet_h
+#pragma once
 
 
 // ===========================================================================
@@ -93,8 +92,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

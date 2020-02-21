@@ -21,8 +21,7 @@
 // each type has an associated string which will be prefefixed to an object id
 // when constructing the full name
 /****************************************************************************/
-#ifndef GUIGlObjectTypes_h
-#define GUIGlObjectTypes_h
+#pragma once
 
 
 // ===========================================================================
@@ -170,7 +169,5 @@ enum GUIGlObjectType {
     /// @brief empty max
     GLO_MAX = 2048
 };
-
-#endif
 
 /****************************************************************************/

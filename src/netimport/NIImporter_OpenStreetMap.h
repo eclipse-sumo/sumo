@@ -21,8 +21,7 @@
 ///
 // Importer for networks stored in OpenStreetMap format
 /****************************************************************************/
-#ifndef NIImporter_OpenStreetMap_h
-#define NIImporter_OpenStreetMap_h
+#pragma once
 
 
 // ===========================================================================
@@ -633,8 +632,6 @@ protected:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

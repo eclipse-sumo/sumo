@@ -17,8 +17,7 @@
 ///
 // Precomputed landmark distances to speed up the A* routing algorithm
 /****************************************************************************/
-#ifndef AStarLookupTable_h
-#define AStarLookupTable_h
+#pragma once
 
 
 // ===========================================================================
@@ -417,8 +416,6 @@ private:
 
 
 
-
-#endif
 
 /****************************************************************************/
 

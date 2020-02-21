@@ -18,8 +18,7 @@
 // Container for pt stops during the netbuilding process
 /****************************************************************************/
 
-#ifndef SUMO_NBPTSTOPCONT_H
-#define SUMO_NBPTSTOPCONT_H
+#pragma once
 
 #include <string>
 #include <map>
@@ -113,4 +112,3 @@ public:
     void alignIdSigns();
 };
 
-#endif //SUMO_NBPTSTOPCONT_H

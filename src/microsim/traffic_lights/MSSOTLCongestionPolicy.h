@@ -19,8 +19,7 @@
 // The class for SOTL Congestion logics
 /****************************************************************************/
 
-#ifndef MSTLCONGESTIONPOLICY_H_
-#define MSTLCONGESTIONPOLICY_H_
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -54,4 +53,3 @@ public:
 
 };
 
-#endif /* MSSOTLCONGESTIONTRAFFICLIGHTLOGIC_H_ */

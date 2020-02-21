@@ -17,8 +17,7 @@
 ///
 // Builds demand objects for netedit
 /****************************************************************************/
-#ifndef GNERouteHandler_h
-#define GNERouteHandler_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -346,4 +345,3 @@ private:
 };
 
 
-#endif

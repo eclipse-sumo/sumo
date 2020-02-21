@@ -19,8 +19,7 @@
 // Representation of electric circuit nodes, i.e. wire junctions and connection points.
 /// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
-#ifndef NODE_H
-#define NODE_H
+#pragma once
 
 #include <vector>
 #include <string>
@@ -72,4 +71,3 @@ public:
     void setRemovability(bool isremovable);
 };
 
-#endif

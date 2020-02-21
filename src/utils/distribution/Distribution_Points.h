@@ -18,8 +18,7 @@
 ///
 // The description of a distribution by a curve
 /****************************************************************************/
-#ifndef Distribution_Points_h
-#define Distribution_Points_h
+#pragma once
 
 
 // ===========================================================================
@@ -67,8 +66,6 @@ public:
     std::string toStr(std::streamsize accuracy) const;
 };
 
-
-#endif
 
 /****************************************************************************/
 

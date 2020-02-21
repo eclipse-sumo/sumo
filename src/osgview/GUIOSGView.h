@@ -17,8 +17,7 @@
 ///
 // An OSG-based 3D view on the simulation
 /****************************************************************************/
-#ifndef GUIOSGView_h
-#define GUIOSGView_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -270,8 +269,6 @@ protected:
     GUIOSGView() { }
 
 };
-
-#endif
 
 #endif
 

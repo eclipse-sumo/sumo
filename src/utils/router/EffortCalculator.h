@@ -17,8 +17,7 @@
 ///
 // The EffortCalculator is an interface for additional edge effort calculators
 /****************************************************************************/
-#ifndef EffortCalculator_h
-#define EffortCalculator_h
+#pragma once
 
 
 // ===========================================================================
@@ -57,7 +56,5 @@ public:
 
 };
 
-
-#endif
 
 /****************************************************************************/

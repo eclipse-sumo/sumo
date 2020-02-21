@@ -20,8 +20,7 @@
 ///
 // Some static methods for string processing
 /****************************************************************************/
-#ifndef StringUtils_h
-#define StringUtils_h
+#pragma once
 
 
 // ===========================================================================
@@ -147,8 +146,6 @@ public:
     static std::string transcode(const XMLCh* const data, int length);
 };
 
-
-#endif
 
 /****************************************************************************/
 

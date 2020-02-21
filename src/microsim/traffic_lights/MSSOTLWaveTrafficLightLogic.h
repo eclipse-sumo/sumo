@@ -18,8 +18,7 @@
 ///
 // The class for SOTL Platoon logics
 /****************************************************************************/
-#ifndef MSSOTLWaveTrafficLightLogic_h
-#define MSSOTLWaveTrafficLightLogic_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -82,5 +81,4 @@ private:
 
 };
 
-#endif
 /****************************************************************************/

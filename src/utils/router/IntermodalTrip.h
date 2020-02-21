@@ -19,8 +19,7 @@
 ///
 // The "vehicle" definition for the Intermodal Router
 /****************************************************************************/
-#ifndef IntermodalTrip_h
-#define IntermodalTrip_h
+#pragma once
 
 
 // ===========================================================================
@@ -95,7 +94,5 @@ private:
     IntermodalTrip& operator=(const IntermodalTrip&);
 };
 
-
-#endif
 
 /****************************************************************************/

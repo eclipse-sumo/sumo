@@ -18,8 +18,7 @@
 ///
 // APIs for getting/setting areal detector values via TraCI
 /****************************************************************************/
-#ifndef TraCIServerAPI_LaneArea_h
-#define TraCIServerAPI_LaneArea_h
+#pragma once
 
 
 // ===========================================================================
@@ -65,8 +64,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

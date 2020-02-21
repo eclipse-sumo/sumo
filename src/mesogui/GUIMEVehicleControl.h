@@ -17,8 +17,7 @@
 ///
 // The class responsible for building and deletion of meso vehicles (gui-version)
 /****************************************************************************/
-#ifndef GUIMEVehicleControl_h
-#define GUIMEVehicleControl_h
+#pragma once
 
 
 // ===========================================================================
@@ -117,8 +116,6 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/
 

@@ -20,8 +20,7 @@
 ///
 //
 /****************************************************************************/
-#ifndef GUIPropertySchemeStorage_h
-#define GUIPropertySchemeStorage_h
+#pragma once
 
 
 // ===========================================================================
@@ -138,7 +137,5 @@ protected:
 
 typedef GUIPropertySchemeStorage<GUIColorScheme> GUIColorer;
 typedef GUIPropertySchemeStorage<GUIScaleScheme> GUIScaler;
-
-#endif
 
 /****************************************************************************/

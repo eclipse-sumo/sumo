@@ -17,8 +17,7 @@
 ///
 // <description missing>
 /****************************************************************************/
-#ifndef SUMO_MSCFMODEL_RAIL_H
-#define SUMO_MSCFMODEL_RAIL_H
+#pragma once
 
 
 #include "MSCFModel.h"
@@ -735,4 +734,3 @@ private:
 };
 
 
-#endif //SUMO_MSCFMODEL_RAIL_H

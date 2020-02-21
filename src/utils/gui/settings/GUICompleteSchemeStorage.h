@@ -18,8 +18,7 @@
 ///
 // Storage for available visualization settings
 /****************************************************************************/
-#ifndef GUICompleteSchemeStorage_h
-#define GUICompleteSchemeStorage_h
+#pragma once
 
 
 // ===========================================================================
@@ -149,8 +148,6 @@ protected:
 
 extern GUICompleteSchemeStorage gSchemeStorage;
 
-
-#endif
 
 /****************************************************************************/
 

@@ -17,8 +17,7 @@
 ///
 // A class for visualizing person trips in Netedit
 /****************************************************************************/
-#ifndef GNEPersonTrip_h
-#define GNEPersonTrip_h
+#pragma once
 
 
 // ===========================================================================
@@ -255,8 +254,6 @@ private:
     GNEPersonTrip& operator=(GNEPersonTrip*) = delete;
 };
 
-
-#endif
 
 /****************************************************************************/
 

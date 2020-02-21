@@ -18,8 +18,7 @@
 ///
 // The RouterProvider provides car, pedestrian and intermodal routing in one object
 /****************************************************************************/
-#ifndef RouterProvider_h
-#define RouterProvider_h
+#pragma once
 
 
 // ===========================================================================
@@ -81,7 +80,5 @@ private:
 
 };
 
-
-#endif
 
 /****************************************************************************/

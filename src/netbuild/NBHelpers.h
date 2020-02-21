@@ -20,8 +20,7 @@
 ///
 // Some mathematical helper methods
 /****************************************************************************/
-#ifndef NBHelpers_h
-#define NBHelpers_h
+#pragma once
 
 
 // ===========================================================================
@@ -75,8 +74,6 @@ public:
     static void interpretLaneID(const std::string& lane_id, std::string& edge_id, int& index);
 };
 
-
-#endif
 
 /****************************************************************************/
 

@@ -17,8 +17,7 @@
 ///
 // Definition of Vehicle Types in NETEDIT
 /****************************************************************************/
-#ifndef GNECalibratorVehicleType_h
-#define GNECalibratorVehicleType_h
+#pragma once
 
 
 // ===========================================================================
@@ -223,5 +222,5 @@ private:
     GNEVehicleType* operator=(GNEVehicleType*) = delete;
 };
 
-#endif
+
 /****************************************************************************/
