@@ -171,9 +171,9 @@ void Circuit::unlock() {
 }
 
 #ifdef HAVE_EIGEN
-void Circuit::removeColumn(Eigen::MatrixXd& matrix, unsigned int colToRemove) {
-    const unsigned int numRows = (unsigned int)matrix.rows();
-    const unsigned int numCols = (unsigned int)matrix.cols() - 1;
+void Circuit::removeColumn(Eigen::MatrixXd& matrix, int colToRemove) {
+    const int numRows = (int)matrix.rows();
+    const int numCols = (int)matrix.cols() - 1;
 
     if (colToRemove < numCols) {
         matrix.block(0, colToRemove, numRows, numCols - colToRemove) = matrix.rightCols(numCols - colToRemove);
@@ -184,12 +184,12 @@ void Circuit::removeColumn(Eigen::MatrixXd& matrix, unsigned int colToRemove) {
 
 bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>* removable_ids) {
     // removable_ids includes nodes with voltage source already
-    int numofcolumn = voltageSources->size() + nodes->size() - 1;
-    int numofeqs = numofcolumn - (int) removable_ids->size();
+    int numofcolumn = (int)voltageSources->size() + (int)nodes->size() - 1;
+    int numofeqs = numofcolumn - (int)removable_ids->size();
 
     Eigen::MatrixXd A = Eigen::Map < Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> >(eqn, numofeqs, numofcolumn);
 
-    unsigned int id;
+    int id;
     // removing removable columns
     for (std::vector<int>::reverse_iterator it = removable_ids->rbegin(); it != removable_ids->rend(); ++it) {
         id = (*it >= 0 ? *it : -(*it));
