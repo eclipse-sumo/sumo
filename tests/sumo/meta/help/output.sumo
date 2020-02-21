@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_4_0+1029-d1b8be6105
+Eclipse SUMO Version v1_5_0+0197-49c33a9
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -71,6 +71,8 @@ Output Options:
   --fcd-output.distance                Add kilometrage to the FCD output
                                          (linear referencing)
   --fcd-output.acceleration            Add acceleration to the FCD output
+  --fcd-output.params STR[]            Add generic parameter values to the FCD
+                                         output
   --fcd-output.filter-edges.input-file FILE  Restrict fcd output to the edge
                                          selection from the given input file
   --full-output FILE                   Save a lot of information for each
@@ -639,6 +641,8 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing
