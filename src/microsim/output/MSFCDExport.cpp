@@ -56,6 +56,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     const bool signals = OptionsCont::getOptions().getBool("fcd-output.signals");
     const bool writeAccel = OptionsCont::getOptions().getBool("fcd-output.acceleration");
     const bool writeDistance = OptionsCont::getOptions().getBool("fcd-output.distance");
+    std::vector<std::string> params = OptionsCont::getOptions().getStringVector("fcd-output.params");
     const SUMOTime period = string2time(OptionsCont::getOptions().getString("device.fcd.period"));
     const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
     if (period > 0 && (timestep - begin) % period != 0) {
@@ -131,6 +132,12 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                     }
                     // if the kilometrage runs counter to the edge direction edge->getDistance() is negative
                     of.writeAttr("distance", fabs(distance));
+                }
+                for (const std::string& key : params) {
+                    const std::string value = veh->getParameter().getParameter(key);
+                    if (value != "") {
+                        of.writeAttr(StringUtils::escapeXML(key), StringUtils::escapeXML(value));
+                    }
                 }
             }
             of.closeTag();

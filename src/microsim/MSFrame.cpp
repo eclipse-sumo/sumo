@@ -163,6 +163,8 @@ MSFrame::fillOptions() {
     oc.addDescription("fcd-output.distance", "Output", "Add kilometrage to the FCD output (linear referencing)");
     oc.doRegister("fcd-output.acceleration", new Option_Bool(false));
     oc.addDescription("fcd-output.acceleration", "Output", "Add acceleration to the FCD output");
+    oc.doRegister("fcd-output.params", new Option_StringVector());
+    oc.addDescription("fcd-output.params", "Output", "Add generic parameter values to the FCD output");
     oc.doRegister("fcd-output.filter-edges.input-file", new Option_FileName());
     oc.addDescription("fcd-output.filter-edges.input-file", "Output", "Restrict fcd output to the edge selection from the given input file");
 
