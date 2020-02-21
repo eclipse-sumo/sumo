@@ -760,4 +760,16 @@ MESegment::getMaxPenaltySeconds() const {
     return maxPenalty;
 }
 
+double
+MESegment::getWaitingSeconds() const {
+    double result = 0;
+    for (const Queue& q : myCarQues) {
+        // @note: only the leader currently accumulates waitingTime but this might change in the future
+        for (const MEVehicle* veh : q) {
+            result += veh->getWaitingSeconds();
+        }
+    }
+    return result;
+}
+
 /****************************************************************************/

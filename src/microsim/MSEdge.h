@@ -172,6 +172,23 @@ public:
         return *myLanes;
     }
 
+    /// @brief return total number of vehicles on this edges lanes or segments
+    int getVehicleNumber() const;
+
+    /// @brief return vehicles on this edges lanes or segments
+    std::vector<const SUMOVehicle*> getVehicles() const;
+
+    double getBruttoOccupancy() const;
+
+    /// @brief return flow based on meanSpead @note: may produced incorrect results when jammed
+    double getFlow() const;
+
+    /// @brief return accumated waiting time for all vehicles on this edges lanes or segments
+    double getWaitingSeconds() const;
+
+    /// @brief return mean occupancy on this edges lanes or segments
+    double getOccupancy() const;
+
     /** @brief Returns this edge's persons set.
      *  @brief Avoids the creation of new vector as in getSortedPersons
      *

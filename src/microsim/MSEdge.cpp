@@ -1155,5 +1155,86 @@ MSEdge::getWaitingVehicle(MSTransportable* transportable, const double position)
     return nullptr;
 }
 
+std::vector<const SUMOVehicle*>
+MSEdge::getVehicles() const {
+    std::vector<const SUMOVehicle*> result;
+    if (MSGlobals::gUseMesoSim) {
+        for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
+            std::vector<const MEVehicle*> segmentVehs = segment->getVehicles();
+            result.insert(result.end(), segmentVehs.begin(), segmentVehs.end());
+        }
+    } else {
+        for (MSLane* lane : getLanes()) {
+            for (auto veh : lane->getVehiclesSecure()) {
+                result.push_back(veh);
+            }
+            lane->releaseVehicles();
+        }
+    }
+    return result;
+}
+
+
+int
+MSEdge::getVehicleNumber() const {
+    return (int)getVehicles().size();
+}
+
+
+double
+MSEdge::getWaitingSeconds() const {
+    double wtime = 0;
+    if (MSGlobals::gUseMesoSim) {
+        for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
+            wtime += segment->getWaitingSeconds();
+        }
+    } else {
+        for (MSLane* lane : getLanes()) {
+            wtime += lane->getWaitingSeconds();
+        }
+    }
+    return wtime;
+}
+
+
+double
+MSEdge::getOccupancy() const {
+    if (MSGlobals::gUseMesoSim) {
+        /// @note MESegment only tracks brutto occupancy so we compute this from sratch
+        double sum = 0;
+        for (const SUMOVehicle* veh : getVehicles()) {
+            sum += dynamic_cast<const MEVehicle*>(veh)->getVehicleType().getLength();
+        }
+        return sum / (myLength * myLanes->size());
+    } else {
+        double sum = 0;
+        for (auto lane : getLanes()) {
+            sum += lane->getNettoOccupancy();
+        }
+        return sum / myLanes->size();
+    }
+}
+
+
+double
+MSEdge::getFlow() const {
+    double flow = 0;
+    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
+        flow += (double) segment->getCarNumber() * segment->getMeanSpeed();
+    }
+    return 3600 * flow / (*myLanes)[0]->getLength();
+}
+
+
+double
+MSEdge::getBruttoOccupancy() const {
+    double occ = 0;
+    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
+        occ += segment->getBruttoOccupancy();
+    }
+    return occ / (*myLanes)[0]->getLength() / (double)(myLanes->size());
+}
+
+
 
 /****************************************************************************/

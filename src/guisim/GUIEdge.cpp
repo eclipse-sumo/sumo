@@ -190,7 +190,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getMeanSpeed));
     ret->mkItem("flow [veh/h/lane]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getFlow));
     ret->mkItem("routing speed [m/s]", true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getRoutingSpeed));
-    ret->mkItem("#vehicles", true, new CastingFunctionBinding<GUIEdge, int, int>(this, &GUIEdge::getVehicleNo));
+    ret->mkItem("#vehicles", true, new CastingFunctionBinding<GUIEdge, int, int>(this, &MSEdge::getVehicleNumber));
     // add segment items
     MESegment* segment = getSegmentAtPosition(parent.getPositionInformation());
     ret->mkItem("segment index", false, segment->getIndex());
@@ -368,51 +368,6 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
     }
 }
 
-
-
-int
-GUIEdge::getVehicleNo() const {
-    int vehNo = 0;
-    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
-        vehNo += segment->getCarNumber();
-    }
-    return (int)vehNo;
-}
-
-
-std::string
-GUIEdge::getVehicleIDs() const {
-    std::string result = " ";
-    std::vector<const MEVehicle*> vehs;
-    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
-        std::vector<const MEVehicle*> segmentVehs = segment->getVehicles();
-        vehs.insert(vehs.end(), segmentVehs.begin(), segmentVehs.end());
-    }
-    for (std::vector<const MEVehicle*>::const_iterator it = vehs.begin(); it != vehs.end(); it++) {
-        result += (*it)->getID() + " ";
-    }
-    return result;
-}
-
-
-double
-GUIEdge::getFlow() const {
-    double flow = 0;
-    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
-        flow += (double) segment->getCarNumber() * segment->getMeanSpeed();
-    }
-    return 3600 * flow / (*myLanes)[0]->getLength();
-}
-
-
-double
-GUIEdge::getBruttoOccupancy() const {
-    double occ = 0;
-    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
-        occ += segment->getBruttoOccupancy();
-    }
-    return occ / (*myLanes)[0]->getLength() / (double)(myLanes->size());
-}
 
 
 double

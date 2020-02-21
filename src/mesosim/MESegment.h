@@ -297,6 +297,9 @@ public:
         return STEPS2TIME(myEntryBlockTime);
     }
 
+    /// @brief Get the waiting time for vehicles in all queues
+    double getWaitingSeconds() const; 
+
     /// @name State saving/loading
     /// @{
 
