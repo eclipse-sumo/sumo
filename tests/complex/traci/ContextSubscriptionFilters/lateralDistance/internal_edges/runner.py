@@ -53,8 +53,9 @@ def runSingle(traciEndTime, range, lateralDistance, downstreamDistance, upstream
             print("Subscribing to context of vehicle '%s' (range=%s)" % (egoID, range))
             traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE,
                                            range, [traci.constants.VAR_POSITION])
-            print("Adding lateral distance subscription filter ... (lateralDistance=%s, downstreamDistance=%s, upstreamDistance=%s)" % (
-                lateralDistance, downstreamDistance, upstreamDistance))
+            print("Adding lateral distance subscription filter ... " +
+                  "(lateralDistance=%s, downstreamDistance=%s, upstreamDistance=%s)" %
+                  (lateralDistance, downstreamDistance, upstreamDistance))
             sys.stdout.flush()
             if testWithIncompatibleFilter:
                 traci.vehicle.addSubscriptionFilterFieldOfVision(90.0)
@@ -74,7 +75,8 @@ def runSingle(traciEndTime, range, lateralDistance, downstreamDistance, upstream
 
 
 if len(sys.argv) != 7:
-    print("Usage: runner <sumo/sumo-gui> <range> <lateralDistance> <downstreamDistance> <upstreamDistance> <testWithIncompatibleFilter (0/1)>")
+    print("Usage: runner <sumo/sumo-gui> <range> <lateralDistance> <downstreamDistance> <upstreamDistance> " +
+          "<testWithIncompatibleFilter (0/1)>")
     sys.exit("")
 sys.stdout.flush()
 runSingle(12, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), bool(int(sys.argv[6])))

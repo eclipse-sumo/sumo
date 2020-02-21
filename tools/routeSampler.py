@@ -120,7 +120,7 @@ def parseTurnCounts(fnames, allRoutes, attr):
         for interval in sumolib.xml.parse(fname, 'interval'):
             for edgeRel in interval.edgeRelation:
                 result.append(CountData(int(getattr(edgeRel, attr)),
-                    (edgeRel.attr_from, edgeRel.to), allRoutes))
+                                        (edgeRel.attr_from, edgeRel.to), allRoutes))
     return result
 
 
@@ -158,6 +158,7 @@ def updateOpenRoutes(openRoutes, routeUsage, countData):
 def updateOpenCounts(openCounts, countData, openRoutes):
     return set(filter(lambda i: countData[i].routeSet.intersection(openRoutes), openCounts))
 
+
 def optimize(optimize, countData, routes, usedRoutes, routeUsage):
     """ use relaxtion of the ILP problem for picking the number of times that each route is used
     x = usageCount vector (count for each route index)
@@ -192,7 +193,7 @@ def optimize(optimize, countData, routes, usedRoutes, routeUsage):
     # min s
     # -> x2 = [x, s]
 
-    c = np.concatenate((np.zeros(k), np.ones(m))) # [x, s], only s counts for minimization
+    c = np.concatenate((np.zeros(k), np.ones(m)))  # [x, s], only s counts for minimization
     b = np.asarray([cd.origCount for cd in countData])
 
     A = np.zeros((m, k))
@@ -204,19 +205,19 @@ def optimize(optimize, countData, routes, usedRoutes, routeUsage):
     res = opt.linprog(c, A_eq=A_eq, b_eq=b, bounds=bounds)
     if res.success:
         print("Optimization succeeded")
-        routeCounts = res.x[:k] # cut of slack variables
-        slack = res.x[k:]
-        #print("routeCounts (n=%s, sum=%s, intSum=%s, roundSum=%s) %s" % (
+        routeCounts = res.x[:k]  # cut of slack variables
+        # slack = res.x[k:]
+        # print("routeCounts (n=%s, sum=%s, intSum=%s, roundSum=%s) %s" % (
         #    len(routeCounts),
         #    sum(routeCounts),
         #    sum(map(int, routeCounts)),
         #    sum(map(round, routeCounts)),
         #    routeCounts))
-        #print("slack (n=%s, sum=%s) %s" % (len(slack), sum(slack), slack))
+        # print("slack (n=%s, sum=%s) %s" % (len(slack), sum(slack), slack))
         del usedRoutes[:]
         usedRoutes.extend(sum([[i] * int(round(c)) for i, c in enumerate(routeCounts)], []))
         random.shuffle(usedRoutes)
-        #print("#usedRoutes=%s" % len(usedRoutes))
+        # print("#usedRoutes=%s" % len(usedRoutes))
         # update countData
         for cd in countData:
             cd.count = cd.origCount
@@ -248,8 +249,8 @@ def main(options):
         for i, edges in enumerate(routes):
             edgeCount.add(len(edges), i)
             detectorCount.add(len(routeUsage[i]), i)
-        print("input %s" % edgeCount);
-        print("input %s" % detectorCount);
+        print("input %s" % edgeCount)
+        print("input %s" % detectorCount)
 
     # pick a random couting location and select a new route that passes it until
     # all counts are satisfied or no routes can be used anymore
@@ -310,8 +311,8 @@ def main(options):
         for i, r in enumerate(usedRoutes):
             edgeCount.add(len(routes[r]), i)
             detectorCount.add(len(routeUsage[r]), i)
-        print("result %s" % edgeCount);
-        print("result %s" % detectorCount);
+        print("result %s" % edgeCount)
+        print("result %s" % detectorCount)
 
     if underflow.count() > 0:
         print("Warning: %s (total %s)" % (underflow, sum(underflow.values)))
@@ -331,7 +332,8 @@ def main(options):
                     outf.write('        <edgeRelation from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (
                         cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, cd.count))
                 else:
-                    print("Warning: output for edge relations with more than 2 edges not supported (%s)" % cd.edgeTuple, file=sys.stderr)
+                    print("Warning: output for edge relations with more than 2 edges not supported (%s)" % cd.edgeTuple,
+                          file=sys.stderr)
             outf.write('    </interval>\n')
             outf.write('</data>\n')
 

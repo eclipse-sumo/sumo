@@ -48,15 +48,17 @@ def get_options(args=None):
         sys.exit()
     return options
 
+
 def parseEdgeCounts(turnfile, attr):
     for interval in sumolib.xml.parse(turnfile, 'interval'):
-        counts = defaultdict(lambda : 0)
+        counts = defaultdict(lambda: 0)
         for edgeRel in interval.edgeRelation:
             count = float(getattr(edgeRel, attr))
             if count == int(count):
                 count = int(count)
             counts[edgeRel.attr_from] += count
         yield interval.id, interval.begin, interval.end, counts
+
 
 def main(options):
     with open(options.out, 'w') as outf:

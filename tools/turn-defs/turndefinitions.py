@@ -142,9 +142,8 @@ def to_xml(turn_definitions, begin, end):
     for source in turn_definitions.get_sources():
         LOGGER.debug("Converting turn definition with source %s" % (source))
 
-
         for destination in turn_definitions.get_destinations(source):
-            edgeRelation = interval_element.addChild("edgeRelation", {"from": source })
+            edgeRelation = interval_element.addChild("edgeRelation", {"from": source})
             probability = turn_definitions.get_turning_probability(source,
                                                                    destination)
 

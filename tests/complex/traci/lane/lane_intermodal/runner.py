@@ -28,7 +28,7 @@ import traci  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'), "-n", "input_net3.net.xml",
-    "--no-step-log"] + sys.argv[1:])
+             "--no-step-log"] + sys.argv[1:])
 traci.simulationStep()
 
 print("foes", traci.lane.getFoes("SC_3", "CN_3"))

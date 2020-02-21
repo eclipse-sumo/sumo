@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    turnCount2EdgeCount.py
+# @file    turnFile2EdgeRelations.py
 # @author  Jakob Erdmann
 # @date    2020-02-09
 

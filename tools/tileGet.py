@@ -97,8 +97,8 @@ def retrieveMapServerTiles(url, tiles, west, south, east, north, decals, prefix,
                 lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
                 center = net.convertLonLat2XY(lon, lat)
                 print('    <decal file="%s%s_%s.jpeg" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
-                    (prefix, x, y, center[0], center[1],
-                    2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), layer), file=decals)
+                      (prefix, x, y, center[0], center[1],
+                       2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), layer), file=decals)
             except urlerror as e:
                 print("Tile server returned HTTP response code: " + str(e.code))
                 raise ValueError
@@ -179,14 +179,13 @@ def get(args=None):
                 try:
                     urllib.urlretrieve(request, "%s%s.png" % (prefix, i))
                     print('    <decal file="%s%s.png" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
-                        (options.prefix, i, bbox[0][0] + (i + 0.5) * offset, (bbox[0][1] + bbox[1][1]) / 2,
-                        offset, bbox[1][1] - bbox[0][1], options.layer), file=decals)
+                          (options.prefix, i, bbox[0][0] + (i + 0.5) * offset, (bbox[0][1] + bbox[1][1]) / 2,
+                           offset, bbox[1][1] - bbox[0][1], options.layer), file=decals)
                     b = e
                 except urlerror as e:
                     print("Tile server returned HTTP response code: " + str(e.code))
                     raise ValueError
         print("</viewsettings>", file=decals)
-        
 
 
 if __name__ == "__main__":

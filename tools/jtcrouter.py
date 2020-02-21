@@ -32,7 +32,7 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools/turn-defs'))
 import sumolib  # noqa
-from turnCount2EdgeCount import parseEdgeCounts
+from turnCount2EdgeCount import parseEdgeCounts  # noqa
 
 
 def get_options(args=None):
@@ -123,7 +123,8 @@ def main(options):
         options.turnOutput = options.turnFile
         with open(options.flowOuput, 'w') as ff:
             ff.write('<routes>\n')
-            for i, (interval_id, interval_begin, interval_end, counts) in enumerate(parseEdgeCounts(options.turnFile, options.turnAttr)):
+            for i, interval in enumerate(parseEdgeCounts(options.turnFile, options.turnAttr)):
+                interval_id, interval_begin, interval_end, counts = interval
                 for edge in sorted(counts.keys()):
                     count = counts[edge]
                     if count > 0:

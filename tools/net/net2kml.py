@@ -22,11 +22,11 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-from optparse import OptionParser
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
+
 
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " -n <net> <options>"
@@ -34,9 +34,9 @@ def parse_args():
     argParser.add_argument("-n", "--net-file", dest="netFile", help="The .net.xml file to convert")
     argParser.add_argument("-o", "--output-file", dest="outFile", help="The KML output file name")
     argParser.add_argument("-l", "--lanes", action="store_true", default=False,
-                            help="Export lane geometries instead of edge geometries")
+                           help="Export lane geometries instead of edge geometries")
     argParser.add_argument("-i", "--internal", action="store_true", default=False,
-                            help="Export internal geometries")
+                           help="Export internal geometries")
     argParser.add_argument("--color", default="0f0000ff", help="Color for normal edges")
     argParser.add_argument("--internal-color", dest="iColor", default="5f0000ff", help="Color for internal edges")
 
@@ -47,6 +47,7 @@ def parse_args():
         exit()
     return options
 
+
 def getGeometries(options, net):
     for edge in net.getEdges():
         if options.lanes:
@@ -54,6 +55,7 @@ def getGeometries(options, net):
                 yield lane.getID(), lane.getShape(), lane.getWidth()
         else:
             yield edge.getID(), edge.getShape(), sum([l.getWidth() for l in edge.getLanes()])
+
 
 if __name__ == "__main__":
     options = parse_args()
@@ -72,7 +74,7 @@ if __name__ == "__main__":
             outf.write("\t<Style id=\"trace-%s\">\n" % id)
             outf.write("\t\t<LineStyle>\n")
             outf.write("\t\t<color>%s</color>\n" % color)
-            #outf.write("\t\t<colorMode>random</colorMode> \n")
+            # outf.write("\t\t<colorMode>random</colorMode> \n")
             outf.write("\t\t<width>%s</width>\n" % width)
             outf.write("\t\t<gx:labelVisibility>1</gx:labelVisibility>\n")
             outf.write("\t\t</LineStyle>\n")

@@ -25,8 +25,8 @@ import logging
 import os
 import sys
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import sumolib  # noqa
 
 
 def adjust_detector_length(requested_detector_length,
@@ -75,35 +75,35 @@ if __name__ == "__main__":
     usage = "generateTLSE2Detectors.py -n example.net.xml -l 250 -d .1 -f 60"
     argParser = sumolib.options.ArgumentParser(usage=usage)
     argParser.add_argument("-n", "--net-file",
-                             dest="net_file",
-                             help="Network file to work with. Mandatory.")
+                           dest="net_file",
+                           help="Network file to work with. Mandatory.")
     argParser.add_argument("-l", "--detector-length",
-                             dest="requested_detector_length",
-                             help="Length of the detector in meters "
-                             "(-1 for maximal length).",
-                             type=int,
-                             default=250)
+                           dest="requested_detector_length",
+                           help="Length of the detector in meters "
+                           "(-1 for maximal length).",
+                           type=int,
+                           default=250)
     argParser.add_argument("-d", "--distance-to-TLS",
-                             dest="requested_distance_to_tls",
-                             help="Distance of the detector to the traffic "
-                             "light in meters. Defaults to 0.1m.",
-                             type=float,
-                             default=.1)
+                           dest="requested_distance_to_tls",
+                           help="Distance of the detector to the traffic "
+                           "light in meters. Defaults to 0.1m.",
+                           type=float,
+                           default=.1)
     argParser.add_argument("-f", "--frequency",
-                             dest="frequency",
-                             help="Detector's frequency. Defaults to 60.",
-                             type=int,
-                             default=60)
+                           dest="frequency",
+                           help="Detector's frequency. Defaults to 60.",
+                           type=int,
+                           default=60)
     argParser.add_argument("-o", "--output",
-                             dest="output",
-                             help="The name of the file to write the detector "
-                             "definitions into. Defaults to e2.add.xml.",
-                             default="e2.add.xml")
+                           dest="output",
+                           help="The name of the file to write the detector "
+                           "definitions into. Defaults to e2.add.xml.",
+                           default="e2.add.xml")
     argParser.add_argument("-r", "--results-file",
-                             dest="results",
-                             help="The name of the file the detectors write "
-                             "their output into. Defaults to e2output.xml.",
-                             default="e2output.xml")
+                           dest="results",
+                           help="The name of the file the detectors write "
+                           "their output into. Defaults to e2output.xml.",
+                           default="e2output.xml")
     argParser.add_argument("--tl-coupled", action="store_true",
                            dest="tlCoupled",
                            default=False,
