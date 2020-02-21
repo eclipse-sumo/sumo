@@ -37,7 +37,7 @@ def main(args):
                  "--netstate-dump", "rawdump.xml",
                  "--no-step-log",
                  "-v",
-                 ]
+                 ] + sys.argv[1:]
     traci.start(sumo_call)
     step = -1
     while True:

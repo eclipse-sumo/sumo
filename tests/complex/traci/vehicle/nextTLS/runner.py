@@ -31,7 +31,7 @@ traci.start([sumoBinary,
              "-n", "input_net2.net.xml",
              "-r", "input_routes.rou.xml",
              "--no-step-log",
-             ])
+             ] + sys.argv[1:])
 
 vehID = "v0"
 while traci.simulation.getMinExpectedNumber() > 0:

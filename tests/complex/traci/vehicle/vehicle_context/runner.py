@@ -33,7 +33,7 @@ sumoCmd = [sumoBinary,
            '--no-step-log',
            '--begin', '0',
            # '-S', '-Q',
-           ]
+           ] + sys.argv[1:]
 
 
 vehID = "v1"

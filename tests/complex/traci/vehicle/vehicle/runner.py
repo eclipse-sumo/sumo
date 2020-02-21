@@ -96,9 +96,13 @@ def check(vehID):
     print("MinGap", traci.vehicle.getMinGap(vehID))
     print("width", traci.vehicle.getWidth(vehID))
     print("height", traci.vehicle.getHeight(vehID))
-    print("lcStrategic", traci.vehicle.getParameter(vehID, "laneChangeModel.lcStrategic"))
-    print("lcCooperative", traci.vehicle.getParameter(vehID, "laneChangeModel.lcCooperative"))
-    print("lcSpeedGain", traci.vehicle.getParameter(vehID, "laneChangeModel.lcSpeedGain"))
+    try:
+        print("lcStrategic", traci.vehicle.getParameter(vehID, "laneChangeModel.lcStrategic"))
+        print("lcCooperative", traci.vehicle.getParameter(vehID, "laneChangeModel.lcCooperative"))
+        print("lcSpeedGain", traci.vehicle.getParameter(vehID, "laneChangeModel.lcSpeedGain"))
+    except traci.TraCIException:
+        # meso
+        pass
     print("maxSpeedLat", traci.vehicle.getMaxSpeedLat(vehID))
     print("minGapLat", traci.vehicle.getMinGapLat(vehID))
     print("lateralAlignment", traci.vehicle.getLateralAlignment(vehID))
@@ -137,7 +141,7 @@ traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
              '--vehroute-output', 'vehroutes.xml',
              '--additional-files',
              'input_additional.add.xml,input_additional2.add.xml',
-             "--default.speeddev", "0"])
+             "--default.speeddev", "0"] + sys.argv[1:])
 for i in range(3):
     print("step", step())
 vehID = "horiz"
@@ -180,7 +184,10 @@ if not traci.isLibsumo():
     traci.vehicle.setAdaptedTraveltime(vehID, 0, 1000, "1o", 55)
     traci.vehicle.setEffort(vehID, 0, 1000, "1o", 54)
 traci.vehicle.setParameter(vehID, "foo", "bar")
-traci.vehicle.setParameter(vehID, "laneChangeModel.lcStrategic", "2.0")
+try:
+    traci.vehicle.setParameter(vehID, "laneChangeModel.lcStrategic", "2.0")
+except traci.TraCIException:
+    pass
 traci.vehicle.setSignals(vehID, 12)
 traci.vehicle.setRoutingMode(vehID, traci.constants.ROUTING_MODE_AGGREGATED)
 traci.vehicle.setStop(vehID, "2fi", pos=55.0, laneIndex=0, duration=2, flags=1)
