@@ -40,7 +40,7 @@ def setGetParam(objectType, object, objectID):
     print(objectType, 'foo="%s"' % object.getParameter(objectID, "foo"))
 
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 print("step", step())
 
 # XXX test PoI, Polygon

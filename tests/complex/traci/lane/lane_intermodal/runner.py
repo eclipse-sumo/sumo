@@ -28,10 +28,13 @@ import traci  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'), "-n", "input_net3.net.xml",
-             "--no-step-log"])
+    "--no-step-log"] + sys.argv[1:])
 traci.simulationStep()
 
 print("foes", traci.lane.getFoes("SC_3", "CN_3"))
-print("internal foes", traci.lane.getInternalFoes(":C_15_0"))
+try:
+    print("internal foes", traci.lane.getInternalFoes(":C_15_0"))
+except traci.TraCIException:
+    pass
 
 traci.close()

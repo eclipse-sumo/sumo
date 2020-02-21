@@ -29,7 +29,7 @@ import traci  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
-             '--pedestrian.model', 'nonInteracting'])
+             '--pedestrian.model', 'nonInteracting'] + sys.argv[1:])
 for step in range(3):
     print("step", step)
     traci.simulationStep()

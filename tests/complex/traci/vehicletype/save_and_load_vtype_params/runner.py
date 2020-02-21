@@ -30,6 +30,9 @@ import sumolib  # noqa
 ix = sys.argv.index(":")
 saveParams = sys.argv[1:ix]
 loadParams = sys.argv[ix + 1:]
+for p in loadParams:
+    if 'meso' in p:
+        saveParams.append(p)
 
 # SAVE
 traci.start([sumolib.checkBinary("sumo")] + saveParams)

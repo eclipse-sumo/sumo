@@ -27,7 +27,7 @@ sys.path.append(os.path.join(
 import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 for step in range(3):
     print("step", step)
     traci.simulationStep()
