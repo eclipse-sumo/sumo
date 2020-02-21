@@ -20,11 +20,6 @@
 // Parser and container for routes during their loading
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/xml/SUMOSAXHandler.h>
@@ -87,7 +82,3 @@ private:
     ROMARouteHandler& operator=(const ROMARouteHandler& s);
 
 };
-
-
-/****************************************************************************/
-

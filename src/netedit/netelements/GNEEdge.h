@@ -19,12 +19,6 @@
 // Basically a container for an NBEdge with drawing and editing capabilities
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <netbuild/NBEdge.h>
 
 #include "GNENetElement.h"
@@ -451,7 +445,3 @@ private:
     /// @brief invalidated assignment operator
     GNEEdge& operator=(const GNEEdge& s) = delete;
 };
-
-
-/****************************************************************************/
-

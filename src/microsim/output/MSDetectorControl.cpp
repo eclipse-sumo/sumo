@@ -22,11 +22,6 @@
 ///
 // Detectors container; responsible for string and output generation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -173,6 +168,4 @@ MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
 }
 
 
-
 /****************************************************************************/
-

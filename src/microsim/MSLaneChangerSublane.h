@@ -19,11 +19,6 @@
 // Performs sub-lane changing of vehicles
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
@@ -112,7 +107,3 @@ private:
     /// Assignment operator.
     MSLaneChangerSublane& operator=(const MSLaneChangerSublane&);
 };
-
-
-/****************************************************************************/
-

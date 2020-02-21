@@ -21,10 +21,6 @@
 // Krauss car-following model, with acceleration decrease and faster start
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "MSCFModel_KraussOrig1.h"

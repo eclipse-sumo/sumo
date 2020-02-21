@@ -17,10 +17,6 @@
 ///
 // The Widget for add Crossing elements
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -581,5 +577,6 @@ GNECrossingFrame::createCrossingHotkey() {
         myCreateCrossing->onCmdCreateCrossing(0, 0, 0);
     }
 }
+
 
 /****************************************************************************/

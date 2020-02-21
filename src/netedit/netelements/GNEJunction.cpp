@@ -18,11 +18,6 @@
 // A class for visualizing and editing junctions in netedit (adapted from
 // GUIJunctionWrapper)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netbuild/NBAlgorithms.h>
@@ -1618,5 +1613,6 @@ GNEJunction::removeTrafficLight(NBTrafficLightDefinition* tlDef) {
     }
     myNBNode->removeTrafficLight(tlDef);
 }
+
 
 /****************************************************************************/

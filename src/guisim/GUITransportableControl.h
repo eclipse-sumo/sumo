@@ -20,11 +20,6 @@
 // GUI-version of the transportable control for building gui persons and containers
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -69,6 +64,3 @@ public:
      */
     void insertPersonIDs(std::vector<GUIGlID>& into);
 };
-
-
-/****************************************************************************/

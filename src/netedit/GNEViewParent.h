@@ -21,11 +21,6 @@
 // structures than to write everything from scratch.
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIGlChildWindow.h>
@@ -343,6 +338,3 @@ private:
     /// @brief struct for ACChoosers
     ACChoosers myACChoosers;
 };
-
-
-/****************************************************************************/

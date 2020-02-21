@@ -17,10 +17,6 @@
 ///
 // Dialog for edit calibrators
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -478,5 +474,6 @@ GNECalibratorDialog::updateFlowAndLabelButton() {
         myLabelFlow->setText(("Add new " + toString(SUMO_TAG_FLOW_CALIBRATOR) + "s").c_str());
     }
 }
+
 
 /****************************************************************************/

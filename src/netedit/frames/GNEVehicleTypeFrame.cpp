@@ -17,10 +17,6 @@
 ///
 // The Widget for edit Vehicle Type elements
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/GNENet.h>
@@ -429,5 +425,6 @@ GNEVehicleTypeFrame::attributesEditorExtendedDialogOpened() {
         myVehicleTypeAttributesEditor->showAttributeEditorModul({myVehicleTypeSelector->getCurrentVehicleType()}, false, true);
     }
 }
+
 
 /****************************************************************************/

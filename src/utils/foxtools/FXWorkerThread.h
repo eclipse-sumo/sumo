@@ -25,10 +25,6 @@
 // at which interval report maximum workload of the threads, needs WORKLOAD_PROFILING
 // undefine to use summary report only
 #define WORKLOAD_INTERVAL 100
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <list>

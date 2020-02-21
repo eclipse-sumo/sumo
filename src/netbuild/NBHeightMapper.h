@@ -20,11 +20,6 @@
 // Set z-values for all network positions based on data from a height map
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef _MSC_VER
@@ -197,7 +192,3 @@ inline TRIANGLE_RTREE_QUAL::Rect TRIANGLE_RTREE_QUAL::CombineRect(Rect* a_rectA,
     newRect.m_max[1] = rtree_max(a_rectA->m_max[1], a_rectB->m_max[1]);
     return newRect;
 }
-
-
-/****************************************************************************/
-

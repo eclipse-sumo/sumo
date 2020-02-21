@@ -17,10 +17,6 @@
 ///
 // Dialog for edit parameters
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -583,5 +579,6 @@ GNEParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
     myParametersValues->setParameters(myCopyOfParameters);
     return 1;
 }
+
 
 /****************************************************************************/

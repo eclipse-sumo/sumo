@@ -20,11 +20,6 @@
 ///
 // Parser and container for routes during their loading
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "MSRouteHandler.h"
@@ -1364,5 +1359,6 @@ MSRouteHandler::addTransport(const SUMOSAXAttributes& /*attrs*/) {
 void
 MSRouteHandler::addTranship(const SUMOSAXAttributes& /*attrs*/) {
 }
+
 
 /****************************************************************************/

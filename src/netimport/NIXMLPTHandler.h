@@ -18,11 +18,6 @@
 // Importer for static public transport information
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/SUMOVehicleClass.h>
@@ -209,7 +204,3 @@ private:
     NIXMLPTHandler& operator=(const NIXMLPTHandler& s);
 
 };
-
-
-/****************************************************************************/
-

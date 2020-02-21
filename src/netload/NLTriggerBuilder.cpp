@@ -22,11 +22,6 @@
 ///
 // Builds trigger objects for microsim
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -931,5 +926,6 @@ MSStoppingPlace*
 NLTriggerBuilder::getCurrentStop() {
     return myParkingArea == nullptr ? myCurrentStop : myParkingArea;
 }
+
 
 /****************************************************************************/

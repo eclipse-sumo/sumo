@@ -17,10 +17,6 @@
 ///
 //
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/GNENet.h>
@@ -358,5 +354,6 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
+
 
 /****************************************************************************/

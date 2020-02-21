@@ -24,11 +24,6 @@
 // A lane change model developed by J. Erdmann
 // based on the model of D. Krajzewicz developed between 2004 and 2011 (MSLCM_DK2004)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -2186,5 +2181,5 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
     initDerivedParameters();
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

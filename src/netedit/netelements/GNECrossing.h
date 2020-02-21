@@ -18,12 +18,6 @@
 // A class for visualizing Inner Lanes (used when editing traffic lights)
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include "GNENetElement.h"
 #include <netbuild/NBNode.h>
 
@@ -165,7 +159,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNECrossing& operator=(const GNECrossing&) = delete;
 };
-
-
-/****************************************************************************/
-

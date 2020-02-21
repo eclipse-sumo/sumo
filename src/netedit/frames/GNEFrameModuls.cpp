@@ -17,11 +17,6 @@
 ///
 // Auxiliar class for GNEFrame Moduls
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <config.h>
 
 #include <netedit/GNEApplicationWindow.h>
@@ -2043,5 +2038,6 @@ GNEFrameModuls::OverlappedInspection::buildFXElements() {
     // Create help button
     myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
+
 
 /****************************************************************************/

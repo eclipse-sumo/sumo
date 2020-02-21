@@ -18,11 +18,6 @@
 // A abstract class for representation of Hierarchical Elements
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <config.h>
 
 #include <utils/gui/globjects/GUIGlObjectTypes.h>

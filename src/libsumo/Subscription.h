@@ -18,11 +18,6 @@
 // Subscription representation for libsumo and TraCI
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <vector>
 #include <libsumo/TraCIDefs.h>
 #include <utils/common/SUMOTime.h>

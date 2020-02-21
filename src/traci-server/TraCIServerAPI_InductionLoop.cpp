@@ -20,11 +20,6 @@
 ///
 // APIs for getting/setting induction loop values via TraCI
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/MSNet.h>
@@ -91,4 +86,3 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
 
 
 /****************************************************************************/
-

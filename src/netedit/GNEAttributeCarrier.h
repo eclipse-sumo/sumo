@@ -18,11 +18,6 @@
 // Abstract Base class for gui objects which carry attributes
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
@@ -875,6 +870,3 @@ private:
     /// @brief Invalidated assignment operator
     GNEAttributeCarrier& operator=(const GNEAttributeCarrier& src) = delete;
 };
-
-/****************************************************************************/
-

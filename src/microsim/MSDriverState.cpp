@@ -19,11 +19,6 @@
 ///
 // The common superclass for modelling transportable objects like persons and containers
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <math.h>
@@ -931,10 +926,6 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    return result;
 //}
 //
-
-
-
-
 
 
 /****************************************************************************/

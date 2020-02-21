@@ -19,10 +19,6 @@
 // Overhead wires for Electric (equipped with elecHybrid device) vehicles (Overhead wire segments, overhead wire sections, traction substations)
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <list>

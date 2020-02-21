@@ -20,11 +20,6 @@
 // reimplementation inspired by https://marc.info/?l=xerces-dev&m=86952133511623
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <iostream>
 #include <xercesc/util/BinInputStream.hpp>
 #include <xercesc/sax/InputSource.hpp>
@@ -71,5 +66,3 @@ public:
 private:
     std::istream& myIn;
 };
-
-/****************************************************************************/

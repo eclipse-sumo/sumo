@@ -18,11 +18,6 @@
 // A abstract class for net elements
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/GNEHierarchicalParentElements.h>
@@ -190,7 +185,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNENetElement& operator=(const GNENetElement&) = delete;
 };
-
-
-/****************************************************************************/
-

@@ -19,11 +19,6 @@
 ///
 // Helper methods for HBEFA-based emission computation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/SUMOTime.h>
@@ -226,5 +221,6 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
     }
 
 }
+
 
 /****************************************************************************/

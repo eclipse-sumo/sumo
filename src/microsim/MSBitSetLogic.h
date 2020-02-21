@@ -21,11 +21,6 @@
 // Container for holding a right-of-way matrix
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <bitset>
@@ -121,7 +116,3 @@ private:
     large asian junctions.
     So, here comes the type which should be used by the netbuilder. */
 typedef MSBitSetLogic<SUMO_MAX_CONNECTIONS> MSBitsetLogic;
-
-
-/****************************************************************************/
-

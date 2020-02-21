@@ -17,12 +17,6 @@
 ///
 // Abstract Base class for gui objects which carry attributes
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
@@ -4740,5 +4734,6 @@ GNEAttributeCarrier::parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs
     // continue creation of element
     return true;
 }
+
 
 /****************************************************************************/

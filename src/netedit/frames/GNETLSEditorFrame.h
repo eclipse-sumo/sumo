@@ -18,10 +18,6 @@
 // The Widget for modifying traffic lights
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include "GNEFrame.h"
 #include <netbuild/NBTrafficLightLogic.h>
 
@@ -474,7 +470,3 @@ private:
     /// @brief convert duration (potentially undefined) to string
     static std::string varDurString(SUMOTime dur);
 };
-
-
-/****************************************************************************/
-

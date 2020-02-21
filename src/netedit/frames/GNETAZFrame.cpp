@@ -17,10 +17,6 @@
 ///
 // The Widget for add TAZ elements
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -1566,5 +1562,6 @@ GNETAZFrame::dropTAZMembers() {
     // always refresh TAZ Edges after removing TAZSources/Sinks
     myTAZCurrent->refreshTAZEdges();
 }
+
 
 /****************************************************************************/

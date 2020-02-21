@@ -20,11 +20,6 @@
 
 #ifndef MFXIconComboBox_h
 #define MFXIconComboBox_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <fx.h>

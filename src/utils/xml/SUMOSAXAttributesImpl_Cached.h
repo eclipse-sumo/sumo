@@ -18,11 +18,6 @@
 // Encapsulated xml-attributes that use a map from string-attr-names to string-attr-values as backend
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -297,7 +292,3 @@ private:
     /// @brief Invalidated assignment operator.
     SUMOSAXAttributesImpl_Cached& operator=(const SUMOSAXAttributesImpl_Cached& src) = delete;
 };
-
-
-/****************************************************************************/
-

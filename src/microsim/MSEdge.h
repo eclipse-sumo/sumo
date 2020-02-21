@@ -22,11 +22,6 @@
 // A road/street connecting two junctions
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -977,7 +972,3 @@ private:
 
     void addToAllowed(const SVCPermissions permissions, std::shared_ptr<const std::vector<MSLane*> > allowedLanes, AllowedLanesCont& laneCont) const;
 };
-
-
-/****************************************************************************/
-

@@ -18,12 +18,6 @@
 // Representation of persons in NETEDIT
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
@@ -325,6 +319,3 @@ private:
     /// @brief Invalidated assignment operator
     GNEPerson& operator=(const GNEPerson&) = delete;
 };
-
-
-/****************************************************************************/

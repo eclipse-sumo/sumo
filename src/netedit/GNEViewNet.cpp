@@ -18,12 +18,6 @@
 ///
 // A view on the network being edited (adapted from GUIViewTraffic)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/additionals/GNETAZ.h>
@@ -3587,5 +3581,6 @@ GNEViewNet::processMoveMouseDemand() {
         myMoveSingleElementValues.moveSingleElement();
     }
 }
+
 
 /****************************************************************************/

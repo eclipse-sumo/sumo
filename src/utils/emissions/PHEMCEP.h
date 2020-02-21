@@ -21,10 +21,6 @@
 // Helper class for PHEM Light, holds a specific CEP for a PHEM emission class
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -323,5 +319,3 @@ private:
     StringBijection<double> _idlingValuesPollutants;
 
 };
-
-/****************************************************************************/

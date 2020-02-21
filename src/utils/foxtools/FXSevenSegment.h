@@ -23,11 +23,6 @@
 
 #ifndef FXSEVENSEGMENT_H
 #define FXSEVENSEGMENT_H
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifndef FXFRAME_H

@@ -18,11 +18,6 @@
 // A network change in which a single lane is created or deleted
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <fx.h>
@@ -109,6 +104,3 @@ private:
     /// @brief vector of child demand elements
     std::vector<GNEDemandElement*> myChildDemandElements;
 };
-
-
-/****************************************************************************/

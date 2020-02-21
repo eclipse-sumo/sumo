@@ -20,11 +20,6 @@
 // Retrieves messages about the process and gives them further to output
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <string>
 #include <vector>
 #include <map>
@@ -289,5 +284,3 @@ private:
 #define WRITE_ERROR(msg) MsgHandler::getErrorInstance()->inform(msg);
 #define WRITE_DEBUG(msg) if(MsgHandler::writeDebugMessages()){MsgHandler::getDebugInstance()->inform(msg);};
 #define WRITE_GLDEBUG(msg) if(MsgHandler::writeDebugGLMessages()){MsgHandler::getGLDebugInstance()->inform(msg);};
-
-/****************************************************************************/

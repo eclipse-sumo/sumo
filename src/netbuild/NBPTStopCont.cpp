@@ -424,4 +424,5 @@ NBPTStopCont::findStop(const std::string& origEdgeID, Position pos, double thres
     return nullptr;
 }
 
+
 /****************************************************************************/

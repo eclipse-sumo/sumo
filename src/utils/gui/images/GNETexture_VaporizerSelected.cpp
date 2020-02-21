@@ -138,4 +138,5 @@ const unsigned char GNETexture_VaporizerSelected[] = {
     0x2e, 0xf1, 0x89, 0xaa, 0xf2, 0x48, 0x40, 0x00, 0x00, 0x3b
 };
 
+
 /****************************************************************************/

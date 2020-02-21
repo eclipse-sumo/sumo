@@ -23,10 +23,6 @@
 // Interface for lane-change models
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/MSGlobals.h>
@@ -740,7 +736,3 @@ private:
     /// @brief Invalidated assignment operator
     MSAbstractLaneChangeModel& operator=(const MSAbstractLaneChangeModel& s);
 };
-
-
-/****************************************************************************/
-

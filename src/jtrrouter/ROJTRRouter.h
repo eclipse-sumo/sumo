@@ -19,11 +19,6 @@
 // Computes routes using junction turning percentages
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/router/SUMOAbstractRouter.h>
@@ -112,7 +107,3 @@ private:
     /// @brief Whether upstream flows shall be discounted from source flows
     const bool myDiscountSources;
 };
-
-
-/****************************************************************************/
-

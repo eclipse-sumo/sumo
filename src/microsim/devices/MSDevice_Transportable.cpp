@@ -22,10 +22,6 @@
 ///
 // A device which is used to keep track of persons and containers riding with a vehicle
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/output/MSStopOut.h>
@@ -210,4 +206,3 @@ MSDevice_Transportable::getParameter(const std::string& key) const {
 
 
 /****************************************************************************/
-

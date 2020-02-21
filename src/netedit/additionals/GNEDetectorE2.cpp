@@ -17,11 +17,6 @@
 ///
 //
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -637,5 +632,6 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
+
 
 /****************************************************************************/

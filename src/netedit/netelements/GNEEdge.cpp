@@ -18,11 +18,6 @@
 // A road/street connecting two junctions (netedit-version, adapted from GUIEdge)
 // Basically a container for an NBEdge with drawing and editing capabilities
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/GNENet.h>
@@ -2519,5 +2514,6 @@ GNEEdge::areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, cons
         return false;
     }
 }
+
 
 /****************************************************************************/

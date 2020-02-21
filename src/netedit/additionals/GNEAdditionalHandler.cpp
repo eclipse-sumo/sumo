@@ -17,10 +17,6 @@
 ///
 // Builds trigger objects for netedit
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 #include <utils/xml/XMLSubSys.h>
 #include <netedit/changes/GNEChange_Additional.h>
@@ -2678,5 +2674,6 @@ GNEAdditionalHandler::HierarchyInsertedAdditionals::getLastInsertedAdditional() 
     }
     return nullptr;
 }
+
 
 /****************************************************************************/

@@ -21,10 +21,6 @@
 ///
 // Helper class for PHEM Light, holds a specific CEP for a PHEM emission class
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
@@ -430,5 +426,6 @@ double PHEMCEP::GetPMaxNorm(double speed) const {
         return PHEMCEP::Interpolate(speed, _pNormV0, _pNormV1, _pNormP0, _pNormP1);
     }
 } // end of GetPMaxNorm
+
 
 /****************************************************************************/

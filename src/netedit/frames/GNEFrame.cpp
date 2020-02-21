@@ -17,11 +17,6 @@
 ///
 // The Widget for add additional elements
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <config.h>
 
 #include <netedit/GNEViewNet.h>
@@ -285,5 +280,6 @@ const std::map<int, std::string>&
 GNEFrame::getPredefinedTagsMML() const {
     return myPredefinedTagsMML;
 }
+
 
 /****************************************************************************/

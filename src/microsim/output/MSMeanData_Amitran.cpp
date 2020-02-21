@@ -18,11 +18,6 @@
 ///
 // Network state mean data collector for edges/lanes
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/MSEdgeControl.h>
@@ -189,4 +184,3 @@ MSMeanData_Amitran::createValues(MSLane* const lane, const double length, const 
 
 
 /****************************************************************************/
-

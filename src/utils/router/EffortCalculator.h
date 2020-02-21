@@ -18,11 +18,6 @@
 // The EffortCalculator is an interface for additional edge effort calculators
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/Parameterised.h>
@@ -55,6 +50,3 @@ public:
     virtual std::string output(const int edge) const = 0;
 
 };
-
-
-/****************************************************************************/

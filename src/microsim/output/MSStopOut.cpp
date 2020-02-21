@@ -17,11 +17,6 @@
 ///
 // Ouput information about planned vehicle stop
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/vehicle/SUMOVehicle.h>
@@ -158,5 +153,6 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     myDevice.closeTag();
     myStopped.erase(veh);
 }
+
 
 /****************************************************************************/

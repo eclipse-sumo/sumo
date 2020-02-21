@@ -24,11 +24,6 @@
 // streets, households, bus lines, work positions and schools
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -114,5 +109,3 @@ private:
     /// @brief invalidated assignment operator
     AGCity& operator=(const AGCity&);
 };
-
-/****************************************************************************/

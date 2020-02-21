@@ -23,11 +23,6 @@
 // GNEUndoList inherits from FXUndoList and patches some methods. these are
 // prefixed with p_
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/common/MsgHandler.h>
 

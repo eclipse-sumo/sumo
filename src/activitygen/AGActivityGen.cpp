@@ -22,11 +22,6 @@
 ///
 // Main class that handles City, Activities and Trips
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -249,5 +244,6 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec) {
      */
     generateOutputFile(expTrips);
 }
+
 
 /****************************************************************************/

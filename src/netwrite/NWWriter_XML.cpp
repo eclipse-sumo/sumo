@@ -20,11 +20,6 @@
 ///
 // Exporter writing networks using XML (native input) format
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 #include <algorithm>
 #include <utils/common/MsgHandler.h>

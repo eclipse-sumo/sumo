@@ -17,11 +17,6 @@
 ///
 // Functions used in GUIPerson and GNEPerson
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/transportables/MSPModel_Striping.h>
@@ -109,5 +104,6 @@ GUIBasePersonHelper::drawAction_drawAsImage(const double angle, const double len
         drawAction_drawAsPoly(angle, length, width);
     }
 }
+
 
 /****************************************************************************/

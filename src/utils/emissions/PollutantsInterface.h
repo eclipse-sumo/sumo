@@ -19,11 +19,6 @@
 // Interface to capsulate different emission models
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cctype>  // defines std::tolower
@@ -415,6 +410,3 @@ private:
     /// @brief get all emission classes in strin format
     static std::vector<std::string> myAllClassesStr;
 };
-
-
-/****************************************************************************/

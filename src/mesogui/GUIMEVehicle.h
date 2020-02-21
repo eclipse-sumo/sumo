@@ -21,11 +21,6 @@
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -132,7 +127,3 @@ public:
     GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
 };
-
-
-/****************************************************************************/
-

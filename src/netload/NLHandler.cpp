@@ -22,9 +22,6 @@
 ///
 // The XML-Handler for network loading
 /****************************************************************************/
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -1479,4 +1476,6 @@ NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, 
     }
     return lane->geometryPositionAtOffset(lanePos, -lanePosLat);
 }
+
+
 /****************************************************************************/

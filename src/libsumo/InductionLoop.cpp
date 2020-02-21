@@ -20,11 +20,6 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/output/MSDetectorControl.h>
@@ -196,5 +191,6 @@ InductionLoop::handleVariable(const std::string& objID, const int variable, Vari
 
 
 }
+
 
 /****************************************************************************/

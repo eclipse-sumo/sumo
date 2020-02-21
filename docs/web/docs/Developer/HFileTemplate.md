@@ -26,29 +26,25 @@ permalink: /Developer/HFileTemplate/
 // <A BRIEF DESCRIPTION OF THE FILE'S CONTENTS>
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h> // you can leave this one out if you don't need any defines from config.h, especially in libsumo / utils
 
-#include "myOwnClass1.h"
-#include "myOwnClass2.h"
-```
+#include <somewhere/otherClass1.h>
+#include "myOtherClass2.h"
 
-```cpp
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class myOwnClass1; // always prefer a declaration over an include
 class myOwnClass2;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 /**
- * @class OwnClass (Can be preceded by GNE, MS, NB, etc... depending on the project)
+ * @class OwnClass (Can be preceded by GNE, MS, NB, etc. depending on the project)
  * brief description of the class
  */
 class OwnClass : public ParentClass  {

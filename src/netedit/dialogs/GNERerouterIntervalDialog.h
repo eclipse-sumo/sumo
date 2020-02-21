@@ -18,10 +18,6 @@
 // Dialog for edit rerouter intervals
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 #include <netedit/additionals/GNERerouterInterval.h>
 #include <netedit/additionals/GNEClosingLaneReroute.h>

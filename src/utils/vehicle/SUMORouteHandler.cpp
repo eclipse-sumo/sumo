@@ -20,11 +20,6 @@
 ///
 // Parser for routes during their loading
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
@@ -501,5 +496,6 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     }
     return true;
 }
+
 
 /****************************************************************************/

@@ -19,11 +19,6 @@
 // Shortest Path tree of limited depth using Dijkstras algorithm
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -238,6 +233,3 @@ private:
     /// @brief vector of needed shortcuts after validation
     CHConnectionPairs myNeededShortcuts;
 };
-
-/****************************************************************************/
-

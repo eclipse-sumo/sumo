@@ -19,12 +19,6 @@
 ///
 // Structure representing possible vehicle parameter
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <config.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
@@ -840,5 +834,6 @@ SUMOVehicleParameter::getArrivalSpeed() const {
     }
     return val;
 }
+
 
 /****************************************************************************/

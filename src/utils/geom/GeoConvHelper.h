@@ -20,11 +20,6 @@
 // static methods for processing the coordinates conversion for the current net
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <map>
@@ -232,7 +227,3 @@ private:
     /// @brief invalidated copy constructor.
     GeoConvHelper(const GeoConvHelper&) = delete;
 };
-
-
-/****************************************************************************/
-

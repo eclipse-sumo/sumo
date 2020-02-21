@@ -18,11 +18,6 @@
 // Functions used in GUIPerson and GNEPerson for drawing persons
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -51,7 +46,3 @@ public:
     static void drawAction_drawAsImage(const double angle, const double length, const double width, const std::string& file,
                                        const SUMOVehicleShape guiShape, const double exaggeration);
 };
-
-
-/****************************************************************************/
-

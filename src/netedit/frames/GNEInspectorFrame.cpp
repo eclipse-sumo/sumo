@@ -18,11 +18,6 @@
 ///
 // The Widget for modifying network-element attributes (i.e. lane speed)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/div/GUIDesigns.h>
@@ -1048,5 +1043,6 @@ GNEInspectorFrame::TemplateEditor::updateButtons() {
         myClearTemplateButton->disable();
     }
 }
+
 
 /****************************************************************************/

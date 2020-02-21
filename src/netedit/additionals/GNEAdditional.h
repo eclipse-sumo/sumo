@@ -18,11 +18,6 @@
 // A abstract class for representation of additional elements
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <config.h>
 
 #include <netedit/GNEHierarchicalParentElements.h>

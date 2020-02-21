@@ -20,11 +20,6 @@
 // A list of positions
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -422,7 +417,3 @@ private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect
     static bool intersects(const Position& p11, const Position& p12, const Position& p21, const Position& p22, const double withinDist = 0., double* x = 0, double* y = 0, double* mu = 0);
 };
-
-
-/****************************************************************************/
-

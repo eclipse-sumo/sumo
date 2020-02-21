@@ -18,11 +18,6 @@
 ///
 // -------------------
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/VectorHelper.h>
@@ -36,6 +31,4 @@ NIVissimClosedLaneDef::NIVissimClosedLaneDef(const std::vector<int>& assignedVeh
 NIVissimClosedLaneDef::~NIVissimClosedLaneDef() {}
 
 
-
 /****************************************************************************/
-

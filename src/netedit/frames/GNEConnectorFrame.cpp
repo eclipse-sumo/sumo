@@ -17,11 +17,6 @@
 ///
 // The Widget for modifying lane-to-lane connections
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -586,5 +581,6 @@ GNEConnectorFrame::getLaneStatus(const std::vector<NBEdge::Connection>& connecti
         return UNCONNECTED;
     }
 }
+
 
 /****************************************************************************/

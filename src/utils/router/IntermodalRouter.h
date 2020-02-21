@@ -19,11 +19,6 @@
 // The IntermodalRouter builds a special network and (delegates to a SUMOAbstractRouter)
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -316,6 +311,3 @@ private:
     IntermodalRouter& operator=(const IntermodalRouter& s);
 
 };
-
-
-/****************************************************************************/

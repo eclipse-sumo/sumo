@@ -21,11 +21,6 @@
 // Event send when the simulation has been loaded by GUILadThread
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -94,7 +89,3 @@ private:
     /// @brief Invalidated assignment operator
     GUIEvent_SimulationLoaded& operator=(const GUIEvent_SimulationLoaded& s);
 };
-
-
-/****************************************************************************/
-

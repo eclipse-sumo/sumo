@@ -24,11 +24,6 @@
 // An areal detector covering to a sequence of consecutive lanes
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -780,7 +775,3 @@ private:
     /// @brief Invalidated assignment operator.
     MSE2Collector& operator=(const MSE2Collector&);
 };
-
-
-/****************************************************************************/
-

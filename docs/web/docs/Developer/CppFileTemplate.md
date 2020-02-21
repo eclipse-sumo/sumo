@@ -25,16 +25,12 @@ permalink: /Developer/CppFileTemplate/
 ///
 // <A BRIEF DESCRIPTION OF THE FILE'S CONTENTS>
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <StandardLibrary>     // Standard libraries
 #include <SUMOLibrary>         // SUMO libraries
 
-#include "myHeaderFile1"       // Own libraries
+#include "myHeaderFile1"       // Header files from the same directory
 #include "myHeaderFile2"
 
 

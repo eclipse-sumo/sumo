@@ -17,11 +17,6 @@
 ///
 // The Widget for editing connection prohibits
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/div/GUIDesigns.h>
@@ -284,5 +279,6 @@ GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitely
         myRelativeToConnection->updateDescription();
     }
 }
+
 
 /****************************************************************************/

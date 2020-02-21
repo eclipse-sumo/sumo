@@ -17,10 +17,6 @@
 ///
 // The Widget for add Person elements
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/GNENet.h>
@@ -610,5 +606,6 @@ GNEPersonFrame::buildPerson() {
     // return created person
     return myViewNet->getNet()->retrieveDemandElement(personTag, valuesMap[SUMO_ATTR_ID]);
 }
+
 
 /****************************************************************************/

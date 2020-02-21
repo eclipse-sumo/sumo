@@ -23,11 +23,6 @@
 // A household contains the people and cars of the city: roughly represents
 // families with their address, cars, adults and possibly children
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/RandHelper.h>
@@ -202,5 +197,6 @@ bool
 AGHousehold::retiredHouseholders() {
     return (myAdults.front().getAge() >= myCity->statData.limitAgeRetirement);
 }
+
 
 /****************************************************************************/

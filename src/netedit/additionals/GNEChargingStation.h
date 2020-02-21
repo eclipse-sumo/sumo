@@ -18,12 +18,6 @@
 // A class for visualizing chargingStation geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include "GNEStoppingPlace.h"
 
 

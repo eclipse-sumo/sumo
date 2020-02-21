@@ -17,11 +17,6 @@
 ///
 // A abstract class for demand elements
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netbuild/NBNetBuilder.h>
@@ -576,5 +571,6 @@ GNEDemandElement::checkChildDemandElementRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
     throw ProcessError("Calling non-implemented function checkChildDemandElementRestriction during saving of " + getTagStr() + ". It muss be reimplemented in child class");
 }
+
 
 /****************************************************************************/

@@ -18,11 +18,6 @@
 // The Pedestrian Router builds a special network and delegates to a SUMOAbstractRouter.
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -148,6 +143,3 @@ private:
     PedestrianRouter& operator=(const PedestrianRouter& s);
 
 };
-
-
-/****************************************************************************/

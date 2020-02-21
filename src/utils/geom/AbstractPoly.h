@@ -19,11 +19,6 @@
 // The base class for polygons
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "Position.h"
@@ -58,7 +53,3 @@ public:
     /// @brief Returns whether the AbstractPoly crosses the given line
     virtual bool crosses(const Position& p1, const Position& p2) const = 0;
 };
-
-
-/****************************************************************************/
-

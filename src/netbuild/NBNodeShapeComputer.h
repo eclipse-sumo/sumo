@@ -20,11 +20,6 @@
 // This class computes shapes of junctions
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/geom/PositionVector.h>
@@ -162,6 +157,3 @@ private:
     NBNodeShapeComputer& operator=(const NBNodeShapeComputer& s);
 
 };
-
-/****************************************************************************/
-

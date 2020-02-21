@@ -20,11 +20,6 @@
 // A class that stores a 2D geometrical boundary
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -157,7 +152,3 @@ private:
     /// @brief Information whether the boundary was initialised
     bool myWasInitialised;
 };
-
-
-/****************************************************************************/
-

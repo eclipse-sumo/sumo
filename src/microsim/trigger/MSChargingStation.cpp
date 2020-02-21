@@ -19,11 +19,6 @@
 ///
 // Chargin Station for Electric vehicles
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <config.h>
 
 #include <cassert>
@@ -274,5 +269,6 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
     // close charging station tag
     output.closeTag();
 }
+
 
 /****************************************************************************/

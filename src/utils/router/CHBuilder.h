@@ -20,11 +20,6 @@
 // Contraction Hierarchy Builder for the shortest path search
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -523,7 +518,3 @@ private:
     /// @brief Invalidated assignment operator
     CHBuilder& operator=(const CHBuilder& s);
 };
-
-
-/****************************************************************************/
-

@@ -18,11 +18,6 @@
 // A class for visualizing and editing POIS in netedit (adapted from
 // GUIPolygon and NLHandler)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <string>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -918,5 +913,6 @@ const GUIGlObject*
 GNEPoly::getGUIGlObject() const {
     return this;
 }
+
 
 /****************************************************************************/

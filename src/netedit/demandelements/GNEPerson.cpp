@@ -17,11 +17,6 @@
 ///
 // Representation of persons in NETEDIT
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <cmath>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
@@ -929,5 +924,6 @@ void
 GNEPerson::setEnabledAttribute(const int enabledAttributes) {
     parametersSet = enabledAttributes;
 }
+
 
 /****************************************************************************/

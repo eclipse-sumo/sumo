@@ -17,11 +17,6 @@
 ///
 // A abstract class to define common parameters of lane area in which vehicles can halt (GNE version)
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -370,5 +365,6 @@ std::string
 GNEStoppingPlace::getHierarchyName() const {
     return getTagStr();
 }
+
 
 /****************************************************************************/

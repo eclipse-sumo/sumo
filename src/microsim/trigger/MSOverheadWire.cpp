@@ -18,11 +18,6 @@
 ///
 // Overhead wires for Electric (equipped with elecHybrid device) vehicles (Overhead wire segments, overhead wire sections, traction substations)
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <config.h>
 
 #include <cassert>
@@ -706,5 +701,6 @@ MSOverheadWire::writeOverheadWireSegmentOutput(OutputDevice& output) {
     // close charging station tag
     output.closeTag();
 }
+
 
 /****************************************************************************/

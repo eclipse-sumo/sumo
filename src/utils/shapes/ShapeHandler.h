@@ -18,11 +18,6 @@
 // The XML-Handler for network loading
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/RGBColor.h>
@@ -137,7 +132,3 @@ protected:
     /// @brief invalidate assignment operator
     ShapeHandler& operator=(const ShapeHandler& s) = delete;
 };
-
-
-/****************************************************************************/
-

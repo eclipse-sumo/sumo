@@ -22,11 +22,6 @@
 ///
 // Parent object of every person, contains age and any natural characteristic
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "AGPerson.h"
@@ -59,5 +54,6 @@ bool
 AGPerson::decide(double proba) const {
     return (RandHelper::rand(1000) < static_cast<int>(1000.0f * proba));
 }
+
 
 /****************************************************************************/

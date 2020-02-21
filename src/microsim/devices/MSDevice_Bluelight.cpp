@@ -21,10 +21,6 @@
 // A device for emergency vehicle. The behaviour of other traffic participants will be triggered with this device.
 // For example building a rescue lane.
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/StringUtils.h>
@@ -294,4 +290,3 @@ MSDevice_Bluelight::setParameter(const std::string& key, const std::string& valu
 
 
 /****************************************************************************/
-

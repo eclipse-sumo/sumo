@@ -20,11 +20,6 @@
 // Parser and container for routes during their loading
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -248,7 +243,3 @@ private:
     /// @brief Invalidated assignment operator
     RORouteHandler& operator=(const RORouteHandler& s) = delete;
 };
-
-
-/****************************************************************************/
-

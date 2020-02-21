@@ -18,11 +18,6 @@
 // File for geometry classes and functions
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
@@ -435,6 +430,3 @@ private:
     /// @brief normalize angle for lookup in myCircleCoords
     static int angleLookup(const double angleDeg);
 };
-
-/****************************************************************************/
-

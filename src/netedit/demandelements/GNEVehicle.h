@@ -18,12 +18,6 @@
 // Representation of vehicles in NETEDIT
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
@@ -368,6 +362,3 @@ private:
     /// @brief Invalidated assignment operator
     GNEVehicle& operator=(const GNEVehicle&) = delete;
 };
-
-
-/****************************************************************************/

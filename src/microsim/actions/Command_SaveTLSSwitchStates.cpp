@@ -18,9 +18,6 @@
 ///
 // Writes the switch times of a tls into a file when the tls switches
 /****************************************************************************/
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "Command_SaveTLSSwitchStates.h"
@@ -63,6 +60,4 @@ Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) {
 }
 
 
-
 /****************************************************************************/
-

@@ -22,10 +22,6 @@
 // XXX: Preliminary implementation. Use with care. Especially rerouting vehicles could be problematic.
 // TODO: implement SSM time-gap (estimated conflict entry and exit times are already calculated for PET calculation)
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -3663,5 +3659,5 @@ MSDevice_SSM::setParameter(const std::string& key, const std::string& value) {
     }
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

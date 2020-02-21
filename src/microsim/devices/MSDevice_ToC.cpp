@@ -21,10 +21,6 @@
 // The ToC Device controls the transition of control between automated and manual driving.
 //
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <algorithm>
@@ -1274,4 +1270,3 @@ std::vector<std::vector<double> > MSDevice_ToC::lookupResponseTimeVariances = {
 
 
 /****************************************************************************/
-

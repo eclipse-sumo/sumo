@@ -19,11 +19,6 @@
 // A class to realise a uniform n:m - relationship using the
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 
@@ -62,7 +57,3 @@ public:
         In each step, the callback is executed. */
     static void compute(BresenhamCallBack* callBack, const int val1, const int val2);
 };
-
-
-/****************************************************************************/
-

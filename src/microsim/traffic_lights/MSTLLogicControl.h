@@ -22,11 +22,6 @@
 // A class that stores and controls tls and switching of their programs
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -829,7 +824,3 @@ private:
     MSTLLogicControl& operator=(const MSTLLogicControl&);
 
 };
-
-
-/****************************************************************************/
-

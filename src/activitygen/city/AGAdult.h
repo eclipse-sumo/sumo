@@ -23,11 +23,6 @@
 // Person in working age: can be linked to a work position.
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -121,6 +116,3 @@ private:
      */
     static AGWorkPosition* randomFreeWorkPosition(std::vector<AGWorkPosition>* wps);
 };
-
-
-/****************************************************************************/

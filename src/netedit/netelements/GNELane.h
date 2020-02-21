@@ -18,11 +18,6 @@
 // A class for visualizing Lane geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "GNENetElement.h"
@@ -292,7 +287,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNELane& operator=(const GNELane&) = delete;
 };
-
-
-/****************************************************************************/
-

@@ -19,11 +19,6 @@
 ///
 // The gui-version of the MSInductLoop, together with the according
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/globjects/GUIGlObject.h>

@@ -22,11 +22,6 @@
 // Instance responsible for building networks
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -282,7 +277,3 @@ private:
     /// @brief invalidated assignment operator
     NBNetBuilder& operator=(const NBNetBuilder& s);
 };
-
-
-/****************************************************************************/
-

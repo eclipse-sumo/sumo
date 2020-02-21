@@ -21,11 +21,6 @@
 // Based on DijkstraRouter. For routing by effort a novel heuristic would be needed.
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -322,7 +317,3 @@ protected:
     /// @brief maximum speed in the network
     double myMaxSpeed;
 };
-
-
-/****************************************************************************/
-

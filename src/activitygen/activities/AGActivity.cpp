@@ -22,11 +22,6 @@
 // Parent object for all activities. Derived classes generate trips for each
 // household.
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/RandHelper.h>

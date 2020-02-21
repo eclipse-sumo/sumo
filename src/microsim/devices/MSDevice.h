@@ -20,11 +20,6 @@
 // Abstract in-vehicle device
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -255,6 +250,3 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
         return !nameGiven && outputOptionSet;
     }
 }
-
-
-/****************************************************************************/

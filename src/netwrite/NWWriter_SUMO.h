@@ -21,11 +21,6 @@
 // Exporter writing networks using the SUMO format
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -207,7 +202,3 @@ private:
     static std::string getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con, double& oppositeLength);
 
 };
-
-
-/****************************************************************************/
-

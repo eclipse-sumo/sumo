@@ -17,11 +17,6 @@
 ///
 // A series of automatic Cruise Controllers (CC, ACC, CACC)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include "MSCFModel_CC.h"
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>

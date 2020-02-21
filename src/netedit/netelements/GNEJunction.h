@@ -19,12 +19,6 @@
 // GUIJunctionWrapper)
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include "GNENetElement.h"
 #include <netbuild/NBNode.h>
 
@@ -338,6 +332,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEJunction& operator=(const GNEJunction&) = delete;
 };
-
-
-/****************************************************************************/

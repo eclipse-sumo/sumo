@@ -22,11 +22,6 @@
 
 #ifndef FXSingleEventThread_h
 #define FXSingleEventThread_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <fx.h>

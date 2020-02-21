@@ -20,11 +20,6 @@
 // The class holds a description of a connection between two edges
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -150,7 +145,3 @@ private:
     /// @brief The index of the internal junction within the controlling traffic light (optional)
     int myTlIndex2;
 };
-
-
-/****************************************************************************/
-

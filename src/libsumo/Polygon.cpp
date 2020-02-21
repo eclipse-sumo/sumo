@@ -17,11 +17,6 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <microsim/MSNet.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSVehicleControl.h>

@@ -17,11 +17,6 @@
 ///
 // Exporter writing networks using the Amitran format
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
@@ -137,4 +132,3 @@ NWWriter_Amitran::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 
 /****************************************************************************/
-

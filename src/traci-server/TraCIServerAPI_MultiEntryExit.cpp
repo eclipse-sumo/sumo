@@ -18,11 +18,6 @@
 ///
 // APIs for getting/setting multi-entry/multi-exit detector values via TraCI
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/output/MSDetectorControl.h>

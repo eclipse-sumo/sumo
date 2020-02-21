@@ -18,12 +18,6 @@
 // A class for visualizing routes in Netedit
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDemandElement.h"
@@ -279,7 +273,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNERoute& operator=(GNERoute*) = delete;
 };
-
-
-/****************************************************************************/
-

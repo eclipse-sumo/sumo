@@ -18,11 +18,6 @@
 // The Widget for add additional elements
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 #include "GNEFrame.h"
 
@@ -330,6 +325,3 @@ private:
     /// @brief Modul for select child lanes
     SelectorChildLanes* mySelectorChildLanes;
 };
-
-
-/****************************************************************************/

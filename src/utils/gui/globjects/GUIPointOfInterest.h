@@ -20,11 +20,6 @@
 // missing_desc
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -124,7 +119,3 @@ protected:
     /// @brief draw inner POI (before pushName() )
     void drawInnerPOI(const GUIVisualizationSettings& s, bool forceSelectionColor) const;
 };
-
-
-/****************************************************************************/
-

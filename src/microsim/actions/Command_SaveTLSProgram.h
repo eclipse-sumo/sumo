@@ -18,11 +18,6 @@
 // Writes the switch times of a tls into a file when the tls switches
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -107,7 +102,3 @@ private:
     Command_SaveTLSProgram& operator=(const Command_SaveTLSProgram&);
 
 };
-
-
-/****************************************************************************/
-

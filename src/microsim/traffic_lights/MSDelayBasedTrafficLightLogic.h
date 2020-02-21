@@ -18,11 +18,6 @@
 // An actuated traffic light logic based on time delay of approaching vehicles
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <map>
@@ -140,7 +135,3 @@ protected:
     /// Whether detector output separates by vType
     std::string myVehicleTypes;
 };
-
-
-/****************************************************************************/
-

@@ -21,11 +21,6 @@
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -268,7 +263,3 @@ private:
     /// @brief Enabled visualisations, per view
     std::map<GUISUMOAbstractView*, int> myAdditionalVisualizations;
 };
-
-
-/****************************************************************************/
-

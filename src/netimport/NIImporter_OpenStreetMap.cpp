@@ -21,11 +21,6 @@
 ///
 // Importer for networks stored in OpenStreetMap format
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 #include <algorithm>
 #include <set>
@@ -1945,4 +1940,3 @@ NIImporter_OpenStreetMap::interpretTransportType(const std::string& type, NIOSMN
 
 
 /****************************************************************************/
-

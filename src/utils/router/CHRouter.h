@@ -20,11 +20,6 @@
 // Shortest Path search using a Contraction Hierarchy
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -393,7 +388,3 @@ private:
     /// @brief the permissions for which the hierarchy was constructed
     const SUMOVehicleClass mySVC;
 };
-
-
-/****************************************************************************/
-

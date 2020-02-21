@@ -18,10 +18,6 @@
 // An algorithm that performs dispatch for the taxi device
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <set>
@@ -54,6 +50,3 @@ protected:
     /// @brief relative time threshold for declining shared ride
     const double myRelativeLossThreshold;
 };
-
-/****************************************************************************/
-

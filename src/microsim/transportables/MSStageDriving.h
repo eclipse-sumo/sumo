@@ -18,10 +18,6 @@
 // The common superclass for modelling transportable objects like persons and containers
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <set>
@@ -179,6 +175,3 @@ private:
     MSStageDriving& operator=(const MSStageDriving&) = delete;
 
 };
-
-
-/****************************************************************************/

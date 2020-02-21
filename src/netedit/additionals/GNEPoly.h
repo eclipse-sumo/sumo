@@ -19,12 +19,6 @@
 // GUIPolygon and NLHandler)
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <utils/gui/globjects/GUIPolygon.h>
 
 #include "GNEShape.h"
@@ -257,7 +251,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEPoly& operator=(const GNEPoly&) = delete;
 };
-
-
-/****************************************************************************/
-

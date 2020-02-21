@@ -19,11 +19,6 @@
 // A distribution described by parameters such as the mean value and std-dev
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -85,7 +80,3 @@ private:
     /// @brief The distribution's parameters
     std::vector<double> myParameter;
 };
-
-
-/****************************************************************************/
-

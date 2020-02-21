@@ -18,10 +18,6 @@
 // A network change in which a additional element is created or deleted
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "GNEChange.h"
@@ -108,6 +104,3 @@ private:
     /// @brief reference to vector of child demand elements
     const std::vector<GNEDemandElement*>& myChildDemandElements;
 };
-
-
-/****************************************************************************/

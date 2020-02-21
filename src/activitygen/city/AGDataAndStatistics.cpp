@@ -23,11 +23,6 @@
 // Contains various data, statistical values and functions from input used
 // by various objects
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "AGDataAndStatistics.h"
@@ -211,7 +206,6 @@ AGDataAndStatistics::getRandomCityGateByOutgoing() {
     std::cout << "ERROR: outgoing at city gates not normalized" << std::endl;
     return 0;
 }
-
 
 
 /****************************************************************************/

@@ -21,11 +21,6 @@
 //
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <string>
 #include <cmath>
 #include <limits>
@@ -144,6 +139,3 @@ double truncate(double x, int fractionBits);
 
 /// @brief round to the given number of mantissa bits beyond the given number
 double roundBits(double x, int fractionBits);
-
-/****************************************************************************/
-

@@ -19,11 +19,6 @@
 // A logging window for the gui
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -146,7 +141,3 @@ private:
     /// @brief The instances of message retriever encapsulations
     OutputDevice* myErrorRetriever, *myDebugRetriever, *myGLDebugRetriever, *myMessageRetriever, *myWarningRetriever;
 };
-
-
-/****************************************************************************/
-

@@ -24,11 +24,6 @@
 // City class that contains all other objects of the city: in particular
 // streets, households, bus lines, work positions and school
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -426,5 +421,6 @@ AGCity::getRandomStreet() {
     }
     return *RandHelper::getRandomFrom(streets);
 }
+
 
 /****************************************************************************/

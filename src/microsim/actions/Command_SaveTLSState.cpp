@@ -18,9 +18,6 @@
 ///
 // Writes the state of the tls to a file (in each second)
 /****************************************************************************/
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "Command_SaveTLSState.h"
@@ -56,7 +53,6 @@ Command_SaveTLSState::execute(SUMOTime currentTime) {
                    << "\" state=\"" << myLogics.getActive()->getCurrentPhaseDef().getState() << "\"/>\n";
     return DELTA_T;
 }
-
 
 
 /****************************************************************************/

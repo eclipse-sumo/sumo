@@ -18,11 +18,6 @@
 // The AccessEdge is a special intermodal edge connecting different modes
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "IntermodalEdge.h"
@@ -73,6 +68,3 @@ private:
     const SVCPermissions myVehicleRestriction;
 
 };
-
-
-/****************************************************************************/

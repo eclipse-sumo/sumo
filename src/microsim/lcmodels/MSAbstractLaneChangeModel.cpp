@@ -31,11 +31,6 @@
 //#define DEBUG_OPPOSITE
 //#define DEBUG_MANEUVER
 #define DEBUG_COND (myVehicle.isSelected())
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/options/OptionsCont.h>

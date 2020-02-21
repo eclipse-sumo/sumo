@@ -21,11 +21,6 @@
 // This class computes the logic of a junction
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -282,6 +277,3 @@ private:
     /// @brief Invalidated assignment operator
     NBRequest& operator=(const NBRequest& s) = delete;
 };
-
-/****************************************************************************/
-

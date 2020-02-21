@@ -19,10 +19,6 @@
 // (some elements adapted from GUIDialog_GLChosenEditor)
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include "GNEFrame.h"
 
 // ===========================================================================
@@ -437,7 +433,3 @@ private:
      */
     std::vector<GNEAttributeCarrier*> getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, double val, const std::string& expr);
 };
-
-
-/****************************************************************************/
-

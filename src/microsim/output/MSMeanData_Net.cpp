@@ -19,11 +19,6 @@
 ///
 // Network state mean data collector for edges/lanes
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/MSEdgeControl.h>
@@ -325,4 +320,3 @@ MSMeanData_Net::createValues(MSLane* const lane, const double length, const bool
 
 
 /****************************************************************************/
-

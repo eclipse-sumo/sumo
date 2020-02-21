@@ -19,11 +19,6 @@
 // Helper methods for PHEMlight-based emission computation
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #define INTERNAL_PHEM
@@ -134,7 +129,3 @@ private:
     mutable PHEMlightdll::Helpers myHelper;
     std::map<SUMOEmissionClass, PHEMlightdll::CEP*> myCEPs;
 };
-
-
-/****************************************************************************/
-

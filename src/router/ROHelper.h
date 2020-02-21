@@ -19,11 +19,6 @@
 // Some helping methods for router
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <functional>
@@ -85,6 +80,3 @@ bool noMandatory(const ConstROEdgeVector& mandatory,
                  ConstROEdgeVector::const_iterator start,
                  ConstROEdgeVector::const_iterator end);
 }
-
-/****************************************************************************/
-

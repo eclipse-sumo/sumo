@@ -22,11 +22,6 @@
 ///
 // Person in working age: can be linked to a work position.
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "AGAdult.h"
@@ -111,5 +106,6 @@ AGAdult::getWorkPosition() const {
     }
     throw std::runtime_error("AGAdult::getWorkPosition: Adult is unemployed.");
 }
+
 
 /****************************************************************************/

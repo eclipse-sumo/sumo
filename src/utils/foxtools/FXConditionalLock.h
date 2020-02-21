@@ -20,11 +20,6 @@
 
 #ifndef FXConditionalLock_h
 #define FXConditionalLock_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <fx.h>

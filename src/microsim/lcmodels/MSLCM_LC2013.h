@@ -22,11 +22,6 @@
 // A lane change model developed by D. Krajzewicz, J. Erdmann et al. between 2004 and 2013
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "MSAbstractLaneChangeModel.h"
@@ -277,7 +272,3 @@ protected:
     double myChangeProbThresholdLeft;
     //@}
 };
-
-
-/****************************************************************************/
-

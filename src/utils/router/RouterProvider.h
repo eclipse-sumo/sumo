@@ -19,11 +19,6 @@
 // The RouterProvider provides car, pedestrian and intermodal routing in one object
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "IntermodalRouter.h"
@@ -79,6 +74,3 @@ private:
     RouterProvider& operator=(const RouterProvider& src);
 
 };
-
-
-/****************************************************************************/

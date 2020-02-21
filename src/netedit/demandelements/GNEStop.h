@@ -18,12 +18,6 @@
 // Representation of Stops in NETEDIT
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
 #include "GNEDemandElement.h"
@@ -225,6 +219,3 @@ private:
     /// @brief Invalidated assignment operator
     GNEStop& operator=(const GNEStop&) = delete;
 };
-
-
-/****************************************************************************/

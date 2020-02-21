@@ -17,10 +17,6 @@
 ///
 // Dialog used to fix additional elements
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -379,5 +375,6 @@ GNEFixAdditionalElements::ConsecutiveLaneOptions::disableConsecutiveLaneOptions(
     activateFriendlyPositionAndSave->disable();
     fixPositionsAndSave->disable();
 }
+
 
 /****************************************************************************/

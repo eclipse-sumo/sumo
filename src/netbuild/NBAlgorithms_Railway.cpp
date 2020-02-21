@@ -18,11 +18,6 @@
 ///
 // Algorithms for highway on-/off-ramps computation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -1083,5 +1078,5 @@ NBRailwayTopologyAnalyzer::getTravelTimeStatic(const Track* const track, const N
     return NBEdge::getTravelTimeStatic(track->edge, veh, time);
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

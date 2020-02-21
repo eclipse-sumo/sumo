@@ -24,11 +24,6 @@
 // by various objects
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -181,5 +176,3 @@ private:
     //function normalizing the map's probabilities: Sum(floats) = 1
     void normalizeMapProb(std::map<int, double>* myMap);
 };
-
-/****************************************************************************/

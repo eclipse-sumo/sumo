@@ -19,11 +19,6 @@
 // A temporary storage for edges imported from Vissim
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "NIVissimConnectionCluster.h"
@@ -301,7 +296,3 @@ private:
     static std::vector<std::string> myLanesWithMissingSpeeds;
 
 };
-
-
-/****************************************************************************/
-

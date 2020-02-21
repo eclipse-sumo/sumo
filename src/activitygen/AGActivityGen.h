@@ -23,11 +23,6 @@
 // Main class that handles City, Activities and Trips
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "city/AGCity.h"
@@ -124,6 +119,3 @@ private:
     /// @brief invalidated assignment operator
     AGActivityGen& operator=(const AGActivityGen&);
 };
-
-/****************************************************************************/
-

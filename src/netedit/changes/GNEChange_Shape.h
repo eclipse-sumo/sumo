@@ -18,11 +18,6 @@
 // A network change in which a single Shape is created or deleted
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <fx.h>
@@ -104,6 +99,3 @@ private:
     /// @brief reference to vector of child demand elements
     const std::vector<GNEDemandElement*>& myChildDemandElements;
 };
-
-
-/****************************************************************************/

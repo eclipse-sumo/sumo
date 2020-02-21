@@ -23,11 +23,6 @@
 // Generates trips related to after-work activities
 // like visiting the family or party.
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
@@ -264,5 +259,6 @@ AGFreeTime::whenBeginActivityNextDay(int day) {
     timeBack.addDays(1); // this the beginning of activities of the next day
     return timeBack.getTime();
 }
+
 
 /****************************************************************************/

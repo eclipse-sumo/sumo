@@ -20,11 +20,6 @@
 // While we don't actually need MDI for netedit it is easier to adapt existing
 // structures than to write everything from scratch.
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/dialogs/GNEDialogACChooser.h>
@@ -855,5 +850,5 @@ GNEViewParent::ACChoosers::~ACChoosers() {
     }
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

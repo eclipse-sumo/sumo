@@ -18,10 +18,6 @@
 // Auxiliar class for GNEFrame Moduls (only for attributes edition)
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/GNEAttributeCarrier.h>
@@ -807,6 +803,3 @@ public:
         AdditionalReferencePoint myActualAdditionalReferencePoint;
     };
 };
-
-
-/****************************************************************************/

@@ -21,11 +21,6 @@
 ///
 // Krauss car-following model, changing accel and speed by slope
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
@@ -89,7 +84,6 @@ MSCFModel_KraussX::dawdleX(double vOld, double vMin, double vMax, std::mt19937* 
     speed = MAX2(vMin, speed);
     return speed;
 }
-
 
 
 /****************************************************************************/

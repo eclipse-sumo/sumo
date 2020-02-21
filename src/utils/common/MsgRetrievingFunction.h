@@ -19,12 +19,6 @@
 // Encapsulates an object's method for using it as a message retriever
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <string>
 #include <sstream>
 #include <utils/iodevices/OutputDevice.h>
@@ -102,7 +96,3 @@ private:
     std::ostringstream myMessage;
 
 };
-
-
-/****************************************************************************/
-

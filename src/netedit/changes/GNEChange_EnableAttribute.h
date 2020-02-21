@@ -18,11 +18,6 @@
 // A network change in which the attribute of some object is modified
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "GNEChange.h"
@@ -86,6 +81,3 @@ private:
     /// @brief original attributes
     const int myNewAttributes;
 };
-
-
-/****************************************************************************/

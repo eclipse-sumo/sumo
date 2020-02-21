@@ -21,11 +21,6 @@
 ///
 // A single child window which contains a view of the simulation area
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -359,5 +354,6 @@ GUISUMOViewParent::onUpdSpeedFactor(FXObject* sender, FXSelector, void* ptr) {
     }
     return 1;
 }
+
 
 /****************************************************************************/

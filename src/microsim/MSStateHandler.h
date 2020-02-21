@@ -20,11 +20,6 @@
 // Parser and output filter for routes and vehicles state saving and loading
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/SUMOTime.h>
@@ -128,6 +123,3 @@ private:
     /// @brief Invalidated assignment operator
     MSStateHandler& operator=(const MSStateHandler& s) = delete;
 };
-
-
-/****************************************************************************/

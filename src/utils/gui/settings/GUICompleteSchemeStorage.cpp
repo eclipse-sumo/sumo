@@ -20,11 +20,6 @@
 ///
 // Storage for available visualization settings
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "GUICompleteSchemeStorage.h"
@@ -246,4 +241,3 @@ GUICompleteSchemeStorage::setViewport(GUISUMOAbstractView* view) {
 
 
 /****************************************************************************/
-

@@ -20,11 +20,6 @@
 // Parser for routes during their loading
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/IDSupplier.h>
@@ -257,6 +252,3 @@ private:
     /// @brief Invalidated assignment operator
     SUMORouteHandler& operator=(const SUMORouteHandler& s) = delete;
 };
-
-
-/****************************************************************************/

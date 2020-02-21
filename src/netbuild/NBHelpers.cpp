@@ -20,11 +20,6 @@
 ///
 // Some mathematical helper methods
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
@@ -135,5 +130,6 @@ NBHelpers::interpretLaneID(const std::string& lane_id, std::string& edge_id, int
         WRITE_ERROR("Invalid lane index '" + index_string + "' for lane '" + lane_id + "'.");
     }
 }
+
 
 /****************************************************************************/

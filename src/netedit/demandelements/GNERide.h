@@ -18,12 +18,6 @@
 // A class for visualizing rides in Netedit
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
@@ -245,7 +239,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNERide& operator=(GNERide*) = delete;
 };
-
-
-/****************************************************************************/
-

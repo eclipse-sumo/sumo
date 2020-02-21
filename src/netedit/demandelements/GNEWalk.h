@@ -18,12 +18,6 @@
 // A class for visualizing walks in Netedit
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
@@ -258,7 +252,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEWalk& operator=(GNEWalk*) = delete;
 };
-
-
-/****************************************************************************/
-

@@ -20,11 +20,6 @@
 ///
 // A road/street connecting two junctions (gui-version)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -61,11 +56,6 @@
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MEVehicle.h>
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 GUIEdge::GUIEdge(const std::string& id, int numericalID,
                  const SumoXMLEdgeFunc function,
                  const std::string& streetName, const std::string& edgeType, int priority,
@@ -567,5 +557,6 @@ bool
 GUIEdge::isSelected() const {
     return gSelected.isSelected(GLO_EDGE, getGlID());
 }
-/****************************************************************************/
 
+
+/****************************************************************************/

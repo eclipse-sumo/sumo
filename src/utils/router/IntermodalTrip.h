@@ -20,11 +20,6 @@
 // The "vehicle" definition for the Intermodal Router
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -93,6 +88,3 @@ private:
     /// @brief Invalidated assignment operator.
     IntermodalTrip& operator=(const IntermodalTrip&);
 };
-
-
-/****************************************************************************/

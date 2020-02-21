@@ -18,11 +18,6 @@
 // Dumping a hugh List of Parameters available in the Simulation
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/SUMOTime.h>
@@ -83,7 +78,3 @@ private:
     static void writeTLS(OutputDevice& of, SUMOTime timestep);
 
 };
-
-
-/****************************************************************************/
-

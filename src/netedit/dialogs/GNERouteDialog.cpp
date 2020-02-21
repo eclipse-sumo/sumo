@@ -17,10 +17,6 @@
 ///
 // Dialog for edit calibrator routes
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -184,5 +180,6 @@ GNERouteDialog::updateCalibratorRouteValues() {
     myTextFieldEdges->setText(myEditedDemandElement->getAttribute(SUMO_ATTR_EDGES).c_str());
     myTextFieldColor->setText(myEditedDemandElement->getAttribute(SUMO_ATTR_COLOR).c_str());
 }
+
 
 /****************************************************************************/

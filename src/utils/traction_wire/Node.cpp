@@ -19,10 +19,6 @@
 // Representation of electric circuit nodes, i.e. wire junctions and connection points.
 /// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <string>
 #include <algorithm>
 #include "Node.h"

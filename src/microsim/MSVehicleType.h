@@ -21,11 +21,6 @@
 // The car-following model and parameter
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -605,7 +600,3 @@ private:
     /// @brief Invalidated assignment operator
     MSVehicleType& operator=(const MSVehicleType&) = delete;
 };
-
-
-/****************************************************************************/
-

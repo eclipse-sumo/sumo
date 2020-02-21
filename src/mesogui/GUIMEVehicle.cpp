@@ -19,11 +19,6 @@
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/globjects/GLIncludes.h>
@@ -259,5 +254,6 @@ void
 GUIMEVehicle::selectBlockingFoes() const {
     // @todo possibly we could compute something reasonable here
 }
-/****************************************************************************/
 
+
+/****************************************************************************/

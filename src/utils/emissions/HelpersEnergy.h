@@ -19,11 +19,6 @@
 // Helper methods for HBEFA-based emission computation
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -84,7 +79,3 @@ private:
     /// @brief The default parameter
     std::map<int, double> myDefaultParameter;
 };
-
-
-/****************************************************************************/
-

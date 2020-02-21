@@ -19,11 +19,6 @@
 ///
 // The common superclass for modelling transportable objects like persons and containers
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/StringTokenizer.h>

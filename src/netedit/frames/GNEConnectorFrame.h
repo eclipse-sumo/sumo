@@ -18,10 +18,6 @@
 // The Widget for modifying lane-to-lane connections
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 #include <netbuild/NBEdge.h>
 #include "GNEFrame.h"
@@ -321,7 +317,3 @@ private:
     /// @brief vector of connections deleted in the current editing step
     std::vector<NBEdge::Connection> myDeletedConnections;
 };
-
-
-/****************************************************************************/
-

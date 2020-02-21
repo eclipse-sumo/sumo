@@ -17,11 +17,6 @@
 ///
 // Representation of Stops in NETEDIT
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <cmath>
 #include <netedit/additionals/GNEStoppingPlace.h>
 #include <netedit/GNENet.h>
@@ -1123,5 +1118,6 @@ void
 GNEStop::setEnabledAttribute(const int enabledAttributes) {
     parametersSet = enabledAttributes;
 }
+
 
 /****************************************************************************/

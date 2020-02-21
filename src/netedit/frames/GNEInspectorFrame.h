@@ -19,11 +19,6 @@
 // The Widget for modifying network-element attributes (i.e. lane speed)
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include "GNEFrame.h"
 
 // ===========================================================================
@@ -362,7 +357,3 @@ private:
     /// @brief flag to ckec if myPreviousElementDelete was marked in Delete Frame
     bool myPreviousElementDeleteWasMarked;
 };
-
-
-/****************************************************************************/
-

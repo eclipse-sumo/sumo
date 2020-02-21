@@ -22,11 +22,6 @@
 // Correspond to given ages and referenced by children. Has a precise location.
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -64,5 +59,3 @@ private:
     AGPosition location;
     int opening, closing;
 };
-
-/****************************************************************************/

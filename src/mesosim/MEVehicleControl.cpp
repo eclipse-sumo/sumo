@@ -17,11 +17,6 @@
 ///
 // The class responsible for building and deletion of vehicles (meso-version)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/FileHelpers.h>
@@ -59,4 +54,3 @@ MEVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
 
 
 /****************************************************************************/
-

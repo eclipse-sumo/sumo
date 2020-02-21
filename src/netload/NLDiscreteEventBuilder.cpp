@@ -20,11 +20,6 @@
 ///
 // }
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -199,5 +194,6 @@ NLDiscreteEventBuilder::buildSaveTLSProgramCommand(const SUMOSAXAttributes& attr
         new Command_SaveTLSProgram(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)));
     }
 }
+
 
 /****************************************************************************/

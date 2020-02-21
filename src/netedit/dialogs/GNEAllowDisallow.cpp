@@ -17,10 +17,6 @@
 ///
 // Dialog for edit rerouters
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -241,5 +237,6 @@ GNEAllowDisallow::buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass v
     // create label for description of vehicle
     new FXLabel(buttonAndInformationFrame, description.c_str(), nullptr, GUIDesignLabelLeftThick);
 }
+
 
 /****************************************************************************/

@@ -20,11 +20,6 @@
 // Stores the information about how to visualize structures
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -788,7 +783,3 @@ public:
     /// @brief detail settings
     GUIVisualizationDetailSettings detailSettings;
 };
-
-
-/****************************************************************************/
-

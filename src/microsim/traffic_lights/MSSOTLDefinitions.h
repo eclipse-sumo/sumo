@@ -77,6 +77,3 @@ typedef std::set<std::string> MSLaneID_set;
 
 typedef std::map<MSLane*, bool> LaneCheckMap;
 typedef std::vector<std::string> LaneIdVector;
-
-
-/****************************************************************************/

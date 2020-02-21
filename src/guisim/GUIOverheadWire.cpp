@@ -18,11 +18,6 @@
 ///
 // The gui-version of a MSOverheadWire
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -407,5 +402,6 @@ GUIOverheadWireClamp::drawGL(const GUIVisualizationSettings& s) const {
     glPopName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
 }
+
 
 /****************************************************************************/

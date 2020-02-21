@@ -24,10 +24,6 @@
 //     Control Vehicles. Transportation Research Record: Journal of the
 //     Transportation Research Board, No. 2623, 2017. (DOI: 10.3141/2623-01).
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <stdio.h>

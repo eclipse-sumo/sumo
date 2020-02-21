@@ -17,10 +17,6 @@
 ///
 // Importer for static public transport information
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/geom/Position.h>
@@ -58,7 +54,6 @@ NIXMLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneI
     }
     return edge->getLanes()[laneIndex].shape.positionAtOffset(lanePos, -lanePosLat);
 }
-
 
 
 /****************************************************************************/

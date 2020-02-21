@@ -18,11 +18,6 @@
 // A network change in which a single connection is created or deleted
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <fx.h>
@@ -86,6 +81,3 @@ private:
     /// @brief flag to indicates if crossing was previously selected
     bool mySelected;
 };
-
-
-/****************************************************************************/

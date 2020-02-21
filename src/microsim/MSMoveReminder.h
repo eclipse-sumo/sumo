@@ -22,11 +22,6 @@
 // Something on a lane to be noticed about vehicle movement
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -257,7 +252,3 @@ private:
     MSMoveReminder& operator=(const MSMoveReminder&); // just to avoid a compiler warning
 
 };
-
-
-/****************************************************************************/
-

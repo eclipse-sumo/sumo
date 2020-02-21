@@ -18,11 +18,6 @@
 // Export the queueing length in front of a junction (very experimental!)
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/SUMOTime.h>
@@ -76,8 +71,3 @@ private:
     static void writeLane(OutputDevice& of, const MSLane& lane);
 
 };
-
-
-
-/****************************************************************************/
-

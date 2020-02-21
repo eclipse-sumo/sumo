@@ -17,12 +17,6 @@
 ///
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <netbuild/NBFrame.h>
 #include <netedit/additionals/GNEAdditionalHandler.h>
 #include <netedit/demandelements/GNERouteHandler.h>
@@ -3274,5 +3268,6 @@ GNEApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* eventData)
     }
     return 0;
 }
+
 
 /****************************************************************************/

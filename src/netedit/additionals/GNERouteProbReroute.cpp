@@ -17,10 +17,6 @@
 ///
 //
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -212,5 +208,6 @@ GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
+
 
 /****************************************************************************/

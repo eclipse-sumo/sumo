@@ -17,10 +17,6 @@
 ///
 // A abstract class for representation of additional elements
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/GNENet.h>
@@ -593,5 +589,6 @@ void
 GNEAdditional::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }
+
 
 /****************************************************************************/

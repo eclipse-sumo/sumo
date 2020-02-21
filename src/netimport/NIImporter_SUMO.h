@@ -20,11 +20,6 @@
 // Importer for networks stored in SUMO format
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -417,7 +412,3 @@ private:
      */
     void parseProhibitionConnection(const std::string& attr, std::string& from, std::string& to, bool& ok);
 };
-
-
-/****************************************************************************/
-

@@ -18,11 +18,6 @@
 // A global holder of selected objects
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "GUISelectedStorage.h"
@@ -36,7 +31,3 @@
  * @todo Check whether this should be replaced by a Singleton
  */
 extern GUISelectedStorage gSelected;
-
-
-/****************************************************************************/
-

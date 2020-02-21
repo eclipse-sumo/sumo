@@ -20,11 +20,6 @@
 // Storage for "selected" objects
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <set>
@@ -287,7 +282,3 @@ private:
     /// @brief saves items from the given set
     static void save(const std::string& filename, const std::set<GUIGlID>& ids);
 };
-
-
-/****************************************************************************/
-

@@ -21,11 +21,6 @@
 // Some static methods performing geometrical operations
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
@@ -160,6 +155,3 @@ public:
     static PositionVector makeRing(const double radius1, const double radius2, const Position& center, unsigned int nPoints);
 
 };
-
-
-/****************************************************************************/

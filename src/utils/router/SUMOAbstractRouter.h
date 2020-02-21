@@ -20,11 +20,6 @@
 // An abstract router base class
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -306,6 +301,3 @@ private:
     /// @brief Invalidated assignment operator
     SUMOAbstractRouter& operator=(const SUMOAbstractRouter& s);
 };
-
-
-/****************************************************************************/

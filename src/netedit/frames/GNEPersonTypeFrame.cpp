@@ -17,10 +17,6 @@
 ///
 // The Widget for edit person type (pTypes with vclass='pedestrian) elements
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -392,5 +388,6 @@ void
 GNEPersonTypeFrame::attributeUpdated() {
     myPersonTypeSelector->refreshPersonTypeSelector();
 }
+
 
 /****************************************************************************/

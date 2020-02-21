@@ -18,11 +18,6 @@
 // Abstract class for lateral frames in NetEdit
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include "GNEFrameModuls.h"
 #include "GNEFrameAttributesModuls.h"
 
@@ -160,6 +155,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEFrame& operator=(const GNEFrame&) = delete;
 };
-
-
-/****************************************************************************/

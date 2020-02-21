@@ -20,11 +20,6 @@
 ///
 // Interface for building instances of duarouter-edges
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "RODUAEdgeBuilder.h"
@@ -48,4 +43,3 @@ RODUAEdgeBuilder::buildEdge(const std::string& name, RONode* from, RONode* to, c
 
 
 /****************************************************************************/
-

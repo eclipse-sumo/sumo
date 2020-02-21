@@ -17,10 +17,6 @@
 ///
 // A abstract class for editing additional elements
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -147,5 +143,6 @@ GNEAdditionalDialog::resetChanges() {
     myEditedAdditional->getViewNet()->getUndoList()->p_abortLastCommandGroup();
     myEditedAdditional->getViewNet()->getUndoList()->p_begin(myChangesDescription);
 }
+
 
 /****************************************************************************/

@@ -19,12 +19,6 @@
 // GUIPointOfInterest and NLHandler)
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 
 #include "GNEShape.h"
@@ -218,6 +212,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEPOI& operator=(const GNEPOI&) = delete;
 };
-
-/****************************************************************************/
-

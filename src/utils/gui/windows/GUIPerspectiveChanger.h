@@ -20,11 +20,6 @@
 // A virtual class that allows to steer the visual output in dependence to
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <fx.h>
@@ -174,7 +169,3 @@ private:
     /// @brief Invalidated assignment operator.
     GUIPerspectiveChanger& operator=(const GUIPerspectiveChanger&);
 };
-
-
-/****************************************************************************/
-

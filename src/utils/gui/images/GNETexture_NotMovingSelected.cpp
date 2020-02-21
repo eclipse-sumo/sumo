@@ -109,4 +109,5 @@ const unsigned char GNETexture_NotMovingSelected[] = {
     0x00, 0x3b
 };
 
+
 /****************************************************************************/

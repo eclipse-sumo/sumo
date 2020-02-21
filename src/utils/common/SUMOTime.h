@@ -20,12 +20,6 @@
 // Variables, methods, and tools for internal time representation
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <limits>
 #include <string>
 #include "UtilExceptions.h"
@@ -77,5 +71,3 @@ std::string time2string(SUMOTime t);
 
 /// @brief check if given SUMOTime is multiple of the step length
 bool checkStepLengthMultiple(const SUMOTime t, const std::string& error = "");
-
-/****************************************************************************/

@@ -21,12 +21,6 @@
 // Some static methods for string processing
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <string>
 #include <xercesc/util/XMLString.hpp>
 #include <utils/common/UtilExceptions.h>
@@ -145,7 +139,3 @@ public:
      */
     static std::string transcode(const XMLCh* const data, int length);
 };
-
-
-/****************************************************************************/
-

@@ -18,10 +18,6 @@
 // The common superclass for modelling transportable objects like persons and containers
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <set>
@@ -509,6 +505,3 @@ protected:
     /// @brief the lateral depart position
     double myDepartPosLat;
 };
-
-
-/****************************************************************************/

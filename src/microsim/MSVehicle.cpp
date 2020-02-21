@@ -30,10 +30,6 @@
 ///
 // Representation of a vehicle in the micro simulation
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -6570,5 +6566,6 @@ bool
 MSVehicle::manoeuvreIsComplete() const {
     return (myManoeuvre.manoeuvreIsComplete());
 }
+
 
 /****************************************************************************/

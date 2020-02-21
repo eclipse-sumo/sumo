@@ -21,11 +21,6 @@
 // Helper methods for parsing vehicle attributes
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <random>
@@ -207,7 +202,3 @@ private:
     /// @brief allowed attrs for the junction model
     static std::set<SumoXMLAttr> allowedJMAttrs;
 };
-
-
-/****************************************************************************/
-

@@ -212,6 +212,3 @@ private:
     const VehicleEngineHandler& operator=(const VehicleEngineHandler& s);
 
 };
-
-/****************************************************************************/
-

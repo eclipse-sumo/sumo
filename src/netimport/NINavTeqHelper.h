@@ -20,11 +20,6 @@
 // Some parser methods shared around several formats containing NavTeq-Nets
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -94,7 +89,3 @@ public:
     static void addVehicleClassesV6(NBEdge& e, const std::string& classS);
 
 };
-
-
-/****************************************************************************/
-

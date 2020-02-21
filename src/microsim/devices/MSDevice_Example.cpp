@@ -19,10 +19,6 @@
 ///
 // A device which stands as an implementation example and which outputs movereminder calls
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/StringUtils.h>
@@ -182,4 +178,3 @@ MSDevice_Example::setParameter(const std::string& key, const std::string& value)
 
 
 /****************************************************************************/
-

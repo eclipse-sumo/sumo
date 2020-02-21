@@ -18,12 +18,6 @@
 // A class for represent connections between Lanes
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include "GNENetElement.h"
 
 #include <netbuild/NBEdge.h>
@@ -200,7 +194,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEConnection& operator=(const GNEConnection&) = delete;
 };
-
-
-/****************************************************************************/
-

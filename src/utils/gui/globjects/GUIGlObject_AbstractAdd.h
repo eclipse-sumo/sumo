@@ -20,11 +20,6 @@
 // Base class for additional objects (detectors etc.)
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "GUIGlObjectTypes.h"
@@ -70,7 +65,3 @@ protected:
     /// @brief The list of all addtional objects currently loaded
     static std::vector<GUIGlObject_AbstractAdd*> myObjectList;
 };
-
-
-/****************************************************************************/
-

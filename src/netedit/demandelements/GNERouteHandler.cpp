@@ -17,10 +17,6 @@
 ///
 // Builds demand objects for netedit
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -1991,5 +1987,6 @@ GNERouteHandler::PersonPlansValues::getLastEdge() const {
         return nullptr;
     }
 }
+
 
 /****************************************************************************/

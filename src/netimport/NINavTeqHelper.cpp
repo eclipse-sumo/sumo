@@ -20,11 +20,6 @@
 ///
 // Some parser methods shared around several formats containing NavTeq-Nets
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "NINavTeqHelper.h"
@@ -211,5 +206,6 @@ NINavTeqHelper::addVehicleClassesV6(NBEdge& e, const std::string& oclassS) {
         e.allowVehicleClass(-1, SVC_PEDESTRIAN);
     }
 }
-/****************************************************************************/
 
+
+/****************************************************************************/

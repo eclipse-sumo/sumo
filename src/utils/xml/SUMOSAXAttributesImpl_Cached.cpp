@@ -17,11 +17,6 @@
 ///
 // Encapsulated xml-attributes that use a map from string-attr-names to string-attr-values as backend
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -271,5 +266,5 @@ SUMOSAXAttributesImpl_Cached::clone() const {
     return new SUMOSAXAttributesImpl_Cached(myAttrs, myPredefinedTagsMML, getObjectType());
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

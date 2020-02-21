@@ -17,10 +17,6 @@
 ///
 // Dialog for edit vehicleTypes
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/GNEUndoList.h>
@@ -1593,5 +1589,6 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::updateV
         myTextField->setTextColor(FXRGB(195, 195, 195));
     }
 }
+
 
 /****************************************************************************/

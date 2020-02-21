@@ -18,11 +18,6 @@
 // The Widget for add person elements
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include "GNEFrame.h"
 
 
@@ -130,6 +125,3 @@ private:
     /// @brief build person and return it (note: function includes a call to p_begin(...), but NOT a call to p_end(...))
     GNEDemandElement* buildPerson();
 };
-
-
-/****************************************************************************/

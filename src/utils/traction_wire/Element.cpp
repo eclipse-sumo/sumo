@@ -19,10 +19,6 @@
 // Representation of electric circuit elements: resistors, voltage and current sources
 /// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <cfloat>
 #include <cmath>
 #include "Element.h"

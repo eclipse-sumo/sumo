@@ -20,11 +20,6 @@
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
@@ -861,5 +856,6 @@ GUIBaseVehicle::computeSeats(const Position& front, const Position& back, double
         requiredSeats--;
     }
 }
+
 
 /****************************************************************************/

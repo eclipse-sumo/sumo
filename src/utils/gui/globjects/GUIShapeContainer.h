@@ -20,11 +20,6 @@
 // Storage for geometrical objects extended by mutexes
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <fx.h>
@@ -161,6 +156,3 @@ private:
     /// @brief whether existing ids shall be replaced
     bool myAllowReplacement;
 };
-
-
-/****************************************************************************/

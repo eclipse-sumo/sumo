@@ -20,11 +20,6 @@
 // Some methods which help to draw certain geometrical objects in openGL
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -364,7 +359,3 @@ private:
     /// @brief static vector with a list of alternated black/white colors (used for contourns)
     static std::vector<RGBColor> myDottedcontourColors;
 };
-
-
-/****************************************************************************/
-

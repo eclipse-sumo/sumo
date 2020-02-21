@@ -19,11 +19,6 @@
 // Algorithms for highway on-/off-ramps computation
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -142,7 +137,3 @@ private:
     /// @brief shift ramp geometry to merge smoothly with the motorway
     static void patchRampGeometry(NBEdge* potRamp, NBEdge* first, NBEdge* potHighway, bool onRamp);
 };
-
-
-/****************************************************************************/
-

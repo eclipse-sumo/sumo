@@ -18,11 +18,6 @@
 // The thread that performs the loading of a Netedit-net (adapted from
 // GUILoadThread)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <netbuild/NBFrame.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netimport/NIFrame.h>

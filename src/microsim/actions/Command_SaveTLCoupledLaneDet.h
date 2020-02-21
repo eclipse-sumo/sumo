@@ -20,11 +20,6 @@
 // Writes e2 state of a link for the time the link has yellow/red
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/MSLink.h>
@@ -91,7 +86,3 @@ private:
     Command_SaveTLCoupledLaneDet& operator=(const Command_SaveTLCoupledLaneDet&);
 
 };
-
-
-/****************************************************************************/
-

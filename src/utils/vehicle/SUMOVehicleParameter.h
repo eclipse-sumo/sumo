@@ -21,11 +21,6 @@
 // Structure representing possible vehicle parameter
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -725,7 +720,3 @@ protected:
     /// @brief obtain arrival speed parameter in string format
     std::string getArrivalSpeed() const;
 };
-
-/****************************************************************************/
-
-

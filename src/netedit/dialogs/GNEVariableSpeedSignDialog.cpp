@@ -17,10 +17,6 @@
 ///
 // A class for edit phases of Variable Speed Signals
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -234,5 +230,6 @@ GNEVariableSpeedSignDialog::updateTableSteps() {
         myStepsTable->setItem(i, 3, item);
     }
 }
+
 
 /****************************************************************************/

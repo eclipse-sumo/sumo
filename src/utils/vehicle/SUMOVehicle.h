@@ -20,11 +20,6 @@
 // Abstract base class for vehicle representations
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -341,6 +336,3 @@ public:
     virtual void loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) = 0;
     //@}
 };
-
-
-/****************************************************************************/

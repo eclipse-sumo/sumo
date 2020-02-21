@@ -19,11 +19,6 @@
 // Utility methods for initialising, closing and using the XML-subsystem
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -166,7 +161,3 @@ private:
     static XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myNetValidationScheme;
 
 };
-
-
-/****************************************************************************/
-

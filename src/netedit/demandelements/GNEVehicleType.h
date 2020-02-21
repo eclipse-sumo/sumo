@@ -18,12 +18,6 @@
 // Definition of Vehicle Types in NETEDIT
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <utils/vehicle/SUMOVTypeParameter.h>
 
 #include "GNEDemandElement.h"
@@ -221,6 +215,3 @@ private:
     /// @brief Invalidated assignment operator
     GNEVehicleType* operator=(GNEVehicleType*) = delete;
 };
-
-
-/****************************************************************************/

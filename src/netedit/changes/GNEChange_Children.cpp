@@ -17,10 +17,6 @@
 ///
 // A network change used to modify sorting of hierarchical element childrens
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/demandelements/GNEDemandElement.h>

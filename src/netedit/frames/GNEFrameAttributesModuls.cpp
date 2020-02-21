@@ -17,11 +17,6 @@
 ///
 // Auxiliar class for GNEFrame Moduls (only for attributes edition)
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <config.h>
 
 #include <netedit/GNENet.h>
@@ -2808,5 +2803,6 @@ GNEFrameAttributesModuls::NeteditAttributes::setEndPosition(double positionOfThe
             throw InvalidArgument("Reference Point invalid");
     }
 }
+
 
 /****************************************************************************/

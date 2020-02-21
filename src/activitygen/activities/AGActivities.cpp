@@ -23,11 +23,6 @@
 // Main class that manages activities taken in account and generates the
 // inhabitants' trip list.
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "AGActivities.h"
@@ -273,5 +268,6 @@ AGActivities::generateRandomTraffic() {
 
     return true;
 }
+
 
 /****************************************************************************/

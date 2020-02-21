@@ -20,11 +20,6 @@
 // A handler which converts occuring elements and attributes into enums
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -331,6 +326,3 @@ private:
     const GenericSAXHandler& operator=(const GenericSAXHandler& s);
 
 };
-
-/****************************************************************************/
-

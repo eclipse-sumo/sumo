@@ -20,11 +20,6 @@
 // A class that allows to steer the visual output in dependence to
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/geom/Position.h>
@@ -159,7 +154,3 @@ private:
     GUIDanielPerspectiveChanger& operator=(const GUIDanielPerspectiveChanger&);
 
 };
-
-
-/****************************************************************************/
-

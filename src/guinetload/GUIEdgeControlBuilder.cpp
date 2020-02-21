@@ -19,11 +19,6 @@
 ///
 // Derivation of NLEdgeControlBuilder which build gui-edges
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -71,5 +66,5 @@ GUIEdgeControlBuilder::buildEdge(const std::string& id, const SumoXMLEdgeFunc fu
     return new GUIEdge(id, myCurrentNumericalEdgeID++, function, streetName, edgeType, priority, distance);
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

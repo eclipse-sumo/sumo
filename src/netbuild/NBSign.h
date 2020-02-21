@@ -19,11 +19,6 @@
 // A class representing a street sign
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -90,7 +85,3 @@ private:
     static StringBijection<SignType> SignTypeStrings;
     static StringBijection<SignType> SignTypeColors;
 };
-
-
-/****************************************************************************/
-

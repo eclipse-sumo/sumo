@@ -18,12 +18,6 @@
 // A class for visualizing person trips in Netedit
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
@@ -253,7 +247,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEPersonTrip& operator=(GNEPersonTrip*) = delete;
 };
-
-
-/****************************************************************************/
-

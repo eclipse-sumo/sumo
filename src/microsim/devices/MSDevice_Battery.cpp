@@ -18,10 +18,6 @@
 ///
 // The Battery parameters for the vehicle
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/StringUtils.h>
@@ -465,5 +461,6 @@ MSDevice_Battery::setParameter(const std::string& key, const std::string& value)
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
 }
+
 
 /****************************************************************************/

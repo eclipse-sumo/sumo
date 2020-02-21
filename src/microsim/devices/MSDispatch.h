@@ -18,11 +18,6 @@
 // An algorithm that performs dispatch for the taxi device
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <set>
@@ -202,7 +197,3 @@ public:
     void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet);
 
 };
-
-
-/****************************************************************************/
-

@@ -145,4 +145,5 @@ const unsigned char GNETexture_VariableSpeedSignSelected[] = {
     0x93, 0xa0, 0x0c, 0x65, 0x46, 0x3c, 0x12, 0x10, 0x00, 0x3b
 };
 
+
 /****************************************************************************/

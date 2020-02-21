@@ -20,11 +20,6 @@
 // Perfoms network import
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -54,7 +49,3 @@ public:
     static bool load(SUMOSAXHandler* handler, const std::vector<std::string>& files,
                      const std::string& type, const bool stringParse = false);
 };
-
-
-/****************************************************************************/
-

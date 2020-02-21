@@ -20,12 +20,6 @@
 // A RGB-color definition
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <iostream>
 #include <random>
 #include <utils/common/UtilExceptions.h>
@@ -215,7 +209,3 @@ private:
     /// @brief A random number generator to generate random colors independent of other randomness
     static std::mt19937 myRNG;
 };
-
-
-/****************************************************************************/
-

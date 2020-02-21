@@ -18,10 +18,6 @@
 // A network change used to modify sorting of hierarchical element childrens
 /****************************************************************************/
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "GNEChange.h"
@@ -92,6 +88,3 @@ private:
     /// @brief element childrens after apply operation
     std::vector<GNEDemandElement*> myEditedChildElements;
 };
-
-
-/****************************************************************************/

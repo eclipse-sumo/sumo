@@ -20,11 +20,6 @@
 // A wrapper for tl-logics to allow their visualisation and interaction
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <gui/GUITLLogicPhasesTrackerWindow.h>
@@ -166,7 +161,3 @@ private:
     GUIMainWindow* myApp;
 
 };
-
-
-/****************************************************************************/
-

@@ -17,10 +17,6 @@
 ///
 // Dialog used to fix demand elements during saving
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -467,5 +463,6 @@ GNEFixDemandElements::FixStopOptions::disableFixStopOptions() {
     saveInvalid->disable();
     selectInvalidStopsAndCancel->disable();
 }
+
 
 /****************************************************************************/

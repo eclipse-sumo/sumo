@@ -24,11 +24,6 @@
 // prefixed with p_
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <stack>
@@ -131,7 +126,3 @@ private:
     // @brief the parent GNEApplicationWindow for this undolist
     GNEApplicationWindow* const myGNEApplicationWindowParent;
 };
-
-
-/****************************************************************************/
-

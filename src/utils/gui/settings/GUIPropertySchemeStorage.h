@@ -21,11 +21,6 @@
 //
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -137,5 +132,3 @@ protected:
 
 typedef GUIPropertySchemeStorage<GUIColorScheme> GUIColorer;
 typedef GUIPropertySchemeStorage<GUIScaleScheme> GUIScaler;
-
-/****************************************************************************/

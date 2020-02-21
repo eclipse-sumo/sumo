@@ -23,10 +23,6 @@
 
 
 #pragma once
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <memory>
@@ -709,7 +705,3 @@ struct DriverStateDefaults {
     static double headwayErrorCoefficient;
     static double maximalReactionTimeFactor;
 };
-
-
-
-/****************************************************************************/

@@ -21,11 +21,6 @@
 ///
 // The handler for SUMO-Networks
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -416,5 +411,6 @@ RONetHandler::setLocation(const SUMOSAXAttributes& attrs) {
         GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary);
     }
 }
+
 
 /****************************************************************************/

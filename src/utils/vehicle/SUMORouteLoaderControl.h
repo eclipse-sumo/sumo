@@ -21,11 +21,6 @@
 // Class responsible for loading of routes from some files
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -96,7 +91,3 @@ private:
     /// @brief Invalidated assignment operator
     SUMORouteLoaderControl& operator=(const SUMORouteLoaderControl& src);
 };
-
-
-/****************************************************************************/
-
