@@ -23,6 +23,9 @@ distance_reverse
 
 # test acceleration output
 acceleration
+
+# write additional parameters
+params
 subsecond
 
 # output not in every time step
