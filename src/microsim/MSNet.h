@@ -73,7 +73,6 @@ class MSDetectorControl;
 class ShapeContainer;
 class MSDynamicShapeUpdater;
 class PolygonDynamics;
-class BinaryInputDevice;
 class MSEdgeWeightsStorage;
 class SUMOVehicle;
 class MSTractionSubstation;

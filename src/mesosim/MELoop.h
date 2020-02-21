@@ -37,7 +37,6 @@ class MEVehicle;
 class MSEdge;
 class MSLink;
 class MSVehicleControl;
-class BinaryInputDevice;
 class OptionsCont;
 
 

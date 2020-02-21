@@ -44,7 +44,6 @@
 // class declarations
 // ===========================================================================
 class MSLane;
-class BinaryInputDevice;
 class MSCFModel;
 class SUMOVTypeParameter;
 

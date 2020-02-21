@@ -38,7 +38,6 @@ class MSLink;
 class MSMoveReminder;
 class MSVehicleControl;
 class MEVehicle;
-class BinaryInputDevice;
 class OutputDevice;
 
 

@@ -48,7 +48,6 @@
 // class declarations
 // ===========================================================================
 class MSEdge;
-class BinaryInputDevice;
 class OutputDevice;
 
 
