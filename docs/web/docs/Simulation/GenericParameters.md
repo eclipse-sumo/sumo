@@ -31,6 +31,7 @@ Parameters support the following functionality
   [SUMO-GUI](../SUMO-GUI.md) dialogs or when inspecting XML
   files)
 - retaining custom information when [saving and loading simulation state](SaveAndLoad.md)
+- tracking the [public transport 'tripId' that may change at stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
 
 Parameters are always defined as child elements of the respective
 object:
