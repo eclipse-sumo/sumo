@@ -125,7 +125,8 @@ When not all vehicles are equipped with an **fcd**-device, other ehicles and per
 - **--fcd-output.signals** will add [signal state
   information](../../TraCI/Vehicle_Signalling.md) to the output
 - **--fcd-output.distance** will add [kilometrage](../Railways.md#kilometrage-mileage-chainage) information to the output
-- **--fcd-output.acceleration** will acceleration data to the output (also lateral acceleration when using the [sublane model](../SublaneModel.md)
+- **--fcd-output.acceleration** will add acceleration data to the output (also lateral acceleration when using the [sublane model](../SublaneModel.md)
+- **--fcd-output.params KEY1,KEY2,...** adds generic parameters](Simulation/GenericParameters.md) to the output
 
 ## NOTES
 
