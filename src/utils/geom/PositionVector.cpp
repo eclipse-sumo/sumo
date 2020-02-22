@@ -418,6 +418,10 @@ PositionVector::getCentroid() const {
     if (!isClosed()) { // make sure its closed
         tmp.push_back(tmp[0]);
     }
+    // shift to origin to increase numerical stability
+    Position offset = tmp[0];
+    Position result;
+    tmp.sub(offset);
     const int endIndex = (int)tmp.size() - 1;
     double div = 0; // 6 * area including sign
     double x = 0;
@@ -431,7 +435,7 @@ PositionVector::getCentroid() const {
             y += (tmp[i].y() + tmp[i + 1].y()) * z;
         }
         div *= 3; //  6 / 2, the 2 comes from the area formula
-        return Position(x / div, y / div);
+        result = Position(x / div, y / div);
     } else {
         // compute by decomposing into line segments
         // http://en.wikipedia.org/wiki/Centroid#By_geometric_decomposition
@@ -444,10 +448,11 @@ PositionVector::getCentroid() const {
         }
         if (lengthSum == 0) {
             // it is probably only one point
-            return tmp[0];
+            result = tmp[0];
         }
-        return Position(x / lengthSum, y / lengthSum);
+        result = Position(x / lengthSum, y / lengthSum) + offset;
     }
+    return result + offset;
 }
 
 
