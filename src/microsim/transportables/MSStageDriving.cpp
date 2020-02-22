@@ -309,12 +309,14 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
 void
 MSStageDriving::setVehicle(SUMOVehicle* v) {
     myVehicle = v;
-    myVehicleID = v->getID();
-    myVehicleLine = v->getParameter().line;
-    myVehicleVClass = v->getVClass();
-    myVehicleDistance = myVehicle->getRoute().getDistanceBetween(
-                            myVehicle->getDepartPos(), myVehicle->getPositionOnLane(),
-                            myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge());
+    if (myVehicle != nullptr) {
+        myVehicleID = v->getID();
+        myVehicleLine = v->getParameter().line;
+        myVehicleVClass = v->getVClass();
+        myVehicleDistance = myVehicle->getRoute().getDistanceBetween(
+                myVehicle->getDepartPos(), myVehicle->getPositionOnLane(),
+                myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge());
+    }
 }
 
 void
