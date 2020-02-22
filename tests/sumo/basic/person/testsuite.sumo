@@ -55,6 +55,9 @@ public_brief_stop
 # vehicle is waiting at stop for a person
 triggered
 
+# vehicle with triggered departure is discarded due to departDelay
+triggered_discard
+
 # car waiting for person
 vehicle_triggered
 
