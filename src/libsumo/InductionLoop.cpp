@@ -70,7 +70,7 @@ InductionLoop::getLaneID(const std::string& detID) {
 
 int
 InductionLoop::getLastStepVehicleNumber(const std::string& detID) {
-    return (int)getDetector(detID)->getPassedNumber((int)DELTA_T);
+    return (int)getDetector(detID)->getEnteredNumber((int)DELTA_T);
 }
 
 
@@ -106,18 +106,17 @@ InductionLoop::getTimeSinceDetection(const std::string& detID) {
 
 std::vector<libsumo::TraCIVehicleData>
 InductionLoop::getVehicleData(const std::string& detID) {
-    std::vector<MSInductLoop::VehicleData> vd = getDetector(detID)->collectVehiclesOnDet(SIMSTEP - DELTA_T, true);
+    const std::vector<MSInductLoop::VehicleData> vd = getDetector(detID)->collectVehiclesOnDet(SIMSTEP - DELTA_T, true, true);
     std::vector<libsumo::TraCIVehicleData> tvd;
-    for (std::vector<MSInductLoop::VehicleData>::const_iterator vdi = vd.begin(); vdi != vd.end(); ++vdi) {
+    for (const MSInductLoop::VehicleData& vdi : vd) {
         tvd.push_back(libsumo::TraCIVehicleData());
-        tvd.back().id = vdi->idM;
-        tvd.back().length = vdi->lengthM;
-        tvd.back().entryTime = vdi->entryTimeM;
-        tvd.back().leaveTime = vdi->leaveTimeM;
-        tvd.back().typeID = vdi->typeIDM;
+        tvd.back().id = vdi.idM;
+        tvd.back().length = vdi.lengthM;
+        tvd.back().entryTime = vdi.entryTimeM;
+        tvd.back().leaveTime = vdi.leaveTimeM;
+        tvd.back().typeID = vdi.typeIDM;
     }
     return tvd;
-
 }
 
 

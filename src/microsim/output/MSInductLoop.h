@@ -193,7 +193,7 @@ public:
      * @return The number of vehicles that have passed the detector
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    double getPassedNumber(const int offset) const;
+    double getEnteredNumber(const int offset) const;
 
 
     /** @brief Returns the ids of vehicles that have passed the detector
@@ -240,7 +240,6 @@ public:
     /// @}
 
 
-
     /** @brief Struct to store the data of the counted vehicle internally.
      *
      * These data is fed into a container.
@@ -250,16 +249,14 @@ public:
     struct VehicleData {
         /** @brief Constructor
          *
-         * Used if the vehicle has passed the induct loop completely
+         * Used if the vehicle has left the induction loop completely
          *
          * @param[in] vehLength The length of the vehicle
          * @param[in] entryTimestep The time at which the vehicle entered the detector
          * @param[in] leaveTimestep The time at which the vehicle left the detector
          */
-        VehicleData(const std::string& id, double vehLength, double entryTimestep, double leaveTimestep,
-                    const std::string& typeID)
-            : idM(id), lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
-              speedM(vehLength / MAX2(leaveTimestep - entryTimestep, NUMERICAL_EPS)), typeIDM(typeID) {}
+        VehicleData(const SUMOTrafficObject& v, double entryTimestep,
+                    double leaveTimestep, const bool leftEarly);
 
         /// @brief The id of the vehicle
         std::string idM;
@@ -271,8 +268,10 @@ public:
         double leaveTimeM;
         /// @brief Speed of the vehicle in [m/s]
         double speedM;
-        /// @brief Type of the vehicle in
+        /// @brief Type of the vehicle
         std::string typeIDM;
+        /// @brief whether the vehicle left the detector with a lane change / teleport etc.
+        bool leftEarlyM;
     };
 
 
@@ -283,7 +282,7 @@ public:
      *            (the latter gives a more complete picture but may include vehicles in multiple steps even if they did not stay on the detector)
      * @return The list of vehicles
      */
-    virtual std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool leaveTime = false) const;
+    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool includeEarly = false, bool leaveTime = false) const;
 
     /// @brief allows for special color in the gui version
     virtual void setSpecialColor(const RGBColor* /*color*/) {};

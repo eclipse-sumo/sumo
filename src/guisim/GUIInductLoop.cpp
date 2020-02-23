@@ -103,8 +103,8 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("position [m]", false, myPosition);
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values
-    ret->mkItem("passed vehicles [#]", true,
-                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getPassedNumber, 0));
+    ret->mkItem("entered vehicles [#]", true,
+                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getEnteredNumber, 0));
     ret->mkItem("speed [m/s]", true,
                 new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getSpeed, 0));
     ret->mkItem("occupancy [%]", true,
