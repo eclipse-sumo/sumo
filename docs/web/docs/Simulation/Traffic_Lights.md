@@ -20,6 +20,7 @@ visually in [NETEDIT](../NETEDIT.md#traffic_lights).
 
 - All traffic lights are generated with a fixed cycle and a default
   cycle time of 90s. This can be changed with the option **--tls.cycle.time**.
+- The green time is split equally between the main phases
 - All green phases are followed by a yellow phase. The length of the
   yellow phase is computed from the maximum speed of the incoming
   roads but may be customized with the option **--tls.yellow.time**
