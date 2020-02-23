@@ -46,10 +46,12 @@
 // ===========================================================================
 MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
                            double positionInMeters,
-                           const std::string& vTypes) :
+                           const std::string& vTypes,
+                           const bool needLocking) :
     MSMoveReminder(id, lane),
     MSDetectorFileOutput(id, vTypes),
     myPosition(positionInMeters),
+    myNeedLock(needLocking || MSGlobals::gNumSimThreads > 1),
     myLastLeaveTime(SIMTIME),
     myVehicleDataCont(),
     myVehiclesOnDet() {
@@ -64,6 +66,9 @@ MSInductLoop::~MSInductLoop() {
 
 void
 MSInductLoop::reset() {
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myNotificationMutex, myNeedLock);
+#endif
     myEnteredVehicleNumber = 0;
     myLastVehicleDataCont = myVehicleDataCont;
     myVehicleDataCont.clear();
@@ -80,7 +85,10 @@ MSInductLoop::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSL
             reason == NOTIFICATION_PARKING ||
             reason == NOTIFICATION_LANE_CHANGE) {
         if (veh.getPositionOnLane() >= myPosition && veh.getBackPositionOnLane(myLane) < myPosition) {
-            myVehiclesOnDet.insert(std::make_pair(&veh, SIMTIME));
+#ifdef HAVE_FOX
+            FXConditionalLock lock(myNotificationMutex, myNeedLock);
+#endif
+            myVehiclesOnDet[&veh] = SIMTIME;
             myEnteredVehicleNumber++;
         }
     }
@@ -96,14 +104,14 @@ MSInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
         return true;
     }
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+    FXConditionalLock lock(myNotificationMutex, myNeedLock);
 #endif
     const double oldSpeed = veh.getPreviousSpeed();
     if (newPos >= myPosition && oldPos < myPosition) {
         // entered the detector by move
         const double timeBeforeEnter = MSCFModel::passingTime(oldPos, myPosition, newPos, oldSpeed, newSpeed);
-        double entryTime = SIMTIME + timeBeforeEnter;
-        enterDetectorByMove(veh, entryTime);
+        myVehiclesOnDet[&veh] = SIMTIME + timeBeforeEnter;
+        myEnteredVehicleNumber++;
     }
     double oldBackPos = oldPos - veh.getVehicleType().getLength();
     double newBackPos = newPos - veh.getVehicleType().getLength();
@@ -112,20 +120,19 @@ MSInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
         // assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed > 0 || myVehiclesOnDet.find(&veh) == myVehiclesOnDet.end());
         // assertion is invalid in case of teleportation
         if (oldBackPos <= myPosition) {
-            const double timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myPosition, newBackPos, oldSpeed, newSpeed);
-            const double leaveTime = SIMTIME + timeBeforeLeave;
-            leaveDetectorByMove(veh, leaveTime);
+            const double leaveTime = SIMTIME + MSCFModel::passingTime(oldBackPos, myPosition, newBackPos, oldSpeed, newSpeed);
+            std::map<SUMOTrafficObject*, double>::iterator it = myVehiclesOnDet.find(&veh);
+            if (it != myVehiclesOnDet.end()) {
+                const double entryTime = it->second;
+                myVehiclesOnDet.erase(it);
+                assert(entryTime < leaveTime);
+                myVehicleDataCont.push_back(VehicleData(veh.getID(), veh.getVehicleType().getLength(), entryTime, leaveTime, veh.getVehicleType().getID()));
+            }
+            // XXX: why is this outside the conditional block? (Leo)
+            myLastLeaveTime = leaveTime;
         } else {
             // vehicle is already beyond the detector...
             // This can happen even if it is still registered in myVehiclesOnDet, e.g., after teleport.
-            // XXX: would we need to call leaveDetectorByMove(veh, leaveTime) as it was done before
-            //      I inserted this if-else differentiation? (Leo) It seems that such a call only resets
-            //      the last leave Time, which seems inadequate to do for such a situation (though it actually
-            //      appears in test output/e1/one_vehicle/lane_change). Moreover, if the vehicle was
-            //      not removed, this call would tidy up.
-            // XXX: Indeed, we need to tidy up, e.g., in case of teleport insertion behind detector
-            // XXX: As a quickfix we just remove it. (should be discussed! Leo) Refs. #2579
-
             myVehiclesOnDet.erase(&veh);
         }
         return false;
@@ -136,9 +143,12 @@ MSInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
 
 
 bool
-MSInductLoop::notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSInductLoop::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
-        leaveDetectorByLaneChange(veh, lastPos);
+#ifdef HAVE_FOX
+        FXConditionalLock lock(myNotificationMutex, myNeedLock);
+#endif
+        myVehiclesOnDet.erase(&veh);
         return false;
     }
     return true;
@@ -216,8 +226,7 @@ MSInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const {
 
 
 void
-MSInductLoop::writeXMLOutput(OutputDevice& dev,
-                             SUMOTime startTime, SUMOTime stopTime) {
+MSInductLoop::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
     const double t(STEPS2TIME(stopTime - startTime));
     const double flow = ((double)myVehicleDataCont.size() / t) * (double) 3600.0;
     double occupancy = 0.;
@@ -248,36 +257,11 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev,
 }
 
 
-void
-MSInductLoop::enterDetectorByMove(SUMOTrafficObject& veh, double entryTimestep) {
-    myVehiclesOnDet.insert(std::make_pair(&veh, entryTimestep));
-    myEnteredVehicleNumber++;
-}
-
-
-void
-MSInductLoop::leaveDetectorByMove(SUMOTrafficObject& veh, double leaveTimestep) {
-    std::map<SUMOTrafficObject*, double>::iterator it = myVehiclesOnDet.find(&veh);
-    if (it != myVehiclesOnDet.end()) {
-        const double entryTimestep = it->second;
-        myVehiclesOnDet.erase(it);
-        assert(entryTimestep < leaveTimestep);
-        myVehicleDataCont.push_back(VehicleData(veh.getID(), veh.getVehicleType().getLength(), entryTimestep, leaveTimestep, veh.getVehicleType().getID()));
-    }
-    // XXX: why is this outside the conditional block? (Leo)
-    myLastLeaveTime = leaveTimestep;
-}
-
-
-void
-MSInductLoop::leaveDetectorByLaneChange(SUMOTrafficObject& veh, double /* lastPos */) {
-    // Discard entry data
-    myVehiclesOnDet.erase(&veh);
-}
-
-
 std::vector<MSInductLoop::VehicleData>
 MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool leaveTime) const {
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myNotificationMutex, myNeedLock);
+#endif
     const double t = STEPS2TIME(tMS);
     std::vector<VehicleData> ret;
     for (const VehicleData& i : myVehicleDataCont) {

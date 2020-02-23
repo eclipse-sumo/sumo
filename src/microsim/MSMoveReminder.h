@@ -241,7 +241,7 @@ protected:
 
 #ifdef HAVE_FOX
     /// @brief the mutex for notifications
-    FXMutex myNotificationMutex;
+    mutable FXMutex myNotificationMutex;
 #endif
 
 private:

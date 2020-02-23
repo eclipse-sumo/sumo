@@ -70,10 +70,12 @@ public:
      * @param[in] lane Lane where detector works on
      * @param[in] position Position of the detector within the lane
      * @param[in] vTypes which vehicle types are considered
+     * @param[in] needLocking whether internals need to be guarded against concurrent access (GUI)
      */
     MSInductLoop(const std::string& id, MSLane* const lane,
                  double positionInMeters,
-                 const std::string& vTypes);
+                 const std::string& vTypes,
+                 const bool needLocking);
 
 
     /// @brief Destructor
@@ -136,7 +138,7 @@ public:
      * @param[in] lastPos Position on the lane when leaving.
      * @param[in] isArrival whether the vehicle arrived at its destination
      * @param[in] isLaneChange whether the vehicle changed from the lane
-     * @see leaveDetectorByLaneChange
+     * @see discardVehicle
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
@@ -289,36 +291,6 @@ public:
     virtual void setVisible(bool /*show*/) {};
 
 protected:
-    /// @name Methods that add and remove vehicles from internal container
-    /// @{
-
-    /** @brief Introduces a vehicle to the detector's map myVehiclesOnDet.
-     * @param veh The entering vehicle.
-     * @param entryTimestep Timestep (not necessary integer) of entrance.
-     */
-    virtual void enterDetectorByMove(SUMOTrafficObject& veh, double entryTimestep);
-
-
-    /** @brief Processes a vehicle that leaves the detector
-     *
-     * Removes a vehicle from the detector's map myVehiclesOnDet and
-     * adds the vehicle data to the internal myVehicleDataCont.
-     *
-     * @param veh The leaving vehicle.
-     * @param leaveTimestep Timestep (not necessary integer) of leaving.
-     */
-    virtual void leaveDetectorByMove(SUMOTrafficObject& veh, double leaveTimestep);
-
-
-    /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
-     * @param veh The leaving vehicle.
-     * @param lastPos The last position of the leaving vehicle.
-     */
-    virtual void leaveDetectorByLaneChange(SUMOTrafficObject& veh, double lastPos);
-    /// @}
-
-
-protected:
     /// @name Function for summing up values
     ///@{
 
@@ -337,6 +309,9 @@ protected:
 protected:
     /// @brief Detector's position on lane [m]
     const double myPosition;
+
+     /// @brief whether internals need to be guarded against concurrent access (GUI or multi threading)
+    const bool myNeedLock;
 
     /// @brief Leave-time of the last vehicle detected [s]
     double myLastLeaveTime;
