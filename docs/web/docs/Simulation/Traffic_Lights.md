@@ -39,6 +39,8 @@ visually in [NETEDIT](../NETEDIT.md#traffic_lights).
   would typically be a left-turning phase). The duration of this phase
   defaults to 6s and can be customized (or disabled) by setting the
   option **--tls.left-green.time**.
+- The generatedd cycle starts at time 0 by default with a green phase for the first main direction 
+  (sorted by road priority, lane count and speed). This can be influnced for a specified list of traffic light ids using the options **--tls.half-offset TLS1,TLS2,..** and **--tls.quarter-offset TLS3,TLS4,...**. (shifting the start of the first phase by the indicated fraction of the cycle time).
 - In reality there are often phases where all streams have red to
   allow clearing an intersection. SUMO does not build these phases by
   default. To have each green phase preceded by an all-red phase, the
