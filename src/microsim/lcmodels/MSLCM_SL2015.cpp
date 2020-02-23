@@ -2022,17 +2022,16 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
 double
 MSLCM_SL2015::computeSpeedGain(double latDistSublane, double defaultNextSpeed) const {
     double result = std::numeric_limits<double>::max();
-    const double res = MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : myVehicle.getLane()->getWidth();
     const std::vector<double>& sublaneSides = myVehicle.getLane()->getEdge().getSubLaneSides();
     const double vehWidth = getWidth();
     const double rightVehSide = myVehicle.getCenterOnEdge() - vehWidth * 0.5 + latDistSublane;
     const double leftVehSide = rightVehSide + vehWidth;
     for (int i = 0; i < (int)sublaneSides.size(); ++i) {
-        if (overlap(rightVehSide, leftVehSide, sublaneSides[i], sublaneSides[i] + res)) {
+        const double leftSide = i + 1 < (int)sublaneSides.size() ? sublaneSides[i + 1] : myVehicle.getLane()->getEdge().getWidth();
+        if (overlap(rightVehSide, leftVehSide, sublaneSides[i], leftSide)) {
             result = MIN2(result, myExpectedSublaneSpeeds[i]);
         }
-        //std::cout << "    i=" << i << " rightVehSide=" << rightVehSide << " leftVehSide=" << leftVehSide << " sublaneR=" << sublaneSides[i] << " sublaneL=" << sublaneSides[i] + res
-        //    << " overlap=" << overlap(rightVehSide, leftVehSide, sublaneSides[i], sublaneSides[i] + res) << " speed=" << myExpectedSublaneSpeeds[i] << " result=" << result << "\n";
+        //std::cout << "    i=" << i << " rightVehSide=" << rightVehSide << " leftVehSide=" << leftVehSide << " sublaneR=" << sublaneSides[i] << " sublaneL=" << leftSide << " overlap=" << overlap(rightVehSide, leftVehSide, sublaneSides[i], leftSide) << " speed=" << myExpectedSublaneSpeeds[i] << " result=" << result << "\n";
     }
     return result - defaultNextSpeed;
 }
