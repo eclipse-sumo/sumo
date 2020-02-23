@@ -9,6 +9,8 @@ permalink: /ChangeLog/
 - Simulation
   - Fixed sublane model bug that reduced flow on intersections and caused emergency braking. Issue #6649
   - Fixed sublane model bug that was causing cyclical switching between keep-right and sublane-alignment choices. Issue #6084
+  - Fixed sublane model bug that was causing invalid lane alignment in multimodal networks. Issue #6691
+  - Fixed crash when depart-triggered vehicles were discarded. Issue #6690
 - NETCONVERT
   - Fixed precision when filtering network with a given boundary. Issue #6206
 - SUMO-GUI
@@ -28,6 +30,8 @@ permalink: /ChangeLog/
 - NETCONVERT
   - Edge attribute `spreadType` now supports value `roadCenter` which aligns edges with common geometry so that the geometry reflects the middle of the road regardless of differences in lane numbers (causing natural alignment for turning lanes). Issue #1758
   - Added option **--default.spreadtype** to set the default spread type for edges. Issue #6662
+- TraCI
+  - [Meso simulation](Simulation/Meso.md) now supports TraCI
 - Tools
   - added osmWebWizard option to import a simplified network that is only for cars. Issue #6595
   - added new tool [net2kml.py](Tools/Net.md#net2kmlpy) to convert sumo networks to KML
