@@ -368,6 +368,8 @@ public:
     /// @brief retrieve riding containers
     const std::vector<MSTransportable*>& getContainers() const;
 
+    /// @brief returns whether the vehicle serves a public transport line that serves the given stop
+    bool isLineStop(double position) const;
 
     /** @brief Validates the current or given route
      * @param[out] msg Description why the route is not valid (if it is the case)

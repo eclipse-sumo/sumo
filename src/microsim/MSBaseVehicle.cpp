@@ -802,6 +802,20 @@ MSBaseVehicle::getContainers() const {
 }
 
 
+bool
+MSBaseVehicle::isLineStop(double position) const {
+    if (myParameter->line == "" || myParameter->stops.empty()) {
+        // not a public transport line
+        return false;
+    }
+    for (const SUMOVehicleParameter::Stop& stop : myParameter->stops) {
+        if (stop.startPos <= position && position <= stop.endPos) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 bool
 MSBaseVehicle::hasDevice(const std::string& deviceName) const {

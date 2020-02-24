@@ -1142,9 +1142,10 @@ MSEdge::getWaitingVehicle(MSTransportable* transportable, const double position)
                       vehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED))) {
                 return vehicle;
             }
-            // !!! this gives false warnings when there are two stops on the same edge
-            WRITE_WARNING(transportable->getID() + " at edge '" + getID() + "' position " + toString(position) + " cannot use waiting vehicle '"
-                          + vehicle->getID() + "' at position " + toString(vehicle->getPositionOnLane()) + " because it is too far away.");
+            if (!vehicle->isLineStop(position)) {
+                WRITE_WARNING(transportable->getID() + " at edge '" + getID() + "' position " + toString(position) + " cannot use waiting vehicle '"
+                        + vehicle->getID() + "' at position " + toString(vehicle->getPositionOnLane()) + " because it is too far away.");
+            }
         }
     }
     return nullptr;

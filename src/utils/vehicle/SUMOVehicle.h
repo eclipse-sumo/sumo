@@ -259,6 +259,9 @@ public:
     /// @brief return list of route indices and stop positions for the remaining stops
     virtual std::vector<std::pair<int, double> > getStopIndices() const = 0;
 
+    /// @brief returns whether the vehicle serves a public transport line that serves the given stop
+    virtual bool isLineStop(double position) const = 0;
+
 
     /**
     * returns the next imminent stop in the stop queue
