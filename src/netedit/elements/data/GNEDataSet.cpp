@@ -287,7 +287,7 @@ GNEDataSet::checkNewInterval(const std::map<const double, GNEDataInterval*> &dat
     } else {
         // declare first and last element
         const auto itFirstElement = dataIntervalMap.begin();
-        const auto itLastElement = (dataIntervalMap.end()--);
+        const auto itLastElement = dataIntervalMap.rbegin();
         if (newBegin > newEnd) {
             return false;
         } else if (dataIntervalMap.count(newBegin) == 1) {
@@ -298,7 +298,7 @@ GNEDataSet::checkNewInterval(const std::map<const double, GNEDataInterval*> &dat
             return (newBegin >= itLastElement->second->getAttributeDouble(SUMO_ATTR_END));
         } else {
             // iterate over myDataIntervalChildren
-            for (auto it = itFirstElement; it != itLastElement; it++) {
+            for (auto it = itFirstElement; it != dataIntervalMap.end(); it++) {
                 if (newBegin < it->first) {
                     // obtain previous edge
                     auto itPrevious = it;
