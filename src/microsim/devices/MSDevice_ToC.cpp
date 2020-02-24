@@ -1028,7 +1028,7 @@ MSDevice_ToC::writeOutput() {
         std::pair<double, double>& p = myEventXY.front();
         myOutputFile->openTag(e.second);
         myOutputFile->writeAttr("id", myHolder.getID()).writeAttr("t", STEPS2TIME(e.first));
-        myOutputFile->writeAttr("lane", l.first).writeAttr("lanePos", STEPS2TIME(l.second));
+        myOutputFile->writeAttr("lane", l.first).writeAttr("lanePos", l.second);
         myOutputFile->writeAttr("x", p.first).writeAttr("y", p.second);
         myOutputFile->closeTag();
         myEvents.pop();
