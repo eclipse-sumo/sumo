@@ -1034,6 +1034,15 @@ MSDevice_ToC::writeOutput() {
         myEvents.pop();
         myEventLanes.pop();
         myEventXY.pop();
+
+        if (e.second.compare("DYNTOR") == 0 && !myEvents.empty()) { // skip "TOR" events if duplicate of "DYNTOR"
+            std::pair<SUMOTime, std::string>& eNext = myEvents.front();
+            if (eNext.second.compare("TOR") == 0 && eNext.first == e.first) {
+                myEvents.pop();
+                myEventLanes.pop();
+                myEventXY.pop();
+            }
+        }
     }
 }
 
