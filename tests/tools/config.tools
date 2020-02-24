@@ -117,6 +117,7 @@ gpsdat:gpsdat.txt
 gpx:output.gpx
 kml:output.kml
 match:match.txt
+dualog:dua.log
 image:image.svg
 csv:out*.csv
 csv:1.csv
@@ -164,6 +165,10 @@ output:Warning: Module 'rtree' not available. Using brute-force fallback
 output:2147483647{REPLACE 9223372036854775807}
 output:Simulation.*started with{REPLACE Simulation started with}
 output:Retrying in
+dualog:uration:.*ms
+dualog:Real time factor
+dualog:UPS
+dualog:(.*ms)
 trips:<!-- generated on{[->]}-->
 osmtrips:<!-- generated on{[->]}-->
 districts:<!-- generated on{[->]}-->
