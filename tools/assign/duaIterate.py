@@ -167,8 +167,12 @@ def initOptions():
                            help="give traffic jams a higher weight when using option --weight-memory")
     argParser.add_argument("--clean-alt", action="store_true", dest="clean_alt",
                            default=False, help="Whether old rou.alt.xml files shall be removed")
-    argParser.add_argument("--binary", action="store_true",
-                           default=False, help="Use binary format for intermediate and resulting route files")
+    argParser.add_argument("--binary", dest="gzip", action="store_true",
+                           default=False, help="alias for using writing intermediate and resulting route files in gzipped format)")
+    argParser.add_argument("--gzip", action="store_true",
+                           default=False, help="alias for using writing intermediate and resulting route files in gzipped format)")
+    argParser.add_argument("--dualog", default="dua.log", help="log file path (default 'dua.log')")
+    argParser.add_argument("--log", default="stdout.log", help="log file path (default 'dua.log')")
     argParser.add_argument("remaining_args", nargs='*')
     return argParser
 
@@ -480,8 +484,8 @@ def main(args=None):
     dua_args = assign_remaining_args(
         duaBinary, 'duarouter', options.remaining_args)
 
-    sys.stdout = sumolib.TeeFile(sys.stdout, open("stdout.log", "w+"))
-    log = open("dua.log", "w+")
+    sys.stdout = sumolib.TeeFile(sys.stdout, open(options.log, "w+"))
+    log = open(options.dualog, "w+")
     if options.zip:
         if options.clean_alt:
             sys.exit(
@@ -509,8 +513,8 @@ def main(args=None):
         costmemory = CostMemory('traveltime', pessimism=options.pessimism, network_file=options.net
                                 )
     routesSuffix = ".xml"
-    if options.binary:
-        routesSuffix = ".sbx"
+    if options.gzip:
+        routesSuffix = ".gz"
 
     if options.weightmemory and options.firstStep != 0:
         # load previous dump files when continuing a run
