@@ -234,8 +234,8 @@ RODUAFrame::checkOptions() {
         const int len = (int)filename.length();
         if (len > 4 && filename.substr(len - 4) == ".xml") {
             oc.set("alternatives-output", filename.substr(0, len - 4) + ".alt.xml");
-        } else if (len > 4 && filename.substr(len - 4) == ".sbx") {
-            oc.set("alternatives-output", filename.substr(0, len - 4) + ".alt.sbx");
+        } else if (len > 4 && filename.substr(len - 3) == ".gz") {
+            oc.set("alternatives-output", filename.substr(0, len - 3) + ".alt.gz");
         } else {
             WRITE_WARNING("Cannot derive file name for alternatives output, skipping it.");
         }
