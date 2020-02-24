@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Feb 21 13:33:50 2020 by Eclipse SUMO Version v1_5_0+0197-49c33a9
+<!-- generated on Mon Feb 24 10:48:09 2020 by Eclipse SUMO Version v1_5_0+0227-b63356c94d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -216,8 +216,8 @@
         <!-- Prefix for network states -->
         <save-state.prefix value="state" type="FILE"/>
 
-        <!-- Suffix for network states (.sbx or .xml) -->
-        <save-state.suffix value=".sbx" type="STR"/>
+        <!-- Suffix for network states (.xml.gz or .xml) -->
+        <save-state.suffix value=".xml.gz" type="STR"/>
 
         <!-- Files for network states -->
         <save-state.files value="" type="FILE"/>

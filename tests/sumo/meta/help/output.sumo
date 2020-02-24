@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_5_0+0197-49c33a9
+Eclipse SUMO Version v1_5_0+0227-b63356c94d
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -124,7 +124,8 @@ Output Options:
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
   --save-state.prefix FILE             Prefix for network states
-  --save-state.suffix STR              Suffix for network states (.sbx or .xml)
+  --save-state.suffix STR              Suffix for network states (.xml.gz or
+                                         .xml)
   --save-state.files FILE              Files for network states
 
 Time Options:
