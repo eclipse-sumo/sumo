@@ -315,6 +315,9 @@ private:
     /// @brief Storage for events to be written to the output
     std::queue<std::pair<std::string, double> > myEventLanes;
 
+    /// @brief Storage for events to be written to the output
+    std::queue<std::pair<double, double>> myEventXY;
+
     /// @brief LC mode overridden during MRM, stored for restoration
     int myPreviousLCMode;
 
