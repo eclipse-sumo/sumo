@@ -584,13 +584,12 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 }
             }
             if (attrs.hasAttribute(SUMO_ATTR_IMPATIENCE)) {
-                // allow empty attribute because .sbx saves this only as float
                 bool okString;
-                bool okDouble;
-                if (attrs.get<std::string>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), okString, false) == "off") {
+                if (attrs.get<std::string>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), okString) == "off") {
                     vtype->impatience = -std::numeric_limits<double>::max();
                 } else {
-                    double impatience = attrs.get<double>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), okDouble);
+                    bool okDouble;
+                    const double impatience = attrs.get<double>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), okDouble);
                     if (okDouble) {
                         vtype->impatience = impatience;
                         vtype->parametersSet |= VTYPEPARS_IMPATIENCE_SET;
