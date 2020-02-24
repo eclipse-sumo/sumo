@@ -27,6 +27,8 @@
 #include <netedit/changes/GNEChange_Children.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -1367,6 +1369,79 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
             // return last inserted list item
             return root;
         }
+
+    } else if (myAC->getTagProperty().isDataElement()) {
+        // check if is a GNEDataInterval or a GNEGenericData
+        if (myAC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
+            return nullptr;
+        } else {
+            // Obtain DataElement
+            GNEGenericData* dataElement = dynamic_cast<GNEGenericData*>(myAC);
+            if (dataElement) {
+                // declare auxiliar FXTreeItem, due a data element can have multiple "roots"
+                FXTreeItem* root = nullptr;
+                // set data interval
+                addListItem(dataElement->getDataIntervalParent());
+                // check if there is data elements parents
+                if (dataElement->getParentAdditionals().size() > 0) {
+                    // check if we have more than one edge
+                    if (dataElement->getParentAdditionals().size() > 1) {
+                        // insert first item
+                        addListItem(dataElement->getParentAdditionals().front());
+                        // insert "spacer"
+                        if (dataElement->getParentAdditionals().size() > 2) {
+                            addListItem(nullptr, ("..." + toString((int)dataElement->getParentAdditionals().size() - 2) + " additionals...").c_str(), 0, false);
+                        }
+                    }
+                    // return last inserted item
+                    root = addListItem(dataElement->getParentAdditionals().back());
+                }
+                // check if there is parent demand elements
+                if (dataElement->getParentDemandElements().size() > 0) {
+                    // check if we have more than one demand element
+                    if (dataElement->getParentDemandElements().size() > 1) {
+                        // insert first item
+                        addListItem(dataElement->getParentDemandElements().front());
+                        // insert "spacer"
+                        if (dataElement->getParentDemandElements().size() > 2) {
+                            addListItem(nullptr, ("..." + toString((int)dataElement->getParentDemandElements().size() - 2) + " demand elements...").c_str(), 0, false);
+                        }
+                    }
+                    // return last inserted item
+                    root = addListItem(dataElement->getParentDemandElements().back());
+                }
+                // check if there is parent edges
+                if (dataElement->getParentEdges().size() > 0) {
+                    // check if we have more than one edge
+                    if (dataElement->getParentEdges().size() > 1) {
+                        // insert first item
+                        addListItem(dataElement->getParentEdges().front());
+                        // insert "spacer"
+                        if (dataElement->getParentEdges().size() > 2) {
+                            addListItem(nullptr, ("..." + toString((int)dataElement->getParentEdges().size() - 2) + " edges...").c_str(), 0, false);
+                        }
+                    }
+                    // return last inserted item
+                    root = addListItem(dataElement->getParentEdges().back());
+                }
+                // check if there is parent lanes
+                if (dataElement->getParentLanes().size() > 0) {
+                    // check if we have more than one parent lane
+                    if (dataElement->getParentLanes().size() > 1) {
+                        // insert first item
+                        addListItem(dataElement->getParentLanes().front());
+                        // insert "spacer"
+                        if (dataElement->getParentLanes().size() > 2) {
+                            addListItem(nullptr, ("..." + toString((int)dataElement->getParentLanes().size() - 2) + " lanes...").c_str(), 0, false);
+                        }
+                    }
+                    // return last inserted item
+                    root = addListItem(dataElement->getParentLanes().back());
+                }
+                // return last inserted list item
+                return root;
+            }
+        }
     }
     // there aren't parents
     return nullptr;
@@ -1421,6 +1496,10 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                         showAttributeCarrierChildren(i, edgeItem);
                     }
                     for (const auto& i : edge->getChildDemandElementsByType(SUMO_TAG_FLOW)) {
+                        showAttributeCarrierChildren(i, edgeItem);
+                    }
+                    // show data elements
+                    for (const auto& i : edge->getChildGenericDataElements()) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
                 }
@@ -1533,6 +1612,9 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                 showAttributeCarrierChildren(i, demandElementItem);
             }
         }
+    } else if (AC->getTagProperty().isDataElement()) {
+        // insert data item
+        addListItem(AC, itemParent);
     }
 }
 

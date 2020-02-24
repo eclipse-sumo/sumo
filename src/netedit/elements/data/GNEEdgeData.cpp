@@ -26,6 +26,7 @@
 #include <netedit/elements/network/GNEEdge.h>
 
 #include "GNEEdgeData.h"
+#include "GNEDataInterval.h"
 
 
 // ===========================================================================
@@ -186,13 +187,13 @@ bool GNEEdgeData::isAttributeEnabled(SumoXMLAttr /*key*/) const {
 
 std::string 
 GNEEdgeData::getPopUpID() const {
-    return "";
+    return getTagStr();
 }
 
 
 std::string 
 GNEEdgeData::getHierarchyName() const {
-    return "";
+    return "edgeData: " + myDataIntervalParent->getAttribute(SUMO_ATTR_ID);
 }
 
 

@@ -240,7 +240,7 @@ GNEDataInterval::getPopUpID() const {
 
 std::string 
 GNEDataInterval::getHierarchyName() const {
-    return "";
+    return "DataInterval : " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
 }
 
 
