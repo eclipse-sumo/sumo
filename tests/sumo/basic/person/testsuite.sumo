@@ -4,6 +4,9 @@ walk_unconnected
 # a bus will stop at two busstop that are located at the same edge and a person is waiting at the second bus stop. the person has to enter the bus when the bus stops at the second busstop and not before.
 two_busstops_at_one_edge
 
+# a bus will stop two times on the same edge and a person is waiting at the second stop. the person has to enter the bus when the bus stops at the second stop and not before.
+two_stops_at_one_edge
+
 # person with a single ride
 ride
 
