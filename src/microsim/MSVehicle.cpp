@@ -3588,6 +3588,7 @@ MSVehicle::canReverse(double speedThreshold) const {
             && (myStops.empty() || myStops.front().edge != myCurrEdge)
        ) {
         //if (isSelected()) std::cout << "   check1 passed\n";
+
         // ensure that the vehicle is fully on bidi edges that allow reversal
         if ((int)(myRoute->end() - myCurrEdge) <= (int)myFurtherLanes.size()) {
 #ifdef DEBUG_REVERSE_BIDI
@@ -3596,6 +3597,7 @@ MSVehicle::canReverse(double speedThreshold) const {
             return false;
         }
         //if (isSelected()) std::cout << "   check2 passed\n";
+
         // ensure that the turn-around connection exists from the current edge to it's bidi-edge
         const MSEdgeVector& succ = myLane->getEdge().getSuccessors();
         if (std::find(succ.begin(), succ.end(), myLane->getEdge().getBidiEdge()) == succ.end()) {
@@ -3604,18 +3606,54 @@ MSVehicle::canReverse(double speedThreshold) const {
 #endif
             return false;
         }
-
         //if (isSelected()) std::cout << "   check3 passed\n";
+        
+        // ensure that the vehicle front will not move past a stop on the bidi edge of the current edge
+        if (!myStops.empty() && myStops.front().edge == (myCurrEdge + 1)) {
+            const double stopPos = myStops.front().getEndPos(*this);
+            const double brakeDist = getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), 0);
+            const double newPos = myLane->getLength() - (getBackPositionOnLane() + brakeDist);
+            if (newPos > stopPos) {
+#ifdef DEBUG_REVERSE_BIDI
+                if (DEBUG_COND) std::cout << "    reversal would go past stop on " << myLane->getBidiLane()->getID() << "\n";
+#endif
+                if ((myLane->getLength() - myState.pos()) > brakeDist) {
+                    return false;
+                } else {
+#ifdef DEBUG_REVERSE_BIDI
+                    if (DEBUG_COND) std::cout << "    train is too long, skipping stop at " << stopPos << " cannot be avoided\n";
+#endif
+                }
+            }
+        }
+        //if (isSelected()) std::cout << "   check4 passed\n";
+       
+        // ensure that bidi-edges exist for all further edges and that no stops will be skipped when reversing
         int view = 2;
         for (MSLane* further : myFurtherLanes) {
             if (!further->getEdge().isInternal()) {
-                if (further->getEdge().getBidiEdge() != *(myCurrEdge + view)
-                        || (!myStops.empty() && myStops.front().edge == (myCurrEdge + view))) {
+                if (further->getEdge().getBidiEdge() != *(myCurrEdge + view)) {
 #ifdef DEBUG_REVERSE_BIDI
-                    if (DEBUG_COND) std::cout << "    noBidi view=" << view << " further=" << further->getID() << " furtherBidi=" << Named::getIDSecure(further->getEdge().getBidiEdge())
-                        << " future=" << (*(myCurrEdge + view))->getID() << " stopNext=" << (!myStops.empty() && myStops.front().edge == (myCurrEdge + view)) << "\n";
+                    if (DEBUG_COND) std::cout << "    noBidi view=" << view << " further=" << further->getID() << " furtherBidi=" << Named::getIDSecure(further->getEdge().getBidiEdge()) << " future=" << (*(myCurrEdge + view))->getID() << "\n";
 #endif
                     return false;
+                }
+                if (!myStops.empty() && myStops.front().edge == (myCurrEdge + view)) {
+                    const double brakeDist = getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), 0);
+                    const double stopPos = myStops.front().getEndPos(*this);
+                    const double newPos = further->getLength() - (getBackPositionOnLane(further) + brakeDist);
+                    if (newPos > stopPos) {
+#ifdef DEBUG_REVERSE_BIDI
+                        if (DEBUG_COND) std::cout << "    reversal would go past stop further-opposite lane " << further->getBidiLane()->getID() << "\n";
+#endif
+                        if ((myLane->getLength() - myState.pos()) > brakeDist) {
+                            return false;
+                        } else {
+#ifdef DEBUG_REVERSE_BIDI
+                            if (DEBUG_COND) std::cout << "    train is too long, skipping stop at " << stopPos << " cannot be avoided\n";
+#endif
+                        }
+                    }
                 }
                 view++;
             }
