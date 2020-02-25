@@ -35,6 +35,7 @@
 // ---------------------------------------------------------------------------
 
 GNEGenericData::GNEGenericData(const SumoXMLTag tag, GNEDataInterval* dataIntervalParent,
+        const std::map<std::string, std::string>& parameters,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
         const std::vector<GNEShape*>& shapeParents,
@@ -48,7 +49,7 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, GNEDataInterval* dataInterv
         const std::vector<GNEDemandElement*>& demandElementChildren,
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GNEAttributeCarrier(tag),
-    Parameterised(),
+    Parameterised(parameters),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
     myDataIntervalParent(dataIntervalParent) {

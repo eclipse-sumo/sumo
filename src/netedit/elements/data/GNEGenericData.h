@@ -53,6 +53,7 @@ public:
     /**@brief Constructor
      * @param[in] tag generic data Tag (edgeData, laneData, etc.)
      * @param[in] dataIntervalParent pointer to data interval parent
+     * @param[in] parameters parameters map
      * @param[in] edgeParents vector of edge parents
      * @param[in] laneParents vector of lane parents
      * @param[in] shapeParents vector of shape parents
@@ -67,6 +68,7 @@ public:
      * @param[in] genericDataChildren vector of genericData children
      */
     GNEGenericData(const SumoXMLTag tag, GNEDataInterval* dataIntervalParent,
+        const std::map<std::string, std::string>& parameters,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
         const std::vector<GNEShape*>& shapeParents,

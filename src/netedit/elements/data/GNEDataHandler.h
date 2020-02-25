@@ -143,9 +143,10 @@ public:
      * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
      * @param[in] dataIntervalParent GNEDataInterval in which this edgeData is saved
      * @param[in] edge GNEEdge parent
+     * @param[in] parameters parameters map
      * @exception InvalidArgument If the edgeData can not be added to the net
      */
-    static GNEEdgeData* buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval *dataIntervalParent, GNEEdge* edge);
+    static GNEEdgeData* buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval *dataIntervalParent, GNEEdge* edge, const std::map<std::string, std::string>& parameters);
 
 protected:
     /// @name parsing methods

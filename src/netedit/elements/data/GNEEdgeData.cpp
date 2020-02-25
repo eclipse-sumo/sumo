@@ -37,8 +37,8 @@
 // GNEEdgeData - methods
 // ---------------------------------------------------------------------------
 
-GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge *edgeParent) :
-    GNEGenericData(SUMO_TAG_MEANDATA_EDGE, dataIntervalParent,
+GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge *edgeParent, const std::map<std::string, std::string>& parameters) :
+    GNEGenericData(SUMO_TAG_MEANDATA_EDGE, dataIntervalParent, parameters,
         {edgeParent}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}) {
 }
 

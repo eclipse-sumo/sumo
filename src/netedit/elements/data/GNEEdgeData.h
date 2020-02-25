@@ -37,8 +37,9 @@ public:
     /**@brief Constructor
      * @param[in] dataIntervalParent pointer to data interval parent
      * @param[in] edgeParent poinetr to Edge parent
+     * @param[in] parameters parameters map
      */
-    GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge *edgeParent);
+    GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge *edgeParent, const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
     ~GNEEdgeData();

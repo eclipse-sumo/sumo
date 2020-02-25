@@ -220,8 +220,9 @@ GNEDataHandler::buildDataInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEDa
 
 
 GNEEdgeData*
-GNEDataHandler::buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval *dataIntervalParent, GNEEdge* edge) {
-    GNEEdgeData* edgeData = new GNEEdgeData(dataIntervalParent, edge);
+GNEDataHandler::buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval *dataIntervalParent, GNEEdge* edge, 
+        const std::map<std::string, std::string>& parameters) {
+    GNEEdgeData* edgeData = new GNEEdgeData(dataIntervalParent, edge, parameters);
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_MEANDATA_EDGE));
         viewNet->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
@@ -279,8 +280,18 @@ GNEDataHandler::parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, c
             // Write error if lane isn't valid
             WRITE_WARNING(toString(SUMO_TAG_MEANDATA_EDGE) + " '" + edgeID + "' must be created within a data interval.");
         } else {
+            // declare parameter map
+            std::map<std::string, std::string> parameters;
+            // obtain all attribute
+            const std::vector<std::string> attributes = attrs.getAttributeNames();
+            // iterate over attributes and fill parameters map
+            for (const auto &attribute : attributes) {
+                if (attribute != toString(SUMO_ATTR_ID)) {
+                    parameters[attribute] = attrs.getStringSecure(attribute, "");
+                }
+            }
             // save ID of last created element
-            GNEGenericData* dataCreated = buildEdgeData(viewNet, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(), edge);
+            GNEGenericData* dataCreated = buildEdgeData(viewNet, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(), edge, parameters);
             // check if insertion has to be commited
             if (insertedDatas) {
                 insertedDatas->commitGenericDataInsertion(dataCreated);
