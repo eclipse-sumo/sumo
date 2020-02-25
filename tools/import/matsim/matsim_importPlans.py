@@ -39,6 +39,8 @@ def get_options(args=None):
                          help="Output file (mandatory)")
     optParser.add_option("--vehicles-only", dest="carsOnly", action="store_true",
                          default=False, help="Import only vehicles instead of persons")
+    optParser.add_option("--default-start", dest="defaultStart", default="0:0:0",
+                         help="default start time for the first activity")
     optParser.add_option("--default-end", dest="defaultEnd", default="24:0:0",
                          help="default end time for the last activity")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
@@ -81,8 +83,8 @@ def main(options):
                 if "act" in item.name: # act or activity
                     if lastLeg is not None:
                         leg = lastLeg
-                        writeLeg(outf, options, idveh, leg, lastAct.link, item.link)
                         leg.dep_time = lastAct.end_time
+                        writeLeg(outf, options, idveh, leg, lastAct.link, item.link)
                         lastLeg = None
                     lastAct = item
                 if item.name == "leg":
@@ -100,7 +102,10 @@ def main(options):
             if not options.carsOnly:
                 vehIndex = 0
                 firstAct = plan.getChildList()[0]
-                outf.write('   <person id="%s" depart="%s">\n' % (person.id, firstAct.start_time))
+                depart = firstAct.start_time
+                if depart is None:
+                    depart = options.defaultStart
+                outf.write('   <person id="%s" depart="%s">\n' % (person.id, depart))
                 if attributes is not None:
                     for attr in attributes.attribute:
                         outf.write('       <param key="%s" value="%s"/>\n' % (attr.attr_name, attr.getText()))
