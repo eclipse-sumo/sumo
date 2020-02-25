@@ -7,6 +7,9 @@ tramwayLoop
 # splitting and joining train parts
 portion_working
 
+# test rail-specific routing features (train reversal / train length constraints)
+routing
+
 # Two trains approaching conflicting block simultaneously causing a head-on conflict
 headonconflict
 
@@ -35,7 +38,7 @@ reverse_before_further_stop
 # 
 reverse_before_stop_impossible
 
-# train serving a public transport line must reverse direction at a branch stop (stop comes after reversal, train is one 2 lanes during reversal and the back of the train must have passed the stop before reversal) - train is too long so the train front is past the stop on reversal
+# train serving a public transport line must reverse direction at a branch stop (stop comes after reversal, train is one 2 lanes during reversal and the back of the train must have passed the stop before reversal) - train is too long so the stop must be skipped
 # 
 reverse_before_further_stop_tooLong
 
