@@ -78,7 +78,7 @@ GNEDataSet::writeDataSet(OutputDevice& device) const {
         // write begin
         device.writeAttr(SUMO_ATTR_BEGIN, interval.second->getAttribute(SUMO_ATTR_BEGIN));
         // write end
-        device.writeAttr(SUMO_ATTR_BEGIN, interval.second->getAttribute(SUMO_ATTR_END));
+        device.writeAttr(SUMO_ATTR_END, interval.second->getAttribute(SUMO_ATTR_END));
         // iterate over interval generic datas
         for (const auto &genericData : interval.second->getGenericDataChildren()) {
             // write generic data
