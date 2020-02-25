@@ -169,6 +169,8 @@ dualog:uration:.*ms
 dualog:Real time factor
 dualog:UPS
 dualog:(.*ms)
+dualog:Simulation.*started with{REPLACE Simulation started with}
+dualog:.*'-c', 'iteration{REPLACE '-c', 'iteration}
 trips:<!-- generated on{[->]}-->
 osmtrips:<!-- generated on{[->]}-->
 districts:<!-- generated on{[->]}-->

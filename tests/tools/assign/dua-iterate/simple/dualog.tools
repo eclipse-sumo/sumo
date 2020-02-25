@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/duarouter', '-c', 'iteration_000_input_trips.duarcfg']
+['/path/to/duarouter', '-c', 'iteration_000_input_trips.duarcfg']
 Loading configuration ... done.
 Success.
 -------------------------------------------------------------------------------
