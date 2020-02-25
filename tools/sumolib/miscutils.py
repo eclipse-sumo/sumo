@@ -280,7 +280,7 @@ class Colorgen:
 
     def __init__(self, hsv, cycleLength=10.67):
         self.hsv = hsv
-        self.cycle = [random.randint(0, 255) for x in self.hsv]
+        self.cycle = [int(random.random() * 256) for x in self.hsv]
         self.cycleOffset = int(round(256 / cycleLength))
         self.distinctIndex = 0
 
