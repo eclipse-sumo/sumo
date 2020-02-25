@@ -88,7 +88,7 @@ if __name__ == "__main__":
             outf.write("\t\t\t<coordinates>\n")
             for x, y in geometry:
                 lon, lat = net.convertXY2LonLat(x, y)
-                outf.write('\t\t\t\t%s,%s\n' % (lon, lat))
+                outf.write('\t\t\t\t%.10f,%.10f\n' % (lon, lat))
             outf.write("\t\t\t</coordinates>\n")
             outf.write("\t\t</LineString>\n")
             outf.write("\t</Placemark>\n")
