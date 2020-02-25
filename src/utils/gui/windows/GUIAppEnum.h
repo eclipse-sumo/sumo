@@ -719,7 +719,7 @@ enum {
     /// @brief enable/disable show data elements by interval
     MID_GNE_DATAINTERVAL_LIMITED,
     /// @brief GNEDataInterval selected in comboBox of IntervalBar
-    MID_GNE_DATAINTERVAL_SELECTED,
+    MID_GNE_DATASET_SELECTED,
     /// @brief begin changed in InterbalBar
     MID_GNE_DATAINTERVAL_SETBEGIN,
     /// @brief end changed in InterbalBar

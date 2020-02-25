@@ -21,6 +21,7 @@
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
@@ -1982,9 +1983,8 @@ GNEViewNetHelper::DataViewOptions::getVisibleDataMenuCommands(std::vector<FXMenu
 
 GNEViewNetHelper::IntervalBar::IntervalBar(GNEViewNet* viewNet) :
     myViewNet(viewNet),
+    myDataSet(nullptr),
     myLimitByInterval(nullptr),
-    myDataIntervals(nullptr),
-    myIntervalLabel(nullptr),
     myBeginTextField(nullptr),
     myEndTextField(nullptr) {
 }
@@ -1992,25 +1992,27 @@ GNEViewNetHelper::IntervalBar::IntervalBar(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
+    // create interval label
+    FXLabel *dataSetLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar, 
+        "Data sets", 0, GUIDesignLabelAttribute);
+    dataSetLabel->create();
+    // create combo box for sets
+    myDataSet = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar, 
+        GUIDesignComboBoxNCol, myViewNet, MID_GNE_DATASET_SELECTED, GUIDesignComboBoxWidth180);
+    myDataSet->create();
     // create checkbutton for myLimitByInterval
     myLimitByInterval = new FXCheckButton(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar, 
-        "Limit by interval", myViewNet, MID_GNE_DATAINTERVAL_LIMITED, GUIDesignCheckButtonAttribute);
+        "Limit by interval", myViewNet, MID_GNE_DATAINTERVAL_LIMITED, GUIDesignCheckButtonLimitInterval);
     myLimitByInterval->create();
-    // create combo box for sets
-    myDataIntervals = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar, 
-        GUIDesignComboBoxNCol, myViewNet, MID_GNE_DATAINTERVAL_SELECTED, GUIDesignComboBoxWidth180);
-    myDataIntervals->create();
-    // create interval label
-    myIntervalLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar, 
-        "Interval", 0, GUIDesignLabelAttribute);
-    myIntervalLabel->create();
     // create textfield for begin
     myBeginTextField = new FXTextField(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar, 
-        GUIDesignTextFieldNCol, myViewNet, MID_GNE_DATAINTERVAL_SETBEGIN, GUIDesignTextFielWidth50);
+        GUIDesignTextFieldNCol, myViewNet, MID_GNE_DATAINTERVAL_SETBEGIN, GUIDesignTextFielWidth50Real);
+    myBeginTextField->setText("0");
     myBeginTextField->create();
     // create text field for end
     myEndTextField = new FXTextField(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar, 
-        GUIDesignTextFieldNCol, myViewNet, MID_GNE_DATAINTERVAL_SETEND, GUIDesignTextFielWidth50);
+        GUIDesignTextFieldNCol, myViewNet, MID_GNE_DATAINTERVAL_SETEND, GUIDesignTextFielWidth50Real);
+    myEndTextField->setText("3600");
     myEndTextField->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar->recalc();
@@ -2019,6 +2021,8 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
 
 void
 GNEViewNetHelper::IntervalBar::showIntervalBar() {
+    // first update interval bar
+    updateIntervalBar();
     // show toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar->show();
 }
@@ -2032,8 +2036,59 @@ GNEViewNetHelper::IntervalBar::hideIntervalBar() {
 
 
 void 
-GNEViewNetHelper::IntervalBar::updateDataIntervals() {
-    //
+GNEViewNetHelper::IntervalBar::updateLimitByInterval() {
+    if (myLimitByInterval->isEnabled() && (myLimitByInterval->getCheck() == TRUE)) {
+        myBeginTextField->enable();
+        myEndTextField->enable();
+    } else {
+        myBeginTextField->disable();
+        myEndTextField->disable();
+    }
+}
+
+
+void 
+GNEViewNetHelper::IntervalBar::updateIntervalBar() {
+    // first save current data set
+    const std::string previousDataSet = myDataSet->getNumItems() > 0? myDataSet->getItem(myDataSet->getCurrentItem()).text() : "";
+    // first clear items
+    myDataSet->clearItems();
+    if (myViewNet->getNet()) {
+        // retrieve data sets
+        const auto dataSets = myViewNet->getNet()->retrieveDataSets();
+        if (dataSets.empty()) {
+            myDataSet->appendItem("no data sets");
+            // disable elements
+            myDataSet->disable();
+            myLimitByInterval->disable();
+        } else {
+            // declare integer to save previous data set index
+            int previousDataSetIndex = 0;
+            // enable elements
+            myDataSet->enable();
+            myLimitByInterval->enable();
+            // add "<all>" item
+            myDataSet->appendItem("<all>");
+            // add all into 
+            for (const auto &dataSet : dataSets) {
+                // check if current data set is the previous data set
+                if (dataSet->getID() == previousDataSet) {
+                    previousDataSetIndex = myDataSet->getNumItems();
+                }
+                myDataSet->appendItem(dataSet->getID().c_str());
+            }
+            // set visible elements
+            if (myDataSet->getNumItems() < 10) {
+                myDataSet->setNumVisible(myDataSet->getNumItems());
+            } else {
+                myDataSet->setNumVisible(10);
+            }
+            // set current data set
+            myDataSet->setCurrentItem(previousDataSetIndex);
+        }
+        // update limit by interval
+        updateLimitByInterval();
+    }
 }
 
 // ---------------------------------------------------------------------------

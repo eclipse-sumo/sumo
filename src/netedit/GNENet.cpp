@@ -677,12 +677,6 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
 void
 GNENet::deleteDataSet(GNEDataSet* dataSet, GNEUndoList* undoList) {
     undoList->p_begin("delete " + dataSet->getTagStr());
-    // first remove all data interval children calling this function recursively
-/*
-    while (dataSet->getChildDataSets().size() > 0) {
-        deleteDataSet(dataSet->getChildDataSets().front(), undoList);
-    }
-*/
     // remove dataSet
     undoList->add(new GNEChange_DataSet(dataSet, false), true);
     undoList->p_end();
@@ -2565,6 +2559,8 @@ GNENet::updateDataSetID(const std::string& oldID, GNEDataSet* dataSet) {
         myAttributeCarriers.dataSets.insert(std::make_pair(dataSet->getID(), dataSet));
         // data sets has to be saved
         requireSaveDataElements(true);
+        // update interval toolbar
+        myViewNet->getIntervalBar().updateIntervalBar();
     }
 }
 
@@ -2708,24 +2704,6 @@ GNENet::saveDataElementsConfirmed(const std::string& filename) {
     for (const auto &dataSet : myAttributeCarriers.dataSets) {
         dataSet.second->writeDataSet(device);
     }
-    /*
-    // first  write all vehicle types
-    for (auto i : myAttributeCarriers.dataSets.at(SUMO_TAG_VTYPE)) {
-        i.second->writeDataSet(device);
-    }
-    // first  write all person types
-    for (auto i : myAttributeCarriers.dataSets.at(SUMO_TAG_PTYPE)) {
-        i.second->writeDataSet(device);
-    }
-    // now write all routes (and their associated stops)
-    for (auto i : myAttributeCarriers.dataSets.at(SUMO_TAG_ROUTE)) {
-        i.second->writeDataSet(device);
-    }
-    // finally write all vehicles and persons sorted by depart time (and their associated stops, personPlans, etc.)
-    for (auto i : myAttributeCarriers.vehicleDepartures) {
-        i.second->writeDataSet(device);
-    }
-    */
     // close device
     device.close();
 }
@@ -3032,6 +3010,8 @@ GNENet::insertDataSet(GNEDataSet* dataSet) {
         myAttributeCarriers.dataSets.insert(std::make_pair(dataSet->getID(), dataSet));
         // data elements has to be saved
         requireSaveDataElements(true);
+        // update interval toolbar
+        myViewNet->getIntervalBar().updateIntervalBar();
     } else {
         throw ProcessError(dataSet->getTagStr() + " with ID='" + dataSet->getID() + "' already exist");
     }
@@ -3048,6 +3028,8 @@ GNENet::deleteDataSet(GNEDataSet* dataSet) {
         myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(dataSet);
         // data elements has to be saved
         requireSaveDataElements(true);
+        // update interval toolbar
+        myViewNet->getIntervalBar().updateIntervalBar();
         // dataSet removed, then return true
         return true;
     } else {

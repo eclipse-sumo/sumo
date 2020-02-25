@@ -202,6 +202,9 @@ public:
     /// @brief Transform POI to POILane, and viceversa
     long onCmdTransformPOI(FXObject*, FXSelector, void*);
 
+    /// @brief limit interval
+    long onCmdLimitInterval(FXObject*, FXSelector, void*);
+
     /// @brief duplicate selected lane
     long onCmdDuplicateLane(FXObject*, FXSelector, void*);
 
@@ -324,6 +327,9 @@ public:
 
     /// @brief get the undoList object
     GNEUndoList* getUndoList() const;
+    
+    /// @brief get interval bar
+    GNEViewNetHelper::IntervalBar &getIntervalBar();
 
     /// @brief get AttributeCarrier under cursor
     const GNEAttributeCarrier* getDottedAC() const;

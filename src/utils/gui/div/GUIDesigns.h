@@ -34,6 +34,9 @@
 /// @brief text field with thick frame and size of 50x23
 #define GUIDesignTextFielWidth50           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, 23, 2, 2, 2, 2
 
+/// @brief text field with thick frame and size of 50x23 and limited to doubles
+#define GUIDesignTextFielWidth50Real       (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 50, 23, 2, 2, 2, 2
+
 /// @brief text field with thick frame, size of 180x23 /doubles (Used in GNEVehicleType)
 #define GUIDesignTextFielWidth180           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, 23, 2, 2, 2, 2
 
@@ -115,6 +118,9 @@
 
 /// @brief checkButton without thick extended over the frame used for attributes
 #define GUIDesignCheckButtonAttribute       (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT | FRAME_THICK), 0, 0, 100, 23, 2, 2, 2, 2
+
+/// @brief checkButton without thick extended over the frame used for "limit interval" label
+#define GUIDesignCheckButtonLimitInterval   (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT | FRAME_THICK), 0, 0, 118, 23, 2, 2, 2, 2
 
 /// @brief CheckButton for Frames without thick extended over the frame
 #define GUIDesignCheckButtonViewSettings    (CHECKBUTTON_NORMAL | LAYOUT_CENTER_Y)

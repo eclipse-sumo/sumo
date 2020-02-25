@@ -161,6 +161,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,           GNEViewNet::onCmdDeleteGeometryPoint),
     // POIs
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,                           GNEViewNet::onCmdTransformPOI),
+    // Other
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAINTERVAL_LIMITED,                    GNEViewNet::onCmdLimitInterval)
 };
 
 // Object implementation
@@ -1053,6 +1055,12 @@ GNEViewNet::getUndoList() const {
 }
 
 
+GNEViewNetHelper::IntervalBar&
+GNEViewNet::getIntervalBar() {
+    return myIntervalBar;
+}
+
+
 const GNEAttributeCarrier*
 GNEViewNet::getDottedAC() const {
     return myDottedAC;
@@ -1681,6 +1689,14 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
         // update view after transform
         update();
     }
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdLimitInterval(FXObject*, FXSelector, void*) {
+    // just call update interval bar
+    myIntervalBar.updateLimitByInterval();
     return 1;
 }
 

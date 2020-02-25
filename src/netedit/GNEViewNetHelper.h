@@ -592,21 +592,21 @@ struct GNEViewNetHelper {
         /// @brief hide all options menu checks
         void hideIntervalBar();
 
-        /// @brief update data intervals
-        void updateDataIntervals();
+        /// @brief update interval bar
+        void updateIntervalBar();
+
+        /// @brief update limit by interval
+        void updateLimitByInterval();
 
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
 
+        /// @brief combo box for data sets
+        FXComboBox *myDataSet;
+        
         /// @checkbox for limit data elements by interval
         FXCheckButton* myLimitByInterval;
-
-        /// @brief combo box for data intervals
-        FXComboBox *myDataIntervals;
-
-        /// @brief interval label
-        FXLabel *myIntervalLabel;
 
         /// @brief text field for interval begin
         FXTextField* myBeginTextField;
