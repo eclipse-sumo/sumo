@@ -39,10 +39,14 @@ public:
                    IntermodalRouter<E, L, N, V>* interRouter)
         : myVehRouter(vehRouter), myPedRouter(pedRouter), myInterRouter(interRouter) {}
 
-    RouterProvider(const RouterProvider& original)
-        : myVehRouter(original.getVehicleRouter().clone()),
-          myPedRouter(static_cast<PedestrianRouter<E, L, N, V>*>(original.myPedRouter == 0 ? 0 : original.getPedestrianRouter().clone())),
-          myInterRouter(static_cast<IntermodalRouter<E, L, N, V>*>(original.myInterRouter == 0 ? 0 : original.getIntermodalRouter().clone())) {}
+    RouterProvider(const RouterProvider& original) : 
+        myVehRouter(original.getVehicleRouter().clone()),
+        myPedRouter(static_cast<PedestrianRouter<E, L, N, V>*>(original.myPedRouter == 0 ? 0 : original.getPedestrianRouter().clone())),
+        myInterRouter(static_cast<IntermodalRouter<E, L, N, V>*>(original.myInterRouter == 0 ? 0 : original.getIntermodalRouter().clone())) {}
+
+    RouterProvider* clone() {
+        return new RouterProvider(*this);
+    }
 
     SUMOAbstractRouter<E, V>& getVehicleRouter() const {
         return *myVehRouter;

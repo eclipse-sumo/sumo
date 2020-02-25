@@ -29,6 +29,7 @@
 #include <utils/common/WrappingCommand.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/router/AStarRouter.h>
+#include <utils/router/RouterProvider.h>
 #include <microsim/MSVehicle.h>
 #include "MSDevice.h"
 
@@ -60,6 +61,8 @@
  */
 class MSRoutingEngine {
 public:
+    typedef RouterProvider<MSEdge, MSLane, MSJunction, SUMOVehicle> MSRouterProvider;
+
     /// @brief intialize period edge weight update
     static void initWeightUpdate();
 
@@ -198,7 +201,7 @@ private:
     static bool myWithTaz;
 
     /// @brief The router to use
-    static SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
+    static MSRouterProvider* myRouterProvider;
 
     /// @brief The container of pre-calculated routes
     static std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> myCachedRoutes;

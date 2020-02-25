@@ -35,6 +35,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Named.h>
 #include <utils/router/SUMOAbstractRouter.h>
+#include <utils/router/RouterProvider.h>
 #include <utils/vehicle/SUMOVehicle.h>
 
 #include <utils/foxtools/FXSynchQue.h>
@@ -48,6 +49,7 @@
 // ===========================================================================
 class MSEdge;
 class MSLane;
+class MSJunction;
 class OutputDevice;
 
 typedef std::vector<MSEdge*> MSEdgeVector;
@@ -72,6 +74,8 @@ typedef std::vector<MSEdge*> MSEdgeVector;
 class MSEdgeControl {
 
 public:
+    typedef RouterProvider<MSEdge, MSLane, MSJunction, SUMOVehicle> MSRouterProvider;
+
     /** @brief Constructor
      *
      * Builds LaneUsage information for each lane and assigns them to lanes.
@@ -217,23 +221,24 @@ public:
     class WorkerThread : public FXWorkerThread {
     public:
         WorkerThread(FXWorkerThread::Pool& pool)
-            : FXWorkerThread(pool), myRouter(nullptr) {}
-        bool setRouter(SUMOAbstractRouter<MSEdge, SUMOVehicle>* router) {
-            if (myRouter == nullptr) {
-                myRouter = router;
+            : FXWorkerThread(pool), myRouterProvider(nullptr) {}
+
+        bool setRouterProvider(MSRouterProvider* routerProvider) {
+            if (myRouterProvider == nullptr) {
+                myRouterProvider = routerProvider;
                 return true;
             }
             return false;
         }
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter() const {
-            return *myRouter;
+            return myRouterProvider->getVehicleRouter();
         }
         virtual ~WorkerThread() {
             stop();
-            delete myRouter;
+            delete myRouterProvider;
         }
     private:
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
+        MSRouterProvider* myRouterProvider;
     };
 #endif
 
