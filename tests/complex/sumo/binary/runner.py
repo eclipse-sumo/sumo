@@ -37,7 +37,7 @@ subprocess.call([netconvertBinary, "-c", "netconvert.netccfg"],
 print(">>> Building the binary network")
 sys.stdout.flush()
 subprocess.call([netconvertBinary, "-c", "netconvert.netccfg",
-                 "-o", "circular.net.sbx"], stdout=sys.stdout, stderr=sys.stderr)
+                 "-o", "circular.net.xml.gz"], stdout=sys.stdout, stderr=sys.stderr)
 sys.stdout.flush()
 print(">>> Converting the routes to binary")
 subprocess.call([duarouterBinary, "-c", "duarouter.duarcfg"],
