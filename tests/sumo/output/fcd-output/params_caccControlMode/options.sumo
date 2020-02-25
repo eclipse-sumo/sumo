@@ -1,0 +1,7 @@
+-b 0 -e 60 --no-step-log --net-file=net.net.xml
+--routes=input_routes.rou.xml 
+-a input_additional.add.xml,input_additional2.add.xml
+--duration-log.statistics
+--tripinfo-output.write-unfinished
+--fcd-output=fcd.xml
+--fcd-output.params caccControlMode
