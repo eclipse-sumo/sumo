@@ -66,8 +66,8 @@ GNEEdgeData::getPositionInView() const {
 
 void 
 GNEEdgeData::writeGenericData(OutputDevice& device) const {
-    // open device
-    device.openTag(myTagProperty.getTag());
+    // open device (don't use SUMO_TAG_MEANDATA_EDGE)
+    device.openTag(SUMO_TAG_EDGE);
     // write edge ID
     device.writeAttr(SUMO_ATTR_ID, getParentEdges().front()->getID());
     // write params

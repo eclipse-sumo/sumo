@@ -182,7 +182,7 @@ GNEDataHandler::buildData(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag ta
     switch (tag) {
         case SUMO_TAG_INTERVAL:
             return parseAndBuildInterval(viewNet, allowUndoRedo, attrs, insertedDatas);
-        case SUMO_TAG_MEANDATA_EDGE:
+        case SUMO_TAG_EDGE:
             return parseAndBuildEdgeData(viewNet, allowUndoRedo, attrs, insertedDatas);
         default:
             return false;
