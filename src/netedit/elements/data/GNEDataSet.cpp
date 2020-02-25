@@ -252,13 +252,13 @@ GNEDataSet::isAttributeEnabled(SumoXMLAttr /*key*/) const {
 
 std::string 
 GNEDataSet::getPopUpID() const {
-    return "";
+    return getTagStr();
 }
 
 
 std::string 
 GNEDataSet::getHierarchyName() const {
-    return "";
+    return getTagStr() + ": " + myDataSetID;
 }
 
 

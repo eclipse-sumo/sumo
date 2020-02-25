@@ -29,6 +29,7 @@
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEGenericData.h>
+#include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -1372,14 +1373,18 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
 
     } else if (myAC->getTagProperty().isDataElement()) {
         // check if is a GNEDataInterval or a GNEGenericData
-        if (myAC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
+        if (myAC->getTagProperty().getTag() == SUMO_TAG_DATASET) {
             return nullptr;
+        } else if (myAC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
+            return addListItem(myFrameParent->myViewNet->getNet()->retrieveDataSet(myAC->getID()));
         } else {
             // Obtain DataElement
             GNEGenericData* dataElement = dynamic_cast<GNEGenericData*>(myAC);
             if (dataElement) {
                 // declare auxiliar FXTreeItem, due a data element can have multiple "roots"
                 FXTreeItem* root = nullptr;
+                // set dataset
+                addListItem(dataElement->getDataIntervalParent()->getDataSetParent());
                 // set data interval
                 addListItem(dataElement->getDataIntervalParent());
                 // check if there is data elements parents
@@ -1614,7 +1619,21 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
         }
     } else if (AC->getTagProperty().isDataElement()) {
         // insert data item
-        addListItem(AC, itemParent);
+        FXTreeItem* dataElementItem = addListItem(AC, itemParent);
+        // insert intervals
+        if (AC->getTagProperty().getTag() == SUMO_TAG_DATASET) {
+            GNEDataSet *dataSet = myFrameParent->myViewNet->getNet()->retrieveDataSet(AC->getID());
+            // iterate over intevals
+            for (const auto &interval : dataSet->getDataIntervalChildren()) {
+                showAttributeCarrierChildren(interval.second, dataElementItem);
+            }
+        } else if (AC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
+            GNEDataInterval *dataInterval = dynamic_cast<GNEDataInterval*>(AC);
+            // iterate over generic datas
+            for (const auto &genericData : dataInterval->getGenericDataChildren()) {
+                showAttributeCarrierChildren(genericData, dataElementItem);
+            }
+        }
     }
 }
 

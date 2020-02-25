@@ -239,13 +239,13 @@ GNEDataInterval::isAttributeEnabled(SumoXMLAttr key) const {
 
 std::string 
 GNEDataInterval::getPopUpID() const {
-    return "";
+    return getTagStr();
 }
 
 
 std::string 
 GNEDataInterval::getHierarchyName() const {
-    return "DataInterval : " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
+    return "interval: " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
 }
 
 

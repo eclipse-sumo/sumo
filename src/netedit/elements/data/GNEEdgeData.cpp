@@ -193,7 +193,7 @@ GNEEdgeData::getPopUpID() const {
 
 std::string 
 GNEEdgeData::getHierarchyName() const {
-    return "edgeData: " + myDataIntervalParent->getAttribute(SUMO_ATTR_ID);
+    return getTagStr() + ": " + getParentEdges().front()->getID();
 }
 
 
