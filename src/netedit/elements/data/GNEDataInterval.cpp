@@ -227,8 +227,13 @@ GNEDataInterval::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/
 
 
 bool 
-GNEDataInterval::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
+GNEDataInterval::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            return false;
+        default:
+            return true;
+    }
 }
 
 

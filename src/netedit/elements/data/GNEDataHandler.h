@@ -55,11 +55,20 @@ public:
         /// @brief insert new element (called only in function myStartElement)
         void insertElement(SumoXMLTag tag);
 
-        /// @brief commit element insertion (used to save last correct created element)
-        void commitElementInsertion(GNEGenericData* additionalCreated);
+        /// @brief commit element insertion (used to save last correct data interval element)
+        void commitDataIntervalInsertion(GNEDataInterval* dataIntervalCreated);
+
+        /// @brief commit element insertion (used to save last correct generic data element)
+        void commitGenericDataInsertion(GNEGenericData* dataElementCreated);
 
         /// @brief pop last inserted element (used only in function myEndElement)
         void popElement();
+
+        /// @brief retrieve parent generic data correspond to current status of myInsertedElements
+        GNEDataInterval* retrieveParentDataInterval(GNEViewNet* viewNet, SumoXMLTag expectedTag) const;
+
+        /// @brief return last generic data inserted
+        GNEDataInterval* getLastInsertedDataInterval() const;
 
         /// @brief retrieve parent generic data correspond to current status of myInsertedElements
         GNEGenericData* retrieveParentGenericData(GNEViewNet* viewNet, SumoXMLTag expectedTag) const;
@@ -69,7 +78,7 @@ public:
 
     private:
         /// @brief vector used as stack
-        std::vector<std::pair<SumoXMLTag, GNEGenericData*> > myInsertedElements;
+        std::vector<std::pair<SumoXMLTag, std::pair<GNEDataInterval*, GNEGenericData*> > > myInsertedElements;
     };
 
     /// @brief Constructor
@@ -144,7 +153,13 @@ protected:
     /// These methods parse the attributes for each of the described data
     /// and call the according methods to build the data
     /// @{
-    /**@brief Parses his values and builds a bus stop
+    
+    /**@brief Parses his values and builds a interval
+     * @param[in] attrs SAX-attributes which define the data
+     */
+    static bool parseAndBuildInterval(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
+
+    /**@brief Parses his values and builds a edge data
      * @param[in] attrs SAX-attributes which define the data
      */
     static bool parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);

@@ -24,6 +24,8 @@
 #include <netedit/changes/GNEChange_DataInterval.h>
 #include <netedit/changes/GNEChange_GenericData.h>
 #include <netedit/elements/data/GNEEdgeData.h>
+#include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
@@ -45,13 +47,20 @@
 
 void
 GNEDataHandler::HierarchyInsertedDatas::insertElement(SumoXMLTag tag) {
-    myInsertedElements.push_back(std::make_pair(tag, nullptr));
+    myInsertedElements.push_back(std::make_pair(tag, std::make_pair(nullptr, nullptr)));
+}
+
+
+
+void 
+GNEDataHandler::HierarchyInsertedDatas::commitDataIntervalInsertion(GNEDataInterval* dataIntervalCreated) {
+    myInsertedElements.back().second.first = dataIntervalCreated;
 }
 
 
 void
-GNEDataHandler::HierarchyInsertedDatas::commitElementInsertion(GNEGenericData* genericData) {
-    myInsertedElements.back().second = genericData;
+GNEDataHandler::HierarchyInsertedDatas::commitGenericDataInsertion(GNEGenericData* genericDataCreated) {
+    myInsertedElements.back().second.second = genericDataCreated;
 }
 
 
@@ -60,6 +69,39 @@ GNEDataHandler::HierarchyInsertedDatas::popElement() {
     if (!myInsertedElements.empty()) {
         myInsertedElements.pop_back();
     }
+}
+
+
+GNEDataInterval*
+GNEDataHandler::HierarchyInsertedDatas::retrieveParentDataInterval(GNEViewNet* viewNet, SumoXMLTag expectedTag) const {
+    if (myInsertedElements.size() < 2) {
+        // currently we're finding parent additional in the additional XML root
+        WRITE_WARNING("A " + toString(myInsertedElements.back().first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
+        return nullptr;
+    } else {
+        if (myInsertedElements.size() < 2) {
+            // additional was hierarchically bad loaded, then return nullptr
+            return nullptr;
+        } else if ((myInsertedElements.end() - 2)->second.first == nullptr) {
+            WRITE_WARNING(toString(expectedTag) + " parent of " + toString((myInsertedElements.end() - 1)->first) + " was not loaded sucesfully.");
+            // parent additional wasn't sucesfully loaded, then return nullptr
+            return nullptr;
+        }
+        return nullptr;
+    }
+}
+
+
+GNEDataInterval*
+GNEDataHandler::HierarchyInsertedDatas::getLastInsertedDataInterval() const {
+    // ierate in reverse mode over myInsertedElements to obtain last inserted additional
+    for (std::vector<std::pair<SumoXMLTag, std::pair<GNEDataInterval*, GNEGenericData* > > >::const_reverse_iterator i = myInsertedElements.rbegin(); i != myInsertedElements.rend(); i++) {
+        // we need to avoid Tag Param because isn't a data element
+        if ((i->first != SUMO_TAG_PARAM) && (i->first == SUMO_TAG_INTERVAL)) {
+            return i->second.first;
+        }
+    }
+    return nullptr;
 }
 
 
@@ -73,25 +115,11 @@ GNEDataHandler::HierarchyInsertedDatas::retrieveParentGenericData(GNEViewNet* vi
         if (myInsertedElements.size() < 2) {
             // additional was hierarchically bad loaded, then return nullptr
             return nullptr;
-        } else if ((myInsertedElements.end() - 2)->second == nullptr) {
+        } else if ((myInsertedElements.end() - 2)->second.second == nullptr) {
             WRITE_WARNING(toString(expectedTag) + " parent of " + toString((myInsertedElements.end() - 1)->first) + " was not loaded sucesfully.");
             // parent additional wasn't sucesfully loaded, then return nullptr
             return nullptr;
         }
-        /*
-        GNEGenericData* retrievedAdditional = viewNet->getNet()->retrieveAdditional((myInsertedElements.end() - 2)->first, (myInsertedElements.end() - 2)->second->getID(), false);
-        if (retrievedAdditional == nullptr) {
-            // additional doesn't exist
-            WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
-            return nullptr;
-        } else if (retrievedAdditional->getTagProperty().getTag() != expectedTag) {
-            // invalid parent additional
-            WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->first) + " cannot be declared within the definition of a " + retrievedAdditional->getTagStr() + ".");
-            return nullptr;
-        } else {
-            return retrievedAdditional;
-        }
-        */
         return nullptr;
     }
 }
@@ -100,10 +128,10 @@ GNEDataHandler::HierarchyInsertedDatas::retrieveParentGenericData(GNEViewNet* vi
 GNEGenericData*
 GNEDataHandler::HierarchyInsertedDatas::getLastInsertedGenericData() const {
     // ierate in reverse mode over myInsertedElements to obtain last inserted additional
-    for (std::vector<std::pair<SumoXMLTag, GNEGenericData*> >::const_reverse_iterator i = myInsertedElements.rbegin(); i != myInsertedElements.rend(); i++) {
-        // we need to avoid Tag Param because isn't an additional
-        if (i->first != SUMO_TAG_PARAM) {
-            return i->second;
+    for (std::vector<std::pair<SumoXMLTag, std::pair<GNEDataInterval*, GNEGenericData* > > >::const_reverse_iterator i = myInsertedElements.rbegin(); i != myInsertedElements.rend(); i++) {
+        // we need to avoid Tag Param because isn't a data element
+        if ((i->first != SUMO_TAG_PARAM) && (i->first != SUMO_TAG_INTERVAL)) {
+            return i->second.second;
         }
     }
     return nullptr;
@@ -152,6 +180,8 @@ bool
 GNEDataHandler::buildData(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
     // Call parse and build depending of tag
     switch (tag) {
+        case SUMO_TAG_INTERVAL:
+            return parseAndBuildInterval(viewNet, allowUndoRedo, attrs, insertedDatas);
         case SUMO_TAG_MEANDATA_EDGE:
             return parseAndBuildEdgeData(viewNet, allowUndoRedo, attrs, insertedDatas);
         default:
@@ -204,6 +234,34 @@ GNEDataHandler::buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataIn
     return edgeData;
 }
 
+
+bool 
+GNEDataHandler::parseAndBuildInterval(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
+    bool abort = false;
+    // parse edgeData attributes
+    const std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_DATAINTERVAL, SUMO_ATTR_ID, abort);
+    const double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_DATAINTERVAL, SUMO_ATTR_BEGIN, abort);
+    const double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_DATAINTERVAL, SUMO_ATTR_END, abort);
+    // Continue if all parameters were sucesfully loaded
+    if (!abort) {
+        // retrieve data set parent
+        GNEDataSet *dataSet = viewNet->getNet()->retrieveDataSet(id, false);
+        // check if we need to create a new data set
+        if (dataSet == nullptr) {
+            dataSet = buildDataSet(viewNet, true, id);
+        }
+        // save ID of last created element
+        GNEDataInterval* dataInterval = buildDataInterval(viewNet, allowUndoRedo, dataSet, begin, end);
+        // check if insertion has to be commited
+        if (insertedDatas) {
+            insertedDatas->commitDataIntervalInsertion(dataInterval);
+        }
+        return true;
+    }
+    return false;
+}
+
+
 bool
 GNEDataHandler::parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
     bool abort = false;
@@ -217,20 +275,21 @@ GNEDataHandler::parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, c
         if (edge == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(SUMO_TAG_MEANDATA_EDGE) + " '" + edgeID + "' is not known.");
+        } else if (insertedDatas->getLastInsertedDataInterval() == nullptr) {
+            // Write error if lane isn't valid
+            WRITE_WARNING(toString(SUMO_TAG_MEANDATA_EDGE) + " '" + edgeID + "' must be created within a data interval.");
         } else {
             // save ID of last created element
-            GNEGenericData* dataCreated = buildEdgeData(viewNet, allowUndoRedo, nullptr, edge);
+            GNEGenericData* dataCreated = buildEdgeData(viewNet, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(), edge);
             // check if insertion has to be commited
             if (insertedDatas) {
-                insertedDatas->commitElementInsertion(dataCreated);
+                insertedDatas->commitGenericDataInsertion(dataCreated);
             }
             return true;
         }
     }
     return false;
 }
-
-
 
 // ===========================================================================
 // private method definitions
