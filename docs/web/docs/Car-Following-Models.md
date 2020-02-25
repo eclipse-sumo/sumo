@@ -45,6 +45,6 @@ time to start breaking as well. The real reaction time is fundamentally
 limited by the simulation step size ([SUMO](SUMO.md) option **--step-length** {{DT_FLOAT}}),
 resp. the action step length (option **--default.action-step-length** {{DT_FLOAT}}, parameter ). For that reason a
 value of tau below this step-size may lead to collisions if the leader
-suddenly starts braking hard. If tau is larger then step-size the
+suddenly starts braking hard. If tau is larger than step-size the
 situation is safe but drivers will still react during each simulation
 step unless a custom action-step-length is used (e.g. by setting option **--default.action-step-length**).
