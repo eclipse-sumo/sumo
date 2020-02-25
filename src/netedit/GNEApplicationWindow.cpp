@@ -780,7 +780,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Open data element file");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_SUPERMODEDATA));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("Data element files (*.rou.xml)\nAll files (*)");
+    opendialog.setPatternList("Data element files (*.dat.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
