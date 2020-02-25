@@ -71,6 +71,10 @@ public:
         return myOriginal->getLength();
     }
 
+    const ReversedEdge* getBidiEdge() const {
+        return myOriginal->getBidiEdge()->getReversedRoutingEdge();
+    }
+
     bool isInternal() const {
         return myOriginal->isInternal();
     }

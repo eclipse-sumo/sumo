@@ -60,6 +60,10 @@ public:
     /// @brief Destructor
     virtual ~RONetHandler();
 
+    /// @brief retrieve mapping of edges to bidi edges (must be resolved after loading network)
+    const std::map<ROEdge*, std::string>& getBidiMap() const {
+        return myBidiEdges;
+    }
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -208,6 +212,9 @@ protected:
 
     /// @brief time penalty for passing a minor link
     const double myMinorPenalty;
+
+    /// @brief temporary storage for bidi attributes (to be resolved after loading all edges)
+    std::map<ROEdge*, std::string> myBidiEdges;
 
 private:
     /// @brief Invalidated copy constructor

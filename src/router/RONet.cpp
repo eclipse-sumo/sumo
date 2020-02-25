@@ -229,6 +229,16 @@ RONet::addJunctionTaz(ROAbstractEdgeBuilder& eb) {
     }
 }
 
+void
+RONet::setBidiEdges(const std::map<ROEdge*, std::string>& bidiMap) {
+    for (const auto& item : bidiMap) {
+        ROEdge* bidi = myEdges.get(item.second);
+        if (bidi == nullptr) {
+            WRITE_ERROR("The bidi edge '" + item.second + "' is not known.");
+        }
+        item.first->setBidiEdge(bidi);
+    }
+}
 
 void
 RONet::addNode(RONode* node) {

@@ -418,4 +418,44 @@ std::map<SVCPermissions, double> parseStopOffsets(const SUMOSAXAttributes& attrs
 }
 
 
+double
+getDefaultVehicleLength(const SUMOVehicleClass vc) {
+    switch (vc) {
+        case SVC_PEDESTRIAN:
+            return 0.215;
+        case SVC_BICYCLE:
+            return 1.6;
+        case SVC_MOPED:
+            return 2.1;
+        case SVC_MOTORCYCLE:
+            return 2.2;
+        case SVC_TRUCK:
+            return 7.1;
+        case SVC_TRAILER:
+            return 16.5;
+        case SVC_BUS:
+            return 12.;
+        case SVC_COACH:
+            return 14.;
+        case SVC_TRAM:
+            return 22.;
+        case SVC_RAIL_URBAN:
+            return 36.5 * 3;
+        case SVC_RAIL:
+            return 67.5 * 2;
+        case SVC_RAIL_ELECTRIC:
+        case SVC_RAIL_FAST:
+            return 25. * 8;
+        case SVC_DELIVERY:
+        case SVC_EMERGENCY:
+            return 6.5;
+        case SVC_SHIP:
+            return 17;
+        default:
+            return 5; /*4.3*/
+    }
+}
+
+
+
 /****************************************************************************/

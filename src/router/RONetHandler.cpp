@@ -207,6 +207,10 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     if (myNet.addEdge(myCurrentEdge)) {
         fromNode->addOutgoing(myCurrentEdge);
         toNode->addIncoming(myCurrentEdge);
+        const std::string bidi = attrs.getOpt<std::string>(SUMO_ATTR_BIDI, myCurrentName.c_str(), ok, "");
+        if (bidi != "") {
+            myBidiEdges[myCurrentEdge] = bidi;
+        }
     } else {
         myCurrentEdge = nullptr;
     }

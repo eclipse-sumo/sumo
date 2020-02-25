@@ -345,6 +345,13 @@ extern bool isSidewalk(SVCPermissions permissions);
  */
 extern bool noVehicles(SVCPermissions permissions);
 
+/** @brief Returns the default vehicle length
+ * This put into a function so it can be used by NBVehicle
+ * @param[in] vc the vehicle class
+ * @return the default length in m
+ */
+extern double getDefaultVehicleLength(const SUMOVehicleClass vc = SVC_IGNORING);
+
 // ---------------------------------------------------------------------------
 // default vehicle type parameter
 // ---------------------------------------------------------------------------

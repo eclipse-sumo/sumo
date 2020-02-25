@@ -174,6 +174,11 @@ public:
         return myLength / trip->getMaxSpeed();
     }
 
+    /// @brief only used by mono-modal routing
+    IntermodalEdge* getBidiEdge() const {
+        return nullptr;
+    }
+
 protected:
     /// @brief List of edges that may be approached from this edge
     std::vector<IntermodalEdge*> myFollowingEdges;

@@ -110,6 +110,18 @@ public:
         return getType()->speedFactor.getMax();
     }
 
+    /** @brief Returns the vehicle's type definition
+     * @return The vehicle's type definition
+     */
+    inline const SUMOVTypeParameter& getVehicleType() const  {
+        return *getType();
+    }
+
+    /// @brief Returns the vehicle's length
+    inline double getLength() const {
+        return getType()->length;
+    }
+
 
     /** @brief Saves the complete vehicle description.
      *

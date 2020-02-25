@@ -64,6 +64,7 @@ public:
     virtual const std::string& getID() const = 0;
     virtual double getSpeed() const = 0;
     virtual double getLength() const = 0;
+    virtual const NBRouterEdge* getBidiEdge() const = 0;
     virtual int getNumericalID() const = 0;
     virtual const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const = 0;
     virtual bool isInternal() const {
@@ -75,6 +76,7 @@ public:
     inline bool restricts(const NBVehicle* const /*veh*/) const {
         return false;
     }
+
 
     static inline double getTravelTimeStatic(const NBRouterEdge* const edge, const NBVehicle* const /*veh*/, double /*time*/) {
         return edge->getLength() / edge->getSpeed();
@@ -295,6 +297,9 @@ public:
         }
         int getNumericalID() const {
             throw ProcessError("NBEdge::Connection does not implement getNumericalID()");
+        }
+        const Connection* getBidiEdge() const {
+            return nullptr;
         }
         bool isInternal() const {
             return true;
@@ -1380,6 +1385,10 @@ public:
      */
     int getNumericalID() const {
         return myIndex;
+    }
+
+    const NBEdge* getBidiEdge() const {
+        return isBidiRail() ? myPossibleTurnDestination : nullptr;
     }
 
     /** @brief Returns the following edges for the given vClass

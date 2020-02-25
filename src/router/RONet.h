@@ -135,6 +135,9 @@ public:
     /// @brief add a taz for every junction unless a taz with the same id already exists
     void addJunctionTaz(ROAbstractEdgeBuilder& eb);
 
+    /// @brief add a taz for every junction unless a taz with the same id already exists
+    void setBidiEdges(const std::map<ROEdge*, std::string>& bidiMap);
+
     /** @brief Retrieves all TAZ (districts) from the network
      *
      * @return The map of all districts

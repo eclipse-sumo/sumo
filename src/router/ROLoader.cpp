@@ -157,6 +157,7 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
         // create a TAZ for every junction
         toFill.addJunctionTaz(eb);
     }
+    toFill.setBidiEdges(handler.getBidiMap());
 }
 
 

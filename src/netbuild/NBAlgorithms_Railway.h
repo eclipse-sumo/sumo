@@ -75,6 +75,9 @@ public:
         double getLength() const {
             return 0.;
         }
+        const Track* getBidiEdge() const {
+            return this;
+        }
         bool isInternal() const {
             return false;
         }

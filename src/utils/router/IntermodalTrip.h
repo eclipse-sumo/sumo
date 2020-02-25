@@ -62,6 +62,11 @@ public:
         return vehicle != 0 ? vehicle->getVClass() : SVC_PEDESTRIAN;
     }
 
+    inline double getLength() const {
+        // person length is arbitrary (only used in the context of rail-reversal validity
+        return vehicle != 0 ? vehicle->getVehicleType().getLength() : 1;
+    }
+
     // only used by AStar
     inline double getMaxSpeed() const {
         return vehicle != nullptr ? vehicle->getMaxSpeed() : speed;

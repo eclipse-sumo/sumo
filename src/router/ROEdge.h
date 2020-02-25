@@ -497,6 +497,16 @@ public:
         return myLanes;
     }
 
+    /// @brief return opposite superposable/congruent edge, if it exist and 0 else
+    inline const ROEdge* getBidiEdge() const {
+        return myBidiEdge;
+    }
+
+    /// @brief set opposite superposable/congruent edge
+    inline void setBidiEdge(const ROEdge* bidiEdge) {
+        myBidiEdge = bidiEdge;
+    }
+
     ReversedEdge<ROEdge, ROVehicle>* getReversedRoutingEdge() const {
         if (myReversedRoutingEdge == nullptr) {
             myReversedRoutingEdge = new ReversedEdge<ROEdge, ROVehicle>(this);
@@ -574,6 +584,9 @@ protected:
 
     /// @brief the other taz-connector if this edge isTazConnector, otherwise nullptr
     const ROEdge* myOtherTazConnector;
+
+    /// @brief the bidirectional rail edge or nullpr
+    const ROEdge* myBidiEdge;
 
     /// @brief The bounding rectangle of end nodes incoming or outgoing edges for taz connectors or of my own start and end node for normal edges
     Boundary myBoundary;

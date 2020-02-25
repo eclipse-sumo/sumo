@@ -328,6 +328,9 @@ public:
     //  (especially fast comparison in maps which need vehicles as keys)
     virtual NumericalID getNumericalID() const = 0;
 
+    /// @brief Returns the vehicles's length
+    virtual double getLength() const = 0;
+
     /// @name state io
     //@{
 
