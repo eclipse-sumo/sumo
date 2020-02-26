@@ -88,11 +88,14 @@ public:
         /// @brief radio button to select an existent dataSet
         FXRadioButton *myExistentDataSetRadioButton;
 
-        /// @brief data set label
-        FXLabel *myNetDataSetLabel;
+        /// @brief horizontal frame new id
+        FXHorizontalFrame *myHorizontalFrameNewID;
 
         /// @brief interval new id
         FXTextField *myNewDataSetIDTextField; 
+
+        /// @brief create dataSet button
+        FXButton* myCreateDataSetButton;
 
         /// @brief comboBox with intervals
         FXComboBox* myDataSetsComboBox;
@@ -121,8 +124,14 @@ public:
 
         /// @name FOX-callbacks
         /// @{
+        /// @brief Called when the user select an interval in the list
+        long onCmdSelectInterval(FXObject*, FXSelector, void*);
+
         /// @brief Called when the user changes begin or end
         long onCmdSetIntervalAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user select a radio button
+        long onCmdSelectRadioButton(FXObject* obj, FXSelector, void*);
 
         /// @}
 
@@ -130,14 +139,38 @@ public:
         FOX_CONSTRUCTOR(IntervalSelector)
 
     private:
+        /// @brief add item into list
+        FXTreeItem* addListItem(const GNEAttributeCarrier* AC, FXTreeItem* itemParent = nullptr);
+
         /// @brief pointer to edgeData frame Parent
         GNEEdgeDataFrame* myEdgeDataFrameParent;
 
-        /// @brief interval begin
+        /// @brief radio button to create a new interval
+        FXRadioButton *myNewIntervalRadioButton;
+
+        /// @brief radio button to create a new dataSet
+        FXRadioButton *mySelectIntervalRadioButton;
+
+        /// @brief interval begin horizontal frame
+        FXHorizontalFrame *myHorizontalFrameBegin; 
+
+        /// @brief interval begin text field
         FXTextField *myBeginTextField; 
+
+        /// @brief interval end horizontal frame
+        FXHorizontalFrame *myHorizontalFrameEnd; 
 
         /// @brief interval end
         FXTextField *myEndTextField; 
+        
+        /// @brief create interval button
+        FXButton* myCreateIntervalButton;
+
+        /// @brief tree list to show the interval list
+        FXTreeList* myIntervalsTreelist;
+
+        /// @brief map used to save the Tree items with their AC
+        std::map<FXTreeItem*, const GNEAttributeCarrier*> myTreeItemToACMap;
     };
 
     /**@brief Constructor

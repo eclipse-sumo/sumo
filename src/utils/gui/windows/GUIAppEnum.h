@@ -686,6 +686,8 @@ enum {
     MID_GNE_DATASET_NEW,
     /// @brief GNEDataInterval selected in comboBox of IntervalBar
     MID_GNE_DATASET_SELECTED,
+    /// @brief select option in data interval selector
+    MID_GNE_DATAINTERVAL_OPTION,
     /// @brief text attribute edited
     MID_GNE_SET_ATTRIBUTE_TEXT,
     /// @brief bool attribute edited
