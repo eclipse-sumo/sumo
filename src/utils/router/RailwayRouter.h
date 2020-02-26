@@ -68,7 +68,7 @@ public:
         int numericalID = railEdges1.back()->getNumericalID() + 1;
         std::vector<_RailEdge*> railEdges2 = railEdges1; // including additional edges for direction reversal
         for (_RailEdge* railEdge : railEdges1) {
-            railEdge->init(railEdges2, numericalID);
+            railEdge->init(railEdges2, numericalID, myMaxTrainLength);
         }
         myInternalRouter = new _InternalDijkstra(railEdges2, unbuildIsWarning, &getTravelTimeStatic, nullptr, silent, nullptr, havePermissions, haveRestrictions);
 
@@ -90,15 +90,18 @@ public:
         bool success = myInternalRouter->compute(from->getRailwayRoutingEdge(), to->getRailwayRoutingEdge(), vehicle, msTime, intoTmp, silent);
         if (success) {
             for (const _RailEdge* railEdge : intoTmp) {
-                railEdge->insertOriginalEdges(into);
+                railEdge->insertOriginalEdges(vehicle->getLength(), into);
             }
         }
         return success;
     }
 
     void prohibit(const std::vector<E*>& toProhibit) {
-        UNUSED_PARAMETER(toProhibit);
-        throw ProcessError("Railwayrouter::prohibit not yet implemented");
+        std::vector<_RailEdge*> railEdges; 
+        for (E* edge : toProhibit) {
+            railEdges.push_back(edge->getRailwayRoutingEdge());
+        }
+        myInternalRouter->prohibit(railEdges);
     }
 
 
@@ -109,16 +112,11 @@ private:
     {}
 
     static inline double getTravelTimeStatic(const RailEdge<E, V>* const edge, const V* const veh, double time) {
-        std::vector<const E*> tmp;
-        edge->insertOriginalEdges(tmp);
-        double result = 0;
-        for (const E* orig : tmp) {
-            result += (*myStaticOperation)(orig, veh, time + result);
+        if (edge->getOriginal() != nullptr) {
+            return  (*myStaticOperation)(edge->getOriginal(), veh, time);
+        } else {
+            return myReversalPenalty + veh->getLength() * myReversalPenaltyFactor;
         }
-        //if (tmp.size() > 1) {
-        //    result += myTrainReversalPenalty;
-        //}
-        return result;
     }
 
 
@@ -128,6 +126,10 @@ private:
     /// @brief The object's operation to perform. (hack)
     static typename SUMOAbstractRouter<E, V>::Operation myStaticOperation;
 
+    static double myReversalPenalty;
+    static double myReversalPenaltyFactor;
+    static double myMaxTrainLength;
+
 private:
     /// @brief Invalidated assignment operator
     RailwayRouter& operator=(const RailwayRouter& s);
@@ -136,4 +138,11 @@ private:
 
 template<class E, class V>
 typename SUMOAbstractRouter<E, V>::Operation RailwayRouter<E, V>::myStaticOperation(nullptr);
+template<class E, class V>
+double RailwayRouter<E, V>::myReversalPenalty(60);
+template<class E, class V>
+double RailwayRouter<E, V>::myReversalPenaltyFactor(0.2); // 1/v
+template<class E, class V>
+double RailwayRouter<E, V>::myMaxTrainLength(5000);
+
 

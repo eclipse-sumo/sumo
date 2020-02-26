@@ -1,4 +1,3 @@
-/****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
@@ -19,6 +18,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+#include <cassert>
 
 
 // ===========================================================================
@@ -33,39 +33,76 @@ public:
 
     RailEdge(const E* orig) : 
         myNumericalID(orig->getNumericalID()),
-        myOriginal(orig) { }
+        myOriginal(orig)
+    { }
 
-    RailEdge(const E* turnStart, const E* turnEnd, int numericalID) : 
+    RailEdge(const E* turnStart, const E* turnEnd, int numericalID, double maxTrainLength) : 
         myNumericalID(numericalID),
         myID("TrainReversal!" + turnStart->getID() + "->" + turnEnd->getID()),
         myOriginal(nullptr),
-        myMaxLength(0)
+        myMaxLength(0),
+        myStartLength(turnStart->getLength())
     { 
         myViaSuccessors.push_back(std::make_pair(turnEnd->getRailwayRoutingEdge(), nullptr));
-
+        // compute length and replacement edges
+        auto result = findReversal(maxTrainLength, turnStart, turnEnd);
+        myMaxLength = result.first + myStartLength;
+        myReplacementEdges = result.second;
+        //std::cout << getID() << " maxLength=" << myMaxLength << " replacement=" << toString(myReplacementEdges) << "\n";
     }
 
-    void init(std::vector<_RailEdge*>& railEdges, int& numericalID) {
-        // replace turnaround-via with an explicit RailEdge that checks length
-        if (!myOriginal->isInternal()) {
-            for (const auto& viaPair : myOriginal->getViaSuccessors()) {
-                if (viaPair.first == myOriginal->getBidiEdge()) {
-                    // direction reversal
-                    _RailEdge* turnEdge = new _RailEdge(myOriginal, viaPair.first, numericalID++);
-                    railEdges.push_back(turnEdge);
-                    myViaSuccessors.push_back(std::make_pair(turnEdge, nullptr));
-                } else {
-                    myViaSuccessors.push_back(std::make_pair(viaPair.first->getRailwayRoutingEdge(), 
-                                viaPair.second == nullptr ? nullptr : viaPair.second->getRailwayRoutingEdge()));
+    std::pair<double, std::vector<const E*> > findReversal(double dist, const E* forward, const E* backward) {
+        if (dist <= 0) {
+            return std::make_pair(0, std::vector<const E*>({}));
+        }
+        std::pair<double, std::vector<const E*> > best(0, {});
+        for (const auto& viaPair : forward->getViaSuccessors()) {
+            const E* next = viaPair.first;
+            if (next == backward) {
+                continue;
+            }
+            const E* bidi = next->getBidiEdge();
+            if (bidi != nullptr && bidi->isConnectedTo(*backward, SVC_IGNORING)) {
+                auto subResult = findReversal(dist - next->getLength(), next, bidi);
+                const double seen = next->getLength() + subResult.first;
+                if (seen > best.first) {
+                    best.first = seen;
+                    best.second.clear();
+                    best.second.push_back(next);
+                    best.second.insert(best.second.end(), subResult.second.begin(), subResult.second.end());
+                }
+                if (seen >= dist) {
+                    return best;
                 }
             }
         }
-        std::cout << "railEdges::init " << getID() << " myViaSuccessors=" << myViaSuccessors.size() << " origSuccessors=" << myOriginal->getViaSuccessors().size() << "\n";
+        return best;
+    }
+
+    void init(std::vector<_RailEdge*>& railEdges, int& numericalID, double maxTrainLength) {
+        // replace turnaround-via with an explicit RailEdge that checks length
+        for (const auto& viaPair : myOriginal->getViaSuccessors()) {
+            if (viaPair.first == myOriginal->getBidiEdge()) {
+                // direction reversal
+                _RailEdge* turnEdge = new _RailEdge(myOriginal, viaPair.first, numericalID++, maxTrainLength);
+                railEdges.push_back(turnEdge);
+                myViaSuccessors.push_back(std::make_pair(turnEdge, nullptr));
+            } else {
+                myViaSuccessors.push_back(std::make_pair(viaPair.first->getRailwayRoutingEdge(), 
+                            viaPair.second == nullptr ? nullptr : viaPair.second->getRailwayRoutingEdge()));
+            }
+        }
+        //std::cout << "railEdges::init " << getID() << " myViaSuccessors=" << myViaSuccessors.size() << " origSuccessors=" << myOriginal->getViaSuccessors().size() << "\n";
     }
 
     /// @brief Returns the index (numeric id) of the edge
     inline int getNumericalID() const {
         return myNumericalID;
+    }
+
+    /// @brief Returns the original edge
+    const E* getOriginal() const {
+        return myOriginal;
     }
 
     /** @brief Returns the id of the edge
@@ -75,11 +112,25 @@ public:
         return myOriginal != nullptr ? myOriginal->getID() : myID;
     }
 
-    void insertOriginalEdges(std::vector<const E*>& into) const {
-        if (myReplacementEdges.empty()) {
+    void insertOriginalEdges(double length, std::vector<const E*>& into) const {
+        if (myOriginal != nullptr) {
             into.push_back(myOriginal);
         } else {
-            into.insert(into.end(), myReplacementEdges.begin(), myReplacementEdges.end());
+            double seen = myStartLength;
+            int nPushed = 0;
+            for (const E* edge : myReplacementEdges) {
+                if (seen >= length) {
+                    break;
+                }
+                into.push_back(edge);
+                nPushed++;
+                seen += edge->getLength();
+                //std::cout << "insertOriginalEdges length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
+            }
+            const int last = (int)into.size() - 1;
+            for (int i = 0; i < nPushed; i++) {
+                into.push_back(into[last - i]->getBidiEdge());
+            }
         }
     }
 
@@ -122,7 +173,9 @@ public:
         ConstEdgePairVector& result = myClassesViaSuccessorMap[vClass];
         // this vClass is requested for the first time. rebuild all successors
         for (const auto& viaPair : myViaSuccessors) {
-            if (viaPair.first->myOriginal->isTazConnector() || myOriginal->isConnectedTo(*viaPair.first->myOriginal, vClass)) {
+            if (viaPair.first->myOriginal == nullptr 
+                    || viaPair.first->myOriginal->isTazConnector() 
+                    || myOriginal->isConnectedTo(*viaPair.first->myOriginal, vClass)) {
                 result.push_back(viaPair);
             }
         }
@@ -134,11 +187,13 @@ private:
     const std::string myID;
     const E* myOriginal;
 
-    /// @brief actual edges to return when passing this (turnaround) edge
-    std::vector<E*> myReplacementEdges;
+    /// @brief actual edges to return when passing this (turnaround) edge - only forward
+    std::vector<const E*> myReplacementEdges;
 
     /// @brief maximum train length for passing this (turnaround) edge
     double myMaxLength = std::numeric_limits<double>::max();
+    /// @brief length of the edge where this turn starts
+    double myStartLength = 0;
 
     /// @brief The successors available for a given vClass
     mutable std::map<SUMOVehicleClass, ConstEdgePairVector> myClassesViaSuccessorMap;
