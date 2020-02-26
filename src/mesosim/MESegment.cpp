@@ -31,6 +31,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSXMLRawOut.h>
+#include <microsim/output/MSDetectorFileOutput.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/devices/MSDevice.h>
 #include <utils/common/FileHelpers.h>
@@ -571,17 +572,18 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
 
 
 bool
-MESegment::vaporizeAnyCar(SUMOTime currentTime) {
-    MEVehicle* remove = nullptr;
-    for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
-        if (!k->empty()) {
-            // remove last in queue
-            remove = k->front();
-            if (k->size() == 1) {
-                MSGlobals::gMesoNet->removeLeaderCar(remove);
+MESegment::vaporizeAnyCar(SUMOTime currentTime, const MSDetectorFileOutput* filter) {
+    for (Queue& k : myCarQues) {
+        if (!k.empty()) {
+            for (MEVehicle* veh : k) {
+                if (filter->vehicleApplies(*veh)) {
+                    if (k.size() == 1) {
+                        MSGlobals::gMesoNet->removeLeaderCar(veh);
+                    }
+                    MSGlobals::gMesoNet->changeSegment(veh, currentTime, &myVaporizationTarget);
+                    return true;
+                }
             }
-            MSGlobals::gMesoNet->changeSegment(remove, currentTime, &myVaporizationTarget);
-            return true;
         }
     }
     return false;

@@ -31,6 +31,7 @@
 class MSEdge;
 class MSLink;
 class MSMoveReminder;
+class MSDetectorFileOutput;
 class MSVehicleControl;
 class MEVehicle;
 class OutputDevice;
@@ -254,7 +255,7 @@ public:
      * @param[in] currentTime the current time
      * @return Whether vaporization was successful
      * @note: cars removed via this method do NOT count as arrivals */
-    bool vaporizeAnyCar(SUMOTime currentTime);
+    bool vaporizeAnyCar(SUMOTime currentTime, const MSDetectorFileOutput* filter);
 
     /** @brief Returns the edge this segment belongs to
      * @return the edge this segment belongs to

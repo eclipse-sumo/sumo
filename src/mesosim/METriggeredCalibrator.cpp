@@ -135,7 +135,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
             WRITE_WARNING("Clearing jam at calibrator '" + getID() + "' at time " + time2string(currentTime));
         }
         // remove one vehicle currently on the segment
-        if (mySegment->vaporizeAnyCar(currentTime)) {
+        if (mySegment->vaporizeAnyCar(currentTime, this)) {
             myClearedInJam++;
         } else {
             if (!myHaveWarnedAboutClearingJam) {
@@ -222,9 +222,8 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
         //std::cout << " after:" << adaptedNum << "\n";
         // we only remove vehicles once we really have to
         while (totalWishedNum < adaptedNum) {
-            if (!mySegment->vaporizeAnyCar(currentTime)) {
+            if (!mySegment->vaporizeAnyCar(currentTime, this)) {
                 // @bug: short edges may be jumped in a single step, giving us no chance to remove a vehicle
-                // @bug2: vehicleApplies() must be considered (#3082)
                 break;
             }
             myRemoved++;
