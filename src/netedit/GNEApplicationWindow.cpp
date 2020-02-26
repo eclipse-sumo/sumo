@@ -3251,7 +3251,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
             std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".dat.xml");
             // check tat file is valid
             if (fileWithExtension != "") {
-                // change value of "route-files"
+                // change value of "data-files"
                 oc.resetWritable();
                 oc.set("data-files", fileWithExtension);
             } else {
@@ -3286,17 +3286,17 @@ long
 GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject*, FXSelector, void*) {
     // Open window to select additionasl file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the data element file", ".rou.xml",
+                    "Select name of the data element file", ".dat.xml",
                     GUIIconSubSys::getIcon(ICON_SUPERMODEDATA),
                     gCurrentFolder);
     // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".dat.xml");
     // check that file is correct
     if (fileWithExtension != "") {
         // reset writtable flag
         OptionsCont::getOptions().resetWritable();
-        // change value of "route-files"
-        OptionsCont::getOptions().set("route-files", fileWithExtension);
+        // change value of "data-files"
+        OptionsCont::getOptions().set("data-files", fileWithExtension);
         // change flag of menu command for save data elements
         myFileMenuCommands.saveDataElements->enable();
         // save data elements
