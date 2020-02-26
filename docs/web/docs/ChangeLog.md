@@ -11,6 +11,10 @@ permalink: /ChangeLog/
   - Fixed sublane model bug that was causing cyclical switching between keep-right and sublane-alignment choices. Issue #6084
   - Fixed sublane model bug that was causing invalid lane alignment in multimodal networks. Issue #6691
   - Fixed crash when depart-triggered vehicles were discarded. Issue #6690
+  - Fixed train reversal ahead of stop. Issue #6692
+  - Removed invalid warning for public transport users. Issue #6698
+- MESO
+  - Calibrator attribute `vTypes` is now working. Issue #6702
 - NETCONVERT
   - Fixed precision when filtering network with a given boundary. Issue #6206
 - SUMO-GUI
