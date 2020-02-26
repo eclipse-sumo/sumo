@@ -59,14 +59,8 @@ public:
         /// @brief refresh interval selector
         void refreshDataSetSelector();
 
-        /// @brief get new data set ID (or return empty string if isn't valid)
-        std::string getNewDataSetID() const;
-
         /// @brief get current select data set ID
-        GNEDataSet *getSelectedDataSet() const;
-
-        /// @brief check if we're creating a new data set
-        bool createNewDataSet() const;
+        GNEDataSet *getDataSet() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -104,13 +98,48 @@ public:
         FXComboBox* myDataSetsComboBox;
     };
 
-    /*
-    /// @brief interval begin
-    FXTextField *myBeginTextField; 
+    // ===========================================================================
+    // class IntervalSelector
+    // ===========================================================================
 
-    /// @brief interval end
-    FXTextField *myEndTextField; 
-    */
+    class IntervalSelector : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEEdgeDataFrame::IntervalSelector)
+
+    public:
+        /// @brief constructor
+        IntervalSelector(GNEEdgeDataFrame* edgeDataFrameParent);
+
+        /// @brief destructor
+        ~IntervalSelector();
+
+        /// @brief refresh interval selector
+        void refreshIntervalSelector();
+
+        /// @brief get current select data set ID
+        GNEDataInterval *getDataInterval() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user changes begin or end
+        long onCmdSetIntervalAttribute(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        FOX_CONSTRUCTOR(IntervalSelector)
+
+    private:
+        /// @brief pointer to edgeData frame Parent
+        GNEEdgeDataFrame* myEdgeDataFrameParent;
+
+        /// @brief interval begin
+        FXTextField *myBeginTextField; 
+
+        /// @brief interval end
+        FXTextField *myEndTextField; 
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -130,8 +159,11 @@ public:
     bool addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
 protected:
-    /// @brief DataSetSelector modul
+    /// @brief dataSet selector modul
     DataSetSelector *myDataSetSelector;
+
+    /// @brief interval selector modul
+    IntervalSelector *myIntervalSelector;
 
     /// @brief parameters editor
     GNEFrameAttributesModuls::ParametersEditor *myParametersEditor;
