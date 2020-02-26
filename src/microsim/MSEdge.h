@@ -37,6 +37,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/geom/Boundary.h>
 #include <utils/router/ReversedEdge.h>
+#include <utils/router/RailEdge.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/vehicle/SUMOTrafficObject.h>
 #include "MSNet.h"
@@ -783,6 +784,13 @@ public:
         return myReversedRoutingEdge;
     }
 
+    RailEdge<MSEdge, SUMOVehicle>* getRailwayRoutingEdge() const {
+        if (myRailwayRoutingEdge == nullptr) {
+            myRailwayRoutingEdge = new RailEdge<MSEdge, SUMOVehicle>(this);
+        }
+        return myRailwayRoutingEdge;
+    }
+
 protected:
     /** @class by_id_sorter
      * @brief Sorts edges by their ids
@@ -961,6 +969,7 @@ private:
 
     /// @brief a reversed version for backward routing
     mutable ReversedEdge<MSEdge, SUMOVehicle>* myReversedRoutingEdge = nullptr;
+    mutable RailEdge<MSEdge, SUMOVehicle>* myRailwayRoutingEdge = nullptr;
 
     /// @brief Invalidated copy constructor.
     MSEdge(const MSEdge&);

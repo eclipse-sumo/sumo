@@ -60,18 +60,20 @@ RONet::getInstance(void) {
 }
 
 
-RONet::RONet()
-    : myVehicleTypes(), myDefaultVTypeMayBeDeleted(true),
-      myDefaultPedTypeMayBeDeleted(true), myDefaultBikeTypeMayBeDeleted(true),
-      myHaveActiveFlows(true),
-      myRoutesOutput(nullptr), myRouteAlternativesOutput(nullptr), myTypesOutput(nullptr),
-      myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
-      myHavePermissions(false),
-      myNumInternalEdges(0),
-      myErrorHandler(OptionsCont::getOptions().exists("ignore-errors")
-                     && OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
-      myKeepVTypeDist(OptionsCont::getOptions().exists("keep-vtype-distributions")
-                      && OptionsCont::getOptions().getBool("keep-vtype-distributions")) {
+RONet::RONet() : 
+    myVehicleTypes(), myDefaultVTypeMayBeDeleted(true),
+    myDefaultPedTypeMayBeDeleted(true), myDefaultBikeTypeMayBeDeleted(true),
+    myHaveActiveFlows(true),
+    myRoutesOutput(nullptr), myRouteAlternativesOutput(nullptr), myTypesOutput(nullptr),
+    myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
+    myHavePermissions(false),
+    myNumInternalEdges(0),
+    myErrorHandler(OptionsCont::getOptions().exists("ignore-errors")
+            && OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+    myKeepVTypeDist(OptionsCont::getOptions().exists("keep-vtype-distributions")
+            && OptionsCont::getOptions().getBool("keep-vtype-distributions")),
+    myHasBidiEdges(false)
+{
     if (myInstance != nullptr) {
         throw ProcessError("A network was already constructed.");
     }
@@ -237,6 +239,7 @@ RONet::setBidiEdges(const std::map<ROEdge*, std::string>& bidiMap) {
             WRITE_ERROR("The bidi edge '" + item.second + "' is not known.");
         }
         item.first->setBidiEdge(bidi);
+        myHasBidiEdges = true;
     }
 }
 

@@ -514,6 +514,13 @@ public:
         return myReversedRoutingEdge;
     }
 
+    RailEdge<ROEdge, ROVehicle>* getRailwayRoutingEdge() const {
+        if (myRailwayRoutingEdge == nullptr) {
+            myRailwayRoutingEdge = new RailEdge<ROEdge, ROVehicle>(this);
+        }
+        return myRailwayRoutingEdge;
+    }
+
 protected:
     /** @brief Retrieves the stored effort
      *
@@ -608,6 +615,7 @@ protected:
 
     /// @brief a reversed version for backward routing
     mutable ReversedEdge<ROEdge, ROVehicle>* myReversedRoutingEdge = nullptr;
+    mutable RailEdge<ROEdge, ROVehicle>* myRailwayRoutingEdge = nullptr;
 
 #ifdef HAVE_FOX
     /// The mutex used to avoid concurrent updates of myClassesSuccessorMap

@@ -36,8 +36,8 @@
 #include "EffortCalculator.h"
 #include "SUMOAbstractRouter.h"
 
-//#define DijkstraRouter_DEBUG_QUERY
-//#define DijkstraRouter_DEBUG_QUERY_PERF
+#define DijkstraRouter_DEBUG_QUERY
+#define DijkstraRouter_DEBUG_QUERY_PERF
 
 // ===========================================================================
 // class definitions

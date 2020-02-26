@@ -254,7 +254,11 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
         throw ProcessError("Unknown routing algorithm '" + routingAlgorithm + "'!");
     }
 
-    myRouterProvider = new MSRouterProvider(router, nullptr, nullptr);
+    RailwayRouter<MSEdge, SUMOVehicle>* railRouter = nullptr;
+    if (MSNet::getInstance()->hasBidiEdges()) {
+        railRouter = new RailwayRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, myEffortFunc, nullptr, false, true);
+    }
+    myRouterProvider = new MSRouterProvider(router, nullptr, nullptr, railRouter);
 #ifdef HAVE_FOX
     FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
     if (threadPool.size() > 0) {
@@ -275,6 +279,7 @@ MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const
     if (myRouterProvider == nullptr) {
         initRouter(&vehicle);
     }
+    auto& router = myRouterProvider->getVehicleRouter(vehicle.getVClass());
 #ifdef HAVE_FOX
     FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
     if (threadPool.size() > 0) {
@@ -283,20 +288,20 @@ MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const
     }
 #endif
     if (!prohibited.empty()) {
-        myRouterProvider->getVehicleRouter().prohibit(prohibited);
+        router.prohibit(prohibited);
     }
     try {
-        vehicle.reroute(currentTime, info, myRouterProvider->getVehicleRouter(), onInit, myWithTaz, silent);
+        vehicle.reroute(currentTime, info, router, onInit, myWithTaz, silent);
     } catch (ProcessError&) {
         if (!silent) {
             if (!prohibited.empty()) {
-                myRouterProvider->getVehicleRouter().prohibit(MSEdgeVector());
+                router.prohibit(MSEdgeVector());
             }
             throw;
         }
     }
     if (!prohibited.empty()) {
-        myRouterProvider->getVehicleRouter().prohibit(MSEdgeVector());
+        router.prohibit(MSEdgeVector());
     }
 }
 

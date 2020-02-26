@@ -109,6 +109,22 @@ public:
         myQueryTimeSum(0) {
     }
 
+    /// Copy Constructor
+    SUMOAbstractRouter(SUMOAbstractRouter* other) :
+        myErrorMsgHandler(other->myErrorMsgHandler),
+        myOperation(other->myOperation), myTTOperation(other->myTTOperation),
+        myBulkMode(false),
+        myAutoBulkMode(false),
+        myHavePermissions(other->myHavePermissions),
+        myHaveRestrictions(other->myHaveRestrictions),
+        myType(other->myType),
+        myQueryVisits(0),
+        myNumQueries(0),
+        myQueryStartTime(0),
+        myQueryTimeSum(0) { }
+
+
+
     /// Destructor
     virtual ~SUMOAbstractRouter() {
         if (myNumQueries > 0) {

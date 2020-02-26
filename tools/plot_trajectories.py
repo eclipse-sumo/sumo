@@ -84,7 +84,7 @@ def write_csv(data, fname):
 
 def short_names(filenames):
     if len(filenames) == 1:
-        return filenames[0]
+        return filenames
     reversedNames = [''.join(reversed(f)) for f in filenames]
     prefixLen = len(os.path.commonprefix(filenames))
     suffixLen = len(os.path.commonprefix(reversedNames))

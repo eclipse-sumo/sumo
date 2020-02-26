@@ -406,6 +406,11 @@ public:
 
     void setPermissionsFound();
 
+    /// @brief return whether the network contains bidirectional rail edges
+    bool hasBidiEdges() const {
+        return myHasBidiEdges;
+    }
+
     OutputDevice* getRouteOutput(const bool alternative = false) {
         if (alternative) {
             return myRouteAlternativesOutput;
@@ -541,6 +546,9 @@ private:
 
     /// @brief whether to keep the the vtype distribution in output
     const bool myKeepVTypeDist;
+
+    /// @brief whether the network contains bidirectional railway edges
+    bool myHasBidiEdges;
 
 #ifdef HAVE_FOX
 private:

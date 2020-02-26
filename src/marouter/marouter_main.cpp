@@ -230,7 +230,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, ttOp, false, nullptr, net.hasPermissions());
     }
     try {
-        const RORouterProvider provider(router, nullptr, nullptr);
+        const RORouterProvider provider(router, nullptr, nullptr, nullptr);
         // prepare the output
         net.openOutput(oc);
         // process route definitions

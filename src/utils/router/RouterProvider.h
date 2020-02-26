@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include "IntermodalRouter.h"
+#include "RailwayRouter.h"
 
 
 // ===========================================================================
@@ -36,20 +37,31 @@ class RouterProvider {
 public:
     RouterProvider(SUMOAbstractRouter<E, V>* vehRouter,
                    PedestrianRouter<E, L, N, V>* pedRouter,
-                   IntermodalRouter<E, L, N, V>* interRouter)
-        : myVehRouter(vehRouter), myPedRouter(pedRouter), myInterRouter(interRouter) {}
+                   IntermodalRouter<E, L, N, V>* interRouter,
+                   RailwayRouter<E, V>* railRouter) : 
+        myVehRouter(vehRouter), 
+        myPedRouter(pedRouter), 
+        myInterRouter(interRouter),
+        myRailRouter(railRouter)
+    {}
 
     RouterProvider(const RouterProvider& original) : 
-        myVehRouter(original.getVehicleRouter().clone()),
-        myPedRouter(static_cast<PedestrianRouter<E, L, N, V>*>(original.myPedRouter == 0 ? 0 : original.getPedestrianRouter().clone())),
-        myInterRouter(static_cast<IntermodalRouter<E, L, N, V>*>(original.myInterRouter == 0 ? 0 : original.getIntermodalRouter().clone())) {}
+        myVehRouter(original.myVehRouter->clone()),
+        myPedRouter(static_cast<PedestrianRouter<E, L, N, V>*>(original.myPedRouter == 0 ? 0 : original.myPedRouter->clone())),
+        myInterRouter(static_cast<IntermodalRouter<E, L, N, V>*>(original.myInterRouter == 0 ? 0 : original.myInterRouter->clone())),
+        myRailRouter(static_cast<RailwayRouter<E, V>*>(original.myRailRouter == 0 ? 0 : original.myRailRouter->clone()))
+        {}
 
     RouterProvider* clone() {
         return new RouterProvider(*this);
     }
 
-    SUMOAbstractRouter<E, V>& getVehicleRouter() const {
-        return *myVehRouter;
+    SUMOAbstractRouter<E, V>& getVehicleRouter(SUMOVehicleClass svc = SVC_IGNORING) const {
+        if (myRailRouter == nullptr || !isRailway(svc)) {
+            return *myVehRouter;
+        } else {
+            return *myRailRouter;
+        }
     }
 
     PedestrianRouter<E, L, N, V>& getPedestrianRouter() const {
@@ -60,10 +72,15 @@ public:
         return *myInterRouter;
     }
 
+    RailwayRouter<E, V>& getRailwayRouter() const {
+        return *myRailRouter;
+    }
+
     virtual ~RouterProvider() {
         delete myVehRouter;
         delete myPedRouter;
         delete myInterRouter;
+        delete myRailRouter;
     }
 
 
@@ -71,6 +88,7 @@ private:
     SUMOAbstractRouter<E, V>* const myVehRouter;
     PedestrianRouter<E, L, N, V>* const myPedRouter;
     IntermodalRouter<E, L, N, V>* const myInterRouter;
+    RailwayRouter<E, V>* const myRailRouter;
 
 
 private:
