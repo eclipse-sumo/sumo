@@ -33,37 +33,46 @@
 
 #include "GNEEdgeDataFrame.h"
 
-#define NEWINTERVAL "<new ID interval>"
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEEdgeDataFrame::IntervalSelector) IntervalSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVAL_SELECTED,   GNEEdgeDataFrame::IntervalSelector::onCmdSelectInterval),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,       GNEEdgeDataFrame::IntervalSelector::onCmdSetAttribute)
+FXDEFMAP(GNEEdgeDataFrame::DataSetSelector) DataSetSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATASET_NEW,         GNEEdgeDataFrame::DataSetSelector::onCmdSetNewDataSetID),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATASET_SELECTED,    GNEEdgeDataFrame::DataSetSelector::onCmdSelectDataSet),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATASET_OPTION,      GNEEdgeDataFrame::DataSetSelector::onCmdSelectRadioButton)
 };
 
 // Object implementation
-FXIMPLEMENT(GNEEdgeDataFrame::IntervalSelector, FXGroupBox, IntervalSelectorMap, ARRAYNUMBER(IntervalSelectorMap))
+FXIMPLEMENT(GNEEdgeDataFrame::DataSetSelector, FXGroupBox, DataSetSelectorMap, ARRAYNUMBER(DataSetSelectorMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEEdgeDataFrame::IntervalSelector - methods
+// GNEEdgeDataFrame::DataSetSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEEdgeDataFrame::IntervalSelector::IntervalSelector(GNEEdgeDataFrame* edgeDataFrameParent) :
-    FXGroupBox(edgeDataFrameParent->myContentFrame, "Interval", GUIDesignGroupBoxFrame),
+GNEEdgeDataFrame::DataSetSelector::DataSetSelector(GNEEdgeDataFrame* edgeDataFrameParent) :
+    FXGroupBox(edgeDataFrameParent->myContentFrame, "DataSet", GUIDesignGroupBoxFrame),
     myEdgeDataFrameParent(edgeDataFrameParent) {
-    // Create FXComboBox
-    myIntervalsComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_INTERVAL_SELECTED, GUIDesignComboBox);
+    // create radio buttons
+    myNewDataSetRadioButton = new FXRadioButton(this, "create new dataSet",
+        this, MID_GNE_DATASET_OPTION, GUIDesignRadioButton);
+    myExistentDataSetRadioButton = new FXRadioButton(this, "Use existent dataSet",
+        this, MID_GNE_DATASET_OPTION, GUIDesignRadioButton);
+    myExistentDataSetRadioButton->setCheck(TRUE);
     // create new id elements
-    myHorizontalFrameNewID = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myHorizontalFrameNewID, toString(SUMO_ATTR_ID).c_str(), nullptr, GUIDesignLabelAttribute);
-    myNewIDTextField = new FXTextField(myHorizontalFrameNewID, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    FXHorizontalFrame *horizontalFrameNewID = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myNetDataSetLabel = new FXLabel(horizontalFrameNewID, "new dataSet ID", nullptr, GUIDesignLabelAttribute);
+    myNetDataSetLabel->disable();
+    myNewDataSetIDTextField = new FXTextField(horizontalFrameNewID, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myNewDataSetIDTextField->disable();
+    // Create FXComboBox
+    myDataSetsComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_DATASET_SELECTED, GUIDesignComboBox);
+    /*
     // create begin elements
     FXHorizontalFrame *horizontalFrameBegin = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(horizontalFrameBegin, toString(SUMO_ATTR_BEGIN).c_str(), nullptr, GUIDesignLabelAttribute);
@@ -74,110 +83,97 @@ GNEEdgeDataFrame::IntervalSelector::IntervalSelector(GNEEdgeDataFrame* edgeDataF
     new FXLabel(horizontalFrameEnd, toString(SUMO_ATTR_END).c_str(), nullptr, GUIDesignLabelAttribute);
     myEndTextField = new FXTextField(horizontalFrameEnd, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myEndTextField->setText("3600");
+    */
     // refresh interval selector
-    refreshIntervalSelector();
-    // IntervalSelector is always shown
+    refreshDataSetSelector();
+    // DataSetSelector is always shown
     show();
 }
 
 
-GNEEdgeDataFrame::IntervalSelector::~IntervalSelector() {}
+GNEEdgeDataFrame::DataSetSelector::~DataSetSelector() {}
 
 
 void
-GNEEdgeDataFrame::IntervalSelector::refreshIntervalSelector() {
+GNEEdgeDataFrame::DataSetSelector::refreshDataSetSelector() {
     // clear items
-    myIntervalsComboBox->clearItems();
-    // fill myIntervalsComboBox with all DataSets
+    myDataSetsComboBox->clearItems();
+    // fill myDataSetsComboBox with all DataSets
     auto dataSetCopy = myEdgeDataFrameParent->getViewNet()->getNet()->retrieveDataSets();
     for (const auto& dataSet : dataSetCopy) {
-        myIntervalsComboBox->appendItem(dataSet->getID().c_str());
+        myDataSetsComboBox->appendItem(dataSet->getID().c_str());
     }
-    // add "<new interval>" option
-    myIntervalsComboBox->appendItem(NEWINTERVAL);
     // Set visible items
-    myIntervalsComboBox->setNumVisible((int)myIntervalsComboBox->getNumItems());
-    // show or hidde horizontal frame new id
-    if (myIntervalsComboBox->getItem(0) == NEWINTERVAL) {
-        myHorizontalFrameNewID->show();
-        // clear text
-        myNewIDTextField->setText("", FALSE);
-    } else {
-        myHorizontalFrameNewID->hide();
-    }
+    myDataSetsComboBox->setNumVisible((int)myDataSetsComboBox->getNumItems());
     // recalc frame
     recalc();
 }
 
 
 std::string 
-GNEEdgeDataFrame::IntervalSelector::getDataSetID() const {
-    if (myNewIDTextField->shown()) {
-        if (myNewIDTextField->getTextColor() == FXRGB(0, 0, 0)) {
-            return myNewIDTextField->getText().text();
-        } else {
-            return "";
-        }
+GNEEdgeDataFrame::DataSetSelector::getNewDataSetID() const {
+    if (createNewDataSet() && (myNewDataSetIDTextField->getTextColor() == FXRGB(0, 0, 0))) {
+        return myNewDataSetIDTextField->getText().text();
     } else {
-        return myIntervalsComboBox->getItem(myIntervalsComboBox->getCurrentItem()).text();
+        return "";
     }
 }
 
 
-bool
-GNEEdgeDataFrame::IntervalSelector::createNewDataSet() const {
-    return myHorizontalFrameNewID->shown();
-}
-
-
-double
-GNEEdgeDataFrame::IntervalSelector::getBegin() const {
-    if (myBeginTextField->getTextColor() == FXRGB(255, 0, 0)) {
-        return 0;
-    } else {
-        return GNEAttributeCarrier::parse<double>(myBeginTextField->getText().text());
-    }
-}
-
-
-double
-GNEEdgeDataFrame::IntervalSelector::getEnd() const {
-    if (myEndTextField->getTextColor() == FXRGB(255, 0, 0)) {
-        return 0;
-    } else {
-        return GNEAttributeCarrier::parse<double>(myEndTextField->getText().text());
-    }
+GNEDataSet*
+GNEEdgeDataFrame::DataSetSelector::getSelectedDataSet() const {
+    return nullptr;
 }
 
 
 bool 
-GNEEdgeDataFrame::IntervalSelector::isIntervalValid() const {
-    return (myBeginTextField->getTextColor() == FXRGB(0, 0, 0)) && (myEndTextField->getTextColor() == FXRGB(0, 0, 0));
-}
-
-
-long 
-GNEEdgeDataFrame::IntervalSelector::onCmdSelectInterval(FXObject*, FXSelector, void*) {
-    // get interval ID
-    const std::string intervalID = myIntervalsComboBox->getItem(myIntervalsComboBox->getCurrentItem()).text();
-    if (intervalID == NEWINTERVAL) {
-        // show newID text field
-        myHorizontalFrameNewID->show();
-        // clear text
-        myNewIDTextField->setText("", FALSE);
-    } else {
-        // hide newID text field
-        myHorizontalFrameNewID->hide();
-        // check if given interval exist
-    }
-    // recalc frame
-    recalc();
+GNEEdgeDataFrame::DataSetSelector::createNewDataSet() const {
+    //
     return 1;
 }
 
 
 long 
-GNEEdgeDataFrame::IntervalSelector::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+GNEEdgeDataFrame::DataSetSelector::onCmdSetNewDataSetID(FXObject*, FXSelector, void*) {
+    //
+    return 1;
+}
+
+
+long 
+GNEEdgeDataFrame::DataSetSelector::onCmdSelectDataSet(FXObject* obj, FXSelector, void*) {
+    //
+    return 1;
+}
+
+
+long 
+GNEEdgeDataFrame::DataSetSelector::onCmdSelectRadioButton(FXObject* obj, FXSelector, void*) {
+    if (obj == myNewDataSetRadioButton) {
+        // set radio buttons
+        myNewDataSetRadioButton->setCheck(TRUE, FALSE);
+        myExistentDataSetRadioButton->setCheck(FALSE, FALSE);
+        // enable textfield and label
+        myNewDataSetIDTextField->enable();
+        myNetDataSetLabel->enable();
+        // disable comboBox
+        myDataSetsComboBox->disable();
+    } else if (obj == myExistentDataSetRadioButton) {
+        // set radio buttons
+        myNewDataSetRadioButton->setCheck(FALSE, FALSE);
+        myExistentDataSetRadioButton->setCheck(TRUE, FALSE);
+        // disable textfield and label
+        myNewDataSetIDTextField->disable();
+        myNetDataSetLabel->disable();
+        // enable comboBox
+        myDataSetsComboBox->enable();
+    }
+    return 1;
+}
+
+/*
+long 
+GNEEdgeDataFrame::DataSetSelector::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     if (obj == myNewIDTextField) {
         // check new ID
         if (myNewIDTextField->getText().empty() || 
@@ -207,15 +203,15 @@ GNEEdgeDataFrame::IntervalSelector::onCmdSetAttribute(FXObject* obj, FXSelector,
     }
     return 1;
 }
-
+*/
 // ---------------------------------------------------------------------------
 // GNEEdgeDataFrame - methods
 // ---------------------------------------------------------------------------
 
 GNEEdgeDataFrame::GNEEdgeDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "EdgeData") {
-    // create IntervalSelector
-    myIntervalSelector = new IntervalSelector(this);
+    // create DataSetSelector
+    myDataSetSelector = new DataSetSelector(this);
     // create parameter editor
     myParametersEditor = new GNEFrameAttributesModuls::ParametersEditor(this);
 }
@@ -226,7 +222,8 @@ GNEEdgeDataFrame::~GNEEdgeDataFrame() {}
 
 void
 GNEEdgeDataFrame::show() {
-
+    // first refresh data set selector
+    myDataSetSelector->refreshDataSetSelector();
     // show frame
     GNEFrame::show();
 }
@@ -234,31 +231,33 @@ GNEEdgeDataFrame::show() {
 
 bool
 GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+/*
     // first check if we clicked over an edge
-    if (objectsUnderCursor.getEdgeFront() && myIntervalSelector->isIntervalValid()) {
+    if (objectsUnderCursor.getEdgeFront() && myDataSetSelector->isIntervalValid()) {
+
         GNEDataInterval *dataInterval = nullptr;
         GNEDataSet *dataSet = nullptr;
         // check if we have to create a new dataSet
-        if (myIntervalSelector->createNewDataSet()) {
+        if (myDataSetSelector->createNewDataSet()) {
             // check if we can create the new dataSet
-            if (myIntervalSelector->getDataSetID().empty()) {
+            if (myDataSetSelector->getDataSetID().empty()) {
                 // if obtained dataSet ID is empty, then given ID isn't valid (duplicated/invalid characters, etc.)
                 return false;
             } else {
-                dataSet = GNEDataHandler::buildDataSet(myViewNet, true, myIntervalSelector->getDataSetID());
+                dataSet = GNEDataHandler::buildDataSet(myViewNet, true, myDataSetSelector->getDataSetID());
                 // refresh interval selector
-                myIntervalSelector->refreshIntervalSelector();
+                myDataSetSelector->refreshDataSetSelector();
             }
         } else {
-            dataSet = myViewNet->getNet()->retrieveDataSet(myIntervalSelector->getDataSetID());
+            dataSet = myViewNet->getNet()->retrieveDataSet(myDataSetSelector->getDataSetID());
         }
         // now check if there is another interval with the given begin/end
-        dataInterval = dataSet->retrieveInterval(myIntervalSelector->getBegin(), myIntervalSelector->getEnd());
+        dataInterval = dataSet->retrieveInterval(myDataSetSelector->getBegin(), myDataSetSelector->getEnd());
         // if not, create it
         if (dataInterval == nullptr) {
             // check if given interval is valid
-            if (dataSet->checkNewInterval(myIntervalSelector->getBegin(), myIntervalSelector->getEnd())) {
-                dataInterval = GNEDataHandler::buildDataInterval(myViewNet, true, dataSet, myIntervalSelector->getBegin(), myIntervalSelector->getEnd());
+            if (dataSet->checkNewInterval(myDataSetSelector->getBegin(), myDataSetSelector->getEnd())) {
+                dataInterval = GNEDataHandler::buildDataInterval(myViewNet, true, dataSet, myDataSetSelector->getBegin(), myDataSetSelector->getEnd());
             } else {
                 return false;
             }
@@ -266,11 +265,14 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& object
         // finally create edgeData
         GNEDataHandler::buildEdgeData(myViewNet, true, dataInterval, objectsUnderCursor.getEdgeFront(), myParametersEditor->getParametersMap());
         // edgeData created, then return true
+
         return true;
     } else {
         // invalid parameters
         return false;
     }
+*/
+    return false ;
 }
 
 

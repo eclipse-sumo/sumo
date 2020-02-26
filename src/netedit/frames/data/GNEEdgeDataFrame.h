@@ -29,6 +29,7 @@
 // ===========================================================================
 
 class GNEDataInterval;
+class GNEDataSet;
 
 // ===========================================================================
 // class definitions
@@ -41,71 +42,75 @@ class GNEEdgeDataFrame : public GNEFrame {
 
 public:
     // ===========================================================================
-    // class IntervalSelector
+    // class DataSetSelector
     // ===========================================================================
 
-    class IntervalSelector : protected FXGroupBox {
+    class DataSetSelector : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEEdgeDataFrame::IntervalSelector)
+        FXDECLARE(GNEEdgeDataFrame::DataSetSelector)
 
     public:
         /// @brief constructor
-        IntervalSelector(GNEEdgeDataFrame* edgeDataFrameParent);
+        DataSetSelector(GNEEdgeDataFrame* edgeDataFrameParent);
 
         /// @brief destructor
-        ~IntervalSelector();
+        ~DataSetSelector();
 
         /// @brief refresh interval selector
-        void refreshIntervalSelector();
+        void refreshDataSetSelector();
 
         /// @brief get new data set ID (or return empty string if isn't valid)
-        std::string getDataSetID() const;
+        std::string getNewDataSetID() const;
 
-        /// @brief check if create data set
+        /// @brief get current select data set ID
+        GNEDataSet *getSelectedDataSet() const;
+
+        /// @brief check if we're creating a new data set
         bool createNewDataSet() const;
-
-        /// @brief get begin
-        double getBegin() const;
-
-        /// @brief get end
-        double getEnd() const;
-
-        /// @brief check if given interval is valid
-        bool isIntervalValid() const;
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user select a interval in ComboBox
-        long onCmdSelectInterval(FXObject*, FXSelector, void*);
+        /// @brief Called when the user set a new data set ID
+        long onCmdSetNewDataSetID(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user edit an attribute
-        long onCmdSetAttribute(FXObject* obj, FXSelector, void*);
+        /// @brief Called when the user select an existent data set
+        long onCmdSelectDataSet(FXObject* obj, FXSelector, void*);
+
+        /// @brief Called when the user select a radio button
+        long onCmdSelectRadioButton(FXObject* obj, FXSelector, void*);
 
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(IntervalSelector)
+        FOX_CONSTRUCTOR(DataSetSelector)
 
     private:
         /// @brief pointer to edgeData frame Parent
         GNEEdgeDataFrame* myEdgeDataFrameParent;
 
-        /// @brief comboBox with intervals
-        FXComboBox* myIntervalsComboBox;
+        /// @brief radio button to create a new dataSet
+        FXRadioButton *myNewDataSetRadioButton;
 
-        /// @brief horizontal frame for new ID
-        FXHorizontalFrame *myHorizontalFrameNewID;
+        /// @brief radio button to select an existent dataSet
+        FXRadioButton *myExistentDataSetRadioButton;
+
+        /// @brief data set label
+        FXLabel *myNetDataSetLabel;
 
         /// @brief interval new id
-        FXTextField *myNewIDTextField; 
+        FXTextField *myNewDataSetIDTextField; 
 
-        /// @brief interval begin
-        FXTextField *myBeginTextField; 
-
-        /// @brief interval end
-        FXTextField *myEndTextField; 
+        /// @brief comboBox with intervals
+        FXComboBox* myDataSetsComboBox;
     };
 
+    /*
+    /// @brief interval begin
+    FXTextField *myBeginTextField; 
+
+    /// @brief interval end
+    FXTextField *myEndTextField; 
+    */
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -125,8 +130,8 @@ public:
     bool addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
 protected:
-    /// @brief IntervalSelector modul
-    IntervalSelector *myIntervalSelector;
+    /// @brief DataSetSelector modul
+    DataSetSelector *myDataSetSelector;
 
     /// @brief parameters editor
     GNEFrameAttributesModuls::ParametersEditor *myParametersEditor;

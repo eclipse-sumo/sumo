@@ -680,8 +680,12 @@ enum {
     MID_GNE_TAGTYPE_SELECTED,
     /// @brief tag selected in ComboBox
     MID_GNE_TAG_SELECTED,
-    /// @brief interval selected in ComboBox
-    MID_GNE_INTERVAL_SELECTED,
+    /// @brief select option in data set selector
+    MID_GNE_DATASET_OPTION,
+    /// @brief create new data set
+    MID_GNE_DATASET_NEW,
+    /// @brief GNEDataInterval selected in comboBox of IntervalBar
+    MID_GNE_DATASET_SELECTED,
     /// @brief text attribute edited
     MID_GNE_SET_ATTRIBUTE_TEXT,
     /// @brief bool attribute edited
@@ -718,8 +722,6 @@ enum {
     MID_GNE_OVERLAPPED_ITEMSELECTED,
     /// @brief enable/disable show data elements by interval
     MID_GNE_DATAINTERVAL_LIMITED,
-    /// @brief GNEDataInterval selected in comboBox of IntervalBar
-    MID_GNE_DATASET_SELECTED,
     /// @brief begin changed in InterbalBar
     MID_GNE_DATAINTERVAL_SETBEGIN,
     /// @brief end changed in InterbalBar
