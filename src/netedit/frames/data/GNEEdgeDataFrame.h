@@ -57,13 +57,16 @@ public:
         ~DataSetSelector();
 
         /// @brief refresh interval selector
-        void refreshDataSetSelector();
+        void refreshDataSetSelector(const GNEDataSet *currentDataSet);
 
         /// @brief get current select data set ID
         GNEDataSet *getDataSet() const;
 
         /// @name FOX-callbacks
         /// @{
+        /// @brief called when user press button "create dataSet"
+        long onCmdCreateDataSet(FXObject*, FXSelector, void*);
+
         /// @brief Called when the user set a new data set ID
         long onCmdSetNewDataSetID(FXObject*, FXSelector, void*);
 
@@ -124,6 +127,9 @@ public:
 
         /// @name FOX-callbacks
         /// @{
+        /// @brief called when user press button "create interval"
+        long onCmdCreateInterval(FXObject*, FXSelector, void*);
+
         /// @brief Called when the user select an interval in the list
         long onCmdSelectInterval(FXObject*, FXSelector, void*);
 

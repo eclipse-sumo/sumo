@@ -39,12 +39,15 @@
 // ===========================================================================
 
 FXDEFMAP(GNEEdgeDataFrame::DataSetSelector) DataSetSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CREATE,              GNEEdgeDataFrame::DataSetSelector::onCmdCreateDataSet),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATASET_NEW,         GNEEdgeDataFrame::DataSetSelector::onCmdSetNewDataSetID),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATASET_SELECTED,    GNEEdgeDataFrame::DataSetSelector::onCmdSelectDataSet),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATASET_OPTION,      GNEEdgeDataFrame::DataSetSelector::onCmdSelectRadioButton)
+
 };
 
 FXDEFMAP(GNEEdgeDataFrame::IntervalSelector) IntervalSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CREATE,              GNEEdgeDataFrame::IntervalSelector::onCmdCreateInterval),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECT,              GNEEdgeDataFrame::IntervalSelector::onCmdSelectInterval),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,       GNEEdgeDataFrame::IntervalSelector::onCmdSetIntervalAttribute),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAINTERVAL_OPTION, GNEEdgeDataFrame::IntervalSelector::onCmdSelectRadioButton)
@@ -83,7 +86,7 @@ GNEEdgeDataFrame::DataSetSelector::DataSetSelector(GNEEdgeDataFrame* edgeDataFra
     myCreateDataSetButton = new FXButton(this, "Create dataSet", GUIIconSubSys::getIcon(ICON_DATASET), this, MID_GNE_CREATE, GUIDesignButton);
     myCreateDataSetButton->hide();
     // refresh interval selector
-    refreshDataSetSelector();
+    refreshDataSetSelector(nullptr);
     // DataSetSelector is always shown
     show();
 }
@@ -93,16 +96,26 @@ GNEEdgeDataFrame::DataSetSelector::~DataSetSelector() {}
 
 
 void
-GNEEdgeDataFrame::DataSetSelector::refreshDataSetSelector() {
+GNEEdgeDataFrame::DataSetSelector::refreshDataSetSelector(const GNEDataSet *currentDataSet) {
     // clear items
     myDataSetsComboBox->clearItems();
+    // declare item index
+    int currentItemIndex = -1;
     // fill myDataSetsComboBox with all DataSets
     auto dataSetCopy = myEdgeDataFrameParent->getViewNet()->getNet()->retrieveDataSets();
     for (const auto& dataSet : dataSetCopy) {
+        // check if we have to set currentItemIndex
+        if ((currentItemIndex == -1) && (dataSet == currentDataSet)) {
+            currentItemIndex = myDataSetsComboBox->getNumItems();
+        }
         myDataSetsComboBox->appendItem(dataSet->getID().c_str());
     }
     // Set visible items
     myDataSetsComboBox->setNumVisible((int)myDataSetsComboBox->getNumItems());
+    // check if we have to set current element
+    if(currentItemIndex != -1) {
+        myDataSetsComboBox->setCurrentItem(currentItemIndex, FALSE);
+    }
     // recalc frame
     recalc();
     // refresh interval selector
@@ -119,6 +132,29 @@ GNEEdgeDataFrame::DataSetSelector::getDataSet() const {
     } else {
         return myEdgeDataFrameParent->getViewNet()->getNet()->retrieveDataSet(myDataSetsComboBox->getItem(myDataSetsComboBox->getCurrentItem()).text(), false);
     }
+}
+
+
+long 
+GNEEdgeDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, void*) {
+    // get string
+    const std::string dataSetID = myNewDataSetIDTextField->getText().text();
+    // check conditions 
+    if (myNewDataSetIDTextField->getTextColor() == FXRGB(255, 0, 0)) {
+        WRITE_WARNING("Invalid dataSet ID");
+    } else if (dataSetID.empty()) {
+        WRITE_WARNING("Invalid empty dataSet ID");
+    } else if (myEdgeDataFrameParent->getViewNet()->getNet()->retrieveDataSet(dataSetID, false) != nullptr) {
+        WRITE_WARNING("Invalid duplicated dataSet ID");
+    } else {
+        // build data set
+        const GNEDataSet *dataSet = GNEDataHandler::buildDataSet(myEdgeDataFrameParent->getViewNet(), true, dataSetID);
+        // refresh tag selector
+        refreshDataSetSelector(dataSet);
+        // change radio button
+        myExistentDataSetRadioButton->setCheck(TRUE, TRUE);
+    }
+    return 1;
 }
 
 
@@ -233,6 +269,13 @@ GNEEdgeDataFrame::IntervalSelector::getDataInterval() const {
 
 
 long 
+GNEEdgeDataFrame::IntervalSelector::onCmdCreateInterval(FXObject*, FXSelector, void*) {
+    // XX;
+    return 1;
+}
+
+
+long 
 GNEEdgeDataFrame::IntervalSelector::onCmdSelectInterval(FXObject*, FXSelector, void*) {
     return 1;
 }
@@ -327,7 +370,7 @@ GNEEdgeDataFrame::~GNEEdgeDataFrame() {}
 void
 GNEEdgeDataFrame::show() {
     // first refresh data set selector
-    myDataSetSelector->refreshDataSetSelector();
+    myDataSetSelector->refreshDataSetSelector(nullptr);
     // show frame
     GNEFrame::show();
 }
