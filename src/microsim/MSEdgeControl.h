@@ -230,8 +230,8 @@ public:
             }
             return false;
         }
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter() const {
-            return myRouterProvider->getVehicleRouter();
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter(SUMOVehicleClass svc) const {
+            return myRouterProvider->getVehicleRouter(svc);
         }
         virtual ~WorkerThread() {
             stop();

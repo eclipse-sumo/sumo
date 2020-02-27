@@ -56,7 +56,7 @@ public:
         return new RouterProvider(*this);
     }
 
-    SUMOAbstractRouter<E, V>& getVehicleRouter(SUMOVehicleClass svc = SVC_IGNORING) const {
+    SUMOAbstractRouter<E, V>& getVehicleRouter(SUMOVehicleClass svc) const {
         if (myRailRouter == nullptr || !isRailway(svc)) {
             return *myVehRouter;
         } else {

@@ -5836,7 +5836,7 @@ MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& err
     }
 
     const MSEdge* newEdge = &(newParkingArea->getLane().getEdge());
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getInfluencer().getRouterTT(getRNGIndex());
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getInfluencer().getRouterTT(getRNGIndex(), getVClass());
 
     // Compute the route from the current edge to the parking area edge
     ConstMSEdgeVector edgesToPark;

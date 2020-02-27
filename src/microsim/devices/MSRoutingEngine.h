@@ -101,6 +101,7 @@ public:
 
     /// @brief return the router instance
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex,
+            SUMOVehicleClass svc,
             const MSEdgeVector& prohibited = MSEdgeVector());
 
     /** @brief Returns the effort to pass an edge

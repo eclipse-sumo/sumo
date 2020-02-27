@@ -586,9 +586,9 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
 #endif
         for (std::vector<RORoutable*>::const_iterator j = i->second.begin(); j != i->second.end(); ++j) {
             (*j)->computeRoute(provider, removeLoops, myErrorHandler);
-            provider.getVehicleRouter().setBulkMode(true);
+            provider.getVehicleRouter((*j)->getVClass()).setBulkMode(true);
         }
-        provider.getVehicleRouter().setBulkMode(false);
+        provider.getVehicleRouter(SVC_IGNORING).setBulkMode(false);
     }
 }
 

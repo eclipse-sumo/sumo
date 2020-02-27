@@ -602,7 +602,7 @@ public:
         }
 
 
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex) const;
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex, SUMOVehicleClass svc) const;
 
     protected:
         ///@brief routing mode (see TraCIConstants.h)

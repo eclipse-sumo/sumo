@@ -225,7 +225,7 @@ MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*> reservations
                 WRITE_WARNINGF("Could not add taxi stop for vehicle '%' to %. time=% error=%", myHolder.getID(), stop.actType, SIMTIME, error)
             }
         }
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(0);
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
         // SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = myHolder.getInfluencer().getRouterTT(veh->getRNGIndex())
         myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), "taxi:dispatch", router, false);
     } else {

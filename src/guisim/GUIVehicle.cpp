@@ -1004,7 +1004,7 @@ GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop) {
     }
     const bool hasReroutingDevice = getDevice(typeid(MSDevice_Routing)) != nullptr;
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
-            ? MSRoutingEngine::getRouterTT(getRNGIndex())
+            ? MSRoutingEngine::getRouterTT(getRNGIndex(), getVClass())
             : MSNet::getInstance()->getRouterTT(getRNGIndex());
     // reroute to ensure the new stop is reached
     reroute(MSNet::getInstance()->getCurrentTimeStep(), "DRT", router);

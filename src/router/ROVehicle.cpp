@@ -123,7 +123,7 @@ ROVehicle:: getDepartEdge() const {
 void
 ROVehicle::computeRoute(const RORouterProvider& provider,
                         const bool removeLoops, MsgHandler* errorHandler) {
-    SUMOAbstractRouter<ROEdge, ROVehicle>& router = provider.getVehicleRouter();
+    SUMOAbstractRouter<ROEdge, ROVehicle>& router = provider.getVehicleRouter(getVClass());
     std::string noRouteMsg = "The vehicle '" + getID() + "' has no valid route.";
     RORouteDef* const routeDef = getRouteDefinition();
     // check if the route definition is valid

@@ -184,7 +184,7 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
         }
     }
     // greedy assign closest vehicle in reservation order
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = myRoutingMode == 1 ? MSRoutingEngine::getRouterTT(0) : MSNet::getInstance()->getRouterTT(0);
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = myRoutingMode == 1 ? MSRoutingEngine::getRouterTT(0, SVC_TAXI) : MSNet::getInstance()->getRouterTT(0);
     std::vector<Reservation*> reservations = getReservations();
     std::sort(reservations.begin(), reservations.end(), time_sorter());
 #ifdef DEBUG_DISPATCH
@@ -277,7 +277,7 @@ MSDispatch_GreedyClosest::computeDispatch(SUMOTime now, const std::vector<MSDevi
     std::cout << SIMTIME << " computeDispatch fleet=" << fleet.size() << " available=" << available.size() << "\n";
 #endif
     // greedy assign closest vehicle
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = myRoutingMode == 1 ? MSRoutingEngine::getRouterTT(0) : MSNet::getInstance()->getRouterTT(0);
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = myRoutingMode == 1 ? MSRoutingEngine::getRouterTT(0, SVC_TAXI) : MSNet::getInstance()->getRouterTT(0);
     std::vector<Reservation*> activeReservations;
     for (Reservation* res : getReservations()) {
         if (res->recheck <= now) {

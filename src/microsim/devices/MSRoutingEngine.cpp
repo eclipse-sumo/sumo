@@ -313,7 +313,7 @@ MSRoutingEngine::setEdgeTravelTime(const MSEdge* const edge, const double travel
 
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
-MSRoutingEngine::getRouterTT(const int rngIndex, const MSEdgeVector& prohibited) {
+MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const MSEdgeVector& prohibited) {
     if (myRouterProvider == nullptr) {
         initWeightUpdate();
         initEdgeWeights();
@@ -322,13 +322,13 @@ MSRoutingEngine::getRouterTT(const int rngIndex, const MSEdgeVector& prohibited)
 #ifdef HAVE_FOX
     FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
     if (threadPool.size() > 0) {
-        auto& router = static_cast<MSEdgeControl::WorkerThread*>(threadPool.getWorkers()[rngIndex % MSGlobals::gNumThreads])->getRouter();
+        auto& router = static_cast<MSEdgeControl::WorkerThread*>(threadPool.getWorkers()[rngIndex % MSGlobals::gNumThreads])->getRouter(svc);
         router.prohibit(prohibited);
         return router;
     }
 #endif
-    myRouterProvider->getVehicleRouter().prohibit(prohibited);
-    return myRouterProvider->getVehicleRouter();
+    myRouterProvider->getVehicleRouter(svc).prohibit(prohibited);
+    return myRouterProvider->getVehicleRouter(svc);
 }
 
 
@@ -370,7 +370,7 @@ MSRoutingEngine::waitForAll() {
 // ---------------------------------------------------------------------------
 void
 MSRoutingEngine::RoutingTask::run(FXWorkerThread* context) {
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = static_cast<MSEdgeControl::WorkerThread*>(context)->getRouter();
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = static_cast<MSEdgeControl::WorkerThread*>(context)->getRouter(myVehicle.getVClass());
     if (!myProhibited.empty()) {
         router.prohibit(myProhibited);
     }

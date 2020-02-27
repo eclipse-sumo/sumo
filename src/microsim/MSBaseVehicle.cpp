@@ -73,9 +73,9 @@ MSBaseVehicle::BaseInfluencer::BaseInfluencer() :
 {}
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
-MSBaseVehicle::BaseInfluencer::getRouterTT(const int rngIndex) const {
+MSBaseVehicle::BaseInfluencer::getRouterTT(const int rngIndex, SUMOVehicleClass svc) const {
     if (myRoutingMode == 1) {
-        return MSRoutingEngine::getRouterTT(rngIndex);
+        return MSRoutingEngine::getRouterTT(rngIndex, svc);
     } else {
         return MSNet::getInstance()->getRouterTT(rngIndex);
     }

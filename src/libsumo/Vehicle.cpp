@@ -963,7 +963,7 @@ Vehicle::changeTarget(const std::string& vehicleID, const std::string& edgeID) {
     // build a new route between the vehicle's current edge and destination edge
     ConstMSEdgeVector newRoute;
     const MSEdge* currentEdge = veh->getRerouteOrigin();
-    veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex()).compute(
+    veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()).compute(
         currentEdge, destEdge, (const MSVehicle * const)veh, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
     // replace the vehicle's route by the new one (cost is updated by call to reroute())
     if (!veh->replaceRouteEdges(newRoute, -1, 0, "traci:changeTarget", onInit)) {
@@ -971,7 +971,7 @@ Vehicle::changeTarget(const std::string& vehicleID, const std::string& edgeID) {
     }
     // route again to ensure usage of via/stops
     try {
-        veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:changeTarget", veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex()), onInit);
+        veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:changeTarget", veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()), onInit);
     } catch (ProcessError& e) {
         throw TraCIException(e.what());
     }
@@ -1448,7 +1448,7 @@ Vehicle::rerouteTraveltime(const std::string& vehicleID, const bool currentTrave
     UNUSED_PARAMETER(currentTravelTimes); // !!! see #5943
     MSBaseVehicle* veh = Helper::getVehicle(vehicleID);
     veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:rerouteTraveltime",
-                 veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex()), isOnInit(vehicleID));
+                 veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()), isOnInit(vehicleID));
 }
 
 
