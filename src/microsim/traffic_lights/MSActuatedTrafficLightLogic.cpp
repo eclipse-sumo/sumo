@@ -64,8 +64,9 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameter,
         const std::string& basePath) :
-    MSSimpleTrafficLightLogic(tlcontrol, id, programID, TLTYPE_ACTUATED, phases, step, delay, parameter) {
-
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, TLTYPE_ACTUATED, phases, step, delay, parameter),
+    myLastTrySwitchTime(0)
+{
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
     myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME));
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
@@ -345,6 +346,22 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             WRITE_WARNING("At actuated tlLogic '" + getID() + "', linkIndex " + toString(i) + " has no controlling detector");
         }
     }
+    // parse maximum green times for each link (optional)
+    for (const auto& kv : getParametersMap()) {
+        if (StringUtils::startsWith(kv.first, "linkMaxDur:")) {
+            int link = StringUtils::toInt(kv.first.substr(11));
+            if (link < 0 || link >= myNumLinks) {
+                WRITE_ERROR("Invalid link '" + kv.first.substr(11) + "' given as linkMaxDur parameter for actuated tlLogic '" + getID() + "', program '" + getProgramID() + ".");
+                continue;
+            }
+            if (myLinkMaxGreenTimes.empty()) {
+                myLinkMaxGreenTimes = std::vector<SUMOTime>(myNumLinks, std::numeric_limits<SUMOTime>::max());
+                myLinkGreenTimes = std::vector<SUMOTime>(myNumLinks, 0);
+            }
+            myLinkMaxGreenTimes[link] = string2time(kv.second);
+        }
+    }
+    //std::cout << SIMTIME << " linkMaxGreenTimes=" << toString(myLinkMaxGreenTimes) << "\n";
 }
 
 
@@ -409,6 +426,20 @@ MSActuatedTrafficLightLogic::trySwitch() {
     // @note any vehicles which arrived during the previous phases which are now waiting between the detector and the stop line are not
     // considere here. RiLSA recommends to set minDuration in a way that lets all vehicles pass the detector
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+    if (myLinkMaxGreenTimes.size() > 0) {
+        // constraints exist, record green time durations for each link
+        const std::string& state = getCurrentPhaseDef().getState();
+        SUMOTime lastDuration = now - myLastTrySwitchTime;
+        for (int i = 0; i < myNumLinks; i++) {
+            if (state[i] == 'G' || state[i] == 'g') {
+                myLinkGreenTimes[i] += lastDuration;
+            } else {
+                myLinkGreenTimes[i] = 0;
+            }
+        }
+        //std::cout << SIMTIME << " greenTimes=" << toString(myLinkGreenTimes) << "\n";
+    }
+    myLastTrySwitchTime = now;
     const double detectionGap = gapControl();
     const bool multiTarget = myPhases[myStep]->nextPhases.size() > 1 && myPhases[myStep]->nextPhases.front() >= 0;
 #ifdef DEBUG_PHASE_SELECTION
@@ -499,7 +530,7 @@ MSActuatedTrafficLightLogic::gapControl() {
 
     // Checks, if the maxDuration is kept. No phase should last longer than maxDuration.
     SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
-    if (actDuration >= getCurrentPhaseDef().maxDuration) {
+    if (actDuration >= getCurrentPhaseDef().maxDuration || maxLinkDurationReached()) {
         return result; // end current phase
     }
 
@@ -525,7 +556,7 @@ MSActuatedTrafficLightLogic::decideNextPhase() {
     int result = cands.front();
     int maxPrio = 0;
     SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
-    const bool canExtend = actDuration < getCurrentPhaseDef().maxDuration;
+    const bool canExtend = actDuration < getCurrentPhaseDef().maxDuration && !maxLinkDurationReached();
     if (canExtend) {
         // consider keeping the current phase until maxDur is reached
         // (only when there is still traffic in that phase)
@@ -546,7 +577,7 @@ MSActuatedTrafficLightLogic::decideNextPhase() {
             std::cout << SIMTIME << " p=" << myStep << " step=" << step << " target=" << target << " loops=" << myInductLoopsForPhase[target].size() << " prio=" << prio << "\n";
         }
 #endif
-        if (prio > maxPrio) {
+        if (prio > maxPrio && canExtendLinkGreen(target)) {
             maxPrio = prio;
             result = step;
         }
@@ -645,5 +676,35 @@ MSActuatedTrafficLightLogic::setShowDetectors(bool show) {
     }
 }
 
+
+bool
+MSActuatedTrafficLightLogic::maxLinkDurationReached() {
+    if (myLinkMaxGreenTimes.empty()) {
+        return false;
+    }
+    for (int i = 0; i < myNumLinks; i++) {
+        if (myLinkGreenTimes[i] >= myLinkMaxGreenTimes[i]) {
+            //std::cout << SIMTIME << " maxLinkDurationReached i=" << i << "\n";
+            return true;
+        }
+    }
+    return false;
+}
+
+bool
+MSActuatedTrafficLightLogic::canExtendLinkGreen(int target) {
+    if (myLinkMaxGreenTimes.empty()) {
+        return true;
+    }
+    const std::string& targetState = myPhases[target]->getState();
+    for (int i = 0; i < myNumLinks; i++) {
+        if (myLinkGreenTimes[i] >= myLinkMaxGreenTimes[i] && (
+                    targetState[i] == 'G' || targetState[i] == 'g')) {
+            //std::cout << SIMTIME << " cannotExtendLinkGreen target=" << target << " i=" << i << "\n";
+            return false;
+        }
+    }
+    return true;
+}
 
 /****************************************************************************/

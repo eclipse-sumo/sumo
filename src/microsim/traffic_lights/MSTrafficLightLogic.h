@@ -422,6 +422,9 @@ protected:
     /// @brief The list of LaneVectors; each vector contains the incoming lanes that belong to the same link index
     LaneVectorVector myLanes;
 
+    /// @brief number of controlled links
+    int myNumLinks;
+
     /// @brief A list of duration overrides
     std::vector<SUMOTime> myOverridingTimes;
 
