@@ -12,6 +12,7 @@ permalink: /ChangeLog/
   - Fixed sublane model bug that was causing invalid lane alignment in multimodal networks. Issue #6691
   - Fixed crash when depart-triggered vehicles were discarded. Issue #6690
   - Fixed train reversal ahead of stop. Issue #6692
+  - Train routing now considers space requirement for train reversal. Issue #6697
   - Removed invalid warning for public transport users. Issue #6698
 - MESO
   - Calibrator attribute `vTypes` is now working. Issue #6702
@@ -21,6 +22,7 @@ permalink: /ChangeLog/
   - fixed layout of meso edge parameter dialog at high occupancy (regression in 1.5.0)
 - DUAROUTER
   - Attribute `group` of `<ride>` and `<personTrip>` is no longer lost. Issue #6555
+  - Train routing now considers space requirement for train reversal. Issue #6697
 - Tools
   - [sort_routes.py](Tools/Routes.md#sort_routespy) can now handle trips, triggered vehicles and human-readable times.
 
