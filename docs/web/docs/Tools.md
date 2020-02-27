@@ -31,6 +31,8 @@ processed "natively"
     using VISUM data
   - *[vissim](Tools/Import/VISSIM.md)* - some helpers for
     using VISSIM data
+  - *[MATSim](Tools/Import/MATSim.md)* - some helpers for
+    using MATSim data
 - *[net](Tools/Net.md)* - tools for working with networks
 (mainly SUMO-networks)
 - *projects* - additional tools used by our projects
