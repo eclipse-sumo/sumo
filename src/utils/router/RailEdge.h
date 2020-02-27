@@ -21,6 +21,7 @@
 #include <cassert>
 
 //#define RailEdge_DEBUG_TURNS
+//#define RailEdge_DEBUG_SUCCESSORS
 #define RailEdge_DEBUGID ""
 #define RailEdge_DEBUG_COND(obj) ((obj != 0 && (obj)->getID() == RailEdge_DEBUGID))
 
@@ -95,7 +96,12 @@ public:
                             viaPair.second == nullptr ? nullptr : viaPair.second->getRailwayRoutingEdge()));
             }
         }
-        //std::cout << "railEdges::init " << getID() << " myViaSuccessors=" << myViaSuccessors.size() << " origSuccessors=" << myOriginal->getViaSuccessors().size() << "\n";
+#ifdef RailEdge_DEBUG_TURNS
+        std::cout << "RailEdge " << getID() << " successors=" << myViaSuccessors.size() << " orig=" << myOriginal->getViaSuccessors().size() << "\n";
+        for (const auto& viaPair : myViaSuccessors) {
+            std::cout << "    " << viaPair.first->getID() << "\n";
+        }
+#endif
     }
 
     /// @brief Returns the index (numeric id) of the edge
