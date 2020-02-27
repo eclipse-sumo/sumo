@@ -146,7 +146,7 @@ public:
 
     private:
         /// @brief add item into list
-        FXTreeItem* addListItem(const GNEAttributeCarrier* AC, FXTreeItem* itemParent = nullptr);
+        FXTreeItem* addListItem(GNEDataInterval* dataInterval, FXTreeItem* itemParent = nullptr);
 
         /// @brief pointer to edgeData frame Parent
         GNEEdgeDataFrame* myEdgeDataFrameParent;
@@ -175,8 +175,8 @@ public:
         /// @brief tree list to show the interval list
         FXTreeList* myIntervalsTreelist;
 
-        /// @brief map used to save the Tree items with their AC
-        std::map<FXTreeItem*, const GNEAttributeCarrier*> myTreeItemToACMap;
+        /// @brief map used to save the Tree items with their GNEDataInterval
+        std::map<FXTreeItem*, GNEDataInterval*> myTreeItemIntervalMap;
     };
 
     /**@brief Constructor

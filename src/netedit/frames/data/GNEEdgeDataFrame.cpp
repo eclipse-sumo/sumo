@@ -250,11 +250,16 @@ GNEEdgeDataFrame::IntervalSelector::refreshIntervalSelector() {
     const GNEDataSet *dataSet = myEdgeDataFrameParent->myDataSetSelector->getDataSet();
     // add intervals 
     if (dataSet) {
-        // insert data item
-        FXTreeItem* dataElementItem = addListItem(dataSet, nullptr);
+        // insert dataSetItem in Tree list
+        FXTreeItem* dataSetItem = myIntervalsTreelist->insertItem(nullptr, nullptr, 
+            dataSet->getHierarchyName().c_str(), 
+            dataSet->getIcon(), 
+            dataSet->getIcon());
+        // by default item is expanded
+        dataSetItem->setExpanded(true);
         // iterate over intevals
         for (const auto &interval : dataSet->getDataIntervalChildren()) {
-            addListItem(interval.second, dataElementItem);
+            addListItem(interval.second, dataSetItem);
         }
     }
     // recalc frame
@@ -264,13 +269,35 @@ GNEEdgeDataFrame::IntervalSelector::refreshIntervalSelector() {
 
 GNEDataInterval*
 GNEEdgeDataFrame::IntervalSelector::getDataInterval() const {
+    // first check if there is elements in interval tree
+    if (myIntervalsTreelist->getNumItems() > 0) {
+        for (const auto &treeItem : myTreeItemIntervalMap) {
+            if (treeItem.first->isSelected()) {
+                return treeItem.second;
+            }
+        }
+    }
+    // no GNEDataInterval found, then return nullptr 
     return nullptr;
 }
 
 
 long 
 GNEEdgeDataFrame::IntervalSelector::onCmdCreateInterval(FXObject*, FXSelector, void*) {
-    // XX;
+    // first check that begin and end are valid
+    if (GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text()) &&
+        GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
+        // obtain begin and end
+        const double begin = GNEAttributeCarrier::parse<double>(myBeginTextField->getText().text());
+        const double end = GNEAttributeCarrier::parse<double>(myEndTextField->getText().text());
+        // get data set parent
+        GNEDataSet *dataSet = myEdgeDataFrameParent->myDataSetSelector->getDataSet();
+        if (dataSet && dataSet->checkNewInterval(begin, end)) {
+            GNEDataHandler::buildDataInterval(myEdgeDataFrameParent->getViewNet(), true, dataSet, begin, end);
+        }
+        // check select interval radio button
+        mySelectIntervalRadioButton->setCheck(TRUE, TRUE);
+    }
     return 1;
 }
 
@@ -304,7 +331,6 @@ GNEEdgeDataFrame::IntervalSelector::onCmdSetIntervalAttribute(FXObject* obj, FXS
 }
 
 
-
 long 
 GNEEdgeDataFrame::IntervalSelector::onCmdSelectRadioButton(FXObject* obj, FXSelector, void*) {
     if (obj == myNewIntervalRadioButton) {
@@ -315,8 +341,22 @@ GNEEdgeDataFrame::IntervalSelector::onCmdSelectRadioButton(FXObject* obj, FXSele
         myHorizontalFrameBegin->show();
         myHorizontalFrameEnd->show();
         myCreateIntervalButton->show();
-        // disable list
-        myIntervalsTreelist->disable();
+        // refresh begin and end text fields
+        const GNEDataSet *dataSet = myEdgeDataFrameParent->myDataSetSelector->getDataSet();
+        if (dataSet) {
+            if (dataSet->getDataIntervalChildren().empty()) {
+                // set default interval (1 hour)
+                myBeginTextField->setText("0");
+                myEndTextField->setText("3600");
+            } else {
+                // obtain last data interval
+                const GNEDataInterval *lastDataInterval = dataSet->getDataIntervalChildren().rbegin()->second;
+                const double intervalDuration = lastDataInterval->getAttributeDouble(SUMO_ATTR_END) - lastDataInterval->getAttributeDouble(SUMO_ATTR_BEGIN);
+                // set new begin end
+                myBeginTextField->setText(toString(lastDataInterval->getAttributeDouble(SUMO_ATTR_END)).c_str());
+                myEndTextField->setText(toString(lastDataInterval->getAttributeDouble(SUMO_ATTR_END) + intervalDuration).c_str());
+            }
+        }
     } else if (obj == mySelectIntervalRadioButton) {
         // set radio buttons
         myNewIntervalRadioButton->setCheck(FALSE, FALSE);
@@ -325,8 +365,6 @@ GNEEdgeDataFrame::IntervalSelector::onCmdSelectRadioButton(FXObject* obj, FXSele
         myHorizontalFrameBegin->hide();
         myHorizontalFrameEnd->hide();
         myCreateIntervalButton->hide();
-        // enable list
-        myIntervalsTreelist->enable();
     }
     // refresh interval seletor
     refreshIntervalSelector();
@@ -335,11 +373,14 @@ GNEEdgeDataFrame::IntervalSelector::onCmdSelectRadioButton(FXObject* obj, FXSele
 
 
 FXTreeItem*
-GNEEdgeDataFrame::IntervalSelector::addListItem(const GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
+GNEEdgeDataFrame::IntervalSelector::addListItem(GNEDataInterval* dataInterval, FXTreeItem* itemParent) {
     // insert item in Tree list
-    FXTreeItem* item = myIntervalsTreelist->insertItem(nullptr, itemParent, AC->getHierarchyName().c_str(), AC->getIcon(), AC->getIcon());
+    FXTreeItem* item = myIntervalsTreelist->insertItem(nullptr, itemParent, 
+        dataInterval->getHierarchyName().c_str(), 
+        dataInterval->getIcon(), 
+        dataInterval->getIcon());
     // insert item in map
-    myTreeItemToACMap[item] = AC;
+    myTreeItemIntervalMap[item] = dataInterval;
     // by default item is expanded
     item->setExpanded(true);
     // return created FXTreeItem
@@ -380,36 +421,6 @@ bool
 GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if we clicked over an edge
     if (objectsUnderCursor.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
-        /*
-        // declare data set and interval
-        GNEDataInterval *dataInterval = nullptr;
-        GNEDataSet *dataSet = nullptr;
-        // check if we have to create a new dataSet
-        if (myDataSetSelector->createNewDataSet()) {
-            // check if we can create the new dataSet
-            if (myDataSetSelector->getSelectedDataSet().empty()) {
-                // if obtained dataSet ID is empty, then given ID isn't valid (duplicated/invalid characters, etc.)
-                return false;
-            } else {
-                dataSet = GNEDataHandler::buildDataSet(myViewNet, true, myDataSetSelector->getDataSetID());
-                // refresh interval selector
-                myDataSetSelector->refreshDataSetSelector();
-            }
-        } else {
-            dataSet = myViewNet->getNet()->retrieveDataSet(myDataSetSelector->getDataSetID());
-        }
-        // now check if there is another interval with the given begin/end
-        dataInterval = dataSet->retrieveInterval(myDataSetSelector->getBegin(), myDataSetSelector->getEnd());
-        // if not, create it
-        if (dataInterval == nullptr) {
-            // check if given interval is valid
-            if (dataSet->checkNewInterval(myDataSetSelector->getBegin(), myDataSetSelector->getEnd())) {
-                dataInterval = GNEDataHandler::buildDataInterval(myViewNet, true, dataSet, myDataSetSelector->getBegin(), myDataSetSelector->getEnd());
-            } else {
-                return false;
-            }
-        }
-        */
         // finally create edgeData
         GNEDataHandler::buildEdgeData(myViewNet, true, myIntervalSelector->getDataInterval(), objectsUnderCursor.getEdgeFront(), myParametersEditor->getParametersMap());
         // edgeData created, then return true
