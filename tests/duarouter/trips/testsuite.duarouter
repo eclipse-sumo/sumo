@@ -150,6 +150,7 @@ junctionTaz
 
 # test restriction parameters
 restrictionParams
+rail
 
 # Tests false input
 errors
