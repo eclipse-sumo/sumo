@@ -280,6 +280,13 @@ GNEDataHandler::parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, c
             // Write error if lane isn't valid
             WRITE_WARNING(toString(SUMO_TAG_MEANDATA_EDGE) + " '" + edgeID + "' must be created within a data interval.");
         } else {
+            // check if there is already a edge data for the given edge in the interval
+            for (const auto &genericData : insertedDatas->getLastInsertedDataInterval()->getGenericDataChildren()) {
+                if ((genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && (genericData->getParentEdges().front() == edge)) {
+                    WRITE_WARNING("There is already a " + genericData->getTagStr() + " in edge '" + edge->getID() + "'");
+                    return false;
+                }
+            }
             // declare parameter map
             std::map<std::string, std::string> parameters;
             // obtain all attribute

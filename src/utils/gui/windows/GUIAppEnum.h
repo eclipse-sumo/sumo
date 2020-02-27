@@ -680,14 +680,12 @@ enum {
     MID_GNE_TAGTYPE_SELECTED,
     /// @brief tag selected in ComboBox
     MID_GNE_TAG_SELECTED,
-    /// @brief select option in data set selector
-    MID_GNE_DATASET_OPTION,
     /// @brief create new data set
     MID_GNE_DATASET_NEW,
     /// @brief GNEDataInterval selected in comboBox of IntervalBar
     MID_GNE_DATASET_SELECTED,
-    /// @brief select option in data interval selector
-    MID_GNE_DATAINTERVAL_OPTION,
+    /// @brief GNEDataInterval selected in comboBox of IntervalBar
+    MID_GNE_DATAINTERVAL_SELECTED,
     /// @brief text attribute edited
     MID_GNE_SET_ATTRIBUTE_TEXT,
     /// @brief bool attribute edited

@@ -24,6 +24,7 @@
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/data/GNEEdgeData.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
@@ -42,15 +43,15 @@ FXDEFMAP(GNEEdgeDataFrame::DataSetSelector) DataSetSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_CREATE,              GNEEdgeDataFrame::DataSetSelector::onCmdCreateDataSet),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATASET_NEW,         GNEEdgeDataFrame::DataSetSelector::onCmdSetNewDataSetID),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATASET_SELECTED,    GNEEdgeDataFrame::DataSetSelector::onCmdSelectDataSet),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATASET_OPTION,      GNEEdgeDataFrame::DataSetSelector::onCmdSelectRadioButton)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECT,              GNEEdgeDataFrame::DataSetSelector::onCmdSelectCheckButton)
 
 };
 
 FXDEFMAP(GNEEdgeDataFrame::IntervalSelector) IntervalSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CREATE,              GNEEdgeDataFrame::IntervalSelector::onCmdCreateInterval),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECT,              GNEEdgeDataFrame::IntervalSelector::onCmdSelectInterval),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,       GNEEdgeDataFrame::IntervalSelector::onCmdSetIntervalAttribute),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAINTERVAL_OPTION, GNEEdgeDataFrame::IntervalSelector::onCmdSelectRadioButton)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CREATE,                  GNEEdgeDataFrame::IntervalSelector::onCmdCreateInterval),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAINTERVAL_SELECTED,   GNEEdgeDataFrame::IntervalSelector::onCmdSelectInterval),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,           GNEEdgeDataFrame::IntervalSelector::onCmdSetIntervalAttribute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECT,                  GNEEdgeDataFrame::IntervalSelector::onCmdSelectCheckButton)
 };
 
 // Object implementation
@@ -68,11 +69,8 @@ FXIMPLEMENT(GNEEdgeDataFrame::IntervalSelector, FXGroupBox, IntervalSelectorMap,
 GNEEdgeDataFrame::DataSetSelector::DataSetSelector(GNEEdgeDataFrame* edgeDataFrameParent) :
     FXGroupBox(edgeDataFrameParent->myContentFrame, "DataSet", GUIDesignGroupBoxFrame),
     myEdgeDataFrameParent(edgeDataFrameParent) {
-    // create radio button for new data set
-    myNewDataSetRadioButton = new FXRadioButton(this, "Create new dataSet", this, MID_GNE_DATASET_OPTION, GUIDesignRadioButton);
-    // create radio button for existent data set
-    myExistentDataSetRadioButton = new FXRadioButton(this, "Use existent dataSet", this, MID_GNE_DATASET_OPTION, GUIDesignRadioButton);
-    myExistentDataSetRadioButton->setCheck(TRUE);
+    // create check button for new data set
+    myNewDataSetCheckButton = new FXCheckButton(this, "Create new dataSet", this, MID_GNE_SELECT, GUIDesignCheckButton);
     // Create FXComboBox
     myDataSetsComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_DATASET_SELECTED, GUIDesignComboBox);
     // create new id label
@@ -127,7 +125,7 @@ GNEEdgeDataFrame::DataSetSelector::refreshDataSetSelector(const GNEDataSet *curr
 
 GNEDataSet*
 GNEEdgeDataFrame::DataSetSelector::getDataSet() const {
-    if ((myNewDataSetRadioButton->getCheck() == TRUE) || (myDataSetsComboBox->getNumItems() == 0)) {
+    if ((myNewDataSetCheckButton->getCheck() == TRUE) || (myDataSetsComboBox->getNumItems() == 0)) {
         return nullptr;
     } else {
         return myEdgeDataFrameParent->getViewNet()->getNet()->retrieveDataSet(myDataSetsComboBox->getItem(myDataSetsComboBox->getCurrentItem()).text(), false);
@@ -151,8 +149,8 @@ GNEEdgeDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, voi
         const GNEDataSet *dataSet = GNEDataHandler::buildDataSet(myEdgeDataFrameParent->getViewNet(), true, dataSetID);
         // refresh tag selector
         refreshDataSetSelector(dataSet);
-        // change radio button
-        myExistentDataSetRadioButton->setCheck(TRUE, TRUE);
+        // change check button
+        myNewDataSetCheckButton->setCheck(FALSE, TRUE);
     }
     return 1;
 }
@@ -174,20 +172,14 @@ GNEEdgeDataFrame::DataSetSelector::onCmdSelectDataSet(FXObject* obj, FXSelector,
 
 
 long 
-GNEEdgeDataFrame::DataSetSelector::onCmdSelectRadioButton(FXObject* obj, FXSelector, void*) {
-    if (obj == myNewDataSetRadioButton) {
-        // set radio buttons
-        myNewDataSetRadioButton->setCheck(TRUE, FALSE);
-        myExistentDataSetRadioButton->setCheck(FALSE, FALSE);
+GNEEdgeDataFrame::DataSetSelector::onCmdSelectCheckButton(FXObject* obj, FXSelector, void*) {
+    if (myNewDataSetCheckButton->getCheck() == TRUE) {
         // enable textfield and label
         myHorizontalFrameNewID->show();
         myCreateDataSetButton->show();
         // disable comboBox
         myDataSetsComboBox->hide();
-    } else if (obj == myExistentDataSetRadioButton) {
-        // set radio buttons
-        myNewDataSetRadioButton->setCheck(FALSE, FALSE);
-        myExistentDataSetRadioButton->setCheck(TRUE, FALSE);
+    } else {
         // disable textfield and label
         myHorizontalFrameNewID->hide();
         myCreateDataSetButton->hide();
@@ -206,11 +198,8 @@ GNEEdgeDataFrame::DataSetSelector::onCmdSelectRadioButton(FXObject* obj, FXSelec
 GNEEdgeDataFrame::IntervalSelector::IntervalSelector(GNEEdgeDataFrame* edgeDataFrameParent) :
     FXGroupBox(edgeDataFrameParent->myContentFrame, "Interval", GUIDesignGroupBoxFrame),
     myEdgeDataFrameParent(edgeDataFrameParent) {
-    // create radio button for new interval
-    myNewIntervalRadioButton = new FXRadioButton(this, "Create new interval", this, MID_GNE_DATAINTERVAL_OPTION, GUIDesignRadioButton);
-    // create radio button for existent interval
-    mySelectIntervalRadioButton = new FXRadioButton(this, "Use existent interval", this, MID_GNE_DATAINTERVAL_OPTION, GUIDesignRadioButton);
-    mySelectIntervalRadioButton->setCheck(TRUE);
+    // create check button for new interval
+    myNewIntervalCheckButton = new FXCheckButton(this, "Create new interval", this, MID_GNE_SELECT, GUIDesignCheckButton);
     // create begin label
     myHorizontalFrameBegin = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myHorizontalFrameBegin, toString(SUMO_ATTR_BEGIN).c_str(), nullptr, GUIDesignLabelAttribute);
@@ -231,7 +220,7 @@ GNEEdgeDataFrame::IntervalSelector::IntervalSelector(GNEEdgeDataFrame* edgeDataF
     myCreateIntervalButton = new FXButton(this, "create interval", GUIIconSubSys::getIcon(ICON_DATAINTERVAL), this, MID_GNE_CREATE, GUIDesignButton);
     myCreateIntervalButton->hide();
     // Create three list
-    myIntervalsTreelist = new FXTreeList(this, this, MID_GNE_SELECT, GUIDesignTreeListFrame);
+    myIntervalsTreelist = new FXTreeList(this, this, MID_GNE_DATAINTERVAL_SELECTED, GUIDesignTreeListFrame);
     // refresh interval selector
     refreshIntervalSelector();
     // IntervalSelector is always shown
@@ -295,8 +284,8 @@ GNEEdgeDataFrame::IntervalSelector::onCmdCreateInterval(FXObject*, FXSelector, v
         if (dataSet && dataSet->checkNewInterval(begin, end)) {
             GNEDataHandler::buildDataInterval(myEdgeDataFrameParent->getViewNet(), true, dataSet, begin, end);
         }
-        // check select interval radio button
-        mySelectIntervalRadioButton->setCheck(TRUE, TRUE);
+        // disable select interval check button
+        myNewIntervalCheckButton->setCheck(FALSE, TRUE);
     }
     return 1;
 }
@@ -332,11 +321,8 @@ GNEEdgeDataFrame::IntervalSelector::onCmdSetIntervalAttribute(FXObject* obj, FXS
 
 
 long 
-GNEEdgeDataFrame::IntervalSelector::onCmdSelectRadioButton(FXObject* obj, FXSelector, void*) {
-    if (obj == myNewIntervalRadioButton) {
-        // set radio buttons
-        myNewIntervalRadioButton->setCheck(TRUE, FALSE);
-        mySelectIntervalRadioButton->setCheck(FALSE, FALSE);
+GNEEdgeDataFrame::IntervalSelector::onCmdSelectCheckButton(FXObject* obj, FXSelector, void*) {
+    if (myNewIntervalCheckButton->getCheck() == TRUE) {
         // enable begin and end elements
         myHorizontalFrameBegin->show();
         myHorizontalFrameEnd->show();
@@ -357,10 +343,7 @@ GNEEdgeDataFrame::IntervalSelector::onCmdSelectRadioButton(FXObject* obj, FXSele
                 myEndTextField->setText(toString(lastDataInterval->getAttributeDouble(SUMO_ATTR_END) + intervalDuration).c_str());
             }
         }
-    } else if (obj == mySelectIntervalRadioButton) {
-        // set radio buttons
-        myNewIntervalRadioButton->setCheck(FALSE, FALSE);
-        mySelectIntervalRadioButton->setCheck(TRUE, FALSE);
+    } else {
         // disable begin and end elements
         myHorizontalFrameBegin->hide();
         myHorizontalFrameEnd->hide();
@@ -421,12 +404,21 @@ bool
 GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if we clicked over an edge
     if (objectsUnderCursor.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
+        // first check if the given interval there is already a EdgeData for the given ID
+        for (const auto &genericData : myIntervalSelector->getDataInterval()->getGenericDataChildren()) {
+            if ((genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && (genericData->getParentEdges().front() == objectsUnderCursor.getEdgeFront())) {
+                // write warning
+                WRITE_WARNING("There is already a " + genericData->getTagStr() + " in edge '" + objectsUnderCursor.getEdgeFront()->getID() + "'");
+                // abort edge data creation
+                return false;
+            }
+        }
         // finally create edgeData
         GNEDataHandler::buildEdgeData(myViewNet, true, myIntervalSelector->getDataInterval(), objectsUnderCursor.getEdgeFront(), myParametersEditor->getParametersMap());
         // edgeData created, then return true
         return true;
     } else {
-        // invalid parameters
+        // invalid parent parameters
         return false;
     }
 }

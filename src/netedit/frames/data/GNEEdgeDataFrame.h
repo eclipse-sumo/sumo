@@ -73,8 +73,8 @@ public:
         /// @brief Called when the user select an existent data set
         long onCmdSelectDataSet(FXObject* obj, FXSelector, void*);
 
-        /// @brief Called when the user select a radio button
-        long onCmdSelectRadioButton(FXObject* obj, FXSelector, void*);
+        /// @brief Called when the user select check button
+        long onCmdSelectCheckButton(FXObject* obj, FXSelector, void*);
 
         /// @}
 
@@ -85,11 +85,8 @@ public:
         /// @brief pointer to edgeData frame Parent
         GNEEdgeDataFrame* myEdgeDataFrameParent;
 
-        /// @brief radio button to create a new dataSet
-        FXRadioButton *myNewDataSetRadioButton;
-
-        /// @brief radio button to select an existent dataSet
-        FXRadioButton *myExistentDataSetRadioButton;
+        /// @brief check button to create a new dataSet
+        FXCheckButton *myNewDataSetCheckButton;
 
         /// @brief horizontal frame new id
         FXHorizontalFrame *myHorizontalFrameNewID;
@@ -136,8 +133,8 @@ public:
         /// @brief Called when the user changes begin or end
         long onCmdSetIntervalAttribute(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user select a radio button
-        long onCmdSelectRadioButton(FXObject* obj, FXSelector, void*);
+        /// @brief Called when the user select check button
+        long onCmdSelectCheckButton(FXObject* obj, FXSelector, void*);
 
         /// @}
 
@@ -151,11 +148,8 @@ public:
         /// @brief pointer to edgeData frame Parent
         GNEEdgeDataFrame* myEdgeDataFrameParent;
 
-        /// @brief radio button to create a new interval
-        FXRadioButton *myNewIntervalRadioButton;
-
-        /// @brief radio button to create a new dataSet
-        FXRadioButton *mySelectIntervalRadioButton;
+        /// @brief check button to create a new interval
+        FXCheckButton *myNewIntervalCheckButton;
 
         /// @brief interval begin horizontal frame
         FXHorizontalFrame *myHorizontalFrameBegin; 
