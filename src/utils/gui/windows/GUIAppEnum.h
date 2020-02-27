@@ -611,6 +611,7 @@ enum {
 
     /// @name GNEViewNet Network view options messages
     /// @{
+
     /// @brief show demand elements
     MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,
     /// @brief select edges
@@ -647,6 +648,14 @@ enum {
     MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,
     /// @brief lock person
     MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,
+
+    /// @}
+
+    /// @name GNEViewNet Data view options messages
+    /// @{
+
+    /// @brief show demand elements
+    MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,
 
     /// @}
 

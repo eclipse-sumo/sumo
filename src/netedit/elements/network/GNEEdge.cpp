@@ -531,7 +531,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         additional->drawGL(s);
     }
     // draw child edge
-    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
         drawDemandElements(s);
     }
     // draw geometry points if isnt's too small and

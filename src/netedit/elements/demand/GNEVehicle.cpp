@@ -666,7 +666,8 @@ GNEVehicle::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEl
 void
 GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
-    if (myViewNet->getNetworkViewOptions().showDemandElements() && myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+    if (myViewNet->getNetworkViewOptions().showDemandElements() && myViewNet->getDataViewOptions().showDemandElements() && 
+        myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         // declare common attributes
         const double exaggeration = s.vehicleSize.getExaggeration(s, this);
         const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);

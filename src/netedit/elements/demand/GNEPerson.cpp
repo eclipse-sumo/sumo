@@ -411,6 +411,8 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     // check if person can be drawn
     if (!myViewNet->getNetworkViewOptions().showDemandElements()) {
         drawPerson = false;
+    } else if (!myViewNet->getDataViewOptions().showDemandElements()) {
+        drawPerson = false;
     } else if (!myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         drawPerson = false;
     } else if (getChildDemandElements().empty()) {

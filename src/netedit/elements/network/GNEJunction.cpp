@@ -1240,7 +1240,8 @@ GNEJunction::drawJunctionChilds(const GUIVisualizationSettings& s) const {
             }
         }
         // first check if Demand elements can be shown
-        if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+        if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
+            myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
             // draw demand elements
             drawDemandElements(s, incomingEdge);
         }

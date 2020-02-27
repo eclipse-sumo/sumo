@@ -109,6 +109,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEViewNet::onCmdToogleHideShapes),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEViewNet::onCmdToogleShowAllPersonPlans),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,            GNEViewNet::onCmdToogleLockPerson),
+    // Data view options
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,      GNEViewNet::onCmdToogleShowDemandElements),
     // Select elements
     FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                                   GNEViewNet::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,                                GNEViewNet::onCmdRemoveSelected),
@@ -2265,6 +2267,8 @@ GNEViewNet::onCmdToogleShowDemandElements(FXObject*, FXSelector sel, void*) {
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
         myNetworkViewOptions.menuCheckShowDemandElements->setFocus();
+    } else if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
+        myDataViewOptions.menuCheckShowDemandElements->setFocus();
     }
     return 1;
 }
@@ -2578,9 +2582,6 @@ GNEViewNet::buildEditModeControls() {
     myDemandViewOptions.buildDemandViewOptionsMenuChecks();
 
     // build menu checks of view options Data
-    myDataViewOptions.buildDataViewOptionsMenuChecks();
-
-    // build menu checks of interval
     myDataViewOptions.buildDataViewOptionsMenuChecks();
 
     // build interval bar
@@ -2938,6 +2939,8 @@ GNEViewNet::updateDataModeSpecificControls() {
     myIntervalBar.showIntervalBar();
     // hide all frames
     myViewParent->hideAllFrames();
+    // In data mode, always show option "show demand elements"
+    myDataViewOptions.menuCheckShowDemandElements->show();
     // enable selected controls
     switch (myEditModes.dataEditMode) {
         // common modes

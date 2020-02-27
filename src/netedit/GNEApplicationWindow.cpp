@@ -2473,6 +2473,7 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
         myViewNet->getCommonViewOptions().getVisibleCommonMenuCommands(visibleMenuCommands);
         myViewNet->getNetworkViewOptions().getVisibleNetworkMenuCommands(visibleMenuCommands);
         myViewNet->getDemandViewOptions().getVisibleDemandMenuCommands(visibleMenuCommands);
+        myViewNet->getDataViewOptions().getVisibleDataMenuCommands(visibleMenuCommands);
         // now check that numericalKeyPressed isn't greather than visible view options
         if (numericalKeyPressed >= (int)visibleMenuCommands.size()) {
             return 1;
@@ -2699,6 +2700,19 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
             }
             // Call manually onCmdToogleHideNonInspecteDemandElements
             return myViewNet->onCmdToogleLockPerson(obj, sel, ptr);
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getDataViewOptions().menuCheckShowDemandElements) {
+            // Toogle menuCheckShowDemandElements
+            if (myViewNet->getDataViewOptions().menuCheckShowDemandElements->getCheck() == TRUE) {
+                myViewNet->getDataViewOptions().menuCheckShowDemandElements->setCheck(FALSE);
+                // show extra information for tests
+                WRITE_DEBUG("Disabled show demand elements throught alt + " + toString(numericalKeyPressed + 1));
+            } else {
+                myViewNet->getDataViewOptions().menuCheckShowDemandElements->setCheck(TRUE);
+                // show extra information for tests
+                WRITE_DEBUG("Enabled show demand elements throught alt + " + toString(numericalKeyPressed + 1));
+            }
+            // Call manually onCmdToogleShowDemandElements
+            return myViewNet->onCmdToogleShowDemandElements(obj, sel, ptr);
         } else {
             // nothing to toogle
             return 1;
