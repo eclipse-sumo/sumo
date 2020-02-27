@@ -88,6 +88,7 @@ public:
     bool compute(const E* from, const E* to, const V* const vehicle, SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         std::vector<const _RailEdge*> intoTmp;
         bool success = myInternalRouter->compute(from->getRailwayRoutingEdge(), to->getRailwayRoutingEdge(), vehicle, msTime, intoTmp, silent);
+        //std::cout << "RailRouter veh=" << vehicle->getID() << " from=" << from->getID() << " to=" << to->getID() << " t=" << time2string(msTime) << " success=" << success << "\n";
         if (success) {
             for (const _RailEdge* railEdge : intoTmp) {
                 railEdge->insertOriginalEdges(vehicle->getLength(), into);

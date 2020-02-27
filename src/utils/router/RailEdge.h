@@ -20,6 +20,9 @@
 #include <config.h>
 #include <cassert>
 
+#define RailEdge_DEBUG_TURNS
+#define RailEdge_DEBUGID "TripSequence_tp_430042_7410_J_1791_tp_430042_7410_J_1792"
+#define RailEdge_DEBUG_COND(obj) ((obj != 0 && (obj)->getID() == RailEdge_DEBUGID))
 
 // ===========================================================================
 // class definitions
@@ -150,6 +153,11 @@ public:
     }
 
     inline bool prohibits(const V* const vehicle) const {
+#ifdef RailEdge_DEBUG_TURNS
+        if (myOriginal == nullptr && RailEdge_DEBUG_COND(vehicle)) {
+            std::cout << getID() << " maxLength=" << myMaxLength << " veh=" << vehicle->getID() << " length=" << vehicle->getLength() << "\n";
+        }
+#endif
         return vehicle->getLength() > myMaxLength || (myOriginal != nullptr && myOriginal->prohibits(vehicle));
     }
 
