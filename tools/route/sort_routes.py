@@ -19,6 +19,7 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+import os
 import sys
 from xml.dom import pulldom
 from xml.sax import handler
@@ -26,7 +27,10 @@ from xml.sax import make_parser
 from optparse import OptionParser
 import time
 
-DEPART_ATTRS = {'vehicle': 'depart', 'flow': 'begin', 'person': 'depart'}
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+import sumolib  # noqa
+
+DEPART_ATTRS = {'vehicle': 'depart', 'trip': 'depart', 'flow': 'begin', 'person': 'depart'}
 
 
 def get_options(args=None):
@@ -59,7 +63,9 @@ def sort_departs(routefilename, outfile):
             if departAttr is not None:
                 startString = parsenode.getAttribute(departAttr)
                 if ':' in startString:
-                    start = time.strptime(startString, "%d:%H:%M:%S")
+                    start = sumolib.miscutils.parseTime(startString)
+                elif startString == "triggered":
+                    start = -1 # before everything else
                 else:
                     start = float(startString)
                 vehicles.append(
