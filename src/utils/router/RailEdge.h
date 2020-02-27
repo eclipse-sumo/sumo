@@ -1,3 +1,4 @@
+/****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
@@ -11,8 +12,8 @@
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    RailEdge.h
-/// @author  Michael Behrisch
-/// @date    29.01.2020
+/// @author  Jakob Erdmann
+/// @date    26.02.2020
 ///
 // The RailEdge is a wrapper around a ROEdge or a MSEdge used for railway routing
 /****************************************************************************/
