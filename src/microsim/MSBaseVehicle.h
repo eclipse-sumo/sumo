@@ -641,8 +641,8 @@ public:
      */
     virtual std::pair<const MSVehicle* const, double> getLeader(double dist = 0) const {
         UNUSED_PARAMETER(dist);
-        return std::make_pair(nullptr, -1);
         WRITE_WARNING("getLeader not yet implemented for meso");
+        return std::make_pair(nullptr, -1);
     }
 
 protected:
