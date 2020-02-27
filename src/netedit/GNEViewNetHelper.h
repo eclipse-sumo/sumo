@@ -510,7 +510,7 @@ struct GNEViewNetHelper {
         /// @brief check if non inspected element has to be hidden
         bool showNonInspectedDemandElements(const GNEDemandElement* demandElement) const;
 
-        /// @brief check if shapes has to be hide
+        /// @brief check if shapes has to be drawn
         bool showShapes() const;
 
         /// @brief check all person plans has to be show
@@ -569,8 +569,14 @@ struct GNEViewNetHelper {
         /// @brief check if show demand elements checkbox is enabled
         bool showDemandElements() const;
 
+        /// @brief check if shapes has to be drawn
+        bool showShapes() const;
+
         /// @brief menu check to show Demand Elements
         FXMenuCheck* menuCheckShowDemandElements;
+
+        /// @brief menu check to hide Shapes
+        FXMenuCheck* menuCheckHideShapes;
 
     private:
         /// @brief pointer to viewNet

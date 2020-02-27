@@ -2713,6 +2713,19 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
             }
             // Call manually onCmdToogleShowDemandElements
             return myViewNet->onCmdToogleShowDemandElements(obj, sel, ptr);
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getDataViewOptions().menuCheckHideShapes) {
+            // Toogle menuCheckHideShapes
+            if (myViewNet->getDataViewOptions().menuCheckHideShapes->getCheck() == TRUE) {
+                myViewNet->getDataViewOptions().menuCheckHideShapes->setCheck(FALSE);
+                // show extra information for tests
+                WRITE_DEBUG("Disabled hide shapes throught alt + " + toString(numericalKeyPressed + 1));
+            } else {
+                myViewNet->getDataViewOptions().menuCheckHideShapes->setCheck(TRUE);
+                // show extra information for tests
+                WRITE_DEBUG("Enabled hide shapes throught alt + " + toString(numericalKeyPressed + 1));
+            }
+            // Call manually onCmdToogleHideNonInspecteDataElements
+            return myViewNet->onCmdToogleHideShapes(obj, sel, ptr);
         } else {
             // nothing to toogle
             return 1;

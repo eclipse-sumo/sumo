@@ -656,6 +656,8 @@ enum {
 
     /// @brief show demand elements
     MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,
+    /// @brief hide shapes
+    MID_GNE_DATAVIEWOPTIONS_HIDESHAPES,
 
     /// @}
 

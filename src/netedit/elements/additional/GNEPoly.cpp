@@ -289,7 +289,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // first obtain poly exaggeration
     const double polyExaggeration = s.polySize.getExaggeration(s, this);
     // first check if poly can be drawn
-    if ((polyExaggeration > 0) && myNet->getViewNet()->getDemandViewOptions().showShapes()) {
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes() && (polyExaggeration > 0)) {
         // Obtain constants
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         const double vertexWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s, this));

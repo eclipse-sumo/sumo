@@ -1811,7 +1811,7 @@ GNEViewNetHelper::DemandViewOptions::DemandViewOptions(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
-
+    // create menu checks
     menuCheckHideShapes = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
         ("Hide shapes\t\tToggle show shapes (Polygons and POIs)"),
         myViewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES, LAYOUT_FIX_HEIGHT);
@@ -1955,18 +1955,27 @@ GNEViewNetHelper::DemandViewOptions::getLockedPerson() const {
 
 GNEViewNetHelper::DataViewOptions::DataViewOptions(GNEViewNet* viewNet) :
     menuCheckShowDemandElements(nullptr),
+    menuCheckHideShapes(nullptr),
     myViewNet(viewNet) {
 }
 
 
 void
 GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
+    // create menu checks
     menuCheckShowDemandElements = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
         ("Show demand elements\t\tToggle show demand elements"),
         myViewNet, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS, LAYOUT_FIX_HEIGHT);
     menuCheckShowDemandElements->setHeight(23);
     menuCheckShowDemandElements->setCheck(false);
     menuCheckShowDemandElements->create();
+
+    menuCheckHideShapes = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
+        ("Hide shapes\t\tToggle show shapes (Polygons and POIs)"),
+        myViewNet, MID_GNE_DATAVIEWOPTIONS_HIDESHAPES, LAYOUT_FIX_HEIGHT);
+    menuCheckHideShapes->setHeight(23);
+    menuCheckHideShapes->setCheck(false);
+    menuCheckHideShapes->create();
 
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->recalc();
@@ -1976,6 +1985,7 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
 void
 GNEViewNetHelper::DataViewOptions::hideDataViewOptionsMenuChecks() {
     menuCheckShowDemandElements->hide();
+    menuCheckHideShapes->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
 }
@@ -1987,6 +1997,9 @@ GNEViewNetHelper::DataViewOptions::getVisibleDataMenuCommands(std::vector<FXMenu
     if (menuCheckShowDemandElements->shown()) {
         commands.push_back(menuCheckShowDemandElements);
     }
+    if (menuCheckHideShapes->shown()) {
+        commands.push_back(menuCheckHideShapes);
+    }
 }
 
 
@@ -1996,6 +2009,16 @@ GNEViewNetHelper::DataViewOptions::showDemandElements() const {
         return (menuCheckShowDemandElements->getCheck() == TRUE);
     } else {
         // by default, if menuCheckShowDemandElements isn't shown, always show demand elements
+        return true;
+    }
+}
+
+
+bool
+GNEViewNetHelper::DataViewOptions::showShapes() const {
+    if (menuCheckHideShapes->shown()) {
+        return (menuCheckHideShapes->getCheck() == FALSE);
+    } else {
         return true;
     }
 }
