@@ -187,7 +187,7 @@ class DetectorReader(handler.ContentHandler):
         return self._edge2DetData[edge]
 
     def startElement(self, name, attrs):
-        if name == 'detectorDefinition' or name == 'e1Detector':
+        if name == 'detectorDefinition' or name == 'e1Detector' or name == 'inductionLoop':
             detType = attrs['type'] if 'type' in attrs else None
             self.addDetector(attrs['id'], float(attrs['pos']),
                              self._laneMap.get(attrs['lane'], self._currentEdge), detType)
