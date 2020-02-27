@@ -179,7 +179,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     }
     RailwayRouter<ROEdge, ROVehicle>* railRouter = nullptr;
     if (net.hasBidiEdges()) {
-        railRouter = new RailwayRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), true, ttFunction, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
+        railRouter = new RailwayRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), true, ttFunction, nullptr, false, net.hasPermissions(), oc.isSet("restriction-params"));
     }
     RORouterProvider provider(router, new PedestrianRouter<ROEdge, ROLane, RONode, ROVehicle>(),
                               new ROIntermodalRouter(RONet::adaptIntermodalRouter, carWalk, routingAlgorithm),
