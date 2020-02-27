@@ -1,0 +1,2 @@
+Warning: Traffic light type 'actuated' cannot be used in mesoscopic simulation. Using 'static' as fallback
+Warning: Teleporting vehicle '0.39'; waited too long, from edge 'WC':1 to edge 'CE':1, time 505.94.

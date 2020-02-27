@@ -43,5 +43,8 @@ short_lane
 # test for approximating a dual-ring controller by using the actuated branching logic
 dualring_simple
 
+# test for approximating a dual-ring controller by using the actuated branching logic, including constraints on maximum green time for selected links
+dualring_simple_linkMaxDur
+
 # test for approximating a dual-ring controller by using the actuated branching logic
 dualring
