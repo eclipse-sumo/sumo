@@ -31,6 +31,35 @@
 
 
 // ===========================================================================
+// callbacks definitions
+// ===========================================================================
+
+void APIENTRY beginTAZCallback(GLenum which) {
+    glBegin(which);
+}
+
+
+void APIENTRY endTAZCallback(void) {
+    glEnd();
+}
+
+
+void APIENTRY combineTAZCallback(GLdouble coords[3],
+                              GLdouble* vertex_data[4],
+                              GLfloat weight[4], GLdouble** dataOut) {
+    UNUSED_PARAMETER(weight);
+    UNUSED_PARAMETER(*vertex_data);
+    GLdouble* vertex;
+
+    vertex = (GLdouble*) malloc(7 * sizeof(GLdouble));
+
+    vertex[0] = coords[0];
+    vertex[1] = coords[1];
+    vertex[2] = coords[2];
+    *dataOut = vertex;
+}
+
+// ===========================================================================
 // static members
 // ===========================================================================
 const double GNETAZ::myHintSize = 0.8;
@@ -42,16 +71,17 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // ===========================================================================
 GNETAZ::GNETAZ(const std::string& id, GNEViewNet* viewNet, PositionVector shape, RGBColor color, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-              myColor(color),
-              myTAZShape(shape),
-              myBlockShape(false),
-              myCurrentMovingVertexIndex(-1),
-              myMaxWeightSource(0),
-              myMinWeightSource(0),
-              myAverageWeightSource(0),
-              myMaxWeightSink(0),
-              myMinWeightSink(0),
-myAverageWeightSink(0) {
+    myColor(color),
+    myTAZShape(shape),
+    myDrawFill(false),
+    myBlockShape(false),
+    myCurrentMovingVertexIndex(-1),
+    myMaxWeightSource(0),
+    myMinWeightSource(0),
+    myAverageWeightSource(0),
+    myMaxWeightSink(0),
+    myMinWeightSink(0),
+    myAverageWeightSink(0) {
 }
 
 
@@ -286,7 +316,14 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(myColor);
             }
             GLHelper::drawLine(myTAZShape);
-            GLHelper::drawBoxLines(myTAZShape, s.polySize.getExaggeration(s, this));
+
+            glPushMatrix();
+            glTranslated(0, 0, 0 /*getShapeLayer()*/);
+            // recall tesselation
+
+            performTesselation(1);
+
+            //GLHelper::drawBoxLines(myTAZShape, s.polySize.getExaggeration(s, this));
             glPopMatrix();
             // draw name
             drawName(myTAZShape.getPolygonCenter(), s.scale, s.polyName, s.angle);
@@ -364,6 +401,8 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             return toString(myTAZShape);
         case SUMO_ATTR_COLOR:
             return toString(myColor);
+        case SUMO_ATTR_FILL:
+            return toString(myDrawFill);
         case SUMO_ATTR_EDGES: {
             std::vector<std::string> edgeIDs;
             for (auto i : getChildAdditionals()) {
@@ -427,6 +466,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_ID:
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_COLOR:
+        case SUMO_ATTR_FILL:
         case SUMO_ATTR_EDGES:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_BLOCK_SHAPE:
@@ -449,6 +489,8 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<PositionVector>(value);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
+        case SUMO_ATTR_FILL:
+            return canParse<bool>(value);
         case SUMO_ATTR_EDGES:
             if (value.empty()) {
                 return true;
@@ -541,6 +583,39 @@ GNETAZ::updateParentAdditional() {
 // ===========================================================================
 
 void
+GNETAZ::performTesselation(double lineWidth) const {
+    if (myDrawFill) {
+        // draw the tesselated shape
+        double* points = new double[myTAZShape.size() * 3];
+        GLUtesselator* tobj = gluNewTess();
+        gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
+        gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(APIENTRY*)()) &beginTAZCallback);
+        gluTessCallback(tobj, GLU_TESS_END, (GLvoid(APIENTRY*)()) &endTAZCallback);
+        //gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (APIENTRY*) ()) &errorCallback);
+        gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(APIENTRY*)()) &combineTAZCallback);
+        gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
+        gluTessBeginPolygon(tobj, nullptr);
+        gluTessBeginContour(tobj);
+        for (int i = 0; i != (int)myTAZShape.size(); ++i) {
+            points[3 * i]  = myTAZShape[(int) i].x();
+            points[3 * i + 1]  = myTAZShape[(int) i].y();
+            points[3 * i + 2]  = 0;
+            gluTessVertex(tobj, points + 3 * i, points + 3 * i);
+        }
+        gluTessEndContour(tobj);
+
+        gluTessEndPolygon(tobj);
+        gluDeleteTess(tobj);
+        delete[] points;
+
+    } else {
+        GLHelper::drawLine(myTAZShape);
+        GLHelper::drawBoxLines(myTAZShape, lineWidth);
+    }
+}
+
+
+void
 GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
@@ -553,6 +628,9 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
+            break;
+         case SUMO_ATTR_FILL:
+            myDrawFill = parse<bool>(value);
             break;
         case SUMO_ATTR_EDGES:
             break;

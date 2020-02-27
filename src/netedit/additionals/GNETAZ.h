@@ -174,6 +174,9 @@ protected:
     /// @brief flag for block shape
     bool myBlockShape;
 
+    /// @brief flag for draw TAZ filled
+    bool myDrawFill;
+
     /// @brief index of vertex that is been moved (-1 means that none vertex is been moved)
     int myCurrentMovingVertexIndex;
 
@@ -201,6 +204,9 @@ private:
 
     /// @brief Average Sink weight
     double myAverageWeightSink;
+
+    // @brief perform the tesselation / drawing
+    void performTesselation(double lineWidth) const;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

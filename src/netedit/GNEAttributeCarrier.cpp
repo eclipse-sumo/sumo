@@ -2898,6 +2898,12 @@ GNEAttributeCarrier::fillAdditionals() {
                                            "The RGBA color with which the TAZ shall be displayed",
                                            "red");
         myTagProperties[currentTag].addAttribute(attrProperty);
+        
+        attrProperty = AttributeProperties(SUMO_ATTR_FILL,
+                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
+                                           "An information whether the TAZ shall be filled",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_TAZSOURCE;
     {
