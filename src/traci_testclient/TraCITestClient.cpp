@@ -1012,8 +1012,10 @@ TraCITestClient::testAPI() {
         }
     }
     libsumo::TraCILogic logic("custom", 0, 3);
-    logic.phases = std::vector<libsumo::TraCIPhase>({ libsumo::TraCIPhase(5, "rrrrrrr", 5, 5), libsumo::TraCIPhase(10, "ggggggg", 5, 15),
-                   libsumo::TraCIPhase(3, "GGGGGGG", 3, 3), libsumo::TraCIPhase(3, "yyyyyyy", 3, 3)
+    logic.phases = std::vector<libsumo::TraCIPhase*>({ new libsumo::TraCIPhase(5, "rrrrrrr", 5, 5),
+                                                       new libsumo::TraCIPhase(10, "ggggggg", 5, 15),
+                                                       new libsumo::TraCIPhase(3, "GGGGGGG", 3, 3),
+                                                       new libsumo::TraCIPhase(3, "yyyyyyy", 3, 3)
                                                     });
     trafficlights.setCompleteRedYellowGreenDefinition("n_m4", logic);
 
@@ -1023,10 +1025,10 @@ TraCITestClient::testAPI() {
         answerLog << "      subID=" << logics[i].programID << " type=" << logics[i].type << " phase=" << logics[i].currentPhaseIndex << "\n";
         answerLog << "      params=" << joinToString(logics[i].subParameter, " ", ":") << "\n";
         for (int j = 0; j < (int)logics[i].phases.size(); ++j) {
-            answerLog << "         phase=" << logics[i].phases[j].state
-                      << " dur=" << logics[i].phases[j].duration
-                      << " minDur=" << logics[i].phases[j].minDur
-                      << " maxDur=" << logics[i].phases[j].maxDur
+            answerLog << "         phase=" << logics[i].phases[j]->state
+                      << " dur=" << logics[i].phases[j]->duration
+                      << " minDur=" << logics[i].phases[j]->minDur
+                      << " maxDur=" << logics[i].phases[j]->maxDur
                       << "\n";
         }
     }

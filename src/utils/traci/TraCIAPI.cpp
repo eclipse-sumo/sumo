@@ -1922,7 +1922,7 @@ TraCIAPI::TrafficLightScope::getCompleteRedYellowGreenDefinition(const std::stri
                 }
                 myParent.myInput.readUnsignedByte();
                 const std::string name = myParent.myInput.readString();
-                logic.phases.emplace_back(libsumo::TraCIPhase(duration, state, minDur, maxDur, next, name));
+                logic.phases.emplace_back(new libsumo::TraCIPhase(duration, state, minDur, maxDur, next, name));
             }
             myParent.myInput.readUnsignedByte();
             const int paramNumber = myParent.myInput.readInt();
@@ -2063,25 +2063,25 @@ TraCIAPI::TrafficLightScope::setCompleteRedYellowGreenDefinition(const std::stri
     content.writeInt(logic.currentPhaseIndex);
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     content.writeInt((int)logic.phases.size());
-    for (const libsumo::TraCIPhase& p : logic.phases) {
+    for (const libsumo::TraCIPhase* p : logic.phases) {
         content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
         content.writeInt(6);
         content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        content.writeDouble(p.duration);
+        content.writeDouble(p->duration);
         content.writeUnsignedByte(libsumo::TYPE_STRING);
-        content.writeString(p.state);
+        content.writeString(p->state);
         content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        content.writeDouble(p.minDur);
+        content.writeDouble(p->minDur);
         content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        content.writeDouble(p.maxDur);
+        content.writeDouble(p->maxDur);
         content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-        content.writeInt((int)p.next.size());
-        for (int n : p.next) {
+        content.writeInt((int)p->next.size());
+        for (int n : p->next) {
             content.writeUnsignedByte(libsumo::TYPE_INTEGER);
             content.writeInt(n);
         }
         content.writeUnsignedByte(libsumo::TYPE_STRING);
-        content.writeString(p.name);
+        content.writeString(p->name);
     }
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     content.writeInt((int)logic.subParameter.size());
