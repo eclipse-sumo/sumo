@@ -92,7 +92,7 @@ public:
     std::string generateChildID(SumoXMLTag childTag);
 
     /// @brief check if current generic data is visible
-    virtual bool isVisible() const = 0;
+    bool isVisible() const;
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;

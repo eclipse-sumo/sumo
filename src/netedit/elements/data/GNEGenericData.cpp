@@ -21,6 +21,8 @@
 #include <config.h>
 
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/frames/data/GNEEdgeDataFrame.h>
 
 #include "GNEGenericData.h"
 #include "GNEDataInterval.h"
@@ -68,6 +70,38 @@ GNEGenericData::getDataIntervalParent() const {
 std::string 
 GNEGenericData::generateChildID(SumoXMLTag /*childTag*/) {
     return "";
+}
+
+
+bool 
+GNEGenericData::isVisible() const {
+    // first check if we're in supermode demand
+    if (myDataIntervalParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DATA) {
+        // special case for edgeDatas
+        if (myTagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) {
+            // obtain pointer to edge data frame (only for code legibly)
+            const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getViewNet()->getViewParent()->getEdgeDataFrame();
+            // check if we have to filter generic data
+            if (edgeDataFrame->shown()) {
+                // check if we can 
+                if (edgeDataFrame->getDataSetSelector()->getDataSet() && 
+                    (edgeDataFrame->getDataSetSelector()->getDataSet() != myDataIntervalParent->getDataSetParent())) {
+                    return false;
+                } else if (edgeDataFrame->getIntervalSelector()->getDataInterval() &&
+                    (edgeDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    } else {
+        return false;
+    }
 }
 
 
