@@ -147,6 +147,18 @@ MSDevice_Tripinfo::cleanup() {
 }
 
 bool
+MSDevice_Tripinfo::notifyIdle(SUMOTrafficObject& veh) {
+    if (veh.isVehicle()) {
+        myWaitingTime += DELTA_T;
+        if (!myAmWaiting) {
+            myWaitingCount++;
+            myAmWaiting = true;
+        }
+    }
+    return true;
+}
+
+bool
 MSDevice_Tripinfo::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/,
                               double /*newPos*/, double newSpeed) {
     if (veh.isStopped()) {

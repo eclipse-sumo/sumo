@@ -74,6 +74,13 @@ MSDevice_Emissions::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, double
     return true;
 }
 
+bool
+MSDevice_Emissions::notifyIdle(SUMOTrafficObject& veh) {
+    const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
+    myEmissions.addScaled(PollutantsInterface::computeAll(c, 0., 0., 0.,
+                    static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), TS);
+    return true;
+}
 
 void
 MSDevice_Emissions::notifyMoveInternal(const SUMOTrafficObject& veh,

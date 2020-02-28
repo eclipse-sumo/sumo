@@ -298,6 +298,12 @@ public:
     void workOnMoveReminders(double oldPos, double newPos, double newSpeed);
     //@}
 
+   /** @brief cycle through vehicle devices invoking notifyIdle
+     *
+     *   This is only implemented on the emissions device
+     *     implemented to allow capture of emissions when vehicle is not on net.
+     */
+    void MSVehicle::workOnIdleReminders();
 
     /** @brief Returns whether the vehicle is supposed to take action in the current simulation step
      *         Updates myActionStep and myLastActionTime in case that the current simstep is an action step
@@ -573,6 +579,21 @@ public:
         return myAmOnNet;
     }
 
+    /** @brief access function for Idling flag
+     *      used to record whether vehicle is waiting to enter lane (after parking)
+     */
+    void
+    setIdling(bool amIdling) {
+        myAmIdling = amIdling;
+    }
+
+    /** @brief Returns whether a sim vehicle is waiting to enter a lane
+     *      (after parking has completed)
+     * @return true if the vehicle is waiting
+     */
+    inline bool isIdling() const {
+        return myAmIdling;
+    }
 
     /** @brief Returns whether the current simulation step is an action point for the vehicle
      * @return Whether the vehicle has an action point in the current step.
@@ -1926,6 +1947,9 @@ protected:
 
     /// @brief State of things of the vehicle that can be on or off
     int mySignals;
+
+    /// @brief Whether the vehicle is trying to enter the network (eg after parking so engine is running)
+    bool myAmIdling;
 
     /// @brief Whether the vehicle is on the network (not parking, teleported, vaporized, or arrived)
     bool myAmOnNet;
