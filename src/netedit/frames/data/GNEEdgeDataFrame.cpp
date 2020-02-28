@@ -238,8 +238,9 @@ GNEEdgeDataFrame::IntervalSelector::~IntervalSelector() {}
 
 void
 GNEEdgeDataFrame::IntervalSelector::refreshIntervalSelector() {
-    // first clear items
+    // first clear items from tree and intervalMap
     myIntervalsTreelist->clearItems();
+    myTreeItemIntervalMap.clear();
     // obtain data set
     const GNEDataSet *dataSet = myEdgeDataFrameParent->myDataSetSelector->getDataSet();
     // add intervals 
@@ -441,6 +442,8 @@ GNEEdgeDataFrame::AttributeSelector::refreshAttributeSelector() {
     }
     // recalc frame
     recalc();
+    // update view net
+    myEdgeDataFrameParent->getViewNet()->update();
 }
 
 
@@ -503,6 +506,24 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& object
         // invalid parent parameters
         return false;
     }
+}
+
+
+const GNEEdgeDataFrame::DataSetSelector*
+GNEEdgeDataFrame::getDataSetSelector() const {
+    return myDataSetSelector;
+}
+
+
+const GNEEdgeDataFrame::IntervalSelector*
+GNEEdgeDataFrame::getIntervalSelector() const {
+    return myIntervalSelector;
+}
+
+
+const GNEEdgeDataFrame::AttributeSelector*
+GNEEdgeDataFrame::getAttributeSelector() const {
+    return myAttributeSelector;
 }
 
 

@@ -26,6 +26,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/additional/GNEShape.h>
+#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/common/StringTokenizer.h>
@@ -1065,8 +1066,8 @@ RGBColor
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     // we need to draw lanes with a special color if we're inspecting a Trip or Flow and this lane belongs to a via's edge.
     if (myNet->getViewNet()->getDottedAC() && (myNet->getViewNet()->getDottedAC()->isAttributeCarrierSelected() == false) &&
-            ((myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_TRIP) ||
-             (myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_FLOW))) {
+        ((myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_TRIP) ||
+         (myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_FLOW))) {
         // obtain attribute "via"
         std::vector<std::string> viaEdges = parse<std::vector<std::string> >(myNet->getViewNet()->getDottedAC()->getAttribute(SUMO_ATTR_VIA));
         // iterate over viaEdges
@@ -1095,6 +1096,13 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
         const GUIColorer& c = s.laneColorer;
         if (!setFunctionalColor(c.getActive(), color) && !setMultiColor(s, c, color)) {
             color = c.getScheme().getColor(getColorValue(s, c.getActive()));
+        }
+    }
+    // check if we have to change color if parent edge has generic data elements
+    for (const auto &edgeGenericData : myParentEdge->getChildGenericDataElements()) {
+        if (edgeGenericData->isVisible()) {
+            // temporal
+            color = RGBColor::RED;
         }
     }
     // set color in GLHelper

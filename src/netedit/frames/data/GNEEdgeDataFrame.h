@@ -222,6 +222,15 @@ public:
     /// @brief show Frame
     void show();
 
+    /// @brief get dataSet selector modul
+    const DataSetSelector *getDataSetSelector() const;
+
+    /// @brief get interval selector modul
+    const IntervalSelector *getIntervalSelector() const;
+
+    /// @brief getattribute selector modul
+    const AttributeSelector *getAttributeSelector() const;
+
     /**@brief add additional element
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @return true if additional was sucesfully added
