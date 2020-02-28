@@ -2638,7 +2638,7 @@ GNENet::retrieveGenericDataParameters(const std::string &dataSetID, const std::s
     // now continue with data intervals
     int numberOfIntervals = 0;
     for (const auto &dataSet : dataSets) {
-        numberOfIntervals += dataSet->getDataIntervalChildren().size();
+        numberOfIntervals += (int)dataSet->getDataIntervalChildren().size();
     }
     // resize dataIntervals
     dataIntervals.reserve(numberOfIntervals);

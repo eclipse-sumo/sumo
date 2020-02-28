@@ -91,6 +91,9 @@ public:
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
 
+    /// @brief check if current generic data is visible
+    virtual bool isVisible() const = 0;
+
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 

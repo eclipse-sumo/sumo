@@ -802,4 +802,10 @@ public:
         /// @brief actual additional reference point selected in the match Box
         AdditionalReferencePoint myActualAdditionalReferencePoint;
     };
+
+    /// @brief return true if AC can be edited in the current supermode
+    static bool isSupermodeValid(const GNEViewNet *viewNet, const GNEAttributeCarrier *AC);
+
+    /// @brief return true if give ACAttr can be edited in the current supermode
+    static bool isSupermodeValid(const GNEViewNet *viewNet, const GNEAttributeProperties &ACAttr);
 };

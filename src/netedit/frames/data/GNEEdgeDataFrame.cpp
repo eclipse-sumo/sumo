@@ -169,7 +169,7 @@ GNEEdgeDataFrame::DataSetSelector::onCmdSetNewDataSetID(FXObject*, FXSelector, v
 
 
 long 
-GNEEdgeDataFrame::DataSetSelector::onCmdSelectDataSet(FXObject* obj, FXSelector, void*) {
+GNEEdgeDataFrame::DataSetSelector::onCmdSelectDataSet(FXObject*, FXSelector, void*) {
     // update interval modul
     myEdgeDataFrameParent->myIntervalSelector->refreshIntervalSelector();
     return 1;
@@ -177,7 +177,7 @@ GNEEdgeDataFrame::DataSetSelector::onCmdSelectDataSet(FXObject* obj, FXSelector,
 
 
 long 
-GNEEdgeDataFrame::DataSetSelector::onCmdSelectCheckButton(FXObject* obj, FXSelector, void*) {
+GNEEdgeDataFrame::DataSetSelector::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
     if (myNewDataSetCheckButton->getCheck() == TRUE) {
         // enable textfield and label
         myHorizontalFrameNewID->show();
@@ -386,7 +386,7 @@ GNEEdgeDataFrame::IntervalSelector::addListItem(GNEDataInterval* dataInterval, F
 // ---------------------------------------------------------------------------
 
 GNEEdgeDataFrame::AttributeSelector::AttributeSelector(GNEEdgeDataFrame* edgeDataFrameParent) :
-    FXGroupBox(edgeDataFrameParent->myContentFrame, "Attribute", GUIDesignGroupBoxFrame),
+    FXGroupBox(edgeDataFrameParent->myContentFrame, "Data attributes", GUIDesignGroupBoxFrame),
     myEdgeDataFrameParent(edgeDataFrameParent) {
     // Create FXComboBox
     myAttributesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);

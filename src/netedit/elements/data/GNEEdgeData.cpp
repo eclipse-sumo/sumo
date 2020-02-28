@@ -46,6 +46,13 @@ GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge *edgeParen
 GNEEdgeData::~GNEEdgeData() {}
 
 
+bool 
+GNEEdgeData::isVisible() const {
+    //
+    return true;
+}
+
+
 void 
 GNEEdgeData::updateGeometry() {
     // nothing to update

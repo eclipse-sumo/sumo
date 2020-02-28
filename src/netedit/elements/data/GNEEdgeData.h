@@ -44,6 +44,9 @@ public:
     /// @brief Destructor
     ~GNEEdgeData();
 
+    /// @brief check if current generic data is visible
+    bool isVisible() const;
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 

@@ -1052,18 +1052,17 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         }
         // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
         if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
-            if (((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
-                    ((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+            if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->myViewNet, myACAttr)) {
+                 myAttributeButtonCombinableChoices->enable();
+                myAttributeColorButton->enable();
+                myAttributeCheckButton->enable();
+            } else {
                 myAttributeColorButton->disable();
                 myAttributeCheckButton->disable();
                 myValueTextField->disable();
                 myValueComboBoxChoices->disable();
                 myValueCheckButton->disable();
                 myAttributeButtonCombinableChoices->disable();
-            } else {
-                myAttributeButtonCombinableChoices->enable();
-                myAttributeColorButton->enable();
-                myAttributeCheckButton->enable();
             }
         }
         // set left column
@@ -1186,18 +1185,17 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
     }
     // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
     if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
-        if (((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
-                ((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+        if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->myViewNet, myACAttr)) {
+            myAttributeButtonCombinableChoices->enable();
+            myAttributeColorButton->enable();
+            myAttributeCheckButton->enable();
+        } else {
             myAttributeColorButton->disable();
             myAttributeCheckButton->disable();
             myValueTextField->disable();
             myValueComboBoxChoices->disable();
             myValueCheckButton->disable();
             myAttributeButtonCombinableChoices->disable();
-        } else {
-            myAttributeButtonCombinableChoices->enable();
-            myAttributeColorButton->enable();
-            myAttributeCheckButton->enable();
         }
     }
     // set check buton
@@ -2177,13 +2175,12 @@ GNEFrameAttributesModuls::ParametersEditor::refreshParametersEditor() {
         myTextFieldParameters->setText(myAC->getAttribute(GNE_ATTR_PARAMETERS).c_str());
         myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
         // disable myTextFieldParameters if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-        if (((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myAC->getTagProperty().isDemandElement()) ||
-                ((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myAC->getTagProperty().isDemandElement())) {
-            myTextFieldParameters->disable();
-            myButtonEditParameters->disable();
-        } else {
+        if (isSupermodeValid(myFrameParent->myViewNet, myAC)) {
             myTextFieldParameters->enable();
             myButtonEditParameters->enable();
+        } else {
+            myTextFieldParameters->disable();
+            myButtonEditParameters->disable();
         }
     } else if (myACs.size() > 0) {
         // check if parameters of all inspected ACs are different
@@ -2196,13 +2193,12 @@ GNEFrameAttributesModuls::ParametersEditor::refreshParametersEditor() {
         myTextFieldParameters->setText(parameters.c_str());
         myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
         // disable myTextFieldParameters if we're in demand mode and inspected AC isn't a demand element (or viceversa)
-        if (((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACs.front()->getTagProperty().isDemandElement()) ||
-                ((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACs.front()->getTagProperty().isDemandElement())) {
-            myTextFieldParameters->disable();
-            myButtonEditParameters->disable();
-        } else {
+        if (isSupermodeValid(myFrameParent->myViewNet, myACs.front())) {
             myTextFieldParameters->enable();
             myButtonEditParameters->enable();
+        } else {
+            myTextFieldParameters->disable();
+            myButtonEditParameters->disable();
         }
     }
 }
@@ -2804,5 +2800,32 @@ GNEFrameAttributesModuls::NeteditAttributes::setEndPosition(double positionOfThe
     }
 }
 
+
+bool 
+GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet *viewNet, const GNEAttributeCarrier *AC) {
+    if ((viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !AC->getTagProperty().isNetworkElement()) {
+        return false;
+    } else if ((viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !AC->getTagProperty().isDemandElement()) {
+        return false;
+    } else if ((viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DATA) && !AC->getTagProperty().isDataElement()) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+bool 
+GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet *viewNet, const GNEAttributeProperties &ACAttr) {
+    if ((viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !ACAttr.getTagPropertyParent().isNetworkElement()) {
+        return false;
+    } else if ((viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !ACAttr.getTagPropertyParent().isDemandElement()) {
+        return false;
+    } else if ((viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DATA) && !ACAttr.getTagPropertyParent().isDataElement()) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 /****************************************************************************/

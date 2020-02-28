@@ -153,6 +153,8 @@ class GNEVehicle;
 class GNEtrip;
 // data elements
 class GNEDataElement;
+class GNEDataInterval;
+class GNEGenericData;
 
 // ===========================================================================
 // classes and structs definitions
@@ -193,8 +195,8 @@ struct GNEViewNetHelper {
         /// @brief get front demand element or a pointer to nullptr
         GNEDemandElement* getDemandElementFront() const;
 
-        /// @brief get front data element or a pointer to nullptr
-        GNEDataElement* getDataElementFront() const;
+        /// @brief get generic data element or a pointer to nullptr
+        GNEGenericData* getGenericDataElementFront() const;
 
         /// @brief get front junction or a pointer to nullptr
         GNEJunction* getJunctionFront() const;
@@ -242,9 +244,6 @@ struct GNEViewNetHelper {
         /// @brief vector with the clicked demand elements
         std::vector<GNEDemandElement*> myDemandElements;
 
-        /// @brief vector with the clicked data elements
-        std::vector<GNEDataElement*> myDataElements;
-
         /// @brief vector with the clicked junctions
         std::vector<GNEJunction*> myJunctions;
 
@@ -268,6 +267,9 @@ struct GNEViewNetHelper {
 
         /// @brief vector with the clicked Polys
         std::vector<GNEPoly*> myPolys;
+
+        /// @brief vector with the clicked generic datas
+        std::vector<GNEGenericData*> myGenericDatas;
 
         /// @brief invert GUIGlObjects
         void sortGUIGlObjectsByAltitude(const std::vector<GUIGlObject*>& GUIGlObjects);

@@ -22,14 +22,15 @@
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/data/GNEDataSet.h>
+#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
-#include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNELane.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -69,6 +70,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
     myTAZs.clear();
     myPOIs.clear();
     myPolys.clear();
+    myGenericDatas.clear();
     // set GUIGlObject
     sortGUIGlObjectsByAltitude(GUIGlObjects);
     // iterate over GUIGlObjects
@@ -116,6 +118,15 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                             // check if parent edge is already inserted in myEdges (for example, due clicking over Geometry Points)
                             if (std::find(myEdges.begin(), myEdges.end(), edge) == myEdges.end()) {
                                 myEdges.push_back(edge);
+                                // iterate over edge generic datas
+                                for (const auto &genericData : edge->getChildGenericDataElements()) {
+                                    // add into myGenericDatas if generic data is visible
+                                    if (genericData->isVisible()) {
+                                        // insert in front of edge
+                                        myAttributeCarriers.insert(myAttributeCarriers.begin(), (genericData));
+                                        myGenericDatas.push_back(genericData);
+                                    }
+                                }
                             }
                             break;
                         }
@@ -124,6 +135,15 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                             // check if edge's parent lane is already inserted in myEdges (for example, due clicking over Geometry Points)
                             if (std::find(myEdges.begin(), myEdges.end(), myLanes.back()->getParentEdge()) == myEdges.end()) {
                                 myEdges.push_back(myLanes.back()->getParentEdge());
+                                // iterate over edge generic datas
+                                for (const auto &genericData : myLanes.back()->getParentEdge()->getChildGenericDataElements()) {
+                                    // add into myGenericDatas if generic data is visible
+                                    if (genericData->isVisible()) {
+                                        // insert in front of lane
+                                        myAttributeCarriers.insert(myAttributeCarriers.begin(), (genericData));
+                                        myGenericDatas.push_back(genericData);
+                                    }
+                                }
                             }
                             break;
                         }
@@ -255,10 +275,10 @@ GNEViewNetHelper::ObjectsUnderCursor::getDemandElementFront() const {
 }
 
 
-GNEDataElement*
-GNEViewNetHelper::ObjectsUnderCursor::getDataElementFront() const {
-    if (myDataElements.size() > 0) {
-        return myDataElements.front();
+GNEGenericData*
+GNEViewNetHelper::ObjectsUnderCursor::getGenericDataElementFront() const {
+    if (myGenericDatas.size() > 0) {
+        return myGenericDatas.front();
     } else {
         return nullptr;
     }
