@@ -309,7 +309,8 @@ def buildTripGenerator(net, options):
     try:
         max_length = 0
         for edge in net.getEdges():
-            max_length = max(max_length, edge.getLength())
+            if not edge.is_fringe():
+                max_length = max(max_length, edge.getLength())
         forbidden_source_fringe = None if options.allow_fringe else "_outgoing"
         forbidden_sink_fringe = None if options.allow_fringe else "_incoming"
         source_generator = RandomEdgeGenerator(
