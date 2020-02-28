@@ -27,5 +27,8 @@ small_input_optimize
 # use linear programming to optimize route usage
 small_input_noSampling_optimize
 
+# input contains duplicate routes. optimize it.
+small_input_duplicates_noSampling
+
 # invalid options
-small_input_noSampling
+invalid_options
