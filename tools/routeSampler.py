@@ -57,6 +57,8 @@ def get_options(args=None):
                         help="set optimization method level (full, INT boundary)")
     parser.add_argument("--optimize-input", dest="optimizeInput", action="store_true", default=False,
                         help="Skip resampling and run optimize directly on the input routes")
+    parser.add_argument("--geh-ok", dest="gehOk", default=5,
+                        help="threshold for acceptable GEH values")
     parser.add_argument("-v", "--verbose", action="store_true", default=False,
                         help="tell me what you are doing")
 
@@ -331,8 +333,8 @@ def main(options):
         optimize(options, countData, routes, usedRoutes, routeUsage)
         resetCounts(usedRoutes, routeUsage, countData)
 
+    begin, end = parseTimeRange(options.turnFile + options.edgeDataFile)
     if usedRoutes:
-        begin, end = parseTimeRange(options.turnFile + options.edgeDataFile)
         with open(options.out, 'w') as outf:
             sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
             period = (end - begin) / len(usedRoutes)
@@ -347,16 +349,28 @@ def main(options):
 
     underflow = sumolib.miscutils.Statistics("underflow locations")
     overflow = sumolib.miscutils.Statistics("overflow locations")
+    gehStats = sumolib.miscutils.Statistics("GEH")
+    numGehOK = 0.0
+    hourFraction = (end - begin) / 3600.0
     totalCount = 0
     for cd in countData:
-        totalCount += cd.origCount - cd.count
+        localCount = cd.origCount - cd.count
+        totalCount += localCount
         if cd.count > 0:
             underflow.add(cd.count, cd.edgeTuple)
         elif cd.count < 0:
             overflow.add(cd.count, cd.edgeTuple)
+        origHourly = cd.origCount / hourFraction
+        localHourly = localCount / hourFraction
+        geh = sumolib.miscutils.geh(origHourly, localHourly)
+        if geh < options.gehOk:
+            numGehOK += 1
+        gehStats.add(geh, "[%s] %s %s" % (
+            ' '.join(cd.edgeTuple), int(origHourly), int(localHourly)))
 
-    print("Wrote %s routes (%s distinct) achieving total count %s at %s locations" % (
-        len(usedRoutes), len(set(usedRoutes)), totalCount, len(countData)))
+    print("Wrote %s routes (%s distinct) achieving total count %s at %s locations. GEH<%s for %s%%" % (
+        len(usedRoutes), len(set(usedRoutes)), totalCount, len(countData),
+        options.gehOk, 100 * numGehOK / len(countData)))
 
     if options.verbose:
         edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
@@ -366,6 +380,7 @@ def main(options):
             detectorCount.add(len(routeUsage[r]), i)
         print("result %s" % edgeCount)
         print("result %s" % detectorCount)
+        print(gehStats)
 
     if underflow.count() > 0:
         print("Warning: %s (total %s)" % (underflow, sum(underflow.values)))
