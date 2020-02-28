@@ -428,11 +428,6 @@ if (MVN_EXECUTABLE AND Java_FOUND)
         get_filename_component(JAVA_HOME ${JAVA_BIN} DIRECTORY)
         set(MVN_COMMAND_PREFIX ${CMAKE_COMMAND} -E env JAVA_HOME=${JAVA_HOME})
     endif ()
-    add_custom_target(cadyts
-        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/calibration/pom.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/utilities/target/floetteroed-utilities-master-SNAPSHOT.jar bin
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/cadyts/target/cadyts-master-SNAPSHOT.jar bin
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_custom_target(traas
         COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/traas/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/target/traas-1.0-jar-with-dependencies.jar bin/TraaS.jar
@@ -450,7 +445,7 @@ if (MVN_EXECUTABLE AND Java_FOUND)
     add_dependencies(lisum-gui lisum-core)
     add_custom_target(lisum)
     add_dependencies(lisum lisum-gui lisum-core)
-    set(JAVA_TARGETS cadyts traas lisum-core lisum-gui)
+    set(JAVA_TARGETS traas lisum-core lisum-gui)
     foreach (JAVAT ${JAVA_TARGETS})
         set_property(TARGET ${JAVAT} PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
         set_property(TARGET ${JAVAT} PROPERTY FOLDER "java")

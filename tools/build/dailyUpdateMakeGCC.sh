@@ -18,24 +18,14 @@ echo -n "$FILEPREFIX " > $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
 cd $PREFIX/sumo
-if test "${CONFIGURE_OPT::5}" == "cmake"; then
-  rm -rf build/$FILEPREFIX
-else
-  make distclean &> /dev/null
-  make -f Makefile.cvs clean &> /dev/null
-fi
+rm -rf build/$FILEPREFIX
 basename $MAKELOG >> $STATUSLOG
 git pull &> $MAKELOG || (echo "git pull failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 git submodule update >> $MAKELOG 2>&1 || (echo "git submodule update failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 GITREV=`tools/build/version.py -`
 date >> $MAKELOG
-if test "${CONFIGURE_OPT::5}" == "cmake"; then
-  mkdir build/$FILEPREFIX && cd build/$FILEPREFIX
-  cmake ${CONFIGURE_OPT:5} -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. >> $MAKELOG 2>&1 || (echo "cmake failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-else
-  make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-  ./configure --prefix=$PREFIX/sumo $CONFIGURE_OPT >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-fi
+mkdir build/$FILEPREFIX && cd build/$FILEPREFIX
+cmake ${CONFIGURE_OPT:5} -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. >> $MAKELOG 2>&1 || (echo "cmake failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 if make -j32 >> $MAKELOG 2>&1; then
   date >> $MAKELOG
   if make install >> $MAKELOG 2>&1; then
@@ -85,14 +75,9 @@ fi
 echo "--" >> $STATUSLOG
 basename $MAKEALLLOG >> $STATUSLOG
 export CXXFLAGS="$CXXFLAGS -Wall -W -pedantic -Wno-long-long -Wformat -Wformat-security"
-if test "${CONFIGURE_OPT::5}" == "cmake"; then
-  rm -rf build/debug-$FILEPREFIX
-  mkdir build/debug-$FILEPREFIX && cd build/debug-$FILEPREFIX
-  cmake ${CONFIGURE_OPT:5} -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. > $MAKEALLLOG 2>&1 || (echo "cmake debug failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
-else
-  ./configure --prefix=$PREFIX/sumo --program-suffix=A --with-python --with-ffmpeg \
-    $CONFIGURE_OPT &> $MAKEALLLOG || (echo "configure with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
-fi
+rm -rf build/debug-$FILEPREFIX
+mkdir build/debug-$FILEPREFIX && cd build/debug-$FILEPREFIX
+cmake ${CONFIGURE_OPT:5} -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. > $MAKEALLLOG 2>&1 || (echo "cmake debug failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
 if make -j32 >> $MAKEALLLOG 2>&1; then
   make install >> $MAKEALLLOG 2>&1 || (echo "make install with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
 else
