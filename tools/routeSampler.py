@@ -96,7 +96,7 @@ class CountData:
         self.count = count
         self.edgeTuple = edgeTuple
         self.routeSet = set()
-        for routeIndex, edges in enumerate(allRoutes):
+        for routeIndex, edges in enumerate(allRoutes.unique):
             if self.routePasses(edges):
                 self.routeSet.add(routeIndex)
         if self.count > 0 and not self.routeSet:
@@ -112,6 +112,19 @@ class CountData:
             # first edge not in route
             return False
         return True
+
+
+    def sampleOpen(self, openRoutes, routeCounts):
+        cands = list(self.routeSet.intersection(openRoutes))
+        assert(cands)
+        probs = [routeCounts[i] for i in cands]
+        x = random.random * sum(probs)
+        seen = 0
+        for route, prob in zip(cands, probs):
+            seen += prob
+            if seen >= x:
+                return route
+        assert(False)
 
 
 def parseTurnCounts(fnames, allRoutes, attr):
@@ -159,7 +172,7 @@ def updateOpenCounts(openCounts, countData, openRoutes):
     return set(filter(lambda i: countData[i].routeSet.intersection(openRoutes), openCounts))
 
 
-def optimize(optimize, countData, routes, usedRoutes, routeUsage):
+def optimize(options, countData, routes, usedRoutes, routeUsage):
     """ use relaxtion of the ILP problem for picking the number of times that each route is used
     x = usageCount vector (count for each route index)
     c = weight vector (vector of 1s)
@@ -172,29 +185,28 @@ def optimize(optimize, countData, routes, usedRoutes, routeUsage):
 
     """
     import scipy.optimize as opt
+    import scipy.version
     import numpy as np
 
-    k = len(routes)
+    k = routes.number
     m = len(countData)
 
-    if optimize == "full":
+    priorRouteCounts = [0] * k
+    for r in usedRoutes:
+        priorRouteCounts[r] += 1
+
+    if options.optimize == "full":
         # allow changing all prior usedRoutes
         bounds = None
     else:
-        u = int(optimize)
+        u = int(options.optimize)
         # limited optimization: change prior routeCounts by at most u per route
-        priorRouteCounts = [0] * k
-        for r in usedRoutes:
-            priorRouteCounts[r] += 1
-        bounds = [(max(0, c - u), c + u) for c in priorRouteCounts] + [(0, None)] * m
+        bounds = [(max(0, p - u), p + u) for p in priorRouteCounts] + [(0, None)] * m
 
     # Ax <= b
     # x + s = b
     # min s
     # -> x2 = [x, s]
-
-    c = np.concatenate((np.zeros(k), np.ones(m)))  # [x, s], only s counts for minimization
-    b = np.asarray([cd.origCount for cd in countData])
 
     A = np.zeros((m, k))
     for i in range(0, m):
@@ -202,7 +214,35 @@ def optimize(optimize, countData, routes, usedRoutes, routeUsage):
             A[i][j] = int(j in countData[i].routeSet)
     A_eq = np.concatenate((A, np.identity(m)), 1)
 
-    res = opt.linprog(c, A_eq=A_eq, b_eq=b, bounds=bounds)
+    # constraint: achieve counts
+    b = np.asarray([cd.origCount for cd in countData]) 
+    
+    # minimization objective
+    c = np.concatenate((np.zeros(k), np.ones(m)))  # [x, s], only s counts for minimization
+
+    # set x to prior counts and slack to deficit (otherwise solver may fail to any find soluton
+    x0 = priorRouteCounts + [cd.origCount - cd.count for cd in countData]
+
+    #print("k=%s" % k)
+    #print("m=%s" % m)
+    #print("A_eq (%s) %s" % (A_eq.shape, A_eq))
+    #print("b (%s) %s" % (len(b), b))
+    #print("c (%s) %s" % (len(c), c))
+    #print("bounds (%s) %s" % (len(bounds) if bounds is not None else "-", bounds))
+    #print("x0 (%s) %s" % (len(x0), x0))
+
+    linProgOpts = {}
+    if options.verbose:
+        linProgOpts["disp"] = True
+
+    try:
+        res = opt.linprog(c, A_eq=A_eq, b_eq=b, bounds=bounds, x0=x0, options=linProgOpts)
+    except TypeError:
+        if options.verbose:
+            sys.stderr.write("Warning: Scipy version %s does not support initial guess for opt.linprog. Optimization may fail" % scipy.version.version)
+        res = opt.linprog(c, A_eq=A_eq, b_eq=b, bounds=bounds, options=linProgOpts)
+
+    del usedRoutes[:]
     if res.success:
         print("Optimization succeeded")
         routeCounts = res.x[:k]  # cut of slack variables
@@ -214,39 +254,52 @@ def optimize(optimize, countData, routes, usedRoutes, routeUsage):
         #    sum(map(round, routeCounts)),
         #    routeCounts))
         # print("slack (n=%s, sum=%s) %s" % (len(slack), sum(slack), slack))
-        del usedRoutes[:]
         usedRoutes.extend(sum([[i] * int(round(c)) for i, c in enumerate(routeCounts)], []))
         random.shuffle(usedRoutes)
         # print("#usedRoutes=%s" % len(usedRoutes))
         # update countData
-        for cd in countData:
-            cd.count = cd.origCount
-        for r in usedRoutes:
-            for i in routeUsage[r]:
-                countData[i].count -= 1
     else:
         print("Optimization failed")
+
+class Routes:
+    def __init__(self, routefile):
+        self.all = [tuple(r.edges.split()) for r in sumolib.xml.parse(routefile, 'route')]
+        self.unique = sorted(list(set(self.all)))
+        self.number = len(self.unique)
+        self.edges2index = dict([(e, i) for i, e in enumerate(self.unique)])
+        self.loadedCounts = [0] * len(self.edges2index) # route index to count
+        for e in self.all:
+            self.loadedCounts[self.edges2index[e]] += 1
+
+def resetCounts(usedRoutes, routeUsage, countData):
+    for cd in countData:
+        cd.count = cd.origCount
+    for r in usedRoutes:
+        for i in routeUsage[r]:
+            countData[i].count -= 1
 
 
 def main(options):
     if options.seed:
         random.seed(options.seed)
 
+    routes = Routes(options.routeFile)
+
     # store which routes are passing each counting location (using route index)
-    routes = [r.edges.split() for r in sumolib.xml.parse(options.routeFile, 'route')]
     countData = (parseTurnCounts(options.turnFile, routes, options.turnAttr)
                  + parseEdgeCounts(options.edgeDataFile, routes, options.edgeDataAttr))
 
     # store which counting locations are used by each route (using countData index)
-    routeUsage = [set() for r in routes]
+    routeUsage = [set() for r in routes.unique]
     for i, cd in enumerate(countData):
         for routeIndex in cd.routeSet:
             routeUsage[routeIndex].add(i)
 
     if options.verbose:
+        print("Loaded %s routes (%s distinct)" % (len(routes.all), routes.number))
         edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
         detectorCount = sumolib.miscutils.Statistics("route detector count", histogram=True)
-        for i, edges in enumerate(routes):
+        for i, edges in enumerate(routes.unique):
             edgeCount.add(len(edges), i)
             detectorCount.add(len(routeUsage[i]), i)
         print("input %s" % edgeCount)
@@ -254,17 +307,15 @@ def main(options):
 
     # pick a random couting location and select a new route that passes it until
     # all counts are satisfied or no routes can be used anymore
-    openRoutes = set(range(0, len(routes)))
+    openRoutes = set(range(0, routes.number))
     openCounts = set(range(0, len(countData)))
     openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
     openCounts = updateOpenCounts(openCounts, countData, openRoutes)
 
     usedRoutes = []
     if options.optimizeInput:
-        for routeIndex in range(len(routes)):
-            usedRoutes.append(routeIndex)
-            for dataIndex in routeUsage[routeIndex]:
-                countData[dataIndex].count -= 1
+        usedRoutes = [routes.edges2index[e] for e in routes.all]
+        resetCounts(usedRoutes, routeUsage, countData)
     else:
         while openCounts:
             cd = countData[random.sample(openCounts, 1)[0]]
@@ -277,20 +328,22 @@ def main(options):
 
     hasMismatch = sum([cd.count for cd in countData]) > 0
     if hasMismatch and options.optimize is not None:
-        optimize(options.optimize, countData, routes, usedRoutes, routeUsage)
+        optimize(options, countData, routes, usedRoutes, routeUsage)
+        resetCounts(usedRoutes, routeUsage, countData)
 
-    begin, end = parseTimeRange(options.turnFile + options.edgeDataFile)
-    with open(options.out, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
-        period = (end - begin) / len(usedRoutes)
-        depart = begin
-        for i, routeIndex in enumerate(usedRoutes):
-            outf.write('    <vehicle id="%s%s" depart="%s"%s>\n' % (
-                options.prefix, i, depart, options.vehattrs))
-            outf.write('        <route edges="%s"/>\n' % ' '.join(routes[routeIndex]))
-            outf.write('    </vehicle>\n')
-            depart += period
-        outf.write('</routes>\n')
+    if usedRoutes:
+        begin, end = parseTimeRange(options.turnFile + options.edgeDataFile)
+        with open(options.out, 'w') as outf:
+            sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
+            period = (end - begin) / len(usedRoutes)
+            depart = begin
+            for i, routeIndex in enumerate(usedRoutes):
+                outf.write('    <vehicle id="%s%s" depart="%s"%s>\n' % (
+                    options.prefix, i, depart, options.vehattrs))
+                outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                outf.write('    </vehicle>\n')
+                depart += period
+            outf.write('</routes>\n')
 
     underflow = sumolib.miscutils.Statistics("underflow locations")
     overflow = sumolib.miscutils.Statistics("overflow locations")
@@ -309,7 +362,7 @@ def main(options):
         edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
         detectorCount = sumolib.miscutils.Statistics("route detector count", histogram=True)
         for i, r in enumerate(usedRoutes):
-            edgeCount.add(len(routes[r]), i)
+            edgeCount.add(len(routes.unique[r]), i)
             detectorCount.add(len(routeUsage[r]), i)
         print("result %s" % edgeCount)
         print("result %s" % detectorCount)
