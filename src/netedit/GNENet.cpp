@@ -2616,6 +2616,73 @@ GNENet::generateDataSetID(const std::string& prefix) const {
 }
 
 
+std::set<std::string> 
+GNENet::retrieveGenericDataParameters(const std::string &dataSetID, const std::string &beginStr, const std::string &endStr) const {
+    // declare solution
+    std::set<std::string> attributesSolution;
+    // vector of data sets and intervals
+    std::vector<GNEDataSet*> dataSets;
+    std::vector<GNEDataInterval*> dataIntervals;
+    // if dataSetID is empty, return all parameters
+    if (dataSetID.empty()) {
+        // add all data sets
+        dataSets.reserve(myAttributeCarriers.dataSets.size());
+        for (const auto &dataSet : myAttributeCarriers.dataSets) {
+            dataSets.push_back(dataSet.second);
+        }
+    } else if (myAttributeCarriers.dataSets.count(dataSetID) > 0) {
+        dataSets.push_back(myAttributeCarriers.dataSets.at(dataSetID));
+    } else {
+        return attributesSolution;
+    }
+    // now continue with data intervals
+    int numberOfIntervals = 0;
+    for (const auto &dataSet : dataSets) {
+        numberOfIntervals += dataSet->getDataIntervalChildren().size();
+    }
+    // resize dataIntervals
+    dataIntervals.reserve(numberOfIntervals);
+    // add intervals
+    for (const auto &dataSet : dataSets) {
+        for (const auto &dataInterval : dataSet->getDataIntervalChildren()) {
+            // continue depending of begin and end
+            if (beginStr.empty() && endStr.empty()) {
+                dataIntervals.push_back(dataInterval.second);
+            } else if (endStr.empty()) {
+                // parse begin
+                const double begin = GNEAttributeCarrier::parse<double>(beginStr);
+                if (dataInterval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin){
+                    dataIntervals.push_back(dataInterval.second);
+                }
+            } else if (beginStr.empty()) {
+                // parse end
+                const double end = GNEAttributeCarrier::parse<double>(endStr);
+                if (dataInterval.second->getAttributeDouble(SUMO_ATTR_END) <= end) {
+                    dataIntervals.push_back(dataInterval.second);
+                }
+            } else {
+                // parse both begin end
+                const double begin = GNEAttributeCarrier::parse<double>(beginStr);
+                const double end = GNEAttributeCarrier::parse<double>(endStr);
+                if ((dataInterval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) &&
+                    (dataInterval.second->getAttributeDouble(SUMO_ATTR_END) <= end)) {
+                    dataIntervals.push_back(dataInterval.second);
+                }
+            }
+        }
+    }
+    // finally iterate over intervals and get attributes
+    for (const auto &dataInterval : dataIntervals) {
+        for (const auto &genericData : dataInterval->getGenericDataChildren()) {
+            for (const auto &attribute : genericData->getParametersMap()) {
+                attributesSolution.insert(attribute.first);
+            }
+        }
+    }
+    return attributesSolution;
+}
+
+
 void
 GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);

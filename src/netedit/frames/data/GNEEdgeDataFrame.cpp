@@ -54,9 +54,14 @@ FXDEFMAP(GNEEdgeDataFrame::IntervalSelector) IntervalSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECT,                  GNEEdgeDataFrame::IntervalSelector::onCmdSelectCheckButton)
 };
 
+FXDEFMAP(GNEEdgeDataFrame::AttributeSelector) AttributeSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECT,  GNEEdgeDataFrame::AttributeSelector::onCmdSelectAttribute)
+};
+
 // Object implementation
-FXIMPLEMENT(GNEEdgeDataFrame::DataSetSelector,  FXGroupBox, DataSetSelectorMap,  ARRAYNUMBER(DataSetSelectorMap))
-FXIMPLEMENT(GNEEdgeDataFrame::IntervalSelector, FXGroupBox, IntervalSelectorMap, ARRAYNUMBER(IntervalSelectorMap))
+FXIMPLEMENT(GNEEdgeDataFrame::DataSetSelector,   FXGroupBox, DataSetSelectorMap,   ARRAYNUMBER(DataSetSelectorMap))
+FXIMPLEMENT(GNEEdgeDataFrame::IntervalSelector,  FXGroupBox, IntervalSelectorMap,  ARRAYNUMBER(IntervalSelectorMap))
+FXIMPLEMENT(GNEEdgeDataFrame::AttributeSelector, FXGroupBox, AttributeSelectorMap, ARRAYNUMBER(AttributeSelectorMap))
 
 // ===========================================================================
 // method definitions
@@ -251,6 +256,10 @@ GNEEdgeDataFrame::IntervalSelector::refreshIntervalSelector() {
             addListItem(interval.second, dataSetItem);
         }
     }
+    // refresh attribute selector
+    if (myEdgeDataFrameParent->myAttributeSelector) {
+        myEdgeDataFrameParent->myAttributeSelector->refreshAttributeSelector();
+    }
     // recalc frame
     recalc();
 }
@@ -293,6 +302,8 @@ GNEEdgeDataFrame::IntervalSelector::onCmdCreateInterval(FXObject*, FXSelector, v
 
 long 
 GNEEdgeDataFrame::IntervalSelector::onCmdSelectInterval(FXObject*, FXSelector, void*) {
+    // refresh attribute selector
+    myEdgeDataFrameParent->myAttributeSelector->refreshAttributeSelector();
     return 1;
 }
 
@@ -371,6 +382,74 @@ GNEEdgeDataFrame::IntervalSelector::addListItem(GNEDataInterval* dataInterval, F
 }
 
 // ---------------------------------------------------------------------------
+// GNEEdgeDataFrame::AttributeSelector - methods
+// ---------------------------------------------------------------------------
+
+GNEEdgeDataFrame::AttributeSelector::AttributeSelector(GNEEdgeDataFrame* edgeDataFrameParent) :
+    FXGroupBox(edgeDataFrameParent->myContentFrame, "Attribute", GUIDesignGroupBoxFrame),
+    myEdgeDataFrameParent(edgeDataFrameParent) {
+    // Create FXComboBox
+    myAttributesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
+    // refresh interval selector
+    refreshAttributeSelector();
+    // AttributeSelector is always shown
+    show();
+}
+
+
+GNEEdgeDataFrame::AttributeSelector::~AttributeSelector() {}
+
+
+void
+GNEEdgeDataFrame::AttributeSelector::refreshAttributeSelector() {
+    // first clear items
+    myAttributesComboBox->clearItems();
+    // fill myAttributesComboBox depending of data sets
+    if (myEdgeDataFrameParent->myDataSetSelector->getDataSet() == nullptr) {
+        myAttributesComboBox->appendItem("<no dataSet selected>");
+        myAttributesComboBox->disable();
+    } else {
+        // add all item
+        myAttributesComboBox->appendItem("<all>");
+        // add attributes depending of interval
+        if (myEdgeDataFrameParent->myIntervalSelector->getDataInterval() == nullptr) {
+            const auto parameters = myEdgeDataFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(
+                myEdgeDataFrameParent->myDataSetSelector->getDataSet()->getID(), "", "");
+            // add all parameters
+            for (const auto &attribute : parameters) {
+                myAttributesComboBox->appendItem(attribute.c_str());
+            }
+        } else {
+            // retrieve all parameters within begin and end
+            const auto parameters = myEdgeDataFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(
+                myEdgeDataFrameParent->myDataSetSelector->getDataSet()->getID(), 
+                myEdgeDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_BEGIN), 
+                myEdgeDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_END));
+            // add all parameters
+            for (const auto &attribute : parameters) {
+                myAttributesComboBox->appendItem(attribute.c_str());
+            }
+        }
+        // enable combo Box
+        myAttributesComboBox->enable();
+        // adjust visible items
+        if (myAttributesComboBox->getNumItems() < 10) {
+            myAttributesComboBox->setNumVisible(myAttributesComboBox->getNumItems());
+        } else {
+            myAttributesComboBox->setNumVisible(10);
+        }
+    }
+    // recalc frame
+    recalc();
+}
+
+
+long 
+GNEEdgeDataFrame::AttributeSelector::onCmdSelectAttribute(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
 // GNEEdgeDataFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -378,11 +457,14 @@ GNEEdgeDataFrame::GNEEdgeDataFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     GNEFrame(horizontalFrameParent, viewNet, "EdgeData"),
     myDataSetSelector(nullptr),
     myIntervalSelector(nullptr),
+    myAttributeSelector(nullptr),
     myParametersEditor(nullptr) {
     // create DataSetSelector
     myDataSetSelector = new DataSetSelector(this);
     // create IntervalSelector
     myIntervalSelector = new IntervalSelector(this);
+    // create AttributeSelector
+    myAttributeSelector = new AttributeSelector(this);
     // create parameter editor
     myParametersEditor = new GNEFrameAttributesModuls::ParametersEditor(this);
 }

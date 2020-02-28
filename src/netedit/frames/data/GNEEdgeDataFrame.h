@@ -173,6 +173,43 @@ public:
         std::map<FXTreeItem*, GNEDataInterval*> myTreeItemIntervalMap;
     };
 
+    // ===========================================================================
+    // class AttributeSelector
+    // ===========================================================================
+
+    class AttributeSelector : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEEdgeDataFrame::AttributeSelector)
+
+    public:
+        /// @brief constructor
+        AttributeSelector(GNEEdgeDataFrame* edgeDataFrameParent);
+
+        /// @brief destructor
+        ~AttributeSelector();
+
+        /// @brief refresh interval selector
+        void refreshAttributeSelector();
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when the user select a attribute in the combo boz
+        long onCmdSelectAttribute(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        FOX_CONSTRUCTOR(AttributeSelector)
+
+    private:
+        /// @brief pointer to edgeData frame Parent
+        GNEEdgeDataFrame* myEdgeDataFrameParent;
+
+        /// @brief combo box for attributes
+        FXComboBox *myAttributesComboBox;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -197,6 +234,9 @@ protected:
 
     /// @brief interval selector modul
     IntervalSelector *myIntervalSelector;
+
+    /// @brief attribute selector modul
+    AttributeSelector *myAttributeSelector;
 
     /// @brief parameters editor
     GNEFrameAttributesModuls::ParametersEditor *myParametersEditor;

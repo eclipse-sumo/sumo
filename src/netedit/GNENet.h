@@ -724,6 +724,9 @@ public:
     /// @brief generate data set id
     std::string generateDataSetID(const std::string& prefix) const;
 
+    /// @brief return a set of parameters for the given dataSet and data Interval
+    std::set<std::string> retrieveGenericDataParameters(const std::string &dataSetID, const std::string &beginStr, const std::string &endStr) const;
+
     /// @}
 
     /// @name Functions related to Shapes
