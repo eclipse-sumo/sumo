@@ -129,7 +129,7 @@ def parseEdgeCounts(fnames, allRoutes, attr):
     for fname in fnames:
         for interval in sumolib.xml.parse(fname, 'interval'):
             for edge in interval.edge:
-                result.append(CountData(int(getattr(edge, attr)),
+                result.append(CountData(int(float(getattr(edge, attr))),
                                         (edge.id,), allRoutes))
     return result
 
