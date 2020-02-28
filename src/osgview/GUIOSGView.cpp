@@ -31,6 +31,7 @@
 #define NOMINMAX
 #pragma warning(push)
 #pragma warning(disable: 4127) // do not warn about constant conditional expression
+#pragma warning(disable: 4275) // do not warn about the DLL interface for OSG
 #endif
 #include <osgViewer/Viewer>
 #include <osgViewer/ViewerEventHandlers>

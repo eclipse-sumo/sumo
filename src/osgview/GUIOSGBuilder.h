@@ -23,7 +23,6 @@
 #ifdef HAVE_OSG
 
 #include <map>
-#include <osg/ref_ptr>
 #include "GUIOSGView.h"
 
 

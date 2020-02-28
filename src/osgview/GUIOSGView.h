@@ -23,10 +23,18 @@
 #ifdef HAVE_OSG
 
 #include <string>
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4275) // do not warn about the DLL interface for OSG
+#endif
 #include <osgGA/TerrainManipulator>
 #include <osgViewer/Viewer>
 #include <osg/PositionAttitudeTransform>
 #include <osg/ShapeDrawable>
+#include <osg/ref_ptr>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
