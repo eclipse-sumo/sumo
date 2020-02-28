@@ -244,7 +244,7 @@ class RandomTripGenerator:
         raise Exception("no trip found after %s tries" % maxtries)
 
 
-def get_prob_fun(options, fringe_bonus, fringe_forbidden):
+def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
     # fringe_bonus None generates intermediate way points
     def edge_probability(edge):
         if options.vclass and not edge.allows(options.vclass):
@@ -257,7 +257,11 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
             return 0  # the wrong kind of fringe
         prob = 1
         if options.length:
-            prob *= edge.getLength()
+            if options.fringe_factor != 1.0 and fringe_bonus is not None and edge.is_fringe():
+                # short fringe edges should not suffer a penalty
+                prob *= max_length
+            else:
+                prob *= edge.getLength()
         if options.lanes:
             prob *= edge.getLaneNumber()
         prob *= (edge.getSpeed() ** options.speed_exponent)
@@ -303,12 +307,15 @@ class LoadedProps:
 
 def buildTripGenerator(net, options):
     try:
+        max_length = 0
+        for edge in net.getEdges():
+            max_length = max(max_length, edge.getLength())
         forbidden_source_fringe = None if options.allow_fringe else "_outgoing"
         forbidden_sink_fringe = None if options.allow_fringe else "_incoming"
         source_generator = RandomEdgeGenerator(
-            net, get_prob_fun(options, "_incoming", forbidden_source_fringe))
+            net, get_prob_fun(options, "_incoming", forbidden_source_fringe, max_length))
         sink_generator = RandomEdgeGenerator(
-            net, get_prob_fun(options, "_outgoing", forbidden_sink_fringe))
+            net, get_prob_fun(options, "_outgoing", forbidden_sink_fringe, max_length))
         if options.weightsprefix:
             if os.path.isfile(options.weightsprefix + SOURCE_SUFFIX):
                 source_generator = RandomEdgeGenerator(
@@ -323,7 +330,7 @@ def buildTripGenerator(net, options):
 
     try:
         via_generator = RandomEdgeGenerator(
-            net, get_prob_fun(options, None, None))
+            net, get_prob_fun(options, None, None, 1))
         if options.weightsprefix and os.path.isfile(options.weightsprefix + VIA_SUFFIX):
             via_generator = RandomEdgeGenerator(
                 net, LoadedProps(options.weightsprefix + VIA_SUFFIX))
