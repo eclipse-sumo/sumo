@@ -68,7 +68,7 @@ public:
     LIBSUMO_VEHICLE_TYPE_GETTER
 
     static void add(const std::string& personID, const std::string& edgeID, double pos, double depart = DEPARTFLAG_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
-    static void appendStage(const TraCIStage& stage, const std::string& personID);
+    static void appendStage(const std::string& personID, const TraCIStage& stage);
     static void replaceStage(const std::string& personID, const int stageIndex, const TraCIStage& stage);
     static void appendWaitingStage(const std::string& personID, double duration, const std::string& description = "waiting", const std::string& stopID = "");
     static void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edgeIDs, double arrivalPos, double duration = -1, double speed = -1, const std::string& stopID = "");

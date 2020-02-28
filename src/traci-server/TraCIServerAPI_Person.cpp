@@ -182,7 +182,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 }
                 int numParameters = inputStorage.readInt();
                 if (numParameters == 13) {
-                    libsumo::Person::appendStage(*TraCIServerAPI_Simulation::readStage(server, inputStorage), id);
+                    libsumo::Person::appendStage(id, *TraCIServerAPI_Simulation::readStage(server, inputStorage));
                 } else {
                     int stageType;
                     if (!server.readTypeCheckingInt(inputStorage, stageType)) {

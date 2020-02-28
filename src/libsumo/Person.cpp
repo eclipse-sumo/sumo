@@ -522,11 +522,12 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
 
 
 void
-Person::appendStage(const TraCIStage& stage, const std::string& personID) {
+Person::appendStage(const std::string& personID, const TraCIStage& stage) {
     MSTransportable* p = getPerson(personID);
     MSStage* personStage = convertTraCIStage(stage, personID);
     p->appendStage(personStage);
 }
+
 
 void
 Person::replaceStage(const std::string& personID, const int stageIndex, const TraCIStage& stage) {
