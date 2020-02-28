@@ -62,25 +62,25 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                         // phase number
                         storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
                         storage.writeInt((int)logic.phases.size());
-                        for (const libsumo::TraCIPhase& phase : logic.phases) {
+                        for (const libsumo::TraCIPhase* phase : logic.phases) {
                             storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
                             storage.writeInt(6);
                             storage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                            storage.writeDouble(phase.duration);
+                            storage.writeDouble(phase->duration);
                             storage.writeUnsignedByte(libsumo::TYPE_STRING);
-                            storage.writeString(phase.state);
+                            storage.writeString(phase->state);
                             storage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                            storage.writeDouble(phase.minDur);
+                            storage.writeDouble(phase->minDur);
                             storage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                            storage.writeDouble(phase.maxDur);
+                            storage.writeDouble(phase->maxDur);
                             storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                            storage.writeInt((int)phase.next.size());
-                            for (int n : phase.next) {
+                            storage.writeInt((int)phase->next.size());
+                            for (int n : phase->next) {
                                 storage.writeUnsignedByte(libsumo::TYPE_INTEGER);
                                 storage.writeInt(n);
                             }
                             storage.writeUnsignedByte(libsumo::TYPE_STRING);
-                            storage.writeString(phase.name);
+                            storage.writeString(phase->name);
                         }
                         // subparameter
                         storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
@@ -321,7 +321,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.6. parameter (name) must be a string.", outputStorage);
                         }
                     }
-                    logic.phases.emplace_back(libsumo::TraCIPhase(duration, state, minDuration, maxDuration, next, name));
+                    logic.phases.emplace_back(new libsumo::TraCIPhase(duration, state, minDuration, maxDuration, next, name));
                 }
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 5. parameter (subparams) must be a compound object.", outputStorage);

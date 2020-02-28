@@ -346,6 +346,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 
 %extend libsumo::TraCILogic {
   %pythoncode %{
+    getPhases = _trafficlight.Logic.getPhases
     __repr__ = _trafficlight.Logic.__repr__
   %}
 };

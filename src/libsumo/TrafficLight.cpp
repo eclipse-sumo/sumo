@@ -73,7 +73,7 @@ TrafficLight::getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
         TraCILogic l(logic->getProgramID(), (int)logic->getLogicType(), logic->getCurrentPhaseIndex());
         l.subParameter = logic->getParametersMap();
         for (const MSPhaseDefinition* const phase : logic->getPhases()) {
-            l.phases.emplace_back(TraCIPhase(STEPS2TIME(phase->duration), phase->getState(),
+            l.phases.emplace_back(new TraCIPhase(STEPS2TIME(phase->duration), phase->getState(),
                                              STEPS2TIME(phase->minDuration), STEPS2TIME(phase->maxDuration),
                                              phase->getNextPhases(), phase->getName()));
         }
@@ -260,8 +260,8 @@ TrafficLight::setCompleteRedYellowGreenDefinition(const std::string& tlsID, cons
         throw TraCIException("set program: parameter index must be less than parameter phase number.");
     }
     std::vector<MSPhaseDefinition*> phases;
-    for (TraCIPhase phase : logic.phases) {
-        phases.push_back(new MSPhaseDefinition(TIME2STEPS(phase.duration), phase.state, TIME2STEPS(phase.minDur), TIME2STEPS(phase.maxDur), phase.next, phase.name));
+    for (TraCIPhase* phase : logic.phases) {
+        phases.push_back(new MSPhaseDefinition(TIME2STEPS(phase->duration), phase->state, TIME2STEPS(phase->minDur), TIME2STEPS(phase->maxDur), phase->next, phase->name));
     }
     if (vars.getLogic(logic.programID) == nullptr) {
         MSTLLogicControl& tlc = MSNet::getInstance()->getTLSControl();
