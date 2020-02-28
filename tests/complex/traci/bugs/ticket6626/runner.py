@@ -36,6 +36,8 @@ vehID = "v0"
 try:
     traci.vehicle.add(vehID, "r0", departLane="1", departSpeed="14")
 except traci.TraCIException as e:
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
     print("caught exception")
     pass
 

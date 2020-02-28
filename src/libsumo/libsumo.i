@@ -38,7 +38,6 @@ def start(args):
     simulation.load(args[1:])
 
 def load(args):
-    simulation.close()
     simulation.load(args)
 
 def simulationStep(step=0):

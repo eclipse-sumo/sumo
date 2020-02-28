@@ -66,6 +66,7 @@ void
 Simulation::load(const std::vector<std::string>& args) {
     close("Libsumo issued load command.");
     try {
+        gSimulation = true;
         XMLSubSys::init();
         OptionsIO::setArgs(args);
         if (NLBuilder::init(true) != nullptr) {
@@ -426,20 +427,18 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
         throw TraCIException("Unknown to edge '" + from + "'.");
     }
     SUMOVehicle* vehicle = nullptr;
-    if (typeID != "") {
-        SUMOVehicleParameter* pars = new SUMOVehicleParameter();
-        MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(typeID);
-        if (type == nullptr) {
-            throw TraCIException("The vehicle type '" + typeID + "' is not known.");
-        }
-        try {
-            const MSRoute* const routeDummy = new MSRoute("", ConstMSEdgeVector({ fromEdge }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
-            vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(pars, routeDummy, type, false);
-            // we need to fix the speed factor here for deterministic results
-            vehicle->setChosenSpeedFactor(type->getSpeedFactor().getParameter()[0]);
-        } catch (ProcessError& e) {
-            throw TraCIException("Invalid departure edge for vehicle type '" + typeID + "' (" + e.what() + ")");
-        }
+    MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(typeID == "" ? DEFAULT_VTYPE_ID : typeID);
+    if (type == nullptr) {
+        throw TraCIException("The vehicle type '" + typeID + "' is not known.");
+    }
+    SUMOVehicleParameter* pars = new SUMOVehicleParameter();
+    try {
+        const MSRoute* const routeDummy = new MSRoute("", ConstMSEdgeVector({ fromEdge }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
+        vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(pars, routeDummy, type, false);
+        // we need to fix the speed factor here for deterministic results
+        vehicle->setChosenSpeedFactor(type->getSpeedFactor().getParameter()[0]);
+    } catch (ProcessError& e) {
+        throw TraCIException("Invalid departure edge for vehicle type '" + typeID + "' (" + e.what() + ")");
     }
     ConstMSEdgeVector edges;
     const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : TIME2STEPS(depart);
