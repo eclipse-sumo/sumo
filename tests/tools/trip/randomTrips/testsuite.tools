@@ -11,6 +11,9 @@ minimum_distance_exceeded
 # For this test, the turnarounds at the fringe have been removed since the fringe is detected by limited connectivity
 fringe_factor
 
+# test interaction of fringe factor and edge length (fringe should ignore length)
+short_fringe
+
 # detected the fringe despite turnarounds
 fringe_factor_turnarounds
 
