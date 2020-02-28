@@ -202,6 +202,9 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
         bounds = None
     else:
         u = int(options.optimize)
+        if u == 0:
+            print("Optimization skipped")
+            return
         # limited optimization: change prior routeCounts by at most u per route
         bounds = [(max(0, p - u), p + u) for p in priorRouteCounts] + [(0, None)] * m
 
@@ -368,7 +371,7 @@ def main(options):
         gehStats.add(geh, "[%s] %s %s" % (
             ' '.join(cd.edgeTuple), int(origHourly), int(localHourly)))
 
-    print("Wrote %s routes (%s distinct) achieving total count %s at %s locations. GEH<%s for %s%%" % (
+    print("Wrote %s routes (%s distinct) achieving total count %s at %s locations. GEH<%s for %.2f%%" % (
         len(usedRoutes), len(set(usedRoutes)), totalCount, len(countData),
         options.gehOk, 100 * numGehOK / len(countData)))
 
