@@ -11,10 +11,14 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    flowFromEdgeData.py
+# @file    edgeDataFromFlow.py
 # @author  Jakob Erdmann
-# @date    2017-11-27
+# @date    2020-02-27
 
+"""
+This script converts a flow file in csv-format to XML 
+(generalized meandata format : http://sumo.dlr.de/xsd/meandata_file.xsd)
+"""
 from __future__ import absolute_import
 from __future__ import print_function
 import math
