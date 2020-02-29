@@ -79,6 +79,16 @@ MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(const SUMOTraffic
     }
 }
 
+bool
+MSMeanData_Emissions::MSLaneMeanDataValues::notifyIdle(SUMOTrafficObject& veh) {
+    if (veh.isVehicle()) {
+        myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(),
+            0., 0., 0.,
+        static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), TS);
+    }
+    return true;
+}
+
 
 void
 MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,

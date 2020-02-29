@@ -987,6 +987,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myNextTurn(0., LINKDIR_NODIR),
     mySignals(0),
     myAmOnNet(false),
+    myAmIdling(false),
     myAmRegisteredAsWaitingForPerson(false),
     myAmRegisteredAsWaitingForContainer(false),
     myHaveToWaitOnNextLink(false),
@@ -1194,6 +1195,22 @@ MSVehicle::workOnMoveReminders(double oldPos, double newPos, double newSpeed) {
     }
 }
 
+void
+MSVehicle::workOnIdleReminders()
+{
+    updateWaitingTime(0.);   // cf issue 2233
+
+    // vehicle move reminders
+    for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
+        rem->first->notifyIdle(*this);
+        ++rem;
+    }
+
+    // lane move reminders - for aggregated values
+    for (MSMoveReminder* rem : getLane()->getMoveReminders()) {
+        rem->notifyIdle(*this);
+    }
+}
 
 // XXX: consider renaming...
 void
@@ -3540,7 +3557,7 @@ MSVehicle::setBrakingSignals(double vNext) {
 
 void
 MSVehicle::updateWaitingTime(double vNext) {
-    if (vNext <= SUMO_const_haltingSpeed && !isStopped()) {
+    if (vNext <= SUMO_const_haltingSpeed && (!isStopped() || isIdling())) { // cf issue 2233
         myWaitingTime += DELTA_T;
         myWaitingTimeCollector.passTime(DELTA_T, true);
     } else {

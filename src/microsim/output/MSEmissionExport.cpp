@@ -43,7 +43,7 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
-        if (veh->isOnRoad()) {
+        if (veh->isOnRoad() || veh->isIdling()) {
             std::string fclass = veh->getVehicleType().getID();
             fclass = fclass.substr(0, fclass.find_first_of("@"));
             PollutantsInterface::Emissions emiss = PollutantsInterface::computeAll(

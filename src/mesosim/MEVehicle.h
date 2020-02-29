@@ -144,6 +144,12 @@ public:
      */
     bool isOnRoad() const;
 
+    /** @brief Returns whether the vehicle is trying to re-enter the net
+     * @return true if the vehicle is trying to enter the net (eg after parking)
+     */
+    virtual bool isIdling() const;
+
+
     /** @brief Returns whether the vehicle is parking
      * @return whether the vehicle is parking
      */
