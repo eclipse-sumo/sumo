@@ -112,6 +112,14 @@ public:
      */
     bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed);
 
+    /** @brief record idling as waiting time - cf issue 2233
+     *
+     * @param[in] veh The idling vehicle.
+     * @return Always true
+     *
+     * @see MSMoveReminder::notifyIdle
+     */
+    bool notifyIdle(SUMOTrafficObject& veh);
 
     /** @brief Saves departure info on insertion
      *

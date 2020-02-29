@@ -163,6 +163,11 @@ public:
      */
     virtual bool isOnRoad() const = 0;
 
+    /** @brief Returns whether the vehicle is idling (waiting to re-enter the net
+     * @return true if the vehicle is waiting to enter the net (eg after parking)
+    */
+    virtual bool isIdling() const = 0;
+
     /** @brief Returns the information whether the front of the vehhicle is on the given lane
      * @return Whether the vehicle's front is on that lane
      */

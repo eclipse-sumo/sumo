@@ -157,6 +157,19 @@ public:
         return true;
     }
 
+    /** @brief Computes idling emission values and adds them to the emission sums
+    *
+    * Idling implied by zero velocity, acceleration and slope
+    *
+    * @param[in] veh The vehicle
+    *
+    * @see MSMoveReminder::notifyMove
+    * @see PollutantsInterface
+    */
+    virtual bool notifyIdle(SUMOTrafficObject& veh ) {
+        UNUSED_PARAMETER(&veh);
+        return true;
+    }
 
     /** @brief Called if the vehicle leaves the reminder's lane
      *

@@ -93,6 +93,18 @@ public:
         * @see PollutantsInterface
         */
     bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed);
+
+    /** @brief Computes idling emission values and adds them to the emission sums
+        *
+        * Idling implied by zero velocity, acceleration and slope
+        *
+        * @param[in] veh The vehicle
+        *
+        * @see MSMoveReminder::notifyMove
+        * @see PollutantsInterface
+        */
+    bool notifyIdle(SUMOTrafficObject& veh);
+
     /// @}
 
     /// @brief return the name for this type of device

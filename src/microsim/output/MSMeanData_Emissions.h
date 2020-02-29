@@ -100,6 +100,17 @@ public:
          */
         void notifyMoveInternal(const SUMOTrafficObject& veh, const double /* frontOnLane */, const double timeOnLane, const double /*meanSpeedFrontOnLane*/, const double meanSpeedVehicleOnLane, const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane, const double /* meanLengthOnLane */);
 
+        /** @brief Computes idling emission values and adds them to the aggregate emission sums
+        *
+        * Idling implied by zero velocity, acceleration and slope
+        *
+        * @param[in] veh The vehicle
+        *
+        * @see MSMoveReminder::notifyMove
+        * @see PollutantsInterface
+        */
+        bool notifyIdle(SUMOTrafficObject& veh);
+
 
     private:
         /// @brief Collected values
