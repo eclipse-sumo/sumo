@@ -119,6 +119,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             MSParkingArea* pa = desc.myVeh->getCurrentParkingArea();
             const double departPos = pa != nullptr ? pa->getInsertionPosition(*desc.myVeh) : desc.myVeh->getPositionOnLane();
             // handle parking vehicles
+            desc.myVeh->setIdling(true);
             if (desc.myVeh->getLane()->isInsertionSuccess(desc.myVeh, 0, departPos, desc.myVeh->getLateralPositionOnLane(),
                     false, MSMoveReminder::NOTIFICATION_PARKING)) {
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_PARKING);
@@ -127,9 +128,11 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                 if (MSGlobals::gModelParkingManoeuver && desc.myVeh->setExitManoeuvre()) {
                     MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_MANEUVERING);
                 }
+                desc.myVeh->setIdling(false);
                 i = vehInfos.erase(i);
             } else {
-                // blocked from entering the road
+                // blocked from entering the road - engine assumed to be idling.
+                desc.myVeh->workOnIdleReminders();
                 if (!desc.myVeh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_RIGHT)) {
                     // signal wish to re-enter the road
                     desc.myVeh->switchOnSignal(MSGlobals::gLefthand ? MSVehicle::VEH_SIGNAL_BLINKER_RIGHT : MSVehicle::VEH_SIGNAL_BLINKER_LEFT);

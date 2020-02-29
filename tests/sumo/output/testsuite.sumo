@@ -80,3 +80,6 @@ duration_log
 # Tests which serve as examples
 examples
 examples_multimodal
+
+# emission outputs impacted by idling
+emission-idling
