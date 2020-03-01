@@ -999,6 +999,7 @@ NIImporter_OpenDrive::laneSectionsConnected(OpenDriveEdge* edge, int in, int out
                 for (OpenDriveLane& lane : laneSection.lanesByDir.find(OPENDRIVE_TAG_RIGHT)->second) {
                     if (lane.id == in) {
                         in = lane.successor;
+                        break;
                     }
                 }
             }
@@ -1006,6 +1007,7 @@ NIImporter_OpenDrive::laneSectionsConnected(OpenDriveEdge* edge, int in, int out
                 for (OpenDriveLane& lane : laneSection.lanesByDir.find(OPENDRIVE_TAG_LEFT)->second) {
                     if (lane.id == in) {
                         in = lane.successor;
+                        break;
                     }
                 }
             }
