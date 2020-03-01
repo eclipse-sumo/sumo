@@ -57,9 +57,9 @@
 //#define DEBUG_SPIRAL
 //#define DEBUG_INTERNALSHAPES
 
-#define DEBUG_COND(road) ((road)->id == "175")
-#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "disabled"))
-#define DEBUG_COND3(roadID) (roadID == "175")
+#define DEBUG_COND(road) ((road)->id == "18")
+#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "-18."))
+#define DEBUG_COND3(roadID) (roadID == "18")
 
 // ===========================================================================
 // definitions
@@ -838,6 +838,13 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                 WRITE_WARNING("Circular connections in junction including roads '" + c.fromEdge + "' and '" + c.toEdge + "', loop size " + toString(seen.size()));
             }
         } else {
+#ifdef DEBUG_CONNECTIONS
+        if (DEBUG_COND3(c.fromEdge)) {
+            std::cout << "        laneSectionsConnected dest=" << dest->id << " in=" << c.toLane << " out=" << (*i).fromLane 
+                << " connected=" <<  laneSectionsConnected(dest, c.toLane, (*i).fromLane) << "\n";
+        }
+#endif
+
             if (laneSectionsConnected(dest, c.toLane, (*i).fromLane)) {
                 Connection cn = (*i);
                 cn.fromEdge = c.fromEdge;
