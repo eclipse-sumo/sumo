@@ -10,5 +10,8 @@ one_vehicle_subsecond
 # a small driving cycle with different emission models
 models_cycle
 
+# test all HBEFA3 and (public) PHEMlight classes
+emissionClasses
+
 # Testing error cases
 errors
