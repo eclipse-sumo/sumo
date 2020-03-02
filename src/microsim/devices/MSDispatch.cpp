@@ -203,7 +203,7 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
         //Position pos = res.from->getLanes().front()->geometryPositionAtOffset(res.fromPos);
         MSDevice_Taxi* closest = nullptr;
         SUMOTime closestTime = SUMOTime_MAX;
-        bool toEarly = false;
+        bool tooEarly = false;
         for (auto* taxi : available) {
             if (taxi->getHolder().getVehicleType().getPersonCapacity() < (int)res->persons.size()) {
                 continue;
@@ -220,14 +220,14 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
                 SUMOTime taxiWait = res->pickupTime - (now + closestTime);
                 if (taxiWait > myMaximumWaitingTime) {
                     // no need to service this customer now
-                    toEarly = true;
+                    tooEarly = true;
                     res->recheck += MAX2(now + myRecheckTime, res->pickupTime - closestTime - myRecheckSafety);
                     break;
                 }
             }
         }
-        if (toEarly || closest == nullptr) {
-            // toEarly or all taxis are too small
+        if (tooEarly || closest == nullptr) {
+            // too early or all taxis are too small
             it++;
             numPostponed++;
         } else {

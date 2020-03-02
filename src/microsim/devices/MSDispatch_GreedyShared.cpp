@@ -72,13 +72,13 @@ MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbs
         if (absLossPickup < myAbsoluteLossThreshold && relLossPickup < myRelativeLossThreshold) {
             const SUMOTime startDropOff = MAX2(now, res2->pickupTime);
             double directTimeTmp = -1; // direct time from picking up res2 to dropping of res
-            // case 1: res2 is dropped of before res (more detour for res)
+            // case 1: res2 is dropped off before res (more detour for res)
             double detourTime2 = computeDetourTime(startDropOff, startDropOff, taxi,
                                                    res2->from, res2->fromPos, res2->to, res2->toPos, res->to, res->toPos, router, directTimeTmp);
             const double absLoss_c1 = absLossPickup + (detourTime2 - directTimeTmp);
             const double relLoss_c1 = absLoss_c1 / directTime;
 
-            // case 2: res2 is dropped of after res (detour for res2)
+            // case 2: res2 is dropped off after res (detour for res2)
             double detourTime3 = computeDetourTime(startDropOff, startDropOff, taxi,
                                                    res2->from, res2->fromPos, res->to, res->toPos, res2->to, res2->toPos, router, directTime2);
             const double absLoss_c2 = detourTime3 - directTime2;

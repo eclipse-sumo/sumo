@@ -62,11 +62,11 @@ MSDevice_Taxi::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.taxi.dispatch-algorithm", new Option_String("greedy"));
     oc.addDescription("device.taxi.dispatch-algorithm", "Taxi Device", "The dispatch algorithm [greedy|greedyClosest|greedyShared]");
 
-    oc.doRegister("device.taxi.dispatch-algorithm.output", new Option_String("greedy"));
+    oc.doRegister("device.taxi.dispatch-algorithm.output", new Option_String("dispatch.xml"));
     oc.addDescription("device.taxi.dispatch-algorithm.output", "Taxi Device", "Write information from the dispatch algorithm to FILE");
 
-    oc.doRegister("device.taxi.dispatch-algorithm.params", new Option_String("greedy"));
-    oc.addDescription("device.taxi.dispatch-algorithm.params", "Taxi Device", "Load dispatch algorith parameters in format KEY1:VALUE1[,KEY2:VALUE]");
+    oc.doRegister("device.taxi.dispatch-algorithm.params", new Option_String(""));
+    oc.addDescription("device.taxi.dispatch-algorithm.params", "Taxi Device", "Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]");
 
     oc.doRegister("device.taxi.dispatch-period", new Option_String("60", "TIME"));
     oc.addDescription("device.taxi.dispatch-period", "Taxi Device", "The period between successive calls to the dispatcher");
