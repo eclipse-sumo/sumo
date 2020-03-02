@@ -92,6 +92,7 @@ NBEdge::Connection::getDescription(const NBEdge* parent) const {
 
 
 NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
+    Parameterised(Parameterised::ATTRTYPE_STRING),
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
@@ -112,6 +113,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
 
 NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, double contPos_,
                                double visibility_, double speed_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_, SVCPermissions permissions_) :
+    Parameterised(Parameterised::ATTRTYPE_STRING),
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
@@ -133,6 +135,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
 
 
 NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
+    Parameterised(Parameterised::ATTRTYPE_STRING),
     speed(e->getSpeed()),
     permissions(SVCAll),
     preferred(0),
@@ -274,6 +277,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
                const std::string& streetName,
                LaneSpreadFunction spread) :
     Named(StringUtils::convertUmlaute(id)),
+    Parameterised(Parameterised::ATTRTYPE_STRING),
     myStep(EdgeBuildingStep::INIT),
     myType(StringUtils::convertUmlaute(type)),
     myFrom(from), myTo(to),
@@ -305,6 +309,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
                const std::string& origID,
                LaneSpreadFunction spread, bool tryIgnoreNodePositions) :
     Named(StringUtils::convertUmlaute(id)),
+    Parameterised(Parameterised::ATTRTYPE_STRING),
     myStep(EdgeBuildingStep::INIT),
     myType(StringUtils::convertUmlaute(type)),
     myFrom(from), myTo(to),
@@ -330,6 +335,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
 
 NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tpl, const PositionVector& geom, int numLanes) :
     Named(StringUtils::convertUmlaute(id)),
+    Parameterised(Parameterised::ATTRTYPE_STRING),
     myStep(EdgeBuildingStep::INIT),
     myType(tpl->getTypeID()),
     myFrom(from), myTo(to),
@@ -370,7 +376,8 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
 
 
 NBEdge::NBEdge() :
-    Named("DUMMY") {
+    Named("DUMMY"),
+    Parameterised(Parameterised::ATTRTYPE_STRING) {
 }
 
 

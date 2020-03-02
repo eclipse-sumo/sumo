@@ -95,7 +95,7 @@ MSDevice_Taxi::initDispatch() {
     myDispatchPeriod = string2time(oc.getString("device.taxi.dispatch-period"));
     // init dispatch algorithm
     std::string algo = oc.getString("device.taxi.dispatch-algorithm");
-    Parameterised params;
+    Parameterised params(Parameterised::ATTRTYPE_STRING);
     params.setParametersStr(OptionsCont::getOptions().getString("device.taxi.dispatch-algorithm.params"), ":", ",");
     if (algo == "greedy") {
         myDispatcher = new MSDispatch_Greedy(params.getParametersMap());

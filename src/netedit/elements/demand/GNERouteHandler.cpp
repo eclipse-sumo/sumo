@@ -52,7 +52,8 @@
 GNERouteHandler::RouteParameter::RouteParameter() :
     loadedID(false),
     vClass(SVC_PASSENGER),
-    color(RGBColor::BLACK) {
+    color(RGBColor::BLACK),
+    parameters(Parameterised::ATTRTYPE_STRING) {
 }
 
 
@@ -62,7 +63,8 @@ GNERouteHandler::RouteParameter::RouteParameter(GNEDemandElement* originalDemand
             originalDemandElement->getViewNet()->getNet()->generateDemandElementID(originalDemandElement->getID(), SUMO_TAG_ROUTE)),
     edges(originalDemandElement->getParentEdges()),
     vClass(originalDemandElement->getVClass()),
-    color(originalDemandElement->getColor()) {
+    color(originalDemandElement->getColor()),
+    parameters(Parameterised::ATTRTYPE_STRING) {
 }
 
 

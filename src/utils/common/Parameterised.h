@@ -38,13 +38,25 @@ class OutputDevice;
  */
 class Parameterised {
 public:
-    /// @brief Constructor
-    Parameterised();
+
+    /// @brie enum for Parameterised type
+    enum ParameterisedAttrType {
+        /// @brief Parameterised accept strings
+        ATTRTYPE_STRING,
+        /// @brief Parameterised only accept doubles
+        ATTRTYPE_DOUBLE
+    };
+
+    /**@brief Constructor
+     * @param[in] attrType parameterised attribute type
+     */
+    Parameterised(ParameterisedAttrType attrType);
 
     /**@brief Constructor with parameters
+     * @param[in] attrType parameterised attribute type
      * @param[in] mapArg Pre-given parameter
      */
-    Parameterised(const std::map<std::string, std::string>& mapArg);
+    Parameterised(ParameterisedAttrType attrType, const std::map<std::string, std::string>& mapArg);
 
     /// @brief Destructor
     ~Parameterised();
@@ -118,6 +130,9 @@ private:
     /// @brief check if given string can be parsed to a parameter of type "key=value"
     static bool isParameterValid(const std::string& value, bool report,
                                  const std::string& kvsep = "=", const std::string& sep = "|");
+
+    /// @brief parameterised type
+    ParameterisedAttrType myAttrType;
 
     /// @brief The key->value map
     std::map<std::string, std::string> myMap;

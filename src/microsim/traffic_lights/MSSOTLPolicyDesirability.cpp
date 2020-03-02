@@ -23,7 +23,7 @@
 MSSOTLPolicyDesirability::MSSOTLPolicyDesirability(
     std::string keyPrefix,
     const std::map<std::string, std::string>& parameters) :
-    Parameterised(parameters), myKeyPrefix(keyPrefix) {
+    Parameterised(Parameterised::ATTRTYPE_STRING, parameters), myKeyPrefix(keyPrefix) {
 }
 
 MSSOTLPolicyDesirability::~MSSOTLPolicyDesirability() {

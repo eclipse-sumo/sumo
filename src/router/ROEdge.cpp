@@ -52,6 +52,7 @@ ROEdgeVector ROEdge::myEdges;
 // ===========================================================================
 ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority) :
     Named(id),
+    Parameterised(Parameterised::ATTRTYPE_STRING),
     myFromJunction(from),
     myToJunction(to),
     myIndex(index),

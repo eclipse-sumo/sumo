@@ -66,6 +66,7 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
                int priority,
                double distance) :
     Named(id), myNumericalID(numericalID), myLanes(nullptr),
+    Parameterised(Parameterised::ATTRTYPE_STRING),
     myLaneChanger(nullptr), myFunction(function), myVaporizationRequests(0),
     myLastFailedInsertionTime(-1),
     myFromJunction(nullptr), myToJunction(nullptr),

@@ -89,7 +89,7 @@ GUIContainer::GUIContainerPopupMenu::onCmdShowPlan(FXObject*, FXSelector, void*)
         ret->mkItem(toString(stage).c_str(), false, p->getStageSummary(stage));
     }
     // close building (use an object that is not Parameterised as argument)
-    Parameterised dummy;
+    Parameterised dummy(Parameterised::ATTRTYPE_STRING);
     ret->closeBuilding(&dummy);
     return 1;
 }

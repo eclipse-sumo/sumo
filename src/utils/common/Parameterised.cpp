@@ -29,11 +29,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Parameterised::Parameterised() {}
+Parameterised::Parameterised(ParameterisedAttrType attrType) :
+    myAttrType(attrType) {
+}
 
 
-Parameterised::Parameterised(const std::map<std::string, std::string>& mapArg)
-    : myMap(mapArg) {
+Parameterised::Parameterised(ParameterisedAttrType attrType, const std::map<std::string, std::string>& mapArg) : 
+    myAttrType(attrType),
+    myMap(mapArg) {
 }
 
 

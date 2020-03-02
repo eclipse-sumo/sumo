@@ -180,6 +180,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
                SVCPermissions permissions, int index, bool isRampAccel,
                const std::string& type) :
     Named(id),
+    Parameterised(Parameterised::ATTRTYPE_STRING),
     myNumericalID(numericalID), myShape(shape), myIndex(index),
     myVehicles(), myLength(length), myWidth(width), myStopOffsets(),
     myEdge(edge), myMaxSpeed(maxSpeed),
