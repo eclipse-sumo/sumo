@@ -20,26 +20,16 @@ There are three basic styles of converting turn-counts to routes:
 ## Turn count data format
 The turn-count data must be provided in the format:
 ```
-<turns>
-   <interval begin="0" end="3600">
-      <fromEdge id="myEdge0">
-         <toEdge id="myEdge1" probability="25"/>
-         <toEdge id="myEdge2" probability="100"/>
-         <toEdge id="myEdge3" probability="42"/>
-      </fromEdge>
-
-      ... any other edges ...
-
-   </interval>
-
-   ... some further intervals ...
-
-</turns>
+<interval id="generated" begin="0.0" end="99.0">
+        <edgeRelation from="-58.121.42" to="64" count="1"/>
+        <edgeRelation from="-58.121.42" to="-31" count="3"/>
+        <edgeRelation from="45" to="-68" count="3"/>
+        <edgeRelation from="-31.80.00" to="31" count="1"/>
+        <edgeRelation from="-31.80.00" to="37" count="1"/>
+        <edgeRelation from="-31.80.00" to="-23" count="13"/>
+        <edgeRelation from="-92.180.00" to="-60" count="1"/>
+</interval>
 ```
-
-!!! note
-    The attribute 'probability' can replaced with any other attribute name by setting the option **--turn-attribute <attrname>**. The default value of 'probability' is used for consistency with [JTRROUTER](../JTRROUTER.md) and [generateTurnRatios.py](#generateturnratiospy).
-
 
 # routeSampler.py
 The script generates routes from turn-count data. It requires a route file as
@@ -56,8 +46,18 @@ file](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) using option
 The attributes for reading the counts from the turn-data file and edgedata-file
 can be set with options
 
-- **--turn-attribute** (default 'probability')
+- **--turn-attribute** (default 'count')
 - **--edgedata-attribute** (default 'entered')
+
+## Optimization
+By default, routes will be sampled from the input route set until no further routes can be added without exceeding one of the counts. This may still leave some counts below their target values. At this point an ILP-Solver can be used to swap out routes and get closer to the target values or even reach the exact numbers.
+By setting option **--optimize <INT>**. The number of times that a route is used can be changed by up to **<INT>** times. This defines a trade-off between using routes in the same distribution as found in the input and optimizing the counts.
+When setting option **--optimze full**. No constraints on the route distribution are set and any route can be used as often as needed to reach the counts.
+
+## Further Calibration
+It is possible to load the resulting output into routeSampler.py for another round of optimization. By setting the option **--optimize-input** the sampling step is skipped and the optimizer is run directly on the input route set.
+
+By removing specific routes or adding new ones, the user can thus tailor the generating traffic in an iterative manner.
  
 # generateTurnRatios.py
 
