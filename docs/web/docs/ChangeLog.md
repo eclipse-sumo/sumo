@@ -24,6 +24,8 @@ permalink: /ChangeLog/
 - DUAROUTER
   - Attribute `group` of `<ride>` and `<personTrip>` is no longer lost. Issue #6555
   - Train routing now considers space requirement for train reversal. Issue #6697
+- TraCI
+  - Fixed crash when calling vehicle.moveTo for an off-road vehicle with tripinfo-output. Issue #6717
 - Tools
   - [sort_routes.py](Tools/Routes.md#sort_routespy) can now handle trips, triggered vehicles and human-readable times.
 
