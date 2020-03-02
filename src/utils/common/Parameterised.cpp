@@ -35,8 +35,24 @@ Parameterised::Parameterised(ParameterisedAttrType attrType) :
 
 
 Parameterised::Parameterised(ParameterisedAttrType attrType, const std::map<std::string, std::string>& mapArg) : 
-    myAttrType(attrType),
-    myMap(mapArg) {
+    myAttrType(attrType) {
+    // check if map has to be cleaned
+    if (myAttrType == ATTRTYPE_DOUBLE) {
+        // iterate over map
+        for (const auto &keyValue : mapArg) {
+            try {
+                // try to parse to do double, and if fails, write warning
+                StringUtils::toDouble(keyValue.second);
+                // insert keyValue in map
+                myMap.insert(keyValue);
+            } catch (NumberFormatException&) {
+                WRITE_WARNING("Invalid conversion from string to double (" + keyValue.second + ")");
+            }
+        }
+    } else {
+        // just update myMap
+        myMap = mapArg;
+    }
 }
 
 
@@ -45,7 +61,18 @@ Parameterised::~Parameterised() {}
 
 void
 Parameterised::setParameter(const std::string& key, const std::string& value) {
-    myMap[key] = value;
+    if (myAttrType == ATTRTYPE_DOUBLE) {
+        try {
+            // try to parse to do double, and if fails, write warning
+            StringUtils::toDouble(value);
+            // insert in map
+            myMap[key] = value;
+        } catch (NumberFormatException&) {
+            WRITE_WARNING("Invalid conversion from string to double (" + value + ")");
+        }
+    } else {
+        myMap[key] = value;
+    }
 }
 
 
@@ -57,8 +84,8 @@ Parameterised::unsetParameter(const std::string& key) {
 
 void
 Parameterised::updateParameters(const std::map<std::string, std::string>& mapArg) {
-    for (auto i : mapArg) {
-        myMap[i.first] = i.second;
+    for (const auto &keyValue : mapArg) {
+        setParameter(keyValue.first, keyValue.second);
     }
 }
 
@@ -70,8 +97,8 @@ Parameterised::knowsParameter(const std::string& key) const {
 
 
 const std::string
-Parameterised::getParameter(const std::string& key, const std::string& defaultValue) const {
-    std::map<std::string, std::string>::const_iterator i = myMap.find(key);
+Parameterised::getParameter(const std::string& key, const std::string defaultValue) const {
+    const auto i = myMap.find(key);
     if (i != myMap.end()) {
         return i->second;
     }
@@ -81,7 +108,7 @@ Parameterised::getParameter(const std::string& key, const std::string& defaultVa
 
 double
 Parameterised::getDouble(const std::string& key, const double defaultValue) const {
-    std::map<std::string, std::string>::const_iterator i = myMap.find(key);
+    const auto i = myMap.find(key);
     if (i != myMap.end()) {
         try {
             return StringUtils::toDouble(i->second);
@@ -110,15 +137,15 @@ Parameterised::getParametersMap() const {
 
 
 std::string
-Parameterised::getParametersStr(const std::string& kvsep, const std::string& sep) const {
+Parameterised::getParametersStr(const std::string kvsep, const std::string sep) const {
     std::string result;
     // Generate an string using configurable seperatrs, default: "key1=value1|key2=value2|...|keyN=valueN"
     bool addSep = false;
-    for (auto kv : myMap) {
+    for (const auto &keyValue : myMap) {
         if (addSep) {
             result += sep;
         }
-        result += kv.first + kvsep + kv.second;
+        result += keyValue.first + kvsep + keyValue.second;
         addSep = true;
     }
     return result;
@@ -127,13 +154,23 @@ Parameterised::getParametersStr(const std::string& kvsep, const std::string& sep
 
 void
 Parameterised::setParameters(const Parameterised& params) {
-    myMap = params.getParametersMap();
+    // first clear map
+    myMap.clear();
+    // set parameter
+    for (const auto &keyValue : params.getParametersMap()) {
+        setParameter(keyValue.first, keyValue.second);
+    }
 }
 
 
 void
 Parameterised::setParametersMap(const std::map<std::string, std::string>& paramsMap) {
-    myMap = paramsMap;
+    // first clear map
+    myMap.clear();
+    // set parameter
+    for (const auto &keyValue : paramsMap) {
+        setParameter(keyValue.first, keyValue.second);
+    }
 }
 
 
@@ -144,10 +181,10 @@ Parameterised::setParametersStr(const std::string& paramsString, const std::stri
     // separate value in a vector of string using | as separator
     std::vector<std::string> parameters = StringTokenizer(paramsString, sep).getVector();
     // iterate over all values
-    for (const auto& i : parameters) {
+    for (const auto &keyValue : parameters) {
         // obtain key and value and save it in myParameters
-        std::vector<std::string> keyValue = StringTokenizer(i, kvsep).getVector();
-        myMap[keyValue.front()] = keyValue.back();
+        std::vector<std::string> keyValueStr = StringTokenizer(keyValue, kvsep).getVector();
+        setParameter(keyValueStr.front(), keyValueStr.back());
     }
 }
 
@@ -155,10 +192,10 @@ Parameterised::setParametersStr(const std::string& paramsString, const std::stri
 void
 Parameterised::writeParams(OutputDevice& device) const {
     // iterate over all parameters and write it
-    for (auto i : myMap) {
+    for (const auto &keyValue : myMap) {
         device.openTag(SUMO_TAG_PARAM);
-        device.writeAttr(SUMO_ATTR_KEY, StringUtils::escapeXML(i.first));
-        device.writeAttr(SUMO_ATTR_VALUE, StringUtils::escapeXML(i.second));
+        device.writeAttr(SUMO_ATTR_KEY, StringUtils::escapeXML(keyValue.first));
+        device.writeAttr(SUMO_ATTR_VALUE, StringUtils::escapeXML(keyValue.second));
         device.closeTag();
     }
 }
@@ -168,12 +205,12 @@ bool
 Parameterised::areParametersValid(const std::string& value, bool report, const std::string& kvsep, const std::string& sep) {
     std::vector<std::string> parameters = StringTokenizer(value, sep).getVector();
     // first check if parsed parameters are valid
-    for (const auto& i : parameters) {
+    for (const auto &keyValueStr : parameters) {
         // check if parameter is valid
-        if (!isParameterValid(i, report, kvsep, sep)) {
+        if (!isParameterValid(keyValueStr, report, kvsep, sep)) {
             // report depending of flag
             if (report) {
-                WRITE_WARNING("Invalid format of parameter (" + i + ")");
+                WRITE_WARNING("Invalid format of parameter (" + keyValueStr + ")");
             }
             return false;
         }
@@ -192,13 +229,13 @@ Parameterised::isParameterValid(const std::string& value, bool /* report */, con
         return false;
     }
     // separate key and value
-    std::vector<std::string> keyValue = StringTokenizer(value, kvsep).getVector();
+    std::vector<std::string> keyValueStr = StringTokenizer(value, kvsep).getVector();
     // Check that keyValue size is exactly 2 (key, value)
-    if (keyValue.size() == 2) {
+    if (keyValueStr.size() == 2) {
         // check if key and value contains valid characters
-        if (SUMOXMLDefinitions::isValidParameterKey(keyValue.front()) == false) {
+        if (SUMOXMLDefinitions::isValidParameterKey(keyValueStr.front()) == false) {
             return false;
-        } else if (SUMOXMLDefinitions::isValidParameterValue(keyValue.back()) == false) {
+        } else if (SUMOXMLDefinitions::isValidParameterValue(keyValueStr.back()) == false) {
             return false;
         } else {
             // key=value valid, then return true

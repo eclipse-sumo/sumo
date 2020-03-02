@@ -88,7 +88,7 @@ public:
      * @param[in] defaultValue The default value to return if no value is stored under the key
      * @return The value stored under the key
      */
-    const std::string getParameter(const std::string& key, const std::string& defaultValue = "") const;
+    const std::string getParameter(const std::string& key, const std::string defaultValue = "") const;
 
     /**@brief Returns the value for a given key converted to a double
      * @param[in] key The key to ask for
@@ -104,7 +104,7 @@ public:
     const std::map<std::string, std::string>& getParametersMap() const;
 
     /// @brief Returns the inner key/value map in string format "key1=value1|key2=value2|...|keyN=valueN"
-    std::string getParametersStr(const std::string& kvsep = "=", const std::string& sep = "|") const;
+    std::string getParametersStr(const std::string kvsep = "=", const std::string sep = "|") const;
 
     /// @brief set the inner key/value map in map<string, string> format
     void setParameters(const Parameterised& params);
