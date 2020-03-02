@@ -181,7 +181,7 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
     const std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok);
     SUMOVehicleClass vClass = NIImporter_OpenStreetMap::interpretTransportType(type);
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
-        vClass = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_ID, id.c_str(), ok));
+        vClass = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_VCLASS, id.c_str(), ok));
     }
     const int intervalS = attrs.getOpt<int>(SUMO_ATTR_PERIOD, id.c_str(), ok, -1);
     const std::string nightService = attrs.getStringSecure("nightService", "");
