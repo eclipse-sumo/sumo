@@ -838,14 +838,20 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                 WRITE_WARNING("Circular connections in junction including roads '" + c.fromEdge + "' and '" + c.toEdge + "', loop size " + toString(seen.size()));
             }
         } else {
+            int in = c.toLane;
+            int out = (*i).fromLane;
+            if (c.toCP == OPENDRIVE_CP_END) {
+                // inner edge runs in reverse direction
+                std::swap(in, out);
+            }
 #ifdef DEBUG_CONNECTIONS
-        if (DEBUG_COND3(c.fromEdge)) {
-            std::cout << "        laneSectionsConnected dest=" << dest->id << " in=" << c.toLane << " out=" << (*i).fromLane 
-                << " connected=" <<  laneSectionsConnected(dest, c.toLane, (*i).fromLane) << "\n";
-        }
+            if (DEBUG_COND3(c.fromEdge)) {
+                std::cout << "        laneSectionsConnected dest=" << dest->id << " in=" << in << " out=" << out
+                    << " connected=" <<  laneSectionsConnected(dest, in, out) << "\n";
+            }
 #endif
 
-            if (laneSectionsConnected(dest, c.toLane, (*i).fromLane)) {
+            if (laneSectionsConnected(dest, in, out)) {
                 Connection cn = (*i);
                 cn.fromEdge = c.fromEdge;
                 cn.fromLane = c.fromLane;
