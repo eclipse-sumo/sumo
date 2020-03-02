@@ -125,6 +125,11 @@ public:
     /// @brief return current travel speed assumption
     static double getAssumedSpeed(const MSEdge* edge);
 
+    /// @brief whether taz-routing is enabled
+    static bool withTaz() {
+        return myWithTaz;
+    }
+
 #ifdef HAVE_FOX
     static void waitForAll();
 #endif
