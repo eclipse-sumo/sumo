@@ -139,6 +139,7 @@ def checkOffRoad(vehID):
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
              '--ignore-route-errors',
              '--vehroute-output', 'vehroutes.xml',
+             '--tripinfo-output', 'tripinfo.xml',
              '--additional-files',
              'input_additional.add.xml,input_additional2.add.xml',
              "--default.speeddev", "0"] + sys.argv[1:])

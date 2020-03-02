@@ -63,7 +63,7 @@ personCapacity 4
 waiting time 0.0
 accumulated waiting time -1073741824.0
 driving dist 3002.0
-driving dist 2D 1100.60362173
+driving dist 2D 1099.59758551
 line 
 via ()
 lane change state right (1073741824, 1073741824)
@@ -140,7 +140,7 @@ personCapacity 4
 waiting time 0.0
 accumulated waiting time -1073741824.0
 driving dist 3002.0
-driving dist 2D 1100.60362173
+driving dist 2D 1099.59758551
 line S46
 via ('3o', '4o')
 lane change state right (1073741824, 1073741824)
@@ -308,7 +308,7 @@ personCapacity 4
 waiting time 0.0
 accumulated waiting time -1073741824.0
 driving dist 3002.0
-driving dist 2D 1100.60362173
+driving dist 2D 1099.59758551
 line t
 via ()
 lane change state right (1073741824, 1073741824)
