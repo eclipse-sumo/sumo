@@ -1948,11 +1948,11 @@ protected:
     /// @brief State of things of the vehicle that can be on or off
     int mySignals;
 
-    /// @brief Whether the vehicle is trying to enter the network (eg after parking so engine is running)
-    bool myAmIdling;
-
     /// @brief Whether the vehicle is on the network (not parking, teleported, vaporized, or arrived)
     bool myAmOnNet;
+
+    /// @brief Whether the vehicle is trying to enter the network (eg after parking so engine is running)
+    bool myAmIdling;
 
     /// @brief Whether this vehicle is registered as waiting for a person (for deadlock-recognition)
     bool myAmRegisteredAsWaitingForPerson;
