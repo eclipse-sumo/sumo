@@ -66,11 +66,6 @@ public:
 
     /// @name members and functions relative to write data elements into XML
     /// @{
-    /**@brief writte data element element into a xml file
-     * @param[in] device device in which write parameters of data element element
-     */
-    void writeDataInterval(OutputDevice& device) const;
-
     /// @brief check if current data element is valid to be writed into XML (by default true, can be reimplemented in children)
     bool isDataIntervalValid() const;
 
@@ -98,6 +93,12 @@ public:
 
     /// @brief get generic data children
     const std::vector<GNEGenericData*> &getGenericDataChildren() const;
+
+    /// @brief get minimun genericData child attribute value
+    double getMinimumGenericDataChildAttribute(const std::string &paramStr) const;
+
+    /// @brief get maximun genericData child attribute value
+    double getMaximunGenericDataChildAttribute(const std::string &paramStr) const;
 
     /// @}
     /// @name inherited from GNEAttributeCarrier

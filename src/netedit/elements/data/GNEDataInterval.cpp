@@ -23,6 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/data/GNEGenericData.h>
 
 #include "GNEDataInterval.h"
 #include "GNEDataSet.h"
@@ -68,12 +69,6 @@ GNEDataInterval::updateDottedContour() {
 Position 
 GNEDataInterval::getPositionInView() const {
     return Position();
-}
-
-
-void 
-GNEDataInterval::writeDataInterval(OutputDevice& /*device*/) const {
-
 }
 
 
@@ -133,6 +128,64 @@ GNEDataInterval::hasGenericDataChild(GNEGenericData* genericData) const {
 const std::vector<GNEGenericData*>& 
 GNEDataInterval::getGenericDataChildren() const {
     return myGenericDataChildren;
+}
+
+
+double 
+GNEDataInterval::getMinimumGenericDataChildAttribute(const std::string &paramStr) const {
+    double result = INVALID_DOUBLE;
+    // iterate over generic data children
+    for (const auto &genericData : myGenericDataChildren) {
+        // iterate over generic data params
+        for (const auto &param : genericData->getParametersMap()) {
+            // check paramStr and if attribute can be parsed to double 
+            if ((param.first == paramStr) && canParse<double>(param.second)) {
+                // parse param value
+                const double paramDouble = parse<double>(param.second);
+                // update result
+                if (result == INVALID_DOUBLE) {
+                    result = paramDouble;
+                } else if (paramDouble < result) {
+                    result = paramDouble;
+                }
+            }
+        }
+    }
+    // return solution depending of result
+    if (result == INVALID_DOUBLE) {
+        return 0;
+    } else {
+        return result;
+    }
+}
+
+
+double 
+GNEDataInterval::getMaximunGenericDataChildAttribute(const std::string &paramStr) const {
+    double result = INVALID_DOUBLE;
+    // iterate over generic data children
+    for (const auto &genericData : myGenericDataChildren) {
+        // iterate over generic data params
+        for (const auto &param : genericData->getParametersMap()) {
+            // check paramStr and if attribute can be parsed to double 
+            if ((param.first == paramStr) && canParse<double>(param.second)) {
+                // parse param value
+                const double paramDouble = parse<double>(param.second);
+                // update result
+                if (result == INVALID_DOUBLE) {
+                    result = paramDouble;
+                } else if (paramDouble > result) {
+                    result = paramDouble;
+                }
+            }
+        }
+    }
+    // return solution depending of result
+    if (result == INVALID_DOUBLE) {
+        return 0;
+    } else {
+        return result;
+    }
 }
 
 

@@ -64,7 +64,12 @@ GNEEdgeData::getColor() const {
                 const std::string filteredAttribute = edgeDataFrame->getAttributeSelector()->getFilteredAttribute();
                 // check interval
                 if (dataInterval && (dataInterval == myDataIntervalParent) && (filteredAttribute.size() > 0)) {
-                    return RGBColor::BLUE;
+                    // get maximum and minimum value
+                    const double minimumValue = dataInterval->getMinimumGenericDataChildAttribute(filteredAttribute);
+                    const double maximumValue = dataInterval->getMaximunGenericDataChildAttribute(filteredAttribute);
+                    const double colorValue = getParametersMap().count(filteredAttribute) > 0? parse<double>(getParametersMap().at(filteredAttribute)) : 0;
+                    // return scaled color
+                    return edgeDataFrame->getAttributeSelector()->getScaledColor(minimumValue, maximumValue, colorValue);
                 }
             }
         }
