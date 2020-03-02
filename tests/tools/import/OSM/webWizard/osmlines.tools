@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Feb  6 14:11:12 2020 by Eclipse SUMO netconvert Version v1_4_0+0954-9a589e9
+<!-- generated on Mon Mar  2 22:49:20 2020 by Eclipse SUMO netconvert Version v1_5_0+0332-f6eec0d7a2
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
+        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertShips.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
         <osm-files value="osm_bbox.osm.xml"/>
     </input>
 
@@ -47,6 +47,7 @@
 
     <railway>
         <railway.topology.repair value="true"/>
+        <railway.topology.repair.stop-turn value="true"/>
     </railway>
 
     <report>
@@ -57,7 +58,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
     <ptLine id="156479" name="RE2: Cottbus =&gt; Wismar" line="RE2" type="train" vClass="rail" period="3600" completeness="0.05">
         <route edges="32572630 32572622#1 32590440 72984396 32590651#1 32590900#1 25946666#1 25946666#2 25946668 421021565#0 421021565#1"/>
         <busStop id="3419694885" name="Berlin Alexanderplatz"/>
@@ -640,4 +641,4 @@
         <busStop id="29805120" name="Berlin Friedrichstraße"/>
         <busStop id="2776873647" name="Berlin Alexanderplatz"/>
     </ptLine>
-</additional>
+</ptLines>
