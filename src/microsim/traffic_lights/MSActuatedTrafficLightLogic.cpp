@@ -356,10 +356,22 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             }
             if (myLinkMaxGreenTimes.empty()) {
                 myLinkMaxGreenTimes = std::vector<SUMOTime>(myNumLinks, std::numeric_limits<SUMOTime>::max());
-                myLinkGreenTimes = std::vector<SUMOTime>(myNumLinks, 0);
             }
             myLinkMaxGreenTimes[link] = string2time(kv.second);
+        } else if (StringUtils::startsWith(kv.first, "linkMinDur:")) {
+            int link = StringUtils::toInt(kv.first.substr(11));
+            if (link < 0 || link >= myNumLinks) {
+                WRITE_ERROR("Invalid link '" + kv.first.substr(11) + "' given as linkMinDur parameter for actuated tlLogic '" + getID() + "', program '" + getProgramID() + ".");
+                continue;
+            }
+            if (myLinkMinGreenTimes.empty()) {
+                myLinkMinGreenTimes = std::vector<SUMOTime>(myNumLinks, 0);
+            }
+            myLinkMinGreenTimes[link] = string2time(kv.second);
         }
+    }
+    if (myLinkMaxGreenTimes.size() > 0 || myLinkMinGreenTimes.size() > 0) {
+        myLinkGreenTimes = std::vector<SUMOTime>(myNumLinks, 0);
     }
     //std::cout << SIMTIME << " linkMaxGreenTimes=" << toString(myLinkMaxGreenTimes) << "\n";
 }
@@ -426,7 +438,7 @@ MSActuatedTrafficLightLogic::trySwitch() {
     // @note any vehicles which arrived during the previous phases which are now waiting between the detector and the stop line are not
     // considere here. RiLSA recommends to set minDuration in a way that lets all vehicles pass the detector
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-    if (myLinkMaxGreenTimes.size() > 0) {
+    if (myLinkGreenTimes.size() > 0) {
         // constraints exist, record green time durations for each link
         const std::string& state = getCurrentPhaseDef().getState();
         SUMOTime lastDuration = now - myLastTrySwitchTime;
@@ -452,21 +464,29 @@ MSActuatedTrafficLightLogic::trySwitch() {
     }
     // decide the next phase
     const int origStep = myStep;
+    int nextStep = myStep;
     SUMOTime actDuration = now - myPhases[myStep]->myLastSwitch;
     if (multiTarget) {
-        myStep = decideNextPhase();
+        nextStep = decideNextPhase();
     } else {
         if (myPhases[myStep]->nextPhases.size() == 1 && myPhases[myStep]->nextPhases.front() >= 0) {
-            myStep = myPhases[myStep]->nextPhases.front();
+            nextStep = myPhases[myStep]->nextPhases.front();
         } else {
-            myStep++;
+            nextStep++;
         }
     }
+    if (nextStep == (int)myPhases.size()) {
+        nextStep = 0;
+    }
+    SUMOTime linkMinDur = getLinkMinDuration(getTarget(nextStep));
+    if (linkMinDur > 0) {
+        // for multiTarget, the current phase must be extended but if another
+        // targer is chosen, earlier switching than linkMinDur is possible
+        return multiTarget ? TIME2STEPS(1) : linkMinDur;
+    }
+    myStep = nextStep;
     assert(myStep <= (int)myPhases.size());
     assert(myStep >= 0);
-    if (myStep == (int)myPhases.size()) {
-        myStep = 0;
-    }
     //stores the time the phase started
     if (myStep != origStep) {
         myPhases[myStep]->myLastSwitch = now;
@@ -616,7 +636,7 @@ MSActuatedTrafficLightLogic::getTarget(int step) {
             }
             step = myPhases[step]->nextPhases.front();
         } else {
-            step++;
+            step = (step + 1) % myPhases.size();
         }
         if (step == origStep) {
             WRITE_WARNING("At actuated tlLogic '" + getID() + "', infinite transition loop from phase " + toString(origStep));
@@ -705,6 +725,25 @@ MSActuatedTrafficLightLogic::canExtendLinkGreen(int target) {
         }
     }
     return true;
+}
+
+SUMOTime
+MSActuatedTrafficLightLogic::getLinkMinDuration(int target) const {
+    SUMOTime result = 0;
+    if (target != myStep && myLinkMinGreenTimes.size() > 0) {
+        const std::string& state = myPhases[myStep]->getState();
+        const std::string& targetState = myPhases[target]->getState();
+        for (int i = 0; i < myNumLinks; i++) {
+            if (myLinkGreenTimes[i] < myLinkMinGreenTimes[i]
+                    && (state[i] == 'G' || state[i] == 'g')
+                    && !(targetState[i] == 'G' || targetState[i] == 'g')) {
+                result = MAX2(result, myLinkMinGreenTimes[i] - myLinkGreenTimes[i]);
+                //std::cout << SIMTIME << " getLinkMinDuration myStep=" << myStep << " target=" << target << " i=" << i 
+                //    << " greenTime=" << STEPS2TIME(myLinkGreenTimes[i]) << " min=" << STEPS2TIME(myLinkMinGreenTimes[i]) << " result=" << STEPS2TIME(result) << "\n";
+            }
+        }
+    }
+    return result;
 }
 
 /****************************************************************************/

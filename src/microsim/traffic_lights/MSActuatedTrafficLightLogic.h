@@ -142,11 +142,14 @@ protected:
     /// @brief get the green phase following step
     int getTarget(int step);
 
-    /// @brief whether the current phase cannot be continued due to link duration constraints
+    /// @brief whether the current phase cannot be continued due to linkMaxDur constraints
     bool maxLinkDurationReached();
 
-    /// @brief whether the target phase is acceptable in light of link duration constraints
+    /// @brief whether the target phase is acceptable in light of linkMaxDur constraints
     bool canExtendLinkGreen(int target);
+
+    /// @brief the minimum duratin for keeping the current phase due to linkMinDur constraints
+    SUMOTime getLinkMinDuration(int target) const;
 
 protected:
     /// @brief A map from phase to induction loops to be used for gap control
@@ -185,4 +188,6 @@ protected:
     std::vector<SUMOTime> myLinkGreenTimes;
     /// @brief maximum consecutive time that the given link may remain green
     std::vector<SUMOTime> myLinkMaxGreenTimes;
+    /// @brief minimum consecutive time that the given link must remain green
+    std::vector<SUMOTime> myLinkMinGreenTimes;
 };
