@@ -1555,7 +1555,7 @@ Vehicle::remove(const std::string& vehicleID, char reason) {
             n = MSMoveReminder::NOTIFICATION_ARRIVED;
             break;
         case REMOVE_VAPORIZED:
-            n = MSMoveReminder::NOTIFICATION_VAPORIZED;
+            n = MSMoveReminder::NOTIFICATION_VAPORIZED_TRACI;
             break;
         case REMOVE_TELEPORT_ARRIVED:
             n = MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;

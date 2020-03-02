@@ -3783,7 +3783,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                     }
                     moved = true;
                     if (approachedLane->getEdge().isVaporizing()) {
-                        leaveLane(MSMoveReminder::NOTIFICATION_VAPORIZED);
+                        leaveLane(MSMoveReminder::NOTIFICATION_VAPORIZED_VAPORIZER);
                         break;
                     }
                     passedLanes.push_back(approachedLane);

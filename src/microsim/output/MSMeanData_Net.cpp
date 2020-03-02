@@ -182,7 +182,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOTrafficObject& veh, double
             ++nVehLaneChangeFrom;
         } else if (myParent == nullptr || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
             ++nVehLeft;
-            if (reason == MSMoveReminder::NOTIFICATION_VAPORIZED) {
+            if (reason > MSMoveReminder::NOTIFICATION_ARRIVED) {
                 ++nVehVaporized;
             }
         }

@@ -76,11 +76,11 @@ MELoop::simulate(SUMOTime tMax) {
 
 
 bool
-MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSegment, const bool ignoreLink) {
+MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSegment, const bool ignoreLink, MSMoveReminder::Notification reason) {
     MESegment* const onSegment = veh->getSegment();
     if (MESegment::isInvalid(toSegment)) {
         if (onSegment != nullptr) {
-            onSegment->send(veh, toSegment, leaveTime, toSegment == nullptr ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_VAPORIZED);
+            onSegment->send(veh, toSegment, leaveTime, reason);
         } else {
             WRITE_WARNING("Vehicle '" + veh->getID() + "' teleports beyond arrival edge '" + veh->getEdge()->getID() + "', time " + time2string(leaveTime) + ".");
         }
@@ -220,8 +220,8 @@ MELoop::removeLeaderCar(MEVehicle* v) {
 }
 
 void
-MELoop::vaporizeCar(MEVehicle* v) {
-    v->getSegment()->send(v, nullptr, MSNet::getInstance()->getCurrentTimeStep(), MSMoveReminder::NOTIFICATION_VAPORIZED);
+MELoop::vaporizeCar(MEVehicle* v, MSMoveReminder::Notification reason) {
+    v->getSegment()->send(v, nullptr, MSNet::getInstance()->getCurrentTimeStep(), reason);
     // try removeLeaderCar
     std::vector<MEVehicle*>& cands = myLeaderCars[v->getEventTime()];
     auto it = find(cands.begin(), cands.end(), v);

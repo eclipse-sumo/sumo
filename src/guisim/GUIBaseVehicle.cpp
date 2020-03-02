@@ -215,13 +215,13 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdRemoveObject(FXObject*, FXSelector
     GUIBaseVehicle* baseVeh = static_cast<GUIBaseVehicle*>(myObject);
     MSVehicle* microVeh = dynamic_cast<MSVehicle*>(&baseVeh->myVehicle);
     if (microVeh != nullptr) {
-        microVeh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
+        microVeh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_GUI);
         if (microVeh->getLane() != nullptr) {
-            microVeh->getLane()->removeVehicle(microVeh, MSMoveReminder::NOTIFICATION_VAPORIZED);
+            microVeh->getLane()->removeVehicle(microVeh, MSMoveReminder::NOTIFICATION_VAPORIZED_GUI);
         }
     } else {
         MEVehicle* mesoVeh = dynamic_cast<MEVehicle*>(&baseVeh->myVehicle);
-        MSGlobals::gMesoNet->vaporizeCar(mesoVeh);
+        MSGlobals::gMesoNet->vaporizeCar(mesoVeh, MSMoveReminder::NOTIFICATION_VAPORIZED_GUI);
     }
     MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(&baseVeh->myVehicle);
     myParent->update();

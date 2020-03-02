@@ -101,14 +101,22 @@ public:
         NOTIFICATION_TELEPORT,
         /// @brief The vehicle starts or ends parking
         NOTIFICATION_PARKING,
+        /// @brief The vehicle needs another parking area
+        NOTIFICATION_PARKING_REROUTE,
         /// @brief The vehicle arrived at its destination (is deleted)
         NOTIFICATION_ARRIVED, // arrived and everything after is treated as permanent deletion from the net
-        /// @brief The vehicle got vaporized
-        NOTIFICATION_VAPORIZED,
         /// @brief The vehicle was teleported out of the net
         NOTIFICATION_TELEPORT_ARRIVED,
-        /// @brief The vehicle needs another parking area
-        NOTIFICATION_PARKING_REROUTE
+        /// @brief The vehicle got removed by a calibrator
+        NOTIFICATION_VAPORIZED_CALIBRATOR,
+        /// @brief The vehicle got removed by a collision
+        NOTIFICATION_VAPORIZED_COLLISION,
+        /// @brief The vehicle got removed via TraCI
+        NOTIFICATION_VAPORIZED_TRACI,
+        /// @brief The vehicle got removed via the GUI
+        NOTIFICATION_VAPORIZED_GUI,
+        /// @brief The vehicle got vaporized with a vaporizer
+        NOTIFICATION_VAPORIZED_VAPORIZER
     };
 
 

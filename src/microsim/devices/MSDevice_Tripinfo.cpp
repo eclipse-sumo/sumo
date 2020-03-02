@@ -109,6 +109,7 @@ MSDevice_Tripinfo::MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id)
     myArrivalPos(-1),
     myArrivalPosLat(0.),
     myArrivalSpeed(-1),
+    myArrivalReason(MSMoveReminder::NOTIFICATION_ARRIVED),
     myMesoTimeLoss(0),
     myRouteLength(0.) {
 }
@@ -229,6 +230,7 @@ MSDevice_Tripinfo::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
                                MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         myArrivalTime = MSNet::getInstance()->getCurrentTimeStep();
+        myArrivalReason = reason;
         if (!MSGlobals::gUseMesoSim) {
             myArrivalLane = static_cast<MSVehicle&>(veh).getLane()->getID();
             myArrivalPosLat = static_cast<MSVehicle&>(veh).getLateralPositionOnLane();
@@ -236,7 +238,8 @@ MSDevice_Tripinfo::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
         // @note vehicle may have moved past its arrivalPos during the last step
         // due to non-zero arrivalspeed but we consider it as arrived at the desired position
         // However, vaporization may happen anywhere (via TraCI)
-        if (reason == MSMoveReminder::NOTIFICATION_VAPORIZED) {
+        if (reason > MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED) {
+            // vaporized
             myArrivalPos = veh.getPositionOnLane();
         } else {
             myArrivalPos = myHolder.getArrivalPos();
@@ -304,7 +307,31 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     os.writeAttr("devices", toString(myHolder.getDevices()));
     os.writeAttr("vType", myHolder.getVehicleType().getID());
     os.writeAttr("speedFactor", myHolder.getChosenSpeedFactor());
-    os.writeAttr("vaporized", (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "0"));
+    std::string vaporized;
+    switch (myArrivalReason) {
+        case MSMoveReminder::NOTIFICATION_VAPORIZED_CALIBRATOR:
+            vaporized = "calibrator";
+            break;
+        case MSMoveReminder::NOTIFICATION_VAPORIZED_GUI:
+            vaporized = "gui";
+            break;
+        case MSMoveReminder::NOTIFICATION_VAPORIZED_COLLISION:
+            vaporized = "collision";
+            break;
+        case MSMoveReminder::NOTIFICATION_VAPORIZED_VAPORIZER:
+            vaporized = "vaporizer";
+            break;
+        case MSMoveReminder::NOTIFICATION_VAPORIZED_TRACI:
+            vaporized = "traci";
+            break;
+        case MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED:
+            vaporized = "teleport";
+            break;
+        default:
+            vaporized = (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "end");
+
+    }
+    os.writeAttr("vaporized", vaporized);
     // cannot close tag because emission device output might follow
 }
 

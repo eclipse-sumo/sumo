@@ -71,7 +71,7 @@ public:
     void removeLeaderCar(MEVehicle* v);
 
     /** @brief remove the given car and clean up the relevant data structures */
-    void vaporizeCar(MEVehicle* v);
+    void vaporizeCar(MEVehicle* v, MSMoveReminder::Notification reason);
 
     /** @brief Compute number of segments per edge (best value stay close to the configured segment length) */
     static int numSegmentsFor(const double length, const double slength);
@@ -94,7 +94,7 @@ public:
      * this handles combinations of the following cases:
      * (ending / continuing route) and (leaving segment / finishing teleport)
      */
-    bool changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSegment, const bool ignoreLink = false);
+    bool changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSegment, const bool ignoreLink = false, MSMoveReminder::Notification reason = MSMoveReminder::NOTIFICATION_SEGMENT);
 
     /** @brief registers vehicle with the given link
      *

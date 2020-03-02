@@ -278,8 +278,8 @@ MSCalibrator::removePending() {
         for (std::set<std::string>::iterator it = myToRemove.begin(); it != myToRemove.end(); ++it) {
             MSVehicle* vehicle = dynamic_cast<MSVehicle*>(vc.getVehicle(*it));
             if (vehicle != nullptr) {
-                vehicle->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
-                vehicle->getLane()->removeVehicle(vehicle, MSMoveReminder::NOTIFICATION_VAPORIZED);
+                vehicle->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_CALIBRATOR);
+                vehicle->getLane()->removeVehicle(vehicle, MSMoveReminder::NOTIFICATION_VAPORIZED_CALIBRATOR);
                 vc.scheduleVehicleRemoval(vehicle, true);
             } else {
                 WRITE_WARNING("Calibrator '" + getID() + "' could not remove vehicle '" + *it + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");

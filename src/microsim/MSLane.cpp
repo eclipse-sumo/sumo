@@ -1474,7 +1474,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
         if (toTeleport.count(veh) > 0) {
             MSVehicleTransfer::getInstance()->add(timestep, veh);
         } else {
-            veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
+            veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_COLLISION);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         }
     }
@@ -1738,7 +1738,7 @@ MSLane::executeMovements(const SUMOTime t) {
         } else if (target != nullptr && moved) {
             if (target->getEdge().isVaporizing()) {
                 // vehicle has reached a vaporizing edge
-                veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
+                veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_VAPORIZER);
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
             } else {
                 // vehicle has entered a new lane (leaveLane and workOnMoveReminders were already called in MSVehicle::executeMove)
@@ -1762,7 +1762,7 @@ MSLane::executeMovements(const SUMOTime t) {
             if (getCollisionAction() == COLLISION_ACTION_REMOVE) {
                 WRITE_WARNING("Removing vehicle '" + veh->getID() + "' after earlier collision, lane='" + veh->getLane()->getID() + ", time=" +
                               time2string(t) + ".");
-                veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
+                veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_COLLISION);
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
             } else if (getCollisionAction() == COLLISION_ACTION_TELEPORT) {
                 WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "' after earlier collision, lane='" + veh->getLane()->getID() + ", time=" +

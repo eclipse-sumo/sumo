@@ -237,6 +237,9 @@ private:
     /// @brief The speed when arriving
     double myArrivalSpeed;
 
+    /// @brief The reason for vehicle arrival
+    MSMoveReminder::Notification myArrivalReason;
+
     /// @brief The time loss when compared to the desired and allowed speed
     SUMOTime myMesoTimeLoss;
 
