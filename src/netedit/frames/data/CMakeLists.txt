@@ -1,4 +1,6 @@
 set(netedit_frames_data_SRCS
+   GNEGenericDataFrame.h
+   GNEGenericDataFrame.cpp
    GNEEdgeDataFrame.h
    GNEEdgeDataFrame.cpp
    )
