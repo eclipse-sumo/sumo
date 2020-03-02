@@ -46,5 +46,11 @@ dualring_simple
 # test for approximating a dual-ring controller by using the actuated branching logic, including constraints on maximum green time for selected links
 dualring_simple_linkMaxDur
 
+# test for approximating a dual-ring controller by using the actuated branching logic, including constraints on minimum green time for selected links
+dualring_simple_linkMinDur
+
 # test for approximating a dual-ring controller by using the actuated branching logic
 dualring
+
+# network contains a static traffic light, load actuated as additional program (new default) with linkMinDur constraints
+linkMinDur
