@@ -469,7 +469,7 @@ GNEEdgeDataFrame::GNEEdgeDataFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // create AttributeSelector
     myAttributeSelector = new AttributeSelector(this);
     // create parameter editor
-    myParametersEditor = new GNEFrameAttributesModuls::ParametersEditor(this);
+    myParametersEditor = new GNEFrameAttributesModuls::ParametersEditor(this, "Attributes");
 }
 
 

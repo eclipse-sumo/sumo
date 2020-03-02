@@ -556,16 +556,16 @@ public:
 
     public:
         /// @brief constructor
-        ParametersEditor(GNEFrame* frameParent);
+        ParametersEditor(GNEFrame* frameParent, std::string title);
 
         /// @brief destructor
         ~ParametersEditor();
 
         /// @brief show netedit attributes editor (used for edit parameters of an existent AC)
-        void showParametersEditor(GNEAttributeCarrier* AC);
+        void showParametersEditor(GNEAttributeCarrier* AC, std::string title);
 
         /// @brief show netedit attributes editor (used for edit parameters of an existent list of AC)
-        void showParametersEditor(std::vector<GNEAttributeCarrier*> ACs);
+        void showParametersEditor(std::vector<GNEAttributeCarrier*> ACs, std::string title);
 
         /// @brief hide netedit attributes editor
         void hideParametersEditor();

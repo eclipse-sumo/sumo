@@ -89,7 +89,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myGEOAttributesEditor = new GEOAttributesEditor(this);
 
     // create parameters Editor modul
-    myParametersEditor = new GNEFrameAttributesModuls::ParametersEditor(this);
+    myParametersEditor = new GNEFrameAttributesModuls::ParametersEditor(this, "Parameters");
 
     // Create Netedit Attributes Editor modul
     myNeteditAttributesEditor = new NeteditAttributesEditor(this);
@@ -301,9 +301,9 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
 
         // show parameters editor
         if (ACs.size() == 1) {
-            myParametersEditor->showParametersEditor(ACs.front());
+            myParametersEditor->showParametersEditor(ACs.front(), "parameters");
         } else {
-            myParametersEditor->showParametersEditor(ACs);
+            myParametersEditor->showParametersEditor(ACs, "parameters");
         }
 
         // If attributes correspond to an Edge and we aren't in demand mode, show template editor

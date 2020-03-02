@@ -2075,13 +2075,15 @@ GNEFrameAttributesModuls::AttributesEditorExtended::onCmdOpenDialog(FXObject*, F
 // GNEFrameAttributesModuls::ParametersEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::ParametersEditor::ParametersEditor(GNEFrame* inspectorFrameParent) :
-    FXGroupBox(inspectorFrameParent->myContentFrame, "Parameters", GUIDesignGroupBoxFrame),
+GNEFrameAttributesModuls::ParametersEditor::ParametersEditor(GNEFrame* inspectorFrameParent, std::string title) :
+    FXGroupBox(inspectorFrameParent->myContentFrame, title.c_str(), GUIDesignGroupBoxFrame),
     myFrameParent(inspectorFrameParent),
     myAC(nullptr) {
+    // set first letter upper
+    title[0] = tolower(title[0]);
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myButtonEditParameters = new FXButton(this, "Edit parameters", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
+    myButtonEditParameters = new FXButton(this, ("Edit " + title).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
 }
 
 
@@ -2089,8 +2091,9 @@ GNEFrameAttributesModuls::ParametersEditor::~ParametersEditor() {}
 
 
 void
-GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCarrier* AC) {
-    if ((AC != nullptr) && AC->getTagProperty().hasParameters()) {
+GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCarrier* AC, std::string title) {
+    if ((AC != nullptr) && AC->getTagProperty().hasParameters() && (title.size() > 0)) {
+        // set AC
         myAC = AC;
         myACs.clear();
         // obtain a copy of AC parameters
@@ -2110,6 +2113,12 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCar
                 }
             }
         }
+        // set title and button
+        myButtonEditParameters->setText(("Edit " + title).c_str());
+        // set first letter upper
+        title[0] = toupper(title[0]);
+        // change 
+        setText(title.c_str());
         // refresh ParametersEditor
         refreshParametersEditor();
         // show groupbox
@@ -2121,7 +2130,7 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCar
 
 
 void
-GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(std::vector<GNEAttributeCarrier*> ACs) {
+GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(std::vector<GNEAttributeCarrier*> ACs, std::string title) {
     if ((ACs.size() > 0) && ACs.front()->getTagProperty().hasParameters()) {
         myAC = nullptr;
         myACs = ACs;
@@ -2150,6 +2159,12 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(std::vector<GNE
                 myParameters[keyValue.front()] = keyValue.back();
             }
         }
+        // set title and button
+        myButtonEditParameters->setText(("Edit " + title).c_str());
+        // set first letter upper
+        title[0] = toupper(title[0]);
+        // change 
+        setText(title.c_str());
         // refresh ParametersEditor
         refreshParametersEditor();
         // show groupbox
