@@ -236,7 +236,10 @@ MSDevice_Tripinfo::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
         if (MSGlobals::gUseMesoSim) {
             myRouteLength += myHolder.getEdge()->getLength();
         } else {
-            myRouteLength += static_cast<MSVehicle&>(veh).getLane()->getLength();
+            MSLane* lane = static_cast<MSVehicle&>(veh).getLane();
+            if (lane != nullptr) {
+                myRouteLength += lane->getLength();
+            }
         }
     }
     return true;
