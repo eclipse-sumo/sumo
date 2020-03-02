@@ -83,11 +83,8 @@ GNEGenericData::isVisible() const {
             const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getViewNet()->getViewParent()->getEdgeDataFrame();
             // check if we have to filter generic data
             if (edgeDataFrame->shown()) {
-                // check if we can 
-                if (edgeDataFrame->getDataSetSelector()->getDataSet() && 
-                    (edgeDataFrame->getDataSetSelector()->getDataSet() != myDataIntervalParent->getDataSetParent())) {
-                    return false;
-                } else if (edgeDataFrame->getIntervalSelector()->getDataInterval() &&
+                // check interval
+                if (edgeDataFrame->getIntervalSelector()->getDataInterval() &&
                     (edgeDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
                     return false;
                 } else {

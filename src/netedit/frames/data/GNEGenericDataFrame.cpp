@@ -444,8 +444,45 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
 }
 
 
+std::string 
+GNEGenericDataFrame::AttributeSelector::getFilteredAttribute() const {
+    if (myAttributesComboBox->getNumItems() == 0) {
+        return "";
+    } else if (myAttributesComboBox->getText() == "<all>") {
+        return "";
+    } else {
+        return myAttributesComboBox->getText().text();
+    }
+}
+
+
+const RGBColor&
+GNEGenericDataFrame::AttributeSelector::getScaledColor(const double min, const double max, const double value) const {
+    // check extremes
+    if (value <= min) {
+        return myScaleColors.front();
+    } else if (value >= max) {
+        return myScaleColors.back(); 
+    } else {
+        // calculate value procent between [min, max]
+        const double procent = ((value - min) * 100) / (max - min);
+        // check if is valid
+        if (procent <= 0) {
+            return myScaleColors.front();
+        } else if (procent >= 100) {
+            return myScaleColors.back(); 
+        } else {
+            // return scaled color
+            return myScaleColors.at((int)(procent / 10.0));
+        }
+    }
+}
+
+
 long 
 GNEGenericDataFrame::AttributeSelector::onCmdSelectAttribute(FXObject*, FXSelector, void*) {
+    // update view
+    myGenericDataFrameParent->getViewNet()->update();
     return 1;
 }
 

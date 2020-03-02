@@ -2147,7 +2147,7 @@ GNEFrameModuls::buildRainbow(FXComposite *parent) {
     std::vector<RGBColor> scaleColors;
     // create label for color information
     new FXLabel(parent, "Scale: Min -> Max", nullptr, GUIDesignLabelCenterThick);
-    // fill scale colors
+    // fill scale colors (10)
     scaleColors.push_back(RGBColor(232, 35,  0));
     scaleColors.push_back(RGBColor(255, 165, 0));
     scaleColors.push_back(RGBColor(255, 255, 0));

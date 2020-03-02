@@ -189,6 +189,12 @@ public:
         /// @brief refresh interval selector
         void refreshAttributeSelector();
 
+        /// @brief get filtered attribute
+        std::string getFilteredAttribute() const;
+
+        /// @brief get color for the given value
+        const RGBColor &getScaledColor(const double min, const double max, const double value) const;
+
         /// @name FOX-callbacks
         /// @{
 

@@ -1101,8 +1101,7 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     // check if we have to change color if parent edge has generic data elements
     for (const auto &edgeGenericData : myParentEdge->getChildGenericDataElements()) {
         if (edgeGenericData->isVisible()) {
-            // temporal
-            color = RGBColor::RED;
+            color = edgeGenericData->getColor();
         }
     }
     // set color in GLHelper

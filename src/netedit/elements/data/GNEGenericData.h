@@ -94,6 +94,9 @@ public:
     /// @brief check if current generic data is visible
     bool isVisible() const;
 
+    /// @brief get generic data color
+    virtual const RGBColor &getColor() const = 0;
+
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 

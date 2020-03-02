@@ -22,8 +22,10 @@
 
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/network/GNEEdge.h>
+#include <netedit/frames/data/GNEEdgeDataFrame.h>
 
 #include "GNEEdgeData.h"
 #include "GNEDataInterval.h"
@@ -44,6 +46,31 @@ GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge *edgeParen
 
 
 GNEEdgeData::~GNEEdgeData() {}
+
+
+const RGBColor &
+GNEEdgeData::getColor() const {
+    // first check if we're in supermode demand
+    if (myDataIntervalParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DATA) {
+        // special case for edgeDatas
+        if (myTagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) {
+            // obtain pointer to edge data frame (only for code legibly)
+            const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getViewNet()->getViewParent()->getEdgeDataFrame();
+            // check if we have to filter generic data
+            if (edgeDataFrame->shown()) {
+                // get interval
+                const GNEDataInterval *dataInterval = edgeDataFrame->getIntervalSelector()->getDataInterval();
+                // get filtered attribute (can be empty)
+                const std::string filteredAttribute = edgeDataFrame->getAttributeSelector()->getFilteredAttribute();
+                // check interval
+                if (dataInterval && (dataInterval == myDataIntervalParent) && (filteredAttribute.size() > 0)) {
+                    return RGBColor::BLUE;
+                }
+            }
+        }
+    }
+    return RGBColor::RED;
+}
 
 
 void 
