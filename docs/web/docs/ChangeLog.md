@@ -18,6 +18,7 @@ permalink: /ChangeLog/
   - Calibrator attribute `vTypes` is now working. Issue #6702
 - NETCONVERT
   - Fixed precision when filtering network with a given boundary. Issue #6206
+  - Fixed missing connections when importing OpenDRIVE. Issue #6712
 - SUMO-GUI
   - fixed layout of meso edge parameter dialog at high occupancy (regression in 1.5.0)
 - DUAROUTER
