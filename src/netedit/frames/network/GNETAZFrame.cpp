@@ -1189,25 +1189,8 @@ GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) :
     // create label for selected TAZEdge color information
     FXLabel* selectedTAZEdgeLabel = new FXLabel(this, "Selected TAZ Edge", nullptr, GUIDesignLabelCenter);
     selectedTAZEdgeLabel->setBackColor(MFXUtils::getFXColor(myEdgeSelectedColor));
-    // create label for color information
-    new FXLabel(this, "Scala: Min -> Max", nullptr, GUIDesignLabelCenterThick);
-    // fill scale colors
-    myScaleColors.push_back(RGBColor(232, 35,  0));
-    myScaleColors.push_back(RGBColor(255, 165, 0));
-    myScaleColors.push_back(RGBColor(255, 255, 0));
-    myScaleColors.push_back(RGBColor(28,  215, 0));
-    myScaleColors.push_back(RGBColor(0,   181, 100));
-    myScaleColors.push_back(RGBColor(0,   255, 191));
-    myScaleColors.push_back(RGBColor(178, 255, 255));
-    myScaleColors.push_back(RGBColor(0,   112, 184));
-    myScaleColors.push_back(RGBColor(56,  41,  131));
-    myScaleColors.push_back(RGBColor(127, 0,   255));
-    // create frame for color scale
-    FXHorizontalFrame* horizontalFrameColors = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    for (const auto& i : myScaleColors) {
-        FXLabel* colorLabel = new FXLabel(horizontalFrameColors, "", nullptr, GUIDesignLabelLeft);
-        colorLabel->setBackColor(MFXUtils::getFXColor(i));
-    }
+    // build rainbow
+    myScaleColors = GNEFrameModuls::buildRainbow(this);
     // create Radio button for show edges by source weight
     myColorBySourceWeight = new FXRadioButton(this, "Color by Source", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Radio button for show edges by sink weight

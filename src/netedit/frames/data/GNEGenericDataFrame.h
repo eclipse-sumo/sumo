@@ -206,6 +206,9 @@ public:
 
         /// @brief combo box for attributes
         FXComboBox *myAttributesComboBox;
+
+        /// @brief vector with the scale colors
+        std::vector<RGBColor> myScaleColors;
     };
 
     /// @brief get dataSet selector modul

@@ -608,4 +608,7 @@ public:
         /// @brief saved clicked position
         Position mySavedClickedPosition;
     };
+
+    /// @brief build rainbow in frame modul
+    static std::vector<RGBColor> buildRainbow(FXComposite *parent);
 };

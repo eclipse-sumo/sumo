@@ -386,6 +386,8 @@ GNEGenericDataFrame::AttributeSelector::AttributeSelector(GNEGenericDataFrame* g
     myGenericDataFrameParent(genericDataFrameParent) {
     // Create FXComboBox
     myAttributesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
+    // build rainbow
+    myScaleColors = GNEFrameModuls::buildRainbow(this);
     // refresh interval selector
     refreshAttributeSelector();
     // AttributeSelector is always shown
