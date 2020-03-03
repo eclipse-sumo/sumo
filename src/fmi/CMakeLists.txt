@@ -1,9 +1,6 @@
 set(sumofmi2_SRCS
   main.c
-  fmi2Functions.h
   fmi2Functions.c
-  fmi2FunctionTypes.h
-  fmi2TypesPlatform.h
 )
 
 set(sumofmi2_model_description
