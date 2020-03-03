@@ -347,8 +347,8 @@ step 18.0
 {80: '2fi', 86: 166.66666666666666}
 ()
 Invalid departure position.
-vehicles ('1', '2', 'horiz')
-vehicle count 3
+vehicles ('2', 'horiz')
+vehicle count 2
 examining anotherOne
 step 19.0
 {80: '2fi', 86: 166.66666666666666}
