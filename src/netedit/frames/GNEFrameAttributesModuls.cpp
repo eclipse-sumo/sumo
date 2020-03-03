@@ -2286,7 +2286,7 @@ GNEFrameAttributesModuls::ParametersEditor::getFrameParent() const {
 }
 
 
-const Parameterised::ParameterisedAttrType 
+Parameterised::ParameterisedAttrType
 GNEFrameAttributesModuls::ParametersEditor::getAttrType() const {
     return myAttrType;
 }

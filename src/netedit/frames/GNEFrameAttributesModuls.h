@@ -589,7 +589,7 @@ public:
         GNEFrame* getFrameParent() const;
 
         /// @brief get current parameter type
-        const Parameterised::ParameterisedAttrType getAttrType() const;
+        Parameterised::ParameterisedAttrType getAttrType() const;
 
         /// @name FOX-callbacks
         /// @{
