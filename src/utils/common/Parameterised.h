@@ -125,19 +125,19 @@ public:
      * @param[in] kvsep The separater between key and value
      * @param[in] sep The separater between map entries
      */
-    void setParametersStr(const std::string& paramsString, const std::string& kvsep = "=", const std::string& sep = "|");
+    void setParametersStr(const std::string& paramsString, const std::string kvsep = "=", const std::string sep = "|");
 
     /// @brief write Params in the given outputdevice
     void writeParams(OutputDevice& device) const;
 
     /// @brief check if given string can be parsed to a parameters map "key1=value1|key2=value2|...|keyN=valueN"
-    static bool areParametersValid(const std::string& value,
-                                   bool report = false, const std::string& kvsep = "=", const std::string& sep = "|");
+    static bool areParametersValid(const std::string& value, bool report = false, const ParameterisedAttrType attrType = ATTRTYPE_STRING,
+                                   const std::string kvsep = "=", const std::string sep = "|");
 
 private:
     /// @brief check if given string can be parsed to a parameter of type "key=value"
-    static bool isParameterValid(const std::string& value, bool report,
-                                 const std::string& kvsep = "=", const std::string& sep = "|");
+    static bool isParameterValid(const std::string& value, const ParameterisedAttrType attrType,
+                                 const std::string& kvsep, const std::string& sep);
 
     /// @brief parameterised type
     ParameterisedAttrType myAttrType;

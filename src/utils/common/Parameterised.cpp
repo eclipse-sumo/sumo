@@ -187,7 +187,7 @@ Parameterised::setParametersMap(const std::map<std::string, std::string>& params
 
 
 void
-Parameterised::setParametersStr(const std::string& paramsString, const std::string& kvsep, const std::string& sep) {
+Parameterised::setParametersStr(const std::string& paramsString, const std::string kvsep, const std::string sep) {
     // clear parameters
     myMap.clear();
     // separate value in a vector of string using | as separator
@@ -214,12 +214,13 @@ Parameterised::writeParams(OutputDevice& device) const {
 
 
 bool
-Parameterised::areParametersValid(const std::string& value, bool report, const std::string& kvsep, const std::string& sep) {
+Parameterised::areParametersValid(const std::string& value, bool report, 
+    const ParameterisedAttrType attrType, const std::string kvsep, const std::string sep) {
     std::vector<std::string> parameters = StringTokenizer(value, sep).getVector();
     // first check if parsed parameters are valid
     for (const auto &keyValueStr : parameters) {
         // check if parameter is valid
-        if (!isParameterValid(keyValueStr, report, kvsep, sep)) {
+        if (!isParameterValid(keyValueStr, attrType, kvsep, sep)) {
             // report depending of flag
             if (report) {
                 WRITE_WARNING("Invalid format of parameter (" + keyValueStr + ")");
@@ -236,7 +237,8 @@ Parameterised::areParametersValid(const std::string& value, bool report, const s
 // ===========================================================================
 
 bool
-Parameterised::isParameterValid(const std::string& value, bool /* report */, const std::string& kvsep, const std::string& sep) {
+Parameterised::isParameterValid(const std::string& value, const ParameterisedAttrType attrType, 
+    const std::string &kvsep, const std::string &sep) {
     if (value.find(sep) != std::string::npos || value.find(kvsep) == std::string::npos) {
         return false;
     }
@@ -249,6 +251,14 @@ Parameterised::isParameterValid(const std::string& value, bool /* report */, con
             return false;
         } else if (SUMOXMLDefinitions::isValidParameterValue(keyValueStr.back()) == false) {
             return false;
+        } else if (attrType == ATTRTYPE_DOUBLE) {
+            // check if can be parsed to double
+            try {
+                StringUtils::toDouble(keyValueStr.back());
+                return true;
+            } catch (NumberFormatException&) {
+                return false;
+            }
         } else {
             // key=value valid, then return true
             return true;
