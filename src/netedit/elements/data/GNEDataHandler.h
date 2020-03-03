@@ -13,8 +13,7 @@
 ///
 // Builds data objects for netedit
 /****************************************************************************/
-#ifndef GNEDataHandler_h
-#define GNEDataHandler_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -185,6 +184,3 @@ private:
     /// @brief invalidate assignment operator
     GNEDataHandler& operator=(const GNEDataHandler& s) = delete;
 };
-
-
-#endif

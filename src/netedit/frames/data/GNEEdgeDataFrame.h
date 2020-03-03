@@ -13,8 +13,7 @@
 ///
 // The Widget for add edgeData elements
 /****************************************************************************/
-#ifndef GNEEdgeDataFrame_h
-#define GNEEdgeDataFrame_h
+#pragma once
 
 
 // ===========================================================================
@@ -58,8 +57,5 @@ private:
     /// @brief Invalidated assignment operator.
     GNEEdgeDataFrame& operator=(const GNEEdgeDataFrame&) = delete;
 };
-
-
-#endif
 
 /****************************************************************************/

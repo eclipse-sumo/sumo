@@ -13,8 +13,7 @@
 ///
 // class for edge data
 /****************************************************************************/
-#ifndef GNEEdgeData_h
-#define GNEEdgeData_h
+#pragma once
 
 
 // ===========================================================================
@@ -154,9 +153,6 @@ private:
     /// @brief Invalidated assignment operator.
     GNEEdgeData& operator=(const GNEEdgeData&) = delete;
 };
-
-
-#endif
 
 /****************************************************************************/
 

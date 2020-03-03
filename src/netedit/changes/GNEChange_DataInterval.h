@@ -13,8 +13,7 @@
 ///
 // A network change in which a data interval element is created or deleted
 /****************************************************************************/
-#ifndef GNEChange_DataInterval_h
-#define GNEChange_DataInterval_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -68,5 +67,4 @@ private:
     GNEDataSet *myDataSetParent;
 };
 
-#endif
 /****************************************************************************/

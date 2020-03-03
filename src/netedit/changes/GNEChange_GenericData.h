@@ -13,8 +13,7 @@
 ///
 // A network change in which a generic data set is created or deleted
 /****************************************************************************/
-#ifndef GNEChange_GenericData_h
-#define GNEChange_GenericData_h
+#pragma once
 
 // ===========================================================================
 // included modules
@@ -68,5 +67,4 @@ private:
     GNEDataInterval *myDataIntervalParent;
 };
 
-#endif
 /****************************************************************************/

@@ -13,8 +13,7 @@
 ///
 // Abstract Base class for attribute properties used in GNEAttributeCarrier
 /****************************************************************************/
-#ifndef GNEAttributeProperties_h
-#define GNEAttributeProperties_h
+#pragma once
 
 
 // ===========================================================================
@@ -242,8 +241,6 @@ private:
     /// @brief maxium Range
     double myMaximumRange;
 };
-
-#endif
 
 /****************************************************************************/
 

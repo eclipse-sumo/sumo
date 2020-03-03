@@ -13,8 +13,7 @@
 ///
 // Abstract Base class for tag properties used in GNEAttributeCarrier
 /****************************************************************************/
-#ifndef GNETagProperties_h
-#define GNETagProperties_h
+#pragma once
 
 
 // ===========================================================================
@@ -277,8 +276,6 @@ private:
     /// @brief max number of attributes allowed for every tag
     static const size_t MAXNUMBEROFATTRIBUTES;
 };
-
-#endif
 
 /****************************************************************************/
 

@@ -13,8 +13,7 @@
 ///
 // A abstract class for data elements
 /****************************************************************************/
-#ifndef GNEDataSet_h
-#define GNEDataSet_h
+#pragma once
 
 
 // ===========================================================================
@@ -182,9 +181,6 @@ private:
     /// @brief Invalidated assignment operator.
     GNEDataSet& operator=(const GNEDataSet&) = delete;
 };
-
-
-#endif
 
 /****************************************************************************/
 
