@@ -20,7 +20,9 @@ permalink: /ChangeLog/
   - Fixed precision when filtering network with a given boundary. Issue #6206
   - Fixed missing connections when importing OpenDRIVE. Issue #6712
 - SUMO-GUI
-  - fixed layout of meso edge parameter dialog at high occupancy (regression in 1.5.0)
+  - Fixed layout of meso edge parameter dialog at high occupancy (regression in 1.5.0)
+- NETEDIT
+  - Fixed empty route id when creating route from non-consecutive edges with custom id. Issue #6722
 - DUAROUTER
   - Attribute `group` of `<ride>` and `<personTrip>` is no longer lost. Issue #6555
   - Train routing now considers space requirement for train reversal. Issue #6697
@@ -55,6 +57,9 @@ permalink: /ChangeLog/
     - supports optimization by linear programming using option **--optimize** (requires scipy)
     - supports output of mismatch between measured counts and sampled counts for visualization in SUMO-GUI via `edgeData` and `edgeRelation` files using option **--mismatch-output**
     - supports limited optimization of route input (without resampling) by setting option **--optimize-input**
+    - supports multi-edge counting data using `<edgeRelation from="A" to="D" via="B C" count="INT"/>`. Issue #6729
+    - supports non-consecutive edgeRelations with maximum gap by using the new option **--turn-max-gap <INT>**. Issue #6726
+    - supports writing results with routeIDs, routeDistribution and flows instead of vehicles. Issue #6730
 
 ### Other
 - Network version is now 1.6 (Issue #1758)
