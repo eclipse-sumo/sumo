@@ -614,17 +614,19 @@ GNERouteFrame::NonConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void
     if (!myRouteFrameParent->myRouteAttributes->areValuesValid()) {
         myRouteFrameParent->myRouteAttributes->showWarningMessage();
     } else if (mySelectedEdges.size() > 0) {
+        // obtain attributes
+        std::map<SumoXMLAttr, std::string> valuesMap = myRouteFrameParent->myRouteAttributes->getAttributesAndValues(true);
         // declare a route parameter
         GNERouteHandler::RouteParameter routeParameters;
         routeParameters.edges.reserve(myTemporalRoute.size());
         for (const auto& i : myTemporalRoute) {
             routeParameters.edges.push_back(myRouteFrameParent->myViewNet->getNet()->retrieveEdge(i->getID()));
         }
-        // obtain attributes
-        std::map<SumoXMLAttr, std::string> valuesMap = myRouteFrameParent->myRouteAttributes->getAttributesAndValues(true);
         // Check if ID has to be generated
         if (valuesMap.count(SUMO_ATTR_ID) == 0) {
             routeParameters.routeID = myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE);
+        } else {
+            routeParameters.routeID = valuesMap[SUMO_ATTR_ID];
         }
         // fill rest of elements
         routeParameters.color = GNEAttributeCarrier::parse<RGBColor>(valuesMap.at(SUMO_ATTR_COLOR));
