@@ -1,5 +1,6 @@
-# Copy of default
-default
+# test output style options
+# 
+output-styles
 verbose
 
 # using edgedata as input
