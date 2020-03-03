@@ -1574,11 +1574,9 @@ GNEViewNetHelper::CommonViewOptions::CommonViewOptions(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::CommonViewOptions::buildCommonViewOptionsMenuChecks() {
-
     menuCheckShowGrid = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
         ("Grid\t\tshow grid and restrict movement to the grid (size defined in visualization options)"),
         myViewNet, MID_GNE_COMMONVIEWOPTIONS_SHOWGRID, LAYOUT_FIX_HEIGHT);
-
     menuCheckShowGrid->setHeight(23);
     menuCheckShowGrid->setCheck(false);
     menuCheckShowGrid->create();
@@ -1586,7 +1584,6 @@ GNEViewNetHelper::CommonViewOptions::buildCommonViewOptionsMenuChecks() {
     menuCheckDrawSpreadVehicles = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
         ("Spread vehicles\t\tDraw vehicles spread in lane or in depart position"),
         myViewNet, MID_GNE_COMMONVIEWOPTIONS_DRAWSPREADVEHICLES, LAYOUT_FIX_HEIGHT);
-
     menuCheckDrawSpreadVehicles->setHeight(23);
     menuCheckDrawSpreadVehicles->setCheck(false);
     menuCheckDrawSpreadVehicles->create();
@@ -1799,7 +1796,7 @@ GNEViewNetHelper::NetworkViewOptions::selectEdges() const {
 bool
 GNEViewNetHelper::NetworkViewOptions::showConnections() const {
     if (myViewNet->myEditModes.networkEditMode == GNE_NETWORKMODE_CONNECT) {
-        // check if menu hceck hide connections ins shown
+        // check if menu check hide connections ins shown
         return (menuCheckHideConnections->getCheck() == FALSE);
     } else if (myViewNet->myEditModes.networkEditMode == GNE_NETWORKMODE_PROHIBITION) {
         return true;

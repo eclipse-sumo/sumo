@@ -2594,8 +2594,6 @@ GNEViewNet::buildEditModeControls() {
 
 void
 GNEViewNet::updateNetworkModeSpecificControls() {
-    // hide grid
-    myCommonViewOptions.menuCheckShowGrid->setCheck(myVisualizationSettings->showGrid);
     // hide all checkbox of view options Network
     myNetworkViewOptions.hideNetworkViewOptionsMenuChecks();
     // hide all checkbox of view options Demand
@@ -2917,8 +2915,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
 
 void
 GNEViewNet::updateDataModeSpecificControls() {
-    // hide grid
-    myCommonViewOptions.menuCheckShowGrid->setCheck(myVisualizationSettings->showGrid);
     // hide all checkbox of view options Network
     myNetworkViewOptions.hideNetworkViewOptionsMenuChecks();
     // hide all checkbox of view options Demand
