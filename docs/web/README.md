@@ -10,9 +10,9 @@ You can read the Documentation online at: <https://sumo.dlr.de/docs/>
 - Python > 3.5 (the *mkdocs-macros-plugin* requires it)
 
 ### Installation
-First step is to install MkDocs and some MkDocs plugins:
+First step is to install MkDocs and some MkDocs plugins as well as plantuml:
 ```
-pip install mkdocs mkdocs-macros-plugin==0.2.4 mdx_gh_links pymdown-extensions "mkdocs-git-revision-date-plugin>=0.2" mdx_truly_sane_lists
+pip install mkdocs mkdocs-macros-plugin==0.2.4 mdx_gh_links pymdown-extensions "mkdocs-git-revision-date-plugin>=0.2" mdx_truly_sane_lists plantuml-markdown
 ```
 
 Next step is to clone this repository (if not already done):
