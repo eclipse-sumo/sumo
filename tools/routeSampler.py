@@ -133,10 +133,11 @@ class CountData:
 def parseTurnCounts(fnames, allRoutes, attr):
     result = []
     for fname in fnames:
-        for interval in sumolib.xml.parse(fname, 'interval'):
+        for interval in sumolib.xml.parse(fname, 'interval', heterogeneous=True):
             for edgeRel in interval.edgeRelation:
-                result.append(CountData(int(getattr(edgeRel, attr)),
-                                        (edgeRel.attr_from, edgeRel.to), allRoutes))
+                via = [] if edgeRel.via is None else edgeRel.via.split(' ')
+                edges = [edgeRel.attr_from] + via + [edgeRel.to]
+                result.append(CountData(int(getattr(edgeRel, attr)), tuple(edges), allRoutes))
     return result
 
 
