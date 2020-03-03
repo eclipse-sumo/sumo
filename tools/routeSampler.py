@@ -33,16 +33,16 @@ import sumolib  # noqa
 
 def get_options(args=None):
     parser = ArgumentParser(description="Sample routes to match counts")
-    parser.add_argument("-t", "--turn-file", dest="turnFile",
+    parser.add_argument("-r", "--route-files", dest="routeFiles",
+                        help="Input route file file")
+    parser.add_argument("-t", "--turn-files", dest="turnFiles",
                         help="Input turn-count file")
-    parser.add_argument("-d", "--edgedata-file", dest="edgeDataFile",
+    parser.add_argument("-d", "--edgedata-files", dest="edgeDataFiles",
                         help="Input edgeData file file (for counts)")
     parser.add_argument("--edgedata-attribute", dest="edgeDataAttr", default="entered",
                         help="Read edgeData counts from the given attribute")
     parser.add_argument("--turn-attribute", dest="turnAttr", default="count",
                         help="Read turning counts from the given attribute")
-    parser.add_argument("-r", "--route-file", dest="routeFile",
-                        help="Input route file file")
     parser.add_argument("-o", "--output-file", dest="out", default="out.rou.xml",
                         help="Output route file")
     parser.add_argument("--prefix", dest="prefix", default="",
@@ -63,12 +63,13 @@ def get_options(args=None):
                         help="tell me what you are doing")
 
     options = parser.parse_args(args=args)
-    if (options.routeFile is None or
-            (options.turnFile is None and options.edgeDataFile is None)):
+    if (options.routeFiles is None or
+            (options.turnFiles is None and options.edgeDataFiles is None)):
         parser.print_help()
         sys.exit()
-    options.turnFile = options.turnFile.split(',') if options.turnFile is not None else []
-    options.edgeDataFile = options.edgeDataFile.split(',') if options.edgeDataFile is not None else []
+    options.routeFiles = options.routeFiles.split(',')
+    options.turnFiles = options.turnFiles.split(',') if options.turnFiles is not None else []
+    options.edgeDataFiles = options.edgeDataFiles.split(',') if options.edgeDataFiles is not None else []
     if options.vehattrs and options.vehattrs[0] != ' ':
         options.vehattrs = ' ' + options.vehattrs
 
@@ -267,8 +268,10 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
         print("Optimization failed")
 
 class Routes:
-    def __init__(self, routefile):
-        self.all = [tuple(r.edges.split()) for r in sumolib.xml.parse(routefile, 'route')]
+    def __init__(self, routefiles):
+        self.all = []
+        for routefile in routefiles:
+            self.all += [tuple(r.edges.split()) for r in sumolib.xml.parse(routefile, 'route')]
         self.unique = sorted(list(set(self.all)))
         self.number = len(self.unique)
         self.edges2index = dict([(e, i) for i, e in enumerate(self.unique)])
@@ -288,11 +291,11 @@ def main(options):
     if options.seed:
         random.seed(options.seed)
 
-    routes = Routes(options.routeFile)
+    routes = Routes(options.routeFiles)
 
     # store which routes are passing each counting location (using route index)
-    countData = (parseTurnCounts(options.turnFile, routes, options.turnAttr)
-                 + parseEdgeCounts(options.edgeDataFile, routes, options.edgeDataAttr))
+    countData = (parseTurnCounts(options.turnFiles, routes, options.turnAttr)
+                 + parseEdgeCounts(options.edgeDataFiles, routes, options.edgeDataAttr))
 
     # store which counting locations are used by each route (using countData index)
     routeUsage = [set() for r in routes.unique]
@@ -336,7 +339,7 @@ def main(options):
         optimize(options, countData, routes, usedRoutes, routeUsage)
         resetCounts(usedRoutes, routeUsage, countData)
 
-    begin, end = parseTimeRange(options.turnFile + options.edgeDataFile)
+    begin, end = parseTimeRange(options.turnFiles + options.edgeDataFiles)
     if usedRoutes:
         with open(options.out, 'w') as outf:
             sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
