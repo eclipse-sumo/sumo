@@ -94,20 +94,6 @@ public:
     virtual void redo();
 
 protected:
-    /**@brief the net to which operations shall be applied or which shall be
-     * informed about gui updates
-     * (we are not responsible for the pointer)
-     */
-    GNENet* myNet;
-
-    /**@brief we group antagonistic commands (create junction/delete
-     * junction) and keep them apart by this flag
-     */
-    bool myForward;
-
-
-    /***********/
-    
     /// @brief add given edge into parents and children
     void addEdge(GNEEdge *edge);
 
@@ -144,7 +130,17 @@ protected:
     /// @brief remove given generic data from parents and children
     void removeGenericData(GNEGenericData *genericData);
 
-private:
+    /**@brief the net to which operations shall be applied or which shall be
+     * informed about gui updates
+     * (we are not responsible for the pointer)
+     */
+    GNENet* myNet;
+
+    /**@brief we group antagonistic commands (create junction/delete
+     * junction) and keep them apart by this flag
+     */
+    bool myForward;
+
     /// @brief reference to vector of parent edges
     const std::vector<GNEEdge*>& myParentEdges;
 

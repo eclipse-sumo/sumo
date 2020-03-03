@@ -248,9 +248,6 @@ public:
     /// @brief called when the command/FXCall save data elements as is executed
     long onCmdSaveDataElementsAs(FXObject*, FXSelector, void*);
 
-    /// @brief called when the update/FXCall save network is executed
-    long onUpdSaveNetwork(FXObject*, FXSelector, void*);
-
     /// @brief called when the command/FXCall save network as is executed
     long onCmdSaveAsNetwork(FXObject*, FXSelector, void*);
 

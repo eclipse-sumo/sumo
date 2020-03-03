@@ -2031,10 +2031,10 @@ GNEAttributeCarrier::fillAdditionals() {
             "red");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
-        attrProperty = AttributeProperties(SUMO_ATTR_FILL,
-                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
-                                           "An information whether the TAZ shall be filled",
-                                           "0");
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FILL,
+            GNEAttributeProperties::ATTRPROPERTY_BOOL | GNEAttributeProperties::ATTRPROPERTY_DEFAULTVALUESTATIC | GNEAttributeProperties::ATTRPROPERTY_OPTIONAL,
+            "An information whether the TAZ shall be filled",
+            "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_TAZSOURCE;

@@ -183,8 +183,11 @@ protected:
     //@}
 
 private:
-    /// @brief Parses the efforts of a lane for the previously read times
+    /// @brief Parses the data of an edge or lane for the previously read times
     void tryParse(const SUMOSAXAttributes& attrs, bool isEdge);
+
+    /// @brief Parses the data of an edgeRel for the previously read times
+    void tryParseEdgeRel(const SUMOSAXAttributes& attrs);
 
     /// @brief List of definitions what shall be read and whereto stored while parsing the file
     std::vector<ToRetrieveDefinition*> myDefinitions;

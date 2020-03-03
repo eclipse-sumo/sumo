@@ -28,7 +28,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/elements/demand/GNERoute.h>
-#include <netedit/demandelements/GNEVehicle.h>
+#include <netedit/elements/demand/GNEVehicle.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -2204,8 +2204,8 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // obtain circle width
-    bool drawBig = (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_MOVE ||
-                    myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_DELETE);
+    bool drawBig = (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_MOVE ||
+                    myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_DELETE);
     double circleWidth = drawBig ? SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) : 0.5;
     double circleWidthSquared = circleWidth * circleWidth;
     // obtain color

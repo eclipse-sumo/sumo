@@ -636,7 +636,7 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
         }
         // check special case for VType IDs in vehicle Frame
         if ((i.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) &&
-                (myFrameParent->getViewNet()->getEditModes().demandEditMode == GNE_DMODE_VEHICLE)) {
+            (myFrameParent->getViewNet()->getEditModes().demandEditMode == GNE_DEMANDMODE_VEHICLE)) {
             showAttribute = false;
         }
         // show attribute depending of showAttribute flag

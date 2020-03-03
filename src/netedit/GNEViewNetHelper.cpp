@@ -1319,18 +1319,18 @@ void
 GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
     // create save network button
     saveNetwork = new FXButton(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
-                               "\tSave network\tSave network.", GUIIconSubSys::getIcon(ICON_SAVENETELEMENTS),
-                               myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
+        "\tSave network\tSave network.", GUIIconSubSys::getIcon(ICON_SAVENETWORKELEMENTS),
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
     saveNetwork->create();
     // create save additional elements button
     saveAdditionalElements = new FXButton(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
-                                          "\tSave additional elements\tSave additional elements.", GUIIconSubSys::getIcon(ICON_SAVEADDITIONALS),
-                                          myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS, GUIDesignButtonToolbar);
+        "\tSave additional elements\tSave additional elements.", GUIIconSubSys::getIcon(ICON_SAVEADDITIONALELEMENTS),
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS, GUIDesignButtonToolbar);
     saveAdditionalElements->create();
     // create save demand elements button
     saveDemandElements = new FXButton(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
-                                      "\tSave demand elements\tSave demand elements.", GUIIconSubSys::getIcon(ICON_SAVEDEMANDELEMENTS),
-                                      myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS, GUIDesignButtonToolbar);
+        "\tSave demand elements\tSave demand elements.", GUIIconSubSys::getIcon(ICON_SAVEDEMANDELEMENTS),
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS, GUIDesignButtonToolbar);
     saveDemandElements->create();
     // create save data elements button
     saveDataElements = new FXButton(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements, 
@@ -1576,20 +1576,25 @@ void
 GNEViewNetHelper::CommonViewOptions::buildCommonViewOptionsMenuChecks() {
 
     menuCheckShowGrid = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-                                        ("Grid\t\tshow grid and restrict movement to the grid (size defined in visualization options)"),
-                                        myViewNet, MID_GNE_COMMONVIEWOPTIONS_SHOWGRID, LAYOUT_FIX_HEIGHT);
+        ("Grid\t\tshow grid and restrict movement to the grid (size defined in visualization options)"),
+        myViewNet, MID_GNE_COMMONVIEWOPTIONS_SHOWGRID, LAYOUT_FIX_HEIGHT);
 
     menuCheckShowGrid->setHeight(23);
     menuCheckShowGrid->setCheck(false);
     menuCheckShowGrid->create();
 
     menuCheckDrawSpreadVehicles = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-            ("Spread vehicles\t\tDraw vehicles spread in lane or in depart position"),
-            myViewNet, MID_GNE_COMMONVIEWOPTIONS_DRAWSPREADVEHICLES, LAYOUT_FIX_HEIGHT);
+        ("Spread vehicles\t\tDraw vehicles spread in lane or in depart position"),
+        myViewNet, MID_GNE_COMMONVIEWOPTIONS_DRAWSPREADVEHICLES, LAYOUT_FIX_HEIGHT);
 
     menuCheckDrawSpreadVehicles->setHeight(23);
     menuCheckDrawSpreadVehicles->setCheck(false);
     menuCheckDrawSpreadVehicles->create();
+    
+    // always recalc after creating new elements
+    myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->recalc();
+}
+
 
 void
 GNEViewNetHelper::CommonViewOptions::getVisibleCommonMenuCommands(std::vector<FXMenuCheck*>& commands) const {
