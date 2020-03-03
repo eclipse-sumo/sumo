@@ -274,7 +274,7 @@ If a vehicle is braking in the simulation, the responsible foe vehicle
 Sometimes your network may contain nodes which are very close together
 forming a big cluster. This happens frequently when [Importing Networks from OpenStreetMap](../Networks/Import/OpenStreetMap.md).
 [NETCONVERT](../NETCONVERT.md) supports the option **--junctions.join** to find such
-clusters and join them into a big and well shaped junction. 
+clusters and join them into a big and well shaped junction. Junctions can also be joined manually with [NETEDIT](../NETEDIT.md#processing_menu_options). It is even possible to [undo joins](../NETEDIT.md#junction) that were computed automatically.
 
 ### Reasons for joining node clusters
 Within an intersection, special rules of traffic do apply. When modelling an intersection by a cluster of nodes, the edges within the cluster are regular roads where these rules cannot be applied. 
