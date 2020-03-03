@@ -405,6 +405,12 @@ GNETagProperties::hasParameters() const {
 
 
 bool
+GNETagProperties::hasDoubleParameters() const {
+    return (myTagProperty & TAGPROPERTY_PARAMETERSDOUBLE) != 0;
+}
+
+
+bool
 GNETagProperties::isPlacedInRTree() const {
     return (myTagProperty & TAGPROPERTY_RTREE) != 0;
 }

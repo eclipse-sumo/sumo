@@ -2595,6 +2595,11 @@ GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
                 WRITE_WARNING("Error parsing value from additional parameter. Value contains invalid characters");
                 ok = false;
             }
+            // check double values
+            if (myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagProperty().hasDoubleParameters() && !GNEAttributeCarrier::canParse<double>(val)) {
+                WRITE_WARNING("Error parsing value from additional float parameter. Value cannot be parsed to float");
+                ok = false;
+            }
             // set parameter in last inserted additional
             if (ok) {
                 WRITE_DEBUG("Inserting parameter '" + key + "|" + val + "' into additional " + myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagStr() + ".");

@@ -72,9 +72,10 @@ public:
         TAGPROPERTY_MASKXYZPOSITION =       1 << 14,    // Element mask attributes X, Y and Z as "Position"
         TAGPROPERTY_WRITECHILDRENSEPARATE = 1 << 15,    // Element writes their children in a separated filename
         TAGPROPERTY_NOPARAMETERS =          1 << 16,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        TAGPROPERTY_RTREE =                 1 << 17,    // Element is placed in RTREE
-        TAGPROPERTY_SORTINGCHILDREN =       1 << 18,    // Element can be sorted in their parent element manually (in ACHierarchy)
-        TAGPROPERTY_CENTERAFTERCREATION =   1 << 19,    // Camera is moved after element creation
+        TAGPROPERTY_PARAMETERSDOUBLE =      1 << 17,    // Element only accept double parameters "key1=double1|key2=double1|...|keyN=doubleN"
+        TAGPROPERTY_RTREE =                 1 << 18,    // Element is placed in RTREE
+        TAGPROPERTY_SORTINGCHILDREN =       1 << 19,    // Element can be sorted in their parent element manually (in ACHierarchy)
+        TAGPROPERTY_CENTERAFTERCREATION =   1 << 20,    // Camera is moved after element creation
     };
 
     /// @brief default constructor
@@ -217,6 +218,9 @@ public:
 
     /// @brief return true if Tag correspond to an element that supports parameters "key1=value1|key2=value2|...|keyN=valueN"
     bool hasParameters() const;
+
+    /// @brief return true if Tag correspond to an element that supports double parameters "key1=double1|key2=double2|...|keyN=doubleN"
+    bool hasDoubleParameters() const;
 
     /// @brief return true if Tag correspond to an element that has has to be placed in RTREE
     bool isPlacedInRTree() const;
