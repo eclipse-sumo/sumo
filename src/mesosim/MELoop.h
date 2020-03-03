@@ -94,7 +94,7 @@ public:
      * this handles combinations of the following cases:
      * (ending / continuing route) and (leaving segment / finishing teleport)
      */
-    bool changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSegment, const bool ignoreLink = false, MSMoveReminder::Notification reason = MSMoveReminder::NOTIFICATION_SEGMENT);
+    bool changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSegment, MSMoveReminder::Notification reason, const bool ignoreLink = false);
 
     /** @brief registers vehicle with the given link
      *

@@ -501,7 +501,8 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
         veh->setEventTime(time + TIME2STEPS(myLength / speed)); // for correct arrival speed
         addReminders(veh);
         veh->activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION);
-        veh->updateDetectors(time, true, MSMoveReminder::NOTIFICATION_ARRIVED);
+        veh->updateDetectors(time, true, 
+                veh->getEdge()->isVaporizing() ? MSMoveReminder::NOTIFICATION_VAPORIZED_VAPORIZER : MSMoveReminder::NOTIFICATION_ARRIVED);
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return;
     }
@@ -580,7 +581,7 @@ MESegment::vaporizeAnyCar(SUMOTime currentTime, const MSDetectorFileOutput* filt
                     if (k.size() == 1) {
                         MSGlobals::gMesoNet->removeLeaderCar(veh);
                     }
-                    MSGlobals::gMesoNet->changeSegment(veh, currentTime, &myVaporizationTarget);
+                    MSGlobals::gMesoNet->changeSegment(veh, currentTime, &myVaporizationTarget, MSMoveReminder::NOTIFICATION_VAPORIZED_CALIBRATOR);
                     return true;
                 }
             }

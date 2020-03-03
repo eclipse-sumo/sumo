@@ -76,7 +76,7 @@ MELoop::simulate(SUMOTime tMax) {
 
 
 bool
-MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSegment, const bool ignoreLink, MSMoveReminder::Notification reason) {
+MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSegment, MSMoveReminder::Notification reason, const bool ignoreLink) {
     MESegment* const onSegment = veh->getSegment();
     if (MESegment::isInvalid(toSegment)) {
         if (onSegment != nullptr) {
@@ -113,7 +113,8 @@ MELoop::checkCar(MEVehicle* veh) {
     MESegment* const onSegment = veh->getSegment();
     MESegment* const toSegment = nextSegment(onSegment, veh);
     const bool teleporting = (onSegment == nullptr); // is the vehicle currently teleporting?
-    if (changeSegment(veh, leaveTime, toSegment, teleporting)) {
+    // @note reason is only evaluated if toSegment == nullptr
+    if (changeSegment(veh, leaveTime, toSegment, MSMoveReminder::NOTIFICATION_ARRIVED, teleporting)) {
         return;
     }
     if (MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock) {
@@ -162,7 +163,7 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
                           + ", time " + time2string(leaveTime) + ".");
             MSNet::getInstance()->getVehicleControl().registerTeleportJam();
         }
-        changeSegment(veh, leaveTime, teleSegment, true);
+        changeSegment(veh, leaveTime, teleSegment, MSMoveReminder::NOTIFICATION_TELEPORT, true);
         teleSegment->setEntryBlockTime(leaveTime); // teleports should not block normal flow
     } else {
         // teleport across the current edge and try insertion later
@@ -181,7 +182,7 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
         const bool atDest = veh->moveRoutePointer();
         if (atDest) {
             // teleporting to end of route
-            changeSegment(veh, teleArrival, nullptr, true);
+            changeSegment(veh, teleArrival, nullptr, MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED, true);
         } else {
             veh->setEventTime(teleArrival);
             addLeaderCar(veh, nullptr);
