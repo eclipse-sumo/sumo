@@ -30,5 +30,8 @@ small_input_noSampling_optimize
 # input contains duplicate routes. optimize it.
 small_input_duplicates_noSampling
 
+# define multi-edge sequence restrictions
+via
+
 # invalid options
 invalid_options
