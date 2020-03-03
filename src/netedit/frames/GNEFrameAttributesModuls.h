@@ -588,6 +588,9 @@ public:
         /// @brief pointer to frame parent
         GNEFrame* getFrameParent() const;
 
+        /// @brief get current parameter type
+        const Parameterised::ParameterisedAttrType getAttrType() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when user clicks over add parameter
@@ -606,6 +609,9 @@ public:
 
         /// @brief edited Attribute Carrier
         GNEAttributeCarrier* myAC = nullptr;
+
+        /// @brief flag for parameters type
+        Parameterised::ParameterisedAttrType myAttrType;
 
         /// @brief list of edited ACs
         std::vector<GNEAttributeCarrier*> myACs;

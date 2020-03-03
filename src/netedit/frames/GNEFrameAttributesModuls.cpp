@@ -2078,7 +2078,8 @@ GNEFrameAttributesModuls::AttributesEditorExtended::onCmdOpenDialog(FXObject*, F
 GNEFrameAttributesModuls::ParametersEditor::ParametersEditor(GNEFrame* inspectorFrameParent, std::string title) :
     FXGroupBox(inspectorFrameParent->myContentFrame, title.c_str(), GUIDesignGroupBoxFrame),
     myFrameParent(inspectorFrameParent),
-    myAC(nullptr) {
+    myAC(nullptr),
+    myAttrType(Parameterised::ATTRTYPE_STRING) {
     // set first letter upper
     title[0] = (char)tolower(title[0]);
     // create textfield and buttons
@@ -2098,6 +2099,12 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCar
         myACs.clear();
         // obtain a copy of AC parameters
         if (myAC) {
+            // update flag
+            if (myAC->getTagProperty().hasDoubleParameters()) {
+                myAttrType = Parameterised::ATTRTYPE_DOUBLE;
+            } else {
+                myAttrType = Parameterised::ATTRTYPE_STRING;
+            }
             // obtain string
             std::string parametersStr = myAC->getAttribute(GNE_ATTR_PARAMETERS);
             // clear parameters
@@ -2146,6 +2153,12 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(std::vector<GNE
         if (differentsParameters) {
             myParameters.clear();
         } else {
+            // update flag
+            if (myAC->getTagProperty().hasDoubleParameters()) {
+                myAttrType = Parameterised::ATTRTYPE_DOUBLE;
+            } else {
+                myAttrType = Parameterised::ATTRTYPE_STRING;
+            }
             // obtain string
             std::string parametersStr = myACs.front()->getAttribute(GNE_ATTR_PARAMETERS);
             // clear parameters
@@ -2273,6 +2286,12 @@ GNEFrameAttributesModuls::ParametersEditor::getFrameParent() const {
 }
 
 
+const Parameterised::ParameterisedAttrType 
+GNEFrameAttributesModuls::ParametersEditor::getAttrType() const {
+    return myAttrType;
+}
+
+
 long
 GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, void*) {
     // write debug information
@@ -2306,9 +2325,7 @@ GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters(FXObject*, FXSel
 long
 GNEFrameAttributesModuls::ParametersEditor::onCmdSetParameters(FXObject*, FXSelector, void*) {
     // check if current given string is valid
-    if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true) == false) {
-        myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
-    } else {
+    if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true, myAttrType)) {
         // parsed parameters ok, then set text field black and continue
         myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
         myTextFieldParameters->killFocus();
@@ -2317,9 +2334,9 @@ GNEFrameAttributesModuls::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
         // clear current existent parameters and set parsed parameters
         myParameters.clear();
         // iterate over parameters
-        for (const auto& i : parameters) {
+        for (const auto &parameter : parameters) {
             // obtain key, value
-            std::vector<std::string> keyParam = StringTokenizer(i, "=", true).getVector();
+            std::vector<std::string> keyParam = StringTokenizer(parameter, "=", true).getVector();
             // save it in myParameters
             myParameters[keyParam.front()] = keyParam.back();
         }
@@ -2345,6 +2362,8 @@ GNEFrameAttributesModuls::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
             // update frame parent after attribute sucesfully set
             myFrameParent->attributeUpdated();
         }
+    } else {
+        myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
     }
     return 1;
 }
