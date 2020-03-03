@@ -68,7 +68,6 @@ public:
                     double height = DEFAULT_IMG_HEIGHT) :
         Shape(id, type, color, layer, angle, imgFile, relativePath),
         Position(pos),
-        Parameterised(Parameterised::ATTRTYPE_STRING),
         myGeo(geo),
         myLane(lane),
         myPosOverLane(posOverLane),

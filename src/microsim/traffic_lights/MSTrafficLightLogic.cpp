@@ -97,7 +97,7 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic* tlLogic) {
 MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
         const std::string& programID, const TrafficLightType logicType, const SUMOTime delay,
         const std::map<std::string, std::string>& parameters) :
-    Named(id), Parameterised(Parameterised::ATTRTYPE_STRING, parameters),
+    Named(id), Parameterised(parameters),
     myProgramID(programID),
     myLogicType(logicType),
     myCurrentDurationIncrement(-1),

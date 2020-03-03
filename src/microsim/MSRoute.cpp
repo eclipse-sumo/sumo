@@ -51,7 +51,6 @@ MSRoute::MSRoute(const std::string& id,
                  const bool isPermanent, const RGBColor* const c,
                  const std::vector<SUMOVehicleParameter::Stop>& stops) :
     Named(id), myEdges(edges), myAmPermanent(isPermanent),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
     myReferenceCounter(isPermanent ? 1 : 0),
     myColor(c),
     myPeriod(0),

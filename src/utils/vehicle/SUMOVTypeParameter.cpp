@@ -235,7 +235,6 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues() :
 
 
 SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass) :
-    Parameterised(Parameterised::ATTRTYPE_STRING),
     id(vtid), length(5./*4.3*/), minGap(2.5), maxSpeed(200. / 3.6),
     actionStepLength(0), defaultProbability(DEFAULT_VEH_PROB),
     speedFactor("normc", 1.0, 0.0, 0.2, 2.0),

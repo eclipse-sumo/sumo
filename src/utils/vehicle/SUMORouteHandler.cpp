@@ -43,7 +43,6 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& e
     myActiveRouteColor(nullptr),
     myCurrentCosts(0.),
     myCurrentVType(nullptr),
-    myLoadedParameterised(Parameterised::ATTRTYPE_STRING),
     myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myEndDefault(string2time(OptionsCont::getOptions().getString("end"))),
     myFirstDepart(-1),

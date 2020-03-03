@@ -33,22 +33,21 @@
 // member method definitions
 // ===========================================================================
 
-SUMOVehicleParameter::SUMOVehicleParameter() : 
-    Parameterised(Parameterised::ATTRTYPE_STRING),
-    tag(SUMO_TAG_NOTHING), vtypeid(DEFAULT_VTYPE_ID), color(RGBColor::DEFAULT_COLOR),
-    depart(-1), departProcedure(DEPART_GIVEN),
-    departLane(0), departLaneProcedure(DEPART_LANE_DEFAULT),
-    departPos(0), departPosProcedure(DEPART_POS_DEFAULT),
-    departPosLat(0), departPosLatProcedure(DEPART_POSLAT_DEFAULT),
-    departSpeed(-1), departSpeedProcedure(DEPART_SPEED_DEFAULT),
-    arrivalLane(0), arrivalLaneProcedure(ARRIVAL_LANE_DEFAULT),
-    arrivalPos(0), arrivalPosProcedure(ARRIVAL_POS_DEFAULT),
-    arrivalPosLat(0), arrivalPosLatProcedure(ARRIVAL_POSLAT_DEFAULT),
-    arrivalSpeed(-1), arrivalSpeedProcedure(ARRIVAL_SPEED_DEFAULT),
-    repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1), repetitionProbability(-1), repetitionEnd(-1),
-    line(), fromTaz(), toTaz(), personNumber(0), containerNumber(0),
-    speedFactor(-1),
-    parametersSet(0)
+SUMOVehicleParameter::SUMOVehicleParameter()
+    : tag(SUMO_TAG_NOTHING), vtypeid(DEFAULT_VTYPE_ID), color(RGBColor::DEFAULT_COLOR),
+      depart(-1), departProcedure(DEPART_GIVEN),
+      departLane(0), departLaneProcedure(DEPART_LANE_DEFAULT),
+      departPos(0), departPosProcedure(DEPART_POS_DEFAULT),
+      departPosLat(0), departPosLatProcedure(DEPART_POSLAT_DEFAULT),
+      departSpeed(-1), departSpeedProcedure(DEPART_SPEED_DEFAULT),
+      arrivalLane(0), arrivalLaneProcedure(ARRIVAL_LANE_DEFAULT),
+      arrivalPos(0), arrivalPosProcedure(ARRIVAL_POS_DEFAULT),
+      arrivalPosLat(0), arrivalPosLatProcedure(ARRIVAL_POSLAT_DEFAULT),
+      arrivalSpeed(-1), arrivalSpeedProcedure(ARRIVAL_SPEED_DEFAULT),
+      repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1), repetitionProbability(-1), repetitionEnd(-1),
+      line(), fromTaz(), toTaz(), personNumber(0), containerNumber(0),
+      speedFactor(-1),
+      parametersSet(0)
 { }
 
 
@@ -156,7 +155,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
 
 
 SUMOVehicleParameter::Stop::Stop() :
-    Parameterised(Parameterised::ATTRTYPE_STRING),
+    Parameterised(),
     startPos(0),
     endPos(0),
     duration(-1),

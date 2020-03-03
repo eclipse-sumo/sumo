@@ -56,7 +56,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
+    Parameterised(),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
     myViewNet(viewNet),
@@ -82,7 +82,7 @@ GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNe
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, additionalParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
+    Parameterised(),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
     myViewNet(viewNet),

@@ -39,7 +39,7 @@
 // ===========================================================================
 
 MSDispatch::MSDispatch(const std::map<std::string, std::string>& params) :
-    Parameterised(Parameterised::ATTRTYPE_STRING, params),
+    Parameterised(params),
     myOutput(nullptr) {
     const std::string outFile = OptionsCont::getOptions().getString("device.taxi.dispatch-algorithm.output");
     if (outFile != "") {

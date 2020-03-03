@@ -50,13 +50,11 @@ NBTrafficLightLogic::NBTrafficLightLogic(const std::string& id,
         const std::string& subid, int noLinks,
         SUMOTime offset, TrafficLightType type) :
     Named(id), myNumLinks(noLinks), mySubID(subid),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
     myOffset(offset),
     myType(type) {}
 
 NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
     Named(logic->getID()),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
     myNumLinks(logic->myNumLinks),
     mySubID(logic->getProgramID()),
     myOffset(logic->getOffset()),

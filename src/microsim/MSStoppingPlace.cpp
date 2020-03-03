@@ -39,7 +39,6 @@ MSStoppingPlace::MSStoppingPlace(const std::string& id,
                                  double begPos, double endPos, const std::string name,
                                  int capacity) :
     Named(id), myLines(lines), myLane(lane),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
     myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos),
     myName(name),
     myTransportableCapacity(capacity) {

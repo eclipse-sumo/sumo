@@ -120,7 +120,7 @@ GUIPerson::GUIPersonPopupMenu::onCmdShowPlan(FXObject*, FXSelector, void*) {
         ret->mkItem(toString(stage).c_str(), false, p->getStageSummary(stage));
     }
     // close building (use an object that is not Parameterised as argument)
-    Parameterised dummyParameterised(Parameterised::ATTRTYPE_STRING);
+    Parameterised dummyParameterised;
     ret->closeBuilding(&dummyParameterised);
     return 1;
 }

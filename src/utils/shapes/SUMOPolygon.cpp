@@ -35,7 +35,6 @@ SUMOPolygon::SUMOPolygon(const std::string& id, const std::string& type,
                          const RGBColor& color, const PositionVector& shape, bool geo, bool fill, double lineWidth,
                          double layer, double angle, const std::string& imgFile, bool relativePath) :
     Shape(id, type, color, layer, angle, imgFile, relativePath),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
     myShape(shape),
     myGEO(geo),
     myFill(fill),

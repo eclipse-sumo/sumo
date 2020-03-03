@@ -43,7 +43,7 @@
 GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_EDGES), viewNet, GLO_WALK, SUMO_TAG_WALK_EDGES, 
         {edges}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
+    Parameterised(),
     myArrivalPosition(arrivalPosition) {
 }
 
@@ -52,7 +52,7 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
                  double arrivalPosition) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_FROMTO), viewNet, GLO_WALK, SUMO_TAG_WALK_FROMTO, 
         {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
+    Parameterised(),
     myArrivalPosition(arrivalPosition) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
@@ -64,7 +64,7 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
 GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_BUSSTOP), viewNet, GLO_WALK, SUMO_TAG_WALK_BUSSTOP, 
         {fromEdge}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
+    Parameterised(),
     myArrivalPosition(-1) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
@@ -76,7 +76,7 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
 GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPosition) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_ROUTE), viewNet, GLO_WALK, SUMO_TAG_WALK_ROUTE,
         {}, {}, {}, {}, {personParent, routeParent}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
+    Parameterised(),
     myArrivalPosition(arrivalPosition) {
 }
 

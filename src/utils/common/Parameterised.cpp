@@ -29,12 +29,24 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Parameterised::Parameterised(ParameterisedAttrType attrType) :
+
+Parameterised::Parameterised() :
+    myAttrType(ATTRTYPE_STRING) {
+}
+
+
+Parameterised::Parameterised(const ParameterisedAttrType attrType) :
     myAttrType(attrType) {
 }
 
 
-Parameterised::Parameterised(ParameterisedAttrType attrType, const std::map<std::string, std::string>& mapArg) : 
+Parameterised::Parameterised(const std::map<std::string, std::string>& mapArg) : 
+    myMap(mapArg),
+    myAttrType(ATTRTYPE_STRING) {
+}
+
+
+Parameterised::Parameterised(const ParameterisedAttrType attrType, const std::map<std::string, std::string>& mapArg) : 
     myAttrType(attrType) {
     // check if map has to be cleaned
     if (myAttrType == ATTRTYPE_DOUBLE) {
@@ -246,6 +258,5 @@ Parameterised::isParameterValid(const std::string& value, bool /* report */, con
         return false;
     }
 }
-
 
 /****************************************************************************/

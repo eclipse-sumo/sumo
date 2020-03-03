@@ -156,8 +156,8 @@ protected:
      */
     struct Edge : public Parameterised {
 
-        explicit Edge(long long int _id) :
-            Parameterised(Parameterised::ATTRTYPE_STRING),
+        explicit Edge(long long int _id)
+            :
             id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),
             myCyclewayType(WAY_UNKNOWN), // building of extra lane depends on bikelaneWidth of loaded typemap
             myBuswayType(WAY_NONE), // buslanes are always built when declared

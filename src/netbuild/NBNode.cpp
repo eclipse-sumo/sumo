@@ -231,7 +231,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes, int
 
 
 NBNode::Crossing::Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority, int _customTLIndex, int _customTLIndex2, const PositionVector& _customShape) :
-    Parameterised(Parameterised::ATTRTYPE_STRING),
+    Parameterised(),
     node(_node),
     edges(_edges),
     customWidth(_width),
@@ -251,7 +251,6 @@ NBNode::Crossing::Crossing(const NBNode* _node, const EdgeVector& _edges, double
 NBNode::NBNode(const std::string& id, const Position& position,
                SumoXMLNodeType type) :
     Named(StringUtils::convertUmlaute(id)),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
     myPosition(position),
     myType(type),
     myDistrict(nullptr),
@@ -274,7 +273,6 @@ NBNode::NBNode(const std::string& id, const Position& position,
 
 NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* district) :
     Named(StringUtils::convertUmlaute(id)),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
     myPosition(position),
     myType(district == nullptr ? NODETYPE_UNKNOWN : NODETYPE_DISTRICT),
     myDistrict(district),

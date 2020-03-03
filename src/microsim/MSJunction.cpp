@@ -54,7 +54,6 @@ class MSLink;
 MSJunction::MSJunction(const std::string& id, SumoXMLNodeType type, const Position& position,
                        const PositionVector& shape) :
     Named(id),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
     myType(type),
     myPosition(position),
     myShape(shape) {

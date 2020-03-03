@@ -47,16 +47,24 @@ public:
         ATTRTYPE_DOUBLE
     };
 
+    /// @brief Default constructor (for Strings)
+    Parameterised();
+
     /**@brief Constructor
      * @param[in] attrType parameterised attribute type
      */
-    Parameterised(ParameterisedAttrType attrType);
+    Parameterised(const ParameterisedAttrType attrType);
+
+    /**@brief Constructor with parameters (for Strings)
+     * @param[in] mapArg Pre-given parameter
+     */
+    Parameterised(const std::map<std::string, std::string>& mapArg);
 
     /**@brief Constructor with parameters
      * @param[in] attrType parameterised attribute type
      * @param[in] mapArg Pre-given parameter
      */
-    Parameterised(ParameterisedAttrType attrType, const std::map<std::string, std::string>& mapArg);
+    Parameterised(const ParameterisedAttrType attrType, const std::map<std::string, std::string>& mapArg);
 
     /// @brief Destructor
     ~Parameterised();

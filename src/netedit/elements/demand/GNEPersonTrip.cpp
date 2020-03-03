@@ -44,7 +44,7 @@ GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO, 
         {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
+    Parameterised(),
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes) {
@@ -59,7 +59,7 @@ GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent
                              const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP, 
         {fromEdge}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(Parameterised::ATTRTYPE_STRING),
+    Parameterised(),
     myArrivalPosition(-1),
     myVTypes(types),
     myModes(modes) {
