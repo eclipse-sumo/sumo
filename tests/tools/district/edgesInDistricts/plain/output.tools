@@ -30,3 +30,6 @@ Options:
   --merge-param=MERGE_PARAM
                         merge edge lists of taz/polygons having the same value
                         for the given parameter
+  --min-length=MINLENGTH
+                        use lanes where length is greater than this (m/s)
+                        (default: 0.0)
