@@ -46,7 +46,13 @@
                 <xsd:simpleType>
                     <xsd:restriction base="xsd:string">
                         <xsd:enumeration value=""/>
-                        <xsd:enumeration value="0"/>
+                        <xsd:enumeration value="end"/>
+                        <xsd:enumeration value="gui"/>
+                        <xsd:enumeration value="traci"/>
+                        <xsd:enumeration value="calibrator"/>
+                        <xsd:enumeration value="vaporizer"/>
+                        <xsd:enumeration value="collision"/>
+                        <xsd:enumeration value="teleport"/>
                     </xsd:restriction>
                 </xsd:simpleType>
             </xsd:attribute>
