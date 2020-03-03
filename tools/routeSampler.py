@@ -383,10 +383,10 @@ def main(options):
                 if options.writeRouteIDs:
                     routeID = routeIndex
                 if routeID is not None:
-                    outf.write('    <vehicle id="%s%s" depart="%s" route="%s"%s/>\n' % (
+                    outf.write('    <vehicle id="%s%s" depart="%.2f" route="%s"%s/>\n' % (
                         options.prefix, i, depart, routeID, options.vehattrs))
                 else:
-                    outf.write('    <vehicle id="%s%s" depart="%s"%s>\n' % (
+                    outf.write('    <vehicle id="%s%s" depart="%.2f"%s>\n' % (
                         options.prefix, i, depart, options.vehattrs))
                     outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
                     outf.write('    </vehicle>\n')
