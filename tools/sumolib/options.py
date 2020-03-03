@@ -25,6 +25,7 @@ import re
 from xml.sax import parse, handler
 import argparse
 
+_OPTIONS = [None]
 
 def get_long_option_names(application):
     # @todo using option "--save-template stdout" and parsing xml would be prettier
@@ -58,6 +59,9 @@ def readOptions(filename):
     parse(filename, optionReader)
     return optionReader.opts
 
+def getOptions():
+    # return global option value (after parse_args was called)
+    return _OPTIONS[0]
 
 class ArgumentParser(argparse.ArgumentParser):
     """Drop-in replacement for argparse.ArgumentParser that adds support for
@@ -109,6 +113,7 @@ class ArgumentParser(argparse.ArgumentParser):
         args, argv = self.parse_known_args(args, namespace)
         if argv:
             self.error('unrecognized arguments: %s' % ' '.join(argv))
+        _OPTIONS[0] = args
         return args
 
     def parse_known_args(self, args=None, namespace=None):

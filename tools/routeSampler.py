@@ -24,7 +24,6 @@ from __future__ import print_function
 import os
 import sys
 import random
-from argparse import ArgumentParser
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -32,7 +31,7 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    parser = ArgumentParser(description="Sample routes to match counts")
+    parser = sumolib.options.ArgumentParser(description="Sample routes to match counts")
     parser.add_argument("-r", "--route-files", dest="routeFiles",
                         help="Input route file file")
     parser.add_argument("-t", "--turn-files", dest="turnFiles",
@@ -43,6 +42,8 @@ def get_options(args=None):
                         help="Read edgeData counts from the given attribute")
     parser.add_argument("--turn-attribute", dest="turnAttr", default="count",
                         help="Read turning counts from the given attribute")
+    parser.add_argument("--turn-max-gap", type=int, dest="turnMaxGap", default=0,
+                        help="Allow at most a gap of INT edges between from-edge and to-edge")
     parser.add_argument("-o", "--output-file", dest="out", default="out.rou.xml",
                         help="Output route file")
     parser.add_argument("--prefix", dest="prefix", default="",
@@ -109,8 +110,12 @@ class CountData:
     def routePasses(self, edges):
         try:
             i = edges.index(self.edgeTuple[0])
-            if self.edgeTuple != tuple(edges[i:i + len(self.edgeTuple)]):
-                return False
+            maxDelta = sumolib.options.getOptions().turnMaxGap + 1
+            for edge in self.edgeTuple[1:]:
+                i2 = edges.index(edge, i)
+                if i2 - i > maxDelta:
+                    return False
+                i = i2
         except ValueError:
             # first edge not in route
             return False
