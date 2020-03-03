@@ -538,9 +538,6 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
         case 20:
             return getHarmonoise_NoiseEmissions();
         case 21:
-            if (getNumberReroutes() == 0) {
-                return -1;
-            }
             return getNumberReroutes();
         case 22:
             return gSelected.isSelected(GLO_VEHICLE, getGlID());
