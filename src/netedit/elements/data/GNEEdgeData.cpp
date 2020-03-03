@@ -102,8 +102,11 @@ GNEEdgeData::writeGenericData(OutputDevice& device) const {
     device.openTag(SUMO_TAG_EDGE);
     // write edge ID
     device.writeAttr(SUMO_ATTR_ID, getParentEdges().front()->getID());
-    // write params
-    writeParams(device);
+    // iterate over attributes
+    for (const auto &attribute : getParametersMap()) {
+        // write attribute (don't use writeParams)
+        device.writeAttr(attribute.first, attribute.second);
+    }
     // close device
     device.closeTag();
 }
