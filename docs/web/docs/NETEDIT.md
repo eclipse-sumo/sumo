@@ -1317,7 +1317,7 @@ A restricted lane can be transformed in a normal lane with the option
 restricted lane*
 
 ## Junction
-
+- *Split Junction*: Undo a prior join (i.e. one that was computed with option **--junctions.join**)
 - *Set custom shape*: Allows drawing a custom junction shape via a
   [\#Modifiable Poly](#modifiable_poly) (see below). The
   junction shape determines where the incoming edges end and the
