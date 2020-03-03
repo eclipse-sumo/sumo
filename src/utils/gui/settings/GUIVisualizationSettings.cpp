@@ -760,6 +760,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::ORANGE, 40);
     scheme.addColor(RGBColor::RED, 50);
     scheme.addColor(RGBColor::MAGENTA, 60);
+    vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by noise emissions (Harmonoise)", RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 60);
     scheme.addColor(RGBColor::GREEN, 70);
@@ -768,9 +769,9 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 100);
     scheme.addColor(RGBColor::MAGENTA, 120);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by reroute number", RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by reroute number", RGBColor::GREY, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::YELLOW, (double)1.);
-    scheme.addColor(RGBColor::WHITE, (double)10.);
+    scheme.addColor(RGBColor::RED, (double)10.);
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
