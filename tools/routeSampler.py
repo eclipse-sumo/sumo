@@ -24,6 +24,7 @@ from __future__ import print_function
 import os
 import sys
 import random
+from collections import defaultdict
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -60,8 +61,8 @@ def get_options(args=None):
                         help="Skip resampling and run optimize directly on the input routes")
     parser.add_argument("--geh-ok", dest="gehOk", default=5,
                         help="threshold for acceptable GEH values")
-    parser.add_argument("-f", "--write-flows", dest="writeFlows", action="store_true", default=False,
-                        help="write flows instead of vehicles")
+    parser.add_argument("-f", "--write-flows", dest="writeFlows", 
+                        help="write flows with the give style instead of vehicles [number|probability]")
     parser.add_argument("-i", "--write-route-ids", dest="writeRouteIDs", action="store_true", default=False,
                         help="write routes with ids")
     parser.add_argument("-u", "--write-route-distribution", dest="writeRouteDist", 
@@ -76,6 +77,9 @@ def get_options(args=None):
         sys.exit()
     if options.writeRouteIDs and options.writeRouteDist:
         sys.stderr.write("Only one of the options --write-route-ids and --write-route-distribution may be used")
+        sys.exit()
+    if options.writeFlows not in [None, "number", "probability"]:
+        sys.stderr.write("Options --write-flows only accepts arguments 'number' and 'probability'")
         sys.exit()
 
     options.routeFiles = options.routeFiles.split(',')
@@ -379,18 +383,62 @@ def main(options):
                 outf.write('    </routeDistribution>\n\n')
 
             routeID = options.writeRouteDist
-            for i, routeIndex in enumerate(usedRoutes):
-                if options.writeRouteIDs:
-                    routeID = routeIndex
-                if routeID is not None:
-                    outf.write('    <vehicle id="%s%s" depart="%.2f" route="%s"%s/>\n' % (
-                        options.prefix, i, depart, routeID, options.vehattrs))
+            if options.writeFlows is None:
+                for i, routeIndex in enumerate(usedRoutes):
+                    if options.writeRouteIDs:
+                        routeID = routeIndex
+                    if routeID is not None:
+                        outf.write('    <vehicle id="%s%s" depart="%.2f" route="%s"%s/>\n' % (
+                            options.prefix, i, depart, routeID, options.vehattrs))
+                    else:
+                        outf.write('    <vehicle id="%s%s" depart="%.2f"%s>\n' % (
+                            options.prefix, i, depart, options.vehattrs))
+                        outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                        outf.write('    </vehicle>\n')
+                    depart += period
+            else:
+                routeDeparts = defaultdict(list)
+                for routeIndex in usedRoutes:
+                    routeDeparts[routeIndex].append(depart)
+                    depart += period
+                if options.writeRouteDist:
+                    totalCount = sum(routeCounts)
+                    probability = totalCount / (end - begin)
+                    flowID = options.prefix + options.writeRouteDist
+                    if options.writeFlows == "number" or probability > 1.001:
+                        repeat = 'number="%s"' % totalCount
+                        if options.writeFlows == "probability":
+                            sys.stderr.write("Warning: could not write flow %s with probability %.2f\n" % (flowID , probability))
+                    else:
+                        repeat = 'probability="%s"' % probability
+                    outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s"%s/>\n' % (
+                        flowID, begin, end, repeat,
+                        options.writeRouteDist, options.vehattrs))
                 else:
-                    outf.write('    <vehicle id="%s%s" depart="%.2f"%s>\n' % (
-                        options.prefix, i, depart, options.vehattrs))
-                    outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
-                    outf.write('    </vehicle>\n')
-                depart += period
+                    for routeIndex in sorted(set(usedRoutes)):
+                        fBegin = min(routeDeparts[routeIndex])
+                        fEnd = max(routeDeparts[routeIndex] + [fBegin + 1.0])
+                        probability = routeCounts[routeIndex] / (fEnd - fBegin)
+                        flowID = "%s%s" % (options.prefix, routeIndex)
+                        if options.writeFlows == "number" or probability > 1.001:
+                            repeat = 'number="%s"' % routeCounts[routeIndex]
+                            if options.writeFlows == "probability":
+                                sys.stderr.write("Warning: could not write flow %s with probability %.2f\n" % (
+                                    flowID, probability))
+                        else:
+                            repeat = 'probability="%s"' % probability
+                        if options.writeRouteIDs:
+                            outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s"%s/>\n' % (
+                                flowID, fBegin, fEnd, repeat,
+                                routeIndex, options.vehattrs))
+                        else:
+                            outf.write('    <flow id="%s%s" begin="%.2f" end="%.2f" %s%s>\n' % (
+                                options.prefix, routeIndex,
+                                fBegin, fEnd, repeat,
+                                options.vehattrs))
+                            outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                            outf.write('    </flow>\n')
+
             outf.write('</routes>\n')
 
     underflow = sumolib.miscutils.Statistics("underflow locations")
