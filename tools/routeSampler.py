@@ -60,6 +60,12 @@ def get_options(args=None):
                         help="Skip resampling and run optimize directly on the input routes")
     parser.add_argument("--geh-ok", dest="gehOk", default=5,
                         help="threshold for acceptable GEH values")
+    parser.add_argument("-f", "--write-flows", dest="writeFlows", action="store_true", default=False,
+                        help="write flows instead of vehicles")
+    parser.add_argument("-i", "--write-route-ids", dest="writeRouteIDs", action="store_true", default=False,
+                        help="write routes with ids")
+    parser.add_argument("-u", "--write-route-distribution", dest="writeRouteDist", 
+                        help="write routeDistribution with the given ID instead of individual routes")
     parser.add_argument("-v", "--verbose", action="store_true", default=False,
                         help="tell me what you are doing")
 
@@ -68,6 +74,10 @@ def get_options(args=None):
             (options.turnFiles is None and options.edgeDataFiles is None)):
         parser.print_help()
         sys.exit()
+    if options.writeRouteIDs and options.writeRouteDist:
+        sys.stderr.write("Only one of the options --write-route-ids and --write-route-distribution may be used")
+        sys.exit()
+
     options.routeFiles = options.routeFiles.split(',')
     options.turnFiles = options.turnFiles.split(',') if options.turnFiles is not None else []
     options.edgeDataFiles = options.edgeDataFiles.split(',') if options.edgeDataFiles is not None else []
@@ -200,9 +210,7 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
     k = routes.number
     m = len(countData)
 
-    priorRouteCounts = [0] * k
-    for r in usedRoutes:
-        priorRouteCounts[r] += 1
+    priorRouteCounts = getRouteCounts(routes, usedRoutes)
 
     if options.optimize == "full":
         # allow changing all prior usedRoutes
@@ -292,6 +300,12 @@ def resetCounts(usedRoutes, routeUsage, countData):
         for i in routeUsage[r]:
             countData[i].count -= 1
 
+def getRouteCounts(routes, usedRoutes):
+    result = [0] * routes.number
+    for r in usedRoutes:
+        result[r] += 1
+    return result
+
 
 def main(options):
     if options.seed:
@@ -351,11 +365,31 @@ def main(options):
             sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
             period = (end - begin) / len(usedRoutes)
             depart = begin
+            routeCounts = getRouteCounts(routes, usedRoutes)
+            if options.writeRouteIDs:
+                for routeIndex in sorted(set(usedRoutes)):
+                    outf.write('    <route id="%s" edges="%s"/> <!-- %s -->\n' % (
+                        routeIndex, ' '.join(routes.unique[routeIndex]), routeCounts[routeIndex]))
+                outf.write('\n')
+            elif options.writeRouteDist:
+                outf.write('    <routeDistribution id="%s"/>\n' % options.writeRouteDist)
+                for routeIndex in sorted(set(usedRoutes)):
+                    outf.write('        <route id="%s" edges="%s" probability="%s"/>\n' % (
+                        routeIndex, ' '.join(routes.unique[routeIndex]), routeCounts[routeIndex]))
+                outf.write('    </routeDistribution>\n\n')
+
+            routeID = options.writeRouteDist
             for i, routeIndex in enumerate(usedRoutes):
-                outf.write('    <vehicle id="%s%s" depart="%s"%s>\n' % (
-                    options.prefix, i, depart, options.vehattrs))
-                outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
-                outf.write('    </vehicle>\n')
+                if options.writeRouteIDs:
+                    routeID = routeIndex
+                if routeID is not None:
+                    outf.write('    <vehicle id="%s%s" depart="%s" route="%s"%s/>\n' % (
+                        options.prefix, i, depart, routeID, options.vehattrs))
+                else:
+                    outf.write('    <vehicle id="%s%s" depart="%s"%s>\n' % (
+                        options.prefix, i, depart, options.vehattrs))
+                    outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                    outf.write('    </vehicle>\n')
                 depart += period
             outf.write('</routes>\n')
 
