@@ -2080,7 +2080,7 @@ GNEFrameAttributesModuls::ParametersEditor::ParametersEditor(GNEFrame* inspector
     myFrameParent(inspectorFrameParent),
     myAC(nullptr) {
     // set first letter upper
-    title[0] = tolower(title[0]);
+    title[0] = (char)tolower(title[0]);
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myButtonEditParameters = new FXButton(this, ("Edit " + title).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
@@ -2116,7 +2116,7 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCar
         // set title and button
         myButtonEditParameters->setText(("Edit " + title).c_str());
         // set first letter upper
-        title[0] = toupper(title[0]);
+        title[0] = (char)toupper(title[0]);
         // change 
         setText(title.c_str());
         // refresh ParametersEditor
@@ -2162,7 +2162,7 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(std::vector<GNE
         // set title and button
         myButtonEditParameters->setText(("Edit " + title).c_str());
         // set first letter upper
-        title[0] = toupper(title[0]);
+        title[0] = (char)toupper(title[0]);
         // change 
         setText(title.c_str());
         // refresh ParametersEditor

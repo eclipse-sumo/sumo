@@ -128,13 +128,13 @@ GNEEdgeData::fixGenericDataProblem() {
 
 
 void 
-GNEEdgeData::selectAttributeCarrier(bool changeFlag) {
+GNEEdgeData::selectAttributeCarrier(bool /*changeFlag*/) {
     //
 }
 
 
 void
-GNEEdgeData::unselectAttributeCarrier(bool changeFlag) {
+GNEEdgeData::unselectAttributeCarrier(bool /*changeFlag*/) {
     //
 }
 

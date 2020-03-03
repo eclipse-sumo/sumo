@@ -65,13 +65,13 @@ public:
         void popElement();
 
         /// @brief retrieve parent generic data correspond to current status of myInsertedElements
-        GNEDataInterval* retrieveParentDataInterval(GNEViewNet* viewNet, SumoXMLTag expectedTag) const;
+        GNEDataInterval* retrieveParentDataInterval(SumoXMLTag expectedTag) const;
 
         /// @brief return last generic data inserted
         GNEDataInterval* getLastInsertedDataInterval() const;
 
         /// @brief retrieve parent generic data correspond to current status of myInsertedElements
-        GNEGenericData* retrieveParentGenericData(GNEViewNet* viewNet, SumoXMLTag expectedTag) const;
+        GNEGenericData* retrieveParentGenericData(SumoXMLTag expectedTag) const;
 
         /// @brief return last generic data inserted
         GNEGenericData* getLastInsertedGenericData() const;

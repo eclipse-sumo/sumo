@@ -73,7 +73,7 @@ GNEDataHandler::HierarchyInsertedDatas::popElement() {
 
 
 GNEDataInterval*
-GNEDataHandler::HierarchyInsertedDatas::retrieveParentDataInterval(GNEViewNet* viewNet, SumoXMLTag expectedTag) const {
+GNEDataHandler::HierarchyInsertedDatas::retrieveParentDataInterval(SumoXMLTag expectedTag) const {
     if (myInsertedElements.size() < 2) {
         // currently we're finding parent additional in the additional XML root
         WRITE_WARNING("A " + toString(myInsertedElements.back().first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
@@ -106,7 +106,7 @@ GNEDataHandler::HierarchyInsertedDatas::getLastInsertedDataInterval() const {
 
 
 GNEGenericData*
-GNEDataHandler::HierarchyInsertedDatas::retrieveParentGenericData(GNEViewNet* viewNet, SumoXMLTag expectedTag) const {
+GNEDataHandler::HierarchyInsertedDatas::retrieveParentGenericData(SumoXMLTag expectedTag) const {
     if (myInsertedElements.size() < 2) {
         // currently we're finding parent additional in the additional XML root
         WRITE_WARNING("A " + toString(myInsertedElements.back().first) + " must be declared within the definition of a " + toString(expectedTag) + ".");

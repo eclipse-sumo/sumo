@@ -328,7 +328,7 @@ GNEGenericDataFrame::IntervalSelector::onCmdSetIntervalAttribute(FXObject* obj, 
 
 
 long 
-GNEGenericDataFrame::IntervalSelector::onCmdSelectCheckButton(FXObject* obj, FXSelector, void*) {
+GNEGenericDataFrame::IntervalSelector::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
     if (myNewIntervalCheckButton->getCheck() == TRUE) {
         // enable begin and end elements
         myHorizontalFrameBegin->show();

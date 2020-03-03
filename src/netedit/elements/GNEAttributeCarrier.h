@@ -187,7 +187,7 @@ public:
     template<typename T>
     static bool canParse(const std::string& string) {
         try {
-            parse<T>(string);
+            GNEAttributeCarrier::parse<T>(string);
         } catch (NumberFormatException&) {
             return false;
         } catch (TimeFormatException&) {
