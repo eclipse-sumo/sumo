@@ -16,12 +16,17 @@ participant MSEdgeControl
 participant ...
 participant MSVehicle
 
-group plan
+group car-following model
 simstep --> MSEdgeControl : planMovements
-MSEdgeControl -> MSVehicle : planMove
+... -> MSVehicle : planMove
 end
+group junction model
 simstep -> MSEdgeControl : executeMovements
-MSEdgeControl -> MSVehicle : executeMove
+... -> MSVehicle : executeMove
+end
+group lane-changing model
 simstep -> MSEdgeControl : changeLanes
+... -> MSVehicle : getLaneChangeModel().wantsChange
+end
 @enduml
 ```
