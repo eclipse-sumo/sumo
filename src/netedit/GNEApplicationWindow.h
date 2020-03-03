@@ -497,13 +497,13 @@ private:
         void buildFileMenuCommands(FXMenuPane* editMenu);
 
         /// @brief FXMenuCommand for enable or disable save additionals
-        FXMenuCommand* saveTLSPrograms;
-
-        /// @brief FXMenuCommand for enable or disable save additionals
         FXMenuCommand* saveAdditionals;
 
         /// @brief FXMenuCommand for enable or disable save additionals As
         FXMenuCommand* saveAdditionalsAs;
+
+        /// @brief FXMenuCommand for enable or disable save additionals
+        FXMenuCommand* saveTLSPrograms;
 
         /// @brief FXMenuCommand for enable or disable save demand elements
         FXMenuCommand* saveDemandElements;
