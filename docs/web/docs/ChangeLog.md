@@ -48,9 +48,10 @@ permalink: /ChangeLog/
   - [Meso simulation](Simulation/Meso.md) now supports TraCI
 - Tools
   - added osmWebWizard option to import a simplified network that is only for cars. Issue #6595
-  - [matsim_impportPlans.py](Tools/Import/MATSim.md#matsim_importplanspy) now supports alternative input dialects and sorts its output.  
+  - [matsim_importPlans.py](Tools/Import/MATSim.md#matsim_importplanspy) now supports alternative input dialects and sorts its output.  
   - added new tool [net2kml.py](Tools/Net.md#net2kmlpy) to convert sumo networks to KML
   - [routeSampler.py](Tools/Turns.md#routesampler.py) improvements
+    - supports loading multiple files (routes, edgedata, turns). The corresponding options were renamed accordingly (**--route-files, --edgedata-files, --turn-files**)
     - supports optimization by linear programming using option **--optimize** (requires scipy)
     - supports output of mismatch between measured counts and sampled counts for visualization in SUMO-GUI via `edgeData` and `edgeRelation` files using option **--mismatch-output**
     - supports limited optimization of route input (without resampling) by setting option **--optimize-input**
