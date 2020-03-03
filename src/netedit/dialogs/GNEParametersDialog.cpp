@@ -33,13 +33,13 @@
 // ===========================================================================
 
 FXDEFMAP(GNEParametersDialog) GNEParametersDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,  GNEParametersDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,  GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONRESET,   GNEParametersDialog::onCmdReset),
-    FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL,                 GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL,                 GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL,                 GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_CLOSE,    0,                                      GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEParametersDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEParametersDialog::onCmdReset),
+    FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL, GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL, GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL, GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_CLOSE,    0,                      GNEParametersDialog::onCmdCancel),
 };
 
 FXDEFMAP(GNEParametersDialog::ParametersValues) ParametersValuesMap[] = {
@@ -49,15 +49,15 @@ FXDEFMAP(GNEParametersDialog::ParametersValues) ParametersValuesMap[] = {
 };
 
 FXDEFMAP(GNEParametersDialog::ParametersOptions) ParametersOptionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PARAMETERS_LOAD,    GNEParametersDialog::ParametersOptions::onCmdLoadParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PARAMETERS_SAVE,    GNEParametersDialog::ParametersOptions::onCmdSaveParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PARAMETERS_CLEAR,   GNEParametersDialog::ParametersOptions::onCmdClearParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PARAMETERS_SORT,    GNEParametersDialog::ParametersOptions::onCmdSortParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                   GNEParametersDialog::ParametersOptions::onCmdHelpParameter),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_LOAD,    GNEParametersDialog::ParametersOptions::onCmdLoadParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNEParametersDialog::ParametersOptions::onCmdSaveParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CLEAR,   GNEParametersDialog::ParametersOptions::onCmdClearParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SORT,    GNEParametersDialog::ParametersOptions::onCmdSortParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEParametersDialog::ParametersOptions::onCmdHelpParameter),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEParametersDialog,                    FXDialogBox,    GNEParametersDialogMap,     ARRAYNUMBER(GNEParametersDialogMap))
+FXIMPLEMENT(GNEParametersDialog,                    FXDialogBox,   GNEParametersDialogMap,     ARRAYNUMBER(GNEParametersDialogMap))
 FXIMPLEMENT(GNEParametersDialog::ParametersValues,  FXGroupBox,    ParametersValuesMap,        ARRAYNUMBER(ParametersValuesMap))
 FXIMPLEMENT(GNEParametersDialog::ParametersOptions, FXGroupBox,    ParametersOptionsMap,       ARRAYNUMBER(ParametersOptionsMap))
 
@@ -287,10 +287,10 @@ GNEParametersDialog::ParametersOptions::ParametersOptions(FXHorizontalFrame* fra
     FXGroupBox(frame, "Options", GUIDesignGroupBoxFrame100),
     myParameterDialogParent(ParameterDialogParent) {
     // create buttons
-    mySortButton =  new FXButton(this, "Sort",  GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_PARAMETERS_SORT, GUIDesignButtonRectangular100x23);
-    myClearButton = new FXButton(this, "Clear", GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_PARAMETERS_CLEAR, GUIDesignButtonRectangular100x23);
-    myLoadButton =  new FXButton(this, "Load",  GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_GNE_PARAMETERS_LOAD, GUIDesignButtonRectangular100x23);
-    mySaveButton =  new FXButton(this, "Save",  GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_PARAMETERS_SAVE, GUIDesignButtonRectangular100x23);
+    mySortButton =  new FXButton(this, "Sort",  GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonRectangular100x23);
+    myClearButton = new FXButton(this, "Clear", GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_BUTTON_CLEAR, GUIDesignButtonRectangular100x23);
+    myLoadButton =  new FXButton(this, "Load",  GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_GNE_BUTTON_LOAD, GUIDesignButtonRectangular100x23);
+    mySaveButton =  new FXButton(this, "Save",  GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonRectangular100x23);
     myHelpButton =  new FXButton(this, "Help",  GUIIconSubSys::getIcon(ICON_HELP), this, MID_HELP, GUIDesignButtonRectangular100x23);
 }
 
@@ -501,9 +501,9 @@ GNEParametersDialog::GNEParametersDialog(GNEFrameAttributesModuls::ParametersEdi
     // create dialog buttons bot centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose", GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL, GUIDesignButtonCancel);
-    myResetButton = new FXButton(buttonsFrame,  "reset\t\tclose",  GUIIconSubSys::getIcon(ICON_RESET), this, MID_GNE_ADDITIONALDIALOG_BUTTONRESET,  GUIDesignButtonReset);
+    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose", GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    myResetButton = new FXButton(buttonsFrame,  "reset\t\tclose",  GUIIconSubSys::getIcon(ICON_RESET), this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 

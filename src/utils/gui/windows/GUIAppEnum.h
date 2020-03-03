@@ -1004,15 +1004,23 @@ enum {
     MID_GNE_PERSON_TRANSFORM,
     /// @}
 
-    /// @name Additional Dialog messages (used in all GNEAdditionalDialogs)
+    /// @name Netedit Dialogs
     /// @{
 
     /// @brief accept button
-    MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,
+    MID_GNE_BUTTON_ACCEPT,
     /// @brief cancel button
-    MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,
+    MID_GNE_BUTTON_CANCEL,
     /// @brief reset button
-    MID_GNE_ADDITIONALDIALOG_BUTTONRESET,
+    MID_GNE_BUTTON_RESET,
+    /// @brief load button
+    MID_GNE_BUTTON_LOAD,
+    /// @brief save button
+    MID_GNE_BUTTON_SAVE,
+    /// @brief clear button
+    MID_GNE_BUTTON_CLEAR,
+    /// @brief sort button
+    MID_GNE_BUTTON_SORT,
 
     /// @}
 
@@ -1076,8 +1084,6 @@ enum {
     MID_GNE_CALIBRATORDIALOG_TABLE_VEHICLETYPE,
     /// @brief add vehicle type
     MID_GNE_CALIBRATORDIALOG_ADD_VEHICLETYPE,
-    /// @brief set new variable
-    MID_GNE_CALIBRATORDIALOG_SET_VARIABLE,
 
     /// @}
 
@@ -1100,20 +1106,6 @@ enum {
 
     /// @brief FixStoppingPlaces dialog
     MID_GNE_FIXSTOPPINGPLACES_CHANGE,
-
-    /// @}
-
-    /// @name GNEParameters Dialog messages
-    /// @{
-
-    /// @brief load parameters
-    MID_GNE_PARAMETERS_LOAD,
-    /// @brief save parameters
-    MID_GNE_PARAMETERS_SAVE,
-    /// @brief clear parameters
-    MID_GNE_PARAMETERS_CLEAR,
-    /// @brief sort parameters
-    MID_GNE_PARAMETERS_SORT,
 
     /// @}
 
