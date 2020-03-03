@@ -1544,6 +1544,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         // clear myEdgesAndNumberOfLanes after reload demandElements
         myEdgesAndNumberOfLanes.clear();
     }
+    UNUSED_PARAMETER(dataPath);
     window->getApp()->endWaitCursor();
     window->setStatusBarText("Finished computing junctions.");
 }
