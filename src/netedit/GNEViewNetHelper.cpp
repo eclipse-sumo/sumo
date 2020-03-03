@@ -1543,13 +1543,13 @@ GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, bool force) {
         // set new Data mode
         dataEditMode = mode;
         // for common modes (Inspect/Delete/Select/Move) change also the other supermode
-        if (dataEditMode == GNE_DEMANDMODE_INSPECT) {
+        if (dataEditMode == GNE_DATAMODE_INSPECT) {
             networkEditMode = GNE_NETWORKMODE_INSPECT;
             demandEditMode = GNE_DEMANDMODE_INSPECT;
-        } else if (dataEditMode == GNE_DEMANDMODE_DELETE) {
+        } else if (dataEditMode == GNE_DATAMODE_DELETE) {
             networkEditMode = GNE_NETWORKMODE_DELETE;
             demandEditMode = GNE_DEMANDMODE_DELETE;
-        } else if (dataEditMode == GNE_DEMANDMODE_SELECT) {
+        } else if (dataEditMode == GNE_DATAMODE_SELECT) {
             networkEditMode = GNE_NETWORKMODE_SELECT;
             demandEditMode = GNE_DEMANDMODE_SELECT;
         }
