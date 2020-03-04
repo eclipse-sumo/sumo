@@ -58,6 +58,7 @@ def get_options(args=None):
 
     return options
 
+
 def writeLeg(outf, options, idveh, leg, startLink, endLink):
     depart = leg.dep_time if options.carsOnly else "triggered"
     if leg.route is None or leg.route[0].distance == "NaN":
@@ -70,7 +71,7 @@ def writeLeg(outf, options, idveh, leg, startLink, endLink):
 
 
 def main(options):
-    persons = [] # (depart, xmlsnippet)
+    persons = []  # (depart, xmlsnippet)
     for person in sumolib.output.parse(options.planfile, 'person'):
         outf = StringIO()
         vehIndex = 0
@@ -88,7 +89,7 @@ def main(options):
         for item in plan.getChildList():
             leg = None
             idveh = "%s_%s" % (person.id, vehIndex)
-            if "act" in item.name: # act or activity
+            if "act" in item.name:  # act or activity
                 if lastLeg is not None:
                     leg = lastLeg
                     leg.dep_time = lastAct.end_time
@@ -116,7 +117,7 @@ def main(options):
 
             lastLeg = None
             for item in plan.getChildList():
-                if "act" in item.name: # act or activity
+                if "act" in item.name:  # act or activity
                     if lastLeg is not None:
                         outf.write('       <ride lines="%s" to="%s"  />\n' % (vehicleslist[vehIndex], item.link))
                         vehIndex = vehIndex+1

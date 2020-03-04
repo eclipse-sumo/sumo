@@ -46,7 +46,7 @@ try:
 except (OSError, subprocess.CalledProcessError):
     HAVE_ASTYLE = False
 
-_SOURCE_EXT = set([".h", ".cpp", ".py", ".pyw", ".pl", ".java", ".am", ".cs"])
+_SOURCE_EXT = set([".h", ".cpp", ".py", ".pyw", ".pl", ".java", ".am", ".cs", ".c"])
 _TESTDATA_EXT = [".xml", ".prog", ".csv",
                  ".complex", ".dfrouter", ".duarouter", ".jtrrouter", ".marouter",
                  ".astar", ".chrouter", ".internal", ".tcl", ".txt",
@@ -138,7 +138,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             return
         self._haveFixed = False
         idx = 0
-        if ext in (".cpp", ".h", ".java"):
+        if ext in (".cpp", ".h", ".java", ".c"):
             if lines[idx] == SEPARATOR:
                 year = lines[idx + 2][17:21]
                 end = lines.index(SEPARATOR, idx + 1) + 1

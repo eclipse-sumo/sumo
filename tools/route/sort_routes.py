@@ -25,7 +25,6 @@ from xml.dom import pulldom
 from xml.sax import handler
 from xml.sax import make_parser
 from optparse import OptionParser
-import time
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
@@ -65,7 +64,7 @@ def sort_departs(routefilename, outfile):
                 if ':' in startString:
                     start = sumolib.miscutils.parseTime(startString)
                 elif startString == "triggered":
-                    start = -1 # before everything else
+                    start = -1  # before everything else
                 else:
                     start = float(startString)
                 vehicles.append(

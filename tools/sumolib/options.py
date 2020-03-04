@@ -27,6 +27,7 @@ import argparse
 
 _OPTIONS = [None]
 
+
 def get_long_option_names(application):
     # @todo using option "--save-template stdout" and parsing xml would be prettier
     output = subprocess.check_output([application, '--help'])
@@ -59,9 +60,11 @@ def readOptions(filename):
     parse(filename, optionReader)
     return optionReader.opts
 
+
 def getOptions():
     # return global option value (after parse_args was called)
     return _OPTIONS[0]
+
 
 class ArgumentParser(argparse.ArgumentParser):
     """Drop-in replacement for argparse.ArgumentParser that adds support for

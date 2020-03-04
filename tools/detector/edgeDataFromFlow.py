@@ -16,12 +16,11 @@
 # @date    2020-02-27
 
 """
-This script converts a flow file in csv-format to XML 
+This script converts a flow file in csv-format to XML
 (generalized meandata format : http://sumo.dlr.de/xsd/meandata_file.xsd)
 """
 from __future__ import absolute_import
 from __future__ import print_function
-import math
 import sys
 import os
 
@@ -29,7 +28,6 @@ from optparse import OptionParser
 from collections import defaultdict
 
 import detector
-from detector import relError
 
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -59,7 +57,6 @@ def get_options(args=None):
     return options
 
 
-
 class LaneMap:
     def get(self, key, default):
         return key[0:-2]
@@ -75,8 +72,8 @@ def main(options):
         readers[flowcol] = detReader
 
     with open(options.output, "w") as outf:
-        edges = defaultdict(dict) # edge : {attr:val}
-        maxGroups = defaultdict(lambda : 0) # edge : nGroups
+        edges = defaultdict(dict)  # edge : {attr:val}
+        maxGroups = defaultdict(lambda: 0)  # edge : nGroups
 
         for flowcol, detReader in readers.items():
             for edge, detData in detReader._edge2DetData.items():
@@ -86,7 +83,7 @@ def main(options):
                     if group.isValid:
                         maxFlow = max(maxFlow, group.totalFlow)
                         nGroups += 1
-                #if options.verbose:
+                # if options.verbose:
                 #    print("flowColumn: %s edge: %s flow: %s groups: %s" % (
                 #        flowcol, edge, maxFlow, nGroups))
                 edges[edge][flowcol] = maxFlow
@@ -96,7 +93,7 @@ def main(options):
         outf.write('<data>\n')
         outf.write('    <interval id="flowdata" begin="0" end="3600">\n')
         for edge in sorted(edges.keys()):
-            attrs = ' '.join(['%s="%s"' % (k,v) for k,v in edges[edge].items()])
+            attrs = ' '.join(['%s="%s"' % (k, v) for k, v in edges[edge].items()])
             outf.write('        <edge id="%s" %s groups="%s"/>\n' % (edge, attrs, nGroups))
         outf.write('    </interval>\n')
         outf.write('</data>\n')

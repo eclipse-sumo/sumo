@@ -61,11 +61,11 @@ def get_options(args=None):
                         help="Skip resampling and run optimize directly on the input routes")
     parser.add_argument("--geh-ok", dest="gehOk", default=5,
                         help="threshold for acceptable GEH values")
-    parser.add_argument("-f", "--write-flows", dest="writeFlows", 
+    parser.add_argument("-f", "--write-flows", dest="writeFlows",
                         help="write flows with the give style instead of vehicles [number|probability]")
     parser.add_argument("-i", "--write-route-ids", dest="writeRouteIDs", action="store_true", default=False,
                         help="write routes with ids")
-    parser.add_argument("-u", "--write-route-distribution", dest="writeRouteDist", 
+    parser.add_argument("-u", "--write-route-distribution", dest="writeRouteDist",
                         help="write routeDistribution with the given ID instead of individual routes")
     parser.add_argument("-v", "--verbose", action="store_true", default=False,
                         help="tell me what you are doing")
@@ -90,11 +90,11 @@ def get_options(args=None):
 
     if options.optimize is not None:
         try:
-            import scipy.optimize
+            import scipy.optimize  # noqa
             if options.optimize != "full":
                 try:
                     options.optimize = int(options.optimize)
-                except:
+                except Exception:
                     print("Option optimize requires the value 'full' or an integer", file=sys.stderr)
                     sys.exit(1)
         except ImportError:
@@ -134,7 +134,6 @@ class CountData:
             # first edge not in route
             return False
         return True
-
 
     def sampleOpen(self, openRoutes, routeCounts):
         cands = list(self.routeSet.intersection(openRoutes))
@@ -239,21 +238,21 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
     A_eq = np.concatenate((A, np.identity(m)), 1)
 
     # constraint: achieve counts
-    b = np.asarray([cd.origCount for cd in countData]) 
-    
+    b = np.asarray([cd.origCount for cd in countData])
+
     # minimization objective
     c = np.concatenate((np.zeros(k), np.ones(m)))  # [x, s], only s counts for minimization
 
     # set x to prior counts and slack to deficit (otherwise solver may fail to any find soluton
     x0 = priorRouteCounts + [cd.origCount - cd.count for cd in countData]
 
-    #print("k=%s" % k)
-    #print("m=%s" % m)
-    #print("A_eq (%s) %s" % (A_eq.shape, A_eq))
-    #print("b (%s) %s" % (len(b), b))
-    #print("c (%s) %s" % (len(c), c))
-    #print("bounds (%s) %s" % (len(bounds) if bounds is not None else "-", bounds))
-    #print("x0 (%s) %s" % (len(x0), x0))
+    # print("k=%s" % k)
+    # print("m=%s" % m)
+    # print("A_eq (%s) %s" % (A_eq.shape, A_eq))
+    # print("b (%s) %s" % (len(b), b))
+    # print("c (%s) %s" % (len(c), c))
+    # print("bounds (%s) %s" % (len(bounds) if bounds is not None else "-", bounds))
+    # print("x0 (%s) %s" % (len(x0), x0))
 
     linProgOpts = {}
     if options.verbose:
@@ -263,7 +262,8 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
         res = opt.linprog(c, A_eq=A_eq, b_eq=b, bounds=bounds, x0=x0, options=linProgOpts)
     except TypeError:
         if options.verbose:
-            sys.stderr.write("Warning: Scipy version %s does not support initial guess for opt.linprog. Optimization may fail" % scipy.version.version)
+            print("Warning: Scipy version %s does not support initial guess for opt.linprog. Optimization may fail"
+                  % scipy.version.version, file=sys.stderr)
         res = opt.linprog(c, A_eq=A_eq, b_eq=b, bounds=bounds, options=linProgOpts)
 
     del usedRoutes[:]
@@ -285,6 +285,7 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
     else:
         print("Optimization failed")
 
+
 class Routes:
     def __init__(self, routefiles):
         self.all = []
@@ -293,9 +294,10 @@ class Routes:
         self.unique = sorted(list(set(self.all)))
         self.number = len(self.unique)
         self.edges2index = dict([(e, i) for i, e in enumerate(self.unique)])
-        self.loadedCounts = [0] * len(self.edges2index) # route index to count
+        self.loadedCounts = [0] * len(self.edges2index)  # route index to count
         for e in self.all:
             self.loadedCounts[self.edges2index[e]] += 1
+
 
 def resetCounts(usedRoutes, routeUsage, countData):
     for cd in countData:
@@ -303,6 +305,7 @@ def resetCounts(usedRoutes, routeUsage, countData):
     for r in usedRoutes:
         for i in routeUsage[r]:
             countData[i].count -= 1
+
 
 def getRouteCounts(routes, usedRoutes):
     result = [0] * routes.number
@@ -408,7 +411,8 @@ def main(options):
                     if options.writeFlows == "number" or probability > 1.001:
                         repeat = 'number="%s"' % totalCount
                         if options.writeFlows == "probability":
-                            sys.stderr.write("Warning: could not write flow %s with probability %.2f\n" % (flowID , probability))
+                            sys.stderr.write("Warning: could not write flow %s with probability %.2f\n" %
+                                             (flowID, probability))
                     else:
                         repeat = 'probability="%s"' % probability
                     outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s"%s/>\n' % (

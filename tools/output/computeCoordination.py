@@ -30,8 +30,8 @@ import math  # noqa
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import sumolib
-from sumolib.xml import parse_fast # noqa
+import sumolib  # noqa
+from sumolib.xml import parse_fast  # noqa
 
 
 def getOptions(args=None):
@@ -39,14 +39,13 @@ def getOptions(args=None):
     usage = "generateTLSE2Detectors.py -n example.net.xml -l 250 -d .1 -f 60"
     argParser = sumolib.options.ArgumentParser(usage=usage)
     argParser.add_argument("-f", "--fcd-file", dest="fcdfile",
-            help="Input fcd file (mandatory)")
+                           help="Input fcd file (mandatory)")
     argParser.add_argument("-m", "--min-speed", dest="minspeed", type=float, default=5,
-            help="Minimum speed to consider vehicle undelayed")
+                           help="Minimum speed to consider vehicle undelayed")
     argParser.add_argument("--filter-route", dest="filterRoute",
-            help="only consider vehicles that pass the given list of edges (regardless of gaps)")
+                           help="only consider vehicles that pass the given list of edges (regardless of gaps)")
 
     options = argParser.parse_args()
-
 
     if options.fcdfile is None:
         sys.exit("mandatory argument FCD_FILE missing")
@@ -61,8 +60,8 @@ def getOptions(args=None):
 def main(options):
 
     routes = defaultdict(list)  # vehID -> recorded edges
-    minSpeed = defaultdict(lambda : 1000)
-    active = set() # vehicles that have passed the first filterRoute edge
+    minSpeed = defaultdict(lambda: 1000)
+    active = set()  # vehicles that have passed the first filterRoute edge
     for vehicle in parse_fast(options.fcdfile, 'vehicle', ['id', 'speed', 'lane']):
         vehID = vehicle.id
         edge = vehicle.lane[0:vehicle.lane.rfind('_')]
@@ -90,6 +89,7 @@ def main(options):
                 delayed += 1
 
     print("n=%s d=%s coordinationFactor=%s" % (n, delayed, (n - delayed) / float(n)))
+
 
 if __name__ == "__main__":
     main(getOptions())

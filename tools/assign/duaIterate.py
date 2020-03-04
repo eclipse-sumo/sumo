@@ -167,10 +167,10 @@ def initOptions():
                            help="give traffic jams a higher weight when using option --weight-memory")
     argParser.add_argument("--clean-alt", action="store_true", dest="clean_alt",
                            default=False, help="Whether old rou.alt.xml files shall be removed")
-    argParser.add_argument("--binary", dest="gzip", action="store_true",
-                           default=False, help="alias for using writing intermediate and resulting route files in gzipped format)")
-    argParser.add_argument("--gzip", action="store_true",
-                           default=False, help="alias for using writing intermediate and resulting route files in gzipped format)")
+    argParser.add_argument("--binary", dest="gzip", action="store_true", default=False,
+                           help="alias for --gzip")
+    argParser.add_argument("--gzip", action="store_true", default=False,
+                           help="writing intermediate and resulting route files in gzipped format")
     argParser.add_argument("--dualog", default="dua.log", help="log file path (default 'dua.log')")
     argParser.add_argument("--log", default="stdout.log", help="log file path (default 'dua.log')")
     argParser.add_argument("remaining_args", nargs='*')

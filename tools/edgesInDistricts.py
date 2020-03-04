@@ -91,7 +91,8 @@ class DistrictEdgeComputer:
         lastEdges = None
         key = (lambda i: i[0].attributes[options.merge_param]) if options.merge_param else None
         for idx, (district, edges) in enumerate(sorted(self._districtEdges.items(), key=key)):
-            filtered = [edge for edge in edges if edge not in self._invalidatedEdges and edge.getLength() > options.minlength]
+            filtered = [edge for edge in edges if edge not in self._invalidatedEdges and edge.getLength() >
+                        options.minlength]
             if len(filtered) == 0:
                 print("District '" + district.id + "' has no edges!")
             else:
@@ -171,8 +172,9 @@ def fillOptions(optParser):
                          help="merge edge lists of taz starting with the same string up to the given separator")
     optParser.add_option("--merge-param",
                          help="merge edge lists of taz/polygons having the same value for the given parameter")
-    optParser.add_option("--min-length",type="float", dest="minlength",
+    optParser.add_option("--min-length", type="float", dest="minlength",
                          default=0., help="use lanes where length is greater than this (m/s) (default: %default)")
+
 
 if __name__ == "__main__":
     optParser = OptionParser()
