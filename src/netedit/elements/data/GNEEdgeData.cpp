@@ -24,11 +24,12 @@
 // ===========================================================================
 #include <config.h>
 
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/network/GNEEdge.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 
 #include "GNEEdgeData.h"
@@ -134,30 +135,28 @@ GNEEdgeData::fixGenericDataProblem() {
 }
 
 
-void
-GNEEdgeData::selectAttributeCarrier(bool /*changeFlag*/) {
-    //
+Boundary 
+GNEEdgeData::getCenteringBoundary() const {
+    return getParentEdges().front()->getCenteringBoundary();
 }
 
 
-void
-GNEEdgeData::unselectAttributeCarrier(bool /*changeFlag*/) {
-    //
+void 
+GNEEdgeData::selectAttributeCarrier(bool changeFlag) {
+    // add object of list into selected objects
+    myDataIntervalParent->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_ADDITIONALELEMENT);
+    if (changeFlag) {
+        mySelected = true;
+    }
 }
 
 
-bool
-GNEEdgeData::isAttributeCarrierSelected() const {
-    return mySelected;
-}
-
-
-bool
-GNEEdgeData::drawUsingSelectColor() const {
-    if (mySelected && (getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) {
-        return true;
-    } else {
-        return false;
+void 
+GNEEdgeData::unselectAttributeCarrier(bool changeFlag) {
+    // remove object of list of selected objects
+    myDataIntervalParent->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_ADDITIONALELEMENT);
+    if (changeFlag) {
+        mySelected = false;
     }
 }
 
@@ -167,6 +166,8 @@ GNEEdgeData::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getParentEdges().front()->getID();
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
@@ -187,6 +188,7 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
+        case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, getViewNet()->getNet(), key, value));
             break;
@@ -199,6 +201,8 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
 bool
 GNEEdgeData::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
@@ -239,6 +243,13 @@ GNEEdgeData::getHierarchyName() const {
 void
 GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
+            break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
             break;
