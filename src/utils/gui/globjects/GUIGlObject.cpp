@@ -122,14 +122,17 @@ GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
     // make sure that reserved GLO_ADDITIONALELEMENT isn't used
     assert(myGLObjectType != GLO_ADDITIONALELEMENT);
     myFullName = createFullName();
+    // register object
     myGlID = GUIGlObjectStorage::gIDStorage.registerObject(this, myFullName);
 }
 
 
 GUIGlObject::~GUIGlObject() {
-    for (auto i : myParamWindows) {
-        i->removeObject(this);
+    // remove all paramWindow related with this object
+    for (const auto &paramWindow : myParamWindows) {
+        paramWindow->removeObject(this);
     }
+    // remove object from GLObjectValuePassConnector and GUIGlObjectStorage
     GLObjectValuePassConnector<double>::removeObject(*this);
     GUIGlObjectStorage::gIDStorage.remove(getGlID());
 }
@@ -173,8 +176,13 @@ GUIGlObject::getOptionalName() const {
 
 void
 GUIGlObject::setMicrosimID(const std::string& newID) {
+    // first remove objects from GUIGlObjectStorage
+    GUIGlObjectStorage::gIDStorage.remove(myGlID);
+    // set new microsimID and fullName
     myMicrosimID = newID;
     myFullName = createFullName();
+    // register object again
+    myGlID = GUIGlObjectStorage::gIDStorage.registerObject(this, myFullName);
 }
 
 
