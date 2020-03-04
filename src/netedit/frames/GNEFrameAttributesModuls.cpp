@@ -2851,14 +2851,15 @@ GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEA
 
 bool
 GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeProperties& ACAttr) {
-    if ((viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !ACAttr.getTagPropertyParent().isNetworkElement()) {
-        return false;
-    } else if ((viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !ACAttr.getTagPropertyParent().isDemandElement()) {
-        return false;
-    } else if ((viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DATA) && !ACAttr.getTagPropertyParent().isDataElement()) {
-        return false;
+    if (ACAttr.getTagPropertyParent().isNetworkElement() || ACAttr.getTagPropertyParent().isAdditionalElement() || 
+        ACAttr.getTagPropertyParent().isShape() || ACAttr.getTagPropertyParent().isTAZ()) {
+        return (viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK);
+    } else if (ACAttr.getTagPropertyParent().isDemandElement()) {
+        return (viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND);
+    } else if (ACAttr.getTagPropertyParent().isDataElement()) {
+        return (viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DATA);
     } else {
-        return true;
+        return false;
     }
 }
 
