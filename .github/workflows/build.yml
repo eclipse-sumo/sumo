@@ -17,7 +17,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        python-version: [3.5.4, 3.6.8, 3.7.6, 3.8.1]
+        python-version: [3.5, 3.6, 3.7, 3.8]
 
     steps:
     - name: Cloning SUMO
