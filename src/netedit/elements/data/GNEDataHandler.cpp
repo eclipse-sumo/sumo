@@ -23,7 +23,6 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/MsgHandler.h>
 #include <netedit/changes/GNEChange_DataSet.h>
 #include <netedit/changes/GNEChange_DataInterval.h>
 #include <netedit/changes/GNEChange_GenericData.h>
@@ -36,9 +35,6 @@
 #include <netedit/GNEUndoList.h>
 
 #include "GNEDataHandler.h"
-#include "GNEDataInterval.h"
-#include "GNEDataSet.h"
-#include "GNEEdgeData.h"
 
 
 // ===========================================================================
