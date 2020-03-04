@@ -54,6 +54,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"connection",          GLO_CONNECTION},
     {"tlLogic",             GLO_TLLOGIC},
     //
+    {"edgeData",            GLO_EDGEDATA},
+    //
     {"additional",          GLO_ADDITIONALELEMENT},
     {"busStop",             GLO_BUS_STOP},
     {"access",              GLO_ACCESS},
