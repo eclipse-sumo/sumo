@@ -263,7 +263,7 @@ GNEDataSet::getHierarchyName() const {
 
 
 void 
-GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& /* value */) {
     switch (key) {
         case SUMO_ATTR_ID:
             /* */

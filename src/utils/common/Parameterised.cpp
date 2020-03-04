@@ -41,8 +41,8 @@ Parameterised::Parameterised(const ParameterisedAttrType attrType) :
 
 
 Parameterised::Parameterised(const std::map<std::string, std::string>& mapArg) : 
-    myMap(mapArg),
-    myAttrType(ATTRTYPE_STRING) {
+    myAttrType(ATTRTYPE_STRING),
+    myMap(mapArg) {
 }
 
 
