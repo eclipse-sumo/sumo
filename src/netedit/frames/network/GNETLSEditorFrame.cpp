@@ -480,7 +480,8 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     int oldIndex = MAX2(0, myTLSPhases->getPhaseTable()->getSelStartRow());
     // copy current row
     SUMOTime duration = getSUMOTime(myTLSPhases->getPhaseTable()->getItemText(oldIndex, 0));
-    std::string state = myTLSPhases->getPhaseTable()->getItemText(oldIndex, fixedDuration() ? 1 : 3).text();
+    const std::string oldState = myTLSPhases->getPhaseTable()->getItemText(oldIndex, fixedDuration() ? 1 : 3).text();
+    std::string state = oldState;
 
     std::set<int> crossingIndices;
     for (NBNode* n : myEditedDef->getNodes()) {
@@ -531,6 +532,15 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
             if (state[i] == LINKSTATE_TL_YELLOW_MAJOR || state[i] == LINKSTATE_TL_YELLOW_MINOR) {
                 state[i] = LINKSTATE_TL_RED;
             }
+        }
+    }
+    // fix continuous green states
+    const int nextIndex = myTLSPhases->getPhaseTable()->getNumRows() > newIndex ? newIndex : 0;
+    const std::string state2 = myTLSPhases->getPhaseTable()->getItemText(nextIndex, fixedDuration() ? 1 : 3).text();
+    for (int i = 0; i < (int)state.size(); i++) {
+        if ((oldState[i] == LINKSTATE_TL_GREEN_MAJOR || oldState[i] == LINKSTATE_TL_GREEN_MINOR)
+                && (state2[i] == LINKSTATE_TL_GREEN_MAJOR || state2[i] == LINKSTATE_TL_GREEN_MINOR)) {
+            state[i] = oldState[i];
         }
     }
 
