@@ -361,7 +361,7 @@ def supermodeDemand():
     time.sleep(DELAY_RECOMPUTE)
 
 
-def supermodeDemand():
+def supermodeData():
     """
     @brief select supermode Data
     """
