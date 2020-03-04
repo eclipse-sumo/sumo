@@ -658,7 +658,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 
     // TODO: Treat case, where ego vehicle is currently on opposite lane
 
-    std::set<const MSBaseVehicle*> vehs;
+    std::set<const SUMOTrafficObject*> vehs;
     if (s.activeFilters & SUBS_FILTER_NO_RTREE) {
         // Set defaults for upstream/downstream/lateral distances
         double downstreamDist = s.range, upstreamDist = s.range, lateralDist = s.range;
@@ -815,11 +815,11 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             std::cout << "FILTER_LATERAL_DIST: myLane is '" << v->getLane()->getID() << "'" << std::endl;
 #endif
             // 1st pass: downstream
-            applySubscriptionFilterLateralDistanceSinglePass(objIDs, vehs, v->getUpcomingLanesUntil(downstreamDist), lateralDist,
-                    downstreamDist, v->getPositionOnLane(), true);
+            applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getUpcomingLanesUntil(downstreamDist),
+                    v->getPositionOnLane(), true);
             // 2nd pass: upstream
-            applySubscriptionFilterLateralDistanceSinglePass(objIDs, vehs, v->getPastLanesUntil(upstreamDist), lateralDist,
-                    upstreamDist, v->getPositionOnLane(), false);
+            applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getPastLanesUntil(upstreamDist),
+                    v->getPositionOnLane(), false);
 
             objIDs.clear();
         } else {
@@ -937,7 +937,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             }
         }
         // Write vehs IDs in objIDs
-        for (const MSBaseVehicle* veh : vehs) {
+        for (const SUMOTrafficObject* veh : vehs) {
             if (veh != nullptr) {
                 objIDs.insert(objIDs.end(), veh->getID());
             }
@@ -1014,7 +1014,10 @@ Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std
 }
 
 void
-Helper::applySubscriptionFilterLateralDistanceSinglePass(std::set<std::string>& objIDs, std::set<const MSBaseVehicle*>& vehs, const std::vector<const MSLane*>& lanes, double lateralDist, double streamDist, double posOnLane, bool isDownstream) {
+Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, std::set<std::string>& objIDs,
+        std::set<const SUMOTrafficObject*>& vehs,
+        const std::vector<const MSLane*>& lanes, double posOnLane, bool isDownstream) {
+    const double streamDist = isDownstream ? s.filterDownstreamDist : s.filterUpstreamDist;
     double distRemaining = streamDist;
     bool isFirstLane = true;
     for (const MSLane* lane : lanes) {
@@ -1040,10 +1043,10 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(std::set<std::string>& 
         // check remaining objects' distances to this lane
         auto i = objIDs.begin();
         while (i != objIDs.end()) {
-            MSBaseVehicle* veh = getVehicle(*i);
-            double minPerpendicularDist = laneShape.distance2D(veh->getPosition(), true);
-            if ((minPerpendicularDist != GeomHelper::INVALID_OFFSET) && (minPerpendicularDist <= lateralDist)) {
-                vehs.insert(veh);
+            SUMOTrafficObject* obj = getTrafficObject(s.contextDomain, *i);
+            double minPerpendicularDist = laneShape.distance2D(obj->getPosition(), true);
+            if ((minPerpendicularDist != GeomHelper::INVALID_OFFSET) && (minPerpendicularDist <= s.filterLateralDist)) {
+                vehs.insert(obj);
                 i = objIDs.erase(i);
             } else {
                 ++i;

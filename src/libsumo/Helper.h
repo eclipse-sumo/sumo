@@ -154,8 +154,10 @@ public:
 
     static void applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std::string>& objIDs);
 
-    static void applySubscriptionFilterLateralDistanceSinglePass(std::set<std::string>& objIDs, std::set<const MSBaseVehicle*>& vehs,
-            const std::vector<const MSLane*>& lanes, double lateralDist, double streamDist,
+    static void applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s,
+            std::set<std::string>& objIDs,
+            std::set<const SUMOTrafficObject*>& vehs,
+            const std::vector<const MSLane*>& lanes,
             double posOnLane, bool isDownstream);
 
     static void setRemoteControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
