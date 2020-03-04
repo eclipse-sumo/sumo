@@ -40,25 +40,26 @@
 // GNEGenericData - methods
 // ---------------------------------------------------------------------------
 
-GNEGenericData::GNEGenericData(const SumoXMLTag tag, GNEDataInterval* dataIntervalParent,
-                               const std::map<std::string, std::string>& parameters,
-                               const std::vector<GNEEdge*>& edgeParents,
-                               const std::vector<GNELane*>& laneParents,
-                               const std::vector<GNEShape*>& shapeParents,
-                               const std::vector<GNEAdditional*>& additionalParents,
-                               const std::vector<GNEDemandElement*>& demandElementParents,
-                               const std::vector<GNEGenericData*>& genericDataParents,
-                               const std::vector<GNEEdge*>& edgeChildren,
-                               const std::vector<GNELane*>& laneChildren,
-                               const std::vector<GNEShape*>& shapeChildren,
-                               const std::vector<GNEAdditional*>& additionalChildren,
-                               const std::vector<GNEDemandElement*>& demandElementChildren,
-                               const std::vector<GNEGenericData*>& genericDataChildren) :
+GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType GLType, GNEDataInterval* dataIntervalParent,
+        const std::map<std::string, std::string>& parameters,
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren,
+        const std::vector<GNEGenericData*>& genericDataChildren) :
     GNEAttributeCarrier(tag),
     Parameterised(Parameterised::ATTRTYPE_DOUBLE, parameters),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
-    myDataIntervalParent(dataIntervalParent) {
+    myDataIntervalParent(dataIntervalParent),
+    myGLType(GLType) {
 }
 
 
@@ -71,9 +72,9 @@ GNEGenericData::getDataIntervalParent() const {
 }
 
 
-std::string
-GNEGenericData::generateChildID(SumoXMLTag /*childTag*/) {
-    return "";
+const GUIGlObjectType 
+GNEGenericData::getGLType() const {
+    return myGLType;
 }
 
 
@@ -143,6 +144,12 @@ GNEGenericData::drawUsingSelectColor() const {
     } else {
         return false;
     }
+}
+
+
+std::string
+GNEGenericData::generateChildID(SumoXMLTag /*childTag*/) {
+    return "";
 }
 
 /****************************************************************************/

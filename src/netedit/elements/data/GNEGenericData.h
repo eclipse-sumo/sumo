@@ -55,6 +55,7 @@ class GNEGenericData : public GNEAttributeCarrier, public Parameterised, public 
 public:
     /**@brief Constructor
      * @param[in] tag generic data Tag (edgeData, laneData, etc.)
+     * @param[in] GLType GUIGlObjectType associated to this Generic Data
      * @param[in] dataIntervalParent pointer to data interval parent
      * @param[in] parameters parameters map
      * @param[in] edgeParents vector of edge parents
@@ -70,20 +71,20 @@ public:
      * @param[in] demandElementChildren vector of demandElement children
      * @param[in] genericDataChildren vector of genericData children
      */
-    GNEGenericData(const SumoXMLTag tag, GNEDataInterval* dataIntervalParent,
-                   const std::map<std::string, std::string>& parameters,
-                   const std::vector<GNEEdge*>& edgeParents,
-                   const std::vector<GNELane*>& laneParents,
-                   const std::vector<GNEShape*>& shapeParents,
-                   const std::vector<GNEAdditional*>& additionalParents,
-                   const std::vector<GNEDemandElement*>& demandElementParents,
-                   const std::vector<GNEGenericData*>& genericDataParents,
-                   const std::vector<GNEEdge*>& edgeChildren,
-                   const std::vector<GNELane*>& laneChildren,
-                   const std::vector<GNEShape*>& shapeChildren,
-                   const std::vector<GNEAdditional*>& additionalChildren,
-                   const std::vector<GNEDemandElement*>& demandElementChildren,
-                   const std::vector<GNEGenericData*>& genericDataChildren);
+    GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType GLType, GNEDataInterval* dataIntervalParent,
+        const std::map<std::string, std::string>& parameters,
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren,
+        const std::vector<GNEGenericData*>& genericDataChildren);
 
     /// @brief Destructor
     ~GNEGenericData();
@@ -91,8 +92,8 @@ public:
     /// @brief get data interval parent
     GNEDataInterval* getDataIntervalParent() const;
 
-    /// @brief gererate a new ID for an element child
-    std::string generateChildID(SumoXMLTag childTag);
+    /// @brief Returns the type of the object as coded in GUIGlObjectType
+    const GUIGlObjectType getGLType() const;
 
     /// @brief check if current generic data is visible
     bool isVisible() const;
@@ -199,12 +200,18 @@ protected:
     /// @brief dataInterval Parent
     GNEDataInterval* myDataIntervalParent;
 
+    /// @brief GL Type
+    const GUIGlObjectType myGLType;
+
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     virtual void setEnabledAttribute(const int enabledAttributes) = 0;
+
+    /// @brief gererate a new ID for an element child (currently unused)
+    std::string generateChildID(SumoXMLTag childTag);
 
     /// @brief Invalidated copy constructor.
     GNEGenericData(const GNEGenericData&) = delete;

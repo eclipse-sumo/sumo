@@ -38,6 +38,9 @@ enum GUIGlObjectType {
     /// @brief The network - empty
     GLO_NETWORK = 0,
 
+    /// @name nettork elements
+    /// @{
+
     /// @brief reserved GLO type to pack all network elements
     GLO_NETWORKELEMENT = 1,
     /// @brief an edge
@@ -52,6 +55,19 @@ enum GUIGlObjectType {
     GLO_CONNECTION = 6,
     /// @brief a tl-logic
     GLO_TLLOGIC = 8,
+
+    /// @}
+
+    /// @name data elements
+    /// @{
+
+    /// @brief edge Data
+    GLO_EDGEDATA = 50,
+
+    /// @}
+
+    /// @name additional elements
+    /// @{
 
     /// @brief reserved GLO type to pack all additionals elements
     GLO_ADDITIONALELEMENT = 100,
@@ -98,6 +114,11 @@ enum GUIGlObjectType {
     /// @brief a segment of an overhead line
     GLO_OVERHEAD_WIRE_SEGMENT = 121,
 
+    /// @}
+
+    /// @name shape elements
+    /// @{
+
     /// @brief reserved GLO type to pack shapes
     GLO_SHAPE = 200,
     /// @brief a polygon
@@ -105,38 +126,53 @@ enum GUIGlObjectType {
     /// @brief a poi
     GLO_POI = 202,
 
+    /// @}
+
+    /// @name demand elements
+    /// @{
+
     /// @brief reserved GLO type to pack all RouteElements (note: In this case the sorting of GLO_<element> is important!)
     GLO_ROUTEELEMENT = 300,
+    /// @bief vTypes
     GLO_VTYPE = 301,
+
+    /// @}
 
     /// @name routes
     /// @{
+
     /// @brief a route
     GLO_ROUTE = 310,
     /// @brief a embedded route
     GLO_EMBEDDEDROUTE = 311,
+
     /// @}
 
     /// @name Person plans
     /// @{
+
     /// @brief a ride
     GLO_RIDE = 320,
     /// @brief a walk
     GLO_WALK = 321,
     /// @brief a person trip
     GLO_PERSONTRIP = 322,
+
     /// @}
 
     /// @name stops
     /// @{
+
     /// @brief a stop
     GLO_STOP = 330,
     /// @brief a person stop
     GLO_PERSONSTOP = 331,
+
     /// @}
 
     /// @name vehicles
     /// @{
+
     /// @brief a vehicle
     GLO_VEHICLE = 340,
     /// @brief a trip
@@ -145,20 +181,25 @@ enum GUIGlObjectType {
     GLO_FLOW = 342,
     /// @brief a routeFlow
     GLO_ROUTEFLOW = 343,
+
     /// @}
 
     /// @name containers (carried by vehicles)
     /// @{
+
     /// @brief a container
     GLO_CONTAINER = 350,
+
     /// @}
 
     /// @name persons
     /// @{
+
     /// @brief a person
     GLO_PERSON = 360,
     /// @brief a person flow
     GLO_PERSONFLOW = 361,
+
     /// @}
 
     /// @brief empty max
