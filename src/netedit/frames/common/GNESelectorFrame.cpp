@@ -1592,7 +1592,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                 for (const auto& dataSet : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers().dataSets) {
                     for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                         for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
-                            if (genericData->getGLType() == GLO_EDGEDATA) {
+                            if (genericData->getType() == GLO_EDGEDATA) {
                                 if (genericData->isAttributeCarrierSelected()) {
                                     genericData->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
                                 } else {
@@ -1632,40 +1632,40 @@ GNESelectorFrame::ACsToSelected() const {
                 }
             }
         }
-        // select polygons
+        // check polygons
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POLYGON) && (myViewNet->getNet()->getPolygons().size() > 0)) {
             return true;
         }
-        // select POIs
+        // check POIs
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI) && (myViewNet->getNet()->getPOIs().size() > 0)) {
             return true;
         }
     } else if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
-        // select routes
+        // check routes
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ROUTE) && (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).size() > 0)) {
             return true;
         }
-        // select embedded routes
+        // check embedded routes
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EMBEDDEDROUTE) && (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_EMBEDDEDROUTE).size() > 0)) {
             return true;
         }
-        // select vehicles
+        // check vehicles
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_VEHICLE) && (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VEHICLE).size() > 0)) {
             return true;
         }
-        // select trips
+        // check trips
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_TRIP) && (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_TRIP).size() > 0)) {
             return true;
         }
-        // select flows
+        // check flows
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_FLOW) && (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_FLOW).size() > 0)) {
             return true;
         }
-        // select route flows
+        // check route flows
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ROUTEFLOW) && (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTEFLOW).size() > 0)) {
             return true;
         }
-        // select stops
+        // check stops
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_STOP)) {
             if ((myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_LANE).size() > 0) ||
                 (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_BUSSTOP).size() > 0) ||
@@ -1674,29 +1674,29 @@ GNESelectorFrame::ACsToSelected() const {
                 return true;
             }
         }
-        // select person
+        // check person
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSON) && (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSON).size() > 0)) {
             return true;
         }
-        // select person flows
+        // check person flows
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONFLOW) && (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONFLOW).size() > 0)) {
             return true;
         }
-        // select persontrips
+        // check persontrips
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONTRIP)) {
             if ((myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONTRIP_FROMTO).size() > 0) ||
                 (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONTRIP_BUSSTOP).size() > 0)) {
                 return true;
             }
         }
-        // select ride
+        // check ride
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_RIDE)) {
             if ((myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_RIDE_FROMTO).size() > 0) ||
                 (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_RIDE_BUSSTOP).size() > 0)) {
                 return true;
             }
         }
-        // select walks
+        // check walks
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_WALK)) {
             if ((myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_WALK_FROMTO).size() > 0) ||
                 (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_WALK_BUSSTOP).size() > 0) ||
@@ -1704,7 +1704,7 @@ GNESelectorFrame::ACsToSelected() const {
                 return true;
             }
         }
-        // select person stops
+        // check person stops
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONSTOP)) {
             if ((myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONSTOP_LANE).size() > 0) ||
                 (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONSTOP_BUSSTOP).size() > 0)) {
@@ -1712,20 +1712,19 @@ GNESelectorFrame::ACsToSelected() const {
             }
         }
     } else if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DATA) {
-        // select dataSets stops
+        // check generic datas
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGEDATA)) {
             for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers().dataSets) {
                 for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
-                    if (dataSet.second->getDataIntervalChildren().size() > 0) {
+                    if (dataInterval.second->getGenericDataChildren().size() > 0) {
                         return true;
                     }
                 }
             }
         }
-    } else {
-        // nothing to select
-        return false;
     }
+    // nothing to select
+    return false;
 }
 
 
