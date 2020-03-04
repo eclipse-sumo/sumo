@@ -34,6 +34,7 @@ class Position;
 class PositionVector;
 class RGBColor;
 class MSEdge;
+class SUMOTrafficObject;
 class MSPerson;
 class MSVehicle;
 class MSBaseVehicle;
@@ -132,6 +133,8 @@ public:
     static double getDrivingDistance(std::pair<const MSLane*, double>& roadPos1, std::pair<const MSLane*, double>& roadPos2);
 
     static MSBaseVehicle* getVehicle(const std::string& id);
+    static MSPerson* getPerson(const std::string& id);
+    static SUMOTrafficObject* getTrafficObject(int domain, const std::string& id);
     static const MSVehicleType& getVehicleType(const std::string& vehicleID);
 
     static void findObjectShape(int domain, const std::string& id, PositionVector& shape);

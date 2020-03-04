@@ -1011,7 +1011,9 @@ TraCIServer::initialiseSubscription(libsumo::Subscription& s) {
             }
             writeStatusCmd(s.commandId, libsumo::RTYPE_OK, "");
         }
-        if (modifiedSubscription != nullptr && modifiedSubscription->isVehicleToVehicleContextSubscription()) {
+        if (modifiedSubscription != nullptr && (
+                    modifiedSubscription->isVehicleToVehicleContextSubscription()
+                    || modifiedSubscription->isVehicleToPersonContextSubscription())) {
             // Set last modified vehicle context subscription active for filter modifications
             myLastContextSubscription = modifiedSubscription;
         } else {

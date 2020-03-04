@@ -142,7 +142,8 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
     handleSingleSubscription(s);
     libsumo::Subscription* modifiedSubscription = nullptr;
     needNewSubscription(s, mySubscriptions, modifiedSubscription);
-    if (modifiedSubscription->isVehicleToVehicleContextSubscription()) {
+    if (modifiedSubscription->isVehicleToVehicleContextSubscription()
+            || modifiedSubscription->isVehicleToPersonContextSubscription()) {
         // Set last modified vehicle context subscription active for filter modifications
         myLastContextSubscription = modifiedSubscription;
     }
@@ -468,6 +469,27 @@ Helper::getVehicle(const std::string& id) {
     return v;
 }
 
+
+MSPerson*
+Helper::getPerson(const std::string& personID) {
+    MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
+    MSPerson* p = dynamic_cast<MSPerson*>(c.get(personID));
+    if (p == nullptr) {
+        throw TraCIException("Person '" + personID + "' is not known");
+    }
+    return p;
+}
+
+SUMOTrafficObject*
+Helper::getTrafficObject(int domain, const std::string& id) {
+    if (domain == CMD_GET_VEHICLE_VARIABLE) {
+        return getVehicle(id);
+    } else if (domain == CMD_GET_PERSON_VARIABLE) {
+        return getPerson(id);
+    } else {
+        throw TraCIException("Cannot retrieve traffic object for domain " + toString(domain));
+    }
+}
 
 const MSVehicleType&
 Helper::getVehicleType(const std::string& vehicleID) {
@@ -973,13 +995,14 @@ Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std
             ++i;
             continue;
         }
-        MSBaseVehicle* veh = getVehicle(*i);
-        double angleEgoToVeh = egoPosition.angleTo2D(veh->getPosition());
+        SUMOTrafficObject* obj = getTrafficObject(s.contextDomain, *i);
+        double angleEgoToVeh = egoPosition.angleTo2D(obj->getPosition());
         double alpha = GeomHelper::angleDiff(egoVehicle->getAngle(), angleEgoToVeh);
 
 #ifdef DEBUG_SURROUNDING
-        std::cout << "FOVFILTER: veh '" << *i << "' dist  = " << toString(egoPosition.distanceTo2D(veh->getPosition())) << std::endl;
-        std::cout << "FOVFILTER: veh '" << *i << "' alpha = " << toString(RAD2DEG(alpha)) << " (deg)" << std::endl;
+        const std::string objType = s.isVehicleToPersonContextSubscription() ? "person" : "veh";
+        std::cout << "FOVFILTER: " << objType << " '" << *i << "' dist  = " << toString(egoPosition.distanceTo2D(obj->getPosition())) << std::endl;
+        std::cout << "FOVFILTER: " << objType << " '" << *i << "' alpha = " << toString(RAD2DEG(alpha)) << " (deg)" << std::endl;
 #endif
 
         if (abs(alpha) > openingAngle * 0.5) {

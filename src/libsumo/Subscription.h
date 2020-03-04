@@ -96,8 +96,12 @@ public:
           filterFieldOfVisionOpeningAngle(-1),
           filterLateralDist(-1) {}
 
-    bool isVehicleToVehicleContextSubscription() {
+    bool isVehicleToVehicleContextSubscription() const {
         return commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT && contextDomain == CMD_GET_VEHICLE_VARIABLE;
+    }
+
+    bool isVehicleToPersonContextSubscription() const {
+        return commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT && contextDomain == CMD_GET_PERSON_VARIABLE;
     }
 
     /// @brief commandIdArg The command id of the subscription

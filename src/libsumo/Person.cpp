@@ -956,12 +956,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Person, PERSON)
 
 MSPerson*
 Person::getPerson(const std::string& personID) {
-    MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
-    MSPerson* p = dynamic_cast<MSPerson*>(c.get(personID));
-    if (p == nullptr) {
-        throw TraCIException("Person '" + personID + "' is not known");
-    }
-    return p;
+    return Helper::getPerson(personID);
 }
 
 
