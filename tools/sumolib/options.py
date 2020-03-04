@@ -113,7 +113,9 @@ class ArgumentParser(argparse.ArgumentParser):
         args, argv = self.parse_known_args(args, namespace)
         if argv:
             self.error('unrecognized arguments: %s' % ' '.join(argv))
-        _OPTIONS[0] = args
+        if _OPTIONS[0] is None:
+            # only save the "outermost" option instance
+            _OPTIONS[0] = args
         return args
 
     def parse_known_args(self, args=None, namespace=None):
