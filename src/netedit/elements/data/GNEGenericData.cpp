@@ -24,6 +24,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
