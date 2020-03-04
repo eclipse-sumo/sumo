@@ -50,7 +50,7 @@ class GNEDataInterval;
  * @class GNEGenericData
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEGenericData : public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
+class GNEGenericData : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
 
 public:
     /**@brief Constructor
@@ -71,7 +71,7 @@ public:
      * @param[in] demandElementChildren vector of demandElement children
      * @param[in] genericDataChildren vector of genericData children
      */
-    GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType GLType, GNEDataInterval* dataIntervalParent,
+    GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
         const std::map<std::string, std::string>& parameters,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
@@ -92,11 +92,11 @@ public:
     /// @brief get data interval parent
     GNEDataInterval* getDataIntervalParent() const;
 
-    /// @brief Returns the type of the object as coded in GUIGlObjectType
-    const GUIGlObjectType getGLType() const;
-
     /// @brief check if current generic data is visible
     bool isVisible() const;
+
+    /// @brief Returns a pointer to GNEViewNet in which data set element is located
+    GNEViewNet* getViewNet() const;
 
     /// @brief get generic data color
     virtual const RGBColor& getColor() const = 0;
@@ -127,8 +127,35 @@ public:
     virtual void fixGenericDataProblem();
     /// @}
 
-    /// @brief Returns a pointer to GNEViewNet in which data set element is located
-    GNEViewNet* getViewNet() const;
+    /// @name inherited from GUIGlObject
+    /// @{
+    /**@brief Returns an own popup-menu
+     *
+     * @param[in] app The application needed to build the popup-menu
+     * @param[in] parent The parent window needed to build the popup-menu
+     * @return The built popup-menu
+     * @see GUIGlObject::getPopUpMenu
+     */
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
+    /**@brief Returns an own parameter window
+     *
+     * @param[in] app The application needed to build the parameter window
+     * @param[in] parent The parent window needed to build the parameter window
+     * @return The built parameter window
+     * @see GUIGlObject::getParameterWindow
+     */
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
+    /**@brief Draws the object
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
+    void drawGL(const GUIVisualizationSettings& s) const;
+
+    //// @brief Returns the boundary to which the view shall be centered in order to show the object
+    virtual Boundary getCenteringBoundary() const = 0;
+    /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -199,9 +226,6 @@ public:
 protected:
     /// @brief dataInterval Parent
     GNEDataInterval* myDataIntervalParent;
-
-    /// @brief GL Type
-    const GUIGlObjectType myGLType;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

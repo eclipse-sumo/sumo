@@ -27,6 +27,8 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEGenericData.h"
 #include "GNEDataInterval.h"
@@ -40,7 +42,7 @@
 // GNEGenericData - methods
 // ---------------------------------------------------------------------------
 
-GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType GLType, GNEDataInterval* dataIntervalParent,
+GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
         const std::map<std::string, std::string>& parameters,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
@@ -54,12 +56,12 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType GLTyp
         const std::vector<GNEAdditional*>& additionalChildren,
         const std::vector<GNEDemandElement*>& demandElementChildren,
         const std::vector<GNEGenericData*>& genericDataChildren) :
+    GUIGlObject(type, dataIntervalParent->getID()),
     GNEAttributeCarrier(tag),
     Parameterised(Parameterised::ATTRTYPE_DOUBLE, parameters),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
-    myDataIntervalParent(dataIntervalParent),
-    myGLType(GLType) {
+    myDataIntervalParent(dataIntervalParent) {
 }
 
 
@@ -69,12 +71,6 @@ GNEGenericData::~GNEGenericData() {}
 GNEDataInterval*
 GNEGenericData::getDataIntervalParent() const {
     return myDataIntervalParent;
-}
-
-
-const GUIGlObjectType 
-GNEGenericData::getGLType() const {
-    return myGLType;
 }
 
 
@@ -90,7 +86,7 @@ GNEGenericData::isVisible() const {
             if (edgeDataFrame->shown()) {
                 // check interval
                 if (edgeDataFrame->getIntervalSelector()->getDataInterval() &&
-                        (edgeDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
+                    (edgeDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
                     return false;
                 } else {
                     return true;
@@ -128,6 +124,57 @@ GNEGenericData::fixGenericDataProblem() {
 GNEViewNet*
 GNEGenericData::getViewNet() const {
     return myDataIntervalParent->getViewNet();
+}
+
+
+GUIGLObjectPopupMenu* 
+GNEGenericData::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    // build header
+    buildPopupHeader(ret, app);
+    // build menu command for center button and copy cursor position to clipboard
+    buildCenterPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
+    // buld menu commands for names
+    new FXMenuCommand(ret, ("Copy " + getTagStr() + " name to clipboard").c_str(), nullptr, ret, MID_COPY_NAME);
+    new FXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
+    new FXMenuSeparator(ret);
+    // build selection and show parameters menu
+    myDataIntervalParent->getViewNet()->buildSelectionACPopupEntry(ret, this);
+    buildShowParamsPopupEntry(ret);
+    // show option to open additional dialog
+    if (myTagProperty.hasDialog()) {
+        new FXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        new FXMenuSeparator(ret);
+    } else {
+        new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
+    }
+    return ret;
+}
+
+
+GUIParameterTableWindow* 
+GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    // Create table
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
+    // Iterate over attributes
+    for (const auto& tagProperty : myTagProperty) {
+        // Add attribute and set it dynamic if aren't unique
+        if (tagProperty.isUnique()) {
+            ret->mkItem(tagProperty.getAttrStr().c_str(), false, getAttribute(tagProperty.getAttr()));
+        } else {
+            ret->mkItem(tagProperty.getAttrStr().c_str(), true, getAttribute(tagProperty.getAttr()));
+        }
+    }
+    // close building
+    ret->closeBuilding();
+    return ret;
+}
+
+
+void 
+GNEGenericData::drawGL(const GUIVisualizationSettings& /*s*/) const {
+    // currently unused
 }
 
 
