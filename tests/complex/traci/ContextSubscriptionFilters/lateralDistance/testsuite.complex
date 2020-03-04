@@ -6,3 +6,4 @@ range_50_lateralDist_50
 
 # Tries to apply fieldOfVision and lateralDistance filters. Should result in an incompatibility warning.
 incompatible_filter
+persons
