@@ -171,6 +171,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
                                           (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
         myLaneColorRainbowCheck = new FXCheckButton(m24, "hide below threshold", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
         myLaneColorRainbowThreshold = new FXRealSpinner(m24, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+        myLaneColorRainbowThreshold->setRange(-100000, 100000);
 
         new FXHorizontalSeparator(frame2, GUIDesignHorizontalSeparator);
         //  ... scale settings
@@ -220,12 +221,12 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
         new FXLabel(m22, "Exaggerate width by", nullptr, GUIDesignViewSettingsLabel1);
         myLaneWidthUpscaleDialer = new FXRealSpinner(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
-        myLaneWidthUpscaleDialer->setRange(0, 10000);
+        myLaneWidthUpscaleDialer->setRange(0, 1000000);
         myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
 
         new FXLabel(m22, "Minimum size", nullptr, GUIDesignViewSettingsLabel1);
         myLaneMinWidthDialer = new FXRealSpinner(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
-        myLaneMinWidthDialer->setRange(0, 10000);
+        myLaneMinWidthDialer->setRange(0, 1000000);
         myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
 
         // edge name
