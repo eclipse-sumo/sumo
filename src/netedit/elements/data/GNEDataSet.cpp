@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEDataSet.cpp
 /// @author  Pablo Alvarez Lopez
@@ -43,21 +47,21 @@ GNEDataSet::GNEDataSet(GNEViewNet* viewNet, const std::string dataSetID) :
 GNEDataSet::~GNEDataSet() {}
 
 
-void 
+void
 GNEDataSet::updateGeometry() {
     // nothing to update
 }
 
 
-void 
+void
 GNEDataSet::updateDottedContour() {
     // nothing to update
 }
 
 
-Position 
+Position
 GNEDataSet::getPositionInView() const {
-    return Position(0,0);
+    return Position(0, 0);
 }
 
 
@@ -67,10 +71,10 @@ GNEDataSet::getViewNet() const {
 }
 
 
-void 
+void
 GNEDataSet::writeDataSet(OutputDevice& device) const {
     // iterate over intervals
-    for (const auto &interval : myDataIntervalChildren) {
+    for (const auto& interval : myDataIntervalChildren) {
         // open device
         device.openTag(SUMO_TAG_INTERVAL);
         // write ID
@@ -80,7 +84,7 @@ GNEDataSet::writeDataSet(OutputDevice& device) const {
         // write end
         device.writeAttr(SUMO_ATTR_END, interval.second->getAttribute(SUMO_ATTR_END));
         // iterate over interval generic datas
-        for (const auto &genericData : interval.second->getGenericDataChildren()) {
+        for (const auto& genericData : interval.second->getGenericDataChildren()) {
             // write generic data
             genericData->writeGenericData(device);
         }
@@ -90,7 +94,7 @@ GNEDataSet::writeDataSet(OutputDevice& device) const {
 }
 
 
-void 
+void
 GNEDataSet::addDataIntervalChild(GNEDataInterval* dataInterval) {
     // check that dataInterval wasn't previously inserted
     if (myDataIntervalChildren.count(dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN)) == 0) {
@@ -101,7 +105,7 @@ GNEDataSet::addDataIntervalChild(GNEDataInterval* dataInterval) {
 }
 
 
-void 
+void
 GNEDataSet::removeDataIntervalChild(GNEDataInterval* dataInterval) {
     // check that dataInterval was previously inserted
     if (myDataIntervalChildren.count(dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN)) == 1) {
@@ -112,9 +116,9 @@ GNEDataSet::removeDataIntervalChild(GNEDataInterval* dataInterval) {
 }
 
 
-bool 
+bool
 GNEDataSet::dataIntervalChildrenExist(GNEDataInterval* dataInterval) const {
-    for (const auto &interval : myDataIntervalChildren) {
+    for (const auto& interval : myDataIntervalChildren) {
         if (interval.second == dataInterval) {
             return true;
         }
@@ -122,7 +126,7 @@ GNEDataSet::dataIntervalChildrenExist(GNEDataInterval* dataInterval) const {
     return false;
 }
 
-void 
+void
 GNEDataSet::updateDataIntervalBegin(const double oldBegin) {
     // check that dataInterval was previously inserted
     if (myDataIntervalChildren.count(oldBegin) == 1) {
@@ -136,17 +140,17 @@ GNEDataSet::updateDataIntervalBegin(const double oldBegin) {
 }
 
 
-bool 
+bool
 GNEDataSet::checkNewInterval(const double newBegin, const double newEnd) {
     return checkNewInterval(myDataIntervalChildren, newBegin, newEnd);
 }
 
 
-bool 
+bool
 GNEDataSet::checkNewBeginEnd(const GNEDataInterval* dataInterval, const double newBegin, const double newEnd) {
     // make a copy of myDataIntervalChildren without dataInterval, and check checkNewInterval
     std::map<const double, GNEDataInterval*> copyOfDataIntervalMap;
-    for (const auto &element : myDataIntervalChildren) {
+    for (const auto& element : myDataIntervalChildren) {
         if (element.second != dataInterval) {
             copyOfDataIntervalMap.insert(element);
         }
@@ -155,7 +159,7 @@ GNEDataSet::checkNewBeginEnd(const GNEDataInterval* dataInterval, const double n
 }
 
 
-GNEDataInterval* 
+GNEDataInterval*
 GNEDataSet::retrieveInterval(const double begin, const double end) const {
     if (myDataIntervalChildren.count(begin) == 0) {
         return nullptr;
@@ -167,19 +171,19 @@ GNEDataSet::retrieveInterval(const double begin, const double end) const {
 }
 
 
-const std::map<const double, GNEDataInterval*>& 
+const std::map<const double, GNEDataInterval*>&
 GNEDataSet::getDataIntervalChildren() const {
     return myDataIntervalChildren;
 }
 
 
-void 
+void
 GNEDataSet::selectAttributeCarrier(bool /*changeFlag*/) {
     // nothing to select
 }
 
 
-void 
+void
 GNEDataSet::unselectAttributeCarrier(bool /*changeFlag*/) {
     // nothing to unselect
 }
@@ -197,7 +201,7 @@ GNEDataSet::drawUsingSelectColor() const {
 }
 
 
-std::string 
+std::string
 GNEDataSet::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
@@ -208,13 +212,13 @@ GNEDataSet::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEDataSet::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
 }
 
 
-void 
+void
 GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_ID:
@@ -226,43 +230,43 @@ GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
 }
 
 
-bool 
+bool
 GNEDataSet::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
     return true;
 }
 
 
-void 
+void
 GNEDataSet::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     // nothing to enable
 }
 
 
-void 
+void
 GNEDataSet::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     // nothing to disable
 }
 
 
-bool 
+bool
 GNEDataSet::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     return true;
 }
 
 
-std::string 
+std::string
 GNEDataSet::getPopUpID() const {
     return getTagStr();
 }
 
 
-std::string 
+std::string
 GNEDataSet::getHierarchyName() const {
     return getTagStr() + ": " + myDataSetID;
 }
 
 
-void 
+void
 GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& /* value */) {
     switch (key) {
         case SUMO_ATTR_ID:
@@ -280,8 +284,8 @@ GNEDataSet::setEnabledAttribute(const int /*enabledAttributes*/) {
 }
 
 
-bool 
-GNEDataSet::checkNewInterval(const std::map<const double, GNEDataInterval*> &dataIntervalMap, const double newBegin, const double newEnd) {
+bool
+GNEDataSet::checkNewInterval(const std::map<const double, GNEDataInterval*>& dataIntervalMap, const double newBegin, const double newEnd) {
     if (dataIntervalMap.empty()) {
         return true;
     } else {
@@ -303,7 +307,7 @@ GNEDataSet::checkNewInterval(const std::map<const double, GNEDataInterval*> &dat
                     // obtain previous edge
                     auto itPrevious = it;
                     itPrevious--;
-                    // check overlapping with end 
+                    // check overlapping with end
                     if (itPrevious->second->getAttributeDouble(SUMO_ATTR_END) < newBegin) {
                         return true;
                     }

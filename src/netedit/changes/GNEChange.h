@@ -95,40 +95,40 @@ public:
 
 protected:
     /// @brief add given edge into parents and children
-    void addEdge(GNEEdge *edge);
+    void addEdge(GNEEdge* edge);
 
     /// @brief remove given edge from parents and children
-    void removeEdge(GNEEdge *edge);
+    void removeEdge(GNEEdge* edge);
 
     /// @brief add given lane into parents and children
-    void addLane(GNELane *lane);
+    void addLane(GNELane* lane);
 
     /// @brief remove given lane from parents and children
-    void removeLane(GNELane *lane);
+    void removeLane(GNELane* lane);
 
     /// @brief add given shape into parents and children
-    void addShape(GNEShape *shape);
+    void addShape(GNEShape* shape);
 
     /// @brief remove given shape from parents and children
-    void removeShape(GNEShape *shape);
+    void removeShape(GNEShape* shape);
 
     /// @brief add given additional into parents and children
-    void addAdditional(GNEAdditional *additional);
+    void addAdditional(GNEAdditional* additional);
 
     /// @brief remove given additional from parents and children
-    void removeAdditional(GNEAdditional *additional);
+    void removeAdditional(GNEAdditional* additional);
 
     /// @brief add given demand element into parents and children
-    void addDemandElement(GNEDemandElement *demandElement);
+    void addDemandElement(GNEDemandElement* demandElement);
 
     /// @brief remove given demand element from parents and children
-    void removeDemandElement(GNEDemandElement *demandElement);
+    void removeDemandElement(GNEDemandElement* demandElement);
 
     /// @brief add given generic data into parents and children
-    void addGenericData(GNEGenericData *genericData);
+    void addGenericData(GNEGenericData* genericData);
 
     /// @brief remove given generic data from parents and children
-    void removeGenericData(GNEGenericData *genericData);
+    void removeGenericData(GNEGenericData* genericData);
 
     /**@brief the net to which operations shall be applied or which shall be
      * informed about gui updates

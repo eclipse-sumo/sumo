@@ -59,15 +59,15 @@ const double GNEJunction::BUBBLE_RADIUS(4);
 
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
-        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myNBNode(nbn),
-    myMaxSize(1),
-    myAmCreateEdgeSource(false),
-    myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myAmResponsible(false),
-    myHasValidLogic(loaded),
-    myAmTLSSelected(false),
-    myColorForMissingConnections(false) {
+{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+myNBNode(nbn),
+myMaxSize(1),
+myAmCreateEdgeSource(false),
+myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+myAmResponsible(false),
+myHasValidLogic(loaded),
+myAmTLSSelected(false),
+myColorForMissingConnections(false) {
 }
 
 
@@ -1241,7 +1241,7 @@ GNEJunction::drawJunctionChilds(const GUIVisualizationSettings& s) const {
         }
         // first check if Demand elements can be shown
         if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
-            myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
+                myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
             // draw demand elements
             drawDemandElements(s, incomingEdge);
         }

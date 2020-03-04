@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEDataInterval.cpp
 /// @author  Pablo Alvarez Lopez
@@ -37,7 +41,7 @@
 // GNEDataInterval - methods
 // ---------------------------------------------------------------------------
 
-GNEDataInterval::GNEDataInterval(GNEDataSet *dataSetParent, const double begin, const double end) :
+GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, const double end) :
     GNEAttributeCarrier(SUMO_TAG_DATAINTERVAL),
     myDataSetParent(dataSetParent),
     myBegin(begin),
@@ -48,25 +52,25 @@ GNEDataInterval::GNEDataInterval(GNEDataSet *dataSetParent, const double begin, 
 GNEDataInterval::~GNEDataInterval() {}
 
 
-GNEViewNet* 
+GNEViewNet*
 GNEDataInterval::getViewNet() const {
     return myDataSetParent->getViewNet();
 }
 
 
-void 
+void
 GNEDataInterval::updateGeometry() {
     // nothing to update
 }
 
 
-void 
+void
 GNEDataInterval::updateDottedContour() {
     // nothing to update
 }
 
 
-Position 
+Position
 GNEDataInterval::getPositionInView() const {
     return Position();
 }
@@ -96,7 +100,7 @@ GNEDataInterval::getDataSetParent() const {
 }
 
 
-void 
+void
 GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
     // check that GenericData wasn't previously inserted
     if (!hasGenericDataChild(genericData)) {
@@ -107,7 +111,7 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
 }
 
 
-void 
+void
 GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
     auto it = std::find(myGenericDataChildren.begin(), myGenericDataChildren.end(), genericData);
     // check that GenericData was previously inserted
@@ -119,26 +123,26 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
 }
 
 
-bool 
+bool
 GNEDataInterval::hasGenericDataChild(GNEGenericData* genericData) const {
     return std::find(myGenericDataChildren.begin(), myGenericDataChildren.end(), genericData) != myGenericDataChildren.end();
 }
 
 
-const std::vector<GNEGenericData*>& 
+const std::vector<GNEGenericData*>&
 GNEDataInterval::getGenericDataChildren() const {
     return myGenericDataChildren;
 }
 
 
-double 
-GNEDataInterval::getMinimumGenericDataChildAttribute(const std::string &paramStr) const {
+double
+GNEDataInterval::getMinimumGenericDataChildAttribute(const std::string& paramStr) const {
     double result = INVALID_DOUBLE;
     // iterate over generic data children
-    for (const auto &genericData : myGenericDataChildren) {
+    for (const auto& genericData : myGenericDataChildren) {
         // iterate over generic data params
-        for (const auto &param : genericData->getParametersMap()) {
-            // check paramStr and if attribute can be parsed to double 
+        for (const auto& param : genericData->getParametersMap()) {
+            // check paramStr and if attribute can be parsed to double
             if ((param.first == paramStr) && canParse<double>(param.second)) {
                 // parse param value
                 const double paramDouble = parse<double>(param.second);
@@ -160,14 +164,14 @@ GNEDataInterval::getMinimumGenericDataChildAttribute(const std::string &paramStr
 }
 
 
-double 
-GNEDataInterval::getMaximunGenericDataChildAttribute(const std::string &paramStr) const {
+double
+GNEDataInterval::getMaximunGenericDataChildAttribute(const std::string& paramStr) const {
     double result = INVALID_DOUBLE;
     // iterate over generic data children
-    for (const auto &genericData : myGenericDataChildren) {
+    for (const auto& genericData : myGenericDataChildren) {
         // iterate over generic data params
-        for (const auto &param : genericData->getParametersMap()) {
-            // check paramStr and if attribute can be parsed to double 
+        for (const auto& param : genericData->getParametersMap()) {
+            // check paramStr and if attribute can be parsed to double
             if ((param.first == paramStr) && canParse<double>(param.second)) {
                 // parse param value
                 const double paramDouble = parse<double>(param.second);
@@ -189,13 +193,13 @@ GNEDataInterval::getMaximunGenericDataChildAttribute(const std::string &paramStr
 }
 
 
-void 
+void
 GNEDataInterval::selectAttributeCarrier(bool /*changeFlag*/) {
     // GNEDataInterval cannot be selected
 }
 
 
-void 
+void
 GNEDataInterval::unselectAttributeCarrier(bool /*changeFlag*/) {
     // GNEDataInterval cannot be selected
 }
@@ -213,7 +217,7 @@ GNEDataInterval::drawUsingSelectColor() const {
 }
 
 
-std::string 
+std::string
 GNEDataInterval::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
@@ -228,7 +232,7 @@ GNEDataInterval::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEDataInterval::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_BEGIN:
@@ -241,7 +245,7 @@ GNEDataInterval::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-void 
+void
 GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_BEGIN:
@@ -254,7 +258,7 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
 }
 
 
-bool 
+bool
 GNEDataInterval::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_BEGIN:
@@ -267,19 +271,19 @@ GNEDataInterval::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEDataInterval::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     // Nothing to enable
 }
 
 
-void 
+void
 GNEDataInterval::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     // Nothing to disable
 }
 
 
-bool 
+bool
 GNEDataInterval::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
@@ -290,19 +294,19 @@ GNEDataInterval::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
-std::string 
+std::string
 GNEDataInterval::getPopUpID() const {
     return getTagStr();
 }
 
 
-std::string 
+std::string
 GNEDataInterval::getHierarchyName() const {
     return "interval: " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
 }
 
 
-void 
+void
 GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_BEGIN:
@@ -317,7 +321,7 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEDataInterval::setEnabledAttribute(const int /*enabledAttributes*/) {
     throw InvalidArgument("Nothing to enable");
 }

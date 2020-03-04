@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEGenericDataFrame.h
 /// @author  Pablo Alvarez Lopez
@@ -14,20 +18,17 @@
 // The Widget for add genericData elements
 /****************************************************************************/
 #pragma once
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
-
 class GNEDataInterval;
 class GNEDataSet;
+
 
 // ===========================================================================
 // class definitions
@@ -55,10 +56,10 @@ public:
         ~DataSetSelector();
 
         /// @brief refresh interval selector
-        void refreshDataSetSelector(const GNEDataSet *currentDataSet);
+        void refreshDataSetSelector(const GNEDataSet* currentDataSet);
 
         /// @brief get current select data set ID
-        GNEDataSet *getDataSet() const;
+        GNEDataSet* getDataSet() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -84,13 +85,13 @@ public:
         GNEGenericDataFrame* myGenericDataFrameParent;
 
         /// @brief check button to create a new dataSet
-        FXCheckButton *myNewDataSetCheckButton;
+        FXCheckButton* myNewDataSetCheckButton;
 
         /// @brief horizontal frame new id
-        FXHorizontalFrame *myHorizontalFrameNewID;
+        FXHorizontalFrame* myHorizontalFrameNewID;
 
         /// @brief interval new id
-        FXTextField *myNewDataSetIDTextField; 
+        FXTextField* myNewDataSetIDTextField;
 
         /// @brief create dataSet button
         FXButton* myCreateDataSetButton;
@@ -118,7 +119,7 @@ public:
         void refreshIntervalSelector();
 
         /// @brief get current select data set ID
-        GNEDataInterval *getDataInterval() const;
+        GNEDataInterval* getDataInterval() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -147,20 +148,20 @@ public:
         GNEGenericDataFrame* myGenericDataFrameParent;
 
         /// @brief check button to create a new interval
-        FXCheckButton *myNewIntervalCheckButton;
+        FXCheckButton* myNewIntervalCheckButton;
 
         /// @brief interval begin horizontal frame
-        FXHorizontalFrame *myHorizontalFrameBegin; 
+        FXHorizontalFrame* myHorizontalFrameBegin;
 
         /// @brief interval begin text field
-        FXTextField *myBeginTextField; 
+        FXTextField* myBeginTextField;
 
         /// @brief interval end horizontal frame
-        FXHorizontalFrame *myHorizontalFrameEnd; 
+        FXHorizontalFrame* myHorizontalFrameEnd;
 
         /// @brief interval end
-        FXTextField *myEndTextField; 
-        
+        FXTextField* myEndTextField;
+
         /// @brief create interval button
         FXButton* myCreateIntervalButton;
 
@@ -193,7 +194,7 @@ public:
         std::string getFilteredAttribute() const;
 
         /// @brief get color for the given value
-        const RGBColor &getScaledColor(const double min, const double max, const double value) const;
+        const RGBColor& getScaledColor(const double min, const double max, const double value) const;
 
         /// @name FOX-callbacks
         /// @{
@@ -211,21 +212,21 @@ public:
         GNEGenericDataFrame* myGenericDataFrameParent;
 
         /// @brief combo box for attributes
-        FXComboBox *myAttributesComboBox;
+        FXComboBox* myAttributesComboBox;
 
         /// @brief vector with the scale colors
         std::vector<RGBColor> myScaleColors;
     };
 
     /// @brief get dataSet selector modul
-    const DataSetSelector *getDataSetSelector() const;
+    const DataSetSelector* getDataSetSelector() const;
 
     /// @brief get interval selector modul
-    const IntervalSelector *getIntervalSelector() const;
+    const IntervalSelector* getIntervalSelector() const;
 
     /// @brief getattribute selector modul
-    const AttributeSelector *getAttributeSelector() const;
-    
+    const AttributeSelector* getAttributeSelector() const;
+
     /// @brief show Frame
     void show();
 
@@ -243,16 +244,16 @@ protected:
     void intervalSelected();
 
     /// @brief dataSet selector modul
-    DataSetSelector *myDataSetSelector;
+    DataSetSelector* myDataSetSelector;
 
     /// @brief interval selector modul
-    IntervalSelector *myIntervalSelector;
+    IntervalSelector* myIntervalSelector;
 
     /// @brief attribute selector modul
-    AttributeSelector *myAttributeSelector;
+    AttributeSelector* myAttributeSelector;
 
     /// @brief parameters editor
-    GNEFrameAttributesModuls::ParametersEditor *myParametersEditor;
+    GNEFrameAttributesModuls::ParametersEditor* myParametersEditor;
 
 private:
     /// @brief Invalidated copy constructor.
@@ -261,5 +262,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEGenericDataFrame& operator=(const GNEGenericDataFrame&) = delete;
 };
-
-/****************************************************************************/

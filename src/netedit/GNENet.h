@@ -725,7 +725,7 @@ public:
     std::string generateDataSetID(const std::string& prefix) const;
 
     /// @brief return a set of parameters for the given dataSet and data Interval
-    std::set<std::string> retrieveGenericDataParameters(const std::string &dataSetID, const std::string &beginStr, const std::string &endStr) const;
+    std::set<std::string> retrieveGenericDataParameters(const std::string& dataSetID, const std::string& beginStr, const std::string& endStr) const;
 
     /// @}
 
@@ -950,8 +950,8 @@ private:
         /// @brief constructor
         GNEChange_ReplaceEdgeInTLS(NBTrafficLightLogicCont& tllcont, NBEdge* replaced, NBEdge* by) :
             GNEChange(true),
-            myTllcont(tllcont), 
-            myReplaced(replaced), 
+            myTllcont(tllcont),
+            myReplaced(replaced),
             myBy(by) { }
 
         /// @bief destructor

@@ -62,18 +62,18 @@ public:
      * @param[in] genericDataChildren vector of genericData children
      */
     GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents,
-        const std::vector<GNEEdge*>& edgeChildren,
-        const std::vector<GNELane*>& laneChildren,
-        const std::vector<GNEShape*>& shapeChildren,
-        const std::vector<GNEAdditional*>& additionalChildren,
-        const std::vector<GNEDemandElement*>& demandElementChildren,
-        const std::vector<GNEGenericData*>& genericDataChildren);
+                      const std::vector<GNEEdge*>& edgeParents,
+                      const std::vector<GNELane*>& laneParents,
+                      const std::vector<GNEShape*>& shapeParents,
+                      const std::vector<GNEAdditional*>& additionalParents,
+                      const std::vector<GNEDemandElement*>& demandElementParents,
+                      const std::vector<GNEGenericData*>& genericDataParents,
+                      const std::vector<GNEEdge*>& edgeChildren,
+                      const std::vector<GNELane*>& laneChildren,
+                      const std::vector<GNEShape*>& shapeChildren,
+                      const std::vector<GNEAdditional*>& additionalChildren,
+                      const std::vector<GNEDemandElement*>& demandElementChildren,
+                      const std::vector<GNEGenericData*>& genericDataChildren);
 
     /// @brief Destructor
     ~GNENetworkElement();

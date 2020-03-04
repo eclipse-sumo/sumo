@@ -35,12 +35,12 @@
 // ===========================================================================
 
 GNEHierarchicalChildElements::GNEHierarchicalChildElements(GNEAttributeCarrier* AC,
-    const std::vector<GNEEdge*>& childEdges,
-    const std::vector<GNELane*>& childLanes,
-    const std::vector<GNEShape*>& childShapes,
-    const std::vector<GNEAdditional*>& childAdditionals,
-    const std::vector<GNEDemandElement*>& childDemandElements,
-    const std::vector<GNEGenericData*>& childGenericDataElements) :
+        const std::vector<GNEEdge*>& childEdges,
+        const std::vector<GNELane*>& childLanes,
+        const std::vector<GNEShape*>& childShapes,
+        const std::vector<GNEAdditional*>& childAdditionals,
+        const std::vector<GNEDemandElement*>& childDemandElements,
+        const std::vector<GNEGenericData*>& childGenericDataElements) :
     myChildConnections(this),
     myChildEdges(childEdges),
     myChildLanes(childLanes),
@@ -350,7 +350,7 @@ GNEHierarchicalChildElements::getNextChildDemandElement(const GNEDemandElement* 
 }
 
 
-void 
+void
 GNEHierarchicalChildElements::addChildGenericDataElement(GNEGenericData* genericDataElement) {
     // Check if demand element is valid
     if (genericDataElement == nullptr) {
@@ -362,7 +362,7 @@ GNEHierarchicalChildElements::addChildGenericDataElement(GNEGenericData* generic
 }
 
 
-void 
+void
 GNEHierarchicalChildElements::removeChildGenericDataElement(GNEGenericData* genericDataElement) {
     // First check that genericDataElement was already inserted
     auto it = std::find(myChildGenericDataElements.begin(), myChildGenericDataElements.end(), genericDataElement);

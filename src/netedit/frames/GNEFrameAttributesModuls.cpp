@@ -636,7 +636,7 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
         }
         // check special case for VType IDs in vehicle Frame
         if ((i.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) &&
-            (myFrameParent->getViewNet()->getEditModes().demandEditMode == GNE_DEMANDMODE_VEHICLE)) {
+                (myFrameParent->getViewNet()->getEditModes().demandEditMode == GNE_DEMANDMODE_VEHICLE)) {
             showAttribute = false;
         }
         // show attribute depending of showAttribute flag
@@ -1053,7 +1053,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
         if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
             if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->myViewNet, myACAttr)) {
-                 myAttributeButtonCombinableChoices->enable();
+                myAttributeButtonCombinableChoices->enable();
                 myAttributeColorButton->enable();
                 myAttributeCheckButton->enable();
             } else {
@@ -2124,7 +2124,7 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCar
         myButtonEditParameters->setText(("Edit " + title).c_str());
         // set first letter upper
         title[0] = (char)toupper(title[0]);
-        // change 
+        // change
         setText(title.c_str());
         // refresh ParametersEditor
         refreshParametersEditor();
@@ -2176,7 +2176,7 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(std::vector<GNE
         myButtonEditParameters->setText(("Edit " + title).c_str());
         // set first letter upper
         title[0] = (char)toupper(title[0]);
-        // change 
+        // change
         setText(title.c_str());
         // refresh ParametersEditor
         refreshParametersEditor();
@@ -2334,7 +2334,7 @@ GNEFrameAttributesModuls::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
         // clear current existent parameters and set parsed parameters
         myParameters.clear();
         // iterate over parameters
-        for (const auto &parameter : parameters) {
+        for (const auto& parameter : parameters) {
             // obtain key, value
             std::vector<std::string> keyParam = StringTokenizer(parameter, "=", true).getVector();
             // save it in myParameters
@@ -2835,8 +2835,8 @@ GNEFrameAttributesModuls::NeteditAttributes::setEndPosition(double positionOfThe
 }
 
 
-bool 
-GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet *viewNet, const GNEAttributeCarrier *AC) {
+bool
+GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC) {
     if ((viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !AC->getTagProperty().isNetworkElement()) {
         return false;
     } else if ((viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !AC->getTagProperty().isDemandElement()) {
@@ -2849,8 +2849,8 @@ GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet *viewNet, const GNEA
 }
 
 
-bool 
-GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet *viewNet, const GNEAttributeProperties &ACAttr) {
+bool
+GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeProperties& ACAttr) {
     if ((viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !ACAttr.getTagPropertyParent().isNetworkElement()) {
         return false;
     } else if ((viewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !ACAttr.getTagPropertyParent().isDemandElement()) {

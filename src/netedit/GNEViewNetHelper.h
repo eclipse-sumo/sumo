@@ -617,8 +617,8 @@ struct GNEViewNetHelper {
         GNEViewNet* myViewNet;
 
         /// @brief combo box for data sets
-        FXComboBox *myDataSet;
-        
+        FXComboBox* myDataSet;
+
         /// @checkbox for limit data elements by interval
         FXCheckButton* myLimitByInterval;
 
@@ -942,7 +942,7 @@ struct GNEViewNetHelper {
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
     };
-    
+
     /// @brief struct used to group all variables related with Demand checkable Buttons
     struct DemandCheckableButtons {
 

@@ -997,7 +997,7 @@ GNENet::requireSaveNet(bool value) {
         std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
         std::string demandElementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
         std::string dataSetsSaved = (myDataElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net unsaved, additionals " + additionalsSaved + 
+        WRITE_DEBUG("Current saving Status: net unsaved, additionals " + additionalsSaved +
                     ", demand elements " + demandElementsSaved + ", data sets " + dataSetsSaved);
     }
     myNetSaved = !value;
@@ -2270,7 +2270,7 @@ GNENet::requireSaveAdditionals(bool value) {
         std::string netSaved = (myNetSaved ? "saved" : "unsaved");
         std::string demandElementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
         std::string dataSetSaved = (myDataElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals unsaved, demand elements " + 
+        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals unsaved, demand elements " +
                     demandElementsSaved + ", data sets " + dataSetSaved);
     }
     myAdditionalsSaved = !value;
@@ -2428,7 +2428,7 @@ GNENet::requireSaveDemandElements(bool value) {
         std::string netSaved = (myNetSaved ? "saved" : "unsaved");
         std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
         std::string dataSetsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved + 
+        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved +
                     ", demand elements unsaved, data sets " + dataSetsSaved);
     }
     myDemandElementsSaved = !value;
@@ -2573,7 +2573,7 @@ GNENet::requireSaveDataElements(bool value) {
         std::string netSaved = (myNetSaved ? "saved" : "unsaved");
         std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
         std::string demandEleementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved + 
+        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved +
                     ", demand elements " + demandEleementsSaved + ", data sets unsaved");
     }
     myDataElementsSaved = !value;
@@ -2617,8 +2617,8 @@ GNENet::generateDataSetID(const std::string& prefix) const {
 }
 
 
-std::set<std::string> 
-GNENet::retrieveGenericDataParameters(const std::string &dataSetID, const std::string &beginStr, const std::string &endStr) const {
+std::set<std::string>
+GNENet::retrieveGenericDataParameters(const std::string& dataSetID, const std::string& beginStr, const std::string& endStr) const {
     // declare solution
     std::set<std::string> attributesSolution;
     // vector of data sets and intervals
@@ -2628,7 +2628,7 @@ GNENet::retrieveGenericDataParameters(const std::string &dataSetID, const std::s
     if (dataSetID.empty()) {
         // add all data sets
         dataSets.reserve(myAttributeCarriers.dataSets.size());
-        for (const auto &dataSet : myAttributeCarriers.dataSets) {
+        for (const auto& dataSet : myAttributeCarriers.dataSets) {
             dataSets.push_back(dataSet.second);
         }
     } else if (myAttributeCarriers.dataSets.count(dataSetID) > 0) {
@@ -2638,21 +2638,21 @@ GNENet::retrieveGenericDataParameters(const std::string &dataSetID, const std::s
     }
     // now continue with data intervals
     int numberOfIntervals = 0;
-    for (const auto &dataSet : dataSets) {
+    for (const auto& dataSet : dataSets) {
         numberOfIntervals += (int)dataSet->getDataIntervalChildren().size();
     }
     // resize dataIntervals
     dataIntervals.reserve(numberOfIntervals);
     // add intervals
-    for (const auto &dataSet : dataSets) {
-        for (const auto &dataInterval : dataSet->getDataIntervalChildren()) {
+    for (const auto& dataSet : dataSets) {
+        for (const auto& dataInterval : dataSet->getDataIntervalChildren()) {
             // continue depending of begin and end
             if (beginStr.empty() && endStr.empty()) {
                 dataIntervals.push_back(dataInterval.second);
             } else if (endStr.empty()) {
                 // parse begin
                 const double begin = GNEAttributeCarrier::parse<double>(beginStr);
-                if (dataInterval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin){
+                if (dataInterval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) {
                     dataIntervals.push_back(dataInterval.second);
                 }
             } else if (beginStr.empty()) {
@@ -2666,16 +2666,16 @@ GNENet::retrieveGenericDataParameters(const std::string &dataSetID, const std::s
                 const double begin = GNEAttributeCarrier::parse<double>(beginStr);
                 const double end = GNEAttributeCarrier::parse<double>(endStr);
                 if ((dataInterval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) &&
-                    (dataInterval.second->getAttributeDouble(SUMO_ATTR_END) <= end)) {
+                        (dataInterval.second->getAttributeDouble(SUMO_ATTR_END) <= end)) {
                     dataIntervals.push_back(dataInterval.second);
                 }
             }
         }
     }
     // finally iterate over intervals and get attributes
-    for (const auto &dataInterval : dataIntervals) {
-        for (const auto &genericData : dataInterval->getGenericDataChildren()) {
-            for (const auto &attribute : genericData->getParametersMap()) {
+    for (const auto& dataInterval : dataIntervals) {
+        for (const auto& genericData : dataInterval->getGenericDataChildren()) {
+            for (const auto& attribute : genericData->getParametersMap()) {
                 attributesSolution.insert(attribute.first);
             }
         }
@@ -2769,7 +2769,7 @@ GNENet::saveDataElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("meandata", "meandata_file.xsd");
     // write all data sets
-    for (const auto &dataSet : myAttributeCarriers.dataSets) {
+    for (const auto& dataSet : myAttributeCarriers.dataSets) {
         dataSet.second->writeDataSet(device);
     }
     // close device

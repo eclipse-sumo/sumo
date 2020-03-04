@@ -327,9 +327,9 @@ public:
 
     /// @brief get the undoList object
     GNEUndoList* getUndoList() const;
-    
+
     /// @brief get interval bar
-    GNEViewNetHelper::IntervalBar &getIntervalBar();
+    GNEViewNetHelper::IntervalBar& getIntervalBar();
 
     /// @brief get AttributeCarrier under cursor
     const GNEAttributeCarrier* getDottedAC() const;

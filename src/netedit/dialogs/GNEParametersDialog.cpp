@@ -368,7 +368,7 @@ GNEParametersDialog::ParametersOptions::onCmdSortParameters(FXObject*, FXSelecto
     // first extract empty values
     for (auto i = myParameterDialogParent->myEditedParameters.begin(); i != myParameterDialogParent->myEditedParameters.end(); i++) {
         if (!i->first.empty()) {
-           ParametersNoEmpty.push_back(*i);
+            ParametersNoEmpty.push_back(*i);
         } else if (i->first.empty() && !i->second.empty()) {
             valuesEmpty.push_back(i->second);
         }
@@ -377,11 +377,11 @@ GNEParametersDialog::ParametersOptions::onCmdSortParameters(FXObject*, FXSelecto
     std::sort(ParametersNoEmpty.begin(), ParametersNoEmpty.end());
     // add values without key
     for (auto i : valuesEmpty) {
-       ParametersNoEmpty.push_back(std::make_pair("", i));
+        ParametersNoEmpty.push_back(std::make_pair("", i));
     }
     // fill ParametersNoEmpty with empty values
     while (ParametersNoEmpty.size() < myParameterDialogParent->myEditedParameters.size()) {
-       ParametersNoEmpty.push_back(std::make_pair("", ""));
+        ParametersNoEmpty.push_back(std::make_pair("", ""));
     }
     // finally replace parameters in myParametersValues with ParametersNoEmpty
     myParameterDialogParent->myParametersValues->setParameters(ParametersNoEmpty);
@@ -395,7 +395,7 @@ long
 GNEParametersDialog::ParametersOptions::onCmdHelpParameter(FXObject*, FXSelector, void*) {
     // Create dialog box
     FXDialogBox* ParameterHelpDialog = new FXDialogBox(this, " Parameters Help", GUIDesignDialogBox);
-   ParameterHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_APP_TABLE));
+    ParameterHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_APP_TABLE));
     // set help text
     std::ostringstream help;
     help
@@ -416,9 +416,9 @@ GNEParametersDialog::ParametersOptions::onCmdHelpParameter(FXObject*, FXSelector
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Opening Parameter help dialog");
     // create Dialog
-   ParameterHelpDialog->create();
+    ParameterHelpDialog->create();
     // show in the given position
-   ParameterHelpDialog->show(PLACEMENT_CURSOR);
+    ParameterHelpDialog->show(PLACEMENT_CURSOR);
     // refresh APP
     getApp()->refresh();
     // open as modal dialog (will block all windows until stop() or stopModal() is called)

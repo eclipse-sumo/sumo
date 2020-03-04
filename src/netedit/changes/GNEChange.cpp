@@ -130,8 +130,8 @@ GNEChange::undo() {}
 void
 GNEChange::redo() {}
 
-void 
-GNEChange::addEdge(GNEEdge *edge) {
+void
+GNEChange::addEdge(GNEEdge* edge) {
     // add edge in parent elements
     for (const auto& parent : myParentEdges) {
         parent->addChildEdge(edge);
@@ -174,7 +174,7 @@ GNEChange::addEdge(GNEEdge *edge) {
 
 
 void
-GNEChange::removeEdge(GNEEdge *edge) {
+GNEChange::removeEdge(GNEEdge* edge) {
     // Remove edge from parent elements
     for (const auto& parent : myParentEdges) {
         parent->removeChildEdge(edge);
@@ -216,8 +216,8 @@ GNEChange::removeEdge(GNEEdge *edge) {
 }
 
 
-void 
-GNEChange::addLane(GNELane *lane) {
+void
+GNEChange::addLane(GNELane* lane) {
     // add lane in parent elements
     for (const auto& parent : myParentEdges) {
         parent->addChildLane(lane);
@@ -260,7 +260,7 @@ GNEChange::addLane(GNELane *lane) {
 
 
 void
-GNEChange::removeLane(GNELane *lane) {
+GNEChange::removeLane(GNELane* lane) {
     // Remove lane from parent elements
     for (const auto& parent : myParentEdges) {
         parent->removeChildLane(lane);
@@ -302,8 +302,8 @@ GNEChange::removeLane(GNELane *lane) {
 }
 
 
-void 
-GNEChange::addShape(GNEShape *shape) {
+void
+GNEChange::addShape(GNEShape* shape) {
     // add shape in parent elements
     for (const auto& parent : myParentEdges) {
         parent->addChildShape(shape);
@@ -346,7 +346,7 @@ GNEChange::addShape(GNEShape *shape) {
 
 
 void
-GNEChange::removeShape(GNEShape *shape) {
+GNEChange::removeShape(GNEShape* shape) {
     // Remove shape from parent elements
     for (const auto& parent : myParentEdges) {
         parent->removeChildShape(shape);
@@ -388,8 +388,8 @@ GNEChange::removeShape(GNEShape *shape) {
 }
 
 
-void 
-GNEChange::addAdditional(GNEAdditional *additional) {
+void
+GNEChange::addAdditional(GNEAdditional* additional) {
     // add additional in parent elements
     for (const auto& parent : myParentEdges) {
         parent->addChildAdditional(additional);
@@ -432,7 +432,7 @@ GNEChange::addAdditional(GNEAdditional *additional) {
 
 
 void
-GNEChange::removeAdditional(GNEAdditional *additional) {
+GNEChange::removeAdditional(GNEAdditional* additional) {
     // Remove additional from parent elements
     for (const auto& parent : myParentEdges) {
         parent->removeChildAdditional(additional);
@@ -474,8 +474,8 @@ GNEChange::removeAdditional(GNEAdditional *additional) {
 }
 
 
-void 
-GNEChange::addDemandElement(GNEDemandElement *demandElement) {
+void
+GNEChange::addDemandElement(GNEDemandElement* demandElement) {
     // add demandElement in parent elements
     for (const auto& parent : myParentEdges) {
         parent->addChildDemandElement(demandElement);
@@ -517,8 +517,8 @@ GNEChange::addDemandElement(GNEDemandElement *demandElement) {
 }
 
 
-void 
-GNEChange::removeDemandElement(GNEDemandElement *demandElement) {
+void
+GNEChange::removeDemandElement(GNEDemandElement* demandElement) {
     // remove demandElement in parent elements
     for (const auto& parent : myParentEdges) {
         parent->removeChildDemandElement(demandElement);
@@ -560,8 +560,8 @@ GNEChange::removeDemandElement(GNEDemandElement *demandElement) {
 }
 
 
-void 
-GNEChange::addGenericData(GNEGenericData *genericData) {
+void
+GNEChange::addGenericData(GNEGenericData* genericData) {
     // add genericData in parent elements
     for (const auto& parent : myParentEdges) {
         parent->addChildGenericDataElement(genericData);
@@ -603,8 +603,8 @@ GNEChange::addGenericData(GNEGenericData *genericData) {
 }
 
 
-void 
-GNEChange::removeGenericData(GNEGenericData *genericData) {
+void
+GNEChange::removeGenericData(GNEGenericData* genericData) {
     // remove genericData in parent elements
     for (const auto& parent : myParentEdges) {
         parent->removeChildGenericDataElement(genericData);

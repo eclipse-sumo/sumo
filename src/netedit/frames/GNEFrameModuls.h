@@ -610,5 +610,5 @@ public:
     };
 
     /// @brief build rainbow in frame modul
-    static std::vector<RGBColor> buildRainbow(FXComposite *parent);
+    static std::vector<RGBColor> buildRainbow(FXComposite* parent);
 };

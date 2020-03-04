@@ -468,7 +468,7 @@ GNEViewNet::getDemandViewOptions() const {
 }
 
 
-const GNEViewNetHelper::DataViewOptions& 
+const GNEViewNetHelper::DataViewOptions&
 GNEViewNet::getDataViewOptions() const {
     return myDataViewOptions;
 }
@@ -1696,7 +1696,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdLimitInterval(FXObject*, FXSelector, void*) {
     // just call update interval bar
     myIntervalBar.updateLimitByInterval();

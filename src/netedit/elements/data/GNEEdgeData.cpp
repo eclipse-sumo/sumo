@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEEdgeData.cpp
 /// @author  Pablo Alvarez Lopez
@@ -39,16 +43,17 @@
 // GNEEdgeData - methods
 // ---------------------------------------------------------------------------
 
-GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge *edgeParent, const std::map<std::string, std::string>& parameters) :
-    GNEGenericData(SUMO_TAG_MEANDATA_EDGE, dataIntervalParent, parameters,
-        {edgeParent}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}) {
+GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const std::map<std::string, std::string>& parameters) :
+    GNEGenericData(SUMO_TAG_MEANDATA_EDGE, dataIntervalParent, parameters, {
+    edgeParent
+}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}) {
 }
 
 
 GNEEdgeData::~GNEEdgeData() {}
 
 
-const RGBColor &
+const RGBColor&
 GNEEdgeData::getColor() const {
     // first check if we're in supermode demand
     if (myDataIntervalParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DATA) {
@@ -59,7 +64,7 @@ GNEEdgeData::getColor() const {
             // check if we have to filter generic data
             if (edgeDataFrame->shown()) {
                 // get interval
-                const GNEDataInterval *dataInterval = edgeDataFrame->getIntervalSelector()->getDataInterval();
+                const GNEDataInterval* dataInterval = edgeDataFrame->getIntervalSelector()->getDataInterval();
                 // get filtered attribute (can be empty)
                 const std::string filteredAttribute = edgeDataFrame->getAttributeSelector()->getFilteredAttribute();
                 // check interval
@@ -67,7 +72,7 @@ GNEEdgeData::getColor() const {
                     // get maximum and minimum value
                     const double minimumValue = dataInterval->getMinimumGenericDataChildAttribute(filteredAttribute);
                     const double maximumValue = dataInterval->getMaximunGenericDataChildAttribute(filteredAttribute);
-                    const double colorValue = getParametersMap().count(filteredAttribute) > 0? parse<double>(getParametersMap().at(filteredAttribute)) : 0;
+                    const double colorValue = getParametersMap().count(filteredAttribute) > 0 ? parse<double>(getParametersMap().at(filteredAttribute)) : 0;
                     // return scaled color
                     return edgeDataFrame->getAttributeSelector()->getScaledColor(minimumValue, maximumValue, colorValue);
                 }
@@ -78,32 +83,32 @@ GNEEdgeData::getColor() const {
 }
 
 
-void 
+void
 GNEEdgeData::updateGeometry() {
     // nothing to update
 }
 
 
-void 
+void
 GNEEdgeData::updateDottedContour() {
     // nothing to update
 }
 
 
-Position 
+Position
 GNEEdgeData::getPositionInView() const {
     return getParentEdges().front()->getPositionInView();
 }
 
 
-void 
+void
 GNEEdgeData::writeGenericData(OutputDevice& device) const {
     // open device (don't use SUMO_TAG_MEANDATA_EDGE)
     device.openTag(SUMO_TAG_EDGE);
     // write edge ID
     device.writeAttr(SUMO_ATTR_ID, getParentEdges().front()->getID());
     // iterate over attributes
-    for (const auto &attribute : getParametersMap()) {
+    for (const auto& attribute : getParametersMap()) {
         // write attribute (don't use writeParams)
         device.writeAttr(attribute.first, attribute.second);
     }
@@ -130,7 +135,7 @@ GNEEdgeData::fixGenericDataProblem() {
 }
 
 
-void 
+void
 GNEEdgeData::selectAttributeCarrier(bool /*changeFlag*/) {
     //
 }
@@ -158,7 +163,7 @@ GNEEdgeData::drawUsingSelectColor() const {
 }
 
 
-std::string 
+std::string
 GNEEdgeData::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
@@ -171,13 +176,13 @@ GNEEdgeData::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEEdgeData::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
 }
 
 
-void 
+void
 GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
@@ -192,7 +197,7 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
 }
 
 
-bool 
+bool
 GNEEdgeData::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case GNE_ATTR_PARAMETERS:
@@ -203,13 +208,13 @@ GNEEdgeData::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEEdgeData::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     // Nothing to enable
 }
 
 
-void 
+void
 GNEEdgeData::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     // Nothing to disable enable
 }
@@ -220,19 +225,19 @@ bool GNEEdgeData::isAttributeEnabled(SumoXMLAttr /*key*/) const {
 }
 
 
-std::string 
+std::string
 GNEEdgeData::getPopUpID() const {
     return getTagStr();
 }
 
 
-std::string 
+std::string
 GNEEdgeData::getHierarchyName() const {
     return getTagStr() + ": " + getParentEdges().front()->getID();
 }
 
 
-void 
+void
 GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case GNE_ATTR_PARAMETERS:
@@ -244,7 +249,7 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEEdgeData::setEnabledAttribute(const int /*enabledAttributes*/) {
     throw InvalidArgument("Nothing to enable");
 }

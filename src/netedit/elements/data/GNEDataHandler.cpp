@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEDataHandler.cpp
 /// @author  Pablo Alvarez Lopez
@@ -52,7 +56,7 @@ GNEDataHandler::HierarchyInsertedDatas::insertElement(SumoXMLTag tag) {
 
 
 
-void 
+void
 GNEDataHandler::HierarchyInsertedDatas::commitDataIntervalInsertion(GNEDataInterval* dataIntervalCreated) {
     myInsertedElements.back().second.first = dataIntervalCreated;
 }
@@ -190,8 +194,8 @@ GNEDataHandler::buildData(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag ta
 }
 
 
-GNEDataSet* 
-GNEDataHandler::buildDataSet(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &dataSetID) {
+GNEDataSet*
+GNEDataHandler::buildDataSet(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& dataSetID) {
     GNEDataSet* dataSet = new GNEDataSet(viewNet, dataSetID);
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DATASET));
@@ -205,7 +209,7 @@ GNEDataHandler::buildDataSet(GNEViewNet* viewNet, bool allowUndoRedo, const std:
 
 
 GNEDataInterval*
-GNEDataHandler::buildDataInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataSet *dataSetParent, const double begin, const double end) {
+GNEDataHandler::buildDataInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataSet* dataSetParent, const double begin, const double end) {
     GNEDataInterval* dataInterval = new GNEDataInterval(dataSetParent, begin, end);
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DATAINTERVAL));
@@ -220,8 +224,8 @@ GNEDataHandler::buildDataInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEDa
 
 
 GNEEdgeData*
-GNEDataHandler::buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval *dataIntervalParent, GNEEdge* edge, 
-        const std::map<std::string, std::string>& parameters) {
+GNEDataHandler::buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, GNEEdge* edge,
+                              const std::map<std::string, std::string>& parameters) {
     GNEEdgeData* edgeData = new GNEEdgeData(dataIntervalParent, edge, parameters);
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_MEANDATA_EDGE));
@@ -236,7 +240,7 @@ GNEDataHandler::buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataIn
 }
 
 
-bool 
+bool
 GNEDataHandler::parseAndBuildInterval(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
     bool abort = false;
     // parse edgeData attributes
@@ -246,7 +250,7 @@ GNEDataHandler::parseAndBuildInterval(GNEViewNet* viewNet, bool allowUndoRedo, c
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // retrieve data set parent
-        GNEDataSet *dataSet = viewNet->getNet()->retrieveDataSet(id, false);
+        GNEDataSet* dataSet = viewNet->getNet()->retrieveDataSet(id, false);
         // check if we need to create a new data set
         if (dataSet == nullptr) {
             dataSet = buildDataSet(viewNet, true, id);
@@ -281,7 +285,7 @@ GNEDataHandler::parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, c
             WRITE_WARNING(toString(SUMO_TAG_MEANDATA_EDGE) + " '" + edgeID + "' must be created within a data interval.");
         } else {
             // check if there is already a edge data for the given edge in the interval
-            for (const auto &genericData : insertedDatas->getLastInsertedDataInterval()->getGenericDataChildren()) {
+            for (const auto& genericData : insertedDatas->getLastInsertedDataInterval()->getGenericDataChildren()) {
                 if ((genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && (genericData->getParentEdges().front() == edge)) {
                     WRITE_WARNING("There is already a " + genericData->getTagStr() + " in edge '" + edge->getID() + "'");
                     return false;
@@ -292,7 +296,7 @@ GNEDataHandler::parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, c
             // obtain all attribute
             const std::vector<std::string> attributes = attrs.getAttributeNames();
             // iterate over attributes and fill parameters map
-            for (const auto &attribute : attributes) {
+            for (const auto& attribute : attributes) {
                 if (attribute != toString(SUMO_ATTR_ID)) {
                     parameters[attribute] = attrs.getStringSecure(attribute, "");
                 }

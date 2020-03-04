@@ -115,7 +115,7 @@ GNEChange_Edge::redo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
-       // remove edge from parents and children
+        // remove edge from parents and children
         removeEdge(myEdge);
         // remove edge lanes from parents and children
         removeEdgeLanes();
@@ -148,7 +148,7 @@ GNEChange_Edge::redoName() const {
 
 
 
-void 
+void
 GNEChange_Edge::addEdgeLanes() {
     // iterate over edge lanes
     for (int i = 0; i < (int)myEdge->getLanes().size(); i++) {
@@ -182,7 +182,7 @@ GNEChange_Edge::addEdgeLanes() {
 }
 
 
-void 
+void
 GNEChange_Edge::removeEdgeLanes() {
     // iterate over edge lanes
     for (int i = 0; i < (int)myEdge->getLanes().size(); i++) {

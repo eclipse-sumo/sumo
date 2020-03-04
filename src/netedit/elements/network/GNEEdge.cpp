@@ -55,15 +55,15 @@ const double GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE,
-        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myNBEdge(nbe),
-    myGNEJunctionSource(myNet->retrieveJunction(nbe->getFromNode()->getID())),
-    myGNEJunctionDestiny(myNet->retrieveJunction(nbe->getToNode()->getID())),
-    myLanes(0),
-    myAmResponsible(false),
-    myWasSplit(wasSplit),
-    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myUpdateGeometry(true) {
+{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+myNBEdge(nbe),
+myGNEJunctionSource(myNet->retrieveJunction(nbe->getFromNode()->getID())),
+myGNEJunctionDestiny(myNet->retrieveJunction(nbe->getToNode()->getID())),
+myLanes(0),
+myAmResponsible(false),
+myWasSplit(wasSplit),
+myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+myUpdateGeometry(true) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);

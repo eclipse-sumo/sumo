@@ -46,8 +46,8 @@ void APIENTRY endTAZCallback(void) {
 
 
 void APIENTRY combineTAZCallback(GLdouble coords[3],
-                              GLdouble* vertex_data[4],
-                              GLfloat weight[4], GLdouble** dataOut) {
+                                 GLdouble* vertex_data[4],
+                                 GLfloat weight[4], GLdouble** dataOut) {
     UNUSED_PARAMETER(weight);
     UNUSED_PARAMETER(*vertex_data);
     GLdouble* vertex;
@@ -71,18 +71,18 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // member method definitions
 // ===========================================================================
 GNETAZ::GNETAZ(const std::string& id, GNEViewNet* viewNet, PositionVector shape, RGBColor color, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement, 
-        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myColor(color),
-    myTAZShape(shape),
-    myBlockShape(false),
-    myCurrentMovingVertexIndex(-1),
-    myMaxWeightSource(0),
-    myMinWeightSource(0),
-    myAverageWeightSource(0),
-    myMaxWeightSink(0),
-    myMinWeightSink(0),
-    myAverageWeightSink(0) {
+    GNEAdditional(id, viewNet, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement,
+{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+myColor(color),
+myTAZShape(shape),
+myBlockShape(false),
+myCurrentMovingVertexIndex(-1),
+myMaxWeightSource(0),
+myMinWeightSource(0),
+myAverageWeightSource(0),
+myMaxWeightSink(0),
+myMinWeightSink(0),
+myAverageWeightSink(0) {
 }
 
 
@@ -630,7 +630,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
             break;
-         case SUMO_ATTR_FILL:
+        case SUMO_ATTR_FILL:
             myDrawFill = parse<bool>(value);
             break;
         case SUMO_ATTR_EDGES:

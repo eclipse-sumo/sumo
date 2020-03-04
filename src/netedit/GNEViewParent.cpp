@@ -286,7 +286,7 @@ GNEViewParent::getPersonPlanFrame() const {
 }
 
 
-GNEEdgeDataFrame* 
+GNEEdgeDataFrame*
 GNEViewParent::getEdgeDataFrame() const {
     return myFrames.edgeDataFrame;
 }

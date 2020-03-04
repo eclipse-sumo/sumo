@@ -115,7 +115,7 @@ public:
 
         /// @brief menu bar drag for mode options (show connections, select edges...)
         FXToolBarShell* myToolBarShellModeOptions;
-        
+
         /// @brief menu bar drag for interval bar
         FXToolBarShell* myToolBarShellIntervalBar;
     };
@@ -143,7 +143,7 @@ public:
 
     /// @brief called if the user selects Processing->compute junctions with volatile options
     long computeJunctionWithVolatileOptions();
-    
+
     /// @brief enable save TLS Programs
     void enableSaveTLSProgramsMenu();
 

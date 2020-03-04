@@ -1621,15 +1621,15 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
         FXTreeItem* dataElementItem = addListItem(AC, itemParent);
         // insert intervals
         if (AC->getTagProperty().getTag() == SUMO_TAG_DATASET) {
-            GNEDataSet *dataSet = myFrameParent->myViewNet->getNet()->retrieveDataSet(AC->getID());
+            GNEDataSet* dataSet = myFrameParent->myViewNet->getNet()->retrieveDataSet(AC->getID());
             // iterate over intevals
-            for (const auto &interval : dataSet->getDataIntervalChildren()) {
+            for (const auto& interval : dataSet->getDataIntervalChildren()) {
                 showAttributeCarrierChildren(interval.second, dataElementItem);
             }
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
-            GNEDataInterval *dataInterval = dynamic_cast<GNEDataInterval*>(AC);
+            GNEDataInterval* dataInterval = dynamic_cast<GNEDataInterval*>(AC);
             // iterate over generic datas
-            for (const auto &genericData : dataInterval->getGenericDataChildren()) {
+            for (const auto& genericData : dataInterval->getGenericDataChildren()) {
                 showAttributeCarrierChildren(genericData, dataElementItem);
             }
         }
@@ -2142,7 +2142,7 @@ GNEFrameModuls::OverlappedInspection::buildFXElements() {
 
 
 std::vector<RGBColor>
-GNEFrameModuls::buildRainbow(FXComposite *parent) {
+GNEFrameModuls::buildRainbow(FXComposite* parent) {
     // declare scale colors
     std::vector<RGBColor> scaleColors;
     // create label for color information
@@ -2160,7 +2160,7 @@ GNEFrameModuls::buildRainbow(FXComposite *parent) {
     scaleColors.push_back(RGBColor(127, 0,   255));
     // create frame for color scale
     FXHorizontalFrame* horizontalFrameColors = new FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame);
-    for (const auto &color : scaleColors) {
+    for (const auto& color : scaleColors) {
         FXLabel* colorLabel = new FXLabel(horizontalFrameColors, "", nullptr, GUIDesignLabelLeft);
         colorLabel->setBackColor(MFXUtils::getFXColor(color));
     }

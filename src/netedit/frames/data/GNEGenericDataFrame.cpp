@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEGenericDataFrame.cpp
 /// @author  Pablo Alvarez Lopez
@@ -13,10 +17,6 @@
 ///
 // The Widget for add genericData elements
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/GNENet.h>
@@ -94,7 +94,7 @@ GNEGenericDataFrame::DataSetSelector::~DataSetSelector() {}
 
 
 void
-GNEGenericDataFrame::DataSetSelector::refreshDataSetSelector(const GNEDataSet *currentDataSet) {
+GNEGenericDataFrame::DataSetSelector::refreshDataSetSelector(const GNEDataSet* currentDataSet) {
     // clear items
     myDataSetsComboBox->clearItems();
     // declare item index
@@ -111,7 +111,7 @@ GNEGenericDataFrame::DataSetSelector::refreshDataSetSelector(const GNEDataSet *c
     // Set visible items
     myDataSetsComboBox->setNumVisible((int)myDataSetsComboBox->getNumItems());
     // check if we have to set current element
-    if(currentItemIndex != -1) {
+    if (currentItemIndex != -1) {
         myDataSetsComboBox->setCurrentItem(currentItemIndex, FALSE);
     }
     // recalc frame
@@ -133,11 +133,11 @@ GNEGenericDataFrame::DataSetSelector::getDataSet() const {
 }
 
 
-long 
+long
 GNEGenericDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, void*) {
     // get string
     const std::string dataSetID = myNewDataSetIDTextField->getText().text();
-    // check conditions 
+    // check conditions
     if (myNewDataSetIDTextField->getTextColor() == FXRGB(255, 0, 0)) {
         WRITE_WARNING("Invalid dataSet ID");
     } else if (dataSetID.empty()) {
@@ -146,7 +146,7 @@ GNEGenericDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, 
         WRITE_WARNING("Invalid duplicated dataSet ID");
     } else {
         // build data set
-        const GNEDataSet *dataSet = GNEDataHandler::buildDataSet(myGenericDataFrameParent->getViewNet(), true, dataSetID);
+        const GNEDataSet* dataSet = GNEDataHandler::buildDataSet(myGenericDataFrameParent->getViewNet(), true, dataSetID);
         // refresh tag selector
         refreshDataSetSelector(dataSet);
         // change check button
@@ -156,14 +156,14 @@ GNEGenericDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, 
 }
 
 
-long 
+long
 GNEGenericDataFrame::DataSetSelector::onCmdSetNewDataSetID(FXObject*, FXSelector, void*) {
     //
     return 1;
 }
 
 
-long 
+long
 GNEGenericDataFrame::DataSetSelector::onCmdSelectDataSet(FXObject*, FXSelector, void*) {
     // update interval modul
     myGenericDataFrameParent->myIntervalSelector->refreshIntervalSelector();
@@ -171,7 +171,7 @@ GNEGenericDataFrame::DataSetSelector::onCmdSelectDataSet(FXObject*, FXSelector, 
 }
 
 
-long 
+long
 GNEGenericDataFrame::DataSetSelector::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
     if (myNewDataSetCheckButton->getCheck() == TRUE) {
         // enable textfield and label
@@ -237,18 +237,18 @@ GNEGenericDataFrame::IntervalSelector::refreshIntervalSelector() {
     myIntervalsTreelist->clearItems();
     myTreeItemIntervalMap.clear();
     // obtain data set
-    const GNEDataSet *dataSet = myGenericDataFrameParent->myDataSetSelector->getDataSet();
-    // add intervals 
+    const GNEDataSet* dataSet = myGenericDataFrameParent->myDataSetSelector->getDataSet();
+    // add intervals
     if (dataSet) {
         // insert dataSetItem in Tree list
-        FXTreeItem* dataSetItem = myIntervalsTreelist->insertItem(nullptr, nullptr, 
-            dataSet->getHierarchyName().c_str(), 
-            dataSet->getIcon(), 
-            dataSet->getIcon());
+        FXTreeItem* dataSetItem = myIntervalsTreelist->insertItem(nullptr, nullptr,
+                                  dataSet->getHierarchyName().c_str(),
+                                  dataSet->getIcon(),
+                                  dataSet->getIcon());
         // by default item is expanded
         dataSetItem->setExpanded(true);
         // iterate over intevals
-        for (const auto &interval : dataSet->getDataIntervalChildren()) {
+        for (const auto& interval : dataSet->getDataIntervalChildren()) {
             addListItem(interval.second, dataSetItem);
         }
     }
@@ -265,27 +265,27 @@ GNEDataInterval*
 GNEGenericDataFrame::IntervalSelector::getDataInterval() const {
     // first check if there is elements in interval tree
     if (myIntervalsTreelist->getNumItems() > 0) {
-        for (const auto &treeItem : myTreeItemIntervalMap) {
+        for (const auto& treeItem : myTreeItemIntervalMap) {
             if (treeItem.first->isSelected()) {
                 return treeItem.second;
             }
         }
     }
-    // no GNEDataInterval found, then return nullptr 
+    // no GNEDataInterval found, then return nullptr
     return nullptr;
 }
 
 
-long 
+long
 GNEGenericDataFrame::IntervalSelector::onCmdCreateInterval(FXObject*, FXSelector, void*) {
     // first check that begin and end are valid
     if (GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text()) &&
-        GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
+            GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
         // obtain begin and end
         const double begin = GNEAttributeCarrier::parse<double>(myBeginTextField->getText().text());
         const double end = GNEAttributeCarrier::parse<double>(myEndTextField->getText().text());
         // get data set parent
-        GNEDataSet *dataSet = myGenericDataFrameParent->myDataSetSelector->getDataSet();
+        GNEDataSet* dataSet = myGenericDataFrameParent->myDataSetSelector->getDataSet();
         if (dataSet && dataSet->checkNewInterval(begin, end)) {
             GNEDataHandler::buildDataInterval(myGenericDataFrameParent->getViewNet(), true, dataSet, begin, end);
         }
@@ -296,7 +296,7 @@ GNEGenericDataFrame::IntervalSelector::onCmdCreateInterval(FXObject*, FXSelector
 }
 
 
-long 
+long
 GNEGenericDataFrame::IntervalSelector::onCmdSelectInterval(FXObject*, FXSelector, void*) {
     // refresh attribute selector
     myGenericDataFrameParent->myAttributeSelector->refreshAttributeSelector();
@@ -304,7 +304,7 @@ GNEGenericDataFrame::IntervalSelector::onCmdSelectInterval(FXObject*, FXSelector
 }
 
 
-long 
+long
 GNEGenericDataFrame::IntervalSelector::onCmdSetIntervalAttribute(FXObject* obj, FXSelector, void*) {
     if (obj == myBeginTextField) {
         // check if begin value can be parsed to double
@@ -327,7 +327,7 @@ GNEGenericDataFrame::IntervalSelector::onCmdSetIntervalAttribute(FXObject* obj, 
 }
 
 
-long 
+long
 GNEGenericDataFrame::IntervalSelector::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
     if (myNewIntervalCheckButton->getCheck() == TRUE) {
         // enable begin and end elements
@@ -335,7 +335,7 @@ GNEGenericDataFrame::IntervalSelector::onCmdSelectCheckButton(FXObject*, FXSelec
         myHorizontalFrameEnd->show();
         myCreateIntervalButton->show();
         // refresh begin and end text fields
-        const GNEDataSet *dataSet = myGenericDataFrameParent->myDataSetSelector->getDataSet();
+        const GNEDataSet* dataSet = myGenericDataFrameParent->myDataSetSelector->getDataSet();
         if (dataSet) {
             if (dataSet->getDataIntervalChildren().empty()) {
                 // set default interval (1 hour)
@@ -343,7 +343,7 @@ GNEGenericDataFrame::IntervalSelector::onCmdSelectCheckButton(FXObject*, FXSelec
                 myEndTextField->setText("3600");
             } else {
                 // obtain last data interval
-                const GNEDataInterval *lastDataInterval = dataSet->getDataIntervalChildren().rbegin()->second;
+                const GNEDataInterval* lastDataInterval = dataSet->getDataIntervalChildren().rbegin()->second;
                 const double intervalDuration = lastDataInterval->getAttributeDouble(SUMO_ATTR_END) - lastDataInterval->getAttributeDouble(SUMO_ATTR_BEGIN);
                 // set new begin end
                 myBeginTextField->setText(toString(lastDataInterval->getAttributeDouble(SUMO_ATTR_END)).c_str());
@@ -365,10 +365,10 @@ GNEGenericDataFrame::IntervalSelector::onCmdSelectCheckButton(FXObject*, FXSelec
 FXTreeItem*
 GNEGenericDataFrame::IntervalSelector::addListItem(GNEDataInterval* dataInterval, FXTreeItem* itemParent) {
     // insert item in Tree list
-    FXTreeItem* item = myIntervalsTreelist->insertItem(nullptr, itemParent, 
-        dataInterval->getHierarchyName().c_str(), 
-        dataInterval->getIcon(), 
-        dataInterval->getIcon());
+    FXTreeItem* item = myIntervalsTreelist->insertItem(nullptr, itemParent,
+                       dataInterval->getHierarchyName().c_str(),
+                       dataInterval->getIcon(),
+                       dataInterval->getIcon());
     // insert item in map
     myTreeItemIntervalMap[item] = dataInterval;
     // by default item is expanded
@@ -412,19 +412,19 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
         // add attributes depending of interval
         if (myGenericDataFrameParent->myIntervalSelector->getDataInterval() == nullptr) {
             const auto parameters = myGenericDataFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(
-                myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(), "", "");
+                                        myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(), "", "");
             // add all parameters
-            for (const auto &attribute : parameters) {
+            for (const auto& attribute : parameters) {
                 myAttributesComboBox->appendItem(attribute.c_str());
             }
         } else {
             // retrieve all parameters within begin and end
             const auto parameters = myGenericDataFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(
-                myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(), 
-                myGenericDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_BEGIN), 
-                myGenericDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_END));
+                                        myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(),
+                                        myGenericDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_BEGIN),
+                                        myGenericDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_END));
             // add all parameters
-            for (const auto &attribute : parameters) {
+            for (const auto& attribute : parameters) {
                 myAttributesComboBox->appendItem(attribute.c_str());
             }
         }
@@ -444,7 +444,7 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
 }
 
 
-std::string 
+std::string
 GNEGenericDataFrame::AttributeSelector::getFilteredAttribute() const {
     if (myAttributesComboBox->getNumItems() == 0) {
         return "";
@@ -462,7 +462,7 @@ GNEGenericDataFrame::AttributeSelector::getScaledColor(const double min, const d
     if (value <= min) {
         return myScaleColors.front();
     } else if (value >= max) {
-        return myScaleColors.back(); 
+        return myScaleColors.back();
     } else {
         // calculate value procent between [min, max]
         const double procent = ((value - min) * 100) / (max - min);
@@ -470,7 +470,7 @@ GNEGenericDataFrame::AttributeSelector::getScaledColor(const double min, const d
         if (procent <= 0) {
             return myScaleColors.front();
         } else if (procent >= 100) {
-            return myScaleColors.back(); 
+            return myScaleColors.back();
         } else {
             // return scaled color
             return myScaleColors.at((int)(procent / 10.0));
@@ -479,7 +479,7 @@ GNEGenericDataFrame::AttributeSelector::getScaledColor(const double min, const d
 }
 
 
-long 
+long
 GNEGenericDataFrame::AttributeSelector::onCmdSelectAttribute(FXObject*, FXSelector, void*) {
     // update view
     myGenericDataFrameParent->getViewNet()->update();
@@ -537,9 +537,10 @@ GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParen
 GNEGenericDataFrame::~GNEGenericDataFrame() {}
 
 
-void 
+void
 GNEGenericDataFrame::intervalSelected() {
     //
 }
+
 
 /****************************************************************************/
