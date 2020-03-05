@@ -131,10 +131,6 @@ MSRoutingEngine::getEffort(const MSEdge* const e, const SUMOVehicle* const v, do
 
 double
 MSRoutingEngine::getEffortExtra(const MSEdge* const e, const SUMOVehicle* const v, double t) {
-    if (e->getBidiEdge() != nullptr && !e->getBidiEdge()->getLanes()[0]->isEmpty()) {
-        // using std::numeric_limits<double>::max() causing router warnings
-        return e->getLength() / NUMERICAL_EPS;
-    }
     double effort = getEffort(e, v, t);
     if (gWeightsRandomFactor != 1.) {
         effort *= RandHelper::rand(1., gWeightsRandomFactor);
@@ -218,9 +214,7 @@ void
 MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
     OptionsCont& oc = OptionsCont::getOptions();
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
-    myEffortFunc = (gWeightsRandomFactor != 1 || MSNet::getInstance()->hasBidiEdges()
-                    ? &MSRoutingEngine::getEffortExtra
-                    : &MSRoutingEngine::getEffort);
+    myEffortFunc = (gWeightsRandomFactor != 1 ? &MSRoutingEngine::getEffortExtra : &MSRoutingEngine::getEffort);
 
     SUMOAbstractRouter<MSEdge, SUMOVehicle>* router = nullptr;
     if (routingAlgorithm == "dijkstra") {
