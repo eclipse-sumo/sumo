@@ -12,7 +12,7 @@ cross-platform, cross-language, and networked interaction with
 communication overhead due to the protocol and the socket communication.
 To have a more efficient coupling without the need for socket
 communication, the TraCI API is provided as a C++ library with the
-followin properties:
+following properties:
 
 - C++ interface based on static functions and a few simple wrapper
   classes for results which can be linked directly to the client code
