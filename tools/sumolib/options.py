@@ -30,13 +30,13 @@ _OPTIONS = [None]
 
 def get_long_option_names(application):
     # @todo using option "--save-template stdout" and parsing xml would be prettier
-    output = subprocess.check_output([application, '--help'])
+    output = subprocess.check_output([application, '--help'], universal_newlines=True)
     reprog = re.compile(r'(--\S*)\s')
     result = []
     for line in output.splitlines():
         m = reprog.search(line)
         if m:
-            result.append(m.group(1).decode('utf-8'))
+            result.append(m.group(1))
     return result
 
 
