@@ -96,6 +96,9 @@ visibility
 
 # custom speed
 speed
+
+# custom connection length
+length
 shape
 
 # custom connection permissions

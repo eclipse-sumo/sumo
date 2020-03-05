@@ -1,0 +1,3 @@
+--edge-files=input_plain.edg.xml --connection-files input_plain.con.xml
+--node-files=input_plain.nod.xml --output=net.net.xml
+--plain-output-prefix plain
