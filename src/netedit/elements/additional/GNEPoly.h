@@ -67,6 +67,9 @@ public:
     /// @brief Destructor
     ~GNEPoly();
 
+    /// @brief get ID
+    const std::string& getID() const;
+
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
 

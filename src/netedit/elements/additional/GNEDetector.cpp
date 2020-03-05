@@ -128,7 +128,7 @@ GNEDetector::getAttributeDouble(SumoXMLAttr key) const {
 
 std::string
 GNEDetector::getParentName() const {
-    return getLane()->getMicrosimID();
+    return getLane()->getID();
 }
 
 

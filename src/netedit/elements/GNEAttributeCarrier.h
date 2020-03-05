@@ -65,6 +65,9 @@ public:
     /// @brief Destructor
     virtual ~GNEAttributeCarrier();
 
+    /// @brief get ID (all Attribute Carriers have one)
+    virtual const std::string &getID() const = 0;
+
     /// @brief get dotted geometry
     const GNEGeometry::DottedGeometry& getDottedGeometry() const;
 
@@ -170,9 +173,6 @@ public:
 
     /// @brief get FXIcon associated to this AC
     FXIcon* getIcon() const;
-
-    /// @brief function to support debugging
-    const std::string getID() const;
 
     /// @brief get Tag Properties
     static const GNETagProperties& getTagProperties(SumoXMLTag tag);

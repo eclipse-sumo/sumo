@@ -169,8 +169,8 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNEViewNet* viewNet, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
     GNEDemandElement(personparameters.id, viewNet, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
-{}, {}, {}, {}, {pType}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter(personparameters) {
+        {}, {}, {}, {}, {pType}, {}, {}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter(personparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }
@@ -382,7 +382,7 @@ GNEPerson::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 std::string
 GNEPerson::getParentName() const {
-    return myViewNet->getNet()->getMicrosimID();
+    return getParentDemandElements().front()->getID();
 }
 
 
@@ -516,7 +516,7 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
     std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
-            return getDemandElementID();
+            return getID();
         case SUMO_ATTR_TYPE:
             return getParentDemandElements().at(0)->getID();
         case SUMO_ATTR_COLOR:

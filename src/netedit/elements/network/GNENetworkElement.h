@@ -18,9 +18,7 @@
 // A abstract class for network elements
 /****************************************************************************/
 #pragma once
-// ===========================================================================
-// included modules
-// ===========================================================================#include <config.h>
+#include <config.h>
 
 #include <netedit/elements/GNEHierarchicalParentElements.h>
 #include <netedit/elements/GNEHierarchicalChildElements.h>
@@ -62,21 +60,24 @@ public:
      * @param[in] genericDataChildren vector of genericData children
      */
     GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag,
-                      const std::vector<GNEEdge*>& edgeParents,
-                      const std::vector<GNELane*>& laneParents,
-                      const std::vector<GNEShape*>& shapeParents,
-                      const std::vector<GNEAdditional*>& additionalParents,
-                      const std::vector<GNEDemandElement*>& demandElementParents,
-                      const std::vector<GNEGenericData*>& genericDataParents,
-                      const std::vector<GNEEdge*>& edgeChildren,
-                      const std::vector<GNELane*>& laneChildren,
-                      const std::vector<GNEShape*>& shapeChildren,
-                      const std::vector<GNEAdditional*>& additionalChildren,
-                      const std::vector<GNEDemandElement*>& demandElementChildren,
-                      const std::vector<GNEGenericData*>& genericDataChildren);
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren,
+        const std::vector<GNEGenericData*>& genericDataChildren);
 
     /// @brief Destructor
-    ~GNENetworkElement();
+    virtual ~GNENetworkElement();
+
+    /// @brief get ID
+    const std::string& getID() const;
 
     /// @brief updated dotted geometry
     void updateDottedGeometry(const PositionVector& shape);

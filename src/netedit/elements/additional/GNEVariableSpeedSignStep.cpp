@@ -33,7 +33,9 @@
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* variableSpeedSignDialog) :
     GNEAdditional(variableSpeedSignDialog->getEditedAdditional(), variableSpeedSignDialog->getEditedAdditional()->getViewNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
-{}, {}, {}, {variableSpeedSignDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {variableSpeedSignDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myTime(0),
+    mySpeed(0) {
     // fill VSS Step with default values
     setDefaultValues();
     // set time Attribute manually
@@ -47,9 +49,9 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* v
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, double time, double speed) :
     GNEAdditional(variableSpeedSignParent, variableSpeedSignParent->getViewNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
-{}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}, {}, {}, {}, {}),
-myTime(time),
-mySpeed(speed) {
+        {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myTime(time),
+    mySpeed(speed) {
 }
 
 
@@ -120,7 +122,7 @@ std::string
 GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getAdditionalID();
+            return getID();
         case SUMO_ATTR_TIME:
             return toString(myTime);
         case SUMO_ATTR_SPEED:

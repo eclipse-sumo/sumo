@@ -52,6 +52,12 @@ GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, 
 GNEDataInterval::~GNEDataInterval() {}
 
 
+const std::string& 
+GNEDataInterval::getID() const {
+    return myDataSetParent->getID();
+}
+
+
 GNEViewNet*
 GNEDataInterval::getViewNet() const {
     return myDataSetParent->getViewNet();

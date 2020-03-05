@@ -32,15 +32,16 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement) :
+GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, SUMOTime freq, const std::string& filename, 
+        const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name, blockMovement,
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myPosition(pos),
-myFreq(freq),
-myFilename(filename),
-myVehicleTypes(vehicleTypes),
-myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold) {
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myPosition(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myVehicleTypes(vehicleTypes),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold) {
 }
 
 
@@ -185,7 +186,7 @@ std::string
 GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getAdditionalID();
+            return getID();
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_FREQUENCY:

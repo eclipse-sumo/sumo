@@ -55,6 +55,9 @@ public:
     /// @brief Destructor
     ~GNEDataInterval();
 
+    /// @brief get ID
+    const std::string& getID() const;
+
     /// @brief Returns a pointer to GNEViewNet in which data set element is located
     GNEViewNet* getViewNet() const;
 

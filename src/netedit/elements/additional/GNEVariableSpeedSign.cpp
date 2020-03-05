@@ -37,8 +37,8 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_VSS, SUMO_TAG_VSS, name, blockMovement,
-{}, {}, {}, {}, {}, {}, {}, lanes, {}, {}, {}, {}),
-myPosition(pos) {
+        {}, {}, {}, {}, {}, {}, {}, lanes, {}, {}, {}, {}),
+    myPosition(pos) {
 }
 
 
@@ -191,7 +191,7 @@ std::string
 GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getAdditionalID();
+            return getID();
         case SUMO_ATTR_LANES:
             return parseIDs(getChildLanes());
         case SUMO_ATTR_POSITION:

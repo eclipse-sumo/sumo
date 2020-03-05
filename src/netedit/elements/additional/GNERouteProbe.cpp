@@ -36,14 +36,14 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string& frequency, const std::string& name, const std::string& filename, SUMOTime begin) :
-    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false, {
-    edge
-}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myFrequency(frequency),
-myFilename(filename),
-myBegin(begin),
-myRelativePositionY(0) {
+GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string& frequency, 
+        const std::string& name, const std::string& filename, SUMOTime begin) :
+    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false, 
+        {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myFrequency(frequency),
+    myFilename(filename),
+    myBegin(begin),
+    myRelativePositionY(0) {
 }
 
 
@@ -128,7 +128,7 @@ GNERouteProbe::commitGeometryMoving(GNEUndoList*) {
 
 std::string
 GNERouteProbe::getParentName() const {
-    return getParentEdges().front()->getMicrosimID();
+    return getParentEdges().front()->getID();
 }
 
 
@@ -221,7 +221,7 @@ std::string
 GNERouteProbe::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getAdditionalID();
+            return getID();
         case SUMO_ATTR_EDGE:
             return getParentEdges().front()->getID();
         case SUMO_ATTR_NAME:

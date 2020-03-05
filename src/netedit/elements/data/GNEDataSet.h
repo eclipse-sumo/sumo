@@ -49,6 +49,9 @@ public:
     /// @brief Destructor
     ~GNEDataSet();
 
+    /// @brief get ID
+    const std::string& getID() const;
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 

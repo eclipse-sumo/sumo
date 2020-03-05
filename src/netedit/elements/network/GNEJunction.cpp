@@ -941,7 +941,7 @@ std::string
 GNEJunction::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getMicrosimID();
+            return getID();
         case SUMO_ATTR_POSITION:
             return toString(myNBNode->getPosition());
         case SUMO_ATTR_TYPE:

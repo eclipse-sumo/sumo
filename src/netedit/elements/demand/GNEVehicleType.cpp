@@ -37,10 +37,10 @@
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag) :
     GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, tag,
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(vTypeID),
-myDefaultVehicleType(true),
-myDefaultVehicleTypeModified(false) {
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    SUMOVTypeParameter(vTypeID),
+    myDefaultVehicleType(true),
+    myDefaultVehicleTypeModified(false) {
     // set default vehicle class
     vehicleClass = defaultVClass;
     parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
@@ -51,10 +51,10 @@ myDefaultVehicleTypeModified(false) {
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag) :
     GNEDemandElement(vTypeParameter.id, viewNet, GLO_VTYPE, tag,
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(vTypeParameter),
-myDefaultVehicleType(false),
-myDefaultVehicleTypeModified(false) {
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    SUMOVTypeParameter(vTypeParameter),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false) {
     // if we're creating a Person Type, set manually VClass
     if (tag == SUMO_TAG_PTYPE) {
         vehicleClass = SVC_PEDESTRIAN;
@@ -246,7 +246,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
     VClassDefaultValues defaultValues(vehicleClass);
     switch (key) {
         case SUMO_ATTR_ID:
-            return getDemandElementID();
+            return getID();
         // CFM Attributes
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
@@ -480,9 +480,9 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         case GNE_ATTR_DEFAULT_VTYPE:
-            return toString((getDemandElementID() == DEFAULT_VTYPE_ID) ||
-                            (getDemandElementID() == DEFAULT_PEDTYPE_ID) ||
-                            (getDemandElementID() == DEFAULT_BIKETYPE_ID));
+            return toString((getID() == DEFAULT_VTYPE_ID) ||
+                            (getID() == DEFAULT_PEDTYPE_ID) ||
+                            (getID() == DEFAULT_BIKETYPE_ID));
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
                 return toString(myDefaultVehicleTypeModified);

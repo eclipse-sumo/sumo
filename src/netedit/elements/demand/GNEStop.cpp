@@ -42,16 +42,16 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP, tag,
-{}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+        {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP,
-                     stopParent->getTagProperty().isPerson() ? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
-{}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+        stopParent->getTagProperty().isPerson() ? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
+        {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
@@ -545,7 +545,7 @@ std::string
 GNEStop::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getDemandElementID();
+            return getID();
         case SUMO_ATTR_DURATION:
             if (parametersSet & STOP_DURATION_SET) {
                 return time2string(duration);

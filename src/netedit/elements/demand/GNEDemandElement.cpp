@@ -161,18 +161,18 @@ GNEDemandElement::RouteCalculator::consecutiveEdgesConnected(const SUMOVehicleCl
 // ---------------------------------------------------------------------------
 
 GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-                                   const std::vector<GNEEdge*>& edgeParents,
-                                   const std::vector<GNELane*>& laneParents,
-                                   const std::vector<GNEShape*>& shapeParents,
-                                   const std::vector<GNEAdditional*>& additionalParents,
-                                   const std::vector<GNEDemandElement*>& demandElementParents,
-                                   const std::vector<GNEGenericData*>& genericDataParents,
-                                   const std::vector<GNEEdge*>& edgeChildren,
-                                   const std::vector<GNELane*>& laneChildren,
-                                   const std::vector<GNEShape*>& shapeChildren,
-                                   const std::vector<GNEAdditional*>& additionalChildren,
-                                   const std::vector<GNEDemandElement*>& demandElementChildren,
-                                   const std::vector<GNEGenericData*>& genericDataChildren) :
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren,
+        const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
@@ -182,18 +182,18 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
 
 
 GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-                                   const std::vector<GNEEdge*>& edgeParents,
-                                   const std::vector<GNELane*>& laneParents,
-                                   const std::vector<GNEShape*>& shapeParents,
-                                   const std::vector<GNEAdditional*>& additionalParents,
-                                   const std::vector<GNEDemandElement*>& demandElementParents,
-                                   const std::vector<GNEGenericData*>& genericDataParents,
-                                   const std::vector<GNEEdge*>& edgeChildren,
-                                   const std::vector<GNELane*>& laneChildren,
-                                   const std::vector<GNEShape*>& shapeChildren,
-                                   const std::vector<GNEAdditional*>& additionalChildren,
-                                   const std::vector<GNEDemandElement*>& demandElementChildren,
-                                   const std::vector<GNEGenericData*>& genericDataChildren) :
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren,
+        const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, demandElementParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
@@ -203,6 +203,12 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEVie
 
 
 GNEDemandElement::~GNEDemandElement() {}
+
+
+const std::string& 
+GNEDemandElement::getID() const {
+    return getMicrosimID();
+}
 
 
 std::string
@@ -362,12 +368,6 @@ GNEDemandElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 }
 
 
-const std::string&
-GNEDemandElement::getDemandElementID() const {
-    return getMicrosimID();
-}
-
-
 bool
 GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
     if (SUMOXMLDefinitions::isValidVehicleID(newID) && (myViewNet->getNet()->retrieveDemandElement(myTagProperty.getTag(), newID, false) == nullptr)) {
@@ -384,7 +384,7 @@ GNEDemandElement::changeDemandElementID(const std::string& newID) {
         throw InvalidArgument("An DemandElement with tag " + getTagStr() + " and ID = " + newID + " already exists");
     } else {
         // Save old ID
-        std::string oldID = getMicrosimID();
+        std::string oldID = getID();
         // set New ID
         setMicrosimID(newID);
         // update demand element ID in the container of net

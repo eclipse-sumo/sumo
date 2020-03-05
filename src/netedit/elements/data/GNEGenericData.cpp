@@ -68,6 +68,11 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type,
 GNEGenericData::~GNEGenericData() {}
 
 
+const std::string&
+GNEGenericData::getID() const {
+    return getMicrosimID();
+}
+
 GNEDataInterval*
 GNEGenericData::getDataIntervalParent() const {
     return myDataIntervalParent;

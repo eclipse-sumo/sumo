@@ -34,25 +34,26 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
-    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false, {
-    edge
-}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myFrequency(frequency),
-myOutput(output),
-myRouteProbe(routeprobe) {
+GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, SUMOTime frequency, 
+        const std::string& name, const std::string& output, const std::string& routeprobe) :
+    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false,
+        {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myPositionOverLane(pos),
+    myFrequency(frequency),
+    myOutput(output),
+    myRouteProbe(routeprobe) {
 }
 
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
+GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, SUMOTime frequency, 
+        const std::string& name, const std::string& output, const std::string& routeprobe) :
     GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false,
-{}, {lane}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myFrequency(frequency),
-myOutput(output),
-myRouteProbe(routeprobe) {
-}
+        {}, {lane}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myPositionOverLane(pos),
+    myFrequency(frequency),
+    myOutput(output),
+    myRouteProbe(routeprobe) {
+    }
 
 
 GNECalibrator::~GNECalibrator() {}
@@ -140,9 +141,9 @@ std::string
 GNECalibrator::getParentName() const {
     // get parent name depending of we have a edge or a lane
     if (getParentLanes().size() > 0) {
-        return getParentLanes().front()->getMicrosimID();
+        return getParentLanes().front()->getID();
     } else if (getParentEdges().size() > 0) {
-        return getParentEdges().front()->getLanes().at(0)->getMicrosimID();
+        return getParentEdges().front()->getLanes().at(0)->getID();
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
     }
@@ -183,7 +184,7 @@ std::string
 GNECalibrator::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getAdditionalID();
+            return getID();
         case SUMO_ATTR_EDGE:
             return getParentEdges().front()->getID();
         case SUMO_ATTR_LANE:

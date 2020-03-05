@@ -41,14 +41,13 @@
 // ===========================================================================
 
 GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
-                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO, {
-    fromEdge, toEdge
-}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}, {}, {}),
-Parameterised(),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes) {
+    double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO, 
+        {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
     // compute person trip
@@ -58,13 +57,12 @@ myModes(modes) {
 
 GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via,
                              const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP, {
-    fromEdge
-}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}, {}, {}),
-Parameterised(),
-myArrivalPosition(-1),
-myVTypes(types),
-myModes(modes) {
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP, 
+        {fromEdge}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myArrivalPosition(-1),
+    myVTypes(types),
+    myModes(modes) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
     // compute person trip
@@ -359,7 +357,7 @@ GNEPersonTrip::getPositionInView() const {
 
 std::string
 GNEPersonTrip::getParentName() const {
-    return myViewNet->getNet()->getMicrosimID();
+    return getParentDemandElements().front()->getID();
 }
 
 
@@ -426,7 +424,7 @@ std::string
 GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getDemandElementID();
+            return getID();
         case SUMO_ATTR_FROM:
             return getParentEdges().front()->getID();
         case SUMO_ATTR_TO:

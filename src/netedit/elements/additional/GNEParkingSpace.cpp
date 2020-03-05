@@ -33,11 +33,11 @@
 
 GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, bool blockMovement) :
     GNEAdditional(parkingAreaParent, viewNet, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "", blockMovement,
-{}, {}, {}, {parkingAreaParent}, {}, {}, {}, {}, {}, {}, {}, {}),
-myPosition(pos),
-myWidth(width),
-myLength(length),
-myAngle(angle) {
+        {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myPosition(pos),
+    myWidth(width),
+    myLength(length),
+    myAngle(angle) {
 }
 
 
@@ -127,7 +127,7 @@ GNEParkingSpace::splitEdgeGeometry(const double /*splitPosition*/, const GNENetw
 
 std::string
 GNEParkingSpace::getParentName() const {
-    return getParentAdditionals().at(0)->getMicrosimID();
+    return getParentAdditionals().at(0)->getID();
 }
 
 
@@ -185,7 +185,7 @@ std::string
 GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getAdditionalID();
+            return getID();
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_WIDTH:

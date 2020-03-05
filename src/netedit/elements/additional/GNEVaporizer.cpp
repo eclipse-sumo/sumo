@@ -35,11 +35,10 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name) :
-    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, {
-    edge
-}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myBegin(begin),
-myEnd(end) {
+    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, 
+        {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myBegin(begin),
+    myEnd(end) {
 }
 
 
@@ -122,7 +121,7 @@ GNEVaporizer::commitGeometryMoving(GNEUndoList*) {
 
 std::string
 GNEVaporizer::getParentName() const {
-    return getParentEdges().front()->getMicrosimID();
+    return getParentEdges().front()->getID();
 }
 
 
@@ -216,7 +215,7 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-            return getAdditionalID();
+            return getID();
         case SUMO_ATTR_BEGIN:
             return time2string(myBegin);
         case SUMO_ATTR_END:

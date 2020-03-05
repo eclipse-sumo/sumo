@@ -42,18 +42,18 @@
 // ===========================================================================
 
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-                             const std::vector<GNEEdge*>& edgeParents,
-                             const std::vector<GNELane*>& laneParents,
-                             const std::vector<GNEShape*>& shapeParents,
-                             const std::vector<GNEAdditional*>& additionalParents,
-                             const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEGenericData*>& genericDataParents,
-                             const std::vector<GNEEdge*>& edgeChildren,
-                             const std::vector<GNELane*>& laneChildren,
-                             const std::vector<GNEShape*>& shapeChildren,
-                             const std::vector<GNEAdditional*>& additionalChildren,
-                             const std::vector<GNEDemandElement*>& demandElementChildren,
-                             const std::vector<GNEGenericData*>& genericDataChildren) :
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren,
+        const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     Parameterised(),
@@ -68,18 +68,18 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 
 
 GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-                             const std::vector<GNEEdge*>& edgeParents,
-                             const std::vector<GNELane*>& laneParents,
-                             const std::vector<GNEShape*>& shapeParents,
-                             const std::vector<GNEAdditional*>& additionalParents,
-                             const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEGenericData*>& genericDataParents,
-                             const std::vector<GNEEdge*>& edgeChildren,
-                             const std::vector<GNELane*>& laneChildren,
-                             const std::vector<GNEShape*>& shapeChildren,
-                             const std::vector<GNEAdditional*>& additionalChildren,
-                             const std::vector<GNEDemandElement*>& demandElementChildren,
-                             const std::vector<GNEGenericData*>& genericDataChildren) :
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren,
+        const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, additionalParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     Parameterised(),
@@ -94,6 +94,12 @@ GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNe
 
 
 GNEAdditional::~GNEAdditional() {}
+
+
+const std::string&
+GNEAdditional::getID() const {
+    return getMicrosimID();
+}
 
 
 std::string
@@ -482,12 +488,6 @@ GNEAdditional::setDefaultValues() {
 }
 
 
-const std::string&
-GNEAdditional::getAdditionalID() const {
-    return getMicrosimID();
-}
-
-
 bool
 GNEAdditional::isValidAdditionalID(const std::string& newID) const {
     if (SUMOXMLDefinitions::isValidAdditionalID(newID) && (myViewNet->getNet()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
@@ -514,7 +514,7 @@ GNEAdditional::changeAdditionalID(const std::string& newID) {
         throw InvalidArgument("An Additional with tag " + getTagStr() + " and ID = " + newID + " already exists");
     } else {
         // Save old ID
-        std::string oldID = getMicrosimID();
+        std::string oldID = getID();
         // set New ID
         setMicrosimID(newID);
         // update additional ID in the container of net

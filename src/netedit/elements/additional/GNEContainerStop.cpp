@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const double startPos, const double endPos, const int parametersSet,
-                                   const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) :
+        const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) :
     GNEStoppingPlace(id, viewNet, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, parametersSet, name, friendlyPosition, blockMovement),
     myLines(lines) {
 }
@@ -208,7 +208,7 @@ std::string
 GNEContainerStop::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getAdditionalID();
+            return getID();
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_STARTPOS:

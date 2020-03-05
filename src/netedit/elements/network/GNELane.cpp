@@ -827,7 +827,7 @@ GNELane::getAttribute(SumoXMLAttr key) const {
     const NBEdge* edge = myParentEdge->getNBEdge();
     switch (key) {
         case SUMO_ATTR_ID:
-            return getMicrosimID();
+            return getID();
         case SUMO_ATTR_SPEED:
             return toString(edge->getLaneSpeed(myIndex));
         case SUMO_ATTR_ALLOW:
@@ -1377,7 +1377,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
 
 std::string
 GNELane::getParentName() const {
-    return myParentEdge->getMicrosimID();
+    return myParentEdge->getID();
 }
 
 

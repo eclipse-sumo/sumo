@@ -115,7 +115,10 @@ public:
                   const std::vector<GNEGenericData*>& genericDataChildren);
 
     /// @brief Destructor
-    ~GNEAdditional();
+    virtual ~GNEAdditional();
+
+    /// @brief get ID
+    const std::string& getID() const;
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
@@ -369,8 +372,6 @@ protected:
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
-    /// @brief returns Additional ID
-    const std::string& getAdditionalID() const;
 
     /// @brief check if a new additional ID is valid
     bool isValidAdditionalID(const std::string& newID) const;

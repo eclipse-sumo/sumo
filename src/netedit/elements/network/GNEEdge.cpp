@@ -822,11 +822,11 @@ std::string
 GNEEdge::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getMicrosimID();
+            return getID();
         case SUMO_ATTR_FROM:
-            return myGNEJunctionSource->getMicrosimID();
+            return myGNEJunctionSource->getID();
         case SUMO_ATTR_TO:
-            return myGNEJunctionDestiny->getMicrosimID();
+            return myGNEJunctionDestiny->getID();
         case SUMO_ATTR_NUMLANES:
             return toString(myNBEdge->getNumLanes());
         case SUMO_ATTR_PRIORITY:
@@ -1008,7 +1008,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) == nullptr);
         case SUMO_ATTR_FROM: {
             // check that is a valid ID and is different of ID of junction destiny
-            if (SUMOXMLDefinitions::isValidNetID(value) && (value != myGNEJunctionDestiny->getMicrosimID())) {
+            if (SUMOXMLDefinitions::isValidNetID(value) && (value != myGNEJunctionDestiny->getID())) {
                 GNEJunction* junctionFrom = myNet->retrieveJunction(value, false);
                 // check that there isn't already another edge with the same From and To Edge
                 if ((junctionFrom != nullptr) && (myNet->retrieveEdge(junctionFrom, myGNEJunctionDestiny, false) == nullptr)) {
@@ -1022,7 +1022,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_TO: {
             // check that is a valid ID and is different of ID of junction Source
-            if (SUMOXMLDefinitions::isValidNetID(value) && (value != myGNEJunctionSource->getMicrosimID())) {
+            if (SUMOXMLDefinitions::isValidNetID(value) && (value != myGNEJunctionSource->getID())) {
                 GNEJunction* junctionTo = myNet->retrieveJunction(value, false);
                 // check that there isn't already another edge with the same From and To Edge
                 if ((junctionTo != nullptr) && (myNet->retrieveEdge(myGNEJunctionSource, junctionTo, false) == nullptr)) {
@@ -1574,7 +1574,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->renameEdge(this, value);
             break;
         case SUMO_ATTR_FROM:
-            myNet->changeEdgeEndpoints(this, value, myGNEJunctionDestiny->getMicrosimID());
+            myNet->changeEdgeEndpoints(this, value, myGNEJunctionDestiny->getID());
             // update this edge of list of outgoings edges of the old GNEJunctionSource
             myGNEJunctionSource->removeOutgoingGNEEdge(this);
             // update GNEJunctionSource
@@ -1583,7 +1583,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myGNEJunctionSource->addOutgoingGNEEdge(this);
             break;
         case SUMO_ATTR_TO:
-            myNet->changeEdgeEndpoints(this, myGNEJunctionSource->getMicrosimID(), value);
+            myNet->changeEdgeEndpoints(this, myGNEJunctionSource->getID(), value);
             // update this edge of list of incomings edges of the old GNEJunctionDestiny
             myGNEJunctionDestiny->removeIncomingGNEEdge(this);
             // update GNEJunctionDestiny
@@ -1911,7 +1911,7 @@ void
 GNEEdge::removeConnection(NBEdge::Connection nbCon) {
     // check if is a explicit turnaround
     if (nbCon.toEdge == myNBEdge->getTurnDestination()) {
-        myNet->removeExplicitTurnaround(getMicrosimID());
+        myNet->removeExplicitTurnaround(getID());
     }
     // remove NBEdge::connection from NBEdge
     myNBEdge->removeFromConnections(nbCon);

@@ -47,6 +47,11 @@ GNEDataSet::GNEDataSet(GNEViewNet* viewNet, const std::string dataSetID) :
 GNEDataSet::~GNEDataSet() {}
 
 
+const std::string&
+GNEDataSet::getID() const {
+    return myDataSetID;
+}
+
 void
 GNEDataSet::updateGeometry() {
     // nothing to update

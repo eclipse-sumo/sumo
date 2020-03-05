@@ -278,7 +278,7 @@ GNEStoppingPlace::getEndPosition() const {
 
 std::string
 GNEStoppingPlace::getParentName() const {
-    return getParentLanes().front()->getMicrosimID();
+    return getParentLanes().front()->getID();
 }
 
 

@@ -49,21 +49,24 @@ public:
      * @param[in] genericDataChildren vector of genericData children
      */
     GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked,
-             const std::vector<GNEEdge*>& edgeParents,
-             const std::vector<GNELane*>& laneParents,
-             const std::vector<GNEShape*>& shapeParents,
-             const std::vector<GNEAdditional*>& additionalParents,
-             const std::vector<GNEDemandElement*>& demandElementParents,
-             const std::vector<GNEGenericData*>& genericDataParents,
-             const std::vector<GNEEdge*>& edgeChildren,
-             const std::vector<GNELane*>& laneChildren,
-             const std::vector<GNEShape*>& shapeChildren,
-             const std::vector<GNEAdditional*>& additionalChildren,
-             const std::vector<GNEDemandElement*>& demandElementChildren,
-             const std::vector<GNEGenericData*>& genericDataChildren);
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren,
+        const std::vector<GNEGenericData*>& genericDataChildren);
 
     /// @brief Destructor
-    ~GNEShape();
+    virtual ~GNEShape();
+
+    /// @brief get ID (all shapes have one)
+    virtual const std::string &getID() const = 0;
 
     /// @brief gererate a new ID for an element child
     virtual std::string generateChildID(SumoXMLTag childTag) = 0;

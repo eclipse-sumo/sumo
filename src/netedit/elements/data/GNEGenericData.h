@@ -87,7 +87,10 @@ public:
         const std::vector<GNEGenericData*>& genericDataChildren);
 
     /// @brief Destructor
-    ~GNEGenericData();
+    virtual ~GNEGenericData();
+
+    /// @brief get ID
+    const std::string& getID() const;
 
     /// @brief get data interval parent
     GNEDataInterval* getDataIntervalParent() const;

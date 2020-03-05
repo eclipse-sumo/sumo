@@ -49,7 +49,7 @@ int NUM_POINTS = 5;
 // ===========================================================================
 
 GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
-    GNENetworkElement(from->getNet(), "from" + from->getMicrosimID() + "to" + to->getMicrosimID(),
+    GNENetworkElement(from->getNet(), "from" + from->getID() + "to" + to->getID(),
                       GLO_CONNECTION, SUMO_TAG_CONNECTION,
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
 myFromLane(from),
@@ -217,7 +217,7 @@ GNEConnection::getNBConnection() const {
 
 void
 GNEConnection::updateID() {
-    setMicrosimID(myFromLane->getMicrosimID() + " -> " + myToLane->getMicrosimID());
+    setMicrosimID(myFromLane->getID() + " -> " + myToLane->getID());
 }
 
 
@@ -369,7 +369,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
     if (key == SUMO_ATTR_ID) {
         // used by GNEReferenceCounter
         // @note: may be called for connections without a valid nbCon reference
-        return getMicrosimID();
+        return getID();
     }
     NBEdge::Connection& nbCon = getNBEdgeConnection();
     switch (key) {

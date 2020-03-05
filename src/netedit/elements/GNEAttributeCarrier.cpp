@@ -419,12 +419,6 @@ GNEAttributeCarrier::getIcon() const {
     return GUIIconSubSys::getIcon(myTagProperty.getGUIIcon());
 }
 
-
-const std::string
-GNEAttributeCarrier::getID() const {
-    return getAttribute(SUMO_ATTR_ID);
-}
-
 // ===========================================================================
 // static methods
 // ===========================================================================

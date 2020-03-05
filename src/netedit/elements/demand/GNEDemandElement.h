@@ -118,18 +118,18 @@ public:
      * @param[in] genericDataChildren vector of genericData children
      */
     GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-                     const std::vector<GNEEdge*>& edgeParents,
-                     const std::vector<GNELane*>& laneParents,
-                     const std::vector<GNEShape*>& shapeParents,
-                     const std::vector<GNEAdditional*>& additionalParents,
-                     const std::vector<GNEDemandElement*>& demandElementParents,
-                     const std::vector<GNEGenericData*>& genericDataParents,
-                     const std::vector<GNEEdge*>& edgeChildren,
-                     const std::vector<GNELane*>& laneChildren,
-                     const std::vector<GNEShape*>& shapeChildren,
-                     const std::vector<GNEAdditional*>& additionalChildren,
-                     const std::vector<GNEDemandElement*>& demandElementChildren,
-                     const std::vector<GNEGenericData*>& genericDataChildren);
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren,
+        const std::vector<GNEGenericData*>& genericDataChildren);
 
     /**@brief Constructor
      * @param[in] demandElementParent pointer to parent demand element pointer (used to generate an ID)
@@ -150,21 +150,24 @@ public:
      * @param[in] genericDataChildren vector of genericData children
      */
     GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-                     const std::vector<GNEEdge*>& edgeParents,
-                     const std::vector<GNELane*>& laneParents,
-                     const std::vector<GNEShape*>& shapeParents,
-                     const std::vector<GNEAdditional*>& additionalParents,
-                     const std::vector<GNEDemandElement*>& demandElementParents,
-                     const std::vector<GNEGenericData*>& genericDataParents,
-                     const std::vector<GNEEdge*>& edgeChildren,
-                     const std::vector<GNELane*>& laneChildren,
-                     const std::vector<GNEShape*>& shapeChildren,
-                     const std::vector<GNEAdditional*>& additionalChildren,
-                     const std::vector<GNEDemandElement*>& demandElementChildren,
-                     const std::vector<GNEGenericData*>& genericDataChildren);
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren,
+        const std::vector<GNEGenericData*>& genericDataChildren);
 
     /// @brief Destructor
-    ~GNEDemandElement();
+    virtual ~GNEDemandElement();
+
+    /// @brief get ID
+    const std::string& getID() const;
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
@@ -420,9 +423,6 @@ protected:
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
-
-    /// @brief returns DemandElement ID
-    const std::string& getDemandElementID() const;
 
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& newID) const;

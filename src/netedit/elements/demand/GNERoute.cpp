@@ -78,39 +78,37 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 
 GNERoute::GNERoute(GNEViewNet* viewNet) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-Parameterised(),
-myColor(RGBColor::YELLOW),
-myVClass(SVC_PASSENGER) {
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myColor(RGBColor::YELLOW),
+    myVClass(SVC_PASSENGER) {
 }
 
 
 GNERoute::GNERoute(GNEViewNet* viewNet, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(routeParameters.routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE, routeParameters.edges,
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-Parameterised(routeParameters.parameters),
-myColor(routeParameters.color),
-myVClass(routeParameters.vClass) {
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    Parameterised(routeParameters.parameters),
+    myColor(routeParameters.color),
+    myVClass(routeParameters.vClass) {
 }
 
 
 GNERoute::GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_EMBEDDEDROUTE), viewNet,
-                     GLO_EMBEDDEDROUTE, SUMO_TAG_EMBEDDEDROUTE, routeParameters.edges,
-{}, {}, {}, {vehicleParent}, {}, {}, {}, {}, {}, {}, {}),
-Parameterised(routeParameters.parameters),
-myColor(routeParameters.color),
-myVClass(routeParameters.vClass) {
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_EMBEDDEDROUTE), viewNet, GLO_EMBEDDEDROUTE, SUMO_TAG_EMBEDDEDROUTE, 
+        routeParameters.edges, {}, {}, {}, {vehicleParent}, {}, {}, {}, {}, {}, {}, {}),
+    Parameterised(routeParameters.parameters),
+    myColor(routeParameters.color),
+    myVClass(routeParameters.vClass) {
 }
 
 
 GNERoute::GNERoute(GNEDemandElement* route) :
-    GNEDemandElement(route->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), route->getViewNet(),
-                     GLO_ROUTE, SUMO_TAG_ROUTE, route->getParentEdges(),
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-Parameterised(),
-myColor(route->getColor()),
-myVClass(route->getVClass()) {
+    GNEDemandElement(route->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), route->getViewNet(), GLO_ROUTE, SUMO_TAG_ROUTE, 
+        route->getParentEdges(), {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myColor(route->getColor()),
+    myVClass(route->getVClass()) {
 }
 
 
@@ -151,7 +149,7 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
     // write extra attributes depending if is an embedded route
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
-        device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
+        device.writeAttr(SUMO_ATTR_ID, getID());
         // write stops associated to this route
         for (const auto& stop : getChildDemandElements()) {
             if (stop->getTagProperty().isStop()) {
@@ -294,7 +292,7 @@ GNERoute::getPositionInView() const {
 
 std::string
 GNERoute::getParentName() const {
-    return myViewNet->getNet()->getMicrosimID();
+    return getParentEdges().front()->getID();
 }
 
 
@@ -370,7 +368,7 @@ std::string
 GNERoute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getDemandElementID();
+            return getID();
         case SUMO_ATTR_EDGES:
             return parseIDs(getParentEdges());
         case SUMO_ATTR_COLOR:

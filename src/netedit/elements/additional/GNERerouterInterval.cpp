@@ -32,7 +32,9 @@
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     GNEAdditional(rerouterDialog->getEditedAdditional(), rerouterDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
-{}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myBegin(0),
+    myEnd(0) {
     // fill reroute interval with default values
     setDefaultValues();
 }
@@ -40,9 +42,9 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
     GNEAdditional(rerouterParent, rerouterParent->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
-{}, {}, {}, {rerouterParent}, {}, {}, {}, {}, {}, {}, {}, {}),
-myBegin(begin),
-myEnd(end) {
+        {}, {}, {}, {rerouterParent}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myBegin(begin),
+    myEnd(end) {
 }
 
 
@@ -105,7 +107,7 @@ std::string
 GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getAdditionalID();
+            return getID();
         case SUMO_ATTR_BEGIN:
             return time2string(myBegin);
         case SUMO_ATTR_END:
