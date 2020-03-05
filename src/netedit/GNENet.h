@@ -95,6 +95,12 @@ public:
         /// @brief constructor
         AttributeCarriers(GNENet* net);
 
+        /// @brief destructor
+        ~AttributeCarriers();
+
+        /// @brief fill tags
+        void fillTags();
+
         /// @brief update ID
         void updateID(GNEAttributeCarrier* AC, const std::string newID);
 
@@ -154,6 +160,9 @@ public:
 
     /// @brief Destructor
     ~GNENet();
+
+    /// @brief retrieve all attribute carriers of Net
+    GNENet::AttributeCarriers& getAttributeCarriers();
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -391,9 +400,6 @@ public:
      * @param[in] undoList The undo list with which to register changes
      */
     void mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* undoList);
-
-    /// @brief retrieve all attribute carriers of Net
-    AttributeCarriers& getAttributeCarriers();
 
     /**@brief get junction by id
      * @param[in] id The id of the desired junction

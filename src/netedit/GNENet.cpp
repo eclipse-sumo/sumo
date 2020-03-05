@@ -93,6 +93,69 @@ const double GNENet::Z_INITIALIZED = 1;
 
 GNENet::AttributeCarriers::AttributeCarriers(GNENet* net) :
     myNet(net) {
+    // fill tags
+    fillTags();
+}
+
+
+void 
+GNENet::AttributeCarriers::fillTags() {
+    // fill additionals with tags (note: this include the TAZS)
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_ADDITIONALELEMENT, false);
+    for (const auto &additionalTag : listOfTags) {
+        additionals.insert(std::make_pair(additionalTag, std::map<std::string, GNEAdditional*>()));
+    }
+    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_TAZ, false);
+    for (const auto &tazTag : listOfTags) {
+        additionals.insert(std::make_pair(tazTag, std::map<std::string, GNEAdditional*>()));
+    }
+    // fill demand elements with tags
+    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_DEMANDELEMENT, false);
+    for (const auto &demandTag : listOfTags) {
+        demandElements.insert(std::make_pair(demandTag, std::map<std::string, GNEDemandElement*>()));
+    }
+    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_STOP, false);
+    for (const auto &stopTag : listOfTags) {
+        demandElements.insert(std::make_pair(stopTag, std::map<std::string, GNEDemandElement*>()));
+    }
+}
+
+
+GNENet::AttributeCarriers::~AttributeCarriers() {
+    // Drop Edges
+    for (const auto &edge : edges) {
+        edge.second->decRef("GNENet::~GNENet");
+        // show extra information for tests
+        WRITE_DEBUG("Deleting unreferenced " + edge.second->getTagStr() + " '" + edge.second->getID() + "' in GNENet destructor");
+        delete edge.second;
+    }
+    // Drop junctions
+    for (const auto &junction : junctions) {
+        junction.second->decRef("GNENet::~GNENet");
+        // show extra information for tests
+        WRITE_DEBUG("Deleting unreferenced " + junction.second->getTagStr() + " '" + junction.second->getID() + "' in GNENet destructor");
+        delete junction.second;
+    }
+    // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
+    for (const auto &additionalTag : additionals) {
+        for (const auto &additional: additionalTag.second) {
+            // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
+            additional.second->decRef();
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + additional.second->getTagStr() + " '" + additional.second->getID() + "' in GNENet destructor");
+            delete additional.second;
+        }
+    }
+    // Drop demand elements (Only used for demand elements that were inserted without using GNEChange_DemandElement, for example the default VType")
+    for (const auto& demandElementTag : demandElements) {
+        for (const auto& demandElement : demandElementTag.second) {
+            // decrease reference manually (because it was increased manually in GNERouteHandler)
+            demandElement.second->decRef();
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + demandElement.second->getTagStr() + " '" + demandElement.second->getID() + "' in GNENet destructor");
+            delete demandElement.second;
+        }
+    }
 }
 
 
@@ -118,7 +181,9 @@ GNENet::AttributeCarriers::updateID(GNEAttributeCarrier* AC, const std::string n
 
 void
 GNENet::AttributeCarriers::updateJunctionID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (junctions.count(newID) != 0) {
+    if (junctions.count(AC->getID()) == 0) {
+        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.junction");
+    } else if (junctions.count(newID) != 0) {
         throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in junctions");
     } else {
         // retrieve junction
@@ -141,7 +206,9 @@ GNENet::AttributeCarriers::updateJunctionID(GNEAttributeCarrier* AC, const std::
 
 void
 GNENet::AttributeCarriers::updateEdgeID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (edges.count(newID) != 0) {
+    if (edges.count(AC->getID()) == 0) {
+        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.edge");
+    } else if (edges.count(newID) != 0) {
         throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in edges");
     } else {
         // retrieve edge
@@ -245,7 +312,9 @@ GNENet::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, const 
 
 void
 GNENet::AttributeCarriers::updateDataSetID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (dataSets.count(newID) != 0) {
+    if (dataSets.count(AC->getID()) == 0) {
+        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.dataSets");
+    } else if (dataSets.count(newID) != 0) {
         throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in dataSets");
     } else {
         // retrieve dataSet
@@ -293,25 +362,6 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     if (myZBoundary.ymin() != Z_INITIALIZED) {
         myZBoundary.add(0, 0);
     }
-    // fill additionals with tags (note: this include the TAZS)
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_ADDITIONALELEMENT, false);
-    for (auto i : listOfTags) {
-        myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
-    }
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_TAZ, false);
-    for (auto i : listOfTags) {
-        myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
-    }
-
-    // fill demand elements with tags
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_DEMANDELEMENT, false);
-    for (auto i : listOfTags) {
-        myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
-    }
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_STOP, false);
-    for (auto i : listOfTags) {
-        myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
-    }
 }
 
 
@@ -324,45 +374,17 @@ GNENet::~GNENet() {
     for (auto i : myPOIs) {
         dynamic_cast<GNEAttributeCarrier*>(i.second)->decRef("GNENet::~GNENet");
     }
-    // Drop Edges
-    for (auto it : myAttributeCarriers.edges) {
-        it.second->decRef("GNENet::~GNENet");
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + it.second->getTagStr() + " '" + it.second->getID() + "' in GNENet destructor");
-        delete it.second;
-    }
-    // Drop junctions
-    for (auto it : myAttributeCarriers.junctions) {
-        it.second->decRef("GNENet::~GNENet");
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + it.second->getTagStr() + " '" + it.second->getID() + "' in GNENet destructor");
-        delete it.second;
-    }
-    // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
-    for (auto it : myAttributeCarriers.additionals) {
-        for (auto j : it.second) {
-            // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
-            j.second->decRef();
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + j.second->getTagStr() + " '" + j.second->getID() + "' in GNENet destructor");
-            delete j.second;
-        }
-    }
-    // Drop demand elements (Only used for demand elements that were inserted without using GNEChange_DemandElement, for example the default VType")
-    for (auto it : myAttributeCarriers.demandElements) {
-        for (auto j : it.second) {
-            // decrease reference manually (because it was increased manually in GNERouteHandler)
-            j.second->decRef();
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + j.second->getTagStr() + " '" + j.second->getID() + "' in GNENet destructor");
-            delete j.second;
-        }
-    }
     // delete RouteCalculator instance of GNEDemandElement
     GNEDemandElement::deleteRouteCalculatorInstance();
     // show extra information for tests
     WRITE_DEBUG("Deleting net builder in GNENet destructor");
     delete myNetBuilder;
+}
+
+
+GNENet::AttributeCarriers&
+GNENet::getAttributeCarriers() {
+    return myAttributeCarriers;
 }
 
 
@@ -1255,12 +1277,6 @@ GNENet::retrieveJunction(const std::string& id, bool failHard) const {
 }
 
 
-GNENet::AttributeCarriers&
-GNENet::getAttributeCarriers() {
-    return myAttributeCarriers;
-}
-
-
 GNEEdge*
 GNENet::retrieveEdge(const std::string& id, bool failHard) const {
     auto i = myAttributeCarriers.edges.find(id);
@@ -1674,22 +1690,13 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
             myEdgesAndNumberOfLanes[it.second->getID()] = (int)it.second->getLanes().size();
         }
     }
-
     // compute and update
     OptionsCont& oc = OptionsCont::getOptions();
     computeAndUpdate(oc, volatileOptions);
-
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
-        // fill additionals with tags
-        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_ADDITIONALELEMENT, false);
-        for (auto i : listOfTags) {
-            myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
-        }
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_TAZ, false);
-        for (auto i : listOfTags) {
-            myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
-        }
+        // fill tags
+        myAttributeCarriers.fillTags();
         // Create additional handler
         GNEAdditionalHandler additionalHandler(additionalPath, myViewNet);
         // Run parser
@@ -1704,15 +1711,8 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     }
     // load demand elements if was recomputed with volatile options
     if (demandPath != "") {
-        // fill demandElements with tags
-        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_DEMANDELEMENT, false);
-        for (auto i : listOfTags) {
-            myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
-        }
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_STOP, false);
-        for (auto i : listOfTags) {
-            myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
-        }
+        // fill tags
+        myAttributeCarriers.fillTags();
         // Create demandElement handler
         GNERouteHandler demandElementHandler(demandPath, myViewNet, false);
         // Run parser
@@ -3498,62 +3498,47 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         myViewNet->getUndoList()->p_clear();
         // remove all edges of net (It was already removed from grid)
         auto copyOfEdges = myAttributeCarriers.edges;
-        for (auto it : copyOfEdges) {
-            myAttributeCarriers.edges.erase(it.second->getMicrosimID());
+        for (auto edge : copyOfEdges) {
+            myAttributeCarriers.edges.erase(edge.second->getMicrosimID());
         }
         // removes all junctions of net  (It was already removed from grid)
         auto copyOfJunctions = myAttributeCarriers.junctions;
-        for (auto it : copyOfJunctions) {
-            myAttributeCarriers.junctions.erase(it.second->getMicrosimID());
+        for (auto junction : copyOfJunctions) {
+            myAttributeCarriers.junctions.erase(junction.second->getMicrosimID());
         }
         // clear rest of additional that weren't removed during cleaning of undo list
-        for (const auto& it : myAttributeCarriers.additionals) {
-            for (const auto& j : it.second) {
+        for (const auto& additionalsTags : myAttributeCarriers.additionals) {
+            for (const auto& additional : additionalsTags.second) {
                 // only remove drawable additionals
-                if (j.second->getTagProperty().isDrawable()) {
-                    myGrid.removeAdditionalGLObject(j.second);
+                if (additional.second->getTagProperty().isDrawable()) {
+                    myGrid.removeAdditionalGLObject(additional.second);
                 }
             }
         }
-        myAttributeCarriers.additionals.clear();
-        // fill additionals with tags (note: this include the TAZS)
-        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_ADDITIONALELEMENT, false);
-        for (auto i : listOfTags) {
-            myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
-        }
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_TAZ, false);
-        for (auto i : listOfTags) {
-            myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
+        // clear rest of demand elements that weren't removed during cleaning of undo list
+        for (const auto& demandElementsTags : myAttributeCarriers.demandElements) {
+            for (const auto& demandElement : demandElementsTags.second) {
+                // only remove drawable additionals
+                if (demandElement.second->getTagProperty().isDrawable()) {
+                    myGrid.removeAdditionalGLObject(demandElement.second);
+                }
+            }
         }
         // clear rest of polygons that weren't removed during cleaning of undo list
-        for (const auto& it : myPolygons) {
-            myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(it.second));
+        for (const auto& polygon : myPolygons) {
+            myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(polygon.second));
         }
         myPolygons.clear();
         // clear rest of POIs that weren't removed during cleaning of undo list
-        for (const auto& it : myPOIs) {
-            myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(it.second));
+        for (const auto& poi : myPOIs) {
+            myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(poi.second));
         }
         myPOIs.clear();
-        // clear rest of demand elements that weren't removed during cleaning of undo list
-        for (const auto& it : myAttributeCarriers.demandElements) {
-            for (const auto& j : it.second) {
-                // only remove drawable additionals
-                if (j.second->getTagProperty().isDrawable()) {
-                    myGrid.removeAdditionalGLObject(j.second);
-                }
-            }
-        }
+        // clear additionals and demand elements
         myAttributeCarriers.additionals.clear();
-        // fill demand elements with tags
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_DEMANDELEMENT, false);
-        for (auto i : listOfTags) {
-            myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
-        }
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_STOP, false);
-        for (auto i : listOfTags) {
-            myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
-        }
+        myAttributeCarriers.demandElements.clear();
+        // fill tags
+        myAttributeCarriers.fillTags();
         // enable update geometry again
         myUpdateGeometryEnabled = true;
         // Write GL debug information
