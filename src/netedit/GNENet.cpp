@@ -882,6 +882,10 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
 void
 GNENet::deleteDataSet(GNEDataSet* dataSet, GNEUndoList* undoList) {
     undoList->p_begin("delete " + dataSet->getTagStr());
+    // first remove all data interval children
+    while(dataSet->getDataIntervalChildren().size() > 0) {
+        deleteDataInterval(dataSet->getDataIntervalChildren().begin()->second, undoList);
+    }
     // remove data set
     undoList->add(new GNEChange_DataSet(dataSet, false), true);
     undoList->p_end();
@@ -891,6 +895,10 @@ GNENet::deleteDataSet(GNEDataSet* dataSet, GNEUndoList* undoList) {
 void
 GNENet::deleteDataInterval(GNEDataInterval* dataInterval, GNEUndoList* undoList) {
     undoList->p_begin("delete " + dataInterval->getTagStr());
+    // first remove all generic data children
+    while (dataInterval->getGenericDataChildren().size() > 0) {
+        deleteGenericData(dataInterval->getGenericDataChildren().front(), undoList);
+    }
     // remove data interval
     undoList->add(new GNEChange_DataInterval(dataInterval, false), true);
     undoList->p_end();
@@ -2919,8 +2927,9 @@ GNENet::addPolygonForEditShapes(GNENetworkElement* networkElement, const Positio
 void
 GNENet::removePolygonForEditShapes(GNEPoly* polygon) {
     if (polygon) {
-        // remove it from Inspector Frame
+        // remove it from Inspector Frame and AttributeCarrierHierarchy
         myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(polygon);
+        myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(polygon);
         // Remove from grid
         myGrid.removeAdditionalGLObject(polygon);
         myViewNet->update();
@@ -3053,11 +3062,12 @@ bool
 GNENet::deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting) {
     // first check that additional pointer is valid
     if (additionalExist(additional)) {
+        // remove it from Inspector Frame and AttributeCarrierHierarchy
+        myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(additional);
+        myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(additional);
         // obtain demand element and erase it from container
         auto it = myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).find(additional->getID());
         myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).erase(it);
-        // remove it from Inspector Frame
-        myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(additional);
         // only remove drawable elements of grid
         if (additional->getTagProperty().isDrawable() && additional->getTagProperty().isPlacedInRTree()) {
             myGrid.removeAdditionalGLObject(additional);
@@ -3130,11 +3140,12 @@ bool
 GNENet::deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfterDeleting) {
     // first check that demandElement pointer is valid
     if (demandElementExist(demandElement)) {
+        // remove it from Inspector Frame and AttributeCarrierHierarchy
+        myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(demandElement);
+        myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(demandElement);
         // obtain demand element and erase it from container
         auto it = myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getID());
         myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).erase(it);
-        // remove it from Inspector Frame
-        myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(demandElement);
         // also remove fromvehicleDepartures container if it's either a vehicle or a person
         if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
             if (myAttributeCarriers.vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
@@ -3198,8 +3209,9 @@ GNENet::deleteDataSet(GNEDataSet* dataSet) {
     if (dataSetExist(dataSet)) {
         // obtain data set and erase it from container
         myAttributeCarriers.dataSets.erase(myAttributeCarriers.dataSets.find(dataSet->getID()));
-        // remove it from Inspector Frame
+        // remove it from Inspector Frame and AttributeCarrierHierarchy
         myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(dataSet);
+        myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(dataSet);
         // data elements has to be saved
         requireSaveDataElements(true);
         // update interval toolbar
@@ -3318,8 +3330,9 @@ GNENet::registerEdge(GNEEdge* edge) {
 
 void
 GNENet::deleteSingleJunction(GNEJunction* junction, bool updateViewAfterDeleting) {
-    // remove it from Inspector Frame
+    // remove it from Inspector Frame and AttributeCarrierHierarchy
     myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(junction);
+    myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(junction);
     // Remove from grid and container
     myGrid.removeAdditionalGLObject(junction);
     // check if junction is selected
@@ -3339,8 +3352,9 @@ GNENet::deleteSingleJunction(GNEJunction* junction, bool updateViewAfterDeleting
 
 void
 GNENet::deleteSingleEdge(GNEEdge* edge, bool updateViewAfterDeleting) {
-    // remove it from Inspector Frame
+    // remove it from Inspector Frame and AttributeCarrierHierarchy
     myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(edge);
+    myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(edge);
     // remove edge from visual grid and container
     myGrid.removeAdditionalGLObject(edge);
     // check if junction is selected
@@ -3396,8 +3410,9 @@ GNENet::insertShape(GNEShape* shape, bool updateViewAfterDeleting) {
 
 void
 GNENet::removeShape(GNEShape* shape, bool updateViewAfterDeleting) {
-    // remove it from Inspector Frame
+    // remove it from Inspector Frame and AttributeCarrierHierarchy
     myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(shape);
+    myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(shape);
     if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
         GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
         myGrid.removeAdditionalGLObject(poly);

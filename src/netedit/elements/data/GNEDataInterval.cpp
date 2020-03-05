@@ -26,9 +26,11 @@
 
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/data/GNEGenericData.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 
 #include "GNEDataInterval.h"
 #include "GNEDataSet.h"
@@ -138,7 +140,11 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
     auto it = std::find(myGenericDataChildren.begin(), myGenericDataChildren.end(), genericData);
     // check that GenericData was previously inserted
     if (it != myGenericDataChildren.end()) {
+        // remove generic data child
         myGenericDataChildren.erase(it);
+        // remove it from Inspector Frame and AttributeCarrierHierarchy
+        myDataSetParent->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(genericData);
+        myDataSetParent->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(genericData);
     } else {
         throw ProcessError("GenericData wasn't previously inserted");
     }

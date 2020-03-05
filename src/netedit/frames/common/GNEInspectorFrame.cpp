@@ -378,6 +378,12 @@ GNEInspectorFrame::getOverlappedInspection() const {
 }
 
 
+GNEFrameModuls::AttributeCarrierHierarchy* 
+GNEInspectorFrame::getAttributeCarrierHierarchy() const {
+    return myAttributeCarrierHierarchy;
+}
+
+
 long
 GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
     // Inspect previous element or go back to Delete Frame

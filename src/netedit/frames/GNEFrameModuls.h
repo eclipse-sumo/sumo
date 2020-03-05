@@ -303,6 +303,9 @@ public:
         /// @brief refresh AttributeCarrierHierarchy
         void refreshAttributeCarrierHierarchy();
 
+        /// @brief if given AttributeCarrier is the same of myAC, disable it
+        void removeCurrentEditedAttribute(const GNEAttributeCarrier* AC);
+
         /// @name FOX-callbacks
         /// @{
         /// @brief called when user press right click over an item of list of children
@@ -374,6 +377,12 @@ public:
 
         /// @brief demand element (casted from myClickedAC)
         GNEDemandElement* myClickedDemandElement;
+
+        /// @brief data set element (casted from myClickedAC)
+        GNEDataSet* myClickedDataSet;
+
+        /// @brief data interval element (casted from myClickedAC)
+        GNEDataInterval* myClickedDataInterval;
 
         /// @brief generic data element (casted from myClickedAC)
         GNEGenericData* myClickedGenericData;

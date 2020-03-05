@@ -856,6 +856,8 @@ GNEFrameModuls::AttributeCarrierHierarchy::AttributeCarrierHierarchy(GNEFrame* f
     myClickedShape(nullptr),
     myClickedAdditional(nullptr),
     myClickedDemandElement(nullptr),
+    myClickedDataSet(nullptr),
+    myClickedDataInterval(nullptr),
     myClickedGenericData(nullptr) {
     // Create three list
     myTreelist = new FXTreeList(this, this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListFrame);
@@ -890,6 +892,8 @@ GNEFrameModuls::AttributeCarrierHierarchy::hideAttributeCarrierHierarchy() {
     myClickedShape = nullptr;
     myClickedAdditional = nullptr;
     myClickedDemandElement = nullptr;
+    myClickedDataSet = nullptr;
+    myClickedDataInterval = nullptr;
     myClickedGenericData = nullptr;
     // hide modul
     hide();
@@ -905,6 +909,15 @@ GNEFrameModuls::AttributeCarrierHierarchy::refreshAttributeCarrierHierarchy() {
     // show ACChildren of myAC
     if (myAC) {
         showAttributeCarrierChildren(myAC, showAttributeCarrierParents());
+    }
+}
+
+
+void 
+GNEFrameModuls::AttributeCarrierHierarchy::removeCurrentEditedAttribute(const GNEAttributeCarrier* AC) {
+    // simply check if AC is the same of myAC
+    if (AC == myAC) {
+        myAC = nullptr;
     }
 }
 
@@ -990,6 +1003,15 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector
         } else {
             myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement, myFrameParent->myViewNet->getUndoList());
         }
+    } else if (myClickedDataSet) {
+        myFrameParent->myViewNet->getNet()->deleteDataSet(myClickedDataSet, myFrameParent->myViewNet->getUndoList());
+    } else if (myClickedDataInterval) {
+        // check if we have to remove data Set
+        if (myClickedDataInterval->getDataSetParent()->getDataIntervalChildren().size() == 1) {
+            myFrameParent->myViewNet->getNet()->deleteDataSet(myClickedDataInterval->getDataSetParent(), myFrameParent->myViewNet->getUndoList());
+        } else {
+            myFrameParent->myViewNet->getNet()->deleteDataInterval(myClickedDataInterval, myFrameParent->myViewNet->getUndoList());
+        }
     } else if (myClickedGenericData) {
         // check if we have to remove interval
         if (myClickedGenericData->getDataIntervalParent()->getGenericDataChildren().size() == 1) {
@@ -1067,6 +1089,8 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
         myClickedShape = dynamic_cast<GNEShape*>(clickedAC);
         myClickedAdditional = dynamic_cast<GNEAdditional*>(clickedAC);
         myClickedDemandElement = dynamic_cast<GNEDemandElement*>(clickedAC);
+        myClickedDataSet = dynamic_cast<GNEDataSet*>(clickedAC);
+        myClickedDataInterval = dynamic_cast<GNEDataInterval*>(clickedAC);
         myClickedGenericData = dynamic_cast<GNEGenericData*>(clickedAC);
         // create FXMenuPane
         FXMenuPane* pane = new FXMenuPane(myTreelist);
@@ -1076,8 +1100,9 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
         new FXMenuSeparator(pane);
         // create center menu command
         FXMenuCommand* centerMenuCommand = new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_CENTER);
-        // disable Centering for Vehicle Types
-        if (myClickedAC->getTagProperty().isVehicleType()) {
+        // disable Centering for Vehicle Types, data sets and data intervals
+        if (myClickedAC->getTagProperty().isVehicleType() || (myClickedAC->getTagProperty().getTag() == SUMO_TAG_DATASET) ||
+            (myClickedAC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL)) {
             centerMenuCommand->disable();
         }
         // create inspect and delete menu commands
@@ -1136,6 +1161,8 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
         myClickedShape = nullptr;
         myClickedAdditional = nullptr;
         myClickedDemandElement = nullptr;
+        myClickedDataSet = nullptr;
+        myClickedDataInterval = nullptr;
         myClickedGenericData = nullptr;
     }
 }

@@ -38,7 +38,7 @@ class GNEViewNet;
 class GNEEdge;
 class GNEEdgeData;
 class GNEGenericData;
-class GNEDataElement;
+class GNEDataSet;
 class GNEDataInterval;
 class GNEDataSet;
 class GNEUndoList;

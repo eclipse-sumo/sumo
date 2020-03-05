@@ -26,8 +26,10 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 
 #include "GNEDataSet.h"
 #include "GNEDataInterval.h"
@@ -114,6 +116,7 @@ void
 GNEDataSet::addDataIntervalChild(GNEDataInterval* dataInterval) {
     // check that dataInterval wasn't previously inserted
     if (myDataIntervalChildren.count(dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN)) == 0) {
+        // add data interval child
         myDataIntervalChildren[dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN)] = dataInterval;
     } else {
         throw ProcessError("DataInterval was already inserted");
@@ -125,7 +128,11 @@ void
 GNEDataSet::removeDataIntervalChild(GNEDataInterval* dataInterval) {
     // check that dataInterval was previously inserted
     if (myDataIntervalChildren.count(dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN)) == 1) {
+        // remove data interval child
         myDataIntervalChildren.erase(dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN));
+        // remove it from Inspector Frame and AttributeCarrierHierarchy
+        myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(dataInterval);
+        myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(dataInterval);
     } else {
         throw ProcessError("DataInterval wasn't previously inserted");
     }

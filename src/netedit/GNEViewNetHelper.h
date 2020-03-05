@@ -152,7 +152,7 @@ class GNEFlow;
 class GNEVehicle;
 class GNEtrip;
 // data elements
-class GNEDataElement;
+class GNEDataSet;
 class GNEDataInterval;
 class GNEGenericData;
 

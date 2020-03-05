@@ -309,6 +309,9 @@ public:
     /// @brief get OverlappedInspection modul
     GNEFrameModuls::OverlappedInspection* getOverlappedInspection() const;
 
+    /// @brief get AttributeCarrierHierarchy modul
+    GNEFrameModuls::AttributeCarrierHierarchy* getAttributeCarrierHierarchy() const;
+
     /// @name FOX-callbacks
     /// @{
 
