@@ -843,7 +843,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
     std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
-            changeDemandElementID(value);
+            myViewNet->getNet()->getAttributeCarriers().updateID(this, value);
             break;
         case SUMO_ATTR_TYPE:
             replaceParentDemandElement(this, value, 0);

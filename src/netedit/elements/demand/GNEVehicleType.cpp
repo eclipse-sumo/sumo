@@ -1194,7 +1194,8 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
     VClassDefaultValues defaultValues(vehicleClass);
     switch (key) {
         case SUMO_ATTR_ID:
-            changeDemandElementID(value);
+            myViewNet->getNet()->getAttributeCarriers().updateID(this, value);
+            // manually change VType parameters ID
             id = value;
             break;
         // CFM Attributes

@@ -362,7 +362,7 @@ void
 GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            changeAdditionalID(value);
+            myViewNet->getNet()->getAttributeCarriers().updateID(this, value);
             break;
         case SUMO_ATTR_LANE:
             replaceParentLanes(this, value);

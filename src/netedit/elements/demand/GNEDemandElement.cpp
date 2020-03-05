@@ -378,21 +378,6 @@ GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
 }
 
 
-void
-GNEDemandElement::changeDemandElementID(const std::string& newID) {
-    if (myViewNet->getNet()->retrieveDemandElement(myTagProperty.getTag(), newID, false) != nullptr) {
-        throw InvalidArgument("An DemandElement with tag " + getTagStr() + " and ID = " + newID + " already exists");
-    } else {
-        // Save old ID
-        std::string oldID = getID();
-        // set New ID
-        setMicrosimID(newID);
-        // update demand element ID in the container of net
-        myViewNet->getNet()->updateDemandElementID(oldID, this);
-    }
-}
-
-
 GNELane*
 GNEDemandElement::getFirstAllowedVehicleLane() const {
     // first check if current demand element has parent edges

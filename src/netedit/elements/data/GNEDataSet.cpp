@@ -24,6 +24,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -50,6 +51,14 @@ GNEDataSet::~GNEDataSet() {}
 const std::string&
 GNEDataSet::getID() const {
     return myDataSetID;
+}
+
+void 
+GNEDataSet::setDataSetID(const std::string& newID) {
+    myDataSetID = newID;
+    /**
+        ////
+    **/
 }
 
 void
@@ -236,8 +245,18 @@ GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
 
 
 bool
-GNEDataSet::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
-    return true;
+GNEDataSet::isValid(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            if (SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveDataSet(value, false) == nullptr)) {
+                return true;
+            } else {
+                return false;
+            }
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
@@ -272,10 +291,10 @@ GNEDataSet::getHierarchyName() const {
 
 
 void
-GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& /* value */) {
+GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            /* */
+            myViewNet->getNet()->getAttributeCarriers().updateID(this, value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

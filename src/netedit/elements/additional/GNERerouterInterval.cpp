@@ -22,6 +22,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 
 #include "GNERerouterInterval.h"
@@ -203,7 +204,7 @@ void
 GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            changeAdditionalID(value);
+            myViewNet->getNet()->getAttributeCarriers().updateID(this, value);
             break;
         case SUMO_ATTR_BEGIN:
             myBegin = parse<SUMOTime>(value);

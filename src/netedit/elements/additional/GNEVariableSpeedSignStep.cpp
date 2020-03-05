@@ -22,6 +22,7 @@
 #include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 
 #include "GNEVariableSpeedSignStep.h"
@@ -225,7 +226,7 @@ void
 GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            changeAdditionalID(value);
+            myViewNet->getNet()->getAttributeCarriers().updateID(this, value);
             break;
         case SUMO_ATTR_TIME:
             myTime = parse<double>(value);

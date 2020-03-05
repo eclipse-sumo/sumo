@@ -427,12 +427,6 @@ protected:
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& newID) const;
 
-    /**@brief change ID of demand element
-     * @throw exception if exist already an demand element whith the same ID
-     * @throw exception if ID isn't valid
-     */
-    void changeDemandElementID(const std::string& newID);
-
     /// @}
 
     /// @brief calculate personPlan start and end positions over lanes

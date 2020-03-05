@@ -509,21 +509,6 @@ GNEAdditional::isValidDetectorID(const std::string& newID) const {
 
 
 void
-GNEAdditional::changeAdditionalID(const std::string& newID) {
-    if (myViewNet->getNet()->retrieveAdditional(myTagProperty.getTag(), newID, false) != nullptr) {
-        throw InvalidArgument("An Additional with tag " + getTagStr() + " and ID = " + newID + " already exists");
-    } else {
-        // Save old ID
-        std::string oldID = getID();
-        // set New ID
-        setMicrosimID(newID);
-        // update additional ID in the container of net
-        myViewNet->getNet()->updateAdditionalID(oldID, this);
-    }
-}
-
-
-void
 GNEAdditional::selectAttributeCarrier(bool changeFlag) {
     if (!myViewNet) {
         throw ProcessError("ViewNet cannot be nullptr");

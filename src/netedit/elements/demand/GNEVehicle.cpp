@@ -1373,7 +1373,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
     bool updateSpreadStackGeometry = false;
     switch (key) {
         case SUMO_ATTR_ID:
-            changeDemandElementID(value);
+            myViewNet->getNet()->getAttributeCarriers().updateID(this, value);
             // set manually vehicle ID (needed for saving)
             id = value;
             break;

@@ -22,6 +22,7 @@
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 
 #include "GNETAZSourceSink.h"
@@ -221,7 +222,7 @@ void
 GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            changeAdditionalID(value);
+            myViewNet->getNet()->getAttributeCarriers().updateID(this, value);
             break;
         case SUMO_ATTR_WEIGHT:
             myDepartWeight = parse<double>(value);

@@ -197,7 +197,7 @@ void
 GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            changeAdditionalID(value);
+            myViewNet->getNet()->getAttributeCarriers().updateID(this, value);
             break;
         case SUMO_ATTR_LANE:
             myClosedLane = myViewNet->getNet()->retrieveLane(value);

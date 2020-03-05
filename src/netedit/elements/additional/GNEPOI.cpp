@@ -426,10 +426,12 @@ void
 GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID: {
-            std::string oldID = myID;
-            myID = value;
-            myNet->changeShapeID(this, oldID);
+            // note: getAttributeCarriers().updateID doesn't change Microsim ID in GNEShapes 
+            myNet->getAttributeCarriers().updateID(this, value);
+            // set microsim ID
             setMicrosimID(value);
+            // set named ID
+            myID = value;
             break;
         }
         case SUMO_ATTR_COLOR:

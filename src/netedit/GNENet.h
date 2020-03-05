@@ -91,6 +91,13 @@ class GNENet : public GUIGlObject, public ShapeContainer {
 public:
     /// @brief struct used for saving all attribute carriers of net, in different formats
     struct AttributeCarriers {
+    public:
+        /// @brief constructor
+        AttributeCarriers(GNENet* net);
+
+        /// @brief update ID
+        void updateID(GNEAttributeCarrier* AC, const std::string newID);
+
         /// @brief map with the ID and pointer to junctions of net
         std::map<std::string, GNEJunction*> junctions;
 
@@ -108,6 +115,35 @@ public:
 
         /// @brief special map used for saving Demand Elements of type "Vehicle" (Vehicles, routeFlows, etc.) sorted by depart time
         std::map<std::string, GNEDemandElement*> vehicleDepartures;
+
+    protected:
+        /// @brief update junction ID in container
+        void updateJunctionID(GNEAttributeCarrier* AC, const std::string& newID);
+
+        /// @brief update edge ID in container
+        void updateEdgeID(GNEAttributeCarrier* AC, const std::string& newID);
+
+        /// @brief update additional ID in container
+        void updateAdditionalID(GNEAttributeCarrier* AC, const std::string& newID);
+
+        /// @brief update shape ID in container
+        void updateShapeID(GNEAttributeCarrier* AC, const std::string& newID);
+
+        /// @brief update demand element ID in container
+        void updateDemandElementID(GNEAttributeCarrier* AC, const std::string& newID);
+
+        /// @brief update data element ID in container
+        void updateDataSetID(GNEAttributeCarrier* AC, const std::string& newID);
+
+        /// @brief pointer to net
+        GNENet* myNet;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        AttributeCarriers(const AttributeCarriers&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        AttributeCarriers& operator=(const AttributeCarriers&) = delete;
     };
 
     /**@brief Constructor
@@ -357,7 +393,7 @@ public:
     void mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* undoList);
 
     /// @brief retrieve all attribute carriers of Net
-    const AttributeCarriers& getAttributeCarriers() const;
+    AttributeCarriers& getAttributeCarriers();
 
     /**@brief get junction by id
      * @param[in] id The id of the desired junction
@@ -494,12 +530,6 @@ public:
     /// @brief add GL Object into net
     void removeGLObjectFromGrid(GUIGlObject* o);
 
-    /// @brief updates the map and reserves new id
-    void renameEdge(GNEEdge* edge, const std::string& newID);
-
-    /// @brief updates the map and reserves new id
-    void renameJunction(GNEJunction* junction, const std::string& newID);
-
     /// @brief modifies endpoins of the given edge
     void changeEdgeEndpoints(GNEEdge* edge, const std::string& newSourceID, const std::string& newDestID);
 
@@ -620,11 +650,6 @@ public:
      */
     int getNumberOfAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
-    /**@brief update additional ID in container
-    * @note this function is automatically called when user changes the ID of an additional
-    */
-    void updateAdditionalID(const std::string& oldID, GNEAdditional* additional);
-
     /// @brief inform that additionals has to be saved
     void requireSaveAdditionals(bool value);
 
@@ -661,11 +686,6 @@ public:
      * @return Number of demand elements of the net
      */
     int getNumberOfDemandElements(SumoXMLTag type = SUMO_TAG_NOTHING) const;
-
-    /**@brief update demand element ID in container
-    * @note this function is automatically called when user changes the ID of an demand element
-    */
-    void updateDemandElementID(const std::string& oldID, GNEDemandElement* demandElement);
 
     /**@brief update demand element begin in container
     * @note this function is automatically called when user changes the begin/departure of an demand element
@@ -705,11 +725,6 @@ public:
      */
     int getNumberOfDataSets() const;
 
-    /**@brief update data set ID in container
-    * @note this function is automatically called when user changes the ID of an data set
-    */
-    void updateDataSetID(const std::string& oldID, GNEDataSet* dataSet);
-
     /// @brief inform that data sets has to be saved
     void requireSaveDataElements(bool value);
 
@@ -747,9 +762,6 @@ public:
 
     /// @brief generate Shape ID
     std::string generateShapeID(SumoXMLTag shapeTag) const;
-
-    /// @brief change Shape ID
-    void changeShapeID(GNEShape* s, const std::string& OldID);
 
     /// @brief get number of shapes
     int getNumberOfShapes() const;

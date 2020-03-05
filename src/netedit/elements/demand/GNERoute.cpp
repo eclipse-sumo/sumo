@@ -501,7 +501,7 @@ void
 GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            changeDemandElementID(value);
+            myViewNet->getNet()->getAttributeCarriers().updateID(this, value);
             break;
         case SUMO_ATTR_EDGES:
             replaceParentEdges(this, value);

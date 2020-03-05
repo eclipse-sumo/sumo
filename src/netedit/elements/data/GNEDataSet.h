@@ -52,6 +52,9 @@ public:
     /// @brief get ID
     const std::string& getID() const;
 
+    /// @brief set new ID in dataSet
+    void setDataSetID(const std::string& newID);
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
