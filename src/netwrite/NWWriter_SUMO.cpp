@@ -375,7 +375,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     writeLane(into, k.viaID + "_0", k.vmax, permissions, successor.preferred,
                               NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                               std::map<int, double>(), successor.width, k.viaShape, &k,
-                              MAX2(k.viaShape.length(), POSITION_EPS), // microsim needs positive length
+                              MAX2(k.viaLength, POSITION_EPS), // microsim needs positive length
                               0, "", "");
                     into.closeTag();
                 }
@@ -701,6 +701,9 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
     }
     if (c.speed != NBEdge::UNSPECIFIED_SPEED && style != TLL) {
         into.writeAttr(SUMO_ATTR_SPEED, c.speed);
+    }
+    if (c.customLength != NBEdge::UNSPECIFIED_LOADED_LENGTH && style != TLL) {
+        into.writeAttr(SUMO_ATTR_LENGTH, c.customLength);
     }
     if (c.customShape.size() != 0 && style != TLL) {
         if (geoAccuracy) {

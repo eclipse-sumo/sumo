@@ -409,6 +409,8 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_SPEED:
             return toString(nbCon.speed);
+        case SUMO_ATTR_LENGTH:
+            return toString(nbCon.customLength);
         case SUMO_ATTR_DIR:
             return toString(getEdgeFrom()->getNBEdge()->getToNode()->getDirection(
                                 getEdgeFrom()->getNBEdge(), nbCon.toEdge, OptionsCont::getOptions().getBool("lefthand")));
@@ -443,6 +445,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
         case SUMO_ATTR_SPEED:
+        case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_CUSTOMSHAPE:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -532,6 +535,8 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             return canParseVehicleClasses(value);
         case SUMO_ATTR_SPEED:
             return canParse<double>(value) && (parse<double>(value) >= -1);
+        case SUMO_ATTR_LENGTH:
+            return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_CUSTOMSHAPE: {
             // empty custom shapes are allowed
             return canParse<PositionVector>(value);
@@ -605,6 +610,9 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_SPEED:
             nbCon.speed = parse<double>(value);
+            break;
+        case SUMO_ATTR_LENGTH:
+            nbCon.customLength = parse<double>(value);
             break;
         case SUMO_ATTR_ALLOW: {
             const SVCPermissions successorAllows = nbCon.toEdge->getLanes()[nbCon.toLane].permissions;

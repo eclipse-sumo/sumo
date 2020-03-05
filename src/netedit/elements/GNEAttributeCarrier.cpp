@@ -984,6 +984,12 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               toString(NBEdge::UNSPECIFIED_SPEED));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_LENGTH,
+                                              GNEAttributeProperties::ATTRPROPERTY_FLOAT | GNEAttributeProperties::ATTRPROPERTY_POSITIVE | GNEAttributeProperties::ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                              "sets custom length for the connection",
+                                              toString(NBEdge::UNSPECIFIED_LOADED_LENGTH));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CUSTOMSHAPE,
                                               GNEAttributeProperties::ATTRPROPERTY_STRING | GNEAttributeProperties::ATTRPROPERTY_POSITION | GNEAttributeProperties::ATTRPROPERTY_LIST | GNEAttributeProperties::ATTRPROPERTY_UNIQUE | GNEAttributeProperties::ATTRPROPERTY_DEFAULTVALUESTATIC | GNEAttributeProperties::ATTRPROPERTY_UPDATEGEOMETRY,
                                               "sets custom shape for the connection");

@@ -636,6 +636,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                      NBEdge::UNSPECIFIED_CONTPOS,
                                      NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
                                      NBEdge::UNSPECIFIED_SPEED,
+                                     NBEdge::UNSPECIFIED_LOADED_LENGTH,
                                      (*i).shape);
 
         if ((*i).origID != "" && saveOrigIDs) {

@@ -102,6 +102,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     contPos(UNSPECIFIED_CONTPOS),
     visibility(UNSPECIFIED_VISIBILITY_DISTANCE),
     speed(UNSPECIFIED_SPEED),
+    customLength(UNSPECIFIED_LOADED_LENGTH),
     permissions(SVC_UNSPECIFIED),
     id(toEdge_ == nullptr ? "" : toEdge->getFromNode()->getID()),
     haveVia(false),
@@ -111,7 +112,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
 
 
 NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, double contPos_,
-                               double visibility_, double speed_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_, SVCPermissions permissions_) :
+                               double visibility_, double speed_, double length_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_, SVCPermissions permissions_) :
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
@@ -122,6 +123,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     contPos(contPos_),
     visibility(visibility_),
     speed(speed_),
+    customLength(length_),
     customShape(customShape_),
     permissions(permissions_),
     id(toEdge_ == nullptr ? "" : toEdge->getFromNode()->getID()),
@@ -1010,6 +1012,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                double contPos,
                                double visibility,
                                double speed,
+                               double length,
                                const PositionVector& customShape,
                                bool uncontrolled,
                                SVCPermissions permissions,
@@ -1026,7 +1029,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape, uncontrolled, permissions, postProcess);
+    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, length, customShape, uncontrolled, permissions, postProcess);
 }
 
 
@@ -1056,6 +1059,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       double contPos,
                       double visibility,
                       double speed,
+                      double length,
                       const PositionVector& customShape,
                       bool uncontrolled,
                       SVCPermissions permissions,
@@ -1099,6 +1103,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     myConnections.back().visibility = visibility;
     myConnections.back().permissions = permissions;
     myConnections.back().speed = speed;
+    myConnections.back().customLength = length;
     myConnections.back().customShape = customShape;
     myConnections.back().uncontrolled = uncontrolled;
     if (type == L2L_USER) {
@@ -1486,7 +1491,7 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
         }
 #endif
         setConnection(toUse, i->toEdge, i->toLane, L2L_COMPUTED, false, i->mayDefinitelyPass, i->keepClear,
-                      i->contPos, i->visibility, i->speed, i->customShape, i->uncontrolled);
+                      i->contPos, i->visibility, i->speed, i->customLength, i->customShape, i->uncontrolled);
     }
     // remove the remapped edge from connections
     removeFromConnections(which);
@@ -1787,7 +1792,11 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         ++internalLaneIndex;
         ++linkIndex;
         ++numLanes;
-        lengthSum += MAX2(POSITION_EPS, con.shape.length());
+        if (con.customLength != UNSPECIFIED_LOADED_LENGTH) {
+            lengthSum += con.customLength;
+        } else {
+            lengthSum += MAX2(POSITION_EPS, con.shape.length());
+        }
     }
     assignInternalLaneLength(myConnections.end(), numLanes, lengthSum);
 }
@@ -1801,7 +1810,18 @@ NBEdge::assignInternalLaneLength(std::vector<Connection>::iterator i, int numLan
     assert(i - myConnections.begin() >= numLanes);
     for (int prevIndex = 1; prevIndex <= numLanes; prevIndex++) {
         //std::cout << " con=" << (*(i - prevIndex)).getDescription(this) << " numLanes=" << numLanes << " avgLength=" << lengthSum / numLanes << "\n";
-        (*(i - prevIndex)).length = lengthSum / numLanes;
+        Connection& c = (*(i - prevIndex));
+        c.length = lengthSum / numLanes;
+        if (c.haveVia) {
+            c.viaLength = c.viaShape.length();
+            if (c.customLength != UNSPECIFIED_LOADED_LENGTH) {
+                // split length proportionally
+                const double firstLength = c.shape.length();
+                const double a = firstLength / (firstLength + c.viaLength);
+                c.length = a * c.customLength;
+                c.viaLength = c.customLength - c.length;
+            }
+        }
     }
 }
 

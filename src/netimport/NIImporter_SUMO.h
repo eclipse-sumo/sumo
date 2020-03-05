@@ -193,6 +193,8 @@ private:
         SVCPermissions permissions;
         /// @brief custom speed for connection
         double speed;
+        /// @brief custom length for connection
+        double customLength;
         /// @brief custom shape connection
         PositionVector customShape;
         /// @brief if set to true, This connection will not be TLS-controlled despite its node being controlled.

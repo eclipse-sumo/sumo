@@ -200,6 +200,7 @@ public:
                    double contPos_ = UNSPECIFIED_CONTPOS,
                    double visibility_ = UNSPECIFIED_VISIBILITY_DISTANCE,
                    double speed_ = UNSPECIFIED_SPEED,
+                   double length_ = UNSPECIFIED_LOADED_LENGTH,
                    bool haveVia_ = false,
                    bool uncontrolled_ = false,
                    const PositionVector& customShape_ = PositionVector::EMPTY,
@@ -238,6 +239,9 @@ public:
         /// @brief custom speed for connection
         double speed;
 
+        /// @brief custom length for connection
+        double customLength;
+
         /// @brief custom shape for connection
         PositionVector customShape;
 
@@ -261,6 +265,9 @@ public:
 
         /// @brief shape of via
         PositionVector viaShape;
+
+        /// @brief the length of the via shape (maybe customized)
+        double viaLength;
 
         /// @brief FOE Internal links
         std::vector<int> foeInternalLinks;
@@ -846,6 +853,7 @@ public:
                                 double contPos = UNSPECIFIED_CONTPOS,
                                 double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
                                 double speed = UNSPECIFIED_SPEED,
+                                double length = UNSPECIFIED_LOADED_LENGTH,
                                 const PositionVector& customShape = PositionVector::EMPTY,
                                 const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
                                 SVCPermissions = SVC_UNSPECIFIED,
@@ -892,6 +900,7 @@ public:
                        double contPos = UNSPECIFIED_CONTPOS,
                        double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
                        double speed = UNSPECIFIED_SPEED,
+                       double length = UNSPECIFIED_LOADED_LENGTH,
                        const PositionVector& customShape = PositionVector::EMPTY,
                        const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
                        SVCPermissions permissions = SVC_UNSPECIFIED,

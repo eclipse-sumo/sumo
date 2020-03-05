@@ -536,7 +536,8 @@ public:
      * @param[in] warnOnly Whether a failure to set this connection should only result in a warning
      */
     void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass,
-                                  bool keepClear, double contPos, double visibility, double speed,
+                                  bool keepClear, double contPos, double visibility,
+                                  double speed, double length,
                                   const PositionVector& customShape,
                                   bool uncontrolled,
                                   bool warnOnly,
@@ -627,12 +628,14 @@ private:
          */
         PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_,
                               bool mayDefinitelyPass_, bool keepClear_, double contPos_, double visibility_, double speed_,
+                              double length_,
                               const PositionVector& customShape_,
                               bool uncontrolled_,
                               bool warnOnly_, SVCPermissions permissions_) :
             from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_), contPos(contPos_),
             visibility(visibility_),
             speed(speed_),
+            customLength(length_),
             customShape(customShape_),
             uncontrolled(uncontrolled_),
             permissions(permissions_),
@@ -656,6 +659,8 @@ private:
         double visibility;
         /// @brief custom speed for connection
         double speed;
+        /// @brief custom length for connection
+        double customLength;
         /// @brief custom shape for connection
         PositionVector customShape;
         /// @brief whether this connection shall not be controlled by a traffic light
