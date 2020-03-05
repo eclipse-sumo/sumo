@@ -3,3 +3,9 @@ reversal_possible
 
 # vehicle cannot reach reverse because there is insufficient space after the switch
 reversal_impossible
+
+# vehicle has sufficient space after the switch but no turn-around connection is defined
+missing_turnaround
+
+# test reversal at a short buffer stop edge
+short_buffer
