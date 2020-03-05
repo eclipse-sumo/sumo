@@ -99,6 +99,9 @@ speed
 
 # custom connection length
 length
+
+# test option for setting default connection length
+length_default
 shape
 
 # custom connection permissions
