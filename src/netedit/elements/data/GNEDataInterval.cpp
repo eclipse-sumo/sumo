@@ -27,10 +27,12 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/data/GNEGenericData.h>
 
 #include "GNEDataInterval.h"
 #include "GNEDataSet.h"
+#include "GNEGenericData.h"
 
 
 // ===========================================================================
@@ -50,6 +52,16 @@ GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, 
 
 
 GNEDataInterval::~GNEDataInterval() {}
+
+
+void 
+GNEDataInterval::updateGenericDataIDs() {
+    for (const auto& genericData : myGenericDataChildren) {
+        if (genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
+            genericData->setMicrosimID(myDataSetParent->getID() + "_" + toString(myBegin) + "->" + toString(myEnd) + "_" + genericData->getParentEdges().front()->getID());
+        }
+    }
+}
 
 
 const std::string& 
@@ -111,6 +123,10 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
     // check that GenericData wasn't previously inserted
     if (!hasGenericDataChild(genericData)) {
         myGenericDataChildren.push_back(genericData);
+        // set ID
+        if (genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
+            genericData->setMicrosimID(myDataSetParent->getID() + "_" + toString(myBegin) + "->" + toString(myEnd) + "_" + genericData->getParentEdges().front()->getID());
+        }
     } else {
         throw ProcessError("GenericData was already inserted");
     }
@@ -317,9 +333,13 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_BEGIN:
             myBegin = parse<double>(value);
+            // update Generic Data IDs
+            updateGenericDataIDs();
             break;
         case SUMO_ATTR_END:
             myEnd = parse<double>(value);
+            // update Generic Data IDs
+            updateGenericDataIDs();
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

@@ -375,6 +375,9 @@ public:
         /// @brief demand element (casted from myClickedAC)
         GNEDemandElement* myClickedDemandElement;
 
+        /// @brief generic data element (casted from myClickedAC)
+        GNEGenericData* myClickedGenericData;
+
         /// @brief tree list to show the children of the element to erase
         FXTreeList* myTreelist;
 

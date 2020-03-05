@@ -223,8 +223,13 @@ GNEEdgeData::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 }
 
 
-bool GNEEdgeData::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
+bool GNEEdgeData::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            return false;
+        default:
+            return true;
+    }
 }
 
 

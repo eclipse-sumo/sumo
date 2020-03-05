@@ -32,6 +32,8 @@
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/changes/GNEChange_Crossing.h>
 #include <netedit/changes/GNEChange_DataSet.h>
+#include <netedit/changes/GNEChange_DataInterval.h>
+#include <netedit/changes/GNEChange_GenericData.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/changes/GNEChange_Edge.h>
 #include <netedit/changes/GNEChange_Junction.h>
@@ -880,10 +882,29 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
 void
 GNENet::deleteDataSet(GNEDataSet* dataSet, GNEUndoList* undoList) {
     undoList->p_begin("delete " + dataSet->getTagStr());
-    // remove dataSet
+    // remove data set
     undoList->add(new GNEChange_DataSet(dataSet, false), true);
     undoList->p_end();
 }
+
+
+void
+GNENet::deleteDataInterval(GNEDataInterval* dataInterval, GNEUndoList* undoList) {
+    undoList->p_begin("delete " + dataInterval->getTagStr());
+    // remove data interval
+    undoList->add(new GNEChange_DataInterval(dataInterval, false), true);
+    undoList->p_end();
+}
+
+
+void
+GNENet::deleteGenericData(GNEGenericData* genericData, GNEUndoList* undoList) {
+    undoList->p_begin("delete " + genericData->getTagStr());
+    // remove generic data
+    undoList->add(new GNEChange_GenericData(genericData, false), true);
+    undoList->p_end();
+}
+
 
 void
 GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections) {

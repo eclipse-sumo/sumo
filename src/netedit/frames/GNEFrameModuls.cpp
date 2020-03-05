@@ -855,7 +855,8 @@ GNEFrameModuls::AttributeCarrierHierarchy::AttributeCarrierHierarchy(GNEFrame* f
     myClickedConnection(nullptr),
     myClickedShape(nullptr),
     myClickedAdditional(nullptr),
-    myClickedDemandElement(nullptr) {
+    myClickedDemandElement(nullptr),
+    myClickedGenericData(nullptr) {
     // Create three list
     myTreelist = new FXTreeList(this, this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListFrame);
     hide();
@@ -889,6 +890,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::hideAttributeCarrierHierarchy() {
     myClickedShape = nullptr;
     myClickedAdditional = nullptr;
     myClickedDemandElement = nullptr;
+    myClickedGenericData = nullptr;
     // hide modul
     hide();
 }
@@ -940,6 +942,8 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdCenterItem(FXObject*, FXSelector
         myFrameParent->myViewNet->centerTo(myClickedShape->getGlID(), true, -1);
     } else if (myClickedDemandElement) {
         myFrameParent->myViewNet->centerTo(myClickedDemandElement->getGlID(), true, -1);
+    } else if (myClickedGenericData) {
+        myFrameParent->myViewNet->centerTo(myClickedGenericData->getGlID(), true, -1);
     }
     // update view after centering
     myFrameParent->myViewNet->update();
@@ -985,6 +989,18 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector
             myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement->getParentDemandElements().front(), myFrameParent->myViewNet->getUndoList());
         } else {
             myFrameParent->myViewNet->getNet()->deleteDemandElement(myClickedDemandElement, myFrameParent->myViewNet->getUndoList());
+        }
+    } else if (myClickedGenericData) {
+        // check if we have to remove interval
+        if (myClickedGenericData->getDataIntervalParent()->getGenericDataChildren().size() == 1) {
+            // check if we have to remove data Set
+            if (myClickedGenericData->getDataIntervalParent()->getDataSetParent()->getDataIntervalChildren().size() == 1) {
+                myFrameParent->myViewNet->getNet()->deleteDataSet(myClickedGenericData->getDataIntervalParent()->getDataSetParent(), myFrameParent->myViewNet->getUndoList());
+            } else {
+                myFrameParent->myViewNet->getNet()->deleteDataInterval(myClickedGenericData->getDataIntervalParent(), myFrameParent->myViewNet->getUndoList());
+            }
+        } else {
+            myFrameParent->myViewNet->getNet()->deleteGenericData(myClickedGenericData, myFrameParent->myViewNet->getUndoList());
         }
     }
     // update viewNet
@@ -1051,6 +1067,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
         myClickedShape = dynamic_cast<GNEShape*>(clickedAC);
         myClickedAdditional = dynamic_cast<GNEAdditional*>(clickedAC);
         myClickedDemandElement = dynamic_cast<GNEDemandElement*>(clickedAC);
+        myClickedGenericData = dynamic_cast<GNEGenericData*>(clickedAC);
         // create FXMenuPane
         FXMenuPane* pane = new FXMenuPane(myTreelist);
         // set item name and icon
@@ -1119,6 +1136,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
         myClickedShape = nullptr;
         myClickedAdditional = nullptr;
         myClickedDemandElement = nullptr;
+        myClickedGenericData = nullptr;
     }
 }
 

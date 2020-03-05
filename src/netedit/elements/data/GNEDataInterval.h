@@ -55,6 +55,9 @@ public:
     /// @brief Destructor
     ~GNEDataInterval();
 
+    /// @brief update generic data child IDs
+    void updateGenericDataIDs();
+
     /// @brief get ID
     const std::string& getID() const;
 

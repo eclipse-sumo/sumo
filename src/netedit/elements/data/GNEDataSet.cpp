@@ -55,10 +55,12 @@ GNEDataSet::getID() const {
 
 void 
 GNEDataSet::setDataSetID(const std::string& newID) {
+    // update ID
     myDataSetID = newID;
-    /**
-        ////
-    **/
+    // iterate over all intervals
+    for (const auto &interval : myDataIntervalChildren) {
+        interval.second->updateGenericDataIDs();
+    }
 }
 
 void

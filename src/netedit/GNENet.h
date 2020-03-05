@@ -335,11 +335,23 @@ public:
      */
     void deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoList);
 
-    /**@brief remove demand element
-     * @param[in] demandElement The dataSet to be removed
+    /**@brief remove data set
+     * @param[in] dataSet The data set to be removed
      * @param[in] undoList The undolist in which to mark changes
      */
     void deleteDataSet(GNEDataSet* dataSet, GNEUndoList* undoList);
+
+    /**@brief remove data interval
+     * @param[in] dataInterval The data interval to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void deleteDataInterval(GNEDataInterval* dataInterval, GNEUndoList* undoList);
+
+    /**@brief remove generic data
+     * @param[in] genericData The generic data to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void deleteGenericData(GNEGenericData* genericData, GNEUndoList* undoList);
 
     /**@brief duplicates lane
      * @param[in] lane The lane to be duplicated
