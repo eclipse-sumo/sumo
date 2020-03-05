@@ -131,6 +131,19 @@ NIXMLConnectionsHandler::myStartElement(int element,
         } else {
             fromEdge->addEdge2EdgeConnection(toEdge);
             fromEdge->getToNode()->invalidateTLS(myTLLogicCont, true, false);
+            if (attrs.hasAttribute(SUMO_ATTR_PASS)
+                    || attrs.hasAttribute(SUMO_ATTR_KEEP_CLEAR)
+                    || attrs.hasAttribute(SUMO_ATTR_CONTPOS)
+                    || attrs.hasAttribute(SUMO_ATTR_VISIBILITY_DISTANCE)
+                    || attrs.hasAttribute(SUMO_ATTR_SPEED)
+                    || attrs.hasAttribute(SUMO_ATTR_LENGTH)
+                    || attrs.hasAttribute(SUMO_ATTR_UNCONTROLLED)
+                    || attrs.hasAttribute(SUMO_ATTR_SHAPE)
+                    || attrs.hasAttribute(SUMO_ATTR_ALLOW)
+                    || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
+                WRITE_ERROR("No additional connection attributes are permitted in connection from edge '" + fromEdge->getID() + "' unless '" 
+                        + toString(SUMO_ATTR_FROM_LANE) + "' and '" + toString(SUMO_ATTR_TO_LANE) + "' are set.");
+            }
         }
     }
     if (element == SUMO_TAG_PROHIBITION) {
