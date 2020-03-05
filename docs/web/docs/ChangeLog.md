@@ -28,6 +28,7 @@ permalink: /ChangeLog/
   - Train routing now considers space requirement for train reversal. Issue #6697
 - TraCI
   - Fixed crash when calling vehicle.moveTo for an off-road vehicle with tripinfo-output. Issue #6717
+  - Fixed crash when trying add subscription filter for context subscrition of persons around an ego vehicle. Issue #6735
 - Tools
   - [sort_routes.py](Tools/Routes.md#sort_routespy) can now handle trips, triggered vehicles and human-readable times.
 
@@ -40,12 +41,14 @@ permalink: /ChangeLog/
   - Tripinfo-output attribute vaporized now includes specific description for premature vehicle removal (collision, traci, calibrator, ...). Issue #6718
 - NETEDIT
   - Added new 'Data Mode' to edit files with edge and turn-related data. Issue #6461
+  - Traffic light phase editing function 'Insert Phase' now takes successive green states into account when synthesizing transition phases. Issue #6732
 - SUMO-GUI
   - Missing data values (color by edgeData) can now be distinguished from negative data values. Issue #6660
   - `<edgeRelation>`-data files can now be visualized. Issue #6659
 - NETCONVERT
   - Edge attribute `spreadType` now supports value `roadCenter` which aligns edges with common geometry so that the geometry reflects the middle of the road regardless of differences in lane numbers (causing natural alignment for turning lanes). Issue #1758
   - Added option **--default.spreadtype** to set the default spread type for edges. Issue #6662
+  - Connections now support attribute length to customize the length of internal lanes. Issue #6733
 - TraCI
   - [Meso simulation](Simulation/Meso.md) now supports TraCI
 - Tools
