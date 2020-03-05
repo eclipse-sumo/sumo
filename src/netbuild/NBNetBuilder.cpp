@@ -69,6 +69,7 @@ NBNetBuilder::applyOptions(OptionsCont& oc) {
     myEdgeCont.applyOptions(oc);
     // apply options to traffic light logics control
     myTLLCont.applyOptions(oc);
+    NBEdge::setDefaultConnectionLength(oc.getFloat("default.connection-length"));
 }
 
 

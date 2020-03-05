@@ -87,6 +87,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("default.junctions.radius", new Option_Float(4));
     oc.addDescription("default.junctions.radius", "Building Defaults", "The default turning radius of intersections");
 
+    oc.doRegister("default.connection-length", new Option_Float((double) NBEdge::UNSPECIFIED_LOADED_LENGTH));
+    oc.addDescription("default.connection-length", "Building Defaults", "The default length when overriding connection lengths");
+
     oc.doRegister("default.right-of-way", new Option_String("default"));
     oc.addDescription("default.right-of-way", "Building Defaults", "The default algorithm for computing right of way rules ('default', 'edgePriority')");
 

@@ -200,7 +200,7 @@ public:
                    double contPos_ = UNSPECIFIED_CONTPOS,
                    double visibility_ = UNSPECIFIED_VISIBILITY_DISTANCE,
                    double speed_ = UNSPECIFIED_SPEED,
-                   double length_ = UNSPECIFIED_LOADED_LENGTH,
+                   double length_ = myDefaultConnectionLength,
                    bool haveVia_ = false,
                    bool uncontrolled_ = false,
                    const PositionVector& customShape_ = PositionVector::EMPTY,
@@ -357,6 +357,10 @@ public:
         PRIORITY_ROAD = 1,
         ROUNDABOUT = 1000
     };
+
+    static void setDefaultConnectionLength(double length) {
+        myDefaultConnectionLength = length;
+    }
 
 public:
     /** @brief Constructor
@@ -853,7 +857,7 @@ public:
                                 double contPos = UNSPECIFIED_CONTPOS,
                                 double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
                                 double speed = UNSPECIFIED_SPEED,
-                                double length = UNSPECIFIED_LOADED_LENGTH,
+                                double length = myDefaultConnectionLength,
                                 const PositionVector& customShape = PositionVector::EMPTY,
                                 const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
                                 SVCPermissions = SVC_UNSPECIFIED,
@@ -900,7 +904,7 @@ public:
                        double contPos = UNSPECIFIED_CONTPOS,
                        double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
                        double speed = UNSPECIFIED_SPEED,
-                       double length = UNSPECIFIED_LOADED_LENGTH,
+                       double length = myDefaultConnectionLength,
                        const PositionVector& customShape = PositionVector::EMPTY,
                        const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
                        SVCPermissions permissions = SVC_UNSPECIFIED,
@@ -1686,6 +1690,9 @@ private:
 
     // @brief a static list of successor edges. Set by NBEdgeCont and requires reset when the network changes
     mutable ConstRouterEdgePairVector myViaSuccessors;
+
+    // @brief default length for overriding connection lengths
+    static double myDefaultConnectionLength;
 
 public:
 
