@@ -1425,7 +1425,7 @@ GNEEdge::removePathElement(GNEDemandElement* pathElementChild) {
 
 
 void
-GNEEdge::invalidatePathChildElementss() {
+GNEEdge::invalidatePathChildElements() {
     // make a copy of myPathElementChilds
     auto copyOfMyPathElementChilds = myPathElementChilds;
     for (const auto& pathElementChild : copyOfMyPathElementChilds) {

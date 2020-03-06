@@ -312,7 +312,7 @@ public:
     void removePathElement(GNEDemandElement* pathElementChild);
 
     /// @brief invalidate path element childs
-    void invalidatePathChildElementss();
+    void invalidatePathChildElements();
 
     // @brief update vehicle spread geometries
     void updateVehicleSpreadGeometries();
