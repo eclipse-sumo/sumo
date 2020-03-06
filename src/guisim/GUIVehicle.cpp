@@ -614,6 +614,9 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
     // draw continuation lanes when drawing the current route where available
     int bestLaneIndex = (&r == myRoute ? 0 : (int)bestLaneConts.size());
     std::map<const MSLane*, int> repeatLane; // count repeated occurrences of the same edge
+    const double textSize = s.vehicleName.size / s.scale;
+    const GUILane* prevLane = nullptr;
+    int reversalIndex = 0;
     for (; i != r.end(); ++i) {
         const GUILane* lane;
         if (bestLaneIndex < (int)bestLaneConts.size() && bestLaneConts[bestLaneIndex] != 0 && (*i) == &(bestLaneConts[bestLaneIndex]->getEdge())) {
@@ -628,17 +631,23 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
             }
         }
         GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
+        if (prevLane != nullptr && lane->getBidiLane() == prevLane) {
+            // indicate train reversal
+            std::string label = "reverse:" + toString(reversalIndex++);
+            Position pos = lane->geometryPositionAtOffset(lane->getLength() / 2) - Position(0, textSize * repeatLane[lane]);
+            GLHelper::drawTextSettings(s.vehicleName, label, pos, s.scale, s.angle, 1.0);
+        }
         if (s.showRouteIndex) {
             std::string label = toString((int)(i - myCurrEdge));
-            const double textSize = s.vehicleName.size / s.scale;
             const double laneAngle = lane->getShape().angleAt2D(0);
             Position pos = lane->getShape().front() - Position(0, textSize * repeatLane[lane]) + Position(
                     (laneAngle >= -0.25 * M_PI && laneAngle < 0.75 * M_PI ? 1 : -1) * 0.8 * textSize, 0);
             //GLHelper::drawText(label, pos, 1.0, textSize, s.vehicleName.color);
             GLHelper::drawTextSettings(s.vehicleName, label, pos, s.scale, s.angle, 1.0);
-            repeatLane[lane]++;
             GLHelper::setColor(col);
         }
+        repeatLane[lane]++;
+        prevLane = lane;
     }
     // draw stop labels
     // (vertical shift for repeated stops at the same position
