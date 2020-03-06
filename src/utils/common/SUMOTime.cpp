@@ -93,7 +93,7 @@ time2string(SUMOTime t) {
         t %= minute;
         oss << std::setw(2) << t / second;
         t %= second;
-        if (t != 0 || TS != 1.) {
+        if (t != 0 || TS < 1.) {
             oss << std::setw(MIN2(3, gPrecision));
             oss << "." << t;
         }
