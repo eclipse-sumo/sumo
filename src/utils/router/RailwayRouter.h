@@ -116,7 +116,27 @@ private:
         if (edge->getOriginal() != nullptr) {
             return  (*myStaticOperation)(edge->getOriginal(), veh, time);
         } else {
-            return myReversalPenalty + veh->getLength() * myReversalPenaltyFactor;
+            // turnaround edge
+            if (edge->isVirtual()) {
+                // add up time for replacement edges
+                std::vector<const E*> repl;
+                edge->insertOriginalEdges(veh->getLength(), repl);
+                assert(repl.size() > 0);
+                double seenDist = 0;
+                double result = 0;
+                repl.pop_back(); // last edge must not be used fully
+                for (const E* e : repl) {
+                    result += (*myStaticOperation)(e, veh, time + result);
+                    seenDist += e->getLength();
+                }
+                const double lengthOnLastEdge = MAX2(0.0, veh->getLength() - seenDist);
+                return result + myReversalPenalty + lengthOnLastEdge * myReversalPenaltyFactor;
+            } else {
+                // XXX if the edge from which this turnaround starts is longer
+                // than the vehicle, we could return a negative value here
+                // because the turnaround may happen once the vehicle has driven onto the edge
+                return myReversalPenalty;
+            }
         }
     }
 

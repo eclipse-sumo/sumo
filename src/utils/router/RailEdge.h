@@ -22,9 +22,11 @@
 #include <cassert>
 
 //#define RailEdge_DEBUG_TURNS
+//#define RailEdge_DEBUG_INIT
 //#define RailEdge_DEBUG_SUCCESSORS
 #define RailEdge_DEBUGID ""
-#define RailEdge_DEBUG_COND(obj) ((obj != 0 && (obj)->getID() == RailEdge_DEBUGID))
+//#define RailEdge_DEBUG_COND(obj) ((obj != 0 && (obj)->getID() == RailEdge_DEBUGID))
+#define RailEdge_DEBUG_COND(obj) (true)
 
 // ===========================================================================
 // class definitions
@@ -38,50 +40,68 @@ public:
 
     RailEdge(const E* orig) : 
         myNumericalID(orig->getNumericalID()),
-        myOriginal(orig)
+        myOriginal(orig),
+        myTurnaround(nullptr),
+        myIsVirtual(true)
     { }
 
-    RailEdge(const E* turnStart, const E* turnEnd, int numericalID, double maxTrainLength) : 
+    RailEdge(const E* turnStart, const E* turnEnd, int numericalID) : 
         myNumericalID(numericalID),
         myID("TrainReversal!" + turnStart->getID() + "->" + turnEnd->getID()),
         myOriginal(nullptr),
-        myMaxLength(0),
+        myTurnaround(nullptr),
+        myIsVirtual(true),
+        myMaxLength(turnStart->getLength()),
         myStartLength(turnStart->getLength())
     { 
         myViaSuccessors.push_back(std::make_pair(turnEnd->getRailwayRoutingEdge(), nullptr));
-        // compute length and replacement edges
-        auto result = findReversal(maxTrainLength, turnStart, turnEnd);
-        myMaxLength = result.first + myStartLength;
-        myReplacementEdges = result.second;
-        //std::cout << getID() << " maxLength=" << myMaxLength << " replacement=" << toString(myReplacementEdges) << "\n";
     }
 
-    std::pair<double, std::vector<const E*> > findReversal(double dist, const E* forward, const E* backward) {
-        if (dist <= 0) {
-            return std::make_pair(0, std::vector<const E*>({}));
+    void update(double maxTrainLength, const std::vector<const E*>& replacementEdges) {
+        if (maxTrainLength > myMaxLength) {
+            myMaxLength = maxTrainLength;
+            myReplacementEdges = replacementEdges;
+#ifdef RailEdge_DEBUG_INIT
+            std::cout << "    update RailEdge " << getID() << " myMaxLength=" << myMaxLength << " repl=" << toString(myReplacementEdges) << "\n";
+#endif
         }
-        std::pair<double, std::vector<const E*> > best(0, {});
-        for (const auto& viaPair : forward->getViaSuccessors()) {
-            const E* next = viaPair.first;
-            if (next == backward) {
+    }
+
+    void addVirtualTurns(const E* forward, const E* backward,
+            std::vector<_RailEdge*>& railEdges, int& numericalID, double dist,
+            double maxTrainLength, const std::vector<const E*>& replacementEdges) {
+        // search backwards until dist and add virtual turnaround edges with
+        // replacement edges up to the real turnaround
+#ifdef RailEdge_DEBUG_INIT
+        std::cout << "addVirtualTurns forward=" << forward->getID() << " backward=" << backward->getID() << " dist=" << dist 
+            << " maxLength=" << maxTrainLength << " repl=" << toString(replacementEdges) << "\n";
+#endif
+        if (dist <= 0) {
+            return;
+        }
+        for (const E* prev : forward->getPredecessors()) {
+            if (prev == backward) {
                 continue;
             }
-            const E* bidi = next->getBidiEdge();
-            if (bidi != nullptr && bidi->isConnectedTo(*backward, SVC_IGNORING)) {
-                auto subResult = findReversal(dist - next->getLength(), next, bidi);
-                const double seen = next->getLength() + subResult.first;
-                if (seen > best.first) {
-                    best.first = seen;
-                    best.second.clear();
-                    best.second.push_back(next);
-                    best.second.insert(best.second.end(), subResult.second.begin(), subResult.second.end());
+            const E* bidi = prev->getBidiEdge();
+            if (backward->isConnectedTo(*bidi, SVC_IGNORING)) {
+                _RailEdge* prevRailEdge = prev->getRailwayRoutingEdge();
+                if (prevRailEdge->myTurnaround == nullptr) {
+                    prevRailEdge->myTurnaround = new _RailEdge(prev, bidi, numericalID++);
+                    prevRailEdge->myViaSuccessors.push_back(std::make_pair(prevRailEdge->myTurnaround, nullptr));
+                    railEdges.push_back(prevRailEdge->myTurnaround);
+#ifdef RailEdge_DEBUG_INIT
+                    std::cout << "  RailEdge " << prevRailEdge->getID() << " virtual turnaround " << prevRailEdge->myTurnaround->getID() << "\n";
+#endif
                 }
-                if (seen >= dist) {
-                    return best;
-                }
+                prevRailEdge->myTurnaround->update(prev->getLength() + maxTrainLength, replacementEdges);
+                std::vector<const E*> replacementEdges2;
+                replacementEdges2.push_back(prev);
+                replacementEdges2.insert(replacementEdges2.end(), replacementEdges.begin(), replacementEdges.end());
+                addVirtualTurns(prev, bidi, railEdges, numericalID, dist - prev->getLength(),
+                        maxTrainLength + prev->getLength(), replacementEdges2);
             }
         }
-        return best;
     }
 
     void init(std::vector<_RailEdge*>& railEdges, int& numericalID, double maxTrainLength) {
@@ -89,15 +109,23 @@ public:
         for (const auto& viaPair : myOriginal->getViaSuccessors()) {
             if (viaPair.first == myOriginal->getBidiEdge()) {
                 // direction reversal
-                _RailEdge* turnEdge = new _RailEdge(myOriginal, viaPair.first, numericalID++, maxTrainLength);
-                railEdges.push_back(turnEdge);
-                myViaSuccessors.push_back(std::make_pair(turnEdge, nullptr));
+                if (myTurnaround == nullptr) {
+                    myTurnaround = new _RailEdge(myOriginal, viaPair.first, numericalID++);
+                    myViaSuccessors.push_back(std::make_pair(myTurnaround, nullptr));
+                    railEdges.push_back(myTurnaround);
+#ifdef RailEdge_DEBUG_INIT
+                    std::cout << "RailEdge " << getID() << " actual turnaround " << myTurnaround->getID() << "\n";
+#endif
+                }
+                myTurnaround->myIsVirtual = false;
+                addVirtualTurns(myOriginal, viaPair.first, railEdges, numericalID,
+                        maxTrainLength - getLength(), getLength(), std::vector<const E*>{myOriginal});
             } else {
                 myViaSuccessors.push_back(std::make_pair(viaPair.first->getRailwayRoutingEdge(), 
                             viaPair.second == nullptr ? nullptr : viaPair.second->getRailwayRoutingEdge()));
             }
         }
-#ifdef RailEdge_DEBUG_TURNS
+#ifdef RailEdge_DEBUG_SUCCESSORS
         std::cout << "RailEdge " << getID() << " successors=" << myViaSuccessors.size() << " orig=" << myOriginal->getViaSuccessors().size() << "\n";
         for (const auto& viaPair : myViaSuccessors) {
             std::cout << "    " << viaPair.first->getID() << "\n";
@@ -128,13 +156,17 @@ public:
         } else {
             double seen = myStartLength;
             int nPushed = 0;
+            if (seen >= length && !myIsVirtual) {
+                return;
+            }
+            // we need to find a replacement edge that has a real turn
             for (const E* edge : myReplacementEdges) {
-                if (seen >= length) {
-                    break;
-                }
                 into.push_back(edge);
                 nPushed++;
                 seen += edge->getLength();
+                if (seen >= length && edge->isConnectedTo(*edge->getBidiEdge(), SVC_IGNORING)) {
+                    break;
+                }
                 //std::cout << "insertOriginalEdges length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
             }
             const int last = (int)into.size() - 1;
@@ -197,10 +229,16 @@ public:
         return result;
     }
 
+    bool isVirtual() const {
+        return myIsVirtual;
+    }
+
 private:
     const int myNumericalID;
     const std::string myID;
     const E* myOriginal;
+    _RailEdge* myTurnaround;
+    bool myIsVirtual;
 
     /// @brief actual edges to return when passing this (turnaround) edge - only forward
     std::vector<const E*> myReplacementEdges;
