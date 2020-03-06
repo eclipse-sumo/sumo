@@ -38,11 +38,11 @@ class GNETagProperties {
 public:
 
     enum TagType {
-        NETWORKELEMENT =    1 << 0, // Edges, Junctions, Lanes...
-        ADDITIONALELEMENT = 1 << 1,  // Bus Stops, Charging Stations, Detectors...
-        SHAPE =             1 << 2,  // POIs, Polygons
-        DEMANDELEMENT =     1 << 3,  // Routes, Vehicles, Trips...
-        DATAELEMENT =       1 << 4,  // EdgeData, LaneData...
+        NETWORKELEMENT =    1 << 0,  // Network elements (Edges, Junctions, Lanes...)
+        ADDITIONALELEMENT = 1 << 1,  // Additional elements (Bus Stops, Charging Stations, Detectors...)
+        SHAPE =             1 << 2,  // Shapes (Polygons and POIs) 
+        DEMANDELEMENT =     1 << 3,  // Demand elements (Routes, Vehicles, Trips...)
+        DATAELEMENT =       1 << 4,  // Data elements (DataSets, Data Intervals, EdgeData...)
         TAZ =               1 << 5,  // Traffic Assignment Zones
         STOPPINGPLACE =     1 << 6,  // StoppingPlaces (BusStops, ChargingStations...)
         DETECTOR =          1 << 7,  // Detectors (E1, E2...)
@@ -51,12 +51,12 @@ public:
         ROUTE =             1 << 10, // Routes and embedded routes
         STOP =              1 << 11, // Stops
         PERSON =            1 << 12, // Persons
-        PERSONPLAN =        1 << 13, // Person plans (Walks, rides, ...)
-        PERSONTRIP =        1 << 14, // Walks
+        PERSONPLAN =        1 << 13, // Person plans (Walks, rides...)
+        PERSONTRIP =        1 << 14, // Person Trips
         WALK =              1 << 15, // Walks
         RIDE =              1 << 16, // Rides
         PERSONSTOP =        1 << 17, // Person stops
-        GENERICDATA =       1 << 17, // Generic data
+        GENERICDATA =       1 << 18, // Generic data (GNEEdgeData, GNELaneData...)
     };
 
     enum TagProperty {

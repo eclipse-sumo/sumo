@@ -467,113 +467,121 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
     }
     if (tagPropertyCategory & GNETagProperties::NETWORKELEMENT) {
         // fill networkElements tags
-        for (const auto& i : myTagProperties) {
-            if (i.second.isNetworkElement() && (!onlyDrawables || i.second.isDrawable())) {
-                allowedTags.push_back(i.first);
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isNetworkElement() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::ADDITIONALELEMENT) {
         // fill additional tags
-        for (const auto& i : myTagProperties) {
-            if (i.second.isAdditionalElement() && (!onlyDrawables || i.second.isDrawable())) {
-                allowedTags.push_back(i.first);
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isAdditionalElement() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::SHAPE) {
         // fill shape tags
-        for (const auto& i : myTagProperties) {
-            if (i.second.isShape() && (!onlyDrawables || i.second.isDrawable())) {
-                allowedTags.push_back(i.first);
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isShape() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::TAZ) {
         // fill taz tags
-        for (const auto& i : myTagProperties) {
-            if (i.second.isTAZ() && (!onlyDrawables || i.second.isDrawable())) {
-                allowedTags.push_back(i.first);
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isTAZ() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::DEMANDELEMENT) {
         // fill demand tags
-        for (const auto& i : myTagProperties) {
-            if (i.second.isDemandElement() && (!onlyDrawables || i.second.isDrawable())) {
-                allowedTags.push_back(i.first);
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isDemandElement() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::ROUTE) {
         // fill demand tags
-        for (const auto& i : myTagProperties) {
-            if (i.second.isRoute() && (!onlyDrawables || i.second.isDrawable())) {
-                allowedTags.push_back(i.first);
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isRoute() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::VEHICLE) {
         // fill demand tags
-        for (const auto& i : myTagProperties) {
-            if (i.second.isVehicle() && (!onlyDrawables || i.second.isDrawable())) {
-                allowedTags.push_back(i.first);
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isVehicle() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::STOP) {
         // fill demand tags
-        for (const auto& i : myTagProperties) {
-            if (i.second.isStop() && (!onlyDrawables || i.second.isDrawable())) {
-                allowedTags.push_back(i.first);
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isStop() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::PERSON) {
         // fill demand tags
-        for (const auto& i : myTagProperties) {
-            if (i.second.isPerson() && (!onlyDrawables || i.second.isDrawable())) {
-                allowedTags.push_back(i.first);
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isPerson() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::PERSONPLAN) {
         // fill demand tags
-        for (const auto& i : myTagProperties) {
-            if (i.second.isPersonPlan() && (!onlyDrawables || i.second.isDrawable())) {
-                allowedTags.push_back(i.first);
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isPersonPlan() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::PERSONTRIP) {
         // fill demand tags
-        for (const auto& i : myTagProperties) {
-            if (i.second.isPersonTrip() && (!onlyDrawables || i.second.isDrawable())) {
-                allowedTags.push_back(i.first);
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isPersonTrip() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::WALK) {
         // fill demand tags
-        for (const auto& i : myTagProperties) {
-            if (i.second.isWalk() && (!onlyDrawables || i.second.isDrawable())) {
-                allowedTags.push_back(i.first);
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isWalk() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::RIDE) {
         // fill demand tags
-        for (const auto& i : myTagProperties) {
-            if (i.second.isRide() && (!onlyDrawables || i.second.isDrawable())) {
-                allowedTags.push_back(i.first);
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isRide() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::PERSONSTOP) {
         // fill demand tags
-        for (const auto& i : myTagProperties) {
-            if (i.second.isPersonStop() && (!onlyDrawables || i.second.isDrawable())) {
-                allowedTags.push_back(i.first);
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isPersonStop() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
+            }
+        }
+    }
+    if (tagPropertyCategory & GNETagProperties::GENERICDATA) {
+        // fill generic data tags
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isGenericData() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(tagProperty.first);
             }
         }
     }
@@ -3682,7 +3690,7 @@ GNEAttributeCarrier::fillDataElements() {
     currentTag = SUMO_TAG_MEANDATA_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::DATAELEMENT | GNETagProperties::GENERICDATA, GNETagProperties::PARENT | GNETagProperties::PARAMETERSDOUBLE, ICON_EDGEDATA, SUMO_TAG_DATAINTERVAL);
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::DATAELEMENT | GNETagProperties::GENERICDATA, GNETagProperties::DRAWABLE | GNETagProperties::PARAMETERSDOUBLE, ICON_EDGEDATA, SUMO_TAG_DATAINTERVAL);
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
