@@ -58,9 +58,10 @@ GNEDataInterval::~GNEDataInterval() {}
 
 void 
 GNEDataInterval::updateGenericDataIDs() {
+    // iterate over generic data childrens
     for (const auto& genericData : myGenericDataChildren) {
         if (genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
-            genericData->setMicrosimID(myDataSetParent->getID() + "_" + toString(myBegin) + "->" + toString(myEnd) + "_" + genericData->getParentEdges().front()->getID());
+            genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" + genericData->getParentEdges().front()->getID());
         }
     }
 }
@@ -125,10 +126,8 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
     // check that GenericData wasn't previously inserted
     if (!hasGenericDataChild(genericData)) {
         myGenericDataChildren.push_back(genericData);
-        // set ID
-        if (genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
-            genericData->setMicrosimID(myDataSetParent->getID() + "_" + toString(myBegin) + "->" + toString(myEnd) + "_" + genericData->getParentEdges().front()->getID());
-        }
+        // update generic data IDs
+        updateGenericDataIDs();
     } else {
         throw ProcessError("GenericData was already inserted");
     }
