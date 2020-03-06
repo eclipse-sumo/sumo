@@ -39,13 +39,13 @@
 /// @brie enum for supermodes
 enum class Supermode {
     /// @brief empty super mode
-    SUPERMODE_NONE,
+    NONE,
     /// @brief Network mode (Edges, junctions, etc..)
-    SUPERMODE_NETWORK,
+    NETWORK,
     ///@brief Demand mode (Routes, Vehicles etc..)
-    SUPERMODE_DEMAND,
+    DEMAND,
     ///@brief Data mode (edgeData, LaneData etc..)
-    SUPERMODE_DATA
+    DATA
 };
 
 /// @brie enum for network edit modes

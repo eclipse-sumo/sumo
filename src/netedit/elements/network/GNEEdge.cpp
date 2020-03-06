@@ -535,7 +535,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         drawDemandElements(s);
     }
     // draw geometry points if isnt's too small and
-    if ((s.scale > 8.0) && (myNet->getViewNet()->getEditModes().currentSupermode != Supermode::SUPERMODE_DEMAND)) {
+    if ((s.scale > 8.0) && (myNet->getViewNet()->getEditModes().currentSupermode != Supermode::DEMAND)) {
         drawGeometryPoints(s);
     }
     // draw vehicles

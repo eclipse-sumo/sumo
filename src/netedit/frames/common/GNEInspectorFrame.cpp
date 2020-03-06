@@ -941,7 +941,7 @@ GNEInspectorFrame::TemplateEditor::~TemplateEditor() {
 void
 GNEInspectorFrame::TemplateEditor::showTemplateEditor() {
     // show template editor only if we're editing an edge in Network mode
-    if ((myInspectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::SUPERMODE_NETWORK) &&
+    if ((myInspectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::NETWORK) &&
             (myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
         // show "Set As Template"
         if (myInspectorFrameParent->myAttributesEditor->getEditedACs().size() == 1) {

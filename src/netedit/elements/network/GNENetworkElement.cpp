@@ -141,7 +141,7 @@ GNENetworkElement::isAttributeCarrierSelected() const {
 
 bool
 GNENetworkElement::drawUsingSelectColor() const {
-    if (mySelected && (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_NETWORK)) {
+    if (mySelected && (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::NETWORK)) {
         return true;
     } else {
         return false;

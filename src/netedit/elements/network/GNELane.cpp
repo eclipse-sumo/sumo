@@ -606,7 +606,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         buildPositionCopyEntry(ret, false);
     }
     // check if we're in supermode network
-    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_NETWORK) {
+    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::NETWORK) {
         if (editMode != NetworkEditMode::NETWORK_CONNECT && editMode != NetworkEditMode::NETWORK_TLS && editMode != NetworkEditMode::NETWORK_CREATE_EDGE) {
             // Get icons
             FXIcon* pedestrianIcon = GUIIconSubSys::getIcon(ICON_LANEPEDESTRIAN);

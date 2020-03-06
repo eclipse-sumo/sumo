@@ -2203,7 +2203,7 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
     // first check if there is a view
     if (myViewNet) {
         // process depending of supermode
-        if (myViewNet->getEditModes().currentSupermode == Supermode::SUPERMODE_NETWORK) {
+        if (myViewNet->getEditModes().currentSupermode == Supermode::NETWORK) {
             // check what FXMenuCommand was called
             switch (FXSELID(sel)) {
                 case MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND:
@@ -3491,21 +3491,21 @@ GNEApplicationWindow::updateControls() {
 
 void
 GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
-    if (supermode == Supermode::SUPERMODE_NETWORK) {
+    if (supermode == Supermode::NETWORK) {
         myEditMenuCommands.networkMenuCommands.showNetworkMenuCommands();
         myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
         /** DATA **/
         myProcessingMenuCommands.showNetworkProcessingMenuCommands();
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
         /** DATA **/
-    } else if (supermode == Supermode::SUPERMODE_DEMAND) {
+    } else if (supermode == Supermode::DEMAND) {
         myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myEditMenuCommands.demandMenuCommands.showDemandMenuCommands();
         /** DATA **/
         myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
         myProcessingMenuCommands.showDemandProcessingMenuCommands();
         /** DATA **/
-    } else if (supermode == Supermode::SUPERMODE_DATA) {
+    } else if (supermode == Supermode::DATA) {
         myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
         /** DATA **/

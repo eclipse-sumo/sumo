@@ -1148,8 +1148,8 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         // filter ACsInBoundary depending of current supermode
         std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsInBoundaryFiltered;
         for (const auto& i : ACsInBoundary) {
-            if (((myViewNet->myEditModes.currentSupermode == Supermode::SUPERMODE_NETWORK) && !i.second->getTagProperty().isDemandElement()) ||
-                    ((myViewNet->myEditModes.currentSupermode == Supermode::SUPERMODE_DEMAND) && i.second->getTagProperty().isDemandElement())) {
+            if (((myViewNet->myEditModes.currentSupermode == Supermode::NETWORK) && !i.second->getTagProperty().isDemandElement()) ||
+                    ((myViewNet->myEditModes.currentSupermode == Supermode::DEMAND) && i.second->getTagProperty().isDemandElement())) {
                 ACsInBoundaryFiltered.insert(i);
             }
         }
@@ -1348,7 +1348,7 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::EditModes::EditModes(GNEViewNet* viewNet) :
-    currentSupermode(Supermode::SUPERMODE_NONE),
+    currentSupermode(Supermode::NONE),
     networkEditMode(NetworkEditMode::NETWORK_INSPECT),
     demandEditMode(DemandEditMode::DEMAND_INSPECT),
     dataEditMode(DataEditMode::DATA_INSPECT),
@@ -1394,7 +1394,7 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode) {
         // set super mode
         currentSupermode = supermode;
         // set supermodes
-        if (supermode == Supermode::SUPERMODE_NETWORK) {
+        if (supermode == Supermode::NETWORK) {
             // change buttons
             networkButton->setChecked(true);
             demandButton->setChecked(false);
@@ -1407,7 +1407,7 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode) {
             myViewNet->myDataCheckableButtons.hideDataCheckableButtons();
             // force update network mode
             setNetworkEditMode(networkEditMode, true);
-        } else if (supermode == Supermode::SUPERMODE_DEMAND) {
+        } else if (supermode == Supermode::DEMAND) {
             // change buttons
             networkButton->setChecked(false);
             demandButton->setChecked(true);
@@ -1420,7 +1420,7 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode) {
             myViewNet->myDataCheckableButtons.hideDataCheckableButtons();
             // force update demand mode
             setDemandEditMode(demandEditMode, true);
-        } else if (supermode == Supermode::SUPERMODE_DATA) {
+        } else if (supermode == Supermode::DATA) {
             // change buttons
             networkButton->setChecked(false);
             demandButton->setChecked(false);

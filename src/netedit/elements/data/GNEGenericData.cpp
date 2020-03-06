@@ -82,7 +82,7 @@ GNEGenericData::getDataIntervalParent() const {
 bool
 GNEGenericData::isVisible() const {
     // first check if we're in supermode demand
-    if (myDataIntervalParent->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_DATA) {
+    if (myDataIntervalParent->getViewNet()->getEditModes().currentSupermode == Supermode::DATA) {
         // special case for edgeDatas
         if (myTagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) {
             // obtain pointer to edge data frame (only for code legibly)
@@ -191,7 +191,7 @@ GNEGenericData::isAttributeCarrierSelected() const {
 
 bool
 GNEGenericData::drawUsingSelectColor() const {
-    if (mySelected && (myDataIntervalParent->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_DEMAND)) {
+    if (mySelected && (myDataIntervalParent->getViewNet()->getEditModes().currentSupermode == Supermode::DEMAND)) {
         return true;
     } else {
         return false;

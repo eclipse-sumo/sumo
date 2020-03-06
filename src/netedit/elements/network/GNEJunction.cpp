@@ -199,7 +199,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
     // check if we're in supermode network
-    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_NETWORK) {
+    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::NETWORK) {
         //if (parent.getVisualisationSettings()->editMode != GNE_MODE_CONNECT) {
         //    // XXX if joinable
         //    new FXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
@@ -309,7 +309,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 drawBubble = true;
             }
             // in supermode demand Bubble musn't be drawn
-            if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_DEMAND) {
+            if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::DEMAND) {
                 drawBubble = false;
             }
             // check if shape has to be drawn

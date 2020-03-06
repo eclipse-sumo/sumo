@@ -357,7 +357,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 glPopMatrix();
                 // draw shape points only in Network supemode
-                if (myNet->getViewNet()->getEditModes().currentSupermode != Supermode::SUPERMODE_DEMAND) {
+                if (myNet->getViewNet()->getEditModes().currentSupermode != Supermode::DEMAND) {
                     for (const auto vertex : myShape) {
                         if (!s.drawForRectangleSelection || (mousePosition.distanceSquaredTo2D(vertex) <= (vertexWidthSquared + 2))) {
                             glPushMatrix();
@@ -781,7 +781,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
 bool
 GNEPoly::isAttributeEnabled(SumoXMLAttr /* key */) const {
     // check if we're in supermode Network
-    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_NETWORK) {
+    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::NETWORK) {
         return true;
     } else {
         return false;

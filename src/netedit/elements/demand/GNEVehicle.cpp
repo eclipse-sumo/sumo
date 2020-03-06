@@ -81,7 +81,7 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
     myVehicle->getViewNet()->buildSelectionACPopupEntry(this, myVehicle);
     myVehicle->buildShowParamsPopupEntry(this);
     // add transform functions only in demand mode
-    if (myVehicle->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_DEMAND) {
+    if (myVehicle->getViewNet()->getEditModes().currentSupermode == Supermode::DEMAND) {
         // Get icons
         FXIcon* vehicleIcon = GUIIconSubSys::getIcon(ICON_VEHICLE);
         FXIcon* tripIcon = GUIIconSubSys::getIcon(ICON_TRIP);
@@ -174,7 +174,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
     vehicle->getViewNet()->buildSelectionACPopupEntry(this, vehicle);
     vehicle->buildShowParamsPopupEntry(this);
     // add transform functions only in demand mode
-    if (vehicle->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_DEMAND) {
+    if (vehicle->getViewNet()->getEditModes().currentSupermode == Supermode::DEMAND) {
         // Get icons
         FXIcon* vehicleIcon = GUIIconSubSys::getIcon(ICON_VEHICLE);
         FXIcon* tripIcon = GUIIconSubSys::getIcon(ICON_TRIP);
