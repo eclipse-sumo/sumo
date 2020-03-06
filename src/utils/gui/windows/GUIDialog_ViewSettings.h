@@ -271,6 +271,7 @@ private:
     FXColorWell* mySelectedVehicleColor;
     FXColorWell* mySelectedPersonColor;
     FXColorWell* mySelectedPersonPlanColor;
+    FXColorWell* mySelectedEdgeDataColor;
 
     /// ... lane colorer
     MFXIconComboBox* myLaneEdgeColorMode;

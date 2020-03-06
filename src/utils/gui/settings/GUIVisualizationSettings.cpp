@@ -306,7 +306,8 @@ GUIVisualizationColorSettings::GUIVisualizationColorSettings() :
     selectedRouteColor(0, 0, 150, 255),
     selectedVehicleColor(0, 0, 100, 255),
     selectedPersonColor(0, 0, 120, 255),
-    selectedPersonPlanColor(0, 0, 130, 255) {
+    selectedPersonPlanColor(0, 0, 130, 255),
+    selectedEdgeDataColor(0, 0, 150, 255) {
 }
 
 
@@ -322,7 +323,8 @@ GUIVisualizationColorSettings::operator==(const GUIVisualizationColorSettings& v
            (selectedRouteColor == v2.selectedRouteColor) &&
            (selectedVehicleColor == v2.selectedVehicleColor) &&
            (selectedPersonColor == v2.selectedPersonColor) &&
-           (selectedPersonPlanColor == v2.selectedPersonPlanColor);
+           (selectedPersonPlanColor == v2.selectedPersonPlanColor) &&
+           (selectedEdgeDataColor == v2.selectedEdgeDataColor);
 }
 
 
@@ -338,7 +340,8 @@ GUIVisualizationColorSettings::operator!=(const GUIVisualizationColorSettings& v
            (selectedRouteColor != v2.selectedRouteColor) ||
            (selectedVehicleColor != v2.selectedVehicleColor) ||
            (selectedPersonColor != v2.selectedPersonColor) ||
-           (selectedPersonPlanColor != v2.selectedPersonPlanColor);
+           (selectedPersonPlanColor != v2.selectedPersonPlanColor) ||
+           (selectedEdgeDataColor != v2.selectedEdgeDataColor);
 }
 
 // ---------------------------------------------------------------------------
