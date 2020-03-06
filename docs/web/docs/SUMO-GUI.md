@@ -800,8 +800,6 @@ contained data to see how various traffic measures changed over time
 !!! note
     In the gui-settings dialog, the function 'Recalibrate Rainbow' can be used to adapt the coloring to the data range of the current attribute.
 
-## Version 1.2.0 and later
-
 Edgedata files for visualization can be loaded by setting option **--edgedata-files**. All
 attributes will be loaded and can be selected in the edge visualization
 settings They can also be loaded in **SUMO-GUI** from
@@ -815,32 +813,7 @@ coloring scheme to show the whole data range.
 !!! note
     edgeData is time based so it will only be shown when the simulation time has advance to the begin time of the respective data interval. Make sure to advance the simulation to time 0 (step once) or to whatever begin time was used for edgeData generation before using *Recalibrate Rainbow*. To see further data frames, advance the simulation by using delay or breakpoints.
 
-When defining a color scheme two data values can be used to diagnose
-missing data:
-
-- **-2**: the attribute does not exist in the loaded data for that
-  particular edge
-- **-1**: the attribute exists but no data is available for that edge
-  for the current time
-
-!!! note
-    It may be useful to hide edges with attribute value -1 and -2 by setting the alpha channel to 0. To Make this work, a distinct color value must be set for *0* to avoid interpolation.
-
-## Version 1.1.0 and older
-
-```
-sumo-gui -n net.net.xml --weight-files edgedata.xml -e 86400 --weight-attribute <ATTR>
-```
-
-When using edgeData-output <ATTR\> could be *arrived* or *departed* to
-investigate traffic sources and sinks in the network.
-
-When using **SUMO-GUI** for visualizing weight files
-with values that change over time (files containing multiple intervals)
-and no vehicles are being simulated, it is helpful to load the
-simulation with option **--end** to avoid premature simulation and to set a
-*delay* value or [\#Breakpoints](#breakpoints) because the
-simulation will otherwise exit quickly when running without vehicles).
+When defining a color scheme, a dedicated color for missing data ('No Data') can always be configured.
 
 # Usage Examples
 
