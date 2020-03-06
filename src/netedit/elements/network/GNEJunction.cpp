@@ -199,7 +199,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
     // check if we're in supermode network
-    if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_NETWORK) {
         //if (parent.getVisualisationSettings()->editMode != GNE_MODE_CONNECT) {
         //    // XXX if joinable
         //    new FXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
@@ -208,9 +208,9 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         // check if we're handling a selection
         bool handlingSelection = isAttributeCarrierSelected() && (myNet->retrieveJunctions(true).size() > 1);
         // check if menu commands has to be disabled
-        const bool wrongMode = (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_CONNECT) ||
-                               (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_TLS) ||
-                               (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_CREATE_EDGE);
+        const bool wrongMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CONNECT) ||
+                               (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) ||
+                               (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE);
         // create menu commands
         FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom junction shape", nullptr, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
         FXMenuCommand* mcResetCustomShape = new FXMenuCommand(ret, "Reset junction shape", nullptr, &parent, MID_GNE_JUNCTION_RESET_SHAPE);
@@ -309,7 +309,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 drawBubble = true;
             }
             // in supermode demand Bubble musn't be drawn
-            if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+            if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_DEMAND) {
                 drawBubble = false;
             }
             // check if shape has to be drawn
@@ -1209,7 +1209,7 @@ GNEJunction::setResponsible(bool newVal) {
 void
 GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s) const {
     // draw TLS icon if isn't being drawn for selecting
-    if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_TLS) &&
+    if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) &&
             (myNBNode->isTLControlled()) && !myAmTLSSelected && !s.drawForRectangleSelection) {
         glPushMatrix();
         Position pos = myNBNode->getPosition();

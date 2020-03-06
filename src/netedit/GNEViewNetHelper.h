@@ -37,87 +37,87 @@
 // ===========================================================================
 
 /// @brie enum for supermodes
-enum Supermode {
+enum class Supermode {
     /// @brief empty super mode
-    GNE_SUPERMODE_NONE,
+    SUPERMODE_NONE,
     /// @brief Network mode (Edges, junctions, etc..)
-    GNE_SUPERMODE_NETWORK,
+    SUPERMODE_NETWORK,
     ///@brief Demand mode (Routes, Vehicles etc..)
-    GNE_SUPERMODE_DEMAND,
+    SUPERMODE_DEMAND,
     ///@brief Data mode (edgeData, LaneData etc..)
-    GNE_SUPERMODE_DATA
+    SUPERMODE_DATA
 };
 
 /// @brie enum for network edit modes
-enum NetworkEditMode {
+enum class NetworkEditMode {
     /// @brief empty Network mode
-    GNE_NETWORKMODE_NONE,
+    NETWORK_NONE,
     ///@brief mode for inspecting network elements
-    GNE_NETWORKMODE_INSPECT,
+    NETWORK_INSPECT,
     ///@brief mode for deleting network elements
-    GNE_NETWORKMODE_DELETE,
+    NETWORK_DELETE,
     ///@brief mode for selecting network elements
-    GNE_NETWORKMODE_SELECT,
+    NETWORK_SELECT,
     ///@brief mode for moving network elements
-    GNE_NETWORKMODE_MOVE,
+    NETWORK_MOVE,
     ///@brief mode for creating new edges
-    GNE_NETWORKMODE_CREATE_EDGE,
+    NETWORK_CREATE_EDGE,
     ///@brief mode for connecting lanes
-    GNE_NETWORKMODE_CONNECT,
+    NETWORK_CONNECT,
     ///@brief mode for editing tls
-    GNE_NETWORKMODE_TLS,
+    NETWORK_TLS,
     ///@brief Mode for editing additionals
-    GNE_NETWORKMODE_ADDITIONAL,
+    NETWORK_ADDITIONAL,
     ///@brief Mode for editing crossing
-    GNE_NETWORKMODE_CROSSING,
+    NETWORK_CROSSING,
     ///@brief Mode for editing TAZ
-    GNE_NETWORKMODE_TAZ,
+    NETWORK_TAZ,
     ///@brief Mode for editing Polygons
-    GNE_NETWORKMODE_POLYGON,
+    NETWORK_POLYGON,
     ///@brief Mode for editing connection prohibitions
-    GNE_NETWORKMODE_PROHIBITION
+    NETWORK_PROHIBITION
 };
 
 /// @brie enum for demand edit modes
-enum DemandEditMode {
+enum class DemandEditMode {
     /// @brief empty Demand mode
-    GNE_DEMANDMODE_NONE,
+    DEMAND_NONE,
     ///@brief mode for inspecting demand elements
-    GNE_DEMANDMODE_INSPECT,
+    DEMAND_INSPECT,
     ///@brief mode for deleting demand elements
-    GNE_DEMANDMODE_DELETE,
+    DEMAND_DELETE,
     ///@brief mode for selecting demand elements
-    GNE_DEMANDMODE_SELECT,
+    DEMAND_SELECT,
     ///@brief mode for moving demand elements
-    GNE_DEMANDMODE_MOVE,
+    DEMAND_MOVE,
     ///@brief Mode for editing routes
-    GNE_DEMANDMODE_ROUTE,
+    DEMAND_ROUTE,
     ///@brief Mode for editing vehicles
-    GNE_DEMANDMODE_VEHICLE,
+    DEMAND_VEHICLE,
     ///@brief Mode for editing vehicle types
-    GNE_DEMANDMODE_VEHICLETYPES,
+    DEMAND_VEHICLETYPES,
     ///@brief Mode for editing stops
-    GNE_DEMANDMODE_STOP,
+    DEMAND_STOP,
     ///@brief Mode for editing person types
-    GNE_DEMANDMODE_PERSONTYPES,
+    DEMAND_PERSONTYPES,
     ///@brief Mode for editing person
-    GNE_DEMANDMODE_PERSON,
+    DEMAND_PERSON,
     ///@brief Mode for editing person plan
-    GNE_DEMANDMODE_PERSONPLAN
+    DEMAND_PERSONPLAN
 };
 
 /// @brie enum for data edit modes
-enum DataEditMode {
+enum class DataEditMode {
     /// @brief empty Data mode
-    GNE_DATAMODE_NONE,
+    DATA_NONE,
     /// @brief mode for inspecting data elements
-    GNE_DATAMODE_INSPECT,
+    DATA_INSPECT,
     /// @brief mode for deleting data elements
-    GNE_DATAMODE_DELETE,
+    DATA_DELETE,
     /// @brief mode for selecting data elements
-    GNE_DATAMODE_SELECT,
+    DATA_SELECT,
     /// @brief mode for create edgeData elements
-    GNE_DATAMODE_EDGEDATA
+    DATA_EDGEDATA
 };
 
 // ===========================================================================

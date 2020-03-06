@@ -108,61 +108,61 @@ public:
     /// @brief get current frame (note: it can be null)
     GNEFrame* getCurrentShownFrame() const;
 
-    /// @brief get frame for GNE_NETWORKMODE_INSPECT
+    /// @brief get frame for NETWORK_INSPECT
     GNEInspectorFrame* getInspectorFrame() const;
 
-    /// @brief get frame for GNE_NETWORKMODE_SELECT
+    /// @brief get frame for NETWORK_SELECT
     GNESelectorFrame* getSelectorFrame() const;
 
-    /// @brief get frame for GNE_NETWORKMODE_CONNECT
+    /// @brief get frame for NETWORK_CONNECT
     GNEConnectorFrame* getConnectorFrame() const;
 
-    /// @brief get frame for GNE_NETWORKMODE_TLS
+    /// @brief get frame for NETWORK_TLS
     GNETLSEditorFrame* getTLSEditorFrame() const;
 
-    /// @brief get frame for GNE_NETWORKMODE_ADDITIONAL
+    /// @brief get frame for NETWORK_ADDITIONAL
     GNEAdditionalFrame* getAdditionalFrame() const;
 
-    /// @brief get frame for GNE_NETWORKMODE_CROSSING
+    /// @brief get frame for NETWORK_CROSSING
     GNECrossingFrame* getCrossingFrame() const;
 
-    /// @brief get frame for GNE_NETWORKMODE_TAZ
+    /// @brief get frame for NETWORK_TAZ
     GNETAZFrame* getTAZFrame() const;
 
-    /// @brief get frame for GNE_NETWORKMODE_DELETE
+    /// @brief get frame for NETWORK_DELETE
     GNEDeleteFrame* getDeleteFrame() const;
 
-    /// @brief get frame for GNE_NETWORKMODE_POLYGON
+    /// @brief get frame for NETWORK_POLYGON
     GNEPolygonFrame* getPolygonFrame() const;
 
-    /// @brief get frame for GNE_NETWORKMODE_PROHIBITION
+    /// @brief get frame for NETWORK_PROHIBITION
     GNEProhibitionFrame* getProhibitionFrame() const;
 
-    /// @brief get frame for GNE_NETWORKMODE_CREATEEDGE
+    /// @brief get frame for NETWORK_CREATEEDGE
     GNECreateEdgeFrame* getCreateEdgeFrame() const;
 
-    /// @brief get frame for GNE_DEMANDMODE_ROUTE
+    /// @brief get frame for DEMAND_ROUTE
     GNERouteFrame* getRouteFrame() const;
 
-    /// @brief get frame for GNE_DEMANDMODE_VEHICLE
+    /// @brief get frame for DEMAND_VEHICLE
     GNEVehicleFrame* getVehicleFrame() const;
 
-    /// @brief get frame for GNE_DEMANDMODE_VEHICLETYPE
+    /// @brief get frame for DEMAND_VEHICLETYPE
     GNEVehicleTypeFrame* getVehicleTypeFrame() const;
 
-    /// @brief get frame for GNE_DEMANDMODE_STOP
+    /// @brief get frame for DEMAND_STOP
     GNEStopFrame* getStopFrame() const;
 
-    /// @brief get frame for GNE_DEMANDMODE_PERSONTYPE
+    /// @brief get frame for DEMAND_PERSONTYPE
     GNEPersonTypeFrame* getPersonTypeFrame() const;
 
-    /// @brief get frame for GNE_DEMANDMODE_PERSON
+    /// @brief get frame for DEMAND_PERSON
     GNEPersonFrame* getPersonFrame() const;
 
-    /// @brief get frame for GNE_DEMANDMODE_PERSONFRAME
+    /// @brief get frame for DEMAND_PERSONFRAME
     GNEPersonPlanFrame* getPersonPlanFrame() const;
 
-    /// @brief get frame for GNE_DATAMODE_EDGEDATA
+    /// @brief get frame for DATA_EDGEDATA
     GNEEdgeDataFrame* getEdgeDataFrame() const;
 
     /// @brief show frames area if at least a GNEFrame is showed
@@ -227,61 +227,61 @@ private:
         /// @brief get current frame show
         GNEFrame* getCurrentShownFrame() const;
 
-        /// @brief frame for GNE_NETWORKMODE_INSPECT
+        /// @brief frame for NETWORK_INSPECT
         GNEInspectorFrame* inspectorFrame;
 
-        /// @brief frame for GNE_NETWORKMODE_SELECT
+        /// @brief frame for NETWORK_SELECT
         GNESelectorFrame* selectorFrame;
 
-        /// @brief frame for GNE_NETWORKMODE_CONNECT
+        /// @brief frame for NETWORK_CONNECT
         GNEConnectorFrame* connectorFrame;
 
-        /// @brief frame for GNE_NETWORKMODE_TLS
+        /// @brief frame for NETWORK_TLS
         GNETLSEditorFrame* TLSEditorFrame;
 
-        /// @brief frame for GNE_NETWORKMODE_ADDITIONAL
+        /// @brief frame for NETWORK_ADDITIONAL
         GNEAdditionalFrame* additionalFrame;
 
-        /// @brief frame for GNE_NETWORKMODE_CROSSING
+        /// @brief frame for NETWORK_CROSSING
         GNECrossingFrame* crossingFrame;
 
-        /// @brief frame for GNE_NETWORKMODE_TAZ
+        /// @brief frame for NETWORK_TAZ
         GNETAZFrame* TAZFrame;
 
-        /// @brief frame for GNE_NETWORKMODE_DELETE
+        /// @brief frame for NETWORK_DELETE
         GNEDeleteFrame* deleteFrame;
 
-        /// @brief frame for GNE_NETWORKMODE_POLYGON
+        /// @brief frame for NETWORK_POLYGON
         GNEPolygonFrame* polygonFrame;
 
-        /// @brief frame for GNE_NETWORKMODE_PROHIBITION
+        /// @brief frame for NETWORK_PROHIBITION
         GNEProhibitionFrame* prohibitionFrame;
 
-        /// @brief frame for GNE_NETWORKMODE_CREATEDGE
+        /// @brief frame for NETWORK_CREATEDGE
         GNECreateEdgeFrame* createEdgeFrame;
 
-        /// @brief frame for GNE_DEMANDMODE_ROUTE
+        /// @brief frame for DEMAND_ROUTE
         GNERouteFrame* routeFrame;
 
-        /// @brief frame for GNE_DEMANDMODE_VEHICLE
+        /// @brief frame for DEMAND_VEHICLE
         GNEVehicleFrame* vehicleFrame;
 
-        /// @brief frame for GNE_DEMANDMODE_VEHICLETYPE
+        /// @brief frame for DEMAND_VEHICLETYPE
         GNEVehicleTypeFrame* vehicleTypeFrame;
 
-        /// @brief frame for GNE_DEMANDMODE_STOP
+        /// @brief frame for DEMAND_STOP
         GNEStopFrame* stopFrame;
 
-        /// @brief frame for GNE_DEMANDMODE_PERSON
+        /// @brief frame for DEMAND_PERSON
         GNEPersonFrame* personFrame;
 
-        /// @brief frame for GNE_DEMANDMODE_PERSONTYPE
+        /// @brief frame for DEMAND_PERSONTYPE
         GNEPersonTypeFrame* personTypeFrame;
 
-        /// @brief frame for GNE_DEMANDMODE_PERSONPLAN
+        /// @brief frame for DEMAND_PERSONPLAN
         GNEPersonPlanFrame* personPlanFrame;
 
-        /// @brief frame for GNE_DATAMODE_EDGEDATA
+        /// @brief frame for DATA_EDGEDATA
         GNEEdgeDataFrame* edgeDataFrame;
     };
 

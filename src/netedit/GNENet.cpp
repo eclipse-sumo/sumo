@@ -2360,8 +2360,8 @@ GNENet::getSelectedAttributeCarriers(bool ignoreCurrentSupermode) {
         if (AC && AC->isAttributeCarrierSelected()) {
             // now check if selected supermode is correct
             if (ignoreCurrentSupermode ||
-                    ((myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !AC->getTagProperty().isDemandElement()) ||
-                    ((myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && AC->getTagProperty().isDemandElement())) {
+                    ((myViewNet->getEditModes().currentSupermode == Supermode::SUPERMODE_NETWORK) && !AC->getTagProperty().isDemandElement()) ||
+                    ((myViewNet->getEditModes().currentSupermode == Supermode::SUPERMODE_DEMAND) && AC->getTagProperty().isDemandElement())) {
                 // add it into result vector
                 result.push_back(AC);
             }

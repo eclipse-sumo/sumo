@@ -180,7 +180,7 @@ public:
     /// @brief get tags of all editable element types
     static std::vector<SumoXMLTag> allowedTags(bool onlyDrawables);
 
-    /// @brief get tags of all editable element types using TagProperty Type (NETWORKELEMENT, ADDITIONALELEMENT, etc.)
+    /// @brief get tags of all editable element types using TagProperty Type (NetworkEditMode::NETWORKELEMENT, ADDITIONALELEMENT, etc.)
     static std::vector<SumoXMLTag> allowedTagsByCategory(int tagPropertyCategory, bool onlyDrawables);
 
     /// @brief true if a value of type T can be parsed from string

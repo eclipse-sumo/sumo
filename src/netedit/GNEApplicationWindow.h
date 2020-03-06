@@ -29,6 +29,8 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/shapes/ShapeHandler.h>
 
+#include "GNEViewNetHelper.h"
+
 
 // ===========================================================================
 // class declarations
@@ -405,8 +407,8 @@ public:
     /// @brief update control contents after undo/redo or recompute
     void updateControls();
 
-    /// @brief update FXMenuCommands
-    void updateSuperModeMenuCommands(int supermode);
+    /// @brief update FXMenuCommands depending of supermode
+    void updateSuperModeMenuCommands(const Supermode supermode);
 
     /// @brief disable undo-redo giving a string with the reason
     void disableUndoRedo(const std::string& reason);

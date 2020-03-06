@@ -535,7 +535,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         drawDemandElements(s);
     }
     // draw geometry points if isnt's too small and
-    if ((s.scale > 8.0) && (myNet->getViewNet()->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND)) {
+    if ((s.scale > 8.0) && (myNet->getViewNet()->getEditModes().currentSupermode != Supermode::SUPERMODE_DEMAND)) {
         drawGeometryPoints(s);
     }
     // draw vehicles
@@ -2204,8 +2204,8 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // obtain circle width
-    bool drawBig = (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_MOVE ||
-                    myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_DELETE);
+    bool drawBig = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE ||
+                    myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_DELETE);
     double circleWidth = drawBig ? SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) : 0.5;
     double circleWidthSquared = circleWidth * circleWidth;
     // obtain color
@@ -2240,7 +2240,7 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
             }
         }
         // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForRectangleSelection
-        if (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NETWORKMODE_MOVE) {
+        if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
             if ((myNBEdge->getGeometry().front() != myGNEJunctionSource->getPositionInView()) &&
                     (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().front()) <= (circleWidthSquared + 2)))) {
                 glPushMatrix();

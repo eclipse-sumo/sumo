@@ -82,13 +82,13 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_I_INSPECTMODE,                        GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_S_SELECTMODE,                         GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE,         GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_TLSMODE_VTYPEMODE,                  GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_TLSUPERMODE_VTYPEMODE,                  GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE,            GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE,             GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_TAZMODE,                            GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE_PERSONMODE,             GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_POLYGONETWORK_PERSONMODE,             GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_VEHICLEMODE,                        GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE,     GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONETWORK_PERSONTYPEMODE,     GNEViewNet::onCmdSetMode),
     // Common view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_COMMONVIEWOPTIONS_SHOWGRID,              GNEViewNet::onCmdToogleShowGrid),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_COMMONVIEWOPTIONS_DRAWSPREADVEHICLES,    GNEViewNet::onCmdToogleDrawSpreadVehicles),
@@ -559,7 +559,7 @@ GNEViewNet::changeAllPhases() const {
 
 bool
 GNEViewNet::showJunctionAsBubbles() const {
-    return (myEditModes.networkEditMode == GNE_NETWORKMODE_MOVE) && (myNetworkViewOptions.menuCheckShowJunctionBubble->getCheck());
+    return (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && (myNetworkViewOptions.menuCheckShowJunctionBubble->getCheck());
 }
 
 
@@ -674,7 +674,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         myViewParent->getRouteFrame()->drawTemporalRoute();
     }
     // check menu checks of supermode demand
-    if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+    if (myEditModes.currentSupermode == Supermode::SUPERMODE_DEMAND) {
         // enable or disable menuCheckShowAllPersonPlans depending of there is a locked person
         if (myDemandViewOptions.getLockedPerson()) {
             myDemandViewOptions.menuCheckShowAllPersonPlans->disable();
@@ -684,7 +684,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // check if menuCheckLockPerson must be enabled or disabled
         if (myDemandViewOptions.menuCheckLockPerson->getCheck() == FALSE) {
             // check if we're in inspector mode and we're inspecting exactly one element
-            if ((myEditModes.demandEditMode == GNE_DEMANDMODE_INSPECT) && getDottedAC()) {
+            if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && getDottedAC()) {
                 // obtain tag property
                 const GNETagProperties& tagProperty = getDottedAC()->getTagProperty();
                 // enable menu check lock person if is either a person, a person plan or a person stop
@@ -729,11 +729,11 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             myObjectsUnderGrippedCursor.updateObjectUnderCursor(getGUIGlObjectsUnderGrippedCursor(), myEditShapes.editedShapePoly);
         }
         // process left button press function depending of supermode
-        if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+        if (myEditModes.currentSupermode == Supermode::SUPERMODE_NETWORK) {
             processLeftButtonPressNetwork(eventData);
-        } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+        } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DEMAND) {
             processLeftButtonPressDemand(eventData);
-        } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+        } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DATA) {
             processLeftButtonPressData(eventData);
         }
         makeNonCurrent();
@@ -755,11 +755,11 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     // update cursor
     updateCursor();
     // process left button release function depending of supermode
-    if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+    if (myEditModes.currentSupermode == Supermode::SUPERMODE_NETWORK) {
         processLeftButtonReleaseNetwork();
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DEMAND) {
         processLeftButtonReleaseDemand();
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DATA) {
         processLeftButtonReleaseData();
     }
     // update view
@@ -774,7 +774,7 @@ GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
     myKeyPressed.update(eventData);
     // update cursor
     updateCursor();
-    if ((myEditModes.networkEditMode == GNE_NETWORKMODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         // disable right button press during drawing polygon
         return 1;
     } else {
@@ -790,7 +790,7 @@ GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     // update cursor
     updateCursor();
     // disable right button release during drawing polygon
-    if ((myEditModes.networkEditMode == GNE_NETWORKMODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         return 1;
     } else {
         return GUISUMOAbstractView::onRightBtnRelease(obj, sel, eventData);
@@ -807,11 +807,11 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     // update cursor
     updateCursor();
     // process mouse move function depending of supermode
-    if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+    if (myEditModes.currentSupermode == Supermode::SUPERMODE_NETWORK) {
         processMoveMouseNetwork();
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DEMAND) {
         processMoveMouseDemand();
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DATA) {
         processMoveMouseData();
     }
     return 1;
@@ -825,10 +825,10 @@ GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
     // update cursor
     updateCursor();
     // change "delete last created point" depending of shift key
-    if ((myEditModes.networkEditMode == GNE_NETWORKMODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
         update();
-    } else if ((myEditModes.networkEditMode == GNE_NETWORKMODE_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
+    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
         myViewParent->getTAZFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
         update();
     }
@@ -843,7 +843,7 @@ GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
     // update cursor
     updateCursor();
     // change "delete last created point" depending of shift key
-    if ((myEditModes.networkEditMode == GNE_NETWORKMODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
         update();
     }
@@ -861,28 +861,28 @@ GNEViewNet::abortOperation(bool clearSelection) {
     // steal focus from any text fields and place it over view net
     setFocus();
     // check what supermode is enabled
-    if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+    if (myEditModes.currentSupermode == Supermode::SUPERMODE_NETWORK) {
         // abort operation depending of current mode
-        if (myEditModes.networkEditMode == GNE_NETWORKMODE_CREATE_EDGE) {
+        if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) {
             // abort edge creation in create edge frame
             myViewParent->getCreateEdgeFrame()->abortEdgeCreation();
-        } else if (myEditModes.networkEditMode == GNE_NETWORKMODE_SELECT) {
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT) {
             mySelectingArea.selectingUsingRectangle = false;
             // check if current selection has to be cleaned
             if (clearSelection) {
                 myViewParent->getSelectorFrame()->clearCurrentSelection();
             }
-        } else if (myEditModes.networkEditMode == GNE_NETWORKMODE_CONNECT) {
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) {
             // abort changes in Connector Frame
             myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdCancelModifications(0, 0, 0);
-        } else if (myEditModes.networkEditMode == GNE_NETWORKMODE_TLS) {
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS) {
             myViewParent->getTLSEditorFrame()->onCmdCancel(nullptr, 0, nullptr);
-        } else if (myEditModes.networkEditMode == GNE_NETWORKMODE_MOVE) {
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
             myEditShapes.stopEditCustomShape();
-        } else if (myEditModes.networkEditMode == GNE_NETWORKMODE_POLYGON) {
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) {
             // abort current drawing
             myViewParent->getPolygonFrame()->getDrawingShapeModul()->abortDrawing();
-        } else if (myEditModes.networkEditMode == GNE_NETWORKMODE_TAZ) {
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) {
             if (myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
                 // abort current drawing
                 myViewParent->getPolygonFrame()->getDrawingShapeModul()->abortDrawing();
@@ -890,30 +890,30 @@ GNEViewNet::abortOperation(bool clearSelection) {
                 // finish current editing TAZ
                 myViewParent->getTAZFrame()->getTAZCurrentModul()->setTAZ(nullptr);
             }
-        } else if (myEditModes.networkEditMode == GNE_NETWORKMODE_PROHIBITION) {
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_PROHIBITION) {
             myViewParent->getProhibitionFrame()->onCmdCancel(nullptr, 0, nullptr);
-        } else if (myEditModes.networkEditMode == GNE_NETWORKMODE_ADDITIONAL) {
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
             // abort select lanes
             myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->abortConsecutiveLaneSelector();
         }
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DEMAND) {
         // abort operation depending of current mode
-        if (myEditModes.demandEditMode == GNE_DEMANDMODE_SELECT) {
+        if (myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT) {
             mySelectingArea.selectingUsingRectangle = false;
             // check if current selection has to be cleaned
             if (clearSelection) {
                 myViewParent->getSelectorFrame()->clearCurrentSelection();
             }
-        } else if (myEditModes.demandEditMode == GNE_DEMANDMODE_ROUTE) {
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyEsc();
-        } else if (myEditModes.demandEditMode == GNE_DEMANDMODE_VEHICLE) {
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             myViewParent->getVehicleFrame()->getEdgePathCreator()->abortEdgePathCreation();
-        } else if (myEditModes.demandEditMode == GNE_DEMANDMODE_PERSON) {
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
             myViewParent->getPersonFrame()->getEdgePathCreator()->abortEdgePathCreation();
-        } else if (myEditModes.demandEditMode == GNE_DEMANDMODE_PERSONPLAN) {
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->abortPersonPlanCreation();
         }
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DEMAND) {
         // currently unused
     }
     // abort undo list
@@ -924,8 +924,8 @@ GNEViewNet::abortOperation(bool clearSelection) {
 void
 GNEViewNet::hotkeyDel() {
     // delete elements depending of current supermode
-    if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
-        if ((myEditModes.networkEditMode == GNE_NETWORKMODE_CONNECT) || (myEditModes.networkEditMode == GNE_NETWORKMODE_TLS)) {
+    if (myEditModes.currentSupermode == Supermode::SUPERMODE_NETWORK) {
+        if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) || (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS)) {
             setStatusBarText("Cannot delete in this mode");
         } else {
             myUndoList->p_begin("delete network selection");
@@ -938,11 +938,11 @@ GNEViewNet::hotkeyDel() {
             deleteSelectedShapes();
             myUndoList->p_end();
         }
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DEMAND) {
         myUndoList->p_begin("delete demand selection");
         deleteSelectedDemandElements();
         myUndoList->p_end();
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DATA) {
         myUndoList->p_begin("delete data selection");
         deleteSelectedDataElements();
         myUndoList->p_end();
@@ -955,16 +955,16 @@ GNEViewNet::hotkeyDel() {
 void
 GNEViewNet::hotkeyEnter() {
     // check what supermode is enabled
-    if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+    if (myEditModes.currentSupermode == Supermode::SUPERMODE_NETWORK) {
         // abort operation depending of current mode
-        if (myEditModes.networkEditMode == GNE_NETWORKMODE_CONNECT) {
+        if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) {
             // Accept changes in Connector Frame
             myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdSaveModifications(0, 0, 0);
-        } else if (myEditModes.networkEditMode == GNE_NETWORKMODE_TLS) {
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS) {
             myViewParent->getTLSEditorFrame()->onCmdOK(nullptr, 0, nullptr);
-        } else if ((myEditModes.networkEditMode == GNE_NETWORKMODE_MOVE) && (myEditShapes.editedShapePoly != nullptr)) {
+        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && (myEditShapes.editedShapePoly != nullptr)) {
             myEditShapes.saveEditedShape();
-        } else if (myEditModes.networkEditMode == GNE_NETWORKMODE_POLYGON) {
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) {
             if (myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
                 // stop current drawing
                 myViewParent->getPolygonFrame()->getDrawingShapeModul()->stopDrawing();
@@ -972,9 +972,9 @@ GNEViewNet::hotkeyEnter() {
                 // start drawing
                 myViewParent->getPolygonFrame()->getDrawingShapeModul()->startDrawing();
             }
-        } else if (myEditModes.networkEditMode == GNE_NETWORKMODE_CROSSING) {
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CROSSING) {
             myViewParent->getCrossingFrame()->createCrossingHotkey();
-        } else if (myEditModes.networkEditMode == GNE_NETWORKMODE_TAZ) {
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) {
             if (myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
                 // stop current drawing
                 myViewParent->getTAZFrame()->getDrawingShapeModul()->stopDrawing();
@@ -985,24 +985,24 @@ GNEViewNet::hotkeyEnter() {
                 // save pending changes
                 myViewParent->getTAZFrame()->getTAZSaveChangesModul()->onCmdSaveChanges(0, 0, 0);
             }
-        } else if (myEditModes.networkEditMode == GNE_NETWORKMODE_ADDITIONAL) {
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
             if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
                 // stop select lanes to create additional
                 myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->stopConsecutiveLaneSelector();
             }
         }
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DEMAND) {
         // abort operation depending of current mode
-        if (myEditModes.demandEditMode == GNE_DEMANDMODE_ROUTE) {
+        if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyEnter();
-        } else if (myEditModes.demandEditMode == GNE_DEMANDMODE_VEHICLE) {
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             myViewParent->getVehicleFrame()->getEdgePathCreator()->finishEdgePathCreation();
-        } else if (myEditModes.demandEditMode == GNE_DEMANDMODE_PERSON) {
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
             myViewParent->getPersonFrame()->getEdgePathCreator()->finishEdgePathCreation();
-        } else if (myEditModes.demandEditMode == GNE_DEMANDMODE_PERSONPLAN) {
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->finishPersonPlanCreation();
         }
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DATA) {
         // currently unused
     }
 }
@@ -1011,20 +1011,20 @@ GNEViewNet::hotkeyEnter() {
 void
 GNEViewNet::hotkeyBackSpace() {
     // check what supermode is enabled
-    if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+    if (myEditModes.currentSupermode == Supermode::SUPERMODE_NETWORK) {
         // unused in Network mode
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DEMAND) {
         // abort operation depending of current mode
-        if (myEditModes.demandEditMode == GNE_DEMANDMODE_ROUTE) {
+        if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyBackSpace();
-        } else if (myEditModes.demandEditMode == GNE_DEMANDMODE_VEHICLE) {
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             myViewParent->getVehicleFrame()->getEdgePathCreator()->removeLastInsertedElement();
-        } else if (myEditModes.demandEditMode == GNE_DEMANDMODE_PERSON) {
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
             myViewParent->getPersonFrame()->getEdgePathCreator()->removeLastInsertedElement();
-        } else if (myEditModes.demandEditMode == GNE_DEMANDMODE_PERSONPLAN) {
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->removeLastAddedElement();
         }
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DATA) {
         // unused in Data mode
     }
 }
@@ -1082,7 +1082,7 @@ GNEViewNet::setDottedAC(GNEAttributeCarrier* AC) {
 
 bool
 GNEViewNet::showLockIcon() const {
-    return (myEditModes.networkEditMode == GNE_NETWORKMODE_MOVE || myEditModes.networkEditMode == GNE_NETWORKMODE_INSPECT || myEditModes.networkEditMode == GNE_NETWORKMODE_ADDITIONAL);
+    return (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE || myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT || myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL);
 }
 
 
@@ -1235,13 +1235,13 @@ GNEViewNet::onCmdSetSupermode(FXObject*, FXSelector sel, void*) {
     // check what network mode will be set
     switch (FXSELID(sel)) {
         case MID_HOTKEY_F2_SUPERMODE_NETWORK:
-            myEditModes.setSupermode(GNE_SUPERMODE_NETWORK);
+            myEditModes.setSupermode(Supermode::SUPERMODE_NETWORK);
             break;
         case MID_HOTKEY_F3_SUPERMODE_DEMAND:
-            myEditModes.setSupermode(GNE_SUPERMODE_DEMAND);
+            myEditModes.setSupermode(Supermode::SUPERMODE_DEMAND);
             break;
         case MID_HOTKEY_F4_SUPERMODE_DATA:
-            myEditModes.setSupermode(GNE_SUPERMODE_DATA);
+            myEditModes.setSupermode(Supermode::SUPERMODE_DATA);
             break;
         default:
             break;
@@ -1251,101 +1251,101 @@ GNEViewNet::onCmdSetSupermode(FXObject*, FXSelector sel, void*) {
 
 long
 GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
-    if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+    if (myEditModes.currentSupermode == Supermode::SUPERMODE_NETWORK) {
         // check what network mode will be set
         switch (FXSELID(sel)) {
             case MID_HOTKEY_I_INSPECTMODE:
-                myEditModes.setNetworkEditMode(GNE_NETWORKMODE_INSPECT);
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_INSPECT);
                 break;
             case MID_HOTKEY_D_DELETEMODE:
-                myEditModes.setNetworkEditMode(GNE_NETWORKMODE_DELETE);
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_DELETE);
                 break;
             case MID_HOTKEY_S_SELECTMODE:
-                myEditModes.setNetworkEditMode(GNE_NETWORKMODE_SELECT);
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_SELECT);
                 break;
             case MID_HOTKEY_M_MOVEMODE:
-                myEditModes.setNetworkEditMode(GNE_NETWORKMODE_MOVE);
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_MOVE);
                 break;
             case MID_HOTKEY_E_EDGEMODE_EDGEDATAMODE:
-                myEditModes.setNetworkEditMode(GNE_NETWORKMODE_CREATE_EDGE);
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_CREATE_EDGE);
                 break;
             case MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE:
-                myEditModes.setNetworkEditMode(GNE_NETWORKMODE_CONNECT);
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_CONNECT);
                 break;
-            case MID_HOTKEY_T_TLSMODE_VTYPEMODE:
-                myEditModes.setNetworkEditMode(GNE_NETWORKMODE_TLS);
+            case MID_HOTKEY_T_TLSUPERMODE_VTYPEMODE:
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS);
                 break;
             case MID_HOTKEY_A_ADDITIONALMODE_STOPMODE:
-                myEditModes.setNetworkEditMode(GNE_NETWORKMODE_ADDITIONAL);
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_ADDITIONAL);
                 break;
             case MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE:
-                myEditModes.setNetworkEditMode(GNE_NETWORKMODE_CROSSING);
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_CROSSING);
                 break;
             case MID_HOTKEY_Z_TAZMODE:
-                myEditModes.setNetworkEditMode(GNE_NETWORKMODE_TAZ);
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TAZ);
                 break;
-            case MID_HOTKEY_P_POLYGONMODE_PERSONMODE:
-                myEditModes.setNetworkEditMode(GNE_NETWORKMODE_POLYGON);
+            case MID_HOTKEY_P_POLYGONETWORK_PERSONMODE:
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_POLYGON);
                 break;
-            case MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE:
-                myEditModes.setNetworkEditMode(GNE_NETWORKMODE_PROHIBITION);
+            case MID_HOTKEY_W_PROHIBITIONETWORK_PERSONTYPEMODE:
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_PROHIBITION);
                 break;
             default:
                 break;
         }
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DEMAND) {
         // check what demand mode will be set
         switch (FXSELID(sel)) {
             case MID_HOTKEY_I_INSPECTMODE:
-                myEditModes.setDemandEditMode(GNE_DEMANDMODE_INSPECT);
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_INSPECT);
                 break;
             case MID_HOTKEY_D_DELETEMODE:
-                myEditModes.setDemandEditMode(GNE_DEMANDMODE_DELETE);
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_DELETE);
                 break;
             case MID_HOTKEY_S_SELECTMODE:
-                myEditModes.setDemandEditMode(GNE_DEMANDMODE_SELECT);
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_SELECT);
                 break;
             case MID_HOTKEY_M_MOVEMODE:
-                myEditModes.setDemandEditMode(GNE_DEMANDMODE_MOVE);
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_MOVE);
                 break;
             case MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE:
-                myEditModes.setDemandEditMode(GNE_DEMANDMODE_ROUTE);
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_ROUTE);
                 break;
             case MID_HOTKEY_V_VEHICLEMODE:
-                myEditModes.setDemandEditMode(GNE_DEMANDMODE_VEHICLE);
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_VEHICLE);
                 break;
-            case MID_HOTKEY_T_TLSMODE_VTYPEMODE:
-                myEditModes.setDemandEditMode(GNE_DEMANDMODE_VEHICLETYPES);
+            case MID_HOTKEY_T_TLSUPERMODE_VTYPEMODE:
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_VEHICLETYPES);
                 break;
             case MID_HOTKEY_A_ADDITIONALMODE_STOPMODE:
-                myEditModes.setDemandEditMode(GNE_DEMANDMODE_STOP);
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_STOP);
                 break;
-            case MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE:
-                myEditModes.setDemandEditMode(GNE_DEMANDMODE_PERSONTYPES);
+            case MID_HOTKEY_W_PROHIBITIONETWORK_PERSONTYPEMODE:
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_PERSONTYPES);
                 break;
-            case MID_HOTKEY_P_POLYGONMODE_PERSONMODE:
-                myEditModes.setDemandEditMode(GNE_DEMANDMODE_PERSON);
+            case MID_HOTKEY_P_POLYGONETWORK_PERSONMODE:
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_PERSON);
                 break;
             case MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE:
-                myEditModes.setDemandEditMode(GNE_DEMANDMODE_PERSONPLAN);
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_PERSONPLAN);
                 break;
             default:
                 break;
         }
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DATA) {
         // check what demand mode will be set
         switch (FXSELID(sel)) {
             case MID_HOTKEY_I_INSPECTMODE:
-                myEditModes.setDataEditMode(GNE_DATAMODE_INSPECT);
+                myEditModes.setDataEditMode(DataEditMode::DATA_INSPECT);
                 break;
             case MID_HOTKEY_D_DELETEMODE:
-                myEditModes.setDataEditMode(GNE_DATAMODE_DELETE);
+                myEditModes.setDataEditMode(DataEditMode::DATA_DELETE);
                 break;
             case MID_HOTKEY_S_SELECTMODE:
-                myEditModes.setDataEditMode(GNE_DATAMODE_SELECT);
+                myEditModes.setDataEditMode(DataEditMode::DATA_SELECT);
                 break;
             case MID_HOTKEY_E_EDGEMODE_EDGEDATAMODE:
-                myEditModes.setDataEditMode(GNE_DATAMODE_EDGEDATA);
+                myEditModes.setDataEditMode(DataEditMode::DATA_EDGEDATA);
                 break;
         }
     }
@@ -2054,19 +2054,19 @@ GNEViewNet::updateCursor() {
     // declare a flag for cursor move
     bool cursorMove = false;
     // check if in current mode/supermode cursor move can be shown
-    if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
-        if ((myEditModes.networkEditMode == GNE_NETWORKMODE_ADDITIONAL) ||
-                (myEditModes.networkEditMode == GNE_NETWORKMODE_POLYGON) ||
-                (myEditModes.networkEditMode == GNE_NETWORKMODE_TAZ)) {
+    if (myEditModes.currentSupermode == Supermode::SUPERMODE_NETWORK) {
+        if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) ||
+                (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) ||
+                (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ)) {
             cursorMove = true;
         }
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
-        if ((myEditModes.demandEditMode == GNE_DEMANDMODE_ROUTE) ||
-                (myEditModes.demandEditMode == GNE_DEMANDMODE_VEHICLE) ||
-                (myEditModes.demandEditMode == GNE_DEMANDMODE_STOP)) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DEMAND) {
+        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) ||
+                (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
+                (myEditModes.demandEditMode == DemandEditMode::DEMAND_STOP)) {
             cursorMove = true;
         }
-    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DATA) {
+    } else if (myEditModes.currentSupermode == Supermode::SUPERMODE_DATA) {
         // unused in data mode
     }
     // update cursor if control key is pressed
@@ -2615,7 +2615,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     // enable selected controls
     switch (myEditModes.networkEditMode) {
         // common modes
-        case GNE_NETWORKMODE_INSPECT:
+        case NetworkEditMode::NETWORK_INSPECT:
             myViewParent->getInspectorFrame()->show();
             myViewParent->getInspectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getInspectorFrame();
@@ -2626,7 +2626,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_NETWORKMODE_DELETE:
+        case NetworkEditMode::NETWORK_DELETE:
             myViewParent->getDeleteFrame()->show();
             myViewParent->getDeleteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getDeleteFrame();
@@ -2637,7 +2637,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_NETWORKMODE_SELECT:
+        case NetworkEditMode::NETWORK_SELECT:
             myViewParent->getSelectorFrame()->show();
             myViewParent->getSelectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getSelectorFrame();
@@ -2650,7 +2650,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         // specific modes
-        case GNE_NETWORKMODE_CREATE_EDGE:
+        case NetworkEditMode::NETWORK_CREATE_EDGE:
             // show view options
             myNetworkViewOptions.menuCheckChainEdges->show();
             myNetworkViewOptions.menuCheckAutoOppositeEdge->show();
@@ -2658,7 +2658,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_NETWORKMODE_MOVE:
+        case NetworkEditMode::NETWORK_MOVE:
             // show view options
             myNetworkViewOptions.menuCheckWarnAboutMerge->show();
             myNetworkViewOptions.menuCheckShowJunctionBubble->show();
@@ -2667,7 +2667,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_NETWORKMODE_CONNECT:
+        case NetworkEditMode::NETWORK_CONNECT:
             myViewParent->getConnectorFrame()->show();
             myViewParent->getConnectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getConnectorFrame();
@@ -2677,7 +2677,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_NETWORKMODE_TLS:
+        case NetworkEditMode::NETWORK_TLS:
             myViewParent->getTLSEditorFrame()->show();
             myViewParent->getTLSEditorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getTLSEditorFrame();
@@ -2687,7 +2687,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_NETWORKMODE_ADDITIONAL:
+        case NetworkEditMode::NETWORK_ADDITIONAL:
             myViewParent->getAdditionalFrame()->show();
             myViewParent->getAdditionalFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getAdditionalFrame();
@@ -2695,7 +2695,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_NETWORKMODE_CROSSING:
+        case NetworkEditMode::NETWORK_CROSSING:
             myViewParent->getCrossingFrame()->show();
             myViewParent->getCrossingFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getCrossingFrame();
@@ -2703,7 +2703,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_NETWORKMODE_TAZ:
+        case NetworkEditMode::NETWORK_TAZ:
             myViewParent->getTAZFrame()->show();
             myViewParent->getTAZFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getTAZFrame();
@@ -2711,7 +2711,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_NETWORKMODE_POLYGON:
+        case NetworkEditMode::NETWORK_POLYGON:
             myViewParent->getPolygonFrame()->show();
             myViewParent->getPolygonFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getPolygonFrame();
@@ -2719,7 +2719,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_NETWORKMODE_PROHIBITION:
+        case NetworkEditMode::NETWORK_PROHIBITION:
             myViewParent->getProhibitionFrame()->show();
             myViewParent->getProhibitionFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getProhibitionFrame();
@@ -2766,7 +2766,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
     // enable selected controls
     switch (myEditModes.demandEditMode) {
         // common modes
-        case GNE_DEMANDMODE_INSPECT:
+        case DemandEditMode::DEMAND_INSPECT:
             myViewParent->getInspectorFrame()->show();
             myViewParent->getInspectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getInspectorFrame();
@@ -2779,7 +2779,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_DEMANDMODE_DELETE:
+        case DemandEditMode::DEMAND_DELETE:
             myViewParent->getDeleteFrame()->show();
             myViewParent->getDeleteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getDeleteFrame();
@@ -2791,7 +2791,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_DEMANDMODE_SELECT:
+        case DemandEditMode::DEMAND_SELECT:
             myViewParent->getSelectorFrame()->show();
             myViewParent->getSelectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getSelectorFrame();
@@ -2803,7 +2803,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_DEMANDMODE_MOVE:
+        case DemandEditMode::DEMAND_MOVE:
             // set checkable button
             myDemandCheckableButtons.moveDemandElementsButton->setChecked(true);
             // show view options
@@ -2813,7 +2813,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         // specific modes
-        case GNE_DEMANDMODE_ROUTE:
+        case DemandEditMode::DEMAND_ROUTE:
             myViewParent->getRouteFrame()->show();
             myViewParent->getRouteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getRouteFrame();
@@ -2825,7 +2825,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_DEMANDMODE_VEHICLE:
+        case DemandEditMode::DEMAND_VEHICLE:
             myViewParent->getVehicleFrame()->show();
             myViewParent->getVehicleFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getVehicleFrame();
@@ -2837,7 +2837,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_DEMANDMODE_VEHICLETYPES:
+        case DemandEditMode::DEMAND_VEHICLETYPES:
             myViewParent->getVehicleTypeFrame()->show();
             myViewParent->getVehicleTypeFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getVehicleTypeFrame();
@@ -2849,7 +2849,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             /// show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_DEMANDMODE_STOP:
+        case DemandEditMode::DEMAND_STOP:
             myViewParent->getStopFrame()->show();
             myViewParent->getStopFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getStopFrame();
@@ -2861,7 +2861,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_DEMANDMODE_PERSONTYPES:
+        case DemandEditMode::DEMAND_PERSONTYPES:
             myViewParent->getPersonTypeFrame()->show();
             myViewParent->getPersonTypeFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getPersonTypeFrame();
@@ -2873,7 +2873,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_DEMANDMODE_PERSON:
+        case DemandEditMode::DEMAND_PERSON:
             myViewParent->getPersonFrame()->show();
             myViewParent->getPersonFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getPersonFrame();
@@ -2885,7 +2885,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_DEMANDMODE_PERSONPLAN:
+        case DemandEditMode::DEMAND_PERSONPLAN:
             myViewParent->getPersonPlanFrame()->show();
             myViewParent->getPersonPlanFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getPersonPlanFrame();
@@ -2935,7 +2935,7 @@ GNEViewNet::updateDataModeSpecificControls() {
     // enable selected controls
     switch (myEditModes.dataEditMode) {
         // common modes
-        case GNE_DATAMODE_INSPECT:
+        case DataEditMode::DATA_INSPECT:
             myViewParent->getInspectorFrame()->show();
             myViewParent->getInspectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getInspectorFrame();
@@ -2949,7 +2949,7 @@ GNEViewNet::updateDataModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_DATAMODE_DELETE:
+        case DataEditMode::DATA_DELETE:
             myViewParent->getDeleteFrame()->show();
             myViewParent->getDeleteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getDeleteFrame();
@@ -2962,7 +2962,7 @@ GNEViewNet::updateDataModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_DATAMODE_SELECT:
+        case DataEditMode::DATA_SELECT:
             myViewParent->getSelectorFrame()->show();
             myViewParent->getSelectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getSelectorFrame();
@@ -2975,7 +2975,7 @@ GNEViewNet::updateDataModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
-        case GNE_DATAMODE_EDGEDATA:
+        case DataEditMode::DATA_EDGEDATA:
             myViewParent->getEdgeDataFrame()->show();
             myViewParent->getEdgeDataFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getEdgeDataFrame();
@@ -3231,7 +3231,7 @@ GNEViewNet::mergeJunctions(GNEJunction* moved, const Position& oldPos) {
 void
 GNEViewNet::updateControls() {
     switch (myEditModes.networkEditMode) {
-        case GNE_NETWORKMODE_INSPECT:
+        case NetworkEditMode::NETWORK_INSPECT:
             myViewParent->getInspectorFrame()->update();
             break;
         default:
@@ -3358,14 +3358,14 @@ void
 GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
     // decide what to do based on mode
     switch (myEditModes.networkEditMode) {
-        case GNE_NETWORKMODE_INSPECT: {
+        case NetworkEditMode::NETWORK_INSPECT: {
             // process left click in Inspector Frame
             myViewParent->getInspectorFrame()->processNetworkSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
             // process click
             processClick(eventData);
             break;
         }
-        case GNE_NETWORKMODE_DELETE: {
+        case NetworkEditMode::NETWORK_DELETE: {
             // check that we have clicked over an non-demand element
             if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
                 // change the selected attribute carrier if myNetworkViewOptions.mySelectEdges is enabled and clicked element is a getLaneFront()
@@ -3391,7 +3391,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             }
             break;
         }
-        case GNE_NETWORKMODE_SELECT:
+        case NetworkEditMode::NETWORK_SELECT:
             // check if a rect for selecting is being created
             if (myKeyPressed.shiftKeyPressed()) {
                 // begin rectangle selection
@@ -3417,7 +3417,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 processClick(eventData);
             }
             break;
-        case GNE_NETWORKMODE_CREATE_EDGE: {
+        case NetworkEditMode::NETWORK_CREATE_EDGE: {
             // make sure that Control key isn't pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 // process left click in create edge frame Frame
@@ -3430,7 +3430,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             processClick(eventData);
             break;
         }
-        case GNE_NETWORKMODE_MOVE: {
+        case NetworkEditMode::NETWORK_MOVE: {
             // allways swap lane to edges in movement mode
             if (myObjectsUnderCursor.getLaneFront()) {
                 myObjectsUnderCursor.swapLane2Edge();
@@ -3453,7 +3453,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             }
             break;
         }
-        case GNE_NETWORKMODE_CONNECT: {
+        case NetworkEditMode::NETWORK_CONNECT: {
             if (myObjectsUnderCursor.getLaneFront()) {
                 // Handle laneclick (shift key may pass connections, Control key allow conflicts)
                 myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor);
@@ -3463,7 +3463,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             processClick(eventData);
             break;
         }
-        case GNE_NETWORKMODE_TLS: {
+        case NetworkEditMode::NETWORK_TLS: {
             if (myObjectsUnderCursor.getJunctionFront()) {
                 // edit TLS in TLSEditor frame
                 myViewParent->getTLSEditorFrame()->editTLS(getPositionInformation(), myObjectsUnderCursor);
@@ -3473,7 +3473,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             processClick(eventData);
             break;
         }
-        case GNE_NETWORKMODE_ADDITIONAL: {
+        case NetworkEditMode::NETWORK_ADDITIONAL: {
             // avoid create additionals if control key is pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isShown()) {
@@ -3493,7 +3493,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             processClick(eventData);
             break;
         }
-        case GNE_NETWORKMODE_CROSSING: {
+        case NetworkEditMode::NETWORK_CROSSING: {
             // swap lanes to edges in crossingsMode
             if (myObjectsUnderCursor.getLaneFront()) {
                 myObjectsUnderCursor.swapLane2Edge();
@@ -3504,7 +3504,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             processClick(eventData);
             break;
         }
-        case GNE_NETWORKMODE_TAZ: {
+        case NetworkEditMode::NETWORK_TAZ: {
             // avoid create TAZs if control key is pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 // swap laness to edges in TAZ Mode
@@ -3530,7 +3530,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             }
             break;
         }
-        case GNE_NETWORKMODE_POLYGON: {
+        case NetworkEditMode::NETWORK_POLYGON: {
             // avoid create shapes if control key is pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 if (!myObjectsUnderCursor.getPOIFront()) {
@@ -3549,7 +3549,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             }
             break;
         }
-        case GNE_NETWORKMODE_PROHIBITION: {
+        case NetworkEditMode::NETWORK_PROHIBITION: {
             if (myObjectsUnderCursor.getConnectionFront()) {
                 // shift key may pass connections, Control key allow conflicts.
                 myViewParent->getProhibitionFrame()->handleProhibitionClick(myObjectsUnderCursor);
@@ -3576,9 +3576,9 @@ GNEViewNet::processLeftButtonReleaseNetwork() {
         // check if we're creating a rectangle selection or we want only to select a lane
         if (mySelectingArea.startDrawing) {
             // check if we're selecting all type of elements o we only want a set of edges for TAZ
-            if (myEditModes.networkEditMode == GNE_NETWORKMODE_SELECT) {
+            if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT) {
                 mySelectingArea.processRectangleSelection();
-            } else if (myEditModes.networkEditMode == GNE_NETWORKMODE_TAZ) {
+            } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) {
                 // process edge selection
                 myViewParent->getTAZFrame()->processEdgeSelection(mySelectingArea.processEdgeRectangleSelection());
             }
@@ -3611,7 +3611,7 @@ GNEViewNet::processLeftButtonReleaseNetwork() {
 void
 GNEViewNet::processMoveMouseNetwork() {
     // change "delete last created point" depending if during movement shift key is pressed
-    if ((myEditModes.networkEditMode == GNE_NETWORKMODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
     }
     // check what type of additional is moved
@@ -3632,14 +3632,14 @@ void
 GNEViewNet::processLeftButtonPressDemand(void* eventData) {
     // decide what to do based on mode
     switch (myEditModes.demandEditMode) {
-        case GNE_DEMANDMODE_INSPECT: {
+        case DemandEditMode::DEMAND_INSPECT: {
             // process left click in Inspector Frame
             myViewParent->getInspectorFrame()->processDemandSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
             // process click
             processClick(eventData);
             break;
         }
-        case GNE_DEMANDMODE_DELETE: {
+        case DemandEditMode::DEMAND_DELETE: {
             // check that we have clicked over an demand element
             if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
                 // check if we are deleting a selection or an single attribute carrier
@@ -3654,7 +3654,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             }
             break;
         }
-        case GNE_DEMANDMODE_SELECT:
+        case DemandEditMode::DEMAND_SELECT:
             // check if a rect for selecting is being created
             if (myKeyPressed.shiftKeyPressed()) {
                 // begin rectangle selection
@@ -3682,7 +3682,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                 }
             }
             break;
-        case GNE_DEMANDMODE_MOVE: {
+        case DemandEditMode::DEMAND_MOVE: {
             // check that AC under cursor is a demand element
             if (myObjectsUnderCursor.getAttributeCarrierFront() &&
                     myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
@@ -3702,7 +3702,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             }
             break;
         }
-        case GNE_DEMANDMODE_ROUTE: {
+        case DemandEditMode::DEMAND_ROUTE: {
             // check if we clicked over a lane and Control key isn't pressed
             if (myObjectsUnderCursor.getLaneFront() && !myKeyPressed.controlKeyPressed()) {
                 // Handle edge click
@@ -3712,7 +3712,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             processClick(eventData);
             break;
         }
-        case GNE_DEMANDMODE_VEHICLE: {
+        case DemandEditMode::DEMAND_VEHICLE: {
             // make sure that Control key isn't pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 // Handle click
@@ -3722,7 +3722,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             processClick(eventData);
             break;
         }
-        case GNE_DEMANDMODE_STOP: {
+        case DemandEditMode::DEMAND_STOP: {
             // make sure that Control key isn't pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 // Handle click
@@ -3732,7 +3732,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             processClick(eventData);
             break;
         }
-        case GNE_DEMANDMODE_PERSON: {
+        case DemandEditMode::DEMAND_PERSON: {
             // make sure that Control key isn't pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 // Handle click
@@ -3742,7 +3742,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             processClick(eventData);
             break;
         }
-        case GNE_DEMANDMODE_PERSONPLAN: {
+        case DemandEditMode::DEMAND_PERSONPLAN: {
             // make sure that Control key isn't pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 // Handle click
@@ -3795,14 +3795,14 @@ void
 GNEViewNet::processLeftButtonPressData(void* eventData) {
     // decide what to do based on mode
     switch (myEditModes.dataEditMode) {
-        case GNE_DATAMODE_INSPECT: {
+        case DataEditMode::DATA_INSPECT: {
             // process left click in Inspector Frame
             myViewParent->getInspectorFrame()->processDataSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
             // process click
             processClick(eventData);
             break;
         }
-        case GNE_DATAMODE_DELETE: {
+        case DataEditMode::DATA_DELETE: {
             // check that we have clicked over an data element
             if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDataElement()) {
                 // check if we are deleting a selection or an single attribute carrier
@@ -3817,7 +3817,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             }
             break;
         }
-        case GNE_DATAMODE_SELECT:
+        case DataEditMode::DATA_SELECT:
             // check if a rect for selecting is being created
             if (myKeyPressed.shiftKeyPressed()) {
                 // begin rectangle selection
@@ -3845,7 +3845,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
                 }
             }
             break;
-        case GNE_DATAMODE_EDGEDATA:
+        case DataEditMode::DATA_EDGEDATA:
             // avoid create edgeData if control key is pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 if (myViewParent->getEdgeDataFrame()->addEdgeData(myObjectsUnderCursor)) {

@@ -333,7 +333,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         if (s.scale * myHintSize > 1.) {
             // set values relative to mouse position regarding to shape
             bool mouseOverVertex = false;
-            bool modeMove = myViewNet->getEditModes().networkEditMode == GNE_NETWORKMODE_MOVE;
+            bool modeMove = myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
             Position mousePosition = myViewNet->getPositionInformation();
             double distanceToShape = myTAZShape.distance2D(mousePosition);
             // set colors
@@ -354,7 +354,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawBoxLines(myTAZShape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
                 glPopMatrix();
                 // draw shape points only in Network supemode
-                if (myViewNet->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND) {
+                if (myViewNet->getEditModes().currentSupermode != Supermode::SUPERMODE_DEMAND) {
                     for (const auto& TAZVertex : myTAZShape) {
                         if (!s.drawForRectangleSelection || (myViewNet->getPositionInformation().distanceSquaredTo2D(TAZVertex) <= (myHintSizeSquared + 2))) {
                             glPushMatrix();

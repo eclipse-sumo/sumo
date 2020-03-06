@@ -135,13 +135,13 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_I_INSPECTMODE,                       GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_SELECTMODE,                        GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE,        GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_T_TLSMODE_VTYPEMODE,                 GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_T_TLSUPERMODE_VTYPEMODE,                 GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_ADDITIONALMODE_STOPMODE,           GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE,            GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_Z_TAZMODE,                           GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_P_POLYGONMODE_PERSONMODE,            GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_P_POLYGONETWORK_PERSONMODE,            GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_V_VEHICLEMODE,                       GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE,    GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_W_PROHIBITIONETWORK_PERSONTYPEMODE,    GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,                  GNEApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F9_EDIT_VIEWSCHEME,                  GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_I_EDITVIEWPORT,                 GNEApplicationWindow::onCmdEditViewport),
@@ -1359,10 +1359,10 @@ GNEApplicationWindow::EditMenuCommands::NetworkMenuCommands::buildNetworkMenuCom
                                     GUIIconSubSys::getIcon(ICON_MODECONNECTION), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE);
     prohibitionMode = new FXMenuCommand(editMenu,
                                         "Pro&hibition mode\tW\tEdit connection prohibitions.",
-                                        GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE);
+                                        GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_W_PROHIBITIONETWORK_PERSONTYPEMODE);
     TLSMode = new FXMenuCommand(editMenu,
                                 "&Traffic light mode\tT\tEdit traffic lights over junctions.",
-                                GUIIconSubSys::getIcon(ICON_MODETLS), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_T_TLSMODE_VTYPEMODE);
+                                GUIIconSubSys::getIcon(ICON_MODETLS), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_T_TLSUPERMODE_VTYPEMODE);
     additionalMode = new FXMenuCommand(editMenu,
                                        "&Additional mode\tA\tCreate additional elements.",
                                        GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE);
@@ -1374,7 +1374,7 @@ GNEApplicationWindow::EditMenuCommands::NetworkMenuCommands::buildNetworkMenuCom
                                 GUIIconSubSys::getIcon(ICON_MODETAZ), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_Z_TAZMODE);
     shapeMode = new FXMenuCommand(editMenu,
                                   "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
-                                  GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_P_POLYGONMODE_PERSONMODE);
+                                  GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_P_POLYGONETWORK_PERSONMODE);
     // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }
@@ -1435,16 +1435,16 @@ GNEApplicationWindow::EditMenuCommands::DemandMenuCommands::buildDemandMenuComma
                                     GUIIconSubSys::getIcon(ICON_MODEVEHICLE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_V_VEHICLEMODE);
     vehicleTypeMode = new FXMenuCommand(editMenu,
                                         "Vehicle type mode\tT\tCreate vehicle types.",
-                                        GUIIconSubSys::getIcon(ICON_MODEVEHICLETYPE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_T_TLSMODE_VTYPEMODE);
+                                        GUIIconSubSys::getIcon(ICON_MODEVEHICLETYPE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_T_TLSUPERMODE_VTYPEMODE);
     stopMode = new FXMenuCommand(editMenu,
                                  "Stop mode\tA\tCreate stops.",
                                  GUIIconSubSys::getIcon(ICON_MODESTOP), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE);
     personTypeMode = new FXMenuCommand(editMenu,
                                        "Person type mode\tW\tCreate person types.",
-                                       GUIIconSubSys::getIcon(ICON_MODEPERSONTYPE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE);
+                                       GUIIconSubSys::getIcon(ICON_MODEPERSONTYPE), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_W_PROHIBITIONETWORK_PERSONTYPEMODE);
     personMode = new FXMenuCommand(editMenu,
                                    "Person mode\tP\tCreate persons.",
-                                   GUIIconSubSys::getIcon(ICON_MODEPERSON), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_P_POLYGONMODE_PERSONMODE);
+                                   GUIIconSubSys::getIcon(ICON_MODEPERSON), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_P_POLYGONETWORK_PERSONMODE);
     personPlanMode = new FXMenuCommand(editMenu,
                                        "Person plan mode\tC\tCreate person plans.",
                                        GUIIconSubSys::getIcon(ICON_MODEPERSONPLAN), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE);
@@ -2203,7 +2203,7 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
     // first check if there is a view
     if (myViewNet) {
         // process depending of supermode
-        if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+        if (myViewNet->getEditModes().currentSupermode == Supermode::SUPERMODE_NETWORK) {
             // check what FXMenuCommand was called
             switch (FXSELID(sel)) {
                 case MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND:
@@ -3490,24 +3490,35 @@ GNEApplicationWindow::updateControls() {
 
 
 void
-GNEApplicationWindow::updateSuperModeMenuCommands(int supermode) {
-    // cast supermode
-    Supermode currentSupermode = static_cast<Supermode>(supermode);
-    if (currentSupermode == Supermode::GNE_SUPERMODE_NETWORK) {
+GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
+    if (supermode == Supermode::SUPERMODE_NETWORK) {
         myEditMenuCommands.networkMenuCommands.showNetworkMenuCommands();
         myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
+        /** DATA **/
         myProcessingMenuCommands.showNetworkProcessingMenuCommands();
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
-    } else if (currentSupermode == Supermode::GNE_SUPERMODE_DEMAND) {
+        /** DATA **/
+    } else if (supermode == Supermode::SUPERMODE_DEMAND) {
         myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myEditMenuCommands.demandMenuCommands.showDemandMenuCommands();
+        /** DATA **/
         myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
         myProcessingMenuCommands.showDemandProcessingMenuCommands();
+        /** DATA **/
+    } else if (supermode == Supermode::SUPERMODE_DATA) {
+        myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
+        myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
+        /** DATA **/
+        myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
+        myProcessingMenuCommands.hideDemandProcessingMenuCommands();
+        /** DATA **/
     } else {
         myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
+        /** DATA **/
         myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
+        /** DATA **/
     }
 }
 

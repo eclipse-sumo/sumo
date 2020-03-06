@@ -257,13 +257,13 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build position copy entry
     buildPositionCopyEntry(ret, false);
     // check if we're in supermode network
-    if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_NETWORK) {
         // create menu commands
         FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom connection shape", nullptr, &parent, MID_GNE_CONNECTION_EDIT_SHAPE);
         // check if menu commands has to be disabled
         NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
         // check if we're in the correct edit mode
-        if ((editMode == GNE_NETWORKMODE_CONNECT) || (editMode == GNE_NETWORKMODE_TLS) || (editMode == GNE_NETWORKMODE_CREATE_EDGE)) {
+        if ((editMode == NetworkEditMode::NETWORK_CONNECT) || (editMode == NetworkEditMode::NETWORK_TLS) || (editMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
             mcCustomShape->disable();
         }
     }
@@ -283,10 +283,10 @@ void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // declare a flag to check if shape has to be draw
     bool drawConnection = true;
-    if ((myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) &&
+    if ((myNet->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_DEMAND) &&
             s.drawDetail(s.detailSettings.connectionsDemandMode, s.addSize.getExaggeration(s, this))) {
         drawConnection = !myShapeDeprecated;
-    } else if ((myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) &&
+    } else if ((myNet->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_NETWORK) &&
                myNet->getViewNet()->getNetworkViewOptions().showConnections()) {
         drawConnection = !myShapeDeprecated;
     } else {

@@ -117,7 +117,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             (myCrossingGeometry.getShapeLengths().size() > 0) &&
             (s.scale > 3.0)) {
         auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-        if (myNet->getViewNet()->getEditModes().networkEditMode != GNE_NETWORKMODE_TLS) {
+        if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {
             // push first draw matrix
             glPushMatrix();
             // push name
@@ -220,12 +220,12 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build position copy entry
     buildPositionCopyEntry(ret, false);
     // check if we're in supermode network
-    if (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::SUPERMODE_NETWORK) {
         // create menu commands
         FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom crossing shape", nullptr, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
         // check if menu commands has to be disabled
         NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
-        if ((editMode == GNE_NETWORKMODE_CONNECT) || (editMode == GNE_NETWORKMODE_TLS) || (editMode == GNE_NETWORKMODE_CREATE_EDGE)) {
+        if ((editMode == NetworkEditMode::NETWORK_CONNECT) || (editMode == NetworkEditMode::NETWORK_TLS) || (editMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
             mcCustomShape->disable();
         }
     }
