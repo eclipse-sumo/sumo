@@ -630,6 +630,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
                 lane = static_cast<GUILane*>((*i)->getLanes()[0]);
             }
         }
+        GLHelper::setColor(col);
         GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
         if (prevLane != nullptr && lane->getBidiLane() == prevLane) {
             // indicate train reversal
@@ -644,7 +645,6 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
                     (laneAngle >= -0.25 * M_PI && laneAngle < 0.75 * M_PI ? 1 : -1) * 0.8 * textSize, 0);
             //GLHelper::drawText(label, pos, 1.0, textSize, s.vehicleName.color);
             GLHelper::drawTextSettings(s.vehicleName, label, pos, s.scale, s.angle, 1.0);
-            GLHelper::setColor(col);
         }
         repeatLane[lane]++;
         prevLane = lane;
