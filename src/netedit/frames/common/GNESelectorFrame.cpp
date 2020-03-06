@@ -790,8 +790,10 @@ GNESelectorFrame::ElementSet::refreshElementSet() {
         mySetComboBox->appendItem("network element");
         mySetComboBox->appendItem("Additional");
         mySetComboBox->appendItem("Shape");
-    } else {
+    } else if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::DEMAND) {
         mySetComboBox->appendItem("Demand Element");
+    } else if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::DATA) {
+     mySetComboBox->appendItem("Data Element");
     }
     mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
     // update rest of elements
@@ -824,9 +826,21 @@ GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*
             // disable match attribute
             mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
         }
-    } else {
+    } else if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::DEMAND) {
         if (mySetComboBox->getText() == "Demand Element") {
             myCurrentElementSet = Type::DEMANDELEMENT;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+            // enable match attribute
+            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
+        } else {
+            myCurrentElementSet = Type::INVALID;
+            mySetComboBox->setTextColor(FXRGB(255, 0, 0));
+            // disable match attribute
+            mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
+        }
+    } else if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::DATA) {
+        if (mySetComboBox->getText() == "Data Element") {
+            myCurrentElementSet = Type::DATA;
             mySetComboBox->setTextColor(FXRGB(0, 0, 0));
             // enable match attribute
             mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
@@ -888,12 +902,14 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DATA) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
     } else {
         throw ProcessError("Invalid element set");
     }
     // fill combo box
-    for (auto i : listOfTags) {
-        myMatchTagComboBox->appendItem(toString(i).c_str());
+    for (const auto &tag : listOfTags) {
+        myMatchTagComboBox->appendItem(toString(tag).c_str());
     }
     // set first item as current item
     myMatchTagComboBox->setCurrentItem(0);
@@ -930,6 +946,8 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DATA) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
     } else {
         throw ProcessError("Unkown set");
     }
