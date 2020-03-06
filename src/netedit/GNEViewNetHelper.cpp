@@ -23,6 +23,7 @@
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/data/GNEGenericData.h>
+#include <netedit/elements/data/GNEEdgeData.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -74,11 +75,11 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
     // set GUIGlObject
     sortGUIGlObjectsByAltitude(GUIGlObjects);
     // iterate over GUIGlObjects
-    for (const auto& i : myGUIGlObjects) {
+    for (const auto& GUIGlObject : myGUIGlObjects) {
         // only continue if isn't GLO_NETWORKELEMENT (0)
-        if (i->getType() != GLO_NETWORKELEMENT) {
+        if (GUIGlObject->getType() != GLO_NETWORKELEMENT) {
             // cast attribute carrier from glObject
-            myAttributeCarriers.push_back(dynamic_cast<GNEAttributeCarrier*>(i));
+            myAttributeCarriers.push_back(dynamic_cast<GNEAttributeCarrier*>(GUIGlObject));
             // only continue if attributeCarrier isn't nullptr;
             if (myAttributeCarriers.back()) {
                 // If we're editing a shape, ignore rest of elements (including other polygons)
@@ -94,21 +95,24 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                     if (tagValue.isNetworkElement()) {
                         // cast networkElement from attribute carrier
                         myNetworkElements.push_back(dynamic_cast<GNENetworkElement*>(myAttributeCarriers.back()));
-                    } else if (tagValue.isDemandElement()) {
-                        // cast demand element from attribute carrier
-                        myDemandElements.push_back(dynamic_cast<GNEDemandElement*>(myAttributeCarriers.back()));
                     } else if (tagValue.isAdditionalElement()) {
                         // cast additional element from attribute carrier
                         myAdditionals.push_back(dynamic_cast<GNEAdditional*>(myAttributeCarriers.back()));
-                    } else if (tagValue.isShape()) {
-                        // cast shape element from attribute carrier
-                        myShapes.push_back(dynamic_cast<GNEShape*>(myAttributeCarriers.back()));
                     } else if (tagValue.isTAZ()) {
                         // cast TAZ element from attribute carrier
                         myTAZs.push_back(dynamic_cast<GNETAZ*>(myAttributeCarriers.back()));
+                    } else if (tagValue.isShape()) {
+                        // cast shape element from attribute carrier
+                        myShapes.push_back(dynamic_cast<GNEShape*>(myAttributeCarriers.back()));
+                    } else if (tagValue.isDemandElement()) {
+                        // cast demand element from attribute carrier
+                        myDemandElements.push_back(dynamic_cast<GNEDemandElement*>(myAttributeCarriers.back()));
+                    } else if (tagValue.isGenericData()) {
+                        // cast generic data from attribute carrier
+                        myGenericDatas.push_back(dynamic_cast<GNEEdgeData*>(myAttributeCarriers.back()));
                     }
                     // now set specify AC type
-                    switch (i->getType()) {
+                    switch (GUIGlObject->getType()) {
                         case GLO_JUNCTION:
                             myJunctions.push_back(dynamic_cast<GNEJunction*>(myAttributeCarriers.back()));
                             break;
@@ -118,15 +122,6 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                             // check if parent edge is already inserted in myEdges (for example, due clicking over Geometry Points)
                             if (std::find(myEdges.begin(), myEdges.end(), edge) == myEdges.end()) {
                                 myEdges.push_back(edge);
-                                // iterate over edge generic datas
-                                for (const auto& genericData : edge->getChildGenericDataElements()) {
-                                    // add into myGenericDatas if generic data is visible
-                                    if (genericData->isVisible()) {
-                                        // insert in front of edge
-                                        myAttributeCarriers.insert(myAttributeCarriers.begin(), (genericData));
-                                        myGenericDatas.push_back(genericData);
-                                    }
-                                }
                             }
                             break;
                         }
@@ -135,15 +130,6 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                             // check if edge's parent lane is already inserted in myEdges (for example, due clicking over Geometry Points)
                             if (std::find(myEdges.begin(), myEdges.end(), myLanes.back()->getParentEdge()) == myEdges.end()) {
                                 myEdges.push_back(myLanes.back()->getParentEdge());
-                                // iterate over edge generic datas
-                                for (const auto& genericData : myLanes.back()->getParentEdge()->getChildGenericDataElements()) {
-                                    // add into myGenericDatas if generic data is visible
-                                    if (genericData->isVisible()) {
-                                        // insert in front of lane
-                                        myAttributeCarriers.insert(myAttributeCarriers.begin(), (genericData));
-                                        myGenericDatas.push_back(genericData);
-                                    }
-                                }
                             }
                             break;
                         }
@@ -158,6 +144,9 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                             break;
                         case GLO_POLYGON:
                             myPolys.push_back(dynamic_cast<GNEPoly*>(myAttributeCarriers.back()));
+                            break;
+                        case GLO_EDGEDATA:
+                            myEdgeDatas.push_back(dynamic_cast<GNEEdgeData*>(myAttributeCarriers.back()));
                             break;
                         default:
                             break;
@@ -359,6 +348,16 @@ GNEPoly*
 GNEViewNetHelper::ObjectsUnderCursor::getPolyFront() const {
     if (myPolys.size() > 0) {
         return myPolys.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEEdgeData*
+GNEViewNetHelper::ObjectsUnderCursor::getEdgeDataElementFront() const {
+    if (myEdgeDatas.size() > 0) {
+        return myEdgeDatas.front();
     } else {
         return nullptr;
     }
