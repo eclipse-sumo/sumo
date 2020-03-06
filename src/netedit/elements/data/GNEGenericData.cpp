@@ -26,7 +26,10 @@
 
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/elements/data/GNEGenericData.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
@@ -180,6 +183,28 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& pare
 void 
 GNEGenericData::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // currently unused
+}
+
+
+void
+GNEGenericData::selectAttributeCarrier(bool changeFlag) {
+    gSelected.select(getGlID());
+    // add object into list of selected objects
+    myDataIntervalParent->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
+    if (changeFlag) {
+        mySelected = true;
+    }
+}
+
+
+void
+GNEGenericData::unselectAttributeCarrier(bool changeFlag) {
+    gSelected.deselect(getGlID());
+    // remove object of list of selected objects
+    myDataIntervalParent->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
+    if (changeFlag) {
+        mySelected = false;
+    }
 }
 
 

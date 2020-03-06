@@ -29,7 +29,6 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/network/GNEEdge.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 
 #include "GNEEdgeData.h"
@@ -138,26 +137,6 @@ GNEEdgeData::fixGenericDataProblem() {
 Boundary 
 GNEEdgeData::getCenteringBoundary() const {
     return getParentEdges().front()->getCenteringBoundary();
-}
-
-
-void 
-GNEEdgeData::selectAttributeCarrier(bool changeFlag) {
-    // add object of list into selected objects
-    myDataIntervalParent->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_ADDITIONALELEMENT);
-    if (changeFlag) {
-        mySelected = true;
-    }
-}
-
-
-void 
-GNEEdgeData::unselectAttributeCarrier(bool changeFlag) {
-    // remove object of list of selected objects
-    myDataIntervalParent->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_ADDITIONALELEMENT);
-    if (changeFlag) {
-        mySelected = false;
-    }
 }
 
 
