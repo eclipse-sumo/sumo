@@ -610,7 +610,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     GNEFrame(horizontalFrameParent, viewNet, "Additionals") {
 
     // create item Selector modul for additionals
-    myAdditionalTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::TAGTYPE_ADDITIONALELEMENT);
+    myAdditionalTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::ADDITIONALELEMENT);
 
     // Create additional parameters
     myAdditionalAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);

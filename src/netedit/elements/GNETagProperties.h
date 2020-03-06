@@ -38,48 +38,48 @@ class GNETagProperties {
 public:
 
     enum TagType {
-        TAGTYPE_NETWORKELEMENT =    1 << 0, // Edges, Junctions, Lanes...
-        TAGTYPE_ADDITIONALELEMENT = 1 << 1,  // Bus Stops, Charging Stations, Detectors...
-        TAGTYPE_SHAPE =             1 << 2,  // POIs, Polygons
-        TAGTYPE_DEMANDELEMENT =     1 << 3,  // Routes, Vehicles, Trips...
-        TAGTYPE_DATAELEMENT =       1 << 4,  // EdgeData, LaneData...
-        TAGTYPE_TAZ =               1 << 5,  // Traffic Assignment Zones
-        TAGTYPE_STOPPINGPLACE =     1 << 6,  // StoppingPlaces (BusStops, ChargingStations...)
-        TAGTYPE_DETECTOR =          1 << 7,  // Detectors (E1, E2...)
-        TAGTYPE_VTYPE =             1 << 8,  // Vehicle types (vType and pTye)
-        TAGTYPE_VEHICLE =           1 << 9,  // Vehicles (Flows, trips...)
-        TAGTYPE_ROUTE =             1 << 10, // Routes and embedded routes
-        TAGTYPE_STOP =              1 << 11, // Stops
-        TAGTYPE_PERSON =            1 << 12, // Persons
-        TAGTYPE_PERSONPLAN =        1 << 13, // Person plans (Walks, rides, ...)
-        TAGTYPE_PERSONTRIP =        1 << 14, // Walks
-        TAGTYPE_WALK =              1 << 15, // Walks
-        TAGTYPE_RIDE =              1 << 16, // Rides
-        TAGTYPE_PERSONSTOP =        1 << 17, // Person stops
+        NETWORKELEMENT =    1 << 0, // Edges, Junctions, Lanes...
+        ADDITIONALELEMENT = 1 << 1,  // Bus Stops, Charging Stations, Detectors...
+        SHAPE =             1 << 2,  // POIs, Polygons
+        DEMANDELEMENT =     1 << 3,  // Routes, Vehicles, Trips...
+        DATAELEMENT =       1 << 4,  // EdgeData, LaneData...
+        TAZ =               1 << 5,  // Traffic Assignment Zones
+        STOPPINGPLACE =     1 << 6,  // StoppingPlaces (BusStops, ChargingStations...)
+        DETECTOR =          1 << 7,  // Detectors (E1, E2...)
+        VTYPE =             1 << 8,  // Vehicle types (vType and pTye)
+        VEHICLE =           1 << 9,  // Vehicles (Flows, trips...)
+        ROUTE =             1 << 10, // Routes and embedded routes
+        STOP =              1 << 11, // Stops
+        PERSON =            1 << 12, // Persons
+        PERSONPLAN =        1 << 13, // Person plans (Walks, rides, ...)
+        PERSONTRIP =        1 << 14, // Walks
+        WALK =              1 << 15, // Walks
+        RIDE =              1 << 16, // Rides
+        PERSONSTOP =        1 << 17, // Person stops
     };
 
     enum TagProperty {
-        TAGPROPERTY_DRAWABLE =              1 << 0,     // Element can be drawed in view
-        TAGPROPERTY_BLOCKMOVEMENT =         1 << 1,     // Element can block their movement
-        TAGPROPERTY_BLOCKSHAPE =            1 << 2,     // Element can block their shape
-        TAGPROPERTY_CLOSESHAPE =            1 << 3,     // Element can close their shape
-        TAGPROPERTY_GEOPOSITION =           1 << 4,     // Element's position can be defined using a GEO position
-        TAGPROPERTY_GEOSHAPE =              1 << 5,     // Element's shape acn be defined using a GEO Shape
-        TAGPROPERTY_DIALOG =                1 << 6,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        TAGPROPERTY_PARENT =                1 << 7,     // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
-        TAGPROPERTY_MINIMUMCHILDREN =       1 << 8,     // Element will be only writed in XML if has a minimum number of children
-        TAGPROPERTY_REPARENT =              1 << 9,     // Element can be reparent
-        TAGPROPERTY_SYNONYM =               1 << 10,    // Element will be written with a different name in der XML
-        TAGPROPERTY_AUTOMATICSORTING =      1 << 11,    // Element sort automatic their Children (used by Additionals)
-        TAGPROPERTY_SELECTABLE =            1 << 12,    // Element is selectable
-        TAGPROPERTY_MASKSTARTENDPOS =       1 << 13,    // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
-        TAGPROPERTY_MASKXYZPOSITION =       1 << 14,    // Element mask attributes X, Y and Z as "Position"
-        TAGPROPERTY_WRITECHILDRENSEPARATE = 1 << 15,    // Element writes their children in a separated filename
-        TAGPROPERTY_NOPARAMETERS =          1 << 16,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        TAGPROPERTY_PARAMETERSDOUBLE =      1 << 17,    // Element only accept double parameters "key1=double1|key2=double1|...|keyN=doubleN"
-        TAGPROPERTY_RTREE =                 1 << 18,    // Element is placed in RTREE
-        TAGPROPERTY_SORTINGCHILDREN =       1 << 19,    // Element can be sorted in their parent element manually (in ACHierarchy)
-        TAGPROPERTY_CENTERAFTERCREATION =   1 << 20,    // Camera is moved after element creation
+        DRAWABLE =              1 << 0,     // Element can be drawed in view
+        BLOCKMOVEMENT =         1 << 1,     // Element can block their movement
+        BLOCKSHAPE =            1 << 2,     // Element can block their shape
+        CLOSESHAPE =            1 << 3,     // Element can close their shape
+        GEOPOSITION =           1 << 4,     // Element's position can be defined using a GEO position
+        GEOSHAPE =              1 << 5,     // Element's shape acn be defined using a GEO Shape
+        DIALOG =                1 << 6,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        PARENT =                1 << 7,     // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
+        MINIMUMCHILDREN =       1 << 8,     // Element will be only writed in XML if has a minimum number of children
+        REPARENT =              1 << 9,     // Element can be reparent
+        SYNONYM =               1 << 10,    // Element will be written with a different name in der XML
+        AUTOMATICSORTING =      1 << 11,    // Element sort automatic their Children (used by Additionals)
+        SELECTABLE =            1 << 12,    // Element is selectable
+        MASKSTARTENDPOS =       1 << 13,    // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
+        MASKXYZPOSITION =       1 << 14,    // Element mask attributes X, Y and Z as "Position"
+        WRITECHILDRENSEPARATE = 1 << 15,    // Element writes their children in a separated filename
+        NOPARAMETERS =          1 << 16,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
+        PARAMETERSDOUBLE =      1 << 17,    // Element only accept double parameters "key1=double1|key2=double1|...|keyN=doubleN"
+        RTREE =                 1 << 18,    // Element is placed in RTREE
+        SORTINGCHILDREN =       1 << 19,    // Element can be sorted in their parent element manually (in ACHierarchy)
+        CENTERAFTERCREATION =   1 << 20,    // Camera is moved after element creation
     };
 
     /// @brief default constructor

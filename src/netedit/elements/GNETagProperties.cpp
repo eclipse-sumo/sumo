@@ -231,234 +231,234 @@ GNETagProperties::hasAttribute(SumoXMLAttr attr) const {
 
 bool
 GNETagProperties::isNetworkElement() const {
-    return (myTagType & TAGTYPE_NETWORKELEMENT) != 0;
+    return (myTagType & NETWORKELEMENT) != 0;
 }
 
 
 bool
 GNETagProperties::isAdditionalElement() const {
-    return (myTagType & TAGTYPE_ADDITIONALELEMENT) != 0;
+    return (myTagType & ADDITIONALELEMENT) != 0;
 }
 
 bool
 GNETagProperties::isShape() const {
-    return (myTagType & TAGTYPE_SHAPE) != 0;
+    return (myTagType & SHAPE) != 0;
 }
 
 
 bool
 GNETagProperties::isTAZ() const {
-    return (myTagType & TAGTYPE_TAZ) != 0;
+    return (myTagType & TAZ) != 0;
 }
 
 
 bool
 GNETagProperties::isDemandElement() const {
-    return (myTagType & TAGTYPE_DEMANDELEMENT) != 0;
+    return (myTagType & DEMANDELEMENT) != 0;
 }
 
 
 bool
 GNETagProperties::isDataElement() const {
-    return (myTagType & TAGTYPE_DATAELEMENT) != 0;
+    return (myTagType & DATAELEMENT) != 0;
 }
 
 
 bool
 GNETagProperties::isStoppingPlace() const {
-    return (myTagType & TAGTYPE_STOPPINGPLACE) != 0;
+    return (myTagType & STOPPINGPLACE) != 0;
 }
 
 
 bool
 GNETagProperties::isDetector() const {
-    return (myTagType & TAGTYPE_DETECTOR) != 0;
+    return (myTagType & DETECTOR) != 0;
 }
 
 
 bool
 GNETagProperties::isVehicleType() const {
-    return (myTagType & TAGTYPE_VTYPE) != 0;
+    return (myTagType & VTYPE) != 0;
 }
 
 
 bool
 GNETagProperties::isVehicle() const {
-    return (myTagType & TAGTYPE_VEHICLE) != 0;
+    return (myTagType & VEHICLE) != 0;
 }
 
 bool
 GNETagProperties::isRoute() const {
-    return (myTagType & TAGTYPE_ROUTE) != 0;
+    return (myTagType & ROUTE) != 0;
 }
 
 
 bool
 GNETagProperties::isStop() const {
-    return (myTagType & TAGTYPE_STOP) != 0;
+    return (myTagType & STOP) != 0;
 }
 
 
 bool
 GNETagProperties::isPerson() const {
-    return (myTagType & TAGTYPE_PERSON) != 0;
+    return (myTagType & PERSON) != 0;
 }
 
 
 bool
 GNETagProperties::isPersonPlan() const {
-    return (myTagType & TAGTYPE_PERSONPLAN) != 0;
+    return (myTagType & PERSONPLAN) != 0;
 }
 
 
 bool
 GNETagProperties::isPersonTrip() const {
-    return (myTagType & TAGTYPE_PERSONTRIP) != 0;
+    return (myTagType & PERSONTRIP) != 0;
 }
 
 
 bool
 GNETagProperties::isWalk() const {
-    return (myTagType & TAGTYPE_WALK) != 0;
+    return (myTagType & WALK) != 0;
 }
 
 
 bool
 GNETagProperties::isRide() const {
-    return (myTagType & TAGTYPE_RIDE) != 0;
+    return (myTagType & RIDE) != 0;
 }
 
 
 bool
 GNETagProperties::isPersonStop() const {
-    return (myTagType & TAGTYPE_PERSONSTOP) != 0;
+    return (myTagType & PERSONSTOP) != 0;
 }
 
 
 bool
 GNETagProperties::isDrawable() const {
-    return (myTagProperty & TAGPROPERTY_DRAWABLE) != 0;
+    return (myTagProperty & DRAWABLE) != 0;
 }
 
 
 bool
 GNETagProperties::isSelectable() const {
-    return (myTagProperty & TAGPROPERTY_SELECTABLE) != 0;
+    return (myTagProperty & SELECTABLE) != 0;
 }
 
 
 bool
 GNETagProperties::canBlockMovement() const {
-    return (myTagProperty & TAGPROPERTY_BLOCKMOVEMENT) != 0;
+    return (myTagProperty & BLOCKMOVEMENT) != 0;
 }
 
 
 bool
 GNETagProperties::canBlockShape() const {
-    return (myTagProperty & TAGPROPERTY_BLOCKSHAPE) != 0;
+    return (myTagProperty & BLOCKSHAPE) != 0;
 }
 
 
 bool
 GNETagProperties::canCloseShape() const {
-    return (myTagProperty & TAGPROPERTY_CLOSESHAPE) != 0;
+    return (myTagProperty & CLOSESHAPE) != 0;
 }
 
 
 bool
 GNETagProperties::hasGEOPosition() const {
-    return (myTagProperty & TAGPROPERTY_GEOPOSITION) != 0;
+    return (myTagProperty & GEOPOSITION) != 0;
 }
 
 
 bool
 GNETagProperties::hasGEOShape() const {
-    return (myTagProperty & TAGPROPERTY_GEOSHAPE) != 0;
+    return (myTagProperty & GEOSHAPE) != 0;
 }
 
 
 bool
 GNETagProperties::hasParent() const {
-    return (myTagProperty & TAGPROPERTY_PARENT) != 0;
+    return (myTagProperty & PARENT) != 0;
 }
 
 
 bool
 GNETagProperties::hasTagSynonym() const {
-    return (myTagProperty & TAGPROPERTY_SYNONYM) != 0;
+    return (myTagProperty & SYNONYM) != 0;
 }
 
 
 bool
 GNETagProperties::hasDialog() const {
-    return (myTagProperty & TAGPROPERTY_DIALOG) != 0;
+    return (myTagProperty & DIALOG) != 0;
 }
 
 
 bool
 GNETagProperties::hasMinimumNumberOfChildren() const {
-    return (myTagProperty & TAGPROPERTY_MINIMUMCHILDREN) != 0;
+    return (myTagProperty & MINIMUMCHILDREN) != 0;
 }
 
 
 bool
 GNETagProperties::hasParameters() const {
-    // note: By default all Tags supports parameters, except Tags with "TAGPROPERTY_NOPARAMETERS"
-    return (myTagProperty & TAGPROPERTY_NOPARAMETERS) == 0;
+    // note: By default all Tags supports parameters, except Tags with "NOPARAMETERS"
+    return (myTagProperty & NOPARAMETERS) == 0;
 }
 
 
 bool
 GNETagProperties::hasDoubleParameters() const {
-    return (myTagProperty & TAGPROPERTY_PARAMETERSDOUBLE) != 0;
+    return (myTagProperty & PARAMETERSDOUBLE) != 0;
 }
 
 
 bool
 GNETagProperties::isPlacedInRTree() const {
-    return (myTagProperty & TAGPROPERTY_RTREE) != 0;
+    return (myTagProperty & RTREE) != 0;
 }
 
 
 bool
 GNETagProperties::canBeSortedManually() const {
-    return (myTagProperty & TAGPROPERTY_SORTINGCHILDREN) != 0;
+    return (myTagProperty & SORTINGCHILDREN) != 0;
 }
 
 
 bool
 GNETagProperties::canBeReparent() const {
-    return (myTagProperty & TAGPROPERTY_REPARENT) != 0;
+    return (myTagProperty & REPARENT) != 0;
 }
 
 
 bool
 GNETagProperties::canAutomaticSortChildren() const {
-    return (myTagProperty & TAGPROPERTY_AUTOMATICSORTING) != 0;
+    return (myTagProperty & AUTOMATICSORTING) != 0;
 }
 
 
 bool
 GNETagProperties::canWriteChildrenSeparate() const {
-    return (myTagProperty & TAGPROPERTY_WRITECHILDRENSEPARATE) != 0;
+    return (myTagProperty & WRITECHILDRENSEPARATE) != 0;
 }
 
 
 bool
 GNETagProperties::canMaskStartEndPos() const {
-    return (myTagProperty & TAGPROPERTY_MASKSTARTENDPOS) != 0;
+    return (myTagProperty & MASKSTARTENDPOS) != 0;
 }
 
 
 bool
 GNETagProperties::canMaskXYZPositions() const {
-    return (myTagProperty & TAGPROPERTY_MASKXYZPOSITION) != 0;
+    return (myTagProperty & MASKXYZPOSITION) != 0;
 }
 
 
 bool
 GNETagProperties::canCenterCameraAfterCreation() const {
-    return (myTagProperty & TAGPROPERTY_CENTERAFTERCREATION) != 0;
+    return (myTagProperty & CENTERAFTERCREATION) != 0;
 }
 
 

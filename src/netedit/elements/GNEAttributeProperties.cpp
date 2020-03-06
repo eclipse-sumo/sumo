@@ -35,7 +35,7 @@ GNEAttributeProperties::GNEAttributeProperties() :
     myAttribute(SUMO_ATTR_NOTHING),
     myTagPropertyParent(nullptr),
     myAttrStr(toString(SUMO_ATTR_NOTHING)),
-    myAttributeProperty(ATTRPROPERTY_STRING),
+    myAttributeProperty(STRING),
     myDefinition(""),
     myDefaultValue(""),
     myAttrSynonym(SUMO_ATTR_NOTHING),
@@ -58,19 +58,19 @@ GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, cons
         throw FormatException("Missing definition for AttributeProperty '" + toString(attribute) + "'");
     }
     // if default value isn't empty, but attribute doesn't support default values, throw exception.
-    if (!defaultValue.empty() && !(attributeProperty & ATTRPROPERTY_DEFAULTVALUESTATIC)) {
+    if (!defaultValue.empty() && !(attributeProperty & DEFAULTVALUESTATIC)) {
         throw FormatException("AttributeProperty for '" + toString(attribute) + "' doesn't support default values");
     }
     // default value cannot be static and mutables at the same time
-    if ((attributeProperty & ATTRPROPERTY_DEFAULTVALUESTATIC) && (attributeProperty & ATTRPROPERTY_DEFAULTVALUEMUTABLE)) {
+    if ((attributeProperty & DEFAULTVALUESTATIC) && (attributeProperty & DEFAULTVALUEMUTABLE)) {
         throw FormatException("Default value for attribute '" + toString(attribute) + "' cannot be static and mutable at the same time");
     }
     // Attributes that can write optionally their values in XML must have either a static or a mutable efault value
-    if ((attributeProperty & ATTRPROPERTY_OPTIONAL) && !((attributeProperty & ATTRPROPERTY_DEFAULTVALUESTATIC) || (attributeProperty & ATTRPROPERTY_DEFAULTVALUEMUTABLE))) {
+    if ((attributeProperty & XMLOPTIONAL) && !((attributeProperty & DEFAULTVALUESTATIC) || (attributeProperty & DEFAULTVALUEMUTABLE))) {
         throw FormatException("Attribute '" + toString(attribute) + "' requires a either static or mutable default value");
     }
     // Attributes cannot be flowdefinition and enabilitablet at the same time
-    if ((attributeProperty & ATTRPROPERTY_FLOWDEFINITION) && (attributeProperty & ATTRPROPERTY_ACTIVATABLE)) {
+    if ((attributeProperty & FLOWDEFINITION) && (attributeProperty & ACTIVATABLE)) {
         throw FormatException("Attribute '" + toString(attribute) + "' cannot be flowdefinition and activatable at the same time");
     }
 }
@@ -203,62 +203,62 @@ GNEAttributeProperties::getDescription() const {
     std::string plural;
     std::string last;
     // pre type
-    if ((myAttributeProperty & ATTRPROPERTY_LIST) != 0) {
+    if ((myAttributeProperty & LIST) != 0) {
         pre += "list of ";
-        if ((myAttributeProperty & ATTRPROPERTY_VCLASS) != 0) {
+        if ((myAttributeProperty & VCLASS) != 0) {
             plural = "es";
         } else {
             plural = "s";
         }
     }
-    if ((myAttributeProperty & ATTRPROPERTY_POSITIVE) != 0) {
+    if ((myAttributeProperty & POSITIVE) != 0) {
         pre += "positive ";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_DISCRETE) != 0) {
+    if ((myAttributeProperty & DISCRETE) != 0) {
         pre += "discrete ";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_OPTIONAL) != 0) {
+    if ((myAttributeProperty & XMLOPTIONAL) != 0) {
         pre += "optional ";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_UNIQUE) != 0) {
+    if ((myAttributeProperty & UNIQUE) != 0) {
         pre += "unique ";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_VCLASSES) != 0) {
+    if ((myAttributeProperty & VCLASSES) != 0) {
         pre += "vclasses ";
     }
     // type
-    if ((myAttributeProperty & ATTRPROPERTY_INT) != 0) {
+    if ((myAttributeProperty & INT) != 0) {
         type = "integer";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_FLOAT) != 0) {
+    if ((myAttributeProperty & FLOAT) != 0) {
         type = "float";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_SUMOTIME) != 0) {
+    if ((myAttributeProperty & SUMOTIME) != 0) {
         type = "SUMOTime";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_BOOL) != 0) {
+    if ((myAttributeProperty & BOOL) != 0) {
         type = "boolean";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_STRING) != 0) {
+    if ((myAttributeProperty & STRING) != 0) {
         type = "string";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_POSITION) != 0) {
+    if ((myAttributeProperty & POSITION) != 0) {
         type = "position";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_COLOR) != 0) {
+    if ((myAttributeProperty & COLOR) != 0) {
         type = "color";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_VCLASS) != 0) {
+    if ((myAttributeProperty & VCLASS) != 0) {
         type = "VClass";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_FILENAME) != 0) {
+    if ((myAttributeProperty & FILENAME) != 0) {
         type = "filename";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_PROBABILITY) != 0) {
+    if ((myAttributeProperty & PROBABILITY) != 0) {
         type = "probability";
         last = "[0, 1]";
     }
-    if ((myAttributeProperty & ATTRPROPERTY_ANGLE) != 0) {
+    if ((myAttributeProperty & ANGLE) != 0) {
         type = "angle";
         last = "[0, 360]";
     }
@@ -304,168 +304,168 @@ GNEAttributeProperties::getMaximumRange() const {
 
 bool
 GNEAttributeProperties::hasStaticDefaultValue() const {
-    return (myAttributeProperty & ATTRPROPERTY_DEFAULTVALUESTATIC) != 0;
+    return (myAttributeProperty & DEFAULTVALUESTATIC) != 0;
 }
 
 
 bool
 GNEAttributeProperties::hasMutableDefaultValue() const {
-    return (myAttributeProperty & ATTRPROPERTY_DEFAULTVALUEMUTABLE) != 0;
+    return (myAttributeProperty & DEFAULTVALUEMUTABLE) != 0;
 }
 
 
 bool
 GNEAttributeProperties::hasAttrSynonym() const {
-    return (myAttributeProperty & ATTRPROPERTY_SYNONYM) != 0;
+    return (myAttributeProperty & SYNONYM) != 0;
 }
 
 bool
 GNEAttributeProperties::hasAttrRange() const {
-    return (myAttributeProperty & ATTRPROPERTY_RANGE) != 0;
+    return (myAttributeProperty & RANGE) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isInt() const {
-    return (myAttributeProperty & ATTRPROPERTY_INT) != 0;
+    return (myAttributeProperty & INT) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isFloat() const {
-    return (myAttributeProperty & ATTRPROPERTY_FLOAT) != 0;
+    return (myAttributeProperty & FLOAT) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isSUMOTime() const {
-    return (myAttributeProperty & ATTRPROPERTY_SUMOTIME) != 0;
+    return (myAttributeProperty & SUMOTIME) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isBool() const {
-    return (myAttributeProperty & ATTRPROPERTY_BOOL) != 0;
+    return (myAttributeProperty & BOOL) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isString() const {
-    return (myAttributeProperty & ATTRPROPERTY_STRING) != 0;
+    return (myAttributeProperty & STRING) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isposition() const {
-    return (myAttributeProperty & ATTRPROPERTY_POSITION) != 0;
+    return (myAttributeProperty & POSITION) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isProbability() const {
-    return (myAttributeProperty & ATTRPROPERTY_PROBABILITY) != 0;
+    return (myAttributeProperty & PROBABILITY) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isNumerical() const {
-    return (myAttributeProperty & (ATTRPROPERTY_INT | ATTRPROPERTY_FLOAT | ATTRPROPERTY_SUMOTIME)) != 0;
+    return (myAttributeProperty & (INT | FLOAT | SUMOTIME)) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isPositive() const {
-    return (myAttributeProperty & ATTRPROPERTY_POSITIVE) != 0;
+    return (myAttributeProperty & POSITIVE) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isColor() const {
-    return (myAttributeProperty & ATTRPROPERTY_COLOR) != 0;
+    return (myAttributeProperty & COLOR) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isFilename() const {
-    return (myAttributeProperty & ATTRPROPERTY_FILENAME) != 0;
+    return (myAttributeProperty & FILENAME) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isVClass() const {
-    return (myAttributeProperty & ATTRPROPERTY_VCLASS) != 0;
+    return (myAttributeProperty & VCLASS) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isSVCPermission() const {
-    return ((myAttributeProperty & ATTRPROPERTY_LIST) != 0) && ((myAttributeProperty & ATTRPROPERTY_VCLASS) != 0);
+    return ((myAttributeProperty & LIST) != 0) && ((myAttributeProperty & VCLASS) != 0);
 }
 
 
 bool
 GNEAttributeProperties::isList() const {
-    return (myAttributeProperty & ATTRPROPERTY_LIST) != 0;
+    return (myAttributeProperty & LIST) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isSecuential() const {
-    return (myAttributeProperty & ATTRPROPERTY_SECUENCIAL) != 0;
+    return (myAttributeProperty & SECUENCIAL) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isUnique() const {
-    return (myAttributeProperty & ATTRPROPERTY_UNIQUE) != 0;
+    return (myAttributeProperty & UNIQUE) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isOptional() const {
-    return (myAttributeProperty & ATTRPROPERTY_OPTIONAL) != 0;
+    return (myAttributeProperty & XMLOPTIONAL) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isDiscrete() const {
-    return (myAttributeProperty & ATTRPROPERTY_DISCRETE) != 0;
+    return (myAttributeProperty & DISCRETE) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isVClasses() const {
-    return (myAttributeProperty & ATTRPROPERTY_VCLASSES) != 0;
+    return (myAttributeProperty & VCLASSES) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isExtended() const {
-    return (myAttributeProperty & ATTRPROPERTY_EXTENDED) != 0;
+    return (myAttributeProperty & EXTENDED) != 0;
 }
 
 
 bool
 GNEAttributeProperties::requireUpdateGeometry() const {
-    return (myAttributeProperty & ATTRPROPERTY_UPDATEGEOMETRY) != 0;
+    return (myAttributeProperty & UPDATEGEOMETRY) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isActivatable() const {
-    return (myAttributeProperty & ATTRPROPERTY_ACTIVATABLE) != 0;
+    return (myAttributeProperty & ACTIVATABLE) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isComplex() const {
-    return (myAttributeProperty & ATTRPROPERTY_COMPLEX) != 0;
+    return (myAttributeProperty & COMPLEX) != 0;
 }
 
 
 bool
 GNEAttributeProperties::isFlowDefinition() const {
-    return (myAttributeProperty & ATTRPROPERTY_FLOWDEFINITION) != 0;
+    return (myAttributeProperty & FLOWDEFINITION) != 0;
 }
 
 /****************************************************************************/

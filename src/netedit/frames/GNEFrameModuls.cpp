@@ -111,45 +111,45 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
     myFrameParent(frameParent) {
     // first check that property is valid
     switch (type) {
-        case GNETagProperties::TagType::TAGTYPE_NETWORKELEMENT:
+        case GNETagProperties::TagType::NETWORKELEMENT:
             setText("network elements");
             break;
-        case GNETagProperties::TagType::TAGTYPE_ADDITIONALELEMENT:
+        case GNETagProperties::TagType::ADDITIONALELEMENT:
             setText("Additional elements");
             break;
-        case GNETagProperties::TagType::TAGTYPE_SHAPE:
+        case GNETagProperties::TagType::SHAPE:
             setText("Shape elements");
             break;
-        case GNETagProperties::TagType::TAGTYPE_TAZ:
+        case GNETagProperties::TagType::TAZ:
             setText("TAZ elements");
             break;
-        case GNETagProperties::TagType::TAGTYPE_VEHICLE:
+        case GNETagProperties::TagType::VEHICLE:
             setText("Vehicles");
             break;
-        case GNETagProperties::TagType::TAGTYPE_STOP:
+        case GNETagProperties::TagType::STOP:
             setText("Stops");
             break;
-        case GNETagProperties::TagType::TAGTYPE_PERSON:
+        case GNETagProperties::TagType::PERSON:
             setText("Persons");
             break;
-        case GNETagProperties::TagType::TAGTYPE_PERSONPLAN:
+        case GNETagProperties::TagType::PERSONPLAN:
             setText("Person plans");
             // person plan type has four sub-groups
-            myListOfTagTypes.push_back(std::make_pair("person trips", GNETagProperties::TagType::TAGTYPE_PERSONTRIP));
-            myListOfTagTypes.push_back(std::make_pair("walks", GNETagProperties::TagType::TAGTYPE_WALK));
-            myListOfTagTypes.push_back(std::make_pair("rides", GNETagProperties::TagType::TAGTYPE_RIDE));
-            myListOfTagTypes.push_back(std::make_pair("stops", GNETagProperties::TagType::TAGTYPE_PERSONSTOP));
+            myListOfTagTypes.push_back(std::make_pair("person trips", GNETagProperties::TagType::PERSONTRIP));
+            myListOfTagTypes.push_back(std::make_pair("walks", GNETagProperties::TagType::WALK));
+            myListOfTagTypes.push_back(std::make_pair("rides", GNETagProperties::TagType::RIDE));
+            myListOfTagTypes.push_back(std::make_pair("stops", GNETagProperties::TagType::PERSONSTOP));
             break;
-        case GNETagProperties::TagType::TAGTYPE_PERSONTRIP:
+        case GNETagProperties::TagType::PERSONTRIP:
             setText("Person trips");
             break;
-        case GNETagProperties::TagType::TAGTYPE_WALK:
+        case GNETagProperties::TagType::WALK:
             setText("Walks");
             break;
-        case GNETagProperties::TagType::TAGTYPE_RIDE:
+        case GNETagProperties::TagType::RIDE:
             setText("Rides");
             break;
-        case GNETagProperties::TagType::TAGTYPE_PERSONSTOP:
+        case GNETagProperties::TagType::PERSONSTOP:
             setText("Person stops");
             break;
         default:
@@ -169,7 +169,7 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
         // Set visible items
         myTagTypesMatchBox->setNumVisible((int)myTagTypesMatchBox->getNumItems());
         // fill myListOfTags with personTrips (the first Tag Type)
-        myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_PERSONTRIP, onlyDrawables);
+        myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::PERSONTRIP, onlyDrawables);
     } else {
         myTagTypesMatchBox->hide();
         // fill myListOfTags
@@ -217,7 +217,7 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType
         if (myTagsMatchBox->getItem(i).text() == toString(tagType)) {
             myTagsMatchBox->setCurrentItem(i);
             // fill myListOfTags with personTrips (the first Tag Type)
-            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_PERSONTRIP, true);
+            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::PERSONTRIP, true);
             // clear myTagsMatchBox
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
@@ -1908,7 +1908,7 @@ GNEFrameModuls::SelectorParent::setIDSelected(const std::string& id) {
 bool
 GNEFrameModuls::SelectorParent::showSelectorParentModul(SumoXMLTag additionalType) {
     // make sure that we're editing an additional tag
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAGTYPE_ADDITIONALELEMENT, false);
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
     for (auto i : listOfTags) {
         if (i == additionalType) {
             myParentTag = additionalType;

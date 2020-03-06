@@ -44,33 +44,33 @@ public:
 
     /// @brief struct with the tag Properties
     enum AttrProperty {
-        ATTRPROPERTY_INT =                 1 << 0,   // Attribute is an integer (Including Zero)
-        ATTRPROPERTY_FLOAT =               1 << 1,   // Attribute is a float
-        ATTRPROPERTY_SUMOTIME =            1 << 2,   // Attribute is a SUMOTime
-        ATTRPROPERTY_BOOL =                1 << 3,   // Attribute is boolean (0/1, true/false)
-        ATTRPROPERTY_STRING =              1 << 4,   // Attribute is a string
-        ATTRPROPERTY_POSITION =            1 << 5,   // Attribute is a position defined by doubles (x,y or x,y,z)
-        ATTRPROPERTY_COLOR =               1 << 6,   // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
-        ATTRPROPERTY_VCLASS =              1 << 7,   // Attribute is a VClass (passenger, bus, motorcicle...)
-        ATTRPROPERTY_POSITIVE =            1 << 8,   // Attribute is positive (Including Zero)
-        ATTRPROPERTY_UNIQUE =              1 << 9,   // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
-        ATTRPROPERTY_FILENAME =            1 << 10,  // Attribute is a filename (string that cannot contains certain characters)
-        ATTRPROPERTY_DISCRETE =            1 << 11,  // Attribute is discrete (only certain values are allowed)
-        ATTRPROPERTY_PROBABILITY =         1 << 12,  // Attribute is probability (only allowed values between 0 and 1, including both)
-        ATTRPROPERTY_ANGLE =               1 << 13,  // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
-        ATTRPROPERTY_LIST =                1 << 14,  // Attribute is a list of other elements separated by spaces
-        ATTRPROPERTY_SECUENCIAL =          1 << 15,  // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
-        ATTRPROPERTY_OPTIONAL =            1 << 16,  // Attribute will not be written in XML file if current value is the same of his default Static/Mutable value
-        ATTRPROPERTY_DEFAULTVALUESTATIC =  1 << 17,  // Attribute owns a static default value
-        ATTRPROPERTY_DEFAULTVALUEMUTABLE = 1 << 18,  // Attribute owns a mutable default value (Default value depends of value of other attribute)
-        ATTRPROPERTY_VCLASSES =            1 << 19,  // Attribute is a combination of VClasses (allow/disallow)
-        ATTRPROPERTY_SYNONYM =             1 << 20,  // Attribute will be written with a different name in der XML
-        ATTRPROPERTY_RANGE =               1 << 21,  // Attribute only accept a range of elements (example: Probability [0,1])
-        ATTRPROPERTY_EXTENDED =            1 << 22,  // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
-        ATTRPROPERTY_UPDATEGEOMETRY =      1 << 23,  // Attribute require update geometry at the end of function setAttribute(...)
-        ATTRPROPERTY_ACTIVATABLE =         1 << 24,  // Attribute can be switch on/off using a checkbox in frame
-        ATTRPROPERTY_COMPLEX =             1 << 25,  // Attribute is complex: Requiere a special function to check if the given value is valid
-        ATTRPROPERTY_FLOWDEFINITION =      1 << 26,  // Attribute is part of a flow definition (Number, vehsPerHour...)
+        INT =                 1 << 0,   // Attribute is an integer (Including Zero)
+        FLOAT =               1 << 1,   // Attribute is a float
+        SUMOTIME =            1 << 2,   // Attribute is a SUMOTime
+        BOOL =                1 << 3,   // Attribute is boolean (0/1, true/false)
+        STRING =              1 << 4,   // Attribute is a string
+        POSITION =            1 << 5,   // Attribute is a position defined by doubles (x,y or x,y,z)
+        COLOR =               1 << 6,   // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
+        VCLASS =              1 << 7,   // Attribute is a VClass (passenger, bus, motorcicle...)
+        POSITIVE =            1 << 8,   // Attribute is positive (Including Zero)
+        UNIQUE =              1 << 9,   // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
+        FILENAME =            1 << 10,  // Attribute is a filename (string that cannot contains certain characters)
+        DISCRETE =            1 << 11,  // Attribute is discrete (only certain values are allowed)
+        PROBABILITY =         1 << 12,  // Attribute is probability (only allowed values between 0 and 1, including both)
+        ANGLE =               1 << 13,  // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
+        LIST =                1 << 14,  // Attribute is a list of other elements separated by spaces
+        SECUENCIAL =          1 << 15,  // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
+        XMLOPTIONAL =         1 << 16,  // Attribute will not be written in XML file if current value is the same of his default Static/Mutable value
+        DEFAULTVALUESTATIC =  1 << 17,  // Attribute owns a static default value
+        DEFAULTVALUEMUTABLE = 1 << 18,  // Attribute owns a mutable default value (Default value depends of value of other attribute)
+        VCLASSES =            1 << 19,  // Attribute is a combination of VClasses (allow/disallow)
+        SYNONYM =             1 << 20,  // Attribute will be written with a different name in der XML
+        RANGE =               1 << 21,  // Attribute only accept a range of elements (example: Probability [0,1])
+        EXTENDED =            1 << 22,  // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
+        UPDATEGEOMETRY =      1 << 23,  // Attribute require update geometry at the end of function setAttribute(...)
+        ACTIVATABLE =         1 << 24,  // Attribute can be switch on/off using a checkbox in frame
+        COMPLEX =             1 << 25,  // Attribute is complex: Requiere a special function to check if the given value is valid
+        FLOWDEFINITION =      1 << 26,  // Attribute is part of a flow definition (Number, vehsPerHour...)
     };
 
     /// @brief default constructor
