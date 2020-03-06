@@ -335,6 +335,12 @@ GNETagProperties::isPersonStop() const {
 }
 
 
+bool 
+GNETagProperties::isGenericData() const {
+    return (myTagType & GENERICDATA) != 0;
+}
+
+
 bool
 GNETagProperties::isDrawable() const {
     return (myTagProperty & DRAWABLE) != 0;

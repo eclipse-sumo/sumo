@@ -56,6 +56,7 @@ public:
         WALK =              1 << 15, // Walks
         RIDE =              1 << 16, // Rides
         PERSONSTOP =        1 << 17, // Person stops
+        GENERICDATA =       1 << 17, // Generic data
     };
 
     enum TagProperty {
@@ -186,6 +187,9 @@ public:
 
     /// @brief return true if tag correspond to a person stop element
     bool isPersonStop() const;
+
+    /// @brief return true if tag correspond to a generic data element
+    bool isGenericData() const;
 
     /// @brief return true if tag correspond to a drawable element
     bool isDrawable() const;
