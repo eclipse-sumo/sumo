@@ -349,7 +349,13 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     // Push name
     glPushName(getGlID());
-    // Traslate to fromt
+    // push GL Name of generic datas
+    for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
+        if (edgeGenericData->isVisible()) {
+            glPushName(edgeGenericData->getGlID());
+        }
+    }
+    // Traslate to front
     glTranslated(0, 0, myParentEdge->getNBEdge()->getLength() < 1 ? GLO_JUNCTION + 1 : getType());
     const RGBColor color = setLaneColor(s);
     // start drawing lane checking whether it is not too small
@@ -363,6 +369,12 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // Pop Lane Name
         glPopName();
+        // pop GL Name of generic datas
+        for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
+            if (edgeGenericData->isVisible()) {
+                glPopName();
+            }
+        }
     } else if ((s.scale * exaggeration) < 1.) {
         // draw as lines, depending of myShapeColors
         if (myShapeColors.size() > 0) {
@@ -374,6 +386,12 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // Pop Lane Name
         glPopName();
+        // pop GL Name of generic datas
+        for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
+            if (edgeGenericData->isVisible()) {
+                glPopName();
+            }
+        }
         // draw parents
         for (const auto& i : getParentAdditionals()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_VSS) {
@@ -517,6 +535,12 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop Lane Name
         glPopName();
+        // pop GL Name of generic datas
+        for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
+            if (edgeGenericData->isVisible()) {
+                glPopName();
+            }
+        }
         // draw parents
         for (const auto& VSS : getParentAdditionals()) {
             if (VSS->getTagProperty().getTag() == SUMO_TAG_VSS) {
