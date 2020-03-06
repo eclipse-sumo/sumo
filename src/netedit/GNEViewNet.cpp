@@ -82,13 +82,13 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_I_INSPECTMODE,                        GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_S_SELECTMODE,                         GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE,         GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_TLSUPERMODE_VTYPEMODE,                  GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_TLSMODE_VTYPEMODE,                  GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE,            GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE,             GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_TAZMODE,                            GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_POLYGONETWORK_PERSONMODE,             GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE_PERSONMODE,             GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_VEHICLEMODE,                        GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONETWORK_PERSONTYPEMODE,     GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE,     GNEViewNet::onCmdSetMode),
     // Common view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_COMMONVIEWOPTIONS_SHOWGRID,              GNEViewNet::onCmdToogleShowGrid),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_COMMONVIEWOPTIONS_DRAWSPREADVEHICLES,    GNEViewNet::onCmdToogleDrawSpreadVehicles),
@@ -1272,7 +1272,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_CONNECT);
                 break;
-            case MID_HOTKEY_T_TLSUPERMODE_VTYPEMODE:
+            case MID_HOTKEY_T_TLSMODE_VTYPEMODE:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS);
                 break;
             case MID_HOTKEY_A_ADDITIONALMODE_STOPMODE:
@@ -1284,10 +1284,10 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_Z_TAZMODE:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TAZ);
                 break;
-            case MID_HOTKEY_P_POLYGONETWORK_PERSONMODE:
+            case MID_HOTKEY_P_POLYGONMODE_PERSONMODE:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_POLYGON);
                 break;
-            case MID_HOTKEY_W_PROHIBITIONETWORK_PERSONTYPEMODE:
+            case MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_PROHIBITION);
                 break;
             default:
@@ -1314,16 +1314,16 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_V_VEHICLEMODE:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_VEHICLE);
                 break;
-            case MID_HOTKEY_T_TLSUPERMODE_VTYPEMODE:
+            case MID_HOTKEY_T_TLSMODE_VTYPEMODE:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_VEHICLETYPES);
                 break;
             case MID_HOTKEY_A_ADDITIONALMODE_STOPMODE:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_STOP);
                 break;
-            case MID_HOTKEY_W_PROHIBITIONETWORK_PERSONTYPEMODE:
+            case MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_PERSONTYPES);
                 break;
-            case MID_HOTKEY_P_POLYGONETWORK_PERSONMODE:
+            case MID_HOTKEY_P_POLYGONMODE_PERSONMODE:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_PERSON);
                 break;
             case MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE:
