@@ -125,6 +125,10 @@ late_pt
 # putting it here because it covers a lot of different inputs
 public_walk_human_readable_time
 
+# Test for parsing and writing human-readable-time
+# putting it here because it covers a lot of different inputs
+public_walk_human_readable_step2
+
 # Copy of car_public_walk
 bike_public_walk
 
