@@ -1,4 +1,3 @@
-
 # Spreads 100 vehicles over a day
 100vehs_day
 
@@ -11,3 +10,5 @@
 # Spreads 100 vehicles over an hour uniformly
 100vehs_hour_uniform
 
+# custom pos
+departPos_arrivalPos
