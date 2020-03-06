@@ -382,13 +382,13 @@ GNESelectorFrame::clearCurrentSelection() const {
 
 
 void
-GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, ModificationMode::SetOperation setop) {
-    const ModificationMode::SetOperation setOperation = ((setop == ModificationMode::SET_DEFAULT) ? myModificationMode->getModificationMode() : setop);
+GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, ModificationMode::Operation setop) {
+    const ModificationMode::Operation setOperation = ((setop == ModificationMode::Operation::DEFAULT) ? myModificationMode->getModificationMode() : setop);
     // declare two sets of attribute carriers, one for select and another for unselect
     std::set<std::pair<std::string, GNEAttributeCarrier*> > ACToSelect;
     std::set<std::pair<std::string, GNEAttributeCarrier*> > ACToUnselect;
     // in restrict AND replace mode all current selected attribute carriers will be unselected
-    if ((setOperation == ModificationMode::SET_REPLACE) || (setOperation == ModificationMode::SET_RESTRICT)) {
+    if ((setOperation == ModificationMode::Operation::REPLACE) || (setOperation == ModificationMode::Operation::RESTRICT)) {
         // obtain selected ACs depending of current supermode
         std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers(false);
         // add id into ACs to unselect
@@ -400,10 +400,10 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, Modifi
     for (auto i : ACs) {
         // iterate over AtributeCarriers an place it in ACToSelect or ACToUnselect
         switch (setOperation) {
-            case GNESelectorFrame::ModificationMode::SET_SUB:
+            case GNESelectorFrame::ModificationMode::Operation::SUB:
                 ACToUnselect.insert(std::pair<std::string, GNEAttributeCarrier*>(i->getID(), i));
                 break;
-            case GNESelectorFrame::ModificationMode::SET_RESTRICT:
+            case GNESelectorFrame::ModificationMode::Operation::RESTRICT:
                 if (ACToUnselect.find(std::pair<std::string, GNEAttributeCarrier*>(i->getID(), i)) != ACToUnselect.end()) {
                     ACToSelect.insert(std::pair<std::string, GNEAttributeCarrier*>(i->getID(), i));
                 }
@@ -414,7 +414,7 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, Modifi
         }
     }
     // select junctions and their connections if Auto select junctions is enabled (note: only for "add mode")
-    if (myViewNet->autoSelectNodes() && GNESelectorFrame::ModificationMode::SET_ADD) {
+    if (myViewNet->autoSelectNodes() && (setop == ModificationMode::Operation::ADD)) {
         std::vector<GNEEdge*> edgesToSelect;
         // iterate over ACToSelect and extract edges
         for (auto i : ACToSelect) {
@@ -701,7 +701,7 @@ GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::onCmdSetCheckBox(FXObject*
 
 GNESelectorFrame::ModificationMode::ModificationMode(GNESelectorFrame* selectorFrameParent) :
     FXGroupBox(selectorFrameParent->myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame),
-    myModificationModeType(SET_ADD) {
+    myModificationModeType(Operation::ADD) {
     // Create all options buttons
     myAddRadioButton = new FXRadioButton(this, "add\t\tSelected objects are added to the previous selection",
         this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
@@ -718,7 +718,7 @@ GNESelectorFrame::ModificationMode::ModificationMode(GNESelectorFrame* selectorF
 GNESelectorFrame::ModificationMode::~ModificationMode() {}
 
 
-GNESelectorFrame::ModificationMode::SetOperation
+GNESelectorFrame::ModificationMode::Operation
 GNESelectorFrame::ModificationMode::getModificationMode() const {
     return myModificationModeType;
 }
@@ -727,28 +727,28 @@ GNESelectorFrame::ModificationMode::getModificationMode() const {
 long
 GNESelectorFrame::ModificationMode::onCmdSelectModificationMode(FXObject* obj, FXSelector, void*) {
     if (obj == myAddRadioButton) {
-        myModificationModeType = SET_ADD;
+        myModificationModeType = Operation::ADD;
         myAddRadioButton->setCheck(true);
         myRemoveRadioButton->setCheck(false);
         myKeepRadioButton->setCheck(false);
         myReplaceRadioButton->setCheck(false);
         return 1;
     } else if (obj == myRemoveRadioButton) {
-        myModificationModeType = SET_SUB;
+        myModificationModeType = Operation::SUB;
         myAddRadioButton->setCheck(false);
         myRemoveRadioButton->setCheck(true);
         myKeepRadioButton->setCheck(false);
         myReplaceRadioButton->setCheck(false);
         return 1;
     } else if (obj == myKeepRadioButton) {
-        myModificationModeType = SET_RESTRICT;
+        myModificationModeType = Operation::RESTRICT;
         myAddRadioButton->setCheck(false);
         myRemoveRadioButton->setCheck(false);
         myKeepRadioButton->setCheck(true);
         myReplaceRadioButton->setCheck(false);
         return 1;
     } else if (obj == myReplaceRadioButton) {
-        myModificationModeType = SET_REPLACE;
+        myModificationModeType = Operation::REPLACE;
         myAddRadioButton->setCheck(false);
         myRemoveRadioButton->setCheck(false);
         myKeepRadioButton->setCheck(false);
@@ -766,7 +766,7 @@ GNESelectorFrame::ModificationMode::onCmdSelectModificationMode(FXObject* obj, F
 GNESelectorFrame::ElementSet::ElementSet(GNESelectorFrame* selectorFrameParent) :
     FXGroupBox(selectorFrameParent->myContentFrame, "Element Set", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent),
-    myCurrentElementSet(ELEMENTSET_NETWORKELEMENT) {
+    myCurrentElementSet(Type::NETWORKELEMENT) {
     // Create MatchTagBox for tags and fill it
     mySetComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
 }
@@ -775,7 +775,7 @@ GNESelectorFrame::ElementSet::ElementSet(GNESelectorFrame* selectorFrameParent) 
 GNESelectorFrame::ElementSet::~ElementSet() {}
 
 
-GNESelectorFrame::ElementSet::ElementSetType
+GNESelectorFrame::ElementSet::Type
 GNESelectorFrame::ElementSet::getElementSet() const {
     return myCurrentElementSet;
 }
@@ -804,34 +804,34 @@ GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*
     // check depending of current supermode
     if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::NETWORK) {
         if (mySetComboBox->getText() == "network element") {
-            myCurrentElementSet = ELEMENTSET_NETWORKELEMENT;
+            myCurrentElementSet = Type::NETWORKELEMENT;
             mySetComboBox->setTextColor(FXRGB(0, 0, 0));
             // enable match attribute
             mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
         } else if (mySetComboBox->getText() == "Additional") {
-            myCurrentElementSet = ELEMENTSET_ADDITIONALELEMENT;
+            myCurrentElementSet = Type::ADDITIONALELEMENT;
             mySetComboBox->setTextColor(FXRGB(0, 0, 0));
             // enable match attribute
             mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
         } else if (mySetComboBox->getText() == "Shape") {
-            myCurrentElementSet = ELEMENTSET_SHAPE;
+            myCurrentElementSet = Type::SHAPE;
             mySetComboBox->setTextColor(FXRGB(0, 0, 0));
             // enable match attribute
             mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
         } else {
-            myCurrentElementSet = ELEMENTSET_INVALID;
+            myCurrentElementSet = Type::INVALID;
             mySetComboBox->setTextColor(FXRGB(255, 0, 0));
             // disable match attribute
             mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
         }
     } else {
         if (mySetComboBox->getText() == "Demand Element") {
-            myCurrentElementSet = ELEMENTSET_DEMANDELEMENT;
+            myCurrentElementSet = Type::DEMANDELEMENT;
             mySetComboBox->setTextColor(FXRGB(0, 0, 0));
             // enable match attribute
             mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
         } else {
-            myCurrentElementSet = ELEMENTSET_INVALID;
+            myCurrentElementSet = Type::INVALID;
             mySetComboBox->setTextColor(FXRGB(255, 0, 0));
             // disable match attribute
             mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
@@ -880,13 +880,13 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
     myMatchTagComboBox->clearItems();
     // Set items depending of current item set
     std::vector<SumoXMLTag> listOfTags;
-    if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_NETWORKELEMENT) {
+    if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::NETWORKELEMENT) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
-    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_ADDITIONALELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZ, true);
-    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_SHAPE) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
-    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_DEMANDELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
     } else {
         throw ProcessError("Invalid element set");
@@ -922,13 +922,13 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     myCurrentTag = SUMO_TAG_NOTHING;
     // find current element tag
     std::vector<SumoXMLTag> listOfTags;
-    if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_NETWORKELEMENT) {
+    if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::NETWORKELEMENT) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
-    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_ADDITIONALELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZ, true);
-    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_SHAPE) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
-    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_DEMANDELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
     } else {
         throw ProcessError("Unkown set");

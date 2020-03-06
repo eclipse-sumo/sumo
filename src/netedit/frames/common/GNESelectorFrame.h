@@ -124,12 +124,12 @@ public:
 
     public:
         /// @brief operations of selector
-        enum SetOperation {
-            SET_ADD      = 1,
-            SET_SUB      = 2,
-            SET_RESTRICT = 3,
-            SET_REPLACE  = 4,
-            SET_DEFAULT  = 5  // use mySetOperation instead of override
+        enum class Operation {
+            ADD,
+            SUB,
+            RESTRICT,
+            REPLACE,
+            DEFAULT
         };
 
         /// @brief constructor
@@ -139,7 +139,7 @@ public:
         ~ModificationMode();
 
         /// @brief get current modification mode
-        SetOperation getModificationMode() const;
+        Operation getModificationMode() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -165,7 +165,7 @@ public:
         FXRadioButton* myReplaceRadioButton;
 
         /// @brief how to modify selection
-        SetOperation myModificationModeType;
+        Operation myModificationModeType;
     };
 
     // ===========================================================================
@@ -177,13 +177,14 @@ public:
         FXDECLARE(GNESelectorFrame::ElementSet)
 
     public:
-        /// @brief type of Set
-        enum ElementSetType {
-            ELEMENTSET_NETWORKELEMENT    = 1,
-            ELEMENTSET_ADDITIONALELEMENT = 2,
-            ELEMENTSET_SHAPE             = 3,
-            ELEMENTSET_DEMANDELEMENT     = 4,
-            ELEMENTSET_INVALID           = 5,
+        /// @brief Element Set Type
+        enum class Type {
+            NETWORKELEMENT,
+            ADDITIONALELEMENT,
+            SHAPE,
+            DEMANDELEMENT,
+            DATA,
+            INVALID,
         };
 
         /// @brief constructor
@@ -193,7 +194,7 @@ public:
         ~ElementSet();
 
         /// @brief get current selected element set
-        ElementSetType getElementSet() const;
+        Type getElementSet() const;
 
         /// @brief refresh element set
         void refreshElementSet();
@@ -219,7 +220,7 @@ public:
         FXComboBox* mySetComboBox;
 
         /// @brief current element set selected
-        ElementSetType myCurrentElementSet;
+        Type myCurrentElementSet;
     };
 
     // ===========================================================================
@@ -393,10 +394,10 @@ public:
     /// @brief clear current selection with possibility of undo/redo
     void clearCurrentSelection() const;
 
-    /**@brief apply list of ids to the current selection according to SetOperation,
-     * @note if setop==SET_DEFAULT than the currently set mode (mySetOperation) is used
+    /**@brief apply list of ids to the current selection according to Operation,
+     * @note if setop==DEFAULT than the currently set mode (myOperation) is used
      */
-    void handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, ModificationMode::SetOperation setop = ModificationMode::SET_DEFAULT);
+    void handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, ModificationMode::Operation setop = ModificationMode::Operation::DEFAULT);
 
     /// @brief get selected items Modul
     LockGLObjectTypes* getLockGLObjectTypes() const;
