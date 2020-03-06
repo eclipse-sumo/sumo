@@ -638,38 +638,43 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
 void
 GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnections) {
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
-    // delete all shapes children of edge
-    while (edge->getChildShapes().size() > 0) {
-        deleteShape(edge->getChildShapes().front(), undoList);
-    }
-    // delete all shapes children of lane
-    for (auto i : edge->getLanes()) {
-        while (i->getChildShapes().size() > 0) {
-            deleteShape(i->getChildShapes().front(), undoList);
+    // iterate over lanes
+    for (const auto& lane : edge->getLanes()) {
+        // delete lane additionals
+        while (lane->getChildAdditionals().size() > 0) {
+            deleteAdditional(lane->getChildAdditionals().front(), undoList);
+        }
+        // delete lane shapes
+        while (lane->getChildShapes().size() > 0) {
+            deleteShape(lane->getChildShapes().front(), undoList);
+        }
+        // delete lane demand elements
+        while (lane->getChildDemandElements().size() > 0) {
+            deleteDemandElement(lane->getChildDemandElements().front(), undoList);
+        }
+        // delete lane generic data elements
+        while (lane->getChildGenericDataElements().size() > 0) {
+            deleteGenericData(lane->getChildGenericDataElements().front(), undoList);
         }
     }
-    // delete all child edge demand elements
-    while (edge->getChildDemandElements().size() > 0) {
-        deleteDemandElement(edge->getChildDemandElements().front(), undoList);
-    }
-    // delete all child demand elementss of edge's lanes
-    for (auto i : edge->getLanes()) {
-        while (i->getChildDemandElements().size() > 0) {
-            deleteDemandElement(i->getChildDemandElements().front(), undoList);
-        }
-    }
-    // delete all child edge additional
+    // delete edge child additionals
     while (edge->getChildAdditionals().size() > 0) {
         deleteAdditional(edge->getChildAdditionals().front(), undoList);
     }
-    // delete all child additional of edge's lanes
-    for (auto i : edge->getLanes()) {
-        while (i->getChildAdditionals().size() > 0) {
-            deleteAdditional(i->getChildAdditionals().front(), undoList);
-        }
+    // delete edge child shapes
+    while (edge->getChildShapes().size() > 0) {
+        deleteShape(edge->getChildShapes().front(), undoList);
+    }
+    // delete edge child demand elements
+    while (edge->getChildDemandElements().size() > 0) {
+        deleteDemandElement(edge->getChildDemandElements().front(), undoList);
+    }
+    // delete edge child generic datas
+    while (edge->getChildGenericDataElements().size() > 0) {
+        deleteGenericData(edge->getChildGenericDataElements().front(), undoList);
     }
     // invalidate path element childrens
-    edge->invalidatePathChildElementss();
+    edge->invalidatePathChildElements();
     // remove edge from crossings related with this edge
     edge->getGNEJunctionSource()->removeEdgeFromCrossings(edge, undoList);
     edge->getGNEJunctionDestiny()->removeEdgeFromCrossings(edge, undoList);
@@ -702,49 +707,59 @@ void
 GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) {
     undoList->p_begin("replace " + toString(SUMO_TAG_EDGE));
     undoList->p_add(new GNEChange_Attribute(by, this, SUMO_ATTR_TO, which->getAttribute(SUMO_ATTR_TO)));
-    // replace in additionals children of edge
+    // iterate over lane
+    for (const auto &lane : which->getLanes()) {
+        // replace in additionals
+        std::vector<GNEAdditional*> copyOfLaneAdditionals = lane->getChildAdditionals();
+        for (const auto &additional : copyOfLaneAdditionals) {
+            undoList->p_add(new GNEChange_Attribute(additional, this, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(lane->getIndex())));
+        }
+        // replace in shapes
+        std::vector<GNEShape*> copyOfLaneShapes = lane->getChildShapes();
+        for (const auto& shape : copyOfLaneShapes) {
+            undoList->p_add(new GNEChange_Attribute(shape, this, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(lane->getIndex())));
+        }
+        // replace in demand elements
+        std::vector<GNEDemandElement*> copyOfLaneDemandElements = lane->getChildDemandElements();
+        for (const auto &demandElement : copyOfLaneDemandElements) {
+            undoList->p_add(new GNEChange_Attribute(demandElement, this, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(lane->getIndex())));
+        }
+        // replace in generic datas
+        std::vector<GNEGenericData*> copyOfLaneGenericDatas = lane->getChildGenericDataElements();
+        for (const auto& demandElement : copyOfLaneGenericDatas) {
+            undoList->p_add(new GNEChange_Attribute(demandElement, this, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(lane->getIndex())));
+        }
+    }
+    // replace in edge additionals children
     while (which->getChildAdditionals().size() > 0) {
         undoList->p_add(new GNEChange_Attribute(which->getChildAdditionals().front(), this, SUMO_ATTR_EDGE, by->getID()));
     }
-    // replace in additionals children of lane
-    for (auto i : which->getLanes()) {
-        std::vector<GNEAdditional*> copyOfLaneAdditionals = i->getChildAdditionals();
-        for (auto j : copyOfLaneAdditionals) {
-            undoList->p_add(new GNEChange_Attribute(j, this, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
-        }
+    // replace in edge shapes children
+    while (which->getChildShapes().size() > 0) {
+        undoList->p_add(new GNEChange_Attribute(which->getChildShapes().front(), this, SUMO_ATTR_EDGE, by->getID()));
     }
-    // replace in demand elements children of edge
+    // replace in edge demand elements children
     while (which->getChildDemandElements().size() > 0) {
         undoList->p_add(new GNEChange_Attribute(which->getChildDemandElements().front(), this, SUMO_ATTR_EDGE, by->getID()));
     }
-    // replace in demand elements children of lane
-    for (auto i : which->getLanes()) {
-        std::vector<GNEDemandElement*> copyOfLaneDemandElements = i->getChildDemandElements();
-        for (auto j : copyOfLaneDemandElements) {
-            undoList->p_add(new GNEChange_Attribute(j, this, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
-        }
-    }
-    // replace in shapes children of lane
-    for (auto i : which->getLanes()) {
-        std::vector<GNEShape*> copyOfLaneShapes = i->getChildShapes();
-        for (auto j : copyOfLaneShapes) {
-            undoList->p_add(new GNEChange_Attribute(j, this, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
-        }
+    // replace in edge demand elements children
+    while (which->getChildGenericDataElements().size() > 0) {
+        undoList->p_add(new GNEChange_Attribute(which->getChildGenericDataElements().front(), this, SUMO_ATTR_EDGE, by->getID()));
     }
     // replace in rerouters
-    for (auto rerouter : which->getParentAdditionals()) {
+    for (const auto &rerouter : which->getParentAdditionals()) {
         replaceInListAttribute(rerouter, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
     }
     // replace in crossings
-    for (auto crossing : which->getGNEJunctionDestiny()->getGNECrossings()) {
+    for (const auto &crossing : which->getGNEJunctionDestiny()->getGNECrossings()) {
         // if at least one of the edges of junction to remove belongs to a crossing of the source junction, delete it
         replaceInListAttribute(crossing, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
     }
     // fix connections (make a copy because they will be modified
-    std::vector<NBEdge::Connection> connections = which->getNBEdge()->getConnections();
-    for (auto con : connections) {
-        undoList->add(new GNEChange_Connection(which, con, false, false), true);
-        undoList->add(new GNEChange_Connection(by, con, false, true), true);
+    std::vector<NBEdge::Connection> NBConnections = which->getNBEdge()->getConnections();
+    for (const auto &NBConnection : NBConnections) {
+        undoList->add(new GNEChange_Connection(which, NBConnection, false, false), true);
+        undoList->add(new GNEChange_Connection(by, NBConnection, false, true), true);
     }
     undoList->add(new GNEChange_ReplaceEdgeInTLS(getTLLogicCont(), which->getNBEdge(), by->getNBEdge()), true);
     // Delete edge
@@ -762,17 +777,21 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
         deleteEdge(edge, undoList, recomputeConnections);
     } else {
         undoList->p_begin("delete " + toString(SUMO_TAG_LANE));
-        // delete additionals children of lane
+        // delete lane additional children
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);
         }
-        // delete child demand elements of lane
+        // delete lane shape children
+        while (lane->getChildShapes().size() > 0) {
+            undoList->add(new GNEChange_Shape(lane->getChildShapes().front(), false), true);
+        }
+        // delete lane demand element children
         while (lane->getChildDemandElements().size() > 0) {
             deleteDemandElement(lane->getChildDemandElements().front(), undoList);
         }
-        // delete POIShapes of Lane
-        while (lane->getChildShapes().size() > 0) {
-            undoList->add(new GNEChange_Shape(lane->getChildShapes().front(), false), true);
+        // delete lane generic data children
+        while (lane->getChildGenericDataElements().size() > 0) {
+            deleteGenericData(lane->getChildGenericDataElements().front(), undoList);
         }
         // update affected connections
         if (recomputeConnections) {
@@ -811,13 +830,14 @@ void
 GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
     undoList->p_begin("delete crossing");
     // remove it using GNEChange_Crossing
-    undoList->add(new GNEChange_Crossing(crossing->getParentJunction(), crossing->getNBCrossing()->edges,
-                                         crossing->getNBCrossing()->width, crossing->getNBCrossing()->priority,
-                                         crossing->getNBCrossing()->customTLIndex,
-                                         crossing->getNBCrossing()->customTLIndex2,
-                                         crossing->getNBCrossing()->customShape,
-                                         crossing->isAttributeCarrierSelected(),
-                                         false), true);
+    undoList->add(new GNEChange_Crossing(
+        crossing->getParentJunction(), crossing->getNBCrossing()->edges,
+        crossing->getNBCrossing()->width, crossing->getNBCrossing()->priority,
+        crossing->getNBCrossing()->customTLIndex,
+        crossing->getNBCrossing()->customTLIndex2,
+        crossing->getNBCrossing()->customShape,
+        crossing->isAttributeCarrierSelected(),
+        false), true);
     // remove crossing requires always a recompute (due geometry and connections)
     requireRecompute();
     undoList->p_end();
@@ -836,11 +856,15 @@ GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
 void
 GNENet::deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList) {
     undoList->p_begin("delete " + additional->getTagStr());
-    // first remove all child demand elements of this additional calling this function recursively
+    // remove all demand element children of this additional deleteDemandElement this function recursively
     while (additional->getChildDemandElements().size() > 0) {
         deleteDemandElement(additional->getChildDemandElements().front(), undoList);
     }
-    // first remove all child additional of this additional calling this function recursively
+    // remove all generic data children of this additional deleteGenericData this function recursively
+    while (additional->getChildGenericDataElements().size() > 0) {
+        deleteGenericData(additional->getChildGenericDataElements().front(), undoList);
+    }
+    // remove all additional children of this additional calling this function recursively
     while (additional->getChildAdditionals().size() > 0) {
         deleteAdditional(additional->getChildAdditionals().front(), undoList);
     }
@@ -857,9 +881,13 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
         throw ProcessError("Trying to delete a default Vehicle Type");
     } else {
         undoList->p_begin("delete " + demandElement->getTagStr());
-        // first remove all child demand elements of this demandElement calling this function recursively
+        // remove all child demand elements of this demandElement calling this function recursively
         while (demandElement->getChildDemandElements().size() > 0) {
             deleteDemandElement(demandElement->getChildDemandElements().front(), undoList);
+        }
+        // remove all generic data children of this additional deleteGenericData this function recursively
+        while (demandElement->getChildGenericDataElements().size() > 0) {
+            deleteGenericData(demandElement->getChildGenericDataElements().front(), undoList);
         }
         // we need an special case for person
         if (demandElement->getTagProperty().isPersonPlan() && (demandElement->getParentDemandElements().front()->getChildDemandElements().size() == 1)) {
@@ -908,6 +936,14 @@ GNENet::deleteDataInterval(GNEDataInterval* dataInterval, GNEUndoList* undoList)
 void
 GNENet::deleteGenericData(GNEGenericData* genericData, GNEUndoList* undoList) {
     undoList->p_begin("delete " + genericData->getTagStr());
+    // remove all child demand elements of this demandElement calling this function recursively
+    while (genericData->getChildDemandElements().size() > 0) {
+        deleteDemandElement(genericData->getChildDemandElements().front(), undoList);
+    }
+    // remove all generic data children of this additional deleteGenericData this function recursively
+    while (genericData->getChildGenericDataElements().size() > 0) {
+        deleteGenericData(genericData->getChildGenericDataElements().front(), undoList);
+    }
     // remove generic data
     undoList->add(new GNEChange_GenericData(genericData, false), true);
     undoList->p_end();
