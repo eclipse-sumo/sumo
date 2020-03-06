@@ -53,10 +53,7 @@ GNEChange_GenericData::~GNEChange_GenericData() {
     if (myGenericData->unreferenced()) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "'");
-        // make sure that element isn't in interval parent before removing
-        if (myDataIntervalParent->hasGenericDataChild(myGenericData)) {
-            myDataIntervalParent->removeGenericDataChild(myGenericData);
-        }
+        // delete generic data
         delete myGenericData;
     }
 }

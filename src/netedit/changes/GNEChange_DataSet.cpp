@@ -52,6 +52,7 @@ GNEChange_DataSet::~GNEChange_DataSet() {
         if (myNet->dataSetExist(myDataSet)) {
             myNet->deleteDataSet(myDataSet);
         }
+        // delete data set
         delete myDataSet;
     }
 }
