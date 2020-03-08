@@ -12,7 +12,8 @@ permalink: /ChangeLog/
   - Fixed sublane model bug that was causing invalid lane alignment in multimodal networks. Issue #6691
   - Fixed crash when depart-triggered vehicles were discarded. Issue #6690
   - Fixed train reversal ahead of stop. Issue #6692
-  - Train routing now considers space requirement for train reversal. Issue #6697
+  - Train routing now considers space requirement for train reversal. Issue #6697, #6743
+  - Train routing is no longer effected by occupied edges that are beyond rail signal control. Issue #6741
   - Removed invalid warning for public transport users. Issue #6698
 - MESO
   - Calibrator attribute `vTypes` is now working. Issue #6702
@@ -26,11 +27,13 @@ permalink: /ChangeLog/
 - DUAROUTER
   - Attribute `group` of `<ride>` and `<personTrip>` is no longer lost. Issue #6555
   - Train routing now considers space requirement for train reversal. Issue #6697
+- OD2TRIPS
+  - Option **--departpos** is now working for pedestrians and personTrips. Issue #6720
 - TraCI
   - Fixed crash when calling vehicle.moveTo for an off-road vehicle with tripinfo-output. Issue #6717
   - Fixed crash when trying add subscription filter for context subscrition of persons around an ego vehicle. Issue #6735
 - Tools
-  - [sort_routes.py](Tools/Routes.md#sort_routespy) can now handle trips, triggered vehicles and human-readable times.
+  - [sort_routes.py](Tools/Routes.md#sort_routespy) can now handle trips, triggered vehicles and human-readable times.  
 
 ### Enhancements
 - Simulation
@@ -39,16 +42,19 @@ permalink: /ChangeLog/
   - The new route attribute `repeat` can now be used to define repeating routes. When the route contains stop definitions with the `until`-attribute, the new route attribute `period` must be used to shift the repeated stop times. Issue #6554  
   - Added option **--fcd-output.params KEY1,KEY2,...** to extend fcd-output with additional vehicle [generic parameters](Simulation/GenericParameters.md). Issue #6685
   - Tripinfo-output attribute vaporized now includes specific description for premature vehicle removal (collision, traci, calibrator, ...). Issue #6718
+  - Added option **--statistic-output** to write [various statistics](Simulation/Output.md#commandline_output_verbose) in XML format. Issue #3751
 - NETEDIT
   - Added new 'Data Mode' to edit files with edge and turn-related data. Issue #6461
   - Traffic light phase editing function 'Insert Phase' now takes successive green states into account when synthesizing transition phases. Issue #6732
 - SUMO-GUI
   - Missing data values (color by edgeData) can now be distinguished from negative data values. Issue #6660
   - `<edgeRelation>`-data files can now be visualized. Issue #6659
+  - Train reversals are now indicated when ''Show Route'' is active. Issue #6744
 - NETCONVERT
   - Edge attribute `spreadType` now supports value `roadCenter` which aligns edges with common geometry so that the geometry reflects the middle of the road regardless of differences in lane numbers (causing natural alignment for turning lanes). Issue #1758
   - Added option **--default.spreadtype** to set the default spread type for edges. Issue #6662
-  - Connections now support attribute length to customize the length of internal lanes. Issue #6733
+  - Connections now support attribute ''length'' to customize the length of internal lanes. Issue #6733
+  - Added option **--default.connection-length** to overwrite the length of internal lanes with a specific value. Issue #6733
 - TraCI
   - [Meso simulation](Simulation/Meso.md) now supports TraCI
 - Tools
@@ -72,6 +78,7 @@ permalink: /ChangeLog/
     - F2: Network mode
     - F3: Demand mode
     - F4: Data mode
+  - Default color for edge-geometry points changed to avoid confusion with rail signals when coloring junctions by type. Issue #6749
 
 ## Version 1.5.0 (11.02.2020)
 
