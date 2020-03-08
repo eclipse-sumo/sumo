@@ -441,6 +441,35 @@ MSNet::generateStatistics(SUMOTime start) {
     return msg.str();
 }
 
+void
+MSNet::writeStatistics() const {
+    OutputDevice& od = OutputDevice::getDeviceByOption("statistic-output");
+    od.openTag("vehicles");
+    od.writeAttr("loaded", myVehicleControl->getLoadedVehicleNo());
+    od.writeAttr("inserted", myVehicleControl->getDepartedVehicleNo());
+    od.writeAttr("running", myVehicleControl->getRunningVehicleNo());
+    od.writeAttr("waiting", myInserter->getWaitingVehicleNo());
+    od.closeTag();
+    od.openTag("teleports");
+    od.writeAttr("total", myVehicleControl->getTeleportCount());
+    od.writeAttr("jam", myVehicleControl->getTeleportsJam());
+    od.writeAttr("yield", myVehicleControl->getTeleportsYield());
+    od.writeAttr("wrongLane", myVehicleControl->getTeleportsWrongLane());
+    od.closeTag();
+    od.openTag("safety");
+    od.writeAttr("collisions", myVehicleControl->getCollisionCount());
+    od.writeAttr("emergencyStops", myVehicleControl->getEmergencyStops());
+    od.closeTag();
+    od.openTag("persons");
+    od.writeAttr("loaded", myPersonControl != nullptr ? myPersonControl->getLoadedNumber() : 0);
+    od.writeAttr("running", myPersonControl != nullptr ? myPersonControl->getRunningNumber() : 0);
+    od.writeAttr("jammed", myPersonControl != nullptr ? myPersonControl->getJammedNumber() : 0);
+    od.closeTag();
+    if (OptionsCont::getOptions().isSet("tripinfo-output") || OptionsCont::getOptions().getBool("duration-log.statistics")) {
+        MSDevice_Tripinfo::writeStatistics(od);
+    }
+
+}
 
 void
 MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
@@ -470,6 +499,9 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     }
     if (myLogExecutionTime) {
         WRITE_MESSAGE(generateStatistics(start));
+    }
+    if (OptionsCont::getOptions().isSet("statistic-output")) {
+        writeStatistics();
     }
 }
 

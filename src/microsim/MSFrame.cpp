@@ -249,6 +249,10 @@ MSFrame::fillOptions() {
     oc.doRegister("stop-output", new Option_FileName());
     oc.addDescription("stop-output", "Output", "Record stops and loading/unloading of passenger and containers for all vehicles into FILE");
 
+    oc.doRegister("statistic-output", new Option_FileName());
+    oc.addSynonyme("statistic-output", "statistics-output");
+    oc.addDescription("statistic-output", "Output", "Write overall statistics into FILE");
+
 #ifdef _DEBUG
     oc.doRegister("movereminder-output", new Option_FileName());
     oc.addDescription("movereminder-output", "Output", "Save movereminder states of selected vehicles into FILE");
@@ -592,6 +596,7 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("bt-output", "bt-output");
     OutputDevice::createDeviceByOption("lanechange-output", "lanechanges");
     OutputDevice::createDeviceByOption("stop-output", "stops", "stopinfo_file.xsd");
+    OutputDevice::createDeviceByOption("statistic-output", "statistics", "statistic_file.xsd");
 
 #ifdef _DEBUG
     OutputDevice::createDeviceByOption("movereminder-output", "movereminder-output");

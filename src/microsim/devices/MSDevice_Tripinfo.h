@@ -74,6 +74,9 @@ public:
     /// @brief get statistics for printing to stdout
     static std::string printStatistics();
 
+    /// @brief write statistic output to (xml) file
+    static void writeStatistics(OutputDevice& od); 
+
     /// @brief accessors for GUINet-Parameters
     static double getAvgRouteLength();
     static double getAvgTripSpeed();
@@ -196,6 +199,8 @@ protected:
     void updateParkingStopTime();
 
     static void printRideStatistics(std::ostringstream& msg, const std::string& category, const std::string& modeName, const int index);
+
+    static void writeRideStatistics(OutputDevice& od, const std::string& category, const int index);
 
 private:
     /// @brief The lane the vehicle departed at

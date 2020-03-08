@@ -250,6 +250,8 @@ public:
      */
     const std::string generateStatistics(SUMOTime start);
 
+    /// @brief write statistic output to (xml) file
+    void writeStatistics() const; 
 
     /** @brief Closes the simulation (all files, connections, etc.)
      *

@@ -469,6 +469,47 @@ MSDevice_Tripinfo::printRideStatistics(std::ostringstream& msg, const std::strin
 
 }
 
+
+void
+MSDevice_Tripinfo::writeStatistics(OutputDevice& od) {
+    od.setPrecision(gPrecision);
+    od.openTag("vehicleTripStatistics");
+    od.writeAttr("routeLength", getAvgRouteLength());
+    od.writeAttr("speed", getAvgTripSpeed());
+    od.writeAttr("duration", getAvgDuration());
+    od.writeAttr("waitingTime", getAvgWaitingTime());
+    od.writeAttr("timeLoss", getAvgTimeLoss());
+    od.writeAttr("departDelay", getAvgDepartDelay());
+    od.writeAttr("departDelayWaiting", myWaitingDepartDelay);
+    od.closeTag();
+    od.openTag("pedestrianStatistics");
+    od.writeAttr("number", myWalkCount);
+    od.writeAttr("routeLength", getAvgWalkRouteLength());
+    od.writeAttr("duration", getAvgWalkDuration());
+    od.writeAttr("timeLoss", getAvgWalkTimeLoss());
+    od.closeTag();
+    writeRideStatistics(od, "rideStatistics", 0);
+    writeRideStatistics(od, "transportStatistics", 1);
+}
+
+void
+MSDevice_Tripinfo::writeRideStatistics(OutputDevice& od, const std::string& category, const int index) {
+    od.openTag(category);
+    od.writeAttr("number", myRideCount[index]);
+    if (myRideCount[index] > 0) {
+        od.writeAttr("waitingTime", STEPS2TIME(myTotalRideWaitingTime[index] / myRideCount[index]));
+        od.writeAttr("routeLength", myTotalRideRouteLength[index] / myRideCount[index]);
+        od.writeAttr("duration", STEPS2TIME(myTotalRideDuration[index] / myRideCount[index]));
+        od.writeAttr("bus", myRideBusCount[index]);
+        od.writeAttr("train", myRideRailCount[index]);
+        od.writeAttr("taxi", myRideTaxiCount[index]);
+        od.writeAttr("bike", myRideBikeCount[index]);
+        od.writeAttr("aborted", myRideAbortCount[index]);
+    }
+    od.closeTag();
+}
+
+
 double
 MSDevice_Tripinfo::getAvgRouteLength() {
     if (myVehicleCount > 0) {
