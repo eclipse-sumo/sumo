@@ -37,6 +37,7 @@ aggregated900:aggregated_900.xml
 rawdump:rawdump.xml
 bt:bt.xml
 tripinfos:tripinfos.xml
+statistic:statistic.xml
 stopinfos:stopinfos.xml
 vtypeprobe:vtypeprobe.xml
 vehroutes:vehroutes.xml
@@ -113,6 +114,7 @@ aggregated900:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 bt:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
+statistic:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
 tripinfosPrefix:<!--{[->]}-->
 vtypeprobe:<!--{[->]}-->

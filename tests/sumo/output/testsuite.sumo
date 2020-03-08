@@ -77,6 +77,9 @@ queue-output
 # test the duration log output
 duration_log
 
+# --statistic-output
+statistic
+
 # Tests which serve as examples
 examples
 examples_multimodal

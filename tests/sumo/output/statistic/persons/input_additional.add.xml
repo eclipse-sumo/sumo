@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+	<edgeData id="dump_300" freq="300" file="aggregated_300.xml" detectPersons="walk"/>
+	<edgeData id="dump_900" freq="900" file="aggregated_900.xml" detectPersons="walk" withInternal="true"/>
+	<edgeData id="dump_emissions" type="emissions" freq="60" file="aggregated_60.xml"/>
+
+</additional>
