@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  2 15:52:39 2020 by Eclipse SUMO Version v1_5_0+0326-26a73af
+<!-- generated on Sun Mar  8 21:50:02 2020 by Eclipse SUMO Version v1_5_0+0563-8ef6fee005
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -206,6 +206,9 @@
 
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
+
+        <!-- Write overall statistics into FILE -->
+        <statistic-output value="" synonymes="statistics-output" type="FILE"/>
 
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
@@ -905,9 +908,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
