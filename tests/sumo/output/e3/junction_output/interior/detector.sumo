@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 21 08:43:35 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
+<!-- generated on Mon Mar  9 15:20:36 2020 by Eclipse SUMO Version v1_5_0+0581-a2889fd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,8 +32,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <e3Detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e3_file.xsd">
-   <interval begin="0.00" end="1147.00" id="e3_C_E1C" meanTravelTime="74.72" meanOverlapTravelTime="75.24" meanSpeed="5.90" meanHaltsPerVehicle="1.63" meanTimeLoss="56.67" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
-   <interval begin="0.00" end="1147.00" id="e3_C_N1C" meanTravelTime="78.36" meanOverlapTravelTime="78.89" meanSpeed="5.32" meanHaltsPerVehicle="1.87" meanTimeLoss="58.14" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
-   <interval begin="0.00" end="1147.00" id="e3_C_S1C" meanTravelTime="89.86" meanOverlapTravelTime="90.39" meanSpeed="5.58" meanHaltsPerVehicle="2.02" meanTimeLoss="69.89" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
-   <interval begin="0.00" end="1147.00" id="e3_C_W1C" meanTravelTime="129.63" meanOverlapTravelTime="130.16" meanSpeed="3.44" meanHaltsPerVehicle="3.70" meanTimeLoss="111.02" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+   <interval begin="0.00" end="1135.00" id="e3_C_E1C" meanTravelTime="74.95" meanOverlapTravelTime="75.48" meanSpeed="5.88" meanHaltsPerVehicle="1.48" meanTimeLoss="56.91" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+   <interval begin="0.00" end="1135.00" id="e3_C_N1C" meanTravelTime="79.15" meanOverlapTravelTime="79.69" meanSpeed="5.32" meanHaltsPerVehicle="2.13" meanTimeLoss="58.95" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+   <interval begin="0.00" end="1135.00" id="e3_C_S1C" meanTravelTime="76.36" meanOverlapTravelTime="76.89" meanSpeed="5.68" meanHaltsPerVehicle="1.78" meanTimeLoss="56.39" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+   <interval begin="0.00" end="1135.00" id="e3_C_W1C" meanTravelTime="108.33" meanOverlapTravelTime="108.87" meanSpeed="3.72" meanHaltsPerVehicle="2.30" meanTimeLoss="89.75" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
 </e3Detector>

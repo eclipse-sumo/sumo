@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 10 08:51:45 2018 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Mon Mar  9 15:21:29 2020 by Eclipse SUMO Version v1_5_0+0581-a2889fd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1729,7 +1729,7 @@ SPDX-License-Identifier: EPL-2.0
             <step time="93.80" chargingStatus="waitingChargeInTransit" energyCharged="0.00" partialCharge="127.11" power="13000.00" efficiency="0.80" actualBatteryCapacity="10265.13" maximumBatteryCapacity="35000.00"/>
         </vehicle>
     </chargingStation>
-    <chargingStation id="CS5" totalEnergyCharged="0.00" chargingSteps="113">
+    <chargingStation id="CS5" totalEnergyCharged="0.00" chargingSteps="114">
         <vehicle id="veh0" type="ElectricVehicle1" totalEnergyChargedIntoVehicle="0.00" chargingBegin="89.80" chargingEnd="89.80">
             <step time="89.80" chargingStatus="chargingStopped" energyCharged="0.00" partialCharge="0.00" power="14000.00" efficiency="0.00" actualBatteryCapacity="13289.07" maximumBatteryCapacity="35000.00"/>
         </vehicle>
@@ -2066,8 +2066,11 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="veh1" type="ElectricVehicle2" totalEnergyChargedIntoVehicle="0.00" chargingBegin="104600" chargingEnd="104600">
             <step time="104.60" chargingStatus="chargingStopped" energyCharged="0.00" partialCharge="0.00" power="14000.00" efficiency="0.00" actualBatteryCapacity="12234.13" maximumBatteryCapacity="35000.00"/>
         </vehicle>
+        <vehicle id="veh1" type="ElectricVehicle2" totalEnergyChargedIntoVehicle="0.00" chargingBegin="105000" chargingEnd="105000">
+            <step time="105.00" chargingStatus="chargingStopped" energyCharged="0.00" partialCharge="0.00" power="14000.00" efficiency="0.00" actualBatteryCapacity="12234.08" maximumBatteryCapacity="35000.00"/>
+        </vehicle>
         <vehicle id="veh1" type="ElectricVehicle2" totalEnergyChargedIntoVehicle="0.00" chargingBegin="105200" chargingEnd="105200">
-            <step time="105.20" chargingStatus="chargingStopped" energyCharged="0.00" partialCharge="0.00" power="14000.00" efficiency="0.00" actualBatteryCapacity="12234.01" maximumBatteryCapacity="35000.00"/>
+            <step time="105.20" chargingStatus="chargingStopped" energyCharged="0.00" partialCharge="0.00" power="14000.00" efficiency="0.00" actualBatteryCapacity="12234.06" maximumBatteryCapacity="35000.00"/>
         </vehicle>
     </chargingStation>
 </chargingstations-export>
