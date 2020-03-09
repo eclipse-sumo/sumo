@@ -63,6 +63,9 @@ FXDEFMAP(GNESelectorFrame::MatchAttribute) MatchAttributeMap[] = {
 };
 
 FXDEFMAP(GNESelectorFrame::MatchGenericDataAttribute) MatchGenericDataAttributeMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SETINTERVAL,      GNESelectorFrame::MatchGenericDataAttribute::onCmdSetInterval),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SETBEGIN,         GNESelectorFrame::MatchGenericDataAttribute::onCmdSetBegin),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SETEND,           GNESelectorFrame::MatchGenericDataAttribute::onCmdSetEnd),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTTAG,        GNESelectorFrame::MatchGenericDataAttribute::onCmdSelMBTag),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTATTRIBUTE,  GNESelectorFrame::MatchGenericDataAttribute::onCmdSelMBAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_PROCESSSTRING,    GNESelectorFrame::MatchGenericDataAttribute::onCmdSelMBString),
@@ -1223,9 +1226,22 @@ GNESelectorFrame::MatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
 GNESelectorFrame::MatchGenericDataAttribute::MatchGenericDataAttribute(GNESelectorFrame* selectorFrameParent) :
     FXGroupBox(selectorFrameParent->myContentFrame, "Match GenericData Attribute", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent),
+    myIntervalSelector(nullptr),
+    myBegin(nullptr),
+    myEnd(nullptr),
+    myMatchGenericDataTagComboBox(nullptr),
+    myMatchGenericDataAttrComboBox(nullptr),
     myCurrentTag(SUMO_TAG_EDGE),
-    myCurrentAttribute(SUMO_ATTR_ID) {
+    myCurrentAttribute(SUMO_ATTR_ID),
+    myMatchGenericDataString(nullptr) {
     // Create MatchGenericDataTagBox for tags
+    new FXLabel(this, "Interval [begin, end]", nullptr, GUIDesignLabelThick);
+    myIntervalSelector = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
+    // Create textfield for begin and end
+    FXHorizontalFrame* myHorizontalFrameBeginEnd = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myBegin = new FXTextField(myHorizontalFrameBeginEnd, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETBEGIN, GUIDesignTextField);
+    myEnd = new FXTextField(myHorizontalFrameBeginEnd, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETEND, GUIDesignTextField);
+    // Create MatchGenericDataTagBox myHorizontalFrameEnd tags
     myMatchGenericDataTagComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create listBox for Attributes
     myMatchGenericDataAttrComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
@@ -1248,47 +1264,78 @@ GNESelectorFrame::MatchGenericDataAttribute::~MatchGenericDataAttribute() {}
 
 void
 GNESelectorFrame::MatchGenericDataAttribute::enableMatchGenericDataAttribute() {
-    // enable comboboxes and text field
-    myMatchGenericDataTagComboBox->enable();
-    myMatchGenericDataAttrComboBox->enable();
-    myMatchGenericDataString->enable();
-    // Clear items of myMatchGenericDataTagComboBox
-    myMatchGenericDataTagComboBox->clearItems();
-    // Set items depending of current item set
-    std::vector<SumoXMLTag> listOfTags;
-    if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::NETWORKELEMENT) {
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
+    // first drop intervals
+    myIntervals.clear();
+    // iterate over all data sets
+    for (const auto& dataSet : mySelectorFrameParent->getViewNet()->getNet()->retrieveDataSets()) {
+        for (const auto& dataInterval : dataSet->getDataIntervalChildren()) {
+            myIntervals[std::make_pair(dataInterval.second->getAttributeDouble(SUMO_ATTR_BEGIN), dataInterval.second->getAttributeDouble(SUMO_ATTR_END))] = -1;
+        }
     }
-    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZ, true);
+    // disable modul if there isn't intervals
+    if (myIntervals.size() == 0) {
+        disableMatchGenericDataAttribute();
+    } else {
+        // enable comboboxes and text field
+        myIntervalSelector->enable();
+        myBegin->enable();
+        myEnd->enable();
+        myMatchGenericDataTagComboBox->enable();
+        myMatchGenericDataAttrComboBox->enable();
+        myMatchGenericDataString->enable();
+        // clear combo box interval selector 
+        myIntervalSelector->clearItems();
+        // fill combo Box
+        for (auto &interval : myIntervals) {
+            interval.second = myIntervalSelector->appendItem((" [" + toString(interval.first.first) + "," + toString(interval.first.second) + "]").c_str());
+        }
+        // set number of visible items
+        if (myIntervalSelector->getNumItems() < 10) {
+            myIntervalSelector->setNumVisible(myIntervalSelector->getNumItems());
+        } else {
+            myIntervalSelector->setNumVisible(10);
+        }
+        // Clear items of myMatchGenericDataTagComboBox
+        myMatchGenericDataTagComboBox->clearItems();
+        // update begin and end
+        myBegin->setText(toString(myIntervals.begin()->first.first).c_str());
+        myBegin->setTextColor(FXRGB(0, 0, 0));
+        myEnd->setText(toString(myIntervals.begin()->first.second).c_str());
+        myEnd->setTextColor(FXRGB(0, 0, 0));
+        // Set items depending of current item set
+        std::vector<SumoXMLTag> listOfTags;
+        if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::NETWORKELEMENT) {
+            listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
+        } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
+            listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZ, true);
+        } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
+            listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
+        } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
+            listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
+        } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DATA) {
+            listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
+        } else {
+            throw ProcessError("Invalid element set");
+        }
+        // fill combo box
+        for (const auto& tag : listOfTags) {
+            myMatchGenericDataTagComboBox->appendItem(toString(tag).c_str());
+        }
+        // set first item as current item
+        myMatchGenericDataTagComboBox->setCurrentItem(0);
+        myMatchGenericDataTagComboBox->setNumVisible(myMatchGenericDataTagComboBox->getNumItems());
+        // Fill attributes with the current element type
+        onCmdSelMBTag(nullptr, 0, nullptr);
     }
-    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
-    }
-    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
-    }
-    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DATA) {
-        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
-    }
-    else {
-        throw ProcessError("Invalid element set");
-    }
-    // fill combo box
-    for (const auto& tag : listOfTags) {
-        myMatchGenericDataTagComboBox->appendItem(toString(tag).c_str());
-    }
-    // set first item as current item
-    myMatchGenericDataTagComboBox->setCurrentItem(0);
-    myMatchGenericDataTagComboBox->setNumVisible(myMatchGenericDataTagComboBox->getNumItems());
-    // Fill attributes with the current element type
-    onCmdSelMBTag(nullptr, 0, nullptr);
 }
 
 
 void
 GNESelectorFrame::MatchGenericDataAttribute::disableMatchGenericDataAttribute() {
     // disable comboboxes and text field
+    myIntervalSelector->disable();
+    myBegin->disable();
+    myEnd->disable();
     myMatchGenericDataTagComboBox->disable();
     myMatchGenericDataAttrComboBox->disable();
     myMatchGenericDataString->disable();
@@ -1311,6 +1358,68 @@ GNESelectorFrame::MatchGenericDataAttribute::hideMatchGenericDataAttribute() {
 }
 
 
+long 
+GNESelectorFrame::MatchGenericDataAttribute::onCmdSetInterval(FXObject*, FXSelector, void*) {
+    for (auto& interval : myIntervals) {
+        if (interval.second == myIntervalSelector->getCurrentItem()) {
+            // update begin and end
+            myBegin->setText(toString(interval.first.first).c_str());
+            myEnd->setText(toString(interval.first.second).c_str());
+        }
+    }
+    return 1;
+}
+
+
+long 
+GNESelectorFrame::MatchGenericDataAttribute::onCmdSetBegin(FXObject*, FXSelector, void*) {
+    // check if can be parsed to double
+    if (GNEAttributeCarrier::canParse<double>(myBegin->getText().text()) &&
+        GNEAttributeCarrier::canParse<double>(myEnd->getText().text())) {
+        // set valid color text and kill focus
+        myBegin->setTextColor(FXRGB(0, 0, 0));
+        myBegin->killFocus();
+        // enable elements
+        myMatchGenericDataTagComboBox->enable();
+        myMatchGenericDataAttrComboBox->enable();
+        myMatchGenericDataString->enable();
+    } else {
+        // set invalid color text
+        myBegin->setTextColor(FXRGB(255, 0, 0));
+        // disable elements
+        myMatchGenericDataTagComboBox->disable();
+        myMatchGenericDataAttrComboBox->disable();
+        myMatchGenericDataString->disable();
+    }
+    return 1;
+}
+
+
+long 
+GNESelectorFrame::MatchGenericDataAttribute::onCmdSetEnd(FXObject*, FXSelector, void*) {
+    // check if can be parsed to double
+    if (GNEAttributeCarrier::canParse<double>(myBegin->getText().text()) && 
+        GNEAttributeCarrier::canParse<double>(myEnd->getText().text())) {
+        // set valid color text and kill focus
+        myEnd->setTextColor(FXRGB(0, 0, 0));
+        myEnd->killFocus();
+        // enable elements
+        myMatchGenericDataTagComboBox->enable();
+        myMatchGenericDataAttrComboBox->enable();
+        myMatchGenericDataString->enable();
+    }
+    else {
+        // set invalid color text
+        myEnd->setTextColor(FXRGB(255, 0, 0));
+        // disable elements
+        myMatchGenericDataTagComboBox->disable();
+        myMatchGenericDataAttrComboBox->disable();
+        myMatchGenericDataString->disable();
+    }
+    return 1;
+}
+
+
 long
 GNESelectorFrame::MatchGenericDataAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     // First check what type of elementes is being selected
@@ -1319,20 +1428,15 @@ GNESelectorFrame::MatchGenericDataAttribute::onCmdSelMBTag(FXObject*, FXSelector
     std::vector<SumoXMLTag> listOfTags;
     if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::NETWORKELEMENT) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
-    }
-    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZ, true);
-    }
-    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
-    }
-    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
-    }
-    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DATA) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DATA) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
-    }
-    else {
+    } else {
         throw ProcessError("Unkown set");
     }
     // fill myMatchGenericDataTagComboBox
@@ -1377,12 +1481,10 @@ GNESelectorFrame::MatchGenericDataAttribute::onCmdSelMBTag(FXObject*, FXSelector
         // check if we have to update attribute
         if (tagValue.hasAttribute(myCurrentAttribute)) {
             myMatchGenericDataAttrComboBox->setText(toString(myCurrentAttribute).c_str());
-        }
-        else {
+        } else {
             onCmdSelMBAttribute(nullptr, 0, nullptr);
         }
-    }
-    else {
+    } else {
         // change color to red and disable items
         myMatchGenericDataTagComboBox->setTextColor(FXRGB(255, 0, 0));
         myMatchGenericDataAttrComboBox->disable();

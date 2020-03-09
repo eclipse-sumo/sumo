@@ -328,24 +328,25 @@ public:
         /// @name FOX-callbacks
         /// @{
 
-        /**@brief Called when the user selectes a tag in the match box
-         * @note updates the attr listbox and repaints itself
-         */
+        /// @brief Called when the user selects an interval
+        long onCmdSetInterval(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user change begin text field
+        long onCmdSetBegin(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user change end text field
+        long onCmdSetEnd(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user selects a tag in the match box
         long onCmdSelMBTag(FXObject*, FXSelector, void*);
 
-        /**@brief Called when the user selectes a tag in the match box
-         * @note updates the attr listbox and repaints itself
-         */
+        /// @brief Called when the user selects a tag in the match box
         long onCmdSelMBAttribute(FXObject*, FXSelector, void*);
 
-        /**@brief Called when the user enters a new selection expression
-         * @note validates expression and modifies current selection
-         */
+        /// @brief Called when the user enters a new selection expression
         long onCmdSelMBString(FXObject*, FXSelector, void*);
 
-        /**@brief Called when the user clicks the help button
-         * @note pop up help window
-         */
+        /// @brief Called when the user clicks the help button
         long onCmdHelp(FXObject*, FXSelector, void*);
 
         /// @}
@@ -356,6 +357,15 @@ public:
     private:
         /// @brief pointer to Selector Frame Parent
         GNESelectorFrame* mySelectorFrameParent;
+
+        /// @brief tag of the match box
+        FXComboBox* myIntervalSelector;
+
+        /// @brief TextField for begin
+        FXTextField* myBegin;
+
+        /// @brief TextField for end
+        FXTextField* myEnd;
 
         /// @brief tag of the match box
         FXComboBox* myMatchGenericDataTagComboBox;
@@ -371,6 +381,9 @@ public:
 
         /// @brief string of the match
         FXTextField* myMatchGenericDataString;
+
+        // declare a set and fill it with all intervals
+        std::map<std::pair<double, double>, int> myIntervals;
     };
 
     // ===========================================================================

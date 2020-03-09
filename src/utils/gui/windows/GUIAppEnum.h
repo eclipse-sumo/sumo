@@ -750,6 +750,12 @@ enum {
     MID_GNE_SELECTORFRAME_PROCESSSTRING,
     /// @brief changes the visual scaling of selected items
     MID_GNE_SELECTORFRAME_SELECTSCALE,
+    /// @brief change interval
+    MID_GNE_SELECTORFRAME_SETINTERVAL,
+    /// @brief edit begin text field
+    MID_GNE_SELECTORFRAME_SETBEGIN,
+    /// @brief end text field
+    MID_GNE_SELECTORFRAME_SETEND,
 
     /// @}
 
