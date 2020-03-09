@@ -3168,7 +3168,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                 MSLeaderInfo firstFront = next->getFirstVehicleInformation(nullptr, 0, true);
 #ifdef DEBUG_CONTEXT
                 if (DEBUG_COND2(ego)) {
-                    std::cout << "   next=" << next->getID() << " seen=" << (*it).length << " first=" << first.toString() << " firstFront=" << firstFront.toString() << "\n";
+                    std::cout << "   next=" << next->getID() << " seen=" << (*it).length << " first=" << first.toString() << " firstFront=" << firstFront.toString() << " backOffset=" << backOffset << "\n";
                     gDebugFlag1 = true; // for calling getLeaderInfo
                 }
 #endif
@@ -3176,11 +3176,17 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                         && egoFurther.count(&next->getEdge()) != 0
                    )  {
                     // check for junction foes that would interfere with lane changing
+                    // @note: we are passing the back of ego as its front position so
+                    //        we need to add this back to the returned gap
                     const MSLink::LinkLeaders linkLeaders = (*it).viaLink->getLeaderInfo(ego, -backOffset);
                     for (const auto& ll : linkLeaders) {
                         if (ll.vehAndGap.first != nullptr) {
                             const bool egoIsLeader = ll.vehAndGap.first->isLeader((*it).viaLink, ego);
-                            const double gap = egoIsLeader ? NUMERICAL_EPS : ll.vehAndGap.second;
+                            // if ego is leader the returned gap still assumes that ego follows the leader
+                            // if the foe vehicle follows ego we need to deduce that gap 
+                            const double gap = (egoIsLeader 
+                                    ? -ll.vehAndGap.second - ll.vehAndGap.first->getVehicleType().getLengthWithGap() - ego->getVehicleType().getMinGap()
+                                    : ll.vehAndGap.second + ego->getVehicleType().getLength());
                             result.addFollower(ll.vehAndGap.first, ego, gap);
 #ifdef DEBUG_CONTEXT
                             if (DEBUG_COND2(ego)) {
