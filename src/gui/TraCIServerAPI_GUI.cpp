@@ -213,7 +213,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             if (!server.readTypeCheckingString(inputStorage, vehID)) {
                 return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Tracking requires a string vehicle ID.", outputStorage);
             }
-            if (id == "") {
+            if (vehID == "") {
                 v->stopTrack();
             } else {
                 SUMOVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(vehID);
