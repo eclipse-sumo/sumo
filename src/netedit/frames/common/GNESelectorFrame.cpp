@@ -62,6 +62,13 @@ FXDEFMAP(GNESelectorFrame::MatchAttribute) MatchAttributeMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNESelectorFrame::MatchAttribute::onCmdHelp)
 };
 
+FXDEFMAP(GNESelectorFrame::MatchGenericDataAttribute) MatchGenericDataAttributeMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTTAG,        GNESelectorFrame::MatchGenericDataAttribute::onCmdSelMBTag),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTATTRIBUTE,  GNESelectorFrame::MatchGenericDataAttribute::onCmdSelMBAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_PROCESSSTRING,    GNESelectorFrame::MatchGenericDataAttribute::onCmdSelMBString),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNESelectorFrame::MatchGenericDataAttribute::onCmdHelp)
+};
+
 FXDEFMAP(GNESelectorFrame::VisualScaling) VisualScalingMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTSCALE,      GNESelectorFrame::VisualScaling::onCmdScaleSelection)
 };
@@ -74,12 +81,13 @@ FXDEFMAP(GNESelectorFrame::SelectionOperation) SelectionOperationMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry,   FXObject,       ObjectTypeEntryMap,     ARRAYNUMBER(ObjectTypeEntryMap))
-FXIMPLEMENT(GNESelectorFrame::ModificationMode,                     FXGroupBox,     ModificationModeMap,    ARRAYNUMBER(ModificationModeMap))
-FXIMPLEMENT(GNESelectorFrame::ElementSet,                           FXGroupBox,     ElementSetMap,          ARRAYNUMBER(ElementSetMap))
-FXIMPLEMENT(GNESelectorFrame::MatchAttribute,                       FXGroupBox,     MatchAttributeMap,      ARRAYNUMBER(MatchAttributeMap))
-FXIMPLEMENT(GNESelectorFrame::VisualScaling,                        FXGroupBox,     VisualScalingMap,       ARRAYNUMBER(VisualScalingMap))
-FXIMPLEMENT(GNESelectorFrame::SelectionOperation,                   FXGroupBox,     SelectionOperationMap,  ARRAYNUMBER(SelectionOperationMap))
+FXIMPLEMENT(GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry,   FXObject,       ObjectTypeEntryMap,             ARRAYNUMBER(ObjectTypeEntryMap))
+FXIMPLEMENT(GNESelectorFrame::ModificationMode,                     FXGroupBox,     ModificationModeMap,            ARRAYNUMBER(ModificationModeMap))
+FXIMPLEMENT(GNESelectorFrame::ElementSet,                           FXGroupBox,     ElementSetMap,                  ARRAYNUMBER(ElementSetMap))
+FXIMPLEMENT(GNESelectorFrame::MatchAttribute,                       FXGroupBox,     MatchAttributeMap,              ARRAYNUMBER(MatchAttributeMap))
+FXIMPLEMENT(GNESelectorFrame::MatchGenericDataAttribute,            FXGroupBox,     MatchGenericDataAttributeMap,   ARRAYNUMBER(MatchGenericDataAttributeMap))
+FXIMPLEMENT(GNESelectorFrame::VisualScaling,                        FXGroupBox,     VisualScalingMap,               ARRAYNUMBER(VisualScalingMap))
+FXIMPLEMENT(GNESelectorFrame::SelectionOperation,                   FXGroupBox,     SelectionOperationMap,          ARRAYNUMBER(SelectionOperationMap))
 
 // ===========================================================================
 // method definitions
@@ -95,6 +103,8 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     myElementSet = new ElementSet(this);
     // create MatchAttribute modul
     myMatchAttribute = new MatchAttribute(this);
+    // create MatchGenericDataAttribute modul
+    myMatchGenericDataAttribute = new MatchGenericDataAttribute(this);
     // create VisualScaling modul
     myVisualScaling = new VisualScaling(this);
     // create SelectionOperation modul
@@ -812,6 +822,9 @@ long
 GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*) {
     // check depending of current supermode
     if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::NETWORK) {
+        // enable moduls
+        mySelectorFrameParent->myMatchAttribute->showMatchAttribute();
+        mySelectorFrameParent->myMatchGenericDataAttribute->hideMatchGenericDataAttribute();
         if (mySetComboBox->getText() == "network element") {
             myCurrentElementSet = Type::NETWORKELEMENT;
             mySetComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -834,6 +847,9 @@ GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*
             mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
         }
     } else if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::DEMAND) {
+        // enable moduls
+        mySelectorFrameParent->myMatchAttribute->showMatchAttribute();
+        mySelectorFrameParent->myMatchGenericDataAttribute->hideMatchGenericDataAttribute();
         if (mySetComboBox->getText() == "Demand Element") {
             myCurrentElementSet = Type::DEMANDELEMENT;
             mySetComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -846,16 +862,19 @@ GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*
             mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
         }
     } else if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::DATA) {
+        // enable moduls
+        mySelectorFrameParent->myMatchAttribute->hideMatchAttribute();
+        mySelectorFrameParent->myMatchGenericDataAttribute->showMatchGenericDataAttribute();
         if (mySetComboBox->getText() == "Data Element") {
             myCurrentElementSet = Type::DATA;
             mySetComboBox->setTextColor(FXRGB(0, 0, 0));
             // enable match attribute
-            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
+            mySelectorFrameParent->myMatchGenericDataAttribute->enableMatchGenericDataAttribute();
         } else {
             myCurrentElementSet = Type::INVALID;
             mySetComboBox->setTextColor(FXRGB(255, 0, 0));
             // disable match attribute
-            mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
+            mySelectorFrameParent->myMatchGenericDataAttribute->enableMatchGenericDataAttribute();
         }
     }
     return 1;
@@ -936,6 +955,18 @@ GNESelectorFrame::MatchAttribute::disableMatchAttribute() {
     myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
     myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));
     myMatchString->setTextColor(FXRGB(0, 0, 0));
+}
+
+
+void 
+GNESelectorFrame::MatchAttribute::showMatchAttribute() {
+    show();
+}
+
+
+void 
+GNESelectorFrame::MatchAttribute::hideMatchAttribute() {
+    hide();
 }
 
 
@@ -1141,6 +1172,361 @@ GNESelectorFrame::MatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     std::ostringstream help;
     help
         << "- The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection\n"
+        << "  according to the current 'Modification Mode'.\n"
+        << "     1. Select an object type from the first input box\n"
+        << "     2. Select an attribute from the second input box\n"
+        << "     3. Enter a 'match expression' in the third input box and press <return>\n"
+        << "\n"
+        << "- The empty expression matches all objects\n"
+        << "- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n"
+        << "- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n"
+        << "\n"
+        << "- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n"
+        << "     '' (no operator) matches if string is a substring of that object'ts attribute.\n"
+        << "     '=' matches if string is an exact match.\n"
+        << "     '!' matches if string is not a substring.\n"
+        << "     '^' matches if string is not an exact match.\n"
+        << "\n"
+        << "- Examples:\n"
+        << "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
+        << "     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
+        << "     edge; speed; '>10' -> match all edges with a speed above 10\n";
+    // Create label with the help text
+    new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
+    // Create horizontal separator
+    new FXHorizontalSeparator(additionalNeteditAttributesHelpDialog, GUIDesignHorizontalSeparator);
+    // Create frame for OK Button
+    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
+    // Create Button Close (And two more horizontal frames to center it)
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Opening help dialog of selector frame");
+    // create Dialog
+    additionalNeteditAttributesHelpDialog->create();
+    // show in the given position
+    additionalNeteditAttributesHelpDialog->show(PLACEMENT_CURSOR);
+    // refresh APP
+    getApp()->refresh();
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    getApp()->runModalFor(additionalNeteditAttributesHelpDialog);
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Close help dialog of selector frame");
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// ModificationMode::MatchGenericDataAttribute - methods
+// ---------------------------------------------------------------------------
+
+GNESelectorFrame::MatchGenericDataAttribute::MatchGenericDataAttribute(GNESelectorFrame* selectorFrameParent) :
+    FXGroupBox(selectorFrameParent->myContentFrame, "Match GenericData Attribute", GUIDesignGroupBoxFrame),
+    mySelectorFrameParent(selectorFrameParent),
+    myCurrentTag(SUMO_TAG_EDGE),
+    myCurrentAttribute(SUMO_ATTR_ID) {
+    // Create MatchGenericDataTagBox for tags
+    myMatchGenericDataTagComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    // Create listBox for Attributes
+    myMatchGenericDataAttrComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
+    // Create TextField for MatchGenericData string
+    myMatchGenericDataString = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
+    // Create help button
+    new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    // Fill list of sub-items (first element will be "edge")
+    enableMatchGenericDataAttribute();
+    // Set speed of edge as default attribute
+    myMatchGenericDataAttrComboBox->setText("speed");
+    myCurrentAttribute = SUMO_ATTR_SPEED;
+    // Set default value for MatchGenericData string
+    myMatchGenericDataString->setText(">10.0");
+}
+
+
+GNESelectorFrame::MatchGenericDataAttribute::~MatchGenericDataAttribute() {}
+
+
+void
+GNESelectorFrame::MatchGenericDataAttribute::enableMatchGenericDataAttribute() {
+    // enable comboboxes and text field
+    myMatchGenericDataTagComboBox->enable();
+    myMatchGenericDataAttrComboBox->enable();
+    myMatchGenericDataString->enable();
+    // Clear items of myMatchGenericDataTagComboBox
+    myMatchGenericDataTagComboBox->clearItems();
+    // Set items depending of current item set
+    std::vector<SumoXMLTag> listOfTags;
+    if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::NETWORKELEMENT) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
+    }
+    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZ, true);
+    }
+    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
+    }
+    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
+    }
+    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DATA) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
+    }
+    else {
+        throw ProcessError("Invalid element set");
+    }
+    // fill combo box
+    for (const auto& tag : listOfTags) {
+        myMatchGenericDataTagComboBox->appendItem(toString(tag).c_str());
+    }
+    // set first item as current item
+    myMatchGenericDataTagComboBox->setCurrentItem(0);
+    myMatchGenericDataTagComboBox->setNumVisible(myMatchGenericDataTagComboBox->getNumItems());
+    // Fill attributes with the current element type
+    onCmdSelMBTag(nullptr, 0, nullptr);
+}
+
+
+void
+GNESelectorFrame::MatchGenericDataAttribute::disableMatchGenericDataAttribute() {
+    // disable comboboxes and text field
+    myMatchGenericDataTagComboBox->disable();
+    myMatchGenericDataAttrComboBox->disable();
+    myMatchGenericDataString->disable();
+    // change colors to black (even if there are invalid values)
+    myMatchGenericDataTagComboBox->setTextColor(FXRGB(0, 0, 0));
+    myMatchGenericDataAttrComboBox->setTextColor(FXRGB(0, 0, 0));
+    myMatchGenericDataString->setTextColor(FXRGB(0, 0, 0));
+}
+
+
+void 
+GNESelectorFrame::MatchGenericDataAttribute::showMatchGenericDataAttribute() {
+    show();
+}
+
+
+void 
+GNESelectorFrame::MatchGenericDataAttribute::hideMatchGenericDataAttribute() {
+    hide();
+}
+
+
+long
+GNESelectorFrame::MatchGenericDataAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
+    // First check what type of elementes is being selected
+    myCurrentTag = SUMO_TAG_NOTHING;
+    // find current element tag
+    std::vector<SumoXMLTag> listOfTags;
+    if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::NETWORKELEMENT) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
+    }
+    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZ, true);
+    }
+    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
+    }
+    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
+    }
+    else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DATA) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
+    }
+    else {
+        throw ProcessError("Unkown set");
+    }
+    // fill myMatchGenericDataTagComboBox
+    for (const auto& tag : listOfTags) {
+        if (toString(tag) == myMatchGenericDataTagComboBox->getText().text()) {
+            myCurrentTag = tag;
+        }
+    }
+    // check that typed-by-user value is correct
+    if (myCurrentTag != SUMO_TAG_NOTHING) {
+        // obtain tag property (only for improve code legibility)
+        const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+        // set color and enable items
+        myMatchGenericDataTagComboBox->setTextColor(FXRGB(0, 0, 0));
+        myMatchGenericDataAttrComboBox->enable();
+        myMatchGenericDataString->enable();
+        myMatchGenericDataAttrComboBox->clearItems();
+        // fill attribute combo box
+        for (const auto& attribute : tagValue) {
+            myMatchGenericDataAttrComboBox->appendItem(attribute.getAttrStr().c_str());
+        }
+        // Add extra attribute "Parameter"
+        myMatchGenericDataAttrComboBox->appendItem(toString(GNE_ATTR_PARAMETERS).c_str());
+        // check if item can block movement
+        if (tagValue.canBlockMovement()) {
+            myMatchGenericDataAttrComboBox->appendItem(toString(GNE_ATTR_BLOCK_MOVEMENT).c_str());
+        }
+        // check if item can block shape
+        if (tagValue.canBlockShape()) {
+            myMatchGenericDataAttrComboBox->appendItem(toString(GNE_ATTR_BLOCK_SHAPE).c_str());
+        }
+        // check if item can close shape
+        if (tagValue.canCloseShape()) {
+            myMatchGenericDataAttrComboBox->appendItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
+        }
+        // check if item can have parent
+        if (tagValue.hasParent()) {
+            myMatchGenericDataAttrComboBox->appendItem(toString(GNE_ATTR_PARENT).c_str());
+        }
+        // @ToDo: Here can be placed a button to set the default value
+        myMatchGenericDataAttrComboBox->setNumVisible(myMatchGenericDataAttrComboBox->getNumItems());
+        // check if we have to update attribute
+        if (tagValue.hasAttribute(myCurrentAttribute)) {
+            myMatchGenericDataAttrComboBox->setText(toString(myCurrentAttribute).c_str());
+        }
+        else {
+            onCmdSelMBAttribute(nullptr, 0, nullptr);
+        }
+    }
+    else {
+        // change color to red and disable items
+        myMatchGenericDataTagComboBox->setTextColor(FXRGB(255, 0, 0));
+        myMatchGenericDataAttrComboBox->disable();
+        myMatchGenericDataString->disable();
+    }
+    update();
+    return 1;
+}
+
+
+long
+GNESelectorFrame::MatchGenericDataAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
+    // first obtain a copy of item attributes vinculated with current tag
+    auto tagPropertiesCopy = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+    // obtain tag property (only for improve code legibility)
+    const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+    // add an extra AttributeValues to allow select ACs using as criterium "parameters"
+    GNEAttributeProperties extraAttrProperty;
+    extraAttrProperty = GNEAttributeProperties(GNE_ATTR_PARAMETERS,
+        GNEAttributeProperties::AttrProperty::STRING,
+        "Parameters");
+    tagPropertiesCopy.addAttribute(extraAttrProperty);
+    // add extra attribute if item can block movement
+    if (tagValue.canBlockMovement()) {
+        // add an extra AttributeValues to allow select ACs using as criterium "block movement"
+        extraAttrProperty = GNEAttributeProperties(GNE_ATTR_BLOCK_MOVEMENT,
+            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
+            "Block movement",
+            "false");
+        tagPropertiesCopy.addAttribute(extraAttrProperty);
+    }
+    // add extra attribute if item can block shape
+    if (tagValue.canBlockShape()) {
+        // add an extra AttributeValues to allow select ACs using as criterium "block shape"
+        extraAttrProperty = GNEAttributeProperties(GNE_ATTR_BLOCK_SHAPE,
+            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
+            "Block shape",
+            "false");
+        tagPropertiesCopy.addAttribute(extraAttrProperty);
+    }
+    // add extra attribute if item can close shape
+    if (tagValue.canCloseShape()) {
+        // add an extra AttributeValues to allow select ACs using as criterium "close shape"
+        extraAttrProperty = GNEAttributeProperties(GNE_ATTR_CLOSE_SHAPE,
+            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
+            "Close shape",
+            "true");
+        tagPropertiesCopy.addAttribute(extraAttrProperty);
+    }
+    // add extra attribute if item can have parent
+    if (tagValue.hasParent()) {
+        // add an extra AttributeValues to allow select ACs using as criterium "parent"
+        extraAttrProperty = GNEAttributeProperties(GNE_ATTR_PARENT,
+            GNEAttributeProperties::AttrProperty::STRING,
+            "Parent element");
+        tagPropertiesCopy.addAttribute(extraAttrProperty);
+    }
+    // set current selected attribute
+    myCurrentAttribute = SUMO_ATTR_NOTHING;
+    for (const auto& attribute : tagPropertiesCopy) {
+        if (attribute.getAttrStr() == myMatchGenericDataAttrComboBox->getText().text()) {
+            myCurrentAttribute = attribute.getAttr();
+        }
+    }
+    // check if selected attribute is valid
+    if (myCurrentAttribute != SUMO_ATTR_NOTHING) {
+        myMatchGenericDataAttrComboBox->setTextColor(FXRGB(0, 0, 0));
+        myMatchGenericDataString->enable();
+    }
+    else {
+        myMatchGenericDataAttrComboBox->setTextColor(FXRGB(255, 0, 0));
+        myMatchGenericDataString->disable();
+    }
+    return 1;
+}
+
+
+long
+GNESelectorFrame::MatchGenericDataAttribute::onCmdSelMBString(FXObject*, FXSelector, void*) {
+    // obtain expresion
+    std::string expr(myMatchGenericDataString->getText().text());
+    const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+    bool valid = true;
+    if (expr == "") {
+        // the empty expression matches all objects
+        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr));
+    }
+    else if (tagValue.hasAttribute(myCurrentAttribute) && tagValue.getAttributeProperties(myCurrentAttribute).isNumerical()) {
+        // The expression must have the form
+        //  <val matches if attr < val
+        //  >val matches if attr > val
+        //  =val matches if attr = val
+        //  val matches if attr = val
+        char compOp = expr[0];
+        if (compOp == '<' || compOp == '>' || compOp == '=') {
+            expr = expr.substr(1);
+        }
+        else {
+            compOp = '=';
+        }
+        // check if value can be parsed to double
+        if (GNEAttributeCarrier::canParse<double>(expr.c_str())) {
+            mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr));
+        }
+        else {
+            valid = false;
+        }
+    }
+    else {
+        // The expression must have the form
+        //   =str: matches if <str> is an exact match
+        //   !str: matches if <str> is not a substring
+        //   ^str: matches if <str> is not an exact match
+        //   str: matches if <str> is a substring (sends compOp '@')
+        // Alternatively, if the expression is empty it matches all objects
+        char compOp = expr[0];
+        if (compOp == '=' || compOp == '!' || compOp == '^') {
+            expr = expr.substr(1);
+        }
+        else {
+            compOp = '@';
+        }
+        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, compOp, 0, expr));
+    }
+    if (valid) {
+        myMatchGenericDataString->setTextColor(FXRGB(0, 0, 0));
+        myMatchGenericDataString->killFocus();
+    }
+    else {
+        myMatchGenericDataString->setTextColor(FXRGB(255, 0, 0));
+    }
+    return 1;
+}
+
+
+long
+GNESelectorFrame::MatchGenericDataAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
+    // Create dialog box
+    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(this, "Netedit Parameters Help", GUIDesignDialogBox);
+    additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
+    // set help text
+    std::ostringstream help;
+    help
+        << "- The 'MatchGenericData Attribute' controls allow to specify a set of objects which are then applied to the current selection\n"
         << "  according to the current 'Modification Mode'.\n"
         << "     1. Select an object type from the first input box\n"
         << "     2. Select an attribute from the second input box\n"

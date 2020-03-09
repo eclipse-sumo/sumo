@@ -244,6 +244,12 @@ public:
         /// @brief disable match attributes
         void disableMatchAttribute();
 
+        /// @brief show match attributes
+        void showMatchAttribute();
+
+        /// @brief hide match attributes
+        void hideMatchAttribute();
+
         /// @name FOX-callbacks
         /// @{
 
@@ -290,6 +296,81 @@ public:
 
         /// @brief string of the match
         FXTextField* myMatchString;
+    };
+
+    // ===========================================================================
+    // class MatchGenericDataAttribute
+    // ===========================================================================
+
+    class MatchGenericDataAttribute : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNESelectorFrame::MatchGenericDataAttribute)
+
+    public:
+        /// @brief constructor
+        MatchGenericDataAttribute(GNESelectorFrame* selectorFrameParent);
+
+        /// @brief destructor
+        ~MatchGenericDataAttribute();
+
+        /// @brief enable match attributes
+        void enableMatchGenericDataAttribute();
+
+        /// @brief disable match attributes
+        void disableMatchGenericDataAttribute();
+
+        /// @brief show match attributes
+        void showMatchGenericDataAttribute();
+
+        /// @brief hide match attributes
+        void hideMatchGenericDataAttribute();
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /**@brief Called when the user selectes a tag in the match box
+         * @note updates the attr listbox and repaints itself
+         */
+        long onCmdSelMBTag(FXObject*, FXSelector, void*);
+
+        /**@brief Called when the user selectes a tag in the match box
+         * @note updates the attr listbox and repaints itself
+         */
+        long onCmdSelMBAttribute(FXObject*, FXSelector, void*);
+
+        /**@brief Called when the user enters a new selection expression
+         * @note validates expression and modifies current selection
+         */
+        long onCmdSelMBString(FXObject*, FXSelector, void*);
+
+        /**@brief Called when the user clicks the help button
+         * @note pop up help window
+         */
+        long onCmdHelp(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        FOX_CONSTRUCTOR(MatchGenericDataAttribute)
+
+    private:
+        /// @brief pointer to Selector Frame Parent
+        GNESelectorFrame* mySelectorFrameParent;
+
+        /// @brief tag of the match box
+        FXComboBox* myMatchGenericDataTagComboBox;
+
+        /// @brief attributes of the match box
+        FXComboBox* myMatchGenericDataAttrComboBox;
+
+        /// @brief current SumoXMLTag tag
+        SumoXMLTag myCurrentTag;
+
+        /// @brief current SumoXMLTag Attribute
+        SumoXMLAttr myCurrentAttribute;
+
+        /// @brief string of the match
+        FXTextField* myMatchGenericDataString;
     };
 
     // ===========================================================================
@@ -415,8 +496,11 @@ private:
     /// @brief modul for select element set
     ElementSet* myElementSet;
 
-    /// @brief modul for matchA ttribute
+    /// @brief modul for match attribute
     MatchAttribute* myMatchAttribute;
+
+    /// @brief modul for match generic data attribute
+    MatchGenericDataAttribute* myMatchGenericDataAttribute;
 
     /// @brief modul for visual scaling
     VisualScaling* myVisualScaling;
