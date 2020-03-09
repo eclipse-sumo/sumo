@@ -564,7 +564,7 @@ MSLCM_SL2015::informLeader(int blocked,
                 const double decel = ACCEL2SPEED(MIN2(myVehicle.getCarFollowModel().getMaxDecel(),
                                                       MAX2(MIN_FALLBEHIND, (myVehicle.getSpeed() - targetSpeed) / remainingSeconds)));
                 //const double nextSpeed = MAX2(0., MIN2(plannedSpeed, myVehicle.getSpeed() - decel));
-                const double nextSpeed = MIN2(plannedSpeed, myVehicle.getSpeed() - decel);
+                const double nextSpeed = MIN2(plannedSpeed, MAX2(0.0, myVehicle.getSpeed() - decel));
 #ifdef DEBUG_INFORM
                 if (gDebugFlag2) {
                     std::cout << SIMTIME
