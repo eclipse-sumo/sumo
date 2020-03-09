@@ -100,10 +100,10 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
         GNEAdditional* step = myEditedAdditional->getChildAdditionals().at(i);
         if (step->isValid(SUMO_ATTR_TIME, myStepsTable->getItem(i, 0)->getText().text()) == false) {
             myStepsValids = false;
-            myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+            myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_INCORRECT));
         } else if (step->isValid(SUMO_ATTR_SPEED, myStepsTable->getItem(i, 1)->getText().text()) == false) {
             myStepsValids = false;
-            myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+            myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_INCORRECT));
         } else {
             // we need filter attribute (to avoid problemes as 1 != 1.00)
             double time = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 0)->getText().text());

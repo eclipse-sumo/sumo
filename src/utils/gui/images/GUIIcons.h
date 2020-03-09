@@ -399,7 +399,7 @@ enum GUIIcon {
     ICON_ACCEPT,
     ICON_CANCEL,
     ICON_CORRECT,
-    ICON_ERROR,
+    ICON_INCORRECT,
     ICON_RESET,
     ICON_WARNING,
     /// @}

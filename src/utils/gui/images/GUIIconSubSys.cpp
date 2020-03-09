@@ -591,7 +591,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_ACCEPT] = new FXXPMIcon(a, accept_xpm);
     myIcons[ICON_CANCEL] = new FXXPMIcon(a, cancel_xpm);
     myIcons[ICON_CORRECT] = new FXXPMIcon(a, correct_xpm);
-    myIcons[ICON_ERROR] = new FXXPMIcon(a, error_xpm);
+    myIcons[ICON_INCORRECT] = new FXXPMIcon(a, error_xpm);
     myIcons[ICON_RESET] = new FXXPMIcon(a, reset_xpm);
     myIcons[ICON_WARNING] = new FXXPMIcon(a, warning_xpm);
 
