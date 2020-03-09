@@ -39,3 +39,6 @@ turn-max-gap
 
 # invalid options
 invalid_options
+
+# test bad input
+no_routes
