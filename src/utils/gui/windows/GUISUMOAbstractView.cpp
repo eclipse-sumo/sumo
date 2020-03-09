@@ -710,7 +710,7 @@ GUISUMOAbstractView::displayColorLegend() {
 
         const double threshold = scheme.getThresholds()[i];
         std::string name = scheme.getNames()[i];
-        std::string text = fixed ? name : toString(threshold);
+        std::string text = fixed || threshold == GUIVisualizationSettings::MISSING_DATA ? name : toString(threshold);
 
         const double bgShift = 0.0;
         const double textShift = 0.02;
