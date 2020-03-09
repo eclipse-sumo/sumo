@@ -95,10 +95,10 @@ GNEConnectorFrame::ConnectionModifications::ConnectionModifications(GNEConnector
 
     // Create "Cancel" button
     myCancelButton = new FXButton(this, "Cancel\t\tDiscard connection modifications (Esc)",
-                                  GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_CANCEL, GUIDesignButton);
+                                  GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
     // Create "OK" button
     mySaveButton = new FXButton(this, "OK\t\tSave connection modifications (Enter)",
-                                GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_OK, GUIDesignButton);
+                                GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_OK, GUIDesignButton);
 
     // Create checkbox for protect routes
     myProtectRoutesCheckBox = new FXCheckButton(this, "Protect routes", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);

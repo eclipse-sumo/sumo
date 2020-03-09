@@ -56,10 +56,10 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* edi
     // create Horizontal frame for row elements
     FXHorizontalFrame* myAddStepFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Button and Label for adding new Wors
-    myAddStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_VARIABLESPEEDSIGN_ADDROW, GUIDesignButtonIcon);
+    myAddStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_VARIABLESPEEDSIGN_ADDROW, GUIDesignButtonIcon);
     new FXLabel(myAddStepFrame, ("Add new " + toString(SUMO_TAG_STEP)).c_str(), nullptr, GUIDesignLabelThick);
     // create Button and Label for sort intervals
-    mySortStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_VARIABLESPEEDSIGN_SORT, GUIDesignButtonIcon);
+    mySortStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_VARIABLESPEEDSIGN_SORT, GUIDesignButtonIcon);
     new FXLabel(myAddStepFrame, ("Sort " + toString(SUMO_TAG_STEP) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // create List with the data
@@ -100,10 +100,10 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
         GNEAdditional* step = myEditedAdditional->getChildAdditionals().at(i);
         if (step->isValid(SUMO_ATTR_TIME, myStepsTable->getItem(i, 0)->getText().text()) == false) {
             myStepsValids = false;
-            myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_INCORRECT));
+            myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else if (step->isValid(SUMO_ATTR_SPEED, myStepsTable->getItem(i, 1)->getText().text()) == false) {
             myStepsValids = false;
-            myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_INCORRECT));
+            myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else {
             // we need filter attribute (to avoid problemes as 1 != 1.00)
             double time = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 0)->getText().text());
@@ -112,7 +112,7 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
             step->setAttribute(SUMO_ATTR_TIME, toString(time), myEditedAdditional->getViewNet()->getUndoList());
             step->setAttribute(SUMO_ATTR_SPEED, toString(speed), myEditedAdditional->getViewNet()->getUndoList());
             // set Correct label
-            myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
+            myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
         }
     }
     // update list
@@ -219,12 +219,12 @@ GNEVariableSpeedSignDialog::updateTableSteps() {
         myStepsTable->setItem(i, 1, item);
         // set valid icon
         item = new FXTableItem("");
-        item->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
+        item->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myStepsTable->setItem(i, 2, item);
         // set remove Icon
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
+        item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myStepsTable->setItem(i, 3, item);

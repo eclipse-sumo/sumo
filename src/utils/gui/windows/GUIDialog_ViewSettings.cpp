@@ -96,10 +96,10 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         }
         mySchemeName->setNumVisible(5);
 
-        new FXButton(frame0, "\t\tSave the setting to registry", GUIIconSubSys::getIcon(ICON_SAVEDB), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
-        new FXButton(frame0, "\t\tRemove the setting from registry", GUIIconSubSys::getIcon(ICON_REMOVEDB), this, MID_SIMPLE_VIEW_DELETE, GUIDesignButtonToolbar);
-        new FXButton(frame0, "\t\tExport setting to file", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_SIMPLE_VIEW_EXPORT, GUIDesignButtonToolbar);
-        new FXButton(frame0, "\t\tLoad setting from file", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_SIMPLE_VIEW_IMPORT, GUIDesignButtonToolbar);
+        new FXButton(frame0, "\t\tSave the setting to registry", GUIIconSubSys::getIcon(GUIIcon::SAVEDB), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
+        new FXButton(frame0, "\t\tRemove the setting from registry", GUIIconSubSys::getIcon(GUIIcon::REMOVEDB), this, MID_SIMPLE_VIEW_DELETE, GUIDesignButtonToolbar);
+        new FXButton(frame0, "\t\tExport setting to file", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_SIMPLE_VIEW_EXPORT, GUIDesignButtonToolbar);
+        new FXButton(frame0, "\t\tLoad setting from file", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_SIMPLE_VIEW_IMPORT, GUIDesignButtonToolbar);
 
         new FXVerticalSeparator(frame0);
         new FXLabel(frame0, "Export includes:", nullptr, GUIDesignViewSettingsLabel1);
@@ -553,7 +553,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
     initial->setFocus();
 
     rebuildColorMatrices(false);
-    setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     loadWindowSize();
 }
 
@@ -1285,7 +1285,7 @@ GUIDialog_ViewSettings::onUpdDeleteSetting(FXObject* sender, FXSelector, void* p
 
 long
 GUIDialog_ViewSettings::onCmdExportSetting(FXObject*, FXSelector, void* /*data*/) {
-    FXString file = MFXUtils::getFilename2Write(this, "Export view settings", ".xml", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, "Export view settings", ".xml", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }
@@ -1334,7 +1334,7 @@ GUIDialog_ViewSettings::onUpdExportSetting(FXObject* sender, FXSelector, void* p
 long
 GUIDialog_ViewSettings::onCmdImportSetting(FXObject*, FXSelector, void* /*data*/) {
     FXFileDialog opendialog(this, "Import view settings");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.xml");
     if (gCurrentFolder.length() != 0) {
@@ -1351,7 +1351,7 @@ GUIDialog_ViewSettings::onCmdImportSetting(FXObject*, FXSelector, void* /*data*/
 long
 GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*, FXSelector, void* /*data*/) {
     FXFileDialog opendialog(this, "Load Decals");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.xml");
     if (gCurrentFolder.length() != 0) {
@@ -1367,7 +1367,7 @@ GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*, FXSelector, void* /*data*/) {
 
 long
 GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*, FXSelector, void* /*data*/) {
-    FXString file = MFXUtils::getFilename2Write(this, "Save Decals", ".xml", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, "Save Decals", ".xml", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }

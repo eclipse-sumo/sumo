@@ -81,7 +81,7 @@ GNEGenericDataFrame::DataSetSelector::DataSetSelector(GNEGenericDataFrame* gener
     // hide horizontal frame
     myHorizontalFrameNewID->hide();
     // create dataSet button
-    myCreateDataSetButton = new FXButton(this, "Create dataSet", GUIIconSubSys::getIcon(ICON_DATASET), this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateDataSetButton = new FXButton(this, "Create dataSet", GUIIconSubSys::getIcon(GUIIcon::DATASET), this, MID_GNE_CREATE, GUIDesignButton);
     myCreateDataSetButton->hide();
     // refresh interval selector
     refreshDataSetSelector(nullptr);
@@ -217,7 +217,7 @@ GNEGenericDataFrame::IntervalSelector::IntervalSelector(GNEGenericDataFrame* gen
     // hide horizontal frame end
     myHorizontalFrameEnd->hide();
     // create interval button
-    myCreateIntervalButton = new FXButton(this, "create interval", GUIIconSubSys::getIcon(ICON_DATAINTERVAL), this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateIntervalButton = new FXButton(this, "create interval", GUIIconSubSys::getIcon(GUIIcon::DATAINTERVAL), this, MID_GNE_CREATE, GUIDesignButton);
     myCreateIntervalButton->hide();
     // Create three list
     myIntervalsTreelist = new FXTreeList(this, this, MID_GNE_DATAINTERVAL_SELECTED, GUIDesignTreeListFrame);

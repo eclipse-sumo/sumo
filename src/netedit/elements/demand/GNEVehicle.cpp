@@ -83,10 +83,10 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
     // add transform functions only in demand mode
     if (myVehicle->getViewNet()->getEditModes().currentSupermode == Supermode::DEMAND) {
         // Get icons
-        FXIcon* vehicleIcon = GUIIconSubSys::getIcon(ICON_VEHICLE);
-        FXIcon* tripIcon = GUIIconSubSys::getIcon(ICON_TRIP);
-        FXIcon* routeFlowIcon = GUIIconSubSys::getIcon(ICON_ROUTEFLOW);
-        FXIcon* flowIcon = GUIIconSubSys::getIcon(ICON_FLOW);
+        FXIcon* vehicleIcon = GUIIconSubSys::getIcon(GUIIcon::VEHICLE);
+        FXIcon* tripIcon = GUIIconSubSys::getIcon(GUIIcon::TRIP);
+        FXIcon* routeFlowIcon = GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW);
+        FXIcon* flowIcon = GUIIconSubSys::getIcon(GUIIcon::FLOW);
         // create menu pane for transform operations
         FXMenuPane* transformOperation = new FXMenuPane(this);
         this->insertMenuPaneChild(transformOperation);
@@ -176,10 +176,10 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
     // add transform functions only in demand mode
     if (vehicle->getViewNet()->getEditModes().currentSupermode == Supermode::DEMAND) {
         // Get icons
-        FXIcon* vehicleIcon = GUIIconSubSys::getIcon(ICON_VEHICLE);
-        FXIcon* tripIcon = GUIIconSubSys::getIcon(ICON_TRIP);
-        FXIcon* routeFlowIcon = GUIIconSubSys::getIcon(ICON_ROUTEFLOW);
-        FXIcon* flowIcon = GUIIconSubSys::getIcon(ICON_FLOW);
+        FXIcon* vehicleIcon = GUIIconSubSys::getIcon(GUIIcon::VEHICLE);
+        FXIcon* tripIcon = GUIIconSubSys::getIcon(GUIIcon::TRIP);
+        FXIcon* routeFlowIcon = GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW);
+        FXIcon* flowIcon = GUIIconSubSys::getIcon(GUIIcon::FLOW);
         // create menu pane for transform operations
         FXMenuPane* transformOperation = new FXMenuPane(this);
         this->insertMenuPaneChild(transformOperation);

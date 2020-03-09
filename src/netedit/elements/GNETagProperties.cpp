@@ -40,7 +40,7 @@ GNETagProperties::GNETagProperties() :
     myTag(SUMO_TAG_NOTHING),
     myTagType(0),
     myTagProperty(0),
-    myIcon(ICON_EMPTY),
+    myIcon(GUIIcon::EMPTY),
     myParentTag(SUMO_TAG_NOTHING),
     myTagSynonym(SUMO_TAG_NOTHING) {
 }

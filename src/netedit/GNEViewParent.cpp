@@ -94,8 +94,8 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     new FXVerticalSeparator(myGripNavigationToolbar, GUIDesignVerticalSeparator);
 
     // Create undo/redo buttons
-    myUndoButton = new FXButton(myGripNavigationToolbar, "\tUndo\tUndo the last Change.", GUIIconSubSys::getIcon(ICON_UNDO), parentWindow, MID_HOTKEY_CTRL_Z_UNDO, GUIDesignButtonToolbar);
-    myRedoButton = new FXButton(myGripNavigationToolbar, "\tRedo\tRedo the last Change.", GUIIconSubSys::getIcon(ICON_REDO), parentWindow, MID_HOTKEY_CTRL_Y_REDO, GUIDesignButtonToolbar);
+    myUndoButton = new FXButton(myGripNavigationToolbar, "\tUndo\tUndo the last Change.", GUIIconSubSys::getIcon(GUIIcon::UNDO), parentWindow, MID_HOTKEY_CTRL_Z_UNDO, GUIDesignButtonToolbar);
+    myRedoButton = new FXButton(myGripNavigationToolbar, "\tRedo\tRedo the last Change.", GUIIconSubSys::getIcon(GUIIcon::REDO), parentWindow, MID_HOTKEY_CTRL_Y_REDO, GUIDesignButtonToolbar);
 
     // Create Frame Splitter
     myFramesSplitter = new FXSplitter(myContentFrame, this, MID_GNE_VIEWPARENT_FRAMEAREAWIDTH, GUIDesignSplitter | SPLITTER_HORIZONTAL);
@@ -367,7 +367,7 @@ long
 GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     // get the new file name
     FXFileDialog opendialog(this, "Save Snapshot");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("All Image Files (*.gif, *.bmp, *.xpm, *.pcx, *.ico, *.rgb, *.xbm, *.tga, *.png, *.jpg, *.jpeg, *.tif, *.tiff, *.ps, *.eps, *.pdf, *.svg, *.tex, *.pgf)\n"
                               "GIF Image (*.gif)\nBMP Image (*.bmp)\nXPM Image (*.xpm)\nPCX Image (*.pcx)\nICO Image (*.ico)\n"
@@ -423,7 +423,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (auto i : junctions) {
                         ACsToLocate.push_back(i);
                     }
-                    myACChoosers.ACChooserJunction = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), "Junction Chooser", ACsToLocate);
+                    myACChoosers.ACChooserJunction = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), "Junction Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -438,7 +438,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (auto i : edges) {
                         ACsToLocate.push_back(i);
                     }
-                    myACChoosers.ACChooserEdges = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEEDGE), "Edge Chooser", ACsToLocate);
+                    myACChoosers.ACChooserEdges = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), "Edge Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -468,7 +468,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_FLOW)) {
                         ACsToLocate.push_back(i.second);
                     }
-                    myACChoosers.ACChooserVehicles = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), "Vehicle Chooser", ACsToLocate);
+                    myACChoosers.ACChooserVehicles = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), "Vehicle Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -488,7 +488,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONFLOW)) {
                         ACsToLocate.push_back(i.second);
                     }
-                    myACChoosers.ACChooserPersons = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEPERSON), "Person Chooser", ACsToLocate);
+                    myACChoosers.ACChooserPersons = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), "Person Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -503,7 +503,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE)) {
                         ACsToLocate.push_back(i.second);
                     }
-                    myACChoosers.ACChooserRoutes = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEROUTE), "Route Chooser", ACsToLocate);
+                    myACChoosers.ACChooserRoutes = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), "Route Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -538,7 +538,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_PARKINGAREA)) {
                         ACsToLocate.push_back(i.second);
                     }
-                    myACChoosers.ACChooserStops = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATESTOP), "Stop Chooser", ACsToLocate);
+                    myACChoosers.ACChooserStops = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), "Stop Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -555,7 +555,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                             ACsToLocate.push_back(i);
                         }
                     }
-                    myACChoosers.ACChooserTLS = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATETLS), "TLS Chooser", ACsToLocate);
+                    myACChoosers.ACChooserTLS = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), "TLS Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -570,7 +570,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (auto i : additionals) {
                         ACsToLocate.push_back(i);
                     }
-                    myACChoosers.ACChooserAdditional = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEADD), "Additional Chooser", ACsToLocate);
+                    myACChoosers.ACChooserAdditional = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), "Additional Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -583,7 +583,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (auto i : viewNet->getNet()->getPOIs()) {
                         ACsToLocate.push_back(dynamic_cast<GNEAttributeCarrier*>(i.second));
                     }
-                    myACChoosers.ACChooserPOI = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEPOI), "POI Chooser", ACsToLocate);
+                    myACChoosers.ACChooserPOI = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), "POI Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -596,7 +596,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (auto i : viewNet->getNet()->getPolygons()) {
                         ACsToLocate.push_back(dynamic_cast<GNEAttributeCarrier*>(i.second));
                     }
-                    myACChoosers.ACChooserPolygon = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEPOLY), "Poly Chooser", ACsToLocate);
+                    myACChoosers.ACChooserPolygon = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), "Poly Chooser", ACsToLocate);
                 }
                 break;
             }

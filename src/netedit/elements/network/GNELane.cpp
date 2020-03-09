@@ -633,10 +633,10 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::NETWORK) {
         if (editMode != NetworkEditMode::NETWORK_CONNECT && editMode != NetworkEditMode::NETWORK_TLS && editMode != NetworkEditMode::NETWORK_CREATE_EDGE) {
             // Get icons
-            FXIcon* pedestrianIcon = GUIIconSubSys::getIcon(ICON_LANEPEDESTRIAN);
-            FXIcon* bikeIcon = GUIIconSubSys::getIcon(ICON_LANEBIKE);
-            FXIcon* busIcon = GUIIconSubSys::getIcon(ICON_LANEBUS);
-            FXIcon* greenVergeIcon = GUIIconSubSys::getIcon(ICON_LANEGREENVERGE);
+            FXIcon* pedestrianIcon = GUIIconSubSys::getIcon(GUIIcon::LANEPEDESTRIAN);
+            FXIcon* bikeIcon = GUIIconSubSys::getIcon(GUIIcon::LANEBIKE);
+            FXIcon* busIcon = GUIIconSubSys::getIcon(GUIIcon::LANEBUS);
+            FXIcon* greenVergeIcon = GUIIconSubSys::getIcon(GUIIcon::LANEGREENVERGE);
             // Create basic commands
             std::string edgeDescPossibleMulti = toString(SUMO_TAG_EDGE);
             const int edgeSelSize = (int)myNet->retrieveEdges(true).size();

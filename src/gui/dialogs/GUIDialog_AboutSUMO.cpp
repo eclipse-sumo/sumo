@@ -36,13 +36,13 @@
 GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     FXDialogBox(parent, "About Eclipse SUMO", GUIDesignDialogBox) {
     // set dialog icon
-    setIcon(GUIIconSubSys::getIcon(ICON_SUMO_MINI));
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));
 
     // create frame for main info
     FXHorizontalFrame* mainInfoFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 
     // SUMO Icon
-    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_SUMO_LOGO), GUIDesignLabelIcon);
+    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUMO_LOGO), GUIDesignLabelIcon);
 
     // "SUMO <VERSION>"
     FXVerticalFrame* descriptionFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
@@ -64,7 +64,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonFrame, "OK\t\t", GUIIconSubSys::getIcon(ICON_ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(buttonFrame, "OK\t\t", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 

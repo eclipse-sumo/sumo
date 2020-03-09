@@ -147,11 +147,11 @@ GNEProhibitionFrame::Modifications::Modifications(GNEProhibitionFrame* prohibiti
 
     // Create "OK" button
     mySaveButton = new FXButton(this, "OK\t\tSave prohibition modifications (Enter)",
-                                GUIIconSubSys::getIcon(ICON_ACCEPT), prohibitionFrameParent, MID_OK, GUIDesignButton);
+                                GUIIconSubSys::getIcon(GUIIcon::ACCEPT), prohibitionFrameParent, MID_OK, GUIDesignButton);
 
     // Create "Cancel" button
     myCancelButton = new FXButton(this, "Cancel\t\tDiscard prohibition modifications (Esc)",
-                                  GUIIconSubSys::getIcon(ICON_CANCEL), prohibitionFrameParent, MID_CANCEL, GUIDesignButton);
+                                  GUIIconSubSys::getIcon(GUIIcon::CANCEL), prohibitionFrameParent, MID_CANCEL, GUIDesignButton);
 
     // Currently mySaveButton is disabled
     mySaveButton->disable();

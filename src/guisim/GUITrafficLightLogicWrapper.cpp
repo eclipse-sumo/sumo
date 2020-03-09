@@ -153,12 +153,12 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
         for (i = logics.begin(); i != logics.end(); ++i, ++index) {
             if (!vars.isActive(*i)) {
                 new FXMenuCommand(ret, ("Switch to '" + (*i)->getProgramID() + "'").c_str(),
-                                  GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, (FXSelector)(MID_SWITCH + index));
+                                  GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, (FXSelector)(MID_SWITCH + index));
             }
         }
         new FXMenuSeparator(ret);
     }
-    new FXMenuCommand(ret, "Switch off", GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_SWITCH_OFF);
+    new FXMenuCommand(ret, "Switch off", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_SWITCH_OFF);
     new FXMenuCommand(ret, "Track Phases", nullptr, ret, MID_TRACKPHASES);
     new FXMenuCommand(ret, "Show Phases", nullptr, ret, MID_SHOWPHASES);
     MSActuatedTrafficLightLogic* act = dynamic_cast<MSActuatedTrafficLightLogic*>(&myTLLogic);

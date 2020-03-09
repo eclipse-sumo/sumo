@@ -1136,7 +1136,7 @@ long
 GNESelectorFrame::MatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // Create dialog box
     FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(this, "Netedit Parameters Help", GUIDesignDialogBox);
-    additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEADDITIONAL));
+    additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     // set help text
     std::ostringstream help;
     help
@@ -1168,7 +1168,7 @@ GNESelectorFrame::MatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
     // Create Button Close (And two more horizontal frames to center it)
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Opening help dialog of selector frame");
@@ -1239,7 +1239,7 @@ long
 GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
     // get the new file name
     FXFileDialog opendialog(this, "Open List of Selected Items");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("Selection files (*.txt)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
@@ -1293,7 +1293,7 @@ long
 GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this, 
         "Save List of selected Items", ".txt", 
-        GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+        GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }

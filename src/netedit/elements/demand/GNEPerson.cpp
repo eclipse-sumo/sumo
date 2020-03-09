@@ -84,8 +84,8 @@ GNEPerson::GNEPersonPopupMenu::GNEPersonPopupMenu(GNEPerson* person, GUIMainWind
         this->insertMenuPaneChild(transformOperation);
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
         // Create menu comands for all transformations
-        myTransformToPerson = new FXMenuCommand(transformOperation, "Person", GUIIconSubSys::getIcon(ICON_PERSON), this, MID_GNE_PERSON_TRANSFORM);
-        myTransformToPersonFlow = new FXMenuCommand(transformOperation, "Person (embedded route)", GUIIconSubSys::getIcon(ICON_PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
+        myTransformToPerson = new FXMenuCommand(transformOperation, "Person", GUIIconSubSys::getIcon(GUIIcon::PERSON), this, MID_GNE_PERSON_TRANSFORM);
+        myTransformToPersonFlow = new FXMenuCommand(transformOperation, "Person (embedded route)", GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
         // check what menu command has to be disabled
         if (myPerson->getTagProperty().getTag() == SUMO_TAG_PERSON) {
             myTransformToPerson->disable();
@@ -139,8 +139,8 @@ GNEPerson::GNESelectedPersonsPopupMenu::GNESelectedPersonsPopupMenu(GNEPerson* p
         this->insertMenuPaneChild(transformOperation);
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
         // Create menu comands for all transformations
-        myTransformToPerson = new FXMenuCommand(transformOperation, "Person", GUIIconSubSys::getIcon(ICON_PERSON), this, MID_GNE_PERSON_TRANSFORM);
-        myTransformToPersonFlow = new FXMenuCommand(transformOperation, "PersonFlow", GUIIconSubSys::getIcon(ICON_PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
+        myTransformToPerson = new FXMenuCommand(transformOperation, "Person", GUIIconSubSys::getIcon(GUIIcon::PERSON), this, MID_GNE_PERSON_TRANSFORM);
+        myTransformToPersonFlow = new FXMenuCommand(transformOperation, "PersonFlow", GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
     }
 }
 

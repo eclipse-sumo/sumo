@@ -37,13 +37,13 @@
 GNEAbout::GNEAbout(FXWindow* parent) :
     FXDialogBox(parent, "About Eclipse SUMO netedit", GUIDesignDialogBox) {
     // set dialog icon
-    setIcon(GUIIconSubSys::getIcon(ICON_NETEDIT));
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT));
 
     // create frame for main info
     FXHorizontalFrame* mainInfoFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 
     // Netedit icon
-    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_SUMO_LOGO), GUIDesignLabelIcon);
+    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUMO_LOGO), GUIDesignLabelIcon);
 
     // "SUMO <VERSION>"
     FXVerticalFrame* descriptionFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
@@ -73,7 +73,7 @@ GNEAbout::GNEAbout(FXWindow* parent) :
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXButton* OKButton = new FXButton(buttonFrame, "&OK\t\t", GUIIconSubSys::getIcon(ICON_ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+    FXButton* OKButton = new FXButton(buttonFrame, "&OK\t\t", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
 
     // focus OK button

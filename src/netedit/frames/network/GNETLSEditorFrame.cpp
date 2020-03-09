@@ -1076,10 +1076,10 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
     myNewTLProgram = new FXButton(buttonsFrame, "Create\t\tCreate a new traffic light program",
-                                  GUIIconSubSys::getIcon(ICON_MODETLS), TLSEditorParent, MID_GNE_TLSFRAME_CREATE, GUIDesignButton);
+                                  GUIIconSubSys::getIcon(GUIIcon::MODETLS), TLSEditorParent, MID_GNE_TLSFRAME_CREATE, GUIDesignButton);
     // create delete tlDef button
     myDeleteTLProgram = new FXButton(buttonsFrame, "Delete\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.",
-                                     GUIIconSubSys::getIcon(ICON_REMOVE), TLSEditorParent, MID_GNE_TLSFRAME_DELETE, GUIDesignButton);
+                                     GUIIconSubSys::getIcon(GUIIcon::REMOVE), TLSEditorParent, MID_GNE_TLSFRAME_DELETE, GUIDesignButton);
     // show TLS TLSDefinition
     show();
 }
@@ -1248,10 +1248,10 @@ GNETLSEditorFrame::TLSModifications::TLSModifications(GNETLSEditorFrame* TLSEdit
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create save modifications button
     mySaveModificationsButtons = new FXButton(buttonsFrame, "Save\t\tSave program modifications (Enter)",
-            GUIIconSubSys::getIcon(ICON_OK), myTLSEditorParent, MID_OK, GUIDesignButton);
+            GUIIconSubSys::getIcon(GUIIcon::OK), myTLSEditorParent, MID_OK, GUIDesignButton);
     // create discard modifications buttons
     myDiscardModificationsButtons = new FXButton(buttonsFrame, "Cancel\t\tDiscard program modifications (Esc)",
-            GUIIconSubSys::getIcon(ICON_CANCEL), myTLSEditorParent, MID_CANCEL, GUIDesignButton);
+            GUIIconSubSys::getIcon(GUIIcon::CANCEL), myTLSEditorParent, MID_CANCEL, GUIDesignButton);
     // show TLSModifications
     show();
 }
@@ -1280,9 +1280,9 @@ GNETLSEditorFrame::TLSFile::TLSFile(GNETLSEditorFrame* TLSEditorParent) :
     myTLSEditorParent(TLSEditorParent) {
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
-    myLoadTLSProgramButton = new FXButton(buttonsFrame, "Load\t\tLoad TLS program from additional file", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_GNE_TLSFRAME_LOAD_PROGRAM, GUIDesignButton);
+    myLoadTLSProgramButton = new FXButton(buttonsFrame, "Load\t\tLoad TLS program from additional file", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_GNE_TLSFRAME_LOAD_PROGRAM, GUIDesignButton);
     // create create tlDef button
-    mySaveTLSProgramButton = new FXButton(buttonsFrame, "Save\t\tSave TLS program to additional file", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TLSFRAME_SAVE_PROGRAM, GUIDesignButton);
+    mySaveTLSProgramButton = new FXButton(buttonsFrame, "Save\t\tSave TLS program to additional file", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_TLSFRAME_SAVE_PROGRAM, GUIDesignButton);
     // show TLSFile
     show();
 }
@@ -1294,7 +1294,7 @@ GNETLSEditorFrame::TLSFile::~TLSFile() {}
 long
 GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Load TLS Program");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODETLS));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODETLS));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("*.xml");
     if (gCurrentFolder.length() != 0) {
@@ -1356,7 +1356,7 @@ long
 GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this,
                     "Save TLS Program as", ".xml",
-                    GUIIconSubSys::getIcon(ICON_MODETLS),
+                    GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                     gCurrentFolder);
     if (file == "") {
         return 1;

@@ -173,7 +173,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     myPanel = new
     GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - tracker").c_str());
-    setIcon(GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER));
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
     setHeight(height);
     setWidth(700);
 }
@@ -201,7 +201,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     myPanel = new
     GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - tracker").c_str());
-    setIcon(GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER));
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
     setHeight(height);
     setWidth(700);
 }

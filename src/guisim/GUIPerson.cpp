@@ -208,7 +208,7 @@ GUIPerson::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     //
     buildShowParamsPopupEntry(ret);
     buildShowTypeParamsPopupEntry(ret);
-    new FXMenuCommand(ret, "Show Plan", GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPLAN);
+    new FXMenuCommand(ret, "Show Plan", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPLAN);
     new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
     return ret;

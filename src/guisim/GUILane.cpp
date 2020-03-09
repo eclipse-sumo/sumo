@@ -853,7 +853,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // reachability menu
     FXMenuPane* reachableByClass = new FXMenuPane(ret);
     ret->insertMenuPaneChild(reachableByClass);
-    new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(ICON_FLAG), reachableByClass);
+    new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(GUIIcon::FLAG), reachableByClass);
     for (auto i : SumoVehicleClassStrings.getStrings()) {
         new FXMenuCommand(reachableByClass, i.c_str(), nullptr, &parent, MID_REACHABILITY);
     }

@@ -80,7 +80,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
     header->setItemSize(1, 120);
     header->setItemJustify(2, JUSTIFY_CENTER_X);
     header->setItemSize(2, 60);
-    setIcon(GUIIconSubSys::getIcon(ICON_APP_TABLE));
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
     myLock.lock();
     myObject->addParameterTable(this);
     myLock.unlock();
