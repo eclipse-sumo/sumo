@@ -157,23 +157,23 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
             }
         }
     }
-    /*
-    // write information in debug mode (Currently disabled)
+    // write information in debug mode
     WRITE_DEBUG("ObjectsUnderCursor: GUIGlObjects: " + toString(GUIGlObjects.size()) +
-                ", AttributeCarriers: " + toString(myAttributeCarriers.size()) +
-                ", NetworkElements: " + toString(myNetworkElements.size()) +
-                ", Additionals: " + toString(myAdditionals.size()) +
-                ", DemandElements: " + toString(myDemandElements.size()) +
-                ", Shapes: " + toString(myShapes.size()) +
-                ", Junctions: " + toString(myJunctions.size()) +
-                ", Edges: " + toString(myEdges.size()) +
-                ", Lanes: " + toString(myLanes.size()) +
-                ", Crossings: " + toString(myCrossings.size()) +
-                ", Connections: " + toString(myConnections.size()) +
-                ", TAZs: " + toString(myTAZs.size()) +
-                ", POIs: " + toString(myPOIs.size()) +
-                ", Polys: " + toString(myPolys.size()));
-    */
+        ", AttributeCarriers: " + toString(myAttributeCarriers.size()) +
+        ", NetworkElements: " + toString(myNetworkElements.size()) +
+        ", Additionals: " + toString(myAdditionals.size()) +
+        ", Shapes: " + toString(myShapes.size()) +
+        ", DemandElements: " + toString(myDemandElements.size()) +
+        ", GenericDatas: " + toString(myGenericDatas.size()) +
+        ", Junctions: " + toString(myJunctions.size()) +
+        ", Edges: " + toString(myEdges.size()) +
+        ", Lanes: " + toString(myLanes.size()) +
+        ", Crossings: " + toString(myCrossings.size()) +
+        ", Connections: " + toString(myConnections.size()) +
+        ", TAZs: " + toString(myTAZs.size()) +
+        ", Polys: " + toString(myPolys.size()) +
+        ", POIs: " + toString(myPOIs.size()) +
+        ", EdgeDatas: " + toString(myEdgeDatas.size()));
 }
 
 
