@@ -790,12 +790,19 @@ GNESelectorFrame::ElementSet::refreshElementSet() {
         mySetComboBox->appendItem("network element");
         mySetComboBox->appendItem("Additional");
         mySetComboBox->appendItem("Shape");
+        // show Modul
+        show();
+        // set num items
+        mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
     } else if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::DEMAND) {
         mySetComboBox->appendItem("Demand Element");
+        // hide Modul (because there is only an element)
+        hide();
     } else if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::DATA) {
-     mySetComboBox->appendItem("Data Element");
+        mySetComboBox->appendItem("Data Element");
+        // hide Modul (because there is only an element)
+        hide();
     }
-    mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
     // update rest of elements
     onCmdSelectElementSet(0, 0, 0);
 }
