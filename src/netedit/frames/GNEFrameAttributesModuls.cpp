@@ -2154,7 +2154,7 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(std::vector<GNE
             myParameters.clear();
         } else {
             // update flag
-            if (myAC->getTagProperty().hasDoubleParameters()) {
+            if (myACs.front()->getTagProperty().hasDoubleParameters()) {
                 myAttrType = Parameterised::ATTRTYPE_DOUBLE;
             } else {
                 myAttrType = Parameterised::ATTRTYPE_STRING;
