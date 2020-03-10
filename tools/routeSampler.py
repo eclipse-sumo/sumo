@@ -73,6 +73,8 @@ def get_options(args=None):
     parser.add_argument("-i", "--interval", help="custom aggregation interval (seconds or H:M:S)")
     parser.add_argument("-v", "--verbose", action="store_true", default=False,
                         help="tell me what you are doing")
+    parser.add_argument("-V", "--verbose.histograms", dest="verboseHistogram", action="store_true", default=False,
+                        help="print histograms of edge numbers and detector passing count")
 
     options = parser.parse_args(args=args)
     if (options.routeFiles is None or
@@ -392,13 +394,14 @@ def main(options):
 
     if options.verbose:
         print("Loaded %s routes (%s distinct)" % (len(routes.all), routes.number))
-        edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
-        detectorCount = sumolib.miscutils.Statistics("route detector count", histogram=True)
-        for i, edges in enumerate(routes.unique):
-            edgeCount.add(len(edges), i)
-            detectorCount.add(len(routeUsage[i]), i)
-        print("input %s" % edgeCount)
-        print("input %s" % detectorCount)
+        if options.verboseHistogram:
+            edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
+            detectorCount = sumolib.miscutils.Statistics("route detector count", histogram=True)
+            for i, edges in enumerate(routes.unique):
+                edgeCount.add(len(edges), i)
+                detectorCount.add(len(routeUsage[i]), i)
+            print("input %s" % edgeCount)
+            print("input %s" % detectorCount)
 
     mismatchf = None
     if options.mismatchOut:
@@ -457,8 +460,11 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
             openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
             openCounts = updateOpenCounts(openCounts, countData, openRoutes)
 
-    hasMismatch = sum([cd.count for cd in countData]) > 0
-    if hasMismatch and options.optimize is not None:
+    totalMismatch = sum([cd.count for cd in countData])
+    if totalMismatch > 0  and options.optimize is not None:
+        if options.verbose:
+            print("Starting optimization for interval [%s, %s] (mismatch %s)" % (
+                begin, end, totalMismatch))
         optimize(options, countData, routes, usedRoutes, routeUsage)
         resetCounts(usedRoutes, routeUsage, countData)
 
@@ -566,7 +572,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
         len(usedRoutes), len(set(usedRoutes)), totalCount, len(countData),
         options.gehOk, gehOK))
 
-    if options.verbose:
+    if options.verboseHistogram:
         edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
         detectorCount = sumolib.miscutils.Statistics("route detector count", histogram=True)
         for i, r in enumerate(usedRoutes):
