@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-03-03 21:53:55.444920 by routeSampler.py v1_5_0+0480-063d81506b
+<!-- generated on 2020-03-10 13:42:03.032624 by routeSampler.py v1_5_0+0599-3f66299
   options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml <doubleminus>prefix foo <doubleminus>attributes color="blue"
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="99.0" -->
     <vehicle id="foo0" depart="0.00" color="blue">
         <route edges="64.80.00 -64 -64.80.00 -31 -31.80.00 31"/>
     </vehicle>

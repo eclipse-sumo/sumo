@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-03-03 22:23:44.634530 by routeSampler.py v1_5_0+0482-d6cb8f8730
-  options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml -f probability -i
+<!-- generated on 2020-03-10 13:42:02.805800 by routeSampler.py v1_5_0+0599-3f66299
+  options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml -f probability -I
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="99.0" -->
     <route id="0" edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/> <!-- 3 -->
     <route id="2" edges="-109.80.00 23 23.80.00 31 31.80.00 -31 -31.80.00"/> <!-- 1 -->
     <route id="3" edges="-11 -11.80.00 15 15.180.00 -123 -123.121.42 -120 -120.180.00"/> <!-- 1 -->

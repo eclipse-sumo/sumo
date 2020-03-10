@@ -1,6 +1,9 @@
 # test output style options
 # 
 output-styles
+
+# test loading data with multiple intervals
+intervals
 verbose
 
 # using edgedata as input
