@@ -291,19 +291,23 @@ The C++ client performance is higher:
 - plain position retrieval 80s
 - retrieval using subscriptions 28s
 
-## Future Development
+## Current and Future Development
 
-Currently TraCI uses a different (single byte) command IDs for every
+Historically TraCI used a different (single byte) command ID for every
 domain (induction loops, vehicle etc.) where the more significant half
 of the byte denotes the command (get, set, subscribe, ...) and the
-lesser significant the domain itself. This limits the number of domains
-to 16 which are almost used up. Although it may decrease readability of
-the constants in the future five bits will be used for the domain and
-only three for the command. Furthermore after the invention of libsumo
+lesser significant the domain itself. To allow more than the 16 domains
+resulting from this split, the most significant bit (which was unused
+until now because there were only 7 commands) is now used for the domain
+as well (and only three for the command). This allows for 28 domains 
+because four general commands (like SIMSTEP) block some available combinations.
+Currently there are only four possible domains left.
+
+Furthermore after the invention of libsumo
 some parts of the TraCI interface are so generic that it may be not so
-hard to invent a wrapper with protocal buffers which could in the long
-run replace the need for all the byte fiddling and the different hand
-crafted clients.
+hard to invent a wrapper with Apache Kafka or Google protocol buffers
+which could in the long run replace the need for all the byte fiddling 
+and the different hand crafted clients.
 
 ## Troubleshooting
 
