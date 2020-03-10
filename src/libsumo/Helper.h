@@ -158,7 +158,7 @@ public:
             std::set<std::string>& objIDs,
             std::set<const SUMOTrafficObject*>& vehs,
             const std::vector<const MSLane*>& lanes,
-            double posOnLane, bool isDownstream);
+            double posOnLane, double posLat, bool isDownstream);
 
     static void setRemoteControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                                     int edgeOffset, ConstMSEdgeVector route, SUMOTime t);

@@ -824,12 +824,13 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 #ifdef DEBUG_SURROUNDING
             std::cout << "FILTER_LATERAL_DIST: myLane is '" << v->getLane()->getID() << "'" << std::endl;
 #endif
-            // 1st pass: downstream
+            // 1st pass: downstream (make sure that the whole length of the vehicle is included in the match)
+            const double backPosOnLane = MAX2(0.0, v->getPositionOnLane() - v->getVehicleType().getLength());
             applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getUpcomingLanesUntil(downstreamDist),
-                    v->getPositionOnLane(), true);
+                    backPosOnLane, v->getLateralPositionOnLane(), true);
             // 2nd pass: upstream
             applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getPastLanesUntil(upstreamDist),
-                    v->getPositionOnLane(), false);
+                    v->getPositionOnLane(), v->getLateralPositionOnLane(), false);
 
             objIDs.clear();
         } else {
@@ -1024,7 +1025,7 @@ Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std
 void
 Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, std::set<std::string>& objIDs,
         std::set<const SUMOTrafficObject*>& vehs,
-        const std::vector<const MSLane*>& lanes, double posOnLane, bool isDownstream) {
+        const std::vector<const MSLane*>& lanes, double posOnLane, double posLat, bool isDownstream) {
     const double streamDist = isDownstream ? s.filterDownstreamDist : s.filterUpstreamDist;
     double distRemaining = streamDist;
     bool isFirstLane = true;
@@ -1035,10 +1036,16 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, 
 #endif
         PositionVector laneShape = lane->getShape();
         if (isFirstLane) {
-            double geometryPos = lane->interpolateLanePosToGeometryPos(posOnLane);
-            auto pair = laneShape.splitAt(geometryPos, false);
-            laneShape = isDownstream ? pair.second : pair.first;
             isFirstLane = false;
+            if (posOnLane == 0) {
+                if (!isDownstream) {
+                    continue;
+                }
+            } else {
+                double geometryPos = lane->interpolateLanePosToGeometryPos(posOnLane);
+                auto pair = laneShape.splitAt(geometryPos, false);
+                laneShape = isDownstream ? pair.second : pair.first;
+            }
         }
         double laneLength = lane->interpolateGeometryPosToLanePos(laneShape.length());
         if (distRemaining - laneLength < 0.) {
@@ -1047,21 +1054,32 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, 
             laneShape = isDownstream ? pair.first : pair.second;
         }
         distRemaining -= laneLength;
+        try {
+            laneShape.move2side(-posLat);
+        } catch (ProcessError&) {
+            WRITE_WARNING("addSubscriptionFilterLateralDistance could not determine shape of lane '" + lane->getID() + "' with lateral shift of " + toString(posLat));
+        }
+#ifdef DEBUG_SURROUNDING
+        std::cout << "   posLat=" << posLat << " laneShape=" << laneShape << "\n";
+#endif
 
         // check remaining objects' distances to this lane
         auto i = objIDs.begin();
         while (i != objIDs.end()) {
             SUMOTrafficObject* obj = getTrafficObject(s.contextDomain, *i);
             double minPerpendicularDist = laneShape.distance2D(obj->getPosition(), true);
+#ifdef DEBUG_SURROUNDING
+            std::cout << "   obj " << obj->getID() << " dist=" << minPerpendicularDist << " filterDist=" << s.filterLateralDist << "\n";
+#endif
             if ((minPerpendicularDist != GeomHelper::INVALID_OFFSET) && (minPerpendicularDist <= s.filterLateralDist)) {
                 vehs.insert(obj);
                 i = objIDs.erase(i);
-#ifdef DEBUG_SURROUNDING
-                std::cout << "   found " << obj->getID() << "\n";
-#endif
             } else {
                 ++i;
             }
+        }
+        if (distRemaining <= 0) {
+            return;;
         }
     }
 }
