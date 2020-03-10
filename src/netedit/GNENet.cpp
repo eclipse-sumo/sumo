@@ -2785,6 +2785,36 @@ GNENet::generateDataSetID(const std::string& prefix) const {
 }
 
 
+std::set<std::string> 
+GNENet::retrieveGenericDataParameters(const SumoXMLTag genericDataTag, const double begin, const double end) const {
+    // declare solution
+    std::set<std::string> attributesSolution;
+    // declare generic data vector
+    std::vector<GNEGenericData*> genericDatas;
+    // iterate over all data sets
+    for (const auto &dataSet : myAttributeCarriers.dataSets) {
+        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
+            // check interval
+            if ((interval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) && (interval.second->getAttributeDouble(SUMO_ATTR_END) <= end)) {
+                // iterate over generic datas
+                for (const auto &genericData : interval.second->getGenericDataChildren()) {
+                    if (genericData->getTagProperty().getTag() == genericDataTag) {
+                        genericDatas.push_back(genericData);
+                    }
+                }
+            }
+        }
+    }
+    // iterate over generic datas
+    for (const auto& genericData : genericDatas) {
+        for (const auto& attribute : genericData->getParametersMap()) {
+            attributesSolution.insert(attribute.first);
+        }
+    }
+    return attributesSolution;
+}
+
+
 std::set<std::string>
 GNENet::retrieveGenericDataParameters(const std::string& dataSetID, const std::string& beginStr, const std::string& endStr) const {
     // declare solution

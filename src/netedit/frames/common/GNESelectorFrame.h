@@ -376,8 +376,8 @@ public:
         /// @brief current SumoXMLTag tag
         SumoXMLTag myCurrentTag;
 
-        /// @brief current SumoXMLTag Attribute
-        SumoXMLAttr myCurrentAttribute;
+        /// @brief current string Attribute
+        std::string myCurrentAttribute;
 
         /// @brief string of the match
         FXTextField* myMatchGenericDataString;
@@ -524,11 +524,17 @@ private:
     /// @brief check if there is ACs to select/unselect
     bool ACsToSelected() const;
 
-private:
     /**@brief return ACs of the given type with matching attrs
      * @param[in] ACTag XML Tag of AttributeCarrier
      * @param[in] ACAttr XML Attribute of AttributeCarrier
      * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
      */
-    std::vector<GNEAttributeCarrier*> getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, double val, const std::string& expr);
+    std::vector<GNEAttributeCarrier*> getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, const char compOp, const double val, const std::string& expr);
+
+    /**@brief return ACs of the given type with matching attrs
+     * @param[in] ACTag XML Tag of AttributeCarrier
+     * @param[in] ACAttr XML Attribute of AttributeCarrier
+     * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
+     */
+    std::vector<GNEAttributeCarrier*> getGenericMatches(const SumoXMLTag genericTag, const std::string &attr, const char compOp, const double val, const std::string& expr);
 };
