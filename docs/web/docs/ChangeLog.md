@@ -32,7 +32,7 @@ permalink: /ChangeLog/
 - TraCI
   - Fixed crash when calling vehicle.moveTo for an off-road vehicle with tripinfo-output. Issue #6717
   - Fixed crash when trying add subscription filter for context subscrition of persons around an ego vehicle. Issue #6735
-  - Fixed crash and invalid results when using 'vehicle.addSubscriptionFilterLateralDistance. Issue #6770
+  - Fixed crash and invalid results when using 'vehicle.addSubscriptionFilterLateralDistance'. Issue #6770
 - Tools
   - [sort_routes.py](Tools/Routes.md#sort_routespy) can now handle trips, triggered vehicles and human-readable times.  
 
