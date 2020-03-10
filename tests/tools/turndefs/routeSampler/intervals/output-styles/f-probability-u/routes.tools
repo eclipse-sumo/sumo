@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-03-10 14:10:43.020570 by routeSampler.py v1_5_0+0601-bd9a2a1
+  options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml -f probability -u routeDist
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="200.0" -->
+    <routeDistribution id="0_routeDist"/>
+        <route id="0_2" edges="-3 -3.180.00 5" probability="10"/>
+    </routeDistribution>
+
+    <flow id="0_routeDist" begin="0.00" end="200.00" probability="0.05" route="routeDist"/>
+<!-- begin="200.0" end="400.0" -->
+    <routeDistribution id="200_routeDist"/>
+        <route id="200_0" edges="-3 -3.180.00 11" probability="8"/>
+    </routeDistribution>
+
+    <flow id="200_routeDist" begin="200.00" end="400.00" probability="0.04" route="routeDist"/>
+</routes>

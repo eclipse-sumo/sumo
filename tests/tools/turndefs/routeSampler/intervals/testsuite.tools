@@ -1,2 +1,6 @@
+# test output style options
+# 
+output-styles
+
 # handle count input with multiple data intervals
 2_intervals
