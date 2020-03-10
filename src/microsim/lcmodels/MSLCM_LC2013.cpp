@@ -1030,7 +1030,7 @@ MSLCM_LC2013::prepareStep() {
     // truncate to work around numerical instability between different builds
     mySpeedGainProbability = ceil(mySpeedGainProbability * 100000.0) * 0.00001;
     myKeepRightProbability = ceil(myKeepRightProbability * 100000.0) * 0.00001;
-    if (mySigma > 0 && MSGlobals::gLaneChangeDuration > DELTA_T && !isChangingLanes()) {
+    if (mySigma > 0 && !isChangingLanes()) {
         // disturb lateral position directly
         const double oldPosLat = myVehicle.getLateralPositionOnLane();
         const double deltaPosLat = OUProcess::step(oldPosLat,
