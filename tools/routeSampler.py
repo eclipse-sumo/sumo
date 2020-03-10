@@ -582,7 +582,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
         print("Warning: %s (total %s)" % (overflow, sum(overflow.values)))
 
     if mismatchf:
-        mismatchf.write('    <interval id="deficit" begin="0" end="3600">\n')
+        mismatchf.write('    <interval id="deficit" begin="%s" end="%s">\n' % (begin, end))
         for cd in countData:
             if len(cd.edgeTuple) == 1:
                 mismatchf.write('        <edge id="%s" measuredCount="%s" deficit="%s"/>\n' % (
