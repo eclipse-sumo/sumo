@@ -29,6 +29,7 @@ from collections import defaultdict
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
+from sumolib.miscutils import parseTime
 
 
 def get_options(args=None):
@@ -63,10 +64,13 @@ def get_options(args=None):
                         help="threshold for acceptable GEH values")
     parser.add_argument("-f", "--write-flows", dest="writeFlows",
                         help="write flows with the give style instead of vehicles [number|probability]")
-    parser.add_argument("-i", "--write-route-ids", dest="writeRouteIDs", action="store_true", default=False,
+    parser.add_argument("-I", "--write-route-ids", dest="writeRouteIDs", action="store_true", default=False,
                         help="write routes with ids")
     parser.add_argument("-u", "--write-route-distribution", dest="writeRouteDist",
                         help="write routeDistribution with the given ID instead of individual routes")
+    parser.add_argument("-b", "--begin", help="custom begin time (seconds or H:M:S)")
+    parser.add_argument("-e", "--end", help="custom end time (seconds or H:M:S)")
+    parser.add_argument("-i", "--interval", help="custom aggregation interval (seconds or H:M:S)")
     parser.add_argument("-v", "--verbose", action="store_true", default=False,
                         help="tell me what you are doing")
 
@@ -117,9 +121,6 @@ class CountData:
         for routeIndex, edges in enumerate(allRoutes.unique):
             if self.routePasses(edges):
                 self.routeSet.add(routeIndex)
-        if self.count > 0 and not self.routeSet:
-            print("Warning: no routes pass edge '%s' (count %s)" %
-                  (' '.join(self.edgeTuple), self.count), file=sys.stderr)
 
     def routePasses(self, edges):
         try:
@@ -135,6 +136,12 @@ class CountData:
             return False
         return True
 
+
+    def addCount(self, count):
+        self.count += count
+        self.origCount += count
+
+
     def sampleOpen(self, openRoutes, routeCounts):
         cands = list(self.routeSet.intersection(openRoutes))
         assert(cands)
@@ -148,35 +155,76 @@ class CountData:
         assert(False)
 
 
-def parseTurnCounts(fnames, allRoutes, attr):
+def getIntervals(options):
+    begin, end, interval = parseTimeRange(options.turnFiles + options.edgeDataFiles)
+    if options.begin is not None:
+        begin = parseTime(options.begin)
+    if options.end is not None:
+        end = parseTime(options.end)
+    if options.interval is not None:
+        interval = parseTime(options.interval)
+
+    result = []
+    while begin < end:
+        result.append((begin, begin + interval))
+        begin += interval
+
+    return result
+
+def getOverlap(begin, end, iBegin, iEnd):
+    """return overlap of the given intervals as fraction"""
+    if iEnd < begin or end < iBegin:
+        return 0 # no overlap
+    elif iBegin > begin and iEnd < end:
+        return 1 # data interval fully within requested interval
+    elif iBegin < begin and iEnd > end:
+        return (end - begin) / (iEnd - iBegin) # only part of the data interval applies to the requested interval
+    elif iBegin < begin and iEnd < end:
+        return (iEnd - begin) / (iEnd - iBegin) # partial overlap
+    else:
+        return (end - iBegin) / (iEnd - iBegin) # partial overlap
+
+
+def parseTurnCounts(interval, attr):
+    for edgeRel in interval.edgeRelation:
+        via = [] if edgeRel.via is None else edgeRel.via.split(' ')
+        edges = tuple([edgeRel.attr_from] + via + [edgeRel.to])
+        value = float(getattr(edgeRel, attr))
+        yield edges, value
+
+
+def parseEdgeCounts(interval, attr):
+    for edge in interval.edge:
+        yield (edge.id,), float(getattr(edge, attr))
+
+
+def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr):
+    locations = {} # edges -> CountData
     result = []
     for fname in fnames:
         for interval in sumolib.xml.parse(fname, 'interval', heterogeneous=True):
-            for edgeRel in interval.edgeRelation:
-                via = [] if edgeRel.via is None else edgeRel.via.split(' ')
-                edges = [edgeRel.attr_from] + via + [edgeRel.to]
-                result.append(CountData(int(getattr(edgeRel, attr)), tuple(edges), allRoutes))
-    return result
-
-
-def parseEdgeCounts(fnames, allRoutes, attr):
-    result = []
-    for fname in fnames:
-        for interval in sumolib.xml.parse(fname, 'interval'):
-            for edge in interval.edge:
-                result.append(CountData(int(float(getattr(edge, attr))),
-                                        (edge.id,), allRoutes))
+            overlap = getOverlap(begin, end, parseTime(interval.begin), parseTime(interval.end))
+            if overlap > 0:
+                for edges, value in parseFun(interval, attr):
+                    if edges not in locations:
+                        result.append(CountData(0, edges, allRoutes))
+                        locations[edges] = result[-1]
+                    locations[edges].addCount(int(value * overlap))
     return result
 
 
 def parseTimeRange(fnames):
     begin = 1e20
     end = 0
+    minInterval = 1e20
     for fname in fnames:
         for interval in sumolib.xml.parse(fname, 'interval'):
-            begin = min(begin, float(interval.begin))
-            end = max(end, float(interval.end))
-    return begin, end
+            iBegin = parseTime(interval.begin)
+            iEnd = parseTime(interval.end)
+            begin = min(begin, iBegin)
+            end = max(end, iEnd)
+            minInterval = min(minInterval, iEnd - iBegin)
+    return begin, end, minInterval
 
 
 def hasCapacity(dataIndices, countData):
@@ -313,6 +361,13 @@ def getRouteCounts(routes, usedRoutes):
         result[r] += 1
     return result
 
+def getRouteUsage(routes, countData):
+    # store which counting locations are used by each route (using countData index)
+    routeUsage = [set() for r in routes.unique]
+    for i, cd in enumerate(countData):
+        for routeIndex in cd.routeSet:
+            routeUsage[routeIndex].add(i)
+    return routeUsage
 
 def main(options):
     if options.seed:
@@ -320,15 +375,19 @@ def main(options):
 
     routes = Routes(options.routeFiles)
 
-    # store which routes are passing each counting location (using route index)
-    countData = (parseTurnCounts(options.turnFiles, routes, options.turnAttr)
-                 + parseEdgeCounts(options.edgeDataFiles, routes, options.edgeDataAttr))
+    intervals = getIntervals(options)
 
-    # store which counting locations are used by each route (using countData index)
-    routeUsage = [set() for r in routes.unique]
-    for i, cd in enumerate(countData):
-        for routeIndex in cd.routeSet:
-            routeUsage[routeIndex].add(i)
+    # preliminary integrity check for the whole time range
+    b = intervals[0][0]
+    e = intervals[-1][-1]
+    countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, b, e, routes, options.turnAttr)
+            + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e, routes, options.edgeDataAttr))
+    routeUsage = getRouteUsage(routes, countData)
+
+    for cd in countData:
+        if cd.count > 0 and not cd.routeSet:
+            print("Warning: no routes pass edge '%s' (count %s)" % (
+                ' '.join(cd.edgeTuple), cd.count), file=sys.stderr)
 
     if options.verbose:
         print("Loaded %s routes (%s distinct)" % (len(routes.all), routes.number))
@@ -339,6 +398,22 @@ def main(options):
             detectorCount.add(len(routeUsage[i]), i)
         print("input %s" % edgeCount)
         print("input %s" % detectorCount)
+
+
+    with open(options.out, 'w') as outf:
+        sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
+        for begin, end in intervals:
+            intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
+            solveInterval(options, routes, begin, end, intervalPrefix, outf)
+        outf.write('</routes>\n')
+
+
+def solveInterval(options, routes, begin, end, intervalPrefix, outf):
+    # store which routes are passing each counting location (using route index)
+    countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end, routes, options.turnAttr)
+               + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes, options.edgeDataAttr))
+
+    routeUsage = getRouteUsage(routes, countData)
 
     # pick a random couting location and select a new route that passes it until
     # all counts are satisfied or no routes can be used anymore
@@ -366,84 +441,80 @@ def main(options):
         optimize(options, countData, routes, usedRoutes, routeUsage)
         resetCounts(usedRoutes, routeUsage, countData)
 
-    begin, end = parseTimeRange(options.turnFiles + options.edgeDataFiles)
     if usedRoutes:
-        with open(options.out, 'w') as outf:
-            sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
-            period = (end - begin) / len(usedRoutes)
-            depart = begin
-            routeCounts = getRouteCounts(routes, usedRoutes)
-            if options.writeRouteIDs:
-                for routeIndex in sorted(set(usedRoutes)):
-                    outf.write('    <route id="%s" edges="%s"/> <!-- %s -->\n' % (
-                        routeIndex, ' '.join(routes.unique[routeIndex]), routeCounts[routeIndex]))
-                outf.write('\n')
-            elif options.writeRouteDist:
-                outf.write('    <routeDistribution id="%s"/>\n' % options.writeRouteDist)
-                for routeIndex in sorted(set(usedRoutes)):
-                    outf.write('        <route id="%s" edges="%s" probability="%s"/>\n' % (
-                        routeIndex, ' '.join(routes.unique[routeIndex]), routeCounts[routeIndex]))
-                outf.write('    </routeDistribution>\n\n')
+        outf.write('<!-- begin="%s" end="%s" -->\n' % (begin, end))
+        period = (end - begin) / len(usedRoutes)
+        depart = begin
+        routeCounts = getRouteCounts(routes, usedRoutes)
+        if options.writeRouteIDs:
+            for routeIndex in sorted(set(usedRoutes)):
+                outf.write('    <route id="%s%s" edges="%s"/> <!-- %s -->\n' % (
+                    intervalPrefix, routeIndex, ' '.join(routes.unique[routeIndex]), routeCounts[routeIndex]))
+            outf.write('\n')
+        elif options.writeRouteDist:
+            outf.write('    <routeDistribution id="%s%s"/>\n' % (intervalPrefix, options.writeRouteDist))
+            for routeIndex in sorted(set(usedRoutes)):
+                outf.write('        <route id="%s%s" edges="%s" probability="%s"/>\n' % (
+                    intervalPrefix, routeIndex, ' '.join(routes.unique[routeIndex]), routeCounts[routeIndex]))
+            outf.write('    </routeDistribution>\n\n')
 
-            routeID = options.writeRouteDist
-            if options.writeFlows is None:
-                for i, routeIndex in enumerate(usedRoutes):
-                    if options.writeRouteIDs:
-                        routeID = routeIndex
-                    if routeID is not None:
-                        outf.write('    <vehicle id="%s%s" depart="%.2f" route="%s"%s/>\n' % (
-                            options.prefix, i, depart, routeID, options.vehattrs))
-                    else:
-                        outf.write('    <vehicle id="%s%s" depart="%.2f"%s>\n' % (
-                            options.prefix, i, depart, options.vehattrs))
-                        outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
-                        outf.write('    </vehicle>\n')
-                    depart += period
+        routeID = options.writeRouteDist
+        if options.writeFlows is None:
+            for i, routeIndex in enumerate(usedRoutes):
+                if options.writeRouteIDs:
+                    routeID = routeIndex
+                vehID = options.prefix + intervalPrefix + str(i)
+                if routeID is not None:
+                    outf.write('    <vehicle id="%s" depart="%.2f" route="%s%s"%s/>\n' % (
+                        vehID, depart, intervalPrefix, routeID, options.vehattrs))
+                else:
+                    outf.write('    <vehicle id="%s" depart="%.2f"%s>\n' % (
+                        vehID, depart, options.vehattrs))
+                    outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                    outf.write('    </vehicle>\n')
+                depart += period
+        else:
+            routeDeparts = defaultdict(list)
+            for routeIndex in usedRoutes:
+                routeDeparts[routeIndex].append(depart)
+                depart += period
+            if options.writeRouteDist:
+                totalCount = sum(routeCounts)
+                probability = totalCount / (end - begin)
+                flowID = options.prefix + intervalPrefix + options.writeRouteDist
+                if options.writeFlows == "number" or probability > 1.001:
+                    repeat = 'number="%s"' % totalCount
+                    if options.writeFlows == "probability":
+                        sys.stderr.write("Warning: could not write flow %s with probability %.2f\n" %
+                                         (flowID, probability))
+                else:
+                    repeat = 'probability="%s"' % probability
+                outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s"%s/>\n' % (
+                    flowID, begin, end, repeat,
+                    options.writeRouteDist, options.vehattrs))
             else:
-                routeDeparts = defaultdict(list)
-                for routeIndex in usedRoutes:
-                    routeDeparts[routeIndex].append(depart)
-                    depart += period
-                if options.writeRouteDist:
-                    totalCount = sum(routeCounts)
-                    probability = totalCount / (end - begin)
-                    flowID = options.prefix + options.writeRouteDist
+                for routeIndex in sorted(set(usedRoutes)):
+                    fBegin = min(routeDeparts[routeIndex])
+                    fEnd = max(routeDeparts[routeIndex] + [fBegin + 1.0])
+                    probability = routeCounts[routeIndex] / (fEnd - fBegin)
+                    flowID = "%s%s%s" % (options.prefix, intervalPrefix, routeIndex)
                     if options.writeFlows == "number" or probability > 1.001:
-                        repeat = 'number="%s"' % totalCount
+                        repeat = 'number="%s"' % routeCounts[routeIndex]
                         if options.writeFlows == "probability":
-                            sys.stderr.write("Warning: could not write flow %s with probability %.2f\n" %
-                                             (flowID, probability))
+                            sys.stderr.write("Warning: could not write flow %s with probability %.2f\n" % (
+                                flowID, probability))
                     else:
                         repeat = 'probability="%s"' % probability
-                    outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s"%s/>\n' % (
-                        flowID, begin, end, repeat,
-                        options.writeRouteDist, options.vehattrs))
-                else:
-                    for routeIndex in sorted(set(usedRoutes)):
-                        fBegin = min(routeDeparts[routeIndex])
-                        fEnd = max(routeDeparts[routeIndex] + [fBegin + 1.0])
-                        probability = routeCounts[routeIndex] / (fEnd - fBegin)
-                        flowID = "%s%s" % (options.prefix, routeIndex)
-                        if options.writeFlows == "number" or probability > 1.001:
-                            repeat = 'number="%s"' % routeCounts[routeIndex]
-                            if options.writeFlows == "probability":
-                                sys.stderr.write("Warning: could not write flow %s with probability %.2f\n" % (
-                                    flowID, probability))
-                        else:
-                            repeat = 'probability="%s"' % probability
-                        if options.writeRouteIDs:
-                            outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s"%s/>\n' % (
-                                flowID, fBegin, fEnd, repeat,
-                                routeIndex, options.vehattrs))
-                        else:
-                            outf.write('    <flow id="%s%s" begin="%.2f" end="%.2f" %s%s>\n' % (
-                                options.prefix, routeIndex,
-                                fBegin, fEnd, repeat,
-                                options.vehattrs))
-                            outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
-                            outf.write('    </flow>\n')
+                    if options.writeRouteIDs:
+                        outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s%s"%s/>\n' % (
+                            flowID, fBegin, fEnd, repeat,
+                            intervalPrefix, routeIndex, options.vehattrs))
+                    else:
+                        outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
+                            flowID, fBegin, fEnd, repeat, options.vehattrs))
+                        outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                        outf.write('    </flow>\n')
 
-            outf.write('</routes>\n')
 
     underflow = sumolib.miscutils.Statistics("underflow locations")
     overflow = sumolib.miscutils.Statistics("overflow locations")
@@ -466,7 +537,9 @@ def main(options):
         gehStats.add(geh, "[%s] %s %s" % (
             ' '.join(cd.edgeTuple), int(origHourly), int(localHourly)))
 
-    print("Wrote %s routes (%s distinct) achieving total count %s at %s locations. GEH<%s for %.2f%%" % (
+    outputIntervalPrefix = "" if intervalPrefix == "" else "%s: " % int(begin)
+    print("%sWrote %s routes (%s distinct) achieving total count %s at %s locations. GEH<%s for %.2f%%" % (
+        outputIntervalPrefix,
         len(usedRoutes), len(set(usedRoutes)), totalCount, len(countData),
         options.gehOk, 100 * numGehOK / len(countData)))
 
