@@ -85,10 +85,22 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 continue;
             }
             // Build the detectors and register them at the detector control
-            std::string id = "TLS" + myID + "_" + myProgramID + "_E2CollectorOn_" + lane->getID();
             if (myLaneDetectors.find(lane) == myLaneDetectors.end()) {
-                myLaneDetectors[lane] = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), myDetectionRange, 0, 0, 0, myVehicleTypes, myShowDetectors);
-                MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_E2DETECTOR, myLaneDetectors[lane], myFile, myFreq);
+                MSE2Collector* det = nullptr;
+                const std::string customID = getParameter(lane->getID());
+                if (customID != "") {
+                    det = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(customID));
+                    det->setVisible(myShowDetectors);
+                    if (det == nullptr) {
+                        WRITE_ERROR("Unknown laneAreaDetector '" + customID + "' given as custom detector for delay_based tlLogic '" + getID() + "', program '" + getProgramID() + ".");
+                        continue;
+                    }
+                } else {
+                    std::string id = "TLS" + myID + "_" + myProgramID + "_E2CollectorOn_" + lane->getID();
+                    det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), myDetectionRange, 0, 0, 0, myVehicleTypes, myShowDetectors);
+                    MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, myFile, myFreq);
+                }
+                myLaneDetectors[lane] = det;
             }
         }
     }
