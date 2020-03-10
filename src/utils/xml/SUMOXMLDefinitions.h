@@ -1123,23 +1123,23 @@ extern const std::string SUMO_PARAM_ORIGID;
  * @brief Numbers representing special SUMO-XML-attribute values
  * for representing node- (junction-) types used in netbuild/netimport and netload
  */
-enum SumoXMLNodeType {
-    NODETYPE_UNKNOWN, // terminator
-    NODETYPE_TRAFFIC_LIGHT,
-    NODETYPE_TRAFFIC_LIGHT_NOJUNCTION, // junction controlled only by traffic light but without other prohibitions,
-    NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED,
-    NODETYPE_RAIL_SIGNAL,
-    NODETYPE_RAIL_CROSSING,
-    NODETYPE_PRIORITY,
-    NODETYPE_PRIORITY_STOP, // like priority but all minor links have stop signs
-    NODETYPE_RIGHT_BEFORE_LEFT,
-    NODETYPE_ALLWAY_STOP,
-    NODETYPE_ZIPPER,
-    NODETYPE_DISTRICT,
-    NODETYPE_NOJUNCTION,
-    NODETYPE_INTERNAL,
-    NODETYPE_DEAD_END,
-    NODETYPE_DEAD_END_DEPRECATED
+enum class SumoXMLNodeType {
+    UNKNOWN, // terminator
+    TRAFFIC_LIGHT,
+    TRAFFIC_LIGHT_NOJUNCTION, // junction controlled only by traffic light but without other prohibitions,
+    TRAFFIC_LIGHT_RIGHT_ON_RED,
+    RAIL_SIGNAL,
+    RAIL_CROSSING,
+    PRIORITY,
+    PRIORITY_STOP, // like priority but all minor links have stop signs
+    RIGHT_BEFORE_LEFT,
+    ALLWAY_STOP,
+    ZIPPER,
+    DISTRICT,
+    NOJUNCTION,
+    INTERNAL,
+    DEAD_END,
+    DEAD_END_DEPRECATED
 };
 
 
@@ -1148,13 +1148,13 @@ enum SumoXMLNodeType {
  * @brief Numbers representing special SUMO-XML-attribute values
  * for representing edge functions used in netbuild/netimport and netload
  */
-enum SumoXMLEdgeFunc {
-    EDGEFUNC_UNKNOWN,
-    EDGEFUNC_NORMAL,
-    EDGEFUNC_CONNECTOR,
-    EDGEFUNC_CROSSING,
-    EDGEFUNC_WALKINGAREA,
-    EDGEFUNC_INTERNAL
+enum class SumoXMLEdgeFunc {
+    UNKNOWN,
+    NORMAL,
+    CONNECTOR,
+    CROSSING,
+    WALKINGAREA,
+    INTERNAL
 };
 
 
@@ -1166,34 +1166,34 @@ enum SumoXMLEdgeFunc {
  * to both sides from the given edge geometry (Also used when node
  * positions are used as edge geometry).
  */
-enum LaneSpreadFunction {
-    LANESPREAD_RIGHT,
-    LANESPREAD_ROADCENTER,
-    LANESPREAD_CENTER
+enum class LaneSpreadFunction {
+    RIGHT = 0,
+    ROADCENTER = 1,
+    CENTER = 2
 };
 
 
 /// @brief algorithms for computing right of way
-enum RightOfWay {
-    RIGHT_OF_WAY_DEFAULT,
-    RIGHT_OF_WAY_EDGEPRIORITY
+enum class RightOfWay {
+    DEFAULT,
+    EDGEPRIORITY
 };
 
 /// @brief algorithms for computing right of way
-enum FringeType {
-    FRINGE_TYPE_OUTER,
-    FRINGE_TYPE_INNER,
-    FRINGE_TYPE_DEFAULT
+enum class FringeType {
+    OUTER,
+    INNER,
+    DEFAULT
 };
 
 /// @brief travel modes for persons
-enum PersonMode {
-    PERSONMODE_NONE = 0,
-    PERSONMODE_WALK = 1,
-    PERSONMODE_BICYCLE = 2,
-    PERSONMODE_CAR = 4,
-    PERSONMODE_PUBLIC = 8,
-    PERSONMODE_TAXI = 16
+enum class PersonMode {
+    NONE = 0,
+    WALK = 1 << 1,
+    BICYCLE = 1 << 2,
+    CAR = 1 << 3,
+    PUBLIC = 1 << 4,
+    TAXI = 1 << 5
 };
 
 /**

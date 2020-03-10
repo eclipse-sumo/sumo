@@ -230,7 +230,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
                                        " in connection from '%' to '%'.", toLane, from->getID(), to->getID());
             return;
         }
-        if (from->hasConnectionTo(to, toLane) && from->getToNode()->getType() != NODETYPE_ZIPPER) {
+        if (from->hasConnectionTo(to, toLane) && from->getToNode()->getType() != SumoXMLNodeType::ZIPPER) {
             WRITE_WARNINGF("Target lane '%' is already connected from '%'.", to->getLaneID(toLane), from->getID());
         }
 

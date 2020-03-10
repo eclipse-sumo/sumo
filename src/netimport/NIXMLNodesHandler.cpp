@@ -162,17 +162,17 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
                                    NBNodeCont& nc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     bool ok = true;
     // get the type
-    SumoXMLNodeType type = NODETYPE_UNKNOWN;
+    SumoXMLNodeType type = SumoXMLNodeType::UNKNOWN;
     if (node != nullptr) {
         type = node->getType();
     }
     std::string typeS = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, nodeID.c_str(), ok, "");
     if (SUMOXMLDefinitions::NodeTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::NodeTypes.get(typeS);
-        if (type == NODETYPE_DEAD_END_DEPRECATED || type == NODETYPE_DEAD_END) {
+        if (type == SumoXMLNodeType::DEAD_END_DEPRECATED || type == SumoXMLNodeType::DEAD_END) {
             // dead end is a computed status. Reset this to unknown so it will
             // be corrected if additional connections are loaded
-            type = NODETYPE_UNKNOWN;
+            type = SumoXMLNodeType::UNKNOWN;
         }
     }
     std::set<NBTrafficLightDefinition*> oldTLS;
@@ -185,7 +185,7 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     } else {
         // patch information
         oldTLS = node->getControllingTLS();
-        if (node->getType() == NODETYPE_PRIORITY && type == NODETYPE_RIGHT_BEFORE_LEFT) {
+        if (node->getType() == SumoXMLNodeType::PRIORITY && type == SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
             ec.removeRoundabout(node);
         }
         node->reinit(position, type, updateEdgeGeometries);

@@ -386,7 +386,7 @@ public:
            double speed, int nolanes, int priority,
            double width, double endOffset,
            const std::string& streetName = "",
-           LaneSpreadFunction spread = LANESPREAD_RIGHT);
+           LaneSpreadFunction spread = LaneSpreadFunction::RIGHT);
 
 
     /** @brief Constructor
@@ -417,7 +417,7 @@ public:
            PositionVector geom,
            const std::string& streetName = "",
            const std::string& origID = "",
-           LaneSpreadFunction spread = LANESPREAD_RIGHT,
+           LaneSpreadFunction spread = LaneSpreadFunction::RIGHT,
            bool tryIgnoreNodePositions = false);
 
     /** @brief Constructor
@@ -461,7 +461,7 @@ public:
                 double speed, int nolanes, int priority,
                 PositionVector geom, double width, double endOffset,
                 const std::string& streetName,
-                LaneSpreadFunction spread = LANESPREAD_RIGHT,
+                LaneSpreadFunction spread = LaneSpreadFunction::RIGHT,
                 bool tryIgnoreNodePositions = false);
 
     /** @brief Resets nodes but keeps all other values the same (used when joining)

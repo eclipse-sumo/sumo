@@ -111,7 +111,7 @@ private:
     /** @brief Checks whether the lane spread shall be changed
      *
      * If for the given edge an edge into the vice direction is already
-     *  stored, both edges' lane spread functions are set to LANESPREAD_RIGHT.
+     *  stored, both edges' lane spread functions are set to LaneSpreadFunction::RIGHT.
      *
      * @param[in] e The edge to check
      */

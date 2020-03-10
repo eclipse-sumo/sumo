@@ -627,7 +627,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     }
 
     // remove any traffic lights from the traffic light container (avoids lots of warnings)
-    junction->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
+    junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), undoList);
 
     // delete edge
     undoList->add(new GNEChange_Junction(junction, false), true);
@@ -688,11 +688,11 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     }
     // if junction source is a TLS and after deletion will have only an edge, remove TLS
     if (edge->getGNEJunctionSource()->getNBNode()->isTLControlled() && (edge->getGNEJunctionSource()->getGNEOutgoingEdges().size() <= 1)) {
-        edge->getGNEJunctionSource()->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
+        edge->getGNEJunctionSource()->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), undoList);
     }
     // if junction destiny is a TLS and after deletion will have only an edge, remove TLS
     if (edge->getGNEJunctionDestiny()->getNBNode()->isTLControlled() && (edge->getGNEJunctionDestiny()->getGNEIncomingEdges().size() <= 1)) {
-        edge->getGNEJunctionDestiny()->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
+        edge->getGNEJunctionDestiny()->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), undoList);
     }
     // Delete edge
     undoList->add(new GNEChange_Edge(edge, false), true);
@@ -1180,7 +1180,7 @@ GNEEdge*
 GNENet::addReversedEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("add reversed " + toString(SUMO_TAG_EDGE));
     GNEEdge* reversed = nullptr;
-    if (edge->getNBEdge()->getLaneSpreadFunction() == LANESPREAD_RIGHT || isRailway(edge->getNBEdge()->getPermissions())) {
+    if (edge->getNBEdge()->getLaneSpreadFunction() == LaneSpreadFunction::RIGHT || isRailway(edge->getNBEdge()->getPermissions())) {
         // for rail edges, we assume bi-directional tracks are wanted
         reversed = createEdge(edge->getGNEJunctionDestiny(), edge->getGNEJunctionSource(), edge, undoList, "-" + edge->getID(), false, true);
         assert(reversed != 0);
@@ -1893,7 +1893,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     bool setTL;
     std::string id = "cluster";
     TrafficLightType type;
-    SumoXMLNodeType nodeType = NODETYPE_UNKNOWN;
+    SumoXMLNodeType nodeType = SumoXMLNodeType::UNKNOWN;
     myNetBuilder->getNodeCont().analyzeCluster(cluster, id, pos, setTL, type, nodeType);
     // save position
     oldPos = pos;

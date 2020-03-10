@@ -402,7 +402,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
 
 void
 NBRampsComputer::moveRampRight(NBEdge* ramp, int addedLanes) {
-    if (ramp->getLaneSpreadFunction() != LANESPREAD_CENTER) {
+    if (ramp->getLaneSpreadFunction() != LaneSpreadFunction::CENTER) {
         return;
     }
     try {
@@ -587,7 +587,7 @@ NBRampsComputer::hasWrongMode(NBEdge* edge) {
 void
 NBRampsComputer::patchRampGeometry(NBEdge* potRamp, NBEdge* first, NBEdge* potHighway, bool onRamp) {
     // geometry of first and highway should allign on the left side
-    if (first->getLaneSpreadFunction() == LANESPREAD_CENTER && first->hasDefaultGeometryEndpoints()) {
+    if (first->getLaneSpreadFunction() == LaneSpreadFunction::CENTER && first->hasDefaultGeometryEndpoints()) {
         const NBNode* n = onRamp ? potHighway->getToNode() : potHighway->getFromNode();
         if (potHighway->hasDefaultGeometryEndpointAtNode(n)) {
             PositionVector p2 = first->getGeometry();
@@ -602,7 +602,7 @@ NBRampsComputer::patchRampGeometry(NBEdge* potRamp, NBEdge* first, NBEdge* potHi
     PositionVector p = potRamp->getGeometry();
     double offset = 0;
     int firstIndex = MAX2(0, MIN2(potRamp->getNumLanes(), first->getNumLanes()) - 1);
-    if (potRamp->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
+    if (potRamp->getLaneSpreadFunction() == LaneSpreadFunction::RIGHT) {
         offset = -first->getLaneWidth(firstIndex) / 2;
     } else {
         if (firstIndex % 2 == 1) {

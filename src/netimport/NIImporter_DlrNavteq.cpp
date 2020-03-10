@@ -375,7 +375,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         geoms.push_back(to->getPosition());
         const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? id : "";
         e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, numLanes, priority,
-                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, origID, LANESPREAD_CENTER);
+                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, origID, LaneSpreadFunction::CENTER);
     }
 
     // NavTeq imports can be done with a typemap (if supplied), if not, the old defaults are used
@@ -487,8 +487,8 @@ NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) {
         WRITE_WARNINGF("The traffic light edge '%' could not be found.", edgeID);
     } else {
         NBNode* node = edge->getToNode();
-        if (node->getType() != NODETYPE_TRAFFIC_LIGHT) {
-            node->reinit(node->getPosition(), NODETYPE_TRAFFIC_LIGHT);
+        if (node->getType() != SumoXMLNodeType::TRAFFIC_LIGHT) {
+            node->reinit(node->getPosition(), SumoXMLNodeType::TRAFFIC_LIGHT);
             // @note. There may be additional information somewhere in the GDF files about traffic light type ...
             TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
             // @note actually we could use the navteq node ID here

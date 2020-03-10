@@ -680,10 +680,10 @@ NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, double 
     PositionVector geom1 = e1->getGeometry();
     PositionVector geom2 = e2->getGeometry();
     // shift to make geom the centerline of the edge regardless of spreadtype
-    if (e1->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
+    if (e1->getLaneSpreadFunction() == LaneSpreadFunction::RIGHT) {
         geom1.move2side(e1->getTotalWidth() / 2);
     }
-    if (e2->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
+    if (e2->getLaneSpreadFunction() == LaneSpreadFunction::RIGHT) {
         geom2.move2side(e2->getTotalWidth() / 2);
     }
     // always let geometry start at myNode

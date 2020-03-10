@@ -757,58 +757,58 @@ const std::string SUMO_PARAM_ORIGID("origId");
 
 
 StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[] = {
-    {"traffic_light",               NODETYPE_TRAFFIC_LIGHT},
-    {"traffic_light_unregulated",   NODETYPE_TRAFFIC_LIGHT_NOJUNCTION},
-    {"traffic_light_right_on_red",  NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED},
-    {"rail_signal",                 NODETYPE_RAIL_SIGNAL},
-    {"rail_crossing",               NODETYPE_RAIL_CROSSING},
-    {"priority",                    NODETYPE_PRIORITY},
-    {"priority_stop",               NODETYPE_PRIORITY_STOP},
-    {"right_before_left",           NODETYPE_RIGHT_BEFORE_LEFT},
-    {"allway_stop",                 NODETYPE_ALLWAY_STOP},
-    {"zipper",                      NODETYPE_ZIPPER},
-    {"district",                    NODETYPE_DISTRICT},
-    {"unregulated",                 NODETYPE_NOJUNCTION},
-    {"internal",                    NODETYPE_INTERNAL},
-    {"dead_end",                    NODETYPE_DEAD_END},
-    {"DEAD_END",                    NODETYPE_DEAD_END_DEPRECATED},
-    {"unknown",                     NODETYPE_UNKNOWN} //< must be the last one
+    {"traffic_light",               SumoXMLNodeType::TRAFFIC_LIGHT},
+    {"traffic_light_unregulated",   SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION},
+    {"traffic_light_right_on_red",  SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED},
+    {"rail_signal",                 SumoXMLNodeType::RAIL_SIGNAL},
+    {"rail_crossing",               SumoXMLNodeType::RAIL_CROSSING},
+    {"priority",                    SumoXMLNodeType::PRIORITY},
+    {"priority_stop",               SumoXMLNodeType::PRIORITY_STOP},
+    {"right_before_left",           SumoXMLNodeType::RIGHT_BEFORE_LEFT},
+    {"allway_stop",                 SumoXMLNodeType::ALLWAY_STOP},
+    {"zipper",                      SumoXMLNodeType::ZIPPER},
+    {"district",                    SumoXMLNodeType::DISTRICT},
+    {"unregulated",                 SumoXMLNodeType::NOJUNCTION},
+    {"internal",                    SumoXMLNodeType::INTERNAL},
+    {"dead_end",                    SumoXMLNodeType::DEAD_END},
+    {"DEAD_END",                    SumoXMLNodeType::DEAD_END_DEPRECATED},
+    {"unknown",                     SumoXMLNodeType::UNKNOWN} //< must be the last one
 };
 
 
 StringBijection<SumoXMLEdgeFunc>::Entry SUMOXMLDefinitions::sumoEdgeFuncValues[] = {
-    {"unknown",     EDGEFUNC_UNKNOWN},
-    {"normal",      EDGEFUNC_NORMAL},
-    {"connector",   EDGEFUNC_CONNECTOR},
-    {"crossing",    EDGEFUNC_CROSSING},
-    {"walkingarea", EDGEFUNC_WALKINGAREA},
-    {"internal",    EDGEFUNC_INTERNAL} //< must be the last one
+    {"unknown",     SumoXMLEdgeFunc::UNKNOWN},
+    {"normal",      SumoXMLEdgeFunc::NORMAL},
+    {"connector",   SumoXMLEdgeFunc::CONNECTOR},
+    {"crossing",    SumoXMLEdgeFunc::CROSSING},
+    {"walkingarea", SumoXMLEdgeFunc::WALKINGAREA},
+    {"internal",    SumoXMLEdgeFunc::INTERNAL} //< must be the last one
 };
 
 
 StringBijection<LaneSpreadFunction>::Entry SUMOXMLDefinitions::laneSpreadFunctionValues[] = {
-    {"right",      LANESPREAD_RIGHT }, // default: geometry is left edge border, lanes flare to the right
-    {"roadCenter", LANESPREAD_ROADCENTER }, // geometry is center of the bidirectional road
-    {"center",     LANESPREAD_CENTER } // geometry is center of the edge (must be the last one)
+    {"right",      LaneSpreadFunction::RIGHT }, // default: geometry is left edge border, lanes flare to the right
+    {"roadCenter", LaneSpreadFunction::ROADCENTER }, // geometry is center of the bidirectional road
+    {"center",     LaneSpreadFunction::CENTER } // geometry is center of the edge (must be the last one)
 };
 
 StringBijection<RightOfWay>::Entry SUMOXMLDefinitions::rightOfWayValuesInitializer[] = {
-    {"edgePriority", RIGHT_OF_WAY_EDGEPRIORITY },
-    {"default",      RIGHT_OF_WAY_DEFAULT } // default (must be the last one)
+    {"edgePriority", RightOfWay::EDGEPRIORITY },
+    {"default",      RightOfWay::DEFAULT } // default (must be the last one)
 };
 
 StringBijection<FringeType>::Entry SUMOXMLDefinitions::fringeTypeValuesInitializer[] = {
-    {"outer",   FRINGE_TYPE_OUTER },
-    {"inner",   FRINGE_TYPE_INNER },
-    {"default", FRINGE_TYPE_DEFAULT } // default (must be the last one)
+    {"outer",   FringeType::OUTER },
+    {"inner",   FringeType::INNER },
+    {"default", FringeType::DEFAULT } // default (must be the last one)
 };
 
 StringBijection<PersonMode>::Entry SUMOXMLDefinitions::personModeValuesInitializer[] = {
-    {"none",    PERSONMODE_NONE},
-    {"walk",    PERSONMODE_WALK},
-    {"bicycle", PERSONMODE_BICYCLE },
-    {"car",     PERSONMODE_CAR },
-    {"public",  PERSONMODE_PUBLIC} // (must be the last one)
+    {"none",    PersonMode::NONE},
+    {"walk",    PersonMode::WALK},
+    {"bicycle", PersonMode::BICYCLE },
+    {"car",     PersonMode::CAR },
+    {"public",  PersonMode::PUBLIC} // (must be the last one)
 };
 
 StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
@@ -832,7 +832,7 @@ StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
 const char SUMOXMLDefinitions::AllowedTLS_linkStatesInitializer[] = {
     LINKSTATE_TL_GREEN_MAJOR,
     LINKSTATE_TL_GREEN_MINOR,
-    LINKSTATE_STOP, // used for NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED
+    LINKSTATE_STOP, // used for SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED
     LINKSTATE_TL_RED,
     LINKSTATE_TL_REDYELLOW,
     LINKSTATE_TL_YELLOW_MAJOR,
@@ -949,22 +949,22 @@ StringBijection<int> SUMOXMLDefinitions::Attrs(
     SUMOXMLDefinitions::attrs, SUMO_ATTR_NOTHING);
 
 StringBijection<SumoXMLNodeType> SUMOXMLDefinitions::NodeTypes(
-    SUMOXMLDefinitions::sumoNodeTypeValues, NODETYPE_UNKNOWN);
+    SUMOXMLDefinitions::sumoNodeTypeValues, SumoXMLNodeType::UNKNOWN);
 
 StringBijection<SumoXMLEdgeFunc> SUMOXMLDefinitions::EdgeFunctions(
-    SUMOXMLDefinitions::sumoEdgeFuncValues, EDGEFUNC_INTERNAL);
+    SUMOXMLDefinitions::sumoEdgeFuncValues, SumoXMLEdgeFunc::INTERNAL);
 
 StringBijection<LaneSpreadFunction> SUMOXMLDefinitions::LaneSpreadFunctions(
-    SUMOXMLDefinitions::laneSpreadFunctionValues, LANESPREAD_CENTER);
+    SUMOXMLDefinitions::laneSpreadFunctionValues, LaneSpreadFunction::CENTER);
 
 StringBijection<RightOfWay> SUMOXMLDefinitions::RightOfWayValues(
-    SUMOXMLDefinitions::rightOfWayValuesInitializer, RIGHT_OF_WAY_DEFAULT);
+    SUMOXMLDefinitions::rightOfWayValuesInitializer, RightOfWay::DEFAULT);
 
 StringBijection<FringeType> SUMOXMLDefinitions::FringeTypeValues(
-    SUMOXMLDefinitions::fringeTypeValuesInitializer, FRINGE_TYPE_DEFAULT);
+    SUMOXMLDefinitions::fringeTypeValuesInitializer, FringeType::DEFAULT);
 
 StringBijection<PersonMode> SUMOXMLDefinitions::PersonModeValues(
-    SUMOXMLDefinitions::personModeValuesInitializer, PERSONMODE_PUBLIC);
+    SUMOXMLDefinitions::personModeValuesInitializer, PersonMode::PUBLIC);
 
 StringBijection<LinkState> SUMOXMLDefinitions::LinkStates(
     SUMOXMLDefinitions::linkStateValues, LINKSTATE_DEADEND);

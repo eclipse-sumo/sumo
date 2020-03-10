@@ -143,21 +143,21 @@ public:
 
     /// @brief return whether this edge is an internal edge
     inline bool isInternal() const {
-        return myFunction == EDGEFUNC_INTERNAL;
+        return myFunction == SumoXMLEdgeFunc::INTERNAL;
     }
 
     /// @brief return whether this edge is a pedestrian crossing
     inline bool isCrossing() const {
-        return myFunction == EDGEFUNC_CROSSING;
+        return myFunction == SumoXMLEdgeFunc::CROSSING;
     }
 
     /// @brief return whether this edge is walking area
     inline bool isWalkingArea() const {
-        return myFunction == EDGEFUNC_WALKINGAREA;
+        return myFunction == SumoXMLEdgeFunc::WALKINGAREA;
     }
 
     inline bool isTazConnector() const {
-        return myFunction == EDGEFUNC_CONNECTOR;
+        return myFunction == SumoXMLEdgeFunc::CONNECTOR;
     }
 
     void setOtherTazConnector(const ROEdge* edge) {

@@ -318,7 +318,7 @@ NIImporter_ArcView::load() {
         // add positive direction if wanted
         if (dir == "B" || dir == "F" || dir == "" || myOptions.getBool("shapefile.all-bidirectional")) {
             if (myEdgeCont.retrieve(id) == 0) {
-                LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+                LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
                 NBEdge* edge = new NBEdge(id, from, to, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape, name, origID, spread);
                 edge->setPermissions(myTypeCont.getPermissions(type));
                 myEdgeCont.insert(edge);
@@ -331,7 +331,7 @@ NIImporter_ArcView::load() {
         // add negative direction if wanted
         if ((dir == "B" || dir == "T" || myOptions.getBool("shapefile.all-bidirectional")) && !oneway) {
             if (myEdgeCont.retrieve("-" + id) == 0) {
-                LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+                LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
                 NBEdge* edge = new NBEdge("-" + id, to, from, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), name, origID, spread);
                 edge->setPermissions(myTypeCont.getPermissions(type));
                 myEdgeCont.insert(edge);
@@ -464,8 +464,8 @@ void
 NIImporter_ArcView::checkSpread(NBEdge* e) {
     NBEdge* ret = e->getToNode()->getConnectionTo(e->getFromNode());
     if (ret != 0) {
-        e->setLaneSpreadFunction(LANESPREAD_RIGHT);
-        ret->setLaneSpreadFunction(LANESPREAD_RIGHT);
+        e->setLaneSpreadFunction(LaneSpreadFunction::RIGHT);
+        ret->setLaneSpreadFunction(LaneSpreadFunction::RIGHT);
     }
 }
 

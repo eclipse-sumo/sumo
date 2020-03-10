@@ -76,40 +76,40 @@ NWWriter_Amitran::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             continue;
         }
         switch (i->second->getType()) {
-            case NODETYPE_TRAFFIC_LIGHT:
-            case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
-            case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED:
+            case SumoXMLNodeType::TRAFFIC_LIGHT:
+            case SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION:
+            case SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED:
                 device << "\" type=\"trafficLight";
                 break;
-            case NODETYPE_PRIORITY:
+            case SumoXMLNodeType::PRIORITY:
                 device << "\" type=\"priority";
                 break;
-            case NODETYPE_PRIORITY_STOP:
+            case SumoXMLNodeType::PRIORITY_STOP:
                 device << "\" type=\"priorityStop";
                 break;
-            case NODETYPE_RIGHT_BEFORE_LEFT:
+            case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
                 device << "\" type=\"rightBeforeLeft";
                 break;
-            case NODETYPE_ALLWAY_STOP:
+            case SumoXMLNodeType::ALLWAY_STOP:
                 device << "\" type=\"allwayStop";
                 break;
-            case NODETYPE_ZIPPER:
+            case SumoXMLNodeType::ZIPPER:
                 device << "\" type=\"zipper";
                 break;
-            case NODETYPE_RAIL_SIGNAL:
+            case SumoXMLNodeType::RAIL_SIGNAL:
                 device << "\" type=\"railSignal";
                 break;
-            case NODETYPE_RAIL_CROSSING:
+            case SumoXMLNodeType::RAIL_CROSSING:
                 device << "\" type=\"railCrossing";
                 break;
-            case NODETYPE_DEAD_END:
-            case NODETYPE_DEAD_END_DEPRECATED:
+            case SumoXMLNodeType::DEAD_END:
+            case SumoXMLNodeType::DEAD_END_DEPRECATED:
                 device << "\" type=\"deadEnd";
                 break;
-            case NODETYPE_DISTRICT:
-            case NODETYPE_NOJUNCTION:
-            case NODETYPE_INTERNAL:
-            case NODETYPE_UNKNOWN:
+            case SumoXMLNodeType::DISTRICT:
+            case SumoXMLNodeType::NOJUNCTION:
+            case SumoXMLNodeType::INTERNAL:
+            case SumoXMLNodeType::UNKNOWN:
                 break;
         }
         device << "\"/>\n";

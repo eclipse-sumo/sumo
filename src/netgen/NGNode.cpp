@@ -68,7 +68,7 @@ NGNode::buildNBNode(NBNetBuilder& nb, const Position& perturb) const {
     GeoConvHelper::getProcessing().x2cartesian(pos);
     // the center will have no logic!
     if (myAmCenter) {
-        return new NBNode(myID, pos, NODETYPE_NOJUNCTION);
+        return new NBNode(myID, pos, SumoXMLNodeType::NOJUNCTION);
     }
     NBNode* node = nullptr;
     std::string typeS = OptionsCont::getOptions().isSet("default-junction-type") ?
@@ -90,11 +90,11 @@ NGNode::buildNBNode(NBNetBuilder& nb, const Position& perturb) const {
             }
         }
     } else {
-        // otherwise netbuild may guess NODETYPE_TRAFFIC_LIGHT without actually building one
-        node = new NBNode(myID, pos, NODETYPE_PRIORITY);
+        // otherwise netbuild may guess SumoXMLNodeType::TRAFFIC_LIGHT without actually building one
+        node = new NBNode(myID, pos, SumoXMLNodeType::PRIORITY);
     }
     if (myAmFringe) {
-        node->setFringeType(FRINGE_TYPE_OUTER);
+        node->setFringeType(FringeType::OUTER);
     }
 
     return node;

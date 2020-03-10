@@ -218,7 +218,7 @@ GUIEdge::getOptionalName() const {
 
 void
 GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
-    if (s.hideConnectors && myFunction == EDGEFUNC_CONNECTOR) {
+    if (s.hideConnectors && myFunction == SumoXMLEdgeFunc::CONNECTOR) {
         return;
     }
     glPushName(getGlID());
@@ -236,13 +236,13 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPopName();
     // (optionally) draw the name and/or the street name
-    const bool drawEdgeName = s.edgeName.show && myFunction == EDGEFUNC_NORMAL;
-    const bool drawInternalEdgeName = s.internalEdgeName.show && myFunction == EDGEFUNC_INTERNAL;
-    const bool drawCwaEdgeName = s.cwaEdgeName.show && (myFunction == EDGEFUNC_CROSSING || myFunction == EDGEFUNC_WALKINGAREA);
+    const bool drawEdgeName = s.edgeName.show && myFunction == SumoXMLEdgeFunc::NORMAL;
+    const bool drawInternalEdgeName = s.internalEdgeName.show && myFunction == SumoXMLEdgeFunc::INTERNAL;
+    const bool drawCwaEdgeName = s.cwaEdgeName.show && (myFunction == SumoXMLEdgeFunc::CROSSING || myFunction == SumoXMLEdgeFunc::WALKINGAREA);
     const bool drawStreetName = s.streetName.show && myStreetName != "";
-    const bool drawEdgeValue = s.edgeValue.show && (myFunction == EDGEFUNC_NORMAL
-                               || (myFunction == EDGEFUNC_INTERNAL && !s.drawJunctionShape)
-                               || ((myFunction == EDGEFUNC_CROSSING || myFunction == EDGEFUNC_WALKINGAREA) && s.drawCrossingsAndWalkingareas));
+    const bool drawEdgeValue = s.edgeValue.show && (myFunction == SumoXMLEdgeFunc::NORMAL
+                               || (myFunction == SumoXMLEdgeFunc::INTERNAL && !s.drawJunctionShape)
+                               || ((myFunction == SumoXMLEdgeFunc::CROSSING || myFunction == SumoXMLEdgeFunc::WALKINGAREA) && s.drawCrossingsAndWalkingareas));
     if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawStreetName || drawEdgeValue) {
         GUILane* lane1 = dynamic_cast<GUILane*>((*myLanes)[0]);
         GUILane* lane2 = dynamic_cast<GUILane*>((*myLanes).back());
@@ -458,7 +458,7 @@ GUIEdge::getColorValue(const GUIVisualizationSettings& /*s*/, int activeScheme) 
         case 1:
             return gSelected.isSelected(getType(), getGlID());
         case 2:
-            return getFunction();
+            return (double)getFunction();
         case 3:
             return getAllowedSpeed();
         case 4:

@@ -1227,7 +1227,7 @@ MSNet::checkElevation() {
 bool
 MSNet::checkWalkingarea() {
     for (const MSEdge* e : myEdges->getEdges()) {
-        if (e->getFunction() == EDGEFUNC_WALKINGAREA) {
+        if (e->getFunction() == SumoXMLEdgeFunc::WALKINGAREA) {
             return true;
         }
     }

@@ -504,7 +504,7 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                               << " clusterNode=" << n->getID() << " edge=" << e->getID() << " length=" << length << " with cluster " << joinNamedToString(c, ' ') << "\n";
                 }
 #endif
-                if (railAndPeds && n->getType() != NODETYPE_RAIL_CROSSING) {
+                if (railAndPeds && n->getType() != SumoXMLNodeType::RAIL_CROSSING) {
                     bool railAndPeds2 = true;
                     for (NBEdge* e : n->getEdges()) {
                         if ((e->getPermissions() & ~(SVC_RAIL_CLASSES | SVC_PEDESTRIAN)) != 0) {
@@ -512,13 +512,13 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                             break;
                         }
                     }
-                    if (railAndPeds2 && s->getType() != NODETYPE_RAIL_CROSSING) {
+                    if (railAndPeds2 && s->getType() != SumoXMLNodeType::RAIL_CROSSING) {
                         // do not join rail/ped nodes unless at a rail crossing
                         // (neither nodes nor the traffic lights)
                         continue;
                     }
                 }
-                const bool bothCrossing = n->getType() == NODETYPE_RAIL_CROSSING && s->getType() == NODETYPE_RAIL_CROSSING;
+                const bool bothCrossing = n->getType() == SumoXMLNodeType::RAIL_CROSSING && s->getType() == SumoXMLNodeType::RAIL_CROSSING;
                 const bool joinPedCrossings = bothCrossing && e->getPermissions() == SVC_PEDESTRIAN;
                 if ( // never join pedestrian stuff (unless at a rail crossing
                     !joinPedCrossings && (
@@ -530,11 +530,11 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                     continue;
                 }
                 // never join rail_crossings with other node types unless the crossing is only for tram
-                if ((n->getType() == NODETYPE_RAIL_CROSSING && s->getType() != NODETYPE_RAIL_CROSSING)
-                        || (n->getType() != NODETYPE_RAIL_CROSSING && s->getType() == NODETYPE_RAIL_CROSSING)) {
+                if ((n->getType() == SumoXMLNodeType::RAIL_CROSSING && s->getType() != SumoXMLNodeType::RAIL_CROSSING)
+                        || (n->getType() != SumoXMLNodeType::RAIL_CROSSING && s->getType() == SumoXMLNodeType::RAIL_CROSSING)) {
                     const SVCPermissions railNoTram = (SVC_RAIL_CLASSES & ~SVC_TRAM);
                     bool foundRail = false;
-                    NBNode* crossingNode = n->getType() == NODETYPE_RAIL_CROSSING ? n : s;
+                    NBNode* crossingNode = n->getType() == SumoXMLNodeType::RAIL_CROSSING ? n : s;
                     for (NBEdge* e2 : crossingNode->getIncomingEdges()) {
                         if ((e2->getPermissions() & railNoTram) != 0) {
                             foundRail = true;
@@ -1488,7 +1488,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
     bool setTL;
     std::string id = "cluster";
     TrafficLightType type;
-    SumoXMLNodeType nodeType = NODETYPE_UNKNOWN;
+    SumoXMLNodeType nodeType = SumoXMLNodeType::UNKNOWN;
     analyzeCluster(cluster, id, pos, setTL, type, nodeType);
     NBNode* newNode = nullptr;
     if (predefined != nullptr) {
@@ -1503,7 +1503,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
     }
     std::string tlID = id;
     if (predefined != nullptr) {
-        if (predefined->getType() != NODETYPE_UNKNOWN) {
+        if (predefined->getType() != SumoXMLNodeType::UNKNOWN) {
             nodeType = predefined->getType();
         }
         Position ppos = predefined->getPosition();
@@ -1680,17 +1680,17 @@ NBNodeCont::analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
             hasTLS = true;
         }
         SumoXMLNodeType otherType = j->getType();
-        if (nodeType == NODETYPE_UNKNOWN) {
+        if (nodeType == SumoXMLNodeType::UNKNOWN) {
             nodeType = otherType;
         } else if (nodeType != otherType) {
             if (hasTLS) {
-                nodeType = NODETYPE_TRAFFIC_LIGHT;
+                nodeType = SumoXMLNodeType::TRAFFIC_LIGHT;
             } else {
-                if ((nodeType != NODETYPE_PRIORITY && (nodeType != NODETYPE_NOJUNCTION || otherType != NODETYPE_PRIORITY))
-                        || (otherType != NODETYPE_NOJUNCTION && otherType != NODETYPE_UNKNOWN && otherType != NODETYPE_PRIORITY)) {
-                    WRITE_WARNINGF("Ambiguous node type for node cluster '%' (%,%), setting to '" + toString(NODETYPE_PRIORITY) + "'.", id, toString(nodeType), toString(otherType));
+                if ((nodeType != SumoXMLNodeType::PRIORITY && (nodeType != SumoXMLNodeType::NOJUNCTION || otherType != SumoXMLNodeType::PRIORITY))
+                        || (otherType != SumoXMLNodeType::NOJUNCTION && otherType != SumoXMLNodeType::UNKNOWN && otherType != SumoXMLNodeType::PRIORITY)) {
+                    WRITE_WARNINGF("Ambiguous node type for node cluster '%' (%,%), setting to '" + toString(SumoXMLNodeType::PRIORITY) + "'.", id, toString(nodeType), toString(otherType));
                 }
-                nodeType = NODETYPE_PRIORITY;
+                nodeType = SumoXMLNodeType::PRIORITY;
             }
         }
     }
@@ -1871,7 +1871,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             const EdgeVector& outgoing = node->getOutgoingEdges();
             if (!node->isTLControlled() && incoming.size() > 1 && !node->geometryLike()
                     && !NBNodeTypeComputer::isRailwayNode(node)
-                    && node->getType() != NODETYPE_RAIL_CROSSING) {
+                    && node->getType() != SumoXMLNodeType::RAIL_CROSSING) {
                 std::vector<const NBNode*> signals;
                 bool isTLS = true;
                 // check if there is a signal at every incoming edge
@@ -1925,7 +1925,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                 if (isTLS) {
                     for (const NBNode* s : signals) {
                         std::set<NBTrafficLightDefinition*> tls = s->getControllingTLS();
-                        const_cast<NBNode*>(s)->reinit(s->getPosition(), NODETYPE_PRIORITY);
+                        const_cast<NBNode*>(s)->reinit(s->getPosition(), SumoXMLNodeType::PRIORITY);
                         for (std::set<NBTrafficLightDefinition*>::iterator k = tls.begin(); k != tls.end(); ++k) {
                             tlc.removeFully(s->getID());
                         }
@@ -2056,7 +2056,7 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
         bool dummySetTL;
         std::string id = "joined"; // prefix (see #3871)
         TrafficLightType type;
-        SumoXMLNodeType nodeType = NODETYPE_UNKNOWN;
+        SumoXMLNodeType nodeType = SumoXMLNodeType::UNKNOWN;
         analyzeCluster(c, id, dummyPos, dummySetTL, type, nodeType);
         for (NBNode* j : c) {
             std::set<NBTrafficLightDefinition*> tls = j->getControllingTLS();
@@ -2187,40 +2187,40 @@ NBNodeCont::printBuiltNodesStatistics() const {
     int numRailSignals = 0;
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         switch ((*i).second->getType()) {
-            case NODETYPE_NOJUNCTION:
+            case SumoXMLNodeType::NOJUNCTION:
                 ++numUnregulatedJunctions;
                 break;
-            case NODETYPE_DEAD_END:
+            case SumoXMLNodeType::DEAD_END:
                 ++numDeadEndJunctions;
                 break;
-            case NODETYPE_TRAFFIC_LIGHT:
-            case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED:
-            case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
+            case SumoXMLNodeType::TRAFFIC_LIGHT:
+            case SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED:
+            case SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION:
                 ++numTrafficLightJunctions;
                 break;
-            case NODETYPE_PRIORITY:
-            case NODETYPE_PRIORITY_STOP:
+            case SumoXMLNodeType::PRIORITY:
+            case SumoXMLNodeType::PRIORITY_STOP:
                 ++numPriorityJunctions;
                 break;
-            case NODETYPE_RIGHT_BEFORE_LEFT:
+            case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
                 ++numRightBeforeLeftJunctions;
                 break;
-            case NODETYPE_ALLWAY_STOP:
+            case SumoXMLNodeType::ALLWAY_STOP:
                 ++numAllWayStopJunctions;
                 break;
-            case NODETYPE_ZIPPER:
+            case SumoXMLNodeType::ZIPPER:
                 ++numZipperJunctions;
                 break;
-            case NODETYPE_DISTRICT:
+            case SumoXMLNodeType::DISTRICT:
                 ++numDistrictJunctions;
                 break;
-            case NODETYPE_RAIL_CROSSING:
+            case SumoXMLNodeType::RAIL_CROSSING:
                 ++numRailCrossing;
                 break;
-            case NODETYPE_RAIL_SIGNAL:
+            case SumoXMLNodeType::RAIL_SIGNAL:
                 ++numRailSignals;
                 break;
-            case NODETYPE_UNKNOWN:
+            case SumoXMLNodeType::UNKNOWN:
                 // should not happen
                 break;
             default:
@@ -2301,7 +2301,7 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
                 node->removeTrafficLight(tlDef);
                 tlc.extract(tlDef);
             }
-            SumoXMLNodeType newType = NBNodeTypeComputer::isRailwayNode(node) ? NODETYPE_RAIL_SIGNAL : NODETYPE_UNKNOWN;
+            SumoXMLNodeType newType = NBNodeTypeComputer::isRailwayNode(node) ? SumoXMLNodeType::RAIL_SIGNAL : SumoXMLNodeType::UNKNOWN;
             node->reinit(node->getPosition(), newType);
         }
     }
@@ -2312,8 +2312,8 @@ void
 NBNodeCont::discardRailSignals() {
     for (auto& item : myNodes) {
         NBNode* node = item.second;
-        if (node->getType() == NODETYPE_RAIL_SIGNAL) {
-            node->reinit(node->getPosition(), NODETYPE_PRIORITY);
+        if (node->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+            node->reinit(node->getPosition(), SumoXMLNodeType::PRIORITY);
         }
     }
 }
@@ -2404,7 +2404,7 @@ NBNodeCont::guessFringe() {
         if ((in <= 1 && out <= 1) &&
                 (in == 0 || out == 0
                  || n->getIncomingEdges().front()->isTurningDirectionAt(n->getOutgoingEdges().front()))) {
-            n->setFringeType(FRINGE_TYPE_OUTER);
+            n->setFringeType(FringeType::OUTER);
             numFringe++;
         }
     }

@@ -705,9 +705,9 @@ NBEdge::resetNodeBorder(const NBNode* node) {
 bool
 NBEdge::isBidiRail(bool ignoreSpread) const {
     return (isRailway(getPermissions())
-            && (ignoreSpread || myLaneSpreadFunction == LANESPREAD_CENTER)
+            && (ignoreSpread || myLaneSpreadFunction == LaneSpreadFunction::CENTER)
             && myPossibleTurnDestination != nullptr
-            && (ignoreSpread || myPossibleTurnDestination->getLaneSpreadFunction() == LANESPREAD_CENTER)
+            && (ignoreSpread || myPossibleTurnDestination->getLaneSpreadFunction() == LaneSpreadFunction::CENTER)
             && isRailway(myPossibleTurnDestination->getPermissions())
             && myPossibleTurnDestination->getGeometry().reverse() == getGeometry());
 }
@@ -1656,7 +1656,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                                 && ((*i2)->getPermissions((*k2).fromLane) & warn) != 0
                                 && ((*k2).toEdge->getPermissions((*k2).toLane) & warn) != 0
                                 // do not warn for unregulated nodes
-                                && n.getType() != NODETYPE_NOJUNCTION
+                                && n.getType() != SumoXMLNodeType::NOJUNCTION
                            ) {
                             WRITE_WARNINGF("Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).",
                                            n.getID(), getLaneID(con.fromLane), (*i2)->getLaneID((*k2).fromLane));
@@ -1962,7 +1962,7 @@ NBEdge::computeLaneShapes() {
         offset += (getLaneWidth(i) + getLaneWidth(i + 1)) / 2. + SUMO_const_laneOffset;
         offsets[i] = offset;
     }
-    if (myLaneSpreadFunction == LANESPREAD_CENTER) {
+    if (myLaneSpreadFunction == LaneSpreadFunction::CENTER) {
         double width = 0;
         for (int i = 0; i < (int)myLanes.size(); ++i) {
             width += getLaneWidth(i);
@@ -1973,7 +1973,7 @@ NBEdge::computeLaneShapes() {
         double laneWidth = myLanes.back().width != UNSPECIFIED_WIDTH ? myLanes.back().width : SUMO_const_laneWidth;
         offset = (laneWidth + SUMO_const_laneOffset) / 2.; // @note: offset for half of the center-line marking of the road
     }
-    if (myLaneSpreadFunction == LANESPREAD_ROADCENTER) {
+    if (myLaneSpreadFunction == LaneSpreadFunction::ROADCENTER) {
         for (NBEdge* e : myTo->getOutgoingEdges()) {
             if (e->getToNode() == myFrom && getInnerGeometry().reverse() == e->getInnerGeometry()) {
                 offset += (e->getTotalWidth() - getTotalWidth()) / 2;
@@ -2025,7 +2025,7 @@ NBEdge::computeAngle() {
     Position toCenter = (hasToShape ? myTo->getShape().getCentroid() : myTo->getPosition());
     PositionVector shape = myGeom;
     if ((hasFromShape || hasToShape) && getNumLanes() > 0) {
-        if (myLaneSpreadFunction == LANESPREAD_RIGHT) {
+        if (myLaneSpreadFunction == LaneSpreadFunction::RIGHT) {
             shape = myLanes[getNumLanes() - 1].shape ;
         } else {
             shape = myLanes[getNumLanes() / 2].shape;
@@ -2892,7 +2892,7 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing, const std::vector<int>
 void
 NBEdge::appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends, bool onlyTurnlane, bool noGeometryLike, bool checkPermissions) {
     // do nothing if no turnaround is known
-    if (myTurnDestination == nullptr || myTo->getType() == NODETYPE_RAIL_CROSSING) {
+    if (myTurnDestination == nullptr || myTo->getType() == SumoXMLNodeType::RAIL_CROSSING) {
         return;
     }
     // do nothing if the destination node is controlled by a tls and no turnarounds
@@ -2900,7 +2900,7 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends,
     if (noTLSControlled && myTo->isTLControlled()) {
         return;
     }
-    if (noFringe && myTo->getFringeType() == FRINGE_TYPE_OUTER) {
+    if (noFringe && myTo->getFringeType() == FringeType::OUTER) {
         return;
     }
     bool isDeadEnd = true;
@@ -3658,7 +3658,7 @@ NBEdge::getSignalOffset() const {
     if (mySignalPosition == Position::INVALID) {
         return UNSPECIFIED_SIGNAL_OFFSET;
     } else {
-        Position laneEnd = myLaneSpreadFunction == LANESPREAD_RIGHT ?
+        Position laneEnd = myLaneSpreadFunction == LaneSpreadFunction::RIGHT ?
                            myLanes.back().shape.back() : myLanes[getNumLanes() / 2].shape.back();
         //std::cout << getID() << " signalPos=" << mySignalPosition << " laneEnd=" << laneEnd << " toShape=" << myTo->getShape() << " toBorder=" << myToBorder << "\n";
         return mySignalPosition.distanceTo2D(laneEnd);
@@ -3809,7 +3809,7 @@ NBEdge::addRestrictedLane(double width, SUMOVehicleClass vclass) {
         WRITE_WARNINGF("Edge '%' already has a dedicated lane for %s. Not adding another one.", getID(), toString(vclass));
         return;
     }
-    if (myLaneSpreadFunction == LANESPREAD_CENTER) {
+    if (myLaneSpreadFunction == LaneSpreadFunction::CENTER) {
         myGeom.move2side(width / 2);
     }
     // disallow pedestrians on all lanes to ensure that sidewalks are used and
@@ -3873,7 +3873,7 @@ NBEdge::shiftToLanesToEdge(NBEdge* to, int laneOff) {
 
 void
 NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
-    if (myLaneSpreadFunction == LANESPREAD_CENTER && !isRailway(getPermissions())) {
+    if (myLaneSpreadFunction == LaneSpreadFunction::CENTER && !isRailway(getPermissions())) {
         const int i = (node == myTo ? -1 : 0);
         const int i2 = (node == myTo ? 0 : -1);
         const double dist = myGeom[i].distanceTo2D(node->getPosition());

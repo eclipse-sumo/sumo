@@ -94,7 +94,7 @@ void
 MSEdge::initialize(const std::vector<MSLane*>* lanes) {
     assert(lanes != 0);
     myLanes = std::shared_ptr<const std::vector<MSLane*> >(lanes);
-    if (myFunction == EDGEFUNC_CONNECTOR) {
+    if (myFunction == SumoXMLEdgeFunc::CONNECTOR) {
         myCombinedPermissions = SVCAll;
     }
     for (MSLane* const lane : *lanes) {
@@ -963,7 +963,7 @@ MSEdge::addSuccessor(MSEdge* edge, const MSEdge* via) {
 
 const MSEdgeVector&
 MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
-    if (vClass == SVC_IGNORING || !MSNet::getInstance()->hasPermissions() || myFunction == EDGEFUNC_CONNECTOR) {
+    if (vClass == SVC_IGNORING || !MSNet::getInstance()->hasPermissions() || myFunction == SumoXMLEdgeFunc::CONNECTOR) {
         return mySuccessors;
     }
 #ifdef HAVE_FOX
@@ -993,7 +993,7 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
 
 const MSConstEdgePairVector&
 MSEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
-    if (vClass == SVC_IGNORING || !MSNet::getInstance()->hasPermissions() || myFunction == EDGEFUNC_CONNECTOR) {
+    if (vClass == SVC_IGNORING || !MSNet::getInstance()->hasPermissions() || myFunction == SumoXMLEdgeFunc::CONNECTOR) {
         return myViaSuccessors;
     }
 #ifdef HAVE_FOX
@@ -1073,7 +1073,7 @@ MSEdge::checkAndRegisterBiDirEdge(const std::string& bidiID) {
         }
         return;
     }
-    if (getFunction() != EDGEFUNC_NORMAL) {
+    if (getFunction() != SumoXMLEdgeFunc::NORMAL) {
         return;
     }
     ConstMSEdgeVector candidates = myToJunction->getOutgoing();

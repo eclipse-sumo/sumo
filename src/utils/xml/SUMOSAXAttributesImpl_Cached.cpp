@@ -151,7 +151,7 @@ SUMOSAXAttributesImpl_Cached::getEdgeFunc(bool& ok) const {
         }
         ok = false;
     }
-    return EDGEFUNC_NORMAL;
+    return SumoXMLEdgeFunc::NORMAL;
 }
 
 
@@ -164,7 +164,7 @@ SUMOSAXAttributesImpl_Cached::getNodeType(bool& ok) const {
         }
         ok = false;
     }
-    return NODETYPE_UNKNOWN;
+    return SumoXMLNodeType::UNKNOWN;
 }
 
 
@@ -177,7 +177,7 @@ SUMOSAXAttributesImpl_Cached::getRightOfWay(bool& ok) const {
         }
         ok = false;
     }
-    return RIGHT_OF_WAY_DEFAULT;
+    return RightOfWay::DEFAULT;
 }
 
 FringeType
@@ -189,7 +189,7 @@ SUMOSAXAttributesImpl_Cached::getFringeType(bool& ok) const {
         }
         ok = false;
     }
-    return FRINGE_TYPE_DEFAULT;
+    return FringeType::DEFAULT;
 }
 
 RGBColor

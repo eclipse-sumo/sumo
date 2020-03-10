@@ -328,7 +328,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     edgeID = k.id;
                     into.openTag(SUMO_TAG_EDGE);
                     into.writeAttr(SUMO_ATTR_ID, edgeID);
-                    into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
+                    into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::INTERNAL);
                     if (e->isBidiRail() && k.toEdge->isBidiRail() &&
                             e != k.toEdge->getTurnDestination(true)) {
                         try {
@@ -369,7 +369,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     const NBEdge::Lane& successor = k.toEdge->getLanes()[k.toLane];
                     into.openTag(SUMO_TAG_EDGE);
                     into.writeAttr(SUMO_ATTR_ID, k.viaID);
-                    into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
+                    into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::INTERNAL);
                     SVCPermissions permissions = (k.permissions != SVC_UNSPECIFIED) ? k.permissions : (
                                                      successor.permissions & e->getPermissions(k.fromLane));
                     writeLane(into, k.viaID + "_0", k.vmax, permissions, successor.preferred,
@@ -386,7 +386,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
     for (auto c : n.getCrossings()) {
         into.openTag(SUMO_TAG_EDGE);
         into.writeAttr(SUMO_ATTR_ID, c->id);
-        into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_CROSSING);
+        into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::CROSSING);
         into.writeAttr(SUMO_ATTR_CROSSING_EDGES, c->edges);
         writeLane(into, c->id + "_0", 1, SVC_PEDESTRIAN, 0,
                   NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
@@ -400,7 +400,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         const NBNode::WalkingArea& wa = *it;
         into.openTag(SUMO_TAG_EDGE);
         into.writeAttr(SUMO_ATTR_ID, wa.id);
-        into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_WALKINGAREA);
+        into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::WALKINGAREA);
         writeLane(into, wa.id + "_0", 1, SVC_PEDESTRIAN, 0,
                   NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                   std::map<int, double>(), wa.width, wa.shape, nullptr, wa.length, 0, "", "", false, wa.hasCustomShape);
@@ -424,10 +424,10 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
         into.writeAttr(SUMO_ATTR_TYPE, e.getTypeID());
     }
     if (e.isMacroscopicConnector()) {
-        into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_CONNECTOR);
+        into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::CONNECTOR);
     }
     // write the spread type if not default ("right")
-    if (e.getLaneSpreadFunction() != LANESPREAD_RIGHT) {
+    if (e.getLaneSpreadFunction() != LaneSpreadFunction::RIGHT) {
         into.writeAttr(SUMO_ATTR_SPREADTYPE, e.getLaneSpreadFunction());
     }
     if (e.hasLoadedLength()) {
@@ -591,7 +591,7 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
             }
         }
     }
-    if (n.getType() != NODETYPE_DEAD_END && n.getType() != NODETYPE_NOJUNCTION) {
+    if (n.getType() != SumoXMLNodeType::DEAD_END && n.getType() != SumoXMLNodeType::NOJUNCTION) {
         for (auto c : crossings) {
             intLanes += ' ' + c->id + "_0";
         }
@@ -607,13 +607,13 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
     if (n.hasCustomShape()) {
         into.writeAttr(SUMO_ATTR_CUSTOMSHAPE, true);
     }
-    if (n.getRightOfWay() != RIGHT_OF_WAY_DEFAULT) {
+    if (n.getRightOfWay() != RightOfWay::DEFAULT) {
         into.writeAttr<std::string>(SUMO_ATTR_RIGHT_OF_WAY, toString(n.getRightOfWay()));
     }
-    if (n.getFringeType() != FRINGE_TYPE_DEFAULT) {
+    if (n.getFringeType() != FringeType::DEFAULT) {
         into.writeAttr<std::string>(SUMO_ATTR_FRINGE, toString(n.getFringeType()));
     }
-    if (n.getType() != NODETYPE_DEAD_END) {
+    if (n.getType() != SumoXMLNodeType::DEAD_END) {
         // write right-of-way logics
         n.writeLogic(into);
     }
@@ -650,7 +650,7 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
             }
             Position pos = (*k).shape[-1];
             into.openTag(SUMO_TAG_JUNCTION).writeAttr(SUMO_ATTR_ID, (*k).viaID + "_0");
-            into.writeAttr(SUMO_ATTR_TYPE, NODETYPE_INTERNAL);
+            into.writeAttr(SUMO_ATTR_TYPE, SumoXMLNodeType::INTERNAL);
             NWFrame::writePositionLong(pos, into);
             std::string incLanes = (*k).getInternalLaneID();
             std::vector<std::string> foeIDs;

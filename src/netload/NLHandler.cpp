@@ -401,7 +401,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
     }
 
-    if (func == EDGEFUNC_CROSSING) {
+    if (func == SumoXMLEdgeFunc::CROSSING) {
         //get the crossingEdges attribute (to implement the other side of the road pushbutton)
         const std::string crossingEdges = attrs.getOpt<std::string>(SUMO_ATTR_CROSSING_EDGES, id.c_str(), ok, "");
         if (!crossingEdges.empty()) {
@@ -1172,7 +1172,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     int detectPersons = 0;
     for (std::string mode : StringTokenizer(detectPersonsString).getVector()) {
         if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
-            detectPersons |= SUMOXMLDefinitions::PersonModeValues.get(mode);
+            detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
         } else {
             WRITE_ERROR("Invalid person mode '" + mode + "' in edgeData definition '" + id + "'");
             return;
@@ -1351,13 +1351,13 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-sink", EDGEFUNC_CONNECTOR, "", "", -1, 0);
+        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-sink", SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
         if (!MSEdge::dictionary(myCurrentDistrictID + "-sink", sink)) {
             delete sink;
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-sink' exists.");
         }
         sink->initialize(new std::vector<MSLane*>());
-        MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source", EDGEFUNC_CONNECTOR, "", "", -1, 0);
+        MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source", SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
         if (!MSEdge::dictionary(myCurrentDistrictID + "-source", source)) {
             delete source;
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-source' exists.");

@@ -148,10 +148,10 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
         if (n->getKeepClear() == false) {
             device.writeAttr<bool>(SUMO_ATTR_KEEP_CLEAR, n->getKeepClear());
         }
-        if (n->getRightOfWay() != RIGHT_OF_WAY_DEFAULT) {
+        if (n->getRightOfWay() != RightOfWay::DEFAULT) {
             device.writeAttr<std::string>(SUMO_ATTR_RIGHT_OF_WAY, toString(n->getRightOfWay()));
         }
-        if (n->getFringeType() != FRINGE_TYPE_DEFAULT) {
+        if (n->getFringeType() != FringeType::DEFAULT) {
             device.writeAttr<std::string>(SUMO_ATTR_FRINGE, toString(n->getFringeType()));
         }
         n->writeParams(device);

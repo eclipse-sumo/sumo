@@ -1055,7 +1055,7 @@ Vehicle::add(const std::string& vehicleID,
             route = MSRoute::dictionary(dummyRouteID);
             if (route == nullptr) {
                 for (MSEdge* e : MSEdge::getAllEdges()) {
-                    if (e->getFunction() == EDGEFUNC_NORMAL && (e->getPermissions() & vclass) == vclass) {
+                    if (e->getFunction() == SumoXMLEdgeFunc::NORMAL && (e->getPermissions() & vclass) == vclass) {
                         std::vector<std::string>  edges;
                         edges.push_back(e->getID());
                         libsumo::Route::add(dummyRouteID, edges);

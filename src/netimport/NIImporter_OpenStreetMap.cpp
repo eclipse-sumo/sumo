@@ -287,9 +287,9 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
         }
         n->node = node;
         if (n->railwayCrossing) {
-            node->reinit(pos, NODETYPE_RAIL_CROSSING);
+            node->reinit(pos, SumoXMLNodeType::RAIL_CROSSING);
         } else if (n->railwaySignal) {
-            node->reinit(pos, NODETYPE_RAIL_SIGNAL);
+            node->reinit(pos, SumoXMLNodeType::RAIL_SIGNAL);
         } else if (n->tlsControlled) {
             // ok, this node is a traffic light node where no other nodes
             //  participate
@@ -515,7 +515,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (ok) {
         const int offsetFactor = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
         LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
-                                 e->myRailDirection == WAY_UNKNOWN ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+                                 e->myRailDirection == WAY_UNKNOWN ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
 
         id = StringUtils::escapeXML(id);
         const std::string reverseID = "-" + id;

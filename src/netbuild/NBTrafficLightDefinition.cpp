@@ -462,12 +462,12 @@ NBTrafficLightDefinition::collectAllLinks(NBConnectionVector& into) {
                     if (el.toEdge != nullptr && el.toLane >= (int) el.toEdge->getNumLanes()) {
                         throw ProcessError("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.toEdge->getID() + "_" + toString(el.toLane) + "' yields in a not existing lane.");
                     }
-                    if (incoming->getToNode()->getType() == NODETYPE_RAIL_CROSSING
+                    if (incoming->getToNode()->getType() == SumoXMLNodeType::RAIL_CROSSING
                             && isRailway(incoming->getPermissions())) {
                         // railways stay uncontrolled at rail crossing but they
                         // must be registered in MSRailCrossing
                         into.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, -1));
-                    } else if (incoming->getToNode()->getType() == NODETYPE_RAIL_SIGNAL
+                    } else if (incoming->getToNode()->getType() == SumoXMLNodeType::RAIL_SIGNAL
                                && incoming->getToNode()->getDirection(incoming, el.toEdge) == LINKDIR_TURN) {
                         // turnarounds stay uncontrolled at rail signal
                     } else {

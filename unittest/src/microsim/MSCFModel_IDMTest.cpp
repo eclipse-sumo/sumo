@@ -72,7 +72,7 @@ protected :
         typeDefs.cfModel = SUMO_TAG_CF_IDM;
         //typeDefs.cfParameter[SUMO_ATTR_CF_IDM_STEPPING] = "1";
         ConstMSEdgeVector edges;
-        MSEdge* dummyEdge = new MSEdge("dummy", 0, EDGEFUNC_NORMAL, "", "", -1, 0);
+        MSEdge* dummyEdge = new MSEdge("dummy", 0, SumoXMLEdgeFunc::NORMAL, "", "", -1, 0);
         MSLane* dummyLane = new MSLane("dummy_0", 50 / 3.6, 100, dummyEdge, 0, PositionVector(), SUMO_const_laneWidth, SVCAll, 0, false, "");
         std::vector<MSLane*> lanes;
         lanes.push_back(dummyLane);

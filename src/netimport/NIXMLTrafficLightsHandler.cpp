@@ -271,7 +271,7 @@ NIXMLTrafficLightsHandler::addTlConnection(const SUMOSAXAttributes& attrs) {
         }
     } else {
         SumoXMLNodeType type = from->getToNode()->getType();
-        if (type != NODETYPE_RAIL_CROSSING && type != NODETYPE_RAIL_SIGNAL) {
+        if (type != SumoXMLNodeType::RAIL_CROSSING && type != SumoXMLNodeType::RAIL_SIGNAL) {
             WRITE_ERROR("The traffic light '" + tlID + "' is not known.");
         }
     }

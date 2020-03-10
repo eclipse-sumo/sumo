@@ -532,14 +532,14 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
             int maxLeft = (*i).lanes.back();
             double offset = (*i).offset;
             if (maxLeft < noLanesMax) {
-                if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
+                if (e->getLaneSpreadFunction() == LaneSpreadFunction::RIGHT) {
                     offset += (*i).offsetFactor * SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft);
                 } else {
                     offset += (*i).offsetFactor * SUMO_const_halfLaneAndOffset * (noLanesMax - 1 - maxLeft);
                 }
             }
             int maxRight = (*i).lanes.front();
-            if (maxRight > 0 && e->getLaneSpreadFunction() == LANESPREAD_CENTER) {
+            if (maxRight > 0 && e->getLaneSpreadFunction() == LaneSpreadFunction::CENTER) {
                 offset -= (*i).offsetFactor * SUMO_const_halfLaneAndOffset * maxRight;
             }
             //std::cout << " processSplits " << origID << " splitOffset=" << (*i).offset << " offset=" << offset << "\n";
@@ -1028,10 +1028,10 @@ NBEdgeCont::recheckLaneSpread() {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         NBEdge* opposite = getOppositeByID(i->first);
         if (opposite != nullptr) {
-            i->second->setLaneSpreadFunction(LANESPREAD_RIGHT);
-            opposite->setLaneSpreadFunction(LANESPREAD_RIGHT);
+            i->second->setLaneSpreadFunction(LaneSpreadFunction::RIGHT);
+            opposite->setLaneSpreadFunction(LaneSpreadFunction::RIGHT);
         } else {
-            i->second->setLaneSpreadFunction(LANESPREAD_CENTER);
+            i->second->setLaneSpreadFunction(LaneSpreadFunction::CENTER);
         }
     }
 }
@@ -1208,7 +1208,7 @@ NBEdgeCont::guessRoundabouts() {
 #endif
             visited.insert(e);
             const EdgeVector& edges = e->getToNode()->getEdges();
-            if (e->getToNode()->getType() == NODETYPE_RIGHT_BEFORE_LEFT && !e->getToNode()->typeWasGuessed()) {
+            if (e->getToNode()->getType() == SumoXMLNodeType::RIGHT_BEFORE_LEFT && !e->getToNode()->typeWasGuessed()) {
                 doLoop = false;
 #ifdef DEBUG_GUESS_ROUNDABOUT
                 if (gDebugFlag1) {
@@ -1416,7 +1416,7 @@ NBEdgeCont::generateStreetSigns() {
         }
         const SumoXMLNodeType nodeType = e->getToNode()->getType();
         switch (nodeType) {
-            case NODETYPE_PRIORITY:
+            case SumoXMLNodeType::PRIORITY:
                 // yield or major?
                 if (e->getJunctionPriority(e->getToNode()) > 0) {
                     e->addSign(NBSign(NBSign::SIGN_TYPE_PRIORITY, offset));
@@ -1424,7 +1424,7 @@ NBEdgeCont::generateStreetSigns() {
                     e->addSign(NBSign(NBSign::SIGN_TYPE_YIELD, offset));
                 }
                 break;
-            case NODETYPE_PRIORITY_STOP:
+            case SumoXMLNodeType::PRIORITY_STOP:
                 // yield or major?
                 if (e->getJunctionPriority(e->getToNode()) > 0) {
                     e->addSign(NBSign(NBSign::SIGN_TYPE_PRIORITY, offset));
@@ -1432,10 +1432,10 @@ NBEdgeCont::generateStreetSigns() {
                     e->addSign(NBSign(NBSign::SIGN_TYPE_STOP, offset));
                 }
                 break;
-            case NODETYPE_ALLWAY_STOP:
+            case SumoXMLNodeType::ALLWAY_STOP:
                 e->addSign(NBSign(NBSign::SIGN_TYPE_ALLWAY_STOP, offset));
                 break;
-            case NODETYPE_RIGHT_BEFORE_LEFT:
+            case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
                 e->addSign(NBSign(NBSign::SIGN_TYPE_RIGHT_BEFORE_LEFT, offset));
                 break;
             default:

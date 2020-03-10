@@ -165,9 +165,9 @@ RONet::addDistrict(const std::string id, ROEdge* source, ROEdge* sink) {
         delete sink;
         return false;
     }
-    sink->setFunction(EDGEFUNC_CONNECTOR);
+    sink->setFunction(SumoXMLEdgeFunc::CONNECTOR);
     addEdge(sink);
-    source->setFunction(EDGEFUNC_CONNECTOR);
+    source->setFunction(SumoXMLEdgeFunc::CONNECTOR);
     addEdge(source);
     sink->setOtherTazConnector(source);
     source->setOtherTazConnector(sink);

@@ -130,7 +130,7 @@ public:
      *
      * The position of the node is transformed to cartesian using GeoConvHelper::x2cartesian,
      *  first. If this node is the center node of a spider net, a node of the type
-     *  NBNode::NODETYPE_NOJUNCTION is returned.
+     *  NBNode::SumoXMLNodeType::NOJUNCTION is returned.
      * Otherwise, a plain node is built and it is checked whether the options
      *  indicate building one of the tls node-types. In this case, a logic is built and
      *  stored. A ProcessError is thrown if this fails (should never happen, in fact).

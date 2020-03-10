@@ -55,7 +55,7 @@
 // ===========================================================================
 // static member defintion
 // ===========================================================================
-MSEdge MESegment::myDummyParent("MESegmentDummyParent", -1, EDGEFUNC_UNKNOWN, "", "", -1, 0);
+MSEdge MESegment::myDummyParent("MESegmentDummyParent", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", -1, 0);
 MESegment MESegment::myVaporizationTarget("vaporizationTarget");
 const double MESegment::DO_NOT_PATCH_JAM_THRESHOLD(std::numeric_limits<double>::max());
 
@@ -83,15 +83,15 @@ MESegment::MESegment(const std::string& id,
     myTLSPenalty(MSGlobals::gMesoTLSPenalty > 0 &&
                  // only apply to the last segment of a tls-controlled edge
                  myNextSegment == nullptr && (
-                     parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT ||
-                     parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION ||
-                     parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED)),
+                     parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT ||
+                     parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION ||
+                     parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED)),
     myMinorPenalty(MSGlobals::gMesoMinorPenalty > 0 &&
                    // only apply to the last segment of an uncontrolled edge that has at least 1 minor link
                    myNextSegment == nullptr &&
-                   parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT &&
-                   parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT_NOJUNCTION &&
-                   parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
+                   parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT &&
+                   parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION &&
+                   parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED &&
                    parent.hasMinorLink()),
     myNumCars(0),
     myEntryBlockTime(SUMOTime_MIN),

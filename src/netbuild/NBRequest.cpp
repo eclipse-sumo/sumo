@@ -215,7 +215,7 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     myDone[idx1][idx2] = true;
     myDone[idx2][idx1] = true;
     // special case all-way stop
-    if (myJunction->getType() == NODETYPE_ALLWAY_STOP) {
+    if (myJunction->getType() == SumoXMLNodeType::ALLWAY_STOP) {
         // all ways forbid each other. Conflict resolution happens via arrival time
         myForbids[idx1][idx2] = true;
         myForbids[idx2][idx1] = true;
@@ -255,7 +255,7 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
                                  << " 2:" << from2->getID() << "->" << to2->getID() << "\n";
 #endif
     // check the priorities if required by node type
-    if (myJunction->getType() != NODETYPE_RIGHT_BEFORE_LEFT) {
+    if (myJunction->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
         int from1p = from1->getJunctionPriority(myJunction);
         int from2p = from2->getJunctionPriority(myJunction);
 #ifdef DEBUG_SETBLOCKING
@@ -277,7 +277,7 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     }
     // straight connections prohibit turning connections if the priorities are equal
     // (unless the junction is a bent priority junction)
-    if (myJunction->getType() != NODETYPE_RIGHT_BEFORE_LEFT && !myJunction->isBentPriority()) {
+    if (myJunction->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT && !myJunction->isBentPriority()) {
         LinkDirection ld1 = myJunction->getDirection(from1, to1);
         LinkDirection ld2 = myJunction->getDirection(from2, to2);
 #ifdef DEBUG_SETBLOCKING
@@ -307,7 +307,7 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     // should be valid for priority junctions only
     /*
     if (from1p > 0 && from2p > 0) {
-        assert(myJunction->getType() != NODETYPE_RIGHT_BEFORE_LEFT);
+        assert(myJunction->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT);
         int to1p = to1->getJunctionPriority(myJunction);
         int to2p = to2->getJunctionPriority(myJunction);
         if (to1p > to2p) {
@@ -418,7 +418,7 @@ NBRequest::computeLogic(const bool checkLaneFoes) {
     for (i = myIncoming.begin(); i != myIncoming.end(); i++) {
         int noLanes = (*i)->getNumLanes();
         for (int k = 0; k < noLanes; k++) {
-            pos = computeLaneResponse(*i, k, pos, checkLaneFoes || myJunction->getType() == NODETYPE_ZIPPER);
+            pos = computeLaneResponse(*i, k, pos, checkLaneFoes || myJunction->getType() == SumoXMLNodeType::ZIPPER);
         }
     }
     // crossings
@@ -563,7 +563,7 @@ NBRequest::computeLaneResponse(NBEdge* from, int fromLane, int pos, const bool c
         assert(c.toEdge != 0);
         pos++;
         const std::string foes = getFoesString(from, c.toEdge, fromLane, c.toLane, checkLaneFoes);
-        const std::string response = myJunction->getType() == NODETYPE_ZIPPER ? foes : getResponseString(from, c, checkLaneFoes);
+        const std::string response = myJunction->getType() == SumoXMLNodeType::ZIPPER ? foes : getResponseString(from, c, checkLaneFoes);
         myFoes.push_back(foes);
         myResponse.push_back(response);
         myHaveVia.push_back(c.haveVia);
@@ -974,14 +974,14 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
             const int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
                 if ((*i) == from && fromLane != j
-                        && mergeConflict(from, queryCon, *i, connected[k], myJunction->getType() == NODETYPE_ZIPPER)) {
+                        && mergeConflict(from, queryCon, *i, connected[k], myJunction->getType() == SumoXMLNodeType::ZIPPER)) {
                     return true;
                 }
             }
         }
     }
     // maybe we need to brake due to a zipper conflict
-    if (myJunction->getType() == NODETYPE_ZIPPER) {
+    if (myJunction->getType() == SumoXMLNodeType::ZIPPER) {
         for (int idx1 = 0; idx1 < numLinks(); idx1++) {
             //assert(myDone[idx1][idx2]);
             if (myDone[idx1][idx2] && myForbids[idx2][idx1]) {

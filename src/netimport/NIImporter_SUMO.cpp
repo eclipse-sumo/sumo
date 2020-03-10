@@ -83,7 +83,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCheckLaneFoesAll(false),
       myCheckLaneFoesRoundabout(true),
       myTlsIgnoreInternalJunctionJam(false),
-      myDefaultSpreadType(toString(LANESPREAD_RIGHT))
+      myDefaultSpreadType(toString(LaneSpreadFunction::RIGHT))
 {
 }
 
@@ -124,7 +124,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     for (std::map<std::string, EdgeAttrs*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         EdgeAttrs* ed = (*i).second;
         // skip internal edges
-        if (ed->func == EDGEFUNC_INTERNAL || ed->func == EDGEFUNC_CROSSING || ed->func == EDGEFUNC_WALKINGAREA) {
+        if (ed->func == SumoXMLEdgeFunc::INTERNAL || ed->func == SumoXMLEdgeFunc::CROSSING || ed->func == SumoXMLEdgeFunc::WALKINGAREA) {
             continue;
         }
         // get and check the nodes
@@ -196,7 +196,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 // patch attribute uncontrolled for legacy networks where it is not set explicitly
                 bool uncontrolled = c.uncontrolled;
 
-                if ((NBNode::isTrafficLight(toType) || toType == NODETYPE_RAIL_SIGNAL)
+                if ((NBNode::isTrafficLight(toType) || toType == SumoXMLNodeType::RAIL_SIGNAL)
                         && c.tlLinkIndex == NBConnection::InvalidTlIndex) {
                     uncontrolled = true;
                 }
@@ -551,13 +551,13 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge->id = id;
     // get the function
     myCurrentEdge->func = attrs.getEdgeFunc(ok);
-    if (myCurrentEdge->func == EDGEFUNC_CROSSING) {
+    if (myCurrentEdge->func == SumoXMLEdgeFunc::CROSSING) {
         // add the crossing but don't do anything else
         Crossing c(id);
         c.crossingEdges = attrs.get<std::vector<std::string> >(SUMO_ATTR_CROSSING_EDGES, nullptr, ok);
         myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(id)].push_back(c);
         return;
-    } else if (myCurrentEdge->func == EDGEFUNC_INTERNAL || myCurrentEdge->func == EDGEFUNC_WALKINGAREA) {
+    } else if (myCurrentEdge->func == SumoXMLEdgeFunc::INTERNAL || myCurrentEdge->func == SumoXMLEdgeFunc::WALKINGAREA) {
         myHaveSeenInternalEdge = true;
         return; // skip internal edges
     }
@@ -607,7 +607,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     myCurrentLane->customShape = attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, nullptr, ok, false);
     myCurrentLane->shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     myCurrentLane->type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
-    if (myCurrentEdge->func == EDGEFUNC_CROSSING) {
+    if (myCurrentEdge->func == SumoXMLEdgeFunc::CROSSING) {
         // save the width and the lane id of the crossing but don't do anything else
         std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentEdge->id)];
         assert(crossings.size() > 0);
@@ -616,7 +616,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
             crossings.back().customShape = myCurrentLane->shape;
             NBNetBuilder::transformCoordinates(crossings.back().customShape, true, myLocation);
         }
-    } else if (myCurrentEdge->func == EDGEFUNC_WALKINGAREA) {
+    } else if (myCurrentEdge->func == SumoXMLEdgeFunc::WALKINGAREA) {
         // save custom shape if needed but don't do anything else
         if (myCurrentLane->customShape) {
             WalkingAreaParsedCustomShape wacs;
@@ -625,7 +625,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
             myWACustomShapes[myCurrentEdge->id] = wacs;
         }
         return;
-    } else if (myCurrentEdge->func == EDGEFUNC_INTERNAL) {
+    } else if (myCurrentEdge->func == SumoXMLEdgeFunc::INTERNAL) {
         return; // skip internal edges
     }
     if (attrs.hasAttribute("maxspeed")) {
@@ -695,10 +695,10 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     }
     SumoXMLNodeType type = attrs.getNodeType(ok);
     if (ok) {
-        if (type == NODETYPE_DEAD_END_DEPRECATED || type == NODETYPE_DEAD_END) {
+        if (type == SumoXMLNodeType::DEAD_END_DEPRECATED || type == SumoXMLNodeType::DEAD_END) {
             // dead end is a computed status. Reset this to unknown so it will
             // be corrected if additional connections are loaded
-            type = NODETYPE_UNKNOWN;
+            type = SumoXMLNodeType::UNKNOWN;
         }
     } else {
         WRITE_WARNING("Unknown node type for junction '" + id + "'.");
@@ -724,7 +724,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
         NBNetBuilder::transformCoordinates(shape);
         node->setCustomShape(shape);
     }
-    if (type == NODETYPE_RAIL_SIGNAL || type == NODETYPE_RAIL_CROSSING) {
+    if (type == SumoXMLNodeType::RAIL_SIGNAL || type == SumoXMLNodeType::RAIL_CROSSING) {
         // both types of nodes come without a tlLogic
         myRailSignals.insert(id);
     }
@@ -791,7 +791,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
 
     // determine crossing priority and tlIndex
     if (myPedestrianCrossings.size() > 0) {
-        if (from->func == EDGEFUNC_WALKINGAREA && myEdges[conn.toEdgeID]->func == EDGEFUNC_CROSSING) {
+        if (from->func == SumoXMLEdgeFunc::WALKINGAREA && myEdges[conn.toEdgeID]->func == SumoXMLEdgeFunc::CROSSING) {
             // connection from walkingArea to crossing
             std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(fromID)];
             for (std::vector<Crossing>::iterator it = crossings.begin(); it != crossings.end(); ++it) {
@@ -805,7 +805,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
                     }
                 }
             }
-        } else if (from->func == EDGEFUNC_CROSSING && myEdges[conn.toEdgeID]->func == EDGEFUNC_WALKINGAREA) {
+        } else if (from->func == SumoXMLEdgeFunc::CROSSING && myEdges[conn.toEdgeID]->func == SumoXMLEdgeFunc::WALKINGAREA) {
             // connection from crossing to walkingArea (set optional linkIndex2)
             for (Crossing& c : myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(fromID)]) {
                 if (fromID == c.edgeID) {
@@ -817,13 +817,13 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     // determine walking area reference edges
     if (myWACustomShapes.size() > 0) {
         EdgeAttrs* to = myEdges[conn.toEdgeID];
-        if (from->func == EDGEFUNC_WALKINGAREA) {
+        if (from->func == SumoXMLEdgeFunc::WALKINGAREA) {
             std::map<std::string, WalkingAreaParsedCustomShape>::iterator it = myWACustomShapes.find(fromID);
             if (it != myWACustomShapes.end()) {
-                if (to->func == EDGEFUNC_NORMAL) {
+                if (to->func == SumoXMLEdgeFunc::NORMAL) {
                     // add target sidewalk as reference
                     it->second.toEdges.push_back(conn.toEdgeID);
-                } else if (to->func == EDGEFUNC_CROSSING) {
+                } else if (to->func == SumoXMLEdgeFunc::CROSSING) {
                     // add target crossing edges as reference
                     for (Crossing crossing : myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(fromID)]) {
                         if (conn.toEdgeID == crossing.edgeID) {
@@ -832,13 +832,13 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
                     }
                 }
             }
-        } else if (to->func == EDGEFUNC_WALKINGAREA) {
+        } else if (to->func == SumoXMLEdgeFunc::WALKINGAREA) {
             std::map<std::string, WalkingAreaParsedCustomShape>::iterator it = myWACustomShapes.find(conn.toEdgeID);
             if (it != myWACustomShapes.end()) {
-                if (from->func == EDGEFUNC_NORMAL) {
+                if (from->func == SumoXMLEdgeFunc::NORMAL) {
                     // add origin sidewalk as reference
                     it->second.fromEdges.push_back(fromID);
-                } else if (from->func == EDGEFUNC_CROSSING) {
+                } else if (from->func == SumoXMLEdgeFunc::CROSSING) {
                     // add origin crossing edges as reference
                     for (Crossing crossing : myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(fromID)]) {
                         if (fromID == crossing.edgeID) {

@@ -108,33 +108,33 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
     }
     MSJunction* junction = nullptr;
     switch (myType) {
-        case NODETYPE_NOJUNCTION:
-        case NODETYPE_DEAD_END:
-        case NODETYPE_DEAD_END_DEPRECATED:
-        case NODETYPE_DISTRICT:
-        case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
+        case SumoXMLNodeType::NOJUNCTION:
+        case SumoXMLNodeType::DEAD_END:
+        case SumoXMLNodeType::DEAD_END_DEPRECATED:
+        case SumoXMLNodeType::DISTRICT:
+        case SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION:
             junction = buildNoLogicJunction();
             break;
-        case NODETYPE_TRAFFIC_LIGHT:
-        case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED:
-        case NODETYPE_RIGHT_BEFORE_LEFT:
-        case NODETYPE_PRIORITY:
-        case NODETYPE_PRIORITY_STOP:
-        case NODETYPE_ALLWAY_STOP:
-        case NODETYPE_ZIPPER:
+        case SumoXMLNodeType::TRAFFIC_LIGHT:
+        case SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED:
+        case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
+        case SumoXMLNodeType::PRIORITY:
+        case SumoXMLNodeType::PRIORITY_STOP:
+        case SumoXMLNodeType::ALLWAY_STOP:
+        case SumoXMLNodeType::ZIPPER:
             junction = buildLogicJunction();
             break;
-        case NODETYPE_INTERNAL:
+        case SumoXMLNodeType::INTERNAL:
             if (MSGlobals::gUsingInternalLanes) {
                 junction = buildInternalJunction();
             }
             break;
-        case NODETYPE_RAIL_SIGNAL:
-        case NODETYPE_RAIL_CROSSING:
+        case SumoXMLNodeType::RAIL_SIGNAL:
+        case SumoXMLNodeType::RAIL_CROSSING:
             myOffset = 0;
             myActiveKey = myActiveID;
             myActiveProgram = "0";
-            myLogicType = myType == NODETYPE_RAIL_SIGNAL ? TLTYPE_RAIL_SIGNAL : TLTYPE_RAIL_CROSSING;
+            myLogicType = myType == SumoXMLNodeType::RAIL_SIGNAL ? TLTYPE_RAIL_SIGNAL : TLTYPE_RAIL_CROSSING;
             closeTrafficLightLogic(basePath);
             junction = buildLogicJunction();
             break;

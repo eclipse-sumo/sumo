@@ -293,7 +293,7 @@ MSRailSignal::writeBlocks(OutputDevice& od) const {
 
 bool
 MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
-    if (link->getJunction()->getType() == NODETYPE_RAIL_SIGNAL && link->getState() == LINKSTATE_TL_RED) {
+    if (link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL && link->getState() == LINKSTATE_TL_RED) {
         const MSEdge* bidi = link->getLaneBefore()->getEdge().getBidiEdge();
         if (bidi == nullptr) {
             return false;

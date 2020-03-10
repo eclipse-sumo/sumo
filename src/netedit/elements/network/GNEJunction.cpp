@@ -1023,8 +1023,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             if (NBNode::isTrafficLight(SUMOXMLDefinitions::NodeTypes.get(value))) {
                 if (getNBNode()->isTLControlled() &&
                         // if switching changing from or to traffic_light_right_on_red we need to remove the old plan
-                        (getNBNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED
-                         || SUMOXMLDefinitions::NodeTypes.get(value) == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED)
+                        (getNBNode()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED
+                         || SUMOXMLDefinitions::NodeTypes.get(value) == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED)
                    ) {
                     // make a copy because we will modify the original
                     const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
@@ -1378,7 +1378,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_TYPE: {
             SumoXMLNodeType type = SUMOXMLDefinitions::NodeTypes.get(value);
-            if (myNBNode->getType() == NODETYPE_PRIORITY && type == NODETYPE_RIGHT_BEFORE_LEFT) {
+            if (myNBNode->getType() == SumoXMLNodeType::PRIORITY && type == SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
                 myNet->getNetBuilder()->getEdgeCont().removeRoundabout(myNBNode);
             }
             myNBNode->reinit(myNBNode->getPosition(), type);
@@ -1480,37 +1480,37 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& /* s */, int activeSc
             return isAttributeCarrierSelected();
         case 2:
             switch (myNBNode->getType()) {
-                case NODETYPE_TRAFFIC_LIGHT:
+                case SumoXMLNodeType::TRAFFIC_LIGHT:
                     return 0;
-                case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
+                case SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION:
                     return 1;
-                case NODETYPE_PRIORITY:
+                case SumoXMLNodeType::PRIORITY:
                     return 2;
-                case NODETYPE_PRIORITY_STOP:
+                case SumoXMLNodeType::PRIORITY_STOP:
                     return 3;
-                case NODETYPE_RIGHT_BEFORE_LEFT:
+                case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
                     return 4;
-                case NODETYPE_ALLWAY_STOP:
+                case SumoXMLNodeType::ALLWAY_STOP:
                     return 5;
-                case NODETYPE_DISTRICT:
+                case SumoXMLNodeType::DISTRICT:
                     return 6;
-                case NODETYPE_NOJUNCTION:
+                case SumoXMLNodeType::NOJUNCTION:
                     return 7;
-                case NODETYPE_DEAD_END:
-                case NODETYPE_DEAD_END_DEPRECATED:
+                case SumoXMLNodeType::DEAD_END:
+                case SumoXMLNodeType::DEAD_END_DEPRECATED:
                     return 8;
-                case NODETYPE_UNKNOWN:
+                case SumoXMLNodeType::UNKNOWN:
                     return 8; // may happen before first network computation
-                case NODETYPE_INTERNAL:
+                case SumoXMLNodeType::INTERNAL:
                     assert(false);
                     return 8;
-                case NODETYPE_RAIL_SIGNAL:
+                case SumoXMLNodeType::RAIL_SIGNAL:
                     return 9;
-                case NODETYPE_ZIPPER:
+                case SumoXMLNodeType::ZIPPER:
                     return 10;
-                case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED:
+                case SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED:
                     return 11;
-                case NODETYPE_RAIL_CROSSING:
+                case SumoXMLNodeType::RAIL_CROSSING:
                     return 12;
             }
         case 3:

@@ -286,8 +286,8 @@ GNETLSEditorFrame::onCmdDefCreate(FXObject*, FXSelector, void*) {
     onCmdCancel(nullptr, 0, nullptr);
     // check that current junction has two or more edges
     if ((junction->getGNEIncomingEdges().size() > 0) && (junction->getGNEOutgoingEdges().size() > 0)) {
-        if (junction->getAttribute(SUMO_ATTR_TYPE) != toString(NODETYPE_TRAFFIC_LIGHT)) {
-            junction->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_TRAFFIC_LIGHT), myViewNet->getUndoList());
+        if (junction->getAttribute(SUMO_ATTR_TYPE) != toString(SumoXMLNodeType::TRAFFIC_LIGHT)) {
+            junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::TRAFFIC_LIGHT), myViewNet->getUndoList());
         } else {
             if (junction->getNBNode()->isTLControlled()) {
                 // use existing traffic light as template for type, signal groups, controlled nodes etc
@@ -323,7 +323,7 @@ GNETLSEditorFrame::onCmdDefDelete(FXObject*, FXSelector, void*) {
     NBTrafficLightDefinition* tlDef = myTLSAttributes->getCurrentTLSDefinition();
     onCmdCancel(nullptr, 0, nullptr); // abort because onCmdOk assumes we wish to save an edited definition
     if (changeType) {
-        junction->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), myViewNet->getUndoList());
+        junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), myViewNet->getUndoList());
     } else {
         myViewNet->getUndoList()->add(new GNEChange_TLS(junction, tlDef, false), true);
     }

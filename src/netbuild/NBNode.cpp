@@ -259,7 +259,7 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myRadius(UNSPECIFIED_RADIUS),
     myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
     myRightOfWay(SUMOXMLDefinitions::RightOfWayValues.get(OptionsCont::getOptions().getString("default.right-of-way"))),
-    myFringeType(FRINGE_TYPE_DEFAULT),
+    myFringeType(FringeType::DEFAULT),
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0),
     myDisplacementError(0),
@@ -274,14 +274,14 @@ NBNode::NBNode(const std::string& id, const Position& position,
 NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* district) :
     Named(StringUtils::convertUmlaute(id)),
     myPosition(position),
-    myType(district == nullptr ? NODETYPE_UNKNOWN : NODETYPE_DISTRICT),
+    myType(district == nullptr ? SumoXMLNodeType::UNKNOWN : SumoXMLNodeType::DISTRICT),
     myDistrict(district),
     myHaveCustomPoly(false),
     myRequest(nullptr),
     myRadius(UNSPECIFIED_RADIUS),
     myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
     myRightOfWay(SUMOXMLDefinitions::RightOfWayValues.get(OptionsCont::getOptions().getString("default.right-of-way"))),
-    myFringeType(FRINGE_TYPE_DEFAULT),
+    myFringeType(FringeType::DEFAULT),
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0),
     myDisplacementError(0),
@@ -360,8 +360,8 @@ void
 NBNode::addTrafficLight(NBTrafficLightDefinition* tlDef) {
     myTrafficLights.insert(tlDef);
     // rail signals receive a temporary traffic light in order to set connection tl-linkIndex
-    if (!isTrafficLight(myType) && myType != NODETYPE_RAIL_SIGNAL && myType != NODETYPE_RAIL_CROSSING) {
-        myType = NODETYPE_TRAFFIC_LIGHT;
+    if (!isTrafficLight(myType) && myType != SumoXMLNodeType::RAIL_SIGNAL && myType != SumoXMLNodeType::RAIL_CROSSING) {
+        myType = SumoXMLNodeType::TRAFFIC_LIGHT;
     }
 }
 
@@ -380,8 +380,8 @@ NBNode::removeTrafficLights(bool setAsPriority) {
         removeTrafficLight(*i);
     }
     if (setAsPriority) {
-        myType = myRequest != nullptr ? NODETYPE_PRIORITY : (
-                     myType == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION ? NODETYPE_NOJUNCTION : NODETYPE_DEAD_END);
+        myType = myRequest != nullptr ? SumoXMLNodeType::PRIORITY : (
+                     myType == SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION ? SumoXMLNodeType::NOJUNCTION : SumoXMLNodeType::DEAD_END);
     }
 }
 
@@ -842,7 +842,7 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
     const NBEdge* toE = c.toEdge;
     const NBEdge* otherToE = otherC.toEdge;
 
-    if (myType == NODETYPE_RIGHT_BEFORE_LEFT || myType == NODETYPE_ALLWAY_STOP) {
+    if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT || myType == SumoXMLNodeType::ALLWAY_STOP) {
         return false;
     }
     LinkDirection d1 = getDirection(fromE, toE);
@@ -871,7 +871,7 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
         return false;
     }
     if (c.tlID != "" && !bothLeft) {
-        assert(myTrafficLights.size() > 0 || myType == NODETYPE_RAIL_CROSSING || myType == NODETYPE_RAIL_SIGNAL);
+        assert(myTrafficLights.size() > 0 || myType == SumoXMLNodeType::RAIL_CROSSING || myType == SumoXMLNodeType::RAIL_SIGNAL);
         for (std::set<NBTrafficLightDefinition*>::const_iterator it = myTrafficLights.begin(); it != myTrafficLights.end(); ++it) {
             if ((*it)->needsCont(fromE, toE, otherFromE, otherToE)) {
                 return true;
@@ -916,12 +916,12 @@ NBNode::computeLogic(const NBEdgeCont& ec) {
     myRequest = nullptr;
     if (myIncomingEdges.size() == 0 || myOutgoingEdges.size() == 0) {
         // no logic if nothing happens here
-        myType = NODETYPE_DEAD_END;
+        myType = SumoXMLNodeType::DEAD_END;
         removeJoinedTrafficLights();
         return;
     }
     // compute the logic if necessary or split the junction
-    if (myType != NODETYPE_NOJUNCTION && myType != NODETYPE_DISTRICT && myType != NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) {
+    if (myType != SumoXMLNodeType::NOJUNCTION && myType != SumoXMLNodeType::DISTRICT && myType != SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION) {
         // build the request
         myRequest = new NBRequest(ec, this, myAllEdges, myIncomingEdges, myOutgoingEdges, myBlockedConnections);
         // check whether it is not too large
@@ -930,17 +930,17 @@ NBNode::computeLogic(const NBEdgeCont& ec) {
             // yep -> make it untcontrolled, warn
             delete myRequest;
             myRequest = nullptr;
-            if (myType == NODETYPE_TRAFFIC_LIGHT) {
-                myType = NODETYPE_TRAFFIC_LIGHT_NOJUNCTION;
+            if (myType == SumoXMLNodeType::TRAFFIC_LIGHT) {
+                myType = SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION;
             } else {
-                myType = NODETYPE_NOJUNCTION;
+                myType = SumoXMLNodeType::NOJUNCTION;
             }
             WRITE_WARNINGF("Junction '%' is too complicated (% connections, max %); will be set to %.",
                            getID(), numConnections, SUMO_MAX_CONNECTIONS, toString(myType));
         } else if (numConnections == 0) {
             delete myRequest;
             myRequest = nullptr;
-            myType = NODETYPE_DEAD_END;
+            myType = SumoXMLNodeType::DEAD_END;
             removeJoinedTrafficLights();
         } else {
             myRequest->buildBitfieldLogic();
@@ -1162,7 +1162,7 @@ NBNode::computeLanes2Lanes() {
     }
     // special case d):
     //  one in, one out, the outgoing has one lane less and node has type 'zipper'
-    if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1 && myType == NODETYPE_ZIPPER) {
+    if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1 && myType == SumoXMLNodeType::ZIPPER) {
         NBEdge* in = myIncomingEdges[0];
         NBEdge* out = myOutgoingEdges[0];
         // check if it's not the turnaround
@@ -1344,7 +1344,7 @@ NBNode::computeLanes2Lanes() {
     }
     // special case e): rail_crossing
     // there should only be straight connections here
-    if (myType == NODETYPE_RAIL_CROSSING) {
+    if (myType == SumoXMLNodeType::RAIL_CROSSING) {
         for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
             const std::vector<NBEdge::Connection> cons = (*i)->getConnections();
             for (std::vector<NBEdge::Connection>::const_iterator k = cons.begin(); k != cons.end(); ++k) {
@@ -2102,7 +2102,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
 LinkState
 NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int toLane,
                      bool mayDefinitelyPass, const std::string& tlID) const {
-    if (myType == NODETYPE_RAIL_CROSSING && isRailway(incoming->getPermissions())) {
+    if (myType == SumoXMLNodeType::RAIL_CROSSING && isRailway(incoming->getPermissions())) {
         return LINKSTATE_MAJOR; // the trains must run on time
     }
     if (tlID != "") {
@@ -2111,13 +2111,13 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
     if (outgoing == nullptr) { // always off
         return LINKSTATE_TL_OFF_NOSIGNAL;
     }
-    if (myType == NODETYPE_RIGHT_BEFORE_LEFT) {
+    if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
         return LINKSTATE_EQUAL; // all the same
     }
-    if (myType == NODETYPE_ALLWAY_STOP) {
+    if (myType == SumoXMLNodeType::ALLWAY_STOP) {
         return LINKSTATE_ALLWAY_STOP; // all drive, first one to arrive may drive first
     }
-    if (myType == NODETYPE_ZIPPER && mustBrake(incoming, outgoing, fromlane, toLane, false)) {
+    if (myType == SumoXMLNodeType::ZIPPER && mustBrake(incoming, outgoing, fromlane, toLane, false)) {
         return LINKSTATE_ZIPPER;
     }
     if (!mayDefinitelyPass
@@ -2126,7 +2126,7 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
             && (!incoming->isInsideTLS() || getDirection(incoming, outgoing) != LINKDIR_STRAIGHT)
             // avoid linkstate minor at pure railway nodes
             && (incoming->getPriority() != outgoing->getPriority() || !NBNodeTypeComputer::isRailwayNode(this))) {
-        return myType == NODETYPE_PRIORITY_STOP ? LINKSTATE_STOP : LINKSTATE_MINOR; // minor road
+        return myType == SumoXMLNodeType::PRIORITY_STOP ? LINKSTATE_STOP : LINKSTATE_MINOR; // minor road
     }
     // traffic lights are not regarded here
     return LINKSTATE_MAJOR;
@@ -2145,7 +2145,7 @@ NBNode::checkIsRemovableReporting(std::string& reason) const {
         reason = "TLS";
         return false;
     }
-    if (myType == NODETYPE_RAIL_SIGNAL) {
+    if (myType == SumoXMLNodeType::RAIL_SIGNAL) {
         reason = "rail_signal";
         return false;
     }
@@ -2276,7 +2276,7 @@ NBNode::isNearDistrict() const {
 
 bool
 NBNode::isDistrict() const {
-    return myType == NODETYPE_DISTRICT;
+    return myType == SumoXMLNodeType::DISTRICT;
 }
 
 
@@ -2407,7 +2407,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
                 }
                 return 0;
             }
-            if (!isTLControlled() && myType != NODETYPE_RAIL_CROSSING && edge->getSpeed() > OptionsCont::getOptions().getFloat("crossings.guess.speed-threshold")) {
+            if (!isTLControlled() && myType != SumoXMLNodeType::RAIL_CROSSING && edge->getSpeed() > OptionsCont::getOptions().getFloat("crossings.guess.speed-threshold")) {
                 if (gDebugFlag1) {
                     std::cout << "no crossing added (uncontrolled, edge with speed > " << edge->getSpeed() << ")\n";
                 }
@@ -2415,7 +2415,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
             }
             prevAngle = angle;
         }
-        if (candidates.size() == 1 || getType() == NODETYPE_RAIL_CROSSING) {
+        if (candidates.size() == 1 || getType() == SumoXMLNodeType::RAIL_CROSSING) {
             addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled());
             if (gDebugFlag1) {
                 std::cout << "adding crossing: " << toString(candidates) << "\n";
@@ -3151,8 +3151,8 @@ NBNode::geometryLike(const EdgeVector& incoming, const EdgeVector& outgoing) con
 
 void
 NBNode::setRoundabout() {
-    if (myType == NODETYPE_RIGHT_BEFORE_LEFT) {
-        myType = NODETYPE_PRIORITY;
+    if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
+        myType = SumoXMLNodeType::PRIORITY;
     }
 }
 
@@ -3325,7 +3325,7 @@ NBNode::getNodeIDFromInternalLane(const std::string id) {
 
 void
 NBNode::avoidOverlap() {
-    // simple case: edges with LANESPREAD_CENTER and a (possible) turndirection at the same node
+    // simple case: edges with LaneSpreadFunction::CENTER and a (possible) turndirection at the same node
     for (EdgeVector::iterator it = myIncomingEdges.begin(); it != myIncomingEdges.end(); it++) {
         NBEdge* edge = *it;
         NBEdge* turnDest = edge->getTurnDestination(true);
@@ -3340,15 +3340,15 @@ NBNode::avoidOverlap() {
 
 bool
 NBNode::isTrafficLight(SumoXMLNodeType type) {
-    return type == NODETYPE_TRAFFIC_LIGHT
-           || type == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION
-           || type == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED;
+    return type == SumoXMLNodeType::TRAFFIC_LIGHT
+           || type == SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION
+           || type == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED;
 }
 
 
 bool
 NBNode::rightOnRedConflict(int index, int foeIndex) const {
-    if (myType == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) {
+    if (myType == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED) {
         for (std::set<NBTrafficLightDefinition*>::const_iterator i = myTrafficLights.begin(); i != myTrafficLights.end(); ++i) {
             if ((*i)->rightOnRedConflict(index, foeIndex)) {
                 return true;

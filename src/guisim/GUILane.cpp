@@ -292,7 +292,7 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
     }
     // draw all links
     const double w = myWidth / (double) noLinks;
-    double x1 = myEdge->getToJunction()->getType() == NODETYPE_RAIL_SIGNAL ? -myWidth * 0.5 : 0;
+    double x1 = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL ? -myWidth * 0.5 : 0;
     for (int i = 0; i < noLinks; ++i) {
         double x2 = x1 + w;
         drawLinkRule(s, net, myLinks[MSGlobals::gLefthand ? noLinks - 1 - i : i], getShape(), x1, x2);
@@ -369,7 +369,7 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLi
             // the white bar should be the default for most railway
             // links and looks ugly so we do not draw it
             double scale = isInternal() ? 0.5 : 1;
-            if (myEdge->getToJunction()->getType() == NODETYPE_RAIL_SIGNAL) {
+            if (myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
                 scale *= MAX2(s.laneWidthExaggeration, s.junctionSize.getExaggeration(s, this, 10));
             }
             glScaled(scale, scale, 1);
@@ -494,7 +494,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     }
-    const bool hasRailSignal = myEdge->getToJunction()->getType() == NODETYPE_RAIL_SIGNAL;
+    const bool hasRailSignal = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL;
     const bool detailZoom = s.scale * exaggeration > 5;
     const bool drawDetails = (detailZoom || s.junctionSize.minSize == 0 || hasRailSignal) && !s.drawForRectangleSelection;
     const bool drawRails = drawAsRailway(s);
@@ -526,7 +526,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         // scale tls-controlled lane2lane-arrows along with their junction shapes
         double junctionExaggeration = 1;
         if (!isInternal
-                && myEdge->getToJunction()->getType() <= NODETYPE_RAIL_CROSSING
+                && myEdge->getToJunction()->getType() <= SumoXMLNodeType::RAIL_CROSSING
                 && (s.junctionSize.constantSize || s.junctionSize.exaggeration > 1)) {
             junctionExaggeration = MAX2(1.001, s.junctionSize.getExaggeration(s, this, 4));
         }
