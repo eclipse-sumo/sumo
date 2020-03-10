@@ -3690,7 +3690,7 @@ GNEAttributeCarrier::fillDataElements() {
     currentTag = SUMO_TAG_MEANDATA_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::DATAELEMENT | GNETagProperties::GENERICDATA, GNETagProperties::DRAWABLE | GNETagProperties::PARAMETERSDOUBLE, GUIIcon::EDGEDATA, SUMO_TAG_DATAINTERVAL);
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::DATAELEMENT | GNETagProperties::GENERICDATA, GNETagProperties::DRAWABLE | GNETagProperties::PARAMETERSDOUBLE | GNETagProperties::SELECTABLE, GUIIcon::EDGEDATA, SUMO_TAG_DATAINTERVAL);
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,

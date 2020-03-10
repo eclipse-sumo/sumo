@@ -104,6 +104,9 @@ public:
         /// @brief update ID
         void updateID(GNEAttributeCarrier* AC, const std::string newID);
 
+        /// @brief retrieve generic datas within the given interval
+        std::vector<GNEGenericData*> retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end);
+
         /// @brief map with the ID and pointer to junctions of net
         std::map<std::string, GNEJunction*> junctions;
 

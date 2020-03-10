@@ -181,6 +181,28 @@ GNENet::AttributeCarriers::updateID(GNEAttributeCarrier* AC, const std::string n
 }
 
 
+std::vector<GNEGenericData*> 
+GNENet::AttributeCarriers::retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end) {
+    // declare generic data vector
+    std::vector<GNEGenericData*> genericDatas;
+    // iterate over all data sets
+    for (const auto& dataSet : dataSets) {
+        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
+            // check interval
+            if ((interval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) && (interval.second->getAttributeDouble(SUMO_ATTR_END) <= end)) {
+                // iterate over generic datas
+                for (const auto& genericData : interval.second->getGenericDataChildren()) {
+                    if (genericData->getTagProperty().getTag() == genericDataTag) {
+                        genericDatas.push_back(genericData);
+                    }
+                }
+            }
+        }
+    }
+    return genericDatas;
+}
+
+
 void
 GNENet::AttributeCarriers::updateJunctionID(GNEAttributeCarrier* AC, const std::string& newID) {
     if (junctions.count(AC->getID()) == 0) {

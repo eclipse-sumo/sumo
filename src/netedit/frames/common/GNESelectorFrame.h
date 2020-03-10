@@ -338,13 +338,13 @@ public:
         long onCmdSetEnd(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user selects a tag in the match box
-        long onCmdSelMBTag(FXObject*, FXSelector, void*);
+        long onCmdSelectTag(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user selects a tag in the match box
-        long onCmdSelMBAttribute(FXObject*, FXSelector, void*);
+        /// @brief Called when the user selects an attribute in the match box
+        long onCmdSelectAttribute(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user enters a new selection expression
-        long onCmdSelMBString(FXObject*, FXSelector, void*);
+        long onCmdProcessString(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user clicks the help button
         long onCmdHelp(FXObject*, FXSelector, void*);
@@ -491,7 +491,7 @@ public:
     /**@brief apply list of ids to the current selection according to Operation,
      * @note if setop==DEFAULT than the currently set mode (myOperation) is used
      */
-    void handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, ModificationMode::Operation setop = ModificationMode::Operation::DEFAULT);
+    void handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const ModificationMode::Operation setop = ModificationMode::Operation::DEFAULT);
 
     /// @brief get selected items Modul
     LockGLObjectTypes* getLockGLObjectTypes() const;
@@ -531,10 +531,10 @@ private:
      */
     std::vector<GNEAttributeCarrier*> getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, const char compOp, const double val, const std::string& expr);
 
-    /**@brief return ACs of the given type with matching attrs
-     * @param[in] ACTag XML Tag of AttributeCarrier
-     * @param[in] ACAttr XML Attribute of AttributeCarrier
+    /**@brief return GenericDatas of the given type with matching attrs
+     * @param[in] genericDatas list of filter generic datas
+     * @param[in] attr XML Attribute used to filter
      * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
      */
-    std::vector<GNEAttributeCarrier*> getGenericMatches(const SumoXMLTag genericTag, const std::string &attr, const char compOp, const double val, const std::string& expr);
+    std::vector<GNEAttributeCarrier*> getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string &attr, const char compOp, const double val, const std::string& expr);
 };
