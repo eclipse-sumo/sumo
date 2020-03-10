@@ -173,13 +173,13 @@ def getIntervals(options):
 
 def getOverlap(begin, end, iBegin, iEnd):
     """return overlap of the given intervals as fraction"""
-    if iEnd < begin or end < iBegin:
+    if iEnd <= begin or end <= iBegin:
         return 0 # no overlap
-    elif iBegin > begin and iEnd < end:
+    elif iBegin >= begin and iEnd <= end:
         return 1 # data interval fully within requested interval
-    elif iBegin < begin and iEnd > end:
+    elif iBegin <= begin and iEnd >= end:
         return (end - begin) / (iEnd - iBegin) # only part of the data interval applies to the requested interval
-    elif iBegin < begin and iEnd < end:
+    elif iBegin <= begin and iEnd <= end:
         return (iEnd - begin) / (iEnd - iBegin) # partial overlap
     else:
         return (end - iBegin) / (iEnd - iBegin) # partial overlap
@@ -205,6 +205,7 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr):
         for interval in sumolib.xml.parse(fname, 'interval', heterogeneous=True):
             overlap = getOverlap(begin, end, parseTime(interval.begin), parseTime(interval.end))
             if overlap > 0:
+                #print(begin, end, interval.begin, interval.end, "overlap:", overlap)
                 for edges, value in parseFun(interval, attr):
                     if edges not in locations:
                         result.append(CountData(0, edges, allRoutes))
@@ -538,10 +539,11 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf):
             ' '.join(cd.edgeTuple), int(origHourly), int(localHourly)))
 
     outputIntervalPrefix = "" if intervalPrefix == "" else "%s: " % int(begin)
-    print("%sWrote %s routes (%s distinct) achieving total count %s at %s locations. GEH<%s for %.2f%%" % (
+    gehOK = "%.2f%%" % (100 * numGehOK / len(countData)) if countData else "-"
+    print("%sWrote %s routes (%s distinct) achieving total count %s at %s locations. GEH<%s for %s" % (
         outputIntervalPrefix,
         len(usedRoutes), len(set(usedRoutes)), totalCount, len(countData),
-        options.gehOk, 100 * numGehOK / len(countData)))
+        options.gehOk, gehOK))
 
     if options.verbose:
         edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
