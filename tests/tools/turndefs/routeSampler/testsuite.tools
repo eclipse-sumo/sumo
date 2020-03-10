@@ -11,7 +11,7 @@ edgedata
 
 # test additional vehicle attributes
 attrs
-deficit-output
+mismatch-output
 
 # use linear programming to optimize route usage
 optimize_full

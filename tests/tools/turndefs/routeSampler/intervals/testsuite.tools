@@ -13,3 +13,6 @@ custom_interval_combine
 
 # split counts into multiple intervals
 custom_interval_split
+
+# handle count input with multiple data intervals
+mismatch-output
