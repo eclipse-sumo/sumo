@@ -406,18 +406,28 @@ def main(options):
         sumolib.writeXMLHeader(mismatchf, "$Id$")  # noqa
         mismatchf.write('<data>\n')
 
+    underflowSummary = sumolib.miscutils.Statistics("all interval underflow")
+    overflowSummary = sumolib.miscutils.Statistics("all interval overflow")
+    gehSummary = sumolib.miscutils.Statistics("all interval GEH%")
+
     with open(options.out, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
         for begin, end in intervals:
             intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
-            solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf)
+            uFlow, oFlow, gehOK = solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf)
+            underflowSummary.add(uFlow, begin)
+            overflowSummary.add(oFlow, begin)
+            gehSummary.add(gehOK, begin)
         outf.write('</routes>\n')
 
     if options.mismatchOut:
         mismatchf.write('</data>\n')
         mismatchf.close()
 
-
+    if len(intervals) > 1:
+        print(underflowSummary)
+        print(overflowSummary)
+        print(gehSummary)
 
 def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
     # store which routes are passing each counting location (using route index)
@@ -549,7 +559,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
             ' '.join(cd.edgeTuple), int(origHourly), int(localHourly)))
 
     outputIntervalPrefix = "" if intervalPrefix == "" else "%s: " % int(begin)
-    gehOK = "%.2f%%" % (100 * numGehOK / len(countData)) if countData else "-"
+    gehOKNum = (100 * numGehOK / len(countData)) if countData else 100
+    gehOK = "%.2f%%" % gehOKNum if countData else "-"
     print("%sWrote %s routes (%s distinct) achieving total count %s at %s locations. GEH<%s for %s" % (
         outputIntervalPrefix,
         len(usedRoutes), len(set(usedRoutes)), totalCount, len(countData),
@@ -583,6 +594,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
                 print("Warning: output for edge relations with more than 2 edges not supported (%s)" % cd.edgeTuple,
                       file=sys.stderr)
         mismatchf.write('    </interval>\n')
+
+    return sum(underflow.values), sum(overflow.values), gehOKNum
 
 
 if __name__ == "__main__":
