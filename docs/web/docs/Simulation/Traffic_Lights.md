@@ -293,7 +293,7 @@ detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
 The examples values are the default values for these parameters.
 
 #### Custom Detectors
-To use custom detectors (i.e. for custom placement or output) additional paremters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined indunctionLoop (that doesn't could also lie on another upstream lane).
+To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined indunctionLoop (that could also lie on another upstream lane).
 ```
    <param key="gneE42_2" value="customDetector1"/>
 ```
@@ -359,6 +359,12 @@ the allowed maximal velocity. See \[Oertel, Robert, and Peter Wagner.
 "Delay-time actuated traffic signal control for an isolated
 intersection." Transportation Research Board 2011 (90th Annual Meeting).
 2011.\] for details.
+
+#### Custom Detectors
+To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined laneAreaDetector.
+```
+   <param key="gneE42_2" value="customDetector1"/>
+```
 
 ## Interaction between signal plans and right-of-way rules
 
