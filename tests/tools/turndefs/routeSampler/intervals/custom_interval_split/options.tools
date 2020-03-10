@@ -1,0 +1,5 @@
+-r input_routes.rou.xml -d input_edgedata.xml -o out.rou.xml 
+--edgedata-attribute count
+--write-route-ids
+--write-flows number
+-i 150

@@ -1,0 +1,5 @@
+150: Wrote 54 routes (3 distinct) achieving total count 93 at 3 locations. GEH<5 for 66.67%
+Warning: underflow locations: count 1, min 15.00 (('5',)), max 15.00 (('5',)), mean 15.00 Q1 15.00, median 15.00, Q3 15.00 (total 15)
+450: Wrote 4 routes (2 distinct) achieving total count 7 at 2 locations. GEH<5 for 100.00%
+Warning: underflow locations: count 1, min 1.00 (('11',)), max 1.00 (('11',)), mean 1.00 Q1 1.00, median 1.00, Q3 1.00 (total 1)
+750: Wrote 0 routes (0 distinct) achieving total count 0 at 0 locations. GEH<5 for -
