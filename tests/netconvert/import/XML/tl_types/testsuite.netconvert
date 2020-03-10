@@ -16,6 +16,9 @@ right_on_red_1lane
 # adapt junction logic to custom tls program
 right_on_red_custom_program
 
+# default traffic_light with an added right_on_red program
+traffic_light_program_right_on_red
+
 # group phases by opposite directions
 layout_opposites
 
