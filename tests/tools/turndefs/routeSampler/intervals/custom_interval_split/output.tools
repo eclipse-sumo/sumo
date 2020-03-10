@@ -5,3 +5,6 @@ Warning: underflow locations: count 1, min 20.00 (('5',)), max 20.00 (('5',)), m
 300: Wrote 4 routes (1 distinct) achieving total count 8 at 2 locations. GEH<5 for 100.00%
 450: Wrote 4 routes (3 distinct) achieving total count 5 at 2 locations. GEH<5 for 50.00%
 Warning: underflow locations: count 1, min 3.00 (('11',)), max 3.00 (('11',)), mean 3.00 Q1 3.00, median 3.00, Q3 3.00 (total 3)
+all interval underflow: count 4, min 0.00 (300.0), max 20.00 (0.0), mean 10.75 Q1 3.00, median 20.00, Q3 20.00
+all interval overflow: count 4, min 0.00 (0.0), max 0.00 (0.0), mean 0.00 Q1 0.00, median 0.00, Q3 0.00
+all interval GEH%: count 4, min 50.00 (0.0), max 100.00 (300.0), mean 62.50 Q1 50.00, median 50.00, Q3 100.00
