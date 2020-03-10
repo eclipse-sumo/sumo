@@ -4,8 +4,14 @@ save2_deprecated_delimiter
 # save 2 states
 save2
 
+# state saving times are not reached
+save2_mismatch
+
 # save multiple states
 save_at_interval
+
+# saving interval does not match step-length
+save_at_interval_mismatch
 
 # save multiple states with human-readable times (no colons)
 save_at_interval_H
