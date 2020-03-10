@@ -1797,7 +1797,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         if (con.customLength != UNSPECIFIED_LOADED_LENGTH) {
             lengthSum += con.customLength;
         } else {
-            lengthSum += MAX2(POSITION_EPS, con.shape.length());
+            lengthSum += con.shape.length();
         }
     }
     assignInternalLaneLength(myConnections.end(), numLanes, lengthSum);
@@ -1813,15 +1813,16 @@ NBEdge::assignInternalLaneLength(std::vector<Connection>::iterator i, int numLan
     for (int prevIndex = 1; prevIndex <= numLanes; prevIndex++) {
         //std::cout << " con=" << (*(i - prevIndex)).getDescription(this) << " numLanes=" << numLanes << " avgLength=" << lengthSum / numLanes << "\n";
         Connection& c = (*(i - prevIndex));
-        c.length = lengthSum / numLanes;
+        const double minLength = c.customLength != UNSPECIFIED_LOADED_LENGTH ? pow(10, -gPrecision) : POSITION_EPS;
+        c.length = MAX2(minLength, lengthSum / numLanes);
         if (c.haveVia) {
             c.viaLength = c.viaShape.length();
             if (c.customLength != UNSPECIFIED_LOADED_LENGTH) {
                 // split length proportionally
                 const double firstLength = c.shape.length();
                 const double a = firstLength / (firstLength + c.viaLength);
-                c.length = a * c.customLength;
-                c.viaLength = c.customLength - c.length;
+                c.length = MAX2(minLength, a * c.customLength);
+                c.viaLength = MAX2(minLength, c.customLength - c.length);
             }
         }
     }
