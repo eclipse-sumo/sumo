@@ -512,6 +512,7 @@ public:
     /// @}
 
 
+    virtual void setVisible(bool /*show*/) {};
 
 private:
 

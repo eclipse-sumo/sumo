@@ -96,9 +96,20 @@ public:
      */
     virtual GUIDetectorWrapper* buildDetectorGUIRepresentation();
 
+    /// @brief whether the induction loop shall be visible
+    bool isVisible() const {
+        return myShow;
+    }
+
+    /// @brief toggle visibility
+    void setVisible(bool show) {
+        myShow = show;
+    }
+
+
 private:
     /// @brief Whether the detector shall be drawn in the gui
-    bool myShowDetectorInGUI;
+    bool myShow;
 
 public:
     /**

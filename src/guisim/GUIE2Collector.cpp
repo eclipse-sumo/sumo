@@ -45,7 +45,7 @@ GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
                                double jamDistThreshold, const std::string& vTypes, bool showDetector)
     : MSE2Collector(id, usage, lane, startPos, endPos, detLength, haltingTimeThreshold,
                     haltingSpeedThreshold, jamDistThreshold, vTypes),
-      myShowDetectorInGUI(showDetector) {}
+      myShow(showDetector) {}
 
 GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
                                std::vector<MSLane*> lanes, double startPos, double endPos,
@@ -53,7 +53,7 @@ GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
                                double jamDistThreshold, const std::string& vTypes, bool showDetector)
     : MSE2Collector(id, usage, lanes, startPos, endPos, haltingTimeThreshold,
                     haltingSpeedThreshold, jamDistThreshold, vTypes),
-      myShowDetectorInGUI(showDetector) {}
+      myShow(showDetector) {}
 
 GUIE2Collector::~GUIE2Collector() {}
 
@@ -151,7 +151,7 @@ GUIE2Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
 
 void
 GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
-    if (!myDetector.myShowDetectorInGUI) {
+    if (!myDetector.myShow) {
         return;
     }
     glPushName(getGlID());

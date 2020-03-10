@@ -237,5 +237,14 @@ MSDelayBasedTrafficLightLogic::trySwitch() {
     return newPhase->minDuration;
 }
 
+void
+MSDelayBasedTrafficLightLogic::setShowDetectors(bool show) {
+    myShowDetectors = show;
+    for (auto& item : myLaneDetectors) {
+        item.second->setVisible(myShowDetectors);
+    }
+}
+
+
 
 /****************************************************************************/
