@@ -412,8 +412,9 @@ NBLoadedSUMOTLDef::initNeedsContRelation() const {
                         if (forbidden || rightTurnConflict) {
                             myNeedsContRelation.insert(StreamPair(c1.getFrom(), c1.getTo(), c2.getFrom(), c2.getTo()));
                         }
-                        if (isFoes) {
+                        if (isFoes && state[i1] == 's') {
                             myRightOnRedConflicts.insert(std::make_pair(i1, i2));
+                            //std::cout << getID() << " prog=" << getProgramID() << " phase=" << (it - phases.begin()) << " rightOnRedConflict i1=" << i1 << " i2=" << i2 << "\n";
                         }
                         //std::cout << getID() << " i1=" << i1 << " i2=" << i2 << " rightTurnConflict=" << rightTurnConflict << " forbidden=" << forbidden << " isFoes=" << isFoes << "\n";
                     }

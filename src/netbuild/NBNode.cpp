@@ -3348,11 +3348,9 @@ NBNode::isTrafficLight(SumoXMLNodeType type) {
 
 bool
 NBNode::rightOnRedConflict(int index, int foeIndex) const {
-    if (myType == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED) {
-        for (std::set<NBTrafficLightDefinition*>::const_iterator i = myTrafficLights.begin(); i != myTrafficLights.end(); ++i) {
-            if ((*i)->rightOnRedConflict(index, foeIndex)) {
-                return true;
-            }
+    for (NBTrafficLightDefinition* def : myTrafficLights) {
+        if (def->rightOnRedConflict(index, foeIndex)) {
+            return true;
         }
     }
     return false;
