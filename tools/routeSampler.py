@@ -400,16 +400,26 @@ def main(options):
         print("input %s" % edgeCount)
         print("input %s" % detectorCount)
 
+    mismatchf = None
+    if options.mismatchOut:
+        mismatchf = open(options.mismatchOut, 'w')
+        sumolib.writeXMLHeader(mismatchf, "$Id$")  # noqa
+        mismatchf.write('<data>\n')
 
     with open(options.out, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
         for begin, end in intervals:
             intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
-            solveInterval(options, routes, begin, end, intervalPrefix, outf)
+            solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf)
         outf.write('</routes>\n')
 
+    if options.mismatchOut:
+        mismatchf.write('</data>\n')
+        mismatchf.close()
 
-def solveInterval(options, routes, begin, end, intervalPrefix, outf):
+
+
+def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
     # store which routes are passing each counting location (using route index)
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end, routes, options.turnAttr)
                + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes, options.edgeDataAttr))
@@ -560,23 +570,19 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf):
     if overflow.count() > 0:
         print("Warning: %s (total %s)" % (overflow, sum(overflow.values)))
 
-    if options.mismatchOut:
-        with open(options.mismatchOut, 'w') as outf:
-            sumolib.writeXMLHeader(outf, "$Id$")  # noqa
-            outf.write('<data>\n')
-            outf.write('    <interval id="deficit" begin="0" end="3600">\n')
-            for cd in countData:
-                if len(cd.edgeTuple) == 1:
-                    outf.write('        <edge id="%s" measuredCount="%s" deficit="%s"/>\n' % (
-                        cd.edgeTuple[0], cd.origCount, cd.count))
-                elif len(cd.edgeTuple) == 2:
-                    outf.write('        <edgeRelation from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (
-                        cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, cd.count))
-                else:
-                    print("Warning: output for edge relations with more than 2 edges not supported (%s)" % cd.edgeTuple,
-                          file=sys.stderr)
-            outf.write('    </interval>\n')
-            outf.write('</data>\n')
+    if mismatchf:
+        mismatchf.write('    <interval id="deficit" begin="0" end="3600">\n')
+        for cd in countData:
+            if len(cd.edgeTuple) == 1:
+                mismatchf.write('        <edge id="%s" measuredCount="%s" deficit="%s"/>\n' % (
+                    cd.edgeTuple[0], cd.origCount, cd.count))
+            elif len(cd.edgeTuple) == 2:
+                mismatchf.write('        <edgeRelation from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (
+                    cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, cd.count))
+            else:
+                print("Warning: output for edge relations with more than 2 edges not supported (%s)" % cd.edgeTuple,
+                      file=sys.stderr)
+        mismatchf.write('    </interval>\n')
 
 
 if __name__ == "__main__":
