@@ -38,7 +38,7 @@ permalink: /ChangeLog/
 
 ### Enhancements
 - Simulation
-  - Actuated traffic lights now support the use of [custom detectors](Simulation/Traffic_Lights.md#custom_detectors). Issue #5125
+  - Traffic lights of type 'actuated' and 'delay_based' now support the use of [custom detectors](Simulation/Traffic_Lights.md#custom_detectors). Issue #5125, Issue #6773
   - The new route attriubte `period` is now applied repeatedly when rerouting the vehicle and the new route contains stops with attribute `until` to shift those times forward (e.g. on cyclical rerouters for public transport vehicles). Issue #6550
   - The new route attribute `repeat` can now be used to define repeating routes. When the route contains stop definitions with the `until`-attribute, the new route attribute `period` must be used to shift the repeated stop times. Issue #6554  
   - Added option **--fcd-output.params KEY1,KEY2,...** to extend fcd-output with additional vehicle [generic parameters](Simulation/GenericParameters.md). Issue #6685
@@ -51,6 +51,7 @@ permalink: /ChangeLog/
 - SUMO-GUI
   - Missing data values (color by edgeData) can now be distinguished from negative data values. Issue #6660
   - `<edgeRelation>`-data files can now be visualized. Issue #6659
+  - Traffic lights of type 'delay_based' can now dynamically toggle detector visualization.
   - Train reversals are now indicated when ''Show Route'' is active. Issue #6744
 - NETCONVERT
   - Edge attribute `spreadType` now supports value `roadCenter` which aligns edges with common geometry so that the geometry reflects the middle of the road regardless of differences in lane numbers (causing natural alignment for turning lanes). Issue #1758
