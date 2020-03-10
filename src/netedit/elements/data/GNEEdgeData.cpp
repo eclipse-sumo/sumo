@@ -33,6 +33,7 @@
 
 #include "GNEEdgeData.h"
 #include "GNEDataInterval.h"
+#include "GNEDataSet.h"
 
 
 // ===========================================================================
@@ -145,6 +146,8 @@ GNEEdgeData::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getParentEdges().front()->getID();
+        case GNE_ATTR_DATASET:
+            return myDataIntervalParent->getDataSetParent()->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:

@@ -1055,6 +1055,8 @@ enum SumoXMLAttr {
     GNE_ATTR_CLOSE_SHAPE,
     /// @brief parent of an additional element
     GNE_ATTR_PARENT,
+    /// @brief data set of a generic data
+    GNE_ATTR_DATASET,
     /// @brief parameters "key1=value1|key2=value2|...|keyN=valueN"
     GNE_ATTR_PARAMETERS,
     /// @brief min source (used only by TAZs)
