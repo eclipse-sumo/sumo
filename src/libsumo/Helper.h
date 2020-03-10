@@ -246,6 +246,8 @@ private:
     ///       the intermediate range is simply assimilated.
     static void fuseLaneCoverage(std::shared_ptr<LaneCoverageInfo> aggregatedLaneCoverage, const std::shared_ptr<LaneCoverageInfo> newLaneCoverage);
 
+    static void debugPrint(const SUMOTrafficObject* veh);
+
 private:
     class VehicleStateListener : public MSNet::VehicleStateListener {
     public:

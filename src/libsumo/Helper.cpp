@@ -58,7 +58,6 @@
 //#define DEBUG_MOVEXY_ANGLE
 //#define DEBUG_SURROUNDING
 
-
 void
 LaneStoringVisitor::add(const MSLane* const l) const {
     switch (myDomain) {
@@ -118,6 +117,19 @@ std::map<std::string, MSPerson*> Helper::myRemoteControlledPersons;
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+
+void
+Helper::debugPrint(const SUMOTrafficObject* veh) {
+    if (veh != nullptr) {
+        if (veh->isVehicle()) {
+            std::cout << "  '" << veh->getID() << "' on lane '" << ((SUMOVehicle*)veh)->getLane()->getID() << "'\n";
+        } else {
+            std::cout << "  '" << veh->getID() << "' on edge '" << veh->getEdge()->getID() << "'\n";
+        }
+    }
+}
+
+
 void
 Helper::subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
                   const double beginTime, const double endTime, const int contextDomain, const double range) {
@@ -789,9 +801,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 #ifdef DEBUG_SURROUNDING
             std::cout << SIMTIME << " applySubscriptionFilters() for veh '" << v->getID() << "'. Found the following vehicles:\n";
             for (auto veh : vehs) {
-                if (veh != nullptr) {
-                    std::cout << "  '" << veh->getID() << "' on lane '" << veh->getLane()->getID() << "'\n";
-                }
+                debugPrint(veh);
             }
 #endif
         } else if (s.activeFilters & SUBS_FILTER_LATERAL_DIST) {
@@ -905,9 +915,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 #ifdef DEBUG_SURROUNDING
                 std::cout << SIMTIME << " applySubscriptionFilters() for veh '" << v->getID() << "'. Found the following vehicles:\n";
                 for (auto veh : vehs) {
-                    if (veh != nullptr) {
-                        std::cout << "  '" << veh->getID() << "' on lane '" << veh->getLane()->getID() << "'\n";
-                    }
+                    debugPrint(veh);
                 }
 #endif
             }
@@ -1048,6 +1056,9 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, 
             if ((minPerpendicularDist != GeomHelper::INVALID_OFFSET) && (minPerpendicularDist <= s.filterLateralDist)) {
                 vehs.insert(obj);
                 i = objIDs.erase(i);
+#ifdef DEBUG_SURROUNDING
+                std::cout << "   found " << obj->getID() << "\n";
+#endif
             } else {
                 ++i;
             }
