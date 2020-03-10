@@ -649,7 +649,11 @@ MSFrame::checkOptions() {
         WRITE_ERROR("The begin time should not be negative.");
         ok = false;
     }
-    checkStepLengthMultiple(begin, " for begin");
+    // DELTA_T not yet initialized
+    const SUMOTime deltaT = MAX2((SUMOTime)1, string2time(oc.getString("step-length")));
+    if (begin < TIME2STEPS(1)) {
+        checkStepLengthMultiple(begin, " for begin", deltaT);
+    }
     if (end != string2time("-1")) {
         if (end < begin) {
             WRITE_ERROR("The end time should be after the begin time.");
@@ -662,12 +666,21 @@ MSFrame::checkOptions() {
     }
     const SUMOTime period = string2time(oc.getString("device.fcd.period"));
     if (period > 0) {
-        checkStepLengthMultiple(period, " for device.fcd.period");
+        checkStepLengthMultiple(period, " for device.fcd.period", deltaT);
     }
     const SUMOTime statePeriod = string2time(oc.getString("save-state.period"));
     if (statePeriod > 0) {
-        checkStepLengthMultiple(period, " for save-state.period");
+        checkStepLengthMultiple(statePeriod, " for save-state.period", deltaT);
     }
+    for (int msTime : oc.getIntVector("save-state.times")) {
+        SUMOTime saveT = TIME2STEPS(msTime);
+        if (end > 0 && saveT >= end) {
+            WRITE_WARNING("The save-state.time " + toString(msTime) + " will not be used before simulation end at " + time2string(end));
+        } else {
+            checkStepLengthMultiple(saveT, " for save-state.times", deltaT);
+        }
+    }
+
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output.vehicles") && !oc.isSet("movereminder-output")) {
         WRITE_ERROR("option movereminder-output.vehicles requires option movereminder-output to be set");
