@@ -16,3 +16,4 @@ custom_interval_split
 
 # handle count input with multiple data intervals
 mismatch-output
+optimize_verbose
