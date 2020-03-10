@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-02-28 08:56:28.453233 by routeSampler.py v1_5_0+0288-5cf5d0a
+<!-- generated on 2020-03-10 15:02:56.018216 by routeSampler.py v1_5_0+0611-17a08db
   options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml <doubleminus>mismatch-output edgedata.xml
 -->
 <data>
-    <interval id="deficit" begin="0" end="3600">
+    <interval id="deficit" begin="0.0" end="99.0">
         <edgeRelation from="-58.121.42" to="64" measuredCount="1" deficit="0"/>
         <edgeRelation from="-58.121.42" to="-31" measuredCount="3" deficit="0"/>
         <edgeRelation from="45" to="-68" measuredCount="3" deficit="0"/>
