@@ -358,6 +358,10 @@ public:
         return myState == LINKSTATE_TL_YELLOW_MINOR || myState == LINKSTATE_TL_YELLOW_MAJOR;
     }
 
+    inline bool haveGreen() const {
+        return myState == LINKSTATE_TL_GREEN_MAJOR || myState == LINKSTATE_TL_GREEN_MINOR;
+    }
+
     inline bool isTLSControlled() const {
         return myLogic != 0;
     }
@@ -401,6 +405,9 @@ public:
 
     /// @brief whether this is a link past an internal junction which currently has priority
     bool lastWasContMajor() const;
+
+    /// @brief whether this is a link past an internal junction which currently has green major
+    bool lastWasContMajorGreen() const;
 
     /** @brief Returns the cumulative length of all internal lanes after this link
      *  @return sum of the lengths of all internal lanes following this link

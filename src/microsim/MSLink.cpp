@@ -526,7 +526,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
             }
         }
     }
-    if (havePriority() && myState != LINKSTATE_ZIPPER) {
+    if ((havePriority() || lastWasContMajorGreen()) && myState != LINKSTATE_ZIPPER) {
         // priority usually means the link is open but there are exceptions:
         // zipper still needs to collect foes
         // sublane model could have detected a conflict
@@ -770,6 +770,25 @@ MSLink::lastWasContMajor() const {
 }
 
 
+bool
+MSLink::lastWasContMajorGreen() const {
+    if (myInternalLane == nullptr || myAmCont || myHavePedestrianCrossingFoe) {
+        return false;
+    } else {
+        MSLane* pred = myInternalLane->getLogicalPredecessorLane();
+        if (!pred->getEdge().isInternal()) {
+            return false;
+        } else {
+            MSLane* pred2 = pred->getLogicalPredecessorLane();
+            assert(pred2 != 0);
+            MSLink* predLink = MSLinkContHelper::getConnectingLink(*pred2, *pred);
+            assert(predLink != 0);
+            return predLink->getState() == LINKSTATE_TL_GREEN_MAJOR || predLink->getState() == LINKSTATE_TL_RED;
+        }
+    }
+}
+
+
 void
 MSLink::writeApproaching(OutputDevice& od, const std::string fromLaneID) const {
     if (myApproachingVehicles.size() > 0) {
@@ -975,19 +994,33 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             const bool sameSource = (myInternalLaneBefore != nullptr && myInternalLaneBefore->getLogicalPredecessorLane() == foeLane->getLogicalPredecessorLane());
             const double crossingWidth = (sameTarget || sameSource) ? 0 : foeLane->getWidth();
             const double foeCrossingWidth = (sameTarget || sameSource) ? 0 : myInternalLaneBefore->getWidth();
+            // special treatment of contLane foe only applies if this lane is not a contLane or contLane follower itself
+            const bool contLane = (foeLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal() && !(
+                                       isInternalJunctionLink() || isExitLinkAfterInternalJunction()));
             if (gDebugFlag1) {
                 std::cout << " distToCrossing=" << distToCrossing << " foeLane=" << foeLane->getID() << " cWidth=" << crossingWidth
                           << " ijl=" << isInternalJunctionLink() << " sT=" << sameTarget << " sS=" << sameSource
                           << " lbc=" << myLengthsBehindCrossing[i].first
                           << " flbc=" << myLengthsBehindCrossing[i].second
+                          << " contLane=" << contLane
+                          << " state=" << toString(myState)
+                          << " foeState=" << toString(foeLane->getLinkCont()[0]->getState())
                           << "\n";
             }
-            // special treatment of contLane foe only applies if this lane is not a contLane or contLane follower itself
-            const bool contLane = (foeLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal() && !(
-                                       isInternalJunctionLink() || isExitLinkAfterInternalJunction()));
             if (distToCrossing + crossingWidth < 0
                     && (ego == nullptr || !MSGlobals::gComputeLC || distToCrossing + crossingWidth + ego->getVehicleType().getLength() < 0)) {
                 continue; // vehicle is behind the crossing point, continue with next foe lane
+            }
+            bool ignoreGreenCont = false;
+            if (contLane) {
+                const MSLink* entry = getLaneBefore()->getEntryLink();
+                const MSLink* foeEntry = foeLane->getEntryLink();
+                if (entry != nullptr && entry->haveGreen()
+                        && foeEntry != nullptr && foeEntry->haveGreen()
+                        && entry->myLaneBefore != foeEntry->myLaneBefore)  {
+                    // ignore vehicles before an internaljunction as long as they are still in green minor mode
+                    ignoreGreenCont = true;
+                }
             }
             const double foeDistToCrossing = foeLane->getLength() - myLengthsBehindCrossing[i].second;
             // it is not sufficient to return the last vehicle on the foeLane because ego might be its leader
@@ -1022,6 +1055,10 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                               << " isOpposite=" << isOpposite << "\n";
                 }
                 if (leader == ego) {
+                    continue;
+                }
+                // ignore greenCont foe vehicles that are not in the way
+                if (ignoreGreenCont && !inTheWay) {
                     continue;
                 }
                 // after entering the conflict area, ignore foe vehicles that are not in the way
