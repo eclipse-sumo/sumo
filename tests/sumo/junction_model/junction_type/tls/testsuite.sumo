@@ -9,3 +9,6 @@ blocked_until_red
 
 # see #6528
 incompatible_program
+
+# see #6068
+right_on_red_program
