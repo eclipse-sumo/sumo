@@ -2,7 +2,7 @@ Success.
 Loading configuration ... done.
 Loading configuration ... done.
  Retrying in 1 seconds
-waiting time (max, mean, dev): True True True
+waiting time (max, mean, dev): False True False
 ('footmain0to1', 'footmainout') True True True
 ('footmain1to2', 'footmainout') True True True
 ('footmain2to3', 'footmainout') True True True
@@ -18,10 +18,10 @@ waiting time (max, mean, dev): True True True
 ('footmainout', 'footmain4to5') True True True
 ('footmainout', 'footmain5to6') True True True
 ('footmainout', 'footmain6to7') True True True
-('footmainout', 'footmain7to8') True True True
+('footmainout', 'footmain7to8') True True False
 CO2: True
  Retrying in 1 seconds
-waiting time (max, mean, dev): True True True
+waiting time (max, mean, dev): False True False
 ('footmain0to1', 'footmainout') True True True
 ('footmain1to2', 'footmainout') True True True
 ('footmain2to3', 'footmainout') True True True
@@ -37,5 +37,5 @@ waiting time (max, mean, dev): True True True
 ('footmainout', 'footmain4to5') True True True
 ('footmainout', 'footmain5to6') True True True
 ('footmainout', 'footmain6to7') True True True
-('footmainout', 'footmain7to8') True True True
+('footmainout', 'footmain7to8') True True False
 CO2: True
