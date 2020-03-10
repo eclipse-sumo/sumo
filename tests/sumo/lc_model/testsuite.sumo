@@ -1,6 +1,9 @@
 # test vType attribute 'lcm'
 specify_lcm
 
+# test lateral imperfection
+lcSigma
+
 # change towards the best continuation lane if the current lane does not continue
 change_towards_best
 
