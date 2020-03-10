@@ -32,6 +32,7 @@ permalink: /ChangeLog/
 - TraCI
   - Fixed crash when calling vehicle.moveTo for an off-road vehicle with tripinfo-output. Issue #6717
   - Fixed crash when trying add subscription filter for context subscrition of persons around an ego vehicle. Issue #6735
+  - Fixed crash and invalid results when using 'vehicle.addSubscriptionFilterLateralDistance. Issue #6770
 - Tools
   - [sort_routes.py](Tools/Routes.md#sort_routespy) can now handle trips, triggered vehicles and human-readable times.  
 
@@ -43,6 +44,7 @@ permalink: /ChangeLog/
   - Added option **--fcd-output.params KEY1,KEY2,...** to extend fcd-output with additional vehicle [generic parameters](Simulation/GenericParameters.md). Issue #6685
   - Tripinfo-output attribute vaporized now includes specific description for premature vehicle removal (collision, traci, calibrator, ...). Issue #6718
   - Added option **--statistic-output** to write [various statistics](Simulation/Output.md#commandline_output_verbose) in XML format. Issue #3751
+  - vType attribute 'lcSigma' now always affect lateral position (previously, only sublane model and continuous lanechange modle were affected).
 - NETEDIT
   - Added new 'Data Mode' to edit files with edge and turn-related data. Issue #6461
   - Traffic light phase editing function 'Insert Phase' now takes successive green states into account when synthesizing transition phases. Issue #6732
@@ -62,6 +64,7 @@ permalink: /ChangeLog/
   - [matsim_importPlans.py](Tools/Import/MATSim.md#matsim_importplanspy) now supports alternative input dialects and sorts its output.  
   - added new tool [net2kml.py](Tools/Net.md#net2kmlpy) to convert sumo networks to KML
   - [routeSampler.py](Tools/Turns.md#routesampler.py) improvements
+    - supports loading multiple data intervals. Data aggregation can be customized using options **--begin**, **--end**, **--interval**
     - supports loading multiple files (routes, edgedata, turns). The corresponding options were renamed accordingly (**--route-files, --edgedata-files, --turn-files**)
     - supports optimization by linear programming using option **--optimize** (requires scipy)
     - supports output of mismatch between measured counts and sampled counts for visualization in SUMO-GUI via `edgeData` and `edgeRelation` files using option **--mismatch-output**
