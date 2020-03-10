@@ -108,7 +108,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "wautSwitch",                 SUMO_TAG_WAUT_SWITCH },
     { "wautJunction",               SUMO_TAG_WAUT_JUNCTION },
     { "segment",                    SUMO_TAG_SEGMENT },
-    { "delete",                     SUMO_TAG_DELETE },
+    { "delete",                     SUMO_TAG_DEL },
     { "stop",                       SUMO_TAG_STOP },
     { "stopBusStop",                SUMO_TAG_STOP_BUSSTOP },
     { "stopContainerStop",          SUMO_TAG_STOP_CONTAINERSTOP },

@@ -92,7 +92,7 @@ NIXMLEdgesHandler::myStartElement(int element,
         case SUMO_TAG_SPLIT:
             addSplit(attrs);
             break;
-        case SUMO_TAG_DELETE:
+        case SUMO_TAG_DEL:
             deleteEdge(attrs);
             break;
         case SUMO_TAG_ROUNDABOUT:
@@ -545,7 +545,7 @@ NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes& attrs) {
     }
     NBEdge* edge = myEdgeCont.retrieve(myCurrentID);
     if (edge == nullptr) {
-        WRITE_WARNING("Ignoring tag '" + toString(SUMO_TAG_DELETE) + "' for unknown edge '" +
+        WRITE_WARNING("Ignoring tag '" + toString(SUMO_TAG_DEL) + "' for unknown edge '" +
                       myCurrentID + "'");
         return;
     }

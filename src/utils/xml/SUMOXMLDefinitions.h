@@ -180,8 +180,8 @@ enum SumoXMLTag {
     SUMO_TAG_WAUT_JUNCTION,
     /// @brief segment of a lane
     SUMO_TAG_SEGMENT,
-    /// @brief delete certain element
-    SUMO_TAG_DELETE,
+    /// @brief delete certain element (note: DELETE is a macro)
+    SUMO_TAG_DEL,
     /// @brief stop for vehicles
     SUMO_TAG_STOP,
     /// @brief stop placed over a lane (used in netedit)
