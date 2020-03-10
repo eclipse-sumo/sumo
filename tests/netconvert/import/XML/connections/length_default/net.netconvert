@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar  5 10:15:28 2020 by Eclipse SUMO netconvert Version v1_5_0+0517-ca1f5da
+<!-- generated on Tue Mar 10 08:41:33 2020 by Eclipse SUMO netconvert Version v1_5_0+0589-c3405bf
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,10 +44,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_1_1" index="1" speed="13.89" length="0.01" shape="98.40,110.40 98.40,89.60"/>
     </edge>
     <edge id=":C_3" function="internal">
-        <lane id=":C_3_0" index="0" speed="9.26" length="0.00" shape="98.40,110.40 99.15,105.15 100.00,103.73"/>
+        <lane id=":C_3_0" index="0" speed="9.26" length="0.01" shape="98.40,110.40 99.15,105.15 100.00,103.73"/>
     </edge>
     <edge id=":C_4" function="internal">
-        <lane id=":C_4_0" index="0" speed="3.65" length="0.00" shape="98.40,110.40 99.20,109.20 100.00,108.80"/>
+        <lane id=":C_4_0" index="0" speed="3.65" length="0.01" shape="98.40,110.40 99.20,109.20 100.00,108.80"/>
     </edge>
     <edge id=":C_19" function="internal">
         <lane id=":C_19_0" index="0" speed="9.26" length="0.10" shape="100.00,103.73 101.40,101.40 105.15,99.15 110.40,98.40"/>
