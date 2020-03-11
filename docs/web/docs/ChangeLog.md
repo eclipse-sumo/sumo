@@ -15,6 +15,8 @@ permalink: /ChangeLog/
   - Train routing now considers space requirement for train reversal. Issue #6697, #6743
   - Train routing is no longer effected by occupied edges that are beyond rail signal control. Issue #6741
   - Removed invalid warning for public transport users. Issue #6698
+  - Fixed invalid right-of-way at traffic light junctions with right-turn-on-red rules. Issue #6068
+  - Fixed bug that caused junction collisions to go unnoticed. Issue #6779
 - MESO
   - Calibrator attribute `vTypes` is now working. Issue #6702
 - NETCONVERT
