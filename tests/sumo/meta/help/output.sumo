@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_5_0+0563-8ef6fee005
+Eclipse SUMO Version v1_5_0+0649-b7a5a0e
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -311,6 +311,8 @@ Routing Options:
                                          used for rerouting
   --device.rerouting.synchronize       Let rerouting happen at the same time
                                          for all vehicles
+  --device.rerouting.railsignal        Allow rerouting triggered by rail
+                                         signals.
   --device.rerouting.output FILE       Save adapting weights to FILE
   --person-device.rerouting.probability FLOAT  The probability for a person to
                                          have a 'rerouting' device
@@ -643,6 +645,8 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing
