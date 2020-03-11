@@ -617,6 +617,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
     const double textSize = s.vehicleName.size / s.scale;
     const GUILane* prevLane = nullptr;
     int reversalIndex = 0;
+    const int indexDigits = (int)toString(r.size()).size();
     for (; i != r.end(); ++i) {
         const GUILane* lane;
         if (bestLaneIndex < (int)bestLaneConts.size() && bestLaneConts[bestLaneIndex] != 0 && (*i) == &(bestLaneConts[bestLaneIndex]->getEdge())) {
@@ -642,7 +643,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
             std::string label = toString((int)(i - myCurrEdge));
             const double laneAngle = lane->getShape().angleAt2D(0);
             Position pos = lane->getShape().front() - Position(0, textSize * repeatLane[lane]) + Position(
-                    (laneAngle >= -0.25 * M_PI && laneAngle < 0.75 * M_PI ? 1 : -1) * 0.8 * textSize, 0);
+                    (laneAngle >= -0.25 * M_PI && laneAngle < 0.75 * M_PI ? 1 : -1) * 0.4 * indexDigits * textSize, 0);
             //GLHelper::drawText(label, pos, 1.0, textSize, s.vehicleName.color);
             GLHelper::drawTextSettings(s.vehicleName, label, pos, s.scale, s.angle, 1.0);
         }
