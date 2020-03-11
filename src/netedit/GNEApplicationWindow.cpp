@@ -2203,7 +2203,7 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
     // first check if there is a view
     if (myViewNet) {
         // process depending of supermode
-        if (myViewNet->getEditModes().currentSupermode == Supermode::NETWORK) {
+        if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             // check what FXMenuCommand was called
             switch (FXSELID(sel)) {
                 case MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND:

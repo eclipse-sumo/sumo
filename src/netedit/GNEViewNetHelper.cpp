@@ -1146,10 +1146,15 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(boundary);
         // filter ACsInBoundary depending of current supermode
         std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsInBoundaryFiltered;
-        for (const auto& i : ACsInBoundary) {
-            if (((myViewNet->myEditModes.currentSupermode == Supermode::NETWORK) && !i.second->getTagProperty().isDemandElement()) ||
-                    ((myViewNet->myEditModes.currentSupermode == Supermode::DEMAND) && i.second->getTagProperty().isDemandElement())) {
-                ACsInBoundaryFiltered.insert(i);
+        for (const auto& AC : ACsInBoundary) {
+            if (myViewNet->myEditModes.isCurrentSupermodeNetwork()) {
+                if (AC.second->getTagProperty().isNetworkElement() || AC.second->getTagProperty().isAdditionalElement() || AC.second->getTagProperty().isTAZ()) {
+                    ACsInBoundaryFiltered.insert(AC);
+                }
+            } else if (myViewNet->myEditModes.isCurrentSupermodeDemand() && AC.second->getTagProperty().isDemandElement()) {
+                ACsInBoundaryFiltered.insert(AC);
+            } else if (myViewNet->myEditModes.isCurrentSupermodeData() && AC.second->getTagProperty().isGenericData()) {
+                ACsInBoundaryFiltered.insert(AC);
             }
         }
         // declare two sets of attribute carriers, one for select and another for unselect
@@ -1347,7 +1352,7 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::EditModes::EditModes(GNEViewNet* viewNet) :
-    currentSupermode(Supermode::NONE),
+    myCurrentSupermode(Supermode::NONE),
     networkEditMode(NetworkEditMode::NETWORK_INSPECT),
     demandEditMode(DemandEditMode::DEMAND_INSPECT),
     dataEditMode(DataEditMode::DATA_INSPECT),
@@ -1361,16 +1366,19 @@ GNEViewNetHelper::EditModes::EditModes(GNEViewNet* viewNet) :
 void
 GNEViewNetHelper::EditModes::buildSuperModeButtons() {
     // create network button
-    networkButton = new MFXCheckableButton(false, myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Network\t\tSet mode for edit network elements.",
-                                           GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myViewNet, MID_HOTKEY_F2_SUPERMODE_NETWORK, GUIDesignButtonToolbarSupermode);
+    networkButton = new MFXCheckableButton(false, 
+        myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Network\t\tSet mode for edit network elements.",
+        GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myViewNet, MID_HOTKEY_F2_SUPERMODE_NETWORK, GUIDesignButtonToolbarSupermode);
     networkButton->create();
     // create demand button
-    demandButton = new MFXCheckableButton(false, myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Demand\t\tSet mode for edit traffic demand.",
-                                          GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myViewNet, MID_HOTKEY_F3_SUPERMODE_DEMAND, GUIDesignButtonToolbarSupermode);
+    demandButton = new MFXCheckableButton(false, 
+        myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Demand\t\tSet mode for edit traffic demand.",
+        GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myViewNet, MID_HOTKEY_F3_SUPERMODE_DEMAND, GUIDesignButtonToolbarSupermode);
     demandButton->create();
     // create data button
-    dataButton = new MFXCheckableButton(false, myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Data\t\tSet mode for edit data demand.",
-                                        GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myViewNet, MID_HOTKEY_F4_SUPERMODE_DATA, GUIDesignButtonToolbarSupermode);
+    dataButton = new MFXCheckableButton(false, 
+        myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Data\t\tSet mode for edit data demand.",
+        GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myViewNet, MID_HOTKEY_F4_SUPERMODE_DATA, GUIDesignButtonToolbarSupermode);
     dataButton->create();
     // recalc menu bar because there is new elements
     myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
@@ -1380,8 +1388,8 @@ GNEViewNetHelper::EditModes::buildSuperModeButtons() {
 
 
 void
-GNEViewNetHelper::EditModes::setSupermode(Supermode supermode) {
-    if (supermode == currentSupermode) {
+GNEViewNetHelper::EditModes::setSupermode(const Supermode supermode) {
+    if (supermode == myCurrentSupermode) {
         myViewNet->setStatusBarText("Mode already selected");
         if (myViewNet->myCurrentFrame != nullptr) {
             myViewNet->myCurrentFrame->focusUpperElement();
@@ -1391,7 +1399,7 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode) {
         // abort current operation
         myViewNet->abortOperation(false);
         // set super mode
-        currentSupermode = supermode;
+        myCurrentSupermode = supermode;
         // set supermodes
         if (supermode == Supermode::NETWORK) {
             // change buttons
@@ -1438,13 +1446,13 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode) {
         demandButton->update();
         dataButton->update();
         // update Supermode CommandButtons in GNEAppWindows
-        myViewNet->myViewParent->getGNEAppWindows()->updateSuperModeMenuCommands(currentSupermode);
+        myViewNet->myViewParent->getGNEAppWindows()->updateSuperModeMenuCommands(myCurrentSupermode);
     }
 }
 
 
 void
-GNEViewNetHelper::EditModes::setNetworkEditMode(NetworkEditMode mode, bool force) {
+GNEViewNetHelper::EditModes::setNetworkEditMode(const NetworkEditMode mode, const bool force) {
     if ((mode == networkEditMode) && !force) {
         myViewNet->setStatusBarText("Network mode already selected");
         if (myViewNet->myCurrentFrame != nullptr) {
@@ -1491,7 +1499,7 @@ GNEViewNetHelper::EditModes::setNetworkEditMode(NetworkEditMode mode, bool force
 
 
 void
-GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, bool force) {
+GNEViewNetHelper::EditModes::setDemandEditMode(const DemandEditMode mode, const bool force) {
     if ((mode == demandEditMode) && !force) {
         myViewNet->setStatusBarText("Demand mode already selected");
         if (myViewNet->myCurrentFrame != nullptr) {
@@ -1528,7 +1536,7 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, bool force) 
 
 
 void
-GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, bool force) {
+GNEViewNetHelper::EditModes::setDataEditMode(const DataEditMode mode, const bool force) {
     if ((mode == dataEditMode) && !force) {
         myViewNet->setStatusBarText("Data mode already selected");
         if (myViewNet->myCurrentFrame != nullptr) {
@@ -1557,6 +1565,24 @@ GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, bool force) {
         // update network mode specific controls
         myViewNet->updateDataModeSpecificControls();
     }
+}
+
+
+bool 
+GNEViewNetHelper::EditModes::isCurrentSupermodeNetwork() const {
+    return (myCurrentSupermode == Supermode::NETWORK);
+}
+
+
+bool 
+GNEViewNetHelper::EditModes::isCurrentSupermodeDemand() const {
+    return (myCurrentSupermode == Supermode::DEMAND);
+}
+
+
+bool 
+GNEViewNetHelper::EditModes::isCurrentSupermodeData() const {
+    return (myCurrentSupermode == Supermode::DATA);
 }
 
 // ---------------------------------------------------------------------------

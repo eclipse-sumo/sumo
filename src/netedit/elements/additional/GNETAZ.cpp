@@ -354,7 +354,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawBoxLines(myTAZShape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
                 glPopMatrix();
                 // draw shape points only in Network supemode
-                if (myViewNet->getEditModes().currentSupermode != Supermode::DEMAND) {
+                if (!myViewNet->getEditModes().isCurrentSupermodeDemand()) {
                     for (const auto& TAZVertex : myTAZShape) {
                         if (!s.drawForRectangleSelection || (myViewNet->getPositionInformation().distanceSquaredTo2D(TAZVertex) <= (myHintSizeSquared + 2))) {
                             glPushMatrix();

@@ -199,7 +199,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
     // check if we're in supermode network
-    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::NETWORK) {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         //if (parent.getVisualisationSettings()->editMode != GNE_MODE_CONNECT) {
         //    // XXX if joinable
         //    new FXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
@@ -309,7 +309,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 drawBubble = true;
             }
             // in supermode demand Bubble musn't be drawn
-            if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::DEMAND) {
+            if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
                 drawBubble = false;
             }
             // check if shape has to be drawn
@@ -1595,7 +1595,7 @@ GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
         color = RGBColor(0, 255, 0);
     }
     // overwritte color if we're in data mode
-    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::DATA) {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         color = s.junctionColorer.getScheme().getColor(6);
     }
     GLHelper::setColor(color);

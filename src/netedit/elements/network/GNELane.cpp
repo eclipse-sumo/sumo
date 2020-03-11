@@ -630,7 +630,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         buildPositionCopyEntry(ret, false);
     }
     // check if we're in supermode network
-    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::NETWORK) {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         if (editMode != NetworkEditMode::NETWORK_CONNECT && editMode != NetworkEditMode::NETWORK_TLS && editMode != NetworkEditMode::NETWORK_CREATE_EDGE) {
             // Get icons
             FXIcon* pedestrianIcon = GUIIconSubSys::getIcon(GUIIcon::LANEPEDESTRIAN);
@@ -1123,7 +1123,7 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
         }
     }
     // check if we're in data mode
-    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::DATA) {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         color = s.laneColorer.getSchemes()[0].getColor(8);
     }
     // check if we have to change color if parent edge has generic data elements

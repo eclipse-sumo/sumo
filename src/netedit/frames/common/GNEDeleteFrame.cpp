@@ -120,7 +120,7 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
         // disable update geometry
         myViewNet->getNet()->disableUpdateGeometry();
         // delete selected attribute carriers depending of current supermode
-        if (myViewNet->getEditModes().currentSupermode == Supermode::NETWORK) {
+        if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             //junctions
             while (myViewNet->getNet()->retrieveJunctions(true).size() > 0) {
                 myViewNet->getNet()->deleteJunction(myViewNet->getNet()->retrieveJunctions(true).front(), myViewNet->getUndoList());
@@ -439,7 +439,7 @@ GNEDeleteFrame::SubordinatedElements::operator+=(const SubordinatedElements& oth
 bool
 GNEDeleteFrame::ACsToDelete() const {
     // invert selection of elements depending of current supermode
-    if (myViewNet->getEditModes().currentSupermode == Supermode::NETWORK) {
+    if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         // iterate over junctions
         for (const auto& i : myViewNet->getNet()->getAttributeCarriers().junctions) {
             if (i.second->isAttributeCarrierSelected()) {

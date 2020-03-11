@@ -131,7 +131,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(s.colorSettings.crossingInvalid);
             } else if (crossing->priority) {
                 GLHelper::setColor(s.colorSettings.crossingPriority);
-            } else if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::DATA) {
+            } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
                 GLHelper::setColor(s.laneColorer.getSchemes()[0].getColor(8));
             } else {
                 GLHelper::setColor(s.colorSettings.crossing);
@@ -222,7 +222,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build position copy entry
     buildPositionCopyEntry(ret, false);
     // check if we're in supermode network
-    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::NETWORK) {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         // create menu commands
         FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom crossing shape", nullptr, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
         // check if menu commands has to be disabled

@@ -78,7 +78,7 @@ GNEPerson::GNEPersonPopupMenu::GNEPersonPopupMenu(GNEPerson* person, GUIMainWind
     myPerson->getViewNet()->buildSelectionACPopupEntry(this, myPerson);
     myPerson->buildShowParamsPopupEntry(this);
     // add transform functions only in demand mode
-    if (myPerson->getViewNet()->getEditModes().currentSupermode == Supermode::DEMAND) {
+    if (myPerson->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // create menu pane for transform operations
         FXMenuPane* transformOperation = new FXMenuPane(this);
         this->insertMenuPaneChild(transformOperation);
@@ -133,7 +133,7 @@ GNEPerson::GNESelectedPersonsPopupMenu::GNESelectedPersonsPopupMenu(GNEPerson* p
     person->getViewNet()->buildSelectionACPopupEntry(this, person);
     person->buildShowParamsPopupEntry(this);
     // add transform functions only in demand mode
-    if (person->getViewNet()->getEditModes().currentSupermode == Supermode::DEMAND) {
+    if (person->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // create menu pane for transform operations
         FXMenuPane* transformOperation = new FXMenuPane(this);
         this->insertMenuPaneChild(transformOperation);

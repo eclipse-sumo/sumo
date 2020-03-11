@@ -411,7 +411,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
 bool
 GNEPOI::isAttributeEnabled(SumoXMLAttr /* key */) const {
     // check if we're in supermode Network
-    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::NETWORK) {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         return true;
     } else {
         return false;

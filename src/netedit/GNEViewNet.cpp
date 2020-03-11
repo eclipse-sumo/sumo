@@ -674,7 +674,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         myViewParent->getRouteFrame()->drawTemporalRoute();
     }
     // check menu checks of supermode demand
-    if (myEditModes.currentSupermode == Supermode::DEMAND) {
+    if (myEditModes.isCurrentSupermodeDemand()) {
         // enable or disable menuCheckShowAllPersonPlans depending of there is a locked person
         if (myDemandViewOptions.getLockedPerson()) {
             myDemandViewOptions.menuCheckShowAllPersonPlans->disable();
@@ -729,11 +729,11 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             myObjectsUnderGrippedCursor.updateObjectUnderCursor(getGUIGlObjectsUnderGrippedCursor(), myEditShapes.editedShapePoly);
         }
         // process left button press function depending of supermode
-        if (myEditModes.currentSupermode == Supermode::NETWORK) {
+        if (myEditModes.isCurrentSupermodeNetwork()) {
             processLeftButtonPressNetwork(eventData);
-        } else if (myEditModes.currentSupermode == Supermode::DEMAND) {
+        } else if (myEditModes.isCurrentSupermodeDemand()) {
             processLeftButtonPressDemand(eventData);
-        } else if (myEditModes.currentSupermode == Supermode::DATA) {
+        } else if (myEditModes.isCurrentSupermodeData()) {
             processLeftButtonPressData(eventData);
         }
         makeNonCurrent();
@@ -755,11 +755,11 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     // update cursor
     updateCursor();
     // process left button release function depending of supermode
-    if (myEditModes.currentSupermode == Supermode::NETWORK) {
+    if (myEditModes.isCurrentSupermodeNetwork()) {
         processLeftButtonReleaseNetwork();
-    } else if (myEditModes.currentSupermode == Supermode::DEMAND) {
+    } else if (myEditModes.isCurrentSupermodeDemand()) {
         processLeftButtonReleaseDemand();
-    } else if (myEditModes.currentSupermode == Supermode::DATA) {
+    } else if (myEditModes.isCurrentSupermodeData()) {
         processLeftButtonReleaseData();
     }
     // update view
@@ -807,11 +807,11 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     // update cursor
     updateCursor();
     // process mouse move function depending of supermode
-    if (myEditModes.currentSupermode == Supermode::NETWORK) {
+    if (myEditModes.isCurrentSupermodeNetwork()) {
         processMoveMouseNetwork();
-    } else if (myEditModes.currentSupermode == Supermode::DEMAND) {
+    } else if (myEditModes.isCurrentSupermodeDemand()) {
         processMoveMouseDemand();
-    } else if (myEditModes.currentSupermode == Supermode::DATA) {
+    } else if (myEditModes.isCurrentSupermodeData()) {
         processMoveMouseData();
     }
     return 1;
@@ -861,7 +861,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
     // steal focus from any text fields and place it over view net
     setFocus();
     // check what supermode is enabled
-    if (myEditModes.currentSupermode == Supermode::NETWORK) {
+    if (myEditModes.isCurrentSupermodeNetwork()) {
         // abort operation depending of current mode
         if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) {
             // abort edge creation in create edge frame
@@ -896,7 +896,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
             // abort select lanes
             myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->abortConsecutiveLaneSelector();
         }
-    } else if (myEditModes.currentSupermode == Supermode::DEMAND) {
+    } else if (myEditModes.isCurrentSupermodeDemand()) {
         // abort operation depending of current mode
         if (myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT) {
             mySelectingArea.selectingUsingRectangle = false;
@@ -913,7 +913,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->abortPersonPlanCreation();
         }
-    } else if (myEditModes.currentSupermode == Supermode::DEMAND) {
+    } else if (myEditModes.isCurrentSupermodeDemand()) {
         // currently unused
     }
     // abort undo list
@@ -924,7 +924,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
 void
 GNEViewNet::hotkeyDel() {
     // delete elements depending of current supermode
-    if (myEditModes.currentSupermode == Supermode::NETWORK) {
+    if (myEditModes.isCurrentSupermodeNetwork()) {
         if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) || (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS)) {
             setStatusBarText("Cannot delete in this mode");
         } else {
@@ -938,11 +938,11 @@ GNEViewNet::hotkeyDel() {
             deleteSelectedShapes();
             myUndoList->p_end();
         }
-    } else if (myEditModes.currentSupermode == Supermode::DEMAND) {
+    } else if (myEditModes.isCurrentSupermodeDemand()) {
         myUndoList->p_begin("delete demand selection");
         deleteSelectedDemandElements();
         myUndoList->p_end();
-    } else if (myEditModes.currentSupermode == Supermode::DATA) {
+    } else if (myEditModes.isCurrentSupermodeData()) {
         myUndoList->p_begin("delete data selection");
         deleteSelectedDataElements();
         myUndoList->p_end();
@@ -955,7 +955,7 @@ GNEViewNet::hotkeyDel() {
 void
 GNEViewNet::hotkeyEnter() {
     // check what supermode is enabled
-    if (myEditModes.currentSupermode == Supermode::NETWORK) {
+    if (myEditModes.isCurrentSupermodeNetwork()) {
         // abort operation depending of current mode
         if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) {
             // Accept changes in Connector Frame
@@ -991,7 +991,7 @@ GNEViewNet::hotkeyEnter() {
                 myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->stopConsecutiveLaneSelector();
             }
         }
-    } else if (myEditModes.currentSupermode == Supermode::DEMAND) {
+    } else if (myEditModes.isCurrentSupermodeDemand()) {
         // abort operation depending of current mode
         if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyEnter();
@@ -1002,7 +1002,7 @@ GNEViewNet::hotkeyEnter() {
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->finishPersonPlanCreation();
         }
-    } else if (myEditModes.currentSupermode == Supermode::DATA) {
+    } else if (myEditModes.isCurrentSupermodeData()) {
         // currently unused
     }
 }
@@ -1011,9 +1011,9 @@ GNEViewNet::hotkeyEnter() {
 void
 GNEViewNet::hotkeyBackSpace() {
     // check what supermode is enabled
-    if (myEditModes.currentSupermode == Supermode::NETWORK) {
+    if (myEditModes.isCurrentSupermodeNetwork()) {
         // unused in Network mode
-    } else if (myEditModes.currentSupermode == Supermode::DEMAND) {
+    } else if (myEditModes.isCurrentSupermodeDemand()) {
         // abort operation depending of current mode
         if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyBackSpace();
@@ -1024,7 +1024,7 @@ GNEViewNet::hotkeyBackSpace() {
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->removeLastAddedElement();
         }
-    } else if (myEditModes.currentSupermode == Supermode::DATA) {
+    } else if (myEditModes.isCurrentSupermodeData()) {
         // unused in Data mode
     }
 }
@@ -1251,7 +1251,7 @@ GNEViewNet::onCmdSetSupermode(FXObject*, FXSelector sel, void*) {
 
 long
 GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
-    if (myEditModes.currentSupermode == Supermode::NETWORK) {
+    if (myEditModes.isCurrentSupermodeNetwork()) {
         // check what network mode will be set
         switch (FXSELID(sel)) {
             case MID_HOTKEY_I_INSPECTMODE:
@@ -1293,7 +1293,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             default:
                 break;
         }
-    } else if (myEditModes.currentSupermode == Supermode::DEMAND) {
+    } else if (myEditModes.isCurrentSupermodeDemand()) {
         // check what demand mode will be set
         switch (FXSELID(sel)) {
             case MID_HOTKEY_I_INSPECTMODE:
@@ -1332,7 +1332,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             default:
                 break;
         }
-    } else if (myEditModes.currentSupermode == Supermode::DATA) {
+    } else if (myEditModes.isCurrentSupermodeData()) {
         // check what demand mode will be set
         switch (FXSELID(sel)) {
             case MID_HOTKEY_I_INSPECTMODE:
@@ -2054,19 +2054,19 @@ GNEViewNet::updateCursor() {
     // declare a flag for cursor move
     bool cursorMove = false;
     // check if in current mode/supermode cursor move can be shown
-    if (myEditModes.currentSupermode == Supermode::NETWORK) {
+    if (myEditModes.isCurrentSupermodeNetwork()) {
         if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) ||
                 (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) ||
                 (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ)) {
             cursorMove = true;
         }
-    } else if (myEditModes.currentSupermode == Supermode::DEMAND) {
+    } else if (myEditModes.isCurrentSupermodeDemand()) {
         if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) ||
                 (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
                 (myEditModes.demandEditMode == DemandEditMode::DEMAND_STOP)) {
             cursorMove = true;
         }
-    } else if (myEditModes.currentSupermode == Supermode::DATA) {
+    } else if (myEditModes.isCurrentSupermodeData()) {
         // unused in data mode
     }
     // update cursor if control key is pressed

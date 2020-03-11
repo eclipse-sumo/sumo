@@ -635,7 +635,7 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
             showAttribute = false;
         }
         // check special case for VType IDs in vehicle Frame
-        if ((i.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().currentSupermode == Supermode::DEMAND) &&
+        if ((i.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
                 (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
             showAttribute = false;
         }
@@ -2837,11 +2837,11 @@ GNEFrameAttributesModuls::NeteditAttributes::setEndPosition(double positionOfThe
 
 bool
 GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC) {
-    if ((viewNet->getEditModes().currentSupermode == Supermode::NETWORK) && !AC->getTagProperty().isNetworkElement()) {
+    if ((viewNet->getEditModes().isCurrentSupermodeNetwork()) && !AC->getTagProperty().isNetworkElement()) {
         return false;
-    } else if ((viewNet->getEditModes().currentSupermode == Supermode::DEMAND) && !AC->getTagProperty().isDemandElement()) {
+    } else if ((viewNet->getEditModes().isCurrentSupermodeDemand()) && !AC->getTagProperty().isDemandElement()) {
         return false;
-    } else if ((viewNet->getEditModes().currentSupermode == Supermode::DATA) && !AC->getTagProperty().isDataElement()) {
+    } else if ((viewNet->getEditModes().isCurrentSupermodeData()) && !AC->getTagProperty().isDataElement()) {
         return false;
     } else {
         return true;
@@ -2853,11 +2853,11 @@ bool
 GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeProperties& ACAttr) {
     if (ACAttr.getTagPropertyParent().isNetworkElement() || ACAttr.getTagPropertyParent().isAdditionalElement() || 
         ACAttr.getTagPropertyParent().isShape() || ACAttr.getTagPropertyParent().isTAZ()) {
-        return (viewNet->getEditModes().currentSupermode == Supermode::NETWORK);
+        return (viewNet->getEditModes().isCurrentSupermodeNetwork());
     } else if (ACAttr.getTagPropertyParent().isDemandElement()) {
-        return (viewNet->getEditModes().currentSupermode == Supermode::DEMAND);
+        return (viewNet->getEditModes().isCurrentSupermodeDemand());
     } else if (ACAttr.getTagPropertyParent().isDataElement()) {
-        return (viewNet->getEditModes().currentSupermode == Supermode::DATA);
+        return (viewNet->getEditModes().isCurrentSupermodeData());
     } else {
         return false;
     }

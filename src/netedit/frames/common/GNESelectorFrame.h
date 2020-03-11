@@ -21,6 +21,7 @@
 #pragma once
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/GNEViewNetHelper.h>
 
 // ===========================================================================
 // class definitions
@@ -47,7 +48,10 @@ public:
 
         public:
             /// @brief constructor
-            ObjectTypeEntry(FXMatrix* matrixParent, const std::string& label);
+            ObjectTypeEntry(FXMatrix* matrixParent, const Supermode supermode, const std::string& label);
+
+            /// @brief get supermode associated to this ObjectTypeEntry 
+            const Supermode getSupermode() const;
 
             /// @brief show ObjectTypeEntry
             void showObjectTypeEntry();
@@ -66,15 +70,19 @@ public:
 
             /// @name FOX-callbacks
             /// @{
+
             /// @brief called when user change the CheckBox
             long onCmdSetCheckBox(FXObject*, FXSelector, void*);
 
             /// @}
 
         protected:
-            FOX_CONSTRUCTOR(ObjectTypeEntry)
+            ObjectTypeEntry();
 
         private:
+            /// @brief supermode associated to this ObjectTypeEntry 
+            const Supermode mySupermode;
+
             /// @brief label counter
             FXLabel* myLabelCounter;
 
@@ -111,7 +119,7 @@ public:
         GNESelectorFrame* mySelectorFrameParent;
 
         /// @brief check boxes for type-based selection locking and selected object counts
-        std::map<GUIGlObjectType, std::pair<Supermode, ObjectTypeEntry* > > myTypeEntries;
+        std::map<GUIGlObjectType, ObjectTypeEntry*> myTypeEntries;
     };
 
     // ===========================================================================

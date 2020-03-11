@@ -106,93 +106,75 @@ GNESelectorFrame::LockGLObjectTypes::LockGLObjectTypes(GNESelectorFrame* selecto
     // create a matrix for TypeEntries
     FXMatrix* matrixLockGLObjectTypes = new FXMatrix(this, 3, GUIDesignMatrixLockGLTypes);
     // create typeEntries for Network elements
-    myTypeEntries[GLO_JUNCTION] = std::make_pair(Supermode::NETWORK, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Junctions"));
-    myTypeEntries[GLO_EDGE] = std::make_pair(Supermode::NETWORK, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Edges"));
-    myTypeEntries[GLO_LANE] = std::make_pair(Supermode::NETWORK, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Lanes"));
-    myTypeEntries[GLO_CONNECTION] = std::make_pair(Supermode::NETWORK, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Connections"));
-    myTypeEntries[GLO_ADDITIONALELEMENT] = std::make_pair(Supermode::NETWORK, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Additionals"));
-    myTypeEntries[GLO_CROSSING] = std::make_pair(Supermode::NETWORK, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Crossings"));
-    myTypeEntries[GLO_POLYGON] = std::make_pair(Supermode::NETWORK, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Polygons"));
-    myTypeEntries[GLO_POI] = std::make_pair(Supermode::NETWORK, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "POIs"));
+    myTypeEntries[GLO_JUNCTION] =           new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "Junctions");
+    myTypeEntries[GLO_EDGE] =               new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "Edges");
+    myTypeEntries[GLO_LANE] =               new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "Lanes");
+    myTypeEntries[GLO_CONNECTION] =         new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "Connections");
+    myTypeEntries[GLO_ADDITIONALELEMENT] =  new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "Additionals");
+    myTypeEntries[GLO_CROSSING] =           new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "Crossings");
+    myTypeEntries[GLO_POLYGON] =            new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "Polygons");
+    myTypeEntries[GLO_POI] =                new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "POIs");
     // create typeEntries for Demand elements
-    myTypeEntries[GLO_ROUTE] = std::make_pair(Supermode::DEMAND, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Routes"));
-    myTypeEntries[GLO_EMBEDDEDROUTE] = std::make_pair(Supermode::DEMAND, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Emb.Routes"));
-    myTypeEntries[GLO_VEHICLE] = std::make_pair(Supermode::DEMAND, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Vehicles"));
-    myTypeEntries[GLO_ROUTEFLOW] = std::make_pair(Supermode::DEMAND, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Flows"));
-    myTypeEntries[GLO_TRIP] = std::make_pair(Supermode::DEMAND, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Trips"));
-    myTypeEntries[GLO_FLOW] = std::make_pair(Supermode::DEMAND, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Flow"));
-    myTypeEntries[GLO_STOP] = std::make_pair(Supermode::DEMAND, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Stops"));
-    myTypeEntries[GLO_PERSON] = std::make_pair(Supermode::DEMAND, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Persons"));
-    myTypeEntries[GLO_PERSONFLOW] = std::make_pair(Supermode::DEMAND, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "PersonFlows"));
-    myTypeEntries[GLO_PERSONTRIP] = std::make_pair(Supermode::DEMAND, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "PersonTrips"));
-    myTypeEntries[GLO_RIDE] = std::make_pair(Supermode::DEMAND, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Rides"));
-    myTypeEntries[GLO_WALK] = std::make_pair(Supermode::DEMAND, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "Walks"));
-    myTypeEntries[GLO_PERSONSTOP] = std::make_pair(Supermode::DEMAND, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "PersonStops"));
+    myTypeEntries[GLO_ROUTE] =              new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "Routes");
+    myTypeEntries[GLO_EMBEDDEDROUTE] =      new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "Emb.Routes");
+    myTypeEntries[GLO_VEHICLE] =            new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "Vehicles");
+    myTypeEntries[GLO_ROUTEFLOW] =          new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "Flows");
+    myTypeEntries[GLO_TRIP] =               new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "Trips");
+    myTypeEntries[GLO_FLOW] =               new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "Flow");
+    myTypeEntries[GLO_STOP] =               new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "Stops");
+    myTypeEntries[GLO_PERSON] =             new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "Persons");
+    myTypeEntries[GLO_PERSONFLOW] =         new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "PersonFlows");
+    myTypeEntries[GLO_PERSONTRIP] =         new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "PersonTrips");
+    myTypeEntries[GLO_RIDE] =               new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "Rides");
+    myTypeEntries[GLO_WALK] =               new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "Walks");
+    myTypeEntries[GLO_PERSONSTOP] =         new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "PersonStops");
     // create typeEntries for Data elements
-    myTypeEntries[GLO_EDGEDATA] = std::make_pair(Supermode::DATA, 
-        new ObjectTypeEntry(matrixLockGLObjectTypes, "EdgeDatas"));
+    myTypeEntries[GLO_EDGEDATA] =           new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DATA, "EdgeDatas");
 }
 
 
 GNESelectorFrame::LockGLObjectTypes::~LockGLObjectTypes() {
     // remove all type entries
     for (const auto& typeEntry : myTypeEntries) {
-        delete typeEntry.second.second;
+        delete typeEntry.second;
     }
 }
 
 
 void
 GNESelectorFrame::LockGLObjectTypes::addedLockedObject(const GUIGlObjectType type) {
-    myTypeEntries.at(type).second->counterUp();
+    myTypeEntries.at(type)->counterUp();
 }
 
 
 void
 GNESelectorFrame::LockGLObjectTypes::removeLockedObject(const GUIGlObjectType type) {
-    myTypeEntries.at(type).second->counterDown();
+    myTypeEntries.at(type)->counterDown();
 }
 
 
 bool
 GNESelectorFrame::LockGLObjectTypes::IsObjectTypeLocked(const GUIGlObjectType type) const {
     if ((type >= 100) && (type < 199)) {
-        return myTypeEntries.at(GLO_ADDITIONALELEMENT).second->isGLTypeLocked();
+        return myTypeEntries.at(GLO_ADDITIONALELEMENT)->isGLTypeLocked();
     } else {
-        return myTypeEntries.at(type).second->isGLTypeLocked();
+        return myTypeEntries.at(type)->isGLTypeLocked();
     }
 }
 
 
 void
 GNESelectorFrame::LockGLObjectTypes::showTypeEntries() {
-    for (const auto& i : myTypeEntries) {
-        // showr or hidde type entries depending of current supermode
-        if (i.second.first == mySelectorFrameParent->myViewNet->getEditModes().currentSupermode) {
-            i.second.second->showObjectTypeEntry();
+    for (const auto& typeEntry : myTypeEntries) {
+        // show or hidde type entries depending of current supermode
+        if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork() && (typeEntry.second->getSupermode() == Supermode::NETWORK)) {
+            typeEntry.second->showObjectTypeEntry();
+        } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand() && (typeEntry.second->getSupermode() == Supermode::DEMAND)) {
+            typeEntry.second->showObjectTypeEntry();
+        } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData() && (typeEntry.second->getSupermode() == Supermode::DATA)) {
+            typeEntry.second->showObjectTypeEntry();
         } else {
-            i.second.second->hideObjectTypeEntry();
+            typeEntry.second->hideObjectTypeEntry();
         }
     }
     // recalc frame parent
@@ -200,13 +182,20 @@ GNESelectorFrame::LockGLObjectTypes::showTypeEntries() {
 }
 
 
-GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* matrixParent, const std::string& label) :
+GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* matrixParent, const Supermode supermode, const std::string& label) :
     FXObject(),
+    mySupermode(supermode),
     myCounter(0) {
     // create elements
     myLabelCounter = new FXLabel(matrixParent, "0", nullptr, GUIDesignLabelLeft);
     myLabelTypeName = new FXLabel(matrixParent, (label + " ").c_str(), nullptr, GUIDesignLabelLeft);
     myCheckBoxLocked = new FXCheckButton(matrixParent, "unlocked", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+}
+
+
+const Supermode 
+GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::getSupermode() const {
+    return mySupermode;
 }
 
 
@@ -254,6 +243,13 @@ GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::onCmdSetCheckBox(FXObject*
         myCheckBoxLocked->setText("unlocked");
     }
     return 1;
+}
+
+
+GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::ObjectTypeEntry() :
+    FXObject(),
+    mySupermode(Supermode::NETWORK),
+    myCounter(0) {
 }
 
 // ---------------------------------------------------------------------------
@@ -347,7 +343,7 @@ GNESelectorFrame::ElementSet::refreshElementSet() {
     // first clear item
     mySetComboBox->clearItems();
     // now fill elements depending of supermode
-    if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::NETWORK) {
+    if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         mySetComboBox->appendItem("network element");
         mySetComboBox->appendItem("Additional");
         mySetComboBox->appendItem("Shape");
@@ -355,11 +351,11 @@ GNESelectorFrame::ElementSet::refreshElementSet() {
         show();
         // set num items
         mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::DEMAND) {
+    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
         mySetComboBox->appendItem("Demand Element");
         // hide Modul (because there is only an element)
         hide();
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::DATA) {
+    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
         mySetComboBox->appendItem("Data Element");
         // hide Modul (because there is only an element)
         hide();
@@ -372,7 +368,7 @@ GNESelectorFrame::ElementSet::refreshElementSet() {
 long
 GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*) {
     // check depending of current supermode
-    if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::NETWORK) {
+    if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         // enable moduls
         mySelectorFrameParent->myMatchAttribute->showMatchAttribute();
         mySelectorFrameParent->myMatchGenericDataAttribute->hideMatchGenericDataAttribute();
@@ -397,7 +393,7 @@ GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*
             // disable match attribute
             mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
         }
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::DEMAND) {
+    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
         // enable moduls
         mySelectorFrameParent->myMatchAttribute->showMatchAttribute();
         mySelectorFrameParent->myMatchGenericDataAttribute->hideMatchGenericDataAttribute();
@@ -412,7 +408,7 @@ GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*
             // disable match attribute
             mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
         }
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::DATA) {
+    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
         // enable moduls
         mySelectorFrameParent->myMatchAttribute->hideMatchAttribute();
         mySelectorFrameParent->myMatchGenericDataAttribute->showMatchGenericDataAttribute();
@@ -1229,8 +1225,8 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
                     // check if AC exist and if is selectable
                     if (AC && AC->getTagProperty().isSelectable())
                         // now check if we're in the correct supermode to load this element
-                        if (((mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::NETWORK) && !AC->getTagProperty().isDemandElement()) ||
-                                ((mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::DEMAND) && AC->getTagProperty().isDemandElement())) {
+                        if (((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) && !AC->getTagProperty().isDemandElement()) ||
+                                ((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) && AC->getTagProperty().isDemandElement())) {
                             loadedACs.push_back(AC);
                         }
                 }
@@ -1296,7 +1292,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
         // for invert selection, first clean current selection and next select elements of set "unselectedElements"
         mySelectorFrameParent->myViewNet->getUndoList()->p_begin("invert selection");
         // invert selection of elements depending of current supermode
-        if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == Supermode::NETWORK) {
+        if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             // iterate over junctions
             for (const auto &junction : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers().junctions) {
                 // check if junction selection is locked
@@ -1663,7 +1659,7 @@ GNESelectorFrame::clearCurrentSelection() const {
         // for invert selection, first clean current selection and next select elements of set "unselectedElements"
         myViewNet->getUndoList()->p_begin("invert selection");
         // invert selection of elements depending of current supermode
-        if (myViewNet->getEditModes().currentSupermode == Supermode::NETWORK) {
+        if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             // iterate over junctions
             for (const auto& junction : myViewNet->getNet()->getAttributeCarriers().junctions) {
                 // check if junction selection is locked
@@ -1738,7 +1734,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                 }
             }
         }
-        else if (myViewNet->getEditModes().currentSupermode == Supermode::DEMAND) {
+        else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // select routes
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ROUTE)) {
                 for (const auto& route : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE)) {
@@ -1889,7 +1885,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                 }
             }
         }
-        else if (myViewNet->getEditModes().currentSupermode == Supermode::DATA) {
+        else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
             for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers().dataSets) {
                 for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                     for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
@@ -2008,7 +2004,7 @@ GNESelectorFrame::getLockGLObjectTypes() const {
 
 bool
 GNESelectorFrame::ACsToSelected() const {
-    if (myViewNet->getEditModes().currentSupermode == Supermode::NETWORK) {
+    if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         // check if exist junction and edges
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_JUNCTION) && (myViewNet->getNet()->getAttributeCarriers().junctions.size() > 0)) {
             return true;
@@ -2034,7 +2030,7 @@ GNESelectorFrame::ACsToSelected() const {
             return true;
         }
     }
-    else if (myViewNet->getEditModes().currentSupermode == Supermode::DEMAND) {
+    else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
         // check routes
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ROUTE) && (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).size() > 0)) {
             return true;
@@ -2106,7 +2102,7 @@ GNESelectorFrame::ACsToSelected() const {
             }
         }
     }
-    else if (myViewNet->getEditModes().currentSupermode == Supermode::DATA) {
+    else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
         for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers().dataSets) {
             for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                 // check edge data

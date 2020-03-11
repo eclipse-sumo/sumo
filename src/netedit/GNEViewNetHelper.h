@@ -356,19 +356,25 @@ struct GNEViewNetHelper {
         void buildSuperModeButtons();
 
         /// @brief set Network edit mode
-        void setSupermode(Supermode supermode);
+        void setSupermode(const Supermode supermode);
 
         /// @brief set Network edit mode
-        void setNetworkEditMode(NetworkEditMode networkMode, bool force = false);
+        void setNetworkEditMode(const NetworkEditMode networkMode, const bool force = false);
 
         /// @brief set Demand edit mode
-        void setDemandEditMode(DemandEditMode demandMode, bool force = false);
+        void setDemandEditMode(const DemandEditMode demandMode, const bool force = false);
 
         /// @brief set Data edit mode
-        void setDataEditMode(DataEditMode dataMode, bool force = false);
+        void setDataEditMode(const DataEditMode dataMode, const bool force = false);
 
-        /// @brief the current supermode
-        Supermode currentSupermode;
+        /// @check if current supermode is Network
+        bool isCurrentSupermodeNetwork() const;
+
+        /// @check if current supermode is Demand
+        bool isCurrentSupermodeDemand() const;
+
+        /// @check if current supermode is Data
+        bool isCurrentSupermodeData() const;
 
         /// @brief the current Network edit mode
         NetworkEditMode networkEditMode;
@@ -391,6 +397,9 @@ struct GNEViewNetHelper {
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
+
+        /// @brief the current supermode
+        Supermode myCurrentSupermode;
 
         /// @brief Invalidated copy constructor.
         EditModes(const EditModes&) = delete;
