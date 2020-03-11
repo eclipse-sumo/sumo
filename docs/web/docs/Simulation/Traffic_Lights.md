@@ -293,10 +293,13 @@ detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
 The examples values are the default values for these parameters.
 
 #### Custom Detectors
-To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined indunctionLoop (that could also lie on another upstream lane).
+To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined inductionLoop (that could also lie on another upstream lane).
 ```
    <param key="gneE42_2" value="customDetector1"/>
 ```
+
+!!! caution
+    Custom detectors only work when the 'tlLogic' is loaded from an additional file.
 
 #### Dynamic Phase Selection (Phase Skipping)
 When a phase uses attribute 'next' with a list of indices. The next phase is chosen dynamically based on the detector status of all candidate phases according to the following algorithm:
@@ -365,6 +368,9 @@ To use custom detectors (i.e. for custom placement or output) additional paramet
 ```
    <param key="gneE42_2" value="customDetector1"/>
 ```
+!!! caution
+    Custom detectors only work when the 'tlLogic' is loaded from an additional file.
+
 
 ## Interaction between signal plans and right-of-way rules
 
