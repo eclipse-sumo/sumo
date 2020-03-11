@@ -1,13 +1,13 @@
-Loading net-file from 'net.net.xml' ... done (14ms).
+Loading net-file from 'net.net.xml' ... done (34ms).
 Loading done.
-Simulation version v1_4_0+0771-0b04545 started with time: 0.00
+Simulation version v1_5_0+0662-a598ecae47 started with time: 0.00
 Simulation ended at time: 906.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 26ms
- Real time factor: 34846.2
- UPS: 69692.307692
- UPS-Persons: 179346.153846
+ Duration: 44ms
+ Real time factor: 20590.9
+ UPS: 41181.818182
+ UPS-Persons: 106227.272727
 Vehicles: 
  Inserted: 2
  Running: 2
@@ -19,12 +19,12 @@ Statistics (avg):
  RouteLength: 7617.86
  Speed: 8.41
  Duration: 906.00
- WaitingTime: 17.00
- TimeLoss: 149.88
+ WaitingTime: 16.00
+ TimeLoss: 149.53
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 Ride Statistics (avg of 10 rides):
- WaitingTime: 380.40
+ WaitingTime: 381.50
  RouteLength: 908.18
  Duration: 85.90
  Taxi: 10

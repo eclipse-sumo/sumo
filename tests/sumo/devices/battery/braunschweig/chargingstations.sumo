@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan 29 20:29:14 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
+<!-- generated on Wed Mar 11 22:24:02 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -150,8 +150,8 @@ SPDX-License-Identifier: EPL-2.0
             <step time="127.00" chargingStatus="chargingStopped" energyCharged="52.78" partialCharge="2163.89" power="200000.00" efficiency="0.95" actualBatteryCapacity="19380.38" maximumBatteryCapacity="35000.00"/>
         </vehicle>
     </chargingStation>
-    <chargingStation id="cS_2to19_0a" totalEnergyCharged="1002.78" chargingSteps="21">
-        <vehicle id="vehWithBusStop" type="PKW" totalEnergyChargedIntoVehicle="1002.78" chargingBegin="52.00" chargingEnd="72.00">
+    <chargingStation id="cS_2to19_0a" totalEnergyCharged="950.00" chargingSteps="20">
+        <vehicle id="vehWithBusStop" type="PKW" totalEnergyChargedIntoVehicle="950.00" chargingBegin="52.00" chargingEnd="71.00">
             <step time="52.00" chargingStatus="waitingChargeStopped" energyCharged="0.00" partialCharge="0.00" power="200000.00" efficiency="0.95" actualBatteryCapacity="17260.84" maximumBatteryCapacity="35000.00"/>
             <step time="53.00" chargingStatus="waitingChargeStopped" energyCharged="0.00" partialCharge="0.00" power="200000.00" efficiency="0.95" actualBatteryCapacity="17260.82" maximumBatteryCapacity="35000.00"/>
             <step time="54.00" chargingStatus="chargingStopped" energyCharged="52.78" partialCharge="52.78" power="200000.00" efficiency="0.95" actualBatteryCapacity="17313.59" maximumBatteryCapacity="35000.00"/>
@@ -172,7 +172,6 @@ SPDX-License-Identifier: EPL-2.0
             <step time="69.00" chargingStatus="chargingStopped" energyCharged="52.78" partialCharge="844.44" power="200000.00" efficiency="0.95" actualBatteryCapacity="18105.05" maximumBatteryCapacity="35000.00"/>
             <step time="70.00" chargingStatus="chargingStopped" energyCharged="52.78" partialCharge="897.22" power="200000.00" efficiency="0.95" actualBatteryCapacity="18157.81" maximumBatteryCapacity="35000.00"/>
             <step time="71.00" chargingStatus="chargingStopped" energyCharged="52.78" partialCharge="950.00" power="200000.00" efficiency="0.95" actualBatteryCapacity="18210.57" maximumBatteryCapacity="35000.00"/>
-            <step time="72.00" chargingStatus="chargingStopped" energyCharged="52.78" partialCharge="1002.78" power="200000.00" efficiency="0.95" actualBatteryCapacity="18263.34" maximumBatteryCapacity="35000.00"/>
         </vehicle>
     </chargingStation>
 </chargingstations-export>

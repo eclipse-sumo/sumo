@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/06/18 10:28:29 by Eclipse SUMO Version v1_0_1+0405-11ba3ed94b
+<!-- generated on Wed Mar 11 22:22:09 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,10 +39,10 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="bus.0" depart="0.00" departLane="1/4to1/3_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="118.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="118.00" routeLength="473.08" waitingTime="0.00" waitingCount="0" stopTime="72.00" timeLoss="11.33" rerouteNo="0" devices="tripinfo_bus.0 person_bus.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="bus.0" depart="0.00" departLane="1/4to1/3_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="116.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="116.00" routeLength="473.08" waitingTime="0.00" waitingCount="0" stopTime="70.00" timeLoss="11.33" rerouteNo="0" devices="tripinfo_bus.0 person_bus.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="person0" depart="0.00" type="DEFAULT_PEDTYPE">
         <walk depart="0.00" departPos="80.00" arrival="49.00" arrivalPos="55.00" duration="49.00" routeLength="65.50" timeLoss="1.84" maxSpeed="1.39"/>
-        <ride waitingTime="18.00" vehicle="bus.0" depart="67.00" arrival="86.00" arrivalPos="60.00" duration="19.00" routeLength="190.08"/>
-        <walk depart="86.00" departPos="60.00" arrival="132.00" arrivalPos="30.00" duration="46.00" routeLength="62.00" timeLoss="1.36" maxSpeed="1.39"/>
+        <ride waitingTime="17.00" vehicle="bus.0" depart="66.00" arrival="85.00" arrivalPos="60.00" duration="19.00" routeLength="190.08"/>
+        <walk depart="85.00" departPos="60.00" arrival="131.00" arrivalPos="30.00" duration="46.00" routeLength="62.00" timeLoss="1.36" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>

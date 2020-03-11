@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Feb 29 15:03:18 2020 by Eclipse SUMO Version v1_5_0-309-g1768c69365
+<!-- generated on Wed Mar 11 22:22:41 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,8 +44,8 @@ SPDX-License-Identifier: EPL-2.0
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="150.00" id="ld1">
-        <edge id="E0" sampledSeconds="152.64" CO_abs="41.858920" CO2_abs="300851.039096" HC_abs="15.535421" PMx_abs="29.750969" NOx_abs="1192.288327" fuel_abs="113.884115" electricity_abs="0"
-            CO_normed="5.023070" CO2_normed="36102.124692" HC_normed="1.864250" PMx_normed="3.570116" NOx_normed="143.074599" fuel_normed="13.666094" electricity_normed="0"
-            traveltime="76.36" CO_perVeh="20.940400" CO2_perVeh="150504.145115" HC_perVeh="7.771770" PMx_perVeh="14.883260" NOx_perVeh="596.455761" fuel_perVeh="56.971821" electricity_perVeh="0"/>
+        <edge id="E0" sampledSeconds="151.75" CO_abs="41.678930" CO2_abs="296554.293081" HC_abs="15.232315" PMx_abs="28.959639" NOx_abs="1224.523793" fuel_abs="112.257776" electricity_abs="0"
+            CO_normed="5.001472" CO2_normed="35586.515170" HC_normed="1.827878" PMx_normed="3.475157" NOx_normed="146.942855" fuel_normed="13.470933" electricity_normed="0"
+            traveltime="76.24" CO_perVeh="20.939744" CO2_perVeh="148990.651001" HC_perVeh="7.652806" PMx_perVeh="14.549496" NOx_perVeh="615.208080" fuel_perVeh="56.398978" electricity_perVeh="0"/>
     </interval>
 </meandata>

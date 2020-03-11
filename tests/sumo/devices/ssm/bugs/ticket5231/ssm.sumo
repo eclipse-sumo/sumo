@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  9 15:21:32 2020 by Eclipse SUMO Version v1_5_0+0581-a2889fd
+<!-- generated on Wed Mar 11 22:24:06 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2887,19 +2887,19 @@ SPDX-License-Identifier: EPL-2.0
         <maxDRAC time="1185.00" position="126.65,8.44" type="2" value="0.43"/>
     </conflict>
     <conflict begin="1221.00" end="1237.00" ego="EW.41" foe="stopping">
-        <minTTC time="1235.00" position="15.44,2.48" type="3" value="4.49"/>
-        <maxDRAC time="1235.00" position="15.44,2.48" type="3" value="1.22"/>
+        <minTTC time="1235.00" position="13.94,2.40" type="3" value="3.72"/>
+        <maxDRAC time="1235.00" position="13.94,2.40" type="3" value="1.45"/>
     </conflict>
-    <conflict begin="1218.00" end="1242.00" ego="EW.40" foe="stopping">
-        <minTTC time="1238.00" position="22.26,2.85" type="3" value="2.22"/>
-        <maxDRAC time="1236.00" position="29.37,3.23" type="3" value="1.88"/>
+    <conflict begin="1217.00" end="1244.00" ego="EW.40" foe="stopping">
+        <minTTC time="1235.00" position="36.11,3.59" type="3" value="1.92"/>
+        <maxDRAC time="1235.00" position="36.11,3.59" type="3" value="2.42"/>
     </conflict>
-    <conflict begin="1218.00" end="1242.00" ego="stopping" foe="EW.40">
-        <minTTC time="1238.00" position="22.26,2.85" type="2" value="2.22"/>
-        <maxDRAC time="1236.00" position="29.37,3.23" type="2" value="1.88"/>
+    <conflict begin="1217.00" end="1244.00" ego="stopping" foe="EW.40">
+        <minTTC time="1235.00" position="36.11,3.59" type="2" value="1.92"/>
+        <maxDRAC time="1235.00" position="36.11,3.59" type="2" value="2.42"/>
     </conflict>
     <conflict begin="1221.00" end="1237.00" ego="stopping" foe="EW.41">
-        <minTTC time="1235.00" position="15.44,2.48" type="2" value="4.49"/>
-        <maxDRAC time="1235.00" position="15.44,2.48" type="2" value="1.22"/>
+        <minTTC time="1235.00" position="13.94,2.40" type="2" value="3.72"/>
+        <maxDRAC time="1235.00" position="13.94,2.40" type="2" value="1.45"/>
     </conflict>
 </SSMLog>
