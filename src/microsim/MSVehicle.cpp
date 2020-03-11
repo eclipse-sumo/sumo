@@ -3692,7 +3692,8 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
     // let trains reverse direction
     const bool reverseTrain = canReverse();
     if (reverseTrain) {
-        myState.myPos += 2 * (myLane->getLength() - myState.myPos) + myType->getLength();
+        // add some slack to ensure that the back of train does appear looped
+        myState.myPos += 2 * (myLane->getLength() - myState.myPos) + myType->getLength() + NUMERICAL_EPS;
         myState.mySpeed = 0;
 #ifdef DEBUG_REVERSE_BIDI
         if (DEBUG_COND) {
