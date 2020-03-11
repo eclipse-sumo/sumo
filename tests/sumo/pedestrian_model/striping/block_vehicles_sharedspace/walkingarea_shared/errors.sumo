@@ -96,8 +96,8 @@ Warning: Vehicle 'NS.8' collision with person 'pSW.19', lane=':C_1_0, time=584.0
 Warning: Vehicle 'NS.8' collision with person 'pSW.19', lane=':C_1_0, time=584.00 stage=insertion.
 Warning: Teleporting vehicle 'NE.2'; collision with vehicle 'EW.2', lane=':C_2_0', gap=-1.00, time=657.00 stage=move.
 Warning: Vehicle 'NE.2' ends teleporting on edge 'CE', time 657.00.
-Warning: Teleporting vehicle 'ES.2'; collision with vehicle 'SN.5', lane=':C_6_0', gap=-1.00, time=706.00 stage=move.
-Warning: Vehicle 'ES.2' ends teleporting on edge 'CS', time 706.00.
+Warning: Teleporting vehicle 'ES.2'; collision with vehicle 'SN.5', lane=':C_6_0', gap=-1.00, time=707.00 stage=move.
+Warning: Vehicle 'ES.2' ends teleporting on edge 'CS', time 707.00.
 Warning: Vehicle 'SW.2' collision with person 'pWE.25', lane=':C_10_0, time=712.00 stage=events.
 Warning: Vehicle 'SW.2' collision with person 'pWE.25', lane=':C_10_0, time=712.00 stage=events.
 Warning: Vehicle 'WE.1' collision with person 'pWN.32', lane=':C_13_0, time=738.00 stage=move.
