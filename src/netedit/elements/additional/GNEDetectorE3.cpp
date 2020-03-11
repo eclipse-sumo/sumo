@@ -133,7 +133,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double E3Exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(E3Exaggeration)) {
+    if (s.drawAdditionals(E3Exaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());

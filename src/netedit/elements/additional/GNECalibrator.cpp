@@ -155,7 +155,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // get values
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if (s.drawAdditionals(exaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
         // begin draw
         glPushName(getGlID());
         glLineWidth(1.0);

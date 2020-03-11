@@ -169,7 +169,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if (s.drawAdditionals(exaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // push matrix

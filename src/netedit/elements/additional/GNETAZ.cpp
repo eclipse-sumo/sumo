@@ -305,7 +305,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     const double TAZExaggeration = s.polySize.getExaggeration(s, this);
     const Boundary TAZBoundary = myTAZShape.getBoxBoundary();
     // check if TAZ can be drawn
-    if ((TAZExaggeration > 0) && (s.scale * MAX2(TAZBoundary.getWidth(), TAZBoundary.getHeight())) >= s.polySize.minSize) {
+    if ((TAZExaggeration > 0) && myViewNet->getDataViewOptions().showAdditionals() && 
+        (s.scale * MAX2(TAZBoundary.getWidth(), TAZBoundary.getHeight())) >= s.polySize.minSize) {
         // push name
         glPushName(getGlID());
         if (myTAZShape.size() > 1) {

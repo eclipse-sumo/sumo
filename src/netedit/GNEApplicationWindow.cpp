@@ -2698,8 +2698,34 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
                 // show extra information for tests
                 WRITE_DEBUG("Enabled lock person plan throught alt + " + toString(numericalKeyPressed + 1));
             }
-            // Call manually onCmdToogleHideNonInspecteDemandElements
+            // Call manually onCmdToogleLockPerson
             return myViewNet->onCmdToogleLockPerson(obj, sel, ptr);
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getDataViewOptions().menuCheckShowAdditionals) {
+            // Toogle menuCheckHideShapes
+            if (myViewNet->getDataViewOptions().menuCheckShowAdditionals->getCheck() == TRUE) {
+                myViewNet->getDataViewOptions().menuCheckShowAdditionals->setCheck(FALSE);
+                // show extra information for tests
+                WRITE_DEBUG("Disabled show additionals throught alt + " + toString(numericalKeyPressed + 1));
+            } else {
+                myViewNet->getDataViewOptions().menuCheckShowAdditionals->setCheck(TRUE);
+                // show extra information for tests
+                WRITE_DEBUG("Enabled show shapes throught alt + " + toString(numericalKeyPressed + 1));
+            }
+            // Call manually onCmdToogleShowAdditionals
+            return myViewNet->onCmdToogleShowAdditionals(obj, sel, ptr);
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getDataViewOptions().menuCheckShowShapes) {
+            // Toogle menuCheckHideShapes
+            if (myViewNet->getDataViewOptions().menuCheckShowShapes->getCheck() == TRUE) {
+                myViewNet->getDataViewOptions().menuCheckShowShapes->setCheck(FALSE);
+                // show extra information for tests
+                WRITE_DEBUG("Disabled show shapes throught alt + " + toString(numericalKeyPressed + 1));
+            } else {
+                myViewNet->getDataViewOptions().menuCheckShowShapes->setCheck(TRUE);
+                // show extra information for tests
+                WRITE_DEBUG("Enabled show shapes throught alt + " + toString(numericalKeyPressed + 1));
+            }
+            // Call manually onCmdToogleShowShapes
+            return myViewNet->onCmdToogleShowShapes(obj, sel, ptr);
         } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getDataViewOptions().menuCheckShowDemandElements) {
             // Toogle menuCheckShowDemandElements
             if (myViewNet->getDataViewOptions().menuCheckShowDemandElements->getCheck() == TRUE) {
@@ -2713,19 +2739,6 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
             }
             // Call manually onCmdToogleShowDemandElements
             return myViewNet->onCmdToogleShowDemandElements(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getDataViewOptions().menuCheckHideShapes) {
-            // Toogle menuCheckHideShapes
-            if (myViewNet->getDataViewOptions().menuCheckHideShapes->getCheck() == TRUE) {
-                myViewNet->getDataViewOptions().menuCheckHideShapes->setCheck(FALSE);
-                // show extra information for tests
-                WRITE_DEBUG("Disabled hide shapes throught alt + " + toString(numericalKeyPressed + 1));
-            } else {
-                myViewNet->getDataViewOptions().menuCheckHideShapes->setCheck(TRUE);
-                // show extra information for tests
-                WRITE_DEBUG("Enabled hide shapes throught alt + " + toString(numericalKeyPressed + 1));
-            }
-            // Call manually onCmdToogleHideNonInspecteDataElements
-            return myViewNet->onCmdToogleHideShapes(obj, sel, ptr);
         } else {
             // nothing to toogle
             return 1;

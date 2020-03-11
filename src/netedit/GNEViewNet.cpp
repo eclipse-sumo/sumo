@@ -110,8 +110,9 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEViewNet::onCmdToogleShowAllPersonPlans),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,            GNEViewNet::onCmdToogleLockPerson),
     // Data view options
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEViewNet::onCmdToogleShowAdditionals),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,              GNEViewNet::onCmdToogleShowShapes),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,      GNEViewNet::onCmdToogleShowDemandElements),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_HIDESHAPES,              GNEViewNet::onCmdToogleHideShapes),
     // Select elements
     FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                                   GNEViewNet::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,                                GNEViewNet::onCmdRemoveSelected),
@@ -2260,22 +2261,6 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
 
 
 long
-GNEViewNet::onCmdToogleShowDemandElements(FXObject*, FXSelector sel, void*) {
-    // compute demand elements
-    myNet->computeDemandElements(myViewParent->getGNEAppWindows());
-    // update view to show demand elements
-    update();
-    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
-    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
-        myNetworkViewOptions.menuCheckShowDemandElements->setFocus();
-    } else if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
-        myDataViewOptions.menuCheckShowDemandElements->setFocus();
-    }
-    return 1;
-}
-
-
-long
 GNEViewNet::onCmdToogleSelectEdges(FXObject*, FXSelector sel, void*) {
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES)) {
@@ -2463,8 +2448,6 @@ GNEViewNet::onCmdToogleHideShapes(FXObject*, FXSelector sel, void*) {
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES)) {
         myDemandViewOptions.menuCheckHideShapes->setFocus();
-    } else if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_HIDESHAPES)) {
-        myDataViewOptions.menuCheckHideShapes->setFocus();
     }
     return 1;
 }
@@ -2511,6 +2494,47 @@ GNEViewNet::onCmdToogleLockPerson(FXObject*, FXSelector sel, void*) {
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON)) {
         myDemandViewOptions.menuCheckLockPerson->setFocus();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdToogleShowAdditionals(FXObject*, FXSelector sel, void*) {
+    // Only update view
+    update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS)) {
+        myDataViewOptions.menuCheckShowAdditionals->setFocus();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdToogleShowShapes(FXObject*, FXSelector sel, void*) {
+    // Only update view
+    update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES)) {
+        myDataViewOptions.menuCheckShowShapes->setFocus();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdToogleShowDemandElements(FXObject*, FXSelector sel, void*) {
+    // compute demand elements
+    myNet->computeDemandElements(myViewParent->getGNEAppWindows());
+    // update view to show demand elements
+    update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
+        myNetworkViewOptions.menuCheckShowDemandElements->setFocus();
+    }
+    else if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
+        myDataViewOptions.menuCheckShowDemandElements->setFocus();
     }
     return 1;
 }
@@ -2930,8 +2954,9 @@ GNEViewNet::updateDataModeSpecificControls() {
     // hide all frames
     myViewParent->hideAllFrames();
     // In data mode, always show option "show demand elements" and "hide shapes"
+    myDataViewOptions.menuCheckShowAdditionals->show();
+    myDataViewOptions.menuCheckShowShapes->show();
     myDataViewOptions.menuCheckShowDemandElements->show();
-    myDataViewOptions.menuCheckHideShapes->show();
     // enable selected controls
     switch (myEditModes.dataEditMode) {
         // common modes
@@ -2940,12 +2965,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             myViewParent->getInspectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getInspectorFrame();
             myCommonCheckableButtons.inspectButton->setChecked(true);
-            // show view options
-            /*
-            myDataViewOptions.menuCheckHideNonInspectedDataElements->show();
-            myDataViewOptions.menuCheckShowAllPersonPlans->show();
-            myDataViewOptions.menuCheckLockPerson->show();
-            */
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2954,11 +2973,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             myViewParent->getDeleteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getDeleteFrame();
             myCommonCheckableButtons.deleteButton->setChecked(true);
-            // show view options
-            /*
-            myDataViewOptions.menuCheckShowAllPersonPlans->show();
-            myDataViewOptions.menuCheckLockPerson->show();
-            */
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2967,11 +2981,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             myViewParent->getSelectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getSelectorFrame();
             myCommonCheckableButtons.selectButton->setChecked(true);
-            // show view options
-            /*
-            myDataViewOptions.menuCheckShowAllPersonPlans->show();
-            myDataViewOptions.menuCheckLockPerson->show();
-            */
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2981,11 +2990,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCurrentFrame = myViewParent->getEdgeDataFrame();
             // set checkable button
             myDataCheckableButtons.edgeDataButton->setChecked(true);
-            // show view options
-            /*
-            myDemandViewOptions.menuCheckShowAllEdgeDatas->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            */
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;

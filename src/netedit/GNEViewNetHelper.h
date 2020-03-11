@@ -584,18 +584,23 @@ struct GNEViewNetHelper {
         /// @brief get visible demand menu commands
         void getVisibleDataMenuCommands(std::vector<FXMenuCheck*>& commands) const;
 
-        /// @brief check if show demand elements checkbox is enabled
-        bool showDemandElements() const;
+        /// @brief check if additionals has to be drawn
+        bool showAdditionals() const;
 
         /// @brief check if shapes has to be drawn
         bool showShapes() const;
 
+        /// @brief check if show demand elements checkbox is enabled
+        bool showDemandElements() const;
+
+        /// @brief menu check to show Additionals
+        FXMenuCheck* menuCheckShowAdditionals;
+
+        /// @brief menu check to show Shapes
+        FXMenuCheck* menuCheckShowShapes;
+
         /// @brief menu check to show Demand Elements
         FXMenuCheck* menuCheckShowDemandElements;
-
-        /// @brief menu check to hide Shapes
-        FXMenuCheck* menuCheckHideShapes;
-
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;

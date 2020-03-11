@@ -2001,8 +2001,9 @@ GNEViewNetHelper::DemandViewOptions::getLockedPerson() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::DataViewOptions::DataViewOptions(GNEViewNet* viewNet) :
+    menuCheckShowAdditionals(nullptr),
+    menuCheckShowShapes(nullptr),
     menuCheckShowDemandElements(nullptr),
-    menuCheckHideShapes(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -2010,19 +2011,26 @@ GNEViewNetHelper::DataViewOptions::DataViewOptions(GNEViewNet* viewNet) :
 void
 GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
     // create menu checks
+    menuCheckShowAdditionals = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
+        ("Show additionals\t\tToggle show additionals"),
+        myViewNet, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS, LAYOUT_FIX_HEIGHT);
+    menuCheckShowAdditionals->setHeight(23);
+    menuCheckShowAdditionals->setCheck(false);
+    menuCheckShowAdditionals->create();
+
+    menuCheckShowShapes = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
+        ("Show shapes\t\tToggle show shapes (Polygons and POIs)"),
+        myViewNet, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES, LAYOUT_FIX_HEIGHT);
+    menuCheckShowShapes->setHeight(23);
+    menuCheckShowShapes->setCheck(false);
+    menuCheckShowShapes->create();
+
     menuCheckShowDemandElements = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
         ("Show demand elements\t\tToggle show demand elements"),
         myViewNet, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS, LAYOUT_FIX_HEIGHT);
     menuCheckShowDemandElements->setHeight(23);
     menuCheckShowDemandElements->setCheck(false);
     menuCheckShowDemandElements->create();
-
-    menuCheckHideShapes = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-        ("Hide shapes\t\tToggle show shapes (Polygons and POIs)"),
-        myViewNet, MID_GNE_DATAVIEWOPTIONS_HIDESHAPES, LAYOUT_FIX_HEIGHT);
-    menuCheckHideShapes->setHeight(23);
-    menuCheckHideShapes->setCheck(false);
-    menuCheckHideShapes->create();
 
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->recalc();
@@ -2031,8 +2039,9 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
 
 void
 GNEViewNetHelper::DataViewOptions::hideDataViewOptionsMenuChecks() {
+    menuCheckShowAdditionals->hide();
+    menuCheckShowShapes->hide();
     menuCheckShowDemandElements->hide();
-    menuCheckHideShapes->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
 }
@@ -2041,11 +2050,34 @@ GNEViewNetHelper::DataViewOptions::hideDataViewOptionsMenuChecks() {
 void
 GNEViewNetHelper::DataViewOptions::getVisibleDataMenuCommands(std::vector<FXMenuCheck*>& commands) const {
     // save visible menu commands in commands vector
+    if (menuCheckShowAdditionals->shown()) {
+        commands.push_back(menuCheckShowAdditionals);
+    }
+    if (menuCheckShowShapes->shown()) {
+        commands.push_back(menuCheckShowShapes);
+    }
     if (menuCheckShowDemandElements->shown()) {
         commands.push_back(menuCheckShowDemandElements);
     }
-    if (menuCheckHideShapes->shown()) {
-        commands.push_back(menuCheckHideShapes);
+}
+
+
+bool
+GNEViewNetHelper::DataViewOptions::showAdditionals() const {
+    if (menuCheckShowAdditionals->shown()) {
+        return (menuCheckShowAdditionals->getCheck() == TRUE);
+    } else {
+        return true;
+    }
+}
+
+
+bool
+GNEViewNetHelper::DataViewOptions::showShapes() const {
+    if (menuCheckShowShapes->shown()) {
+        return (menuCheckShowShapes->getCheck() == TRUE);
+    } else {
+        return true;
     }
 }
 
@@ -2054,17 +2086,6 @@ bool
 GNEViewNetHelper::DataViewOptions::showDemandElements() const {
     if (menuCheckShowDemandElements->shown()) {
         return (menuCheckShowDemandElements->getCheck() == TRUE);
-    } else {
-        // by default, if menuCheckShowDemandElements isn't shown, always show demand elements
-        return true;
-    }
-}
-
-
-bool
-GNEViewNetHelper::DataViewOptions::showShapes() const {
-    if (menuCheckHideShapes->shown()) {
-        return (menuCheckHideShapes->getCheck() == FALSE);
     } else {
         return true;
     }

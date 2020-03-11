@@ -115,7 +115,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double busStopExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(busStopExaggeration)) {
+    if (s.drawAdditionals(busStopExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix

@@ -140,7 +140,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double rerouterExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(rerouterExaggeration)) {
+    if (s.drawAdditionals(rerouterExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());

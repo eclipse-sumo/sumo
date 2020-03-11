@@ -147,7 +147,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
     const double entryExitExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(entryExitExaggeration)) {
+    if (s.drawAdditionals(entryExitExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
         // Start drawing adding gl identificator
         glPushName(getGlID());
         // Push detector matrix

@@ -246,8 +246,6 @@ public:
 
     /// @name View options network call backs
     /// @{
-    /// @brief toogle show demand elements
-    long onCmdToogleShowDemandElements(FXObject*, FXSelector, void*);
 
     /// @brief toogle select edges
     long onCmdToogleSelectEdges(FXObject*, FXSelector, void*);
@@ -296,6 +294,16 @@ public:
 
     /// @brief toogle lock person in super mode demand
     long onCmdToogleLockPerson(FXObject*, FXSelector, void*);
+
+    /// @brief toogle show additionals in super mode data
+    long onCmdToogleShowAdditionals(FXObject*, FXSelector, void*);
+
+    /// @brief toogle show shapes in super mode data
+    long onCmdToogleShowShapes(FXObject*, FXSelector, void*);
+
+    /// @brief toogle show demand elements
+    long onCmdToogleShowDemandElements(FXObject*, FXSelector, void*);
+
     /// @}
 
     /// @brief select AC under cursor

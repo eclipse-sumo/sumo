@@ -130,7 +130,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double vaporizerExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(vaporizerExaggeration)) {
+    if (s.drawAdditionals(vaporizerExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
         // get values
         const int numberOfLanes = int(getParentEdges().front()->getLanes().size());
         const double width = (double) 2.0 * s.scale;

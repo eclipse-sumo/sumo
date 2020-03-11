@@ -93,7 +93,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double containerStopExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(containerStopExaggeration)) {
+    if (s.drawAdditionals(containerStopExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix

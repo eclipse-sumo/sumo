@@ -136,7 +136,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
     const double parkingAreaExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(parkingAreaExaggeration)) {
+    if (s.drawAdditionals(parkingAreaExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());

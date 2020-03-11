@@ -140,7 +140,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double E1InstantExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(E1InstantExaggeration)) {
+    if (s.drawAdditionals(E1InstantExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
         // obtain scaledSize
         const double scaledWidth = s.detectorSettings.E1InstantWidth * 0.5 * s.scale;
         // start drawing

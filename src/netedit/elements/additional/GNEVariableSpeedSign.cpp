@@ -137,7 +137,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     // obtain exaggeration
     const double VSSExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(VSSExaggeration)) {
+    if (s.drawAdditionals(VSSExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());

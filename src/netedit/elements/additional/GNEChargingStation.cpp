@@ -96,7 +96,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Get exaggeration
     const double chargingStationExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(chargingStationExaggeration)) {
+    if (s.drawAdditionals(chargingStationExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
         // Push name
         glPushName(getGlID());
         // Push base matrix

@@ -2353,7 +2353,7 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* re
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, rerouter);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Start drawing adding an gl identificator
         glPushName(rerouter->getGlID());
         // draw rerouter symbol over all lanes
@@ -2391,11 +2391,11 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* re
                 GLHelper::drawShapeDottedContourRectangle(s, getType(), lanePos, 2.8, 6, -1 * laneRot, 0, 3);
             }
         }
+        // Pop name
+        glPopName();
+        // Draw connections
+        rerouter->drawChildConnections(s, getType());
     }
-    // Pop name
-    glPopName();
-    // Draw connections
-    rerouter->drawChildConnections(s, getType());
 }
 
 

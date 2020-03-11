@@ -137,7 +137,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double routeProbeExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(routeProbeExaggeration)) {
+    if (s.drawAdditionals(routeProbeExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
         // get values
         const double width = (double) 2.0 * s.scale;
         const int numberOfLanes = int(getParentEdges().front()->getLanes().size());

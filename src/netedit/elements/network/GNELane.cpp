@@ -969,61 +969,63 @@ GNELane::setSpecialColor(const RGBColor* color, double colorValue) {
 void
 GNELane::drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEAdditional* E2Detector, const GNEJunction* junction) const {
     // calculate E2Detector width
-    //double E2DetectorWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.E2Detector;
-    double E2DetectorWidth = s.addSize.getExaggeration(s, E2Detector);
-    // obtain color
-    RGBColor E2DetectorColor;
-    if (E2Detector->drawUsingSelectColor()) {
-        E2DetectorColor = s.colorSettings.selectedRouteColor;
-    } else {
-        E2DetectorColor = s.detectorSettings.E2Color;
-    }
-    // Start drawing adding an gl identificator
-    glPushName(E2Detector->getGlID());
-    // Add a draw matrix
-    glPushMatrix();
-    // Start with the drawing of the area traslating matrix to origin
-    glTranslated(0, 0, E2Detector->getType());
-    // draw E2Detector
-    if (junction) {
-        // iterate over segments
-        for (const auto& segment : E2Detector->getAdditionalSegmentGeometry()) {
-            // draw partial segment
-            if ((segment.junction == junction) && (segment.AC == E2Detector)) {
-                // Set E2Detector color (needed due drawShapeDottedContour)
-                GLHelper::setColor(E2DetectorColor);
-                // draw box lines
-                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, E2DetectorWidth);
-                // check if shape dotted contour has to be drawn
-                if (myNet->getViewNet()->getDottedAC() == E2Detector) {
-                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), E2DetectorWidth);
+    const double E2DetectorWidth = s.addSize.getExaggeration(s, E2Detector);
+    // check if E2 can be drawn
+    if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // obtain color
+        RGBColor E2DetectorColor;
+        if (E2Detector->drawUsingSelectColor()) {
+            E2DetectorColor = s.colorSettings.selectedRouteColor;
+        } else {
+            E2DetectorColor = s.detectorSettings.E2Color;
+        }
+        // Start drawing adding an gl identificator
+        glPushName(E2Detector->getGlID());
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, E2Detector->getType());
+        // draw E2Detector
+        if (junction) {
+            // iterate over segments
+            for (const auto& segment : E2Detector->getAdditionalSegmentGeometry()) {
+                // draw partial segment
+                if ((segment.junction == junction) && (segment.AC == E2Detector)) {
+                    // Set E2Detector color (needed due drawShapeDottedContour)
+                    GLHelper::setColor(E2DetectorColor);
+                    // draw box lines
+                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, E2DetectorWidth);
+                    // check if shape dotted contour has to be drawn
+                    if (myNet->getViewNet()->getDottedAC() == E2Detector) {
+                        GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), E2DetectorWidth);
+                    }
+                }
+            }
+        } else {
+            // iterate over segments
+            for (const auto& segment : E2Detector->getAdditionalSegmentGeometry()) {
+                // draw partial segment
+                if ((segment.lane == this) && (segment.AC == E2Detector)) {
+                    // Set E2Detector color (needed due drawShapeDottedContour)
+                    GLHelper::setColor(E2DetectorColor);
+                    // draw box lines
+                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, E2DetectorWidth);
+                    // check if shape dotted contour has to be drawn
+                    if (myNet->getViewNet()->getDottedAC() == E2Detector) {
+                        GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), E2DetectorWidth);
+                    }
                 }
             }
         }
-    } else {
-        // iterate over segments
-        for (const auto& segment : E2Detector->getAdditionalSegmentGeometry()) {
-            // draw partial segment
-            if ((segment.lane == this) && (segment.AC == E2Detector)) {
-                // Set E2Detector color (needed due drawShapeDottedContour)
-                GLHelper::setColor(E2DetectorColor);
-                // draw box lines
-                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, E2DetectorWidth);
-                // check if shape dotted contour has to be drawn
-                if (myNet->getViewNet()->getDottedAC() == E2Detector) {
-                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), E2DetectorWidth);
-                }
-            }
+        // Pop last matrix
+        glPopMatrix();
+        // Draw name if isn't being drawn for selecting
+        if (!s.drawForRectangleSelection) {
+            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
+        // Pop name
+        glPopName();
     }
-    // Pop last matrix
-    glPopMatrix();
-    // Draw name if isn't being drawn for selecting
-    if (!s.drawForRectangleSelection) {
-        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    }
-    // Pop name
-    glPopName();
 }
 
 // ===========================================================================
@@ -1310,7 +1312,7 @@ GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) co
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, vss);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration)) {
+    if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // obtain lanePos and route
         const Position& lanePos = vss->getChildPosition(this);
         const double laneRot = vss->getChildRotation(this);

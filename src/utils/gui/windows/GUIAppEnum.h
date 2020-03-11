@@ -654,10 +654,12 @@ enum {
     /// @name GNEViewNet Data view options messages
     /// @{
 
+    /// @brief show additionals
+    MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,
+    /// @brief show shapes
+    MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,
     /// @brief show demand elements
     MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,
-    /// @brief hide shapes
-    MID_GNE_DATAVIEWOPTIONS_HIDESHAPES,
 
     /// @}
 
