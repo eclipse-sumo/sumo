@@ -52,7 +52,7 @@ public:
 
     protected:
         /// @brief default constructor needed by FOX
-        GNESingleVehiclePopupMenu() { }
+        FOX_CONSTRUCTOR(GNESingleVehiclePopupMenu);
 
     private:
         /// @brief current vehicle
@@ -98,7 +98,7 @@ public:
 
     protected:
         /// @brief default constructor needed by FOX
-        GNESelectedVehiclesPopupMenu() { }
+        FOX_CONSTRUCTOR(GNESelectedVehiclesPopupMenu);
 
     private:
         /// @brief current selected vehicles

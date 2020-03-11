@@ -586,7 +586,11 @@ GNEViewNet::GNEViewNet() :
     myVehicleTypeOptions(this),
     mySaveElements(this),
     mySelectingArea(this),
-    myEditShapes(this) {
+    myEditShapes(this),
+    myViewParent(nullptr),
+    myNet(nullptr),
+    myCurrentFrame(nullptr),
+    myUndoList(nullptr) {
 }
 
 std::vector<std::string>
