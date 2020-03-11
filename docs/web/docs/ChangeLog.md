@@ -17,6 +17,8 @@ permalink: /ChangeLog/
   - Removed invalid warning for public transport users. Issue #6698
   - Fixed invalid right-of-way at traffic light junctions with right-turn-on-red rules. Issue #6068
   - Fixed bug that caused junction collisions to go unnoticed. Issue #6779
+  - Fixed train collision after reversal. Issue #6782
+  - Stopping duration no longer exceeds the planned duration/until time by one simulation step. Issue #6755
 - MESO
   - Calibrator attribute `vTypes` is now working. Issue #6702
 - NETCONVERT
@@ -47,6 +49,7 @@ permalink: /ChangeLog/
   - Tripinfo-output attribute vaporized now includes specific description for premature vehicle removal (collision, traci, calibrator, ...). Issue #6718
   - Added option **--statistic-output** to write [various statistics](Simulation/Output.md#commandline_output_verbose) in XML format. Issue #3751
   - vType attribute 'lcSigma' now always affect lateral position (previously, only sublane model and continuous lanechange modle were affected).
+  - Automatic train rerouting by rail signal logic can now be disabled by setting option **--device.rerouting.railsignal false** as well as by vehicle and vType parameters (key="device.rerouting.railsignal"). Issue #6781
 - NETEDIT
   - Added new 'Data Mode' to edit files with edge and turn-related data. Issue #6461
   - Traffic light phase editing function 'Insert Phase' now takes successive green states into account when synthesizing transition phases. Issue #6732
