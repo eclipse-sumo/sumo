@@ -455,8 +455,9 @@ void
 MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) {
     MSDevice_Routing* rDev = static_cast<MSDevice_Routing*>(veh->getDevice(typeid(MSDevice_Routing)));
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-    if (rDev != nullptr &&
-            (myLastRerouteVehicle != veh
+    if (rDev != nullptr 
+            && rDev->mayRerouteRailSignal()
+            && (myLastRerouteVehicle != veh
              // reroute each vehicle only once if no periodic routing is allowed,
              // otherwise with the specified period
              || (rDev->getPeriod() > 0 && myLastRerouteTime + rDev->getPeriod() <= now))) {

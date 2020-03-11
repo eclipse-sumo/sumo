@@ -83,6 +83,9 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.rerouting.synchronize", new Option_Bool(false));
     oc.addDescription("device.rerouting.synchronize", "Routing", "Let rerouting happen at the same time for all vehicles");
 
+    oc.doRegister("device.rerouting.railsignal", new Option_Bool(true));
+    oc.addDescription("device.rerouting.railsignal", "Routing", "Allow rerouting triggered by rail signals.");
+
     oc.doRegister("device.rerouting.output", new Option_FileName());
     oc.addDescription("device.rerouting.output", "Routing", "Save adapting weights to FILE");
 }
@@ -143,8 +146,15 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
 // MSDevice_Routing-methods
 // ---------------------------------------------------------------------------
 MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
-                                   SUMOTime period, SUMOTime preInsertionPeriod)
-    : MSVehicleDevice(holder, id), myPeriod(period), myPreInsertionPeriod(preInsertionPeriod), myLastRouting(-1), mySkipRouting(-1), myRerouteCommand(nullptr) {
+                                   SUMOTime period, SUMOTime preInsertionPeriod) : 
+    MSVehicleDevice(holder, id),
+    myPeriod(period),
+    myPreInsertionPeriod(preInsertionPeriod),
+    myLastRouting(-1),
+    mySkipRouting(-1),
+    myRerouteCommand(nullptr),
+    myRerouteRailSignal(getBoolParam(holder, OptionsCont::getOptions(), "rerouting.railsignal", true, true))
+{
     if (myPreInsertionPeriod > 0 || holder.getParameter().wasSet(VEHPARS_FORCE_REROUTE)) {
         // we do always a pre insertion reroute for trips to fill the best lanes of the vehicle with somehow meaningful values (especially for deaprtLane="best")
         myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::preInsertionReroute);
