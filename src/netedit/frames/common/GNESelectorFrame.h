@@ -51,7 +51,7 @@ public:
             ObjectTypeEntry(FXMatrix* matrixParent, const Supermode supermode, const std::string& label);
 
             /// @brief get supermode associated to this ObjectTypeEntry 
-            const Supermode getSupermode() const;
+            Supermode getSupermode() const;
 
             /// @brief show ObjectTypeEntry
             void showObjectTypeEntry();
