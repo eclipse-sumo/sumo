@@ -2133,6 +2133,26 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
 }
 
 
+void 
+GNEViewNetHelper::IntervalBar::enableIntervalBar() {
+    // enable all elements
+    myDataSet->enable();
+    myLimitByInterval->enable();
+    myBeginTextField->enable();
+    myEndTextField->enable();
+}
+
+
+void 
+GNEViewNetHelper::IntervalBar::disableIntervalBar() {
+    // disable all elements
+    myDataSet->disable();
+    myLimitByInterval->disable();
+    myBeginTextField->disable();
+    myEndTextField->disable();
+}
+
+
 void
 GNEViewNetHelper::IntervalBar::showIntervalBar() {
     // first update interval bar

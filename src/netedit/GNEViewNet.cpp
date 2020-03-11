@@ -2964,7 +2964,10 @@ GNEViewNet::updateDataModeSpecificControls() {
             myViewParent->getInspectorFrame()->show();
             myViewParent->getInspectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getInspectorFrame();
+            // set checkable button
             myCommonCheckableButtons.inspectButton->setChecked(true);
+            // enable IntervalBar
+            myIntervalBar.enableIntervalBar();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2972,7 +2975,10 @@ GNEViewNet::updateDataModeSpecificControls() {
             myViewParent->getDeleteFrame()->show();
             myViewParent->getDeleteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getDeleteFrame();
+            // set checkable button
             myCommonCheckableButtons.deleteButton->setChecked(true);
+            // enable IntervalBar
+            myIntervalBar.enableIntervalBar();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2980,7 +2986,10 @@ GNEViewNet::updateDataModeSpecificControls() {
             myViewParent->getSelectorFrame()->show();
             myViewParent->getSelectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getSelectorFrame();
+            // set checkable button
             myCommonCheckableButtons.selectButton->setChecked(true);
+            // disable IntervalBar
+            myIntervalBar.disableIntervalBar();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
@@ -2990,6 +2999,8 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCurrentFrame = myViewParent->getEdgeDataFrame();
             // set checkable button
             myDataCheckableButtons.edgeDataButton->setChecked(true);
+            // disable IntervalBar
+            myIntervalBar.disableIntervalBar();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
