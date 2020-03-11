@@ -5,6 +5,7 @@
 
 --device.rerouting.adaptation-steps 10
 --device.rerouting.period 10
+--device.rerouting.railsignal false
 
 --vehroute-output vehroutes.xml
 --tripinfo-output tripinfos.xml
