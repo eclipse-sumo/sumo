@@ -1373,7 +1373,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                     double high = (*veh)->getPositionOnLane(this);
                     double low = (*veh)->getBackPositionOnLane(this);
                     for (AnyVehicleIterator veh2 = bidiLane->anyVehiclesBegin(); veh2 != bidiLane->anyVehiclesEnd(); ++veh2) {
-                        // self-collisions might ligitemately occur when a long train loops back on itself
+                        // self-collisions might legitemately occur when a long train loops back on itself
                         //if (*veh == *veh2) {
                         //    // no self-collision (when performing a turn-around)
                         //    continue;
@@ -1381,6 +1381,13 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                         double low2 = myLength - (*veh2)->getPositionOnLane(bidiLane);
                         double high2 = myLength - (*veh2)->getBackPositionOnLane(bidiLane);
                         if (!(high < low2 || high2 < low)) {
+#ifdef DEBUG_COLLISIONS
+                            if (DEBUG_COND) {
+                                std::cout << SIMTIME << " bidi-collision veh=" << (*veh)->getID() << " bidiVeh=" << (*veh2)->getID() 
+                                    << " vehFurther=" << toString((*veh)->getFurtherLanes())
+                                    << " high=" << high << " low=" << low << " high2=" << high2 << " low2=" << low2 << "\n";
+                            }
+#endif
                             // the faster vehicle is at fault
                             MSVehicle* collider = const_cast<MSVehicle*>(*veh);
                             MSVehicle* victim = const_cast<MSVehicle*>(*veh2);

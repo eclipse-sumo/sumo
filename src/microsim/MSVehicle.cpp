@@ -3694,6 +3694,11 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
     if (reverseTrain) {
         myState.myPos += 2 * (myLane->getLength() - myState.myPos) + myType->getLength();
         myState.mySpeed = 0;
+#ifdef DEBUG_REVERSE_BIDI
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " reversing train=" << getID() << " newPos=" << myState.myPos << "\n";
+        }
+#endif
     }
     // move on lane(s)
     if (myState.myPos > myLane->getLength()) {
