@@ -25,6 +25,10 @@ import os
 import sys
 import random
 from collections import defaultdict
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -520,7 +524,10 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
                     flowID, begin, end, repeat,
                     options.writeRouteDist, options.vehattrs))
             else:
+                # ensure flows are sorted
+                flows = []
                 for routeIndex in sorted(set(usedRoutes)):
+                    outf2 = StringIO()
                     fBegin = min(routeDeparts[routeIndex])
                     fEnd = max(routeDeparts[routeIndex] + [fBegin + 1.0])
                     probability = routeCounts[routeIndex] / (fEnd - fBegin)
@@ -533,14 +540,18 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
                     else:
                         repeat = 'probability="%s"' % probability
                     if options.writeRouteIDs:
-                        outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s%s"%s/>\n' % (
+                        outf2.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s%s"%s/>\n' % (
                             flowID, fBegin, fEnd, repeat,
                             intervalPrefix, routeIndex, options.vehattrs))
                     else:
-                        outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
+                        outf2.write('    <flow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
                             flowID, fBegin, fEnd, repeat, options.vehattrs))
-                        outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
-                        outf.write('    </flow>\n')
+                        outf2.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                        outf2.write('    </flow>\n')
+                    flows.append((fBegin, outf2))
+                flows.sort()
+                for fBegin, outf2 in flows:
+                    outf.write(outf2.getvalue())
 
 
     underflow = sumolib.miscutils.Statistics("underflow locations")
