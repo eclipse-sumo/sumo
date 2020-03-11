@@ -90,7 +90,7 @@
 //#define DEBUG_FURTHER
 //#define DEBUG_SETFURTHER
 //#define DEBUG_TARGET_LANE
-//#define DEBUG_STOPS
+#define DEBUG_STOPS
 //#define DEBUG_BESTLANES
 //#define DEBUG_IGNORE_RED
 //#define DEBUG_ACTIONSTEPS
@@ -1814,6 +1814,7 @@ MSVehicle::processNextStop(double currentVelocity) {
     Stop& stop = myStops.front();
     const SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     if (stop.reached) {
+        stop.duration -= getActionStepLength();
 
 #ifdef DEBUG_STOPS
         if (DEBUG_COND) {
@@ -1922,9 +1923,6 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
 #endif
             }
-            // we have to wait some more time
-            stop.duration -= getActionStepLength();
-
             if (MSGlobals::gSemiImplicitEulerUpdate || stop.pars.speed > 0) {
                 // euler
                 return stop.pars.speed;
