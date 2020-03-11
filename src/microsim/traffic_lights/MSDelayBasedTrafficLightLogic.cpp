@@ -90,11 +90,11 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 const std::string customID = getParameter(lane->getID());
                 if (customID != "") {
                     det = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(customID));
-                    det->setVisible(myShowDetectors);
                     if (det == nullptr) {
                         WRITE_ERROR("Unknown laneAreaDetector '" + customID + "' given as custom detector for delay_based tlLogic '" + getID() + "', program '" + getProgramID() + ".");
                         continue;
                     }
+                    det->setVisible(myShowDetectors);
                 } else {
                     std::string id = "TLS" + myID + "_" + myProgramID + "_E2CollectorOn_" + lane->getID();
                     det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), myDetectionRange, 0, 0, 0, myVehicleTypes, myShowDetectors);
