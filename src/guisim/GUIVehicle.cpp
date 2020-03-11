@@ -637,7 +637,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
             // indicate train reversal
             std::string label = "reverse:" + toString(reversalIndex++);
             Position pos = lane->geometryPositionAtOffset(lane->getLength() / 2) - Position(0, textSize * repeatLane[lane]);
-            GLHelper::drawTextSettings(s.vehicleName, label, pos, s.scale, s.angle, 1.0);
+            GLHelper::drawTextSettings(s.vehicleValue, label, pos, s.scale, s.angle, 1.0);
         }
         if (s.showRouteIndex) {
             std::string label = toString((int)(i - myCurrEdge));
@@ -700,7 +700,8 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         }
         std::pair<const MSLane*, double> stopPos = std::make_pair(stop.lane, stop.getEndPos(*this));
         const double textSize = s.vehicleName.size / s.scale;
-        GLHelper::drawText(label, pos - Position(0, textSize * repeat[stopPos]), 1.0, textSize, s.vehicleName.color, s.angle);
+        Position pos2 = pos - Position(0, textSize * repeat[stopPos]);
+        GLHelper::drawTextSettings(s.vehicleText, label, pos2, s.scale, s.angle, 1.0);
         repeat[stopPos]++;
         stopIndex++;
     }
