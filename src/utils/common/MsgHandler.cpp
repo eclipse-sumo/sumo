@@ -156,8 +156,10 @@ MsgHandler::endProcessMsg(std::string msg) {
 
 
 void
-MsgHandler::clear() {
-    myWasInformed = false;
+MsgHandler::clear(bool resetInformed) {
+    if (resetInformed) {
+        myWasInformed = false;
+    }
     if (myAggregationThreshold >= 0) {
         for (const auto& i : myAggregationCount) {
             if (i.second > myAggregationThreshold) {
@@ -218,6 +220,7 @@ MsgHandler::initOutputOptions() {
     OutputDevice::getDevice("stderr");
     OptionsCont& oc = OptionsCont::getOptions();
     getWarningInstance()->setAggregationThreshold(oc.getInt("aggregate-warnings"));
+    getErrorInstance()->setAggregationThreshold(oc.getInt("aggregate-warnings"));
     if (oc.getBool("no-warnings")) {
         getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
     }

@@ -126,9 +126,8 @@ main(int argc, char** argv) {
         // load data
         NILoader nl(nb);
         nl.load(oc);
-        if (oc.getBool("ignore-errors")) {
-            MsgHandler::getErrorInstance()->clear();
-        }
+        // flush aggregated errors and optionally ignore them
+        MsgHandler::getErrorInstance()->clear(oc.getBool("ignore-errors"));
         // check whether any errors occurred
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
@@ -140,6 +139,7 @@ main(int argc, char** argv) {
         }
         NWFrame::writeNetwork(oc, nb);
     } catch (const ProcessError& e) {
+        MsgHandler::getErrorInstance()->clear(false);
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
@@ -147,12 +147,14 @@ main(int argc, char** argv) {
         ret = 1;
 #ifndef _DEBUG
     } catch (const std::exception& e) {
+        MsgHandler::getErrorInstance()->clear(false);
         if (std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
     } catch (...) {
+        MsgHandler::getErrorInstance()->clear(false);
         MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;
 #endif

@@ -131,8 +131,8 @@ public:
     /// @brief Ends a process information
     virtual void endProcessMsg(std::string msg);
 
-    /// @brief Clears information whether an error occurred previously
-    virtual void clear();
+    /// @brief Clears information whether an error occurred previously and print aggregated message summary
+    virtual void clear(bool resetInformed = true);
 
     /// @brief Adds a further retriever to the instance responsible for a certain msg type
     virtual void addRetriever(OutputDevice* retriever);
@@ -282,5 +282,6 @@ private:
 #define PROGRESS_TIME_MESSAGE(before) MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis() - before) + "ms).");
 #define PROGRESS_FAILED_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg("failed.");
 #define WRITE_ERROR(msg) MsgHandler::getErrorInstance()->inform(msg);
+#define WRITE_ERRORF(...) MsgHandler::getErrorInstance()->informf(__VA_ARGS__);
 #define WRITE_DEBUG(msg) if(MsgHandler::writeDebugMessages()){MsgHandler::getDebugInstance()->inform(msg);};
 #define WRITE_GLDEBUG(msg) if(MsgHandler::writeDebugGLMessages()){MsgHandler::getGLDebugInstance()->inform(msg);};
