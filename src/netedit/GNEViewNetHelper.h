@@ -636,10 +636,44 @@ struct GNEViewNetHelper {
         /// @brief update interval bar
         void updateIntervalBar();
 
-        /// @brief update limit by interval
-        void updateLimitByInterval();
+        /// @name get functions (called by GNEViewNet)
+        /// @{
 
-    private:
+        /// @brief get dataSet
+        std::string getDataSetStr() const;
+
+        /// @brief get begin
+        std::string getBeginStr() const;
+
+        /// @brief get end
+        std::string getEndStr() const;
+
+        /// @brief set attribute
+        std::string getAttributeStr() const;
+
+        /// @}
+
+        /// @name set functions (called by GNEViewNet)
+        /// @{
+
+        /// @brief set dataSet
+        void setDataSet();
+
+        /// @brief update limit by interval
+        void setInterval();
+
+        /// @brief set begin
+        void setBegin();
+
+        /// @brief set end
+        void setEnd();
+
+        /// @brief set attribute
+        void setAttribute();
+
+        /// @}
+
+    protected:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
 
@@ -657,6 +691,13 @@ struct GNEViewNetHelper {
 
         /// @brief combo box for attributes
         FXComboBox* myAttribute;
+
+    private:
+        /// @brief string with wildcar for all dataSets
+        const FXString myAllDataSets;
+
+        /// @brief string with wildcar for all attributes
+        const FXString myAllAttributes;
 
         /// @brief Invalidated copy constructor.
         IntervalBar(const IntervalBar&) = delete;

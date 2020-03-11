@@ -2904,6 +2904,46 @@ GNENet::retrieveGenericDataParameters(const std::string& dataSetID, const std::s
 }
 
 
+double
+GNENet::getDataSetIntervalMinimumBegin() const {
+    double minimumBegin = 0;
+    // update with first minimum (if exist)
+    if ((myAttributeCarriers.dataSets.size() > 0) && (myAttributeCarriers.dataSets.begin()->second->getDataIntervalChildren().size() > 0)) {
+        minimumBegin = myAttributeCarriers.dataSets.begin()->second->getDataIntervalChildren().begin()->second->getAttributeDouble(SUMO_ATTR_BEGIN);
+    }
+    // iterate over all data sets
+    for (const auto& dataSet : myAttributeCarriers.dataSets) {
+        // iterate over interval
+        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
+            if (interval.second->getAttributeDouble(SUMO_ATTR_BEGIN) < minimumBegin) {
+                minimumBegin = interval.second->getAttributeDouble(SUMO_ATTR_BEGIN);
+            }
+        }
+    }
+    return minimumBegin;
+}
+
+
+double 
+GNENet::getDataSetIntervalMaximumEnd() const {
+    double maximumEnd = 0;
+    // update with first maximum (if exist)
+    if ((myAttributeCarriers.dataSets.size() > 0) && (myAttributeCarriers.dataSets.begin()->second->getDataIntervalChildren().size() > 0)) {
+        maximumEnd = myAttributeCarriers.dataSets.begin()->second->getDataIntervalChildren().begin()->second->getAttributeDouble(SUMO_ATTR_END);
+    }
+    // iterate over all data sets
+    for (const auto& dataSet : myAttributeCarriers.dataSets) {
+        // iterate over interval
+        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
+            if (interval.second->getAttributeDouble(SUMO_ATTR_END) > maximumEnd) {
+                maximumEnd = interval.second->getAttributeDouble(SUMO_ATTR_END);
+            }
+        }
+    }
+    return maximumEnd;
+}
+
+
 void
 GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);

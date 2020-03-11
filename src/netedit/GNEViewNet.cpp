@@ -2538,32 +2538,35 @@ GNEViewNet::onCmdToogleShowDemandElements(FXObject*, FXSelector sel, void*) {
 
 long 
 GNEViewNet::onCmdIntervalBarDataSet(FXObject*, FXSelector, void*) {
+    myIntervalBar.setDataSet();
     return 1;
 }
 
 
 long 
 GNEViewNet::onCmdIntervalBarLimit(FXObject*, FXSelector, void*) {
-    // just call update interval bar
-    myIntervalBar.updateLimitByInterval();
+    myIntervalBar.setInterval();
     return 1;
 }
 
 
 long 
 GNEViewNet::onCmdIntervalBarSetBegin(FXObject*, FXSelector, void*) {
+    myIntervalBar.setBegin();
     return 1;
 }
 
 
 long 
 GNEViewNet::onCmdIntervalBarSetEnd(FXObject*, FXSelector, void*) {
+    myIntervalBar.setEnd();
     return 1;
 }
 
 
 long 
 GNEViewNet::onCmdIntervalBarSetAttribute(FXObject*, FXSelector, void*) {
+    myIntervalBar.setAttribute();
     return 1;
 }
 

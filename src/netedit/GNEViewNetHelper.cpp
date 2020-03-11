@@ -2101,7 +2101,9 @@ GNEViewNetHelper::IntervalBar::IntervalBar(GNEViewNet* viewNet) :
     myLimitByInterval(nullptr),
     myBeginTextField(nullptr),
     myEndTextField(nullptr),
-    myAttribute(nullptr) {
+    myAttribute(nullptr),
+    myAllDataSets("<all dataSets>"),
+    myAllAttributes("<all attributes>"){
 }
 
 
@@ -2122,12 +2124,10 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     // create textfield for begin
     myBeginTextField = new FXTextField(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
         GUIDesignTextFieldNCol, myViewNet, MID_GNE_INTERVALBAR_BEGIN, GUIDesignTextFielWidth50Real);
-    myBeginTextField->setText("0");
     myBeginTextField->create();
     // create text field for end
     myEndTextField = new FXTextField(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
         GUIDesignTextFieldNCol, myViewNet, MID_GNE_INTERVALBAR_END, GUIDesignTextFielWidth50Real);
-    myEndTextField->setText("3600");
     myEndTextField->create();
     // create attribute label
     FXLabel* attributeLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
@@ -2144,11 +2144,17 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
 
 void 
 GNEViewNetHelper::IntervalBar::enableIntervalBar() {
-    // enable all elements
+    // enable elements
     myDataSet->enable();
     myLimitByInterval->enable();
-    myBeginTextField->enable();
-    myEndTextField->enable();
+    if (myLimitByInterval->getCheck() == TRUE) {
+        myBeginTextField->enable();
+        myEndTextField->enable();
+    } else {
+        myBeginTextField->disable();
+        myEndTextField->disable();
+    }
+    myAttribute->enable();
 }
 
 
@@ -2159,11 +2165,19 @@ GNEViewNetHelper::IntervalBar::disableIntervalBar() {
     myLimitByInterval->disable();
     myBeginTextField->disable();
     myEndTextField->disable();
+    myAttribute->disable();
 }
 
 
 void
 GNEViewNetHelper::IntervalBar::showIntervalBar() {
+    // check if begin and end textFields has to be updated (only once)
+    if (myBeginTextField->getText().empty()) {
+        setBegin();
+    }
+    if (myEndTextField->getText().empty()) {
+        setEnd();
+    }
     // first update interval bar
     updateIntervalBar();
     // show toolbar grip
@@ -2175,18 +2189,6 @@ void
 GNEViewNetHelper::IntervalBar::hideIntervalBar() {
     // hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar->hide();
-}
-
-
-void
-GNEViewNetHelper::IntervalBar::updateLimitByInterval() {
-    if (myLimitByInterval->isEnabled() && (myLimitByInterval->getCheck() == TRUE)) {
-        myBeginTextField->enable();
-        myEndTextField->enable();
-    } else {
-        myBeginTextField->disable();
-        myEndTextField->disable();
-    }
 }
 
 
@@ -2204,14 +2206,15 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
             // disable elements
             myDataSet->disable();
             myLimitByInterval->disable();
-        } else {
+        }
+        else {
             // declare integer to save previous data set index
             int previousDataSetIndex = 0;
             // enable elements
             myDataSet->enable();
             myLimitByInterval->enable();
             // add "<all>" item
-            myDataSet->appendItem("<all>");
+            myDataSet->appendItem(myAllDataSets);
             // add all into
             for (const auto& dataSet : dataSets) {
                 // check if current data set is the previous data set
@@ -2223,15 +2226,121 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
             // set visible elements
             if (myDataSet->getNumItems() < 10) {
                 myDataSet->setNumVisible(myDataSet->getNumItems());
-            } else {
+            }
+            else {
                 myDataSet->setNumVisible(10);
             }
             // set current data set
             myDataSet->setCurrentItem(previousDataSetIndex);
         }
         // update limit by interval
-        updateLimitByInterval();
+        setInterval();
     }
+}
+
+
+std::string
+GNEViewNetHelper::IntervalBar::getDataSetStr() const {
+    if (myDataSet->isEnabled() && ((myDataSet->getText() == myAllDataSets) || (myDataSet->getTextColor() != FXRGB(0, 0, 0)))) {
+        return "";
+    } else {
+        return myDataSet->getText().text();
+    }
+}
+
+
+std::string
+GNEViewNetHelper::IntervalBar::getBeginStr() const {
+    if (myBeginTextField->isEnabled() && GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text())) {
+        return myBeginTextField->getText().text();
+    } else {
+        return "";
+    }
+}
+
+
+std::string 
+GNEViewNetHelper::IntervalBar::getEndStr() const {
+    if (myEndTextField->isEnabled() && GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
+        return myEndTextField->getText().text();
+    } else {
+        return "";
+    }
+}
+
+
+std::string 
+GNEViewNetHelper::IntervalBar::getAttributeStr() const {
+    if (myAttribute->isEnabled() && ((myAttribute->getText() == myAllAttributes) || (myAttribute->getTextColor() != FXRGB(0, 0, 0)))) {
+        return "";
+    } else {
+        return myAttribute->getText().text();
+    }
+}
+
+
+void 
+GNEViewNetHelper::IntervalBar::setDataSet() {
+    // check if data set is correct
+    if (myDataSet->getText() == myAllDataSets) {
+        myDataSet->setTextColor(FXRGB(0, 0, 0));
+    } else if (myDataSet->getText().empty()) {
+        myDataSet->setTextColor(FXRGB(0, 0, 0));
+        myDataSet->setText(myAllDataSets);
+    } else if (myViewNet->getNet()->retrieveDataSet(myDataSet->getText().text(), false)) {
+        myDataSet->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myDataSet->setTextColor(FXRGB(255, 0, 0));
+    }
+    // update view net
+    myViewNet->update();
+}
+
+
+void
+GNEViewNetHelper::IntervalBar::setInterval() {
+    // enable or disable text fields
+    if (myLimitByInterval->isEnabled() && (myLimitByInterval->getCheck() == TRUE)) {
+        myBeginTextField->enable();
+        myEndTextField->enable();
+    } else {
+        myBeginTextField->disable();
+        myEndTextField->disable();
+    }
+    // update view net
+    myViewNet->update();
+}
+
+
+void 
+GNEViewNetHelper::IntervalBar::setBegin() {
+    if (myBeginTextField->getText().empty()) {
+        myBeginTextField->setText(toString(myViewNet->getNet()->getDataSetIntervalMinimumBegin()).c_str());
+        myBeginTextField->setTextColor(FXRGB(0, 0, 0));
+    } else if (GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text())) {
+        myBeginTextField->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myBeginTextField->setTextColor(FXRGB(255, 0, 0));
+    }
+}
+
+
+void 
+GNEViewNetHelper::IntervalBar::setEnd() {
+    if (myEndTextField->getText().empty()) {
+        myEndTextField->setText(toString(myViewNet->getNet()->getDataSetIntervalMaximumEnd()).c_str());
+        myEndTextField->setTextColor(FXRGB(0, 0, 0));
+    } else if (GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
+        myEndTextField->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myEndTextField->setTextColor(FXRGB(255, 0, 0));
+    }
+}
+
+
+void 
+GNEViewNetHelper::IntervalBar::setAttribute() {
+    //
 }
 
 // ---------------------------------------------------------------------------

@@ -765,6 +765,13 @@ public:
 
     /// @brief return a set of parameters for the given dataSet and data Interval
     std::set<std::string> retrieveGenericDataParameters(const std::string& dataSetID, const std::string& beginStr, const std::string& endStr) const;
+    
+    /// @brief get minimum interval
+    double getDataSetIntervalMinimumBegin() const;
+
+    /// @brief get maximum interval
+    double getDataSetIntervalMaximumEnd() const;
+
     /// @}
 
     /// @name Functions related to Shapes
