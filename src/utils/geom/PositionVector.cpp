@@ -413,6 +413,10 @@ Position
 PositionVector::getCentroid() const {
     if (size() == 0) {
         return Position::INVALID;
+    } else if (size() == 1) {
+        return (*this)[0];
+    } else if (size() == 2) {
+        return ((*this)[0] + (*this)[1]) * 0.5;
     }
     PositionVector tmp = *this;
     if (!isClosed()) { // make sure its closed
