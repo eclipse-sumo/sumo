@@ -131,6 +131,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(s.colorSettings.crossingInvalid);
             } else if (crossing->priority) {
                 GLHelper::setColor(s.colorSettings.crossingPriority);
+            } else if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::DATA) {
+                GLHelper::setColor(s.laneColorer.getSchemes()[0].getColor(8));
             } else {
                 GLHelper::setColor(s.colorSettings.crossing);
             }

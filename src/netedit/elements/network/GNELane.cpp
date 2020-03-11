@@ -1122,6 +1122,10 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
             color = c.getScheme().getColor(getColorValue(s, c.getActive()));
         }
     }
+    // check if we're in data mode
+    if (myNet->getViewNet()->getEditModes().currentSupermode == Supermode::DATA) {
+        color = s.laneColorer.getSchemes()[0].getColor(8);
+    }
     // check if we have to change color if parent edge has generic data elements
     for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
         if (edgeGenericData->isVisible()) {
