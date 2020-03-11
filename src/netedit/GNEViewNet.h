@@ -202,9 +202,6 @@ public:
     /// @brief Transform POI to POILane, and viceversa
     long onCmdTransformPOI(FXObject*, FXSelector, void*);
 
-    /// @brief limit interval
-    long onCmdLimitInterval(FXObject*, FXSelector, void*);
-
     /// @brief duplicate selected lane
     long onCmdDuplicateLane(FXObject*, FXSelector, void*);
 
@@ -303,6 +300,26 @@ public:
 
     /// @brief toogle show demand elements
     long onCmdToogleShowDemandElements(FXObject*, FXSelector, void*);
+
+    /// @}
+
+    //// @name interval bar functions
+    /// @{
+
+    /// @brief change data set in interval bar
+    long onCmdIntervalBarDataSet(FXObject*, FXSelector, void*);
+
+    /// @brief change limit interval in interval bar
+    long onCmdIntervalBarLimit(FXObject*, FXSelector, void*);
+
+    /// @brief change begin in interval bar
+    long onCmdIntervalBarSetBegin(FXObject*, FXSelector, void*);
+
+    /// @brief change end in interval bar
+    long onCmdIntervalBarSetEnd(FXObject*, FXSelector, void*);
+
+    /// @brief change attribute in interval bar
+    long onCmdIntervalBarSetAttribute(FXObject*, FXSelector, void*);
 
     /// @}
 

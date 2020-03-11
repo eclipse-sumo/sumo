@@ -165,8 +165,12 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,           GNEViewNet::onCmdDeleteGeometryPoint),
     // POIs
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,                           GNEViewNet::onCmdTransformPOI),
-    // Other
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAINTERVAL_LIMITED,                    GNEViewNet::onCmdLimitInterval)
+    // IntervalBar
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_DATASET,                     GNEViewNet::onCmdIntervalBarDataSet),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_LIMITED,                     GNEViewNet::onCmdIntervalBarLimit),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_BEGIN,                       GNEViewNet::onCmdIntervalBarSetBegin),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_END,                         GNEViewNet::onCmdIntervalBarSetEnd),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_ATTRIBUTE,                   GNEViewNet::onCmdIntervalBarSetAttribute)
 };
 
 // Object implementation
@@ -1698,14 +1702,6 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
 
 
 long
-GNEViewNet::onCmdLimitInterval(FXObject*, FXSelector, void*) {
-    // just call update interval bar
-    myIntervalBar.updateLimitByInterval();
-    return 1;
-}
-
-
-long
 GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
     GNELane* lane = getLaneAtPopupPosition();
     if (lane != nullptr) {
@@ -2536,6 +2532,38 @@ GNEViewNet::onCmdToogleShowDemandElements(FXObject*, FXSelector sel, void*) {
     else if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
         myDataViewOptions.menuCheckShowDemandElements->setFocus();
     }
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdIntervalBarDataSet(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdIntervalBarLimit(FXObject*, FXSelector, void*) {
+    // just call update interval bar
+    myIntervalBar.updateLimitByInterval();
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdIntervalBarSetBegin(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdIntervalBarSetEnd(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdIntervalBarSetAttribute(FXObject*, FXSelector, void*) {
     return 1;
 }
 

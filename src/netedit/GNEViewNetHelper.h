@@ -655,6 +655,9 @@ struct GNEViewNetHelper {
         /// @brief text field for interval end
         FXTextField* myEndTextField;
 
+        /// @brief combo box for attributes
+        FXComboBox* myAttribute;
+
         /// @brief Invalidated copy constructor.
         IntervalBar(const IntervalBar&) = delete;
 

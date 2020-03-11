@@ -663,6 +663,22 @@ enum {
 
     /// @}
 
+    /// @name GNEViewNet interval bar messages
+    /// @{
+
+    /// @brief intervalset 
+    MID_GNE_INTERVALBAR_DATASET,
+    /// @brief enable/disable show data elements by interval
+    MID_GNE_INTERVALBAR_LIMITED,
+    /// @brief begin changed in InterbalBar
+    MID_GNE_INTERVALBAR_BEGIN,
+    /// @brief end changed in InterbalBar
+    MID_GNE_INTERVALBAR_END,
+    /// @brief attribute changed in InterbalBar
+    MID_GNE_INTERVALBAR_ATTRIBUTE,
+
+    /// @}
+    
     /// @name GNEFrame messages
     /// @{
 
@@ -733,12 +749,6 @@ enum {
     MID_GNE_OVERLAPPED_SHOWLIST,
     /// @brief list item selected in overlapped modul
     MID_GNE_OVERLAPPED_ITEMSELECTED,
-    /// @brief enable/disable show data elements by interval
-    MID_GNE_DATAINTERVAL_LIMITED,
-    /// @brief begin changed in InterbalBar
-    MID_GNE_DATAINTERVAL_SETBEGIN,
-    /// @brief end changed in InterbalBar
-    MID_GNE_DATAINTERVAL_SETEND,
     /// @}
 
     /// @name GNESelectorFrame messages
