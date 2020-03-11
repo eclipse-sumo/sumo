@@ -18,7 +18,7 @@ Debug: Current saving Status: net saved, additionals unsaved, demand elements sa
 Debug: Adding busStop 'busStop2' in GNEChange_Additional
 Debug: Adding busStop 'busStop3' in GNEChange_Additional
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -58,7 +58,7 @@ Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Adding junction 'gneJ4' into net
 GLDebug: 	Inserted junction:gneJ4 into SUMORTree with boundary 4.97,8.00,28.97,32.00
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding edge 'gneE2.16' from net
 GLDebug: 	Inserted edge:gneE2.16 into SUMORTree with boundary 6.97,5.20,60.00,30.00
 Debug: Removing connection 'gneE2_0->gneE4_0' from edge 'gneE2'

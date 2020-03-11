@@ -27,7 +27,7 @@ Debug: Adding poiLane 'POI_1' into viewNet
 Debug: Adding poi 'POI_2' into viewNet
 Debug: Adding poi 'POI_3' into viewNet
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute selected 'true' into busStop 'busStop_00'
 Debug: Setting new attribute selected 'true' into busStop 'busStop_01'
 Debug: Setting new attribute selected 'true' into busStop 'busStop_02'

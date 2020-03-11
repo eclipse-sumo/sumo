@@ -19,7 +19,7 @@ Debug: Adding poly 'poly_3' into viewNet
 GLDebug: 	Inserted polygon:poly_3 into SUMORTree with boundary 48.00,8.00,62.00,22.00
 Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug110224.2512/netedit.gui/shapeElements/poly/load/imgfile\input_additionals.add.xml failed.
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

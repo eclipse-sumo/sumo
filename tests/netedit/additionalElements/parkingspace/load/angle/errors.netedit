@@ -26,7 +26,7 @@ GLDebug: 	Inserted parkingSpace:parkingArea_0space4 into SUMORTree with boundary
 Debug: Adding space 'parkingArea_0space5' in GNEChange_Additional
 GLDebug: 	Inserted parkingSpace:parkingArea_0space5 into SUMORTree with boundary -11.02,-21.43,5.83,-5.57
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

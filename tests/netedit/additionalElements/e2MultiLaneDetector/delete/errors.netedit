@@ -12,7 +12,7 @@ Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additiona
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -43,7 +43,7 @@ Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additio
 Debug: Removing connection 'gneE2_0->gneE3_0' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in removeConnection()
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Removing edge 'gneE2' from net
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,-11.60,35.00,10.00
 Debug: Keys Ctrl+Z (Undo) pressed

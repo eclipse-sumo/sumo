@@ -22,7 +22,7 @@ Debug: Adding busStop 'busStop_gneE3_0_5' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE4_0_2' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE4_0_3' in GNEChange_Additional
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into edge 'gneE3'
@@ -41,7 +41,7 @@ Debug: Setting new attribute shape '26.00,2.00' into edge 'gneE0'
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-0.60,60.00,21.00
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.52,-9.70,60.56,21.00
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,1.00,60.00,22.60
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,1.00,60.00,22.60
 Debug: Setting new attribute shape '26.00,2.00' into edge 'gneE1'

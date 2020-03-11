@@ -20,7 +20,7 @@ GLDebug: 	Inserted parkingArea:parkingAreaLoaded_B into SUMORTree with boundary 
 Debug: Adding space 'parkingAreaLoaded_Bspace0' in GNEChange_Additional
 GLDebug: 	Inserted parkingSpace:parkingAreaLoaded_Bspace0 into SUMORTree with boundary 21.40,2.00,34.60,17.00
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'parkingArea' in TagSelector
 Debug: Format of optional positive optional float attribute 'length' of parkingArea with ID 'parkingArea_gneE1_0_2' is invalid; Cannot be parsed to float; Default value will be used.

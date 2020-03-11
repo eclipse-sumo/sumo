@@ -9,12 +9,12 @@ Debug: Adding poiLane 'POI_1' into viewNet
 Debug: Adding poi 'POI_2' into viewNet
 Debug: Adding poi 'POI_3' into viewNet
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'

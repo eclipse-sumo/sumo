@@ -20,7 +20,7 @@ GLDebug: 	Inserted polygon:poly_4 into SUMORTree with boundary 18.00,-22.00,32.0
 Debug: Adding poly 'poly_5' into viewNet
 GLDebug: 	Inserted polygon:poly_5 into SUMORTree with boundary 38.00,-22.00,52.00,-8.00
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'

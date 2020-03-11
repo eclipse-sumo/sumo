@@ -16,7 +16,7 @@ Debug: Inserting parameter 'KeyB1|valueB1' into additional e2Detector.
 Debug: Inserting parameter 'KeyB3|valueB2' into additional e2Detector.
 Debug: Inserting parameter 'KeyB2|valueB3' into additional e2Detector.
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'

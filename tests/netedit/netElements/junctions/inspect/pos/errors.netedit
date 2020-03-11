@@ -25,7 +25,7 @@ Debug: Adding busStop 'busStop_6_1_3' in GNEChange_Additional
 Debug: Adding busStop 'busStop_7_0_1' in GNEChange_Additional
 Debug: Adding busStop 'busStop_8_0_4' in GNEChange_Additional
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -127,7 +127,7 @@ GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.60,-10.00,66
 GLDebug: 	Inserted junction:A into SUMORTree with boundary 38.00,-12.00,62.00,12.00
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 28.00,28.00,52.00,52.00
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 38.00,-12.00,62.00,12.00

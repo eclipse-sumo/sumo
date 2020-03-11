@@ -12,7 +12,7 @@ Debug: Current saving Status: net saved, additionals unsaved, demand elements sa
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute geo 'true' into poly 'poly_0'
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 0.00,6.00,14.00,20.00
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,20.00

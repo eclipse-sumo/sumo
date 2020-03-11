@@ -20,7 +20,7 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: A route needs at least one edge.
 Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/vehicle/delete\input_routes.rou.xml failed.
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
@@ -74,7 +74,7 @@ Debug: Edge added in ConsecutiveEdges mode
 Debug: Key ENTER pressed
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'vehicle' in TagSelector
 Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
@@ -97,7 +97,7 @@ Debug: Removing route 'route_0' in GNEChange_DemandElement
 Debug: Removing connection 'gneE2_0->gneE4_1' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_1' in removeConnection()
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Removing connection 'gneE2_0->gneE4_0' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_0' in removeConnection()
 Debug: Removing edge 'gneE2' from net

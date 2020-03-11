@@ -23,7 +23,7 @@ Debug: Current saving Status: net saved, additionals unsaved, demand elements sa
 Error: A route needs at least one edge.
 Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Aug105936.4600/netedit.gui/demandElements/person/delete\input_routes.rou.xml failed.
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
@@ -78,7 +78,7 @@ Debug: Selected item 'personTripFromTo' in TagSelector
 Debug: Key ENTER pressed
 Debug: Adding person 'person_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Adding personTripFromTo 'personTripFromTo_0' in GNEChange_DemandElement
 Debug: Current Viewport values: 15.00, 20.00, 20.00. Zoom = '434.00'
 Debug: Removing personTripFromTo 'personTripFromTo_0' in GNEChange_DemandElement
@@ -92,7 +92,7 @@ Debug: Removing personTripFromTo 'personTripFromTo_0' in GNEChange_DemandElement
 Debug: Removing connection 'gneE2_0->gneE4_1' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_1' in removeConnection()
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Removing connection 'gneE2_0->gneE4_0' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_0' in removeConnection()
 Debug: Removing edge 'gneE2' from net
@@ -160,10 +160,10 @@ Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced personTripFromTo 'personTripFromTo_0'
 Debug: Deleting unreferenced person 'person_0'
 Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced busStop 'busStop'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced edge 'gneE10' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor

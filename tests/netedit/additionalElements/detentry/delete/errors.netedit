@@ -20,7 +20,7 @@ GLDebug: 	Inserted e3Detector:e3Detector_4 into SUMORTree with boundary 26.65,-1
 Debug: Adding detEntry 'e3Detector_4detEntry0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_4detExit1' in GNEChange_Additional
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '296.00'
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e3Detector' in TagSelector
@@ -43,7 +43,7 @@ Debug: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_4detEntry0' in GNEChange_Additional
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting TLS from junction 'gneJ0'
 Debug: Adding TLS into junction 'gneJ0'
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'

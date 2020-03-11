@@ -6,7 +6,7 @@ Debug: Current saving Status: net saved, additionals unsaved, demand elements sa
 Debug: Adding busStop 'busStop_4_2_2' in GNEChange_Additional
 Debug: Adding busStop 'busStop_8_2_1' in GNEChange_Additional
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from1_1to5_1' in retrieveGNEConnection()
 Debug: Created connection 'from2_1to6_1' in retrieveGNEConnection()
@@ -41,7 +41,7 @@ Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Removing busStop 'busStop_3_2_0' in GNEChange_Additional
 Debug: Setting new attribute edges '7' into crossing ':Center_c1'
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Removing connection '6_0->3_2' from edge '6'
 Debug: Deleting unreferenced connection 'from6_0to3_2' in removeConnection()
 Debug: Removing connection '6_0->3_1' from edge '6'

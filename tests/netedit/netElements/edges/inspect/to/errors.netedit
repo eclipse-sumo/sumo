@@ -9,7 +9,7 @@ Debug: Adding busStop 'busStop4' in GNEChange_Additional
 Debug: Adding busStop 'busStop5' in GNEChange_Additional
 Debug: Adding busStop 'busStop6' in GNEChange_Additional
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE0_0togneE5_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
@@ -31,7 +31,7 @@ Debug: Value 'gneJ3' for attribute to of edge isn't valid
 Debug: Removing connection 'gneE5_0->gneE3_1' from edge 'gneE5'
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_1' in removeConnection()
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Removing connection 'gneE5_0->gneE3_0' from edge 'gneE5'
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'

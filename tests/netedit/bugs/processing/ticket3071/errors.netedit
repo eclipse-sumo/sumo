@@ -6,7 +6,7 @@ Debug: Current saving Status: net saved, additionals unsaved, demand elements sa
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_1to-gneE17_1' in retrieveGNEConnection()
@@ -75,7 +75,7 @@ Debug: Created crossing ':gneJ19_c3' in retrieveGNECrossing()
 Debug: Key F7 (Join junctions) pressed
 Debug: Adding junction 'gneJ20' into net
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute type 'priority' into junction 'gneJ20'
 Debug: Removing crossing from junction 'gneJ13'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()

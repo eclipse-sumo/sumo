@@ -24,7 +24,7 @@ GLDebug: 	Inserted parkingArea:parkingAreaD into SUMORTree with boundary -0.10,-
 GLDebug: 	Removed object parkingArea:parkingAreaD from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingAreaD into SUMORTree with boundary 7.80,2.20,16.30,10.60
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'

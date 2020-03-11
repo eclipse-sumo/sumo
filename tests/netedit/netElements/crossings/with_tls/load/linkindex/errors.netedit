@@ -15,7 +15,7 @@ GLDebug: 	Inserted edge:WC into SUMORTree with boundary -10.00,85.20,110.00,110.
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:C from SUMORTree with boundary 88.00,88.00,112.00,112.00
@@ -101,6 +101,7 @@ GLDebug: 	Inserted edge:EC into SUMORTree with boundary 90.00,90.00,210.00,114.8
 GLDebug: 	Inserted edge:NC into SUMORTree with boundary 85.20,90.00,110.00,210.00
 GLDebug: 	Inserted edge:SC into SUMORTree with boundary 90.00,-10.00,114.80,110.00
 GLDebug: 	Inserted edge:WC into SUMORTree with boundary -10.00,85.20,110.00,110.00
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'CE' in GNENet destructor
 Debug: Deleting unreferenced lane 'CE_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'CE_1' in GNEEdge destructor
@@ -157,5 +158,4 @@ Debug: Deleting unreferenced junction 'W' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 13

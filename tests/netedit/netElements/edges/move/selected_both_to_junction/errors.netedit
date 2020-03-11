@@ -12,7 +12,7 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding busStop 'busStop_gneE1_0_2' in GNEChange_Additional
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
@@ -37,7 +37,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,3
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00

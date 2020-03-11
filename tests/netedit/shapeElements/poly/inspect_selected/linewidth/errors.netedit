@@ -12,7 +12,7 @@ Debug: Current saving Status: net saved, additionals unsaved, demand elements sa
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Value 'dummyLineWidth' for attribute lineWidth of poly isn't valid
 Debug: Value '-2' for attribute lineWidth of poly isn't valid
 Debug: Setting new attribute lineWidth '2.5' into poly 'poly_0'
