@@ -1118,9 +1118,6 @@ public:
     double processNextStop(double currentVelocity);
 
 
-    /// @brief handle joining of another vehicle to this one (to resolve joinTriggered)
-    bool joinTrainPart(MSVehicle* veh);
-
     /** @brief Returns the leader of the vehicle looking for a fixed distance.
      *
      * If the distance is not given it is calculated from the brake gap.
@@ -1886,6 +1883,14 @@ protected:
 
     /// @brief register vehicle for drawing while outside the network
     virtual void drawOutsideNetwork(bool /*add*/) {};
+
+    /// @brief board persons and load transportables at the given stop
+    void boardTransportables(Stop& stop); 
+
+    /// @brief handle joining of another vehicle to this one (to resolve joinTriggered)
+    bool joinTrainPart(MSVehicle* veh);
+
+protected:
 
     /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds
     SUMOTime myWaitingTime;

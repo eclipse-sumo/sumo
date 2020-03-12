@@ -1822,60 +1822,8 @@ MSVehicle::processNextStop(double currentVelocity) {
                       << "Remaining duration: " << STEPS2TIME(stop.duration) << std::endl;
         }
 #endif
-        // ok, we have already reached the next stop
-        // any waiting persons may board now
-        MSNet* const net = MSNet::getInstance();
-        const bool boarded = (time <= stop.endBoarding
-                              && net->hasPersons()
-                              && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, stop.pars, stop.timeToBoardNextPerson, stop.duration)
-                              && stop.numExpectedPerson == 0);
-        // load containers
-        const bool loaded = (time <= stop.endBoarding
-                             && net->hasContainers()
-                             && net->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this, stop.pars, stop.timeToLoadNextContainer, stop.duration)
-                             && stop.numExpectedContainer == 0);
-        if (time > stop.endBoarding) {
-            stop.triggered = false;
-            stop.containerTriggered = false;
-        }
-        if (boarded) {
-            if (stop.busstop != nullptr) {
-                const std::vector<MSTransportable*>& persons = myPersonDevice->getTransportables();
-                for (std::vector<MSTransportable*>::const_iterator i = persons.begin(); i != persons.end(); ++i) {
-                    stop.busstop->removeTransportable(*i);
-                }
-            }
-            // the triggering condition has been fulfilled. Maybe we want to wait a bit longer for additional riders (car pooling)
-            stop.triggered = false;
-            if (myAmRegisteredAsWaitingForPerson) {
-                MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(true);
-                myAmRegisteredAsWaitingForPerson = false;
-#ifdef DEBUG_STOPS
-                if (DEBUG_COND) {
-                    std::cout << SIMTIME << " vehicle '" << getID() << "' unregisters as waiting for person." << std::endl;
-                }
-#endif
-            }
-        }
-        if (loaded) {
-            if (stop.containerstop != nullptr) {
-                const std::vector<MSTransportable*>& containers = myContainerDevice->getTransportables();
-                for (std::vector<MSTransportable*>::const_iterator i = containers.begin(); i != containers.end(); ++i) {
-                    stop.containerstop->removeTransportable(*i);
-                }
-            }
-            // the triggering condition has been fulfilled
-            stop.containerTriggered = false;
-            if (myAmRegisteredAsWaitingForContainer) {
-                MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(false);
-                myAmRegisteredAsWaitingForContainer = false;
-#ifdef DEBUG_STOPS
-                if (DEBUG_COND) {
-                    std::cout << SIMTIME << " vehicle '" << getID() << "' unregisters as waiting for container." << std::endl;
-                }
-#endif
-            }
-        }
+        boardTransportables(stop);
+
         if (stop.duration <= 0 && stop.pars.join != "") {
             // join this train (part) to another one
             MSVehicle* joinVeh = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(stop.pars.join));
@@ -2043,6 +1991,66 @@ MSVehicle::processNextStop(double currentVelocity) {
         }
     }
     return currentVelocity;
+}
+
+
+void
+MSVehicle::boardTransportables(Stop& stop) {
+    // we have reached the stop
+    // any waiting persons may board now
+    const SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
+    MSNet* const net = MSNet::getInstance();
+    const bool boarded = (time <= stop.endBoarding
+                          && net->hasPersons()
+                          && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, stop.pars, stop.timeToBoardNextPerson, stop.duration)
+                          && stop.numExpectedPerson == 0);
+    // load containers
+    const bool loaded = (time <= stop.endBoarding
+                         && net->hasContainers()
+                         && net->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this, stop.pars, stop.timeToLoadNextContainer, stop.duration)
+                         && stop.numExpectedContainer == 0);
+    if (time > stop.endBoarding) {
+        stop.triggered = false;
+        stop.containerTriggered = false;
+    }
+    if (boarded) {
+        if (stop.busstop != nullptr) {
+            const std::vector<MSTransportable*>& persons = myPersonDevice->getTransportables();
+            for (std::vector<MSTransportable*>::const_iterator i = persons.begin(); i != persons.end(); ++i) {
+                stop.busstop->removeTransportable(*i);
+            }
+        }
+        // the triggering condition has been fulfilled. Maybe we want to wait a bit longer for additional riders (car pooling)
+        stop.triggered = false;
+        if (myAmRegisteredAsWaitingForPerson) {
+            MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(true);
+            myAmRegisteredAsWaitingForPerson = false;
+#ifdef DEBUG_STOPS
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " vehicle '" << getID() << "' unregisters as waiting for person." << std::endl;
+            }
+#endif
+        }
+    }
+    if (loaded) {
+        if (stop.containerstop != nullptr) {
+            const std::vector<MSTransportable*>& containers = myContainerDevice->getTransportables();
+            for (std::vector<MSTransportable*>::const_iterator i = containers.begin(); i != containers.end(); ++i) {
+                stop.containerstop->removeTransportable(*i);
+            }
+        }
+        // the triggering condition has been fulfilled
+        stop.containerTriggered = false;
+        if (myAmRegisteredAsWaitingForContainer) {
+            MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(false);
+            myAmRegisteredAsWaitingForContainer = false;
+#ifdef DEBUG_STOPS
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " vehicle '" << getID() << "' unregisters as waiting for container." << std::endl;
+            }
+#endif
+        }
+    }
 }
 
 bool
