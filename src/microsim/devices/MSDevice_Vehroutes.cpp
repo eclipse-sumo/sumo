@@ -135,13 +135,13 @@ MSDevice_Vehroutes::~MSDevice_Vehroutes() {
 
 bool
 MSDevice_Vehroutes::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
-    MSVehicle& vehicle = static_cast<MSVehicle&>(veh);
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
-        if (mySorted && myStateListener.myDevices[&vehicle] == this) {
+        if (mySorted && myStateListener.myDevices[static_cast<SUMOVehicle*>(&veh)] == this) {
             const SUMOTime departure = myIntendedDepart ? myHolder.getParameter().depart : MSNet::getInstance()->getCurrentTimeStep();
             myDepartureCounts[departure]++;
         }
         if (!MSGlobals::gUseMesoSim) {
+            const MSVehicle& vehicle = static_cast<MSVehicle&>(veh);
             myDepartLane = vehicle.getLane()->getIndex();
             myDepartPosLat = vehicle.getLateralPositionOnLane();
         }
