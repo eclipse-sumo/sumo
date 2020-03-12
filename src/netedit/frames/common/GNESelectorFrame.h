@@ -94,6 +94,11 @@ public:
 
             /// @brief counter
             int myCounter;
+
+        private:
+            /// @brief Invalidated assignment operator.
+            ObjectTypeEntry& operator=(const ObjectTypeEntry&) = delete;
+
         };
 
         /// @brief constructor

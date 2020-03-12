@@ -185,10 +185,10 @@ GNESelectorFrame::LockGLObjectTypes::showTypeEntries() {
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* matrixParent, const Supermode supermode, const std::string& label) :
     FXObject(),
     mySupermode(supermode),
-    myCounter(0),
     myLabelCounter(nullptr), 
     myLabelTypeName(nullptr),
-    myCheckBoxLocked(nullptr) {
+    myCheckBoxLocked(nullptr),
+    myCounter(0) {
     // create elements
     myLabelCounter = new FXLabel(matrixParent, "0", nullptr, GUIDesignLabelLeft);
     myLabelTypeName = new FXLabel(matrixParent, (label + " ").c_str(), nullptr, GUIDesignLabelLeft);
@@ -252,10 +252,10 @@ GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::onCmdSetCheckBox(FXObject*
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::ObjectTypeEntry() :
     FXObject(),
     mySupermode(Supermode::NETWORK),
-    myCounter(0),
     myLabelCounter(nullptr),
     myLabelTypeName(nullptr),
-    myCheckBoxLocked(nullptr) {
+    myCheckBoxLocked(nullptr),
+    myCounter(0) {
 }
 
 // ---------------------------------------------------------------------------
@@ -1040,7 +1040,6 @@ long
 GNESelectorFrame::MatchGenericDataAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
     // obtain expression and tag value
     std::string expression = myMatchGenericDataString->getText().text();
-    const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
     bool valid = true;
     // get all Generic datas
     const auto genericDatas = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers().retrieveGenericDatas(myCurrentTag,

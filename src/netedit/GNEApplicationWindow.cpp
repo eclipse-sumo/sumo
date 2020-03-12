@@ -3561,14 +3561,6 @@ GNEApplicationWindow::isUndoRedoEnabled() const {
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindow::GNEApplicationWindow() :
-    myToolbarsGrip(this),
-    myMenuBarFile(this),
-    myFileMenuCommands(this),
-    myEditMenuCommands(this),
-    myProcessingMenuCommands(this),
-    myLocateMenuCommands(this),
-    myWindowsMenuCommands(this),
-    mySupermodeCommands(this),
     myLoadThread(nullptr),
     myAmLoading(false),
     myFileMenu(nullptr),
@@ -3584,7 +3576,15 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myMessageWindow(nullptr),
     myMainSplitter(nullptr),
     myNet(nullptr),
-    myUndoList(nullptr) {
+    myUndoList(nullptr),
+    myToolbarsGrip(this),
+    myMenuBarFile(this),
+    myFileMenuCommands(this),
+    myEditMenuCommands(this),
+    myProcessingMenuCommands(this),
+    myLocateMenuCommands(this),
+    myWindowsMenuCommands(this),
+    mySupermodeCommands(this) {
 }
 
 

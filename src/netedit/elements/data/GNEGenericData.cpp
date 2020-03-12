@@ -17,11 +17,6 @@
 ///
 // A abstract class for data sets
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/GNEViewNet.h>
@@ -228,7 +223,7 @@ GNEGenericData::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 
 GUIParameterTableWindow* 
-GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* parent */) {
     // Create table
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // Iterate over attributes

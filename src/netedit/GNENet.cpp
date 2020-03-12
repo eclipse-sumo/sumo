@@ -363,9 +363,9 @@ GNENet::AttributeCarriers::updateDataSetID(GNEAttributeCarrier* AC, const std::s
 GNENet::GNENet(NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, ""),
     ShapeContainer(),
-    myAttributeCarriers(this),
     myViewNet(nullptr),
     myNetBuilder(netBuilder),
+    myAttributeCarriers(this),
     myEdgeIDSupplier("gneE", netBuilder->getEdgeCont().getAllNames()),
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myNeedRecompute(true),
