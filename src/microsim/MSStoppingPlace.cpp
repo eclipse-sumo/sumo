@@ -82,6 +82,9 @@ MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle) const {
     if (myLastFreePos != myEndPos) {
         const double vehGap = forVehicle.getVehicleType().getMinGap();
         double pos = myLastFreePos - vehGap;
+        if (forVehicle.getLane() == &myLane && forVehicle.getPositionOnLane() < myEndPos && forVehicle.getPositionOnLane() > myBegPos && forVehicle.getSpeed() <= SUMO_const_haltingSpeed) {
+            return forVehicle.getPositionOnLane();
+        }
         if (!fits(pos, forVehicle)) {
             // try to find a place ahead of the waiting vehicles
             const double vehLength = forVehicle.getVehicleType().getLength();
