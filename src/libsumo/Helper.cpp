@@ -1029,6 +1029,7 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, 
     const double streamDist = isDownstream ? s.filterDownstreamDist : s.filterUpstreamDist;
     double distRemaining = streamDist;
     bool isFirstLane = true;
+    PositionVector combinedShape;
     for (const MSLane* lane : lanes) {
 #ifdef DEBUG_SURROUNDING
         std::cout << "FILTER_LATERAL_DIST: current lane " << (isDownstream ? "down" : "up") << " is '" << lane->getID() << "', length " << lane->getLength()
@@ -1062,24 +1063,24 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, 
 #ifdef DEBUG_SURROUNDING
         std::cout << "   posLat=" << posLat << " laneShape=" << laneShape << "\n";
 #endif
-
-        // check remaining objects' distances to this lane
-        auto i = objIDs.begin();
-        while (i != objIDs.end()) {
-            SUMOTrafficObject* obj = getTrafficObject(s.contextDomain, *i);
-            double minPerpendicularDist = laneShape.distance2D(obj->getPosition(), true);
-#ifdef DEBUG_SURROUNDING
-            std::cout << "   obj " << obj->getID() << " dist=" << minPerpendicularDist << " filterDist=" << s.filterLateralDist << "\n";
-#endif
-            if ((minPerpendicularDist != GeomHelper::INVALID_OFFSET) && (minPerpendicularDist <= s.filterLateralDist)) {
-                vehs.insert(obj);
-                i = objIDs.erase(i);
-            } else {
-                ++i;
-            }
-        }
+        combinedShape.append(laneShape);
         if (distRemaining <= 0) {
-            return;;
+            break;
+        }
+    }
+    // check remaining objects' distances to the combined shape
+    auto i = objIDs.begin();
+    while (i != objIDs.end()) {
+        SUMOTrafficObject* obj = getTrafficObject(s.contextDomain, *i);
+        double minPerpendicularDist = combinedShape.distance2D(obj->getPosition(), true);
+#ifdef DEBUG_SURROUNDING
+        std::cout << " obj " << obj->getID() << " dist=" << minPerpendicularDist << " filterDist=" << s.filterLateralDist << "\n";
+#endif
+        if ((minPerpendicularDist != GeomHelper::INVALID_OFFSET) && (minPerpendicularDist <= s.filterLateralDist)) {
+            vehs.insert(obj);
+            i = objIDs.erase(i);
+        } else {
+            ++i;
         }
     }
 }
