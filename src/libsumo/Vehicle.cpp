@@ -1123,7 +1123,9 @@ Vehicle::add(const std::string& vehicleID,
             throw TraCIException("Departure speed for vehicle '" + vehicleID + "' is too high for the departure edge '" + route->getEdges().front()->getID() + "'.");
         }
         MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams.id, vehicle);
-        MSNet::getInstance()->getInsertionControl().add(vehicle);
+        if (vehicleParams.departProcedure != DEPART_TRIGGERED && vehicleParams.departProcedure != DEPART_CONTAINER_TRIGGERED) {
+            MSNet::getInstance()->getInsertionControl().add(vehicle);
+        }
     } catch (ProcessError& e) {
         throw TraCIException(e.what());
     }
