@@ -40,6 +40,9 @@ at_start
 # Tests whether parking can be handled
 parking
 
+# test stop timing
+parking_until
+
 # vehicle cannot resume from parking immediately due to traffic on the road
 parking_delay_insertion
 
