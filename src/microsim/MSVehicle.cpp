@@ -1822,8 +1822,6 @@ MSVehicle::processNextStop(double currentVelocity) {
                       << "Remaining duration: " << STEPS2TIME(stop.duration) << std::endl;
         }
 #endif
-        boardTransportables(stop);
-
         if (stop.duration <= 0 && stop.pars.join != "") {
             // join this train (part) to another one
             MSVehicle* joinVeh = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(stop.pars.join));
@@ -1843,6 +1841,8 @@ MSVehicle::processNextStop(double currentVelocity) {
 #endif
             resumeFromStopping();
         } else {
+            boardTransportables(stop);
+
             if (stop.triggered && !myAmRegisteredAsWaitingForPerson) {
                 if (getVehicleType().getPersonCapacity() == getPersonNumber()) {
                     WRITE_WARNING("Vehicle '" + getID() + "' ignores triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
@@ -1987,6 +1987,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     }
                 }
 
+                boardTransportables(stop);
             }
         }
     }
