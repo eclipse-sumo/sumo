@@ -10,22 +10,64 @@ Debug: Current saving Status: net unsaved, additionals saved, demand elements sa
 Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poly' in TagSelector
 Debug: Key ENTER pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Key ENTER pressed
 Debug: Invalid input parameter of poly: 'angle' doesn't have a valid 'float' format between [0, 360]
 Debug: Key ENTER pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 3.79,17.75,14.21,27.25
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key ENTER pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 14.79,17.79,24.21,27.21
 Debug: Key ENTER pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_2' into viewNet
 GLDebug: 	Inserted polygon:poly_2 into SUMORTree with boundary 25.79,17.79,35.21,27.21
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poly 'poly_2' from viewNet
@@ -38,6 +80,8 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poly 'poly_0' from viewNet
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 3.79,17.75,14.21,27.25
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poly 'poly_0' into viewNet

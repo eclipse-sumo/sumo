@@ -63,6 +63,14 @@ Debug: Created connection 'from8_0to2_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_0to3_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Adding crossing into junction 'Center'
 Debug: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
@@ -99,6 +107,8 @@ GLDebug: 	Inserted edge:5 into SUMORTree with boundary 40.00,-10.00,64.80,60.00
 GLDebug: 	Inserted edge:6 into SUMORTree with boundary 35.20,40.00,60.00,110.00
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,35.20,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: removing crossing from junction 'Center'
@@ -135,6 +145,8 @@ GLDebug: 	Inserted edge:5 into SUMORTree with boundary 40.00,-10.00,64.80,60.00
 GLDebug: 	Inserted edge:6 into SUMORTree with boundary 35.20,40.00,60.00,110.00
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,35.20,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding crossing into junction 'Center'
@@ -170,6 +182,7 @@ GLDebug: 	Inserted edge:5 into SUMORTree with boundary 40.00,-10.00,64.80,60.00
 GLDebug: 	Inserted edge:6 into SUMORTree with boundary 35.20,40.00,60.00,110.00
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,35.20,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge '1' in GNENet destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -219,5 +232,4 @@ Debug: Deleting unreferenced junction 'D' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 13

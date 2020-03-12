@@ -39,6 +39,12 @@ Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to4_1' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetworkElements: 2, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetworkElements: 2, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Value 'dummyType' for attribute type of junction isn't valid
 Debug: Adding TLS into junction 'C'
 Debug: net has to be saved
@@ -52,6 +58,8 @@ Debug: Setting new attribute linkIndex2 '-1' into crossing ':Center_c0'
 Debug: Setting new attribute linkIndex '-1' into crossing ':Center_c1'
 Debug: Setting new attribute linkIndex2 '-1' into crossing ':Center_c1'
 Debug: Key F5 (Compute) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute linkIndex2 '-1' into crossing ':Center_c1'
@@ -64,6 +72,8 @@ Debug: Adding TLS into junction 'Center'
 Debug: Setting previous attribute type 'traffic_light' into junction 'C'
 Debug: Removing TLS from junction 'C'
 Debug: Key F5 (Compute) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding TLS into junction 'C'

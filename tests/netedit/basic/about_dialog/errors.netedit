@@ -3,7 +3,7 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Opening about dialog
-Debug: Modules:  x86_64 GNU 7.4.0 Release Proj GUI SWIG GDAL GL2PS Eigen
+Debug: Modules:  AMD64 MSVC 19.24.28314.0 Release Proj GUI SWIG GDAL FFmpeg OSG GL2PS Eigen
 Debug: Closed about dialog
 Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor

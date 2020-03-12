@@ -135,6 +135,8 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,3
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
 Debug: Created connection 'from-gneE2.33_0togneE8_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2.16_0togneE4_0' in retrieveGNEConnection()
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: removing crossing from junction 'gneJ2'
@@ -204,6 +206,8 @@ GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 38.40,-10.00,60.00,30
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary 40.00,-10.00,61.60,30.00
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'gneJ4' into net
@@ -281,6 +285,7 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced busStop 'busStop2'
 Debug: Deleting unreferenced busStop 'busStop1'
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge '-gneE2' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE2_0to-gneE2.33_0' in GNEEdge destructor
@@ -316,7 +321,7 @@ Debug: Deleting unreferenced connection 'fromgneE9_0togneE2_0' in GNEEdge destru
 Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
-Debug: Deleting unreferenced crossing ':gneJ2_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ2_c1' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ2_c1' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Debug: Deleting unreferenced crossing ':gneJ3_c0' in GNEJunction destructor
@@ -325,5 +330,4 @@ Debug: Deleting unreferenced junction 'gneJ4' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 15

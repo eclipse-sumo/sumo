@@ -22,20 +22,26 @@ Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '248.00'
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetworkElements: 2, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetworkElements: 2, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Open additional dialog
-Debug: Close additional dialog
-Debug: Setting new attribute linkIndex '6' into crossing ':Center_c1'
+Debug: Cancel additional dialog
+Debug: Setting new attribute linkIndex '1' into crossing ':Center_c1'
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
-Debug: Setting new attribute linkIndex '1' into crossing ':Center_c1'
 Debug: Key F5 (Compute) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute linkIndex '6' into crossing ':Center_c1'
+Debug: Setting previous attribute linkIndex '17' into crossing ':Center_c1'
 Debug: Key F5 (Compute) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute linkIndex '1' into crossing ':Center_c1'
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge '1' in GNENet destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -94,4 +100,3 @@ Debug: Deleting unreferenced junction 'D' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor

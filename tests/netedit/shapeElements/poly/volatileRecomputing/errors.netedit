@@ -69,6 +69,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-14.20,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,14.20
 Debug: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
@@ -79,8 +80,4 @@ Debug: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_1togneE0_1' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

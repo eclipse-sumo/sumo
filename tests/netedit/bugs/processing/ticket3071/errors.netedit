@@ -72,6 +72,12 @@ Debug: Created crossing ':gneJ19_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ19_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ19_c2' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ19_c3' in retrieveGNECrossing()
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Key F7 (Join junctions) pressed
 Debug: Adding junction 'gneJ20' into net
 Debug: net has to be saved
@@ -236,6 +242,8 @@ Debug: Created connection 'fromgneE9_1togneE14_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1to-gneE13_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE18_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute pos '20.10,20.10' into junction 'cluster_gneJ13_gneJ17_gneJ19'
@@ -399,6 +407,8 @@ Debug: Created crossing ':gneJ13_c2' in retrieveGNECrossing()
 Debug: Setting previous attribute type 'unknown' into junction 'gneJ20'
 Debug: Removing junction 'gneJ20' from net
 Debug: Key F5 (Compute) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Key F7 (Join junctions) pressed
 Debug: Opening FXMessageBox 'Join non-selected junction'
 Debug: Closed FXMessageBox 'Join non-selected junction' with 'No'
@@ -569,6 +579,8 @@ Debug: Created connection 'fromgneE9_1togneE14_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1to-gneE13_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE18_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute pos '20.10,20.10' into junction 'cluster_gneJ13_gneJ17_gneJ19'
@@ -732,6 +744,8 @@ Debug: Created crossing ':gneJ13_c2' in retrieveGNECrossing()
 Debug: Setting previous attribute type 'unknown' into junction 'gneJ21'
 Debug: Removing junction 'gneJ21' from net
 Debug: Key F5 (Compute) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'gneJ21' into net
@@ -919,6 +933,7 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge '-gneE10' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor
@@ -1030,12 +1045,12 @@ Debug: Deleting unreferenced connection 'fromgneE9_1to-gneE13_1' in GNEEdge dest
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE18_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE10_1' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'cluster_gneJ13_gneJ17_gneJ19' in GNENet destructor
-Debug: Deleting unreferenced crossing ':cluster_gneJ13_gneJ17_gneJ19_c0' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':cluster_gneJ13_gneJ17_gneJ19_c1' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':cluster_gneJ13_gneJ17_gneJ19_c2' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':cluster_gneJ13_gneJ17_gneJ19_c3' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':cluster_gneJ13_gneJ17_gneJ19_c4' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':cluster_gneJ13_gneJ17_gneJ19_c5' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ21_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ21_c1' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ21_c5' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ21_c3' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ21_c2' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ21_c4' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ11' in GNENet destructor
 Debug: Deleting unreferenced crossing ':gneJ11_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ11_c1' in GNEJunction destructor
@@ -1045,9 +1060,9 @@ Debug: Deleting unreferenced crossing ':gneJ12_c0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ14' in GNENet destructor
 Debug: Deleting unreferenced crossing ':gneJ14_c0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ15' in GNENet destructor
-Debug: Deleting unreferenced crossing ':gneJ15_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ15_c1' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ15_c2' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ15_c0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ16' in GNENet destructor
 Debug: Deleting unreferenced crossing ':gneJ16_c0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ18' in GNENet destructor
@@ -1055,4 +1070,3 @@ Debug: Deleting unreferenced crossing ':gneJ18_c0' in GNEJunction destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor

@@ -95,6 +95,7 @@ Debug: Deleting unreferenced busStop 'busStop_-gneE6_0_4'
 Debug: Deleting unreferenced busStop 'busStop_-gneE5_0_3'
 Debug: Deleting unreferenced busStop 'busStop_-gneE4_0_2'
 Debug: Deleting unreferenced busStop 'busStop_-gneE3_0_1'
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge '-gneE10' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor
@@ -228,7 +229,3 @@ Debug: Deleting unreferenced junction 'gneJ6' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ7' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ8' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ9' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor

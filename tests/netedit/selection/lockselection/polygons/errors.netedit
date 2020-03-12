@@ -43,6 +43,8 @@ Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Enabled show demand elements throught alt + 3
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Setting new attribute selected '1' into edge '1'
 Debug: Setting new attribute selected '1' into edge '2'
 Debug: Setting new attribute selected '1' into edge '3'
@@ -111,6 +113,8 @@ Debug: Setting new attribute selected 'false' into poi 'POI_2'
 Debug: Setting new attribute selected 'false' into poi 'POI_3'
 Debug: Setting new attribute selected 'false' into poiLane 'POI_4'
 Debug: Setting new attribute selected 'false' into poiLane 'POI_5'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Setting new attribute selected '1' into edge '1'
 Debug: Setting new attribute selected '1' into edge '2'
 Debug: Setting new attribute selected '1' into edge '3'
@@ -177,6 +181,8 @@ Debug: Setting new attribute selected 'false' into poi 'POI_2'
 Debug: Setting new attribute selected 'false' into poi 'POI_3'
 Debug: Setting new attribute selected 'false' into poiLane 'POI_4'
 Debug: Setting new attribute selected 'false' into poiLane 'POI_5'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '1' into poiLane 'POI_5'
@@ -341,6 +347,8 @@ Debug: Removing detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
@@ -534,6 +542,7 @@ Debug: Deleting unreferenced e3Detector 'e3Detector_1'
 Debug: Deleting unreferenced detExit 'e3Detector_0detExit1'
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge '1' in GNENet destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -592,4 +601,3 @@ Debug: Deleting unreferenced junction 'D' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor

@@ -27,6 +27,9 @@ Debug: Setting new attribute selected 'true' into edge 'gneE0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into edge 'gneE3'
 Debug: Setting new attribute selected 'true' into edge 'gneE4'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-0.60,60.00,21.00
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-0.60,60.00,21.00
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,1.00,60.00,22.60
@@ -57,6 +60,8 @@ GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,12.00,60.00,33
 Debug: Setting new attribute shape '26.00,14.00' into edge 'gneE4'
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,12.00,60.00,33.60
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,4.00,60.00,33.53
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute shape '' into edge 'gneE4'
@@ -77,6 +82,8 @@ Debug: Setting previous attribute selected '0' into edge 'gneE4'
 Debug: Setting previous attribute selected '0' into edge 'gneE3'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into edge 'gneE0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
@@ -134,6 +141,7 @@ Debug: Deleting unreferenced busStop 'busStop_gneE1_0_2'
 Debug: Deleting unreferenced busStop 'busStop_gneE1_0_1'
 Debug: Deleting unreferenced busStop 'busStop_gneE0_0_7'
 Debug: Deleting unreferenced busStop 'busStop_gneE0_0_6'
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -153,5 +161,4 @@ Debug: Deleting unreferenced junction 'gneJ5' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 10

@@ -63,6 +63,8 @@ Debug: Created connection 'from8_1to2_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to3_2' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Adding crossing into junction 'Center'
 Debug: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
