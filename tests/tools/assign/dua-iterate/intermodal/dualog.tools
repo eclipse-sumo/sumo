@@ -5,18 +5,18 @@ Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', 'iteration_000.sumocfg']
 Loading configuration ... done.
-Loading net-file from 'input_net.net.xml' ... done (7ms).
+Loading net-file from 'input_net.net.xml' ... done (11ms).
 Loading additional-files from 'dua_dump_000.add.xml' ... done (0ms).
-Loading additional-files from 'input_additional.add.xml' ... done (6ms).
+Loading additional-files from 'input_additional.add.xml' ... done (10ms).
 Loading done.
-Simulation version v1_5_0+0224-d5a976c started with time: 0.00
-Simulation ended at time: 3469.00
+Simulation version v1_5_0+0673-e4a6910 started with time: 0.00
+Simulation ended at time: 3468.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 98ms
- Real time factor: 35398
- UPS: 43918.367347
- UPS-Persons: 23214.285714
+ Duration: 206ms
+ Real time factor: 16835
+ UPS: 20810.679612
+ UPS-Persons: 11038.834951
 Vehicles: 
  Inserted: 16
  Running: 0
@@ -35,27 +35,28 @@ Success.
 ['/scr1/sumo/bin/sumo', '-c', 'iteration_001.sumocfg']
 Loading configuration ... done.
 Loading net-file from 'input_net.net.xml' ... done (7ms).
-Loading additional-files from 'dua_dump_001.add.xml' ... done (0ms).
+Loading additional-files from 'dua_dump_001.add.xml' ... done (1ms).
 Loading additional-files from 'input_additional.add.xml' ... done (6ms).
 Loading done.
-Simulation version v1_5_0+0224-d5a976c started with time: 0.00
+Simulation version v1_5_0+0673-e4a6910 started with time: 0.00
 Warning: Vehicle 'p0_0' aborted waiting for a person or container that will never come.
-Simulation ended at time: 3469.00
+Warning: Vehicle 'p1_0' aborted waiting for a person or container that will never come.
+Simulation ended at time: 3467.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 95ms
- Real time factor: 36515.8
- UPS: 39168.421053
- UPS-Persons: 22968.421053
+ Duration: 93ms
+ Real time factor: 37279.6
+ UPS: 33473.118280
+ UPS-Persons: 23989.247312
 Vehicles: 
- Inserted: 15 (Loaded: 16)
+ Inserted: 14 (Loaded: 16)
  Running: 0
  Waiting: 0
 Persons: 
  Inserted: 4
  Running: 0
 
-DijkstraRouter answered 9 queries and explored 14.78 edges on average.
+DijkstraRouter answered 14 queries and explored 16.71 edges on average.
 DijkstraRouter spent 0ms answering queries (0.00ms on average).
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', 'iteration_002_input_trips_001.duarcfg']
@@ -64,20 +65,20 @@ Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', 'iteration_002.sumocfg']
 Loading configuration ... done.
-Loading net-file from 'input_net.net.xml' ... done (6ms).
+Loading net-file from 'input_net.net.xml' ... done (7ms).
 Loading additional-files from 'dua_dump_002.add.xml' ... done (1ms).
 Loading additional-files from 'input_additional.add.xml' ... done (6ms).
 Loading done.
-Simulation version v1_5_0+0224-d5a976c started with time: 0.00
+Simulation version v1_5_0+0673-e4a6910 started with time: 0.00
 Warning: Vehicle 'p0_0' aborted waiting for a person or container that will never come.
 Warning: Vehicle 'p1_0' aborted waiting for a person or container that will never come.
-Simulation ended at time: 3469.00
+Simulation ended at time: 3467.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 90ms
- Real time factor: 38544.4
- UPS: 34788.888889
- UPS-Persons: 24788.888889
+ Duration: 92ms
+ Real time factor: 37684.8
+ UPS: 33836.956522
+ UPS-Persons: 24250.000000
 Vehicles: 
  Inserted: 14 (Loaded: 16)
  Running: 0
@@ -99,15 +100,15 @@ Loading net-file from 'input_net.net.xml' ... done (7ms).
 Loading additional-files from 'dua_dump_003.add.xml' ... done (0ms).
 Loading additional-files from 'input_additional.add.xml' ... done (6ms).
 Loading done.
-Simulation version v1_5_0+0224-d5a976c started with time: 0.00
+Simulation version v1_5_0+0673-e4a6910 started with time: 0.00
 Warning: Vehicle 'p0_0' aborted waiting for a person or container that will never come.
 Warning: Vehicle 'p1_0' aborted waiting for a person or container that will never come.
-Simulation ended at time: 3469.00
+Simulation ended at time: 3467.00
 Reason: All vehicles have left the simulation.
 Performance: 
  Duration: 93ms
- Real time factor: 37301.1
- UPS: 33666.666667
+ Real time factor: 37279.6
+ UPS: 33473.118280
  UPS-Persons: 23989.247312
 Vehicles: 
  Inserted: 14 (Loaded: 16)
@@ -126,20 +127,20 @@ Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', 'iteration_004.sumocfg']
 Loading configuration ... done.
-Loading net-file from 'input_net.net.xml' ... done (6ms).
-Loading additional-files from 'dua_dump_004.add.xml' ... done (0ms).
+Loading net-file from 'input_net.net.xml' ... done (7ms).
+Loading additional-files from 'dua_dump_004.add.xml' ... done (1ms).
 Loading additional-files from 'input_additional.add.xml' ... done (6ms).
 Loading done.
-Simulation version v1_5_0+0224-d5a976c started with time: 0.00
+Simulation version v1_5_0+0673-e4a6910 started with time: 0.00
 Warning: Vehicle 'p0_0' aborted waiting for a person or container that will never come.
 Warning: Vehicle 'p1_0' aborted waiting for a person or container that will never come.
-Simulation ended at time: 3469.00
+Simulation ended at time: 3467.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 92ms
- Real time factor: 37706.5
- UPS: 34032.608696
- UPS-Persons: 24250.000000
+ Duration: 96ms
+ Real time factor: 36114.6
+ UPS: 32427.083333
+ UPS-Persons: 23239.583333
 Vehicles: 
  Inserted: 14 (Loaded: 16)
  Running: 0
