@@ -53,36 +53,6 @@ GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParen
 GNEEdgeData::~GNEEdgeData() {}
 
 
-const RGBColor&
-GNEEdgeData::getColor() const {
-    // first check if we're in supermode demand
-    if (myDataIntervalParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        // special case for edgeDatas
-        if (myTagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) {
-            // obtain pointer to edge data frame (only for code legibly)
-            const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getViewNet()->getViewParent()->getEdgeDataFrame();
-            // check if we have to filter generic data
-            if (edgeDataFrame->shown()) {
-                // get interval
-                const GNEDataInterval* dataInterval = edgeDataFrame->getIntervalSelector()->getDataInterval();
-                // get filtered attribute (can be empty)
-                const std::string filteredAttribute = edgeDataFrame->getAttributeSelector()->getFilteredAttribute();
-                // check interval
-                if (dataInterval && (dataInterval == myDataIntervalParent) && (filteredAttribute.size() > 0)) {
-                    // get maximum and minimum value
-                    const double minimumValue = dataInterval->getMinimumGenericDataChildAttribute(filteredAttribute);
-                    const double maximumValue = dataInterval->getMaximunGenericDataChildAttribute(filteredAttribute);
-                    const double colorValue = getParametersMap().count(filteredAttribute) > 0 ? parse<double>(getParametersMap().at(filteredAttribute)) : 0;
-                    // return scaled color
-                    return edgeDataFrame->getAttributeSelector()->getScaledColor(minimumValue, maximumValue, colorValue);
-                }
-            }
-        }
-    }
-    return RGBColor::RED;
-}
-
-
 void
 GNEEdgeData::updateGeometry() {
     // nothing to update
@@ -249,6 +219,12 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEEdgeData::setEnabledAttribute(const int /*enabledAttributes*/) {
     throw InvalidArgument("Nothing to enable");
+}
+
+
+const RGBColor&
+GNEEdgeData::getSpecificColor() const {
+    return RGBColor::RED;
 }
 
 /****************************************************************************/

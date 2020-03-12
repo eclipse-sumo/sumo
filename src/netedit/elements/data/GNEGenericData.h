@@ -95,14 +95,14 @@ public:
     /// @brief get data interval parent
     GNEDataInterval* getDataIntervalParent() const;
 
+    /// @brief get generic data color
+    const RGBColor &getColor() const;
+
     /// @brief check if current generic data is visible
     bool isVisible() const;
 
     /// @brief Returns a pointer to GNEViewNet in which data set element is located
     GNEViewNet* getViewNet() const;
-
-    /// @brief get generic data color
-    virtual const RGBColor& getColor() const = 0;
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
@@ -236,6 +236,9 @@ private:
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     virtual void setEnabledAttribute(const int enabledAttributes) = 0;
+
+    /// @brief get specific generic data color
+    virtual const RGBColor& getSpecificColor() const = 0;
 
     /// @brief gererate a new ID for an element child (currently unused)
     std::string generateChildID(SumoXMLTag childTag);

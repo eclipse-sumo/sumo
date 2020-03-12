@@ -35,6 +35,7 @@
 
 #include "GNEGenericData.h"
 #include "GNEDataInterval.h"
+#include "GNEDataSet.h"
 
 
 // ===========================================================================
@@ -82,8 +83,8 @@ GNEGenericData::getDataIntervalParent() const {
 }
 
 
-bool
-GNEGenericData::isVisible() const {
+const RGBColor&
+GNEGenericData::getColor() const {
     // first check if we're in supermode demand
     if (myDataIntervalParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // special case for edgeDatas
@@ -92,20 +93,85 @@ GNEGenericData::isVisible() const {
             const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getViewNet()->getViewParent()->getEdgeDataFrame();
             // check if we have to filter generic data
             if (edgeDataFrame->shown()) {
+                // get interval
+                const GNEDataInterval* dataInterval = edgeDataFrame->getIntervalSelector()->getDataInterval();
+                // get filtered attribute (can be empty)
+                const std::string filteredAttribute = edgeDataFrame->getAttributeSelector()->getFilteredAttribute();
                 // check interval
-                if (edgeDataFrame->getIntervalSelector()->getDataInterval() &&
+                if (dataInterval && (dataInterval == myDataIntervalParent) && (filteredAttribute.size() > 0)) {
+                    // get maximum and minimum value
+                    const double minimumValue = dataInterval->getMinimumGenericDataChildAttribute(filteredAttribute);
+                    const double maximumValue = dataInterval->getMaximunGenericDataChildAttribute(filteredAttribute);
+                    const double colorValue = getParametersMap().count(filteredAttribute) > 0 ? parse<double>(getParametersMap().at(filteredAttribute)) : 0;
+                    // return scaled color
+                    return edgeDataFrame->getAttributeSelector()->getScaledColor(minimumValue, maximumValue, colorValue);
+                }
+            }
+        }
+    }
+    // return specific color
+    return getSpecificColor();
+}
+
+
+bool
+GNEGenericData::isVisible() const {
+    // first check if we're in supermode demand
+    if (myDataIntervalParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        // check if we're in common mode
+        if ((myDataIntervalParent->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) ||
+            (myDataIntervalParent->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_DELETE) ||
+            (myDataIntervalParent->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_SELECT)) {
+            // obtain dataset, begin, end and attribute
+            const std::string dataSet = myDataIntervalParent->getViewNet()->getIntervalBar().getDataSetStr();
+            const std::string begin = myDataIntervalParent->getViewNet()->getIntervalBar().getBeginStr();
+            const std::string end = myDataIntervalParent->getViewNet()->getIntervalBar().getEndStr();
+            const std::string attribute = myDataIntervalParent->getViewNet()->getIntervalBar().getAttributeStr();
+            // chek data set
+            if (!dataSet.empty() && myDataIntervalParent->getDataSetParent()->getID() != dataSet) {
+                return false;
+            }
+            // chek begin
+            if (!begin.empty() && parse<double>(begin) < myDataIntervalParent->getAttributeDouble(SUMO_ATTR_BEGIN)) {
+                return false;
+            }
+            // chek end
+            if (!end.empty() && parse<double>(end) > myDataIntervalParent->getAttributeDouble(SUMO_ATTR_END)) {
+                return false;
+            }
+            // check attribute
+            if (!attribute.empty() && getParametersMap().count(attribute) == 0) {
+                return false;
+            }
+            // all checks ok, then return true
+            return true;
+        } else if (myTagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) {
+            // obtain pointer to edge data frame (only for code legibly)
+            const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getViewNet()->getViewParent()->getEdgeDataFrame();
+            // check if we have to filter generic data
+            if (edgeDataFrame->shown()) {
+                // check interval
+                if ((edgeDataFrame->getIntervalSelector()->getDataInterval() != nullptr) &&
                     (edgeDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
                     return false;
-                } else {
-                    return true;
                 }
-            } else {
+                // check attribute
+                if ((edgeDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
+                    (getParametersMap().count(edgeDataFrame->getAttributeSelector()->getFilteredAttribute()) > 0)) {
+                    return false;
+                }
+                // all checks ok, then return true
                 return true;
+            } else {
+                // GNEEdgeDataFrame hidden, then return false
+                return false;
             }
         } else {
-            return true;
+            // undefinied mode, then return false
+            return false;
         }
     } else {
+        // no supermode data
         return false;
     }
 }

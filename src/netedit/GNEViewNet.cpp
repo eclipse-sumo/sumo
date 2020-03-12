@@ -3023,8 +3023,8 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCurrentFrame = myViewParent->getSelectorFrame();
             // set checkable button
             myCommonCheckableButtons.selectButton->setChecked(true);
-            // disable IntervalBar
-            myIntervalBar.disableIntervalBar();
+            // enable IntervalBar
+            myIntervalBar.enableIntervalBar();
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;

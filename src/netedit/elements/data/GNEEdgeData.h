@@ -47,9 +47,6 @@ public:
     /// @brief Destructor
     ~GNEEdgeData();
 
-    /// @brief get generic data color
-    const RGBColor& getColor() const;
-
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -138,14 +135,15 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
-protected:
-
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
+
+    /// @brief get specific generic data color
+    const RGBColor& getSpecificColor() const;
 
     /// @brief Invalidated copy constructor.
     GNEEdgeData(const GNEEdgeData&) = delete;
