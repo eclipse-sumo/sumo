@@ -282,7 +282,7 @@ public:
      *            (the latter gives a more complete picture but may include vehicles in multiple steps even if they did not stay on the detector)
      * @return The list of vehicles
      */
-    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool includeEarly = false, bool leaveTime = false) const;
+    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool includeEarly = false, bool leaveTime = false, bool forOccupancy = false) const;
 
     /// @brief allows for special color in the gui version
     virtual void setSpecialColor(const RGBColor* /*color*/) {};
