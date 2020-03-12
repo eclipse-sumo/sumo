@@ -105,6 +105,10 @@ public:
      */
     virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const;
     //* @}
+    
+    /* @brief proceeds to the next step of the route,
+     * @return Whether the transportables plan continues  */
+    bool proceed(MSNet* net, SUMOTime time);
 
     /* @brief set the position of a person while riding in a vehicle
      * @note This must be called by the vehicle before the call to drawGl */

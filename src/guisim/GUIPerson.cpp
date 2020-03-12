@@ -164,7 +164,8 @@ GUIPerson::GUIPersonPopupMenu::onCmdRemoveObject(FXObject*, FXSelector, void*) {
 
 GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor) :
     MSPerson(pars, vtype, plan, speedFactor),
-    GUIGlObject(GLO_PERSON, pars->id)
+    GUIGlObject(GLO_PERSON, pars->id),
+    myLock(true)
 { }
 
 
@@ -451,6 +452,9 @@ GUIPerson::getColorValue(const GUIVisualizationSettings& /* s */, int activeSche
 double
 GUIPerson::getEdgePos() const {
     FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return -1;
+    }
     return MSPerson::getEdgePos();
 }
 
@@ -458,6 +462,9 @@ GUIPerson::getEdgePos() const {
 Position
 GUIPerson::getPosition() const {
     FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return Position::INVALID;
+    }
     return MSPerson::getPosition();
 }
 
@@ -465,6 +472,9 @@ GUIPerson::getPosition() const {
 Position
 GUIPerson::getGUIPosition() const {
     FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return Position::INVALID;
+    }
     if (getCurrentStageType() == MSStageType::DRIVING && !isWaiting4Vehicle() && myPositionInVehicle.pos != Position::INVALID) {
         return myPositionInVehicle.pos;
     } else {
@@ -476,6 +486,9 @@ GUIPerson::getGUIPosition() const {
 double
 GUIPerson::getGUIAngle() const {
     FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return INVALID_DOUBLE;
+    }
     if (getCurrentStageType() == MSStageType::DRIVING && !isWaiting4Vehicle() && myPositionInVehicle.pos != Position::INVALID) {
         return myPositionInVehicle.angle;
     } else {
@@ -487,6 +500,9 @@ GUIPerson::getGUIAngle() const {
 double
 GUIPerson::getNaviDegree() const {
     FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return INVALID_DOUBLE;
+    }
     return GeomHelper::naviDegree(MSPerson::getAngle());
 }
 
@@ -494,6 +510,9 @@ GUIPerson::getNaviDegree() const {
 double
 GUIPerson::getWaitingSeconds() const {
     FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return -1;
+    }
     return MSPerson::getWaitingSeconds();
 }
 
@@ -501,6 +520,9 @@ GUIPerson::getWaitingSeconds() const {
 double
 GUIPerson::getSpeed() const {
     FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return -1;
+    }
     return MSPerson::getSpeed();
 }
 
@@ -508,6 +530,9 @@ GUIPerson::getSpeed() const {
 std::string
 GUIPerson::getStageIndexDescription() const {
     FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return "arrived";
+    }
     return toString(getNumStages() - getNumRemainingStages()) + " of " + toString(getNumStages() - 1);
 }
 
@@ -515,6 +540,9 @@ GUIPerson::getStageIndexDescription() const {
 std::string
 GUIPerson::getEdgeID() const {
     FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return "arrived";
+    }
     return  getEdge()->getID();
 }
 
@@ -522,6 +550,9 @@ GUIPerson::getEdgeID() const {
 std::string
 GUIPerson::getFromEdgeID() const {
     FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return "arrived";
+    }
     return getFromEdge()->getID();
 }
 
@@ -529,6 +560,9 @@ GUIPerson::getFromEdgeID() const {
 std::string
 GUIPerson::getDestinationEdgeID() const {
     FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return "arrived";
+    }
     return getDestination()->getID();
 }
 
@@ -536,7 +570,16 @@ GUIPerson::getDestinationEdgeID() const {
 double
 GUIPerson::getStageArrivalPos() const {
     FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return INVALID_DOUBLE;
+    }
     return getCurrentStage()->getArrivalPos();
+}
+
+bool
+GUIPerson::proceed(MSNet* net, SUMOTime time) {
+    FXMutexLock locker(myLock);
+    return MSTransportable::proceed(net, time);
 }
 
 // -------------------------------------------------------------------------

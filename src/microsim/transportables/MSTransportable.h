@@ -115,7 +115,7 @@ public:
 
     /* @brief proceeds to the next step of the route,
      * @return Whether the transportables plan continues  */
-    bool proceed(MSNet* net, SUMOTime time);
+    virtual bool proceed(MSNet* net, SUMOTime time);
 
     virtual void checkAccess(const MSStage* const prior, const bool isDisembark = true) {
         UNUSED_PARAMETER(prior);
