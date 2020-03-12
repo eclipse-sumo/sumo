@@ -85,15 +85,15 @@ tool for making these choices are via typemaps. SUMO provides
 recommended typemaps in the folder {{SUMO}}/data/typemap/. They are explained
 below.
 
-- **osmNetconvert.typ.xml** default settings. appropriate for rural
+- **osmNetconvert.typ.xml** default settings, appropriate for rural
   and motorway scenarios. This is used in the absence of
   user-specified types. All other typemaps are intended as *patches*
-  to this typemap
+  to this typemap.
 - **osmNetconvertUrbanDe.typ.xml** Changes default speeds to reflect
-  typical urban speed limits (50km/h)
+  typical urban speed limits (50km/h).
 - **osmNetconvertPedestrians.typ.xml** Adds sidewalks for some edge
-  types and sets permissions appropriate for pedestrian simulation
-- **osmNetconvertBicycle.typ.xml** imports bicycle lanes
+  types and sets permissions appropriate for pedestrian simulation.
+- **osmNetconvertBicycle.typ.xml** Imports bicycle lanes.
 - **osmNetconvertShips.typ.xml** Imports waterways and ferry routes.
   This typemap can be combined with any other typemap.
 - **osmNetconvertRailUsage.typ.xml** Imports additional
@@ -102,7 +102,7 @@ below.
   in combination with other typemaps.
 - **osmBidiRailNetconvert.typ.xml**. Changes the default from
   uni-directional railroads to bi-directional railroads. This may be
-  usefull in some regions of the world where OSM contributors used
+  useful in some regions of the world where OSM contributors used
   this style of date representation. The use of this typemap supplants
   the older option **--osm.railway.oneway-default** {{DT_BOOL}}.
 
@@ -386,8 +386,8 @@ not desirable for multi-modal scenarios.
 
 *From George Dita, on 01.07.2009* [JOSM](http://josm.openstreetmap.de/)
 can be used to edit OSM-data (i.e. for trimming a rectangular map and
-deleting unwated features). After you delete the part that does not
-interest you have to alter the file using xmlstarlet which actually
+deleting unwanted features). After you delete the part that does not
+interest you, you have to alter the file using xmlstarlet which actually
 deletes the nodes.
 
 xmlstarlet can be used like this:
@@ -421,7 +421,7 @@ java -jar osmosis.jar --read-xml file="orginal.osm.xml" --way-key-value \
 When importing road networks, [NETCONVERT](../../NETCONVERT.md)
 searches for the street type, encoded in OSM as a key/value-pair where
 the key is either "*highway*", "*railway*" or "*waterway*". Only if such
-a key occures in the edge definition, the edge is imported (see also
+a key occurs in the edge definition, the edge is imported (see also
 below). The edge's type name is built from the found key/value pair by
 building a name as: *<KEY\>*.*<VALUE\>*. Using this type name, the edge's
 attributes are determined using a predefined map of type names to type
@@ -441,11 +441,11 @@ additional type maps from
 
 ## Explicite Road Attributes
 
-In the case an edge contains the definition about the number of lanes
+In case an edge contains the definition about the number of lanes
 (key="*lanes*") or the allowed speed (key="*maxspeed*"), this
 information is used instead of the according type's value. Also, the
 per-edge information whether the edge is a one-way edge is read
-(key="*oneway*"). In the case the edge belongs to a roundabout
+(key="*oneway*"). In case the edge belongs to a roundabout
 (key="*junction*" and value="*roundabout*"), it is also set as being a
 one-way edge.
 
@@ -544,10 +544,10 @@ import without the wizard is explained in
 
 The following data is imported:
 
-- Public transport Stops
+- Public transport stops
 - Public transport lines that service these stops
 
-Pulic transport schedules which are needed to make use of the above data
+Public transport schedules which are needed to make use of the above data
 are generated with a user-defined service period based on a simulation
 of the lines.
 
@@ -581,7 +581,7 @@ Python Example (Get OSM River Data from OSM in BBox)
      return data, query
 ```
 
-Caution: If the data volume is too large, the overpass Api abort.
+Caution: If the data volume is too large, the overpass API aborts.
 
 More information about the query syntax and a GUI for testing the querys
 can be found on the website <https://overpass-turbo.eu/>.
