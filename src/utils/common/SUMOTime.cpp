@@ -73,7 +73,7 @@ time2string(SUMOTime t) {
     // needed for signed zero errors, see #5926
     t = abs(t);
     const SUMOTime scale = (SUMOTime)pow(10, MAX2(0, 3 - gPrecision));
-    if (scale > 1) {
+    if (scale > 1 && t != SUMOTime_MAX) {
         t = (t + scale / 2) / scale;
     }
     const SUMOTime second = TIME2STEPS(1) / scale;
