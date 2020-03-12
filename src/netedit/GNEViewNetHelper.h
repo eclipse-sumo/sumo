@@ -674,14 +674,17 @@ struct GNEViewNetHelper {
         /// @}
 
     protected:
+        /// @brief update combo box attributes
+        void updateComboBoxAttributes();
+
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
 
         /// @brief combo box for data sets
-        FXComboBox* myDataSet;
+        FXComboBox* myDataSetsComboBox;
 
-        /// @checkbox for limit data elements by interval
-        FXCheckButton* myLimitByInterval;
+        /// @brief checkbox for limit data elements by interval
+        FXCheckButton* myLimitByIntervalCheckBox;
 
         /// @brief text field for interval begin
         FXTextField* myBeginTextField;
@@ -689,14 +692,20 @@ struct GNEViewNetHelper {
         /// @brief text field for interval end
         FXTextField* myEndTextField;
 
-        /// @brief combo box for attributes
-        FXComboBox* myAttribute;
+        /// @brief combo box for filtered attributes
+        FXComboBox* myFilteredAttributesComboBox;
+
+        /// @brief set for attribuets
+        std::set<std::string> myFilteredAttributes;
 
     private:
-        /// @brief string with wildcar for all dataSets
+        /// @brief string with wildcard for no dataSets
+        const FXString myNoDataSets;
+
+        /// @brief string with wildcard for all dataSets
         const FXString myAllDataSets;
 
-        /// @brief string with wildcar for all attributes
+        /// @brief string with wildcard for all attributes
         const FXString myAllAttributes;
 
         /// @brief Invalidated copy constructor.
