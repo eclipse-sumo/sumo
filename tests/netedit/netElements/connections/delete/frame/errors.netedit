@@ -58,6 +58,7 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into ed
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
 Debug: Removing connection '8_1->3_1' from edge '8'
 Debug: Deleting unreferenced connection 'from8_1to3_1' in removeConnection()
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge '1' in GNENet destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -105,4 +106,3 @@ Debug: Deleting unreferenced junction 'D' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor

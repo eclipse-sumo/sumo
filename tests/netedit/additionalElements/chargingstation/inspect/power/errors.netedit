@@ -6,7 +6,7 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'chargingStation' in TagSelector
 Debug: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Value 'DummyPower' for attribute power of chargingStation isn't valid
 Debug: Value '-300' for attribute power of chargingStation isn't valid
 Debug: Setting new attribute power '500.5' into chargingStation 'chargingStation_gneE2_1_0'
@@ -34,7 +34,8 @@ Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_1_0'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -60,4 +61,3 @@ Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor

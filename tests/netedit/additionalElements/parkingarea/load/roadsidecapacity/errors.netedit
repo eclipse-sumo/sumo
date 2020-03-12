@@ -10,7 +10,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -0.10,
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 12.00,-28.20,43.00,-2.20
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Format of optional positive optional integer attribute 'roadsideCapacity' of parkingArea with ID 'parkingArea_1' is invalid; Cannot be parsed to int; Default value will be used.
 Debug: Adding parkingArea 'parkingArea_1' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
@@ -60,7 +60,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_4 into SUMORTree with boundary 25.00,
 Debug: Deleting unreferenced parkingArea 'parkingArea_4'
 GLDebug: 	Removed object parkingArea:parkingArea_4 from SUMORTree with boundary 25.00,2.20,56.00,28.20
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced parkingArea 'parkingArea_3'
 GLDebug: 	Removed object parkingArea:parkingArea_3 from SUMORTree with boundary 27.00,2.20,58.00,28.20
 Debug: Deleting unreferenced parkingArea 'parkingArea_2'
@@ -69,6 +69,7 @@ Debug: Deleting unreferenced parkingArea 'parkingArea_1'
 GLDebug: 	Removed object parkingArea:parkingArea_1 from SUMORTree with boundary 14.00,-28.20,45.00,-2.20
 Debug: Deleting unreferenced parkingArea 'parkingArea_0'
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 12.00,-28.20,43.00,-2.20
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -80,5 +81,4 @@ Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

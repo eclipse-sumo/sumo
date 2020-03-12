@@ -10,7 +10,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -0.10,
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 15.80,2.20,34.20,10.60
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding space 'parkingArea_0space0' in GNEChange_Additional
 GLDebug: 	Inserted parkingSpace:parkingArea_0space0 into SUMORTree with boundary 33.35,10.00,46.65,26.00
 Debug: Format of optional optional angle[0, 360] attribute 'angle' of space is invalid; Cannot be parsed to float; Default value will be used.
@@ -47,7 +47,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 15.80,
 Debug: Deleting unreferenced space 'parkingArea_0space5'
 GLDebug: 	Removed object parkingSpace:parkingArea_0space5 from SUMORTree with boundary -11.02,-21.43,5.83,-5.57
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced space 'parkingArea_0space4'
 GLDebug: 	Removed object parkingSpace:parkingArea_0space4 from SUMORTree with boundary 39.88,4.34,56.26,21.06
 Debug: Deleting unreferenced space 'parkingArea_0space3'
@@ -60,6 +60,7 @@ Debug: Deleting unreferenced space 'parkingArea_0space0'
 GLDebug: 	Removed object parkingSpace:parkingArea_0space0 from SUMORTree with boundary 33.35,10.00,46.65,26.00
 Debug: Deleting unreferenced parkingArea 'parkingArea_0'
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 15.80,2.20,34.20,10.60
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -71,5 +72,4 @@ Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

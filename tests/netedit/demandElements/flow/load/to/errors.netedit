@@ -26,7 +26,7 @@ Error: Invalid route '' used in flow 'flow_2'.
 Debug: Adding flow 'flow_4' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec154943.13464\netedit.gui\demandElements\flow\load\to\input_routes.rou.xml failed.
+Error: Loading of /home/micha/.texttest/tmp/netedit.gui.11Mar215608.647/netedit.gui/demandElements/flow/load/to/input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -86,6 +86,7 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced flow 'flow_4'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE10' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
@@ -128,5 +129,4 @@ Debug: Deleting unreferenced junction 'gneJ9' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16

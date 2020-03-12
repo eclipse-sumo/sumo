@@ -8,7 +8,7 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Format of optional optional angle[0, 360] attribute 'angle' of poi with ID 'POI_0' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding poiLane 'POI_0' into viewNet
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding poiLane 'POI_1' into viewNet
 Debug: Adding poiLane 'POI_2' into viewNet
 Debug: Adding poiLane 'POI_3' into viewNet
@@ -37,6 +37,7 @@ Debug: Removing poiLane 'POI_1' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_1' in ~GNEChange_Shape()
 Debug: Removing poiLane 'POI_0' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_0' in ~GNEChange_Shape()
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -48,5 +49,4 @@ Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

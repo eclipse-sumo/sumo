@@ -8,7 +8,7 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 15.00,-15.00,25.00,-5.00
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: net has to be saved
@@ -28,10 +28,11 @@ GLDebug: 	Inserted edge:gneE12 into SUMORTree with boundary -11.25,-12.23,61.19,
 GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary -10.07,1.10,60.06,27.99
 Debug: Deleting unreferenced detExit 'e3Detector_0detExit1'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 15.00,-15.00,25.00,-5.00
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE12' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE12_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE13' in GNENet destructor
@@ -41,5 +42,4 @@ Debug: Deleting unreferenced junction 'gneJ22' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

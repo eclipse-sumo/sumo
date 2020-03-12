@@ -7,7 +7,7 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding containerStop 'containerStop' in GNEChange_Additional
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Error: Attribute 'duration' in definition of a stop is not a real number.
 Error: Invalid duration or end time is given for a stop at 'containerStop' in trip 'trip'.
 Error: Attribute 'duration' in definition of a stop is empty.
@@ -18,7 +18,7 @@ Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Adding stopContainerStop 'tripstopContainerStop0' in GNEChange_DemandElement
 Debug: Adding stopContainerStop 'tripstopContainerStop1' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Jan082657.5824\netedit.gui\demandElements\stop\stopContainerStop\load\duration\input_routes.rou.xml failed.
+Error: Loading of /home/micha/.texttest/tmp/netedit.gui.11Mar215608.647/netedit.gui/demandElements/stop/stopContainerStop/load/duration/input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Disabled toogle show grid throught alt + 1
@@ -59,6 +59,7 @@ Debug: Deleting unreferenced trip 'trip'
 Debug: Deleting unreferenced containerStop 'containerStop'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -70,5 +71,4 @@ Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

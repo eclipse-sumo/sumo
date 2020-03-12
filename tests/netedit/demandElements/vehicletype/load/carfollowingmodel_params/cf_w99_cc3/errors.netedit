@@ -26,7 +26,7 @@ Debug: Adding vType 'vType1' in GNEChange_DemandElement
 Debug: Adding vType 'vType2' in GNEChange_DemandElement
 Debug: Adding vType 'vType3' in GNEChange_DemandElement
 Debug: Adding vType 'vType4' in GNEChange_DemandElement
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_w99_cc3\input_routes.rou.xml failed.
+Error: Loading of /home/micha/.texttest/tmp/netedit.gui.11Mar215608.647/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_w99_cc3/input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -98,6 +98,7 @@ Debug: Deleting unreferenced vType 'vType3'
 Debug: Deleting unreferenced vType 'vType2'
 Debug: Deleting unreferenced vType 'vType1'
 Debug: Deleting unreferenced vType 'vType0'
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE10' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
@@ -140,5 +141,4 @@ Debug: Deleting unreferenced junction 'gneJ9' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16

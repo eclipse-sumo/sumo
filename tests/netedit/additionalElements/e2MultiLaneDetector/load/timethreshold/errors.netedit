@@ -10,7 +10,7 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Format of optional optional SUMOTime attribute 'timeThreshold' of e2MultilaneDetector with ID 'e2MultilaneDetector_1' is invalid; Cannot be parsed to SUMOTime; Default value will be used.
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
 Debug: Format of optional optional SUMOTime attribute 'timeThreshold' of e2MultilaneDetector with ID 'e2MultilaneDetector_2' is invalid; Cannot be parsed to SUMOTime; Default value will be used.
@@ -76,11 +76,12 @@ GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_4'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_3'
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_2'
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_1'
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in GNEEdge destructor
@@ -98,5 +99,4 @@ Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 7

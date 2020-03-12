@@ -10,7 +10,7 @@ GLDebug: 	Inserted parkingArea:parkingArea into SUMORTree with boundary -0.10,-0
 GLDebug: 	Removed object parkingArea:parkingArea from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingArea into SUMORTree with boundary 15.80,-10.60,34.20,-2.20
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding vehicle 'vehicle' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
@@ -22,7 +22,7 @@ Error: Invalid duration or end time is given for a stop at 'parkingArea' in vehi
 Error: Invalid duration or end time is given for a stop at 'parkingArea' in vehicle 'vehicle'.
 Debug: Adding stopParkingArea 'vehiclestopParkingArea1' in GNEChange_DemandElement
 Debug: Adding stopParkingArea 'vehiclestopParkingArea2' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Jan082657.5824\netedit.gui\demandElements\stop\stopParkingArea\load\duration\input_routes.rou.xml failed.
+Error: Loading of /home/micha/.texttest/tmp/netedit.gui.11Mar215608.647/netedit.gui/demandElements/stop/stopParkingArea/load/duration/input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Disabled toogle show grid throught alt + 1
@@ -69,6 +69,7 @@ Debug: Deleting unreferenced parkingArea 'parkingArea'
 GLDebug: 	Removed object parkingArea:parkingArea from SUMORTree with boundary 15.80,-10.60,34.20,-2.20
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -80,5 +81,4 @@ Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

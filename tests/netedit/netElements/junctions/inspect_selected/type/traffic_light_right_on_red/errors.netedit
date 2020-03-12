@@ -2,7 +2,7 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_1_0_7' in GNEChange_Additional
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding busStop 'busStop_2_0_2' in GNEChange_Additional
 Debug: Adding busStop 'busStop_3_0_0' in GNEChange_Additional
 Debug: Adding busStop 'busStop_4_0_5' in GNEChange_Additional
@@ -78,7 +78,7 @@ Debug: Setting new attribute linkIndex2 '-1' into crossing ':Center_c1'
 Debug: Additionals saved
 Debug: Deleting unreferenced busStop 'busStop_8_0_4'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced busStop 'busStop_7_0_1'
 Debug: Deleting unreferenced busStop 'busStop_6_1_3'
 Debug: Deleting unreferenced busStop 'busStop_5_0_6'
@@ -86,6 +86,7 @@ Debug: Deleting unreferenced busStop 'busStop_4_0_5'
 Debug: Deleting unreferenced busStop 'busStop_3_0_0'
 Debug: Deleting unreferenced busStop 'busStop_2_0_2'
 Debug: Deleting unreferenced busStop 'busStop_1_0_7'
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge '1' in GNENet destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -144,4 +145,3 @@ Debug: Deleting unreferenced junction 'D' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor

@@ -15,7 +15,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundar
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 17.80,-10.60,32.20,-2.20
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Format of optional positive optional float attribute 'length' of parkingArea with ID 'parkingArea_gneE0_0_1' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding parkingArea 'parkingArea_gneE0_0_1' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
@@ -63,9 +63,10 @@ GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_1 into SUMORTree with boundar
 Debug: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_1'
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_1 from SUMORTree with boundary 1.80,-10.60,16.20,-2.20
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_0'
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 17.80,-10.60,32.20,-2.20
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -77,5 +78,4 @@ Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

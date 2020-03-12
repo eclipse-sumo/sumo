@@ -8,7 +8,7 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,20.00
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
 Debug: net has to be saved
@@ -27,7 +27,7 @@ GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute imgFile 'C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Nov090632.4620\netedit.gui\shapeElements\poly\inspect_selected\imgfile\berlin_icon.ico' into poly 'poly_1'
+Debug: Setting previous attribute imgFile '/home/micha/.texttest/tmp/netedit.gui.11Mar215608.647/netedit.gui/shapeElements/poly/inspect_selected/imgfile/berlin_icon.ico' into poly 'poly_1'
 GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,34.00,20.00
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
 Debug: Setting previous attribute imgFile '' into poly 'poly_0'
@@ -76,6 +76,7 @@ Debug: delete poly 'poly_1' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 0.00,6.00,14.00,20.00
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -87,5 +88,4 @@ Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

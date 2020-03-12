@@ -119,6 +119,7 @@ Debug: Deleting unreferenced junction 'B' in GNEChange_Attribute
 Debug: Deleting NBNode of 'B' in GNEJunction destructor
 Debug: Deleting unreferenced edge '-gneE4' in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE4_0' in GNEEdge destructor
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge '-gneE3' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE3_0togneE7_0' in GNEEdge destructor
@@ -188,4 +189,3 @@ Debug: Deleting unreferenced junction 'gneJ9' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor

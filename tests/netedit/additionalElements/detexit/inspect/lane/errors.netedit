@@ -17,7 +17,7 @@ Debug: Selected item 'e3Detector' in TagSelector
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 17.00,25.00,27.00,35.00
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Selected item 'detExit' in TagSelector
 Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Debug: Selected item 'detEntry' in TagSelector
@@ -83,10 +83,11 @@ Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry1'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 17.00,25.00,27.00,35.00
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -112,5 +113,4 @@ Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 8

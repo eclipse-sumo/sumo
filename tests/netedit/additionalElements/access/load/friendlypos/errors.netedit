@@ -31,7 +31,7 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_0' in GNEChange_Additional
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding access 'busStop_0access0' in GNEChange_Additional
 Debug: Format of optional optional boolean attribute 'friendlyPos' of access is invalid; Cannot be parsed to boolean; Default value will be used.
 Debug: Adding access 'busStop_0access1' in GNEChange_Additional
@@ -105,12 +105,13 @@ Debug: Created connection 'from7_0to8_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_0to7_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced access 'busStop_0access4'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced access 'busStop_0access3'
 Debug: Deleting unreferenced access 'busStop_0access2'
 Debug: Deleting unreferenced access 'busStop_0access1'
 Debug: Deleting unreferenced access 'busStop_0access0'
 Debug: Deleting unreferenced busStop 'busStop_0'
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge '1' in GNENet destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '10' in GNENet destructor
@@ -158,5 +159,4 @@ Debug: Deleting unreferenced junction 'gneJ9' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 28

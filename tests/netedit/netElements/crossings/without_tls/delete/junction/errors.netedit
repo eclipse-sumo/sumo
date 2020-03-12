@@ -566,6 +566,7 @@ Debug: Deleting unreferenced lane '6_1' in GNEEdge destructor
 Debug: Deleting unreferenced edge '2' in GNEChange_Attribute
 Debug: Deleting unreferenced lane '2_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '2_1' in GNEEdge destructor
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced junction 'A' in GNENet destructor
 Debug: Deleting unreferenced junction 'B' in GNENet destructor
 Debug: Deleting unreferenced junction 'C' in GNENet destructor
@@ -573,5 +574,4 @@ Debug: Deleting unreferenced junction 'D' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

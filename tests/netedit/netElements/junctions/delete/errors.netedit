@@ -2,7 +2,7 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Debug: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
 Debug: Adding busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
@@ -1111,7 +1111,7 @@ Debug: Deleting unreferenced junction 'gneJ0' in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ0' in GNEJunction destructor
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced busStop 'busStop_gneE7_0_6'
 Debug: Deleting unreferenced busStop 'busStop_gneE6_0_9'
 Debug: Deleting unreferenced busStop 'busStop_gneE5_0_8'
@@ -1122,6 +1122,7 @@ Debug: Deleting unreferenced busStop 'busStop_-gneE6_0_4'
 Debug: Deleting unreferenced busStop 'busStop_-gneE5_0_3'
 Debug: Deleting unreferenced busStop 'busStop_-gneE4_0_2'
 Debug: Deleting unreferenced busStop 'busStop_-gneE3_0_1'
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge '-gneE10' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE10_0to-gneE9_0' in GNEEdge destructor
@@ -1186,4 +1187,3 @@ Debug: Deleting unreferenced junction 'gneJ9' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor

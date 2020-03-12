@@ -15,7 +15,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundar
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 12.80,-10.60,31.20,-2.20
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Selected item 'space' in TagSelector
 Debug: Adding space 'parkingArea_gneE0_0_0space0' in GNEChange_Additional
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE0_0_0space0 into SUMORTree with boundary 10.40,10.00,23.60,25.00
@@ -57,9 +57,10 @@ GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundar
 Debug: Deleting unreferenced space 'parkingArea_gneE0_0_0space0'
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE0_0_0space0 from SUMORTree with boundary 10.40,10.00,23.60,25.00
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_0'
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 12.80,-10.60,31.20,-2.20
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -71,5 +72,4 @@ Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

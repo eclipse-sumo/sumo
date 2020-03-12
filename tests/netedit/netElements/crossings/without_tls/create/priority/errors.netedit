@@ -36,6 +36,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding crossing into junction 'Center'
 Debug: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge '1' in GNENet destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -85,4 +86,3 @@ Debug: Deleting unreferenced junction 'D' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
