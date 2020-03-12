@@ -218,8 +218,9 @@ If the simulation contained persons the following output will be added:
 - "Real time factor": The quotient of *simulated time* / *computation
   time*. If one hour is simulated in 360 seconds the real time factor
   is 10.
-- UPS: (updates per second). The number of vehicles that were
-  simulated on average per second of computation time.
+- UPS: (updates per second). The number of vehicle updates that were
+  performed on average per second of computation time. If a single 
+  vehicle update takes on average one millisecond, this will be 1000.
 
 If routing took place in the simulation, Each routing algorithm instance
 will report
