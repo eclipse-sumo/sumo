@@ -334,7 +334,6 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
         #    routeCounts))
         # print("slack (n=%s, sum=%s) %s" % (len(slack), sum(slack), slack))
         usedRoutes.extend(sum([[i] * int(round(c)) for i, c in enumerate(routeCounts)], []))
-        random.shuffle(usedRoutes)
         # print("#usedRoutes=%s" % len(usedRoutes))
         # update countData
     else:
@@ -471,6 +470,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
                 begin, end, totalMismatch))
         optimize(options, countData, routes, usedRoutes, routeUsage)
         resetCounts(usedRoutes, routeUsage, countData)
+    # avoid bias from sampling order / optimization
+    random.shuffle(usedRoutes)
 
     if usedRoutes:
         outf.write('<!-- begin="%s" end="%s" -->\n' % (begin, end))
