@@ -10,7 +10,7 @@ GLDebug: 	Inserted parkingArea:parkingAreaLoaded_A into SUMORTree with boundary 
 GLDebug: 	Removed object parkingArea:parkingAreaLoaded_A from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingAreaLoaded_A into SUMORTree with boundary 28.80,-10.60,47.20,-2.20
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding space 'parkingAreaLoaded_Aspace0' in GNEChange_Additional
 GLDebug: 	Inserted parkingSpace:parkingAreaLoaded_Aspace0 into SUMORTree with boundary 21.40,-17.00,34.60,-2.00
 Debug: Adding parkingArea 'parkingAreaLoaded_B' in GNEChange_Additional
@@ -96,7 +96,7 @@ Debug: Deleting unreferenced space 'parkingAreaLoaded_Bspace0'
 Debug: Deleting unreferenced parkingArea 'parkingAreaLoaded_B'
 GLDebug: 	Removed object parkingArea:parkingAreaLoaded_B from SUMORTree with boundary 28.80,2.20,47.20,10.60
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced space 'parkingAreaLoaded_Aspace0'
 Debug: Deleting unreferenced parkingArea 'parkingAreaLoaded_A'
 GLDebug: 	Removed object parkingArea:parkingAreaLoaded_A from SUMORTree with boundary 28.80,-10.60,47.20,-2.20

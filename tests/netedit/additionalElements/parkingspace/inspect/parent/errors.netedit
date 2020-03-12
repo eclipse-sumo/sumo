@@ -19,7 +19,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundar
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary 12.80,9.40,31.20,17.80
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Format of optional positive optional float attribute 'length' of parkingArea with ID 'parkingArea_gneE2_1_1' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding parkingArea 'parkingArea_gneE2_1_1' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
@@ -105,7 +105,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_1 into SUMORTree with boundar
 Debug: Deleting unreferenced space 'parkingArea_gneE2_1_0space1'
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space1 from SUMORTree with boundary 26.40,-2.00,39.60,13.00
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced space 'parkingArea_gneE2_1_0space0'
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space0 from SUMORTree with boundary 10.40,-2.00,23.60,13.00
 Debug: Deleting unreferenced parkingArea 'parkingArea_gneE2_1_1'

@@ -6,7 +6,7 @@ Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poi' in TagSelector
 Debug: Adding poi 'POI_0' into viewNet
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding poi 'POI_1' into viewNet
 Debug: Setting new attribute blockMovement 'true' into poi 'POI_0'
 Debug: Setting new attribute blockMovement 'true' into poi 'POI_1'

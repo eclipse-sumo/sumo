@@ -12,7 +12,7 @@ Debug: Selected item 'poi' in TagSelector
 Debug: Adding poi 'POI_0' into viewNet
 GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -2.00,17.00,4.00,23.00
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into poi 'POI_0'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into poi 'POI_0'
 Debug: Setting new attribute genericParameter '' into poi 'POI_0'
