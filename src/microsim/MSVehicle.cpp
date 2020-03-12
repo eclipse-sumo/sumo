@@ -90,7 +90,7 @@
 //#define DEBUG_FURTHER
 //#define DEBUG_SETFURTHER
 //#define DEBUG_TARGET_LANE
-#define DEBUG_STOPS
+//#define DEBUG_STOPS
 //#define DEBUG_BESTLANES
 //#define DEBUG_IGNORE_RED
 //#define DEBUG_ACTIONSTEPS
@@ -1743,8 +1743,8 @@ MSVehicle::isStoppedOnLane() const {
 bool
 MSVehicle::keepStopping(bool afterProcessing) const {
     if (isStopped()) {
-        // after calling processNextStop, DELTA_T has already been subtracted from the duration
-        return (myStops.front().duration + (afterProcessing ? DELTA_T : 0) > 0 || isStoppedTriggered() || myStops.front().collision
+        // when coming out of vehicleTransfer we must shift the time forward
+        return (myStops.front().duration - (afterProcessing ? DELTA_T : 0) > 0 || isStoppedTriggered() || myStops.front().collision
                 || (myStops.front().pars.speed > 0 && myState.myPos < myStops.front().pars.endPos));
     } else {
         return false;
