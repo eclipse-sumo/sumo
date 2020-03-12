@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 11 22:22:57 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
+<!-- generated on Thu Mar 12 08:41:04 2020 by Eclipse SUMO Version v1_5_0+0668-3019609
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -338,25 +338,19 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="v0" x="260.00" y="-4.85" angle="90.00" type="t0" speed="0.00" pos="60.00" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="98.00">
-        <vehicle id="v0" x="260.00" y="-4.85" angle="90.00" type="t0" speed="0.00" pos="60.00" lane="end_0" slope="0.00"/>
-    </timestep>
-    <timestep time="99.00">
-        <vehicle id="v0" x="260.00" y="-4.85" angle="90.00" type="t0" speed="0.00" pos="60.00" lane="end_0" slope="0.00"/>
-    </timestep>
-    <timestep time="100.00">
         <vehicle id="v0" x="262.60" y="-1.65" angle="90.00" type="t0" speed="2.60" pos="62.60" lane="end_0" slope="0.00"/>
     </timestep>
-    <timestep time="101.00">
+    <timestep time="99.00">
         <vehicle id="v0" x="267.80" y="-1.65" angle="90.00" type="t0" speed="5.20" pos="67.80" lane="end_0" slope="0.00"/>
     </timestep>
-    <timestep time="102.00">
+    <timestep time="100.00">
         <vehicle id="v0" x="275.60" y="-1.65" angle="90.00" type="t0" speed="7.80" pos="75.60" lane="end_0" slope="0.00"/>
     </timestep>
-    <timestep time="103.00">
+    <timestep time="101.00">
         <vehicle id="v0" x="286.00" y="-1.65" angle="90.00" type="t0" speed="10.40" pos="86.00" lane="end_0" slope="0.00"/>
     </timestep>
-    <timestep time="104.00">
+    <timestep time="102.00">
         <vehicle id="v0" x="299.00" y="-1.65" angle="90.00" type="t0" speed="13.00" pos="99.00" lane="end_0" slope="0.00"/>
     </timestep>
-    <timestep time="105.00"/>
+    <timestep time="103.00"/>
 </fcd-export>
