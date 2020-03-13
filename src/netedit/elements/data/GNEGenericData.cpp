@@ -24,6 +24,8 @@
 #include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -157,7 +159,7 @@ GNEGenericData::isVisible() const {
                 }
                 // check attribute
                 if ((edgeDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
-                    (getParametersMap().count(edgeDataFrame->getAttributeSelector()->getFilteredAttribute()) > 0)) {
+                    (getParametersMap().count(edgeDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
                     return false;
                 }
                 // all checks ok, then return true
@@ -173,6 +175,31 @@ GNEGenericData::isVisible() const {
     } else {
         // no supermode data
         return false;
+    }
+}
+
+
+void 
+GNEGenericData::drawAttribute(const PositionVector& shape) const {
+    if ((myTagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) && (shape.length() > 0)) {
+        // obtain pointer to edge data frame (only for code legibly)
+        const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getViewNet()->getViewParent()->getEdgeDataFrame();
+        // check if we have to filter generic data
+        if (edgeDataFrame->shown()) {
+            // check attribute
+            if ((edgeDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
+                (getParametersMap().count(edgeDataFrame->getAttributeSelector()->getFilteredAttribute()) > 0)) {
+                // get value
+                const std::string value = getParametersMap().at(edgeDataFrame->getAttributeSelector()->getFilteredAttribute());
+                // calculate center position
+                const Position centerPosition = shape.positionAtOffset2D(shape.length2D() / 2);
+                // Add a draw matrix
+                glPushMatrix();
+                GLHelper::drawText(value, centerPosition, GLO_MAX, 2, RGBColor::BLUE);
+                // pop draw matrix
+                glPopMatrix();
+            }
+        }
     }
 }
 

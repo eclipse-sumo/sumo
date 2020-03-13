@@ -56,22 +56,22 @@ FXIMPLEMENT(GNELane, FXDelegator, 0, 0)
 
 GNELane::GNELane(GNEEdge* edge, const int index) :
     GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE,
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myParentEdge(edge),
-myIndex(index),
-mySpecialColor(nullptr),
-mySpecialColorValue(-1),
-myLane2laneConnections(this) {
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myParentEdge(edge),
+    myIndex(index),
+    mySpecialColor(nullptr),
+    mySpecialColorValue(-1),
+    myLane2laneConnections(this) {
 }
 
 GNELane::GNELane() :
     GNENetworkElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE,
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myParentEdge(nullptr),
-myIndex(-1),
-mySpecialColor(nullptr),
-mySpecialColorValue(-1),
-myLane2laneConnections(this) {
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myParentEdge(nullptr),
+    myIndex(-1),
+    mySpecialColor(nullptr),
+    mySpecialColorValue(-1),
+    myLane2laneConnections(this) {
 }
 
 
@@ -390,13 +390,17 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
             if (edgeGenericData->isVisible()) {
                 glPopName();
+                if (myIndex == 0) {
+                    // draw attribute in first lane
+                    edgeGenericData->drawAttribute(myLaneGeometry.getShape());
+                }
             }
         }
         // draw parents
-        for (const auto& i : getParentAdditionals()) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_VSS) {
+        for (const auto& additionalParent : getParentAdditionals()) {
+            if (additionalParent->getTagProperty().getTag() == SUMO_TAG_VSS) {
                 // draw VSS Symbol
-                drawVSSSymbol(s, i);
+                drawVSSSymbol(s, additionalParent);
             }
         }
         // draw child shapes
@@ -414,9 +418,9 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw child demand elements
-        for (const auto& i : getChildDemandElements()) {
-            if (!i->getTagProperty().isPlacedInRTree()) {
-                i->drawGL(s);
+        for (const auto& demandElement : getChildDemandElements()) {
+            if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                demandElement->drawGL(s);
             }
         }
     } else {
@@ -539,6 +543,10 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
             if (edgeGenericData->isVisible()) {
                 glPopName();
+                if (myIndex == 0) {
+                    // draw attribute in first lane
+                    edgeGenericData->drawAttribute(myLaneGeometry.getShape());
+                }
             }
         }
         // draw parents
@@ -563,9 +571,9 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw child demand elements
-        for (const auto& i : getChildDemandElements()) {
-            if (!i->getTagProperty().isPlacedInRTree()) {
-                i->drawGL(s);
+        for (const auto& demandElement : getChildDemandElements()) {
+            if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                demandElement->drawGL(s);
             }
         }
     }

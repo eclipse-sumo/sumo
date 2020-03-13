@@ -101,6 +101,9 @@ public:
     /// @brief check if current generic data is visible
     bool isVisible() const;
 
+    // @brief draw attribute
+    void drawAttribute(const PositionVector &shape) const;
+
     /// @brief Returns a pointer to GNEViewNet in which data set element is located
     GNEViewNet* getViewNet() const;
 
