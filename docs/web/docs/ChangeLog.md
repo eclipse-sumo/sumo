@@ -19,12 +19,13 @@ permalink: /ChangeLog/
   - Railway fixes:
     - Train reversal problems. Issue #6692, #6782, #6797
     - Train routing now considers space requirement for train reversal. Issue #6697, #6743, #6799
-    - Train routing is no longer effected by occupied edges that are beyond rail signal control. Issue #6741
+    - Train routing is no longer effected by occupied edges that are beyond rail signal control. Issue #6741    
+    - Invalid train speed after insertion on short edge. Issue #6801 
+    - CarFollowModel 'rail' now correctly uses minGap. Issue #6796
     - Invalid stop position after splitting train. Issue #6788
     - Rail signal allows entering occupied block for joining trains. Issue #6794
-    - CarFollowModel 'rail' now correctly uses minGap. Issue #6796
     - Joining trains with different minGap values. Issue #6795
-    - Invalid train speed after insertion on short edge. Issue #6801    
+    - Train can now be joined in reverse order (rear part id is kept). Issue #6803    
     
 - MESO
   - Calibrator attribute `vTypes` is now working. Issue #6702
