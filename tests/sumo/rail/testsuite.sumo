@@ -72,5 +72,9 @@ alternativeRoute
 # a train that circles endlessly, switches can be controlled in sumo-gui
 model_railroad
 
+# 
+# 
+reverse_on_signal
+
 # railway-specific bugs
 bugs
