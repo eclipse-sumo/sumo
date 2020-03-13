@@ -86,12 +86,42 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     bool compute(const E* from, const E* to, const V* const vehicle, SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
+        // make sure that the vehicle can turn-around when starting on a short edge (the virtual turn-around for this lies backwards along the route / track)
+        std::vector<int> backLengths;
+        double backDist = vehicle->getLength() - from->getLength();
+        const E* start = from;
+        while (backDist > 0) {
+            const E* prev = getStraightPredecessor(start);
+            if (prev == nullptr) {
+                //WRITE_WARNING("Could not determine back edge for vehicle '" + vehicle->getID() + "' when routing from edge '" + from->getID() + "' at time " + time2string(msTime));
+                break;
+            }
+            backDist -= prev->getLength();
+            backLengths.push_back(prev->getLength() + (backLengths.empty() ? from->getLength() : backLengths.back()));
+            start = prev;
+        }
+        
         std::vector<const _RailEdge*> intoTmp;
-        bool success = myInternalRouter->compute(from->getRailwayRoutingEdge(), to->getRailwayRoutingEdge(), vehicle, msTime, intoTmp, silent);
+        bool success = myInternalRouter->compute(start->getRailwayRoutingEdge(), to->getRailwayRoutingEdge(), vehicle, msTime, intoTmp, silent);
         //std::cout << "RailRouter veh=" << vehicle->getID() << " from=" << from->getID() << " to=" << to->getID() << " t=" << time2string(msTime) << " success=" << success << "\n";
         if (success) {
+            size_t intoSize = into.size();
+            int backIndex = backLengths.size() - 1;;
             for (const _RailEdge* railEdge : intoTmp) {
-                railEdge->insertOriginalEdges(vehicle->getLength(), into);
+                // prevent premature reversal on back edge (extend train length)
+                const double length = backIndex >= 0 ? backLengths[backIndex] : vehicle->getLength();
+                railEdge->insertOriginalEdges(length, into);
+            }
+#ifdef RailwayRouter_DEBUG_ROUTES
+            std::cout << "RailRouter: internal result=" << toString(intoTmp) << "\n";
+            std::cout << "RailRouter: expanded result=" << toString(into) << "\n";
+#endif
+            if (backLengths.size() > 0) {
+                // skip the virtual back-edges
+                into.erase(into.begin() + intoSize, into.begin() + intoSize + backLengths.size());
+#ifdef RailwayRouter_DEBUG_ROUTES
+                std::cout << "RailRouter: backLengths=" << toString(backLengths) << " final result=" << toString(into) << "\n";
+#endif
             }
         }
         return success;
@@ -140,6 +170,23 @@ private:
         }
     }
 
+
+    static const E* getStraightPredecessor(const E* edge) {
+        const E* result = nullptr;
+        //std::cout << "  getStraightPredecessor edge=" << edge->getID() << "\n";
+        for (const E* cand : edge->getPredecessors()) {
+            if (!cand->isInternal() && cand->getBidiEdge() != edge) {
+                //std::cout << "    cand=" << cand->getID() << "\n";
+                if (result == nullptr) {
+                    result = cand;
+                } else {
+                    // predecessor not unique. Better abort with a warning
+                    return nullptr;
+                }
+            }
+        }
+        return result;
+    }
 
 private:
     _InternalRouter* myInternalRouter;
