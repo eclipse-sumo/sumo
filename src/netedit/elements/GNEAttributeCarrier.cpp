@@ -442,7 +442,7 @@ GNEAttributeCarrier::getTagProperties(SumoXMLTag tag) {
 
 
 std::vector<SumoXMLTag>
-GNEAttributeCarrier::allowedTags(bool onlyDrawables) {
+GNEAttributeCarrier::allowedTags(const bool onlyDrawables) {
     std::vector<SumoXMLTag> allTags;
     // define on first access
     if (myTagProperties.size() == 0) {
@@ -459,7 +459,7 @@ GNEAttributeCarrier::allowedTags(bool onlyDrawables) {
 
 
 std::vector<SumoXMLTag>
-GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDrawables) {
+GNEAttributeCarrier::allowedTagsByCategory(const int tagPropertyCategory, const bool onlyDrawables) {
     std::vector<SumoXMLTag> allowedTags;
     // define on first access
     if (myTagProperties.size() == 0) {
@@ -588,6 +588,20 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
     return allowedTags;
 }
 
+
+std::vector<std::string> 
+GNEAttributeCarrier::allowedTagsByCategoryStr(const int tagPropertyCategory, const bool onlyDrawables) {
+    std::vector<std::string> solution;
+    // get tags
+    std::vector<SumoXMLTag> tags = allowedTagsByCategory(tagPropertyCategory, onlyDrawables);
+    // reserve
+    solution.reserve(tags.size());
+    // iterate over tags
+    for (const auto &tag : tags) {
+        solution.push_back(toString(tag));
+    }
+    return solution;
+}
 
 // ===========================================================================
 // private

@@ -2229,7 +2229,7 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
             myGenericDataTypesComboBox->appendItem(myAllGenericDatas);
             myDataSetsComboBox->appendItem(myAllDataSets);
             // get all generic data types
-            auto genericDataTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::GENERICDATA, false);
+            const auto genericDataTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::GENERICDATA, false);
             // add all generic data types
             for (const auto& dataTag : genericDataTags) {
                 myGenericDataTypesComboBox->appendItem(toString(dataTag).c_str());
@@ -2260,7 +2260,7 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
 
 std::string 
 GNEViewNetHelper::IntervalBar::getGenericDataTypeStr() const {
-    if (myGenericDataTypesComboBox->isEnabled() && ((myGenericDataTypesComboBox->getText() == myAllGenericDatas) || (myGenericDataTypesComboBox->getTextColor() != FXRGB(0, 0, 0)))) {
+    if (myGenericDataTypesComboBox->isEnabled() && (myGenericDataTypesComboBox->getText() == myAllGenericDatas)) {
         return "";
     } else {
         return myGenericDataTypesComboBox->getText().text();
@@ -2270,7 +2270,7 @@ GNEViewNetHelper::IntervalBar::getGenericDataTypeStr() const {
 
 std::string
 GNEViewNetHelper::IntervalBar::getDataSetStr() const {
-    if (myDataSetsComboBox->isEnabled() && ((myDataSetsComboBox->getText() == myAllDataSets) || (myDataSetsComboBox->getTextColor() != FXRGB(0, 0, 0)))) {
+    if (myDataSetsComboBox->isEnabled() && (myDataSetsComboBox->getText() == myAllDataSets)) {
         return "";
     } else {
         return myDataSetsComboBox->getText().text();
@@ -2314,16 +2314,18 @@ GNEViewNetHelper::IntervalBar::setGenericDataType() {
     // check if data set is correct
     if (myGenericDataTypesComboBox->getText() == myAllGenericDatas) {
         myGenericDataTypesComboBox->setTextColor(FXRGB(0, 0, 0));
-    }
-    else if (myGenericDataTypesComboBox->getText().empty()) {
+    } else if (myGenericDataTypesComboBox->getText().empty()) {
         myGenericDataTypesComboBox->setTextColor(FXRGB(0, 0, 0));
         myGenericDataTypesComboBox->setText(myAllGenericDatas);
-    }
-    else if (myViewNet->getNet()->retrieveDataSet(myGenericDataTypesComboBox->getText().text(), false)) {
-        myGenericDataTypesComboBox->setTextColor(FXRGB(0, 0, 0));
-    }
-    else {
-        myGenericDataTypesComboBox->setTextColor(FXRGB(255, 0, 0));
+    } else {
+        // get all generic data types
+        const auto genericDataTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::GENERICDATA, false);
+        // convert all to strings
+        if (std::find(genericDataTags.begin(), genericDataTags.end(), myGenericDataTypesComboBox->getText().text()) != genericDataTags.end()) {
+            myGenericDataTypesComboBox->setTextColor(FXRGB(0, 0, 0));
+        } else {
+            myGenericDataTypesComboBox->setTextColor(FXRGB(255, 0, 0));
+        }
     }
     // update comboBox attributes
     updateComboBoxAttributes();

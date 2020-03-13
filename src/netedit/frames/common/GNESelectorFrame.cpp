@@ -472,21 +472,21 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
     // Clear items of myMatchTagComboBox
     myMatchTagComboBox->clearItems();
     // Set items depending of current item set
-    std::vector<SumoXMLTag> ACTags;
+    std::vector<std::string> ACTags;
     if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::NETWORKELEMENT) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
+        ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::NETWORKELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZ, true);
+        ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZ, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
+        ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::SHAPE, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
+        ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
     } else {
         throw ProcessError("Invalid element set");
     }
     // fill combo box
     for (const auto & ACTag : ACTags) {
-        myMatchTagComboBox->appendItem(toString(ACTag).c_str());
+        myMatchTagComboBox->appendItem(ACTag.c_str());
     }
     // set first item as current item
     myMatchTagComboBox->setCurrentItem(0);

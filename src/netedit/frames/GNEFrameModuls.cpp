@@ -174,7 +174,6 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
         myTagTypesMatchBox->hide();
         // fill myListOfTags
         myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(type, onlyDrawables);
-
     }
     // fill myTypeMatchBox with list of tags
     for (const auto& i : myListOfTags) {

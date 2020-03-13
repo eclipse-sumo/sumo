@@ -118,10 +118,15 @@ GNEGenericData::isVisible() const {
             (myDataIntervalParent->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_DELETE) ||
             (myDataIntervalParent->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_SELECT)) {
             // obtain dataset, begin, end and attribute
+            const std::string genericDataType = myDataIntervalParent->getViewNet()->getIntervalBar().getGenericDataTypeStr();
             const std::string dataSet = myDataIntervalParent->getViewNet()->getIntervalBar().getDataSetStr();
             const std::string begin = myDataIntervalParent->getViewNet()->getIntervalBar().getBeginStr();
             const std::string end = myDataIntervalParent->getViewNet()->getIntervalBar().getEndStr();
             const std::string attribute = myDataIntervalParent->getViewNet()->getIntervalBar().getAttributeStr();
+            // chek genericData Type
+            if (!genericDataType.empty() && (myTagProperty.getTagStr() != genericDataType)) {
+                return false;
+            }
             // chek data set
             if (!dataSet.empty() && myDataIntervalParent->getDataSetParent()->getID() != dataSet) {
                 return false;
