@@ -241,15 +241,16 @@ GNEGenericDataFrame::IntervalSelector::refreshIntervalSelector() {
     // add intervals
     if (dataSet) {
         // insert dataSetItem in Tree list
-        FXTreeItem* dataSetItem = myIntervalsTreelist->insertItem(nullptr, nullptr,
-                                  dataSet->getHierarchyName().c_str(),
-                                  dataSet->getIcon(),
-                                  dataSet->getIcon());
+        FXTreeItem* dataSetItem = myIntervalsTreelist->insertItem(
+            nullptr, nullptr,
+            dataSet->getHierarchyName().c_str(),
+            dataSet->getIcon(),
+            dataSet->getIcon());
         // by default item is expanded
         dataSetItem->setExpanded(true);
         // iterate over intevals
         for (const auto& interval : dataSet->getDataIntervalChildren()) {
-            addListItem(interval.second, dataSetItem);
+            addIntervalItem(interval.second, dataSetItem);
         }
     }
     // refresh attribute selector
@@ -363,7 +364,7 @@ GNEGenericDataFrame::IntervalSelector::onCmdSelectCheckButton(FXObject*, FXSelec
 
 
 FXTreeItem*
-GNEGenericDataFrame::IntervalSelector::addListItem(GNEDataInterval* dataInterval, FXTreeItem* itemParent) {
+GNEGenericDataFrame::IntervalSelector::addIntervalItem(GNEDataInterval* dataInterval, FXTreeItem* itemParent) {
     // insert item in Tree list
     FXTreeItem* item = myIntervalsTreelist->insertItem(nullptr, itemParent,
                        dataInterval->getHierarchyName().c_str(),
@@ -373,6 +374,10 @@ GNEGenericDataFrame::IntervalSelector::addListItem(GNEDataInterval* dataInterval
     myTreeItemIntervalMap[item] = dataInterval;
     // by default item is expanded
     item->setExpanded(true);
+    // select first item
+    if (myTreeItemIntervalMap.size() == 1) {
+        item->setSelected(TRUE);
+    }
     // return created FXTreeItem
     return item;
 }
@@ -518,7 +523,7 @@ GNEGenericDataFrame::show() {
 
 
 GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "GenericData"),
+    GNEFrame(horizontalFrameParent, viewNet, "Edge datas"),
     myDataSetSelector(nullptr),
     myIntervalSelector(nullptr),
     myAttributeSelector(nullptr),

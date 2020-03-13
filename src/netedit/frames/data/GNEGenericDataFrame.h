@@ -141,8 +141,8 @@ public:
         FOX_CONSTRUCTOR(IntervalSelector)
 
     private:
-        /// @brief add item into list
-        FXTreeItem* addListItem(GNEDataInterval* dataInterval, FXTreeItem* itemParent = nullptr);
+        /// @brief add interval item into list
+        FXTreeItem* addIntervalItem(GNEDataInterval* dataInterval, FXTreeItem* itemParent = nullptr);
 
         /// @brief pointer to genericData frame Parent
         GNEGenericDataFrame* myGenericDataFrameParent;
