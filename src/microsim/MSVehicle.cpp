@@ -2559,7 +2559,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 #endif
         // check for train direction reversal
-        if (canReverse(laneMaxV)) {
+        const bool canReverseEventually = canReverse(laneMaxV);
+        if (canReverseEventually) {
             // reverse as soon as comfortably possible but also prevent running into a buffer stop
             const double vReverse = MIN2(
                                         cfModel.stopSpeed(this, getSpeed(), seen - POSITION_EPS),
@@ -2626,7 +2627,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
         // TODO: Consider option on the CFModel side to allow red/yellow light violation
 
-        if (yellowOrRed && canBrakeBeforeStopLine && !ignoreRed(*link, canBrakeBeforeStopLine)) {
+        if (yellowOrRed && canBrakeBeforeStopLine && !ignoreRed(*link, canBrakeBeforeStopLine) && !canReverseEventually) {
             if (lane->isInternal()) {
                 checkLinkLeaderCurrentAndParallel(*link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
             }
@@ -3736,7 +3737,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                     approachedLane = link->getViaLaneOrLane();
                     if (myInfluencer == nullptr || myInfluencer->getEmergencyBrakeRedLight()) {
                         bool beyondStopLine = linkDist < link->getLaneBefore()->getStopOffset(this);
-                        if (link->haveRed() && !ignoreRed(link, false) && !beyondStopLine) {
+                        if (link->haveRed() && !ignoreRed(link, false) && !beyondStopLine && !reverseTrain) {
                             emergencyReason = " because of a red traffic light";
                             break;
                         }
