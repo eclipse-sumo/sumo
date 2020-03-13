@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all lanes with disallow = "tram" and remove it
-netedit.selectItems("Net Element", "lane", "disallow", "=tram")
+netedit.selectItems("network element", "lane", "disallow", "=tram")
 netedit.deleteSelectedItems()
 
 # recompute

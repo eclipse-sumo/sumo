@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all lanes with disallow = "private" and remove it
-netedit.selectItems("Net Element", "lane", "disallow", "=private")
+netedit.selectItems("network element", "lane", "disallow", "=private")
 netedit.deleteSelectedItems()
 
 # recompute

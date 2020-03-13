@@ -14,7 +14,7 @@ Debug: Inserting parameter 'key1|value5' into additional chargingStation.
 Debug: Inserting parameter 'key2|' into additional chargingStation.
 Debug: Inserting parameter 'key2|' into additional chargingStation.
 Debug: Inserting parameter 'keyFinal|valueFinal' into additional chargingStation.
-Error: Loading of /home/micha/.texttest/tmp/netedit.gui.11Mar215608.647/netedit.gui/additionalElements/chargingstation/load/parameters/input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\additionalElements\chargingstation\load\parameters\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved

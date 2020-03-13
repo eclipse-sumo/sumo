@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges with allow = "authority" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "authority")
+netedit.selectItems("network element", "edge", "allow", "authority")
 netedit.deleteSelectedItems()
 
 # recompute

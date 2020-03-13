@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all lanes with disallow = "ship" and remove it
-netedit.selectItems("Net Element", "lane", "disallow", "=ship")
+netedit.selectItems("network element", "lane", "disallow", "=ship")
 netedit.deleteSelectedItems()
 
 # recompute

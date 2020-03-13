@@ -33,7 +33,7 @@ netedit.selectMode()
 
 # select all edges with disallow = "all" and remove it
 # (we cannot use "=all" since "all" is expanded to include all vClassess)
-netedit.selectItems("Net Element", "edge", "disallow", "all")
+netedit.selectItems("network element", "edge", "disallow", "all")
 netedit.deleteSelectedItems()
 
 # recompute

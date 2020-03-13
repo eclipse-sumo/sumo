@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges with allow = "rail" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "rail")
+netedit.selectItems("network element", "edge", "allow", "rail")
 netedit.deleteSelectedItems()
 
 # recompute

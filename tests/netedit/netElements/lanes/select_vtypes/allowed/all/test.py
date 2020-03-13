@@ -33,7 +33,7 @@ netedit.selectMode()
 
 # select all lanes with allow = "all" and remove it
 # (we cannot use "=all" since "all" is expanded to include all vClassess)
-netedit.selectItems("Net Element", "lane", "allow", "all")
+netedit.selectItems("network element", "lane", "allow", "all")
 netedit.deleteSelectedItems()
 
 # recompute

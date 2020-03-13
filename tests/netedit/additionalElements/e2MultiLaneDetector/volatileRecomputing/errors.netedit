@@ -332,6 +332,7 @@ Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_3'
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_2'
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_1'
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
@@ -437,8 +438,4 @@ Debug: Deleting unreferenced junction 'gneJ5' in GNENet destructor
 Debug: Deleting unreferenced crossing ':gneJ5_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ5_c1' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ5_c2' in GNEJunction destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 20

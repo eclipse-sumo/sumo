@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all lanes with allow = "pedestrian" and remove it
-netedit.selectItems("Net Element", "lane", "allow", "=pedestrian")
+netedit.selectItems("network element", "lane", "allow", "=pedestrian")
 netedit.deleteSelectedItems()
 
 # recompute

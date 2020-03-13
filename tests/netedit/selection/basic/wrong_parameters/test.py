@@ -86,7 +86,7 @@ netedit.pasteIntoTextField("dummyAttribute")
 netedit.typeEnter()
 
 # try to select node gneJ0 and delete it (Error in type of element)
-netedit.selectItems("Net Element", "junction", "id", "gneJ0")
+netedit.selectItems("network element", "junction", "id", "gneJ0")
 netedit.deleteSelectedItems()
 
 # save network

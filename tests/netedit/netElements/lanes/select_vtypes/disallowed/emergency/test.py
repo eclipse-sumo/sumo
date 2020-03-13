@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all lanes with disallow = "emergency" and remove it
-netedit.selectItems("Net Element", "lane", "disallow", "=emergency")
+netedit.selectItems("network element", "lane", "disallow", "=emergency")
 netedit.deleteSelectedItems()
 
 # recompute

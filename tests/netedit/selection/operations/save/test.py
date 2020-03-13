@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges that allow passengers
-netedit.selectItems("Net Element", "edge", "allow", "passenger")
+netedit.selectItems("network element", "edge", "allow", "passenger")
 
 # save selection
 netedit.saveSelection()
