@@ -17,3 +17,6 @@ person_100m
 
 # Validation of the range
 person_200m
+
+# detect parking vehicles
+parking
