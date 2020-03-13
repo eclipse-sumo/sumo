@@ -143,6 +143,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             break;
         case SVC_RAIL_URBAN:
             maxSpeed = 100. / 3.6;
+            minGap = 5;
             width = 3.0;
             height = 3.6;
             shape = SVS_RAIL_CAR;
@@ -153,6 +154,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             break;
         case SVC_RAIL:
             maxSpeed = 160. / 3.6;
+            minGap = 5;
             width = 2.84;
             height = 3.75;
             shape = SVS_RAIL;
@@ -164,6 +166,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             break;
         case SVC_RAIL_ELECTRIC:
             maxSpeed = 220. / 3.6;
+            minGap = 5;
             width = 2.95;
             height = 3.89;
             shape = SVS_RAIL;
@@ -174,6 +177,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             break;
         case SVC_RAIL_FAST:
             maxSpeed = 330. / 3.6;
+            minGap = 5;
             width = 2.95;
             height = 3.89;
             shape = SVS_RAIL;
