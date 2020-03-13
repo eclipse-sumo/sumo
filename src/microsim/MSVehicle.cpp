@@ -2269,6 +2269,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // speed limits must hold for the whole length of the train
         for (MSLane* l : myFurtherLanes) {
             laneMaxV = MIN2(laneMaxV, l->getVehicleMaxSpeed(this));
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND) {
+                std::cout << "   laneMaxV=" << laneMaxV << " lane=" << l->getID() << "\n";
+            }
+#endif
         }
     }
     //  speed limits are not emergencies (e.g. when the limit changes suddenly due to TraCI or a variableSpeedSignal)
