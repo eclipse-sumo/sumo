@@ -666,7 +666,9 @@ enum {
     /// @name GNEViewNet interval bar messages
     /// @{
 
-    /// @brief intervalset 
+    /// @brief generic data selected
+    MID_GNE_INTERVALBAR_GENERICDATATYPE,
+    /// @brief data set selected 
     MID_GNE_INTERVALBAR_DATASET,
     /// @brief enable/disable show data elements by interval
     MID_GNE_INTERVALBAR_LIMITED,

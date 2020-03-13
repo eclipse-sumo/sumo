@@ -639,6 +639,9 @@ struct GNEViewNetHelper {
         /// @name get functions (called by GNEViewNet)
         /// @{
 
+        /// @brief get generic data type
+        std::string getGenericDataTypeStr() const;
+
         /// @brief get dataSet
         std::string getDataSetStr() const;
 
@@ -656,6 +659,9 @@ struct GNEViewNetHelper {
         /// @name set functions (called by GNEViewNet)
         /// @{
 
+        /// @brief set generic data type
+        void setGenericDataType();
+        
         /// @brief set dataSet
         void setDataSet();
 
@@ -680,6 +686,9 @@ struct GNEViewNetHelper {
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
 
+        /// @brief combo box for generic data types
+        FXComboBox* myGenericDataTypesComboBox;
+
         /// @brief combo box for data sets
         FXComboBox* myDataSetsComboBox;
 
@@ -699,6 +708,12 @@ struct GNEViewNetHelper {
         std::set<std::string> myFilteredAttributes;
 
     private:
+        /// @brief string with wildcard for no generic datas
+        const FXString myNoGenericDatas;
+
+        /// @brief string with wildcard for all generic datas
+        const FXString myAllGenericDatas;
+
         /// @brief string with wildcard for no dataSets
         const FXString myNoDataSets;
 

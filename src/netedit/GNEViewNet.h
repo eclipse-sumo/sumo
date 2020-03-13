@@ -306,6 +306,9 @@ public:
     //// @name interval bar functions
     /// @{
 
+    /// @brief change generic data type in interval bar
+    long onCmdIntervalBarGenericDataType(FXObject*, FXSelector, void*);
+
     /// @brief change data set in interval bar
     long onCmdIntervalBarDataSet(FXObject*, FXSelector, void*);
 
