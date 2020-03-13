@@ -4710,7 +4710,10 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
         MSLane* clane = enteredLane;
         while (leftLength > 0) {
             clane = clane->getLogicalPredecessorLane();
-            if (clane == nullptr || clane == myLane || clane == myLane->getBidiLane()) {
+            if (clane == nullptr || clane == myLane || clane == myLane->getBidiLane() 
+                    || (clane->isInternal() && (
+                            clane->getLinkCont()[0]->getDirection() == LINKDIR_TURN
+                            || clane->getLinkCont()[0]->getDirection() == LINKDIR_TURN_LEFTHAND))) {
                 break;
             }
             myFurtherLanes.push_back(clane);
