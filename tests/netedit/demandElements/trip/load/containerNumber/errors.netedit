@@ -18,23 +18,24 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Attribute 'containerNumber' in definition of trip 'trip_0' is not of type int.
-Error: personNumber cannot be negative
+Error: containerNumber cannot be negative
 Debug: Adding trip 'trip_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Error: Attribute 'containerNumber' in definition of trip 'trip_1' is empty.
-Error: personNumber cannot be negative
+Error: containerNumber cannot be negative
 Debug: Adding trip 'trip_1' in GNEChange_DemandElement
-Error: personNumber cannot be negative
+Error: containerNumber cannot be negative
 Debug: Adding trip 'trip_2' in GNEChange_DemandElement
 Debug: Adding trip 'trip_3' in GNEChange_DemandElement
 Error: Attribute 'containerNumber' in definition of trip 'trip_4' is not of type int.
-Error: personNumber cannot be negative
+Error: containerNumber cannot be negative
 Debug: Adding trip 'trip_4' in GNEChange_DemandElement
 Debug: Adding trip 'trip_5' in GNEChange_DemandElement
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/trip/load/containerNumber\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Mar085257.660\netedit.gui\demandElements\trip\load\containerNumber\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing trip 'trip_5' in GNEChange_DemandElement
@@ -43,6 +44,7 @@ Debug: Removing trip 'trip_3' in GNEChange_DemandElement
 Debug: Removing trip 'trip_2' in GNEChange_DemandElement
 Debug: Removing trip 'trip_1' in GNEChange_DemandElement
 Debug: Removing trip 'trip_0' in GNEChange_DemandElement
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding trip 'trip_0' in GNEChange_DemandElement
@@ -51,6 +53,7 @@ Debug: Adding trip 'trip_2' in GNEChange_DemandElement
 Debug: Adding trip 'trip_3' in GNEChange_DemandElement
 Debug: Adding trip 'trip_4' in GNEChange_DemandElement
 Debug: Adding trip 'trip_5' in GNEChange_DemandElement
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
@@ -107,6 +110,7 @@ Debug: Deleting unreferenced trip 'trip_3'
 Debug: Deleting unreferenced trip 'trip_2'
 Debug: Deleting unreferenced trip 'trip_1'
 Debug: Deleting unreferenced trip 'trip_0'
+Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE10' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
@@ -149,5 +153,4 @@ Debug: Deleting unreferenced junction 'gneJ9' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16

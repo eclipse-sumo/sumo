@@ -38,6 +38,7 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 GLDebug: 	Removed object parkingArea:parkingArea from SUMORTree with boundary 15.80,-10.60,34.20,-2.20
 GLDebug: 	Inserted parkingArea:parkingArea into SUMORTree with boundary 15.80,-10.60,34.20,-2.20
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: demand elements saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing

@@ -48,12 +48,13 @@
                 <entry color="blue" threshold="5.00"/>
             </colorScheme>
             <colorScheme name="by given length/geometrical length" interpolated="1">
-                <entry color="black" threshold="0.00"/>
-                <entry color="red" threshold="0.25"/>
+                <entry color="red" threshold="0.00"/>
+                <entry color="orange" threshold="0.25"/>
                 <entry color="yellow" threshold="0.50"/>
                 <entry color="179,179,179" threshold="1.00"/>
                 <entry color="green" threshold="2.00"/>
-                <entry color="blue" threshold="4.00"/>
+                <entry color="cyan" threshold="4.00"/>
+                <entry color="blue" threshold="100.00"/>
             </colorScheme>
             <colorScheme name="by angle">
                 <entry color="yellow"/>
@@ -141,7 +142,7 @@
             <colorScheme name="uniform">
                 <entry color="102,0,0"/>
                 <entry color="204,0,0" name="junction bubble"/>
-                <entry color="orange" name="geometry points"/>
+                <entry color="230,100,115" name="geometry points"/>
                 <entry color="green" name="custom shape"/>
                 <entry color="magenta" name="connections missing"/>
             </colorScheme>

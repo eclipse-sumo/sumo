@@ -18,7 +18,7 @@ Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Adding stopChargingStation 'flow_1stopChargingStation0' in GNEChange_DemandElement
 Debug: Adding stopChargingStation 'flow_1stopChargingStation1' in GNEChange_DemandElement
-Error: Loading of /home/micha/.texttest/tmp/netedit.gui.11Mar215608.647/netedit.gui/demandElements/stop/stopChargingStation/load/until/input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Mar085257.660\netedit.gui\demandElements\stop\stopChargingStation\load\until\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Disabled toogle show grid throught alt + 1
@@ -37,6 +37,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
 Debug: demand elements saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
