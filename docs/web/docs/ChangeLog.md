@@ -6,19 +6,26 @@ permalink: /ChangeLog/
 ## Git Master
 
 ### Bugfixes
+
 - Simulation
   - Fixed sublane model bug that reduced flow on intersections and caused emergency braking. Issue #6649
   - Fixed sublane model bug that was causing cyclical switching between keep-right and sublane-alignment choices. Issue #6084
   - Fixed sublane model bug that was causing invalid lane alignment in multimodal networks. Issue #6691
-  - Fixed crash when depart-triggered vehicles were discarded. Issue #6690
-  - Fixed train reversal ahead of stop. Issue #6692
-  - Train routing now considers space requirement for train reversal. Issue #6697, #6743
-  - Train routing is no longer effected by occupied edges that are beyond rail signal control. Issue #6741
+  - Fixed crash when depart-triggered vehicles were discarded. Issue #6690    
   - Removed invalid warning for public transport users. Issue #6698
   - Fixed invalid right-of-way at traffic light junctions with right-turn-on-red rules. Issue #6068
-  - Fixed bug that caused junction collisions to go unnoticed. Issue #6779
-  - Fixed train collision after reversal. Issue #6782
-  - Stopping duration no longer exceeds the planned duration/until time by one simulation step. Issue #6755
+  - Fixed bug that caused junction collisions to go unnoticed. Issue #6779  
+  - Stopping duration no longer exceeds the planned duration/until time by one simulation step. Issue #6755 
+  - Railway fixes:
+    - Train reversal problems. Issue #6692, #6782, #6797
+    - Train routing now considers space requirement for train reversal. Issue #6697, #6743, #6799
+    - Train routing is no longer effected by occupied edges that are beyond rail signal control. Issue #6741
+    - Invalid stop position after splitting train. Issue #6788
+    - Rail signal allows entering occupied block for joining trains. Issue #6794
+    - CarFollowModel 'rail' now correctly uses minGap. Issue #6796
+    - Joining trains with different minGap values. Issue #6795
+    - Invalid train speed after insertion on short edge. Issue #6801    
+    
 - MESO
   - Calibrator attribute `vTypes` is now working. Issue #6702
 - NETCONVERT
@@ -26,6 +33,7 @@ permalink: /ChangeLog/
   - Fixed missing connections when importing OpenDRIVE. Issue #6712
 - SUMO-GUI
   - Fixed layout of meso edge parameter dialog at high occupancy (regression in 1.5.0)
+  - Fixed crash when simulation ends while tracking person attributes. Issue #6784
 - NETEDIT
   - Fixed empty route id when creating route from non-consecutive edges with custom id. Issue #6722
 - DUAROUTER
@@ -37,6 +45,7 @@ permalink: /ChangeLog/
   - Fixed crash when calling vehicle.moveTo for an off-road vehicle with tripinfo-output. Issue #6717
   - Fixed crash when trying add subscription filter for context subscrition of persons around an ego vehicle. Issue #6735
   - Fixed crash and invalid results when using 'vehicle.addSubscriptionFilterLateralDistance'. Issue #6770
+  - Fixed crash when adding vehicle with `depart="triggered"`. Issue #6793
 - Tools
   - [sort_routes.py](Tools/Routes.md#sort_routespy) can now handle trips, triggered vehicles and human-readable times.  
   - [routeSampler.py](Tools/Turns.md#routesampler.py): fixed bias in departure time for the generated vehicles. Issue #6786
@@ -66,6 +75,7 @@ permalink: /ChangeLog/
   - Added option **--default.connection-length** to overwrite the length of internal lanes with a specific value. Issue #6733
 - TraCI
   - [Meso simulation](Simulation/Meso.md) now supports TraCI
+  - Parking vehicles are now picked up by context subscriptions. Issue #6785
 - Tools
   - added osmWebWizard option to import a simplified network that is only for cars. Issue #6595
   - [matsim_importPlans.py](Tools/Import/MATSim.md#matsim_importplanspy) now supports alternative input dialects and sorts its output.  
