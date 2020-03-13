@@ -1825,7 +1825,7 @@ MSVehicle::processNextStop(double currentVelocity) {
         if (stop.duration <= 0 && stop.pars.join != "") {
             // join this train (part) to another one
             MSVehicle* joinVeh = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(stop.pars.join));
-            if (joinVeh && joinVeh->joinTrainPart(this)) {
+            if (joinVeh && (joinVeh->joinTrainPart(this) || joinVeh->joinTrainPartFront(this))) {
                 stop.joinTriggered = false;
                 // avoid collision warning before this vehicle is removed (joinVeh was already made longer)
                 myCollisionImmunity = TIME2STEPS(100);
@@ -2063,6 +2063,44 @@ MSVehicle::joinTrainPart(MSVehicle* veh) {
             && gap >= 0 && gap <= getVehicleType().getMinGap() + 1) {
         const double newLength = myType->getLength() + veh->getVehicleType().getLength();
         getSingularType().setLength(newLength);
+        myStops.begin()->joinTriggered = false;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool
+MSVehicle::joinTrainPartFront(MSVehicle* veh) {
+    // check if veh is close enough to be joined
+    MSLane* backLane = veh->myFurtherLanes.size() == 0 ? veh->myLane : veh->myFurtherLanes.back();
+    double gap = veh->getBackPositionOnLane() - getPositionOnLane();
+    if (isStopped() && myStops.begin()->joinTriggered && backLane == getLane()
+            && gap >= 0 && gap <= getVehicleType().getMinGap() + 1) {
+        if (veh->myFurtherLanes.size() > 0) {
+            // this vehicle must be moved to the lane of veh
+            // ensure that lane and furtherLanes of veh match our route
+            int routeIndex = getRoutePosition();
+            if (myLane->isInternal()) {
+                routeIndex++;
+            }
+            for (int i = veh->myFurtherLanes.size() - 1; i >= 0; i--) {
+                MSEdge* edge = &veh->myFurtherLanes[i]->getEdge();
+                if (!edge->isInternal() && edge != myRoute->getEdges()[routeIndex]) {
+                    WRITE_WARNING("Cannot join vehicle '" + veh->getID() + " to vehicle '" + getID() 
+                            + "' due to incompatible routes. time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()));
+                    return false;
+                }
+            }
+            for (int i = veh->myFurtherLanes.size() - 2; i >= 0; i--) {
+                enterLaneAtMove(veh->myFurtherLanes[i]);
+            }
+        }
+        const double newLength = myType->getLength() + veh->getVehicleType().getLength();
+        getSingularType().setLength(newLength);
+        assert(myLane = veh->getLane());
+        myState.myPos = veh->getPositionOnLane();
         myStops.begin()->joinTriggered = false;
         return true;
     } else {

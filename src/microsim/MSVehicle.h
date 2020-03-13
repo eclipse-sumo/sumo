@@ -1890,8 +1890,11 @@ protected:
     /// @brief board persons and load transportables at the given stop
     void boardTransportables(Stop& stop); 
 
-    /// @brief handle joining of another vehicle to this one (to resolve joinTriggered)
+    /// @brief try joining the given vehicle to the rear of this one (to resolve joinTriggered)
     bool joinTrainPart(MSVehicle* veh);
+
+    /// @brief try joining the given vehicle to the front of this one (to resolve joinTriggered)
+    bool joinTrainPartFront(MSVehicle* veh);
 
 protected:
 
