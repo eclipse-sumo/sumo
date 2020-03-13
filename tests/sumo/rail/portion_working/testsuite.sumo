@@ -3,3 +3,6 @@ split
 
 # join two train parts into a single train
 join
+
+# join two train parts into a single train. rail signal must allow second train to enter the block
+join_signal
