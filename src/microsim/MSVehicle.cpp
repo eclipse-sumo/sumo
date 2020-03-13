@@ -2060,7 +2060,7 @@ MSVehicle::joinTrainPart(MSVehicle* veh) {
     MSLane* backLane = myFurtherLanes.size() == 0 ? myLane : myFurtherLanes.back();
     double gap = getBackPositionOnLane() - veh->getPositionOnLane();
     if (isStopped() && myStops.begin()->joinTriggered && backLane == veh->getLane()
-            && gap >= 0 && gap < 5) {
+            && gap >= 0 && gap <= getVehicleType().getMinGap() + 1) {
         const double newLength = myType->getLength() + veh->getVehicleType().getLength();
         getSingularType().setLength(newLength);
         myStops.begin()->joinTriggered = false;
