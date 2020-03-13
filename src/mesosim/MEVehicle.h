@@ -228,6 +228,10 @@ public:
         throw ProcessError("parkingZoneReroute not implemented for meso");
     }
 
+    const SUMOVehicleParameter::Stop* getNextStopParameter() const {
+        throw ProcessError("stop retrieval not yet implemented for meso");
+    }
+
     /** @brief Sets the (planned) time at which the vehicle leaves his current cell
      * @param[in] t The leaving time
      */

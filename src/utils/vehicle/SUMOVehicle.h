@@ -298,6 +298,9 @@ public:
     /** @brief Returns whether the vehicle stops at the given edge */
     virtual bool stopsAtEdge(const MSEdge* edge) const = 0;
 
+    /** @brief Returns parameters of the next stop or nullptr **/
+    virtual const SUMOVehicleParameter::Stop* getNextStopParameter() const = 0;
+
     virtual void setChosenSpeedFactor(const double factor) = 0;
 
     virtual SUMOTime getAccumulatedWaitingTime() const = 0;

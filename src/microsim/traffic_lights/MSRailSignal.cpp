@@ -489,7 +489,9 @@ MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) 
 
 bool
 MSRailSignal::DriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {
-    if (conflictLaneOccupied()) {
+    const SUMOVehicleParameter::Stop* stop = closest.first->getNextStopParameter();
+    const std::string joinVehicle = stop != nullptr ? stop->join : "";
+    if (conflictLaneOccupied(joinVehicle)) {
         for (MSLane* bidi : myBidi) {
             if (!bidi->empty() && bidi->getBidiLane() != nullptr) {
                 occupied.push_back(&bidi->getBidiLane()->getEdge());
@@ -605,14 +607,31 @@ MSRailSignal::DriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink)
 
 
 bool
-MSRailSignal::DriveWay::conflictLaneOccupied() const {
+MSRailSignal::DriveWay::conflictLaneOccupied(const std::string& joinVehicle) const {
     for (const MSLane* lane : myConflictLanes) {
         if (!lane->isEmpty()) {
 #ifdef DEBUG_SIGNALSTATE
             if (gDebugFlag4) {
                 std::cout << SIMTIME << " conflictLane " << lane->getID() << " occupied\n";
+                if (joinVehicle != "") {
+                    std::cout << "  joinVehicle=" << joinVehicle << " occupant=" << toString(lane->getVehiclesSecure()) << "\n";
+                    lane->releaseVehicles();
+                }
             }
 #endif
+            if (lane->getVehicleNumber() == 1 && joinVehicle != "") {
+                std::vector<MSVehicle*> vehs = lane->getVehiclesSecure();
+                const bool ignoreJoinTarget = vehs.front()->getID() == joinVehicle && vehs.front()->isStopped();
+                lane->releaseVehicles();
+                if (ignoreJoinTarget) {
+#ifdef DEBUG_SIGNALSTATE
+                    if (gDebugFlag4) {
+                        std::cout << "    ignore join-target '" << joinVehicle << ";\n";
+                    }
+#endif
+                    continue;
+                }
+            }
             return true;
         }
     }

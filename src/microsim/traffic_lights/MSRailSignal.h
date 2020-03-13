@@ -267,8 +267,8 @@ protected:
          * current link and any of the conflict links */
         std::vector<MSLink*> myConflictLinks;
 
-        /// @brief whether any of myConflictLanes is occupied
-        bool conflictLaneOccupied() const;
+        /// @brief whether any of myConflictLanes is occupied (vehicles that are the target of a join must be ignored)
+        bool conflictLaneOccupied(const std::string& joinVehicle = "") const;
 
         /// @brief attempt reserve this driveway for the given vehicle
         bool reserve(const Approaching& closest, MSEdgeVector& occupied);

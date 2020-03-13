@@ -1294,6 +1294,9 @@ public:
     */
     Stop& getNextStop();
 
+    /// @brief return parameters for the next stop (SUMOVehicle Interface)
+    const SUMOVehicleParameter::Stop* getNextStopParameter() const;
+
     /**
     * returns the list of stops not yet reached in the stop queue
     * @return the list of upcoming stops

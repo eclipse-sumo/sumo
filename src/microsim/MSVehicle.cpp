@@ -6110,6 +6110,14 @@ MSVehicle::getNextStop() {
     return myStops.front();
 }
 
+const SUMOVehicleParameter::Stop*
+MSVehicle::getNextStopParameter() const {
+    if (hasStops()) {
+        return &myStops.front().pars;
+    }
+    return nullptr;
+}
+
 void
 MSVehicle::abortNextStop() {
     if (hasStops()) {
