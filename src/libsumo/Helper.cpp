@@ -62,10 +62,14 @@ void
 LaneStoringVisitor::add(const MSLane* const l) const {
     switch (myDomain) {
         case libsumo::CMD_GET_VEHICLE_VARIABLE: {
-            const MSLane::VehCont& vehs = l->getVehiclesSecure();
-            for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-                if (myShape.distance2D((*j)->getPosition()) <= myRange) {
-                    myObjects.insert(*j);
+            for (const MSVehicle* veh : l->getVehiclesSecure()) {
+                if (myShape.distance2D(veh->getPosition()) <= myRange) {
+                    myObjects.insert(veh);
+                }
+            }
+            for (const MSVehicle* veh : l->getParkingVehicles()) {
+                if (myShape.distance2D(veh->getPosition()) <= myRange) {
+                    myObjects.insert(veh);
                 }
             }
             l->releaseVehicles();
