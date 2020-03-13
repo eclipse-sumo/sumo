@@ -109,8 +109,6 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
 
     // change values for setting the loops and lanestate-detectors, here
     //SUMOTime inductLoopInterval = 1; //
-    LaneVectorVector::const_iterator i2;
-    LaneVector::const_iterator i;
     // build the induct loops
     std::map<const MSLane*, MSInductLoop*> laneInductLoopMap;
     std::map<MSInductLoop*, const MSLane*> inductLoopLaneMap; // in case loops are placed further upstream

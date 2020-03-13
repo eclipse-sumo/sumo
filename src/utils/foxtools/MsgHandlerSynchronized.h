@@ -19,8 +19,7 @@
 ///
 // Retrieves messages about the process and gives them further to output
 /****************************************************************************/
-#ifndef MsgHandlerSynchronized_h
-#define MsgHandlerSynchronized_h
+#pragma once
 #include <config.h>
 
 #ifdef HAVE_FOX
@@ -75,9 +74,9 @@ public:
     }
 
     /// @brief Clears information whether an error occurred previously
-    void clear() {
+    void clear(bool resetInformed = true) {
         FXMutexLock locker(myLock);
-        MsgHandler::clear();
+        MsgHandler::clear(resetInformed);
     }
 
     /// @brief Adds a further retriever to the instance responsible for a certain msg type
@@ -118,5 +117,3 @@ private:
     /// @brief invalid assignment operator
     MsgHandlerSynchronized& operator=(const MsgHandlerSynchronized& s) = delete;
 };
-
-#endif

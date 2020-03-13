@@ -1026,9 +1026,8 @@ GNETLSEditorFrame::TLSAttributes::setOffset(SUMOTime offset) {
 // GNETLSEditorFrame::TLSJunction - methods
 // ---------------------------------------------------------------------------
 
-GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) :
-    FXGroupBox(TLSEditorParent->myContentFrame, "Junction", GUIDesignGroupBoxFrame),
-    myTLSEditorParent(TLSEditorParent),
+GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* tlsEditorParent) :
+    FXGroupBox(tlsEditorParent->myContentFrame, "Junction", GUIDesignGroupBoxFrame),
     myCurrentJunction(nullptr) {
     // Create frame for junction ID
     FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);

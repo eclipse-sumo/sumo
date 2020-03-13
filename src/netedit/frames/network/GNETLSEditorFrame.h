@@ -51,7 +51,7 @@ public:
 
     public:
         /// @brief constructor
-        TLSJunction(GNETLSEditorFrame* TLSEditorParent);
+        TLSJunction(GNETLSEditorFrame* tlsEditorParent);
 
         /// @brief destructor
         ~TLSJunction();
@@ -66,9 +66,6 @@ public:
         void updateJunctionDescription() const;
 
     private:
-        /// @brief pointer to TLSEditor Parent
-        GNETLSEditorFrame* myTLSEditorParent;
-
         /// @brief label for junction ID
         FXLabel* myLabelJunctionID;
 

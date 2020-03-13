@@ -142,11 +142,10 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
     }
 }
 
+
 void
 SAXWeightsHandler::tryParseEdgeRel(const SUMOSAXAttributes& attrs) {
-    std::vector<ToRetrieveDefinition*>::iterator i;
-    if (attrs.hasAttribute(SUMO_ATTR_FROM) 
-            && attrs.hasAttribute(SUMO_ATTR_TO)) {
+    if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
         bool ok = true;
         const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
         const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
@@ -160,6 +159,7 @@ SAXWeightsHandler::tryParseEdgeRel(const SUMOSAXAttributes& attrs) {
     }
 }
 
+
 void
 SAXWeightsHandler::myEndElement(int element) {
     if (element == SUMO_TAG_EDGE) {
@@ -172,5 +172,6 @@ SAXWeightsHandler::myEndElement(int element) {
         }
     }
 }
+
 
 /****************************************************************************/
