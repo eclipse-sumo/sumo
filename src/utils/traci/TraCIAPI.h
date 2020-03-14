@@ -688,6 +688,9 @@ public:
         double getSpeed(const std::string& vehicleID) const;
         double getLateralSpeed(const std::string& vehicleID) const;
         double getAcceleration(const std::string& vehicleID) const;
+        double getFollowSpeed(const std::string& vehicleID, double speed, double gap, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "") const;
+        double getSecureGap(const std::string& vehicleID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "") const;
+        double getStopSpeed(const std::string& vehicleID, double speed, double gap) const;
         libsumo::TraCIPosition getPosition(const std::string& vehicleID) const;
         libsumo::TraCIPosition getPosition3D(const std::string& vehicleID) const;
         double getAngle(const std::string& vehicleID) const;

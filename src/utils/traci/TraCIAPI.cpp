@@ -2435,6 +2435,54 @@ TraCIAPI::VehicleScope::getAcceleration(const std::string& vehicleID) const {
 }
 
 double
+TraCIAPI::VehicleScope::getFollowSpeed(const std::string& vehicleID, double speed, double gap, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(5);
+    content.writeByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(speed);
+    content.writeByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(gap);
+    content.writeByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(leaderSpeed);
+    content.writeByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(leaderMaxDecel);
+    content.writeByte(libsumo::TYPE_STRING);
+    content.writeString(leaderID);
+    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_FOLLOW_SPEED, vehicleID, &content);
+}
+
+
+double
+TraCIAPI::VehicleScope::getSecureGap(const std::string& vehicleID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(4);
+    content.writeByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(speed);
+    content.writeByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(leaderSpeed);
+    content.writeByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(leaderMaxDecel);
+    content.writeByte(libsumo::TYPE_STRING);
+    content.writeString(leaderID);
+    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_SECURE_GAP, vehicleID, &content);
+}
+
+double
+TraCIAPI::VehicleScope::getStopSpeed(const std::string& vehicleID, double speed, double gap) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(2);
+    content.writeByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(speed);
+    content.writeByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(gap);
+    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_STOP_SPEED, vehicleID, &content);
+}
+
+
+double
 TraCIAPI::VehicleScope::getMaxSpeed(const std::string& vehicleID) const {
     return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_MAXSPEED, vehicleID);
 }
