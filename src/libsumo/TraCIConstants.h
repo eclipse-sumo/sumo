@@ -694,6 +694,15 @@ TRACI_CONST int LAST_STEP_PERSON_ID_LIST = 0x1a;
 // full name (get: edges, simulation, trafficlight)
 TRACI_CONST int VAR_NAME = 0x1b;
 
+// carFollowModel function followSpeed (get: vehicle)
+TRACI_CONST int VAR_FOLLOW_SPEED = 0x1c;
+
+// carFollowModel function stopSpeed (get: vehicle)
+TRACI_CONST int VAR_STOP_SPEED = 0x1d;
+
+// carFollowModel function getSecureGap (get: vehicle)
+TRACI_CONST int VAR_SECURE_GAP = 0x1e;
+
 // traffic light states, encoded as rRgGyYoO tuple (get: traffic lights)
 TRACI_CONST int TL_RED_YELLOW_GREEN_STATE = 0x20;
 
