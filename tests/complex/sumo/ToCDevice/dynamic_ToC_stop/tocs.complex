@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 24 15:29:47 2020 by Eclipse SUMO Version v1_5_0+0233-a859802e1f
+<!-- generated on Sat Mar 14 08:54:42 2020 by Eclipse SUMO Version v1_5_0+0725-b1afcdbfc4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -17,13 +17,13 @@
     </report>
 
     <traci_server>
-        <remote-port value="38803"/>
+        <remote-port value="50349"/>
     </traci_server>
 
 </configuration>
 -->
 
 <ToCDeviceLog>
-    <DYNTOR id="ToC_veh" t="81.00" lane="WE_1" lanePos="982.60" x="1482.60" y="-1.60"/>
-    <ToCdown id="ToC_veh" t="89.00" lane="WE_1" lanePos="992.80" x="1492.80" y="-1.60"/>
+    <DYNTOR id="ToC_veh" t="80.00" lane="WE_1" lanePos="982.60" x="1482.60" y="-1.60"/>
+    <ToCdown id="ToC_veh" t="88.00" lane="WE_1" lanePos="992.80" x="1492.80" y="-1.60"/>
 </ToCDeviceLog>
