@@ -77,6 +77,7 @@ permalink: /ChangeLog/
 - TraCI
   - [Meso simulation](Simulation/Meso.md) now supports TraCI
   - Parking vehicles are now picked up by context subscriptions. Issue #6785
+  - Added functions 'getFollowSpeed', 'getSecureGap', 'getStopSpeed' for accessing carFollowModel functions to the vehicle domain. Issue #3361
 - Tools
   - added osmWebWizard option to import a simplified network that is only for cars. Issue #6595
   - [matsim_importPlans.py](Tools/Import/MATSim.md#matsim_importplanspy) now supports alternative input dialects and sorts its output.  
