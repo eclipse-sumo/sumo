@@ -161,13 +161,19 @@ Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle '
 Warning: busStop '3918673888' on lane '388702039#10_0' is too short for vehicle 'pt_bus_N6:0.0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
 Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt_subway_U6:0.0'.
+Warning: Teleporting vehicle 'pt_tram_M2:3.0'; frontal collision with vehicle 'pt_tram_M2:0.1', lane='-148458500#1_0', gap=-1.00, time=481.00 stage=move.
 Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 'pt_bus_N6:1.0'.
-Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:3.0', lane='-148458500#1_0', gap=-1.00, time=497.00 stage=move.
-Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 497.00.
-Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=497.00.
+Warning: Vehicle 'pt_tram_M2:3.0' ends teleporting on edge '-148458500#0', time 486.00.
+Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#1_0', gap=-1.00, time=487.00 stage=move.
+Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 487.00.
+Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=487.00.
+Warning: Person 'ped115' aborted waiting for 147:1 at busStop '-3867910422'.
+Warning: Person 'ped172' aborted waiting for 147:1 at busStop '-3867910422'.
+Warning: Person 'ped143' aborted waiting for 147:0 at busStop '3869306759'.
 Warning: Person 'ped128' aborted waiting for N2:0 at busStop '3867910420'.
 Warning: Person 'ped123' aborted waiting for S7:0 at busStop '2603331695'.
 Warning: Person 'ped56' aborted waiting for M5:0 at busStop '1862699772'.
 Warning: Person 'ped160' aborted waiting for 147:0 at busStop '3869306762'.
 Warning: Person 'ped132' aborted waiting for S3:1 at busStop '27411240'.
 Warning: Person 'ped164' aborted waiting for N2:0 at busStop '2915590925'.
+Warning: Person 'ped138' aborted waiting for N8:1 at busStop '3867910438'.
