@@ -334,6 +334,9 @@ speedmode 0
 lanechangemode 1621
 slope 0.0
 leader ('1', 14.167919406457806)
+followSpeed 6.95607628725
+secureGap 19.1160691014
+stopSpeed 11.1663333333
 step 13.0
 {104: ('1', 17.867804736481034)}
 {80: '2fi', 86: 78.130728168475}
