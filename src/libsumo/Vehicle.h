@@ -102,6 +102,9 @@ public:
     static double getLastActionTime(const std::string& vehicleID);
     static std::string getParameter(const std::string& vehicleID, const std::string& key);
     static std::vector<std::pair<std::string, double> > getNeighbors(const std::string& vehicleID, const int mode);
+    static double getFollowSpeed(const std::string& vehicleID, double speed, double gap, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
+    static double getSecureGap(const std::string& vehicleID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID= "");
+    static double getStopSpeed(const std::string& vehicleID, double speed, double gap);
     /// @}
 
     LIBSUMO_VEHICLE_TYPE_GETTER

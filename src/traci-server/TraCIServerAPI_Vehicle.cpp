@@ -273,6 +273,103 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     }
                     break;
                 }
+                case libsumo::VAR_FOLLOW_SPEED: {
+                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of followSpeed requires requires a compound object.", outputStorage);
+                    }
+                    int parameterCount = inputStorage.readInt();
+                    double speed;
+                    double gap;
+                    double leaderSpeed;
+                    double leaderMaxDecel;
+                    std::string leaderID;
+                    if (parameterCount == 5) {
+                        // speed
+                        if (!server.readTypeCheckingDouble(inputStorage, speed)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of followSpeed requires the speed as first parameter.", outputStorage);
+                        }
+                        // gap
+                        if (!server.readTypeCheckingDouble(inputStorage, gap)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of followSpeed requires the gap as second parameter.", outputStorage);
+                        }
+                        // leaderSpeed
+                        if (!server.readTypeCheckingDouble(inputStorage, leaderSpeed)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of followSpeed requires the leaderSpeed as third parameter.", outputStorage);
+                        }
+                        // leaderMaxDecel
+                        if (!server.readTypeCheckingDouble(inputStorage, leaderMaxDecel)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of followSpeed requires the leaderMaxDecel as fourth parameter.", outputStorage);
+                        }
+                        // leaderID
+                        if (!server.readTypeCheckingString(inputStorage, leaderID)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of followSpeed requires the leaderID as fifth parameter.", outputStorage);
+                        }
+                    } else {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of followSpeed requires 5 parameters.", outputStorage);
+                    }
+                    // retrieve
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                    server.getWrapperStorage().writeDouble(libsumo::Vehicle::getFollowSpeed(id, speed, gap, leaderSpeed, leaderMaxDecel, leaderID));
+                }
+                break;
+                case libsumo::VAR_SECURE_GAP: {
+                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of secureGap requires requires a compound object.", outputStorage);
+                    }
+                    int parameterCount = inputStorage.readInt();
+                    double speed;
+                    double leaderSpeed;
+                    double leaderMaxDecel;
+                    std::string leaderID;
+                    if (parameterCount == 4) {
+                        // speed
+                        if (!server.readTypeCheckingDouble(inputStorage, speed)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of secureGap requires the speed as first parameter.", outputStorage);
+                        }
+                        // leaderSpeed
+                        if (!server.readTypeCheckingDouble(inputStorage, leaderSpeed)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of secureGap requires the leaderSpeed as second parameter.", outputStorage);
+                        }
+                        // leaderMaxDecel
+                        if (!server.readTypeCheckingDouble(inputStorage, leaderMaxDecel)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of secureGap requires the leaderMaxDecel as third parameter.", outputStorage);
+                        }
+                        // leaderID
+                        if (!server.readTypeCheckingString(inputStorage, leaderID)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of secureGap requires the leaderID as fourth parameter.", outputStorage);
+                        }
+                    } else {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of secureGap requires 4 parameters.", outputStorage);
+                    }
+                    // retrieve
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                    server.getWrapperStorage().writeDouble(libsumo::Vehicle::getSecureGap(id, speed, leaderSpeed, leaderMaxDecel, leaderID));
+                }
+                break;
+                case libsumo::VAR_STOP_SPEED: {
+                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of stopSpeed requires requires a compound object.", outputStorage);
+                    }
+                    int parameterCount = inputStorage.readInt();
+                    double speed;
+                    double gap;
+                    if (parameterCount == 2) {
+                        // speed
+                        if (!server.readTypeCheckingDouble(inputStorage, speed)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of stopSpeed requires the speed as first parameter.", outputStorage);
+                        }
+                        // gap
+                        if (!server.readTypeCheckingDouble(inputStorage, gap)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of stopSpeed requires the gap as second parameter.", outputStorage);
+                        }
+                    } else {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of stopSpeed requires 2 parameters.", outputStorage);
+                    }
+                    // retrieve
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                    server.getWrapperStorage().writeDouble(libsumo::Vehicle::getStopSpeed(id, speed, gap));
+                }
+                break;
                 default:
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }

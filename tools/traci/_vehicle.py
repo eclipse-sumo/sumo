@@ -729,6 +729,65 @@ class VehicleDomain(Domain):
         self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, mode)
         return _readNeighbors(self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEIGHBORS, vehID))
 
+
+    def getFollowSpeed(self, vehID, speed, gap, leaderSpeed, leaderMaxDecel, leaderID = ""):
+        """getFollowSpeed(string, double, double, double, double, string) -> double
+        Return the follow speed computed by the carFollowModel of vehID
+        """
+        self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
+                                       tc.VAR_FOLLOW_SPEED, vehID, 
+                                       1 + 4 + 
+                                       1 + 8 + 
+                                       1 + 8 + 
+                                       1 + 8 + 
+                                       1 + 8 + 
+                                       1 + 4 + 
+                                       len(leaderID))
+        self._connection._string += struct.pack(
+            "!BiBdBdBdBd", tc.TYPE_COMPOUND, 5,
+            tc.TYPE_DOUBLE, speed,
+            tc.TYPE_DOUBLE, gap,
+            tc.TYPE_DOUBLE, leaderSpeed,
+            tc.TYPE_DOUBLE, leaderMaxDecel)
+        self._connection._packString(leaderID)
+        return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_FOLLOW_SPEED, vehID).readDouble()
+
+    def getSecureGap(self, vehID, speed, leaderSpeed, leaderMaxDecel, leaderID = ""):
+        """getSecureGap(string, double, double, double, string) -> double
+        Return the secure gap computed by the carFollowModel of vehID
+        """
+        self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
+                                       tc.VAR_SECURE_GAP, vehID, 
+                                       1 + 4 + 
+                                       1 + 8 + 
+                                       1 + 8 + 
+                                       1 + 8 + 
+                                       1 + 4 + 
+                                       len(leaderID))
+        self._connection._string += struct.pack(
+            "!BiBdBdBd", tc.TYPE_COMPOUND, 4,
+            tc.TYPE_DOUBLE, speed,
+            tc.TYPE_DOUBLE, leaderSpeed,
+            tc.TYPE_DOUBLE, leaderMaxDecel)
+        self._connection._packString(leaderID)
+        return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_SECURE_GAP, vehID).readDouble()
+
+    def getStopSpeed(self, vehID, speed, gap):
+        """getStopSpeed(string, double, double) -> double
+        Return the speed for stopping at gap computed by the carFollowModel of vehID
+        """
+        self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
+                                       tc.VAR_STOP_SPEED, vehID, 
+                                       1 + 4 + 
+                                       1 + 8 + 
+                                       1 + 8)
+        self._connection._string += struct.pack(
+            "!BiBdBd", tc.TYPE_COMPOUND, 2,
+            tc.TYPE_DOUBLE, speed,
+            tc.TYPE_DOUBLE, gap)
+        return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_STOP_SPEED, vehID).readDouble()
+
+
     def getNextTLS(self, vehID):
         """getNextTLS(string) ->
 

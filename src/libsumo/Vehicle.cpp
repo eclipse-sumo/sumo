@@ -728,6 +728,35 @@ Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
 }
 
 
+double
+Vehicle::getFollowSpeed(const std::string& vehicleID, double speed, double gap, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID) {
+    MSBaseVehicle* vehicle = Helper::getVehicle(vehicleID);
+    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
+    if (veh == nullptr) { WRITE_ERROR("getFollowSpeed not applicable for meso"); return INVALID_DOUBLE_VALUE; }
+    MSVehicle* leader = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(leaderID));
+    return veh->getCarFollowModel().followSpeed(veh, speed, gap, leaderSpeed, leaderMaxDecel, leader);
+}
+
+
+double
+Vehicle::getSecureGap(const std::string& vehicleID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID) {
+    MSBaseVehicle* vehicle = Helper::getVehicle(vehicleID);
+    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
+    if (veh == nullptr) { WRITE_ERROR("getSecureGap not applicable for meso"); return INVALID_DOUBLE_VALUE; }
+    MSVehicle* leader = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(leaderID));
+    return veh->getCarFollowModel().getSecureGap(veh, leader, speed, leaderSpeed, leaderMaxDecel);
+}
+
+
+double
+Vehicle::getStopSpeed(const std::string& vehicleID, const double speed, double gap) {
+    MSBaseVehicle* vehicle = Helper::getVehicle(vehicleID);
+    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
+    if (veh == nullptr) { WRITE_ERROR("getStopSpeed not applicable for meso"); return INVALID_DOUBLE_VALUE; }
+    return veh->getCarFollowModel().stopSpeed(veh, speed, gap);
+}
+
+
 std::string
 Vehicle::getEmissionClass(const std::string& vehicleID) {
     return PollutantsInterface::getName(Helper::getVehicleType(vehicleID).getEmissionClass());
