@@ -544,6 +544,27 @@ Return the lane change state for the vehicle.</p></td>
 <td><p>Returns a list of IDs for neighboring vehicle relevant to lane changing (&gt;1 elements only possible for <a href="../Simulation/SublaneModel.html" title="wikilink">sublane model</a>)</p></td>
 <td><p><a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getNeighbors">getNeighbors</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getLeftFollowers">getLeftFollowers</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getLeftLeaders">getLeftLeaders</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getRightFollowers">getRightFollowers</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getRightLeaders">getRightLeaders</a></p></td>
 </tr>
+<tr class="odd">
+<td><p>followSpeed (0x1c)</p></td>
+<td><p>compound, <a href="#followspeed_0x1c" title="wikilink">see below</a></p></td>
+<td><p>double</p></td>
+<td><p>Return the follow speed computed by the carFollowModel of vehicle</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getFollowSpeed">getFollowSpeed</a></p></td>
+</tr>
+<tr class="even">
+<td><p>secureGap (0x1e)</p></td>
+<td><p>compound, <a href="#secureGap_0x1c" title="wikilink">see below</a></p></td>
+<td><p>double</p></td>
+<td><p>Return the secure gap computed by the carFollowModel of vehicle</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getSecureGap">getSecureGap</a></p></td>
+</tr>
+<tr class="odd">
+<td><p>stopSpeed (0x1e)</p></td>
+<td><p>compound, <a href="#stopspeed_0x1c" title="wikilink">see below</a></p></td>
+<td><p>double</p></td>
+<td><p>Return the safe speed for stopping at gap computed by the carFollowModel of vehicle</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getStopSpeed">getStopSpeed</a></p></td>
+</tr>
 </tbody>
 </table>
 
@@ -620,6 +641,33 @@ The mode's bits specify which neighboring vehicles should be returned:
 
 The returned string list contains the IDs of all corresponding
 neighboring vehicles.
+
+### followSpeed (0x1c)
+
+|         byte          | int   | double | double | double      | double         | string   |
+| :-------------------: | :---: | :----: | :----: | :---------: | :------------: | :------: |
+| value type *compound* | 5     | speed  | gap    | leaderSpeed | leaderMaxDecel | leaderID |
+
+The leaderID is optional. Only a few car follow models such as CACC may require the identity of the leader to return the correct value
+The returned value is the safe follow speed in m/s
+
+### secureGap (0x1e)
+
+|         byte          | int   | double | double      | double         | string   |
+| :-------------------: | :---: | :----: | :---------: | :------------: | :------: |
+| value type *compound* | 4     | speed  | leaderSpeed | leaderMaxDecel | leaderID |
+
+The leaderID is optional. Only a few car follow models such as CACC may require the identity of the leader to return the correct value
+The returned value is the safe gap for following the given leader in m.
+
+### stopSpeed (0x1d)
+
+|         byte          | int   | double | double |
+| :-------------------: | :---: | :----: | :----: |
+| value type *compound* | 2     | speed  | gap    |
+
+The returned value is the safe speed in m/s for stopping after gap when braking
+from the given speed.
 
 ## Device and LaneChangeModel Parameter Retrieval 0x7e
 
