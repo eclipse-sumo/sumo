@@ -378,7 +378,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TO:
             return nbCon.toEdge->getID();
         case SUMO_ATTR_FROM_LANE:
-            return toString(nbCon.toLane);
+            return toString(nbCon.fromLane);
         case SUMO_ATTR_TO_LANE:
             return toString(nbCon.toLane);
         case SUMO_ATTR_PASS:
