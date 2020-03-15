@@ -87,7 +87,7 @@ public:
         The definition of the effort depends on the wished routing scheme */
     bool compute(const E* from, const E* to, const V* const vehicle, SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         // make sure that the vehicle can turn-around when starting on a short edge (the virtual turn-around for this lies backwards along the route / track)
-        std::vector<int> backLengths;
+        std::vector<double> backLengths;
         double backDist = vehicle->getLength() - from->getLength();
         const E* start = from;
         while (backDist > 0) {
@@ -105,8 +105,8 @@ public:
         bool success = myInternalRouter->compute(start->getRailwayRoutingEdge(), to->getRailwayRoutingEdge(), vehicle, msTime, intoTmp, silent);
         //std::cout << "RailRouter veh=" << vehicle->getID() << " from=" << from->getID() << " to=" << to->getID() << " t=" << time2string(msTime) << " success=" << success << "\n";
         if (success) {
-            size_t intoSize = into.size();
-            int backIndex = backLengths.size() - 1;;
+            const size_t intoSize = into.size();
+            const int backIndex = (int)backLengths.size() - 1;;
             for (const _RailEdge* railEdge : intoTmp) {
                 // prevent premature reversal on back edge (extend train length)
                 const double length = backIndex >= 0 ? backLengths[backIndex] : vehicle->getLength();
