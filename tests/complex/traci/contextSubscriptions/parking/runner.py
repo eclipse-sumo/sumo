@@ -25,7 +25,7 @@ sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 
 import traci  # noqa
 import sumolib  # noqa
-import traci.constants as tc
+import traci.constants as tc  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
@@ -36,8 +36,8 @@ traci.start([sumoBinary,
              ])
 
 vehID = "ego"
-traci.vehicle.subscribeContext(vehID, tc.CMD_GET_VEHICLE_VARIABLE,
-        50, [tc.VAR_SPEED, tc.VAR_LANE_ID, tc.VAR_POSITION])
+traci.vehicle.subscribeContext(vehID, tc.CMD_GET_VEHICLE_VARIABLE, 50,
+                               [tc.VAR_SPEED, tc.VAR_LANE_ID, tc.VAR_POSITION])
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()

@@ -236,17 +236,17 @@ print("leader", traci.vehicle.getLeader("2"))
 leaderID, dist = traci.vehicle.getLeader("2")
 
 print("followSpeed", traci.vehicle.getFollowSpeed("2",
-    traci.vehicle.getSpeed("2"),
-    dist,
-    traci.vehicle.getSpeed(leaderID),
-    traci.vehicle.getDecel(leaderID),
-    leaderID))
+        traci.vehicle.getSpeed("2"),
+        dist,
+        traci.vehicle.getSpeed(leaderID),
+        traci.vehicle.getDecel(leaderID),
+        leaderID))
 
 print("secureGap", traci.vehicle.getSecureGap("2",
-    traci.vehicle.getSpeed("2") * 3, # return something other than 0
-    traci.vehicle.getSpeed(leaderID),
-    traci.vehicle.getDecel(leaderID),
-    leaderID))
+        traci.vehicle.getSpeed("2") * 3,  # return something other than 0
+        traci.vehicle.getSpeed(leaderID),
+        traci.vehicle.getDecel(leaderID),
+        leaderID))
 
 print("stopSpeed", traci.vehicle.getStopSpeed("2", 15, 20))
 

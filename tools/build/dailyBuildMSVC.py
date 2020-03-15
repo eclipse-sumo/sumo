@@ -48,11 +48,6 @@ BINARIES = ("activitygen", "emissionsDrivingCycle", "emissionsMap",
             "TraCITestClient")
 
 
-def printLog(msg, log):
-    print(u"%s: %s" % (datetime.datetime.now(), msg), file=log)
-    log.flush()
-
-
 def repositoryUpdate(options, log):
     gitrev = ""
     cwd = os.getcwd()
@@ -123,10 +118,10 @@ def generateCMake(generator, log, checkOptionalLibs, python):
         cmakeOpt += ["-DSUMO_UTILS=True"]
     # Create directory or clear it if already exists
     if os.path.exists(buildDir):
-        printLog("Cleaning directory of %s." % generator, log)
+        status.printLog("Cleaning directory of %s." % generator, log)
         shutil.rmtree(buildDir)
     os.makedirs(buildDir)
-    printLog("Creating solution for %s." % generator, log)
+    status.printLog("Creating solution for %s." % generator, log)
     subprocess.call(["cmake", "../..", "-G", generator] + cmakeOpt, cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
     return buildDir
 
@@ -187,7 +182,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
             pass
     # we need to use io.open here due to http://bugs.python.org/issue16273
     with io.open(makeLog, 'a') as log:
-        printLog("Running %s build using python %s." % (msvcVersion, sys.version), log)
+        status.printLog("Running %s build using python %s." % (msvcVersion, sys.version), log)
         gitrev = repositoryUpdate(options, log)
         generator = "Visual Studio 12 2013"
         if platform == "x64":
@@ -234,7 +229,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                             zipf.write(f, nameInZip)
                 srcDir = os.path.join(options.rootDir, options.binDir.replace("bin", "src"))
                 includeDir = binDir.replace("bin", "include")
-                printLog("Creating sumo.zip.", log)
+                status.printLog("Creating sumo.zip.", log)
                 for f in (glob.glob(os.path.join(srcDir, "libsumo", "*.h")) +
                           glob.glob(os.path.join(srcDir, "utils", "traci", "TraCIAPI.*")) +
                           glob.glob(os.path.join(srcDir, "foreign", "tcpip", "s*.*"))):
@@ -250,22 +245,22 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                 zipf.close()
                 if options.suffix == "":
                     # installers only for the vanilla build
-                    printLog("Creating sumo.msi.", log)
+                    status.printLog("Creating sumo.msi.", log)
                     wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
             except IOError as ziperr:
-                printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), log)
+                status.printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), log)
         if platform == "x64":
-            printLog("Creating sumo-game.zip.", log)
+            status.printLog("Creating sumo-game.zip.", log)
             try:
                 setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
                 subprocess.call(['python', setup, binaryZip], stdout=log, stderr=subprocess.STDOUT)
             except Exception as e:
-                printLog("Warning: Could not create nightly sumo-game.zip! (%s)" % e, log)
+                status.printLog("Warning: Could not create nightly sumo-game.zip! (%s)" % e, log)
         with open(makeAllLog, 'a') as debugLog:
             ret = subprocess.call(["cmake", "--build", ".", "--config", "Debug"],
                                   cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
             if ret == 0 and sumoAllZip:
-                printLog("Creating sumoDebug.zip.", debugLog)
+                status.printLog("Creating sumoDebug.zip.", debugLog)
                 try:
                     debugZip = sumoAllZip.replace("-all-", "-%s%sDebug-" %
                                                   (platform.lower().replace("x", "win"), options.suffix))
@@ -275,14 +270,14 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                             zipf.write(f, os.path.join(binDir, os.path.basename(f)))
                     zipf.close()
                 except IOError as ziperr:
-                    printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), debugLog)
-        printLog("Running tests.", log)
+                    status.printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), debugLog)
+        status.printLog("Running tests.", log)
         runTests(options, env, gitrev, log)
     with open(statusLog, 'w') as log:
         status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
 if not options.x64only:
     with open(makeAllLog, 'a') as debugLog:
-        printLog("Running debug tests.", debugLog)
+        status.printLog("Running debug tests.", debugLog)
         runTests(options, env, gitrev, debugLog, "D")
     with open(prefix + "Dstatus.log", 'w') as log:
         status.printStatus(makeAllLog, makeAllLog, env["SMTP_SERVER"], log)

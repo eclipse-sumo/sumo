@@ -26,6 +26,11 @@ from os.path import basename, commonprefix
 from datetime import datetime
 
 
+def printLog(msg, log):
+    print(u"%s: %s" % (datetime.now(), msg), file=log)
+    log.flush()
+
+
 def findErrors(line, warnings, errors, failed):
     if re.search("[Ww]arn[ui]ng[: ]", line) or "[WARNING]" in line:
         if " test-case " not in line:

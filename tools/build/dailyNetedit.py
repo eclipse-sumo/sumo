@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    dailyBuildMSVC.py
+# @file    dailyNetedit.py
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @author  Laura Bieker
@@ -25,24 +25,19 @@ hard coded into this script.
 """
 from __future__ import absolute_import
 from __future__ import print_function
-import io
 import datetime
 import optparse
 import os
 import glob
 import subprocess
-import zipfile
-import shutil
 import sys
+
+import status
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib  # noqa
 
 BINARIES = ("netedit",)
-
-def printLog(msg, log):
-    print(u"%s: %s" % (datetime.datetime.now(), msg), file=log)
-    log.flush()
 
 
 def killall(debugSuffix):
@@ -91,9 +86,6 @@ optParser.add_option("-m", "--remote-dir", dest="remoteDir", default="S:\\daily"
 optParser.add_option("-p", "--python", help="path to python interpreter to use")
 (options, args) = optParser.parse_args()
 
-sys.path.append(os.path.join(options.rootDir, options.testsDir))
-import runExtraTests  # noqa
-
 env = os.environ
 if "SUMO_HOME" not in env:
     env["SUMO_HOME"] = os.path.dirname(
@@ -108,5 +100,5 @@ prefix = os.path.join(options.remoteDir, env["FILEPREFIX"])
 testLog = prefix + "NeteditTest.log"
 gitrev = sumolib.version.gitDescribe()
 with open(testLog, 'a') as log:
-    printLog("Running tests.", log)
+    status.printLog("Running tests.", log)
     runTests(options, env, gitrev, log)
