@@ -41,6 +41,7 @@
 // ===========================================================================
 class SUMOVehicle;
 class SUMOVehicleParameter;
+class MSBaseVehicle;
 class MSVehicle;
 class MSRoute;
 class MSVehicleType;
@@ -515,13 +516,15 @@ private:
     bool isPendingRemoval(SUMOVehicle* veh);
 
 protected:
+    void initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors);
+
+private:
     /// @name Vehicle statistics (always accessible)
     /// @{
 
     /// @brief The number of build vehicles
     int myLoadedVehNo;
 
-private:
     /// @brief The number of vehicles within the network (build and inserted but not removed)
     int myRunningVehNo;
 

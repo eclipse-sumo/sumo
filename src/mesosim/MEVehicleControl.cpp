@@ -45,10 +45,8 @@ SUMOVehicle*
 MEVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                const MSRoute* route, MSVehicleType* type,
                                const bool ignoreStopErrors, const bool fromRouteFile) {
-    myLoadedVehNo++;
     MEVehicle* built = new MEVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : nullptr));
-    built->addStops(ignoreStopErrors);
-    MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
+    initVehicle(built, ignoreStopErrors);
     return built;
 }
 
