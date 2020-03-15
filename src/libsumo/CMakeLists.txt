@@ -29,6 +29,8 @@ set(libsumostatic_STAT_SRCS
     Polygon.cpp
     Route.h
     Route.cpp
+    Calibrator.h
+    Calibrator.cpp
     Simulation.cpp
     Simulation.h
     Subscription.h

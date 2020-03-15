@@ -161,6 +161,10 @@ public:
         return !myVehicleTypes.empty();
     }
 
+    const std::set<std::string>& getVehicleTypes() const {
+        return myVehicleTypes;
+    }
+
     inline bool detectPersons() const {
         return myDetectPersons != 0;
     }

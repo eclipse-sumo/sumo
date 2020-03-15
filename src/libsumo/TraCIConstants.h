@@ -703,6 +703,33 @@ TRACI_CONST int VAR_STOP_SPEED = 0x1d;
 // carFollowModel function getSecureGap (get: vehicle)
 TRACI_CONST int VAR_SECURE_GAP = 0x1e;
 
+//  begin time(get: calibrator)
+TRACI_CONST int VAR_BEGIN = 0x1c;
+
+//  end time(get: calibrator)
+TRACI_CONST int VAR_END = 0x1d;
+
+// vtype list (get: calibrator)
+TRACI_CONST int VAR_VTYPES = 0x1e;
+
+//  vehicles per hour (get: calibrator)
+TRACI_CONST int VAR_VEHSPERHOUR = 0x13;
+
+// passed vehicle count (get: calibrator)
+TRACI_CONST int VAR_PASSED = 0x14;
+
+// inserted vehicle count (get: calibrator)
+TRACI_CONST int VAR_INSERTED = 0x15;
+
+// removed vehicle count (get: calibrator)
+TRACI_CONST int VAR_REMOVED = 0x16;
+
+// routeProbe id (get: calibrator)
+TRACI_CONST int VAR_ROUTE_PROBE = 0x17;
+
+// routeProbe id (get: calibrator)
+TRACI_CONST int CMD_SET_FLOW = 0x18;
+
 // traffic light states, encoded as rRgGyYoO tuple (get: traffic lights)
 TRACI_CONST int TL_RED_YELLOW_GREEN_STATE = 0x20;
 

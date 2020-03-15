@@ -53,7 +53,7 @@
 // ===========================================================================
 std::vector<MSMoveReminder*> MSCalibrator::LeftoverReminders;
 std::vector<SUMOVehicleParameter*> MSCalibrator::LeftoverVehicleParameters;
-std::set<MSCalibrator*> MSCalibrator::myInstances;
+std::map<std::string, MSCalibrator*> MSCalibrator::myInstances;
 
 // ===========================================================================
 // method definitions
@@ -84,7 +84,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
     myHaveWarnedAboutClearingJam(false),
     myAmActive(false),
     myHaveInvalidJam(false) {
-    myInstances.insert(this);
+    myInstances[id] = this;
     if (outputFilename != "") {
         myOutput = &OutputDevice::getDevice(outputFilename);
         writeXMLDetectorProlog(*myOutput);
@@ -136,9 +136,16 @@ MSCalibrator::~MSCalibrator() {
     for (VehicleRemover* const remover : myVehicleRemovers) {
         remover->disable();
     }
-    myInstances.erase(this);
+    myInstances.erase(getID());
 }
 
+MSCalibrator::AspiredState
+MSCalibrator::getCurrentStateInterval() const {
+    if (myCurrentStateInterval == myIntervals.end()) {
+        throw ProcessError("Calibrator '" + getID() + "' has no active or upcoming interval");
+    }
+    return *myCurrentStateInterval;
+}
 
 void
 MSCalibrator::myStartElement(int element,
@@ -632,5 +639,41 @@ MSCalibrator::getNewVehicleID() {
     return getID() + "." + toString(beginS, precision) + "." + toString(myInserted);
 }
 
+void
+MSCalibrator::setFlow(SUMOTime begin, SUMOTime end, double vehsPerHour, double speed, SUMOVehicleParameter vehicleParameter) {
+    auto it = myCurrentStateInterval;
+    while (it != myIntervals.end()) {
+        if (it->begin > begin) {
+            throw ProcessError("Cannot set flow for calibrator '" + getID() + "' with begin time " + time2string(begin) + " in the past.");
+        } else if (it->begin == begin && it->end == end) {
+            // update current interval
+            AspiredState& state = const_cast<AspiredState&>(*it);
+            state.q = vehsPerHour;
+            state.v = speed;
+            state.vehicleParameter->vtypeid = vehicleParameter.vtypeid;
+            state.vehicleParameter->departLane = vehicleParameter.departLane;
+            state.vehicleParameter->departLaneProcedure = vehicleParameter.departLaneProcedure;
+            state.vehicleParameter->departSpeed = vehicleParameter.departSpeed;
+            state.vehicleParameter->departSpeedProcedure = vehicleParameter.departSpeedProcedure;
+            return;
+        } else if (begin < it->end) {
+            throw ProcessError("Cannot set flow for calibrator '" + getID() + "' with overlapping interval.");
+        } else if (begin <= end) {
+            throw ProcessError("Cannot set flow for calibrator '" + getID() + "' with negative interval.");
+        } 
+        it++;
+    }
+    // add interval at the end of the known intervals
+    AspiredState state;
+    state.q = vehsPerHour;
+    state.v = speed;
+    state.vehicleParameter = new SUMOVehicleParameter();
+    state.vehicleParameter->vtypeid = vehicleParameter.vtypeid;
+    state.vehicleParameter->departLane = vehicleParameter.departLane;
+    state.vehicleParameter->departLaneProcedure = vehicleParameter.departLaneProcedure;
+    state.vehicleParameter->departSpeed = vehicleParameter.departSpeed;
+    state.vehicleParameter->departSpeedProcedure = vehicleParameter.departSpeedProcedure;
+    myIntervals.push_back(state);
+}
 
 /****************************************************************************/

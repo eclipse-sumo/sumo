@@ -21,6 +21,8 @@ SET(traciserver_STAT_SRCS
    TraCIServerAPI_Polygon.cpp
    TraCIServerAPI_Route.h
    TraCIServerAPI_Route.cpp
+   TraCIServerAPI_Calibrator.h
+   TraCIServerAPI_Calibrator.cpp
    TraCIServerAPI_Simulation.h
    TraCIServerAPI_Simulation.cpp
    TraCIServerAPI_TrafficLight.h

@@ -273,8 +273,8 @@ GUINet::initGUIStructures() {
         }
     }
     // initialise calibrators
-    for (MSCalibrator* cali : MSCalibrator::getInstances()) {
-        GUICalibrator* wrapper = new GUICalibrator(cali);
+    for (auto& item : MSCalibrator::getInstances()) {
+        GUICalibrator* wrapper = new GUICalibrator(item.second);
         myCalibratorWrapper.push_back(wrapper);
         myGrid.addAdditionalGLObject(wrapper);
     }
