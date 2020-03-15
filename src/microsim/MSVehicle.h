@@ -236,6 +236,7 @@ public:
     /// @brief Destructor.
     virtual ~MSVehicle();
 
+    void initDevices();
 
     /// @name insertion/removal
     //@{

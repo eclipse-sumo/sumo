@@ -120,6 +120,7 @@ void
 MSVehicleControl::initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors) {
     myLoadedVehNo++;
     try {
+        built->initDevices();
         built->addStops(ignoreStopErrors);
     } catch (ProcessError&) {
         delete built;

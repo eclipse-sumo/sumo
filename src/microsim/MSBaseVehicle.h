@@ -74,6 +74,8 @@ public:
     /// @brief Destructor
     virtual ~MSBaseVehicle();
 
+    virtual void initDevices();
+
     bool isVehicle() const {
         return true;
     }

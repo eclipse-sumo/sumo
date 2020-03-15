@@ -721,7 +721,7 @@ MSRouteHandler::closeVehicle() {
         } catch (const ProcessError& e) {
             if (!MSGlobals::gCheckRoutes) {
                 WRITE_WARNING(e.what());
-                vehControl.deleteVehicle(nullptr, true);
+                vehControl.fixVehicleCounts();
                 myVehicleParameter = nullptr;
                 vehicle = nullptr;
                 return;

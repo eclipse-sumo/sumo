@@ -141,6 +141,11 @@ public:
      */
     virtual void deleteVehicle(SUMOVehicle* v, bool discard = false);
 
+    void fixVehicleCounts() {
+        myLoadedVehNo++;
+        myEndedVehNo++;
+        myDiscarded++;
+    }
 
     /** @brief Removes a vehicle after it has ended
      *

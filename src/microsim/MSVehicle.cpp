@@ -1014,9 +1014,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                                "' is too high for the vehicle type '" + type->getID() + "'.");
         }
     }
-    myLaneChangeModel = MSAbstractLaneChangeModel::build(type->getLaneChangeModel(), *this);
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
-    myDriverState = static_cast<MSDevice_DriverState*>(getDevice(typeid(MSDevice_DriverState)));
     myNextDriveItem = myLFLinkLanes.begin();
 }
 
@@ -1051,6 +1049,14 @@ MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
     MSVehicleTransfer::getInstance()->remove(this);
     removeApproachingInformation(myLFLinkLanes);
     leaveLane(reason);
+}
+
+
+void
+MSVehicle::initDevices() {
+    MSBaseVehicle::initDevices();
+    myLaneChangeModel = MSAbstractLaneChangeModel::build(myType->getLaneChangeModel(), *this);
+    myDriverState = static_cast<MSDevice_DriverState*>(getDevice(typeid(MSDevice_DriverState)));
 }
 
 
