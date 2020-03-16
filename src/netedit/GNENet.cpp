@@ -3342,8 +3342,6 @@ GNENet::deleteDataSet(GNEDataSet* dataSet) {
         myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(dataSet);
         // data elements has to be saved
         requireSaveDataElements(true);
-        // update interval toolbar
-        myViewNet->getIntervalBar().updateIntervalBar();
         // dataSet removed, then return true
         return true;
     } else {

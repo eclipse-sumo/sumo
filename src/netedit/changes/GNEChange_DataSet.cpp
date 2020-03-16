@@ -71,6 +71,8 @@ GNEChange_DataSet::undo() {
         // insert data set into net
         myNet->insertDataSet(myDataSet);
     }
+    // update toolbar
+    myNet->getViewNet()->getIntervalBar().updateIntervalBar();
     // Requiere always save elements
     myNet->requireSaveDataElements(true);
 }
@@ -89,6 +91,8 @@ GNEChange_DataSet::redo() {
         // delete data set from net
         myNet->deleteDataSet(myDataSet);
     }
+    // update toolbar
+    myNet->getViewNet()->getIntervalBar().updateIntervalBar();
     // Requiere always save elements
     myNet->requireSaveDataElements(true);
 }
