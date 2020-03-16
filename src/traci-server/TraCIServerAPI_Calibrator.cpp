@@ -91,7 +91,7 @@ TraCIServerAPI_Calibrator::processSet(TraCIServer& server, tcpip::Storage& input
                 std::string routeID;
                 std::string departLane;
                 std::string departSpeed;
-                if (parameterCount == 5) {
+                if (parameterCount == 8) {
                     if (!server.readTypeCheckingDouble(inputStorage, begin)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_CALIBRATOR_VARIABLE, "Setting flow requires the begin time as the first value.", outputStorage);
                     }

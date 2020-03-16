@@ -48,15 +48,15 @@ public:
 
     static std::vector<std::string> getIDList();
     static int getIDCount();
-    static std::string getEdge(const std::string& calibratorID);
-    static std::string getLane(const std::string& calibratorID);
+    static std::string getEdgeID(const std::string& calibratorID);
+    static std::string getLaneID(const std::string& calibratorID);
     static double getVehsPerHour(const std::string& calibratorID);
     static double getSpeed(const std::string& calibratorID);
-    static std::string getType(const std::string& calibratorID);
+    static std::string getTypeID(const std::string& calibratorID);
     static double getBegin(const std::string& calibratorID);
     static double getEnd(const std::string& calibratorID);
-    static std::string getRoute(const std::string& calibratorID);
-    static std::string getRouteProbe(const std::string& calibratorID);
+    static std::string getRouteID(const std::string& calibratorID);
+    static std::string getRouteProbeID(const std::string& calibratorID);
     static std::vector<std::string> getVTypes(const std::string& routeID);
     static int getPassed(const std::string& calibratorID);
     static int getInserted(const std::string& calibratorID);
@@ -64,7 +64,7 @@ public:
     static std::string getParameter(const std::string& calibratorID, const std::string& param);
 
     static void setFlow(const std::string& calibratorID, double begin, double end, double vehsPerHour, double speed, const std::string& typeID,
-            const std::string& routeID = "first",
+            const std::string& routeID,
             const std::string& departLane = "first",
             const std::string& departSpeed = "max");
 

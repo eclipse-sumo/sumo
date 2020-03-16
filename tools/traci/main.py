@@ -45,6 +45,7 @@ from .exceptions import FatalTraCIError, TraCIException  # noqa
 from . import _inductionloop, _lanearea, _multientryexit, _trafficlight  # noqa
 from . import _lane, _person, _route, _vehicle, _vehicletype  # noqa
 from . import _edge, _gui, _junction, _poi, _polygon, _simulation  # noqa
+from . import _calibrator  # noqa
 
 inductionloop = _inductionloop.InductionLoopDomain()
 lanearea = _lanearea.LaneAreaDomain()
@@ -61,6 +62,7 @@ junction = _junction.JunctionDomain()
 poi = _poi.PoiDomain()
 polygon = _polygon.PolygonDomain()
 simulation = _simulation.SimulationDomain()
+calibrator = _calibrator.CalibratorDomain()
 
 _connections = {}
 # cannot use immutable type as global variable

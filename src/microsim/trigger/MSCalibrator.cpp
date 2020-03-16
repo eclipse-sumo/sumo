@@ -651,6 +651,7 @@ MSCalibrator::setFlow(SUMOTime begin, SUMOTime end, double vehsPerHour, double s
             state.q = vehsPerHour;
             state.v = speed;
             state.vehicleParameter->vtypeid = vehicleParameter.vtypeid;
+            state.vehicleParameter->routeid = vehicleParameter.routeid;
             state.vehicleParameter->departLane = vehicleParameter.departLane;
             state.vehicleParameter->departLaneProcedure = vehicleParameter.departLaneProcedure;
             state.vehicleParameter->departSpeed = vehicleParameter.departSpeed;
@@ -658,22 +659,22 @@ MSCalibrator::setFlow(SUMOTime begin, SUMOTime end, double vehsPerHour, double s
             return;
         } else if (begin < it->end) {
             throw ProcessError("Cannot set flow for calibrator '" + getID() + "' with overlapping interval.");
-        } else if (begin <= end) {
+        } else if (begin >= end) {
             throw ProcessError("Cannot set flow for calibrator '" + getID() + "' with negative interval.");
         } 
         it++;
     }
     // add interval at the end of the known intervals
+    int myIntervalIndex = myCurrentStateInterval - myIntervals.begin();
     AspiredState state;
+    state.begin = begin;
+    state.end = end;
     state.q = vehsPerHour;
     state.v = speed;
-    state.vehicleParameter = new SUMOVehicleParameter();
-    state.vehicleParameter->vtypeid = vehicleParameter.vtypeid;
-    state.vehicleParameter->departLane = vehicleParameter.departLane;
-    state.vehicleParameter->departLaneProcedure = vehicleParameter.departLaneProcedure;
-    state.vehicleParameter->departSpeed = vehicleParameter.departSpeed;
-    state.vehicleParameter->departSpeedProcedure = vehicleParameter.departSpeedProcedure;
+    state.vehicleParameter = new SUMOVehicleParameter(vehicleParameter);
     myIntervals.push_back(state);
+    // fix iterator
+    myCurrentStateInterval = myIntervals.begin() + myIntervalIndex;
 }
 
 /****************************************************************************/

@@ -59,12 +59,12 @@ Calibrator::getIDCount() {
 }
 
 std::string
-Calibrator::getEdge(const std::string& calibratorID) {
+Calibrator::getEdgeID(const std::string& calibratorID) {
     return getCalibrator(calibratorID)->getEdge()->getID();
 }
 
 std::string
-Calibrator::getLane(const std::string& calibratorID) {
+Calibrator::getLaneID(const std::string& calibratorID) {
     const MSLane* lane = getCalibrator(calibratorID)->getLane();
     if (lane == nullptr) {
         return "";
@@ -84,7 +84,7 @@ Calibrator::getSpeed(const std::string& calibratorID) {
 }
 
 std::string
-Calibrator::getType(const std::string& calibratorID) {
+Calibrator::getTypeID(const std::string& calibratorID) {
     return getCalibratorState(getCalibrator(calibratorID)).vehicleParameter->vtypeid;
 }
 
@@ -99,12 +99,12 @@ Calibrator::getEnd(const std::string& calibratorID) {
 }
 
 std::string
-Calibrator::getRoute(const std::string& calibratorID) {
+Calibrator::getRouteID(const std::string& calibratorID) {
     return getCalibratorState(getCalibrator(calibratorID)).vehicleParameter->routeid;
 }
 
 std::string
-Calibrator::getRouteProbe(const std::string& calibratorID) {
+Calibrator::getRouteProbeID(const std::string& calibratorID) {
     const MSRouteProbe* rp = getCalibrator(calibratorID)->getRouteProbe();
     if (rp == nullptr) {
         return "";
@@ -209,23 +209,23 @@ Calibrator::handleVariable(const std::string& objID, const int variable, Variabl
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());
         case VAR_ROAD_ID:
-            return wrapper->wrapString(objID, variable, getEdge(objID));
+            return wrapper->wrapString(objID, variable, getEdgeID(objID));
         case VAR_LANE_ID:
-            return wrapper->wrapString(objID, variable, getLane(objID));
+            return wrapper->wrapString(objID, variable, getLaneID(objID));
         case VAR_VEHSPERHOUR:
             return wrapper->wrapDouble(objID, variable, getVehsPerHour(objID));
         case VAR_SPEED:
             return wrapper->wrapDouble(objID, variable, getSpeed(objID));
         case VAR_TYPE:
-            return wrapper->wrapString(objID, variable, getType(objID));
+            return wrapper->wrapString(objID, variable, getTypeID(objID));
         case VAR_BEGIN:
             return wrapper->wrapDouble(objID, variable, getBegin(objID));
         case VAR_END:
             return wrapper->wrapDouble(objID, variable, getEnd(objID));
         case VAR_ROUTE_ID:
-            return wrapper->wrapString(objID, variable, getRoute(objID));
+            return wrapper->wrapString(objID, variable, getRouteID(objID));
         case VAR_ROUTE_PROBE:
-            return wrapper->wrapString(objID, variable, getRouteProbe(objID));
+            return wrapper->wrapString(objID, variable, getRouteProbeID(objID));
         case VAR_VTYPES:
             return wrapper->wrapStringList(objID, variable, getVTypes(objID));
         case VAR_PASSED:

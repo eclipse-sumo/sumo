@@ -77,6 +77,7 @@
 #include "TraCIServerAPI_Edge.h"
 #include "TraCIServerAPI_Simulation.h"
 #include "TraCIServerAPI_Person.h"
+#include "TraCIServerAPI_Calibrator.h"
 
 
 // ===========================================================================
@@ -221,6 +222,8 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myExecutors[libsumo::CMD_SET_SIM_VARIABLE] = &TraCIServerAPI_Simulation::processSet;
     myExecutors[libsumo::CMD_GET_PERSON_VARIABLE] = &TraCIServerAPI_Person::processGet;
     myExecutors[libsumo::CMD_SET_PERSON_VARIABLE] = &TraCIServerAPI_Person::processSet;
+    myExecutors[libsumo::CMD_GET_CALIBRATOR_VARIABLE] = &TraCIServerAPI_Calibrator::processGet;
+    myExecutors[libsumo::CMD_SET_CALIBRATOR_VARIABLE] = &TraCIServerAPI_Calibrator::processSet;
 
     myParameterSizes[libsumo::VAR_LEADER] = 9;
 
