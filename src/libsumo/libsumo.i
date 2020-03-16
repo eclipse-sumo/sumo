@@ -17,6 +17,7 @@
 %rename(trafficlight) TrafficLight;
 %rename(vehicle) Vehicle;
 %rename(vehicletype) VehicleType;
+%rename(calibrator) Calibrator;
 
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
