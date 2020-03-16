@@ -630,6 +630,36 @@ private:
             FXMenuSeparator* myHorizontalSeparator;
         };
 
+
+        /// @brief struct for Data menu commands
+        struct DataMenuCommands {
+
+            /// @brief constructor
+            DataMenuCommands(const EditMenuCommands* editMenuCommandsParent);
+
+            /// @brief build menu commands
+            void buildDataMenuCommands(FXMenuPane* editMenu);
+
+            /// @brief show all menu commands
+            void showDataMenuCommands();
+
+            /// @brief hide all menu commands
+            void hideDataMenuCommands();
+
+            /// @brief menu command for edge mode
+            FXMenuCommand* edgeData;
+
+            /// @brief menu command for edge rel mode
+            FXMenuCommand* edgeRelData;
+
+        private:
+            /// @brief reference to EditMenuCommands
+            const EditMenuCommands* myEditMenuCommandsParent;
+
+            /// @brief separator between sets of FXMenuCommand
+            FXMenuSeparator* myHorizontalSeparator;
+        };
+
         /// @brief constructor
         EditMenuCommands(GNEApplicationWindow* GNEApp);
 
@@ -646,6 +676,9 @@ private:
 
         /// @brief Demand Menu Commands
         DemandMenuCommands demandMenuCommands;
+
+        /// @brief Data Menu Commands
+        DataMenuCommands dataMenuCommands;
 
         /// @brief FXMenuCommand for undo last change
         FXMenuCommand* undoLastChange;
@@ -693,6 +726,12 @@ private:
         /// @brief show demand processing menu commands
         void hideDemandProcessingMenuCommands();
 
+        /// @brief show data processing menu commands
+        void showDataProcessingMenuCommands();
+
+        /// @brief show data processing menu commands
+        void hideDataProcessingMenuCommands();
+
         /// @name Processing FXMenuCommands for Network mode
         /// @{
         /// @brief FXMenuCommand for compute network
@@ -724,6 +763,11 @@ private:
 
         /// @brief FXMenuCommand for clear invalid demand elements
         FXMenuCommand* clearInvalidDemandElements;
+        /// @}
+
+        /// @name Processing FXMenuCommands for Data mode
+        /// @{
+
         /// @}
 
         /// @brief FXMenuCommand for open option menus

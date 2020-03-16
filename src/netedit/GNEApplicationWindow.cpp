@@ -1453,6 +1453,49 @@ GNEApplicationWindow::EditMenuCommands::DemandMenuCommands::buildDemandMenuComma
 }
 
 // ---------------------------------------------------------------------------
+// GNEApplicationWindow::EditMenuCommands::DataMenuCommands - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindow::EditMenuCommands::DataMenuCommands::DataMenuCommands(const EditMenuCommands* editMenuCommandsParent) :
+    edgeData(nullptr),
+    edgeRelData(nullptr),
+    myEditMenuCommandsParent(editMenuCommandsParent),
+    myHorizontalSeparator(nullptr) {
+}
+
+
+void
+GNEApplicationWindow::EditMenuCommands::DataMenuCommands::showDataMenuCommands() {
+    edgeData->show();
+    edgeRelData->show();
+    // also show separator
+    myHorizontalSeparator->show();
+}
+
+
+void
+GNEApplicationWindow::EditMenuCommands::DataMenuCommands::hideDataMenuCommands() {
+    edgeData->hide();
+    edgeRelData->hide();
+    // also hide separator
+    myHorizontalSeparator->hide();
+}
+
+
+void
+GNEApplicationWindow::EditMenuCommands::DataMenuCommands::buildDataMenuCommands(FXMenuPane* editMenu) {
+    // build every FXMenuCommand giving it a shortcut
+    edgeData = new FXMenuCommand(editMenu,
+        "Edge Data Mode\tE\tCreate edge datas.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEEDGEDATA), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_E_MODES_EDGE_EDGEDATA);
+    edgeRelData  = new FXMenuCommand(editMenu,
+        "Edge Rel Data Mode\tR\tCreate edge relation datas.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEEDGERELDATA), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA);
+    // build separator
+    myHorizontalSeparator = new FXMenuSeparator(editMenu);
+}
+
+// ---------------------------------------------------------------------------
 // GNEApplicationWindow::EditMenuCommands - methods
 // ---------------------------------------------------------------------------
 
@@ -1460,6 +1503,7 @@ GNEApplicationWindow::EditMenuCommands::EditMenuCommands(GNEApplicationWindow* G
     myGNEApp(GNEApp),
     networkMenuCommands(this),
     demandMenuCommands(this),
+    dataMenuCommands(this),
     undoLastChange(nullptr),
     redoLastChange(nullptr),
     editViewScheme(nullptr),
@@ -1491,6 +1535,10 @@ GNEApplicationWindow::EditMenuCommands::buildEditMenuCommands(FXMenuPane* editMe
     // build Demand Modes commands
     demandMenuCommands.buildDemandMenuCommands(editMenu);
     demandMenuCommands.hideDemandMenuCommands();
+    // build Data Modes commands
+    dataMenuCommands.buildDataMenuCommands(editMenu);
+    dataMenuCommands.hideDataMenuCommands();
+    // build rest of menu commands
     editViewScheme = new FXMenuCommand(editMenu,
         "Edit Visualisation\tF9\tOpens a dialog for editing visualization settings.",
         nullptr, myGNEApp, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
@@ -1634,6 +1682,18 @@ GNEApplicationWindow::ProcessingMenuCommands::hideDemandProcessingMenuCommands()
     cleanRoutes->hide();
     joinRoutes->hide();
     clearInvalidDemandElements->hide();
+}
+
+
+void 
+GNEApplicationWindow::ProcessingMenuCommands::showDataProcessingMenuCommands() {
+
+}
+
+
+void 
+GNEApplicationWindow::ProcessingMenuCommands::hideDataProcessingMenuCommands() {
+
 }
 
 // ---------------------------------------------------------------------------
@@ -3508,33 +3568,41 @@ GNEApplicationWindow::updateControls() {
 void
 GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
     if (supermode == Supermode::NETWORK) {
+        // menu commands
         myEditMenuCommands.networkMenuCommands.showNetworkMenuCommands();
         myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
-        /** DATA **/
+        myEditMenuCommands.dataMenuCommands.hideDataMenuCommands();
+        // processing
         myProcessingMenuCommands.showNetworkProcessingMenuCommands();
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
-        /** DATA **/
+        myProcessingMenuCommands.hideDataProcessingMenuCommands();
     } else if (supermode == Supermode::DEMAND) {
+        // menu commands
         myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myEditMenuCommands.demandMenuCommands.showDemandMenuCommands();
-        /** DATA **/
+        myEditMenuCommands.dataMenuCommands.hideDataMenuCommands();
+        // processing
         myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
         myProcessingMenuCommands.showDemandProcessingMenuCommands();
-        /** DATA **/
+        myProcessingMenuCommands.hideDataProcessingMenuCommands();
     } else if (supermode == Supermode::DATA) {
+        // menu commands
         myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
-        /** DATA **/
+        myEditMenuCommands.dataMenuCommands.showDataMenuCommands();
+        // processing
         myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
-        /** DATA **/
+        myProcessingMenuCommands.showDataProcessingMenuCommands();
     } else {
+        // menu commands
         myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
-        /** DATA **/
+        myEditMenuCommands.dataMenuCommands.hideDataMenuCommands();
+        // processing
         myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
-        /** DATA **/
+        myProcessingMenuCommands.hideDataProcessingMenuCommands();
     }
 }
 

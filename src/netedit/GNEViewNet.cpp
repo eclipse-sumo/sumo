@@ -3058,7 +3058,7 @@ GNEViewNet::updateDataModeSpecificControls() {
             myViewParent->getEdgeRelDataFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getEdgeRelDataFrame();
             // set checkable button
-            myDataCheckableButtons.edgeDataButton->setChecked(true);
+            myDataCheckableButtons.edgeRelDataButton->setChecked(true);
             // disable IntervalBar
             myIntervalBar.disableIntervalBar();
             // show toolbar grip of view options
