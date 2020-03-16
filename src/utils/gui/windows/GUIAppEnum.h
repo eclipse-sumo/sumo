@@ -40,31 +40,31 @@ enum {
     /// @{
 
     /// @brief hotkey for mode editing additionals AND stops
-    MID_HOTKEY_A_ADDITIONALMODE_STOPMODE,
+    MID_HOTKEY_A_MODES_ADDITIONAL_STOP,
     /// @brief hotkey for mode connecting lanes
-    MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE,
+    MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN,
     /// @brief hotkey for mode deleting things
-    MID_HOTKEY_D_DELETEMODE,
+    MID_HOTKEY_D_MODES_DELETE,
     /// @brief hotkey for mode adding edges AND edgeDatas
-    MID_HOTKEY_E_EDGEMODE_EDGEDATAMODE,
+    MID_HOTKEY_E_MODES_EDGE_EDGEDATA,
     /// @brief hotkey for mode inspecting object attributes
-    MID_HOTKEY_I_INSPECTMODE,
+    MID_HOTKEY_I_MODES_INSPECT,
     /// @brief hotkey for mode moving element
-    MID_HOTKEY_M_MOVEMODE,
+    MID_HOTKEY_M_MODES_MOVE,
     /// @brief hotkey for mode creating polygons
-    MID_HOTKEY_P_POLYGONMODE_PERSONMODE,
+    MID_HOTKEY_P_MODES_POLYGON_PERSON,
     /// @brief hotkey for mode selecting objects
-    MID_HOTKEY_S_SELECTMODE,
+    MID_HOTKEY_S_MODES_SELECT,
     /// @brief hotkey for mode editing crossing, routes and edges
     MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA,
     /// @brief hotkey for mode editing TLS AND Vehicle Types
-    MID_HOTKEY_T_TLSMODE_VTYPEMODE,
+    MID_HOTKEY_T_MODES_TLS_VTYPE,
     /// @brief hotkey for mode create vehicles
-    MID_HOTKEY_V_VEHICLEMODE,
+    MID_HOTKEY_V_MODES_VEHICLE,
     /// @brief hotkey for mode editing connection prohibitions AND person types
-    MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE,
+    MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE,
     /// @brief hotkey for mode editing TAZ
-    MID_HOTKEY_Z_TAZMODE,
+    MID_HOTKEY_Z_MODES_TAZ,
 
     /// @}
 
