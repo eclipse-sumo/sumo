@@ -3712,6 +3712,17 @@ GNEAttributeCarrier::fillDataElements() {
             "edge ID");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    currentTag = SUMO_TAG_EDGEREL;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::DATAELEMENT | GNETagProperties::GENERICDATA, GNETagProperties::DRAWABLE | GNETagProperties::PARAMETERSDOUBLE | GNETagProperties::SELECTABLE, GUIIcon::EDGERELDATA, SUMO_TAG_DATAINTERVAL);
+
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+            "edge ID");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
 }
 
 
