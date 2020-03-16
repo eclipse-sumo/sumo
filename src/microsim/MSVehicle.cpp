@@ -981,6 +981,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myActionStep(true),
     myLastActionTime(0),
     myLane(nullptr),
+    myLaneChangeModel(nullptr),
     myLastBestLanesEdge(nullptr),
     myLastBestLanesInternalLane(nullptr),
     myAcceleration(0),
@@ -1023,12 +1024,14 @@ MSVehicle::~MSVehicle() {
     for (std::vector<MSLane*>::iterator i = myFurtherLanes.begin(); i != myFurtherLanes.end(); ++i) {
         (*i)->resetPartialOccupation(this);
     }
-    removeApproachingInformation(myLFLinkLanes);
-    myLaneChangeModel->cleanupShadowLane();
-    myLaneChangeModel->cleanupTargetLane();
-    // still needed when calling resetPartialOccupation (getShadowLane) and when removing
-    // approach information from parallel links
-    delete myLaneChangeModel;
+    if (myLaneChangeModel != nullptr) {
+        removeApproachingInformation(myLFLinkLanes);
+        myLaneChangeModel->cleanupShadowLane();
+        myLaneChangeModel->cleanupTargetLane();
+        // still needed when calling resetPartialOccupation (getShadowLane) and when removing
+        // approach information from parallel links
+        delete myLaneChangeModel;
+    }
     myFurtherLanes.clear();
     myFurtherLanesPosLat.clear();
     //
