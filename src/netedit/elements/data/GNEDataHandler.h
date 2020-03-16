@@ -37,6 +37,7 @@
 class GNEViewNet;
 class GNEEdge;
 class GNEEdgeData;
+class GNEEdgeRelationData;
 class GNEGenericData;
 class GNEDataSet;
 class GNEDataInterval;
@@ -150,6 +151,16 @@ public:
      * @exception InvalidArgument If the edgeData can not be added to the net
      */
     static GNEEdgeData* buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, GNEEdge* edge, const std::map<std::string, std::string>& parameters);
+    
+    /**@brief Builds edgeRelationData
+     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
+     * @param[in] dataIntervalParent GNEDataInterval in which this edgeRelationData is saved
+     * @param[in] edge GNEEdge parent
+     * @param[in] parameters parameters map
+     * @exception InvalidArgument If the edgeRelationData can not be added to the net
+     */
+    static GNEEdgeRelationData* buildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, GNEEdge* edge, const std::map<std::string, std::string>& parameters);
 
 protected:
     /// @name parsing methods
@@ -167,6 +178,11 @@ protected:
      * @param[in] attrs SAX-attributes which define the data
      */
     static bool parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
+
+    /**@brief Parses his values and builds a edge relation data
+     * @param[in] attrs SAX-attributes which define the data
+     */
+    static bool parseAndBuildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
 
     /// @}
 

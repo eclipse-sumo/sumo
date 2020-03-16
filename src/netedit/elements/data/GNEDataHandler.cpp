@@ -27,6 +27,7 @@
 #include <netedit/changes/GNEChange_DataInterval.h>
 #include <netedit/changes/GNEChange_GenericData.h>
 #include <netedit/elements/data/GNEEdgeData.h>
+#include <netedit/elements/data/GNEEdgeRelationData.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/network/GNEEdge.h>
@@ -184,6 +185,8 @@ GNEDataHandler::buildData(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag ta
             return parseAndBuildInterval(viewNet, allowUndoRedo, attrs, insertedDatas);
         case SUMO_TAG_EDGE:
             return parseAndBuildEdgeData(viewNet, allowUndoRedo, attrs, insertedDatas);
+        case SUMO_TAG_EDGEREL:
+            return parseAndBuildEdgeRelationData(viewNet, allowUndoRedo, attrs, insertedDatas);
         default:
             return false;
     }
@@ -233,6 +236,24 @@ GNEDataHandler::buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataIn
         edgeData->incRef("buildEdgeData");
     }
     return edgeData;
+}
+
+
+GNEEdgeRelationData*
+GNEDataHandler::buildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, GNEEdge* edge,
+    const std::map<std::string, std::string>& parameters) {
+    GNEEdgeRelationData* edgeRelationData = new GNEEdgeRelationData(dataIntervalParent, edge, parameters);
+    if (allowUndoRedo) {
+        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_EDGEREL));
+        viewNet->getUndoList()->add(new GNEChange_GenericData(edgeRelationData, true), true);
+        viewNet->getUndoList()->p_end();
+    }
+    else {
+        dataIntervalParent->addGenericDataChild(edgeRelationData);
+        edge->addChildGenericDataElement(edgeRelationData);
+        edgeRelationData->incRef("buildEdgeRelationData");
+    }
+    return edgeRelationData;
 }
 
 
@@ -299,6 +320,53 @@ GNEDataHandler::parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, c
             }
             // save ID of last created element
             GNEGenericData* dataCreated = buildEdgeData(viewNet, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(), edge, parameters);
+            // check if insertion has to be commited
+            if (insertedDatas) {
+                insertedDatas->commitGenericDataInsertion(dataCreated);
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+GNEDataHandler::parseAndBuildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
+    bool abort = false;
+    // parse edgeRelationData attributes
+    std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_EDGEREL, SUMO_ATTR_ID, abort);
+    // Continue if all parameters were sucesfully loaded
+    if (!abort) {
+        // get pointer to edge
+        GNEEdge* edge = viewNet->getNet()->retrieveEdge(edgeID, false);
+        // check that edge is valid
+        if (edge == nullptr) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(SUMO_TAG_EDGEREL) + " '" + edgeID + "' is not known.");
+        } else if (insertedDatas->getLastInsertedDataInterval() == nullptr) {
+            // Write error if lane isn't valid
+            WRITE_WARNING(toString(SUMO_TAG_EDGEREL) + " '" + edgeID + "' must be created within a data interval.");
+        } else {
+            // check if there is already a edge data for the given edge in the interval
+            for (const auto& genericData : insertedDatas->getLastInsertedDataInterval()->getGenericDataChildren()) {
+                if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) && (genericData->getParentEdges().front() == edge)) {
+                    WRITE_WARNING("There is already a " + genericData->getTagStr() + " in edge '" + edge->getID() + "'");
+                    return false;
+                }
+            }
+            // declare parameter map
+            std::map<std::string, std::string> parameters;
+            // obtain all attribute
+            const std::vector<std::string> attributes = attrs.getAttributeNames();
+            // iterate over attributes and fill parameters map
+            for (const auto& attribute : attributes) {
+                if (attribute != toString(SUMO_ATTR_ID)) {
+                    parameters[attribute] = attrs.getStringSecure(attribute, "");
+                }
+            }
+            // save ID of last created element
+            GNEGenericData* dataCreated = buildEdgeRelationData(viewNet, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(), edge, parameters);
             // check if insertion has to be commited
             if (insertedDatas) {
                 insertedDatas->commitGenericDataInsertion(dataCreated);
