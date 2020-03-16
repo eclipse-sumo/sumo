@@ -168,6 +168,7 @@
 #include "modepersonplan.xpm"
 
 #include "modeedgedata.xpm"
+#include "modeedgereldata.xpm"
 
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
@@ -236,6 +237,7 @@
 #include "dataset.xpm"
 #include "datainterval.xpm"
 #include "edgedata.xpm"
+#include "edgereldata.xpm"
 
 #include "vclass_ignoring.xpm"
 #include "vclass_private.xpm"
@@ -461,6 +463,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::MODEPERSONPLAN] = new FXXPMIcon(a, modepersonplan_xpm);
 
     myIcons[GUIIcon::MODEEDGEDATA] = new FXXPMIcon(a, modeedgedata_xpm);
+    myIcons[GUIIcon::MODEEDGERELDATA] = new FXXPMIcon(a, modeedgereldata_xpm);
 
     myIcons[GUIIcon::COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
     myIcons[GUIIcon::CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
@@ -530,6 +533,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::DATASET] = new FXXPMIcon(a, dataset_xpm);
     myIcons[GUIIcon::DATAINTERVAL] = new FXXPMIcon(a, datainterval_xpm);
     myIcons[GUIIcon::EDGEDATA] = new FXXPMIcon(a, edgedata_xpm);
+    myIcons[GUIIcon::EDGERELDATA] = new FXXPMIcon(a, edgereldata_xpm);
 
     myIcons[GUIIcon::VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
     myIcons[GUIIcon::VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);

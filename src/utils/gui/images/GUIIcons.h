@@ -246,6 +246,7 @@ enum class GUIIcon {
     /// @name NETEDIT Edge modes icons
     /// @{
     MODEEDGEDATA,
+    MODEEDGERELDATA,
     /// @}
 
     /// @name NETEDIT processing icons
@@ -329,6 +330,7 @@ enum class GUIIcon {
     DATASET,
     DATAINTERVAL,
     EDGEDATA,
+    EDGERELDATA,
     /// @}
 
     /// @name vehicle Class icons
