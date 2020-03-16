@@ -117,7 +117,9 @@ enum class DataEditMode {
     /// @brief mode for selecting data elements
     DATA_SELECT,
     /// @brief mode for create edgeData elements
-    DATA_EDGEDATA
+    DATA_EDGEDATA,
+    /// @brief mode for create edgeRelData elements
+    DATA_EDGERELDATA
 };
 
 // ===========================================================================

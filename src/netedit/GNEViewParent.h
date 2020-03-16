@@ -58,6 +58,7 @@ class GNEVehicleFrame;
 class GNEVehicleTypeFrame;
 // data frames
 class GNEEdgeDataFrame;
+class GNEEdgeRelationDataFrame;
 
 
 // ===========================================================================
@@ -164,6 +165,9 @@ public:
 
     /// @brief get frame for DATA_EDGEDATA
     GNEEdgeDataFrame* getEdgeDataFrame() const;
+
+    /// @brief get frame for DATA_EDGERELDATA
+    GNEEdgeRelationDataFrame* getEdgeRelationDataFrame() const;
 
     /// @brief show frames area if at least a GNEFrame is showed
     /// @note this function is called in GNEFrame::Show();
@@ -283,6 +287,9 @@ private:
 
         /// @brief frame for DATA_EDGEDATA
         GNEEdgeDataFrame* edgeDataFrame;
+
+        /// @brief frame for DATA_EDGERELDATA
+        GNEEdgeRelationDataFrame* edgeRelationDataFrame;
     };
 
     /// @brief struct for ACChoosers dialog

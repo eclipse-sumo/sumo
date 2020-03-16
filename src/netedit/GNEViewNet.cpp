@@ -33,6 +33,7 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
+#include <netedit/frames/data/GNEEdgeRelationDataFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonTypeFrame.h>
@@ -591,8 +592,10 @@ GNEViewNet::GNEViewNet() :
     myViewParent(nullptr),
     myNet(nullptr),
     myCurrentFrame(nullptr),
-    myUndoList(nullptr) {
+    myUndoList(nullptr),
+    myDottedAC(nullptr) {
 }
+
 
 std::vector<std::string>
 GNEViewNet::getEdgeLaneParamKeys(bool edgeKeys) const {
@@ -1356,6 +1359,9 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_E_MODES_EDGE_EDGEDATA:
                 myEditModes.setDataEditMode(DataEditMode::DATA_EDGEDATA);
+                break;
+            case MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA:
+                myEditModes.setDataEditMode(DataEditMode::DATA_EDGERELDATA);
                 break;
         }
     }
@@ -3047,6 +3053,17 @@ GNEViewNet::updateDataModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
+        case DataEditMode::DATA_EDGERELDATA:
+            myViewParent->getEdgeRelationDataFrame()->show();
+            myViewParent->getEdgeRelationDataFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getEdgeRelationDataFrame();
+            // set checkable button
+            myDataCheckableButtons.edgeDataButton->setChecked(true);
+            // disable IntervalBar
+            myIntervalBar.disableIntervalBar();
+            // show toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
+            break;
         default:
             break;
     }
@@ -3907,6 +3924,17 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             // avoid create edgeData if control key is pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 if (myViewParent->getEdgeDataFrame()->addEdgeData(myObjectsUnderCursor)) {
+                    // update view to show the new edge data
+                    update();
+                }
+            }
+            // process click
+            processClick(eventData);
+            break;
+        case DataEditMode::DATA_EDGERELDATA:
+            // avoid create edgeData if control key is pressed
+            if (!myKeyPressed.controlKeyPressed()) {
+                if (myViewParent->getEdgeRelationDataFrame()->addEdgeRelationData(myObjectsUnderCursor)) {
                     // update view to show the new edge data
                     update();
                 }
