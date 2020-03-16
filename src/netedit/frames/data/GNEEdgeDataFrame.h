@@ -48,9 +48,6 @@ public:
      */
     bool addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-protected:
-    //
-
 private:
     /// @brief Invalidated copy constructor.
     GNEEdgeDataFrame(const GNEEdgeDataFrame&) = delete;
