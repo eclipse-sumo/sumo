@@ -2555,7 +2555,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     // crossing mode
     crossingButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
         "\tset crossing mode\tMode for creating crossings between edges.",
-        GUIIconSubSys::getIcon(GUIIcon::MODECROSSING), myViewNet, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(GUIIcon::MODECROSSING), myViewNet, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA, GUIDesignButtonToolbarCheckable);
     crossingButton->create();
     // TAZ Mode
     TAZButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -2654,7 +2654,7 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     // route mode
     routeButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
         "\tcreate route mode\tMode for creating routes.",
-        GUIIconSubSys::getIcon(GUIIcon::MODEROUTE), myViewNet, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(GUIIcon::MODEROUTE), myViewNet, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA, GUIDesignButtonToolbarCheckable);
     routeButton->create();
     // vehicle mode
     vehicleButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -2748,6 +2748,7 @@ GNEViewNetHelper::DemandCheckableButtons::updateDemandCheckableButtons() {
 
 GNEViewNetHelper::DataCheckableButtons::DataCheckableButtons(GNEViewNet* viewNet) :
     edgeDataButton(nullptr),
+    edgeRelDataButton(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -2759,6 +2760,11 @@ GNEViewNetHelper::DataCheckableButtons::buildDataCheckableButtons() {
         "\tcreate edge data mode\tMode for creating edge datas.",
         GUIIconSubSys::getIcon(GUIIcon::MODEEDGEDATA), myViewNet, MID_HOTKEY_E_EDGEMODE_EDGEDATAMODE, GUIDesignButtonToolbarCheckable);
     edgeDataButton->create();
+    // edgeRelData mode
+    edgeRelDataButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+        "\tcreate edge relation data mode\tMode for creating edge relation datas.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEEDGERELDATA), myViewNet, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA, GUIDesignButtonToolbarCheckable);
+    edgeRelDataButton->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
 }
@@ -2767,24 +2773,28 @@ GNEViewNetHelper::DataCheckableButtons::buildDataCheckableButtons() {
 void
 GNEViewNetHelper::DataCheckableButtons::showDataCheckableButtons() {
     edgeDataButton->show();
+    edgeRelDataButton->show();
 }
 
 
 void
 GNEViewNetHelper::DataCheckableButtons::hideDataCheckableButtons() {
     edgeDataButton->hide();
+    edgeRelDataButton->hide();
 }
 
 
 void
 GNEViewNetHelper::DataCheckableButtons::disableDataCheckableButtons() {
     edgeDataButton->setChecked(false);
+    edgeRelDataButton->setChecked(false);
 }
 
 
 void
 GNEViewNetHelper::DataCheckableButtons::updateDataCheckableButtons() {
     edgeDataButton->update();
+    edgeRelDataButton->update();
 }
 
 // ---------------------------------------------------------------------------

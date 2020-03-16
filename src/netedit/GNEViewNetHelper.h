@@ -1112,6 +1112,9 @@ struct GNEViewNetHelper {
         /// @brief chekable button for edit mode "edgeData"
         MFXCheckableButton* edgeDataButton;
 
+        /// @brief chekable button for edit mode "edgeRelData"
+        MFXCheckableButton* edgeRelDataButton;
+
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
