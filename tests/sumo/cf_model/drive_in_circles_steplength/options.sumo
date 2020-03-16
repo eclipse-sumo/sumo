@@ -1,0 +1,6 @@
+-b 0 -e 300 --no-step-log --net-file=net.net.xml
+--routes=input_routes.rou.xml 
+-a input_additional.add.xml,input_additional2.add.xml
+--duration-log.statistics
+--tripinfo-output.write-unfinished
+--step-length 0.1
