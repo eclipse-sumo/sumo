@@ -12,10 +12,8 @@
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    TraCIServerAPI_Calibrator.cpp
-/// @author  Daniel Krajzewicz
-/// @author  Laura Bieker
-/// @author  Michael Behrisch
-/// @date    07.05.2009
+/// @author  Jakob Erdmann
+/// @date    16.03.2020
 ///
 // APIs for getting/setting Calibrator values via TraCI
 /****************************************************************************/

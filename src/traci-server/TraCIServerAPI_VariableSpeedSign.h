@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    TraCIServerAPI_Calibrator.h
+/// @file    TraCIServerAPI_VariableSpeedSign.h
 /// @author  Jakob Erdmann
 /// @date    16.03.2020
 ///
-// APIs for getting/setting Calibrator values via TraCI
+// APIs for getting/setting busstop values via TraCI
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -28,12 +28,12 @@
 // class definitions
 // ===========================================================================
 /**
- * @class TraCIServerAPI_Calibrator
- * @brief APIs for getting/setting Calibrator values via TraCI
+ * @class TraCIServerAPI_VariableSpeedSign
+ * @brief APIs for getting/setting busstop values via TraCI
  */
-class TraCIServerAPI_Calibrator {
+class TraCIServerAPI_VariableSpeedSign {
 public:
-    /** @brief Processes a get value command (Command 0xa6: Get Calibrator Variable)
+    /** @brief Processes a get value command (Command 0xa6: Get VariableSpeedSign Variable)
      *
      * @param[in] server The TraCI-server-instance which schedules this request
      * @param[in] inputStorage The storage to read the command from
@@ -43,7 +43,7 @@ public:
                            tcpip::Storage& outputStorage);
 
 
-    /** @brief Processes a set value command (Command 0xc6: Change Calibrator State)
+    /** @brief Processes a set value command (Command 0xc6: Change VariableSpeedSign State)
      *
      * @param[in] server The TraCI-server-instance which schedules this request
      * @param[in] inputStorage The storage to read the command from
@@ -55,10 +55,10 @@ public:
 
 private:
     /// @brief invalidated copy constructor
-    TraCIServerAPI_Calibrator(const TraCIServerAPI_Calibrator& s);
+    TraCIServerAPI_VariableSpeedSign(const TraCIServerAPI_VariableSpeedSign& s);
 
     /// @brief invalidated assignment operator
-    TraCIServerAPI_Calibrator& operator=(const TraCIServerAPI_Calibrator& s);
+    TraCIServerAPI_VariableSpeedSign& operator=(const TraCIServerAPI_VariableSpeedSign& s);
 
 
 };

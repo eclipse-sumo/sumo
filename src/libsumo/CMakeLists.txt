@@ -31,6 +31,22 @@ set(libsumostatic_STAT_SRCS
     Route.cpp
     Calibrator.h
     Calibrator.cpp
+    BusStop.h
+    BusStop.cpp
+    ParkingArea.h
+    ParkingArea.cpp
+    ChargingStation.h
+    ChargingStation.cpp
+    RouteProbe.h
+    RouteProbe.cpp
+    Rerouter.h
+    Rerouter.cpp
+    VariableSpeedSign.h
+    VariableSpeedSign.cpp
+    MeanData.h
+    MeanData.cpp
+    OverheadWire.h
+    OverheadWire.cpp
     Simulation.cpp
     Simulation.h
     Subscription.h

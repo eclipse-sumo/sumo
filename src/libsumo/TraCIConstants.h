@@ -322,7 +322,7 @@ TRACI_CONST int CMD_GET_BUSSTOP_VARIABLE = 0xaf;
 // response: get busstop variable
 TRACI_CONST int RESPONSE_GET_BUSSTOP_VARIABLE = 0xbf;
 // command: set busstop variable, not used yet
-//TRACI_CONST int CMD_SET_BUSSTOP_VARIABLE = 0xcf;
+TRACI_CONST int CMD_SET_BUSSTOP_VARIABLE = 0xcf;
 // command: subscribe busstop variable
 TRACI_CONST int CMD_SUBSCRIBE_BUSSTOP_VARIABLE = 0xdf;
 // response: subscribe busstop variable
