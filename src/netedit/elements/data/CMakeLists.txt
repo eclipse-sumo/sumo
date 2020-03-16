@@ -9,8 +9,8 @@ set(netedit_elements_data_SRCS
    GNEGenericData.cpp
    GNEEdgeData.h
    GNEEdgeData.cpp
-   GNEEdgeRelationData.h
-   GNEEdgeRelationData.cpp
+   GNEEdgeRelData.h
+   GNEEdgeRelData.cpp
    )
 
 add_library(netedit_elements_data STATIC ${netedit_elements_data_SRCS})

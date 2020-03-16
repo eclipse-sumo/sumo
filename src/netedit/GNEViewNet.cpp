@@ -33,7 +33,7 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
-#include <netedit/frames/data/GNEEdgeRelationDataFrame.h>
+#include <netedit/frames/data/GNEEdgeRelDataFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonTypeFrame.h>
@@ -3054,9 +3054,9 @@ GNEViewNet::updateDataModeSpecificControls() {
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DataEditMode::DATA_EDGERELDATA:
-            myViewParent->getEdgeRelationDataFrame()->show();
-            myViewParent->getEdgeRelationDataFrame()->focusUpperElement();
-            myCurrentFrame = myViewParent->getEdgeRelationDataFrame();
+            myViewParent->getEdgeRelDataFrame()->show();
+            myViewParent->getEdgeRelDataFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getEdgeRelDataFrame();
             // set checkable button
             myDataCheckableButtons.edgeDataButton->setChecked(true);
             // disable IntervalBar
@@ -3934,7 +3934,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
         case DataEditMode::DATA_EDGERELDATA:
             // avoid create edgeData if control key is pressed
             if (!myKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getEdgeRelationDataFrame()->addEdgeRelationData(myObjectsUnderCursor)) {
+                if (myViewParent->getEdgeRelDataFrame()->addEdgeRelationData(myObjectsUnderCursor)) {
                     // update view to show the new edge data
                     update();
                 }

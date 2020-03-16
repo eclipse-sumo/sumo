@@ -3,8 +3,8 @@ set(netedit_frames_data_SRCS
    GNEGenericDataFrame.cpp
    GNEEdgeDataFrame.h
    GNEEdgeDataFrame.cpp
-   GNEEdgeRelationDataFrame.h
-   GNEEdgeRelationDataFrame.cpp
+   GNEEdgeRelDataFrame.h
+   GNEEdgeRelDataFrame.cpp
    )
 
 add_library(netedit_frames_data STATIC ${netedit_frames_data_SRCS})

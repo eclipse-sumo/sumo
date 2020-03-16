@@ -28,7 +28,7 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
-#include <netedit/frames/data/GNEEdgeRelationDataFrame.h>
+#include <netedit/frames/data/GNEEdgeRelDataFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonTypeFrame.h>
@@ -144,7 +144,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myFrames.personFrame = new GNEPersonFrame(myFramesArea, viewNet);
     myFrames.personPlanFrame = new GNEPersonPlanFrame(myFramesArea, viewNet);
     myFrames.edgeDataFrame = new GNEEdgeDataFrame(myFramesArea, viewNet);
-    myFrames.edgeRelationDataFrame = new GNEEdgeRelationDataFrame(myFramesArea, viewNet);
+    myFrames.edgeRelDataFrame = new GNEEdgeRelDataFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
@@ -294,9 +294,9 @@ GNEViewParent::getEdgeDataFrame() const {
 }
 
 
-GNEEdgeRelationDataFrame* 
-GNEViewParent::getEdgeRelationDataFrame() const {
-    return myFrames.edgeRelationDataFrame;
+GNEEdgeRelDataFrame* 
+GNEViewParent::getEdgeRelDataFrame() const {
+    return myFrames.edgeRelDataFrame;
 }
 
 
@@ -665,7 +665,7 @@ GNEViewParent::Frames::Frames() :
     personTypeFrame(nullptr),
     personPlanFrame(nullptr),
     edgeDataFrame(nullptr),
-    edgeRelationDataFrame(nullptr) {
+    edgeRelDataFrame(nullptr) {
 }
 
 
@@ -692,7 +692,7 @@ GNEViewParent::Frames::hideFrames() {
     personFrame->hide();
     personPlanFrame->hide();
     edgeDataFrame->hide();
-    edgeRelationDataFrame->hide();
+    edgeRelDataFrame->hide();
 }
 
 
@@ -720,7 +720,7 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
     personFrame->setFrameWidth(frameWidth);
     personPlanFrame->setFrameWidth(frameWidth);
     edgeDataFrame->setFrameWidth(frameWidth);
-    edgeRelationDataFrame->setFrameWidth(frameWidth);
+    edgeRelDataFrame->setFrameWidth(frameWidth);
 }
 
 
@@ -767,7 +767,7 @@ GNEViewParent::Frames::isFrameShown() const {
         return true;
     } else if (edgeDataFrame->shown()) {
         return true;
-    } else if (edgeRelationDataFrame->shown()) {
+    } else if (edgeRelDataFrame->shown()) {
         return true;
     } else {
         return false;
@@ -818,8 +818,8 @@ GNEViewParent::Frames::getCurrentShownFrame() const {
         return personPlanFrame;
     } else if (edgeDataFrame->shown()) {
         return edgeDataFrame;
-    } else if (edgeRelationDataFrame->shown()) {
-        return edgeRelationDataFrame;
+    } else if (edgeRelDataFrame->shown()) {
+        return edgeRelDataFrame;
     } else {
         return nullptr;
     }

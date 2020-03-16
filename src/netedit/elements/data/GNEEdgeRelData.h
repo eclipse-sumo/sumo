@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEEdgeRelationData.h
+/// @file    GNEEdgeRelData.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2020
 ///
@@ -31,10 +31,10 @@
 // ===========================================================================
 
 /**
- * @class GNEEdgeRelationData
+ * @class GNEEdgeRelData
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEEdgeRelationData : public GNEGenericData {
+class GNEEdgeRelData : public GNEGenericData {
 
 public:
     /**@brief Constructor
@@ -42,10 +42,10 @@ public:
      * @param[in] edgeParent poinetr to Edge parent
      * @param[in] parameters parameters map
      */
-    GNEEdgeRelationData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const std::map<std::string, std::string>& parameters);
+    GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
-    ~GNEEdgeRelationData();
+    ~GNEEdgeRelData();
 
     /// @brief update pre-computed geometry information
     void updateGeometry();
@@ -146,10 +146,10 @@ private:
     const RGBColor& getSpecificColor() const;
 
     /// @brief Invalidated copy constructor.
-    GNEEdgeRelationData(const GNEEdgeRelationData&) = delete;
+    GNEEdgeRelData(const GNEEdgeRelData&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEEdgeRelationData& operator=(const GNEEdgeRelationData&) = delete;
+    GNEEdgeRelData& operator=(const GNEEdgeRelData&) = delete;
 };
 
 /****************************************************************************/

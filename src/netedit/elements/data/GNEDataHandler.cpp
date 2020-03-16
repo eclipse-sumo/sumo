@@ -27,7 +27,7 @@
 #include <netedit/changes/GNEChange_DataInterval.h>
 #include <netedit/changes/GNEChange_GenericData.h>
 #include <netedit/elements/data/GNEEdgeData.h>
-#include <netedit/elements/data/GNEEdgeRelationData.h>
+#include <netedit/elements/data/GNEEdgeRelData.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/network/GNEEdge.h>
@@ -239,10 +239,10 @@ GNEDataHandler::buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataIn
 }
 
 
-GNEEdgeRelationData*
+GNEEdgeRelData*
 GNEDataHandler::buildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, GNEEdge* edge,
     const std::map<std::string, std::string>& parameters) {
-    GNEEdgeRelationData* edgeRelationData = new GNEEdgeRelationData(dataIntervalParent, edge, parameters);
+    GNEEdgeRelData* edgeRelationData = new GNEEdgeRelData(dataIntervalParent, edge, parameters);
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_EDGEREL));
         viewNet->getUndoList()->add(new GNEChange_GenericData(edgeRelationData, true), true);

@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEEdgeRelationDataFrame.h
+/// @file    GNEEdgeRelDataFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2020
 ///
@@ -27,20 +27,20 @@
 // class definitions
 // ===========================================================================
 /**
- * @class GNEEdgeRelationDataFrame
+ * @class GNEEdgeRelDataFrame
  * The Widget for setting internal attributes of additional elements
  */
-class GNEEdgeRelationDataFrame : public GNEGenericDataFrame {
+class GNEEdgeRelDataFrame : public GNEGenericDataFrame {
 
 public:
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
-     * @brief viewNet viewNet that uses this GNEEdgeRelationDataFrame
+     * @brief viewNet viewNet that uses this GNEEdgeRelDataFrame
      */
-    GNEEdgeRelationDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEEdgeRelDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
-    ~GNEEdgeRelationDataFrame();
+    ~GNEEdgeRelDataFrame();
 
     /**@brief add additional element
      * @param objectsUnderCursor collection of objects under cursor after click over view
@@ -50,10 +50,10 @@ public:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEEdgeRelationDataFrame(const GNEEdgeRelationDataFrame&) = delete;
+    GNEEdgeRelDataFrame(const GNEEdgeRelDataFrame&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEEdgeRelationDataFrame& operator=(const GNEEdgeRelationDataFrame&) = delete;
+    GNEEdgeRelDataFrame& operator=(const GNEEdgeRelDataFrame&) = delete;
 };
 
 /****************************************************************************/

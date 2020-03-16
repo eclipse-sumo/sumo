@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEEdgeRelationDataFrame.cpp
+/// @file    GNEEdgeRelDataFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2020
 ///
@@ -20,27 +20,27 @@
 #include <config.h>
 
 #include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/data/GNEEdgeRelationData.h>
+#include <netedit/elements/data/GNEEdgeRelData.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/network/GNEEdge.h>
 
-#include "GNEEdgeRelationDataFrame.h"
+#include "GNEEdgeRelDataFrame.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEEdgeRelationDataFrame::GNEEdgeRelationDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
+GNEEdgeRelDataFrame::GNEEdgeRelDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEGenericDataFrame(horizontalFrameParent, viewNet, "Edge relation datas") {
 }
 
 
-GNEEdgeRelationDataFrame::~GNEEdgeRelationDataFrame() {}
+GNEEdgeRelDataFrame::~GNEEdgeRelDataFrame() {}
 
 
 bool
-GNEEdgeRelationDataFrame::addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if we clicked over an edge
     if (objectsUnderCursor.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
         // first check if the given interval there is already a EdgeRelationData for the given ID

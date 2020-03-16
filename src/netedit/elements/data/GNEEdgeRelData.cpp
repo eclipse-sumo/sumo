@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEEdgeRelationData.cpp
+/// @file    GNEEdgeRelData.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2020
 ///
@@ -29,9 +29,9 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/network/GNEEdge.h>
-#include <netedit/frames/data/GNEEdgeRelationDataFrame.h>
+#include <netedit/frames/data/GNEEdgeRelDataFrame.h>
 
-#include "GNEEdgeRelationData.h"
+#include "GNEEdgeRelData.h"
 #include "GNEDataInterval.h"
 #include "GNEDataSet.h"
 
@@ -41,38 +41,38 @@
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEEdgeRelationData - methods
+// GNEEdgeRelData - methods
 // ---------------------------------------------------------------------------
 
-GNEEdgeRelationData::GNEEdgeRelationData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const std::map<std::string, std::string>& parameters) :
+GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_EDGEREL, GLO_EDGERELATIONDATA, dataIntervalParent, parameters,
         {edgeParent}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}) {
 }
 
 
-GNEEdgeRelationData::~GNEEdgeRelationData() {}
+GNEEdgeRelData::~GNEEdgeRelData() {}
 
 
 void
-GNEEdgeRelationData::updateGeometry() {
+GNEEdgeRelData::updateGeometry() {
     // nothing to update
 }
 
 
 void
-GNEEdgeRelationData::updateDottedContour() {
+GNEEdgeRelData::updateDottedContour() {
     // nothing to update
 }
 
 
 Position
-GNEEdgeRelationData::getPositionInView() const {
+GNEEdgeRelData::getPositionInView() const {
     return getParentEdges().front()->getPositionInView();
 }
 
 
 void
-GNEEdgeRelationData::writeGenericData(OutputDevice& device) const {
+GNEEdgeRelData::writeGenericData(OutputDevice& device) const {
     // open device (don't use SUMO_TAG_EDGEREL)
     device.openTag(SUMO_TAG_EDGE);
     // write edge ID
@@ -88,31 +88,31 @@ GNEEdgeRelationData::writeGenericData(OutputDevice& device) const {
 
 
 bool
-GNEEdgeRelationData::isGenericDataValid() const {
+GNEEdgeRelData::isGenericDataValid() const {
     return true;
 }
 
 
 std::string
-GNEEdgeRelationData::getGenericDataProblem() const {
+GNEEdgeRelData::getGenericDataProblem() const {
     return "";
 }
 
 
 void
-GNEEdgeRelationData::fixGenericDataProblem() {
+GNEEdgeRelData::fixGenericDataProblem() {
     throw InvalidArgument(getTagStr() + " cannot fix any problem");
 }
 
 
 Boundary 
-GNEEdgeRelationData::getCenteringBoundary() const {
+GNEEdgeRelData::getCenteringBoundary() const {
     return getParentEdges().front()->getCenteringBoundary();
 }
 
 
 std::string
-GNEEdgeRelationData::getAttribute(SumoXMLAttr key) const {
+GNEEdgeRelData::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getParentEdges().front()->getID();
@@ -129,13 +129,13 @@ GNEEdgeRelationData::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEEdgeRelationData::getAttributeDouble(SumoXMLAttr key) const {
+GNEEdgeRelData::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
 }
 
 
 void
-GNEEdgeRelationData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
@@ -151,7 +151,7 @@ GNEEdgeRelationData::setAttribute(SumoXMLAttr key, const std::string& value, GNE
 
 
 bool
-GNEEdgeRelationData::isValid(SumoXMLAttr key, const std::string& value) {
+GNEEdgeRelData::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -164,18 +164,18 @@ GNEEdgeRelationData::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEEdgeRelationData::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+GNEEdgeRelData::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     // Nothing to enable
 }
 
 
 void
-GNEEdgeRelationData::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+GNEEdgeRelData::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     // Nothing to disable enable
 }
 
 
-bool GNEEdgeRelationData::isAttributeEnabled(SumoXMLAttr key) const {
+bool GNEEdgeRelData::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return false;
@@ -186,19 +186,19 @@ bool GNEEdgeRelationData::isAttributeEnabled(SumoXMLAttr key) const {
 
 
 std::string
-GNEEdgeRelationData::getPopUpID() const {
+GNEEdgeRelData::getPopUpID() const {
     return getTagStr();
 }
 
 
 std::string
-GNEEdgeRelationData::getHierarchyName() const {
+GNEEdgeRelData::getHierarchyName() const {
     return getTagStr() + ": " + getParentEdges().front()->getID();
 }
 
 
 void
-GNEEdgeRelationData::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
@@ -217,13 +217,13 @@ GNEEdgeRelationData::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEEdgeRelationData::setEnabledAttribute(const int /*enabledAttributes*/) {
+GNEEdgeRelData::setEnabledAttribute(const int /*enabledAttributes*/) {
     throw InvalidArgument("Nothing to enable");
 }
 
 
 const RGBColor&
-GNEEdgeRelationData::getSpecificColor() const {
+GNEEdgeRelData::getSpecificColor() const {
     return RGBColor::GREEN;
 }
 

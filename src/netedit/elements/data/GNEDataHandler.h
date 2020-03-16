@@ -37,7 +37,7 @@
 class GNEViewNet;
 class GNEEdge;
 class GNEEdgeData;
-class GNEEdgeRelationData;
+class GNEEdgeRelData;
 class GNEGenericData;
 class GNEDataSet;
 class GNEDataInterval;
@@ -160,7 +160,7 @@ public:
      * @param[in] parameters parameters map
      * @exception InvalidArgument If the edgeRelationData can not be added to the net
      */
-    static GNEEdgeRelationData* buildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, GNEEdge* edge, const std::map<std::string, std::string>& parameters);
+    static GNEEdgeRelData* buildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, GNEEdge* edge, const std::map<std::string, std::string>& parameters);
 
 protected:
     /// @name parsing methods
