@@ -61,8 +61,10 @@ enum GUIGlObjectType {
     /// @name data elements
     /// @{
 
-    /// @brief edge Data
+    /// @brief edge data
     GLO_EDGEDATA = 50,
+    /// @brief edge relation data
+    GLO_EDGERELATIONDATA = 51,
 
     /// @}
 
