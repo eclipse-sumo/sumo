@@ -45,7 +45,7 @@ GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCur
     if (objectsUnderCursor.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
         // first check if the given interval there is already a EdgeRelationData for the given ID
         for (const auto& genericData : myIntervalSelector->getDataInterval()->getGenericDataChildren()) {
-            if ((genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && (genericData->getParentEdges().front() == objectsUnderCursor.getEdgeFront())) {
+            if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) && (genericData->getParentEdges().front() == objectsUnderCursor.getEdgeFront())) {
                 // write warning
                 WRITE_WARNING("There is already a " + genericData->getTagStr() + " in edge '" + objectsUnderCursor.getEdgeFront()->getID() + "'");
                 // abort edge data creation
