@@ -65,6 +65,9 @@ public:
     /// @brief retrieve all attribute carriers of Net
     GNENetHelper::AttributeCarriers& getAttributeCarriers();
 
+    /// @brief obtain instance of RouteCalculator
+    GNENetHelper::RouteCalculator* getRouteCalculatorInstance();
+
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns an own popup-menu
@@ -735,6 +738,9 @@ protected:
     /// @brief AttributeCarriers of net
     GNENetHelper::AttributeCarriers myAttributeCarriers;
 
+    /// @brief RouteCalculator instance
+    GNENetHelper::RouteCalculator* myRouteCalculatorInstance;
+
     /// @name ID Suppliers for newly created edges and junctions
     // @{
     IDSupplier myEdgeIDSupplier;
@@ -933,4 +939,9 @@ private:
         NBEdge* myBy;
     };
 
+    /// @brief Invalidated copy constructor.
+    GNENet(const GNENet&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNENet& operator=(const GNENet&) = delete;
 };

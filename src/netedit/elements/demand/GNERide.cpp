@@ -141,7 +141,7 @@ GNERide::getDemandElementProblem() const {
     } else {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (getRouteCalculatorInstance()->consecutiveEdgesConnected(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
+            if (myViewNet->getNet()->getRouteCalculatorInstance()->consecutiveEdgesConnected(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
                 return ("Edge '" + getParentEdges().at((int)i - 1)->getID() + "' and edge '" + getParentEdges().at(i)->getID() + "' aren't consecutives");
             }
         }
@@ -305,14 +305,14 @@ void
 GNERide::computePath() {
     if (myTagProperty.getTag() == SUMO_TAG_RIDE_FROMTO) {
         // calculate route and update routeEdges
-        replacePathEdges(this, getRouteCalculatorInstance()->calculateDijkstraRoute(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
+        replacePathEdges(this, myViewNet->getNet()->getRouteCalculatorInstance()->calculateDijkstraRoute(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
     } else if (myTagProperty.getTag() == SUMO_TAG_RIDE_BUSSTOP) {
         // declare a from-via-busStop edges vector
         std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
         // add busStop edge
         fromViaBusStopEdges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
         // calculate route and update routeEdges
-        replacePathEdges(this, getRouteCalculatorInstance()->calculateDijkstraRoute(getParentDemandElements().at(0)->getVClass(), fromViaBusStopEdges));
+        replacePathEdges(this, myViewNet->getNet()->getRouteCalculatorInstance()->calculateDijkstraRoute(getParentDemandElements().at(0)->getVClass(), fromViaBusStopEdges));
     }
     // update geometry
     updateGeometry();

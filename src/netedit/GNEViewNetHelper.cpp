@@ -1528,7 +1528,7 @@ GNEViewNetHelper::EditModes::setDemandEditMode(const DemandEditMode mode, const 
         // demand modes require ALWAYS a recomputing
         myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
         // update DijkstraRouter of RouteCalculatorInstance
-        GNEDemandElement::getRouteCalculatorInstance()->updateDijkstraRouter();
+        myViewNet->myNet->getRouteCalculatorInstance()->updateDijkstraRouter();
         // update network mode specific controls
         myViewNet->updateDemandModeSpecificControls();
     }

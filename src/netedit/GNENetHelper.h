@@ -23,7 +23,9 @@
 
 #include <fx.h>
 #include <foreign/rtree/SUMORTree.h>
+#include <netbuild/NBEdge.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
+#include <netbuild/NBVehicle.h>
 #include <netedit/changes/GNEChange.h>
 #include <utils/common/IDSupplier.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -32,6 +34,7 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
@@ -138,5 +141,35 @@ struct GNENetHelper {
 
         /// @brief Invalidated assignment operator.
         AttributeCarriers& operator=(const AttributeCarriers&) = delete;
+    };
+
+    /// @brief class used to calculate paths in nets
+    class RouteCalculator {
+
+    public:
+        /// @brief constructor
+        RouteCalculator(GNENet* net);
+
+        /// @brief destructor
+        ~RouteCalculator();
+
+        /// @brief update DijkstraRoute (called when SuperMode Demand is selected)
+        void updateDijkstraRouter();
+
+        /// @brief calculate Dijkstra route between a list of partial edges
+        std::vector<GNEEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
+
+        /// @brief calculate Dijkstra route between a list of partial edges (in string format)
+        std::vector<GNEEdge*> calculateDijkstraRoute(const GNENet* net, const SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const;
+
+        /// @brief check if exist a route between the two given consecutives edges for the given VClass
+        bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
+
+    private:
+        /// @brief pointer to net
+        GNENet* myNet;
+
+        /// @brief SUMO Abstract DijkstraRouter
+        SUMOAbstractRouter<NBRouterEdge, NBVehicle>* myDijkstraRouter;
     };
 };

@@ -290,9 +290,9 @@ GNEPersonPlanFrame::PersonPlanCreator::addEdge(GNEEdge* edge) {
             myFinishCreationButton->enable();
             // calculate temporal route
             if (myPersonPlanFrameParent->myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
-                myTemporalEdgePath = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, myClickedEdges);
+                myTemporalEdgePath = myPersonPlanFrameParent->myViewNet->getNet()->getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, myClickedEdges);
             } else {
-                myTemporalEdgePath = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, myClickedEdges);
+                myTemporalEdgePath = myPersonPlanFrameParent->myViewNet->getNet()->getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, myClickedEdges);
             }
         }
         return true;
@@ -388,9 +388,9 @@ GNEPersonPlanFrame::PersonPlanCreator::onCmdRemoveLastElement(FXObject*, FXSelec
         myClickedEdges.pop_back();
         // calculate temporal route
         if (myPersonPlanFrameParent->myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
-            myTemporalEdgePath = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, myClickedEdges);
+            myTemporalEdgePath = myPersonPlanFrameParent->myViewNet->getNet()->getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, myClickedEdges);
         } else {
-            myTemporalEdgePath = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, myClickedEdges);
+            myTemporalEdgePath = myPersonPlanFrameParent->myViewNet->getNet()->getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, myClickedEdges);
         }
     }
     return 1;

@@ -26,9 +26,6 @@
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/router/SUMOAbstractRouter.h>
-#include <netbuild/NBVehicle.h>
-#include <netbuild/NBEdge.h>
 
 // ===========================================================================
 // class declarations
@@ -69,35 +66,6 @@ public:
         std::string secondOriginalPosition;
     };
 
-    /// @brief class used to calculate routes in nets
-    class RouteCalculator {
-
-    public:
-        /// @brief constructor
-        RouteCalculator(GNENet* net);
-
-        /// @brief destructor
-        ~RouteCalculator();
-
-        /// @brief update DijkstraRoute (called when SuperMode Demand is selected)
-        void updateDijkstraRouter();
-
-        /// @brief calculate Dijkstra route between a list of partial edges
-        std::vector<GNEEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
-
-        /// @brief calculate Dijkstra route between a list of partial edges (in string format)
-        std::vector<GNEEdge*> calculateDijkstraRoute(const GNENet* net, const SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const;
-
-        /// @brief check if exist a route between the two given consecutives edges for the given VClass
-        bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
-
-    private:
-        /// @brief pointer to net
-        GNENet* myNet;
-
-        /// @brief SUMO Abstract DijkstraRouter
-        SUMOAbstractRouter<NBRouterEdge, NBVehicle>* myDijkstraRouter;
-    };
 
     /**@brief Constructor
      * @param[in] id Gl-id of the demand element element (Must be unique)
@@ -283,20 +251,6 @@ public:
     /// @brief Returns a pointer to GNEViewNet in which demand element element is located
     GNEViewNet* getViewNet() const;
 
-    /// @name members and functions relative to RouteCalculator isntance
-    /// @{
-
-    /// @brief create instance of RouteCalculator
-    static void createRouteCalculatorInstance(GNENet* net);
-
-    /// @brief delete instance of RouteCalculator
-    static void deleteRouteCalculatorInstance();
-
-    /// @brief obtain instance of RouteCalculator
-    static RouteCalculator* getRouteCalculatorInstance();
-
-    /// @}
-
     /// @name inherited from GUIGlObject
     /// @{
 
@@ -443,9 +397,6 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief RouteCalculator instance
-    static RouteCalculator* myRouteCalculatorInstance;
 
     /// @brief Invalidated copy constructor.
     GNEDemandElement(const GNEDemandElement&) = delete;

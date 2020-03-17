@@ -20,20 +20,24 @@
 
 #include <netbuild/NBAlgorithms.h>
 #include <netbuild/NBNetBuilder.h>
+#include <netbuild/NBNetBuilder.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/changes/GNEChange_Crossing.h>
-#include <netedit/changes/GNEChange_DataSet.h>
 #include <netedit/changes/GNEChange_DataInterval.h>
-#include <netedit/changes/GNEChange_GenericData.h>
+#include <netedit/changes/GNEChange_DataSet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/changes/GNEChange_Edge.h>
+#include <netedit/changes/GNEChange_GenericData.h>
 #include <netedit/changes/GNEChange_Junction.h>
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/dialogs/GNEFixAdditionalElements.h>
 #include <netedit/dialogs/GNEFixDemandElements.h>
+#include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNEPOI.h>
@@ -46,7 +50,10 @@
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
+#include <netedit/elements/network/GNEJunction.h>
+#include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netwrite/NWFrame.h>
@@ -54,9 +61,12 @@
 #include <netwrite/NWWriter_XML.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/router/DijkstraRouter.h>
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNEApplicationWindow.h"
@@ -376,6 +386,127 @@ GNENetHelper::AttributeCarriers::updateDataSetID(GNEAttributeCarrier* AC, const 
         myNet->requireSaveDataElements(true);
         // update interval toolbar
         myNet->getViewNet()->getIntervalBar().updateIntervalBar();
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNENetHelper::RouteCalculator - methods
+// ---------------------------------------------------------------------------
+
+GNENetHelper::RouteCalculator::RouteCalculator(GNENet* net) :
+    myNet(net) {
+    myDijkstraRouter = new DijkstraRouter<NBRouterEdge, NBVehicle>(
+        myNet->getNetBuilder()->getEdgeCont().getAllRouterEdges(),
+        true, &NBRouterEdge::getTravelTimeStatic, nullptr, true);
+}
+
+
+GNENetHelper::RouteCalculator::~RouteCalculator() {
+    delete myDijkstraRouter;
+}
+
+
+void
+GNENetHelper::RouteCalculator::updateDijkstraRouter() {
+    // simply delete and create myDijkstraRouter again
+    if (myDijkstraRouter) {
+        delete myDijkstraRouter;
+    }
+    myDijkstraRouter = new DijkstraRouter<NBRouterEdge, NBVehicle>(
+        myNet->getNetBuilder()->getEdgeCont().getAllRouterEdges(),
+        true, &NBRouterEdge::getTravelTimeStatic, nullptr, true);
+}
+
+
+std::vector<GNEEdge*>
+GNENetHelper::RouteCalculator::calculateDijkstraRoute(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const {
+    // declare a solution vector
+    std::vector<GNEEdge*> solution;
+    // calculate route depending of number of partial edges
+    if (partialEdges.size() == 1) {
+        // if there is only one partialEdges, route has only one edge
+        solution.push_back(partialEdges.front());
+    }
+    else {
+        // declare temporal vehicle
+        NBVehicle tmpVehicle("temporalNBVehicle", vClass);
+        // obtain pointer to GNENet
+        GNENet* net = partialEdges.front()->getNet();
+        // iterate over every selected edges
+        for (int i = 1; i < (int)partialEdges.size(); i++) {
+            // declare a temporal route in which save route between two last edges
+            std::vector<const NBRouterEdge*> partialRoute;
+            myDijkstraRouter->compute(partialEdges.at(i - 1)->getNBEdge(), partialEdges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
+            // save partial route in solution
+            for (const auto& j : partialRoute) {
+                solution.push_back(net->retrieveEdge(j->getID()));
+            }
+        }
+    }
+    // filter solution
+    auto solutionIt = solution.begin();
+    // iterate over solution
+    while (solutionIt != solution.end()) {
+        if ((solutionIt + 1) != solution.end()) {
+            // if next edge is the same of current edge, remove it
+            if (*solutionIt == *(solutionIt + 1)) {
+                solutionIt = solution.erase(solutionIt);
+            }
+            else {
+                solutionIt++;
+            }
+        }
+        else {
+            solutionIt++;
+        }
+    }
+    return solution;
+}
+
+
+std::vector<GNEEdge*>
+GNENetHelper::RouteCalculator::calculateDijkstraRoute(const GNENet* net, const SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const {
+    // declare a vector of GNEEdges
+    std::vector<GNEEdge*> partialEdges;
+    partialEdges.reserve(partialEdgesStr.size());
+    // convert to vector of GNEEdges
+    for (const auto& i : partialEdgesStr) {
+        partialEdges.push_back(net->retrieveEdge(i));
+    }
+    // calculate DijkstraRoute using partialEdges
+    return calculateDijkstraRoute(vClass, partialEdges);
+}
+
+
+bool
+GNENetHelper::RouteCalculator::consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const {
+    // check conditions
+    if ((from == nullptr) || (to == nullptr)) {
+        // edges cannot be null
+        return false;
+    }
+    else if (from == to) {
+        // the same edge cannot be consecutive of itself
+        return false;
+    }
+    else if (vClass == SVC_PEDESTRIAN) {
+        // for pedestrians consecutive edges are always connected
+        return true;
+    }
+    else {
+        // declare temporal vehicle
+        NBVehicle tmpVehicle("temporalNBVehicle", vClass);
+        // declare a temporal route in which save route between two last edges
+        std::vector<const NBRouterEdge*> solution;
+        // calculate route betwen from and to edge
+        myDijkstraRouter->compute(from->getNBEdge(), to->getNBEdge(), &tmpVehicle, 10, solution);
+        // check if soultion is enmpty
+        if (solution.size() == 2) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
 

@@ -94,6 +94,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myViewNet(nullptr),
     myNetBuilder(netBuilder),
     myAttributeCarriers(this),
+    myRouteCalculatorInstance(new GNENetHelper::RouteCalculator(this)),
     myEdgeIDSupplier("gneE", netBuilder->getEdgeCont().getAllNames()),
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myNeedRecompute(true),
@@ -114,12 +115,12 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     if (myZBoundary.ymin() != Z_INITIALIZED) {
         myZBoundary.add(0, 0);
     }
+
 }
 
 
 GNENet::~GNENet() {
-    // delete RouteCalculator instance of GNEDemandElement
-    GNEDemandElement::deleteRouteCalculatorInstance();
+    delete myRouteCalculatorInstance;
     // show extra information for tests
     WRITE_DEBUG("Deleting net builder in GNENet destructor");
     delete myNetBuilder;
@@ -129,6 +130,17 @@ GNENet::~GNENet() {
 GNENetHelper::AttributeCarriers&
 GNENet::getAttributeCarriers() {
     return myAttributeCarriers;
+}
+
+
+GNENetHelper::RouteCalculator*
+GNENet::getRouteCalculatorInstance() {
+    if (myRouteCalculatorInstance) {
+        return myRouteCalculatorInstance;
+    }
+    else {
+        throw ProcessError("Instance wasn't created");
+    }
 }
 
 
@@ -1065,9 +1077,6 @@ GNENet::setViewNet(GNEViewNet* viewNet) {
     GNEVehicleType* defaultPersonType = new GNEVehicleType(myViewNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN, SUMO_TAG_PTYPE);
     myAttributeCarriers.demandElements.at(defaultPersonType->getTagProperty().getTag()).insert(std::make_pair(defaultPersonType->getID(), defaultPersonType));
     defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
-
-    // create instance of RouteCalculator
-    GNEDemandElement::createRouteCalculatorInstance(this);
 }
 
 
