@@ -56,6 +56,12 @@ public:
     /// @brief Returns element position in view
     Position getPositionInView() const;
 
+    /// @brief compute path
+    void computePath();
+
+    /// @brief invalidate path
+    void invalidatePath();
+
     /// @name members and functions relative to write data sets into XML
     /// @{
     /**@brief writte data set element into a xml file

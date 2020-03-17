@@ -24,12 +24,11 @@
 // ===========================================================================
 #include <config.h>
 
+#include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/network/GNEEdge.h>
-#include <netedit/frames/data/GNEEdgeRelDataFrame.h>
 
 #include "GNEEdgeRelData.h"
 #include "GNEDataInterval.h"
@@ -44,9 +43,14 @@
 // GNEEdgeRelData - methods
 // ---------------------------------------------------------------------------
 
-GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const std::map<std::string, std::string>& parameters) :
+GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
+    const std::vector<GNEEdge*>& via, const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_EDGEREL, GLO_EDGERELATIONDATA, dataIntervalParent, parameters,
-        {edgeParent}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}) {
+        { fromEdge, toEdge}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}) {
+    // set via parameter without updating references
+    replaceMiddleParentEdges(this, via, false);
+    // compute vehicle
+    computePath();
 }
 
 
@@ -68,6 +72,18 @@ GNEEdgeRelData::updateDottedContour() {
 Position
 GNEEdgeRelData::getPositionInView() const {
     return getParentEdges().front()->getPositionInView();
+}
+
+
+void
+GNEEdgeRelData::computePath() {
+    replacePathEdges(this, myDataIntervalParent->getViewNet()->getNet()->getPathCalculator()->calculatePath(SVC_PEDESTRIAN, getParentEdges()));
+}
+
+
+void
+GNEEdgeRelData::invalidatePath() {
+    replacePathEdges(this, getParentEdges());
 }
 
 

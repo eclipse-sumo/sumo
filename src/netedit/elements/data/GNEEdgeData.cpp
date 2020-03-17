@@ -71,6 +71,18 @@ GNEEdgeData::getPositionInView() const {
 }
 
 
+void 
+GNEEdgeData::computePath() {
+    // EdgeDatas don't have paths
+}
+
+
+void 
+GNEEdgeData::invalidatePath() {
+    // EdgeDatas don't have paths
+}
+
+
 void
 GNEEdgeData::writeGenericData(OutputDevice& device) const {
     // open device (don't use SUMO_TAG_MEANDATA_EDGE)
