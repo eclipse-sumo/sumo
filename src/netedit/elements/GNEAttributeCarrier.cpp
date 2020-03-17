@@ -3718,9 +3718,19 @@ GNEAttributeCarrier::fillDataElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::DATAELEMENT | GNETagProperties::GENERICDATA, GNETagProperties::DRAWABLE | GNETagProperties::PARAMETERSDOUBLE | GNETagProperties::SELECTABLE, GUIIcon::EDGERELDATA, SUMO_TAG_DATAINTERVAL);
 
         // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-            "edge ID");
+            "The name of the edge the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TO,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+            "The name of the edge the " + toString(currentTag) + " ends at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_VIA,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+            "List of intermediate edge ids which shall be part of the " + toString(currentTag));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
