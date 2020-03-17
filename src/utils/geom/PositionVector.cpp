@@ -1559,15 +1559,20 @@ PositionVector::getOrthogonal(const Position& p, double extend, bool before, dou
     }
     Position base = tmp.positionAtOffset2D(baseOffset);
     const int closestIndex = tmp.indexOfClosest(base);
+    const double closestOffset = tmp.offsetAtIndex2D(closestIndex);
     result.push_back(base);
-    if (fabs(baseOffset - tmp.offsetAtIndex2D(closestIndex)) > NUMERICAL_EPS) {
+    if (fabs(baseOffset - closestOffset) > NUMERICAL_EPS) {
         result.push_back(tmp[closestIndex]);
+        if ((closestOffset < baseOffset) != before) {
+            deg *= -1;
+        }
     } else if (before) {
         // take the segment before closestIndex if possible
         if (closestIndex > 0) {
             result.push_back(tmp[closestIndex - 1]);
         } else {
             result.push_back(tmp[1]);
+            deg *= -1;
         }
     } else {
         // take the segment after closestIndex if possible
@@ -1575,6 +1580,7 @@ PositionVector::getOrthogonal(const Position& p, double extend, bool before, dou
             result.push_back(tmp[closestIndex + 1]);
         } else {
             result.push_back(tmp[-1]);
+            deg *= -1;
         }
     }
     result = result.getSubpart2D(0, length);
