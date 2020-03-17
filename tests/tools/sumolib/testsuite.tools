@@ -20,3 +20,6 @@ patch_network
 
 # finding routes
 getShortestRoute
+
+# finding routes in a railway network
+getShortestRoute_rail
