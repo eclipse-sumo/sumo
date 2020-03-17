@@ -659,7 +659,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         if (stop.pars.speed > 0) {
             stopLanePos = stop.reached ? stop.pars.endPos : stop.pars.startPos;
         } else {
-            stopLanePos = stop.reached ? getPositionOnLane() : stop.getEndPos(*this);
+            stopLanePos = stop.reached ? getPositionOnLane() : MAX2(0.0, stop.getEndPos(*this));
         }
         Position pos = stop.lane->geometryPositionAtOffset(stopLanePos);
         GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
@@ -698,7 +698,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
                 label += " duration:" + time2string(stop.duration);
             }
         }
-        std::pair<const MSLane*, double> stopPos = std::make_pair(stop.lane, stop.getEndPos(*this));
+        std::pair<const MSLane*, double> stopPos = std::make_pair(stop.lane, stopLanePos);
         const double textSize = s.vehicleName.size / s.scale;
         Position pos2 = pos - Position(0, textSize * repeat[stopPos]);
         GLHelper::drawTextSettings(s.vehicleText, label, pos2, s.scale, s.angle, 1.0);
