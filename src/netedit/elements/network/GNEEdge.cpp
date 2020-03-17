@@ -29,6 +29,7 @@
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/elements/demand/GNEVehicle.h>
+#include <netedit/elements/data/GNEGenericData.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -142,7 +143,7 @@ GNEEdge::updateGeometry() {
             childDemandElements->updatePartialGeometry(this);
         }
         // Update partial geometry of routes vinculated to this edge
-        for (const auto& pathElementChild : myPathElementChilds) {
+        for (const auto& pathElementChild : myPathDemandElementsElementChilds) {
             pathElementChild->updatePartialGeometry(this);
         }
         // mark dotted geometry deprecated
@@ -1408,8 +1409,17 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
 void
 GNEEdge::addPathElement(GNEDemandElement* pathElementChild) {
     // avoid insert duplicatd path element childs
-    if (std::find(myPathElementChilds.begin(), myPathElementChilds.end(), pathElementChild) == myPathElementChilds.end()) {
-        myPathElementChilds.push_back(pathElementChild);
+    if (std::find(myPathDemandElementsElementChilds.begin(), myPathDemandElementsElementChilds.end(), pathElementChild) == myPathDemandElementsElementChilds.end()) {
+        myPathDemandElementsElementChilds.push_back(pathElementChild);
+    }
+}
+
+
+void
+GNEEdge::addPathElement(GNEGenericData* pathElementChild) {
+    // avoid insert duplicatd path element childs
+    if (std::find(myPathGenericDataElementChilds.begin(), myPathGenericDataElementChilds.end(), pathElementChild) == myPathGenericDataElementChilds.end()) {
+        myPathGenericDataElementChilds.push_back(pathElementChild);
     }
 }
 
@@ -1417,18 +1427,33 @@ GNEEdge::addPathElement(GNEDemandElement* pathElementChild) {
 void
 GNEEdge::removePathElement(GNEDemandElement* pathElementChild) {
     // search and remove pathElementChild
-    auto it = std::find(myPathElementChilds.begin(), myPathElementChilds.end(), pathElementChild);
-    if (it != myPathElementChilds.end()) {
-        myPathElementChilds.erase(it);
+    auto it = std::find(myPathDemandElementsElementChilds.begin(), myPathDemandElementsElementChilds.end(), pathElementChild);
+    if (it != myPathDemandElementsElementChilds.end()) {
+        myPathDemandElementsElementChilds.erase(it);
+    }
+}
+
+
+void
+GNEEdge::removePathElement(GNEGenericData* pathElementChild) {
+    // search and remove pathElementChild
+    auto it = std::find(myPathGenericDataElementChilds.begin(), myPathGenericDataElementChilds.end(), pathElementChild);
+    if (it != myPathGenericDataElementChilds.end()) {
+        myPathGenericDataElementChilds.erase(it);
     }
 }
 
 
 void
 GNEEdge::invalidatePathChildElements() {
-    // make a copy of myPathElementChilds
-    auto copyOfMyPathElementChilds = myPathElementChilds;
-    for (const auto& pathElementChild : copyOfMyPathElementChilds) {
+    // make a copy of myPathDemandElementsElementChilds
+    auto copyOfPathDemandElementsElementChilds = myPathDemandElementsElementChilds;
+    for (const auto& pathElementChild : copyOfPathDemandElementsElementChilds) {
+        pathElementChild->invalidatePath();
+    }
+    // make a copy of myPathGenericDataElementChilds
+    auto copyOfPathGenericDataElementChilds = myPathGenericDataElementChilds;
+    for (const auto& pathElementChild : copyOfPathGenericDataElementChilds) {
         pathElementChild->invalidatePath();
     }
 }
@@ -2488,7 +2513,7 @@ GNEEdge::drawDemandElements(const GUIVisualizationSettings& s) const {
         }
     }
     // draw path element childs
-    for (const auto& elementChild : myPathElementChilds) {
+    for (const auto& elementChild : myPathDemandElementsElementChilds) {
         if (elementChild->getTagProperty().isVehicle()) {
             // draw partial trip only if is being inspected or selected (and we aren't in draw for selecting mode)
             if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == elementChild) || elementChild->isAttributeCarrierSelected())) {

@@ -183,17 +183,26 @@ protected:
     /// @brief replace the parent edges of a demandElement (GNEEdge version)
     void replaceParentEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newEdges);
 
+    /// @brief replace the parent edges of a generic data (GNEEdge version)
+    void replaceParentEdges(GNEGenericData* elementChild, const std::vector<GNEEdge*>& newEdges);
+
     /// @brief replace the first parent edge (used by demand elements)
     void replaceFirstParentEdge(GNEDemandElement* elementChild, GNEEdge* newFirstEdge);
 
     /// @brief replace middle (via) parent edges
     void replaceMiddleParentEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newMiddleEdges, const bool updateChildReferences);
 
+    /// @brief replace middle (via) parent edges
+    void replaceMiddleParentEdges(GNEGenericData* elementChild, const std::vector<GNEEdge*>& newMiddleEdges, const bool updateChildReferences);
+
     /// @brief replace the last parent edge (used by demand elements)
     void replaceLastParentEdge(GNEDemandElement* elementChild, GNEEdge* newLastEdge);
 
     /// @brief replace edge route Parents
     void replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& routeEdges);
+
+    /// @brief replace edge route Parents
+    void replacePathEdges(GNEGenericData* elementChild, const std::vector<GNEEdge*>& routeEdges);
 
     /// @brief replace the parent edges of a shape
     void replaceParentLanes(GNEShape* elementChild, const std::string& newLaneIDs);

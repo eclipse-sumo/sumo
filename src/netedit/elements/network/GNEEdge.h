@@ -308,8 +308,14 @@ public:
     /// @brief add path element (Only used by GNEHierarchicalParentElements::changeRouteEdges)
     void addPathElement(GNEDemandElement* pathElementChild);
 
+    /// @brief add path element (Only used by GNEHierarchicalParentElements::changeRouteEdges)
+    void addPathElement(GNEGenericData* pathElementChild);
+
     /// @brief remove path element (Only used by GNEHierarchicalParentElements::changeRouteEdges)
     void removePathElement(GNEDemandElement* pathElementChild);
+
+    /// @brief remove path element (Only used by GNEHierarchicalParentElements::changeRouteEdges)
+    void removePathElement(GNEGenericData* pathElementChild);
 
     /// @brief invalidate path element childs
     void invalidatePathChildElements();
@@ -349,7 +355,10 @@ protected:
     std::string myConnectionStatus;
 
     /// @brief vector with references to path element childs
-    std::vector<GNEDemandElement*> myPathElementChilds;
+    std::vector<GNEDemandElement*> myPathDemandElementsElementChilds;
+
+    /// @brief vector with references to path element childs
+    std::vector<GNEGenericData*> myPathGenericDataElementChilds;
 
 private:
     /// @brief Stack position (used to stack demand elements over edges)
