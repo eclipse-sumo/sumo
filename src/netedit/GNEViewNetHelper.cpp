@@ -1388,7 +1388,7 @@ GNEViewNetHelper::EditModes::buildSuperModeButtons() {
 
 
 void
-GNEViewNetHelper::EditModes::setSupermode(const Supermode supermode) {
+GNEViewNetHelper::EditModes::setSupermode(Supermode supermode) {
     if (supermode == myCurrentSupermode) {
         myViewNet->setStatusBarText("Mode already selected");
         if (myViewNet->myCurrentFrame != nullptr) {
@@ -1452,7 +1452,7 @@ GNEViewNetHelper::EditModes::setSupermode(const Supermode supermode) {
 
 
 void
-GNEViewNetHelper::EditModes::setNetworkEditMode(const NetworkEditMode mode, const bool force) {
+GNEViewNetHelper::EditModes::setNetworkEditMode(NetworkEditMode mode, const bool force) {
     if ((mode == networkEditMode) && !force) {
         myViewNet->setStatusBarText("Network mode already selected");
         if (myViewNet->myCurrentFrame != nullptr) {
@@ -1499,7 +1499,7 @@ GNEViewNetHelper::EditModes::setNetworkEditMode(const NetworkEditMode mode, cons
 
 
 void
-GNEViewNetHelper::EditModes::setDemandEditMode(const DemandEditMode mode, const bool force) {
+GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, const bool force) {
     if ((mode == demandEditMode) && !force) {
         myViewNet->setStatusBarText("Demand mode already selected");
         if (myViewNet->myCurrentFrame != nullptr) {
@@ -1536,7 +1536,7 @@ GNEViewNetHelper::EditModes::setDemandEditMode(const DemandEditMode mode, const 
 
 
 void
-GNEViewNetHelper::EditModes::setDataEditMode(const DataEditMode mode, const bool force) {
+GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, const bool force) {
     if ((mode == dataEditMode) && !force) {
         myViewNet->setStatusBarText("Data mode already selected");
         if (myViewNet->myCurrentFrame != nullptr) {
