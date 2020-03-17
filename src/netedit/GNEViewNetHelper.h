@@ -156,6 +156,7 @@ class GNEDataSet;
 class GNEDataInterval;
 class GNEGenericData;
 class GNEEdgeData;
+class GNEEdgeRelData;
 
 // ===========================================================================
 // classes and structs definitions
@@ -226,6 +227,9 @@ struct GNEViewNetHelper {
         /// @brief get edge data element or a pointer to nullptr
         GNEEdgeData* getEdgeDataElementFront() const;
 
+        /// @brief get edge rel data element or a pointer to nullptr
+        GNEEdgeRelData* getEdgeRelDataElementFront() const;
+
         /// @brief get vector with clicked ACs
         const std::vector<GNEAttributeCarrier*>& getClickedAttributeCarriers() const;
 
@@ -277,6 +281,9 @@ struct GNEViewNetHelper {
 
         /// @brief vector with the clicked edge datas
         std::vector<GNEEdgeData*> myEdgeDatas;
+
+        /// @brief vector with the clicked edge relation datas
+        std::vector<GNEEdgeRelData*> myEdgeRelDatas;
 
         /// @brief invert GUIGlObjects
         void sortGUIGlObjectsByAltitude(const std::vector<GUIGlObject*>& GUIGlObjects);

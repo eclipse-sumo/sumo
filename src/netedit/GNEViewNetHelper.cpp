@@ -24,6 +24,7 @@
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/data/GNEEdgeData.h>
+#include <netedit/elements/data/GNEEdgeRelData.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -109,7 +110,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                         myDemandElements.push_back(dynamic_cast<GNEDemandElement*>(myAttributeCarriers.back()));
                     } else if (tagValue.isGenericData()) {
                         // cast generic data from attribute carrier
-                        myGenericDatas.push_back(dynamic_cast<GNEEdgeData*>(myAttributeCarriers.back()));
+                        myGenericDatas.push_back(dynamic_cast<GNEGenericData*>(myAttributeCarriers.back()));
                     }
                     // now set specify AC type
                     switch (GUIGlObject->getType()) {
@@ -148,6 +149,9 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                         case GLO_EDGEDATA:
                             myEdgeDatas.push_back(dynamic_cast<GNEEdgeData*>(myAttributeCarriers.back()));
                             break;
+                        case GLO_EDGERELDATA:
+                            myEdgeRelDatas.push_back(dynamic_cast<GNEEdgeRelData*>(myAttributeCarriers.back()));
+                            break;
                         default:
                             break;
                     }
@@ -173,7 +177,8 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
         ", TAZs: " + toString(myTAZs.size()) +
         ", Polys: " + toString(myPolys.size()) +
         ", POIs: " + toString(myPOIs.size()) +
-        ", EdgeDatas: " + toString(myEdgeDatas.size()));
+        ", EdgeDatas: " + toString(myEdgeDatas.size()) +
+        ", EdgeRelDatas: " + toString(myEdgeRelDatas.size()));
 }
 
 
@@ -358,6 +363,16 @@ GNEEdgeData*
 GNEViewNetHelper::ObjectsUnderCursor::getEdgeDataElementFront() const {
     if (myEdgeDatas.size() > 0) {
         return myEdgeDatas.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEEdgeRelData*
+GNEViewNetHelper::ObjectsUnderCursor::getEdgeRelDataElementFront() const {
+    if (myEdgeRelDatas.size() > 0) {
+        return myEdgeRelDatas.front();
     } else {
         return nullptr;
     }
