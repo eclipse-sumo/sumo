@@ -324,9 +324,8 @@ NLBuilder::buildNet() {
         junctions->postloadInitContainer();
         routeLoaders = buildRouteLoaderControl(myOptions);
         tlc = myJunctionBuilder.buildTLLogics();
-        const std::vector<int> times = myOptions.getIntVector("save-state.times");
-        for (std::vector<int>::const_iterator i = times.begin(); i != times.end(); ++i) {
-            stateDumpTimes.push_back(TIME2STEPS(*i));
+        for (std::string timeStr : myOptions.getStringVector("save-state.times")) {
+            stateDumpTimes.push_back(string2time(timeStr));
         }
         if (myOptions.isSet("save-state.files")) {
             stateDumpFiles = myOptions.getStringVector("save-state.files");

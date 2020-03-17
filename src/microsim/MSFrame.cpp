@@ -260,8 +260,8 @@ MSFrame::fillOptions() {
     oc.addDescription("movereminder-output.vehicles", "Output", "List of vehicle ids which shall save their movereminder states");
 #endif
 
-    oc.doRegister("save-state.times", new Option_IntVector(IntVector()));
-    oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
+    oc.doRegister("save-state.times", new Option_StringVector());
+    oc.addDescription("save-state.times", "Output", "Use TIME[] as times at which a network state written");
     oc.doRegister("save-state.period", new Option_String("-1", "TIME"));
     oc.addDescription("save-state.period", "Output", "save state repeatedly after TIME period");
     oc.doRegister("save-state.prefix", new Option_FileName(StringVector({ "state" })));
@@ -672,10 +672,10 @@ MSFrame::checkOptions() {
     if (statePeriod > 0) {
         checkStepLengthMultiple(statePeriod, " for save-state.period", deltaT);
     }
-    for (int msTime : oc.getIntVector("save-state.times")) {
-        SUMOTime saveT = TIME2STEPS(msTime);
+    for (std::string timeStr : oc.getStringVector("save-state.times")) {
+        SUMOTime saveT = string2time(timeStr);
         if (end > 0 && saveT >= end) {
-            WRITE_WARNING("The save-state.time " + toString(msTime) + " will not be used before simulation end at " + time2string(end));
+            WRITE_WARNING("The save-state.time " + timeStr + " will not be used before simulation end at " + time2string(end));
         } else {
             checkStepLengthMultiple(saveT, " for save-state.times", deltaT);
         }
