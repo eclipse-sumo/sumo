@@ -4,6 +4,9 @@ save2_deprecated_delimiter
 # save 2 states
 save2
 
+# save 2 states with human readable times
+save2_H
+
 # state saving times are not reached
 save2_mismatch
 
