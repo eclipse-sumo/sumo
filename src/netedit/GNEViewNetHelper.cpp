@@ -73,6 +73,8 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
     myPOIs.clear();
     myPolys.clear();
     myGenericDatas.clear();
+    myEdgeDatas.clear();
+    myEdgeRelDatas.clear();
     // set GUIGlObject
     sortGUIGlObjectsByAltitude(GUIGlObjects);
     // iterate over GUIGlObjects
