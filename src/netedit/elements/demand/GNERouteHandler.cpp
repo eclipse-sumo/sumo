@@ -630,7 +630,7 @@ GNERouteHandler::buildWalkEdges(GNEViewNet* viewNet, bool undoDemandElements, GN
         WRITE_ERROR("A walk needs at least one edge. " + toString(SUMO_TAG_WALK_EDGES) + " within person with ID='" + personParent->getID() + "' cannot be created");
     } else {
         // obtain path between edges
-        std::vector<GNEEdge*> pathEdges = viewNet->getNet()->getRouteCalculatorInstance()->calculateDijkstraRoute(personParent->getVClass(), edges);
+        std::vector<GNEEdge*> pathEdges = viewNet->getNet()->getPathCalculator()->calculateDijkstraPath(personParent->getVClass(), edges);
         // check if obtained path is valid
         if (pathEdges.size() == 0) {
             pathEdges = edges;

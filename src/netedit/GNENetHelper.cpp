@@ -20,61 +20,20 @@
 
 #include <netbuild/NBAlgorithms.h>
 #include <netbuild/NBNetBuilder.h>
-#include <netbuild/NBNetBuilder.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_Connection.h>
-#include <netedit/changes/GNEChange_Crossing.h>
-#include <netedit/changes/GNEChange_DataInterval.h>
-#include <netedit/changes/GNEChange_DataSet.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/changes/GNEChange_Edge.h>
-#include <netedit/changes/GNEChange_GenericData.h>
-#include <netedit/changes/GNEChange_Junction.h>
-#include <netedit/changes/GNEChange_Lane.h>
-#include <netedit/changes/GNEChange_Shape.h>
-#include <netedit/dialogs/GNEFixAdditionalElements.h>
-#include <netedit/dialogs/GNEFixDemandElements.h>
 #include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNEPOI.h>
-#include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/data/GNEGenericData.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/elements/demand/GNEVehicleType.h>
-#include <netedit/elements/network/GNEConnection.h>
-#include <netedit/elements/network/GNECrossing.h>
-#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
-#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNELane.h>
-#include <netedit/elements/network/GNELane.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netwrite/NWFrame.h>
-#include <netwrite/NWWriter_SUMO.h>
-#include <netwrite/NWWriter_XML.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/router/DijkstraRouter.h>
-#include <utils/xml/XMLSubSys.h>
 
-#include "GNEApplicationWindow.h"
 #include "GNENetHelper.h"
-#include "GNEViewNet.h"
-#include "GNENet.h"
-#include "GNEUndoList.h"
-#include "GNEViewParent.h"
 
 // ---------------------------------------------------------------------------
 // GNENetHelper::AttributeCarriers - methods
@@ -390,10 +349,10 @@ GNENetHelper::AttributeCarriers::updateDataSetID(GNEAttributeCarrier* AC, const 
 }
 
 // ---------------------------------------------------------------------------
-// GNENetHelper::RouteCalculator - methods
+// GNENetHelper::PathCalculator - methods
 // ---------------------------------------------------------------------------
 
-GNENetHelper::RouteCalculator::RouteCalculator(GNENet* net) :
+GNENetHelper::PathCalculator::PathCalculator(GNENet* net) :
     myNet(net) {
     myDijkstraRouter = new DijkstraRouter<NBRouterEdge, NBVehicle>(
         myNet->getNetBuilder()->getEdgeCont().getAllRouterEdges(),
@@ -401,13 +360,13 @@ GNENetHelper::RouteCalculator::RouteCalculator(GNENet* net) :
 }
 
 
-GNENetHelper::RouteCalculator::~RouteCalculator() {
+GNENetHelper::PathCalculator::~PathCalculator() {
     delete myDijkstraRouter;
 }
 
 
 void
-GNENetHelper::RouteCalculator::updateDijkstraRouter() {
+GNENetHelper::PathCalculator::updateDijkstraRouter() {
     // simply delete and create myDijkstraRouter again
     if (myDijkstraRouter) {
         delete myDijkstraRouter;
@@ -419,7 +378,7 @@ GNENetHelper::RouteCalculator::updateDijkstraRouter() {
 
 
 std::vector<GNEEdge*>
-GNENetHelper::RouteCalculator::calculateDijkstraRoute(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const {
+GNENetHelper::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const {
     // declare a solution vector
     std::vector<GNEEdge*> solution;
     // calculate route depending of number of partial edges
@@ -465,7 +424,7 @@ GNENetHelper::RouteCalculator::calculateDijkstraRoute(const SUMOVehicleClass vCl
 
 
 std::vector<GNEEdge*>
-GNENetHelper::RouteCalculator::calculateDijkstraRoute(const GNENet* net, const SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const {
+GNENetHelper::PathCalculator::calculateDijkstraPath(const GNENet* net, const SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const {
     // declare a vector of GNEEdges
     std::vector<GNEEdge*> partialEdges;
     partialEdges.reserve(partialEdgesStr.size());
@@ -474,12 +433,12 @@ GNENetHelper::RouteCalculator::calculateDijkstraRoute(const GNENet* net, const S
         partialEdges.push_back(net->retrieveEdge(i));
     }
     // calculate DijkstraRoute using partialEdges
-    return calculateDijkstraRoute(vClass, partialEdges);
+    return calculateDijkstraPath(vClass, partialEdges);
 }
 
 
 bool
-GNENetHelper::RouteCalculator::consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const {
+GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const {
     // check conditions
     if ((from == nullptr) || (to == nullptr)) {
         // edges cannot be null

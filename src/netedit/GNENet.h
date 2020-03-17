@@ -65,8 +65,8 @@ public:
     /// @brief retrieve all attribute carriers of Net
     GNENetHelper::AttributeCarriers& getAttributeCarriers();
 
-    /// @brief obtain instance of RouteCalculator
-    GNENetHelper::RouteCalculator* getRouteCalculatorInstance();
+    /// @brief obtain instance of PathCalculator
+    GNENetHelper::PathCalculator* getPathCalculator();
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -738,8 +738,8 @@ protected:
     /// @brief AttributeCarriers of net
     GNENetHelper::AttributeCarriers myAttributeCarriers;
 
-    /// @brief RouteCalculator instance
-    GNENetHelper::RouteCalculator* myRouteCalculatorInstance;
+    /// @brief PathCalculator instance
+    GNENetHelper::PathCalculator* myPathCalculator;
 
     /// @name ID Suppliers for newly created edges and junctions
     // @{

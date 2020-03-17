@@ -94,7 +94,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myViewNet(nullptr),
     myNetBuilder(netBuilder),
     myAttributeCarriers(this),
-    myRouteCalculatorInstance(new GNENetHelper::RouteCalculator(this)),
+    myPathCalculator(new GNENetHelper::PathCalculator(this)),
     myEdgeIDSupplier("gneE", netBuilder->getEdgeCont().getAllNames()),
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myNeedRecompute(true),
@@ -120,7 +120,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
 
 
 GNENet::~GNENet() {
-    delete myRouteCalculatorInstance;
+    // delete route calculator Instance
+    delete myPathCalculator;
     // show extra information for tests
     WRITE_DEBUG("Deleting net builder in GNENet destructor");
     delete myNetBuilder;
@@ -133,14 +134,9 @@ GNENet::getAttributeCarriers() {
 }
 
 
-GNENetHelper::RouteCalculator*
-GNENet::getRouteCalculatorInstance() {
-    if (myRouteCalculatorInstance) {
-        return myRouteCalculatorInstance;
-    }
-    else {
-        throw ProcessError("Instance wasn't created");
-    }
+GNENetHelper::PathCalculator*
+GNENet::getPathCalculator() {
+    return myPathCalculator;
 }
 
 

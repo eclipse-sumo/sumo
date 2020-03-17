@@ -144,32 +144,32 @@ struct GNENetHelper {
     };
 
     /// @brief class used to calculate paths in nets
-    class RouteCalculator {
+    class PathCalculator {
 
     public:
         /// @brief constructor
-        RouteCalculator(GNENet* net);
+        PathCalculator(GNENet* net);
 
         /// @brief destructor
-        ~RouteCalculator();
+        ~PathCalculator();
 
         /// @brief update DijkstraRoute (called when SuperMode Demand is selected)
         void updateDijkstraRouter();
 
-        /// @brief calculate Dijkstra route between a list of partial edges
-        std::vector<GNEEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
+        /// @brief calculate Dijkstra path between a list of partial edges
+        std::vector<GNEEdge*> calculateDijkstraPath(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
 
-        /// @brief calculate Dijkstra route between a list of partial edges (in string format)
-        std::vector<GNEEdge*> calculateDijkstraRoute(const GNENet* net, const SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const;
+        /// @brief calculate Dijkstra path between a list of partial edges (in string format)
+        std::vector<GNEEdge*> calculateDijkstraPath(const GNENet* net, const SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const;
 
-        /// @brief check if exist a route between the two given consecutives edges for the given VClass
+        /// @brief check if exist a path between the two given consecutives edges for the given VClass
         bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
 
     private:
         /// @brief pointer to net
         GNENet* myNet;
 
-        /// @brief SUMO Abstract DijkstraRouter
+        /// @brief SUMO Abstract myDijkstraRouter
         SUMOAbstractRouter<NBRouterEdge, NBVehicle>* myDijkstraRouter;
     };
 };

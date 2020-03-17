@@ -304,7 +304,7 @@ GNERouteFrame::ConsecutiveEdges::addEdge(GNEEdge* edge) {
     } else {
         // check if clicked edge is in the candidate edges
         for (const auto& i : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
-            if ((i == edge) && myRouteFrameParent->myViewNet->getNet()->getRouteCalculatorInstance()->consecutiveEdgesConnected(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), myRouteEdges.back(), edge)) {
+            if ((i == edge) && myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->consecutiveEdgesConnected(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), myRouteEdges.back(), edge)) {
                 // restore colors of outgoing edges
                 for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
                     for (const auto& k : j->getLanes()) {
@@ -340,7 +340,7 @@ GNERouteFrame::ConsecutiveEdges::refreshEdgeCandidates() {
         // set new candidate colors
         for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
             // check if exist a connection between both edges
-            if (myRouteFrameParent->myViewNet->getNet()->getRouteCalculatorInstance()->consecutiveEdgesConnected(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), myRouteEdges.back(), j)) {
+            if (myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->consecutiveEdgesConnected(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), myRouteEdges.back(), j)) {
                 for (const auto& k : j->getLanes()) {
                     k->setSpecialColor(&myRouteFrameParent->getEdgeCandidateSelectedColor());
                 }
@@ -567,7 +567,7 @@ GNERouteFrame::NonConsecutiveEdges::addEdge(GNEEdge* edge) {
             // enable remove last edge button
             myRemoveLastInsertedEdge->enable();
             // calculate temporal route
-            myTemporalRoute = myRouteFrameParent->myViewNet->getNet()->getRouteCalculatorInstance()->calculateDijkstraRoute(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);
+            myTemporalRoute = myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->calculateDijkstraPath(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);
         } else {
             // Routes with only one edge are allowed
             myTemporalRoute.clear();
@@ -685,7 +685,7 @@ GNERouteFrame::NonConsecutiveEdges::onCmdRemoveLastRouteEdge(FXObject*, FXSelect
             myTemporalRoute.push_back(mySelectedEdges.front());
         } else {
             // calculate temporal route
-            myTemporalRoute = myRouteFrameParent->myViewNet->getNet()->getRouteCalculatorInstance()->calculateDijkstraRoute(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);
+            myTemporalRoute = myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->calculateDijkstraPath(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);
         }
         // update info route label
         updateInfoRouteLabel();
