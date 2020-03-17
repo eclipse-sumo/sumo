@@ -1548,7 +1548,7 @@ PositionVector::simplified() const {
 
 
 PositionVector
-PositionVector::getOrthogonal(const Position& p, double extend, bool before, double length) const {
+PositionVector::getOrthogonal(const Position& p, double extend, bool before, double length, double deg) const {
     PositionVector result;
     PositionVector tmp = *this;
     tmp.extrapolate2D(extend);
@@ -1580,7 +1580,7 @@ PositionVector::getOrthogonal(const Position& p, double extend, bool before, dou
     result = result.getSubpart2D(0, length);
     // rotate around base
     result.add(base * -1);
-    result.rotate2D(DEG2RAD(90));
+    result.rotate2D(DEG2RAD(deg));
     result.add(base);
     return result;
 }

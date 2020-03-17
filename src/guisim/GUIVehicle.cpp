@@ -663,7 +663,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         }
         Position pos = stop.lane->geometryPositionAtOffset(stopLanePos);
         GLHelper::setColor(col);
-        GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
+        GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth(), -90), 0.1);
         std::string label = stop.reached ? "stopped" : "stop " + toString(stopIndex);
 #ifdef _DEBUG
         label += " (" + toString(stop.edge - myCurrEdge) + "e)";

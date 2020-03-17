@@ -390,8 +390,9 @@ public:
      * @param[in] extend how long to extend this vector for finding an orthogonal
      * @param[in] front Whether to take the segment before or after the base point in case of ambiguity
      * @param[in] length the length of the orthogonal
+     * @param[in] deg the rotation angle relative to the shape direction
      */
-    PositionVector getOrthogonal(const Position& p, double extend, bool before, double length = 1.0) const;
+    PositionVector getOrthogonal(const Position& p, double extend, bool before, double length = 1.0, double deg = 90) const;
 
     /// @brief returned vector that is smoothed at the front (within dist)
     PositionVector smoothedZFront(double dist = std::numeric_limits<double>::max()) const;
