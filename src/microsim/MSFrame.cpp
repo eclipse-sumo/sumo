@@ -225,6 +225,9 @@ MSFrame::fillOptions() {
     oc.doRegister("vehroute-output.incomplete", new Option_Bool(false));
     oc.addDescription("vehroute-output.incomplete", "Output", "Include invalid routes and route stubs in vehroute output");
 
+    oc.doRegister("vehroute-output.stop-edges", new Option_Bool(false));
+    oc.addDescription("vehroute-output.stop-edges", "Output", "Include information about edges between stops");
+
     oc.doRegister("link-output", new Option_FileName());
     oc.addDescription("link-output", "Output", "Save links states into FILE");
 

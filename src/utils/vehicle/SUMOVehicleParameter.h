@@ -321,7 +321,7 @@ public:
          * @param[in, out] dev The device to write into
          * @exception IOError not yet implemented
          */
-        void write(OutputDevice& dev) const;
+        void write(OutputDevice& dev, bool close = true) const;
 
         /// @brief write trigger attribute
         void writeTriggers(OutputDevice& dev) const;

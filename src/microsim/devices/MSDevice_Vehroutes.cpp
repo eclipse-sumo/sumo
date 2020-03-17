@@ -49,6 +49,7 @@ bool MSDevice_Vehroutes::myIntendedDepart = false;
 bool MSDevice_Vehroutes::myRouteLength = false;
 bool MSDevice_Vehroutes::mySkipPTLines = false;
 bool MSDevice_Vehroutes::myIncludeIncomplete = false;
+bool MSDevice_Vehroutes::myWriteStopPriorEdges = false;
 MSDevice_Vehroutes::StateListener MSDevice_Vehroutes::myStateListener;
 std::map<const SUMOTime, int> MSDevice_Vehroutes::myDepartureCounts;
 std::map<const SUMOTime, std::map<const std::string, std::string> > MSDevice_Vehroutes::myRouteInfos;
@@ -74,6 +75,7 @@ MSDevice_Vehroutes::init() {
         myRouteLength = oc.getBool("vehroute-output.route-length");
         mySkipPTLines = oc.getBool("vehroute-output.skip-ptlines");
         myIncludeIncomplete = oc.getBool("vehroute-output.incomplete");
+        myWriteStopPriorEdges = oc.getBool("vehroute-output.stop-edges");
         MSNet::getInstance()->addVehicleStateListener(&myStateListener);
     }
 }
@@ -134,7 +136,7 @@ MSDevice_Vehroutes::~MSDevice_Vehroutes() {
 
 
 bool
-MSDevice_Vehroutes::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSDevice_Vehroutes::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         if (mySorted && myStateListener.myDevices[static_cast<SUMOVehicle*>(&veh)] == this) {
             const SUMOTime departure = myIntendedDepart ? myHolder.getParameter().depart : MSNet::getInstance()->getCurrentTimeStep();
@@ -148,7 +150,10 @@ MSDevice_Vehroutes::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notifica
         myDepartSpeed = veh.getSpeed();
         myDepartPos = veh.getPositionOnLane();
     }
-    return mySaveExits;
+    if (myWriteStopPriorEdges) {
+        myPriorEdges.push_back(&enteredLane->getEdge());
+    }
+    return mySaveExits || myWriteStopPriorEdges;
 }
 
 
@@ -162,13 +167,18 @@ MSDevice_Vehroutes::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMo
             myLastSavedAt = veh.getEdge();
         }
     }
-    return mySaveExits;
+    return mySaveExits || myWriteStopPriorEdges;
 }
 
 
 void
 MSDevice_Vehroutes::stopEnded(const SUMOVehicleParameter::Stop& stop) {
-    stop.write(myStopOut);
+    stop.write(myStopOut, !myWriteStopPriorEdges);
+    if (myWriteStopPriorEdges) {
+        myStopOut.writeAttr("priorEdges", myPriorEdges);
+        myPriorEdges.clear();
+        myStopOut.closeTag();
+    }
 }
 
 

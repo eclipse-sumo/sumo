@@ -719,6 +719,7 @@
         <xsd:attribute name="join" type="xsd:string"/>
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="speed" type="nonNegativeFloatType"/>
+        <xsd:attribute name="priorEdges" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeDistributionType">

@@ -171,7 +171,7 @@ SUMOVehicleParameter::Stop::Stop() :
 
 
 void
-SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
+SUMOVehicleParameter::Stop::write(OutputDevice& dev, bool close) const {
     dev.openTag(SUMO_TAG_STOP);
     if (busstop != "") {
         dev.writeAttr(SUMO_ATTR_BUS_STOP, busstop);
@@ -236,7 +236,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
     if (!actType.empty()) {
         dev.writeAttr(SUMO_ATTR_ACTTYPE, actType);
     }
-    dev.closeTag();
+    if (close) {
+        dev.closeTag();
+    }
 }
 
 
