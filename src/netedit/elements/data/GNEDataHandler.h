@@ -140,7 +140,8 @@ public:
      * @param[in] end interval end
      * @exception InvalidArgument If the DataInterval can not be added to the net
      */
-    static GNEDataInterval* buildDataInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataSet* dataSetParent, const double begin, const double end);
+    static GNEDataInterval* buildDataInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataSet* dataSetParent, 
+        const double begin, const double end);
 
     /**@brief Builds edgeData
      * @param[in] viewNet viewNet in which element will be inserted
@@ -150,17 +151,21 @@ public:
      * @param[in] parameters parameters map
      * @exception InvalidArgument If the edgeData can not be added to the net
      */
-    static GNEEdgeData* buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, GNEEdge* edge, const std::map<std::string, std::string>& parameters);
+    static GNEEdgeData* buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, 
+        GNEEdge* edge, const std::map<std::string, std::string>& parameters);
     
     /**@brief Builds edgeRelationData
      * @param[in] viewNet viewNet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
      * @param[in] dataIntervalParent GNEDataInterval in which this edgeRelationData is saved
-     * @param[in] edge GNEEdge parent
+     * @param[in] fromEdge GNEEdge from
+     * @param[in] toEdge GNEEdge to
+     * @param[in] via GNEEdge vias
      * @param[in] parameters parameters map
      * @exception InvalidArgument If the edgeRelationData can not be added to the net
      */
-    static GNEEdgeRelData* buildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, GNEEdge* edge, const std::map<std::string, std::string>& parameters);
+    static GNEEdgeRelData* buildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, 
+        GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via, const std::map<std::string, std::string>& parameters);
 
 protected:
     /// @name parsing methods

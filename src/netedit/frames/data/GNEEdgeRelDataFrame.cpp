@@ -52,8 +52,9 @@ GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCur
                 return false;
             }
         }
+        /* temporal */
         // finally create EdgeRelationData
-        GNEDataHandler::buildEdgeRelationData(myViewNet, true, myIntervalSelector->getDataInterval(), objectsUnderCursor.getEdgeFront(), myParametersEditor->getParametersMap());
+        GNEDataHandler::buildEdgeRelationData(myViewNet, true, myIntervalSelector->getDataInterval(), objectsUnderCursor.getEdgeFront(), objectsUnderCursor.getEdgeFront(), {}, myParametersEditor->getParametersMap());
         // EdgeRelationData created, then return true
         return true;
     } else {
