@@ -50,19 +50,20 @@
 // ---------------------------------------------------------------------------
 
 GNERouteHandler::RouteParameter::RouteParameter() :
-    loadedID(false),
     vClass(SVC_PASSENGER),
-    color(RGBColor::BLACK) {
+    color(RGBColor::BLACK),
+    loadedID(false) {
 }
 
 
 GNERouteHandler::RouteParameter::RouteParameter(GNEDemandElement* originalDemandElement) :
     routeID(originalDemandElement->getTagProperty().isRoute() ?
-            originalDemandElement->getID() :
-            originalDemandElement->getViewNet()->getNet()->generateDemandElementID(originalDemandElement->getID(), SUMO_TAG_ROUTE)),
+        originalDemandElement->getID() :
+        originalDemandElement->getViewNet()->getNet()->generateDemandElementID(originalDemandElement->getID(), SUMO_TAG_ROUTE)),
     edges(originalDemandElement->getParentEdges()),
     vClass(originalDemandElement->getVClass()),
-    color(originalDemandElement->getColor()) {
+    color(originalDemandElement->getColor()),
+    loadedID(false) {
 }
 
 
@@ -117,7 +118,8 @@ GNERouteHandler::GNERouteHandler(const std::string& file, GNEViewNet* viewNet, b
     SUMORouteHandler(file, "", false),
     myViewNet(viewNet),
     myUndoDemandElements(undoDemandElements),
-    myLoadedVehicleWithEmbebbedRoute(nullptr) {
+    myLoadedVehicleWithEmbebbedRoute(nullptr),
+    myAbort(false) {
 }
 
 
