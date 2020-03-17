@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 17 08:55:15 2020 by Eclipse SUMO Version v1_5_0+0778-f831daab30
+<!-- generated on Tue Mar 17 15:31:00 2020 by Eclipse SUMO Version v1_5_0+0797-eb78355be9
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -69,6 +69,7 @@
         <vehroute-output.write-unfinished value="false" type="BOOL" help="Write vehroute output for vehicles which have not arrived at simulation end"/>
         <vehroute-output.skip-ptlines value="false" type="BOOL" help="Skip vehroute output for public transport vehicles"/>
         <vehroute-output.incomplete value="false" type="BOOL" help="Include invalid routes and route stubs in vehroute output"/>
+        <vehroute-output.stop-edges value="false" type="BOOL" help="Include information about edges between stops"/>
         <link-output value="" type="FILE" help="Save links states into FILE"/>
         <railsignal-block-output value="" type="FILE" help="Save railsignal-blocks into FILE"/>
         <bt-output value="" type="FILE" help="Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)"/>
