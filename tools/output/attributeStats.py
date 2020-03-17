@@ -23,6 +23,7 @@ from __future__ import print_function
 
 import os
 import sys
+from collections import defaultdict
 from optparse import OptionParser
 
 if 'SUMO_HOME' in os.environ:
@@ -65,11 +66,11 @@ def main():
     def attribute_retriever(tripinfo):
         return
 
-    vals = {}
+    vals = defaultdict(list)
     stats = Statistics("%s %ss" % (options.element, options.attribute), histogram=True, scale=options.binwidth)
     for tripinfo in parse(options.tripinfos, options.element):
         val = float(tripinfo.getAttribute(options.attribute))
-        vals[tripinfo.id] = val
+        vals[tripinfo.id].append(val)
         stats.add(val, tripinfo.id)
 
     print(stats)
@@ -81,9 +82,9 @@ def main():
 
     if options.full_output is not None:
         with open(options.full_output, 'w') as f:
-            data = [(v, k) for k, v in vals.items()]
-            for val, id in sorted(data):
-                f.write("%s %s\n" % (val, id))
+            for id, data in vals.items():
+                for x in data:
+                    f.write("%s %s\n" % (x, id))
 
 
 if __name__ == "__main__":
