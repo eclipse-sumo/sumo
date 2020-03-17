@@ -51,6 +51,7 @@ class Edge:
         self._tls = None
         self._name = name
         self._params = {}
+        self._bidi = None
 
     def getName(self):
         return self._name
@@ -235,6 +236,9 @@ class Edge:
 
     def getToNode(self):
         return self._to
+
+    def getBidi(self):
+        return self._bidi
 
     def is_fringe(self, connections=None):
         """true if this edge has no incoming or no outgoing connections (except turnarounds)
