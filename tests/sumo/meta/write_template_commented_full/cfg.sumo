@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 11 15:04:41 2020 by Eclipse SUMO Version v1_5_0+0649-b7a5a0e
+<!-- generated on Tue Mar 17 08:55:15 2020 by Eclipse SUMO Version v1_5_0+0778-f831daab30
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -210,8 +210,8 @@
         <!-- Write overall statistics into FILE -->
         <statistic-output value="" synonymes="statistics-output" type="FILE"/>
 
-        <!-- Use INT[] as times at which a network state written -->
-        <save-state.times value="" type="INT[]"/>
+        <!-- Use TIME[] as times at which a network state written -->
+        <save-state.times value="" type="STR[]"/>
 
         <!-- save state repeatedly after TIME period -->
         <save-state.period value="-1" type="TIME"/>
@@ -911,9 +911,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

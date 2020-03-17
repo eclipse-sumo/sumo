@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_5_0+0649-b7a5a0e
+Eclipse SUMO Version v1_5_0+0778-f831daab30
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -121,7 +121,7 @@ Output Options:
                                          passenger and containers for all
                                          vehicles into FILE
   --statistic-output FILE              Write overall statistics into FILE
-  --save-state.times INT[]             Use INT[] as times at which a network
+  --save-state.times STR[]             Use TIME[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
   --save-state.prefix FILE             Prefix for network states
@@ -645,8 +645,6 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing
