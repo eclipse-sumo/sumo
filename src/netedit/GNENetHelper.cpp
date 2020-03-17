@@ -352,8 +352,10 @@ GNENetHelper::AttributeCarriers::updateDataSetID(GNEAttributeCarrier* AC, const 
 // GNENetHelper::PathCalculator - methods
 // ---------------------------------------------------------------------------
 
-GNENetHelper::PathCalculator::PathCalculator(GNENet* net) :
-    myNet(net) {
+GNENetHelper::PathCalculator::PathCalculator(const GNENet* net) :
+    myNet(net),
+    myDijkstraRouter(nullptr) {
+    // create myDijkstraRouter
     myDijkstraRouter = new DijkstraRouter<NBRouterEdge, NBVehicle>(
         myNet->getNetBuilder()->getEdgeCont().getAllRouterEdges(),
         true, &NBRouterEdge::getTravelTimeStatic, nullptr, true);
@@ -366,7 +368,7 @@ GNENetHelper::PathCalculator::~PathCalculator() {
 
 
 void
-GNENetHelper::PathCalculator::updateDijkstraRouter() {
+GNENetHelper::PathCalculator::updatePathCalculator() {
     // simply delete and create myDijkstraRouter again
     if (myDijkstraRouter) {
         delete myDijkstraRouter;
@@ -378,15 +380,14 @@ GNENetHelper::PathCalculator::updateDijkstraRouter() {
 
 
 std::vector<GNEEdge*>
-GNENetHelper::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const {
+GNENetHelper::PathCalculator::calculatePath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const {
     // declare a solution vector
     std::vector<GNEEdge*> solution;
     // calculate route depending of number of partial edges
     if (partialEdges.size() == 1) {
         // if there is only one partialEdges, route has only one edge
         solution.push_back(partialEdges.front());
-    }
-    else {
+    } else {
         // declare temporal vehicle
         NBVehicle tmpVehicle("temporalNBVehicle", vClass);
         // obtain pointer to GNENet
@@ -397,8 +398,8 @@ GNENetHelper::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClas
             std::vector<const NBRouterEdge*> partialRoute;
             myDijkstraRouter->compute(partialEdges.at(i - 1)->getNBEdge(), partialEdges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
             // save partial route in solution
-            for (const auto& j : partialRoute) {
-                solution.push_back(net->retrieveEdge(j->getID()));
+            for (const auto& edgeID : partialRoute) {
+                solution.push_back(net->retrieveEdge(edgeID->getID()));
             }
         }
     }
@@ -410,12 +411,10 @@ GNENetHelper::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClas
             // if next edge is the same of current edge, remove it
             if (*solutionIt == *(solutionIt + 1)) {
                 solutionIt = solution.erase(solutionIt);
-            }
-            else {
+            } else {
                 solutionIt++;
             }
-        }
-        else {
+        } else {
             solutionIt++;
         }
     }
@@ -424,16 +423,16 @@ GNENetHelper::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClas
 
 
 std::vector<GNEEdge*>
-GNENetHelper::PathCalculator::calculateDijkstraPath(const GNENet* net, const SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const {
+GNENetHelper::PathCalculator::calculatePath(const SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const {
     // declare a vector of GNEEdges
     std::vector<GNEEdge*> partialEdges;
     partialEdges.reserve(partialEdgesStr.size());
     // convert to vector of GNEEdges
-    for (const auto& i : partialEdgesStr) {
-        partialEdges.push_back(net->retrieveEdge(i));
+    for (const auto& egeID : partialEdgesStr) {
+        partialEdges.push_back(myNet->retrieveEdge(egeID));
     }
     // calculate DijkstraRoute using partialEdges
-    return calculateDijkstraPath(vClass, partialEdges);
+    return calculatePath(vClass, partialEdges);
 }
 
 
@@ -443,16 +442,13 @@ GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass v
     if ((from == nullptr) || (to == nullptr)) {
         // edges cannot be null
         return false;
-    }
-    else if (from == to) {
+    } else if (from == to) {
         // the same edge cannot be consecutive of itself
         return false;
-    }
-    else if (vClass == SVC_PEDESTRIAN) {
+    } else if (vClass == SVC_PEDESTRIAN) {
         // for pedestrians consecutive edges are always connected
         return true;
-    }
-    else {
+    } else {
         // declare temporal vehicle
         NBVehicle tmpVehicle("temporalNBVehicle", vClass);
         // declare a temporal route in which save route between two last edges

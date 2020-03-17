@@ -305,14 +305,14 @@ void
 GNERide::computePath() {
     if (myTagProperty.getTag() == SUMO_TAG_RIDE_FROMTO) {
         // calculate route and update routeEdges
-        replacePathEdges(this, myViewNet->getNet()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
+        replacePathEdges(this, myViewNet->getNet()->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
     } else if (myTagProperty.getTag() == SUMO_TAG_RIDE_BUSSTOP) {
         // declare a from-via-busStop edges vector
         std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
         // add busStop edge
         fromViaBusStopEdges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
         // calculate route and update routeEdges
-        replacePathEdges(this, myViewNet->getNet()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), fromViaBusStopEdges));
+        replacePathEdges(this, myViewNet->getNet()->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), fromViaBusStopEdges));
     }
     // update geometry
     updateGeometry();

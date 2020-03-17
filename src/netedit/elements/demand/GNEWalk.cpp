@@ -151,7 +151,7 @@ GNEWalk::isDemandElementValid() const {
             return true;
         } else {
             // check if exist a route between parent edges
-            return (myViewNet->getNet()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0);
+            return (myViewNet->getNet()->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0);
         }
     } else if (getPathEdges().size() > 0) {
         // if path edges isn't empty, then there is a valid route
@@ -340,14 +340,14 @@ void
 GNEWalk::computePath() {
     if ((myTagProperty.getTag() == SUMO_TAG_WALK_FROMTO)) {
         // calculate route and update routeEdges
-        replacePathEdges(this, myViewNet->getNet()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
+        replacePathEdges(this, myViewNet->getNet()->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
     } else if (myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) {
         // declare a from-via-busStop edges vector
         std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
         // add busStop edge
         fromViaBusStopEdges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
         // calculate route and update routeEdges
-        replacePathEdges(this, myViewNet->getNet()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), fromViaBusStopEdges));
+        replacePathEdges(this, myViewNet->getNet()->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), fromViaBusStopEdges));
     }
     // update geometry
     updateGeometry();

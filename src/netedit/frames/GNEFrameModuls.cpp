@@ -655,7 +655,7 @@ GNEFrameModuls::EdgePathCreator::addEdge(GNEEdge* edge) {
         // calculate route if there is more than two edges
         if (myClickedEdges.size() > 1) {
             // calculate temporal route
-            myTemporalRoute = myFrameParent->getViewNet()->getNet()->getPathCalculator()->calculateDijkstraPath(myVClass, myClickedEdges);
+            myTemporalRoute = myFrameParent->getViewNet()->getNet()->getPathCalculator()->calculatePath(myVClass, myClickedEdges);
         } else {
             // use single edge as temporal route
             myTemporalRoute = myClickedEdges;
@@ -817,7 +817,7 @@ GNEFrameModuls::EdgePathCreator::onCmdRemoveLastInsertedElement(FXObject*, FXSel
         // remove last edge
         myClickedEdges.pop_back();
         // calculate temporal route
-        myTemporalRoute = myFrameParent->getViewNet()->getNet()->getPathCalculator()->calculateDijkstraPath(myVClass, myClickedEdges);
+        myTemporalRoute = myFrameParent->getViewNet()->getNet()->getPathCalculator()->calculatePath(myVClass, myClickedEdges);
         // update view (to see the new temporal route)
         myFrameParent->myViewNet->update();
         // check if after pop edge, there is more than one edge

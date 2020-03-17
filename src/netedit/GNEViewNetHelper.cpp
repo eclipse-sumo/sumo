@@ -1359,7 +1359,7 @@ GNEViewNetHelper::EditModes::EditModes(GNEViewNet* viewNet) :
     demandButton(nullptr),
     dataButton(nullptr),
     myViewNet(viewNet),
-    myCurrentSupermode(Supermode::NONE) {
+    myCurrentSupermode(Supermode::NETWORK) {
 }
 
 
@@ -1528,7 +1528,7 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, const bool f
         // demand modes require ALWAYS a recomputing
         myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
         // update DijkstraRouter of RouteCalculatorInstance
-        myViewNet->myNet->getPathCalculator()->updateDijkstraRouter();
+        myViewNet->myNet->getPathCalculator()->updatePathCalculator();
         // update network mode specific controls
         myViewNet->updateDemandModeSpecificControls();
     }
@@ -1562,6 +1562,8 @@ GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, const bool force
         }
         // data modes require ALWAYS a recomputing
         myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
+        // update DijkstraRouter of RouteCalculatorInstance
+        myViewNet->myNet->getPathCalculator()->updatePathCalculator();
         // update network mode specific controls
         myViewNet->updateDataModeSpecificControls();
     }

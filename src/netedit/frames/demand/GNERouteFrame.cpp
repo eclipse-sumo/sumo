@@ -567,7 +567,7 @@ GNERouteFrame::NonConsecutiveEdges::addEdge(GNEEdge* edge) {
             // enable remove last edge button
             myRemoveLastInsertedEdge->enable();
             // calculate temporal route
-            myTemporalRoute = myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->calculateDijkstraPath(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);
+            myTemporalRoute = myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->calculatePath(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);
         } else {
             // Routes with only one edge are allowed
             myTemporalRoute.clear();
@@ -685,7 +685,7 @@ GNERouteFrame::NonConsecutiveEdges::onCmdRemoveLastRouteEdge(FXObject*, FXSelect
             myTemporalRoute.push_back(mySelectedEdges.front());
         } else {
             // calculate temporal route
-            myTemporalRoute = myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->calculateDijkstraPath(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);
+            myTemporalRoute = myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->calculatePath(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);
         }
         // update info route label
         updateInfoRouteLabel();
