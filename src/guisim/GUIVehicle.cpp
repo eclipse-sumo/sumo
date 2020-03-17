@@ -662,6 +662,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
             stopLanePos = stop.reached ? getPositionOnLane() : MAX2(0.0, stop.getEndPos(*this));
         }
         Position pos = stop.lane->geometryPositionAtOffset(stopLanePos);
+        GLHelper::setColor(col);
         GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
         std::string label = stop.reached ? "stopped" : "stop " + toString(stopIndex);
 #ifdef _DEBUG
