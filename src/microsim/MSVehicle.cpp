@@ -2094,7 +2094,7 @@ MSVehicle::joinTrainPartFront(MSVehicle* veh) {
             if (myLane->isInternal()) {
                 routeIndex++;
             }
-            for (int i = veh->myFurtherLanes.size() - 1; i >= 0; i--) {
+            for (int i = (int)veh->myFurtherLanes.size() - 1; i >= 0; i--) {
                 MSEdge* edge = &veh->myFurtherLanes[i]->getEdge();
                 if (!edge->isInternal() && edge != myRoute->getEdges()[routeIndex]) {
                     WRITE_WARNING("Cannot join vehicle '" + veh->getID() + " to vehicle '" + getID() 
@@ -2102,13 +2102,13 @@ MSVehicle::joinTrainPartFront(MSVehicle* veh) {
                     return false;
                 }
             }
-            for (int i = veh->myFurtherLanes.size() - 2; i >= 0; i--) {
+            for (int i = (int)veh->myFurtherLanes.size() - 2; i >= 0; i--) {
                 enterLaneAtMove(veh->myFurtherLanes[i]);
             }
         }
         const double newLength = myType->getLength() + veh->getVehicleType().getLength();
         getSingularType().setLength(newLength);
-        assert(myLane = veh->getLane());
+        assert(myLane == veh->getLane());
         myState.myPos = veh->getPositionOnLane();
         myStops.begin()->joinTriggered = false;
         return true;

@@ -665,7 +665,7 @@ MSCalibrator::setFlow(SUMOTime begin, SUMOTime end, double vehsPerHour, double s
         it++;
     }
     // add interval at the end of the known intervals
-    int myIntervalIndex = myCurrentStateInterval - myIntervals.begin();
+    const int intervalIndex = (int)(myCurrentStateInterval - myIntervals.begin());
     AspiredState state;
     state.begin = begin;
     state.end = end;
@@ -674,7 +674,7 @@ MSCalibrator::setFlow(SUMOTime begin, SUMOTime end, double vehsPerHour, double s
     state.vehicleParameter = new SUMOVehicleParameter(vehicleParameter);
     myIntervals.push_back(state);
     // fix iterator
-    myCurrentStateInterval = myIntervals.begin() + myIntervalIndex;
+    myCurrentStateInterval = myIntervals.begin() + intervalIndex;
 }
 
 /****************************************************************************/
