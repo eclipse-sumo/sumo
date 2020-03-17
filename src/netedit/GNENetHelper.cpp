@@ -229,11 +229,9 @@ void
 GNENetHelper::AttributeCarriers::updateJunctionID(GNEAttributeCarrier* AC, const std::string& newID) {
     if (junctions.count(AC->getID()) == 0) {
         throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.junction");
-    }
-    else if (junctions.count(newID) != 0) {
+    } else if (junctions.count(newID) != 0) {
         throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in junctions");
-    }
-    else {
+    } else {
         // retrieve junction
         GNEJunction* junction = junctions.at(AC->getID());
         // remove junction from container
@@ -256,11 +254,9 @@ void
 GNENetHelper::AttributeCarriers::updateEdgeID(GNEAttributeCarrier* AC, const std::string& newID) {
     if (edges.count(AC->getID()) == 0) {
         throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.edge");
-    }
-    else if (edges.count(newID) != 0) {
+    } else if (edges.count(newID) != 0) {
         throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in edges");
-    }
-    else {
+    } else {
         // retrieve edge
         GNEEdge* edge = edges.at(AC->getID());
         // remove edge from container
@@ -285,11 +281,9 @@ void
 GNENetHelper::AttributeCarriers::updateAdditionalID(GNEAttributeCarrier* AC, const std::string& newID) {
     if (additionals.at(AC->getTagProperty().getTag()).count(AC->getID()) == 0) {
         throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.additionals");
-    }
-    else if (additionals.at(AC->getTagProperty().getTag()).count(newID) != 0) {
+    } else if (additionals.at(AC->getTagProperty().getTag()).count(newID) != 0) {
         throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in AttributeCarriers.additionals");
-    }
-    else {
+    } else {
         // retrieve additional 
         GNEAdditional* additional = additionals.at(AC->getTagProperty().getTag()).at(AC->getID());
         // remove additional from container
@@ -311,13 +305,11 @@ GNENetHelper::AttributeCarriers::updateShapeID(GNEAttributeCarrier* AC, const st
         // check that exist in shape container
         if (myPolygons.get(AC->getID()) == 0) {
             throw UnknownElement("Polygon " + AC->getID());
-        }
-        else {
+        } else {
             // change polygon ID
             myPolygons.changeID(AC->getID(), newID);
         }
-    }
-    else if ((AC->getTagProperty().getTag() == SUMO_TAG_POI) || (AC->getTagProperty().getTag() == SUMO_TAG_POILANE)) {
+    } else if ((AC->getTagProperty().getTag() == SUMO_TAG_POI) || (AC->getTagProperty().getTag() == SUMO_TAG_POILANE)) {
         // check that exist in shape container
         if (myPOIs.get(AC->getID()) == 0) {
             throw UnknownElement("POI " + AC->getID());
@@ -326,8 +318,7 @@ GNENetHelper::AttributeCarriers::updateShapeID(GNEAttributeCarrier* AC, const st
             // change POI ID
             myPOIs.changeID(AC->getID(), newID);
         }
-    }
-    else {
+    } else {
         throw ProcessError("Invalid GNEShape");
     }
 }
@@ -337,11 +328,9 @@ void
 GNENetHelper::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, const std::string& newID) {
     if (demandElements.at(AC->getTagProperty().getTag()).count(AC->getID()) == 0) {
         throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.demandElements");
-    }
-    else if (demandElements.at(AC->getTagProperty().getTag()).count(newID) == 0) {
+    } else if (demandElements.at(AC->getTagProperty().getTag()).count(newID) != 0) {
         throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in AttributeCarriers.demandElements");
-    }
-    else {
+    } else {
         // retrieve demand element 
         GNEDemandElement* demandElement = demandElements.at(AC->getTagProperty().getTag()).at(AC->getID());
         // remove demand from container
@@ -350,8 +339,7 @@ GNENetHelper::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, 
         if (demandElement->getTagProperty().isVehicle()) {
             if (vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
                 throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in AttributeCarriers.vehicleDepartures");
-            }
-            else {
+            } else {
                 vehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
             }
         }
@@ -373,11 +361,9 @@ void
 GNENetHelper::AttributeCarriers::updateDataSetID(GNEAttributeCarrier* AC, const std::string& newID) {
     if (dataSets.count(AC->getID()) == 0) {
         throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.dataSets");
-    }
-    else if (dataSets.count(newID) != 0) {
+    } else if (dataSets.count(newID) != 0) {
         throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in dataSets");
-    }
-    else {
+    } else {
         // retrieve dataSet
         GNEDataSet* dataSet = dataSets.at(AC->getID());
         // remove dataSet from container
