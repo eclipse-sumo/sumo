@@ -21,6 +21,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/elements/network/GNENetworkElement.h>
+#include <netedit/elements/additional/GNEShape.h>
 
 #include "GNEChange_EnableAttribute.h"
 
@@ -52,11 +53,7 @@ GNEChange_EnableAttribute::~GNEChange_EnableAttribute() {
         // Check if attribute carrier is a shape
         if (myAC->getTagProperty().isShape()) {
             // remove shape using specific functions
-            if (myAC->getTagProperty().getTag() == SUMO_TAG_POLY) {
-                myNet->removePolygon(myAC->getID());
-            } else if ((myAC->getTagProperty().getTag() == SUMO_TAG_POI) || (myAC->getTagProperty().getTag() == SUMO_TAG_POILANE)) {
-                myNet->removePOI(myAC->getID());
-            }
+            myNet->getAttributeCarriers().removeShape(dynamic_cast<GNEShape*>(myAC));
         } else {
             delete myAC;
         }

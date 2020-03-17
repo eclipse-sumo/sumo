@@ -89,280 +89,8 @@ const double GNENet::Z_INITIALIZED = 1;
 // member method definitions
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNENet::AttributeCarriers - methods
-// ---------------------------------------------------------------------------
-
-GNENet::AttributeCarriers::AttributeCarriers(GNENet* net) :
-    myNet(net) {
-    // fill tags
-    fillTags();
-}
-
-
-void 
-GNENet::AttributeCarriers::fillTags() {
-    // fill additionals with tags (note: this include the TAZS)
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
-    for (const auto &additionalTag : listOfTags) {
-        additionals.insert(std::make_pair(additionalTag, std::map<std::string, GNEAdditional*>()));
-    }
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAZ, false);
-    for (const auto &tazTag : listOfTags) {
-        additionals.insert(std::make_pair(tazTag, std::map<std::string, GNEAdditional*>()));
-    }
-    // fill demand elements with tags
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT, false);
-    for (const auto &demandTag : listOfTags) {
-        demandElements.insert(std::make_pair(demandTag, std::map<std::string, GNEDemandElement*>()));
-    }
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::STOP, false);
-    for (const auto &stopTag : listOfTags) {
-        demandElements.insert(std::make_pair(stopTag, std::map<std::string, GNEDemandElement*>()));
-    }
-}
-
-
-GNENet::AttributeCarriers::~AttributeCarriers() {
-    // Drop Edges
-    for (const auto &edge : edges) {
-        edge.second->decRef("GNENet::~GNENet");
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + edge.second->getTagStr() + " '" + edge.second->getID() + "' in GNENet destructor");
-        delete edge.second;
-    }
-    // Drop junctions
-    for (const auto &junction : junctions) {
-        junction.second->decRef("GNENet::~GNENet");
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + junction.second->getTagStr() + " '" + junction.second->getID() + "' in GNENet destructor");
-        delete junction.second;
-    }
-    // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
-    for (const auto &additionalTag : additionals) {
-        for (const auto &additional: additionalTag.second) {
-            // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
-            additional.second->decRef();
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + additional.second->getTagStr() + " '" + additional.second->getID() + "' in GNENet destructor");
-            delete additional.second;
-        }
-    }
-    // Drop demand elements (Only used for demand elements that were inserted without using GNEChange_DemandElement, for example the default VType")
-    for (const auto& demandElementTag : demandElements) {
-        for (const auto& demandElement : demandElementTag.second) {
-            // decrease reference manually (because it was increased manually in GNERouteHandler)
-            demandElement.second->decRef();
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + demandElement.second->getTagStr() + " '" + demandElement.second->getID() + "' in GNENet destructor");
-            delete demandElement.second;
-        }
-    }
-}
-
-
-void 
-GNENet::AttributeCarriers::updateID(GNEAttributeCarrier* AC, const std::string newID) {
-    if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
-        updateJunctionID(AC, newID);
-    } else if(AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-        updateEdgeID(AC, newID);
-    } else if(AC->getTagProperty().isAdditionalElement() || AC->getTagProperty().isTAZ()) {
-        updateAdditionalID(AC, newID);
-    } else if(AC->getTagProperty().isShape()) {
-        updateShapeID(AC, newID);
-    } else if (AC->getTagProperty().isDemandElement()) {
-        updateDemandElementID(AC, newID);
-    } else if (AC->getTagProperty().isDataElement()) {
-        updateDataSetID(AC, newID);
-    } else {
-        throw ProcessError("Unknow Attribute Carrier");
-    }
-}
-
-
-std::vector<GNEGenericData*> 
-GNENet::AttributeCarriers::retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end) {
-    // declare generic data vector
-    std::vector<GNEGenericData*> genericDatas;
-    // iterate over all data sets
-    for (const auto& dataSet : dataSets) {
-        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
-            // check interval
-            if ((interval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) && (interval.second->getAttributeDouble(SUMO_ATTR_END) <= end)) {
-                // iterate over generic datas
-                for (const auto& genericData : interval.second->getGenericDataChildren()) {
-                    if (genericData->getTagProperty().getTag() == genericDataTag) {
-                        genericDatas.push_back(genericData);
-                    }
-                }
-            }
-        }
-    }
-    return genericDatas;
-}
-
-
-void
-GNENet::AttributeCarriers::updateJunctionID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (junctions.count(AC->getID()) == 0) {
-        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.junction");
-    } else if (junctions.count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in junctions");
-    } else {
-        // retrieve junction
-        GNEJunction *junction = junctions.at(AC->getID());
-        // remove junction from container
-        junctions.erase(junction->getNBNode()->getID());
-        // rename in NetBuilder
-        myNet->getNetBuilder()->getNodeCont().rename(junction->getNBNode(), newID);
-        // update microsim ID
-        junction->setMicrosimID(newID);
-        // add it into junctions again
-        junctions[AC->getID()] = junction;
-        // build crossings
-        junction->getNBNode()->buildCrossings();
-        // net has to be saved
-        myNet->requireSaveNet(true);
-    }
-}
-
-
-void
-GNENet::AttributeCarriers::updateEdgeID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (edges.count(AC->getID()) == 0) {
-        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.edge");
-    } else if (edges.count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in edges");
-    } else {
-        // retrieve edge
-        GNEEdge *edge = edges.at(AC->getID());
-        // remove edge from container
-        edges.erase(edge->getNBEdge()->getID());
-        // rename in NetBuilder
-        myNet->getNetBuilder()->getEdgeCont().rename(edge->getNBEdge(), newID);
-        // update microsim ID
-        edge->setMicrosimID(newID);
-        // add it into edges again
-        edges[AC->getID()] = edge;
-        // rename all connections related to this edge
-        for (const auto &lane : edge->getLanes()) {
-            lane->updateConnectionIDs();
-        }
-        // net has to be saved
-        myNet->requireSaveNet(true);
-    }
-}
-
-
-void
-GNENet::AttributeCarriers::updateAdditionalID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (additionals.at(AC->getTagProperty().getTag()).count(AC->getID()) == 0) {
-        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.additionals");
-    } else if (additionals.at(AC->getTagProperty().getTag()).count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in AttributeCarriers.additionals");
-    } else {
-        // retrieve additional 
-        GNEAdditional *additional = additionals.at(AC->getTagProperty().getTag()).at(AC->getID());
-        // remove additional from container
-        additionals.at(additional->getTagProperty().getTag()).erase(additional->getID());
-        // set new ID in additional
-        additional->setMicrosimID(newID);
-        // insert additional again in container
-        additionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
-        // additionals has to be saved
-        myNet->requireSaveAdditionals(true);
-    }
-}
-
-
-void
-GNENet::AttributeCarriers::updateShapeID(GNEAttributeCarrier* AC, const std::string& newID) {
-    // first check if we're editing a Poly or a POI
-    if (AC->getTagProperty().getTag() == SUMO_TAG_POLY) {
-        // check that exist in shape container
-        if (myNet->myPolygons.get(AC->getID()) == 0) {
-            throw UnknownElement("Polygon " + AC->getID());
-        } else {
-            // change polygon ID
-            myNet->myPolygons.changeID(AC->getID(), newID);
-        }
-    } else if ((AC->getTagProperty().getTag() == SUMO_TAG_POI) || (AC->getTagProperty().getTag() == SUMO_TAG_POILANE)) {
-        // check that exist in shape container
-        if (myNet->myPOIs.get(AC->getID()) == 0) {
-            throw UnknownElement("POI " + AC->getID());
-        } else {
-            // change POI ID
-            myNet->myPOIs.changeID(AC->getID(), newID);
-        }
-    } else {
-        throw ProcessError("Invalid GNEShape");
-    }
-}
-
-
-void
-GNENet::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (demandElements.at(AC->getTagProperty().getTag()).count(AC->getID()) == 0) {
-        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.demandElements");
-    } else if (demandElements.at(AC->getTagProperty().getTag()).count(newID) == 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in AttributeCarriers.demandElements");
-    } else {
-        // retrieve demand element 
-        GNEDemandElement* demandElement = demandElements.at(AC->getTagProperty().getTag()).at(AC->getID());
-        // remove demand from container
-        demandElements.at(demandElement->getTagProperty().getTag()).erase(demandElement->getID());
-        // if is vehicle, remove it from vehicleDepartures
-        if (demandElement->getTagProperty().isVehicle()) {
-            if (vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
-                throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in AttributeCarriers.vehicleDepartures");
-            } else {
-                vehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
-            }
-        }
-        // set new ID in demand
-        demandElement->setMicrosimID(newID);
-        // insert demand again in container
-        demandElements.at(demandElement->getTagProperty().getTag()).insert(std::make_pair(demandElement->getID(), demandElement));
-        // if is vehicle, add it into vehicleDepartures
-        if (demandElement->getTagProperty().isVehicle()) {
-            vehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
-        }
-        // demandElements has to be saved
-        myNet->requireSaveDemandElements(true);
-    }
-}
-
-
-void
-GNENet::AttributeCarriers::updateDataSetID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (dataSets.count(AC->getID()) == 0) {
-        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.dataSets");
-    } else if (dataSets.count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in dataSets");
-    } else {
-        // retrieve dataSet
-        GNEDataSet* dataSet = dataSets.at(AC->getID());
-        // remove dataSet from container
-        dataSets.erase(dataSet->getID());
-        // set new ID in dataSet
-        dataSet->setDataSetID(newID);
-        // insert dataSet again in container
-        dataSets[dataSet->getID()] = dataSet;
-        // data sets has to be saved
-        myNet->requireSaveDataElements(true);
-        // update interval toolbar
-        myNet->getViewNet()->getIntervalBar().updateIntervalBar();
-    }
-}
-
-// ---------------------------------------------------------------------------
-// GNENet - methods
-// ---------------------------------------------------------------------------
-
 GNENet::GNENet(NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, ""),
-    ShapeContainer(),
     myViewNet(nullptr),
     myNetBuilder(netBuilder),
     myAttributeCarriers(this),
@@ -390,14 +118,6 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
 
 
 GNENet::~GNENet() {
-    // Decrease reference of Polys (needed after volatile recomputing)
-    for (auto i : myPolygons) {
-        dynamic_cast<GNEAttributeCarrier*>(i.second)->decRef("GNENet::~GNENet");
-    }
-    // Decrease reference of POIs (needed after volatile recomputing)
-    for (auto i : myPOIs) {
-        dynamic_cast<GNEAttributeCarrier*>(i.second)->decRef("GNENet::~GNENet");
-    }
     // delete RouteCalculator instance of GNEDemandElement
     GNEDemandElement::deleteRouteCalculatorInstance();
     // show extra information for tests
@@ -406,7 +126,7 @@ GNENet::~GNENet() {
 }
 
 
-GNENet::AttributeCarriers&
+GNENetHelper::AttributeCarriers&
 GNENet::getAttributeCarriers() {
     return myAttributeCarriers;
 }
@@ -448,7 +168,7 @@ bool
 GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle,
                    const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo, bool fill, double lineWidth, bool /*ignorePruning*/) {
     // check if ID is duplicated
-    if (myPolygons.get(id) == nullptr) {
+    if (myAttributeCarriers.getPolygons().get(id) == nullptr) {
         // create poly
         GNEPoly* poly = new GNEPoly(this, id, type, shape, geo, fill, lineWidth, color, layer, angle, imgFile, relativePath, false, false);
         if (myAllowUndoShapes) {
@@ -472,12 +192,12 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
                const std::string& lane, double posOverLane, double posLat, double layer, double angle,
                const std::string& imgFile, bool relativePath, double width, double height, bool /*ignorePruning*/) {
     // check if ID is duplicated
-    if (myPOIs.get(id) == nullptr) {
+    if (myAttributeCarriers.getPOIs().get(id) == nullptr) {
         // create POI or POILane depending of parameter lane
         if (lane == "") {
             // create POI
             GNEPOI* poi = new GNEPOI(this, id, type, color, pos, geo, layer, angle, imgFile, relativePath, width, height, false);
-            if (myPOIs.add(poi->getID(), poi)) {
+            if (myAttributeCarriers.addShape(poi)) {
                 if (myAllowUndoShapes) {
                     myViewNet->getUndoList()->p_begin("add " + poi->getTagStr());
                     myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
@@ -495,7 +215,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
             // create POI over lane
             GNELane* retrievedLane = retrieveLane(lane);
             GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, relativePath, retrievedLane, posOverLane, posLat, width, height, false);
-            if (myPOIs.add(poi->getID(), poi)) {
+            if (myAttributeCarriers.addShape(poi)) {
                 if (myAllowUndoShapes) {
                     myViewNet->getUndoList()->p_begin("add " + poi->getTagStr());
                     myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
@@ -1399,8 +1119,8 @@ GNENet::retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard) const {
 
 GNEPoly*
 GNENet::retrievePolygon(const std::string& id, bool failHard) const {
-    if (myPolygons.get(id) != 0) {
-        return reinterpret_cast<GNEPoly*>(myPolygons.get(id));
+    if (myAttributeCarriers.getPolygons().get(id) != 0) {
+        return reinterpret_cast<GNEPoly*>(myAttributeCarriers.getPolygons().get(id));
     } else if (failHard) {
         // If Polygon wasn't found, throw exception
         throw UnknownElement("Polygon " + id);
@@ -1412,8 +1132,8 @@ GNENet::retrievePolygon(const std::string& id, bool failHard) const {
 
 GNEPOI*
 GNENet::retrievePOI(const std::string& id, bool failHard) const {
-    if (myPOIs.get(id) != 0) {
-        return reinterpret_cast<GNEPOI*>(myPOIs.get(id));
+    if (myAttributeCarriers.getPOIs().get(id) != 0) {
+        return reinterpret_cast<GNEPOI*>(myAttributeCarriers.getPOIs().get(id));
     } else if (failHard) {
         // If POI wasn't found, throw exception
         throw UnknownElement("POI " + id);
@@ -1575,7 +1295,7 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
     // return dependingn of shape type
     if (shapeTag == SUMO_TAG_POLY) {
         // return all polys depending of onlySelected
-        for (auto it : getPolygons()) {
+        for (auto it : myAttributeCarriers.getPolygons()) {
             GNEShape* shape = dynamic_cast<GNEShape*>(it.second);
             if (!onlySelected || shape->isAttributeCarrierSelected()) {
                 result.push_back(shape);
@@ -1583,7 +1303,7 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
         }
     } else {
         // check if we need to return a POI or POILane
-        for (auto it : getPOIs()) {
+        for (auto it : myAttributeCarriers.getPOIs()) {
             GNEPOI* poi = dynamic_cast<GNEPOI*>(it.second);
             if (poi && (poi->getTagProperty().getTag() == shapeTag)) {
                 // return all POIs or POILanes depending of onlySelected
@@ -1601,13 +1321,13 @@ std::vector<GNEShape*>
 GNENet::retrieveShapes(bool onlySelected) {
     std::vector<GNEShape*> result;
     // return all polygons and POIs
-    for (const auto& it : getPolygons()) {
+    for (const auto& it : myAttributeCarriers.getPolygons()) {
         GNEPoly* poly = dynamic_cast<GNEPoly*>(it.second);
         if (!onlySelected || poly->isAttributeCarrierSelected()) {
             result.push_back(poly);
         }
     }
-    for (const auto& it : getPOIs()) {
+    for (const auto& it : myAttributeCarriers.getPOIs()) {
         GNEPOI* poi = dynamic_cast<GNEPOI*>(it.second);
         if (!onlySelected || poi->isAttributeCarrierSelected()) {
             result.push_back(poi);
@@ -1677,10 +1397,10 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
                 result.push_back(j.second);
             }
         }
-        for (auto i : myPolygons) {
+        for (auto i : myAttributeCarriers.getPolygons()) {
             result.push_back(dynamic_cast<GNEPoly*>(i.second));
         }
-        for (auto i : myPOIs) {
+        for (auto i : myAttributeCarriers.getPOIs()) {
             result.push_back(dynamic_cast<GNEPOI*>(i.second));
         }
         for (auto i : myAttributeCarriers.demandElements) {
@@ -1733,13 +1453,13 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
                 }
                 break;
             case SUMO_TAG_POLY:
-                for (auto i : myPolygons) {
+                for (auto i : myAttributeCarriers.getPolygons()) {
                     result.push_back(dynamic_cast<GNEPoly*>(i.second));
                 }
                 break;
             case SUMO_TAG_POI:
             case SUMO_TAG_POILANE:
-                for (auto i : myPOIs) {
+                for (auto i : myAttributeCarriers.getPOIs()) {
                     result.push_back(dynamic_cast<GNEPOI*>(i.second));
                 }
                 break;
@@ -2991,10 +2711,10 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
         }
     }
     // now write shapes and POIs
-    for (const auto& i : myPolygons) {
+    for (const auto& i : myAttributeCarriers.getPolygons()) {
         dynamic_cast<GNEShape*>(i.second)->writeShape(device);
     }
-    for (const auto& i : myPOIs) {
+    for (const auto& i : myAttributeCarriers.getPOIs()) {
         dynamic_cast<GNEShape*>(i.second)->writeShape(device);
     }
     device.close();
@@ -3074,7 +2794,7 @@ GNENet::generateShapeID(SumoXMLTag shapeTag) const {
         int counter = 0;
         std::string newID = "poly_" + toString(counter);
         // generate new IDs to find a non-assigned ID
-        while (myPolygons.get(newID) != nullptr) {
+        while (myAttributeCarriers.getPolygons().get(newID) != nullptr) {
             counter++;
             newID = "poly_" + toString(counter);
         }
@@ -3083,7 +2803,7 @@ GNENet::generateShapeID(SumoXMLTag shapeTag) const {
         int counter = 0;
         std::string newID = "POI_" + toString(counter);
         // generate new IDs to find a non-assigned ID
-        while (myPOIs.get(newID) != nullptr) {
+        while (myAttributeCarriers.getPOIs().get(newID) != nullptr) {
             counter++;
             newID = "POI_" + toString(counter);
         }
@@ -3094,7 +2814,7 @@ GNENet::generateShapeID(SumoXMLTag shapeTag) const {
 
 int
 GNENet::getNumberOfShapes() const {
-    return (int)(myPolygons.size() + myPOIs.size());
+    return (int)(myAttributeCarriers.getPolygons().size() + myAttributeCarriers.getPOIs().size());
 }
 
 
@@ -3506,19 +3226,14 @@ void
 GNENet::insertShape(GNEShape* shape, bool updateViewAfterDeleting) {
     // add shape depending of their type and if is selected
     if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
-        GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
         // all polys are placed over RTree
-        myGrid.addAdditionalGLObject(poly);
-        myPolygons.add(shape->getID(), poly);
-    } else {
-        GUIPointOfInterest* poi = dynamic_cast<GUIPointOfInterest*>(shape);
+        myGrid.addAdditionalGLObject(dynamic_cast<GUIPolygon*>(shape));
+    } else if (shape->getTagProperty().isPlacedInRTree()) {
         // Only certain POIs are placed in RTrees
-        if (shape->getTagProperty().isPlacedInRTree()) {
-            myGrid.addAdditionalGLObject(poi);
-        }
-        myPOIs.add(shape->getID(), poi);
-
+        myGrid.addAdditionalGLObject(dynamic_cast<GUIPointOfInterest*>(shape));
     }
+    // add shape
+    myAttributeCarriers.addShape(shape);
     // check if shape has to be selected
     if (shape->isAttributeCarrierSelected()) {
         shape->selectAttributeCarrier(false);
@@ -3540,17 +3255,12 @@ GNENet::removeShape(GNEShape* shape, bool updateViewAfterDeleting) {
     myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(shape);
     myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(shape);
     if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
-        GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
-        myGrid.removeAdditionalGLObject(poly);
-        myPolygons.remove(shape->getID(), false);
-    } else {
-        GUIPointOfInterest* poi = dynamic_cast<GUIPointOfInterest*>(shape);
+        myGrid.removeAdditionalGLObject(dynamic_cast<GUIPolygon*>(shape));
+    } else if (shape->getTagProperty().isPlacedInRTree()) {
         // only certain POIS are placed in RTREE
-        if (shape->getTagProperty().isPlacedInRTree()) {
-            myGrid.removeAdditionalGLObject(poi);
-        }
-        myPOIs.remove(shape->getID(), false);
+        myGrid.removeAdditionalGLObject(dynamic_cast<GUIPointOfInterest*>(shape));
     }
+    myAttributeCarriers.removeShape(shape);
     // check if shape has to be unselected
     if (shape->isAttributeCarrierSelected()) {
         shape->unselectAttributeCarrier(false);
@@ -3687,16 +3397,15 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             }
         }
         // clear rest of polygons that weren't removed during cleaning of undo list
-        for (const auto& polygon : myPolygons) {
+        for (const auto& polygon : myAttributeCarriers.getPolygons()) {
             myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(polygon.second));
         }
-        myPolygons.clear();
         // clear rest of POIs that weren't removed during cleaning of undo list
-        for (const auto& poi : myPOIs) {
+        for (const auto& poi : myAttributeCarriers.getPOIs()) {
             myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(poi.second));
         }
-        myPOIs.clear();
-        // clear additionals and demand elements
+        // clear shapes, additionals and demand elements
+        myAttributeCarriers.clearShapes();
         myAttributeCarriers.additionals.clear();
         myAttributeCarriers.demandElements.clear();
         // fill tags

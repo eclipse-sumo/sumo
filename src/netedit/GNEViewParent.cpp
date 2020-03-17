@@ -588,7 +588,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserPOI->setFocus();
                 } else {
                     // fill ACsToLocate with POIs
-                    for (auto i : viewNet->getNet()->getPOIs()) {
+                    for (auto i : viewNet->getNet()->getAttributeCarriers().getPOIs()) {
                         ACsToLocate.push_back(dynamic_cast<GNEAttributeCarrier*>(i.second));
                     }
                     myACChoosers.ACChooserPOI = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), "POI Chooser", ACsToLocate);
@@ -601,7 +601,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserPolygon->setFocus();
                 } else {
                     // fill ACsToLocate with polys
-                    for (auto i : viewNet->getNet()->getPolygons()) {
+                    for (auto i : viewNet->getNet()->getAttributeCarriers().getPolygons()) {
                         ACsToLocate.push_back(dynamic_cast<GNEAttributeCarrier*>(i.second));
                     }
                     myACChoosers.ACChooserPolygon = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), "Poly Chooser", ACsToLocate);

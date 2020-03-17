@@ -11,6 +11,8 @@ set(netedit_SRCS
    GNELoadThread.cpp
    GNENet.h
    GNENet.cpp
+   GNENetHelper.h
+   GNENetHelper.cpp
    GNEViewNet.h
    GNEViewNet.cpp
    GNEViewNetHelper.h

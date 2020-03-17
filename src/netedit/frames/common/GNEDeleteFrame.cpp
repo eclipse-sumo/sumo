@@ -482,14 +482,14 @@ GNEDeleteFrame::ACsToDelete() const {
             }
         }
         // check polygons
-        for (const auto& i : myViewNet->getNet()->getPolygons()) {
+        for (const auto& i : myViewNet->getNet()->getAttributeCarriers().getPolygons()) {
             GNEShape* shape = dynamic_cast<GNEShape*>(i.second);
             if (shape->isAttributeCarrierSelected()) {
                 return true;
             }
         }
         // check POIs
-        for (const auto& i : myViewNet->getNet()->getPOIs()) {
+        for (const auto& i : myViewNet->getNet()->getAttributeCarriers().getPOIs()) {
             GNEShape* shape = dynamic_cast<GNEShape*>(i.second);
             if (shape->isAttributeCarrierSelected()) {
                 return true;

@@ -72,7 +72,7 @@ GNEPOI::getID() const {
 
 std::string
 GNEPOI::generateChildID(SumoXMLTag childTag) {
-    int counter = myNet->getPOIs().size();
+    int counter = myNet->getAttributeCarriers().getPOIs().size();
     while (myNet->retrievePOI(getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }

@@ -74,7 +74,7 @@ GNEPoly::getID() const {
 
 std::string
 GNEPoly::generateChildID(SumoXMLTag childTag) {
-    int counter = myNet->getPolygons().size();
+    int counter = myNet->getAttributeCarriers().getPolygons().size();
     while (myNet->retrievePolygon(getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }

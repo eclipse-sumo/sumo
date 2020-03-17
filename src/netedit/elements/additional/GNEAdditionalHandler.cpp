@@ -62,7 +62,7 @@
 // ===========================================================================
 
 GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet, GNEAdditional* additionalParent) :
-    ShapeHandler(file, *viewNet->getNet()),
+    ShapeHandler(file, viewNet->getNet()->getAttributeCarriers()),
     myViewNet(viewNet) {
     // check if we're loading values of another additionals (example: Rerouter values)
     if (additionalParent) {
@@ -1366,11 +1366,11 @@ GNEAdditionalHandler::parseAndBuildPoly(const SUMOSAXAttributes& attrs) {
             imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
         }
         // create polygon, or show an error if polygon already exists
-        if (!myShapeContainer.addPolygon(polygonID, type, color, layer, angle, imgFile, relativePath, shape, geo, fill, lineWidth, false)) {
+        if (!myViewNet->getNet()->addPolygon(polygonID, type, color, layer, angle, imgFile, relativePath, shape, geo, fill, lineWidth, false)) {
             WRITE_WARNING("Polygon with ID '" + polygonID + "' already exists.");
         } else {
             // update myLastParameterised with the last inserted Polygon
-            myLastParameterised = myShapeContainer.getPolygons().get(polygonID);
+            myLastParameterised = myViewNet->getNet()->getAttributeCarriers().getPolygons().get(polygonID);
         }
     }
 }
@@ -2527,11 +2527,11 @@ GNEAdditionalHandler::parseAndBuildPOI(const SUMOSAXAttributes& attrs) {
             }
         }
         // create POI, or show an error if POI already exists
-        if (!myShapeContainer.addPOI(POIID, type, color, pos, useGeo, laneID, lanePos, lanePosLat, layer, angle, imgFile, relativePath, width, height, false)) {
+        if (!myViewNet->getNet()->addPOI(POIID, type, color, pos, useGeo, laneID, lanePos, lanePosLat, layer, angle, imgFile, relativePath, width, height, false)) {
             WRITE_WARNING("POI with ID '" + POIID + "' already exists.");
         } else {
             // update myLastParameterised with the last inserted POI
-            myLastParameterised = myShapeContainer.getPOIs().get(POIID);
+            myLastParameterised = myViewNet->getNet()->getAttributeCarriers().getPOIs().get(POIID);
         }
     }
 }

@@ -1371,7 +1371,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
             }
             // select polygons
             if (!locks->IsObjectTypeLocked(GLO_POLYGON)) {
-                for (const auto& polygon : mySelectorFrameParent->myViewNet->getNet()->getPolygons()) {
+                for (const auto& polygon : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers().getPolygons()) {
                     GNEShape* shape = dynamic_cast<GNEShape*>(polygon.second);
                     if (shape->isAttributeCarrierSelected()) {
                         shape->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
@@ -1382,7 +1382,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
             }
             // select POIs
             if (!locks->IsObjectTypeLocked(GLO_POI)) {
-                for (const auto& poi : mySelectorFrameParent->myViewNet->getNet()->getPOIs()) {
+                for (const auto& poi : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers().getPOIs()) {
                     GNEShape* shape = dynamic_cast<GNEShape*>(poi.second);
                     if (shape->isAttributeCarrierSelected()) {
                         shape->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
@@ -1722,7 +1722,7 @@ GNESelectorFrame::clearCurrentSelection() const {
             }
             // select polygons
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POLYGON)) {
-                for (const auto& polygon : myViewNet->getNet()->getPolygons()) {
+                for (const auto& polygon : myViewNet->getNet()->getAttributeCarriers().getPolygons()) {
                     GNEShape* shape = dynamic_cast<GNEShape*>(polygon.second);
                     if (shape->isAttributeCarrierSelected()) {
                         shape->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
@@ -1731,7 +1731,7 @@ GNESelectorFrame::clearCurrentSelection() const {
             }
             // select POIs
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI)) {
-                for (const auto& poi : myViewNet->getNet()->getPOIs()) {
+                for (const auto& poi : myViewNet->getNet()->getAttributeCarriers().getPOIs()) {
                     GNEShape* shape = dynamic_cast<GNEShape*>(poi.second);
                     if (shape->isAttributeCarrierSelected()) {
                         shape->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
@@ -2027,11 +2027,11 @@ GNESelectorFrame::ACsToSelected() const {
             }
         }
         // check polygons
-        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POLYGON) && (myViewNet->getNet()->getPolygons().size() > 0)) {
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POLYGON) && (myViewNet->getNet()->getAttributeCarriers().getPolygons().size() > 0)) {
             return true;
         }
         // check POIs
-        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI) && (myViewNet->getNet()->getPOIs().size() > 0)) {
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI) && (myViewNet->getNet()->getAttributeCarriers().getPOIs().size() > 0)) {
             return true;
         }
     }
