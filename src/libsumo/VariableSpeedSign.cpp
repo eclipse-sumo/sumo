@@ -55,12 +55,12 @@ VariableSpeedSign::getIDCount() {
 
 
 std::string
-VariableSpeedSign::getParameter(const std::string& vssID, const std::string& param) {
+VariableSpeedSign::getParameter(const std::string& /* vssID */, const std::string& /* param */) {
     return "";
 }
 
 void
-VariableSpeedSign::setParameter(const std::string& vssID, const std::string& key, const std::string& value) {
+VariableSpeedSign::setParameter(const std::string& /* vssID */, const std::string& /* key */, const std::string& /* value */) {
     //MSVariableSpeedSign* r = const_cast<MSVariableSpeedSign*>(getVariableSpeedSign(vssID));
     //r->setParameter(key, value);
 }

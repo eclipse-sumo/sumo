@@ -55,12 +55,12 @@ Rerouter::getIDCount() {
 
 
 std::string
-Rerouter::getParameter(const std::string& rerouterID, const std::string& param) {
+Rerouter::getParameter(const std::string& /* rerouterID */, const std::string& /* param */) {
     return "";
 }
 
 void
-Rerouter::setParameter(const std::string& rerouterID, const std::string& key, const std::string& value) {
+Rerouter::setParameter(const std::string& /* rerouterID */, const std::string& /* key */, const std::string& /* value */) {
     //MSRerouter* r = const_cast<MSRerouter*>(getRerouter(rerouterID));
     //r->setParameter(key, value);
 }

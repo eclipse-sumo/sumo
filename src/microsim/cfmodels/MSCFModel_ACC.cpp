@@ -165,7 +165,7 @@ double MSCFModel_ACC::accelSpeedControl(double vErr) const {
     return mySpeedControlGain * vErr;
 }
 
-double MSCFModel_ACC::accelGapControl(const MSVehicle* const veh, const double gap2pred, const double speed, const double predSpeed, double vErr) const {
+double MSCFModel_ACC::accelGapControl(const MSVehicle* const /* veh */, const double gap2pred, const double speed, const double predSpeed, double vErr) const {
 
 #ifdef DEBUG_ACC
     if (DEBUG_COND) {

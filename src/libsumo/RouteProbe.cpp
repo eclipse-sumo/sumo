@@ -55,12 +55,12 @@ RouteProbe::getIDCount() {
 
 
 std::string
-RouteProbe::getParameter(const std::string& probeID, const std::string& param) {
+RouteProbe::getParameter(const std::string& /* probeID */, const std::string& /* param */) {
     return "";
 }
 
 void
-RouteProbe::setParameter(const std::string& probeID, const std::string& key, const std::string& value) {
+RouteProbe::setParameter(const std::string& /* probeID */, const std::string& /* key */, const std::string& /* value */) {
     //MSRouteProbe* r = const_cast<MSRouteProbe*>(getRouteProbe(probeID));
     //r->setParameter(key, value);
 }

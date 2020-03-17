@@ -55,13 +55,13 @@ MeanData::getIDCount() {
 
 
 std::string
-MeanData::getParameter(const std::string& vssID, const std::string& param) {
+MeanData::getParameter(const std::string& /* dataID */, const std::string& /* param */) {
     return "";
 }
 
 void
-MeanData::setParameter(const std::string& vssID, const std::string& key, const std::string& value) {
-    //MSMeanData* r = const_cast<MSMeanData*>(getMeanData(vssID));
+MeanData::setParameter(const std::string& /* dataID */, const std::string& /* key */, const std::string& /* value */) {
+    //MSMeanData* r = const_cast<MSMeanData*>(getMeanData(dataID));
     //r->setParameter(key, value);
 }
 
