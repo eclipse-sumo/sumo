@@ -45,7 +45,7 @@
 
 GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
     const std::vector<GNEEdge*>& via, const std::map<std::string, std::string>& parameters) :
-    GNEGenericData(SUMO_TAG_EDGEREL, GLO_EDGERELATIONDATA, dataIntervalParent, parameters,
+    GNEGenericData(SUMO_TAG_EDGEREL, GLO_EDGERELDATA, dataIntervalParent, parameters,
         { fromEdge, toEdge}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
@@ -132,6 +132,12 @@ GNEEdgeRelData::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getParentEdges().front()->getID();
+        case SUMO_ATTR_FROM:
+            return getParentEdges().front()->getID();
+        case SUMO_ATTR_TO:
+            return getParentEdges().back()->getID();
+        case SUMO_ATTR_VIA:
+            return toString("");
         case GNE_ATTR_DATASET:
             return myDataIntervalParent->getDataSetParent()->getID();
         case GNE_ATTR_SELECTED:
