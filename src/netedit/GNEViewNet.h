@@ -68,6 +68,9 @@ public:
     /// @brief Mark the entire GNEViewNet to be repainted later
     void update() const;
 
+    /// @brief set supermode Network (used after load/create new network)
+    void forceSupermodeNetwork();
+
     /// @brief get AttributeCarriers in Boundary
     std::set<std::pair<std::string, GNEAttributeCarrier*> > getAttributeCarriersInBoundary(const Boundary& boundary, bool forceSelectEdges = false);
 

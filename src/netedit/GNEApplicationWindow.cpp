@@ -1001,9 +1001,9 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         }
         // set network name on the caption
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->myFile.c_str()));
-        // set supermode network
+        // force supermode network
         if (myViewNet) {
-            myViewNet->onCmdSetSupermode(0, MID_HOTKEY_F2_SUPERMODE_NETWORK, 0);
+            myViewNet->forceSupermodeNetwork();
         }
         if (myViewNet && ec->myViewportFromRegistry) {
             Position off;

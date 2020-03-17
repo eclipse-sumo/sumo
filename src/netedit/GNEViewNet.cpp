@@ -207,7 +207,8 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myViewParent(viewParent),
     myNet(net),
     myCurrentFrame(nullptr),
-    myUndoList(undoList) {
+    myUndoList(undoList),
+    myDottedAC(nullptr) {
     // view must be the final member of actualParent
     reparent(actualParent);
     // Build edit modes
@@ -314,6 +315,12 @@ void
 GNEViewNet::update() const {
     // this call is only used for breakpoints (to check when view is updated)
     GUISUMOAbstractView::update();
+}
+
+
+void 
+GNEViewNet::forceSupermodeNetwork() {
+    myEditModes.setSupermode(Supermode::NETWORK, true);
 }
 
 
@@ -1248,13 +1255,13 @@ GNEViewNet::onCmdSetSupermode(FXObject*, FXSelector sel, void*) {
     // check what network mode will be set
     switch (FXSELID(sel)) {
         case MID_HOTKEY_F2_SUPERMODE_NETWORK:
-            myEditModes.setSupermode(Supermode::NETWORK);
+            myEditModes.setSupermode(Supermode::NETWORK, false);
             break;
         case MID_HOTKEY_F3_SUPERMODE_DEMAND:
-            myEditModes.setSupermode(Supermode::DEMAND);
+            myEditModes.setSupermode(Supermode::DEMAND, false);
             break;
         case MID_HOTKEY_F4_SUPERMODE_DATA:
-            myEditModes.setSupermode(Supermode::DATA);
+            myEditModes.setSupermode(Supermode::DATA, false);
             break;
         default:
             break;

@@ -1388,8 +1388,8 @@ GNEViewNetHelper::EditModes::buildSuperModeButtons() {
 
 
 void
-GNEViewNetHelper::EditModes::setSupermode(Supermode supermode) {
-    if (supermode == myCurrentSupermode) {
+GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force) {
+    if (!force && (supermode == myCurrentSupermode)) {
         myViewNet->setStatusBarText("Mode already selected");
         if (myViewNet->myCurrentFrame != nullptr) {
             myViewNet->myCurrentFrame->focusUpperElement();

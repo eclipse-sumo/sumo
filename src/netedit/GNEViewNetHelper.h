@@ -355,8 +355,8 @@ struct GNEViewNetHelper {
         /// @brief build checkable buttons
         void buildSuperModeButtons();
 
-        /// @brief set Network edit mode
-        void setSupermode(Supermode supermode);
+        /// @brief set supermode
+        void setSupermode(Supermode supermode, const bool force);
 
         /// @brief set Network edit mode
         void setNetworkEditMode(NetworkEditMode networkMode, const bool force = false);
