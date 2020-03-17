@@ -33,10 +33,10 @@ class GNERouteFrame : public GNEFrame {
 public:
 
     /// @brief route creation modes
-    enum RouteMode {
-        ROUTEMODE_INVALID,              // invalid RouteMode
-        ROUTEMODE_CONSECUTIVE_EDGES,    // Create route clicking over consecutive edges
-        ROUTEMODE_NONCONSECUTIVE_EDGES  // Create route clicking over non consecutive edges
+    enum class RouteMode {
+        INVALID,                // invalid RouteMode
+        NONCONSECUTIVE_EDGES,   // Create route clicking over non consecutive edges
+        CONSECUTIVE_EDGES       // Create route clicking over consecutive edges
     };
 
     // ===========================================================================
