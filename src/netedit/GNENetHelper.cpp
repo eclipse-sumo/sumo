@@ -197,7 +197,7 @@ GNENetHelper::AttributeCarriers::retrieveGenericDatas(const SumoXMLTag genericDa
 bool 
 GNENetHelper::AttributeCarriers::addShape(GNEShape* shape) {
     if (shape == nullptr) {
-        return nullptr;
+        return false;
     } else if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
         return myPolygons.add(shape->getID(), dynamic_cast<SUMOPolygon*>(shape));
     } else {
@@ -209,7 +209,7 @@ GNENetHelper::AttributeCarriers::addShape(GNEShape* shape) {
 bool 
 GNENetHelper::AttributeCarriers::removeShape(GNEShape* shape) {
     if (shape == nullptr) {
-        return nullptr;
+        return false;
     } else if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
         return myPolygons.remove(shape->getID(), false);
     } else {
