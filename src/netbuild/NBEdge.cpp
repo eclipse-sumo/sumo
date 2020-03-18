@@ -4053,5 +4053,20 @@ NBEdge::getStraightContinuation(SVCPermissions permissions) const {
     }
 }
 
+NBEdge*
+NBEdge::getStraightPredecessor(SVCPermissions permissions) const {
+    EdgeVector cands = filterByPermissions(myFrom->getIncomingEdges(), permissions);
+    if (cands.size() == 0) {
+        return nullptr;
+    }
+    sort(cands.begin(), cands.end(), NBContHelper::edge_similar_direction_sorter(this, false));
+    NBEdge* best = cands.front();
+    if (best->isTurningDirectionAt(this)) {
+        return nullptr;
+    } else {
+        return best;
+    }
+}
+
 
 /****************************************************************************/

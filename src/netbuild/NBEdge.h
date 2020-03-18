@@ -499,6 +499,11 @@ public:
         return myPriority;
     }
 
+    /// @brief Sets the priority of the edge
+    void setPriority(int priority) {
+        myPriority = priority;
+    }
+
     /** @brief Returns the origin node of the edge
      * @return The node this edge starts at
      */
@@ -1427,6 +1432,10 @@ public:
     /// @brief return the straightest follower edge for the given permissions or nullptr (never returns turn-arounds)
     /// @note: this method is called before connections are built and simply goes by node graph topology
     NBEdge* getStraightContinuation(SVCPermissions permissions) const;
+
+    /// @brief return the straightest predecessor edge for the given permissions or nullptr (never returns turn-arounds)
+    /// @note: this method is called before connections are built and simply goes by node graph topology
+    NBEdge* getStraightPredecessor(SVCPermissions permissions) const;
 
     /// @brief return only those edges that permit at least one of the give permissions
     static EdgeVector filterByPermissions(const EdgeVector& edges, SVCPermissions permissions);

@@ -219,13 +219,15 @@ public:
     class edge_similar_direction_sorter {
     public:
         /// constructor
-        explicit edge_similar_direction_sorter(const NBEdge* const e)
-            : myAngle(e->getShapeEndAngle()) {}
+        explicit edge_similar_direction_sorter(const NBEdge* const e, bool outgoing=true) : 
+            myCompareOutgoing(outgoing),
+            myAngle(outgoing ? e->getShapeEndAngle() : e->getShapeStartAngle())
+        {}
 
         /// comparing operation
         int operator()(const NBEdge* e1, const NBEdge* e2) const {
-            const double d1 = angleDiff(e1->getShapeStartAngle(), myAngle);
-            const double d2 = angleDiff(e2->getShapeStartAngle(), myAngle);
+            const double d1 = angleDiff(myCompareOutgoing ? e1->getShapeStartAngle() : e1->getShapeEndAngle(), myAngle);
+            const double d2 = angleDiff(myCompareOutgoing ? e2->getShapeStartAngle() : e2->getShapeEndAngle(), myAngle);
             if (fabs(fabs(d1) - fabs(d2)) < NUMERICAL_EPS) {
                 if (fabs(d1 - d2) > NUMERICAL_EPS) {
                     return d1 < d2;
@@ -251,6 +253,7 @@ public:
 
     private:
         /// the angle to find the edge with the opposite direction
+        bool myCompareOutgoing;
         double myAngle;
     };
 
