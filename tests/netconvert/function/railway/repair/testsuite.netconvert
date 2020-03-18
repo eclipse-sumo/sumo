@@ -51,3 +51,6 @@ stops_reverse_en_route
 # repair track direction before the first and after the last stop based on terminal line edges (virtual stops)
 # 
 beyond_stops
+
+# assign edge priority based on main direction
+direction-priority
