@@ -29,6 +29,7 @@ from optparse import OptionParser
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
+    import sumolib
     from sumolib.xml import parse  # noqa
     from sumolib.miscutils import Statistics  # noqa
 else:
@@ -69,7 +70,10 @@ def main():
     vals = defaultdict(list)
     stats = Statistics("%s %ss" % (options.element, options.attribute), histogram=True, scale=options.binwidth)
     for tripinfo in parse(options.tripinfos, options.element):
-        val = float(tripinfo.getAttribute(options.attribute))
+        try:
+            val = float(tripinfo.getAttribute(options.attribute))
+        except:
+            val = sumolib.miscutils.parseTime(tripinfo.getAttribute(options.attribute))
         vals[tripinfo.id].append(val)
         stats.add(val, tripinfo.id)
 
