@@ -554,6 +554,8 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
         case 28:
             return getTimeLossSeconds();
         case 29:
+            return getStopDelay();
+        case 30:
             return getLaneChangeModel().getSpeedLat();
         case 31: // by numerical param value
             try {

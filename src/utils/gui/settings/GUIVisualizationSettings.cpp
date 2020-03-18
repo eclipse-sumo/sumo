@@ -822,6 +822,13 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)180);
     scheme.addColor(RGBColor::RED, (double)900);
     vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by stop delay", RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme.addColor(RGBColor::CYAN, (double)10);
+    scheme.addColor(RGBColor::GREEN, (double)60);
+    scheme.addColor(RGBColor::YELLOW, (double)120);
+    scheme.addColor(RGBColor::ORANGE, (double)300);
+    scheme.addColor(RGBColor::RED, (double)900);
+    vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by lateral speed", RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor(255,   0, 0, 255), -3, "-1.5");
     scheme.addColor(RGBColor(255, 255, 0, 255), -1, "-0.5");
@@ -829,10 +836,10 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor(0,   0, 255, 255),  3,  "1.5");
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
-    vehicleColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
     scheme = GUIColorScheme(SCHEME_NAME_PARAM_NUMERICAL, RGBColor(204, 204, 204));
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
+    vehicleColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
     vehicleColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));
 
     /// add person coloring schemes

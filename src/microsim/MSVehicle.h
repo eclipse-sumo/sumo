@@ -685,6 +685,9 @@ public:
         return myTimeLoss;
     }
 
+    /** @brief Returns the public transport stop delay in seconds
+     */
+    double getStopDelay() const;
 
     /** @brief Returns the vehicle's direction in radians
      * @return The vehicle's current angle

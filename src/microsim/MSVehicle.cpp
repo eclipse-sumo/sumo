@@ -6709,5 +6709,36 @@ MSVehicle::manoeuvreIsComplete() const {
     return (myManoeuvre.manoeuvreIsComplete());
 }
 
+double
+MSVehicle::getStopDelay() const {
+    if (hasStops() && myStops.front().pars.until >= 0) {
+        const Stop& stop = myStops.front();
+        SUMOTime estimatedDepart = MSNet::getInstance()->getCurrentTimeStep() - DELTA_T;
+        if (stop.reached) {
+            return STEPS2TIME(estimatedDepart + stop.duration - stop.pars.until);
+        }
+        if (stop.pars.duration > 0) {
+            estimatedDepart += stop.pars.duration;
+        }
+        auto it = myCurrEdge + 1;
+        // drive to end of current edge
+        //std::cout << SIMTIME << " veh=" << getID() << " ed1=" << time2string(estimatedDepart);
+        estimatedDepart += TIME2STEPS(myLane->getEdge().getMinimumTravelTime(this) * (myLane->getLength() - getPositionOnLane()) / myLane->getLength());
+        //std::cout << " ed2=" << time2string(estimatedDepart);
+        // drive until stop edge
+        while (it != myRoute->end() && it < stop.edge) {
+            estimatedDepart += TIME2STEPS((*it)->getMinimumTravelTime(this));
+            it++;
+        }
+        //std::cout << " ed3=" << time2string(estimatedDepart);
+        // drive up to the stop position
+        const double stopEdgeDist = stop.pars.endPos - (myLane == stop.lane ? myLane->getLength() : 0);
+        estimatedDepart += TIME2STEPS(stop.lane->getEdge().getMinimumTravelTime(this) * (stopEdgeDist / stop.lane->getLength()));
+        //std::cout << " stopEdgeDist=" << stopEdgeDist << " ed4=" << time2string(estimatedDepart) << "\n";
+        return MAX2(0.0, STEPS2TIME(estimatedDepart - stop.pars.until));
+    } else {
+        return -1;
+    }
+}
 
 /****************************************************************************/
