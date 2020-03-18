@@ -47,16 +47,27 @@ option to get details about usage and available options.
 Script for generating [E1 detectors (induction loops)](../Simulation/Output/Induction_Loops_Detectors_(E1).md)
 for each junction in the supplied network file.
 
+Example usage:
+```
+python tools\output\generateTLSE1Detectors.py -n .net.net.xml -o detectors.add.xml
+```
+
 Execute the *generateTLSE1Detectors.py*script with *--help* option to
-get details about usage and available options.
+get details about additional options.
 
 ## generateTLSE2Detectors.py
 
 Script for generating [E2 detectors (lanearea detectors)](../Simulation/Output/Lanearea_Detectors_(E2).md) for
 each junction in the supplied network file.
 
+Example usage:
+```
+python tools\output\generateTLSE2Detectors.py -n .net.net.xml -o detectors.add.xml
+```
+
 Execute the *generateTLSE2Detectors.py* script with *--help* option to
-get details about usage and available options.
+get details about additional options.
+
 
 ## generateTLSE3Detectors.py
 
@@ -67,8 +78,15 @@ detector. When setting option **--joined** there will be one detector per juncti
 instead. When setting option **--interior**, delays within the intersection will be
 included as well.
 
+
+Example usage:
+```
+python tools\output\generateTLSE3Detectors.py -n .net.net.xml -o detectors.add.xml
+```
+
 Execute the *generateTLSE3Detectors.py* script with *--help* option to
-get details about usage and available options.
+get details about additional options.
+
 
 ## netdumpdiff.py
 
