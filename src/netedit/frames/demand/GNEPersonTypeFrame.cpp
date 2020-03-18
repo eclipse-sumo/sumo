@@ -64,7 +64,7 @@ GNEPersonTypeFrame::PersonTypeSelector::PersonTypeSelector(GNEPersonTypeFrame* p
     // Create FXComboBox
     myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // fill myTypeMatchBox with list of pTypes IDs
-    for (const auto& i : myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_PTYPE)) {
+    for (const auto& i : myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PTYPE)) {
         myTypeMatchBox->appendItem(i.first.c_str());
     }
     // set DEFAULT_PEDTYPE_ID as default pType
@@ -101,7 +101,7 @@ GNEPersonTypeFrame::PersonTypeSelector::refreshPersonTypeSelector() {
     bool valid = false;
     myTypeMatchBox->clearItems();
     // fill myTypeMatchBox with list of pTypes IDs
-    for (const auto& i : myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_PTYPE)) {
+    for (const auto& i : myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PTYPE)) {
         myTypeMatchBox->appendItem(i.first.c_str());
     }
     // Set visible items
@@ -138,7 +138,7 @@ GNEPersonTypeFrame::PersonTypeSelector::refreshPersonTypeSelector() {
 long
 GNEPersonTypeFrame::PersonTypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& i : myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_PTYPE)) {
+    for (const auto& i : myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PTYPE)) {
         if (i.first == myTypeMatchBox->getText().text()) {
             // set pointer
             myCurrentPersonType = i.second;

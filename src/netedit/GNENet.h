@@ -40,14 +40,12 @@
 class GNENet : public GUIGlObject {
 
     /// @brief declare friend class
-    friend class GNERouteHandler;
     friend class GNEChange_Junction;
     friend class GNEChange_Edge;
     friend class GNEChange_Lane;
     friend class GNEChange_Connection;
     friend class GNEChange_Shape;
     friend class GNEChange_CalibratorItem;
-    friend class GNEChange_DemandElement;
     friend class GNEChange_DataSet;
 
 public:
@@ -768,24 +766,6 @@ protected:
 
     /// @brief Flag to enable or disable update geometry of elements after inserting or removing element in net
     bool myUpdateGeometryEnabled;
-
-    /// @name Insertion and erasing of GNEDemandElements items
-    /// @{
-
-    /// @brief return true if demand element exist (use pointer instead ID)
-    bool demandElementExist(GNEDemandElement* demandElement) const;
-
-    /**@brief Insert a demand element element int GNENet container.
-     * @throw processError if route was already inserted
-     */
-    void insertDemandElement(GNEDemandElement* demandElement);
-
-    /**@brief delete demand element element of GNENet container
-     * @throw processError if demand element wasn't previously inserted
-     */
-    bool deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfterDeleting);
-
-    /// @}
 
     /// @name Insertion and erasing of GNEDataSets items
     /// @{

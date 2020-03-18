@@ -72,7 +72,9 @@ struct GNENetHelper {
 
         /// @brief declare friend class
         friend class GNEAdditionalHandler;
+        friend class GNERouteHandler;
         friend class GNEChange_Additional;
+        friend class GNEChange_DemandElement;
 
     public:
         /// @brief constructor
@@ -81,8 +83,8 @@ struct GNENetHelper {
         /// @brief destructor
         ~AttributeCarriers();
 
-        /// @brief fill tags
-        void fillTags();
+        /// @brief add default VTypes
+        void addDefaultVTypes();
 
         /// @brief update ID
         void updateID(GNEAttributeCarrier* AC, const std::string newID);
@@ -102,8 +104,11 @@ struct GNENetHelper {
         /// @brief clear additionals
         void clearAdditionals();
 
-        /// @brief map with the ID and pointer to demand elements of net
-        std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > demandElements;
+        /// @brief get demand elements
+        const std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> >& getDemandElements() const;
+
+        /// @brief clear demand elements
+        void clearDemandElements();
 
         /// @brief map with the ID and pointer to data sets of net
         std::map<std::string, GNEDataSet*> dataSets;
@@ -121,7 +126,7 @@ struct GNENetHelper {
         void clearShapes();
 
     protected:
-        /// @name Additional
+        /// @name Insertion and erasing of GNEAdditionals items
         /// @{
 
         /// @brief return true if additional exist (use pointer instead ID)
@@ -136,6 +141,24 @@ struct GNENetHelper {
          * @throw processError if additional wasn't previously inserted
          */
         bool deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting);
+
+        /// @}
+
+        /// @name Insertion and erasing of GNEDemandElements items
+        /// @{
+
+        /// @brief return true if demand element exist (use pointer instead ID)
+        bool demandElementExist(GNEDemandElement* demandElement) const;
+
+        /**@brief Insert a demand element element int GNENet container.
+         * @throw processError if route was already inserted
+         */
+        void insertDemandElement(GNEDemandElement* demandElement);
+
+        /**@brief delete demand element element of GNENet container
+         * @throw processError if demand element wasn't previously inserted
+         */
+        bool deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfterDeleting);
 
         /// @}
 
@@ -160,6 +183,9 @@ struct GNENetHelper {
 
         /// @brief map with the ID and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > myAdditionals;
+
+        /// @brief map with the ID and pointer to demand elements of net
+        std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > myDemandElements;
 
         /// @brief pointer to net
         GNENet* myNet;

@@ -52,9 +52,9 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "'");
         // make sure that element isn't in net before removing
-        if (myNet->demandElementExist(myDemandElement)) {
+        if (myNet->getAttributeCarriers()->demandElementExist(myDemandElement)) {
             // remove demand element of network
-            myNet->deleteDemandElement(myDemandElement, false);
+            myNet->getAttributeCarriers()->deleteDemandElement(myDemandElement, false);
             // remove element from path
             for (const auto& i : myEdgePath) {
                 i->removePathElement(myDemandElement);
@@ -73,7 +73,7 @@ GNEChange_DemandElement::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // delete demand element from net
-        myNet->deleteDemandElement(myDemandElement, false);
+        myNet->getAttributeCarriers()->deleteDemandElement(myDemandElement, false);
         // remove element from path
         for (const auto& i : myEdgePath) {
             i->removePathElement(myDemandElement);
@@ -84,7 +84,7 @@ GNEChange_DemandElement::undo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // insert demand element into net
-        myNet->insertDemandElement(myDemandElement);
+        myNet->getAttributeCarriers()->insertDemandElement(myDemandElement);
         // add demand element in parents and children
         addDemandElement(myDemandElement);
     }
@@ -107,14 +107,14 @@ GNEChange_DemandElement::redo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // insert demand element into net
-        myNet->insertDemandElement(myDemandElement);
+        myNet->getAttributeCarriers()->insertDemandElement(myDemandElement);
         // add demand element in parents and children
         addDemandElement(myDemandElement);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // delete demand element from net
-        myNet->deleteDemandElement(myDemandElement, false);
+        myNet->getAttributeCarriers()->deleteDemandElement(myDemandElement, false);
         // remove element from path
         for (const auto& i : myEdgePath) {
             i->removePathElement(myDemandElement);

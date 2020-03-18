@@ -68,7 +68,7 @@ GNEVehicleTypeFrame::VehicleTypeSelector::VehicleTypeSelector(GNEVehicleTypeFram
     myTypeMatchBox->appendItem(DEFAULT_VTYPE_ID.c_str());
     myTypeMatchBox->appendItem(DEFAULT_BIKETYPE_ID.c_str());
     // fill myTypeMatchBox with list of VTypes IDs
-    for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_VTYPE)) {
+    for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if ((i.first != DEFAULT_VTYPE_ID) && (i.first != DEFAULT_BIKETYPE_ID)) {
             myTypeMatchBox->appendItem(i.first.c_str());
         }
@@ -111,7 +111,7 @@ GNEVehicleTypeFrame::VehicleTypeSelector::refreshVehicleTypeSelector() {
     myTypeMatchBox->appendItem(DEFAULT_VTYPE_ID.c_str());
     myTypeMatchBox->appendItem(DEFAULT_BIKETYPE_ID.c_str());
     // fill myTypeMatchBox with list of VTypes IDs
-    for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_VTYPE)) {
+    for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if ((i.first != DEFAULT_VTYPE_ID) && (i.first != DEFAULT_BIKETYPE_ID)) {
             myTypeMatchBox->appendItem(i.first.c_str());
         }
@@ -158,7 +158,7 @@ GNEVehicleTypeFrame::VehicleTypeSelector::refreshVehicleTypeSelectorIDs() {
 long
 GNEVehicleTypeFrame::VehicleTypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_VTYPE)) {
+    for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (i.first == myTypeMatchBox->getText().text()) {
             // set pointer
             myCurrentVehicleType = i.second;

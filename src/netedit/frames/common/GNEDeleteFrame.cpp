@@ -497,61 +497,61 @@ GNEDeleteFrame::ACsToDelete() const {
         }
     } else {
         // check routes
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_ROUTE)) {
+        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
             if (i.second->isAttributeCarrierSelected()) {
                 return true;
             }
         }
         // check vehicles
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_VEHICLE)) {
+        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
             if (i.second->isAttributeCarrierSelected()) {
                 return true;
             }
         }
         // check trips
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_TRIP)) {
+        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP)) {
             if (i.second->isAttributeCarrierSelected()) {
                 return true;
             }
         }
         // check flows
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_FLOW)) {
+        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW)) {
             if (i.second->isAttributeCarrierSelected()) {
                 return true;
             }
         }
         // check route flows
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_ROUTEFLOW)) {
+        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTEFLOW)) {
             if (i.second->isAttributeCarrierSelected()) {
                 return true;
             }
         }
         // check lane stops
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_LANE)) {
+        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE)) {
             if (i.second->isAttributeCarrierSelected()) {
                 return true;
             }
         }
         // check bus stops
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_BUSSTOP)) {
+        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP)) {
             if (i.second->isAttributeCarrierSelected()) {
                 return true;
             }
         }
         // check container stops
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_CONTAINERSTOP)) {
+        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP)) {
             if (i.second->isAttributeCarrierSelected()) {
                 return true;
             }
         }
         // check chargingstation stops
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_CHARGINGSTATION)) {
+        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION)) {
             if (i.second->isAttributeCarrierSelected()) {
                 return true;
             }
         }
         // check parkingarea stops
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_PARKINGAREA)) {
+        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA)) {
             if (i.second->isAttributeCarrierSelected()) {
                 return true;
             }

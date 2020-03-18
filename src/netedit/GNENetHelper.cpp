@@ -23,44 +23,16 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_Connection.h>
-#include <netedit/changes/GNEChange_Crossing.h>
-#include <netedit/changes/GNEChange_DataSet.h>
-#include <netedit/changes/GNEChange_DataInterval.h>
-#include <netedit/changes/GNEChange_GenericData.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/changes/GNEChange_Edge.h>
-#include <netedit/changes/GNEChange_Junction.h>
-#include <netedit/changes/GNEChange_Lane.h>
-#include <netedit/changes/GNEChange_Shape.h>
-#include <netedit/dialogs/GNEFixAdditionalElements.h>
-#include <netedit/dialogs/GNEFixDemandElements.h>
 #include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNEPOI.h>
-#include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/data/GNEGenericData.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/elements/demand/GNEVehicleType.h>
-#include <netedit/elements/network/GNEConnection.h>
-#include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/additional/GNEPOI.h>
-#include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/data/GNEDataSet.h>
-#include <netedit/elements/data/GNEGenericData.h>
-#include <netedit/elements/demand/GNEVehicleType.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNEJunction.h>
-#include <netedit/elements/network/GNELane.h>
 #include <utils/router/DijkstraRouter.h>
 
 #include "GNENetHelper.h"
@@ -80,21 +52,14 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     for (const auto& tazTag : listOfTags) {
         myAdditionals.insert(std::make_pair(tazTag, std::map<std::string, GNEAdditional*>()));
     }
-    // fill tags
-    fillTags();
-}
-
-
-void
-GNENetHelper::AttributeCarriers::fillTags() {
     // fill demand elements with tags
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT, false);
+    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT, false);
     for (const auto& demandTag : listOfTags) {
-        demandElements.insert(std::make_pair(demandTag, std::map<std::string, GNEDemandElement*>()));
+        myDemandElements.insert(std::make_pair(demandTag, std::map<std::string, GNEDemandElement*>()));
     }
     listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::STOP, false);
     for (const auto& stopTag : listOfTags) {
-        demandElements.insert(std::make_pair(stopTag, std::map<std::string, GNEDemandElement*>()));
+        myDemandElements.insert(std::make_pair(stopTag, std::map<std::string, GNEDemandElement*>()));
     }
 }
 
@@ -125,7 +90,7 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
         }
     }
     // Drop demand elements (Only used for demand elements that were inserted without using GNEChange_DemandElement, for example the default VType")
-    for (const auto& demandElementTag : demandElements) {
+    for (const auto& demandElementTag : myDemandElements) {
         for (const auto& demandElement : demandElementTag.second) {
             // decrease reference manually (because it was increased manually in GNERouteHandler)
             demandElement.second->decRef();
@@ -142,6 +107,25 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
     for (const auto& POI : myPOIs) {
         dynamic_cast<GNEAttributeCarrier*>(POI.second)->decRef("GNENet::~GNENet");
     }
+}
+
+
+void 
+GNENetHelper::AttributeCarriers::addDefaultVTypes() {
+    // Create default vehicle Type (it has to be created here due myViewNet was previously nullptr)
+    GNEVehicleType* defaultVehicleType = new GNEVehicleType(myNet->getViewNet(), DEFAULT_VTYPE_ID, SVC_PASSENGER, SUMO_TAG_VTYPE);
+    myDemandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
+    defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
+
+    // Create default Bike Type (it has to be created here due myViewNet was previously nullptr)
+    GNEVehicleType* defaultBikeType = new GNEVehicleType(myNet->getViewNet(), DEFAULT_BIKETYPE_ID, SVC_BICYCLE, SUMO_TAG_VTYPE);
+    myDemandElements.at(defaultBikeType->getTagProperty().getTag()).insert(std::make_pair(defaultBikeType->getID(), defaultBikeType));
+    defaultBikeType->incRef("GNENet::DEFAULT_BIKETYPE_ID");
+
+    // Create default person Type (it has to be created here due myViewNet was previously nullptr)
+    GNEVehicleType* defaultPersonType = new GNEVehicleType(myNet->getViewNet(), DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN, SUMO_TAG_PTYPE);
+    myDemandElements.at(defaultPersonType->getTagProperty().getTag()).insert(std::make_pair(defaultPersonType->getID(), defaultPersonType));
+    defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
 }
 
 
@@ -201,9 +185,24 @@ GNENetHelper::AttributeCarriers::getAdditionals() const {
 
 void 
 GNENetHelper::AttributeCarriers::clearAdditionals() {
-    // iterate over myAdditionals and clear all Additionals
+    // iterate over myAdditionals and clear all additionals
     for (auto &additionals : myAdditionals) {
         additionals.second.clear();
+    }
+}
+
+
+const std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> >& 
+GNENetHelper::AttributeCarriers::getDemandElements() const {
+    return myDemandElements;
+}
+
+
+void 
+GNENetHelper::AttributeCarriers::clearDemandElements() {
+    // iterate over myDemandElements and clear all demand elemnts
+    for (auto& demandElements : myDemandElements) {
+        demandElements.second.clear();
     }
 }
 
@@ -304,6 +303,93 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional, boo
         return true;
     } else {
         throw ProcessError("Invalid additional pointer");
+    }
+}
+
+
+bool
+GNENetHelper::AttributeCarriers::demandElementExist(GNEDemandElement* demandElement) const {
+    // first check that demandElement pointer is valid
+    if (demandElement) {
+        return myDemandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getID()) !=
+            myDemandElements.at(demandElement->getTagProperty().getTag()).end();
+    }
+    else {
+        throw ProcessError("Invalid demandElement pointer");
+    }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandElement) {
+    // Check if demandElement element exists before insertion
+    if (!demandElementExist(demandElement)) {
+        // insert in demandElements container
+        myDemandElements.at(demandElement->getTagProperty().getTag()).insert(std::make_pair(demandElement->getID(), demandElement));
+        // also insert in vehicleDepartures container if it's either a vehicle or a person
+        if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
+            if (vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) != 0) {
+                throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' already inserted");
+            } else {
+                vehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
+            }
+        }
+        // only add drawable elements in grid
+        if (demandElement->getTagProperty().isDrawable() && demandElement->getTagProperty().isPlacedInRTree()) {
+            myNet->getVisualisationSpeedUp().addAdditionalGLObject(demandElement);
+        }
+        // check if demandElement is selected
+        if (demandElement->isAttributeCarrierSelected()) {
+            demandElement->selectAttributeCarrier(false);
+        }
+        // update geometry after insertion of demandElements if myUpdateGeometryEnabled is enabled
+        if (myNet->isUpdateGeometryEnabled()) {
+            demandElement->updateGeometry();
+        }
+        // demandElements has to be saved
+        myNet->requireSaveDemandElements(true);
+    } else {
+        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' already exist");
+    }
+}
+
+
+bool
+GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfterDeleting) {
+    // first check that demandElement pointer is valid
+    if (demandElementExist(demandElement)) {
+        // remove it from Inspector Frame and AttributeCarrierHierarchy
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(demandElement);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(demandElement);
+        // obtain demand element and erase it from container
+        auto it = myDemandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getID());
+        myDemandElements.at(demandElement->getTagProperty().getTag()).erase(it);
+        // also remove fromvehicleDepartures container if it's either a vehicle or a person
+        if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
+            if (vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
+                throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' doesn't exist");
+            } else {
+                vehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
+            }
+        }
+        // only remove drawable elements of grid
+        if (demandElement->getTagProperty().isDrawable() && demandElement->getTagProperty().isPlacedInRTree()) {
+            myNet->getVisualisationSpeedUp().removeAdditionalGLObject(demandElement);
+        }
+        // check if demandElement is selected
+        if (demandElement->isAttributeCarrierSelected()) {
+            demandElement->unselectAttributeCarrier(false);
+        }
+        // check if view has to be updated
+        if (updateViewAfterDeleting) {
+            myNet->getViewNet()->update();
+        }
+        // demandElements has to be saved
+        myNet->requireSaveDemandElements(true);
+        // demandElement removed, then return true
+        return true;
+    } else {
+        throw ProcessError("Invalid demandElement pointer");
     }
 }
 
@@ -409,15 +495,15 @@ GNENetHelper::AttributeCarriers::updateShapeID(GNEAttributeCarrier* AC, const st
 
 void
 GNENetHelper::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (demandElements.at(AC->getTagProperty().getTag()).count(AC->getID()) == 0) {
-        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.demandElements");
-    } else if (demandElements.at(AC->getTagProperty().getTag()).count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in AttributeCarriers.demandElements");
+    if (myDemandElements.at(AC->getTagProperty().getTag()).count(AC->getID()) == 0) {
+        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.myDemandElements");
+    } else if (myDemandElements.at(AC->getTagProperty().getTag()).count(newID) != 0) {
+        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in AttributeCarriers.myDemandElements");
     } else {
         // retrieve demand element 
-        GNEDemandElement* demandElement = demandElements.at(AC->getTagProperty().getTag()).at(AC->getID());
+        GNEDemandElement* demandElement = myDemandElements.at(AC->getTagProperty().getTag()).at(AC->getID());
         // remove demand from container
-        demandElements.at(demandElement->getTagProperty().getTag()).erase(demandElement->getID());
+        myDemandElements.at(demandElement->getTagProperty().getTag()).erase(demandElement->getID());
         // if is vehicle, remove it from vehicleDepartures
         if (demandElement->getTagProperty().isVehicle()) {
             if (vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
@@ -429,12 +515,12 @@ GNENetHelper::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, 
         // set new ID in demand
         demandElement->setMicrosimID(newID);
         // insert demand again in container
-        demandElements.at(demandElement->getTagProperty().getTag()).insert(std::make_pair(demandElement->getID(), demandElement));
+        myDemandElements.at(demandElement->getTagProperty().getTag()).insert(std::make_pair(demandElement->getID(), demandElement));
         // if is vehicle, add it into vehicleDepartures
         if (demandElement->getTagProperty().isVehicle()) {
             vehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
         }
-        // demandElements has to be saved
+        // myDemandElements has to be saved
         myNet->requireSaveDemandElements(true);
     }
 }

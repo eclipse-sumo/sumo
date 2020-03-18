@@ -432,8 +432,8 @@ GNEPersonPlanFrame::~GNEPersonPlanFrame() {}
 void
 GNEPersonPlanFrame::show() {
     // Only show moduls if there is at least one person
-    if ((myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_PERSON).size() > 0) ||
-            (myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_PERSONFLOW).size() > 0)) {
+    if ((myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON).size() > 0) ||
+            (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW).size() > 0)) {
         // refresh demand element selector
         myPersonSelector->refreshDemandElementSelector();
         // refresh item selector
@@ -441,10 +441,10 @@ GNEPersonPlanFrame::show() {
         // show myPersonPlanCreator
         myPersonPlanCreator->showPersonPlanCreator();
         // set first person as demand element
-        if (myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_PERSON).size() > 0) {
-            myPersonSelector->setDemandElement(myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_PERSON).begin()->second);
+        if (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON).size() > 0) {
+            myPersonSelector->setDemandElement(myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON).begin()->second);
         } else {
-            myPersonSelector->setDemandElement(myViewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_PERSONFLOW).begin()->second);
+            myPersonSelector->setDemandElement(myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW).begin()->second);
         }
     } else {
         // hide all moduls except helpCreation

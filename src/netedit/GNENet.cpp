@@ -723,14 +723,14 @@ GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoLi
     bool addRestriction = true;
     if (vclass == SVC_PEDESTRIAN) {
         GNEEdge* edge = lane->getParentEdge();
-        for (const auto  lane : edge->getLanes()) {
-            if (lane->isRestricted(SVC_PEDESTRIAN)) {
+        for (const auto &edgeLane : edge->getLanes()) {
+            if (edgeLane->isRestricted(SVC_PEDESTRIAN)) {
                 // prevent adding a 2nd sidewalk
                 addRestriction = false;
             } else {
                 // ensure that the sidewalk is used exclusively
                 const SVCPermissions allOldWithoutPeds = edge->getNBEdge()->getPermissions(lane->getIndex()) & ~SVC_PEDESTRIAN;
-                lane->setAttribute(SUMO_ATTR_ALLOW, getVehicleClassNames(allOldWithoutPeds), undoList);
+                edgeLane->setAttribute(SUMO_ATTR_ALLOW, getVehicleClassNames(allOldWithoutPeds), undoList);
             }
         }
     }
@@ -1061,20 +1061,8 @@ GNENet::setViewNet(GNEViewNet* viewNet) {
     // set view net
     myViewNet = viewNet;
 
-    // Create default vehicle Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultVehicleType = new GNEVehicleType(myViewNet, DEFAULT_VTYPE_ID, SVC_PASSENGER, SUMO_TAG_VTYPE);
-    myAttributeCarriers->demandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
-    defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
-
-    // Create default Bike Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultBikeType = new GNEVehicleType(myViewNet, DEFAULT_BIKETYPE_ID, SVC_BICYCLE, SUMO_TAG_VTYPE);
-    myAttributeCarriers->demandElements.at(defaultBikeType->getTagProperty().getTag()).insert(std::make_pair(defaultBikeType->getID(), defaultBikeType));
-    defaultBikeType->incRef("GNENet::DEFAULT_BIKETYPE_ID");
-
-    // Create default person Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultPersonType = new GNEVehicleType(myViewNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN, SUMO_TAG_PTYPE);
-    myAttributeCarriers->demandElements.at(defaultPersonType->getTagProperty().getTag()).insert(std::make_pair(defaultPersonType->getID(), defaultPersonType));
-    defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
+    // add default vTypes
+    myAttributeCarriers->addDefaultVTypes();
 }
 
 
@@ -1410,7 +1398,7 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
         for (auto i : myAttributeCarriers->getPOIs()) {
             result.push_back(dynamic_cast<GNEPOI*>(i.second));
         }
-        for (auto i : myAttributeCarriers->demandElements) {
+        for (auto i : myAttributeCarriers->getDemandElements()) {
             for (auto j : i.second) {
                 result.push_back(j.second);
             }
@@ -1422,7 +1410,7 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
         }
     } else if (GNEAttributeCarrier::getTagProperties(type).isDemandElement() || GNEAttributeCarrier::getTagProperties(type).isStop()) {
         // only returns demand elements of a certain type.
-        for (auto i : myAttributeCarriers->demandElements.at(type)) {
+        for (auto i : myAttributeCarriers->getDemandElements().at(type)) {
             result.push_back(i.second);
         }
     } else {
@@ -1509,8 +1497,6 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     computeAndUpdate(oc, volatileOptions);
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
-        // fill tags
-        myAttributeCarriers->fillTags();
         // Create additional handler
         GNEAdditionalHandler additionalHandler(additionalPath, myViewNet);
         // Run parser
@@ -1525,8 +1511,6 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     }
     // load demand elements if was recomputed with volatile options
     if (demandPath != "") {
-        // fill tags
-        myAttributeCarriers->fillTags();
         // Create demandElement handler
         GNERouteHandler demandElementHandler(demandPath, myViewNet, false);
         // Run parser
@@ -1549,7 +1533,7 @@ void
 GNENet::computeDemandElements(GNEApplicationWindow* window) {
     window->setStatusBarText("Computing demand elements ...");
     // iterate over all demand elements and compute
-    for (const auto& i : myAttributeCarriers->demandElements) {
+    for (const auto& i : myAttributeCarriers->getDemandElements()) {
         for (const auto& j : i.second) {
             j.second->computePath();
         }
@@ -1563,7 +1547,7 @@ GNENet::computeDataElements(GNEApplicationWindow* window) {
     window->setStatusBarText("Computing data elements ...");
     /*
     // iterate over all demand elements and compute
-    for (const auto& i : myAttributeCarriers->demandElements) {
+    for (const auto& i : myAttributeCarriers->getDemandElements()) {
         for (const auto& j : i.second) {
             j.second->computePath();
         }
@@ -1831,9 +1815,9 @@ void
 GNENet::cleanUnusedRoutes(GNEUndoList* undoList) {
     // first declare a vector to save all routes without children
     std::vector<GNEDemandElement*> routesWithoutChildren;
-    routesWithoutChildren.reserve(myAttributeCarriers->demandElements.at(SUMO_TAG_ROUTE).size());
+    routesWithoutChildren.reserve(myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE).size());
     // iterate over routes
-    for (const auto& i : myAttributeCarriers->demandElements.at(SUMO_TAG_ROUTE)) {
+    for (const auto& i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         if (i.second->getChildDemandElements().empty()) {
             routesWithoutChildren.push_back(i.second);
         }
@@ -1860,7 +1844,7 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
     // first declare a sorted set of sorted route's edges in string format
     std::set<std::pair<std::string, GNEDemandElement*> > mySortedRoutes;
     // iterate over routes and save it in mySortedRoutes  (only if it doesn't have Stop Children)
-    for (const auto& i : myAttributeCarriers->demandElements.at(SUMO_TAG_ROUTE)) {
+    for (const auto& i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         // first check route has stops
         bool hasStops = false;
         for (const auto& j : i.second->getChildDemandElements()) {
@@ -1925,23 +1909,23 @@ void
 GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
     // first declare a vector to save all invalid demand elements
     std::vector<GNEDemandElement*> invalidDemandElements;
-    invalidDemandElements.reserve(myAttributeCarriers->demandElements.at(SUMO_TAG_ROUTE).size() +
-                                  myAttributeCarriers->demandElements.at(SUMO_TAG_FLOW).size() +
-                                  myAttributeCarriers->demandElements.at(SUMO_TAG_TRIP).size());
+    invalidDemandElements.reserve(myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE).size() +
+                                  myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW).size() +
+                                  myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP).size());
     // iterate over routes
-    for (const auto& i : myAttributeCarriers->demandElements.at(SUMO_TAG_ROUTE)) {
+    for (const auto& i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         if (!i.second->isDemandElementValid()) {
             invalidDemandElements.push_back(i.second);
         }
     }
     // iterate over flows
-    for (const auto& i : myAttributeCarriers->demandElements.at(SUMO_TAG_FLOW)) {
+    for (const auto& i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW)) {
         if (!i.second->isDemandElementValid()) {
             invalidDemandElements.push_back(i.second);
         }
     }
     // iterate over trip
-    for (const auto& i : myAttributeCarriers->demandElements.at(SUMO_TAG_TRIP)) {
+    for (const auto& i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP)) {
         if (!i.second->isDemandElementValid()) {
             invalidDemandElements.push_back(i.second);
         }
@@ -2303,8 +2287,8 @@ GNENet::generateAdditionalID(SumoXMLTag type) const {
 
 GNEDemandElement*
 GNENet::retrieveDemandElement(SumoXMLTag type, const std::string& id, bool hardFail) const {
-    if ((myAttributeCarriers->demandElements.count(type) > 0) && (myAttributeCarriers->demandElements.at(type).count(id) != 0)) {
-        return myAttributeCarriers->demandElements.at(type).at(id);
+    if ((myAttributeCarriers->getDemandElements().count(type) > 0) && (myAttributeCarriers->getDemandElements().at(type).count(id) != 0)) {
+        return myAttributeCarriers->getDemandElements().at(type).at(id);
     } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant demand element");
     } else {
@@ -2317,7 +2301,7 @@ std::vector<GNEDemandElement*>
 GNENet::retrieveDemandElements(bool onlySelected) const {
     std::vector<GNEDemandElement*> result;
     // returns demand elements depending of selection
-    for (auto i : myAttributeCarriers->demandElements) {
+    for (auto i : myAttributeCarriers->getDemandElements()) {
         for (auto j : i.second) {
             if (!onlySelected || j.second->isAttributeCarrierSelected()) {
                 result.push_back(j.second);
@@ -2331,7 +2315,7 @@ GNENet::retrieveDemandElements(bool onlySelected) const {
 int
 GNENet::getNumberOfDemandElements(SumoXMLTag type) const {
     int counter = 0;
-    for (auto i : myAttributeCarriers->demandElements) {
+    for (auto i : myAttributeCarriers->getDemandElements()) {
         if ((type == SUMO_TAG_NOTHING) || (type == i.first)) {
             counter += (int)i.second.size();
         }
@@ -2382,7 +2366,7 @@ GNENet::saveDemandElements(const std::string& filename) {
     // obtain invalid demandElements depending of number of their parent lanes
     std::vector<GNEDemandElement*> invalidSingleLaneDemandElements;
     // iterate over demandElements and obtain invalids
-    for (const auto& demandElementSet : myAttributeCarriers->demandElements) {
+    for (const auto& demandElementSet : myAttributeCarriers->getDemandElements()) {
         for (const auto& demandElement : demandElementSet.second) {
             // compute before check if demand element is valid
             demandElement.second->computePath();
@@ -2432,20 +2416,20 @@ GNENet::generateDemandElementID(const std::string& prefix, SumoXMLTag type) cons
     int counter = 0;
     if ((type == SUMO_TAG_VEHICLE) || (type == SUMO_TAG_TRIP) || (type == SUMO_TAG_ROUTEFLOW) || (type == SUMO_TAG_FLOW)) {
         // special case for vehicles (Vehicles, Flows, Trips and routeFlows share nameSpaces)
-        while ((myAttributeCarriers->demandElements.at(SUMO_TAG_VEHICLE).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
-                (myAttributeCarriers->demandElements.at(SUMO_TAG_TRIP).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
-                (myAttributeCarriers->demandElements.at(SUMO_TAG_ROUTEFLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
-                (myAttributeCarriers->demandElements.at(SUMO_TAG_FLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0)) {
+        while ((myAttributeCarriers->getDemandElements().at(SUMO_TAG_VEHICLE).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
+                (myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
+                (myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTEFLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
+                (myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0)) {
             counter++;
         }
     } else if ((type == SUMO_TAG_PERSON) || (type == SUMO_TAG_PERSONFLOW)) {
         // special case for persons (person and personFlows share nameSpaces)
-        while ((myAttributeCarriers->demandElements.at(SUMO_TAG_PERSON).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
-                (myAttributeCarriers->demandElements.at(SUMO_TAG_PERSONFLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0)) {
+        while ((myAttributeCarriers->getDemandElements().at(SUMO_TAG_PERSON).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
+                (myAttributeCarriers->getDemandElements().at(SUMO_TAG_PERSONFLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0)) {
             counter++;
         }
     } else {
-        while (myAttributeCarriers->demandElements.at(type).count(prefix + toString(type) + "_" + toString(counter)) != 0) {
+        while (myAttributeCarriers->getDemandElements().at(type).count(prefix + toString(type) + "_" + toString(counter)) != 0) {
             counter++;
         }
     }
@@ -2733,15 +2717,15 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("routes", "routes_file.xsd");
     // first  write all vehicle types
-    for (auto i : myAttributeCarriers->demandElements.at(SUMO_TAG_VTYPE)) {
+    for (auto i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
         i.second->writeDemandElement(device);
     }
     // first  write all person types
-    for (auto i : myAttributeCarriers->demandElements.at(SUMO_TAG_PTYPE)) {
+    for (auto i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_PTYPE)) {
         i.second->writeDemandElement(device);
     }
     // now write all routes (and their associated stops)
-    for (auto i : myAttributeCarriers->demandElements.at(SUMO_TAG_ROUTE)) {
+    for (auto i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         i.second->writeDemandElement(device);
     }
     // finally write all vehicles and persons sorted by depart time (and their associated stops, personPlans, etc.)
@@ -2875,92 +2859,6 @@ GNENet::isUpdateGeometryEnabled() const {
 // ---------------------------------------------------------------------------
 // GNENet - protected methods
 // ---------------------------------------------------------------------------
-
-bool
-GNENet::demandElementExist(GNEDemandElement* demandElement) const {
-    // first check that demandElement pointer is valid
-    if (demandElement) {
-        return myAttributeCarriers->demandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getID()) !=
-               myAttributeCarriers->demandElements.at(demandElement->getTagProperty().getTag()).end();
-    } else {
-        throw ProcessError("Invalid demandElement pointer");
-    }
-}
-
-
-void
-GNENet::insertDemandElement(GNEDemandElement* demandElement) {
-    // Check if demandElement element exists before insertion
-    if (!demandElementExist(demandElement)) {
-        // insert in demandElements container
-        myAttributeCarriers->demandElements.at(demandElement->getTagProperty().getTag()).insert(std::make_pair(demandElement->getID(), demandElement));
-        // also insert in vehicleDepartures container if it's either a vehicle or a person
-        if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
-            if (myAttributeCarriers->vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) != 0) {
-                throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' already inserted");
-            } else {
-                myAttributeCarriers->vehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
-            }
-        }
-        // only add drawable elements in grid
-        if (demandElement->getTagProperty().isDrawable() && demandElement->getTagProperty().isPlacedInRTree()) {
-            myGrid.addAdditionalGLObject(demandElement);
-        }
-        // check if demandElement is selected
-        if (demandElement->isAttributeCarrierSelected()) {
-            demandElement->selectAttributeCarrier(false);
-        }
-        // update geometry after insertion of demandElements if myUpdateGeometryEnabled is enabled
-        if (myUpdateGeometryEnabled) {
-            demandElement->updateGeometry();
-        }
-        // demandElements has to be saved
-        requireSaveDemandElements(true);
-    } else {
-        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' already exist");
-    }
-}
-
-
-bool
-GNENet::deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfterDeleting) {
-    // first check that demandElement pointer is valid
-    if (demandElementExist(demandElement)) {
-        // remove it from Inspector Frame and AttributeCarrierHierarchy
-        myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(demandElement);
-        myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(demandElement);
-        // obtain demand element and erase it from container
-        auto it = myAttributeCarriers->demandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getID());
-        myAttributeCarriers->demandElements.at(demandElement->getTagProperty().getTag()).erase(it);
-        // also remove fromvehicleDepartures container if it's either a vehicle or a person
-        if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
-            if (myAttributeCarriers->vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
-                throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' doesn't exist");
-            } else {
-                myAttributeCarriers->vehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
-            }
-        }
-        // only remove drawable elements of grid
-        if (demandElement->getTagProperty().isDrawable() && demandElement->getTagProperty().isPlacedInRTree()) {
-            myGrid.removeAdditionalGLObject(demandElement);
-        }
-        // check if demandElement is selected
-        if (demandElement->isAttributeCarrierSelected()) {
-            demandElement->unselectAttributeCarrier(false);
-        }
-        // check if view has to be updated
-        if (updateViewAfterDeleting) {
-            myViewNet->update();
-        }
-        // demandElements has to be saved
-        requireSaveDemandElements(true);
-        // demandElement removed, then return true
-        return true;
-    } else {
-        throw ProcessError("Invalid demandElement pointer");
-    }
-}
-
 
 bool
 GNENet::dataSetExist(GNEDataSet* dataSet) const {
@@ -3326,7 +3224,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             }
         }
         // clear rest of demand elements that weren't removed during cleaning of undo list
-        for (const auto& demandElementsTags : myAttributeCarriers->demandElements) {
+        for (const auto& demandElementsTags : myAttributeCarriers->getDemandElements()) {
             for (const auto& demandElement : demandElementsTags.second) {
                 // only remove drawable additionals
                 if (demandElement.second->getTagProperty().isDrawable()) {
@@ -3345,9 +3243,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         // clear shapes, additionals and demand elements
         myAttributeCarriers->clearShapes();
         myAttributeCarriers->clearAdditionals();
-        myAttributeCarriers->demandElements.clear();
-        // fill tags
-        myAttributeCarriers->fillTags();
+        myAttributeCarriers->clearDemandElements();
         // enable update geometry again
         myUpdateGeometryEnabled = true;
         // Write GL debug information

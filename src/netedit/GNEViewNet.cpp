@@ -2361,16 +2361,16 @@ GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
     // compute vehicle geometry
-    for (const auto& vehicle : myNet->getAttributeCarriers()->demandElements.at(SUMO_TAG_VEHICLE)) {
+    for (const auto& vehicle : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
         vehicle.second->updateGeometry();
     }
-    for (const auto& routeFlow : myNet->getAttributeCarriers()->demandElements.at(SUMO_TAG_ROUTEFLOW)) {
+    for (const auto& routeFlow : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTEFLOW)) {
         routeFlow.second->updateGeometry();
     }
-    for (const auto& trip : myNet->getAttributeCarriers()->demandElements.at(SUMO_TAG_TRIP)) {
+    for (const auto& trip : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP)) {
         trip.second->updateGeometry();
     }
-    for (const auto& flow : myNet->getAttributeCarriers()->demandElements.at(SUMO_TAG_FLOW)) {
+    for (const auto& flow : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW)) {
         flow.second->updateGeometry();
     }
     // update view to show new vehicles positions

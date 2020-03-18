@@ -35,7 +35,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent) :
     GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW_CALIBRATOR, "", false,
         {}, {}, {}, {calibratorParent}, {}, {}, {}, {}, {}, {}, {}, {}),
     myVehicleType(calibratorParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID)),
-    myRoute(calibratorParent->getViewNet()->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_ROUTE).begin()->second) {
+    myRoute(calibratorParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second) {
     // fill calibrator flows with default values
     setDefaultValues();
 }
