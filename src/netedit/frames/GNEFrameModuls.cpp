@@ -1933,7 +1933,7 @@ GNEFrameModuls::SelectorParent::refreshSelectorParentModul() {
     myParentsList->clearItems();
     if (myParentTag != SUMO_TAG_NOTHING) {
         // fill list with IDs of additionals
-        for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->additionals.at(myParentTag)) {
+        for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(myParentTag)) {
             myParentsList->appendItem(i.first.c_str());
         }
     }

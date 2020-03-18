@@ -1356,7 +1356,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
             }
             // check if additionals selection is locked
             if (!locks->IsObjectTypeLocked(GLO_ADDITIONALELEMENT)) {
-                for (const auto& additionals : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->additionals) {
+                for (const auto& additionals : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
                     // first check if additional is selectable
                     if (GNEAttributeCarrier::getTagProperties(additionals.first).isSelectable()) {
                         for (const auto& additional : additionals.second) {
@@ -1709,7 +1709,7 @@ GNESelectorFrame::clearCurrentSelection() const {
             }
             // check if additionals selection is locked
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ADDITIONALELEMENT)) {
-                for (const auto& additionals : myViewNet->getNet()->getAttributeCarriers()->additionals) {
+                for (const auto& additionals : myViewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
                     // first check if additional is selectable
                     if (GNEAttributeCarrier::getTagProperties(additionals.first).isSelectable()) {
                         for (const auto& additional : additionals.second) {
@@ -2019,9 +2019,9 @@ GNESelectorFrame::ACsToSelected() const {
         }
         // check if additionals selection is locked
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ADDITIONALELEMENT)) {
-            for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->additionals) {
+            for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
                 // first check if additional is selectable
-                if (GNEAttributeCarrier::getTagProperties(i.first).isSelectable() && (myViewNet->getNet()->getAttributeCarriers()->additionals.at(i.first).size() > 0)) {
+                if (GNEAttributeCarrier::getTagProperties(i.first).isSelectable() && (myViewNet->getNet()->getAttributeCarriers()->getAdditionals().at(i.first).size() > 0)) {
                     return true;
                 }
             }

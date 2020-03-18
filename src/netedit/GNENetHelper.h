@@ -70,6 +70,10 @@ struct GNENetHelper {
     /// @brief struct used for saving all attribute carriers of net, in different formats
     class AttributeCarriers : public ShapeContainer {
 
+        /// @brief declare friend class
+        friend class GNEAdditionalHandler;
+        friend class GNEChange_Additional;
+
     public:
         /// @brief constructor
         AttributeCarriers(GNENet* net);
@@ -92,8 +96,11 @@ struct GNENetHelper {
         /// @brief map with the ID and pointer to edges of net
         std::map<std::string, GNEEdge*> edges;
 
-        /// @brief map with the ID and pointer to additional elements of net
-        std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > additionals;
+        /// @brief get additionals
+        const std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> >& getAdditionals() const;
+
+        /// @brief clear additionals
+        void clearAdditionals();
 
         /// @brief map with the ID and pointer to demand elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > demandElements;
@@ -114,6 +121,25 @@ struct GNENetHelper {
         void clearShapes();
 
     protected:
+        /// @name Additional
+        /// @{
+
+        /// @brief return true if additional exist (use pointer instead ID)
+        bool additionalExist(GNEAdditional* additional) const;
+
+        /**@brief Insert a additional element int GNENet container.
+         * @throw processError if route was already inserted
+         */
+        void insertAdditional(GNEAdditional* additional);
+
+        /**@brief delete additional element of GNENet container
+         * @throw processError if additional wasn't previously inserted
+         */
+        bool deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting);
+
+        /// @}
+
+    private:
         /// @brief update junction ID in container
         void updateJunctionID(GNEAttributeCarrier* AC, const std::string& newID);
 
@@ -132,10 +158,12 @@ struct GNENetHelper {
         /// @brief update data element ID in container
         void updateDataSetID(GNEAttributeCarrier* AC, const std::string& newID);
 
+        /// @brief map with the ID and pointer to additional elements of net
+        std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > myAdditionals;
+
         /// @brief pointer to net
         GNENet* myNet;
 
-    private:
         /// @brief Invalidated copy constructor.
         AttributeCarriers(const AttributeCarriers&) = delete;
 

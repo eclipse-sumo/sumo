@@ -246,7 +246,7 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, cons
             viewNet->getUndoList()->add(new GNEChange_Additional(busStop, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(busStop);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(busStop);
             lane->addChildAdditional(busStop);
             busStop->incRef("buildBusStop");
         }
@@ -273,7 +273,7 @@ GNEAdditionalHandler::buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, GNEAd
             viewNet->getUndoList()->add(new GNEChange_Additional(access, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(access);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(access);
             lane->addChildAdditional(access);
             busStop->addChildAdditional(access);
             access->incRef("buildAccess");
@@ -293,7 +293,7 @@ GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo
             viewNet->getUndoList()->add(new GNEChange_Additional(containerStop, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(containerStop);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(containerStop);
             lane->addChildAdditional(containerStop);
             containerStop->incRef("buildContainerStop");
         }
@@ -314,7 +314,7 @@ GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, bool allowUndoRe
             viewNet->getUndoList()->add(new GNEChange_Additional(chargingStation, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(chargingStation);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(chargingStation);
             lane->addChildAdditional(chargingStation);
             chargingStation->incRef("buildChargingStation");
         }
@@ -335,7 +335,7 @@ GNEAdditionalHandler::buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, 
             viewNet->getUndoList()->add(new GNEChange_Additional(parkingArea, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(parkingArea);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(parkingArea);
             lane->addChildAdditional(parkingArea);
             parkingArea->incRef("buildParkingArea");
         }
@@ -354,7 +354,7 @@ GNEAdditionalHandler::buildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo,
         viewNet->getUndoList()->add(new GNEChange_Additional(parkingSpace, true), true);
         viewNet->getUndoList()->p_end();
     } else {
-        viewNet->getNet()->insertAdditional(parkingSpace);
+        viewNet->getNet()->getAttributeCarriers()->insertAdditional(parkingSpace);
         parkingAreaParent->addChildAdditional(parkingSpace);
         parkingSpace->incRef("buildParkingSpace");
     }
@@ -371,7 +371,7 @@ GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, c
             viewNet->getUndoList()->add(new GNEChange_Additional(detectorE1, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(detectorE1);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(detectorE1);
             lane->addChildAdditional(detectorE1);
             detectorE1->incRef("buildDetectorE1");
         }
@@ -392,7 +392,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(GNEViewNet* viewNet, bool allowU
             viewNet->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(detectorE2);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(detectorE2);
             lane->addChildAdditional(detectorE2);
             detectorE2->incRef("buildDetectorE2");
         }
@@ -413,7 +413,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(GNEViewNet* viewNet, bool allowUn
             viewNet->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(detectorE2);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(detectorE2);
             for (auto i : lanes) {
                 i->addChildAdditional(detectorE2);
             }
@@ -438,7 +438,7 @@ GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, bool allowUndoRedo, c
             viewNet->getUndoList()->add(new GNEChange_Additional(detectorE3, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(detectorE3);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(detectorE3);
             detectorE3->incRef("buildDetectorE3");
         }
         return detectorE3;
@@ -462,7 +462,7 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, bool allowUndoRedo
             viewNet->getUndoList()->add(new GNEChange_Additional(entry, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(entry);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(entry);
             lane->addChildAdditional(entry);
             E3Parent->addChildAdditional(entry);
             entry->incRef("buildDetectorEntry");
@@ -486,7 +486,7 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo,
             viewNet->getUndoList()->add(new GNEChange_Additional(exit, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(exit);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(exit);
             lane->addChildAdditional(exit);
             E3Parent->addChildAdditional(exit);
             exit->incRef("buildDetectorExit");
@@ -505,7 +505,7 @@ GNEAdditionalHandler::buildDetectorE1Instant(GNEViewNet* viewNet, bool allowUndo
             viewNet->getUndoList()->add(new GNEChange_Additional(detectorE1Instant, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(detectorE1Instant);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(detectorE1Instant);
             lane->addChildAdditional(detectorE1Instant);
             detectorE1Instant->incRef("buildDetectorE1Instant");
         }
@@ -529,7 +529,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
                 viewNet->centerTo(calibrator->getPositionInView(), false);
             }
         } else {
-            viewNet->getNet()->insertAdditional(calibrator);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(calibrator);
             lane->addChildAdditional(calibrator);
             calibrator->incRef("buildCalibrator");
         }
@@ -553,7 +553,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
                 viewNet->centerTo(calibrator->getPositionInView(), false);
             }
         } else {
-            viewNet->getNet()->insertAdditional(calibrator);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(calibrator);
             edge->addChildAdditional(calibrator);
             calibrator->incRef("buildCalibrator");
         }
@@ -595,7 +595,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, con
             viewNet->getUndoList()->add(new GNEChange_Additional(rerouter, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(rerouter);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(rerouter);
             // add this rerouter as parent of all edges
             for (auto i : edges) {
                 i->addParentAdditional(rerouter);
@@ -743,7 +743,7 @@ GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, c
                 viewNet->centerTo(routeProbe->getPositionInView(), false);
             }
         } else {
-            viewNet->getNet()->insertAdditional(routeProbe);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(routeProbe);
             edge->addChildAdditional(routeProbe);
             routeProbe->incRef("buildRouteProbe");
         }
@@ -763,7 +763,7 @@ GNEAdditionalHandler::buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndo
             viewNet->getUndoList()->add(new GNEChange_Additional(variableSpeedSign, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(variableSpeedSign);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(variableSpeedSign);
             // add this VSS as parent of all edges
             for (auto i : lanes) {
                 i->addParentAdditional(variableSpeedSign);
@@ -806,7 +806,7 @@ GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GN
             viewNet->centerTo(vaporizer->getPositionInView(), false);
         }
     } else {
-        viewNet->getNet()->insertAdditional(vaporizer);
+        viewNet->getNet()->getAttributeCarriers()->insertAdditional(vaporizer);
         edge->addChildAdditional(vaporizer);
         vaporizer->incRef("buildVaporizer");
     }
@@ -833,7 +833,7 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
         }
         viewNet->getUndoList()->p_end();
     } else {
-        viewNet->getNet()->insertAdditional(TAZ);
+        viewNet->getNet()->getAttributeCarriers()->insertAdditional(TAZ);
         TAZ->incRef("buildTAZ");
         for (auto i : edges) {
             // create TAZ Source
@@ -873,7 +873,7 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GN
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(TAZSink);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(TAZSink);
             TAZSink->incRef("buildTAZSource");
         }
     }
@@ -894,7 +894,7 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GN
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(TAZSource);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(TAZSource);
             TAZSource->incRef("buildTAZSource");
         }
     } else {
@@ -930,7 +930,7 @@ GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEA
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(TAZSource);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(TAZSource);
             TAZSource->incRef("buildTAZSink");
         }
     }
@@ -950,7 +950,7 @@ GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEA
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(TAZSink);
+            viewNet->getNet()->getAttributeCarriers()->insertAdditional(TAZSink);
             TAZSink->incRef("buildTAZSink");
         }
     } else {

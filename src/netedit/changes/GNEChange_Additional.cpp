@@ -48,9 +48,9 @@ GNEChange_Additional::~GNEChange_Additional() {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "'");
         // make sure that additional isn't in net before removing
-        if (myNet->additionalExist(myAdditional)) {
+        if (myNet->getAttributeCarriers()->additionalExist(myAdditional)) {
             // delete additional from net
-            myNet->deleteAdditional(myAdditional, false);
+            myNet->getAttributeCarriers()->deleteAdditional(myAdditional, false);
             // remove additional from parents and children
             removeAdditional(myAdditional);
         }
@@ -65,14 +65,14 @@ GNEChange_Additional::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional from net
-        myNet->deleteAdditional(myAdditional, false);
+        myNet->getAttributeCarriers()->deleteAdditional(myAdditional, false);
         // remove additional from parents and children
         removeAdditional(myAdditional);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // insert additional into net
-        myNet->insertAdditional(myAdditional);
+        myNet->getAttributeCarriers()->insertAdditional(myAdditional);
         // add additional in parent elements
         addAdditional(myAdditional);
     }
@@ -87,14 +87,14 @@ GNEChange_Additional::redo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // insert additional into net
-        myNet->insertAdditional(myAdditional);
+        myNet->getAttributeCarriers()->insertAdditional(myAdditional);
         // add additional in parent elements
         addAdditional(myAdditional);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional from net
-        myNet->deleteAdditional(myAdditional, false);
+        myNet->getAttributeCarriers()->deleteAdditional(myAdditional, false);
         // remove additional from parents and children
         removeAdditional(myAdditional);
     }

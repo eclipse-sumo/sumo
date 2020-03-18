@@ -471,7 +471,7 @@ GNEDeleteFrame::ACsToDelete() const {
             }
         }
         // check additionals
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->additionals) {
+        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
             // first check if additional is selectable
             if (GNEAttributeCarrier::getTagProperties(i.first).isSelectable()) {
                 for (const auto& j : i.second) {

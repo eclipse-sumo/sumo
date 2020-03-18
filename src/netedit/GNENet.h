@@ -40,7 +40,6 @@
 class GNENet : public GUIGlObject {
 
     /// @brief declare friend class
-    friend class GNEAdditionalHandler;
     friend class GNERouteHandler;
     friend class GNEChange_Junction;
     friend class GNEChange_Edge;
@@ -48,7 +47,6 @@ class GNENet : public GUIGlObject {
     friend class GNEChange_Connection;
     friend class GNEChange_Shape;
     friend class GNEChange_CalibratorItem;
-    friend class GNEChange_Additional;
     friend class GNEChange_DemandElement;
     friend class GNEChange_DataSet;
 
@@ -770,24 +768,6 @@ protected:
 
     /// @brief Flag to enable or disable update geometry of elements after inserting or removing element in net
     bool myUpdateGeometryEnabled;
-
-    /// @name Insertion and erasing of GNEAdditionals items
-    /// @{
-
-    /// @brief return true if additional exist (use pointer instead ID)
-    bool additionalExist(GNEAdditional* additional) const;
-
-    /**@brief Insert a additional element int GNENet container.
-     * @throw processError if route was already inserted
-     */
-    void insertAdditional(GNEAdditional* additional);
-
-    /**@brief delete additional element of GNENet container
-     * @throw processError if additional wasn't previously inserted
-     */
-    bool deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting);
-
-    /// @}
 
     /// @name Insertion and erasing of GNEDemandElements items
     /// @{

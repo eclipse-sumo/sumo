@@ -22,6 +22,36 @@
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_Connection.h>
+#include <netedit/changes/GNEChange_Crossing.h>
+#include <netedit/changes/GNEChange_DataSet.h>
+#include <netedit/changes/GNEChange_DataInterval.h>
+#include <netedit/changes/GNEChange_GenericData.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/changes/GNEChange_Edge.h>
+#include <netedit/changes/GNEChange_Junction.h>
+#include <netedit/changes/GNEChange_Lane.h>
+#include <netedit/changes/GNEChange_Shape.h>
+#include <netedit/dialogs/GNEFixAdditionalElements.h>
+#include <netedit/dialogs/GNEFixDemandElements.h>
+#include <netedit/elements/additional/GNEAdditional.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/elements/additional/GNEPOI.h>
+#include <netedit/elements/additional/GNEPoly.h>
+#include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/data/GNEDataSet.h>
+#include <netedit/elements/data/GNEGenericData.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/elements/demand/GNEVehicleType.h>
+#include <netedit/elements/network/GNEConnection.h>
+#include <netedit/elements/network/GNECrossing.h>
+#include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNEJunction.h>
+#include <netedit/elements/network/GNELane.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/data/GNEDataInterval.h>
@@ -41,6 +71,15 @@
 
 GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     myNet(net) {
+    // fill additionals with tags (note: this include the TAZs)
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
+    for (const auto& additionalTag : listOfTags) {
+        myAdditionals.insert(std::make_pair(additionalTag, std::map<std::string, GNEAdditional*>()));
+    }
+    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAZ, false);
+    for (const auto& tazTag : listOfTags) {
+        myAdditionals.insert(std::make_pair(tazTag, std::map<std::string, GNEAdditional*>()));
+    }
     // fill tags
     fillTags();
 }
@@ -48,17 +87,8 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
 
 void
 GNENetHelper::AttributeCarriers::fillTags() {
-    // fill additionals with tags (note: this include the TAZS)
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
-    for (const auto& additionalTag : listOfTags) {
-        additionals.insert(std::make_pair(additionalTag, std::map<std::string, GNEAdditional*>()));
-    }
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAZ, false);
-    for (const auto& tazTag : listOfTags) {
-        additionals.insert(std::make_pair(tazTag, std::map<std::string, GNEAdditional*>()));
-    }
     // fill demand elements with tags
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT, false);
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT, false);
     for (const auto& demandTag : listOfTags) {
         demandElements.insert(std::make_pair(demandTag, std::map<std::string, GNEDemandElement*>()));
     }
@@ -85,7 +115,7 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
         delete junction.second;
     }
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
-    for (const auto& additionalTag : additionals) {
+    for (const auto& additionalTag : myAdditionals) {
         for (const auto& additional : additionalTag.second) {
             // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
             additional.second->decRef();
@@ -163,6 +193,21 @@ GNENetHelper::AttributeCarriers::retrieveGenericDatas(const SumoXMLTag genericDa
 }
 
 
+const std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > &
+GNENetHelper::AttributeCarriers::getAdditionals() const {
+    return myAdditionals;
+}
+
+
+void 
+GNENetHelper::AttributeCarriers::clearAdditionals() {
+    // iterate over myAdditionals and clear all Additionals
+    for (auto &additionals : myAdditionals) {
+        additionals.second.clear();
+    }
+}
+
+
 bool 
 GNENetHelper::AttributeCarriers::addShape(GNEShape* shape) {
     if (shape == nullptr) {
@@ -191,6 +236,75 @@ void
 GNENetHelper::AttributeCarriers::clearShapes() {
     myPolygons.clear();
     myPOIs.clear();
+}
+
+
+bool
+GNENetHelper::AttributeCarriers::additionalExist(GNEAdditional* additional) const {
+    // first check that additional pointer is valid
+    if (additional) {
+        return myAdditionals.at(additional->getTagProperty().getTag()).find(additional->getID()) !=
+            myAdditionals.at(additional->getTagProperty().getTag()).end();
+    } else {
+        throw ProcessError("Invalid additional pointer");
+    }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
+    // Check if additional element exists before insertion
+    if (!additionalExist(additional)) {
+        myAdditionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
+        // only add drawable elements in grid
+        if (additional->getTagProperty().isDrawable() && additional->getTagProperty().isPlacedInRTree()) {
+            myNet->getVisualisationSpeedUp().addAdditionalGLObject(additional);
+        }
+        // check if additional is selected
+        if (additional->isAttributeCarrierSelected()) {
+            additional->selectAttributeCarrier(false);
+        }
+        // update geometry after insertion of additionals if myUpdateGeometryEnabled is enabled
+        if (myNet->isUpdateGeometryEnabled()) {
+            additional->updateGeometry();
+        }
+        // additionals has to be saved
+        myNet->requireSaveAdditionals(true);
+    } else {
+        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' already exist");
+    }
+}
+
+
+bool
+GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting) {
+    // first check that additional pointer is valid
+    if (additionalExist(additional)) {
+        // remove it from Inspector Frame and AttributeCarrierHierarchy
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(additional);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(additional);
+        // obtain demand element and erase it from container
+        auto it = myAdditionals.at(additional->getTagProperty().getTag()).find(additional->getID());
+        myAdditionals.at(additional->getTagProperty().getTag()).erase(it);
+        // only remove drawable elements of grid
+        if (additional->getTagProperty().isDrawable() && additional->getTagProperty().isPlacedInRTree()) {
+            myNet->getVisualisationSpeedUp().removeAdditionalGLObject(additional);
+        }
+        // check if additional is selected
+        if (additional->isAttributeCarrierSelected()) {
+            additional->unselectAttributeCarrier(false);
+        }
+        // check if view has to be updated
+        if (updateViewAfterDeleting) {
+            myNet->getViewNet()->update();
+        }
+        // additionals has to be saved
+        myNet->requireSaveAdditionals(true);
+        // additional removed, then return true
+        return true;
+    } else {
+        throw ProcessError("Invalid additional pointer");
+    }
 }
 
 
@@ -248,19 +362,19 @@ GNENetHelper::AttributeCarriers::updateEdgeID(GNEAttributeCarrier* AC, const std
 
 void
 GNENetHelper::AttributeCarriers::updateAdditionalID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (additionals.at(AC->getTagProperty().getTag()).count(AC->getID()) == 0) {
+    if (myAdditionals.at(AC->getTagProperty().getTag()).count(AC->getID()) == 0) {
         throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.additionals");
-    } else if (additionals.at(AC->getTagProperty().getTag()).count(newID) != 0) {
+    } else if (myAdditionals.at(AC->getTagProperty().getTag()).count(newID) != 0) {
         throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in AttributeCarriers.additionals");
     } else {
         // retrieve additional 
-        GNEAdditional* additional = additionals.at(AC->getTagProperty().getTag()).at(AC->getID());
+        GNEAdditional* additional = myAdditionals.at(AC->getTagProperty().getTag()).at(AC->getID());
         // remove additional from container
-        additionals.at(additional->getTagProperty().getTag()).erase(additional->getID());
+        myAdditionals.at(additional->getTagProperty().getTag()).erase(additional->getID());
         // set new ID in additional
         additional->setMicrosimID(newID);
         // insert additional again in container
-        additionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
+        myAdditionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
         // additionals has to be saved
         myNet->requireSaveAdditionals(true);
     }
