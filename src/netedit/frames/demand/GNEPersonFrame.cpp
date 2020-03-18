@@ -154,7 +154,7 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myNeteditAttributes = new GNEFrameAttributesModuls::NeteditAttributes(this);
 
     // create EdgePathCreator Modul
-    myEdgePathCreator = new GNEFrameModuls::EdgePathCreator(this, GNEFrameModuls::EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_FROM_TO_VIA);
+    myEdgePathCreator = new GNEFrameModuls::EdgePathCreator(this, GNEFrameModuls::EdgePathCreator::Modes::FROM_TO_VIA);
 
     // create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
@@ -347,27 +347,27 @@ GNEPersonFrame::demandElementSelected() {
                     myEdgePathCreator->edgePathCreatorName("person trip");
                     // set mode in path creator
                     if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) {
-                        myEdgePathCreator->setEdgePathCreatorModes(GNEFrameModuls::EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_TO_BUSSTOP);
+                        myEdgePathCreator->setModes(GNEFrameModuls::EdgePathCreator::Modes::TO_BUSSTOP);
                     } else {
-                        myEdgePathCreator->setEdgePathCreatorModes(GNEFrameModuls::EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_FROM_TO_VIA);
+                        myEdgePathCreator->setModes(GNEFrameModuls::EdgePathCreator::Modes::FROM_TO_VIA);
                     }
                 } else if (myPersonPlanTagSelector->getCurrentTagProperties().isWalk()) {
                     myEdgePathCreator->edgePathCreatorName("walk");
                     // set mode in path creator
                     if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_WALK_BUSSTOP) {
-                        myEdgePathCreator->setEdgePathCreatorModes(GNEFrameModuls::EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_TO_BUSSTOP);
+                        myEdgePathCreator->setModes(GNEFrameModuls::EdgePathCreator::Modes::TO_BUSSTOP);
                     } else if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_WALK_EDGES) {
-                        myEdgePathCreator->setEdgePathCreatorModes(GNEFrameModuls::EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_CONSECUTIVE);
+                        myEdgePathCreator->setModes(GNEFrameModuls::EdgePathCreator::Modes::CONSECUTIVE);
                     } else {
-                        myEdgePathCreator->setEdgePathCreatorModes(GNEFrameModuls::EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_FROM_TO_VIA);
+                        myEdgePathCreator->setModes(GNEFrameModuls::EdgePathCreator::Modes::FROM_TO_VIA);
                     }
                 } else if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
                     myEdgePathCreator->edgePathCreatorName("ride");
                     // set mode in path creator
                     if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_RIDE_BUSSTOP) {
-                        myEdgePathCreator->setEdgePathCreatorModes(GNEFrameModuls::EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_TO_BUSSTOP);
+                        myEdgePathCreator->setModes(GNEFrameModuls::EdgePathCreator::Modes::TO_BUSSTOP);
                     } else {
-                        myEdgePathCreator->setEdgePathCreatorModes(GNEFrameModuls::EdgePathCreator::EdgePathCreatorModes::GNE_EDGEPATHCREATOR_FROM_TO_VIA);
+                        myEdgePathCreator->setModes(GNEFrameModuls::EdgePathCreator::Modes::FROM_TO_VIA);
                     }
                 }
                 // update VClass of myEdgePathCreator

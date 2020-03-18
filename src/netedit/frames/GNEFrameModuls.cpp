@@ -519,18 +519,18 @@ GNEFrameModuls::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSel
 // ---------------------------------------------------------------------------
 
 GNEFrameModuls::EdgePathCreator::EdgePathCreator(GNEFrame* frameParent, int edgePathCreatorModes) :
-    FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
+    FXGroupBox(frameParent->myContentFrame, "Path creator", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
     mySelectedBusStop(nullptr),
-    myEdgePathCreatorModes(edgePathCreatorModes) {
+    myModes(edgePathCreatorModes) {
 
     // create button for create GEO POIs
-    myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);
+    myFinishCreationButton = new FXButton(this, "Finish path creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);
     myFinishCreationButton->disable();
 
     // create button for create GEO POIs
-    myAbortCreationButton = new FXButton(this, "Abort route creation", nullptr, this, MID_GNE_EDGEPATH_ABORT, GUIDesignButton);
+    myAbortCreationButton = new FXButton(this, "Abort path creation", nullptr, this, MID_GNE_EDGEPATH_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
 
     // create button for create GEO POIs
@@ -586,8 +586,8 @@ GNEFrameModuls::EdgePathCreator::setVClass(SUMOVehicleClass vClass) {
 
 
 void
-GNEFrameModuls::EdgePathCreator::setEdgePathCreatorModes(int edgePathCreatorModes) {
-    myEdgePathCreatorModes = edgePathCreatorModes;
+GNEFrameModuls::EdgePathCreator::setModes(int edgePathCreatorModes) {
+    myModes = edgePathCreatorModes;
 }
 
 
@@ -790,7 +790,7 @@ GNEFrameModuls::EdgePathCreator::onCmdFinishRouteCreation(FXObject*, FXSelector,
     // only create route if there is more than two edges
     if (myClickedEdges.size() > 0) {
         // depending of tag, check if last element is a busStop
-        if ((myEdgePathCreatorModes == GNE_EDGEPATHCREATOR_TO_BUSSTOP) && (mySelectedBusStop == nullptr)) {
+        if ((myModes == TO_BUSSTOP) && (mySelectedBusStop == nullptr)) {
             WRITE_WARNING("Last clicked element must be a " + toString(SUMO_TAG_BUS_STOP));
             return 1;
         }
