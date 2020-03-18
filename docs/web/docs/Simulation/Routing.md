@@ -103,8 +103,10 @@ An example for the relevance of future travel times would be this:
 
 It may be useful to compute routes which minimize some other criteria (called **effort**) besides travel time (distance, emissions, price, ...).
 When these quantities are meant to change over time, the routing algorithm needs two kinds of values for each edge:
+
 - the **effort** that shall be minimized
 - the **travel time** for the edge.
+
 The travel time is needed to compute at which time a certain edge is reached so that effors which change over time can be used correctly.
 
 !!! note
