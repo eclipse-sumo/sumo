@@ -102,19 +102,20 @@ found by following its link.
   calculation of the actual tailback in front of a junction
 
 ## values for junctions
+There is no dedicated output format for traffic at junctions. Instead junction related traffic can be measured by placing detectors that measure traffic at the intersection.
 
 - [Tools/Output\#generateTLSE1Detectors.py](../Tools/Output.md#generatetlse1detectorspy)
   script for generating induction loop detectors around all
-  TLS-controlled intersections
+  TLS-controlled intersections (point-based detected on individual lanes)
 - [Tools/Output\#generateTLSE2Detectors.py](../Tools/Output.md#generatetlse2detectorspy)
   script for generating lane-area detectors around all TLS-controlled
-  intersections
+  intersections (area-based detection on individual lanes)
 - [Tools/Output\#generateTLSE3Detectors.py](../Tools/Output.md#generatetlse3detectorspy)
   script for generating multi-entry-exit detectors around all
   TLS-controlled intersections or for an arbitrary list of
   intersections. The detectors can be configured to either aggregate
   or separate the approaching edges and to include or exclude the
-  junction interior.
+  junction interior. (area-based detection on edges)
 
 ## vehicle-based information
 
