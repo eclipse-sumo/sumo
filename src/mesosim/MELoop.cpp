@@ -61,11 +61,11 @@ void
 MELoop::simulate(SUMOTime tMax) {
     while (!myLeaderCars.empty()) {
         const SUMOTime time = myLeaderCars.begin()->first;
-        assert(time > tMax - DELTA_T);
+        std::vector<MEVehicle*> vehs = myLeaderCars[time];
+        assert(time > tMax - DELTA_T || vehs.size() == 0);
         if (time > tMax) {
             return;
         }
-        std::vector<MEVehicle*> vehs = myLeaderCars[time];
         myLeaderCars.erase(time);
         for (std::vector<MEVehicle*>::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
             checkCar(*i);
@@ -217,7 +217,10 @@ MELoop::setApproaching(MEVehicle* veh, MSLink* link) {
 void
 MELoop::removeLeaderCar(MEVehicle* v) {
     std::vector<MEVehicle*>& cands = myLeaderCars[v->getEventTime()];
-    cands.erase(find(cands.begin(), cands.end(), v));
+    auto it = find(cands.begin(), cands.end(), v);
+    if (it != cands.end()) {
+        cands.erase(it);
+    }
 }
 
 void

@@ -578,10 +578,8 @@ MESegment::vaporizeAnyCar(SUMOTime currentTime, const MSDetectorFileOutput* filt
         if (!k.empty()) {
             for (MEVehicle* veh : k) {
                 if (filter->vehicleApplies(*veh)) {
-                    if (k.size() == 1) {
-                        MSGlobals::gMesoNet->removeLeaderCar(veh);
-                    }
-                    MSGlobals::gMesoNet->changeSegment(veh, currentTime, &myVaporizationTarget, MSMoveReminder::NOTIFICATION_VAPORIZED_CALIBRATOR);
+                    MSGlobals::gMesoNet->removeLeaderCar(veh);
+                    MSGlobals::gMesoNet->changeSegment(veh, currentTime + 1, &myVaporizationTarget, MSMoveReminder::NOTIFICATION_VAPORIZED_CALIBRATOR);
                     return true;
                 }
             }
