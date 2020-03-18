@@ -56,6 +56,10 @@ SUMOTime MSRoutingEngine::myLastAdaptation = -1;
 bool MSRoutingEngine::myWithTaz;
 MSRoutingEngine::MSRouterProvider* MSRoutingEngine::myRouterProvider = nullptr;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSRoutingEngine::myCachedRoutes;
+double MSRoutingEngine::myPriorityFactor(0);
+double MSRoutingEngine::myMinEdgePriority(std::numeric_limits<double>::max());
+double MSRoutingEngine::myEdgePriorityRange(0);
+
 SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation MSRoutingEngine::myEffortFunc = &MSRoutingEngine::getEffort;
 #ifdef HAVE_FOX
 FXMutex MSRoutingEngine::myRouteCacheMutex;
@@ -98,6 +102,7 @@ MSRoutingEngine::initEdgeWeights() {
         }
         const bool useLoaded = oc.getBool("device.rerouting.init-with-loaded-weights");
         const double currentSecond = SIMTIME;
+        double maxEdgePriority = 0;
         for (const MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
             while (edge->getNumericalID() >= (int)myEdgeSpeeds.size()) {
                 myEdgeSpeeds.push_back(0);
@@ -113,8 +118,21 @@ MSRoutingEngine::initEdgeWeights() {
             if (myAdaptationSteps > 0) {
                 myPastEdgeSpeeds[edge->getNumericalID()] = std::vector<double>(myAdaptationSteps, myEdgeSpeeds[edge->getNumericalID()]);
             }
+            maxEdgePriority = MAX2(maxEdgePriority, (double)edge->getPriority());
+            myMinEdgePriority = MIN2(myMinEdgePriority, (double)edge->getPriority());
         }
+        myEdgePriorityRange = maxEdgePriority - myMinEdgePriority;
         myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
+        myPriorityFactor = oc.getFloat("device.rerouting.priority-factor");
+        if (myPriorityFactor < 0) {
+            throw ProcessError("device.rerouting.priority-factor cannot be negative.");
+        }
+        if (myPriorityFactor > 0) {
+            if (myEdgePriorityRange == 0) {
+                WRITE_WARNING("device.rerouting.priority-factor does not take effect because all edges have the same priority");
+                myPriorityFactor = 0;
+            }
+        }
     }
 }
 
@@ -134,6 +152,12 @@ MSRoutingEngine::getEffortExtra(const MSEdge* const e, const SUMOVehicle* const 
     double effort = getEffort(e, v, t);
     if (gWeightsRandomFactor != 1.) {
         effort *= RandHelper::rand(1., gWeightsRandomFactor);
+    }
+    if (myPriorityFactor != 0) {
+        // lower priority should result in higher effort (and the edge with
+        // minimum priority receives a factor of myPriorityFactor
+        const double relativeInversePrio = 1 - ((e->getPriority() - myMinEdgePriority) / myEdgePriorityRange);
+        effort *= 1 + relativeInversePrio * myPriorityFactor;
     }
     return effort;
 }
@@ -214,7 +238,7 @@ void
 MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
     OptionsCont& oc = OptionsCont::getOptions();
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
-    myEffortFunc = (gWeightsRandomFactor != 1 ? &MSRoutingEngine::getEffortExtra : &MSRoutingEngine::getEffort);
+    myEffortFunc = ((gWeightsRandomFactor != 1 || myPriorityFactor != 0) ? &MSRoutingEngine::getEffortExtra : &MSRoutingEngine::getEffort);
 
     SUMOAbstractRouter<MSEdge, SUMOVehicle>* router = nullptr;
     if (routingAlgorithm == "dijkstra") {

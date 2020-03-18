@@ -212,6 +212,14 @@ private:
     /// @brief The container of pre-calculated routes
     static std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> myCachedRoutes;
 
+    /// @brief Coefficient for factoring edge priority into routing weight
+    static double myPriorityFactor;
+
+    /// @brief Minimum priority for all edges
+    static double myMinEdgePriority;
+    /// @brief the difference between maximum and minimum priority for all edges
+    static double myEdgePriorityRange;
+
 #ifdef HAVE_FOX
     /// @brief Mutex for accessing the route cache
     static FXMutex myRouteCacheMutex;

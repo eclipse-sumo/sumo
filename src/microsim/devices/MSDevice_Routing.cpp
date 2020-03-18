@@ -86,6 +86,9 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.rerouting.railsignal", new Option_Bool(true));
     oc.addDescription("device.rerouting.railsignal", "Routing", "Allow rerouting triggered by rail signals.");
 
+    oc.doRegister("device.rerouting.priority-factor", new Option_Float(0));
+    oc.addDescription("device.rerouting.priority-factor", "Routing", "Consider edge priorities in addition to travel times, weighted by factor");
+
     oc.doRegister("device.rerouting.output", new Option_FileName());
     oc.addDescription("device.rerouting.output", "Routing", "Save adapting weights to FILE");
 }
