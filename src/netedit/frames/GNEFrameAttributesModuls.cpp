@@ -2079,7 +2079,7 @@ GNEFrameAttributesModuls::ParametersEditor::ParametersEditor(GNEFrame* inspector
     FXGroupBox(inspectorFrameParent->myContentFrame, title.c_str(), GUIDesignGroupBoxFrame),
     myFrameParent(inspectorFrameParent),
     myAC(nullptr),
-    myAttrType(Parameterised::ATTRTYPE_STRING) {
+    myAttrType(Parameterised::ParameterisedAttrType::STRING) {
     // set first letter upper
     title[0] = (char)tolower(title[0]);
     // create textfield and buttons
@@ -2101,9 +2101,9 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCar
         if (myAC) {
             // update flag
             if (myAC->getTagProperty().hasDoubleParameters()) {
-                myAttrType = Parameterised::ATTRTYPE_DOUBLE;
+                myAttrType = Parameterised::ParameterisedAttrType::DOUBLE;
             } else {
-                myAttrType = Parameterised::ATTRTYPE_STRING;
+                myAttrType = Parameterised::ParameterisedAttrType::STRING;
             }
             // obtain string
             std::string parametersStr = myAC->getAttribute(GNE_ATTR_PARAMETERS);
@@ -2155,9 +2155,9 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(std::vector<GNE
         } else {
             // update flag
             if (myACs.front()->getTagProperty().hasDoubleParameters()) {
-                myAttrType = Parameterised::ATTRTYPE_DOUBLE;
+                myAttrType = Parameterised::ParameterisedAttrType::DOUBLE;
             } else {
-                myAttrType = Parameterised::ATTRTYPE_STRING;
+                myAttrType = Parameterised::ParameterisedAttrType::STRING;
             }
             // obtain string
             std::string parametersStr = myACs.front()->getAttribute(GNE_ATTR_PARAMETERS);

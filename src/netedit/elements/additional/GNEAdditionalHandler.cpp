@@ -62,7 +62,7 @@
 // ===========================================================================
 
 GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet, GNEAdditional* additionalParent) :
-    ShapeHandler(file, viewNet->getNet()->getAttributeCarriers()),
+    ShapeHandler(file, *viewNet->getNet()->getAttributeCarriers()),
     myViewNet(viewNet) {
     // check if we're loading values of another additionals (example: Rerouter values)
     if (additionalParent) {
@@ -1370,7 +1370,7 @@ GNEAdditionalHandler::parseAndBuildPoly(const SUMOSAXAttributes& attrs) {
             WRITE_WARNING("Polygon with ID '" + polygonID + "' already exists.");
         } else {
             // update myLastParameterised with the last inserted Polygon
-            myLastParameterised = myViewNet->getNet()->getAttributeCarriers().getPolygons().get(polygonID);
+            myLastParameterised = myViewNet->getNet()->getAttributeCarriers()->getPolygons().get(polygonID);
         }
     }
 }
@@ -2531,7 +2531,7 @@ GNEAdditionalHandler::parseAndBuildPOI(const SUMOSAXAttributes& attrs) {
             WRITE_WARNING("POI with ID '" + POIID + "' already exists.");
         } else {
             // update myLastParameterised with the last inserted POI
-            myLastParameterised = myViewNet->getNet()->getAttributeCarriers().getPOIs().get(POIID);
+            myLastParameterised = myViewNet->getNet()->getAttributeCarriers()->getPOIs().get(POIID);
         }
     }
 }

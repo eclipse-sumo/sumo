@@ -1373,7 +1373,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(key) + " cannot be edited");
         }
         case SUMO_ATTR_ID: {
-            myNet->getAttributeCarriers().updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         }
         case SUMO_ATTR_TYPE: {

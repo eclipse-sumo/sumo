@@ -72,7 +72,7 @@ GNEPOI::getID() const {
 
 std::string
 GNEPOI::generateChildID(SumoXMLTag childTag) {
-    int counter = myNet->getAttributeCarriers().getPOIs().size();
+    int counter = myNet->getAttributeCarriers()->getPOIs().size();
     while (myNet->retrievePOI(getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }
@@ -427,7 +427,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID: {
             // note: getAttributeCarriers().updateID doesn't change Microsim ID in GNEShapes 
-            myNet->getAttributeCarriers().updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             // set microsim ID
             setMicrosimID(value);
             // set named ID

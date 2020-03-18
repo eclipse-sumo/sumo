@@ -172,4 +172,41 @@ struct GNENetHelper {
         /// @brief SUMO Abstract myDijkstraRouter
         SUMOAbstractRouter<NBRouterEdge, NBVehicle>* myDijkstraRouter;
     };
+
+    /// @brief class for GNEChange_ReplaceEdgeInTLS
+    class GNEChange_ReplaceEdgeInTLS : public GNEChange {
+        FXDECLARE_ABSTRACT(GNEChange_ReplaceEdgeInTLS)
+
+    public:
+        /// @brief constructor
+        GNEChange_ReplaceEdgeInTLS(NBTrafficLightLogicCont& tllcont, NBEdge* replaced, NBEdge* by);
+
+        /// @bief destructor
+        ~GNEChange_ReplaceEdgeInTLS();
+
+        /// @brief undo name
+        FXString undoName() const;
+
+        /// @brief get Redo name
+        FXString redoName() const;
+
+        /// @brief undo action
+        void undo();
+
+        /// @brief redo action
+        void redo();
+
+        /// @brief wether original and new value differ
+        bool trueChange();
+
+    private:
+        /// @brief container for traffic light logic
+        NBTrafficLightLogicCont& myTllcont;
+
+        /// @brief replaced NBEdge
+        NBEdge* myReplaced;
+
+        /// @brief replaced by NBEdge
+        NBEdge* myBy;
+    };
 };

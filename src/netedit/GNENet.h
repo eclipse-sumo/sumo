@@ -63,7 +63,7 @@ public:
     ~GNENet();
 
     /// @brief retrieve all attribute carriers of Net
-    GNENetHelper::AttributeCarriers& getAttributeCarriers();
+    GNENetHelper::AttributeCarriers* getAttributeCarriers() const;
 
     /// @brief obtain instance of PathCalculator
     GNENetHelper::PathCalculator* getPathCalculator();
@@ -736,7 +736,7 @@ protected:
     NBNetBuilder* myNetBuilder;
 
     /// @brief AttributeCarriers of net
-    GNENetHelper::AttributeCarriers myAttributeCarriers;
+    GNENetHelper::AttributeCarriers *myAttributeCarriers;
 
     /// @brief PathCalculator instance
     GNENetHelper::PathCalculator* myPathCalculator;
@@ -887,57 +887,6 @@ private:
 
     /// @brief flag used to indicate if shaped created can be undo
     bool myAllowUndoShapes;
-
-    /// @brief class for GNEChange_ReplaceEdgeInTLS
-    class GNEChange_ReplaceEdgeInTLS : public GNEChange {
-        FXDECLARE_ABSTRACT(GNEChange_ReplaceEdgeInTLS)
-
-    public:
-        /// @brief constructor
-        GNEChange_ReplaceEdgeInTLS(NBTrafficLightLogicCont& tllcont, NBEdge* replaced, NBEdge* by) :
-            GNEChange(true),
-            myTllcont(tllcont),
-            myReplaced(replaced),
-            myBy(by) { }
-
-        /// @bief destructor
-        ~GNEChange_ReplaceEdgeInTLS() {};
-
-        /// @brief undo name
-        FXString undoName() const {
-            return "Redo replace in TLS";
-        }
-
-        /// @brief get Redo name
-        FXString redoName() const {
-            return "Undo replace in TLS";
-        }
-
-        /// @brief undo action
-        void undo() {
-            myTllcont.replaceRemoved(myBy, -1, myReplaced, -1);
-        }
-
-        /// @brief redo action
-        void redo() {
-            myTllcont.replaceRemoved(myReplaced, -1, myBy, -1);
-        }
-
-        /// @brief wether original and new value differ
-        bool trueChange() {
-            return myReplaced != myBy;
-        }
-
-    private:
-        /// @brief container for traffic light logic
-        NBTrafficLightLogicCont& myTllcont;
-
-        /// @brief replaced NBEdge
-        NBEdge* myReplaced;
-
-        /// @brief replaced by NBEdge
-        NBEdge* myBy;
-    };
 
     /// @brief Invalidated copy constructor.
     GNENet(const GNENet&) = delete;

@@ -69,7 +69,7 @@ GNEChange_Attribute::~GNEChange_Attribute() {
         // Check if attribute carrier is a shape
         if (myAC->getTagProperty().isShape()) {
             // remove shape using specific functions
-            myNet->getAttributeCarriers().removeShape(dynamic_cast<GNEShape*>(myAC));
+            myNet->getAttributeCarriers()->removeShape(dynamic_cast<GNEShape*>(myAC));
         } else {
             delete myAC;
         }

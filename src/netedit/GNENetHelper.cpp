@@ -465,4 +465,48 @@ GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass v
     }
 }
 
+// ---------------------------------------------------------------------------
+// GNENetHelper::GNEChange_ReplaceEdgeInTLS - methods
+// ---------------------------------------------------------------------------
+
+GNENetHelper::GNEChange_ReplaceEdgeInTLS::GNEChange_ReplaceEdgeInTLS(NBTrafficLightLogicCont& tllcont, NBEdge* replaced, NBEdge* by) :
+    GNEChange(true),
+    myTllcont(tllcont),
+    myReplaced(replaced),
+    myBy(by) {
+}
+
+
+GNENetHelper::GNEChange_ReplaceEdgeInTLS::~GNEChange_ReplaceEdgeInTLS() {};
+
+
+FXString 
+GNENetHelper::GNEChange_ReplaceEdgeInTLS::undoName() const {
+    return "Redo replace in TLS";
+}
+
+
+FXString 
+GNENetHelper::GNEChange_ReplaceEdgeInTLS::redoName() const {
+    return "Undo replace in TLS";
+}
+
+
+void 
+GNENetHelper::GNEChange_ReplaceEdgeInTLS::undo() {
+    myTllcont.replaceRemoved(myBy, -1, myReplaced, -1);
+}
+
+
+void 
+GNENetHelper::GNEChange_ReplaceEdgeInTLS::redo() {
+    myTllcont.replaceRemoved(myReplaced, -1, myBy, -1);
+}
+
+
+bool 
+GNENetHelper::GNEChange_ReplaceEdgeInTLS::trueChange() {
+    return myReplaced != myBy;
+}
+
 /****************************************************************************/

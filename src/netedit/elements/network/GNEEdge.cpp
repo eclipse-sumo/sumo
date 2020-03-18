@@ -1596,7 +1596,7 @@ void
 GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers().updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_FROM:
             myNet->changeEdgeEndpoints(this, value, myGNEJunctionDestiny->getID());

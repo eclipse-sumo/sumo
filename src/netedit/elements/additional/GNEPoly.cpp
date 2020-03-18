@@ -74,7 +74,7 @@ GNEPoly::getID() const {
 
 std::string
 GNEPoly::generateChildID(SumoXMLTag childTag) {
-    int counter = myNet->getAttributeCarriers().getPolygons().size();
+    int counter = myNet->getAttributeCarriers()->getPolygons().size();
     while (myNet->retrievePolygon(getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }
@@ -801,7 +801,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID: {
             // note: getAttributeCarriers().updateID doesn't change Microsim ID in GNEShapes 
-            myNet->getAttributeCarriers().updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             // set microsim ID
             setMicrosimID(value);
             // set named ID

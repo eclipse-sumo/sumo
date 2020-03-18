@@ -326,7 +326,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-            myViewNet->getNet()->getAttributeCarriers().updateID(this, value);
+            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
             replaceParentEdges(this, value);
             break;
         case SUMO_ATTR_BEGIN:

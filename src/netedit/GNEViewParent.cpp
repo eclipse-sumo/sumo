@@ -456,24 +456,24 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserVehicles->setFocus();
                 } else {
                     // reserve memory
-                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VEHICLE).size() +
-                                        viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_TRIP).size() +
-                                        viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTEFLOW).size() +
-                                        viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_FLOW).size());
+                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_VEHICLE).size() +
+                                        viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_TRIP).size() +
+                                        viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_ROUTEFLOW).size() +
+                                        viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_FLOW).size());
                     // fill ACsToLocate with vehicles
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VEHICLE)) {
+                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_VEHICLE)) {
                         ACsToLocate.push_back(i.second);
                     }
                     // fill ACsToLocate with vehicles
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_TRIP)) {
+                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_TRIP)) {
                         ACsToLocate.push_back(i.second);
                     }
                     // fill ACsToLocate with routeFlows
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTEFLOW)) {
+                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_ROUTEFLOW)) {
                         ACsToLocate.push_back(i.second);
                     }
                     // fill ACsToLocate with routeFlowsFromTo
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_FLOW)) {
+                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_FLOW)) {
                         ACsToLocate.push_back(i.second);
                     }
                     myACChoosers.ACChooserVehicles = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), "Vehicle Chooser", ACsToLocate);
@@ -486,14 +486,14 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserPersons->setFocus();
                 } else {
                     // reserve memory
-                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSON).size() +
-                                        viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONFLOW).size());
+                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_PERSON).size() +
+                                        viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_PERSONFLOW).size());
                     // fill ACsToLocate with persons
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSON)) {
+                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_PERSON)) {
                         ACsToLocate.push_back(i.second);
                     }
                     // fill ACsToLocate with personFlows
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONFLOW)) {
+                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_PERSONFLOW)) {
                         ACsToLocate.push_back(i.second);
                     }
                     myACChoosers.ACChooserPersons = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), "Person Chooser", ACsToLocate);
@@ -506,9 +506,9 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserRoutes->setFocus();
                 } else {
                     // reserve memory
-                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).size());
+                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_ROUTE).size());
                     // fill ACsToLocate with routes
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE)) {
+                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_ROUTE)) {
                         ACsToLocate.push_back(i.second);
                     }
                     myACChoosers.ACChooserRoutes = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), "Route Chooser", ACsToLocate);
@@ -521,29 +521,29 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserStops->setFocus();
                 } else {
                     // reserve memory
-                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_LANE).size() +
-                                        viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_BUSSTOP).size() +
-                                        viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_CONTAINERSTOP).size() +
-                                        viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_CHARGINGSTATION).size() +
-                                        viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_PARKINGAREA).size());
+                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_LANE).size() +
+                                        viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_BUSSTOP).size() +
+                                        viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_CONTAINERSTOP).size() +
+                                        viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_CHARGINGSTATION).size() +
+                                        viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_PARKINGAREA).size());
                     // fill ACsToLocate with stop over lanes
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_LANE)) {
+                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_LANE)) {
                         ACsToLocate.push_back(i.second);
                     }
                     // fill ACsToLocate with stop over busstops
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_BUSSTOP)) {
+                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_BUSSTOP)) {
                         ACsToLocate.push_back(i.second);
                     }
                     // fill ACsToLocate with stop over container stops
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_CONTAINERSTOP)) {
+                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_CONTAINERSTOP)) {
                         ACsToLocate.push_back(i.second);
                     }
                     // fill ACsToLocate with stop over charging stations
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_CHARGINGSTATION)) {
+                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_CHARGINGSTATION)) {
                         ACsToLocate.push_back(i.second);
                     }
                     // fill ACsToLocate with stop over parking areas
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_PARKINGAREA)) {
+                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->demandElements.at(SUMO_TAG_STOP_PARKINGAREA)) {
                         ACsToLocate.push_back(i.second);
                     }
                     myACChoosers.ACChooserStops = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), "Stop Chooser", ACsToLocate);
@@ -588,7 +588,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserPOI->setFocus();
                 } else {
                     // fill ACsToLocate with POIs
-                    for (auto i : viewNet->getNet()->getAttributeCarriers().getPOIs()) {
+                    for (auto i : viewNet->getNet()->getAttributeCarriers()->getPOIs()) {
                         ACsToLocate.push_back(dynamic_cast<GNEAttributeCarrier*>(i.second));
                     }
                     myACChoosers.ACChooserPOI = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), "POI Chooser", ACsToLocate);
@@ -601,7 +601,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserPolygon->setFocus();
                 } else {
                     // fill ACsToLocate with polys
-                    for (auto i : viewNet->getNet()->getAttributeCarriers().getPolygons()) {
+                    for (auto i : viewNet->getNet()->getAttributeCarriers()->getPolygons()) {
                         ACsToLocate.push_back(dynamic_cast<GNEAttributeCarrier*>(i.second));
                     }
                     myACChoosers.ACChooserPolygon = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), "Poly Chooser", ACsToLocate);

@@ -34,7 +34,7 @@
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", false,
         {}, {}, {}, 
-            {rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAttributeCarriers().additionals.at(SUMO_TAG_PARKING_AREA).begin()->second},
+            {rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAttributeCarriers()->additionals.at(SUMO_TAG_PARKING_AREA).begin()->second},
         {}, {}, {}, {}, {}, {}, {}, {}) {
     // fill route type with default values
     setDefaultValues();
@@ -196,7 +196,7 @@ void
 GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers().updateID(this, value);
+            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_PARKING:
             replaceParentAdditional(this, value, 1);

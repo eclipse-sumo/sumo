@@ -139,7 +139,7 @@ GNEStopFrame::show() {
     bool validStopParent = false;
     // check if at least there an item that supports an stop
     for (auto i = myStopParentSelector->getAllowedTags().begin(); (i != myStopParentSelector->getAllowedTags().end()) && (validStopParent == false); i++) {
-        if (myViewNet->getNet()->getAttributeCarriers().demandElements.at(*i).size() > 0) {
+        if (myViewNet->getNet()->getAttributeCarriers()->demandElements.at(*i).size() > 0) {
             validStopParent = true;
         }
     }

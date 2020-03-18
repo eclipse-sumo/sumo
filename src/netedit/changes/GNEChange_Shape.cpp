@@ -51,7 +51,7 @@ GNEChange_Shape::~GNEChange_Shape() {
             // all polygons are placed in RTREE
             myNet->removeGLObjectFromGrid(dynamic_cast<GUIGlObject*>(myShape));
             // remove polygon from AttributeCarreirs
-            myNet->getAttributeCarriers().removeShape(myShape);
+            myNet->getAttributeCarriers()->removeShape(myShape);
             // Remove element from parents and children
             removeShape(myShape);
         } else if (myNet->retrievePOI(myShape->getID(), false) != nullptr) {
@@ -62,7 +62,7 @@ GNEChange_Shape::~GNEChange_Shape() {
                 myNet->removeGLObjectFromGrid(dynamic_cast<GUIGlObject*>(myShape));
             }
             // remove POI from AttributeCarreirs
-            myNet->getAttributeCarriers().removeShape(myShape);
+            myNet->getAttributeCarriers()->removeShape(myShape);
             // Remove element from parents and children
             removeShape(myShape);
         }
