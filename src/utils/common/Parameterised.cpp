@@ -31,25 +31,25 @@
 // ===========================================================================
 
 Parameterised::Parameterised() :
-    myAttrType(ATTRTYPE_STRING) {
+    myAttrType(ParameterisedAttrType::STRING) {
 }
 
 
-Parameterised::Parameterised(const ParameterisedAttrType attrType) :
+Parameterised::Parameterised(ParameterisedAttrType attrType) :
     myAttrType(attrType) {
 }
 
 
 Parameterised::Parameterised(const std::map<std::string, std::string>& mapArg) : 
-    myAttrType(ATTRTYPE_STRING),
+    myAttrType(ParameterisedAttrType::STRING),
     myMap(mapArg) {
 }
 
 
-Parameterised::Parameterised(const ParameterisedAttrType attrType, const std::map<std::string, std::string>& mapArg) : 
+Parameterised::Parameterised(ParameterisedAttrType attrType, const std::map<std::string, std::string>& mapArg) : 
     myAttrType(attrType) {
     // check if map has to be cleaned
-    if (myAttrType == ATTRTYPE_DOUBLE) {
+    if (myAttrType == ParameterisedAttrType::DOUBLE) {
         // iterate over map
         for (const auto &keyValue : mapArg) {
             try {
@@ -73,7 +73,7 @@ Parameterised::~Parameterised() {}
 
 void
 Parameterised::setParameter(const std::string& key, const std::string& value) {
-    if (myAttrType == ATTRTYPE_DOUBLE) {
+    if (myAttrType == ParameterisedAttrType::DOUBLE) {
         try {
             // try to parse to do double, and if fails, write warning
             StringUtils::toDouble(value);
@@ -237,7 +237,7 @@ Parameterised::areParametersValid(const std::string& value, bool report,
 // ===========================================================================
 
 bool
-Parameterised::isParameterValid(const std::string& value, const ParameterisedAttrType attrType, 
+Parameterised::isParameterValid(const std::string& value, ParameterisedAttrType attrType, 
     const std::string &kvsep, const std::string &sep) {
     if (value.find(sep) != std::string::npos || value.find(kvsep) == std::string::npos) {
         return false;
@@ -251,7 +251,7 @@ Parameterised::isParameterValid(const std::string& value, const ParameterisedAtt
             return false;
         } else if (SUMOXMLDefinitions::isValidParameterValue(keyValueStr.back()) == false) {
             return false;
-        } else if (attrType == ATTRTYPE_DOUBLE) {
+        } else if (attrType == ParameterisedAttrType::DOUBLE) {
             // check if can be parsed to double
             try {
                 StringUtils::toDouble(keyValueStr.back());
