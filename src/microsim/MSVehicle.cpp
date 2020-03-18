@@ -5435,7 +5435,6 @@ MSVehicle::getDistanceToPosition(double destPos, const MSEdge* destEdge) const {
     return distance;
 }
 
-
 std::pair<const MSVehicle* const, double>
 MSVehicle::getLeader(double dist) const {
     if (myLane == nullptr) {
@@ -5453,8 +5452,12 @@ MSVehicle::getLeader(double dist) const {
         lead = *(it + 1);
     }
     if (lead != nullptr) {
-        std::pair<const MSVehicle* const, double> result(
-            lead, lead->getBackPositionOnLane(myLane) - getPositionOnLane() - getVehicleType().getMinGap());
+        double gap = lead->getBackPositionOnLane(myLane) - getPositionOnLane() - getVehicleType().getMinGap();
+        if (gap > dist) {
+            lead = nullptr;
+            gap = -1;
+        }
+        std::pair<const MSVehicle* const, double> result(lead, gap);
         lane->releaseVehicles();
         return result;
     }
