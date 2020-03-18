@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar  5 10:18:36 2020 by Eclipse SUMO netconvert Version v1_5_0+0517-ca1f5da
+<!-- generated on Wed Mar 18 15:29:19 2020 by Eclipse SUMO netconvert Version v1_5_0+0822-2a1a910d54
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -265,6 +265,7 @@
         <railway.topology.repair.stop-turn value="false" type="BOOL" help="Add turn-around connections at all loaded stops."/>
         <railway.topology.all-bidi value="false" type="BOOL" help="Make all rails usable in both direction"/>
         <railway.topology.all-bidi.input-file value="" type="FILE" help="Make all rails edge ids from FILE usable in both direction"/>
+        <railway.topology.direction-priority value="false" type="BOOL" help="Set edge priority values based on estimated main direction"/>
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT" help="The search radius for finding suitable road accesses for rail stops"/>
         <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" type="INT" help="The maximum roud accesses registered per rail stops"/>
         <railway.access-factor value="1.5" synonymes="osm.stop-output.footway-access-factor" type="FLOAT" help="The walking length of the access is computed as air-line distance multiplied by FLOAT"/>

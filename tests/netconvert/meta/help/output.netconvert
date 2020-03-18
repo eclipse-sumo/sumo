@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_5_0+0517-ca1f5da
+Eclipse SUMO netconvert Version v1_5_0+0822-2a1a910d54
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -475,6 +475,8 @@ Railway Options:
   --railway.topology.all-bidi          Make all rails usable in both direction
   --railway.topology.all-bidi.input-file FILE  Make all rails edge ids from
                                          FILE usable in both direction
+  --railway.topology.direction-priority  Set edge priority values based on
+                                         estimated main direction
   --railway.access-distance FLOAT      The search radius for finding suitable
                                          road accesses for rail stops
   --railway.max-accesses INT           The maximum roud accesses registered per
