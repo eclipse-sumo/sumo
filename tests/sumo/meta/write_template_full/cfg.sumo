@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 17 15:31:00 2020 by Eclipse SUMO Version v1_5_0+0797-eb78355be9
+<!-- generated on Wed Mar 18 20:45:08 2020 by Eclipse SUMO Version v1_5_0+0827-486bd617ef
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -160,6 +160,7 @@
         <device.rerouting.threads value="0" type="INT" help="The number of parallel execution threads used for rerouting"/>
         <device.rerouting.synchronize value="false" type="BOOL" help="Let rerouting happen at the same time for all vehicles"/>
         <device.rerouting.railsignal value="true" type="BOOL" help="Allow rerouting triggered by rail signals."/>
+        <device.rerouting.priority-factor value="0" type="FLOAT" help="Consider edge priorities in addition to travel times, weighted by factor"/>
         <device.rerouting.output value="" type="FILE" help="Save adapting weights to FILE"/>
         <person-device.rerouting.probability value="-1" type="FLOAT" help="The probability for a person to have a &apos;rerouting&apos; device"/>
         <person-device.rerouting.explicit value="" synonymes="person-device.rerouting.knownveh" type="STR[]" help="Assign a &apos;rerouting&apos; device to named persons"/>

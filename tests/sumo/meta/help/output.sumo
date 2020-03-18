@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_5_0+0797-eb78355be9
+Eclipse SUMO Version v1_5_0+0827-486bd617ef
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -315,6 +315,9 @@ Routing Options:
                                          for all vehicles
   --device.rerouting.railsignal        Allow rerouting triggered by rail
                                          signals.
+  --device.rerouting.priority-factor FLOAT  Consider edge priorities in
+                                         addition to travel times, weighted by
+                                         factor
   --device.rerouting.output FILE       Save adapting weights to FILE
   --person-device.rerouting.probability FLOAT  The probability for a person to
                                          have a 'rerouting' device
