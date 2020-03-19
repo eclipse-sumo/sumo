@@ -15,7 +15,8 @@ permalink: /ChangeLog/
   - Removed invalid warning for public transport users. Issue #6698
   - Fixed invalid right-of-way at traffic light junctions with right-turn-on-red rules. Issue #6068
   - Fixed bug that caused junction collisions to go unnoticed. Issue #6779  
-  - Stopping duration no longer exceeds the planned duration/until time by one simulation step. Issue #6755 
+  - Stopping duration no longer exceeds the planned duration/until time by one simulation step. Issue #6755
+  - ACC model no longer uses double minGap when queued. Issue #6728
   - Railway fixes:
     - Train reversal problems. Issue #6692, #6782, #6797
     - Train routing now considers space requirement for train reversal. Issue #6697, #6743, #6799
@@ -24,8 +25,7 @@ permalink: /ChangeLog/
     - CarFollowModel 'rail' now correctly uses minGap. Issue #6796
     - Invalid stop position after splitting train. Issue #6788
     - Rail signal allows entering occupied block for joining trains. Issue #6794
-    - Joining trains with different minGap values. Issue #6795
-    - Train can now be joined in reverse order (rear part id is kept). Issue #6803    
+    - Joining trains with different minGap values. Issue #6795   
     
 - MESO
   - Calibrator attribute `vTypes` is now working. Issue #6702
@@ -35,8 +35,10 @@ permalink: /ChangeLog/
 - SUMO-GUI
   - Fixed layout of meso edge parameter dialog at high occupancy (regression in 1.5.0)
   - Fixed crash when simulation ends while tracking person attributes. Issue #6784
+  - Fixed missing stop annotations in 'show-route' mode. Issue #6814
 - NETEDIT
   - Fixed empty route id when creating route from non-consecutive edges with custom id. Issue #6722
+  - Fixed invalid displayed connection attribute. Issue #6760
 - DUAROUTER
   - Attribute `group` of `<ride>` and `<personTrip>` is no longer lost. Issue #6555
   - Train routing now considers space requirement for train reversal. Issue #6697
@@ -60,7 +62,13 @@ permalink: /ChangeLog/
   - Tripinfo-output attribute vaporized now includes specific description for premature vehicle removal (collision, traci, calibrator, ...). Issue #6718
   - Added option **--statistic-output** to write [various statistics](Simulation/Output.md#commandline_output_verbose) in XML format. Issue #3751
   - vType attribute 'lcSigma' now always affect lateral position (previously, only sublane model and continuous lanechange modle were affected).
+  - Option **--save-state.times** now accepts human-readable time. Issue #6810
+  - Added new 'device.toc' parameters ['mrmSafeSpot' and 'mrmSafeSpotDuration'](ToC_Device.md) to control the behavior during minimum-risk maneuvers. Issue #6157
+  - Added option **--vehroute-output.stop-edges** to record the edges that were driven ahead of stop as part of the vehroute output. Issue #6815
+  - Added option **--device.rerouting.priority-factor** to factor the priority of edges into the routing decision with a configurable weight (edges with higher priority are preferred increaslingly when setting this to a higher value). An application for this is [railway routing]((Simulation/Railways.md#routing_on_bidirectional_tracks)). Issue #6812
   - Automatic train rerouting by rail signal logic can now be disabled by setting option **--device.rerouting.railsignal false** as well as by vehicle and vType parameters (key="device.rerouting.railsignal"). Issue #6781
+  - Trains can now be joined in reverse order (rear part id is kept). Issue #6803 
+      
 - NETEDIT
   - Added new 'Data Mode' to edit files with edge and turn-related data. Issue #6461
   - Traffic light phase editing function 'Insert Phase' now takes successive green states into account when synthesizing transition phases. Issue #6732
@@ -69,11 +77,13 @@ permalink: /ChangeLog/
   - `<edgeRelation>`-data files can now be visualized. Issue #6659
   - Traffic lights of type 'delay_based' can now dynamically toggle detector visualization.
   - Train reversals are now indicated when ''Show Route'' is active. Issue #6744
+  - Vehicles can now be colored by 'by stop delay'. This computes the estimated departure delay at the next `<stop>` with an 'until' attribute. Issue #6821
 - NETCONVERT
   - Edge attribute `spreadType` now supports value `roadCenter` which aligns edges with common geometry so that the geometry reflects the middle of the road regardless of differences in lane numbers (causing natural alignment for turning lanes). Issue #1758
   - Added option **--default.spreadtype** to set the default spread type for edges. Issue #6662
   - Connections now support attribute ''length'' to customize the length of internal lanes. Issue #6733
   - Added option **--default.connection-length** to overwrite the length of internal lanes with a specific value. Issue #6733
+  - Added option **--railway.topology.direction-priority** to assign edge priority values based on the [preferred track usage direction](Simulation/Railways.md#routing_on_bidirectional_tracks) (determined heuristically from uni-directional track).
 - TraCI
   - [Meso simulation](Simulation/Meso.md) now supports TraCI
   - Parking vehicles are now picked up by context subscriptions. Issue #6785
@@ -82,6 +92,7 @@ permalink: /ChangeLog/
   - added osmWebWizard option to import a simplified network that is only for cars. Issue #6595
   - [matsim_importPlans.py](Tools/Import/MATSim.md#matsim_importplanspy) now supports alternative input dialects and sorts its output.  
   - added new tool [net2kml.py](Tools/Net.md#net2kmlpy) to convert sumo networks to KML
+  - Function sumolib.net.getShortestPath can now penalize train reversals using the optional argument 'reversalPenalty'
   - [routeSampler.py](Tools/Turns.md#routesampler.py) improvements
     - supports loading multiple data intervals. Data aggregation can be customized using options **--begin**, **--end**, **--interval**
     - supports loading multiple files (routes, edgedata, turns). The corresponding options were renamed accordingly (**--route-files, --edgedata-files, --turn-files**)
