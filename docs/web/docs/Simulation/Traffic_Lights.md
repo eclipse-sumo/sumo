@@ -201,7 +201,9 @@ The following signal colors are used:
 
 
 ![traci_tutorial_tls.png](../images/Traci_tutorial_tls.png
-"traci_tutorial_tls.png")Example: traffic light with the current state
+"traci_tutorial_tls.png")
+
+Example: traffic light with the current state
 **"GrGr"**. The leftmost letter "G" encodes the green light for link 0,
 followed by red for link 1, green for link 2 and red for link 3. The
 link numbers are enabled via [SUMO-GUI settings](../SUMO-GUI.md) by
