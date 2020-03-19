@@ -32,11 +32,11 @@ class GNEPolygonFrame : public GNEFrame {
 public:
 
     /// @brief enum with all possible values after try to create an shape using frame
-    enum AddShapeResult {
-        ADDSHAPE_SUCCESS,               // Shape was successfully created
-        ADDSHAPE_UPDATEDTEMPORALSHAPE,  // Added or removed a new point to temporal shape
-        ADDSHAPE_INVALID,               // Shape wasn't created
-        ADDSHAPE_NOTHING                // Nothing to do
+    enum class AddShape {
+        SUCCESS,                // Shape was successfully created
+        UPDATEDTEMPORALSHAPE,   // Added or removed a new point to temporal shape
+        INVALID,                // Shape wasn't created
+        NOTHING                 // Nothing to do
     };
 
     // ===========================================================================
@@ -115,7 +115,7 @@ public:
     * @param[in] ObjectsUnderCursor objects under cursor after click over view
     * @return AddShapeStatus with the result of operation
     */
-    AddShapeResult processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    GNEPolygonFrame::AddShape processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get list of selecte id's in string format
     static std::string getIdsSelected(const FXList* list);

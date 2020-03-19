@@ -190,7 +190,7 @@ GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) 
             }
             GeoConvHelper::getFinal().x2cartesian_const(geoPos);
             valuesMap[SUMO_ATTR_POSITION] = toString(geoPos);
-            // return ADDSHAPE_SUCCESS if POI was sucesfully created
+            // return AddShape::SUCCESS if POI was sucesfully created
             if (myPolygonFrameParent->addPOI(valuesMap)) {
                 // check if view has to be centered over created GEO POI
                 if (myCenterViewAfterCreationCheckButton->getCheck() == TRUE) {
@@ -251,7 +251,7 @@ GNEPolygonFrame::show() {
 }
 
 
-GNEPolygonFrame::AddShapeResult
+GNEPolygonFrame::AddShape
 GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesMap;
@@ -260,7 +260,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         // show warning dialogbox and stop if input parameters are invalid
         if (myShapeAttributes->areValuesValid() == false) {
             myShapeAttributes->showWarningMessage();
-            return ADDSHAPE_INVALID;
+            return AddShape::INVALID;
         }
         // obtain shape attributes and values
         valuesMap = myShapeAttributes->getAttributesAndValues(true);
@@ -274,24 +274,24 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         valuesMap[SUMO_ATTR_POSITION] = toString(clickedPosition);
         // set GEO Position as false (because we have created POI clicking over View
         valuesMap[SUMO_ATTR_GEO] = "false";
-        // return ADDSHAPE_SUCCESS if POI was sucesfully created
+        // return AddShape::SUCCESS if POI was sucesfully created
         if (addPOI(valuesMap)) {
             // refresh shape attributes
             myShapeAttributes->refreshRows();
-            return ADDSHAPE_SUCCESS;
+            return AddShape::SUCCESS;
         } else {
-            return ADDSHAPE_INVALID;
+            return AddShape::INVALID;
         }
     } else if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POILANE) {
         // abort if lane is nullptr
         if (objectsUnderCursor.getLaneFront() == nullptr) {
             WRITE_WARNING(toString(SUMO_TAG_POILANE) + " can be only placed over lanes");
-            return ADDSHAPE_INVALID;
+            return AddShape::INVALID;
         }
         // show warning dialogbox and stop if input parameters are invalid
         if (myShapeAttributes->areValuesValid() == false) {
             myShapeAttributes->showWarningMessage();
-            return ADDSHAPE_INVALID;
+            return AddShape::INVALID;
         }
         // obtain shape attributes and values
         valuesMap = myShapeAttributes->getAttributesAndValues(true);
@@ -305,13 +305,13 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         valuesMap[SUMO_ATTR_LANE] = objectsUnderCursor.getLaneFront()->getID();
         // obtain position over lane
         valuesMap[SUMO_ATTR_POSITION] = toString(objectsUnderCursor.getLaneFront()->getLaneShape().nearest_offset_to_point2D(clickedPosition));
-        // return ADDSHAPE_SUCCESS if POI was sucesfully created
+        // return AddShape::SUCCESS if POI was sucesfully created
         if (addPOILane(valuesMap)) {
             // refresh shape attributes
             myShapeAttributes->refreshRows();
-            return ADDSHAPE_SUCCESS;
+            return AddShape::SUCCESS;
         } else {
-            return ADDSHAPE_INVALID;
+            return AddShape::INVALID;
         }
     } else if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POLY) {
         if (myDrawingShape->isDrawing()) {
@@ -321,14 +321,14 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
             } else {
                 myDrawingShape->addNewPoint(clickedPosition);
             }
-            return ADDSHAPE_UPDATEDTEMPORALSHAPE;
+            return AddShape::UPDATEDTEMPORALSHAPE;
         } else {
-            // return ADDSHAPE_NOTHING if is drawing isn't enabled
-            return ADDSHAPE_NOTHING;
+            // return AddShape::NOTHING if is drawing isn't enabled
+            return AddShape::NOTHING;
         }
     } else {
         myViewNet->setStatusBarText("Current selected shape isn't valid.");
-        return ADDSHAPE_INVALID;
+        return AddShape::INVALID;
     }
 }
 
