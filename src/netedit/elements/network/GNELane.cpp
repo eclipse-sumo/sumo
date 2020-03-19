@@ -349,10 +349,16 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     // Push name
     glPushName(getGlID());
-    // push GL Name of generic datas
-    for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
-        if (edgeGenericData->isGenericDataVisible()) {
-            glPushName(edgeGenericData->getGlID());
+    // push GL Name of edgeDatas
+    for (const auto& edgeData : myParentEdge->getChildGenericDataElements()) {
+        if ((edgeData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && edgeData->isGenericDataVisible()) {
+            glPushName(edgeData->getGlID());
+        }
+    }
+    // push GL Name of edgeRelDatas
+    for (const auto& edgeRelData : myParentEdge->getPathGenericDataElementChilds()) {
+        if ((edgeRelData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) && edgeRelData->isGenericDataVisible()) {
+            glPushName(edgeRelData->getGlID());
         }
     }
     // Traslate to front
@@ -370,8 +376,14 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop Lane Name
         glPopName();
         // pop GL Name of generic datas
-        for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
-            if (edgeGenericData->isGenericDataVisible()) {
+        for (const auto& edgeData : myParentEdge->getChildGenericDataElements()) {
+            if ((edgeData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && edgeData->isGenericDataVisible()) {
+                glPopName();
+            }
+        }
+        // pop GL Name of edgeRelDatas
+        for (const auto& edgeRelData : myParentEdge->getPathGenericDataElementChilds()) {
+            if ((edgeRelData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) && edgeRelData->isGenericDataVisible()) {
                 glPopName();
             }
         }
@@ -387,12 +399,22 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop Lane Name
         glPopName();
         // pop GL Name of generic datas
-        for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
-            if (edgeGenericData->isGenericDataVisible()) {
+        for (const auto& edgeData : myParentEdge->getChildGenericDataElements()) {
+            if ((edgeData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && edgeData->isGenericDataVisible()) {
                 glPopName();
                 if (myIndex == 0) {
                     // draw attribute in first lane
-                    edgeGenericData->drawAttribute(myLaneGeometry.getShape());
+                    edgeData->drawAttribute(myLaneGeometry.getShape());
+                }
+            }
+        }
+        // pop GL Name of edgeRelDatas
+        for (const auto& edgeRelData : myParentEdge->getPathGenericDataElementChilds()) {
+            if ((edgeRelData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) && edgeRelData->isGenericDataVisible()) {
+                glPopName();
+                if (myIndex == 0) {
+                    // draw attribute in first lane
+                    edgeRelData->drawAttribute(myLaneGeometry.getShape());
                 }
             }
         }
@@ -540,12 +562,22 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop Lane Name
         glPopName();
         // pop GL Name of generic datas
-        for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
-            if (edgeGenericData->isGenericDataVisible()) {
+        for (const auto& edgeData : myParentEdge->getChildGenericDataElements()) {
+            if ((edgeData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && edgeData->isGenericDataVisible()) {
                 glPopName();
                 if (myIndex == 0) {
                     // draw attribute in first lane
-                    edgeGenericData->drawAttribute(myLaneGeometry.getShape());
+                    edgeData->drawAttribute(myLaneGeometry.getShape());
+                }
+            }
+        }
+        // pop GL Name of edgeRelDatas
+        for (const auto& edgeRelData : myParentEdge->getPathGenericDataElementChilds()) {
+            if ((edgeRelData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) && edgeRelData->isGenericDataVisible()) {
+                glPopName();
+                if (myIndex == 0) {
+                    // draw attribute in first lane
+                    edgeRelData->drawAttribute(myLaneGeometry.getShape());
                 }
             }
         }
@@ -1137,12 +1169,22 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
         color = s.laneColorer.getSchemes()[0].getColor(8);
     }
     // check if we have to change color if parent edge has generic data elements
-    for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
-        if (edgeGenericData->isGenericDataVisible()) {
-            if (edgeGenericData->isAttributeCarrierSelected()) {
+    for (const auto& edgeRelData : myParentEdge->getPathGenericDataElementChilds()) {
+        if (edgeRelData->isGenericDataVisible()) {
+            if (edgeRelData->isAttributeCarrierSelected()) {
                 color = s.colorSettings.selectedEdgeDataColor;
             } else {
-                color = edgeGenericData->getColor();
+                color = edgeRelData->getColor();
+            }
+        }
+    }
+    // check if we have to change color if parent edge has generic data elements
+    for (const auto& edgeData : myParentEdge->getChildGenericDataElements()) {
+        if (edgeData->isGenericDataVisible()) {
+            if (edgeData->isAttributeCarrierSelected()) {
+                color = s.colorSettings.selectedEdgeDataColor;
+            } else {
+                color = edgeData->getColor();
             }
         }
     }

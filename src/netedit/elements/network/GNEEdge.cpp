@@ -1444,6 +1444,12 @@ GNEEdge::removePathElement(GNEGenericData* pathElementChild) {
 }
 
 
+const std::vector<GNEGenericData*> &
+GNEEdge::getPathGenericDataElementChilds() const {
+    return myPathGenericDataElementChilds;
+}
+
+
 void
 GNEEdge::invalidatePathChildElements() {
     // make a copy of myPathDemandElementsElementChilds

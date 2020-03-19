@@ -317,6 +317,9 @@ public:
     /// @brief remove path element (Only used by GNEHierarchicalParentElements::changeRouteEdges)
     void removePathElement(GNEGenericData* pathElementChild);
 
+    /// @brief get path GenericData element childs
+    const std::vector<GNEGenericData*> &getPathGenericDataElementChilds() const;
+
     /// @brief invalidate path element childs
     void invalidatePathChildElements();
 
