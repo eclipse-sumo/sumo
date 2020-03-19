@@ -1450,6 +1450,53 @@ GNEEdge::getPathGenericDataElementChilds() const {
 }
 
 
+void 
+GNEEdge::drawPathGenericDataElementChilds(const GUIVisualizationSettings& s) const {
+    for (const auto &genericData : myPathGenericDataElementChilds) {
+        // iterate over edges
+        for (int i = 0; i < (genericData->getPathEdges().size()-1); i++) {
+            if (genericData->isGenericDataVisible() && (genericData->getPathEdges().at(i) == this)) {
+                // obtain lanes edge
+                PositionVector laneShapeFromA = myLanes.front()->getLaneShape();
+                laneShapeFromA.move2side(myLanes.front()->getParentEdge()->getNBEdge()->getLaneWidth(myLanes.front()->getIndex()) / 2);
+                PositionVector laneShapeFromB = myLanes.back()->getLaneShape();
+                laneShapeFromB.move2side(-1*myLanes.back()->getParentEdge()->getNBEdge()->getLaneWidth(myLanes.back()->getIndex()) / 2);
+                PositionVector laneShapeToA = genericData->getPathEdges().at(i + 1)->getLanes().front()->getLaneShape();
+                laneShapeToA.move2side(genericData->getPathEdges().at(i + 1)->getLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(genericData->getPathEdges().at(i + 1)->getLanes().front()->getIndex()) / 2);
+                PositionVector laneShapeToB = genericData->getPathEdges().at(i + 1)->getLanes().back()->getLaneShape();
+                laneShapeToB.move2side(-1 * genericData->getPathEdges().at(i + 1)->getLanes().back()->getParentEdge()->getNBEdge()->getLaneWidth(genericData->getPathEdges().at(i + 1)->getLanes().back()->getIndex()) / 2);
+                // push name
+                glPushName(genericData->getGlID());
+                // push matrix
+                glPushMatrix();
+                // set color
+                if (genericData->isAttributeCarrierSelected()) {
+                    GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
+                } else {
+                    GLHelper::setColor(genericData->getColor());
+                }
+                // draw shape
+                glPushMatrix();
+                glTranslated(0, 0, genericData->getType());
+                //glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
+                //glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
+                //glScaled(E1Exaggeration, E1Exaggeration, 1);
+                glBegin(GL_QUADS);
+                glVertex2d(laneShapeFromA.back().x(), laneShapeFromA.back().y());
+                glVertex2d(laneShapeFromB.back().x(), laneShapeFromB.back().y());
+                glVertex2d(laneShapeToB.front().x(), laneShapeToB.front().y());
+                glVertex2d(laneShapeToA.front().x(), laneShapeToA.front().y());
+                glEnd();
+                // pop matrix
+                glPopMatrix();
+                // pop name
+                glPopName();
+            }
+        }
+    }
+}
+
+
 void
 GNEEdge::invalidatePathChildElements() {
     // make a copy of myPathDemandElementsElementChilds

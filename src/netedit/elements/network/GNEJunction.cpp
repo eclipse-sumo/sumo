@@ -345,6 +345,10 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     }
                     glPopMatrix();
                 }
+                // draw edgeRelDatas
+                for (const auto &incomingEdge : myGNEIncomingEdges) {
+                    incomingEdge->drawPathGenericDataElementChilds(s);
+                }
             }
             // check if bubble has to be drawn
             if (drawBubble) {

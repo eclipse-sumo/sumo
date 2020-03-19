@@ -320,6 +320,9 @@ public:
     /// @brief get path GenericData element childs
     const std::vector<GNEGenericData*> &getPathGenericDataElementChilds() const;
 
+    /// @brief draw connection between two edges 
+    void drawPathGenericDataElementChilds(const GUIVisualizationSettings& s) const;
+
     /// @brief invalidate path element childs
     void invalidatePathChildElements();
 
