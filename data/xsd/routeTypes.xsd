@@ -704,6 +704,7 @@
         <xsd:attribute name="startPos" type="xsd:float"/>
         <xsd:attribute name="endPos" type="xsd:float"/>
         <xsd:attribute name="friendlyPos" type="boolType"/>
+        <xsd:attribute name="arrival" type="timeType"/>
         <xsd:attribute name="duration" type="timeType"/>
         <xsd:attribute name="until" type="timeType"/>
         <xsd:attribute name="extension" type="timeType"/>
