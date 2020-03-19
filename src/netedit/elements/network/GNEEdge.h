@@ -235,6 +235,18 @@ public:
      */
     void setGeometry(PositionVector geom, bool inner);
 
+    /// @brief get front up shape position
+    const Position getFrontUpShapePosition() const;
+
+    /// @brief get front down shape position
+    const Position getFrontDownShapePosition() const;
+
+    /// @brief get back up shape position
+    const Position getBackUpShapePosition() const;
+
+    /// @brief get back down shape position
+    const Position getBackDownShapePosition() const;
+
     /// @brief remake connections
     void remakeGNEConnections();
 
@@ -310,9 +322,6 @@ public:
 
     /// @brief remove path element (Only used by GNEHierarchicalParentElements::changeRouteEdges)
     void removePathElement(GNEDemandElement* pathElementChild);
-
-    /// @brief draw connection between two edges 
-    void drawPathGenericDataElementChilds(const GUIVisualizationSettings& s) const;
 
     /// @brief invalidate path element childs
     void invalidatePathChildElements();

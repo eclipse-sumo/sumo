@@ -27,12 +27,12 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/changes/GNEChange_TLS.h>
+#include <netedit/elements/additional/GNEAdditional.h>
+#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
-#include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -346,9 +346,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     glPopMatrix();
                 }
                 // draw edgeRelDatas
-                for (const auto &incomingEdge : myGNEIncomingEdges) {
-                    incomingEdge->drawPathGenericDataElementChilds(s);
-                }
+                drawPathGenericDataElementChilds(s);
             }
             // check if bubble has to be drawn
             if (drawBubble) {
@@ -1365,6 +1363,66 @@ GNEJunction::drawDemandElements(const GUIVisualizationSettings& s, const GNEEdge
         }
         if (edge->getChildDemandElementsByType(SUMO_TAG_RIDE_BUSSTOP).size() > 0) {
             edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_RIDE_BUSSTOP).front(), nullptr);
+        }
+    }
+}
+
+
+void
+GNEJunction::drawPathGenericDataElementChilds(const GUIVisualizationSettings& s) const {
+    // iterate over incoming edges
+    for (const auto& incomingEdge : myGNEIncomingEdges) {
+        for (const auto &genericData : incomingEdge->getChildGenericDataElements()) {
+            // check if incomingEdge correspond to edgeRel from edge
+            if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) &&
+                (genericData->getAttribute(SUMO_ATTR_FROM) == incomingEdge->getID())) {
+                // get To edge
+                const GNEEdge *edgeTo = genericData->getParentEdges().back();
+                // get the four points
+                const Position positionA = incomingEdge->getBackDownShapePosition();
+                const Position positionB = incomingEdge->getBackUpShapePosition();
+                const Position positionC = edgeTo->getFrontUpShapePosition();
+                const Position positionD = edgeTo->getFrontDownShapePosition();
+                // push name
+                glPushName(genericData->getGlID());
+                // push matrix
+                glPushMatrix();
+                // set color
+                if (genericData->isAttributeCarrierSelected()) {
+                    GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
+                } else {
+                    GLHelper::setColor(genericData->getColor());
+                }
+                // draw shape
+                glPushMatrix();
+                glTranslated(0, 0, genericData->getType());
+                glBegin(GL_QUADS);
+                glVertex2d(positionA.x(), positionA.y());
+                glVertex2d(positionB.x(), positionB.y());
+                glVertex2d(positionC.x(), positionC.y());
+                glVertex2d(positionD.x(), positionD.y());
+                glEnd();
+                // pop matrix
+                glPopMatrix();
+                // pop name
+                glPopName();
+                /*
+            // iterate over edges
+            for (int i = 0; i < (genericData->getPathEdges().size()-1); i++) {
+                if (genericData->isGenericDataVisible() && (genericData->getPathEdges().at(i) == this)) {
+                    // obtain lanes edge
+                    PositionVector laneShapeFromA = myLanes.front()->getLaneShape();
+                    laneShapeFromA.move2side(myLanes.front()->getParentEdge()->getNBEdge()->getLaneWidth(myLanes.front()->getIndex()) / 2);
+                    PositionVector laneShapeFromB = myLanes.back()->getLaneShape();
+                    laneShapeFromB.move2side(-1*myLanes.back()->getParentEdge()->getNBEdge()->getLaneWidth(myLanes.back()->getIndex()) / 2);
+                    PositionVector laneShapeToA = genericData->getPathEdges().at(i + 1)->getLanes().front()->getLaneShape();
+                    laneShapeToA.move2side(genericData->getPathEdges().at(i + 1)->getLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(genericData->getPathEdges().at(i + 1)->getLanes().front()->getIndex()) / 2);
+                    PositionVector laneShapeToB = genericData->getPathEdges().at(i + 1)->getLanes().back()->getLaneShape();
+                    laneShapeToB.move2side(-1 * genericData->getPathEdges().at(i + 1)->getLanes().back()->getParentEdge()->getNBEdge()->getLaneWidth(genericData->getPathEdges().at(i + 1)->getLanes().back()->getIndex()) / 2);
+    
+                }
+                */
+            }
         }
     }
 }
