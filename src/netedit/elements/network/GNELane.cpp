@@ -351,7 +351,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     // push GL Name of generic datas
     for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
-        if (edgeGenericData->isVisible()) {
+        if (edgeGenericData->isGenericDataVisible()) {
             glPushName(edgeGenericData->getGlID());
         }
     }
@@ -371,7 +371,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
         // pop GL Name of generic datas
         for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
-            if (edgeGenericData->isVisible()) {
+            if (edgeGenericData->isGenericDataVisible()) {
                 glPopName();
             }
         }
@@ -388,7 +388,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
         // pop GL Name of generic datas
         for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
-            if (edgeGenericData->isVisible()) {
+            if (edgeGenericData->isGenericDataVisible()) {
                 glPopName();
                 if (myIndex == 0) {
                     // draw attribute in first lane
@@ -541,7 +541,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
         // pop GL Name of generic datas
         for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
-            if (edgeGenericData->isVisible()) {
+            if (edgeGenericData->isGenericDataVisible()) {
                 glPopName();
                 if (myIndex == 0) {
                     // draw attribute in first lane
@@ -1138,7 +1138,7 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     }
     // check if we have to change color if parent edge has generic data elements
     for (const auto& edgeGenericData : myParentEdge->getChildGenericDataElements()) {
-        if (edgeGenericData->isVisible()) {
+        if (edgeGenericData->isGenericDataVisible()) {
             if (edgeGenericData->isAttributeCarrierSelected()) {
                 color = s.colorSettings.selectedEdgeDataColor;
             } else {

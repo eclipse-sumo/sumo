@@ -148,6 +148,9 @@ private:
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
 
+    /// @brief check if current generic data is visible
+    bool isVisible() const;
+
     /// @brief get specific generic data color
     const RGBColor& getSpecificColor() const;
 

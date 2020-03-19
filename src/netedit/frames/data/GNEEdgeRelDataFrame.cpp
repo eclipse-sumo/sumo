@@ -43,6 +43,24 @@ bool
 GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if we clicked over an edge
     if (objectsUnderCursor.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
+        myEdgePathCreator->addPathEdge(objectsUnderCursor.getEdgeFront());
+    } else {
+        // invalid parent parameters
+        return false;
+    }
+}
+
+
+void 
+GNEEdgeRelDataFrame::edgePathCreated() {
+    // first check that we have at least two edges
+    if (myEdgePathCreator->getClickedEdges().size() > 1) {
+        // extract via attribute
+        std::vector<GNEEdge*> viaEdges;
+        for (int i = 1; i < ((int)myEdgePathCreator->getClickedEdges().size() - 1); i++) {
+            viaEdges.push_back(myEdgePathCreator->getClickedEdges().at(i));
+        }
+        /*
         // first check if the given interval there is already a EdgeRelationData for the given ID
         for (const auto& genericData : myIntervalSelector->getDataInterval()->getGenericDataChildren()) {
             if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) && (genericData->getParentEdges().front() == objectsUnderCursor.getEdgeFront())) {
@@ -52,16 +70,11 @@ GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCur
                 return false;
             }
         }
-        /* temporal */
+        */
         // finally create EdgeRelationData
-        GNEDataHandler::buildEdgeRelationData(myViewNet, true, myIntervalSelector->getDataInterval(), objectsUnderCursor.getEdgeFront(), objectsUnderCursor.getEdgeFront(), {}, myParametersEditor->getParametersMap());
-        // EdgeRelationData created, then return true
-        return true;
-    } else {
-        // invalid parent parameters
-        return false;
+        GNEDataHandler::buildEdgeRelationData(myViewNet, true, myIntervalSelector->getDataInterval(), 
+            myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), viaEdges, myParametersEditor->getParametersMap());
     }
 }
-
 
 /****************************************************************************/

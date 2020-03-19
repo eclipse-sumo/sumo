@@ -27,8 +27,10 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/network/GNEEdge.h>
+#include <netedit/frames/data/GNEEdgeRelDataFrame.h>
 
 #include "GNEEdgeRelData.h"
 #include "GNEDataInterval.h"
@@ -46,7 +48,7 @@
 GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
     const std::vector<GNEEdge*>& via, const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_EDGEREL, GLO_EDGERELDATA, dataIntervalParent, parameters,
-        { fromEdge, toEdge}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}) {
+        {fromEdge, toEdge}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
     // compute vehicle
@@ -241,6 +243,32 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEEdgeRelData::setEnabledAttribute(const int /*enabledAttributes*/) {
     throw InvalidArgument("Nothing to enable");
+}
+
+
+bool
+GNEEdgeRelData::isVisible() const {
+    // obtain pointer to edge data frame (only for code legibly)
+    const GNEEdgeRelDataFrame* edgeRelDataFrame = myDataIntervalParent->getViewNet()->getViewParent()->getEdgeRelDataFrame();
+    // check if we have to filter generic data
+    if (edgeRelDataFrame->shown()) {
+        // check interval
+        if ((edgeRelDataFrame->getIntervalSelector()->getDataInterval() != nullptr) &&
+            (edgeRelDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
+            return false;
+        }
+        // check attribute
+        if ((edgeRelDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
+            (getParametersMap().count(edgeRelDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
+            return false;
+        }
+        // all checks ok, then return true
+        return true;
+    }
+    else {
+        // GNEEdgeRelDataFrame hidden, then return false
+        return false;
+    }
 }
 
 

@@ -686,12 +686,14 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // draw testing elements
         myTestingMode.drawTestingElements(myApp);
         // draw temporal trip/flow route
-        myViewParent->getVehicleFrame()->getEdgePathCreator()->drawTemporalRoute();
+        myViewParent->getVehicleFrame()->getEdgePathCreator()->drawTemporalPath();
         // draw temporal person plan route
-        myViewParent->getPersonFrame()->getEdgePathCreator()->drawTemporalRoute();
+        myViewParent->getPersonFrame()->getEdgePathCreator()->drawTemporalPath();
         myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->drawTemporalRoute();
         // draw temporal non consecutive edge
         myViewParent->getRouteFrame()->drawTemporalRoute();
+        // draw temporal edgeRelPath
+        myViewParent->getEdgeRelDataFrame()->getEdgePathCreator()->drawTemporalPath();
     }
     // check menu checks of supermode demand
     if (myEditModes.isCurrentSupermodeDemand()) {
@@ -933,8 +935,10 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->abortPersonPlanCreation();
         }
-    } else if (myEditModes.isCurrentSupermodeDemand()) {
-        // currently unused
+    } else if (myEditModes.isCurrentSupermodeData()) {
+        if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
+            myViewParent->getEdgeRelDataFrame()->getEdgePathCreator()->abortEdgePathCreation();
+        }
     }
     // abort undo list
     myUndoList->p_abort();
@@ -1023,7 +1027,9 @@ GNEViewNet::hotkeyEnter() {
             myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->finishPersonPlanCreation();
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
-        // currently unused
+        if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
+            myViewParent->getEdgeRelDataFrame()->getEdgePathCreator()->finishEdgePathCreation();
+        }
     }
 }
 
@@ -1045,7 +1051,9 @@ GNEViewNet::hotkeyBackSpace() {
             myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->removeLastAddedElement();
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
-        // unused in Data mode
+        if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
+            myViewParent->getEdgeRelDataFrame()->getEdgePathCreator()->removeLastInsertedElement();
+        }
     }
 }
 
@@ -3616,11 +3624,11 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // avoid create shapes if control key is pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 if (!myObjectsUnderCursor.getPOIFront()) {
-                    GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor);
+                    GNEPolygonFrame::AddShape result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor);
                     // view net must be always update
                     update();
                     // process click depending of the result of "process click"
-                    if ((result != GNEPolygonFrame::ADDSHAPE_UPDATEDTEMPORALSHAPE)) {
+                    if ((result != GNEPolygonFrame::AddShape::UPDATEDTEMPORALSHAPE)) {
                         // process click
                         processClick(eventData);
                     }

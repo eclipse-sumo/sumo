@@ -513,10 +513,20 @@ GNEGenericDataFrame::getAttributeSelector() const {
 }
 
 
+GNEFrameModuls::EdgePathCreator* 
+GNEGenericDataFrame::getEdgePathCreator() const {
+    return myEdgePathCreator;
+}
+
+
 void
 GNEGenericDataFrame::show() {
     // first refresh data set selector
     myDataSetSelector->refreshDataSetSelector(nullptr);
+    // check if there is an edge path creator
+    if (myEdgePathCreator) {
+        myEdgePathCreator->showEdgePathCreator();
+    }
     // show frame
     GNEFrame::show();
 }
@@ -527,15 +537,18 @@ GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParen
     myDataSetSelector(nullptr),
     myIntervalSelector(nullptr),
     myAttributeSelector(nullptr),
-    myParametersEditor(nullptr) {
+    myParametersEditor(nullptr),
+    myEdgePathCreator(nullptr) {
     // create DataSetSelector
     myDataSetSelector = new DataSetSelector(this);
-    // create IntervalSelector
+    // create IntervalSelector modul
     myIntervalSelector = new IntervalSelector(this);
-    // create AttributeSelector
+    // create AttributeSelector modul
     myAttributeSelector = new AttributeSelector(this);
-    // create parameter editor
+    // create parameter editor modul
     myParametersEditor = new GNEFrameAttributesModuls::ParametersEditor(this, "Attributes");
+    // create EdgePathCreator modul
+    myEdgePathCreator = new GNEFrameModuls::EdgePathCreator(this, GNEFrameModuls::EdgePathCreator::Modes::FROM_TO_VIA);
 }
 
 
@@ -547,5 +560,10 @@ GNEGenericDataFrame::intervalSelected() {
     //
 }
 
+
+void
+GNEGenericDataFrame::edgePathCreated() {
+    // this function has to be reimplemente in all child frames that uses a EdgePathCreator
+}
 
 /****************************************************************************/

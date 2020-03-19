@@ -214,7 +214,7 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
     } else if (objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
         return myEdgePathCreator->addBusStop(objectsUnderCursor.getAdditionalFront());
     } else if (objectsUnderCursor.getEdgeFront()) {
-        return myEdgePathCreator->addEdge(objectsUnderCursor.getEdgeFront());
+        return myEdgePathCreator->addPathEdge(objectsUnderCursor.getEdgeFront());
     } else {
         return false;
     }

@@ -227,6 +227,9 @@ public:
     /// @brief getattribute selector modul
     const AttributeSelector* getAttributeSelector() const;
 
+    /// @brief get EdgePathCreator modul
+    GNEFrameModuls::EdgePathCreator* getEdgePathCreator() const;
+
     /// @brief show Frame
     void show();
 
@@ -244,6 +247,9 @@ protected:
     /// @brief interval selected
     void intervalSelected();
 
+    /// @brief finish edge path creation
+    virtual void edgePathCreated();
+
     /// @brief dataSet selector modul
     DataSetSelector* myDataSetSelector;
 
@@ -255,6 +261,9 @@ protected:
 
     /// @brief parameters editor
     GNEFrameAttributesModuls::ParametersEditor* myParametersEditor;
+
+    /// @brief edge path creator (used for Walks, rides and trips)
+    GNEFrameModuls::EdgePathCreator* myEdgePathCreator;
 
 private:
     /// @brief Invalidated copy constructor.

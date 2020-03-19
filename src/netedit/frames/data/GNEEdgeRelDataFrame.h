@@ -48,6 +48,10 @@ public:
      */
     bool addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
+protected:
+    /// @brief finish edge path creation
+    void edgePathCreated();
+
 private:
     /// @brief Invalidated copy constructor.
     GNEEdgeRelDataFrame(const GNEEdgeRelDataFrame&) = delete;

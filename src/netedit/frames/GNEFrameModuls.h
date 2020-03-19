@@ -211,17 +211,17 @@ public:
         /// @brief get current clicked edges
         GNEAdditional* getClickedBusStop() const;
 
-        /// @brief add edge to route
-        bool addEdge(GNEEdge* edge);
+        /// @brief add edge in path
+        bool addPathEdge(GNEEdge* edge);
 
-        /// @brief add busStop to route
+        /// @brief add busStop to path
         bool addBusStop(GNEAdditional* busStop);
 
-        /// @brief clear edges (and restore colors)
+        /// @brief clear path edges (and restore colors)
         void clearEdges();
 
         /// @brief draw temporal route
-        void drawTemporalRoute() const;
+        void drawTemporalPath() const;
 
         /// @brief abort edge path creation
         void abortEdgePathCreation();

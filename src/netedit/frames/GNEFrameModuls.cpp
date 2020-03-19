@@ -604,7 +604,7 @@ GNEFrameModuls::EdgePathCreator::getClickedBusStop() const {
 
 
 bool
-GNEFrameModuls::EdgePathCreator::addEdge(GNEEdge* edge) {
+GNEFrameModuls::EdgePathCreator::addPathEdge(GNEEdge* edge) {
     bool addEdge = true;
     // check if final busStop was selected
     if (mySelectedBusStop != nullptr) {
@@ -698,7 +698,7 @@ GNEFrameModuls::EdgePathCreator::clearEdges() {
 
 
 void
-GNEFrameModuls::EdgePathCreator::drawTemporalRoute() const {
+GNEFrameModuls::EdgePathCreator::drawTemporalPath() const {
     // draw depending of number of edges
     if (myClickedEdges.size() > 0) {
         // Add a draw matrix
@@ -781,6 +781,8 @@ GNEFrameModuls::EdgePathCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, 
     myAbortCreationButton->disable();
     myFinishCreationButton->disable();
     myRemoveLastInsertedEdge->disable();
+    // update view
+    myFrameParent->myViewNet->update();
     return 1;
 }
 

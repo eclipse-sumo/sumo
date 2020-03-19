@@ -26,10 +26,21 @@
 
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/network/GNEEdge.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
+#include <netedit/frames/data/GNEEdgeDataFrame.h>
+#include <netedit/frames/data/GNEEdgeRelDataFrame.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEEdgeData.h"
 #include "GNEDataInterval.h"
@@ -231,6 +242,32 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEEdgeData::setEnabledAttribute(const int /*enabledAttributes*/) {
     throw InvalidArgument("Nothing to enable");
+}
+
+
+bool 
+GNEEdgeData::isVisible() const {
+    // obtain pointer to edge data frame (only for code legibly)
+    const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getViewNet()->getViewParent()->getEdgeDataFrame();
+    // check if we have to filter generic data
+    if (edgeDataFrame->shown()) {
+        // check interval
+        if ((edgeDataFrame->getIntervalSelector()->getDataInterval() != nullptr) &&
+            (edgeDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
+            return false;
+        }
+        // check attribute
+        if ((edgeDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
+            (getParametersMap().count(edgeDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
+            return false;
+        }
+        // all checks ok, then return true
+        return true;
+    }
+    else {
+        // GNEEdgeDataFrame hidden, then return false
+        return false;
+    }
 }
 
 

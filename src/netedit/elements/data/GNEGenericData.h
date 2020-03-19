@@ -99,7 +99,7 @@ public:
     const RGBColor &getColor() const;
 
     /// @brief check if current generic data is visible
-    bool isVisible() const;
+    bool isGenericDataVisible() const;
 
     // @brief draw attribute
     void drawAttribute(const PositionVector &shape) const;
@@ -245,6 +245,9 @@ private:
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     virtual void setEnabledAttribute(const int enabledAttributes) = 0;
+
+    /// @brief check if current generic data is visible (must be implemented in all generic data childs)
+    virtual bool isVisible() const = 0;
 
     /// @brief get specific generic data color
     virtual const RGBColor& getSpecificColor() const = 0;
