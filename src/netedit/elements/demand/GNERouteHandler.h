@@ -329,14 +329,14 @@ private:
     /// @brief NETEDIT Route Parameters
     RouteParameter myRouteParameter;
 
-    /// @brief flag used for parsing values
-    bool myAbort;
-
     /// @brief flag to check if created demand elements must be undo and redo
     bool myUndoDemandElements;
 
     /// @brief Pointer to loaded vehicle with embebbed route (needed for GNEStops)
     GNEDemandElement* myLoadedVehicleWithEmbebbedRoute;
+
+    /// @brief flag used for parsing values
+    bool myAbort;
 };
 
 

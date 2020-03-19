@@ -50,9 +50,9 @@
 // ---------------------------------------------------------------------------
 
 GNERouteHandler::RouteParameter::RouteParameter() :
+    loadedID(false),
     vClass(SVC_PASSENGER),
-    color(RGBColor::BLACK),
-    loadedID(false) {
+    color(RGBColor::BLACK) {
 }
 
 
@@ -60,10 +60,10 @@ GNERouteHandler::RouteParameter::RouteParameter(GNEDemandElement* originalDemand
     routeID(originalDemandElement->getTagProperty().isRoute() ?
         originalDemandElement->getID() :
         originalDemandElement->getViewNet()->getNet()->generateDemandElementID(originalDemandElement->getID(), SUMO_TAG_ROUTE)),
+    loadedID(false),
     edges(originalDemandElement->getParentEdges()),
     vClass(originalDemandElement->getVClass()),
-    color(originalDemandElement->getColor()),
-    loadedID(false) {
+    color(originalDemandElement->getColor()) {
 }
 
 
