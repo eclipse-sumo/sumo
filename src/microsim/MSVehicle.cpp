@@ -5313,8 +5313,8 @@ MSVehicle::getUpcomingLanesUntil(double distance) const {
                 continue;
             }
         } else if (routeIt != myRoute->end()) {  // bestLanes didn't get us far enough
-            // choose right-most lane as default
-            l = (*routeIt)->getLanes().front();
+            // choose left-most lane as default (avoid sidewalks, bike lanes etc)
+            l = (*routeIt)->getLanes().back();
             ++routeIt;
         } else {  // the search distance goes beyond our route
             break;
@@ -5359,8 +5359,8 @@ MSVehicle::getPastLanesUntil(double distance) const {
     }
 
     while (distance > 0.) {
-        // choose right-most lane as default
-        MSLane* l = (*routeIt)->getLanes().front();
+        // choose left-most lane as default (avoid sidewalks, bike lanes etc)
+        MSLane* l = (*routeIt)->getLanes().back();
 
         // insert internal lanes if applicable
         const MSEdge* internalEdge = lanes.size() > 0 ? (*routeIt)->getInternalFollowingEdge(&(lanes.back()->getEdge())) : nullptr;
