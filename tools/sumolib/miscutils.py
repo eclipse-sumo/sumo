@@ -340,6 +340,20 @@ def getSocketStream(port, mode='rb'):
 def euclidean(a, b):
     return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
 
+def humanReadableTime(seconds):
+    result = ""
+    ds = 3600 * 24
+    if seconds > ds:
+        result = "%s:" % int(seconds / ds)
+        seconds = seconds % ds
+    result += "%02i:" % int(seconds / 3600)
+    seconds = seconds % 3600
+    result += "%02i:" % int(seconds / 60)
+    seconds = seconds % 60
+    if seconds == int(seconds):
+        seconds = int(seconds)
+    result += "%02i" % seconds
+    return result
 
 def parseTime(t):
     try:
