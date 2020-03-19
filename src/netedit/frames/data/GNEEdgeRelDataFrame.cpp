@@ -43,7 +43,7 @@ bool
 GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if we clicked over an edge
     if (objectsUnderCursor.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
-        myEdgePathCreator->addPathEdge(objectsUnderCursor.getEdgeFront());
+        return myEdgePathCreator->addPathEdge(objectsUnderCursor.getEdgeFront());
     } else {
         // invalid parent parameters
         return false;
