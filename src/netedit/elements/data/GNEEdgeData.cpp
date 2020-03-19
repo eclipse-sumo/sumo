@@ -26,21 +26,10 @@
 
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/network/GNEEdge.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
-#include <netedit/frames/data/GNEEdgeDataFrame.h>
-#include <netedit/frames/data/GNEEdgeRelDataFrame.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEEdgeData.h"
 #include "GNEDataInterval.h"

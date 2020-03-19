@@ -164,6 +164,9 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
+        case SUMO_ATTR_FROM:
+        case SUMO_ATTR_TO:
+        case SUMO_ATTR_VIA:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, getViewNet()->getNet(), key, value));
@@ -177,6 +180,16 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
 bool
 GNEEdgeRelData::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_FROM:
+        case SUMO_ATTR_TO:
+            return SUMOXMLDefinitions::isValidNetID(value) && (myDataIntervalParent->getViewNet()->getNet()->retrieveEdge(value, false) != nullptr);
+        case SUMO_ATTR_VIA:
+            if (value.empty()) {
+                return true;
+            }
+            else {
+                return canParse<std::vector<GNEEdge*> >(myDataIntervalParent->getViewNet()->getNet(), value, false);
+            }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -224,6 +237,27 @@ GNEEdgeRelData::getHierarchyName() const {
 void
 GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_FROM: {
+            // change first edge
+            replaceFirstParentEdge(this, myDataIntervalParent->getViewNet()->getNet()->retrieveEdge(value));
+            // compute vehicle
+            computePath();
+            break;
+        }
+        case SUMO_ATTR_TO: {
+            // change last edge
+            replaceLastParentEdge(this, myDataIntervalParent->getViewNet()->getNet()->retrieveEdge(value));
+            // compute vehicle
+            computePath();
+            break;
+        }
+        case SUMO_ATTR_VIA: {
+            // update via
+            replaceMiddleParentEdges(this, parse<std::vector<GNEEdge*> >(myDataIntervalParent->getViewNet()->getNet(), value), true);
+            // compute vehicle
+            computePath();
+            break;
+        }
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();

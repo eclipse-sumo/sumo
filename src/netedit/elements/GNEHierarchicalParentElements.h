@@ -189,6 +189,9 @@ protected:
     /// @brief replace the first parent edge (used by demand elements)
     void replaceFirstParentEdge(GNEDemandElement* elementChild, GNEEdge* newFirstEdge);
 
+    /// @brief replace the first parent edge (used by generic data elements)
+    void replaceFirstParentEdge(GNEGenericData* elementChild, GNEEdge* newFirstEdge);
+
     /// @brief replace middle (via) parent edges
     void replaceMiddleParentEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newMiddleEdges, const bool updateChildReferences);
 
@@ -197,6 +200,9 @@ protected:
 
     /// @brief replace the last parent edge (used by demand elements)
     void replaceLastParentEdge(GNEDemandElement* elementChild, GNEEdge* newLastEdge);
+
+    /// @brief replace the last parent edge (used by generic data elements)
+    void replaceLastParentEdge(GNEGenericData* elementChild, GNEEdge* newLastEdge);
 
     /// @brief replace edge route Parents
     void replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& routeEdges);

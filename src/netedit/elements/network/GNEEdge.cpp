@@ -1478,9 +1478,6 @@ GNEEdge::drawPathGenericDataElementChilds(const GUIVisualizationSettings& s) con
                 // draw shape
                 glPushMatrix();
                 glTranslated(0, 0, genericData->getType());
-                //glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
-                //glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
-                //glScaled(E1Exaggeration, E1Exaggeration, 1);
                 glBegin(GL_QUADS);
                 glVertex2d(laneShapeFromA.back().x(), laneShapeFromA.back().y());
                 glVertex2d(laneShapeFromB.back().x(), laneShapeFromB.back().y());

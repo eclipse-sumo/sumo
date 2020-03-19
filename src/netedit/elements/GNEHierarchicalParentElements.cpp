@@ -421,6 +421,22 @@ GNEHierarchicalParentElements::replaceFirstParentEdge(GNEDemandElement* elementC
 
 
 void
+GNEHierarchicalParentElements::replaceFirstParentEdge(GNEGenericData* elementChild, GNEEdge* newFirstEdge) {
+    // first check that at least there is two edges
+    if (myParentEdges.size() < 2) {
+        throw InvalidArgument("Invalid minimum number of edges");
+    } else {
+        // remove generic data of parent edges
+        myParentEdges.front()->removeChildGenericDataElement(elementChild);
+        // replace first edge
+        myParentEdges[0] = newFirstEdge;
+        // add generic data into parent edges
+        myParentEdges.front()->addChildGenericDataElement(elementChild);
+    }
+}
+
+
+void
 GNEHierarchicalParentElements::replaceMiddleParentEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newMiddleEdges, const bool updateChildReferences) {
     // declare a vector for new parent edges
     std::vector<GNEEdge*> newEdges;
@@ -483,6 +499,23 @@ GNEHierarchicalParentElements::replaceLastParentEdge(GNEDemandElement* elementCh
         myParentEdges.push_back(newLastEdge);
         // add demandElement into parent edges
         myParentEdges.back()->addChildDemandElement(elementChild);
+    }
+}
+
+
+void
+GNEHierarchicalParentElements::replaceLastParentEdge(GNEGenericData* elementChild, GNEEdge* newLastEdge) {
+    // first check that at least there is two edges
+    if (myParentEdges.size() < 2) {
+        throw InvalidArgument("Invalid minimum number of edges");
+    } else {
+        // remove generic data of parent edges
+        myParentEdges.back()->removeChildGenericDataElement(elementChild);
+        // replace last edge
+        myParentEdges.pop_back();
+        myParentEdges.push_back(newLastEdge);
+        // add generic data into parent edges
+        myParentEdges.back()->addChildGenericDataElement(elementChild);
     }
 }
 
