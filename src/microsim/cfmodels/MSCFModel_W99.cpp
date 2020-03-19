@@ -185,9 +185,8 @@ MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2
 
 double
 MSCFModel_W99::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
-    // W99 doesn't stop on point so we add some slack
-    const double vFollow = followSpeed(veh, speed, gap + sqrt(gap) + 2, 0, 4.5, 0);
-    return MIN3(vFollow, maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
+    // see reasoning in MSCFModel_Wiedemann::stopSpeed
+    return MIN2(maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
 
