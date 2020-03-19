@@ -1416,15 +1416,6 @@ GNEEdge::addPathElement(GNEDemandElement* pathElementChild) {
 
 
 void
-GNEEdge::addPathElement(GNEGenericData* pathElementChild) {
-    // avoid insert duplicatd path element childs
-    if (std::find(myPathGenericDataElementChilds.begin(), myPathGenericDataElementChilds.end(), pathElementChild) == myPathGenericDataElementChilds.end()) {
-        myPathGenericDataElementChilds.push_back(pathElementChild);
-    }
-}
-
-
-void
 GNEEdge::removePathElement(GNEDemandElement* pathElementChild) {
     // search and remove pathElementChild
     auto it = std::find(myPathDemandElementsElementChilds.begin(), myPathDemandElementsElementChilds.end(), pathElementChild);
@@ -1434,24 +1425,9 @@ GNEEdge::removePathElement(GNEDemandElement* pathElementChild) {
 }
 
 
-void
-GNEEdge::removePathElement(GNEGenericData* pathElementChild) {
-    // search and remove pathElementChild
-    auto it = std::find(myPathGenericDataElementChilds.begin(), myPathGenericDataElementChilds.end(), pathElementChild);
-    if (it != myPathGenericDataElementChilds.end()) {
-        myPathGenericDataElementChilds.erase(it);
-    }
-}
-
-
-const std::vector<GNEGenericData*> &
-GNEEdge::getPathGenericDataElementChilds() const {
-    return myPathGenericDataElementChilds;
-}
-
-
 void 
 GNEEdge::drawPathGenericDataElementChilds(const GUIVisualizationSettings& s) const {
+/*
     for (const auto &genericData : myPathGenericDataElementChilds) {
         // iterate over edges
         for (int i = 0; i < (genericData->getPathEdges().size()-1); i++) {
@@ -1491,6 +1467,7 @@ GNEEdge::drawPathGenericDataElementChilds(const GUIVisualizationSettings& s) con
             }
         }
     }
+*/
 }
 
 
@@ -1499,11 +1476,6 @@ GNEEdge::invalidatePathChildElements() {
     // make a copy of myPathDemandElementsElementChilds
     auto copyOfPathDemandElementsElementChilds = myPathDemandElementsElementChilds;
     for (const auto& pathElementChild : copyOfPathDemandElementsElementChilds) {
-        pathElementChild->invalidatePath();
-    }
-    // make a copy of myPathGenericDataElementChilds
-    auto copyOfPathGenericDataElementChilds = myPathGenericDataElementChilds;
-    for (const auto& pathElementChild : copyOfPathGenericDataElementChilds) {
         pathElementChild->invalidatePath();
     }
 }

@@ -178,10 +178,11 @@ public:
 
         /// @brief list of the edge path creator modes
         enum Modes {
-            CONSECUTIVE  = 1 << 0,  // Path must be consecutive
-            FROM_TO_VIA  = 1 << 1,  // Path requires a from-via-to edges
-            FROM_BUSSTOP = 1 << 2,  // Path start in a BusStop
-            TO_BUSSTOP   = 1 << 3,  // Path ends in a BusStop
+            CONSECUTIVE,    // Path must be consecutive
+            FROM_TO,        // Path requires only two from-to edges
+            FROM_TO_VIA,    // Path requires a from-via-to edges
+            FROM_BUSSTOP,   // Path start in a BusStop
+            TO_BUSSTOP      // Path ends in a BusStop
         };
 
         /// @brief default constructor

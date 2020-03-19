@@ -41,11 +41,10 @@ public:
      * @param[in] dataIntervalParent pointer to data interval parent
      * @param[in] fromEdge pointer to from edge
      * @param[in] toEdge pointer to to edge
-     * @param[in] via pointer to via
      * @param[in] parameters parameters map
      */
     GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
-        const std::vector<GNEEdge*>& via, const std::map<std::string, std::string>& parameters);
+        const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
     ~GNEEdgeRelData();
@@ -58,12 +57,6 @@ public:
 
     /// @brief Returns element position in view
     Position getPositionInView() const;
-
-    /// @brief compute path
-    void computePath();
-
-    /// @brief invalidate path
-    void invalidatePath();
 
     /// @name members and functions relative to write data sets into XML
     /// @{

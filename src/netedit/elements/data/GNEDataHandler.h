@@ -160,12 +160,11 @@ public:
      * @param[in] dataIntervalParent GNEDataInterval in which this edgeRelationData is saved
      * @param[in] fromEdge GNEEdge from
      * @param[in] toEdge GNEEdge to
-     * @param[in] via GNEEdge vias
      * @param[in] parameters parameters map
      * @exception InvalidArgument If the edgeRelationData can not be added to the net
      */
     static GNEEdgeRelData* buildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, 
-        GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via, const std::map<std::string, std::string>& parameters);
+        GNEEdge* fromEdge, GNEEdge* toEdge, const std::map<std::string, std::string>& parameters);
 
 protected:
     /// @name parsing methods

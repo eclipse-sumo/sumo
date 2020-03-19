@@ -462,31 +462,6 @@ GNEHierarchicalParentElements::replaceMiddleParentEdges(GNEDemandElement* elemen
 
 
 void
-GNEHierarchicalParentElements::replaceMiddleParentEdges(GNEGenericData* elementChild, const std::vector<GNEEdge*>& newMiddleEdges, const bool updateChildReferences) {
-    // declare a vector for new parent edges
-    std::vector<GNEEdge*> newEdges;
-    // check if add first edge
-    if (myParentEdges.size() > 0) {
-        newEdges.push_back(myParentEdges.front());
-    }
-    // add newMiddleEdges
-    for (const auto& edge : newMiddleEdges) {
-        newEdges.push_back(edge);
-    }
-    // check if add last edge
-    if (myParentEdges.size() > 1) {
-        newEdges.push_back(myParentEdges.back());
-    }
-    // check if we have to update references in all childs, or simply update parent edges vector
-    if (updateChildReferences) {
-        replaceParentEdges(elementChild, newEdges);
-    } else {
-        myParentEdges = newEdges;
-    }
-}
-
-
-void
 GNEHierarchicalParentElements::replaceLastParentEdge(GNEDemandElement* elementChild, GNEEdge* newLastEdge) {
     // first check that at least there is two edges
     if (myParentEdges.size() < 2) {
@@ -522,21 +497,6 @@ GNEHierarchicalParentElements::replaceLastParentEdge(GNEGenericData* elementChil
 
 void
 GNEHierarchicalParentElements::replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& routeEdges) {
-    // remove demandElement of parent edges
-    for (const auto& edge : myRouteEdges) {
-        edge->removePathElement(elementChild);
-    }
-    // set new route edges
-    myRouteEdges = routeEdges;
-    // add demandElement into parent edges
-    for (const auto& edge : myRouteEdges) {
-        edge->addPathElement(elementChild);
-    }
-}
-
-
-void
-GNEHierarchicalParentElements::replacePathEdges(GNEGenericData* elementChild, const std::vector<GNEEdge*>& routeEdges) {
     // remove demandElement of parent edges
     for (const auto& edge : myRouteEdges) {
         edge->removePathElement(elementChild);

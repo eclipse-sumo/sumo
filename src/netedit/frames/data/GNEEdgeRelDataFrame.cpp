@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNEEdgeRelDataFrame::GNEEdgeRelDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEGenericDataFrame(horizontalFrameParent, viewNet, "Edge relation datas") {
+    GNEGenericDataFrame(horizontalFrameParent, viewNet, toString(SUMO_TAG_EDGEREL)) {
 }
 
 
@@ -55,25 +55,9 @@ void
 GNEEdgeRelDataFrame::edgePathCreated() {
     // first check that we have at least two edges
     if (myEdgePathCreator->getClickedEdges().size() > 1) {
-        // extract via attribute
-        std::vector<GNEEdge*> viaEdges;
-        for (int i = 1; i < ((int)myEdgePathCreator->getClickedEdges().size() - 1); i++) {
-            viaEdges.push_back(myEdgePathCreator->getClickedEdges().at(i));
-        }
-        /*
-        // first check if the given interval there is already a EdgeRelationData for the given ID
-        for (const auto& genericData : myIntervalSelector->getDataInterval()->getGenericDataChildren()) {
-            if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) && (genericData->getParentEdges().front() == objectsUnderCursor.getEdgeFront())) {
-                // write warning
-                WRITE_WARNING("There is already a " + genericData->getTagStr() + " in edge '" + objectsUnderCursor.getEdgeFront()->getID() + "'");
-                // abort edge data creation
-                return false;
-            }
-        }
-        */
-        // finally create EdgeRelationData
-        GNEDataHandler::buildEdgeRelationData(myViewNet, true, myIntervalSelector->getDataInterval(), 
-            myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), viaEdges, myParametersEditor->getParametersMap());
+        // just create EdgeRelationData
+        GNEDataHandler::buildEdgeRelationData(myViewNet, true, myIntervalSelector->getDataInterval(), myEdgePathCreator->getClickedEdges().front(), 
+            myEdgePathCreator->getClickedEdges().back(), myParametersEditor->getParametersMap());
     }
 }
 

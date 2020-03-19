@@ -116,12 +116,6 @@ public:
     /// @brief Returns element position in view
     virtual Position getPositionInView() const = 0;
 
-    /// @brief compute path
-    virtual void computePath() = 0;
-
-    /// @brief invalidate path
-    virtual void invalidatePath() = 0;
-
     /// @name members and functions relative to write data sets into XML
     /// @{
     /**@brief writte data set element into a xml file

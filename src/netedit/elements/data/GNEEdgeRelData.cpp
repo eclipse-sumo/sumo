@@ -46,13 +46,9 @@
 // ---------------------------------------------------------------------------
 
 GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
-    const std::vector<GNEEdge*>& via, const std::map<std::string, std::string>& parameters) :
+    const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_EDGEREL, GLO_EDGERELDATA, dataIntervalParent, parameters,
         {fromEdge, toEdge}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}) {
-    // set via parameter without updating references
-    replaceMiddleParentEdges(this, via, false);
-    // compute vehicle
-    computePath();
 }
 
 
@@ -74,18 +70,6 @@ GNEEdgeRelData::updateDottedContour() {
 Position
 GNEEdgeRelData::getPositionInView() const {
     return getParentEdges().front()->getPositionInView();
-}
-
-
-void
-GNEEdgeRelData::computePath() {
-    replacePathEdges(this, myDataIntervalParent->getViewNet()->getNet()->getPathCalculator()->calculatePath(SVC_PEDESTRIAN, getParentEdges()));
-}
-
-
-void
-GNEEdgeRelData::invalidatePath() {
-    replacePathEdges(this, getParentEdges());
 }
 
 
@@ -138,8 +122,6 @@ GNEEdgeRelData::getAttribute(SumoXMLAttr key) const {
             return getParentEdges().front()->getID();
         case SUMO_ATTR_TO:
             return getParentEdges().back()->getID();
-        case SUMO_ATTR_VIA:
-            return toString("");
         case GNE_ATTR_DATASET:
             return myDataIntervalParent->getDataSetParent()->getID();
         case GNE_ATTR_SELECTED:
@@ -166,7 +148,6 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
     switch (key) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-        case SUMO_ATTR_VIA:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, getViewNet()->getNet(), key, value));
@@ -183,13 +164,6 @@ GNEEdgeRelData::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
             return SUMOXMLDefinitions::isValidNetID(value) && (myDataIntervalParent->getViewNet()->getNet()->retrieveEdge(value, false) != nullptr);
-        case SUMO_ATTR_VIA:
-            if (value.empty()) {
-                return true;
-            }
-            else {
-                return canParse<std::vector<GNEEdge*> >(myDataIntervalParent->getViewNet()->getNet(), value, false);
-            }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -240,22 +214,11 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM: {
             // change first edge
             replaceFirstParentEdge(this, myDataIntervalParent->getViewNet()->getNet()->retrieveEdge(value));
-            // compute vehicle
-            computePath();
             break;
         }
         case SUMO_ATTR_TO: {
             // change last edge
             replaceLastParentEdge(this, myDataIntervalParent->getViewNet()->getNet()->retrieveEdge(value));
-            // compute vehicle
-            computePath();
-            break;
-        }
-        case SUMO_ATTR_VIA: {
-            // update via
-            replaceMiddleParentEdges(this, parse<std::vector<GNEEdge*> >(myDataIntervalParent->getViewNet()->getNet(), value), true);
-            // compute vehicle
-            computePath();
             break;
         }
         case GNE_ATTR_SELECTED:
