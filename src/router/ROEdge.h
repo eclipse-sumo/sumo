@@ -423,6 +423,11 @@ public:
         return edge->getTravelTime(veh, time) * RandHelper::rand(1., gWeightsRandomFactor);
     }
 
+    /// @brief Alias for getTravelTimeStatic (there is no routing device to provide aggregated travel times)
+    static inline double getTravelTimeAggregated(const ROEdge* const edge, const ROVehicle* const veh, double time) {
+        return edge->getTravelTime(veh, time);
+    }
+
 
     /** @brief Returns a lower bound for the travel time on this edge without using any stored timeLine
      *

@@ -109,6 +109,10 @@ public:
         return 0.;
     }
 
+    virtual double getTravelTimeAggregated(const IntermodalTrip<E, N, V>* const trip, double time) const {
+        return getTravelTime(trip, time);
+    }
+
     /// @brief get intended vehicle id and departure time of next public transport ride
     virtual double getIntended(const double /* time */, std::string& /* intended */) const {
         return 0.;
@@ -121,6 +125,11 @@ public:
     static inline double getTravelTimeStaticRandomized(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
         return edge == nullptr ? 0. : edge->getTravelTime(trip, time) * RandHelper::rand(1., gWeightsRandomFactor);
     }
+
+    static inline double getTravelTimeAggregated(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
+        return edge == nullptr ? 0. : edge->getTravelTimeAggregated(trip, time);
+    }
+
 
     virtual double getEffort(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
         return 0.;

@@ -1231,5 +1231,9 @@ MSEdge::getBruttoOccupancy() const {
     return occ / (*myLanes)[0]->getLength() / (double)(myLanes->size());
 }
 
+double
+MSEdge::getTravelTimeAggregated(const MSEdge* const edge, const SUMOVehicle* const veh, double /*time*/) {
+    return edge->getLength() / MIN2(edge->getRoutingSpeed(), veh->getMaxSpeed());
+}
 
 /****************************************************************************/

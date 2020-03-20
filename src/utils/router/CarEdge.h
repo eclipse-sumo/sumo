@@ -98,16 +98,11 @@ public:
     }
 
     double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
-        const double travelTime = E::getTravelTimeStatic(this->getEdge(), trip->vehicle, time);
-        double distTravelled = this->getLength();
-        // checking arrivalPos first to have it correct for identical depart and arrival edge
-        if (this->getEdge() == trip->to) {
-            distTravelled = trip->arrivalPos - myStartPos;
-        }
-        if (this->getEdge() == trip->from) {
-            distTravelled -= trip->departPos - myStartPos;
-        }
-        return travelTime * distTravelled / this->getEdge()->getLength();
+        return getPartialTravelTime(E::getTravelTimeStatic(this->getEdge(), trip->vehicle, time), trip);
+    }
+
+    double getTravelTimeAggregated(const IntermodalTrip<E, N, V>* const trip, double time) const {
+        return getPartialTravelTime(E::getTravelTimeAggregated(this->getEdge(), trip->vehicle, time), trip);
     }
 
     double getStartPos() const {
@@ -116,6 +111,20 @@ public:
 
     double getEndPos() const {
         return myStartPos + this->getLength();
+    }
+
+private:
+
+    inline double getPartialTravelTime(double fullTravelTime, const IntermodalTrip<E, N, V>* const trip) const {
+        double distTravelled = this->getLength();
+        // checking arrivalPos first to have it correct for identical depart and arrival edge
+        if (this->getEdge() == trip->to) {
+            distTravelled = trip->arrivalPos - myStartPos;
+        }
+        if (this->getEdge() == trip->from) {
+            distTravelled -= trip->departPos - myStartPos;
+        }
+        return fullTravelTime * distTravelled / this->getEdge()->getLength();
     }
 
 private:

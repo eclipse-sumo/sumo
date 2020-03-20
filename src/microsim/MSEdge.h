@@ -469,6 +469,8 @@ public:
         return MSNet::getInstance()->getTravelTime(edge, veh, time);
     }
 
+    static double getTravelTimeAggregated(const MSEdge* const edge, const SUMOVehicle* const veh, double time);
+
     /** @brief Returns the averaged speed used by the routing device
      */
     double getRoutingSpeed() const;
