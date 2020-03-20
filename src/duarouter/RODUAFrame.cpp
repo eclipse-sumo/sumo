@@ -240,6 +240,13 @@ RODUAFrame::checkOptions() {
             WRITE_WARNING("Cannot derive file name for alternatives output, skipping it.");
         }
     }
+    if (oc.getBool("write-trips.junctions")) {
+        if (oc.isDefault("write-trips")) {
+            oc.set("write-trips", "true");
+        } else if (!oc.getBool("write-trips")) {
+            WRITE_WARNING("Option --write-trips.junctions takes no affect when --write-trips is disabled.");
+        }
+    }
     return ok;
 }
 
