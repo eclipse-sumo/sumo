@@ -39,3 +39,6 @@ changeRelative_invalid
 
 # use changeLaneRelative to change to the opposite side and back using the default laneChangeMode
 changeOpposite_default
+
+# test estimated public transport stop delay
+stopDelay
