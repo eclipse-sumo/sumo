@@ -662,6 +662,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             if ((*j).type != "1000001") { // traffic_light (Section 6.11)
                 continue;
             }
+            if (e->laneSections.size() == 0) {
+                WRITE_WARNING("Edge '" + e->id + "' has signals but no lane sections.");
+                continue;
+            }
             std::vector<OpenDriveLaneSection>::iterator k = e->laneSections.begin();
             bool found = false;
             for (; k != e->laneSections.end() - 1 && !found;) {
@@ -1143,12 +1147,24 @@ NIImporter_OpenDrive::setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
     }
     if (lt == OPENDRIVE_LT_SUCCESSOR) {
         if (e.to != nullptr && e.to != n) {
-            throw ProcessError("Edge '" + e.id + "' has two end nodes ('" + e.to->getID() + "' and '" + nodeID + "').");
+            const std::string error = "Edge '" + e.id + "' has two end nodes ('" + e.to->getID() + "' and '" + nodeID + "').";
+            if (OptionsCont::getOptions().getBool("ignore-errors")) {
+                WRITE_WARNING(error);
+                return;
+            } else {
+                throw ProcessError(error);
+            }
         }
         e.to = n;
     } else {
         if (e.from != nullptr && e.from != n) {
-            throw ProcessError("Edge '" + e.id + "' has two start nodes ('" + e.from->getID() + "' and '" + nodeID + "').");
+            const std::string error = "Edge '" + e.id + "' has two start nodes ('" + e.from->getID() + "' and '" + nodeID + "').";
+            if (OptionsCont::getOptions().getBool("ignore-errors")) {
+                WRITE_WARNING(error);
+                return;
+            } else {
+                throw ProcessError(error);
+            }
         }
         e.from = n;
     }
