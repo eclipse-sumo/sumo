@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sat Mar 14 19:59:18 2020
+TraCITestClient output file. Date: Fri Mar 20 13:39:58 2020
 
 
 -> Command sent: <SetOrder>:
@@ -85,6 +85,7 @@ testAPI:
     getMaxSpeed: 30.00
     isRouteValid: 1
     getStopState: 0
+    getStopDelay: -1.00
     param: 42
     getColor:  r=255 g=255 b=0 a=128
     getSignals: 0
