@@ -68,13 +68,14 @@ class GNEViewNet;
 struct GNENetHelper {
 
     /// @brief struct used for saving all attribute carriers of net, in different formats
-    class AttributeCarriers : public ShapeContainer {
+    class AttributeCarriers : ShapeContainer {
 
         /// @brief declare friend class
         friend class GNEAdditionalHandler;
         friend class GNERouteHandler;
         friend class GNEChange_Additional;
         friend class GNEChange_DemandElement;
+        friend class GNEChange_Shape;
 
     public:
         /// @brief constructor
@@ -104,6 +105,55 @@ struct GNENetHelper {
         /// @brief clear additionals
         void clearAdditionals();
 
+        /// @name inherited from ShapeHandler
+        /// @{
+
+        /**@brief Builds a polygon using the given values and adds it to the container
+        * @param[in] id The name of the polygon
+        * @param[in] type The (abstract) type of the polygon
+        * @param[in] color The color of the polygon
+        * @param[in] layer The layer of the polygon
+        * @param[in] angle The rotation of the polygon
+        * @param[in] imgFile The raster image of the polygon
+        * @param[in] relativePath set image file as relative path
+        * @param[in] shape The shape of the polygon
+        * @param[in] geo specify if shape was loaded as GEO coordinate
+        * @param[in] fill Whether the polygon shall be filled
+        * @param[in] lineWidth The widht for drawing unfiled polygon
+        * @return whether the polygon could be added
+        */
+        bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
+            double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape,
+            bool geo, bool fill, double lineWidth, bool ignorePruning = false);
+
+        /**@brief Builds a POI using the given values and adds it to the container
+        * @param[in] id The name of the POI
+        * @param[in] type The (abstract) type of the POI
+        * @param[in] color The color of the POI
+        * @param[in] pos The position of the POI
+        * @param[in[ geo use GEO coordinates (lon/lat)
+        * @param[in] lane The Lane in which this POI is placed
+        * @param[in] posOverLane The position over Lane
+        * @param[in] posLat The position lateral over Lane
+        * @param[in] layer The layer of the POI
+        * @param[in] angle The rotation of the POI
+        * @param[in] imgFile The raster image of the POI
+        * @param[in] relativePath set image file as relative path
+        * @param[in] width The width of the POI image
+        * @param[in] height The height of the POI image
+        * @return whether the poi could be added
+        */
+        bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
+            const std::string& lane, double posOverLane, double posLat, double layer, double angle,
+            const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false);
+        /// @}
+
+        /// @brief get shapes
+        const std::map<SumoXMLTag, std::map<std::string, GNEShape*> >& getShapes() const;
+
+        /// @brief clear shapes
+        void clearShapes();
+
         /// @brief get demand elements
         const std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> >& getDemandElements() const;
 
@@ -115,15 +165,6 @@ struct GNENetHelper {
 
         /// @brief special map used for saving Demand Elements of type "Vehicle" (Vehicles, routeFlows, etc.) sorted by depart time
         std::map<std::string, GNEDemandElement*> vehicleDepartures;
-
-        /// @brief add shape into ShapeContainer
-        bool addShape(GNEShape* shape);
-
-        /// @brief delete shape from ShapeContainer
-        bool removeShape(GNEShape* shape);
-
-        /// @brief clear all shapes
-        void clearShapes();
 
     protected:
         /// @name Insertion and erasing of GNEAdditionals items
@@ -141,6 +182,24 @@ struct GNENetHelper {
          * @throw processError if additional wasn't previously inserted
          */
         bool deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting);
+
+        /// @}
+
+        /// @name Insertion and erasing of GNEShapes items
+        /// @{
+
+        /// @brief return true if shape exist (use pointer instead ID)
+        bool shapeExist(GNEShape* shape) const;
+
+        /**@brief Insert a shape element int GNENet container.
+         * @throw processError if route was already inserted
+         */
+        void insertShape(GNEShape* shape);
+
+        /**@brief delete shape element of GNENet container
+         * @throw processError if shape wasn't previously inserted
+         */
+        bool deleteShape(GNEShape* shape, bool updateViewAfterDeleting);
 
         /// @}
 
@@ -184,11 +243,17 @@ struct GNENetHelper {
         /// @brief map with the ID and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > myAdditionals;
 
+        /// @brief map with the ID and pointer to shape elements of net
+        std::map<SumoXMLTag, std::map<std::string, GNEShape*> > myShapes;
+
         /// @brief map with the ID and pointer to demand elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > myDemandElements;
 
         /// @brief pointer to net
         GNENet* myNet;
+
+        /// @brief flag used to indicate if created shape can be undo
+        bool myAllowUndoShapes;
 
         /// @brief Invalidated copy constructor.
         AttributeCarriers(const AttributeCarriers&) = delete;

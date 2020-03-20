@@ -1366,7 +1366,7 @@ GNEAdditionalHandler::parseAndBuildPoly(const SUMOSAXAttributes& attrs) {
             imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
         }
         // create polygon, or show an error if polygon already exists
-        if (!myViewNet->getNet()->addPolygon(polygonID, type, color, layer, angle, imgFile, relativePath, shape, geo, fill, lineWidth, false)) {
+        if (!myViewNet->getNet()->getAttributeCarriers()->addPolygon(polygonID, type, color, layer, angle, imgFile, relativePath, shape, geo, fill, lineWidth, false)) {
             WRITE_WARNING("Polygon with ID '" + polygonID + "' already exists.");
         } else {
             // update myLastParameterised with the last inserted Polygon
@@ -2527,7 +2527,7 @@ GNEAdditionalHandler::parseAndBuildPOI(const SUMOSAXAttributes& attrs) {
             }
         }
         // create POI, or show an error if POI already exists
-        if (!myViewNet->getNet()->addPOI(POIID, type, color, pos, useGeo, laneID, lanePos, lanePosLat, layer, angle, imgFile, relativePath, width, height, false)) {
+        if (!myViewNet->getNet()->getAttributeCarriers()->addPOI(POIID, type, color, pos, useGeo, laneID, lanePos, lanePosLat, layer, angle, imgFile, relativePath, width, height, false)) {
             WRITE_WARNING("POI with ID '" + POIID + "' already exists.");
         } else {
             // update myLastParameterised with the last inserted POI

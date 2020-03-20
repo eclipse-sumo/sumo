@@ -19,7 +19,6 @@
 // GUIPolygon and NLHandler)
 /****************************************************************************/
 #include <string>
-#include <utils/common/StringTokenizer.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GLHelper.h>
@@ -74,8 +73,8 @@ GNEPoly::getID() const {
 
 std::string
 GNEPoly::generateChildID(SumoXMLTag childTag) {
-    int counter = myNet->getAttributeCarriers()->getPolygons().size();
-    while (myNet->retrievePolygon(getID() + toString(childTag) + toString(counter), false) != nullptr) {
+    int counter = (int)myNet->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY).size();
+    while (myNet->retrieveShape(SUMO_TAG_POLY, getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }
     return (getID() + toString(childTag) + toString(counter));
@@ -230,6 +229,12 @@ GNEPoly::getCenteringBoundary() const {
 GUIGlID
 GNEPoly::getGlID() const {
     return GUIPolygon::getGlID();
+}
+
+
+GUIGlObject*
+GNEPoly::getGUIGlObject() {
+    return this;
 }
 
 
@@ -714,7 +719,7 @@ bool
 GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->retrievePolygon(value, false) == nullptr);
+            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->retrieveShape(SUMO_TAG_POLY, value, false) == nullptr);
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_GEOSHAPE:
             // empty shapes AREN'T allowed
@@ -802,8 +807,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID: {
             // note: getAttributeCarriers().updateID doesn't change Microsim ID in GNEShapes 
             myNet->getAttributeCarriers()->updateID(this, value);
-            // set microsim ID
-            setMicrosimID(value);
             // set named ID
             myID = value;
             break;
@@ -915,12 +918,5 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     // mark dotted geometry deprecated
     myDottedGeometry.markDottedGeometryDeprecated();
 }
-
-
-const GUIGlObject*
-GNEPoly::getGUIGlObject() const {
-    return this;
-}
-
 
 /****************************************************************************/

@@ -2104,7 +2104,7 @@ GNEAttributeCarrier::fillShapes() {
     SumoXMLTag currentTag = SUMO_TAG_POLY;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::SHAPE, GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::BLOCKSHAPE | GNETagProperties::CLOSESHAPE | GNETagProperties::GEOSHAPE, GUIIcon::LOCATEPOLY /* temporal */);
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::SHAPE, GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::BLOCKSHAPE | GNETagProperties::CLOSESHAPE | GNETagProperties::GEOSHAPE, GUIIcon::LOCATEPOLY /* temporal */);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,

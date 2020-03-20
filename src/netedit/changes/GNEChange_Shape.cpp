@@ -45,24 +45,11 @@ GNEChange_Shape::~GNEChange_Shape() {
     myShape->decRef("GNEChange_Shape");
     if (myShape->unreferenced()) {
         // make sure that shape are removed of ShapeContainer (net) AND grid
-        if (myNet->retrievePolygon(myShape->getID(), false) != nullptr) {
+        if (myNet->retrieveShape(myShape->getTagProperty().getTag(), myShape->getID(), false) != nullptr) {
             // show extra information for tests
             WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
-            // all polygons are placed in RTREE
-            myNet->removeGLObjectFromGrid(dynamic_cast<GUIGlObject*>(myShape));
             // remove polygon from AttributeCarreirs
-            myNet->getAttributeCarriers()->removeShape(myShape);
-            // Remove element from parents and children
-            removeShape(myShape);
-        } else if (myNet->retrievePOI(myShape->getID(), false) != nullptr) {
-            // show extra information for tests
-            WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
-            // only certain POIS are placed in RTREE
-            if (myShape->getTagProperty().isPlacedInRTree()) {
-                myNet->removeGLObjectFromGrid(dynamic_cast<GUIGlObject*>(myShape));
-            }
-            // remove POI from AttributeCarreirs
-            myNet->getAttributeCarriers()->removeShape(myShape);
+            myNet->getAttributeCarriers()->deleteShape(myShape, false);
             // Remove element from parents and children
             removeShape(myShape);
         }
@@ -79,14 +66,14 @@ GNEChange_Shape::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from viewNet");
         // remove shape from net
-        myNet->removeShape(myShape, false);
+        myNet->getAttributeCarriers()->deleteShape(myShape, false);
         // Remove element from parents and children
         removeShape(myShape);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myShape->getTagStr() + " '" + myShape->getID() + "' into viewNet");
         // Add shape in net
-        myNet->insertShape(myShape, false);
+        myNet->getAttributeCarriers()->insertShape(myShape);
         // Add element in parents and children
         addShape(myShape);
     }
@@ -99,14 +86,14 @@ GNEChange_Shape::redo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myShape->getTagStr() + " '" + myShape->getID() + "' into viewNet");
         // Add shape in net
-        myNet->insertShape(myShape, false);
+        myNet->getAttributeCarriers()->insertShape(myShape);
         // Add element in parents and children
         addShape(myShape);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from viewNet");
         // remove shape from net
-        myNet->removeShape(myShape, false);
+        myNet->getAttributeCarriers()->deleteShape(myShape, false);
         // Remove element from parents and children
         removeShape(myShape);
     }

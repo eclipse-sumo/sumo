@@ -471,28 +471,19 @@ GNEDeleteFrame::ACsToDelete() const {
             }
         }
         // check additionals
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
-            // first check if additional is selectable
-            if (GNEAttributeCarrier::getTagProperties(i.first).isSelectable()) {
-                for (const auto& j : i.second) {
-                    if (j.second->isAttributeCarrierSelected()) {
-                        return true;
-                    }
+        for (const auto& additionalTag : myViewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
+            for (const auto& additional : additionalTag.second) {
+                if (additional.second->getTagProperty().isSelectable() && additional.second->isAttributeCarrierSelected()) {
+                    return true;
                 }
             }
         }
-        // check polygons
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getPolygons()) {
-            GNEShape* shape = dynamic_cast<GNEShape*>(i.second);
-            if (shape->isAttributeCarrierSelected()) {
-                return true;
-            }
-        }
-        // check POIs
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getPOIs()) {
-            GNEShape* shape = dynamic_cast<GNEShape*>(i.second);
-            if (shape->isAttributeCarrierSelected()) {
-                return true;
+        // check shapes
+        for (const auto& shapeTag : myViewNet->getNet()->getAttributeCarriers()->getShapes()) {
+            for (const auto& shape : shapeTag.second) {
+                if (shape.second->getTagProperty().isSelectable() && shape.second->isAttributeCarrierSelected()) {
+                    return true;
+                }
             }
         }
     } else {

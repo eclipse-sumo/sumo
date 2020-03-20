@@ -79,6 +79,9 @@ public:
     /// @brief Returns the numerical id of the object
     virtual GUIGlID getGlID() const = 0;
 
+    /// @brief get GUIGlObject associated to this GNEShape
+    virtual GUIGlObject* getGUIGlObject() = 0;
+
     /// @brief get Net in which this element is placed
     GNENet* getNet() const;
 
@@ -216,9 +219,6 @@ private:
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
-
-    /// @brief get GUIGlObject associated to this GNEShape
-    virtual const GUIGlObject* getGUIGlObject() const = 0;
 
     /// @brief Invalidated copy constructor.
     GNEShape(const GNEShape&) = delete;

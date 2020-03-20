@@ -133,6 +133,9 @@ public:
 
     /// @brief Returns the numerical id of the object
     GUIGlID getGlID() const;
+
+    /// @brief get GUIGlObject associated to this GNEShape
+    GUIGlObject* getGUIGlObject();
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -205,9 +208,6 @@ private:
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief get GUIGlObject associated to this GNEShape
-    const GUIGlObject* getGUIGlObject() const;
 
     /// @brief Invalidated copy constructor.
     GNEPOI(const GNEPOI&) = delete;

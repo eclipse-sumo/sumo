@@ -1259,7 +1259,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
         }
     } else if (myAC->getTagProperty().getTag() == SUMO_TAG_POILANE) {
         // Obtain POILane
-        GNEPOI* POILane = myFrameParent->myViewNet->getNet()->retrievePOI(myAC->getID(), false);
+        GNEShape* POILane = myFrameParent->myViewNet->getNet()->retrieveShape(SUMO_TAG_POILANE, myAC->getID(), false);
         if (POILane) {
             // obtain parent lane
             GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(POILane->getParentLanes().at(0)->getID());

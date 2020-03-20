@@ -19,7 +19,6 @@
 // GUIPointOfInterest and NLHandler)
 /****************************************************************************/
 #include <string>
-#include <utils/common/StringTokenizer.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
@@ -28,9 +27,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewNetHelper.h>
 #include <netedit/elements/network/GNELane.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEPOI.h"
@@ -72,8 +69,9 @@ GNEPOI::getID() const {
 
 std::string
 GNEPOI::generateChildID(SumoXMLTag childTag) {
-    int counter = myNet->getAttributeCarriers()->getPOIs().size();
-    while (myNet->retrievePOI(getID() + toString(childTag) + toString(counter), false) != nullptr) {
+    int counter = (int)myNet->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size();
+    while ((myNet->retrieveShape(SUMO_TAG_POI, getID() + toString(childTag) + toString(counter), false) != nullptr) &&
+           (myNet->retrieveShape(SUMO_TAG_POILANE, getID() + toString(childTag) + toString(counter), false) != nullptr)) {
         counter++;
     }
     return (getID() + toString(childTag) + toString(counter));
@@ -189,6 +187,12 @@ GNEPOI::getCenteringBoundary() const {
 GUIGlID
 GNEPOI::getGlID() const {
     return GUIPointOfInterest::getGlID();
+}
+
+
+GUIGlObject*
+GNEPOI::getGUIGlObject() {
+    return this;
 }
 
 
@@ -355,7 +359,9 @@ bool
 GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->retrievePOI(value, false) == nullptr);
+            return SUMOXMLDefinitions::isValidTypeID(value) && 
+                (myNet->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
+                (myNet->retrieveShape(SUMO_TAG_POILANE, value, false) == nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_LANE:
@@ -428,8 +434,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID: {
             // note: getAttributeCarriers().updateID doesn't change Microsim ID in GNEShapes 
             myNet->getAttributeCarriers()->updateID(this, value);
-            // set microsim ID
-            setMicrosimID(value);
             // set named ID
             myID = value;
             break;
@@ -545,12 +549,5 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
     }
 }
-
-
-const GUIGlObject*
-GNEPOI::getGUIGlObject() const {
-    return this;
-}
-
 
 /****************************************************************************/

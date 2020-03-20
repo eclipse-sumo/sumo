@@ -1371,23 +1371,28 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
             }
             // select polygons
             if (!locks->IsObjectTypeLocked(GLO_POLYGON)) {
-                for (const auto& polygon : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getPolygons()) {
-                    GNEShape* shape = dynamic_cast<GNEShape*>(polygon.second);
-                    if (shape->isAttributeCarrierSelected()) {
-                        shape->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
+                for (const auto& polygon : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY)) {
+                    if (polygon.second->isAttributeCarrierSelected()) {
+                        polygon.second->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
                     } else {
-                        shape->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                        polygon.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
                     }
                 }
             }
-            // select POIs
+            // select POIs and POILanes
             if (!locks->IsObjectTypeLocked(GLO_POI)) {
-                for (const auto& poi : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getPOIs()) {
-                    GNEShape* shape = dynamic_cast<GNEShape*>(poi.second);
-                    if (shape->isAttributeCarrierSelected()) {
-                        shape->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
+                for (const auto& POI : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI)) {
+                    if (POI.second->isAttributeCarrierSelected()) {
+                        POI.second->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
                     } else {
-                        shape->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                        POI.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                    }
+                }
+                for (const auto& POILane : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POILANE)) {
+                    if (POILane.second->isAttributeCarrierSelected()) {
+                        POILane.second->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
+                    } else {
+                        POILane.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
                     }
                 }
             }
@@ -1722,19 +1727,22 @@ GNESelectorFrame::clearCurrentSelection() const {
             }
             // select polygons
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POLYGON)) {
-                for (const auto& polygon : myViewNet->getNet()->getAttributeCarriers()->getPolygons()) {
-                    GNEShape* shape = dynamic_cast<GNEShape*>(polygon.second);
-                    if (shape->isAttributeCarrierSelected()) {
-                        shape->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                for (const auto& polygon : myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY)) {
+                    if (polygon.second->isAttributeCarrierSelected()) {
+                        polygon.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
                 }
             }
-            // select POIs
+            // select POIs and POILanes
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI)) {
-                for (const auto& poi : myViewNet->getNet()->getAttributeCarriers()->getPOIs()) {
-                    GNEShape* shape = dynamic_cast<GNEShape*>(poi.second);
-                    if (shape->isAttributeCarrierSelected()) {
-                        shape->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                for (const auto& POI : myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI)) {
+                    if (POI.second->isAttributeCarrierSelected()) {
+                        POI.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+                for (const auto& POILane : myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POILANE)) {
+                    if (POILane.second->isAttributeCarrierSelected()) {
+                        POILane.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
                 }
             }
@@ -2019,19 +2027,23 @@ GNESelectorFrame::ACsToSelected() const {
         }
         // check if additionals selection is locked
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ADDITIONALELEMENT)) {
-            for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
+            for (const auto& additionalTag : myViewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
                 // first check if additional is selectable
-                if (GNEAttributeCarrier::getTagProperties(i.first).isSelectable() && (myViewNet->getNet()->getAttributeCarriers()->getAdditionals().at(i.first).size() > 0)) {
+                if (GNEAttributeCarrier::getTagProperties(additionalTag.first).isSelectable() && 
+                    (myViewNet->getNet()->getAttributeCarriers()->getAdditionals().at(additionalTag.first).size() > 0)) {
                     return true;
                 }
             }
         }
         // check polygons
-        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POLYGON) && (myViewNet->getNet()->getAttributeCarriers()->getPolygons().size() > 0)) {
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POLYGON) && 
+            (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY).size() > 0)) {
             return true;
         }
         // check POIs
-        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI) && (myViewNet->getNet()->getAttributeCarriers()->getPOIs().size() > 0)) {
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI) && 
+            ((myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size() > 0) || 
+             (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POILANE).size() > 0))) {
             return true;
         }
     }

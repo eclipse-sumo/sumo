@@ -44,7 +44,6 @@ class GNENet : public GUIGlObject {
     friend class GNEChange_Edge;
     friend class GNEChange_Lane;
     friend class GNEChange_Connection;
-    friend class GNEChange_Shape;
     friend class GNEChange_CalibratorItem;
     friend class GNEChange_DataSet;
 
@@ -99,49 +98,6 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
-    /// @}
-
-    /// @name inherited from ShapeHandler
-    /// @{
-
-    /**@brief Builds a polygon using the given values and adds it to the container
-    * @param[in] id The name of the polygon
-    * @param[in] type The (abstract) type of the polygon
-    * @param[in] color The color of the polygon
-    * @param[in] layer The layer of the polygon
-    * @param[in] angle The rotation of the polygon
-    * @param[in] imgFile The raster image of the polygon
-    * @param[in] relativePath set image file as relative path
-    * @param[in] shape The shape of the polygon
-    * @param[in] geo specify if shape was loaded as GEO coordinate
-    * @param[in] fill Whether the polygon shall be filled
-    * @param[in] lineWidth The widht for drawing unfiled polygon
-    * @return whether the polygon could be added
-    */
-    bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-                    double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape,
-                    bool geo, bool fill, double lineWidth, bool ignorePruning = false);
-
-    /**@brief Builds a POI using the given values and adds it to the container
-    * @param[in] id The name of the POI
-    * @param[in] type The (abstract) type of the POI
-    * @param[in] color The color of the POI
-    * @param[in] pos The position of the POI
-    * @param[in[ geo use GEO coordinates (lon/lat)
-    * @param[in] lane The Lane in which this POI is placed
-    * @param[in] posOverLane The position over Lane
-    * @param[in] posLat The position lateral over Lane
-    * @param[in] layer The layer of the POI
-    * @param[in] angle The rotation of the POI
-    * @param[in] imgFile The raster image of the POI
-    * @param[in] relativePath set image file as relative path
-    * @param[in] width The width of the POI image
-    * @param[in] height The height of the POI image
-    * @return whether the poi could be added
-    */
-    bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                const std::string& lane, double posOverLane, double posLat, double layer, double angle,
-                const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false);
     /// @}
 
     /// @brief returns the bounder of the network
@@ -333,20 +289,6 @@ public:
      * @throws UnknownElement
      */
     GNEEdge* retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard = true) const;
-
-    /**@brief get Polygon by id
-    * @param[in] id The id of the desired polygon
-    * @param[in] failHard Whether attempts to retrieve a nonexisting polygon should result in an exception
-    * @throws UnknownElement
-    */
-    GNEPoly* retrievePolygon(const std::string& id, bool failHard = true) const;
-
-    /**@brief get POI by id
-    * @param[in] id The id of the desired POI
-    * @param[in] failHard Whether attempts to retrieve a nonexisting POI should result in an exception
-    * @throws UnknownElement
-    */
-    GNEPOI* retrievePOI(const std::string& id, bool failHard = true) const;
 
     /**@brief get Connection by id
     * @param[in] id The id of the desired Connection
@@ -671,8 +613,20 @@ public:
 
     /// @}
 
-    /// @name Functions related to Shapes
+    /// @name Functions related with Shapes
     /// @{
+
+    /**@brief Returns the named shape
+     * @param[in] type tag with the type of shape
+     * @param[in] id The id of the shape to return.
+     * @param[in] failHard Whether attempts to retrieve a nonexisting shape should result in an exception
+     */
+    GNEShape* retrieveShape(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+
+    /**@brief return all shapes
+     * @param[in] onlySelected Whether to return only selected shapes
+     */
+    std::vector<GNEShape*> retrieveShapes(bool onlySelected = false) const;
 
     /**@brief Builds a special polygon used for edit Junctions's shapes
      * @param[in] networkElement GNENetworkElement to be edited
@@ -690,8 +644,11 @@ public:
     /// @brief generate Shape ID
     std::string generateShapeID(SumoXMLTag shapeTag) const;
 
-    /// @brief get number of shapes
-    int getNumberOfShapes() const;
+    /**@brief Returns the number of shapes of the net
+     * @param[in] type type of shape to count. SUMO_TAG_NOTHING will count all shapes
+     * @return Number of shapes of the net
+     */
+    int getNumberOfShapes(SumoXMLTag type = SUMO_TAG_NOTHING) const;
     /// @}
 
     /// @name Functions related to TLS Programs
@@ -807,12 +764,6 @@ private:
     /// @brief deletes a single edge
     void deleteSingleEdge(GNEEdge* edge, bool updateViewAfterDeleting);
 
-    /// @brief insert shape
-    void insertShape(GNEShape* shape, bool updateViewAfterDeleting);
-
-    /// @brief remove created shape (but NOT delete)
-    void removeShape(GNEShape* shape, bool updateViewAfterDeleting);
-
     /// @brief notify myViewNet
     void update();
 
@@ -844,9 +795,6 @@ private:
 
     /// @brief map with the Edges and their number of lanes
     std::map<std::string, int> myEdgesAndNumberOfLanes;
-
-    /// @brief flag used to indicate if shaped created can be undo
-    bool myAllowUndoShapes;
 
     /// @brief Invalidated copy constructor.
     GNENet(const GNENet&) = delete;
