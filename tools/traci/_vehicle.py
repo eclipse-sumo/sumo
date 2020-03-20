@@ -661,8 +661,9 @@ class VehicleDomain(Domain):
         Return the leading vehicle id together with the distance. The distance
         is measured from the front + minGap to the back of the leader, so it does not include the
         minGap of the vehicle.
-        The dist parameter defines the maximum lookahead, 0 calculates a lookahead from the brake gap.
-        Note that the returned leader may be farther away than the given dist.
+        The dist parameter defines the minimum lookahead, 0 calculates a lookahead from the brake gap.
+        Note that the returned leader may be further away than the given dist and that the vehicle
+        will only look on its current best lanes and not look beyond the end of its final route edge.
         """
         self._connection._beginMessage(
             tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID, 1 + 8)
