@@ -19,6 +19,15 @@ When this is done, vehicles will always depart on an edge that goes into the
 correct direction because on initial routing they are free to pick the edge
 that best suites their direction of travel.
 
+Besides defining trips manually, trips between junctions can also be achieved
+with
+
+- [Random Trips option **--junction-taz**](..Tools/Trip.md#randomtripspy)
+- [DUARUTER options **--write-trips.junctions**](../DUAROUTER.md)
+
+!!! caution
+    When loading trips with `fromJunction` or `toJunction` attributes with [SUMO](../SUMO.md) or [DUAROUTER](../DUAROUTER.mD), the option **--junction-taz** must be set or an equivalent TAZ-file must be loaded.
+
 ## Trips between TAZ
 Instead of departing as junctions (which internally use specialised TAZ), the
 user may define traffic larger assignment zones (TAZ / districts) as origins and
