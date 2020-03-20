@@ -120,7 +120,7 @@ stopend ()
 colliding ('suddenStop', 'collider')
 #emergencystopping 0
 emergencystopping ()
-min#expected 6
+min#expected 5
 #teleportStart 1
 teleportStart ('collider',)
 #teleportEnd 0
@@ -151,7 +151,7 @@ stopend ()
 colliding ()
 #emergencystopping 1
 emergencystopping ('emergencyStopper',)
-min#expected 5
+min#expected 4
 #teleportStart 0
 teleportStart ()
 #teleportEnd 0
@@ -178,7 +178,7 @@ stopend ()
 colliding ()
 #emergencystopping 1
 emergencystopping ('emergencyStopper',)
-min#expected 5
+min#expected 4
 #teleportStart 0
 teleportStart ()
 #teleportEnd 0
