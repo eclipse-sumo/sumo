@@ -28,6 +28,7 @@
 #include <utility>
 #include <string>
 #include <set>
+#include <memory>
 #include <utils/common/StdDefs.h>
 #include <utils/common/Named.h>
 #include <utils/geom/Bresenham.h>
@@ -672,7 +673,7 @@ public:
 
     /// @brief return this junctions pedestrian crossings
     std::vector<Crossing*> getCrossings() const;
-    inline const std::vector<Crossing*>& getCrossingsIncludingInvalid() const {
+    inline const std::vector<std::unique_ptr<Crossing> >& getCrossingsIncludingInvalid() const {
         return myCrossings;
     }
 
@@ -831,7 +832,7 @@ private:
     EdgeVector myAllEdges;
 
     /// @brief Vector of crossings
-    std::vector<Crossing*> myCrossings;
+    std::vector<std::unique_ptr<Crossing> > myCrossings;
 
     /// @brief Vector of walking areas
     std::vector<WalkingArea> myWalkingAreas;

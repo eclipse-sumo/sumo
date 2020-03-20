@@ -32,14 +32,14 @@ Debug: Current saving Status: net saved, additionals unsaved, demand elements sa
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 15.00,-15.00,25.00,-5.00
-Debug: Deleting net builder in GNENet destructor
-Debug: Deleting unreferenced edge 'gneE12' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE12' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE12_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE13' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE13' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE13_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ21' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ22' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ21' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ22' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
+Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

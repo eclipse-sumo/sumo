@@ -2376,7 +2376,7 @@ NBNode::guessCrossings() {
     std::sort(myCrossings.begin(), myCrossings.end(), NBNodesEdgesSorter::crossing_by_junction_angle_sorter(this, myAllEdges));
     if (gDebugFlag1) {
         std::cout << "guessedCrossings:\n";
-        for (auto crossing : myCrossings) {
+        for (auto& crossing : myCrossings) {
             std::cout << "  edges=" << toString(crossing->edges) << "\n";
         }
     }
@@ -2480,7 +2480,7 @@ NBNode::checkCrossingDuplicated(EdgeVector edges) {
     // sort edge vector
     std::sort(edges.begin(), edges.end());
     // iterate over crossing to find a crossing with the same edges
-    for (auto crossing : myCrossings) {
+    for (auto& crossing : myCrossings) {
         // sort edges of crossing before compare
         EdgeVector edgesOfCrossing = crossing->edges;
         std::sort(edgesOfCrossing.begin(), edgesOfCrossing.end());
@@ -2508,7 +2508,7 @@ NBNode::buildCrossingsAndWalkingAreas() {
     buildCrossings();
     buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"));
     // ensure that all crossings are properly connected
-    for (auto crossing : myCrossings) {
+    for (auto& crossing : myCrossings) {
         if (crossing->prevWalkingArea == "" || crossing->nextWalkingArea == "" || !crossing->valid) {
             if (crossing->valid) {
                 WRITE_WARNINGF("Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).",
@@ -2530,9 +2530,9 @@ NBNode::buildCrossingsAndWalkingAreas() {
 std::vector<NBNode::Crossing*>
 NBNode::getCrossings() const {
     std::vector<Crossing*> result;
-    for (Crossing* const c : myCrossings) {
+    for (auto& c : myCrossings) {
         if (c->valid) {
-            result.push_back(c);
+            result.push_back(c.get());
         }
     }
     //if (myCrossings.size() > 0) {
@@ -2547,9 +2547,6 @@ NBNode::getCrossings() const {
 
 void
 NBNode::discardAllCrossings(bool rejectAll) {
-    for (auto c : myCrossings) {
-        delete c;
-    }
     myCrossings.clear();
     // also discard all further crossings
     if (rejectAll) {
@@ -2600,7 +2597,7 @@ NBNode::buildCrossings() {
     }
     int index = 0;
     const double defaultWidth = OptionsCont::getOptions().getFloat("default.crossing-width");
-    for (auto c : myCrossings) {
+    for (auto& c : myCrossings) {
         c->valid = true;
         if (!isTLControlled()) {
             c->tlID = ""; // reset for Netedit, set via setCrossingTLIndices()
@@ -3161,7 +3158,7 @@ NBNode::Crossing*
 NBNode::addCrossing(EdgeVector edges, double width, bool priority, int tlIndex, int tlIndex2,
                     const PositionVector& customShape, bool fromSumoNet) {
     Crossing* c = new Crossing(this, edges, width, priority, tlIndex, tlIndex2, customShape);
-    myCrossings.push_back(c);
+    myCrossings.push_back(std::unique_ptr<Crossing>(c));
     if (fromSumoNet) {
         myCrossingsLoadedFromSumoNet += 1;
     }
@@ -3172,10 +3169,9 @@ NBNode::addCrossing(EdgeVector edges, double width, bool priority, int tlIndex, 
 void
 NBNode::removeCrossing(const EdgeVector& edges) {
     EdgeSet edgeSet(edges.begin(), edges.end());
-    for (std::vector<Crossing*>::iterator it = myCrossings.begin(); it != myCrossings.end();) {
+    for (auto it = myCrossings.begin(); it != myCrossings.end();) {
         EdgeSet edgeSet2((*it)->edges.begin(), (*it)->edges.end());
         if (edgeSet == edgeSet2) {
-            delete *it;
             it = myCrossings.erase(it);
         } else {
             ++it;
@@ -3186,9 +3182,9 @@ NBNode::removeCrossing(const EdgeVector& edges) {
 
 NBNode::Crossing*
 NBNode::getCrossing(const std::string& id) const {
-    for (auto c : myCrossings) {
+    for (auto& c : myCrossings) {
         if (c->id == id) {
-            return c;
+            return c.get();
         }
     }
     throw ProcessError("Request for unknown crossing '" + id + "'");
@@ -3198,10 +3194,10 @@ NBNode::getCrossing(const std::string& id) const {
 NBNode::Crossing*
 NBNode::getCrossing(const EdgeVector& edges, bool hardFail) const {
     EdgeSet edgeSet(edges.begin(), edges.end());
-    for (auto it : myCrossings) {
+    for (auto& it : myCrossings) {
         EdgeSet edgeSet2(it->edges.begin(), it->edges.end());
         if (edgeSet == edgeSet2) {
-            return it;
+            return it.get();
         }
     }
     if (!hardFail) {

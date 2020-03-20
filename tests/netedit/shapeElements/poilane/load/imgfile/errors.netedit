@@ -13,7 +13,7 @@ Debug: Adding poiLane 'POI_1' into viewNet
 Debug: Adding poiLane 'POI_2' into viewNet
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
-Error: Could not load 'C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\shapeElements\poilane\load\imgfile\paris.ico'.
+Error: Could not load '/home/micha/.texttest/tmp/netedit.gui.20Mar162115.22904/netedit.gui/shapeElements/poilane/load/imgfile/paris.ico'.
 Loading failed!
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
@@ -36,16 +36,16 @@ Debug: Removing poiLane 'POI_1' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_1' in ~GNEChange_Shape()
 Debug: Removing poiLane 'POI_0' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_0' in ~GNEChange_Shape()
-Debug: Deleting net builder in GNENet destructor
-Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
+Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

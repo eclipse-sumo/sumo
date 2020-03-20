@@ -72,12 +72,12 @@ Debug: Created crossing ':gneJ19_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ19_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ19_c2' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ19_c3' in retrieveGNECrossing()
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: Key F7 (Join junctions) pressed
 Debug: Adding junction 'gneJ20' into net
 Debug: net has to be saved
@@ -242,8 +242,8 @@ Debug: Created connection 'fromgneE9_1togneE14_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1to-gneE13_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE18_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute pos '20.10,20.10' into junction 'cluster_gneJ13_gneJ17_gneJ19'
@@ -407,8 +407,8 @@ Debug: Created crossing ':gneJ13_c2' in retrieveGNECrossing()
 Debug: Setting previous attribute type 'unknown' into junction 'gneJ20'
 Debug: Removing junction 'gneJ20' from net
 Debug: Key F5 (Compute) pressed
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: Key F7 (Join junctions) pressed
 Debug: Opening FXMessageBox 'Join non-selected junction'
 Debug: Closed FXMessageBox 'Join non-selected junction' with 'No'
@@ -579,8 +579,8 @@ Debug: Created connection 'fromgneE9_1togneE14_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1to-gneE13_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE18_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute pos '20.10,20.10' into junction 'cluster_gneJ13_gneJ17_gneJ19'
@@ -744,8 +744,8 @@ Debug: Created crossing ':gneJ13_c2' in retrieveGNECrossing()
 Debug: Setting previous attribute type 'unknown' into junction 'gneJ21'
 Debug: Removing junction 'gneJ21' from net
 Debug: Key F5 (Compute) pressed
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'gneJ21' into net
@@ -933,8 +933,7 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-Debug: Deleting net builder in GNENet destructor
-Debug: Deleting unreferenced edge '-gneE10' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE10_1to-gneE9_1' in GNEEdge destructor
@@ -942,20 +941,20 @@ Debug: Deleting unreferenced connection 'from-gneE10_1togneE16_1' in GNEEdge des
 Debug: Deleting unreferenced connection 'from-gneE10_1togneE14_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE10_1to-gneE13_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE10_1togneE18_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE11' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE11' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE11_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE11_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE11_1to-gneE10_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE12' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE12' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE12_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE12_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE12_1to-gneE11_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE12_1to-gneE18_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE13' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE13' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE13_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE13_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE13_1to-gneE12_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE14' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE14' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE14_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE14_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE14_1to-gneE13_1' in GNEEdge destructor
@@ -963,11 +962,11 @@ Debug: Deleting unreferenced connection 'from-gneE14_1togneE18_1' in GNEEdge des
 Debug: Deleting unreferenced connection 'from-gneE14_1togneE10_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE14_1to-gneE9_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE14_1togneE16_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE15' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE15' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE15_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE15_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE15_1to-gneE14_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE16' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE16' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE16_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE16_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE14_1' in GNEEdge destructor
@@ -975,7 +974,7 @@ Debug: Deleting unreferenced connection 'from-gneE16_1to-gneE13_1' in GNEEdge de
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE18_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE10_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE16_1to-gneE9_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE18' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE18' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE18_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE18_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE10_1' in GNEEdge destructor
@@ -983,29 +982,29 @@ Debug: Deleting unreferenced connection 'from-gneE18_1to-gneE9_1' in GNEEdge des
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE16_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE14_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE18_1to-gneE13_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE8' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE8' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE8_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE8_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE8_1to-gneE15_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE8_1to-gneE16_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE9' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE9' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE9_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE9_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE9_1to-gneE8_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE10' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE10_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_1togneE11_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE11' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE11' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE11_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE11_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE11_1to-gneE18_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE11_1togneE12_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE12' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE12' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE12_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE12_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE12_1togneE13_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE13' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE13' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE13_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE13_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE13_1togneE18_1' in GNEEdge destructor
@@ -1013,30 +1012,30 @@ Debug: Deleting unreferenced connection 'fromgneE13_1togneE10_1' in GNEEdge dest
 Debug: Deleting unreferenced connection 'fromgneE13_1to-gneE9_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE13_1togneE16_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE13_1togneE14_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE14' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE14' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE14_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE14_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE14_1togneE15_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE15' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE15' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE15_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE15_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE15_1to-gneE16_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE15_1togneE8_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE16' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE16' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE16_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE16_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE16_1togneE8_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE16_1to-gneE15_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE18' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE18' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE18_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE18_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE18_1togneE12_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE18_1to-gneE11_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE8' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE8' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE8_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE8_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE8_1togneE9_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE9' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE9' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE9_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE9_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE16_1' in GNEEdge destructor
@@ -1044,29 +1043,30 @@ Debug: Deleting unreferenced connection 'fromgneE9_1togneE14_1' in GNEEdge destr
 Debug: Deleting unreferenced connection 'fromgneE9_1to-gneE13_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE18_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE10_1' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'cluster_gneJ13_gneJ17_gneJ19' in GNENet destructor
+Debug: Deleting unreferenced junction 'cluster_gneJ13_gneJ17_gneJ19' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ21_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ21_c1' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ21_c5' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ21_c3' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ21_c2' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ21_c4' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'gneJ11' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ11' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ11_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ11_c1' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ11_c2' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'gneJ12' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ12' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ12_c0' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'gneJ14' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ14' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ14_c0' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'gneJ15' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ15' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ15_c1' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ15_c2' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ15_c0' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'gneJ16' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ16' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ16_c0' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'gneJ18' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ18' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ18_c0' in GNEJunction destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
+Debug: Deleting net builder in GNENet destructor

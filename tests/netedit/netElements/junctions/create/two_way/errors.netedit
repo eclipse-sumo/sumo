@@ -95,16 +95,16 @@ GLDebug: 	Inserted edge:-gneE0 into SUMORTree with boundary 66.00,76.00,105.00,9
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary 66.00,74.40,105.00,96.00
 Debug: Created connection 'from-gneE0_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE0_0to-gneE0_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced edge '-gneE0' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE0_0togneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0to-gneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4
