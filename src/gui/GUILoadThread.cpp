@@ -90,10 +90,10 @@ GUILoadThread::run() {
     // try to load the given configuration
     OptionsCont& oc = OptionsCont::getOptions();
     try {
-        oc.clear();
-        MSFrame::fillOptions();
         if (myFile != "") {
             // triggered by menu option or reload
+            oc.clear();
+            MSFrame::fillOptions();
             if (myLoadNet) {
                 oc.set("net-file", myFile);
             } else {
@@ -103,7 +103,7 @@ GUILoadThread::run() {
             OptionsIO::getOptions();
         } else {
             // triggered at application start
-            OptionsIO::getOptions();
+            OptionsIO::loadConfiguration();
             if (oc.isSet("configuration-file")) {
                 myFile = oc.getString("configuration-file");
             } else if (oc.isSet("net-file")) {

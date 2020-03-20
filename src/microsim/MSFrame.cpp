@@ -675,12 +675,17 @@ MSFrame::checkOptions() {
     if (statePeriod > 0) {
         checkStepLengthMultiple(statePeriod, " for save-state.period", deltaT);
     }
-    for (std::string timeStr : oc.getStringVector("save-state.times")) {
-        SUMOTime saveT = string2time(timeStr);
-        if (end > 0 && saveT >= end) {
-            WRITE_WARNING("The save-state.time " + timeStr + " will not be used before simulation end at " + time2string(end));
-        } else {
-            checkStepLengthMultiple(saveT, " for save-state.times", deltaT);
+    for (const std::string& timeStr : oc.getStringVector("save-state.times")) {
+        try {
+            const SUMOTime saveT = string2time(timeStr);
+            if (end > 0 && saveT >= end) {
+                WRITE_WARNING("The save-state.time " + timeStr + " will not be used before simulation end at " + time2string(end));
+            } else {
+                checkStepLengthMultiple(saveT, " for save-state.times", deltaT);
+            }
+        } catch (ProcessError& e) {
+            WRITE_ERROR("Invalid time '" + timeStr + "' for option 'save-state.times'. " + e.what());
+            ok = false;
         }
     }
 
@@ -741,10 +746,10 @@ MSFrame::checkOptions() {
         try {
             string2time(val);
         } catch (ProcessError& e) {
-            WRITE_ERROR("Invalid time '" + val + "' for option 'breakpoints'." + e.what());
+            WRITE_ERROR("Invalid time '" + val + "' for option 'breakpoints'. " + e.what());
             ok = false;
         }
-    };
+    }
 #ifndef HAVE_FOX
     if (oc.getInt("threads") > 1) {
         WRITE_ERROR("Parallel simulation is only possible when compiled with Fox.");

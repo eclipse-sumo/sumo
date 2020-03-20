@@ -75,7 +75,9 @@ OptionsIO::getOptions(const bool commandLineOnly) {
     if (myArgC == 2 && myArgV[1][0] != '-') {
         // special case only one parameter, check who can handle it
         if (OptionsCont::getOptions().setByRootElement(getRoot(myArgV[1]), myArgV[1])) {
-            loadConfiguration();
+            if (!commandLineOnly) {
+                loadConfiguration();
+            }
             return;
         }
     }
@@ -86,12 +88,7 @@ OptionsIO::getOptions(const bool commandLineOnly) {
     }
     if (!commandLineOnly || OptionsCont::getOptions().isSet("save-configuration", false)) {
         // read the configuration when everything's ok
-        OptionsCont::getOptions().resetWritable();
         loadConfiguration();
-        // reparse the options
-        //  (overwrite the settings from the configuration file)
-        OptionsCont::getOptions().resetWritable();
-        OptionsParser::parse(myArgC, myArgV);
     }
 }
 
@@ -102,11 +99,12 @@ OptionsIO::loadConfiguration() {
     if (!oc.exists("configuration-file") || !oc.isSet("configuration-file")) {
         return;
     }
-    std::string path = oc.getString("configuration-file");
+    const std::string path = oc.getString("configuration-file");
     if (!FileHelpers::isReadable(path)) {
         throw ProcessError("Could not access configuration '" + oc.getString("configuration-file") + "'.");
     }
     PROGRESS_BEGIN_MESSAGE("Loading configuration");
+    oc.resetWritable();
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Auto);
@@ -125,6 +123,11 @@ OptionsIO::loadConfiguration() {
         throw ProcessError("Could not load configuration '" + path + "':\n " + StringUtils::transcode(e.getMessage()));
     }
     oc.relocateFiles(path);
+    if (myArgC > 2) {
+        // reparse the options (overwrite the settings from the configuration file)
+        oc.resetWritable();
+        OptionsParser::parse(myArgC, myArgV);
+    }
     PROGRESS_DONE_MESSAGE();
 }
 
