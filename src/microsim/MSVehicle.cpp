@@ -6723,18 +6723,37 @@ MSVehicle::getStopDelay() const {
         auto it = myCurrEdge + 1;
         // drive to end of current edge
         //std::cout << SIMTIME << " veh=" << getID() << " ed1=" << time2string(estimatedDepart);
-        estimatedDepart += TIME2STEPS(myLane->getEdge().getMinimumTravelTime(this) * (myLane->getLength() - getPositionOnLane()) / myLane->getLength());
-        //std::cout << " ed2=" << time2string(estimatedDepart);
+        double dist = (myLane->getLength() - getPositionOnLane());
+        double travelTime = myLane->getEdge().getMinimumTravelTime(this) * dist / myLane->getLength();
+        double maxSpeed = MAX2(myLane->getVehicleMaxSpeed(this), stop.lane->getVehicleMaxSpeed(this));
         // drive until stop edge
         while (it != myRoute->end() && it < stop.edge) {
-            estimatedDepart += TIME2STEPS((*it)->getMinimumTravelTime(this));
+            travelTime += (*it)->getMinimumTravelTime(this);
+            maxSpeed = MAX2(maxSpeed, (*it)->getVehicleMaxSpeed(this));
+            dist += (*it)->getLength();
             it++;
         }
-        //std::cout << " ed3=" << time2string(estimatedDepart);
         // drive up to the stop position
         const double stopEdgeDist = stop.pars.endPos - (myLane == stop.lane ? myLane->getLength() : 0);
-        estimatedDepart += TIME2STEPS(stop.lane->getEdge().getMinimumTravelTime(this) * (stopEdgeDist / stop.lane->getLength()));
-        //std::cout << " stopEdgeDist=" << stopEdgeDist << " ed4=" << time2string(estimatedDepart) << "\n";
+        dist += stopEdgeDist;
+        travelTime += stop.lane->getEdge().getMinimumTravelTime(this) * (stopEdgeDist / stop.lane->getLength());
+        // estimate time loss due to acceleration and deceleration 
+        // maximum speed is limited by available distance:
+        const double a = getCarFollowModel().getMaxAccel();
+        const double b = getCarFollowModel().getMaxDecel();
+        const double c = getSpeed();
+        const double d = dist;
+        // distAccel = (v - v0)^2 / 2a
+        // distDecel = v^2 / 2b
+        // distAccel + distDecel < d
+        maxSpeed = MIN2(maxSpeed, MAX2(c, ((sqrt(MAX2(0.0, pow(2*c*b, 2) + (4*b*(2*d*a - c*c)*(b + a))))*0.5) + (c*b))/(b + a)));
+        // timeLossAccel = timeAccel - timeMaxspeed = (v - v0) / a - distAccel / v
+        const double dv = maxSpeed - c;
+        const double timeLossAccel = dv / a - dv * dv / (2 * a * maxSpeed);
+        // timeLossDecel = timeDecel - timeMaxspeed = v / b - v / 2b = v / 2b
+        const double timeLossDecel = maxSpeed / (2 * b);
+        estimatedDepart += TIME2STEPS(travelTime + timeLossAccel + timeLossDecel);
+        //std::cout << SIMTIME << " v=" << c << " vMax=" << maxSpeed << " tt=" << travelTime << " ta=" << timeLossAccel << " td=" << timeLossDecel << "\n";
         return MAX2(0.0, STEPS2TIME(estimatedDepart - stop.pars.until));
     } else {
         return -1;
