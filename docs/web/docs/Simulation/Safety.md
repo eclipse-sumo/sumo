@@ -27,7 +27,7 @@ of the following keywords:
 - **teleport**: (the default): the follower vehicle is moved
   (teleported) to the next edge on its route
 - **warn**: a warning is issued
-- **none**: no action is take
+- **none**: no action is taken
 - **remove**: both vehicles are removed from the simulation
 
 Additionally there is the possibility of stopping vehicles for a fixed
