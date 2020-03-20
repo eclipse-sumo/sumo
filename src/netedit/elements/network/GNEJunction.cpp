@@ -143,9 +143,9 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
         // create a vector to keep retrieved and created crossings
         std::vector<GNECrossing*> retrievedCrossings;
         // iterate over NBNode::Crossings of GNEJunction
-        for (const auto& NBNodeConnection : myNBNode->getCrossingsIncludingInvalid()) {
+        for (const auto& crossing : myNBNode->getCrossingsIncludingInvalid()) {
             // retrieve existent GNECrossing, or create it
-            GNECrossing* retrievedGNECrossing = retrieveGNECrossing(NBNodeConnection);
+            GNECrossing* retrievedGNECrossing = retrieveGNECrossing(crossing.get());
             retrievedCrossings.push_back(retrievedGNECrossing);
             // check if previously this GNECrossings exists, and if true, remove it from myGNECrossings and insert in tree again
             std::vector<GNECrossing*>::iterator retrievedExists = std::find(myGNECrossings.begin(), myGNECrossings.end(), retrievedGNECrossing);
