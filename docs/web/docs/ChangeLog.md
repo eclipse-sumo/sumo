@@ -17,6 +17,7 @@ permalink: /ChangeLog/
   - Fixed bug that caused junction collisions to go unnoticed. Issue #6779  
   - Stopping duration no longer exceeds the planned duration/until time by one simulation step. Issue #6755
   - ACC model no longer uses double minGap when queued. Issue #6728
+  - Fixed extremely low speed of W99 model when approaching intersections and stops. Issue #6823
   - Railway fixes:
     - Train reversal problems. Issue #6692, #6782, #6797
     - Train routing now considers space requirement for train reversal. Issue #6697, #6743, #6799
@@ -49,6 +50,7 @@ permalink: /ChangeLog/
   - Fixed crash when trying add subscription filter for context subscrition of persons around an ego vehicle. Issue #6735
   - Fixed crash and invalid results when using 'vehicle.addSubscriptionFilterLateralDistance'. Issue #6770
   - Fixed crash when adding vehicle with `depart="triggered"`. Issue #6793
+  - Fixed invalid routing results when calling 'traci.simulation.findIntermodalRoute(..., routingMode=ROUTING_MODE_AGGREGATED)'. Issue #6827
 - Tools
   - [sort_routes.py](Tools/Routes.md#sort_routespy) can now handle trips, triggered vehicles and human-readable times.  
   - [routeSampler.py](Tools/Turns.md#routesampler.py): fixed bias in departure time for the generated vehicles. Issue #6786
@@ -88,6 +90,7 @@ permalink: /ChangeLog/
   - [Meso simulation](Simulation/Meso.md) now supports TraCI
   - Parking vehicles are now picked up by context subscriptions. Issue #6785
   - Added functions 'getFollowSpeed', 'getSecureGap', 'getStopSpeed' for accessing carFollowModel functions to the vehicle domain. Issue #3361
+  - Added function 'traci.vehicle.getStopDelay' to retrieve the estimated delay at the next (public transport) stop. Issue #6826
 - Tools
   - added osmWebWizard option to import a simplified network that is only for cars. Issue #6595
   - [matsim_importPlans.py](Tools/Import/MATSim.md#matsim_importplanspy) now supports alternative input dialects and sorts its output.  
