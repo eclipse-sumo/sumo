@@ -519,7 +519,7 @@ Some further messages require additional parameters.
 <td><p>leader (0x68)</p></td>
 <td><p>double, see below</p></td>
 <td><p>compound (string, double)</p></td>
-<td><p>Returns the id of the leading vehicle and its distance, if the string is empty, no leader was found. Only vehicles ahead on the currently list of <em>best lanes</em> are considered (see above). This means, the leader is only valid until the next lane-change maneuver. The returned distance is measured from the ego vehicle front bumper + minGap to the back bumper of the leader vehicle.</p></td>
+<td><p>Returns the id of the leading vehicle and its distance, if the string is empty, no leader was found within the given range. Only vehicles ahead on the currently list of <em>best lanes</em> are considered (see above). This means, the leader is only valid until the next lane-change maneuver. The returned distance is measured from the ego vehicle front bumper + minGap to the back bumper of the leader vehicle.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLeader">getLeader</a></p></td>
 </tr>
 <tr class="even">
@@ -586,7 +586,7 @@ The request message contents are as following:
 
 |        byte         |               double               |
 | :-----------------: | :--------------------------------: |
-| value type *double* | maximum look ahead distance (in m) |
+| value type *double* | minimum look ahead distance (in m) |
 
 ### next TLS (0x70)
 

@@ -1126,7 +1126,7 @@ public:
      *
      * If the distance is not given it is calculated from the brake gap.
      * The gap returned does not include the minGap.
-     * @param dist    up to which distance to look for a leader
+     * @param dist    up to which distance to look at least for a leader
      * @return The leading vehicle together with the gap; (0, -1) if no leader was found.
      */
     std::pair<const MSVehicle* const, double> getLeader(double dist = 0) const;
