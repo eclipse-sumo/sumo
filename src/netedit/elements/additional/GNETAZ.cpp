@@ -76,6 +76,7 @@ GNETAZ::GNETAZ(const std::string& id, GNEViewNet* viewNet, PositionVector shape,
     myColor(color),
     myTAZShape(shape),
     myBlockShape(false),
+    myDrawFill(false),
     myCurrentMovingVertexIndex(-1),
     myMaxWeightSource(0),
     myMinWeightSource(0),
@@ -320,12 +321,9 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawLine(myTAZShape);
 
             glPushMatrix();
-            glTranslated(0, 0, 0 /*getShapeLayer()*/);
+            glTranslated(0, 0, GLO_NETWORK);
             // recall tesselation
-
             performTesselation(1);
-
-            //GLHelper::drawBoxLines(myTAZShape, s.polySize.getExaggeration(s, this));
             glPopMatrix();
             // draw name
             drawName(myTAZShape.getPolygonCenter(), s.scale, s.polyName, s.angle);
@@ -544,9 +542,9 @@ GNETAZ::updateParentAdditional() {
     int numberOfSources = 0;
     int numberOfSinks = 0;
     // iterate over child additional
-    for (auto i : getChildAdditionals()) {
-        if (i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-            double weight = i->getAttributeDouble(SUMO_ATTR_WEIGHT);
+    for (const auto &additional : getChildAdditionals()) {
+        if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+            double weight = additional->getAttributeDouble(SUMO_ATTR_WEIGHT);
             // check max Weight
             if (myMaxWeightSource < weight) {
                 myMaxWeightSource = weight;
@@ -559,8 +557,8 @@ GNETAZ::updateParentAdditional() {
             myAverageWeightSource += weight;
             // update number of sources
             numberOfSources++;
-        } else if (i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
-            double weight = i->getAttributeDouble(SUMO_ATTR_WEIGHT);
+        } else if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
+            double weight = additional->getAttributeDouble(SUMO_ATTR_WEIGHT);
             // check max Weight
             if (myMaxWeightSink < weight) {
                 myMaxWeightSink = weight;
@@ -609,7 +607,6 @@ GNETAZ::performTesselation(double lineWidth) const {
         gluTessEndPolygon(tobj);
         gluDeleteTess(tobj);
         delete[] points;
-
     } else {
         GLHelper::drawLine(myTAZShape);
         GLHelper::drawBoxLines(myTAZShape, lineWidth);

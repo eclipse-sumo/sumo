@@ -61,16 +61,17 @@ public:
         LIST =                1 << 14,  // Attribute is a list of other elements separated by spaces
         SECUENCIAL =          1 << 15,  // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
         XMLOPTIONAL =         1 << 16,  // Attribute will not be written in XML file if current value is the same of his default Static/Mutable value
-        DEFAULTVALUESTATIC =  1 << 17,  // Attribute owns a static default value
-        DEFAULTVALUEMUTABLE = 1 << 18,  // Attribute owns a mutable default value (Default value depends of value of other attribute)
-        VCLASSES =            1 << 19,  // Attribute is a combination of VClasses (allow/disallow)
-        SYNONYM =             1 << 20,  // Attribute will be written with a different name in der XML
-        RANGE =               1 << 21,  // Attribute only accept a range of elements (example: Probability [0,1])
-        EXTENDED =            1 << 22,  // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
-        UPDATEGEOMETRY =      1 << 23,  // Attribute require update geometry at the end of function setAttribute(...)
-        ACTIVATABLE =         1 << 24,  // Attribute can be switch on/off using a checkbox in frame
-        COMPLEX =             1 << 25,  // Attribute is complex: Requiere a special function to check if the given value is valid
-        FLOWDEFINITION =      1 << 26,  // Attribute is part of a flow definition (Number, vehsPerHour...)
+        XMLIGNORED =          1 << 17,  // Attribute will not be written in XML file
+        DEFAULTVALUESTATIC =  1 << 18,  // Attribute owns a static default value
+        DEFAULTVALUEMUTABLE = 1 << 19,  // Attribute owns a mutable default value (Default value depends of value of other attribute)
+        VCLASSES =            1 << 20,  // Attribute is a combination of VClasses (allow/disallow)
+        SYNONYM =             1 << 21,  // Attribute will be written with a different name in der XML
+        RANGE =               1 << 22,  // Attribute only accept a range of elements (example: Probability [0,1])
+        EXTENDED =            1 << 23,  // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
+        UPDATEGEOMETRY =      1 << 24,  // Attribute require update geometry at the end of function setAttribute(...)
+        ACTIVATABLE =         1 << 25,  // Attribute can be switch on/off using a checkbox in frame
+        COMPLEX =             1 << 26,  // Attribute is complex: Requiere a special function to check if the given value is valid
+        FLOWDEFINITION =      1 << 27,  // Attribute is part of a flow definition (Number, vehsPerHour...)
     };
 
     /// @brief default constructor
@@ -192,6 +193,9 @@ public:
 
     /// @brief return true if atribute is optional (it will be written in XML only if his value is different of default value)
     bool isOptional() const;
+
+    /// @brief return true if atribute is ignored
+    bool isIgnored() const;
 
     /// @brief return true if atribute is discrete
     bool isDiscrete() const;

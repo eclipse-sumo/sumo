@@ -26,7 +26,7 @@
 // ===========================================================================
 /**
  * @class GNETAZ
- * Class for multy Entry/multy Exits detectors
+ * Class for Traffic Assign Zones (TAZs)
  */
 class GNETAZ : public GNEAdditional {
 

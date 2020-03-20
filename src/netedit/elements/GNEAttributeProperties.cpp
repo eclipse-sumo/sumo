@@ -428,6 +428,12 @@ GNEAttributeProperties::isOptional() const {
 
 
 bool
+GNEAttributeProperties::isIgnored() const {
+    return (myAttributeProperty & XMLIGNORED) != 0;
+}
+
+
+bool
 GNEAttributeProperties::isDiscrete() const {
     return (myAttributeProperty & DISCRETE) != 0;
 }

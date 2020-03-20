@@ -143,24 +143,51 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
             device.openTag(myTagProperty.getTag());
         }
         // iterate over attributes and write it
-        for (auto i : myTagProperty) {
-            // obtain attribute
-            std::string attributeValue = getAttribute(i.getAttr());
-            //  first check if attribute is optional but not vehicle classes
-            if (i.isOptional() && !i.isVClasses()) {
-                // Only write attributes with default value if is different from original
-                if (i.getDefaultValue() != attributeValue) {
-                    // check if attribute must be written using a synonim
-                    if (i.hasAttrSynonym()) {
-                        device.writeAttr(i.getAttrSynonym(), attributeValue);
+        for (const auto &tagProperty : myTagProperty) {
+            // first check that attribute isn't ignored
+            if (!tagProperty.isIgnored()) {
+                // obtain attribute
+                const std::string attributeValue = getAttribute(tagProperty.getAttr());
+                //  first check if attribute is optional but not vehicle classes
+                if (tagProperty.isOptional() && !tagProperty.isVClasses()) {
+                    // Only write attributes with default value if is different from original
+                    if (tagProperty.getDefaultValue() != attributeValue) {
+                        // check if attribute must be written using a synonim
+                        if (tagProperty.hasAttrSynonym()) {
+                            device.writeAttr(tagProperty.getAttrSynonym(), attributeValue);
+                        } else {
+                            // SVC permissions uses their own writting function
+                            if (tagProperty.isSVCPermission()) {
+                                // disallow attribute musn't be written
+                                if (tagProperty.getAttr() != SUMO_ATTR_DISALLOW) {
+                                    writePermissions(device, parseVehicleClasses(attributeValue));
+                                }
+                            } else if (myTagProperty.canMaskXYZPositions() && (tagProperty.getAttr() == SUMO_ATTR_POSITION)) {
+                                // get position attribute and write it separate
+                                Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
+                                device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
+                                device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
+                                // write 0 only if is different from 0 (the default value)
+                                if (pos.z() != 0) {
+                                    device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
+                                }
+                            } else {
+                                device.writeAttr(tagProperty.getAttr(), attributeValue);
+                            }
+                        }
+                    }
+                } else {
+                    // Attributes without default values are always writted
+                    if (tagProperty.hasAttrSynonym()) {
+                        device.writeAttr(tagProperty.getAttrSynonym(), attributeValue);
                     } else {
                         // SVC permissions uses their own writting function
-                        if (i.isSVCPermission()) {
+                        if (tagProperty.isSVCPermission()) {
                             // disallow attribute musn't be written
-                            if (i.getAttr() != SUMO_ATTR_DISALLOW) {
+                            if (tagProperty.getAttr() != SUMO_ATTR_DISALLOW) {
                                 writePermissions(device, parseVehicleClasses(attributeValue));
                             }
-                        } else if (myTagProperty.canMaskXYZPositions() && (i.getAttr() == SUMO_ATTR_POSITION)) {
+                        } else if (myTagProperty.canMaskXYZPositions() && (tagProperty.getAttr() == SUMO_ATTR_POSITION)) {
                             // get position attribute and write it separate
                             Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                             device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
@@ -170,32 +197,8 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                                 device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
                             }
                         } else {
-                            device.writeAttr(i.getAttr(), attributeValue);
+                            device.writeAttr(tagProperty.getAttr(), attributeValue);
                         }
-                    }
-                }
-            } else {
-                // Attributes without default values are always writted
-                if (i.hasAttrSynonym()) {
-                    device.writeAttr(i.getAttrSynonym(), attributeValue);
-                } else {
-                    // SVC permissions uses their own writting function
-                    if (i.isSVCPermission()) {
-                        // disallow attribute musn't be written
-                        if (i.getAttr() != SUMO_ATTR_DISALLOW) {
-                            writePermissions(device, parseVehicleClasses(attributeValue));
-                        }
-                    } else if (myTagProperty.canMaskXYZPositions() && (i.getAttr() == SUMO_ATTR_POSITION)) {
-                        // get position attribute and write it separate
-                        Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
-                        device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
-                        device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
-                        // write 0 only if is different from 0 (the default value)
-                        if (pos.z() != 0) {
-                            device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
-                        }
-                    } else {
-                        device.writeAttr(i.getAttr(), attributeValue);
                     }
                 }
             }
@@ -206,22 +209,22 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
             OutputDevice& deviceChildren = OutputDevice::getDevice(FileHelpers::getFilePath(OptionsCont::getOptions().getString("additional-files")) + getAttribute(SUMO_ATTR_FILE));
             deviceChildren.writeXMLHeader("rerouterValue", "additional_file.xsd");
             // save children in a different filename
-            for (auto i : getChildAdditionals()) {
+            for (const auto &additionalChild: getChildAdditionals()) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
-                if (i->getParentAdditionals().size() < 1) {
-                    i->writeAdditional(deviceChildren);
-                } else if (myTagProperty.getTag() == i->getTagProperty().getParentTag()) {
-                    i->writeAdditional(deviceChildren);
+                if (additionalChild->getParentAdditionals().size() < 1) {
+                    additionalChild->writeAdditional(deviceChildren);
+                } else if (myTagProperty.getTag() == additionalChild->getTagProperty().getParentTag()) {
+                    additionalChild->writeAdditional(deviceChildren);
                 }
             }
             deviceChildren.close();
         } else {
-            for (auto i : getChildAdditionals()) {
+            for (const auto& additionalChild : getChildAdditionals()) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
-                if (i->getParentAdditionals().size() < 2) {
-                    i->writeAdditional(device);
-                } else if (myTagProperty.getTag() == i->getTagProperty().getParentTag()) {
-                    i->writeAdditional(device);
+                if (additionalChild->getParentAdditionals().size() < 2) {
+                    additionalChild->writeAdditional(device);
+                } else if (myTagProperty.getTag() == additionalChild->getTagProperty().getParentTag()) {
+                    additionalChild->writeAdditional(device);
                 }
             }
         }
