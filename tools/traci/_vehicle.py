@@ -171,6 +171,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.DISTANCE_REQUEST: Storage.readDouble,
                       tc.VAR_ROUTING_MODE: Storage.readInt,
                       tc.VAR_STOPSTATE: Storage.readInt,
+                      tc.VAR_STOP_DELAY: Storage.readDouble,
                       tc.VAR_DISTANCE: Storage.readDouble}
 
 
@@ -787,6 +788,13 @@ class VehicleDomain(Domain):
             tc.TYPE_DOUBLE, gap)
         return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_STOP_SPEED, vehID).readDouble()
 
+
+    def getStopDelay(self, vehID):
+        """getStopDelay(string) -> double
+        Returns the expected delay at the next stop (if that stop defines the
+        until-attribute) in seconds. Returns -1 if the next stop is not applicable
+        """
+        return self._getUniversal(tc.VAR_STOP_DELAY, vehID)
 
     def getNextTLS(self, vehID):
         """getNextTLS(string) ->

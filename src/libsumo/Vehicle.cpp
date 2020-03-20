@@ -756,6 +756,10 @@ Vehicle::getStopSpeed(const std::string& vehicleID, const double speed, double g
     return veh->getCarFollowModel().stopSpeed(veh, speed, gap);
 }
 
+double
+Vehicle::getStopDelay(const std::string& vehicleID) {
+    return Helper::getVehicle(vehicleID)->getStopDelay();
+}
 
 std::string
 Vehicle::getEmissionClass(const std::string& vehicleID) {
@@ -2118,6 +2122,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapDouble(objID, variable, getAcceleration(objID));
         case VAR_LASTACTIONTIME:
             return wrapper->wrapDouble(objID, variable, getLastActionTime(objID));
+        case VAR_STOP_DELAY:
+            return wrapper->wrapDouble(objID, variable, getStopDelay(objID));
         case VAR_LEADER: {
             double dist = 0.;
             // this fallback is needed since the very first call right on subscribing has no parameters set

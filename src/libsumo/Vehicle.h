@@ -105,6 +105,7 @@ public:
     static double getFollowSpeed(const std::string& vehicleID, double speed, double gap, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
     static double getSecureGap(const std::string& vehicleID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
     static double getStopSpeed(const std::string& vehicleID, double speed, double gap);
+    static double getStopDelay(const std::string& vehicleID);
     /// @}
 
     LIBSUMO_VEHICLE_TYPE_GETTER

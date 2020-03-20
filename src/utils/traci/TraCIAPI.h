@@ -731,6 +731,7 @@ public:
         std::vector<libsumo::TraCIBestLanesData> getBestLanes(const std::string& vehicleID) const;
         std::pair<std::string, double> getLeader(const std::string& vehicleID, double dist) const;
         int getRoutingMode(const std::string& vehicleID) const;
+        double getStopDelay(const std::string& vehicleID) const;
         std::pair<int, int> getLaneChangeState(const std::string& vehicleID, int direction) const;
         /// @}
 

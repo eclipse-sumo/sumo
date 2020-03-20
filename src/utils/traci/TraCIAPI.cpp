@@ -2755,6 +2755,12 @@ TraCIAPI::VehicleScope::getRoutingMode(const std::string& vehicleID) const {
 }
 
 double
+TraCIAPI::VehicleScope::getStopDelay(const std::string& vehicleID) const {
+    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_STOP_DELAY, vehicleID);
+}
+
+
+double
 TraCIAPI::VehicleScope::getAccel(const std::string& vehicleID) const {
     return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_ACCEL, vehicleID);
 }
