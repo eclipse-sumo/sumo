@@ -22,20 +22,20 @@ from .domain import Domain
 from .storage import Storage
 
 _RETURN_VALUE_FUNC = {
-        tc.VAR_ROAD_ID: Storage.readString,
-        tc.VAR_LANE_ID: Storage.readString,
-        tc.VAR_VEHSPERHOUR: Storage.readDouble,
-        tc.VAR_SPEED: Storage.readDouble,
-        tc.VAR_TYPE: Storage.readString,
-        tc.VAR_BEGIN: Storage.readDouble,
-        tc.VAR_END: Storage.readDouble,
-        tc.VAR_ROUTE_ID: Storage.readString,
-        tc.VAR_ROUTE_PROBE: Storage.readString,
-        tc.VAR_VTYPES: Storage.readStringList,
-        tc.VAR_PASSED: Storage.readInt,
-        tc.VAR_INSERTED: Storage.readInt,
-        tc.VAR_REMOVED: Storage.readInt,
-        }
+    tc.VAR_ROAD_ID: Storage.readString,
+    tc.VAR_LANE_ID: Storage.readString,
+    tc.VAR_VEHSPERHOUR: Storage.readDouble,
+    tc.VAR_SPEED: Storage.readDouble,
+    tc.VAR_TYPE: Storage.readString,
+    tc.VAR_BEGIN: Storage.readDouble,
+    tc.VAR_END: Storage.readDouble,
+    tc.VAR_ROUTE_ID: Storage.readString,
+    tc.VAR_ROUTE_PROBE: Storage.readString,
+    tc.VAR_VTYPES: Storage.readStringList,
+    tc.VAR_PASSED: Storage.readInt,
+    tc.VAR_INSERTED: Storage.readInt,
+    tc.VAR_REMOVED: Storage.readInt,
+}
 
 
 class CalibratorDomain(Domain):
@@ -45,6 +45,7 @@ class CalibratorDomain(Domain):
                         tc.CMD_SUBSCRIBE_CALIBRATOR_VARIABLE, tc.RESPONSE_SUBSCRIBE_CALIBRATOR_VARIABLE,
                         tc.CMD_SUBSCRIBE_CALIBRATOR_CONTEXT, tc.RESPONSE_SUBSCRIBE_CALIBRATOR_CONTEXT,
                         _RETURN_VALUE_FUNC)
+
     def getEdgeID(self, calibratorID):
         """getEdgeID(string) -> string
         Returns the edge of this calibrator
@@ -71,7 +72,7 @@ class CalibratorDomain(Domain):
 
     def getTypeID(self, calibratorID):
         """getTypeID(string) -> string
-        Returns the type id for the current calibration interval 
+        Returns the type id for the current calibration interval
         """
         return self._getUniversal(tc.VAR_TYPE, calibratorID)
 
@@ -89,7 +90,7 @@ class CalibratorDomain(Domain):
 
     def getRouteID(self, calibratorID):
         """getRouteID(string) -> string
-        Returns the route id for the current calibration interval 
+        Returns the route id for the current calibration interval
         """
         return self._getUniversal(tc.VAR_ROUTE_ID, calibratorID)
 
@@ -125,7 +126,7 @@ class CalibratorDomain(Domain):
         return self._getUniversal(tc.VAR_REMOVED, calibratorID)
 
     def setFlow(self, calibratorID, begin, end, vehsPerHour, speed, typeID,
-            routeID, departLane = "first", departSpeed = "max"):
+                routeID, departLane="first", departSpeed="max"):
         """setFlow(string, double, double, double, double, string, string, string, string) -> None
         Update or add a calibrator interval
         """
@@ -141,4 +142,3 @@ class CalibratorDomain(Domain):
             tc.CMD_SET_CALIBRATOR_VARIABLE, tc.CMD_SET_FLOW, calibratorID, len(messageString))
         self._connection._string += messageString
         self._connection._sendExact()
-

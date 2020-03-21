@@ -516,7 +516,7 @@ class Net:
             if cost > maxCost:
                 return None, cost
             for e2, conn in e1.getAllowedOutgoing(vClass).items():
-                #print(cost, e1.getID(), e2.getID(), e2 in seen)
+                # print(cost, e1.getID(), e2.getID(), e2 in seen)
                 if e2 not in seen:
                     newCost = cost + e2.getLength()
                     if e2 == e1.getBidi():
@@ -737,7 +737,6 @@ class NetReader(handler.ContentHandler):
         if name == 'net':
             for edgeID, bidiID in self._bidiEdgeIDs.items():
                 self._net.getEdge(edgeID)._bidi = self._net.getEdge(bidiID)
-
 
     def endDocument(self):
         # set crossed edges of pedestrian crossings

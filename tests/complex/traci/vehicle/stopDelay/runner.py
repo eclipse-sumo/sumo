@@ -25,7 +25,7 @@ sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 
 import traci  # noqa
 import sumolib  # noqa
-import traci.constants as tc
+import traci.constants as tc  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
@@ -40,6 +40,6 @@ traci.vehicle.subscribe(vehID, [tc.VAR_STOP_DELAY])
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
     print(traci.simulation.getTime(),
-            traci.vehicle.getSubscriptionResults(vehID))
+          traci.vehicle.getSubscriptionResults(vehID))
 
 traci.close()

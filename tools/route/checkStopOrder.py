@@ -33,7 +33,8 @@ if 'SUMO_HOME' in os.environ:
     from sumolib.miscutils import parseTime, humanReadableTime
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
-    
+
+
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Sample routes to match counts")
     parser.add_argument("-r", "--route-files", dest="routeFiles",
@@ -49,8 +50,8 @@ def get_options(args=None):
 
 def main(options):
 
-    tf = humanReadableTime if options.hrTime else lambda x : x 
-    
+    tf = humanReadableTime if options.hrTime else lambda x: x
+
     stopTimes = defaultdict(list)
     for routefile in options.routeFiles:
         for vehicle in sumolib.xml.parse(routefile, ['vehicle', 'trip']):

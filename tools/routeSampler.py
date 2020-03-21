@@ -33,7 +33,7 @@ except ImportError:
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import parseTime
+from sumolib.miscutils import parseTime  # noqa
 
 
 def get_options(args=None):
@@ -142,11 +142,9 @@ class CountData:
             return False
         return True
 
-
     def addCount(self, count):
         self.count += count
         self.origCount += count
-
 
     def sampleOpen(self, openRoutes, routeCounts):
         cands = list(self.routeSet.intersection(openRoutes))
@@ -177,18 +175,19 @@ def getIntervals(options):
 
     return result
 
+
 def getOverlap(begin, end, iBegin, iEnd):
     """return overlap of the given intervals as fraction"""
     if iEnd <= begin or end <= iBegin:
-        return 0 # no overlap
+        return 0  # no overlap
     elif iBegin >= begin and iEnd <= end:
-        return 1 # data interval fully within requested interval
+        return 1  # data interval fully within requested interval
     elif iBegin <= begin and iEnd >= end:
-        return (end - begin) / (iEnd - iBegin) # only part of the data interval applies to the requested interval
+        return (end - begin) / (iEnd - iBegin)  # only part of the data interval applies to the requested interval
     elif iBegin <= begin and iEnd <= end:
-        return (iEnd - begin) / (iEnd - iBegin) # partial overlap
+        return (iEnd - begin) / (iEnd - iBegin)  # partial overlap
     else:
-        return (end - iBegin) / (iEnd - iBegin) # partial overlap
+        return (end - iBegin) / (iEnd - iBegin)  # partial overlap
 
 
 def parseTurnCounts(interval, attr):
@@ -205,13 +204,13 @@ def parseEdgeCounts(interval, attr):
 
 
 def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr):
-    locations = {} # edges -> CountData
+    locations = {}  # edges -> CountData
     result = []
     for fname in fnames:
         for interval in sumolib.xml.parse(fname, 'interval', heterogeneous=True):
             overlap = getOverlap(begin, end, parseTime(interval.begin), parseTime(interval.end))
             if overlap > 0:
-                #print(begin, end, interval.begin, interval.end, "overlap:", overlap)
+                # print(begin, end, interval.begin, interval.end, "overlap:", overlap)
                 for edges, value in parseFun(interval, attr):
                     if edges not in locations:
                         result.append(CountData(0, edges, allRoutes))
@@ -367,6 +366,7 @@ def getRouteCounts(routes, usedRoutes):
         result[r] += 1
     return result
 
+
 def getRouteUsage(routes, countData):
     # store which counting locations are used by each route (using countData index)
     routeUsage = [set() for r in routes.unique]
@@ -374,6 +374,7 @@ def getRouteUsage(routes, countData):
         for routeIndex in cd.routeSet:
             routeUsage[routeIndex].add(i)
     return routeUsage
+
 
 def main(options):
     if options.seed:
@@ -387,7 +388,7 @@ def main(options):
     b = intervals[0][0]
     e = intervals[-1][-1]
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, b, e, routes, options.turnAttr)
-            + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e, routes, options.edgeDataAttr))
+                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e, routes, options.edgeDataAttr))
     routeUsage = getRouteUsage(routes, countData)
 
     for cd in countData:
@@ -435,10 +436,11 @@ def main(options):
         print(overflowSummary)
         print(gehSummary)
 
+
 def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
     # store which routes are passing each counting location (using route index)
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end, routes, options.turnAttr)
-               + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes, options.edgeDataAttr))
+                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes, options.edgeDataAttr))
 
     routeUsage = getRouteUsage(routes, countData)
 
@@ -464,7 +466,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
             openCounts = updateOpenCounts(openCounts, countData, openRoutes)
 
     totalMismatch = sum([cd.count for cd in countData])
-    if totalMismatch > 0  and options.optimize is not None:
+    if totalMismatch > 0 and options.optimize is not None:
         if options.verbose:
             print("Starting optimization for interval [%s, %s] (mismatch %s)" % (
                 begin, end, totalMismatch))
@@ -553,7 +555,6 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
                 flows.sort()
                 for fBegin, outf2 in flows:
                     outf.write(outf2.getvalue())
-
 
     underflow = sumolib.miscutils.Statistics("underflow locations")
     overflow = sumolib.miscutils.Statistics("overflow locations")
