@@ -54,7 +54,7 @@ public:
      * @param[in] def The definition to copy
      * @param[in] logic The computed logic of the given def
      */
-    NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLightLogic* logic);
+    NBLoadedSUMOTLDef(const NBTrafficLightDefinition& def, const NBTrafficLightLogic& logic);
 
 
     /// @brief Destructor

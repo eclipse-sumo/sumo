@@ -199,7 +199,7 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
         // make a copy of every program
         NBTrafficLightLogic* logic = tllCont.getLogic(def->getID(), def->getProgramID());
         if (logic != nullptr) {
-            NBTrafficLightDefinition* copy = new NBLoadedSUMOTLDef(def, logic);
+            NBTrafficLightDefinition* copy = new NBLoadedSUMOTLDef(*def, *logic);
             std::vector<NBNode*> nodes = def->getNodes();
             for (auto it_node : nodes) {
                 GNEJunction* junction = myViewNet->getNet()->retrieveJunction(it_node->getID());
@@ -293,7 +293,7 @@ GNETLSEditorFrame::onCmdDefCreate(FXObject*, FXSelector, void*) {
                 // use existing traffic light as template for type, signal groups, controlled nodes etc
                 NBTrafficLightDefinition* tpl = *junction->getNBNode()->getControllingTLS().begin();
                 NBTrafficLightLogic* newLogic = tpl->compute(OptionsCont::getOptions());
-                NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(tpl, newLogic);
+                NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(*tpl, *newLogic);
                 delete newLogic;
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, newDef, true, true), true);
             } else {
@@ -345,7 +345,7 @@ GNETLSEditorFrame::onCmdDefSwitch(FXObject*, FXSelector, void*) {
         buildIinternalLanes(tlDef);
         // create working copy from original def
         delete myEditedDef;
-        myEditedDef = new NBLoadedSUMOTLDef(tlDef, tllogic);
+        myEditedDef = new NBLoadedSUMOTLDef(*tlDef, *tllogic);
         myTLSAttributes->setOffset(myEditedDef->getLogic()->getOffset());
         myTLSPhases->initPhaseTable();
         myTLSPhases->updateCycleDuration();

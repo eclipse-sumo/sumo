@@ -54,19 +54,19 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& p
 }
 
 
-NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLightLogic* logic) :
+NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const NBTrafficLightDefinition& def, const NBTrafficLightLogic& logic) :
     // allow for adding a new program for the same def: take the offset and programID from the new logic
-    NBTrafficLightDefinition(def->getID(), logic->getProgramID(), logic->getOffset(), def->getType()),
+    NBTrafficLightDefinition(def.getID(), logic.getProgramID(), logic.getOffset(), def.getType()),
     myTLLogic(new NBTrafficLightLogic(logic)),
-    myOriginalNodes(def->getNodes().begin(), def->getNodes().end()),
+    myOriginalNodes(def.getNodes().begin(), def.getNodes().end()),
     myReconstructAddedConnections(false),
     myReconstructRemovedConnections(false),
     myPhasesLoaded(false) {
-    assert(def->getType() == logic->getType());
-    myControlledLinks = def->getControlledLinks();
-    myControlledNodes = def->getNodes();
-    NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
-    updateParameters(def->getParametersMap());
+    assert(def.getType() == logic.getType());
+    myControlledLinks = def.getControlledLinks();
+    myControlledNodes = def.getNodes();
+    const NBLoadedSUMOTLDef* sumoDef = dynamic_cast<const NBLoadedSUMOTLDef*>(&def);
+    updateParameters(def.getParametersMap());
     if (sumoDef != nullptr) {
         myReconstructAddedConnections = sumoDef->myReconstructAddedConnections;
         myReconstructRemovedConnections = sumoDef->myReconstructRemovedConnections;

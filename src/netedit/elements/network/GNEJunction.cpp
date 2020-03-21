@@ -756,7 +756,7 @@ GNEJunction::removeTLSConnections(std::vector<NBConnection>& connections, GNEUnd
             if (tlDef != nullptr) {
                 std::string newID = tlDef->getID();
                 // create replacement before deleting the original because deletion will mess up saving original nodes
-                NBLoadedSUMOTLDef* replacementDef = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
+                NBLoadedSUMOTLDef* replacementDef = new NBLoadedSUMOTLDef(*tlDef, *tlDef->getLogic());
                 for (NBConnection& con : connections) {
                     replacementDef->removeConnection(con);
                 }
@@ -792,7 +792,7 @@ GNEJunction::replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList
         if (tlDef != nullptr) {
             std::string newID = tlDef->getID();
             // create replacement before deleting the original because deletion will mess up saving original nodes
-            NBLoadedSUMOTLDef* replacementDef = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
+            NBLoadedSUMOTLDef* replacementDef = new NBLoadedSUMOTLDef(*tlDef, *tlDef->getLogic());
             for (int i = 0; i < (int)which->getLanes().size(); ++i) {
                 replacementDef->replaceRemoved(which->getNBEdge(), i, by->getNBEdge(), i);
             }
@@ -833,7 +833,7 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
             std::string newID = tlDef->getID(); // + "_reguessed"; // changes due to reguessing will be visible in diff
             if (deletedConnection != NBConnection::InvalidConnection) {
                 // create replacement before deleting the original because deletion will mess up saving original nodes
-                NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
+                NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(*tlDef, *tlDef->getLogic());
                 repl->removeConnection(deletedConnection);
                 replacementDef = repl;
             } else if (addedConnection != NBConnection::InvalidConnection) {
@@ -849,7 +849,7 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
                         undoList->add(new GNEChange_Attribute(c, myNet, SUMO_ATTR_TLLINKINDEX2, oldValue2), true);
                     }
                 }
-                NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
+                NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(*tlDef, *tlDef->getLogic());
                 repl->addConnection(addedConnection.getFrom(), addedConnection.getTo(),
                                     addedConnection.getFromLane(), addedConnection.getToLane(), addedConnection.getTLIndex(), addedConnection.getTLIndex2());
                 replacementDef = repl;
@@ -1062,7 +1062,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             for (const auto& TLS : copyOfTls) {
                 NBLoadedSUMOTLDef* oldLoaded = dynamic_cast<NBLoadedSUMOTLDef*>(TLS);
                 if (oldLoaded != nullptr) {
-                    NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(oldLoaded, oldLoaded->getLogic());
+                    NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(*oldLoaded, *oldLoaded->getLogic());
                     newDef->guessMinMaxDuration();
                     std::vector<NBNode*> nodes = TLS->getNodes();
                     for (const auto& node : nodes) {
@@ -1085,8 +1085,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             const bool currentIsSingle = currentTLS->getNodes().size() == 1;
             const bool currentIsLoaded = dynamic_cast<NBLoadedSUMOTLDef*>(currentTLS) != nullptr;
             if (currentIsLoaded) {
-                currentTLSCopy = new NBLoadedSUMOTLDef(currentTLS,
-                                                       dynamic_cast<NBLoadedSUMOTLDef*>(currentTLS)->getLogic());
+                currentTLSCopy = new NBLoadedSUMOTLDef(*currentTLS,
+                                                       *dynamic_cast<NBLoadedSUMOTLDef*>(currentTLS)->getLogic());
             }
             // remove from previous tls
             for (const auto& TLS : copyOfTls) {
@@ -1105,7 +1105,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                         if (dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS) != nullptr &&
                                 dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS)->usingSignalGroups()) {
                             // keep the old program and add all-red state for the added links
-                            NBLoadedSUMOTLDef* newTLSJoined = new NBLoadedSUMOTLDef(oldTLS, dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS)->getLogic());
+                            NBLoadedSUMOTLDef* newTLSJoined = new NBLoadedSUMOTLDef(*oldTLS, *dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS)->getLogic());
                             newTLSJoined->joinLogic(currentTLSCopy);
                             undoList->add(new GNEChange_TLS(this, newTLSJoined, true, true), true);
                         } else {
@@ -1126,7 +1126,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                     // rename the traffic light but keep everything else
                     NBTrafficLightLogic* renamedLogic = dynamic_cast<NBLoadedSUMOTLDef*>(currentTLSCopy)->getLogic();
                     renamedLogic->setID(value);
-                    NBLoadedSUMOTLDef* renamedTLS = new NBLoadedSUMOTLDef(currentTLSCopy, renamedLogic);
+                    NBLoadedSUMOTLDef* renamedTLS = new NBLoadedSUMOTLDef(*currentTLSCopy, *renamedLogic);
                     renamedTLS->setID(value);
                     undoList->add(new GNEChange_TLS(this, renamedTLS, true, true), true);
                 } else {

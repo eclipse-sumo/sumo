@@ -184,9 +184,8 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
         } else {
             // case 3
             NBTrafficLightLogic* oldLogic = oldDef->getLogic();
-            NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(id, programID,
-                    oldLogic->getNumLinks(), offset, type);
-            loadedDef = new NBLoadedSUMOTLDef(oldDef, newLogic);
+            NBTrafficLightLogic newLogic(id, programID, oldLogic->getNumLinks(), offset, type);
+            loadedDef = new NBLoadedSUMOTLDef(*oldDef, newLogic);
             // copy nodes
             std::vector<NBNode*> nodes = oldDef->getNodes();
             for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {

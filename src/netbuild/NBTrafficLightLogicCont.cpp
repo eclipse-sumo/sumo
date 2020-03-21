@@ -152,7 +152,7 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
             if (lDef == nullptr) {
                 NBTrafficLightLogic* logic = def->compute(oc);
                 if (logic != nullptr) {
-                    lDef = new NBLoadedSUMOTLDef(def, logic);
+                    lDef = new NBLoadedSUMOTLDef(*def, *logic);
                     lDef->setParticipantsInformation();
                     for (NBNode* node : lDef->getNodes()) {
                         node->removeTrafficLight(def);
