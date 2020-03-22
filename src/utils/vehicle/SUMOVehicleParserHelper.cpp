@@ -584,11 +584,11 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 }
             }
             if (attrs.hasAttribute(SUMO_ATTR_IMPATIENCE)) {
-                bool okString;
+                bool okString = true;
                 if (attrs.get<std::string>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), okString) == "off") {
                     vtype->impatience = -std::numeric_limits<double>::max();
                 } else {
-                    bool okDouble;
+                    bool okDouble = true;
                     const double impatience = attrs.get<double>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), okDouble);
                     if (okDouble) {
                         vtype->impatience = impatience;
