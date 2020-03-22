@@ -50,24 +50,20 @@ The number of tiles given in both calls must match.
 ### Recommended [NETCONVERT](../../NETCONVERT.md) Options
 
 ```
- --geometry.remove --ramps.guess \
- --junctions.join --tls.guess-signals --tls.discard-simple --tls.join
+ --geometry.remove --ramps.guess --junctions.join --tls.guess-signals --tls.discard-simple --tls.join --tls.default-type actuated
 ```
 
 Rationale:
 
-- \--geometry.remove: Simplifies the network (saving space) without
+- \--geometry.remove : Simplifies the network (saving space) without
   changing topology
-- \--roundabouts.guess: This sets the appropriate right-of-way rules
-  at roundabouts. (Explicit right-of-way rules are not imported from
-  OSM). If this option is not used and roundabouts are not defined
-  manually, then traffic jams will likely occur at roundabouts
-- \--ramps.guess. Acceleration/Deceleration lanes are often not
+- \--ramps.guess : Acceleration/Deceleration lanes are often not
   included in OSM data. This option identifies likely roads that have
   these additional lanes and causes them to be added
-- \--junctions.join. See [\#Junctions](#junctions)
-- \--tls.guess-signals, --tls.discard-simple, --tls.join. See
+- \--junctions.join : See [\#Junctions](#junctions)
+- \--tls.guess-signals --tls.discard-simple --tls.join : See
   [\#Traffic_Lights](#traffic_lights)
+- \--tls.default-type actuated : Default static traffic lights are defined without knowledge about traffic patterns and may work badly in high traffic
 
 ### Countries with left-hand driving
 
