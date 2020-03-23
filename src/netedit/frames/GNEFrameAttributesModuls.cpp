@@ -2837,14 +2837,20 @@ GNEFrameAttributesModuls::NeteditAttributes::setEndPosition(double positionOfThe
 
 bool
 GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC) {
-    if ((viewNet->getEditModes().isCurrentSupermodeNetwork()) && !AC->getTagProperty().isNetworkElement()) {
-        return false;
-    } else if ((viewNet->getEditModes().isCurrentSupermodeDemand()) && !AC->getTagProperty().isDemandElement()) {
-        return false;
-    } else if ((viewNet->getEditModes().isCurrentSupermodeData()) && !AC->getTagProperty().isDataElement()) {
-        return false;
-    } else {
+    if (viewNet->getEditModes().isCurrentSupermodeNetwork() && (
+        AC->getTagProperty().isNetworkElement() || 
+        AC->getTagProperty().isAdditionalElement() || 
+        AC->getTagProperty().isShape() || 
+        AC->getTagProperty().isTAZ())) {
         return true;
+    } else if (viewNet->getEditModes().isCurrentSupermodeDemand() && 
+        AC->getTagProperty().isDemandElement()) {
+        return true;
+    } else if (viewNet->getEditModes().isCurrentSupermodeData() && 
+        AC->getTagProperty().isDataElement()) {
+        return true;
+    } else {
+        return false;
     }
 }
 
