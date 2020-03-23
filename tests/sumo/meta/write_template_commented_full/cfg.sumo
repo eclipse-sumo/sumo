@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 18 20:45:08 2020 by Eclipse SUMO Version v1_5_0+0827-486bd617ef
+<!-- generated on Mon Mar 23 21:10:03 2020 by Eclipse SUMO Version v1_5_0+0897-39834d1973
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -440,6 +440,9 @@
 
         <!-- Consider edge priorities in addition to travel times, weighted by factor -->
         <device.rerouting.priority-factor value="0" type="FLOAT"/>
+
+        <!-- Compute separate average speeds for bicycles -->
+        <device.rerouting.bike-speeds value="false" type="BOOL"/>
 
         <!-- Save adapting weights to FILE -->
         <device.rerouting.output value="" type="FILE"/>
