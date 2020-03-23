@@ -33,6 +33,7 @@ permalink: /ChangeLog/
 - NETCONVERT
   - Fixed precision when filtering network with a given boundary. Issue #6206
   - Fixed missing connections when importing OpenDRIVE. Issue #6712
+  - OpenDRIVE networks where a single edges is connected to more than two junctions are now supported. Issue #6828
 - SUMO-GUI
   - Fixed layout of meso edge parameter dialog at high occupancy (regression in 1.5.0)
   - Fixed crash when simulation ends while tracking person attributes. Issue #6784
