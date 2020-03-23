@@ -102,9 +102,6 @@ public:
     /// @brief get testing mode
     const GNEViewNetHelper::TestingMode& getTestingMode() const;
 
-    /// @brief get Common view options
-    const GNEViewNetHelper::CommonViewOptions& getCommonViewOptions() const;
-
     /// @brief get network view options
     const GNEViewNetHelper::NetworkViewOptions& getNetworkViewOptions() const;
 
@@ -263,7 +260,10 @@ public:
     long onCmdToogleChangeAllPhases(FXObject*, FXSelector, void*);
 
     /// @brief toogle show grid
-    long onCmdToogleShowGrid(FXObject*, FXSelector, void*);
+    long onCmdToogleShowGridNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief toogle show grid
+    long onCmdToogleShowGridDemand(FXObject*, FXSelector, void*);
 
     /// @brief toogle draw vehicles in begin position or spread in lane
     long onCmdToogleDrawSpreadVehicles(FXObject*, FXSelector, void*);
@@ -441,9 +441,6 @@ private:
 
     /// @name structs related with view options
     /// @{
-
-    /// @brief variable used to save variables related with common view options
-    GNEViewNetHelper::CommonViewOptions myCommonViewOptions;
 
     /// @brief variable used to save variables related with view options in supermode Network
     GNEViewNetHelper::NetworkViewOptions myNetworkViewOptions;

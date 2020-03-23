@@ -669,13 +669,14 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
     if (myViewNet->getNetworkViewOptions().showDemandElements() && myViewNet->getDataViewOptions().showDemandElements() &&
             myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         // declare common attributes
+        const bool drawSpreadVehicles = (myViewNet->getNetworkViewOptions().drawSpreadVehicles() || myViewNet->getDemandViewOptions().drawSpreadVehicles());
         const double exaggeration = s.vehicleSize.getExaggeration(s, this);
         const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
         const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double vehicleSizeSquared = (width * width) * (length * length) * (exaggeration * exaggeration);
         // obtain Position an rotation (depending of draw spread vehicles)
-        const Position vehiclePosition = myViewNet->getCommonViewOptions().drawSpreadVehicles() ? mySpreadGeometry.getPosition() : myDemandElementGeometry.getPosition();
-        const double vehicleRotation = myViewNet->getCommonViewOptions().drawSpreadVehicles() ? mySpreadGeometry.getRotation() : myDemandElementGeometry.getRotation();
+        const Position vehiclePosition = drawSpreadVehicles? mySpreadGeometry.getPosition() : myDemandElementGeometry.getPosition();
+        const double vehicleRotation = drawSpreadVehicles? mySpreadGeometry.getRotation() : myDemandElementGeometry.getRotation();
         // check that position is valid
         if (vehiclePosition != Position::INVALID) {
             // first push name
@@ -761,7 +762,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // pop draw matrix
                 glPopMatrix();
                 // draw stack label
-                if ((myStackedLabelNumber > 0) && !myViewNet->getCommonViewOptions().drawSpreadVehicles()) {
+                if ((myStackedLabelNumber > 0) && !drawSpreadVehicles) {
                     drawStackLabel(vehiclePosition, vehicleRotation, width, length);
                 }
                 // draw flow label

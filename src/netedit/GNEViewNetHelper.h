@@ -415,38 +415,6 @@ struct GNEViewNetHelper {
         EditModes& operator=(const EditModes&) = delete;
     };
 
-    /// @brief struct used to group all variables related to view options in all supermodes
-    struct CommonViewOptions {
-
-        /// @brief default constructor
-        CommonViewOptions(GNEViewNet* viewNet);
-
-        /// @brief build menu checks
-        void buildCommonViewOptionsMenuChecks();
-
-        /// @brief get visible common menu commands
-        void getVisibleCommonMenuCommands(std::vector<FXMenuCheck*>& commands) const;
-
-        /// @brief check if vehicles must be drawn spread
-        bool drawSpreadVehicles() const;
-
-        /// @brief menu check to show grid button
-        FXMenuCheck* menuCheckShowGrid;
-
-        /// @brief menu check to draw vehicles in begin position or spread in lane
-        FXMenuCheck* menuCheckDrawSpreadVehicles;
-
-    private:
-        /// @brief pointer to viewNet
-        GNEViewNet* myViewNet;
-
-        /// @brief Invalidated copy constructor.
-        CommonViewOptions(const CommonViewOptions&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        CommonViewOptions& operator=(const CommonViewOptions&) = delete;
-    };
-
     /// @brief struct used to group all variables related to view options in supermode Network
     struct NetworkViewOptions {
 
@@ -462,6 +430,9 @@ struct GNEViewNetHelper {
         /// @brief get visible network menu commands
         void getVisibleNetworkMenuCommands(std::vector<FXMenuCheck*>& commands) const;
 
+        /// @brief check if vehicles must be drawn spread
+        bool drawSpreadVehicles() const;
+
         /// @brief check if show demand elements checkbox is enabled
         bool showDemandElements() const;
 
@@ -473,6 +444,12 @@ struct GNEViewNetHelper {
 
         /// @brief check if we're editing elevation
         bool editingElevation() const;
+
+        /// @brief menu check to show grid button
+        FXMenuCheck* menuCheckShowGrid;
+
+        /// @brief menu check to draw vehicles in begin position or spread in lane
+        FXMenuCheck* menuCheckDrawSpreadVehicles;
 
         /// @brief menu check to show Demand Elements
         FXMenuCheck* menuCheckShowDemandElements;
@@ -532,6 +509,9 @@ struct GNEViewNetHelper {
         /// @brief get visible demand menu commands
         void getVisibleDemandMenuCommands(std::vector<FXMenuCheck*>& commands) const;
 
+        /// @brief check if vehicles must be drawn spread
+        bool drawSpreadVehicles() const;
+
         /// @brief check if non inspected element has to be hidden
         bool showNonInspectedDemandElements(const GNEDemandElement* demandElement) const;
 
@@ -549,6 +529,12 @@ struct GNEViewNetHelper {
 
         /// @brief get locked person
         const GNEDemandElement* getLockedPerson() const;
+
+        /// @brief menu check to show grid button
+        FXMenuCheck* menuCheckShowGrid;
+
+        /// @brief menu check to draw vehicles in begin position or spread in lane
+        FXMenuCheck* menuCheckDrawSpreadVehicles;
 
         /// @brief Hide shapes (Polygons and POIs)
         FXMenuCheck* menuCheckHideShapes;

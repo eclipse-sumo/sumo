@@ -90,10 +90,9 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_MODES_POLYGON_PERSON,               GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_MODES_VEHICLE,                      GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE,       GNEViewNet::onCmdSetMode),
-    // Common view options
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_COMMONVIEWOPTIONS_SHOWGRID,              GNEViewNet::onCmdToogleShowGrid),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_COMMONVIEWOPTIONS_DRAWSPREADVEHICLES,    GNEViewNet::onCmdToogleDrawSpreadVehicles),
     // Network view options
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID,             GNEViewNet::onCmdToogleShowGridNetwork),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,   GNEViewNet::onCmdToogleDrawSpreadVehicles),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,   GNEViewNet::onCmdToogleShowDemandElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES,          GNEViewNet::onCmdToogleSelectEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS,      GNEViewNet::onCmdToogleShowConnections),
@@ -106,6 +105,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES,           GNEViewNet::onCmdToogleChainEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES,    GNEViewNet::onCmdToogleAutoOppositeEdge),
     // Demand view options
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID,              GNEViewNet::onCmdToogleShowGridDemand),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES,    GNEViewNet::onCmdToogleDrawSpreadVehicles),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,      GNEViewNet::onCmdToogleHideNonInspecteDemandElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEViewNet::onCmdToogleHideShapes),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEViewNet::onCmdToogleShowAllPersonPlans),
@@ -192,7 +193,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
     myDataCheckableButtons(this),
-    myCommonViewOptions(this),
     myNetworkViewOptions(this),
     myDemandViewOptions(this),
     myDataViewOptions(this),
@@ -464,12 +464,6 @@ GNEViewNet::getTestingMode() const {
 }
 
 
-const GNEViewNetHelper::CommonViewOptions&
-GNEViewNet::getCommonViewOptions() const {
-    return myCommonViewOptions;
-}
-
-
 const GNEViewNetHelper::NetworkViewOptions&
 GNEViewNet::getNetworkViewOptions() const {
     return myNetworkViewOptions;
@@ -584,7 +578,6 @@ GNEViewNet::GNEViewNet() :
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
     myDataCheckableButtons(this),
-    myCommonViewOptions(this),
     myNetworkViewOptions(this),
     myDemandViewOptions(this),
     myDataViewOptions(this),
@@ -672,10 +665,17 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         drawDecals();
         // depending of the visualizationSettings, enable or disable check box show grid
         if (myVisualizationSettings->showGrid) {
-            myCommonViewOptions.menuCheckShowGrid->setCheck(true);
-            paintGLGrid();
+            // change show grid
+            myNetworkViewOptions.menuCheckShowGrid->setCheck(true);
+            myDemandViewOptions.menuCheckShowGrid->setCheck(true);
+            // draw grid only in network and demand mode
+            if (myEditModes.isCurrentSupermodeNetwork() || myEditModes.isCurrentSupermodeDemand()) {
+                paintGLGrid();
+            }
         } else {
-            myCommonViewOptions.menuCheckShowGrid->setCheck(false);
+            // change show grid
+            myNetworkViewOptions.menuCheckShowGrid->setCheck(false);
+            myDemandViewOptions.menuCheckShowGrid->setCheck(false);
         }
         myNetworkViewOptions.menuCheckShowConnections->setCheck(myVisualizationSettings->showLane2Lane);
     }
@@ -2349,9 +2349,9 @@ GNEViewNet::onCmdToogleChangeAllPhases(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector sel, void*) {
+GNEViewNet::onCmdToogleShowGridNetwork(FXObject*, FXSelector sel, void*) {
     // show or hidde grid depending of myNetworkViewOptions.menuCheckShowGrid
-    if (myCommonViewOptions.menuCheckShowGrid->getCheck()) {
+    if (myNetworkViewOptions.menuCheckShowGrid->getCheck()) {
         myVisualizationSettings->showGrid = true;
     } else {
         myVisualizationSettings->showGrid = false;
@@ -2359,8 +2359,26 @@ GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector sel, void*) {
     // update view to show grid
     update();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
-    if (sel == FXSEL(SEL_COMMAND, MID_GNE_COMMONVIEWOPTIONS_SHOWGRID)) {
-        myCommonViewOptions.menuCheckShowGrid->setFocus();
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID)) {
+        myNetworkViewOptions.menuCheckShowGrid->setFocus();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdToogleShowGridDemand(FXObject*, FXSelector sel, void*) {
+    // show or hidde grid depending of myDemandViewOptions.menuCheckShowGrid
+    if (myDemandViewOptions.menuCheckShowGrid->getCheck()) {
+        myVisualizationSettings->showGrid = true;
+    } else {
+        myVisualizationSettings->showGrid = false;
+    }
+    // update view to show grid
+    update();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID)) {
+        myDemandViewOptions.menuCheckShowGrid->setFocus();
     }
     return 1;
 }
@@ -2384,8 +2402,10 @@ GNEViewNet::onCmdToogleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
     // update view to show new vehicles positions
     update();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
-    if (sel == FXSEL(SEL_COMMAND, MID_GNE_COMMONVIEWOPTIONS_DRAWSPREADVEHICLES)) {
-        myCommonViewOptions.menuCheckDrawSpreadVehicles->setFocus();
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES)) {
+        myNetworkViewOptions.menuCheckDrawSpreadVehicles->setFocus();
+    } else if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES)) {
+        myDemandViewOptions.menuCheckDrawSpreadVehicles->setFocus();
     }
     return 1;
 }
@@ -2663,9 +2683,6 @@ GNEViewNet::buildEditModeControls() {
     // build menu checks of view options Data
     myDataCheckableButtons.buildDataCheckableButtons();
 
-    // build menu checks of view options Common
-    myCommonViewOptions.buildCommonViewOptionsMenuChecks();
-
     // build menu checks of view options Network
     myNetworkViewOptions.buildNetworkViewOptionsMenuChecks();
 
@@ -2698,7 +2715,9 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     myIntervalBar.hideIntervalBar();
     // hide all frames
     myViewParent->hideAllFrames();
-    // In network mode, always show option "show demand elements"
+    // In network mode, always show option "show grid", "draw spread vehicles" and "show demand elements"
+    myNetworkViewOptions.menuCheckShowGrid->show();
+    myNetworkViewOptions.menuCheckDrawSpreadVehicles->show();
     myNetworkViewOptions.menuCheckShowDemandElements->show();
     // enable selected controls
     switch (myEditModes.networkEditMode) {
@@ -2849,7 +2868,9 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myIntervalBar.hideIntervalBar();
     // hide all frames
     myViewParent->hideAllFrames();
-    // always show "hide shapes"
+    // always show "hide shapes", "show grid" and ·draw spread vehicles"
+    myDemandViewOptions.menuCheckShowGrid->show();
+    myDemandViewOptions.menuCheckDrawSpreadVehicles->show();
     myDemandViewOptions.menuCheckHideShapes->show();
     // enable selected controls
     switch (myEditModes.demandEditMode) {

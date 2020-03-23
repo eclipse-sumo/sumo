@@ -2504,17 +2504,21 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject* obj, FXSelector sel, void* ptr) 
     // check that view exists
     if (myViewNet) {
         // Toogle getMenuCheckShowGrid of GNEViewNet
-        if (myViewNet->getCommonViewOptions().menuCheckShowGrid->getCheck() == TRUE) {
-            myViewNet->getCommonViewOptions().menuCheckShowGrid->setCheck(FALSE);
+        if ((myViewNet->getNetworkViewOptions().menuCheckShowGrid->getCheck() == TRUE) || 
+            (myViewNet->getDemandViewOptions().menuCheckShowGrid->getCheck() == TRUE)) {
+            myViewNet->getNetworkViewOptions().menuCheckShowGrid->setCheck(FALSE);
+            myViewNet->getDemandViewOptions().menuCheckShowGrid->setCheck(FALSE);
             // show extra information for tests
             WRITE_DEBUG("Disabled grid throught Ctrl+g hotkey");
         } else {
-            myViewNet->getCommonViewOptions().menuCheckShowGrid->setCheck(TRUE);
+            myViewNet->getNetworkViewOptions().menuCheckShowGrid->setCheck(TRUE);
+            myViewNet->getDemandViewOptions().menuCheckShowGrid->setCheck(TRUE);
             // show extra information for tests
             WRITE_DEBUG("Enabled grid throught Ctrl+g hotkey");
         }
         // Call manually show grid function
-        myViewNet->onCmdToogleShowGrid(obj, sel, ptr);
+        myViewNet->onCmdToogleShowGridNetwork(obj, sel, ptr);
+        myViewNet->onCmdToogleShowGridDemand(obj, sel, ptr);
     }
     return 1;
 }
@@ -2533,7 +2537,6 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
         // declare a vector in which save visible menu commands
         std::vector<FXMenuCheck*> visibleMenuCommands;
         // get common, network and demand visible menu commands
-        myViewNet->getCommonViewOptions().getVisibleCommonMenuCommands(visibleMenuCommands);
         myViewNet->getNetworkViewOptions().getVisibleNetworkMenuCommands(visibleMenuCommands);
         myViewNet->getDemandViewOptions().getVisibleDemandMenuCommands(visibleMenuCommands);
         myViewNet->getDataViewOptions().getVisibleDataMenuCommands(visibleMenuCommands);
@@ -2542,27 +2545,27 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
             return 1;
         }
         // finally function correspond to visibleMenuCommands[numericalKeyPressed]
-        if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getCommonViewOptions().menuCheckShowGrid) {
+        if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getNetworkViewOptions().menuCheckShowGrid) {
             // Toogle menuCheckShowGrid
-            if (myViewNet->getCommonViewOptions().menuCheckShowGrid->getCheck() == TRUE) {
-                myViewNet->getCommonViewOptions().menuCheckShowGrid->setCheck(FALSE);
+            if (myViewNet->getNetworkViewOptions().menuCheckShowGrid->getCheck() == TRUE) {
+                myViewNet->getNetworkViewOptions().menuCheckShowGrid->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getCommonViewOptions().menuCheckShowGrid->setCheck(TRUE);
+                myViewNet->getNetworkViewOptions().menuCheckShowGrid->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
             }
-            // Call manually onCmdToogleShowGrid
-            return myViewNet->onCmdToogleShowGrid(obj, sel, ptr);
-        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getCommonViewOptions().menuCheckDrawSpreadVehicles) {
+            // Call manually onCmdToogleShowGridNetwork
+            return myViewNet->onCmdToogleShowGridNetwork(obj, sel, ptr);
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getNetworkViewOptions().menuCheckDrawSpreadVehicles) {
             // Toogle menuCheckDrawSpreadVehicles
-            if (myViewNet->getCommonViewOptions().menuCheckDrawSpreadVehicles->getCheck() == TRUE) {
-                myViewNet->getCommonViewOptions().menuCheckDrawSpreadVehicles->setCheck(FALSE);
+            if (myViewNet->getNetworkViewOptions().menuCheckDrawSpreadVehicles->getCheck() == TRUE) {
+                myViewNet->getNetworkViewOptions().menuCheckDrawSpreadVehicles->setCheck(FALSE);
                 // show extra information for tests
                 WRITE_DEBUG("Disabled toogle draw spread vehicles throught alt + " + toString(numericalKeyPressed + 1));
             } else {
-                myViewNet->getCommonViewOptions().menuCheckDrawSpreadVehicles->setCheck(TRUE);
+                myViewNet->getNetworkViewOptions().menuCheckDrawSpreadVehicles->setCheck(TRUE);
                 // show extra information for tests
                 WRITE_DEBUG("Enabled toogle spread vehicles throught alt + " + toString(numericalKeyPressed + 1));
             }
@@ -2711,6 +2714,32 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
             }
             // Call manually onCmdToogleAutoOppositeEdge
             return myViewNet->onCmdToogleAutoOppositeEdge(obj, sel, ptr);
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getDemandViewOptions().menuCheckShowGrid) {
+            // Toogle menuCheckShowGrid
+            if (myViewNet->getDemandViewOptions().menuCheckShowGrid->getCheck() == TRUE) {
+                myViewNet->getDemandViewOptions().menuCheckShowGrid->setCheck(FALSE);
+                // show extra information for tests
+                WRITE_DEBUG("Disabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
+            } else {
+                myViewNet->getDemandViewOptions().menuCheckShowGrid->setCheck(TRUE);
+                // show extra information for tests
+                WRITE_DEBUG("Enabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
+            }
+            // Call manually onCmdToogleShowGridDemand
+            return myViewNet->onCmdToogleShowGridDemand(obj, sel, ptr);
+        } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getDemandViewOptions().menuCheckDrawSpreadVehicles) {
+            // Toogle menuCheckDrawSpreadVehicles
+            if (myViewNet->getDemandViewOptions().menuCheckDrawSpreadVehicles->getCheck() == TRUE) {
+                myViewNet->getDemandViewOptions().menuCheckDrawSpreadVehicles->setCheck(FALSE);
+                // show extra information for tests
+                WRITE_DEBUG("Disabled toogle draw spread vehicles throught alt + " + toString(numericalKeyPressed + 1));
+            } else {
+                myViewNet->getDemandViewOptions().menuCheckDrawSpreadVehicles->setCheck(TRUE);
+                // show extra information for tests
+                WRITE_DEBUG("Enabled toogle spread vehicles throught alt + " + toString(numericalKeyPressed + 1));
+            }
+            // Call manually onCmdToogleDrawSpreadVehicles
+            return myViewNet->onCmdToogleDrawSpreadVehicles(obj, sel, ptr);
         } else if (visibleMenuCommands.at(numericalKeyPressed) == myViewNet->getDemandViewOptions().menuCheckHideShapes) {
             // Toogle menuCheckHideShapes
             if (myViewNet->getDemandViewOptions().menuCheckHideShapes->getCheck() == TRUE) {

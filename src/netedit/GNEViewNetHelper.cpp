@@ -1606,60 +1606,12 @@ GNEViewNetHelper::EditModes::isCurrentSupermodeData() const {
 }
 
 // ---------------------------------------------------------------------------
-// GNEViewNetHelper::CommonViewOptions - methods
-// ---------------------------------------------------------------------------
-
-
-GNEViewNetHelper::CommonViewOptions::CommonViewOptions(GNEViewNet* viewNet) :
-    menuCheckShowGrid(nullptr),
-    menuCheckDrawSpreadVehicles(nullptr),
-    myViewNet(viewNet) {
-}
-
-
-void
-GNEViewNetHelper::CommonViewOptions::buildCommonViewOptionsMenuChecks() {
-    menuCheckShowGrid = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-        ("Grid\t\tshow grid and restrict movement to the grid (size defined in visualization options)"),
-        myViewNet, MID_GNE_COMMONVIEWOPTIONS_SHOWGRID, LAYOUT_FIX_HEIGHT);
-    menuCheckShowGrid->setHeight(23);
-    menuCheckShowGrid->setCheck(false);
-    menuCheckShowGrid->create();
-
-    menuCheckDrawSpreadVehicles = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-        ("Spread vehicles\t\tDraw vehicles spread in lane or in depart position"),
-        myViewNet, MID_GNE_COMMONVIEWOPTIONS_DRAWSPREADVEHICLES, LAYOUT_FIX_HEIGHT);
-    menuCheckDrawSpreadVehicles->setHeight(23);
-    menuCheckDrawSpreadVehicles->setCheck(false);
-    menuCheckDrawSpreadVehicles->create();
-
-    // always recalc after creating new elements
-    myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->recalc();
-}
-
-
-void
-GNEViewNetHelper::CommonViewOptions::getVisibleCommonMenuCommands(std::vector<FXMenuCheck*>& commands) const {
-    // save visible menu commands in commands vector
-    if (menuCheckShowGrid->shown()) {
-        commands.push_back(menuCheckShowGrid);
-    }
-    if (menuCheckDrawSpreadVehicles->shown()) {
-        commands.push_back(menuCheckDrawSpreadVehicles);
-    }
-}
-
-
-bool
-GNEViewNetHelper::CommonViewOptions::drawSpreadVehicles() const {
-    return (menuCheckDrawSpreadVehicles->getCheck() == TRUE);
-}
-
-// ---------------------------------------------------------------------------
 // GNEViewNetHelper::NetworkViewOptions - methods
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::NetworkViewOptions::NetworkViewOptions(GNEViewNet* viewNet) :
+    menuCheckShowGrid(nullptr),
+    menuCheckDrawSpreadVehicles(nullptr),
     menuCheckShowDemandElements(nullptr),
     menuCheckSelectEdges(nullptr),
     menuCheckShowConnections(nullptr),
@@ -1677,6 +1629,21 @@ GNEViewNetHelper::NetworkViewOptions::NetworkViewOptions(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
+    // create menu checks
+    menuCheckShowGrid = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
+        ("Grid\t\tshow grid and restrict movement to the grid (size defined in visualization options)"),
+        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID, LAYOUT_FIX_HEIGHT);
+    menuCheckShowGrid->setHeight(23);
+    menuCheckShowGrid->setCheck(false);
+    menuCheckShowGrid->create();
+
+    menuCheckDrawSpreadVehicles = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
+        ("Spread vehicles\t\tDraw vehicles spread in lane or in depart position"),
+        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES, LAYOUT_FIX_HEIGHT);
+    menuCheckDrawSpreadVehicles->setHeight(23);
+    menuCheckDrawSpreadVehicles->setCheck(false);
+    menuCheckDrawSpreadVehicles->create();
+
     menuCheckShowDemandElements = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
         ("Show demand elements\t\tToggle show demand elements"),
         myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS, LAYOUT_FIX_HEIGHT);
@@ -1761,6 +1728,8 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
 
 void
 GNEViewNetHelper::NetworkViewOptions::hideNetworkViewOptionsMenuChecks() {
+    menuCheckShowGrid->hide();
+    menuCheckDrawSpreadVehicles->hide();
     menuCheckShowDemandElements->hide();
     menuCheckSelectEdges->hide();
     menuCheckShowConnections->hide();
@@ -1780,6 +1749,12 @@ GNEViewNetHelper::NetworkViewOptions::hideNetworkViewOptionsMenuChecks() {
 void
 GNEViewNetHelper::NetworkViewOptions::getVisibleNetworkMenuCommands(std::vector<FXMenuCheck*>& commands) const {
     // save visible menu commands in commands vector
+    if (menuCheckShowGrid->shown()) {
+        commands.push_back(menuCheckShowGrid);
+    }
+    if (menuCheckDrawSpreadVehicles->shown()) {
+        commands.push_back(menuCheckDrawSpreadVehicles);
+    }
     if (menuCheckShowDemandElements->shown()) {
         commands.push_back(menuCheckShowDemandElements);
     }
@@ -1813,6 +1788,12 @@ GNEViewNetHelper::NetworkViewOptions::getVisibleNetworkMenuCommands(std::vector<
     if (menuCheckAutoOppositeEdge->shown()) {
         commands.push_back(menuCheckAutoOppositeEdge);
     }
+}
+
+
+bool 
+GNEViewNetHelper::NetworkViewOptions::drawSpreadVehicles() const {
+    return (menuCheckDrawSpreadVehicles->getCheck() == TRUE);
 }
 
 
@@ -1867,6 +1848,8 @@ GNEViewNetHelper::NetworkViewOptions::editingElevation() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::DemandViewOptions::DemandViewOptions(GNEViewNet* viewNet) :
+    menuCheckShowGrid(nullptr),
+    menuCheckDrawSpreadVehicles(nullptr),
     menuCheckHideShapes(nullptr),
     menuCheckHideNonInspectedDemandElements(nullptr),
     menuCheckShowAllPersonPlans(nullptr),
@@ -1879,6 +1862,20 @@ GNEViewNetHelper::DemandViewOptions::DemandViewOptions(GNEViewNet* viewNet) :
 void
 GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     // create menu checks
+    menuCheckShowGrid = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
+        ("Grid\t\tshow grid and restrict movement to the grid (size defined in visualization options)"),
+        myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID, LAYOUT_FIX_HEIGHT);
+    menuCheckShowGrid->setHeight(23);
+    menuCheckShowGrid->setCheck(false);
+    menuCheckShowGrid->create();
+
+    menuCheckDrawSpreadVehicles = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
+        ("Spread vehicles\t\tDraw vehicles spread in lane or in depart position"),
+        myViewNet, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES, LAYOUT_FIX_HEIGHT);
+    menuCheckDrawSpreadVehicles->setHeight(23);
+    menuCheckDrawSpreadVehicles->setCheck(false);
+    menuCheckDrawSpreadVehicles->create();
+
     menuCheckHideShapes = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
         ("Hide shapes\t\tToggle show shapes (Polygons and POIs)"),
         myViewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES, LAYOUT_FIX_HEIGHT);
@@ -1914,6 +1911,8 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
 
 void
 GNEViewNetHelper::DemandViewOptions::hideDemandViewOptionsMenuChecks() {
+    menuCheckShowGrid->hide();
+    menuCheckDrawSpreadVehicles->hide();
     menuCheckHideShapes->hide();
     menuCheckHideNonInspectedDemandElements->hide();
     menuCheckShowAllPersonPlans->hide();
@@ -1926,6 +1925,12 @@ GNEViewNetHelper::DemandViewOptions::hideDemandViewOptionsMenuChecks() {
 void
 GNEViewNetHelper::DemandViewOptions::getVisibleDemandMenuCommands(std::vector<FXMenuCheck*>& commands) const {
     // save visible menu commands in commands vector
+    if (menuCheckShowGrid->shown()) {
+        commands.push_back(menuCheckShowGrid);
+    }
+    if (menuCheckDrawSpreadVehicles->shown()) {
+        commands.push_back(menuCheckDrawSpreadVehicles);
+    }
     if (menuCheckHideShapes->shown()) {
         commands.push_back(menuCheckHideShapes);
     }
@@ -1938,6 +1943,12 @@ GNEViewNetHelper::DemandViewOptions::getVisibleDemandMenuCommands(std::vector<FX
     if (menuCheckLockPerson->shown() && menuCheckLockPerson->isEnabled()) {
         commands.push_back(menuCheckLockPerson);
     }
+}
+
+
+bool 
+GNEViewNetHelper::DemandViewOptions::drawSpreadVehicles() const {
+    return (menuCheckDrawSpreadVehicles->getCheck() == TRUE);
 }
 
 

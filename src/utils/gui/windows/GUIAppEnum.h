@@ -599,19 +599,13 @@ enum {
 
     /// @}
 
-    /// @name GNEViewNet common view options messages
-    /// @{
-
-    /// @brief show grid
-    MID_GNE_COMMONVIEWOPTIONS_SHOWGRID,
-    /// @brief Draw vehicles in begin position or spread in lane
-    MID_GNE_COMMONVIEWOPTIONS_DRAWSPREADVEHICLES,
-
-    /// @}
-
     /// @name GNEViewNet Network view options messages
     /// @{
 
+    /// @brief show grid
+    MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID,
+    /// @brief Draw vehicles in begin position or spread in lane
+    MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,
     /// @brief show demand elements
     MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,
     /// @brief select edges
@@ -640,6 +634,10 @@ enum {
     /// @name GNEViewNet Demand view options messages
     /// @{
 
+    /// @brief show grid
+    MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID,
+    /// @brief Draw vehicles in begin position or spread in lane
+    MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES,
     /// @brief hide non-inspected demand element
     MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,
     /// @brief hide shapes

@@ -1236,6 +1236,8 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
 
 void
 GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDemandElement* tripOrFromTo, const GNEJunction* junction) const {
+    // declare flag to draw spread vehicles
+    const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
     // calculate tripOrFromTo width
     double tripOrFromToWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.trip;
     // Add a draw matrix
@@ -1251,7 +1253,7 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
     // draw trip from to
     if (junction) {
         // iterate over segments
-        if (myNet->getViewNet()->getCommonViewOptions().drawSpreadVehicles()) {
+        if (drawSpreadVehicles) {
             for (const auto& segment : tripOrFromTo->getDemandElementSegmentSpreadGeometry()) {
                 // draw partial segment
                 GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
@@ -1264,7 +1266,7 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDeman
         }
     } else {
         // iterate over segments
-        if (myNet->getViewNet()->getCommonViewOptions().drawSpreadVehicles()) {
+        if (drawSpreadVehicles) {
             for (const auto& segment : tripOrFromTo->getDemandElementSegmentSpreadGeometry()) {
                 // draw partial segment
                 if ((segment.edge == this) && (segment.AC == tripOrFromTo)) {
