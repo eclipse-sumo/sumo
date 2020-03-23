@@ -24,7 +24,6 @@
 // prefixed with p_
 /****************************************************************************/
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <utils/common/MsgHandler.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEUndoList.h"

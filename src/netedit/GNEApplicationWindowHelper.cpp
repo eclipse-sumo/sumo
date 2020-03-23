@@ -18,42 +18,11 @@
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
 #include <netbuild/NBFrame.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
-#include <netedit/elements/data/GNEDataHandler.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/dialogs/GNEAbout.h>
-#include <netedit/frames/network/GNETAZFrame.h>
-#include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netimport/NIFrame.h>
-#include <netwrite/NWFrame.h>
-#include <utils/common/SysUtils.h>
-#include <utils/common/SystemFrame.h>
-#include <utils/foxtools/FXLinkLabel.h>
-#include <utils/gui/cursors/GUICursorSubSys.h>
-#include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
-#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIDialog_GLChosenEditor.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUIUserIO.h>
-#include <utils/gui/events/GUIEvent_Message.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/windows/GUIDialog_Options.h>
-#include <utils/gui/windows/GUIPerspectiveChanger.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/xml/XMLSubSys.h>
 
 #include "GNEApplicationWindow.h"
-#include "GNEEvent_NetworkLoaded.h"
-#include "GNELoadThread.h"
-#include "GNENet.h"
 #include "GNEViewNet.h"
-#include "GNEUndoList.h"
-#include "GNEViewParent.h"
 
 #ifdef HAVE_VERSION_H
 #include <version.h>

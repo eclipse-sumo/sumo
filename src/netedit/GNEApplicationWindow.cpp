@@ -27,7 +27,6 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netimport/NIFrame.h>
 #include <netwrite/NWFrame.h>
-#include <utils/common/SysUtils.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/foxtools/FXLinkLabel.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>

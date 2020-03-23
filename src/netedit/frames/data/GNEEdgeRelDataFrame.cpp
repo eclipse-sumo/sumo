@@ -19,10 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/data/GNEEdgeRelData.h>
 #include <netedit/elements/data/GNEDataHandler.h>
-#include <netedit/elements/network/GNEEdge.h>
 
 #include "GNEEdgeRelDataFrame.h"
 
