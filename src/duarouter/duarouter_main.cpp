@@ -97,9 +97,10 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     SUMOAbstractRouter<ROEdge, ROVehicle>* router;
     const std::string measure = oc.getString("weight-attribute");
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
+    const double priorityFactor = oc.getFloat("weights.priority-factor");
     const SUMOTime begin = string2time(oc.getString("begin"));
     const SUMOTime end = string2time(oc.getString("end"));
-    if (measure == "traveltime") {
+    if (measure == "traveltime" && priorityFactor == 0) {
         if (routingAlgorithm == "dijkstra") {
             router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction, nullptr, false, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
         } else if (routingAlgorithm == "astar") {
@@ -143,7 +144,13 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         }
     } else {
         DijkstraRouter<ROEdge, ROVehicle>::Operation op;
-        if (measure == "CO") {
+        if (measure == "traveltime") {
+            if (ROEdge::initPriorityFactor(priorityFactor)) {
+                op = &ROEdge::getTravelTimeStaticPriorityFactor;
+            } else {
+                op = &ROEdge::getTravelTimeStatic;
+            }
+        } else if (measure == "CO") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::CO>;
         } else if (measure == "CO2") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::CO2>;
@@ -162,7 +169,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         } else {
             op = &ROEdge::getStoredEffort;
         }
-        if (!net.hasLoadedEffort()) {
+        if (measure != "traveltime" && !net.hasLoadedEffort()) {
             WRITE_WARNING("No weight data was loaded for attribute '" + measure + "'.");
         }
         router = new DijkstraRouter<ROEdge, ROVehicle>(

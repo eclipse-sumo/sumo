@@ -102,7 +102,7 @@ MSRoutingEngine::initEdgeWeights() {
         }
         const bool useLoaded = oc.getBool("device.rerouting.init-with-loaded-weights");
         const double currentSecond = SIMTIME;
-        double maxEdgePriority = 0;
+        double maxEdgePriority = -std::numeric_limits<double>::max();
         for (const MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
             while (edge->getNumericalID() >= (int)myEdgeSpeeds.size()) {
                 myEdgeSpeeds.push_back(0);

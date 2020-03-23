@@ -428,6 +428,15 @@ public:
         return edge->getTravelTime(veh, time);
     }
 
+    /// @brief Return traveltime weighted by edge priority (scaled penalty for low-priority edges)
+    static inline double getTravelTimeStaticPriorityFactor(const ROEdge* const edge, const ROVehicle* const veh, double time) {
+        double result = edge->getTravelTime(veh, time);
+        // lower priority should result in higher effort (and the edge with
+        // minimum priority receives a factor of myPriorityFactor
+        const double relativeInversePrio = 1 - ((edge->getPriority() - myMinEdgePriority) / myEdgePriorityRange);
+        result *= 1 + relativeInversePrio * myPriorityFactor;
+        return result;
+    }
 
     /** @brief Returns a lower bound for the travel time on this edge without using any stored timeLine
      *
@@ -537,6 +546,9 @@ public:
         return myUsingETimeLine;
     }
 
+    /// @brief initialize priority factor range
+    static bool initPriorityFactor(double priorityFactor);
+
 protected:
     /** @brief Retrieves the stored effort
      *
@@ -622,6 +634,12 @@ protected:
 
     static ROEdgeVector myEdges;
 
+    /// @brief Coefficient for factoring edge priority into routing weight
+    static double myPriorityFactor;
+    /// @brief Minimum priority for all edges
+    static double myMinEdgePriority;
+    /// @brief the difference between maximum and minimum priority for all edges
+    static double myEdgePriorityRange;
 
     /// @brief The successors available for a given vClass
     mutable std::map<SUMOVehicleClass, ROEdgeVector> myClassesSuccessorMap;

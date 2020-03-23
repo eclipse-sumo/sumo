@@ -155,6 +155,9 @@ ROMAFrame::addImportOptions() {
     oc.addSynonyme("weights.expand", "expand-weights", true);
     oc.addDescription("weights.expand", "Processing", "Expand weights behind the simulation's end");
 
+    oc.doRegister("weights.priority-factor", new Option_Float(0));
+    oc.addDescription("weights.priority-factor", "Processing", "Consider edge priorities in addition to travel times, weighted by factor");
+
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
     oc.addDescription("routing-algorithm", "Processing", "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
 

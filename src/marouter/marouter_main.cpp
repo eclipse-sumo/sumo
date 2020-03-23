@@ -177,6 +177,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
     SUMOAbstractRouter<ROEdge, ROVehicle>* router = nullptr;
     const std::string measure = oc.getString("weight-attribute");
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
+    const double priorityFactor = oc.getFloat("weights.priority-factor");
     SUMOTime begin = string2time(oc.getString("begin"));
     SUMOTime end = string2time(oc.getString("end"));
     if (oc.isDefault("begin") && matrix.getBegin() >= 0) {
@@ -186,7 +187,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         end = matrix.getEnd();
     }
     DijkstraRouter<ROEdge, ROVehicle>::Operation ttOp = oc.getInt("paths") > 1 ? &ROMAAssignments::getPenalizedTT : &ROEdge::getTravelTimeStatic;
-    if (measure == "traveltime") {
+    if (measure == "traveltime" && priorityFactor == 0) {
         if (routingAlgorithm == "dijkstra") {
             router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttOp, nullptr, false, nullptr, net.hasPermissions());
         } else if (routingAlgorithm == "astar") {
@@ -208,7 +209,13 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         }
     } else {
         DijkstraRouter<ROEdge, ROVehicle>::Operation op;
-        if (measure == "CO") {
+        if (measure == "traveltime") {
+            if (ROEdge::initPriorityFactor(priorityFactor)) {
+                op = &ROEdge::getTravelTimeStaticPriorityFactor;
+            } else {
+                op = &ROEdge::getTravelTimeStatic;
+            }
+        } else if (measure == "CO") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::CO>;
         } else if (measure == "CO2") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::CO2>;
@@ -227,7 +234,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         } else {
             op = &ROEdge::getStoredEffort;
         }
-        if (!net.hasLoadedEffort()) {
+        if (measure != "traveltime" && !net.hasLoadedEffort()) {
             WRITE_WARNING("No weight data was loaded for attribute '" + measure + "'.");
         }
         router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, ttOp, false, nullptr, net.hasPermissions());
