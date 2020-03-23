@@ -631,7 +631,7 @@ protected:
     static void revisitLaneSections(const NBTypeCont& tc, std::map<std::string, OpenDriveEdge*>& edges);
 
     static void setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
-                              const std::string& nodeID, NIImporter_OpenDrive::LinkType lt);
+                              const std::string& nodeID, NIImporter_OpenDrive::LinkType lt, std::vector<NodeSet>& joinedNodeIDs);
 
 
     static void splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, double minDist);

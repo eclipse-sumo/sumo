@@ -919,7 +919,7 @@ NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist) {
 }
 
 
-NBNodeCont::NodeSet
+NodeSet
 NBNodeCont::getClusterNeighbors(const NBNode* n, NodeSet& cluster) {
     NodeSet result;
     for (NBEdge* e : n->getEdges()) {

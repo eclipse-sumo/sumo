@@ -30,6 +30,7 @@
 #include <set>
 #include <utils/common/NamedRTree.h>
 #include <utils/geom/Position.h>
+#include "NBCont.h"
 #include "NBEdgeCont.h"
 #include "NBNode.h"
 #include <utils/common/UtilExceptions.h>
@@ -57,7 +58,6 @@ class NBPTStopCont;
 class NBNodeCont {
 public:
     /// @brief Definition of a node cluster container
-    typedef std::set<NBNode*, ComparatorIdLess> NodeSet;
     typedef std::vector<NodeSet> NodeClusters;
     typedef std::pair<NBNode*, double> NodeAndDist;
 

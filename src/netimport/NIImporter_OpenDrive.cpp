@@ -178,6 +178,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     myMinWidth = oc.getFloat("opendrive.min-width");
     myImportInternalShapes = oc.getBool("opendrive.internal-shapes");
     NBTypeCont& tc = nb.getTypeCont();
+    NBNodeCont& nc = nb.getNodeCont();
     // build the handler
     std::map<std::string, OpenDriveEdge*> edges;
     NIImporter_OpenDrive handler(nb.getTypeCont(), edges);
@@ -216,6 +217,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     //  and place the node in the middle of this bounding box
     std::map<std::string, Boundary> posMap;
     std::map<std::string, std::string> edge2junction;
+    std::vector<NodeSet> joinedNodeIDs;
     //   compute node positions
     for (std::map<std::string, OpenDriveEdge*>::iterator i = innerEdges.begin(); i != innerEdges.end(); ++i) {
         OpenDriveEdge* e = (*i).second;
@@ -248,12 +250,12 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     }
                 }
                 // set node information
-                setNodeSecure(nb.getNodeCont(), *e, l.elementID, l.linkType);
+                setNodeSecure(nb.getNodeCont(), *e, l.elementID, l.linkType, joinedNodeIDs);
                 continue;
             }
             if (edge2junction.find(l.elementID) != edge2junction.end()) {
                 // set node information of an internal road
-                setNodeSecure(nb.getNodeCont(), *e, edge2junction[l.elementID], l.linkType);
+                setNodeSecure(nb.getNodeCont(), *e, edge2junction[l.elementID], l.linkType, joinedNodeIDs);
                 continue;
             }
         }
@@ -291,7 +293,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 cout << nid << " " << pos << " " << nb.getNodeCont().retrieve(nid)->getPosition() << endl;
             }
             */
-            setNodeSecure(nb.getNodeCont(), *e, nid, l.linkType);
+            setNodeSecure(nb.getNodeCont(), *e, nid, l.linkType, joinedNodeIDs);
         }
     }
     // we should now have start/end nodes for all outer edge-to-outer edge connections
@@ -315,9 +317,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 }
                 std::string nid = edge2junction[ie->id];
                 if (il.contactPoint == OPENDRIVE_CP_START) {
-                    setNodeSecure(nb.getNodeCont(), *e, nid, OPENDRIVE_LT_PREDECESSOR);
+                    setNodeSecure(nb.getNodeCont(), *e, nid, OPENDRIVE_LT_PREDECESSOR, joinedNodeIDs);
                 } else {
-                    setNodeSecure(nb.getNodeCont(), *e, nid, OPENDRIVE_LT_SUCCESSOR);
+                    setNodeSecure(nb.getNodeCont(), *e, nid, OPENDRIVE_LT_SUCCESSOR, joinedNodeIDs);
                 }
             }
         }
@@ -337,6 +339,34 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         if (e->to == nullptr) {
             const std::string nid = e->id + ".end";
             e->to = getOrBuildNode(nid, e->geom.back(), nb.getNodeCont());
+        }
+    }
+
+    std::map<NBNode*, NBNode*> joinedNodes;
+    for (NodeSet& joined : joinedNodeIDs) {
+        Position joinedPos(0,0);
+        for (NBNode* j : joined) {
+            joinedPos = joinedPos + j->getPosition();
+        }
+        joinedPos = joinedPos * (1.0 / joined.size());
+        const std::string joinedID = "cluster_" + joinNamedToString(joined, "_");
+        if (!nc.insert(joinedID, joinedPos)) {
+            throw ProcessError("Could not add node '" + joinedID + "'.");
+        }
+        NBNode* n = nc.retrieve(joinedID);
+        for (NBNode* j : joined) {
+            joinedNodes[j] = n;
+        }
+    }
+    for (std::map<std::string, OpenDriveEdge*>::iterator i = outerEdges.begin(); i != outerEdges.end(); ++i) {
+        OpenDriveEdge* e = (*i).second;
+        if (joinedNodes.count(e->from) != 0) {
+            nc.extract(e->from, true);
+            e->from = joinedNodes[e->from];
+        }
+        if (joinedNodes.count(e->to) != 0) {
+            nc.extract(e->to, true);
+            e->to = joinedNodes[e->to];
         }
     }
 
@@ -1140,33 +1170,47 @@ NIImporter_OpenDrive::getOrBuildNode(const std::string& id, const Position& pos,
 
 void
 NIImporter_OpenDrive::setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
-                                    const std::string& nodeID, NIImporter_OpenDrive::LinkType lt) {
+                                    const std::string& nodeID, NIImporter_OpenDrive::LinkType lt, std::vector<NodeSet>& joinedNodeIDs) {
     NBNode* n = nc.retrieve(nodeID);
     if (n == nullptr) {
         throw ProcessError("Could not find node '" + nodeID + "'.");
     }
+    NBNode* toJoin = nullptr;
     if (lt == OPENDRIVE_LT_SUCCESSOR) {
         if (e.to != nullptr && e.to != n) {
-            const std::string error = "Edge '" + e.id + "' has two end nodes ('" + e.to->getID() + "' and '" + nodeID + "').";
-            if (OptionsCont::getOptions().getBool("ignore-errors")) {
-                WRITE_WARNING(error);
-                return;
-            } else {
-                throw ProcessError(error);
-            }
+            toJoin = e.to;
         }
         e.to = n;
     } else {
         if (e.from != nullptr && e.from != n) {
-            const std::string error = "Edge '" + e.id + "' has two start nodes ('" + e.from->getID() + "' and '" + nodeID + "').";
-            if (OptionsCont::getOptions().getBool("ignore-errors")) {
-                WRITE_WARNING(error);
-                return;
-            } else {
-                throw ProcessError(error);
-            }
+            toJoin = e.from;
         }
         e.from = n;
+    }
+    if (toJoin != nullptr) {
+        // join nodes
+        NodeSet* set1 = nullptr;
+        NodeSet* set2 = nullptr;
+        for (NodeSet& joined : joinedNodeIDs) {
+            if (joined.count(toJoin) != 0) {
+                set1 = &joined;
+            }
+            if (joined.count(n) != 0) {
+                set2 = &joined;
+            }
+        }
+        if (set1 == nullptr && set2 == nullptr) {
+            joinedNodeIDs.push_back(NodeSet());
+            joinedNodeIDs.back().insert(n);
+            joinedNodeIDs.back().insert(toJoin);
+        } else if (set1 == nullptr && set2 != nullptr) {
+            set2->insert(toJoin);
+        } else if (set1 != nullptr && set2 == nullptr) {
+            set1->insert(n);
+        } else {
+            set1->insert(set2->begin(), set2->end());
+            joinedNodeIDs.erase(std::find(joinedNodeIDs.begin(), joinedNodeIDs.end(), *set2));
+        }
     }
 }
 
