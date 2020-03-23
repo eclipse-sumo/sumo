@@ -1464,15 +1464,23 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
                 if (dataElement->getParentEdges().size() > 0) {
                     // check if we have more than one edge
                     if (dataElement->getParentEdges().size() > 1) {
-                        // insert first item
-                        addListItem(dataElement->getParentEdges().front());
+                        // insert first ege
+                        if (dataElement->getTagProperty().getTag() == SUMO_TAG_EDGEREL) {
+                            addListItem(dataElement->getParentEdges().front(), nullptr, "from ");
+                        } else {
+                            addListItem(dataElement->getParentEdges().front());
+                        }
                         // insert "spacer"
                         if (dataElement->getParentEdges().size() > 2) {
                             addListItem(nullptr, ("..." + toString((int)dataElement->getParentEdges().size() - 2) + " edges...").c_str(), 0, false);
                         }
                     }
-                    // return last inserted item
-                    root = addListItem(dataElement->getParentEdges().back());
+                    // insert last ege
+                    if (dataElement->getTagProperty().getTag() == SUMO_TAG_EDGEREL) {
+                        addListItem(dataElement->getParentEdges().back(), nullptr, "to ");
+                    } else {
+                        addListItem(dataElement->getParentEdges().back());
+                    }
                 }
                 // check if there is parent lanes
                 if (dataElement->getParentLanes().size() > 0) {

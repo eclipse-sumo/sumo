@@ -61,7 +61,13 @@ GNEDataInterval::updateGenericDataIDs() {
     // iterate over generic data childrens
     for (const auto& genericData : myGenericDataChildren) {
         if (genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
-            genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" + genericData->getParentEdges().front()->getID());
+            // {dataset}[{begin}m{end}]{edge}
+            genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" + 
+            genericData->getParentEdges().front()->getID());
+        } else if (genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) {
+            // {dataset}[{begin}m{end}]{from}->{to}
+            genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" + 
+            genericData->getParentEdges().front()->getID() + "->" + genericData->getParentEdges().back()->getID());
         }
     }
 }

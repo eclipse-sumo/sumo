@@ -204,7 +204,7 @@ GNEEdgeRelData::getPopUpID() const {
 
 std::string
 GNEEdgeRelData::getHierarchyName() const {
-    return getTagStr() + ": " + getParentEdges().front()->getID();
+    return getTagStr() + ": " + getParentEdges().front()->getID() + "->" + getParentEdges().back()->getID();
 }
 
 
