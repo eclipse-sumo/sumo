@@ -982,6 +982,9 @@ public:
      */
     double getMeanSpeed() const;
 
+    /// @brief get the mean speed of all bicycles on this lane
+    double getMeanSpeedBike() const;
+
     /** @brief Returns the overall waiting time on this lane
     * @return The sum of the waiting time of all vehicles during the last step;
     */

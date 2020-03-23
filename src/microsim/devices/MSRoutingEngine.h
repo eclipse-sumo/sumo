@@ -67,7 +67,7 @@ public:
     static void initWeightUpdate();
 
     /// @brief initialize the edge weights if not done before
-    static void initEdgeWeights();
+    static void initEdgeWeights(SUMOVehicleClass svc);
 
     /// @brief returns whether any routing actions take place
     static bool hasEdgeUpdates() {
@@ -119,11 +119,12 @@ public:
     * @see DijkstraRouter_ByProxi
     */
     static double getEffort(const MSEdge* const e, const SUMOVehicle* const v, double t);
+    static double getEffortBike(const MSEdge* const e, const SUMOVehicle* const v, double t);
     static double getEffortExtra(const MSEdge* const e, const SUMOVehicle* const v, double t);
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation myEffortFunc;
 
     /// @brief return current travel speed assumption
-    static double getAssumedSpeed(const MSEdge* edge);
+    static double getAssumedSpeed(const MSEdge* edge, const SUMOVehicle* veh);
 
     /// @brief whether taz-routing is enabled
     static bool withTaz() {
@@ -177,13 +178,12 @@ private:
     static SUMOTime adaptEdgeEfforts(SUMOTime currentTime);
     /// @}
 
+    /// @brief initialized edge speed storage into the given containers
+    static void _initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<std::vector<double> >& pastEdgeSpeeds);
 
 private:
     /// @brief The weights adaptation/overwriting command
     static Command* myEdgeWeightSettingCommand;
-
-    /// @brief The container of edge speeds
-    static std::vector<double> myEdgeSpeeds;
 
     /// @brief Information which weight prior edge efforts have
     static double myAdaptationWeight;
@@ -201,10 +201,18 @@ private:
     static int myAdaptationStepsIndex;
 
     /// @brief The container of edge speeds
+    static std::vector<double> myEdgeSpeeds;
+    static std::vector<double> myEdgeBikeSpeeds;
+
+    /// @brief The container of past edge speeds (when using a simple moving average)
     static std::vector<std::vector<double> > myPastEdgeSpeeds;
+    static std::vector<std::vector<double> > myPastEdgeBikeSpeeds;
 
     /// @brief whether taz shall be used at initial rerouting
     static bool myWithTaz;
+
+    /// @brief whether separate speeds for bicycles shall be tracked
+    static bool myBikeSpeeds;
 
     /// @brief The router to use
     static MSRouterProvider* myRouterProvider;

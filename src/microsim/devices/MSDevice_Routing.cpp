@@ -89,6 +89,9 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.rerouting.priority-factor", new Option_Float(0));
     oc.addDescription("device.rerouting.priority-factor", "Routing", "Consider edge priorities in addition to travel times, weighted by factor");
 
+    oc.doRegister("device.rerouting.bike-speeds", new Option_Bool(false));
+    oc.addDescription("device.rerouting.bike-speeds", "Routing", "Compute separate average speeds for bicycles");
+
     oc.doRegister("device.rerouting.output", new Option_FileName());
     oc.addDescription("device.rerouting.output", "Routing", "Save adapting weights to FILE");
 }
@@ -247,7 +250,7 @@ MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) {
 
 void
 MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
-    MSRoutingEngine::initEdgeWeights();
+    MSRoutingEngine::initEdgeWeights(myHolder.getVClass());
     //check whether the weights did change since the last reroute
     if (myLastRouting >= MSRoutingEngine::getLastAdaptation()) {
         return;

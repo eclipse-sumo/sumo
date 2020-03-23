@@ -46,7 +46,9 @@
 // static member variables
 // ===========================================================================
 std::vector<double> MSRoutingEngine::myEdgeSpeeds;
+std::vector<double> MSRoutingEngine::myEdgeBikeSpeeds;
 std::vector<std::vector<double> > MSRoutingEngine::myPastEdgeSpeeds;
+std::vector<std::vector<double> > MSRoutingEngine::myPastEdgeBikeSpeeds;
 Command* MSRoutingEngine::myEdgeWeightSettingCommand = nullptr;
 double MSRoutingEngine::myAdaptationWeight;
 int MSRoutingEngine::myAdaptationSteps;
@@ -54,6 +56,7 @@ int MSRoutingEngine::myAdaptationStepsIndex = 0;
 SUMOTime MSRoutingEngine::myAdaptationInterval = -1;
 SUMOTime MSRoutingEngine::myLastAdaptation = -1;
 bool MSRoutingEngine::myWithTaz;
+bool MSRoutingEngine::myBikeSpeeds;
 MSRoutingEngine::MSRouterProvider* MSRoutingEngine::myRouterProvider = nullptr;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSRoutingEngine::myCachedRoutes;
 double MSRoutingEngine::myPriorityFactor(0);
@@ -94,8 +97,18 @@ MSRoutingEngine::initWeightUpdate() {
 
 
 void
-MSRoutingEngine::initEdgeWeights() {
-    if (myEdgeSpeeds.empty()) {
+MSRoutingEngine::initEdgeWeights(SUMOVehicleClass svc) {
+    if (myBikeSpeeds && svc == SVC_BICYCLE) {
+        _initEdgeWeights(myEdgeBikeSpeeds, myPastEdgeBikeSpeeds);
+    } else {
+        _initEdgeWeights(myEdgeSpeeds, myPastEdgeSpeeds);
+    }
+}
+
+
+void
+MSRoutingEngine::_initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<std::vector<double> >& pastEdgeSpeeds) {
+    if (edgeSpeeds.empty()) {
         const OptionsCont& oc = OptionsCont::getOptions();
         if (myAdaptationWeight == 0 || !oc.isDefault("device.rerouting.adaptation-steps")) {
             myAdaptationSteps = oc.getInt("device.rerouting.adaptation-steps");
@@ -104,19 +117,19 @@ MSRoutingEngine::initEdgeWeights() {
         const double currentSecond = SIMTIME;
         double maxEdgePriority = -std::numeric_limits<double>::max();
         for (const MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
-            while (edge->getNumericalID() >= (int)myEdgeSpeeds.size()) {
-                myEdgeSpeeds.push_back(0);
+            while (edge->getNumericalID() >= (int)edgeSpeeds.size()) {
+                edgeSpeeds.push_back(0);
                 if (myAdaptationSteps > 0) {
-                    myPastEdgeSpeeds.push_back(std::vector<double>());
+                    pastEdgeSpeeds.push_back(std::vector<double>());
                 }
             }
             if (useLoaded) {
-                myEdgeSpeeds[edge->getNumericalID()] = edge->getLength() / MSNet::getTravelTime(edge, nullptr, currentSecond);
+                edgeSpeeds[edge->getNumericalID()] = edge->getLength() / MSNet::getTravelTime(edge, nullptr, currentSecond);
             } else {
-                myEdgeSpeeds[edge->getNumericalID()] = edge->getMeanSpeed();
+                edgeSpeeds[edge->getNumericalID()] = edge->getMeanSpeed();
             }
             if (myAdaptationSteps > 0) {
-                myPastEdgeSpeeds[edge->getNumericalID()] = std::vector<double>(myAdaptationSteps, myEdgeSpeeds[edge->getNumericalID()]);
+                pastEdgeSpeeds[edge->getNumericalID()] = std::vector<double>(myAdaptationSteps, edgeSpeeds[edge->getNumericalID()]);
             }
             maxEdgePriority = MAX2(maxEdgePriority, (double)edge->getPriority());
             myMinEdgePriority = MIN2(myMinEdgePriority, (double)edge->getPriority());
@@ -141,6 +154,7 @@ double
 MSRoutingEngine::getEffort(const MSEdge* const e, const SUMOVehicle* const v, double) {
     const int id = e->getNumericalID();
     if (id < (int)myEdgeSpeeds.size()) {
+        assert(id < (int)myEdgeBikeSpeeds.size());
         return MAX2(e->getLength() / MAX2(myEdgeSpeeds[id], NUMERICAL_EPS), e->getMinimumTravelTime(v));
     }
     return e->getMinimumTravelTime(v);
@@ -148,8 +162,21 @@ MSRoutingEngine::getEffort(const MSEdge* const e, const SUMOVehicle* const v, do
 
 
 double
+MSRoutingEngine::getEffortBike(const MSEdge* const e, const SUMOVehicle* const v, double) {
+    const int id = e->getNumericalID();
+    if (id < (int)myEdgeBikeSpeeds.size()) {
+        return MAX2(e->getLength() / MAX2(myEdgeBikeSpeeds[id], NUMERICAL_EPS), e->getMinimumTravelTime(v));
+    }
+    return e->getMinimumTravelTime(v);
+}
+
+
+
+double
 MSRoutingEngine::getEffortExtra(const MSEdge* const e, const SUMOVehicle* const v, double t) {
-    double effort = getEffort(e, v, t);
+    double effort = (!myBikeSpeeds || v == nullptr || v->getVClass() != SVC_BICYCLE
+            ? getEffort(e, v, t)
+            : getEffortBike(e, v, t));
     if (gWeightsRandomFactor != 1.) {
         effort *= RandHelper::rand(1., gWeightsRandomFactor);
     }
@@ -164,14 +191,17 @@ MSRoutingEngine::getEffortExtra(const MSEdge* const e, const SUMOVehicle* const 
 
 
 double
-MSRoutingEngine::getAssumedSpeed(const MSEdge* edge) {
-    return edge->getLength() / myEffortFunc(edge, nullptr, 0);
+MSRoutingEngine::getAssumedSpeed(const MSEdge* edge, const SUMOVehicle* veh) {
+    return edge->getLength() / myEffortFunc(edge, veh, 0);
 }
 
 
 SUMOTime
 MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
-    initEdgeWeights();
+    initEdgeWeights(SVC_PASSENGER);
+    if (myBikeSpeeds) {
+        initEdgeWeights(SVC_BICYCLE);
+    }
     if (MSNet::getInstance()->getVehicleControl().getDepartedVehicleNo() == 0) {
         return myAdaptationInterval;
     }
@@ -191,6 +221,16 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
                 myPastEdgeSpeeds[id][myAdaptationStepsIndex] = currSpeed;
             }
         }
+        if (myBikeSpeeds) {
+            for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+                if ((*i)->isDelayed()) {
+                    const int id = (*i)->getNumericalID();
+                    const double currSpeed = (*i)->getMeanSpeedBike();
+                    myEdgeBikeSpeeds[id] += (currSpeed - myPastEdgeBikeSpeeds[id][myAdaptationStepsIndex]) / myAdaptationSteps;
+                    myPastEdgeBikeSpeeds[id][myAdaptationStepsIndex] = currSpeed;
+                }
+            }
+        }
         myAdaptationStepsIndex = (myAdaptationStepsIndex + 1) % myAdaptationSteps;
     } else {
         // exponential moving average
@@ -201,6 +241,17 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
                 const double currSpeed = (*i)->getMeanSpeed();
                 if (currSpeed != myEdgeSpeeds[id]) {
                     myEdgeSpeeds[id] = myEdgeSpeeds[id] * myAdaptationWeight + currSpeed * newWeightFactor;
+                }
+            }
+        }
+        if (myBikeSpeeds) {
+            for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+                if ((*i)->isDelayed()) {
+                    const int id = (*i)->getNumericalID();
+                    const double currSpeed = (*i)->getMeanSpeedBike();
+                    if (currSpeed != myEdgeBikeSpeeds[id]) {
+                        myEdgeBikeSpeeds[id] = myEdgeBikeSpeeds[id] * myAdaptationWeight + currSpeed * newWeightFactor;
+                    }
                 }
             }
         }
@@ -216,6 +267,10 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
             dev.openTag(SUMO_TAG_EDGE);
             dev.writeAttr(SUMO_ATTR_ID, e->getID());
             dev.writeAttr("traveltime", myEffortFunc(e, nullptr, STEPS2TIME(currentTime)));
+            if (myBikeSpeeds) {
+                // @note edge-priority is not included here
+                dev.writeAttr("traveltimeBike", getEffortBike(e, nullptr, STEPS2TIME(currentTime)));
+            }
             dev.closeTag();
         }
         dev.closeTag();
@@ -238,7 +293,8 @@ void
 MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
     OptionsCont& oc = OptionsCont::getOptions();
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
-    myEffortFunc = ((gWeightsRandomFactor != 1 || myPriorityFactor != 0) ? &MSRoutingEngine::getEffortExtra : &MSRoutingEngine::getEffort);
+    myBikeSpeeds = oc.getBool("device.rerouting.bike-speeds");
+    myEffortFunc = ((gWeightsRandomFactor != 1 || myPriorityFactor != 0 || myBikeSpeeds) ? &MSRoutingEngine::getEffortExtra : &MSRoutingEngine::getEffort);
 
     SUMOAbstractRouter<MSEdge, SUMOVehicle>* router = nullptr;
     if (routingAlgorithm == "dijkstra") {
@@ -334,7 +390,7 @@ SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const MSEdgeVector& prohibited) {
     if (myRouterProvider == nullptr) {
         initWeightUpdate();
-        initEdgeWeights();
+        initEdgeWeights(svc);
         initRouter();
     }
 #ifdef HAVE_FOX
@@ -355,6 +411,8 @@ MSRoutingEngine::cleanup() {
     myAdaptationInterval = -1; // responsible for triggering initEdgeWeights
     myPastEdgeSpeeds.clear();
     myEdgeSpeeds.clear();
+    myPastEdgeBikeSpeeds.clear();
+    myEdgeBikeSpeeds.clear();
     // @todo recheck. calling release crashes in parallel routing
     //for (auto& item : myCachedRoutes) {
     //    item.second->release();

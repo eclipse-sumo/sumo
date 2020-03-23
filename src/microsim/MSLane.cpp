@@ -2758,6 +2758,31 @@ MSLane::getMeanSpeed() const {
 
 
 double
+MSLane::getMeanSpeedBike() const {
+    // @note: redudant code with getMeanSpeed to avoid extra checks in a function that is called very often
+    if (myVehicles.size() == 0) {
+        return myMaxSpeed;
+    }
+    double v = 0;
+    int numBikes = 0;
+    for (MSVehicle* veh : getVehiclesSecure()) {
+        if (veh->getVClass() == SVC_BICYCLE) {
+            v += veh->getSpeed();
+            numBikes++;
+        }
+    }
+    double ret;
+    if (numBikes > 0) {
+        ret = v / (double) myVehicles.size();
+    } else {
+        ret = myMaxSpeed;
+    }
+    releaseVehicles();
+    return ret;
+}
+
+
+double
 MSLane::getCO2Emissions() const {
     double ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();

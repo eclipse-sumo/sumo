@@ -757,6 +757,24 @@ MSEdge::getMeanSpeed() const {
     return v / no;
 }
 
+double
+MSEdge::getMeanSpeedBike() const {
+    if (MSGlobals::gUseMesoSim) {
+        // no separate bicycle speeds in meso
+        return getMeanSpeed();
+    }
+    double v = 0;
+    double no = 0;
+    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+        const double vehNo = (double)(*i)->getVehicleNumber();
+        v += vehNo * (*i)->getMeanSpeedBike();
+        no += vehNo;
+    }
+    if (no == 0) {
+        return getSpeedLimit();
+    }
+    return v / no;
+}
 
 double
 MSEdge::getCurrentTravelTime(double minSpeed) const {
@@ -770,7 +788,7 @@ MSEdge::getCurrentTravelTime(double minSpeed) const {
 
 double
 MSEdge::getRoutingSpeed() const {
-    return MSRoutingEngine::getAssumedSpeed(this);
+    return MSRoutingEngine::getAssumedSpeed(this, nullptr);
 }
 
 
@@ -1233,7 +1251,7 @@ MSEdge::getBruttoOccupancy() const {
 
 double
 MSEdge::getTravelTimeAggregated(const MSEdge* const edge, const SUMOVehicle* const veh, double /*time*/) {
-    return edge->getLength() / MIN2(edge->getRoutingSpeed(), veh->getMaxSpeed());
+    return edge->getLength() / MIN2(MSRoutingEngine::getAssumedSpeed(edge, veh), veh->getMaxSpeed());
 }
 
 /****************************************************************************/
