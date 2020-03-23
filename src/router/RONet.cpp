@@ -770,6 +770,16 @@ RONet::setPermissionsFound() {
     myHavePermissions = true;
 }
 
+bool
+RONet::hasLoadedEffort() const {
+    for (const auto& item : myEdges) {
+        if (item.second->hasStoredEffort()) {
+            return true;
+        }
+    }
+    return false;
+}
+
 const std::string
 RONet::getStoppingPlaceName(const std::string& id) const {
     for (const auto& mapItem : myStoppingPlaces) {

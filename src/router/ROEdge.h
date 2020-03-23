@@ -459,6 +459,12 @@ public:
 
 
     static double getNoiseEffort(const ROEdge* const edge, const ROVehicle* const veh, double time);
+
+    static double getStoredEffort(const ROEdge* const edge, const ROVehicle* const /*veh*/, double time) {
+        double ret = 0;
+        edge->getStoredEffort(time, ret);
+        return ret;
+    }
     //@}
 
 
@@ -524,6 +530,11 @@ public:
             myRailwayRoutingEdge = new RailEdge<ROEdge, ROVehicle>(this);
         }
         return myRailwayRoutingEdge;
+    }
+
+    /// @brief whether effort data was loaded for this edge
+    bool hasStoredEffort() const {
+        return myUsingETimeLine;
     }
 
 protected:

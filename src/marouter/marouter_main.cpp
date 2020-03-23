@@ -225,7 +225,10 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         } else if (measure == "noise") {
             op = &ROEdge::getNoiseEffort;
         } else {
-            throw ProcessError("Unknown measure (weight attribute '" + measure + "')!");
+            op = &ROEdge::getStoredEffort;
+        }
+        if (!net.hasLoadedEffort()) {
+            WRITE_WARNING("No weight data was loaded for attribute '" + measure + "'.");
         }
         router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, ttOp, false, nullptr, net.hasPermissions());
     }

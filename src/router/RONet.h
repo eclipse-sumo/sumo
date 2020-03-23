@@ -411,6 +411,9 @@ public:
         return myHasBidiEdges;
     }
 
+    /// @brief whether efforts were loaded from file
+    bool hasLoadedEffort() const;
+
     OutputDevice* getRouteOutput(const bool alternative = false) {
         if (alternative) {
             return myRouteAlternativesOutput;
