@@ -68,7 +68,8 @@ permalink: /ChangeLog/
   - Option **--save-state.times** now accepts human-readable time. Issue #6810
   - Added new 'device.toc' parameters ['mrmSafeSpot' and 'mrmSafeSpotDuration'](ToC_Device.md) to control the behavior during minimum-risk maneuvers. Issue #6157
   - Added option **--vehroute-output.stop-edges** to record the edges that were driven ahead of stop as part of the vehroute output. Issue #6815
-  - Added option **--device.rerouting.priority-factor** to factor the priority of edges into the routing decision with a configurable weight (edges with higher priority are preferred increaslingly when setting this to a higher value). An application for this is [railway routing](Simulation/Railways.md#routing_on_bidirectional_tracks). Issue #6812
+  - Added option **--device.rerouting.priority-factor FLOAT** to factor the priority of edges into the routing decision with a configurable weight (edges with higher priority are preferred increasingly when setting this to a higher value). An application for this is [railway routing](Simulation/Railways.md#routing_on_bidirectional_tracks). Issue #6812
+  - Added option **--device.rerouting.bike-speed** to compute aggregated speeds for bicycles separately. Issue #6829
   - Automatic train rerouting by rail signal logic can now be disabled by setting option **--device.rerouting.railsignal false** as well as by vehicle and vType parameters (key="device.rerouting.railsignal"). Issue #6781
   - Trains can now be joined in reverse order (rear part id is kept). Issue #6803 
       
@@ -87,6 +88,10 @@ permalink: /ChangeLog/
   - Connections now support attribute ''length'' to customize the length of internal lanes. Issue #6733
   - Added option **--default.connection-length** to overwrite the length of internal lanes with a specific value. Issue #6733
   - Added option **--railway.topology.direction-priority** to assign edge priority values based on the [preferred track usage direction](Simulation/Railways.md#routing_on_bidirectional_tracks) (determined heuristically from uni-directional track).
+- DUAROUTER
+  - When loading weights from edgeData files, arbitrary attributes can now be used with option **--weight-attribute**. Issue #6817
+  - Added option **--weights.priority-factor FLOAT** to factor the priority of edges into the routing decision with a configurable weight (edges with higher priority are preferred increasingly when setting this to a higher value). Issue #6812
+   
 - TraCI
   - [Meso simulation](Simulation/Meso.md) now supports TraCI
   - Parking vehicles are now picked up by context subscriptions. Issue #6785
