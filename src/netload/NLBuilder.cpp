@@ -43,10 +43,12 @@
 #include <utils/foxtools/MsgHandlerSynchronized.h>
 #endif
 #include <mesosim/MEVehicleControl.h>
+#include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSNet.h>
 #include <microsim/devices/MSDevice.h>
+#include <microsim/devices/MSDevice_ToC.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -266,7 +268,6 @@ NLBuilder::init(const bool isLibsumo) {
     }
 #endif
     MsgHandler::initOutputOptions();
-    initRandomness();
     MSFrame::setMSGlobals(oc);
     MSVehicleControl* vc = nullptr;
     if (MSGlobals::gUseMesoSim) {
@@ -275,6 +276,7 @@ NLBuilder::init(const bool isLibsumo) {
         vc = new MSVehicleControl();
     }
     MSNet* net = new MSNet(vc, new MSEventControl(), new MSEventControl(), new MSEventControl());
+    initRandomness();
     // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
     TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
     if (isLibsumo) {
@@ -306,7 +308,9 @@ NLBuilder::initRandomness() {
     RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
     RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
     RandHelper::initRandGlobal(OUProcess::getRNG());
+    RandHelper::initRandGlobal(MSDevice_ToC::getResponseTimeRNG());
     MSLane::initRNGs(OptionsCont::getOptions());
+    RandHelper::initRandGlobal(MSNet::getInstance()->getInsertionControl().getFlowRNG());
 }
 
 void
