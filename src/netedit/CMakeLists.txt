@@ -5,6 +5,8 @@ add_subdirectory(elements)
 
 set(netedit_SRCS
    netedit_main.cpp
+   GNEApplicationWindowHelper.h
+   GNEApplicationWindowHelper.cpp
    GNEApplicationWindow.h
    GNEApplicationWindow.cpp
    GNELoadThread.h
