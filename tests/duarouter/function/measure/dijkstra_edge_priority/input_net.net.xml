@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar 23 14:03:06 2020 by Eclipse SUMO netconvert Version v1_5_0+0895-90b9912ba1
+<!-- generated on Mo 23 Mär 2020 14:14:51 CET by Eclipse SUMO netedit Version v1_5_0+0895-90b9912ba1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="input_net.net.xml"/>
+        <sumo-net-file value="/home/kobo/dlr/sumo/tests/duarouter/function/measure/dijkstra_edge_priority/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="new.net.xml"/>
+        <output-file value="/home/kobo/dlr/sumo/tests/duarouter/function/measure/dijkstra_edge_priority/input_net.net.xml"/>
     </output>
 
     <processing>
@@ -17,10 +17,6 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
-
-    <building_defaults>
-        <default.junctions.radius value="1.5"/>
-    </building_defaults>
 
     <junctions>
         <no-internal-links value="true"/>
@@ -66,7 +62,7 @@
     <edge id="b2a2" from="b2" to="a2" priority="-1" length="7.00">
         <lane id="b2a2_0" index="0" speed="1.00" length="7.00" shape="192.10,201.60 100.76,201.60"/>
     </edge>
-    <edge id="b2a25" from="b2" to="a25" priority="-1" length="6.00">
+    <edge id="b2a25" from="b2" to="a25" priority="1" length="6.00">
         <lane id="b2a25_0" index="0" speed="1.00" length="6.00" shape="192.97,205.30 102.06,250.76"/>
     </edge>
     <edge id="b2b1" from="b2" to="b1" priority="-1" length="9.00">
@@ -88,7 +84,7 @@
         <lane id="b3a3_0" index="0" speed="1.00" length="4.00" shape="198.50,301.60 100.00,301.60"/>
     </edge>
     <edge id="b3c3" from="b3" to="c3" priority="-1" length="3.00">
-        <lane id="b3c3_0" index="0" speed="1.00" length="3.00" shape="204.70,298.40 295.02,298.40"/>
+        <lane id="b3c3_0" index="0" speed="1.00" length="3.00" shape="204.70,298.40 295.01,298.40"/>
     </edge>
     <edge id="beg" from="start" to="b2" priority="-1" length="1.00">
         <lane id="beg_0" index="0" speed="1.00" length="1.00" shape="1.13,-1.13 194.61,192.35"/>
@@ -100,7 +96,7 @@
         <lane id="c2e_0" index="0" speed="1.00" length="285.31" shape="300.26,201.58 20.68,248.18"/>
     </edge>
     <edge id="c3e" from="c3" to="end" priority="-1">
-        <lane id="c3e_0" index="0" speed="1.00" length="286.56" shape="294.61,300.72 23.38,255.52"/>
+        <lane id="c3e_0" index="0" speed="1.00" length="286.55" shape="294.59,300.72 23.38,255.52"/>
     </edge>
 
     <junction id="a1" type="priority" x="100.00" y="100.00" incLanes="b2a1_0" intLanes="" shape="100.50,105.02 102.76,102.76 97.83,103.25" radius="1.50">
@@ -139,7 +135,7 @@
     <junction id="c2" type="priority" x="300.00" y="200.00" incLanes="b2c2_0" intLanes="" shape="300.00,200.00 300.53,203.16 300.00,196.80">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="c3" type="right_before_left" x="300.00" y="300.00" incLanes="b2c3_0 b3c3_0" intLanes="" shape="298.00,293.48 295.74,295.74 295.30,296.80 294.33,302.30" radius="1.50">
+    <junction id="c3" type="right_before_left" x="300.00" y="300.00" incLanes="b2c3_0 b3c3_0" intLanes="" shape="298.00,293.48 295.74,295.74 295.30,296.80 294.31,302.30" radius="1.50">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>

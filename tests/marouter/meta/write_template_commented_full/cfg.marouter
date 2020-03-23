@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 13 10:10:33 2020 by Eclipse SUMO marouter Version v1_4_0+0451-801ba53
+<!-- generated on Mon Mar 23 13:21:02 2020 by Eclipse SUMO marouter Version v1_5_0+0891-eebab722dd
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -107,6 +107,9 @@
 
         <!-- Expand weights behind the simulation&apos;s end -->
         <weights.expand value="false" synonymes="expand-weights" type="BOOL"/>
+
+        <!-- Consider edge priorities in addition to travel times, weighted by factor -->
+        <weights.priority-factor value="0" type="FLOAT"/>
 
         <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>

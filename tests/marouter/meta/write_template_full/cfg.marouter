@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 13 10:10:33 2020 by Eclipse SUMO marouter Version v1_4_0+0451-801ba53
+<!-- generated on Mon Mar 23 13:21:02 2020 by Eclipse SUMO marouter Version v1_5_0+0891-eebab722dd
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -46,6 +46,7 @@
         <max-alternatives value="5" type="INT" help="Prune the number of alternatives to INT"/>
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
+        <weights.priority-factor value="0" type="FLOAT" help="Consider edge priorities in addition to travel times, weighted by factor"/>
         <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
         <bulk-routing.vtypes value="false" type="BOOL" help="Aggregate routing queries with the same origin for different vehicle types"/>
         <routing-threads value="0" type="INT" help="The number of parallel execution threads used for routing"/>
