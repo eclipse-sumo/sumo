@@ -41,6 +41,8 @@ def get_options(args=None):
                         help="Input route file file")
     parser.add_argument("-H", "--human-readable-time", dest="hrTime", action="store_true", default=False,
                         help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds")
+    parser.add_argument("-p", "--ignore-parking", dest="ignoreParking", action="store_true", default=False,
+                        help="Do not report conflicts with parking vehicles")
 
     options = parser.parse_args(args=args)
     options.routeFiles = options.routeFiles.split(',')
@@ -54,10 +56,12 @@ def main(options):
 
     stopTimes = defaultdict(list)
     for routefile in options.routeFiles:
-        for vehicle in sumolib.xml.parse(routefile, ['vehicle', 'trip']):
+        for vehicle in sumolib.xml.parse(routefile, ['vehicle', 'trip'], heterogeneous=True):
             if vehicle.stop is None:
                 continue
             for stop in vehicle.stop:
+                if stop.parking == "true" and options.ignoreParking:
+                    continue
                 until = parseTime(stop.until)
                 arrival = parseTime(stop.arrival) if stop.arrival else until - parseTime(stop.duration)
                 stopTimes[stop.busStop].append((arrival, until, vehicle.id))
