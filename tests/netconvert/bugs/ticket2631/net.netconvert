@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:31:12 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Tue Mar 24 16:15:52 2020 by Eclipse SUMO netconvert Version v1_5_0+0921-3790a6fe8c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -68,7 +68,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_0_0" dir="s" state="M"/>
     <connection from="NC" to="CE" fromLane="0" toLane="0" via=":C_1_0" dir="l" state="M"/>
-    <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_2_0" dir="r" state="m"/>
+    <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_2_0" dir="r" state="M"/>
     <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_3_0" dir="s" state="M"/>
 
     <connection from=":C_0" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
