@@ -105,7 +105,8 @@ When this option is set, the priority value of each edge is factored into the ro
   relativeInversePrio = 1 - ((edgePriority - MinEdgePriority) / EdgePriorityRange)
   effort =  traveltime * (1 + relativeInversePrio * PriorityFactor)
 ```
-As a consequence
+As a consequence:
+
 - the highest priority edge will get no penalty
 - the traveltime of the lowest priority edge is multiplied with 1+PriorityFactor, 
 - edges with in-between priorities will get a scaled penalty
