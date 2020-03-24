@@ -2125,7 +2125,7 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
             // legacy mode
             && (!incoming->isInsideTLS() || getDirection(incoming, outgoing) != LINKDIR_STRAIGHT)
             // avoid linkstate minor at pure railway nodes
-            && (incoming->getPriority() != outgoing->getPriority() || !NBNodeTypeComputer::isRailwayNode(this))) {
+            && !NBNodeTypeComputer::isRailwayNode(this)) {
         return myType == SumoXMLNodeType::PRIORITY_STOP ? LINKSTATE_STOP : LINKSTATE_MINOR; // minor road
     }
     // traffic lights are not regarded here
