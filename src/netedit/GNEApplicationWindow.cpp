@@ -309,7 +309,7 @@ GNEApplicationWindow::dependentBuild() {
     setTarget(this);
     setSelector(MID_WINDOW);
     // build toolbar menu
-    myToolbarsGrip.buildMenuToolbarsGrip();
+    getToolbarsGrip().buildMenuToolbarsGrip();
     // build the thread - io
     myLoadThreadEvent.setTarget(this),  myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
     // build the status bar
@@ -878,7 +878,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         setStatusBarText("'" + ec->myFile + "' loaded.");
         setWindowSizeAndPos();
         // build viewparent toolbar grips before creating view parent
-        myToolbarsGrip.buildViewParentToolbarsGrips();
+        getToolbarsGrip().buildViewParentToolbarsGrips();
         // initialise NETEDIT View
         GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "NETEDIT VIEW", this, nullptr, myNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
         // create it maximized
@@ -1019,11 +1019,33 @@ GNEApplicationWindow::fillMenuBar() {
     myFileMenu = new FXMenuPane(this, LAYOUT_FIX_HEIGHT);
     menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&File", nullptr, myFileMenu, LAYOUT_FIX_HEIGHT);
     menuTitle->setHeight(23);
-    myFileMenuCommands.buildFileMenuCommands(myFileMenu);
+    myFileMenuTLS = new FXMenuPane(this);
+    myFileMenuAdditionals = new FXMenuPane(this);
+    myFileMenuDemandElements = new FXMenuPane(this);
+    myFileMenuDataElements = new FXMenuPane(this);
+    myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuTLS, myFileMenuAdditionals, myFileMenuDemandElements, myFileMenuDataElements);
+    // build recent files
+    myMenuBarFile.buildRecentFiles(myFileMenu);
+    new FXMenuSeparator(myFileMenu);
+    new FXMenuCommand(myFileMenu,
+        "&Quit\tCtrl+Q\tQuit the Application.",
+        nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE, 0);
     // build edit menu
     myEditMenu = new FXMenuPane(this);
     menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Edit", nullptr, myEditMenu, LAYOUT_FIX_HEIGHT);
     menuTitle->setHeight(23);
+    // build undo/redo command
+    myEditMenuCommands.undoLastChange = new FXMenuCommand(myEditMenu,
+        "&Undo\tCtrl+Z\tUndo the last change.",
+        GUIIconSubSys::getIcon(GUIIcon::UNDO), this, MID_HOTKEY_CTRL_Z_UNDO);
+    myEditMenuCommands.redoLastChange = new FXMenuCommand(myEditMenu,
+        "&Redo\tCtrl+Y\tRedo the last change.",
+        GUIIconSubSys::getIcon(GUIIcon::REDO), this, MID_HOTKEY_CTRL_Y_REDO);
+    // build separator
+    new FXMenuSeparator(myEditMenu);
+    // build Supermode commands and hide it
+    mySupermodeCommands.buildSupermodeCommands(myEditMenu);
+    mySupermodeCommands.hideSupermodeCommands();
     myEditMenuCommands.buildEditMenuCommands(myEditMenu);
     // build processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
@@ -1039,7 +1061,7 @@ GNEApplicationWindow::fillMenuBar() {
     myWindowsMenu = new FXMenuPane(this);
     menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Windows", nullptr, myWindowsMenu, LAYOUT_FIX_HEIGHT);
     menuTitle->setHeight(23);
-    myWindowsMenuCommands.buildWindowsMenuCommands(myWindowsMenu);
+    myWindowsMenuCommands.buildWindowsMenuCommands(myWindowsMenu, myStatusbar, myMessageWindow);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
     menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Help", nullptr, myHelpMenu, LAYOUT_FIX_HEIGHT);
@@ -1104,6 +1126,7 @@ GNEApplicationWindow::getUndoList() {
 
 GNEApplicationWindowHelper::ToolbarsGrip&
 GNEApplicationWindow::getToolbarsGrip() {
+    myToolbarsGrip.myTopDock = myTopDock;
     return myToolbarsGrip;
 }
 

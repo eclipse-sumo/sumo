@@ -85,10 +85,10 @@ struct GNEApplicationWindowHelper {
         /// @brief The application menu bar for mode options (show connections, select edges...)
         FXMenuBar* intervalBar;
 
+        FXDockSite* myTopDock;
     private:
         /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
-
         /// @brief menu bar drag (for file, edit, processing...)
         FXToolBarShell* myToolBarShellMenu;
 
@@ -138,7 +138,8 @@ struct GNEApplicationWindowHelper {
         FileMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
-        void buildFileMenuCommands(FXMenuPane* editMenu);
+        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuAdditionals,
+                                   FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements);
 
         /// @brief FXMenuCommand for enable or disable save additionals
         FXMenuCommand* saveAdditionals;
@@ -441,7 +442,7 @@ struct GNEApplicationWindowHelper {
         WindowsMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
-        void buildWindowsMenuCommands(FXMenuPane* windowsMenu);
+        void buildWindowsMenuCommands(FXMenuPane* windowsMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow);
 
     private:
         /// @brief pointer to current GNEApplicationWindows

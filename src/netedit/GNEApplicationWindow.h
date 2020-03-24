@@ -39,9 +39,6 @@ class GNEApplicationWindow : public GUIMainWindow, public MFXInterThreadEventCli
     /// @brief FOX-declaration
     FXDECLARE(GNEApplicationWindow)
 
-    /// @brief declare GNEApplicationWindowHelper as friend struct
-    friend struct GNEApplicationWindowHelper;
-
 public:
 
     /**@brief Constructor

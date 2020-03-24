@@ -41,6 +41,7 @@ GNEApplicationWindowHelper::ToolbarsGrip::ToolbarsGrip(GNEApplicationWindow* GNE
     modeOptions(nullptr),
     intervalBar(nullptr),
     myGNEApp(GNEApp),
+    myTopDock(nullptr),
     myToolBarShellMenu(nullptr),
     myToolBarShellSuperModes(nullptr),
     myToolBarShellSaveElements(nullptr),
@@ -55,7 +56,7 @@ void
 GNEApplicationWindowHelper::ToolbarsGrip::buildMenuToolbarsGrip() {
     // build menu bar (for File, edit, processing...) using specify design
     myToolBarShellMenu = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    menu = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellMenu, GUIDesignToolbarMenuBarNetedit);
+    menu = new FXMenuBar(myTopDock, myToolBarShellMenu, GUIDesignToolbarMenuBarNetedit);
     // declare toolbar grip for menu bar
     new FXToolBarGrip(menu, menu, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
 }
@@ -65,32 +66,32 @@ void
 GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     // build menu bar for supermodes (next to menu bar)
     myToolBarShellSuperModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    superModes = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
+    superModes = new FXMenuBar(myTopDock, myToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar superModes
     new FXToolBarGrip(superModes, superModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for save elements (bot to menu bar)
     myToolBarShellSaveElements = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    saveElements = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
+    saveElements = new FXMenuBar(myTopDock, myToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
     // declare toolbar grip for menu bar saveElements
     new FXToolBarGrip(saveElements, saveElements, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for navigation
     myToolBarShellNavigation = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    navigation = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellNavigation, GUIDesignToolBarRaisedSame);
+    navigation = new FXMenuBar(myTopDock, myToolBarShellNavigation, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar navigation
     new FXToolBarGrip(navigation, navigation, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for modes
     myToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    modes = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellModes, GUIDesignToolBarRaisedSame);
+    modes = new FXMenuBar(myTopDock, myToolBarShellModes, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(modes, modes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for mode Options
     myToolBarShellModeOptions = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    modeOptions = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellModeOptions, GUIDesignToolBarRaisedSame);
+    modeOptions = new FXMenuBar(myTopDock, myToolBarShellModeOptions, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(modeOptions, modeOptions, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for interal
     myToolBarShellIntervalBar = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    intervalBar = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellModeOptions, GUIDesignToolBarRaisedNext);
+    intervalBar = new FXMenuBar(myTopDock, myToolBarShellModeOptions, GUIDesignToolBarRaisedNext);
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(intervalBar, intervalBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // create menu bars
@@ -108,7 +109,7 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     myToolBarShellModeOptions->create();
     myToolBarShellIntervalBar->create();
     // recalc top dop after creating elements
-    myGNEApp->myTopDock->recalc();
+    myTopDock->recalc();
 }
 
 
@@ -129,7 +130,7 @@ GNEApplicationWindowHelper::ToolbarsGrip::destroyParentToolbarsGrips() {
     delete myToolBarShellModeOptions;
     delete myToolBarShellIntervalBar;
     // recalc top dop after deleting elements
-    myGNEApp->myTopDock->recalc();
+    myTopDock->recalc();
 }
 
 // ===========================================================================
@@ -195,7 +196,8 @@ GNEApplicationWindowHelper::FileMenuCommands::FileMenuCommands(GNEApplicationWin
 
 
 void
-GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu) {
+GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuAdditionals,
+                                                                    FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements) {
     new FXMenuCommand(fileMenu,
         "&New Network...\tCtrl+N\tCreate a new network.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_HOTKEY_CTRL_N_NEWNETWORK);
@@ -224,77 +226,67 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         "Save &joined junctions...\tCtrl+J\tSave log of joined junctions (allows reproduction of joins).",
         GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS);
     // create TLS menu options
-    myGNEApp->myFileMenuTLS = new FXMenuPane(myGNEApp);
-    new FXMenuCommand(myGNEApp->myFileMenuTLS,
+    new FXMenuCommand(fileMenuTLS,
         "load TLS Programs...\tCtrl+K\tload TLS Programs in all Traffic Lights of the net.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_TLSPROGRAMS), myGNEApp, MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS);
-    saveTLSPrograms = new FXMenuCommand(myGNEApp->myFileMenuTLS,
+    saveTLSPrograms = new FXMenuCommand(fileMenuTLS,
         "Save TLS Programs \tCtrl+Shift+K\tSave TLS Programs of all Traffic Lights of the current net.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_K_SAVETLS);
     saveTLSPrograms->disable();
-    new FXMenuCommand(myGNEApp->myFileMenuTLS,
+    new FXMenuCommand(fileMenuTLS,
         "Save TLS Programs As...\t\tSave TLS Programs of all Traffic Lights of the current net in another file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS);
     new FXMenuCascade(fileMenu,
         "Traffic Lights",
-        GUIIconSubSys::getIcon(GUIIcon::MODETLS), myGNEApp->myFileMenuTLS);
+        GUIIconSubSys::getIcon(GUIIcon::MODETLS), fileMenuTLS);
     // create Additionals menu options
-    myGNEApp->myFileMenuAdditionals = new FXMenuPane(myGNEApp);
-    new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
+    new FXMenuCommand(fileMenuAdditionals,
         "Load A&dditionals...\tCtrl+A\tLoad additionals and shapes.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
-    saveAdditionals = new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
+    saveAdditionals = new FXMenuCommand(fileMenuAdditionals,
         "Save Additionals\tCtrl+Shift+A\tSave additionals and shapes.",
         GUIIconSubSys::getIcon(GUIIcon::SAVEADDITIONALELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
     saveAdditionals->disable();
-    saveAdditionalsAs = new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
+    saveAdditionalsAs = new FXMenuCommand(fileMenuAdditionals,
         "Save Additionals As...\t\tSave additional elements in another file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVEADDITIONALELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
     saveAdditionalsAs->disable();
-    new FXMenuCascade(fileMenu, "Additionals and shapes", GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myGNEApp->myFileMenuAdditionals);
+    new FXMenuCascade(fileMenu, "Additionals and shapes", GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), fileMenuAdditionals);
     // create DemandElements menu options
-    myGNEApp->myFileMenuDemandElements = new FXMenuPane(myGNEApp);
-    new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
+    new FXMenuCommand(fileMenuDemandElements,
         "Load demand elements...\tCtrl+D\tLoad demand elements.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS);
-    saveDemandElements = new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
+    saveDemandElements = new FXMenuCommand(fileMenuDemandElements,
         "Save demand elements\tCtrl+Shift+D\tSave demand elements.",
         GUIIconSubSys::getIcon(GUIIcon::SAVEDEMANDELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
     saveDemandElements->disable();
-    saveDemandElementsAs = new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
+    saveDemandElementsAs = new FXMenuCommand(fileMenuDemandElements,
         "Save demand elements as...\t\tSave demand elements in another file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVEDEMANDELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND_AS);
     saveDemandElementsAs->disable();
     new FXMenuCascade(fileMenu,
         "Demand elements",
-        GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myGNEApp->myFileMenuDemandElements);
+        GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), fileMenuDemandElements);
     // create DataElements menu options
-    myGNEApp->myFileMenuDataElements = new FXMenuPane(myGNEApp);
-    new FXMenuCommand(myGNEApp->myFileMenuDataElements,
+    new FXMenuCommand(fileMenuDataElements,
         "Load data elements...\tCtrl+B\tLoad data elements.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS);
-    saveDataElements = new FXMenuCommand(myGNEApp->myFileMenuDataElements,
+    saveDataElements = new FXMenuCommand(fileMenuDataElements,
         "Save data elements\tCtrl+Shift+B\tSave data elements.",
         GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS);
     saveDataElements->disable();
-    saveDataElementsAs = new FXMenuCommand(myGNEApp->myFileMenuDataElements,
+    saveDataElementsAs = new FXMenuCommand(fileMenuDataElements,
         "Save data elements as...\t\tSave data elements in another file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDATA_AS);
     saveDataElementsAs->disable();
     new FXMenuCascade(fileMenu,
         "Data elements",
-        GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myGNEApp->myFileMenuDataElements);
+        GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), fileMenuDataElements);
     // close network
     new FXMenuSeparator(fileMenu);
     new FXMenuCommand(fileMenu,
         "Close\tCtrl+W\tClose the net&work.",
         GUIIconSubSys::getIcon(GUIIcon::CLOSE), myGNEApp, MID_HOTKEY_CTRL_W_CLOSESIMULATION);
-    // build recent files
-    myGNEApp->myMenuBarFile.buildRecentFiles(fileMenu);
-    new FXMenuSeparator(fileMenu);
-    new FXMenuCommand(fileMenu,
-        "&Quit\tCtrl+Q\tQuit the Application.",
-        nullptr, myGNEApp, MID_HOTKEY_CTRL_Q_CLOSE, 0);
 }
 
 // ---------------------------------------------------------------------------
@@ -538,18 +530,6 @@ GNEApplicationWindowHelper::EditMenuCommands::EditMenuCommands(GNEApplicationWin
 
 void
 GNEApplicationWindowHelper::EditMenuCommands::buildEditMenuCommands(FXMenuPane* editMenu) {
-    // build undo/redo command
-    undoLastChange = new FXMenuCommand(editMenu,
-        "&Undo\tCtrl+Z\tUndo the last change.",
-        GUIIconSubSys::getIcon(GUIIcon::UNDO), myGNEApp, MID_HOTKEY_CTRL_Z_UNDO);
-    redoLastChange = new FXMenuCommand(editMenu,
-        "&Redo\tCtrl+Y\tRedo the last change.",
-        GUIIconSubSys::getIcon(GUIIcon::REDO), myGNEApp, MID_HOTKEY_CTRL_Y_REDO);
-    // build separator
-    new FXMenuSeparator(editMenu);
-    // build Supermode commands and hide it
-    myGNEApp->mySupermodeCommands.buildSupermodeCommands(editMenu);
-    myGNEApp->mySupermodeCommands.hideSupermodeCommands();
     // build Network modes commands and hide it
     networkMenuCommands.buildNetworkMenuCommands(editMenu);
     networkMenuCommands.hideNetworkMenuCommands();
@@ -771,14 +751,14 @@ GNEApplicationWindowHelper::WindowsMenuCommands::WindowsMenuCommands(GNEApplicat
 
 
 void
-GNEApplicationWindowHelper::WindowsMenuCommands::buildWindowsMenuCommands(FXMenuPane* windowsMenu) {
+GNEApplicationWindowHelper::WindowsMenuCommands::buildWindowsMenuCommands(FXMenuPane* windowsMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow) {
     // build windows menu commands
     new FXMenuCheck(windowsMenu,
         "&Show Status Line\t\tToggle this Status Bar on/off.",
-        myGNEApp->myStatusbar, FXWindow::ID_TOGGLESHOWN);
+        statusbar, FXWindow::ID_TOGGLESHOWN);
     new FXMenuCheck(windowsMenu,
         "Show &Message Window\t\tToggle the Message Window on/off.",
-        myGNEApp->myMessageWindow, FXWindow::ID_TOGGLESHOWN);
+        messageWindow, FXWindow::ID_TOGGLESHOWN);
     new FXMenuCommand(windowsMenu,
         "&Clear Message Window\t\tClear the message window.",
         nullptr, myGNEApp, MID_CLEARMESSAGEWINDOW);
