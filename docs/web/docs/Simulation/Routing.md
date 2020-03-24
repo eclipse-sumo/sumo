@@ -92,6 +92,20 @@ the *rerouting device* are used.
   Note that the travel time values which are set in this way are used
   for the full duration of the simulation unless updated again.
 
+# Routing by Traveltime and Edge Priority
+Sometimes it is useful to guide route search with additional information while still taking travel times into account.
+For this use case the option **--weights.priority-factor FLOAT** can be used with [SUMO](../SUMO.md) and [DUAROUTER](../DUAROUTER.md).
+
+When this option is set, the priority value of each edge is factored into the routing decision so that low-priority edges receive a penalty (they appear to be slower) whereas high-priority edges receive little or no penalty. For the option value `PriorityFactor`, the penalty is computed thus:
+```
+  MinEdgePriority : minimum priority value of all edges
+  MaxEdgePriority : maximum priority value of all edges
+  EdgePriorityRange = MaxEdgePriority - MinEdgePriority
+
+  relativeInversePrio = 1 - ((edgePriority - MinEdgePriority) / EdgePriorityRange)
+  effort =  traveltime * (1 + relativeInversePrio * PriorityFactor)
+```
+
 # Routing by *effort*
 
 By default, the objective of the routing algorithms is to minimize the travel time between origin and destination.
