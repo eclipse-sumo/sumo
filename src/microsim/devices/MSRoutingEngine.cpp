@@ -154,7 +154,6 @@ double
 MSRoutingEngine::getEffort(const MSEdge* const e, const SUMOVehicle* const v, double) {
     const int id = e->getNumericalID();
     if (id < (int)myEdgeSpeeds.size()) {
-        assert(id < (int)myEdgeBikeSpeeds.size());
         return MAX2(e->getLength() / MAX2(myEdgeSpeeds[id], NUMERICAL_EPS), e->getMinimumTravelTime(v));
     }
     return e->getMinimumTravelTime(v);
