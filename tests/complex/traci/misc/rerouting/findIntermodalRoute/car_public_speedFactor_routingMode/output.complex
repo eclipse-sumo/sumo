@@ -9,10 +9,10 @@ findIntermodalRoute modes='car bicycle public' vType=slowCar' pType=''
   Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=126.216342693, cost=126.216342693, length=3571.04, intended=car, depart=1.0, departPos=894.8, arrivalPos=987.6)
 
 findIntermodalRoute modes='car bicycle public' vType=slowCarFactor' pType=''
-  Stage(type=3, vType=slowCarFactor, line=slowCarFactor, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=126.216342693, cost=126.216342693, length=3571.04, intended=slowCarFactor, depart=1.0, departPos=894.8, arrivalPos=987.6)
+  Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=126.216342693, cost=126.216342693, length=3571.04, intended=car, depart=1.0, departPos=894.8, arrivalPos=987.6)
 
 findIntermodalRoute modes='car bicycle public' vType=fastCar' pType=''
-  Stage(type=3, vType=fastCar, line=fastCar, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=126.216342693, cost=126.216342693, length=3571.04, intended=fastCar, depart=1.0, departPos=894.8, arrivalPos=987.6)
+  Stage(type=3, vType=fastCar, line=fastCar, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=65.3581713463, cost=65.3581713463, length=3571.04, intended=fastCar, depart=1.0, departPos=894.8, arrivalPos=987.6)
 
 
 
@@ -34,10 +34,10 @@ findIntermodalRoute modes='public' vType=slowCar' pType=''
   Stage(type=2, edges=('accessB', 'A1B1'), travelTime=203.9232, cost=203.9232, length=2087.62, depart=1101.00124, departPos=91.16, arrivalPos=987.6)
 
 findIntermodalRoute modes='public' vType=slowCarFactor' pType=''
-  Stage(type=3, vType=slowCarFactor, line=slowCarFactor, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=126.216342693, cost=126.216342693, length=3571.04, intended=slowCarFactor, depart=1.0, departPos=894.8, arrivalPos=987.6)
+  Stage(type=3, vType=slowCarFactor, line=slowCarFactor, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=613.081713463, cost=613.081713463, length=3571.04, intended=slowCarFactor, depart=1.0, departPos=894.8, arrivalPos=987.6)
 
 findIntermodalRoute modes='public' vType=fastCar' pType=''
-  Stage(type=3, vType=fastCar, line=fastCar, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=126.216342693, cost=126.216342693, length=3571.04, intended=fastCar, depart=1.0, departPos=894.8, arrivalPos=987.6)
+  Stage(type=3, vType=fastCar, line=fastCar, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=65.3581713463, cost=65.3581713463, length=3571.04, intended=fastCar, depart=1.0, departPos=894.8, arrivalPos=987.6)
 
 
 
@@ -51,10 +51,10 @@ findIntermodalRoute modes='' vType=slowCar' pType=''
   Stage(type=2, edges=('A0B0', 'B1B0', 'A1B1'), travelTime=1424.6592, cost=1424.6592, length=2576.82, depart=1.0, departPos=894.8, arrivalPos=0.0)
 
 findIntermodalRoute modes='' vType=slowCarFactor' pType=''
-  Stage(type=3, vType=slowCarFactor, line=slowCarFactor, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=126.216342693, cost=126.216342693, length=3571.04, intended=slowCarFactor, depart=1.0, departPos=894.8, arrivalPos=987.6)
+  Stage(type=3, vType=slowCarFactor, line=slowCarFactor, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=613.081713463, cost=613.081713463, length=3571.04, intended=slowCarFactor, depart=1.0, departPos=894.8, arrivalPos=987.6)
 
 findIntermodalRoute modes='' vType=fastCar' pType=''
-  Stage(type=3, vType=fastCar, line=fastCar, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=126.216342693, cost=126.216342693, length=3571.04, intended=fastCar, depart=1.0, departPos=894.8, arrivalPos=987.6)
+  Stage(type=3, vType=fastCar, line=fastCar, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=65.3581713463, cost=65.3581713463, length=3571.04, intended=fastCar, depart=1.0, departPos=894.8, arrivalPos=987.6)
 
 
 
