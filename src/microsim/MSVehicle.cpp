@@ -1964,15 +1964,15 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
                 if (stop.busstop != nullptr) {
                     // let the bus stop know the vehicle
-                    stop.busstop->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
+                    stop.busstop->enter(this, stop.pars.parking);
                 }
                 if (stop.containerstop != nullptr) {
                     // let the container stop know the vehicle
-                    stop.containerstop->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
+                    stop.containerstop->enter(this, stop.pars.parking);
                 }
                 if (stop.parkingarea != nullptr) {
                     // let the parking area know the vehicle
-                    stop.parkingarea->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
+                    stop.parkingarea->enter(this);
                 }
 
                 if (stop.pars.tripId != "") {

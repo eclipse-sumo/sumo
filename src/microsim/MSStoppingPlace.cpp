@@ -37,11 +37,14 @@ MSStoppingPlace::MSStoppingPlace(const std::string& id,
                                  const std::vector<std::string>& lines,
                                  MSLane& lane,
                                  double begPos, double endPos, const std::string name,
-                                 int capacity) :
+                                 int capacity,
+                                 double parkingLength) :
     Named(id), myLines(lines), myLane(lane),
     myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos),
     myName(name),
-    myTransportableCapacity(capacity) {
+    myTransportableCapacity(capacity),
+    myParkingFactor(parkingLength <= 0 ? 1 : (endPos - begPos) / parkingLength)
+{
     computeLastFreePos();
     for (int i = 0; i < capacity; i++) {
         myWaitingSpots.insert(i);
@@ -71,8 +74,10 @@ MSStoppingPlace::getEndLanePosition() const {
 
 
 void
-MSStoppingPlace::enter(SUMOVehicle* what, double beg, double end) {
-    myEndPositions[what] = std::pair<double, double>(beg, end);
+MSStoppingPlace::enter(SUMOVehicle* veh, bool parking) {
+    double beg = veh->getPositionOnLane() + veh->getVehicleType().getMinGap();
+    double end = beg - veh->getVehicleType().getLengthWithGap() * (parking ? myParkingFactor : 1);
+    myEndPositions[veh] = std::make_pair(beg, end);
     computeLastFreePos();
 }
 

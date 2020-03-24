@@ -68,7 +68,8 @@ public:
      */
     GUIContainerStop(const std::string& id,
                      const std::vector<std::string>& lines, MSLane& lane,
-                     double frompos, double topos, const std::string& name, int containerCapacity);
+                     double frompos, double topos, const std::string& name,
+                     int containerCapacity, double parkingLength);
 
 
     /// @brief Destructor

@@ -122,11 +122,9 @@ public:
      * Recomputes the free space using "computeLastFreePos" then.
      *
      * @param[in] what The vehicle that enters the parking area
-     * @param[in] beg The begin halting position of the vehicle
-     * @param[in] end The end halting position of the vehicle
      * @see computeLastFreePos
      */
-    void enter(SUMOVehicle* what, double beg, double end);
+    void enter(SUMOVehicle* veh);
 
 
     /** @brief Called if a vehicle leaves this stop

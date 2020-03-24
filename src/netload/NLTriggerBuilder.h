@@ -307,7 +307,8 @@ protected:
      * @exception InvalidArgument If the stop can not be added to the net (is duplicate)
      */
     virtual void buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
-                                    double frompos, double topos, const SumoXMLTag element, std::string string, int personCapacity);
+                                    double frompos, double topos, const SumoXMLTag element, std::string string,
+                                    int personCapacity, double parkingLength);
 
     /** @brief Builds a charging station
      *

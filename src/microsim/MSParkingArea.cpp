@@ -242,15 +242,17 @@ MSParkingArea::getManoeuverAngle(const SUMOVehicle& forVehicle) const {
 
 
 void
-MSParkingArea::enter(SUMOVehicle* what, double beg, double end) {
+MSParkingArea::enter(SUMOVehicle* veh) {
+    double beg = veh->getPositionOnLane() + veh->getVehicleType().getMinGap();
+    double end = veh->getPositionOnLane() - veh->getVehicleType().getLength();
     assert(myLastFreePos >= 0);
     assert(myLastFreeLot < (int)mySpaceOccupancies.size());
     if (myUpdateEvent == nullptr) {
         myUpdateEvent = new WrappingCommand<MSParkingArea>(this, &MSParkingArea::updateOccupancy);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myUpdateEvent);
     }
-    mySpaceOccupancies[myLastFreeLot].vehicle = what;
-    myEndPositions[what] = std::pair<double, double>(beg, end);
+    mySpaceOccupancies[myLastFreeLot].vehicle = veh;
+    myEndPositions[veh] = std::pair<double, double>(beg, end);
     computeLastFreePos();
 }
 

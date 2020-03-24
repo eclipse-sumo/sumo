@@ -68,7 +68,8 @@ public:
     MSStoppingPlace(const std::string& id,
                     const std::vector<std::string>& lines, MSLane& lane,
                     double begPos, double endPos, const std::string name = "",
-                    int capacity = 0);
+                    int capacity = 0,
+                    double parkingLength = 0);
 
 
 
@@ -108,7 +109,7 @@ public:
      * @param[in] what The end halting position of the vehicle
      * @see computeLastFreePos
      */
-    void enter(SUMOVehicle* what, double beg, double end);
+    void enter(SUMOVehicle* veh, bool parking);
 
 
     /** @brief Called if a vehicle leaves this stop
@@ -233,6 +234,9 @@ protected:
 
     /// @brief The number of transportables that can wait here
     const int myTransportableCapacity;
+
+    /// @brief the scaled space capacity for parking vehicles
+    const double myParkingFactor;
 
 protected:
 
