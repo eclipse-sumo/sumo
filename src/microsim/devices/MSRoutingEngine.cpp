@@ -136,13 +136,13 @@ MSRoutingEngine::_initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<s
         }
         myEdgePriorityRange = maxEdgePriority - myMinEdgePriority;
         myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
-        myPriorityFactor = oc.getFloat("device.rerouting.priority-factor");
+        myPriorityFactor = oc.getFloat("weights.priority-factor");
         if (myPriorityFactor < 0) {
-            throw ProcessError("device.rerouting.priority-factor cannot be negative.");
+            throw ProcessError("weights.priority-factor cannot be negative.");
         }
         if (myPriorityFactor > 0) {
             if (myEdgePriorityRange == 0) {
-                WRITE_WARNING("device.rerouting.priority-factor does not take effect because all edges have the same priority");
+                WRITE_WARNING("Option weights.priority-factor does not take effect because all edges have the same priority");
                 myPriorityFactor = 0;
             }
         }
