@@ -95,8 +95,9 @@ public:
 protected:
 
     /// @brief struct for saving subordinated elements (Junction->Edge->Lane->(Additional | DemandElement)
-    struct SubordinatedElements {
+    class SubordinatedElements {
 
+    public:
         /// @brief constructor (for junctions)
         SubordinatedElements(const GNEJunction* junction);
 
@@ -109,24 +110,56 @@ protected:
         /// @brief constructor (for additionals)
         SubordinatedElements(const GNEAdditional* additional);
 
+        /// @brief constructor (for shapes)
+        SubordinatedElements(const GNEShape* shape);
+
         /// @brief constructor (for demandElements)
         SubordinatedElements(const GNEDemandElement* demandElement);
 
+        /// @brief constructor (for shapes)
+        SubordinatedElements(const GNEGenericData* genericData);
+
+        bool checkElements();
+
         /// @brief parent additionals
-        int parentAdditionals;
+        size_t additionalParents;
 
         /// @brief child additional
-        int childAdditionals;
+        size_t additionalChilds;
+
+        /// @brief parent shapes
+        size_t shapeParents;
+
+        /// @brief child shape
+        size_t shapeChilds;
 
         /// @brief parent demand elements
-        int parentDemandElements;
+        size_t demandElementParents;
 
         /// @brief child demand elements
-        int childDemandElements;
+        size_t demandElementChilds;
+
+        /// @brief parent demand elements
+        size_t genericDataParents;
+
+        /// @brief child demand elements
+        size_t genericDataChilds;
 
     private:
+        // default constructor for non-net elements
+        SubordinatedElements();
+
+        // default constructor for Net Elements
+        SubordinatedElements(const GNEHierarchicalParentElements* hierarchicalParent, const GNEHierarchicalChildElements* hierarchicalChild);
+
         /// @brief add operator
-        SubordinatedElements& operator+=(const SubordinatedElements& other);
+        void add(SubordinatedElements*originalSE, const SubordinatedElements& newSE);
+
+        void add(const GNEHierarchicalParentElements *hierarchicalParent, const GNEHierarchicalChildElements* hierarchicalChild);
+
+        // @brief open warning dialog
+        void openWarningDialog(GNEViewNet* viewnet, const std::string& tagParent,
+            const std::string& parentID, const std::string& elementType, const size_t number);
     };
 
     /// @brief check if there is ACs to delete
