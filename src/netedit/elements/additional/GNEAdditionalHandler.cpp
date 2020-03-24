@@ -237,10 +237,12 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet,
-                                   const std::string& name, const std::vector<std::string>& lines, int personCapacity, bool friendlyPosition, bool blockMovement) {
+GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane,
+        const double startPos, const double endPos, const int parametersSet,
+        const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength,
+        bool friendlyPosition, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, id, false) == nullptr) {
-        GNEBusStop* busStop = new GNEBusStop(id, lane, viewNet, startPos, endPos, parametersSet, name, lines, personCapacity, friendlyPosition, blockMovement);
+        GNEBusStop* busStop = new GNEBusStop(id, lane, viewNet, startPos, endPos, parametersSet, name, lines, personCapacity, parkingLength, friendlyPosition, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_BUS_STOP));
             viewNet->getUndoList()->add(new GNEChange_Additional(busStop, true), true);
@@ -1727,6 +1729,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(GNEViewNet* viewNet, bool allowUndoRe
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_BUS_STOP, SUMO_ATTR_NAME, abort);
     std::vector<std::string> lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, id, SUMO_TAG_BUS_STOP, SUMO_ATTR_LINES, abort);
     const int personCapacity = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, id, SUMO_TAG_BUS_STOP, SUMO_ATTR_PERSON_CAPACITY, abort);
+    const double parkingLength = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_BUS_STOP, SUMO_ATTR_PARKING_LENGTH, abort);
     bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, SUMO_TAG_BUS_STOP, SUMO_ATTR_FRIENDLY_POS, abort);
     // parse Netedit attributes
     bool blockMovement = false;
@@ -1774,7 +1777,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(GNEViewNet* viewNet, bool allowUndoRe
             }
             // save ID of last created element
             GNEAdditional* additionalCreated = buildBusStop(viewNet, allowUndoRedo, id, lane, startPosDouble, endPosDouble, parametersSet,
-                                               name, lines, personCapacity, friendlyPosition, blockMovement);
+                                               name, lines, personCapacity, parkingLength, friendlyPosition, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
                 insertedAdditionals->commitElementInsertion(additionalCreated);

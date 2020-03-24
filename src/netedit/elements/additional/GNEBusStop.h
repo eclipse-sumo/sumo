@@ -44,7 +44,7 @@ public:
      * @param[in] block movement enable or disable additional movement
      */
     GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const double startPos, const double endPos, const int parametersSet,
-               const std::string& name, const std::vector<std::string>& lines, int personCapacity, bool friendlyPosition, bool blockMovement);
+               const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor
     ~GNEBusStop();
@@ -100,6 +100,9 @@ protected:
 
     /// @brief maximum number of persons that can wait at this stop
     int myPersonCapacity;
+
+    /// @brief custom space for vehicles that park at this stop
+    double myParkingLength;
 
 private:
     /// @brief set attribute after validation

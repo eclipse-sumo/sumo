@@ -38,11 +38,12 @@
 // ===========================================================================
 
 GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const double startPos, const double endPos, const int parametersSet,
-        const std::string& name, const std::vector<std::string>& lines, int personCapacity, bool friendlyPosition, bool blockMovement) :
+        const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, bool friendlyPosition, bool blockMovement) :
     GNEStoppingPlace(id, viewNet, GLO_BUS_STOP, SUMO_TAG_BUS_STOP, lane, startPos, endPos, parametersSet, name, friendlyPosition, blockMovement),
     myLines(lines),
-    myPersonCapacity(personCapacity) {
-}
+    myPersonCapacity(personCapacity),
+    myParkingLength(parkingLength)
+{ }
 
 
 GNEBusStop::~GNEBusStop() {}
@@ -261,6 +262,8 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
             return joinToString(myLines, " ");
         case SUMO_ATTR_PERSON_CAPACITY:
             return toString(myPersonCapacity);
+        case SUMO_ATTR_PARKING_LENGTH:
+            return toString(myParkingLength);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
@@ -295,6 +298,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_LINES:
         case SUMO_ATTR_PERSON_CAPACITY:
+        case SUMO_ATTR_PARKING_LENGTH:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -341,6 +345,8 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<std::vector<std::string> >(value);
         case SUMO_ATTR_PERSON_CAPACITY:
             return canParse<int>(value) && (parse<int>(value) > 0 || parse<int>(value) == -1);
+        case SUMO_ATTR_PARKING_LENGTH:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
@@ -392,6 +398,9 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_PERSON_CAPACITY:
             myPersonCapacity = GNEAttributeCarrier::parse<int>(value);
+            break;
+        case SUMO_ATTR_PARKING_LENGTH:
+            myParkingLength = GNEAttributeCarrier::parse<double>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);

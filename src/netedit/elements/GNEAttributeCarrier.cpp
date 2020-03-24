@@ -1075,6 +1075,13 @@ GNEAttributeCarrier::fillAdditionals() {
             "Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes",
             "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING_LENGTH,
+            GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+            "Optional space definition for vehicles that park at this stop",
+            "0.00");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
     }
     currentTag = SUMO_TAG_ACCESS;
     {
