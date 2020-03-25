@@ -158,6 +158,10 @@ NBContHelper::relative_outgoing_edge_sorter::operator()(const NBEdge* e1, const 
         }
         lookAhead *= 2;
     }
+    if (fabs(relAngle1 - relAngle2) < NUMERICAL_EPS) {
+        // need to break ties for windows debug version, numerical id may be -1 for both
+        return e1->getID() > e2->getID();
+    }
     return relAngle1 > relAngle2;
 }
 
@@ -188,6 +192,10 @@ NBContHelper::relative_incoming_edge_sorter::operator()(const NBEdge* e1, const 
             break;
         }
         lookAhead *= 2;
+    }
+    if (fabs(relAngle1 - relAngle2) < NUMERICAL_EPS) {
+        // need to break ties for windows debug version, numerical id may be -1 for both
+        return e1->getID() > e2->getID();
     }
     return relAngle1 > relAngle2;
 }
