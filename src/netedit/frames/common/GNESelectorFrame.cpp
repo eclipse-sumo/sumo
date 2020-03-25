@@ -130,6 +130,7 @@ GNESelectorFrame::LockGLObjectTypes::LockGLObjectTypes(GNESelectorFrame* selecto
     myTypeEntries[GLO_PERSONSTOP] =         new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "PersonStops");
     // create typeEntries for Data elements
     myTypeEntries[GLO_EDGEDATA] =           new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DATA, "EdgeDatas");
+    myTypeEntries[GLO_EDGERELDATA] =        new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DATA, "EdgeRelDatas");
 }
 
 
@@ -1590,11 +1591,12 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-            // select dataSets stops
+            // select dataSets 
             for (const auto& dataSet : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->dataSets) {
                 for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                     for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
-                        if (!locks->IsObjectTypeLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) {
+                        if ((!locks->IsObjectTypeLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) || 
+                            (!locks->IsObjectTypeLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA))) {
                             if (genericData->isAttributeCarrierSelected()) {
                                 genericData->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
                             } else {
@@ -1902,8 +1904,8 @@ GNESelectorFrame::clearCurrentSelection() const {
             for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->dataSets) {
                 for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                     for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
-                        // select edgeDatas
-                        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGEDATA)) {
+                        if ((!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
+                            (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA))) {
                             if (genericData->isAttributeCarrierSelected()) {
                                 genericData->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                             }
@@ -2122,9 +2124,11 @@ GNESelectorFrame::ACsToSelected() const {
     else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
         for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->dataSets) {
             for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
-                // check edge data
-                if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGEDATA) && (dataInterval.second->getGenericDataChildren().size() > 0)) {
-                    return true;
+                for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
+                    if ((!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
+                        (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA))) {
+                        return true;
+                    }
                 }
             }
         }
