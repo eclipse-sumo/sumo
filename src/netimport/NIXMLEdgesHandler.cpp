@@ -596,7 +596,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
         }
         myEdgeCont.processSplits(myCurrentEdge, mySplits, myNodeCont, myDistrictCont, myTLLogicCont);
         myCurrentEdge = nullptr;
-    } else if (element == SUMO_TAG_LANE) {
+    } else if (element == SUMO_TAG_LANE && myCurrentLaneIndex != -1) {
         myLastParameterised.pop_back();
         myCurrentLaneIndex = -1;
     }
