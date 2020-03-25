@@ -1076,16 +1076,14 @@ MSVehicle::hasArrived() const {
 bool
 MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool onInit, int offset, bool addRouteStops, bool removeStops) {
     const ConstMSEdgeVector& edges = newRoute->getEdges();
-    // assert the vehicle may continue (must not be "teleported" or whatever to another position)
-    if (!onInit && !newRoute->contains(*myCurrEdge)) {
-        return false;
-    }
-
     // rebuild in-vehicle route information
     if (onInit) {
         myCurrEdge = newRoute->begin();
     } else {
         MSRouteIterator newCurrEdge = std::find(edges.begin() + offset, edges.end(), *myCurrEdge);
+        if (newCurrEdge == edges.end()) {
+            return false;
+        }
         if (myLane->getEdge().isInternal() && (
                     (newCurrEdge + 1) == edges.end() || (*(newCurrEdge + 1)) != &(myLane->getOutgoingViaLanes().front().first->getEdge()))) {
             return false;
