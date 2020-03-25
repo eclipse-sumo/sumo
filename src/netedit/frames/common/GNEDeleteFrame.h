@@ -178,7 +178,7 @@ protected:
             const GNEHierarchicalChildElements* hierarchicalChild);
 
         /// @brief add in originalSE the values of newSE
-        void add(SubordinatedElements* originalSE, const SubordinatedElements& newSE);
+        void addValuesFromSubordinatedElements(SubordinatedElements* originalSE, const SubordinatedElements& newSE);
 
         // @brief open warning dialog
         void openWarningDialog(const std::string& elementType, const size_t number, const bool isChild);

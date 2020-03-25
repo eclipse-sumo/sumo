@@ -24,6 +24,8 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/data/GNEDataSet.h>
+#include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/network/GNEConnection.h>
@@ -143,38 +145,51 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
         // delete selected attribute carriers depending of current supermode
         if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             //junctions
-            while (myViewNet->getNet()->retrieveJunctions(true).size() > 0) {
-                myViewNet->getNet()->deleteJunction(myViewNet->getNet()->retrieveJunctions(true).front(), myViewNet->getUndoList());
+            auto selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
+            for (const auto & selectedJunction : selectedJunctions) {
+                myViewNet->getNet()->deleteJunction(selectedJunction, myViewNet->getUndoList());
             }
             // edges
-            while (myViewNet->getNet()->retrieveEdges(true).size() > 0) {
-                myViewNet->getNet()->deleteEdge(myViewNet->getNet()->retrieveEdges(true).front(), myViewNet->getUndoList(), false);
+            auto selectedEdges = myViewNet->getNet()->retrieveEdges(true);
+            for (const auto& selectedEdge : selectedEdges) {
+                myViewNet->getNet()->deleteEdge(selectedEdge, myViewNet->getUndoList(), false);
             }
             // lanes
-            while (myViewNet->getNet()->retrieveLanes(true).size() > 0) {
-                myViewNet->getNet()->deleteLane(myViewNet->getNet()->retrieveLanes(true).front(), myViewNet->getUndoList(), false);
+            auto selectedLanes = myViewNet->getNet()->retrieveLanes(true);
+            for (const auto& selectedLane : selectedLanes) {
+                myViewNet->getNet()->deleteLane(selectedLane, myViewNet->getUndoList(), false);
             }
             // connections
-            while (myViewNet->getNet()->retrieveConnections(true).size() > 0) {
-                myViewNet->getNet()->deleteConnection(myViewNet->getNet()->retrieveConnections(true).front(), myViewNet->getUndoList());
+            auto selectedConnections = myViewNet->getNet()->retrieveConnections(true);
+            for (const auto& selectedConnection : selectedConnections) {
+                myViewNet->getNet()->deleteConnection(selectedConnection, myViewNet->getUndoList());
             }
             // crossings
-            while (myViewNet->getNet()->retrieveCrossings(true).size() > 0) {
-                myViewNet->getNet()->deleteCrossing(myViewNet->getNet()->retrieveCrossings(true).front(), myViewNet->getUndoList());
+            auto selectedCrossings = myViewNet->getNet()->retrieveCrossings(true);
+            for (const auto& selectedCrossing : selectedCrossings) {
+                myViewNet->getNet()->deleteCrossing(selectedCrossing, myViewNet->getUndoList());
             }
             // shapes
-            while (myViewNet->getNet()->retrieveShapes(true).size() > 0) {
-                myViewNet->getNet()->deleteShape(myViewNet->getNet()->retrieveShapes(true).front(), myViewNet->getUndoList());
+            auto selectedShapes = myViewNet->getNet()->retrieveShapes(true);
+            for (const auto& selectedShape : selectedShapes) {
+                myViewNet->getNet()->deleteShape(selectedShape, myViewNet->getUndoList());
             }
-            // additionals
+            // additionals (note: We need to use while (...) because there is a
             while (myViewNet->getNet()->retrieveAdditionals(true).size() > 0) {
                 myViewNet->getNet()->deleteAdditional(myViewNet->getNet()->retrieveAdditionals(true).front(), myViewNet->getUndoList());
             }
-        } else {
+        } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // demand elements
             while (myViewNet->getNet()->retrieveDemandElements(true).size() > 0) {
                 myViewNet->getNet()->deleteDemandElement(myViewNet->getNet()->retrieveDemandElements(true).front(), myViewNet->getUndoList());
             }
+        } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
+            /*
+            // demand elements
+            while (myViewNet->getNet()->retrieveDemandElements(true).size() > 0) {
+                myViewNet->getNet()->deleteDemandElement(myViewNet->getNet()->retrieveDemandElements(true).front(), myViewNet->getUndoList());
+            }
+            */
         }
         // enable update geometry
         myViewNet->getNet()->enableUpdateGeometry();
@@ -266,7 +281,7 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEJunction* ju
     SubordinatedElements(junction, junction->getNet()->getViewNet(), junction, junction) {
     // add the number of subodinated elements of child edges
     for (const auto& edge : junction->getGNEEdges()) {
-        add(this, edge);
+        addValuesFromSubordinatedElements(this, edge);
     }
 }
 
@@ -275,7 +290,7 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEEdge* edge) 
     SubordinatedElements(edge, edge->getNet()->getViewNet(), edge, edge) {
     // add the number of subodinated elements of child lanes
     for (const auto& lane : edge->getLanes()) {
-        add(this, lane);
+        addValuesFromSubordinatedElements(this, lane);
     }
 }
 
@@ -364,34 +379,34 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
     genericDataChilds(hierarchicalChild->getChildGenericDataElements().size()) {
     // add the number of subodinated elements of additionals, shapes, demand elements and generic datas
     for (const auto& additional : hierarchicalParent->getParentAdditionals()) {
-        add(this, additional);
+        addValuesFromSubordinatedElements(this, additional);
     }
     for (const auto& shape : hierarchicalParent->getParentShapes()) {
-        add(this, shape);
+        addValuesFromSubordinatedElements(this, shape);
     }
     for (const auto& demandElement : hierarchicalParent->getParentDemandElements()) {
-        add(this, demandElement);
+        addValuesFromSubordinatedElements(this, demandElement);
     }
     for (const auto& genericData : hierarchicalParent->getParentGenericDatas()) {
-        add(this, genericData);
+        addValuesFromSubordinatedElements(this, genericData);
     }
     for (const auto& additional : hierarchicalChild->getChildAdditionals()) {
-        add(this, additional);
+        addValuesFromSubordinatedElements(this, additional);
     }
     for (const auto& shape : hierarchicalChild->getChildShapes()) {
-        add(this, shape);
+        addValuesFromSubordinatedElements(this, shape);
     }
     for (const auto& additional : hierarchicalChild->getChildDemandElements()) {
-        add(this, additional);
+        addValuesFromSubordinatedElements(this, additional);
     }
     for (const auto& genericData : hierarchicalChild->getChildGenericDataElements()) {
-        add(this, genericData);
+        addValuesFromSubordinatedElements(this, genericData);
     }
 }
 
 
 void
-GNEDeleteFrame::SubordinatedElements::add(SubordinatedElements* originalSE, const SubordinatedElements& newSE) {
+GNEDeleteFrame::SubordinatedElements::addValuesFromSubordinatedElements(SubordinatedElements* originalSE, const SubordinatedElements& newSE) {
     originalSE->additionalParents += newSE.additionalParents;
     originalSE->additionalChilds += newSE.additionalChilds;
     originalSE->shapeParents += newSE.shapeParents;
@@ -438,39 +453,31 @@ GNEDeleteFrame::ACsToDelete() const {
     // invert selection of elements depending of current supermode
     if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         // iterate over junctions
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->junctions) {
-            if (i.second->isAttributeCarrierSelected()) {
+        for (const auto& junction : myViewNet->getNet()->getAttributeCarriers()->junctions) {
+            if (junction.second->isAttributeCarrierSelected()) {
                 return true;
             }
             // due we iterate over all junctions, only it's neccesary iterate over incoming edges
-            for (const auto& j : i.second->getGNEIncomingEdges()) {
-                if (j->isAttributeCarrierSelected()) {
+            for (const auto& edge : junction.second->getGNEIncomingEdges()) {
+                if (edge->isAttributeCarrierSelected()) {
                     return true;
                 }
                 // check lanes
-                for (auto k : j->getLanes()) {
-                    if (k->isAttributeCarrierSelected()) {
+                for (const auto &lane : edge->getLanes()) {
+                    if (lane->isAttributeCarrierSelected()) {
                         return true;
                     }
                 }
                 // check connections
-                for (const auto& k : j->getGNEConnections()) {
-                    if (k->isAttributeCarrierSelected()) {
+                for (const auto& connection : edge->getGNEConnections()) {
+                    if (connection->isAttributeCarrierSelected()) {
                         return true;
                     }
                 }
             }
             // check crossings
-            for (const auto& j : i.second->getGNECrossings()) {
-                if (j->isAttributeCarrierSelected()) {
-                    return true;
-                }
-            }
-        }
-        // check additionals
-        for (const auto& additionalTag : myViewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
-            for (const auto& additional : additionalTag.second) {
-                if (additional.second->getTagProperty().isSelectable() && additional.second->isAttributeCarrierSelected()) {
+            for (const auto& crossing : junction.second->getGNECrossings()) {
+                if (crossing->isAttributeCarrierSelected()) {
                     return true;
                 }
             }
@@ -478,70 +485,37 @@ GNEDeleteFrame::ACsToDelete() const {
         // check shapes
         for (const auto& shapeTag : myViewNet->getNet()->getAttributeCarriers()->getShapes()) {
             for (const auto& shape : shapeTag.second) {
-                if (shape.second->getTagProperty().isSelectable() && shape.second->isAttributeCarrierSelected()) {
+                if (shape.second->isAttributeCarrierSelected()) {
                     return true;
                 }
             }
         }
-    } else {
-        // check routes
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
-            if (i.second->isAttributeCarrierSelected()) {
-                return true;
+        // check additionals
+        for (const auto& additionalTag : myViewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
+            for (const auto& additional : additionalTag.second) {
+                if (additional.second->isAttributeCarrierSelected()) {
+                    return true;
+                }
             }
         }
-        // check vehicles
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
-            if (i.second->isAttributeCarrierSelected()) {
-                return true;
+    } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
+        // check demand elements
+        for (const auto& demandElementTag : myViewNet->getNet()->getAttributeCarriers()->getDemandElements()) {
+            for (const auto& demandElement : demandElementTag.second) {
+                if (demandElement.second->isAttributeCarrierSelected()) {
+                    return true;
+                }
             }
         }
-        // check trips
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP)) {
-            if (i.second->isAttributeCarrierSelected()) {
-                return true;
-            }
-        }
-        // check flows
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW)) {
-            if (i.second->isAttributeCarrierSelected()) {
-                return true;
-            }
-        }
-        // check route flows
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTEFLOW)) {
-            if (i.second->isAttributeCarrierSelected()) {
-                return true;
-            }
-        }
-        // check lane stops
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE)) {
-            if (i.second->isAttributeCarrierSelected()) {
-                return true;
-            }
-        }
-        // check bus stops
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP)) {
-            if (i.second->isAttributeCarrierSelected()) {
-                return true;
-            }
-        }
-        // check container stops
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP)) {
-            if (i.second->isAttributeCarrierSelected()) {
-                return true;
-            }
-        }
-        // check chargingstation stops
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION)) {
-            if (i.second->isAttributeCarrierSelected()) {
-                return true;
-            }
-        }
-        // check parkingarea stops
-        for (const auto& i : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA)) {
-            if (i.second->isAttributeCarrierSelected()) {
-                return true;
+    } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
+        // iterate over all generic datas
+        for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->dataSets) {
+            for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
+                for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
+                    if (genericData->isAttributeCarrierSelected()) {
+                        return true;
+                    }
+                }
             }
         }
     }
