@@ -527,8 +527,8 @@ private:
     /// @brief delete all currently selected demand elements
     void deleteSelectedDemandElements();
 
-    /// @brief delete all currently selected data elements
-    void deleteSelectedDataElements();
+    /// @brief delete all currently selected generic data elements
+    void deleteSelectedGenericDatas();
 
     /// @brief delete all currently selected crossings
     void deleteSelectedCrossings();

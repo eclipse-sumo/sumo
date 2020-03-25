@@ -2345,9 +2345,9 @@ GNENet::retrieveDataSets() const {
 
 
 std::vector<GNEGenericData*> 
-GNENet::retrieveGenericDatas(bool onlySelected = false) const {
+GNENet::retrieveGenericDatas(bool onlySelected) const {
     std::vector<GNEGenericData*> result;
-    size_t numGenericDatas;
+    size_t numGenericDatas = 0;
     // first reserve
     for (const auto& dataSet : myAttributeCarriers->dataSets) {
         for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {

@@ -968,7 +968,7 @@ GNEViewNet::hotkeyDel() {
         myUndoList->p_end();
     } else if (myEditModes.isCurrentSupermodeData()) {
         myUndoList->p_begin("delete data selection");
-        deleteSelectedDataElements();
+        deleteSelectedGenericDatas();
         myUndoList->p_end();
     }
     // update view
@@ -3194,16 +3194,14 @@ GNEViewNet::deleteSelectedDemandElements() {
 
 
 void
-GNEViewNet::deleteSelectedDataElements() {
-    std::vector<GNEDataSet*> dataSets = myNet->retrieveDataSets();
-    if (dataSets.size() > 0) {
-        std::string plural = dataSets.size() == 1 ? ("") : ("s");
-        myUndoList->p_begin("delete selected data elements" + plural);
-        for (auto i : dataSets) {
-            // due there are data elements that are removed when their parent is removed, we need to check if yet exists before removing
-            if (myNet->retrieveDataSet(i->getID(), false) != nullptr) {
-                myNet->deleteDataSet(i, myUndoList);
-            }
+GNEViewNet::deleteSelectedGenericDatas() {
+    std::vector<GNEGenericData*> genericDatas = myNet->retrieveGenericDatas(true);
+    if (genericDatas.size() > 0) {
+        std::string plural = genericDatas.size() == 1 ? ("") : ("s");
+        myUndoList->p_begin("delete selected generic data" + plural);
+        // iterate over generic datas
+        for (const auto &genericData : genericDatas) {
+            myNet->deleteGenericData(genericData, myUndoList);
         }
         myUndoList->p_end();
     }
