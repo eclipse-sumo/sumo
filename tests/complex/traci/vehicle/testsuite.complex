@@ -42,3 +42,6 @@ changeOpposite_default
 
 # test estimated public transport stop delay
 stopDelay
+
+# test estimated public transport stop delay along a path with varying speeds
+stopDelay2
