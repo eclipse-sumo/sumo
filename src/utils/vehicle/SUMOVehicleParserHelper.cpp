@@ -1126,6 +1126,11 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
 
         std::set<SumoXMLAttr> railParams;
         railParams.insert(SUMO_ATTR_TRAIN_TYPE);
+        railParams.insert(SUMO_ATTR_ACCEL);
+        railParams.insert(SUMO_ATTR_DECEL);
+        railParams.insert(SUMO_ATTR_APPARENTDECEL);
+        railParams.insert(SUMO_ATTR_EMERGENCYDECEL);
+        railParams.insert(SUMO_ATTR_COLLISION_MINGAP_FACTOR);
         allowedCFModelAttrs[SUMO_TAG_CF_RAIL] = railParams;
         allParams.insert(railParams.begin(), railParams.end());
 
