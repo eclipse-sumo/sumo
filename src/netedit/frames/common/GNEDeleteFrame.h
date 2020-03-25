@@ -45,24 +45,36 @@ public:
         /// @brief destructor
         ~DeleteOptions();
 
-        /// @brief check if force delete additionals checkbox is enabled
-        bool forceDeleteAdditionals() const;
-
         /// @brief check if only delete geometry points checkbox is enabled
         bool deleteOnlyGeometryPoints() const;
+
+        /// @brief check if protect additional elements checkbox is enabled
+        bool protectAdditionals() const;
+
+        /// @brief check if protect shapes elements checkbox is enabled
+        bool protectShapes() const;
 
         /// @brief check if protect demand elements checkbox is enabled
         bool protectDemandElements() const;
 
-    private:
-        /// @brief checkbox for enable/disable automatic deletion of additionals children
-        FXCheckButton* myForceDeleteAdditionals;
+        /// @brief check if protect generic datas checkbox is enabled
+        bool protectGenericDatas() const;
 
+    private:
         /// @brief checkbox for enable/disable delete only geometry points
         FXCheckButton* myDeleteOnlyGeometryPoints;
 
-        /// @brief checkbox for enable/disable automatic deletion of demand children
+        /// @brief checkbox for enable/disable protect additionals
+        FXCheckButton* myProtectAdditionals;
+
+        /// @brief checkbox for enable/disable protect shapes
+        FXCheckButton* myProtectShapes;
+
+        /// @brief checkbox for enable/disable protect demand elements
         FXCheckButton* myProtectDemandElements;
+
+        /// @brief checkbox for enable/disable protect generic datas
+        FXCheckButton* myProtectGenericDatas;
     };
 
     /**@brief Constructor
@@ -119,8 +131,18 @@ protected:
         /// @brief constructor (for shapes)
         SubordinatedElements(const GNEGenericData* genericData);
 
-        bool checkElements(GNEViewNet* viewnet, const std::string& tagParent, const std::string& parentID, 
-            const DeleteOptions* deleteOptions);
+        /// @brief destructor
+        ~SubordinatedElements();
+
+        /// @brief if element can be removed
+        bool checkElements(const DeleteOptions* deleteOptions);
+
+    protected:
+        /// @brief parent of SubordinatedElements
+        const GNEAttributeCarrier* myAttributeCarrier;
+
+        /// @brief pointer to view net
+        GNEViewNet* myViewNet;
 
         /// @brief parent additionals
         size_t additionalParents;
@@ -148,19 +170,24 @@ protected:
 
     private:
         // default constructor for non-net elements
-        SubordinatedElements();
+        SubordinatedElements(const GNEAttributeCarrier* attributeCarrier, GNEViewNet * viewNet);
 
         // default constructor for Net Elements
-        SubordinatedElements(const GNEHierarchicalParentElements* hierarchicalParent, const GNEHierarchicalChildElements* hierarchicalChild);
+        SubordinatedElements(const GNEAttributeCarrier* attributeCarrier, GNEViewNet* viewNet,
+            const GNEHierarchicalParentElements* hierarchicalParent, 
+            const GNEHierarchicalChildElements* hierarchicalChild);
 
-        /// @brief add operator
-        void add(SubordinatedElements*originalSE, const SubordinatedElements& newSE);
-
-        void add(const GNEHierarchicalParentElements *hierarchicalParent, const GNEHierarchicalChildElements* hierarchicalChild);
+        /// @brief add in originalSE the values of newSE
+        void add(SubordinatedElements* originalSE, const SubordinatedElements& newSE);
 
         // @brief open warning dialog
-        void openWarningDialog(GNEViewNet* viewnet, const std::string& tagParent,
-            const std::string& parentID, const std::string& elementType, const size_t number);
+        void openWarningDialog(const std::string& elementType, const size_t number, const bool isChild);
+
+        /// @brief Invalidated copy constructor.
+        SubordinatedElements(const SubordinatedElements&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        SubordinatedElements& operator=(const SubordinatedElements&) = delete;
     };
 
     /// @brief check if there is ACs to delete
