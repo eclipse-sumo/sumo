@@ -2336,9 +2336,34 @@ std::vector<GNEDataSet*>
 GNENet::retrieveDataSets() const {
     std::vector<GNEDataSet*> result;
     result.reserve(myAttributeCarriers->dataSets.size());
-    // returns data sets depending of selection
-    for (auto dataSet : myAttributeCarriers->dataSets) {
+    // returns data sets
+    for (const auto &dataSet : myAttributeCarriers->dataSets) {
         result.push_back(dataSet.second);
+    }
+    return result;
+}
+
+
+std::vector<GNEGenericData*> 
+GNENet::retrieveGenericDatas(bool onlySelected = false) const {
+    std::vector<GNEGenericData*> result;
+    size_t numGenericDatas;
+    // first reserve
+    for (const auto& dataSet : myAttributeCarriers->dataSets) {
+        for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
+            numGenericDatas += dataInterval.second->getGenericDataChildren().size();
+        }
+    }
+    result.reserve(numGenericDatas);
+    // returns generic datas depending of selection
+    for (const auto& dataSet : myAttributeCarriers->dataSets) {
+        for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
+            for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
+                if (!onlySelected || genericData->isAttributeCarrierSelected()) {
+                    result.push_back(genericData);
+                }
+            }
+        }
     }
     return result;
 }

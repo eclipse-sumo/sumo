@@ -184,12 +184,11 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
                 myViewNet->getNet()->deleteDemandElement(myViewNet->getNet()->retrieveDemandElements(true).front(), myViewNet->getUndoList());
             }
         } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
-            /*
-            // demand elements
-            while (myViewNet->getNet()->retrieveDemandElements(true).size() > 0) {
-                myViewNet->getNet()->deleteDemandElement(myViewNet->getNet()->retrieveDemandElements(true).front(), myViewNet->getUndoList());
+            // generic datas
+            auto selectedGenericDatas = myViewNet->getNet()->retrieveGenericDatas(true);
+            for (const auto& selectedGenericData : selectedGenericDatas) {
+                myViewNet->getNet()->deleteGenericData(selectedGenericData, myViewNet->getUndoList());
             }
-            */
         }
         // enable update geometry
         myViewNet->getNet()->enableUpdateGeometry();

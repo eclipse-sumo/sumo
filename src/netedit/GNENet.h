@@ -580,6 +580,11 @@ public:
     ///@brief return all data sets
     std::vector<GNEDataSet*> retrieveDataSets() const;
 
+    /**@brief return all generic datas
+    * @param[in] onlySelected Whether to return only selected generic datas
+    */
+    std::vector<GNEGenericData*> retrieveGenericDatas(bool onlySelected = false) const;
+
     /**@brief Returns the number of data sets of the net
      * @return Number of data sets of the net
      */
