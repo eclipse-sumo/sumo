@@ -2610,6 +2610,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myHelpMenu(nullptr),
     myMessageWindow(nullptr),
     myMainSplitter(nullptr),
+    hadDependentBuild(false),
     myNet(nullptr),
     myUndoList(nullptr),
     myToolbarsGrip(this),
@@ -2621,9 +2622,8 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myWindowsMenuCommands(this),
     mySupermodeCommands(this),
     myViewNet(nullptr),
-    myMDIMenu(nullptr),
-    hadDependentBuild(false) {
-}
+    myMDIMenu(nullptr)
+{ }
 
 
 long
