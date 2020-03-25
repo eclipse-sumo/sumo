@@ -1,4 +1,5 @@
 import_config_file:../config_all
+kill_timeout:600
 binary:$SUMO_BINARY
 
 copy_test_path:net.netedit
