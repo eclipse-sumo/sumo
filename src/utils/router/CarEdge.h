@@ -98,10 +98,12 @@ public:
     }
 
     double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
+        assert(E::getTravelTimeStatic(this->getEdge(), trip->vehicle, time) > 0);
         return getPartialTravelTime(E::getTravelTimeStatic(this->getEdge(), trip->vehicle, time), trip);
     }
 
     double getTravelTimeAggregated(const IntermodalTrip<E, N, V>* const trip, double time) const {
+        assert(E::getTravelTimeAggregated(this->getEdge(), trip->vehicle, time) > 0);
         return getPartialTravelTime(E::getTravelTimeAggregated(this->getEdge(), trip->vehicle, time), trip);
     }
 
@@ -118,12 +120,13 @@ private:
     inline double getPartialTravelTime(double fullTravelTime, const IntermodalTrip<E, N, V>* const trip) const {
         double distTravelled = this->getLength();
         // checking arrivalPos first to have it correct for identical depart and arrival edge
-        if (this->getEdge() == trip->to) {
+        if (this->getEdge() == trip->to && trip->arrivalPos >= myStartPos && trip->arrivalPos < myStartPos + this->getLength()) {
             distTravelled = trip->arrivalPos - myStartPos;
         }
-        if (this->getEdge() == trip->from) {
+        if (this->getEdge() == trip->from && trip->departPos >= myStartPos&& trip->departPos < myStartPos + this->getLength()) {
             distTravelled -= trip->departPos - myStartPos;
         }
+        assert(fullTravelTime * distTravelled / this->getEdge()->getLength() > 0);
         return fullTravelTime * distTravelled / this->getEdge()->getLength();
     }
 
