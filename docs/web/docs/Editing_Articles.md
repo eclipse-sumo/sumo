@@ -5,6 +5,8 @@ title: Help on editing Articles
 This documentation is written using Markdown syntax. Every page or "article" is a Markdown (.md) file located [here]({{Source}}docs/web/docs) in the official SUMO GitHub repository.
 The static html pages are then generated using [Mkdocs](https://www.mkdocs.org/).
 
+Feel free to contribute and improve the SUMO Documentation. All changes need to be via Pull requests. You can click on the "Edit on GitHub" button in the top right corner of every page, or just simply press the `e` key on your keyboard.
+
 !!! note
     Although HTML can be written within Markdown, please avoid using it and keep everything in native Markdown as much as possible.
 
