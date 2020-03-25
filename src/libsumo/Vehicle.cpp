@@ -449,35 +449,34 @@ Vehicle::getNextStops(const std::string& vehicleID) {
         WRITE_WARNING("getNextStops not yet implemented for meso");
         return result;
     }
-    std::list<MSVehicle::Stop> stops = veh->getMyStops();
-    for (std::list<MSVehicle::Stop>::iterator it = stops.begin(); it != stops.end(); ++it) {
-        if (!it->collision) {
+    for (const MSVehicle::Stop& stop : veh->getStops()) {
+        if (!stop.collision) {
             TraCINextStopData nsd;
-            nsd.lane = it->lane->getID();
-            nsd.endPos = it->getEndPos(*veh);
+            nsd.lane = stop.lane->getID();
+            nsd.endPos = stop.getEndPos(*veh);
             // all optionals, only one can be set
-            if (it->busstop != nullptr) {
-                nsd.stoppingPlaceID = it->busstop->getID();
+            if (stop.busstop != nullptr) {
+                nsd.stoppingPlaceID = stop.busstop->getID();
             }
-            if (it->containerstop != nullptr) {
-                nsd.stoppingPlaceID = it->containerstop->getID();
+            if (stop.containerstop != nullptr) {
+                nsd.stoppingPlaceID = stop.containerstop->getID();
             }
-            if (it->parkingarea != nullptr) {
-                nsd.stoppingPlaceID = it->parkingarea->getID();
+            if (stop.parkingarea != nullptr) {
+                nsd.stoppingPlaceID = stop.parkingarea->getID();
             }
-            if (it->chargingStation != nullptr) {
-                nsd.stoppingPlaceID = it->chargingStation->getID();
+            if (stop.chargingStation != nullptr) {
+                nsd.stoppingPlaceID = stop.chargingStation->getID();
             }
-            nsd.stopFlags = ((it->reached ? 1 : 0) +
-                             (it->pars.parking ? 2 : 0) +
-                             (it->pars.triggered ? 4 : 0) +
-                             (it->pars.containerTriggered ? 8 : 0) +
-                             (it->busstop != nullptr ? 16 : 0) +
-                             (it->containerstop != nullptr ? 32 : 0) +
-                             (it->chargingStation != nullptr ? 64 : 0) +
-                             (it->parkingarea != nullptr ? 128 : 0));
-            nsd.duration = STEPS2TIME(it->reached ? it->duration : it->pars.duration);
-            nsd.until = STEPS2TIME(it->pars.until);
+            nsd.stopFlags = ((stop.reached ? 1 : 0) +
+                             (stop.pars.parking ? 2 : 0) +
+                             (stop.pars.triggered ? 4 : 0) +
+                             (stop.pars.containerTriggered ? 8 : 0) +
+                             (stop.busstop != nullptr ? 16 : 0) +
+                             (stop.containerstop != nullptr ? 32 : 0) +
+                             (stop.chargingStation != nullptr ? 64 : 0) +
+                             (stop.parkingarea != nullptr ? 128 : 0));
+            nsd.duration = STEPS2TIME(stop.reached ? stop.duration : stop.pars.duration);
+            nsd.until = STEPS2TIME(stop.pars.until);
             result.push_back(nsd);
         }
     }

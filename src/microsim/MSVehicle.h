@@ -1305,7 +1305,9 @@ public:
     * returns the list of stops not yet reached in the stop queue
     * @return the list of upcoming stops
     */
-    std::list<Stop> getMyStops();
+    inline const std::list<Stop>& getStops() {
+        return myStops;
+    }
 
     /**
     * resumes a vehicle from stopping

@@ -6185,10 +6185,6 @@ MSVehicle::abortNextStop() {
     }
 }
 
-std::list<MSVehicle::Stop>
-MSVehicle::getMyStops() {
-    return myStops;
-}
 
 MSVehicle::Influencer&
 MSVehicle::getInfluencer() {
@@ -6599,7 +6595,7 @@ MSVehicle::Manoeuvre::configureEntryManoeuvre(MSVehicle* veh) {
     }
 
     const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
-    const Stop& stop = veh->getMyStops().front();
+    const Stop& stop = veh->getNextStop();
 
     int manoeuverAngle = stop.parkingarea->getLastFreeLotAngle();
     double GUIAngle = stop.parkingarea->getLastFreeLotGUIAngle();
