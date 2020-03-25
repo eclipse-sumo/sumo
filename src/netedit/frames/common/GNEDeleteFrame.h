@@ -119,7 +119,8 @@ protected:
         /// @brief constructor (for shapes)
         SubordinatedElements(const GNEGenericData* genericData);
 
-        bool checkElements();
+        bool checkElements(GNEViewNet* viewnet, const std::string& tagParent, const std::string& parentID, 
+            const DeleteOptions* deleteOptions);
 
         /// @brief parent additionals
         size_t additionalParents;
