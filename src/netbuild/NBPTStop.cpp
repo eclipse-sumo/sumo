@@ -30,13 +30,14 @@
 // method definitions
 // ===========================================================================
 NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length,
-                   std::string name, SVCPermissions svcPermissions) :
+                   std::string name, SVCPermissions svcPermissions, double parkingLength) :
     myPTStopId(ptStopId),
     myPosition(position),
     myEdgeId(edgeId),
     myOrigEdgeId(origEdgeId),
     myPTStopLength(length),
     myName(name),
+    myParkingLength(parkingLength),
     myPermissions(svcPermissions),
     myBidiStop(nullptr),
     myIsLoose(origEdgeId == ""),
@@ -101,6 +102,9 @@ NBPTStop::write(OutputDevice& device) {
     device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
+    }
+    if (myParkingLength > 0) {
+        device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
     }
     if (!myAccesses.empty()) {
         std::sort(myAccesses.begin(), myAccesses.end());

@@ -137,6 +137,7 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     const std::string laneID = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     const double startPos = attrs.get<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok);
     const double endPos = attrs.get<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok);
+    const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), ok, 0);
     //const std::string lines = attrs.get<std::string>(SUMO_ATTR_LINES, id.c_str(), ok);
     const int laneIndex = NBEdge::getLaneIndexFromLaneID(laneID);
     const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
@@ -152,7 +153,7 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     SVCPermissions permissions = edge->getPermissions(laneIndex);
     if (ok) {
         Position pos = edge->geometryPositionAtOffset((startPos + endPos) / 2);
-        myCurrentStop = new NBPTStop(id, pos, edgeID, edgeID, endPos - startPos, name, permissions);
+        myCurrentStop = new NBPTStop(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength);
         if (!myStopCont.insert(myCurrentStop)) {
             WRITE_ERROR("Could not add public transport stop '" + id + "' (already exists)");
         }

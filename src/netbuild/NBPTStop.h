@@ -49,7 +49,8 @@ public:
     * @param[in] edgeId The edge id of the pt stop
     * @param[in] length The length of the pt stop
     */
-    NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name, SVCPermissions svcPermissions);
+    NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name,
+            SVCPermissions svcPermissions, double parkingLength = 0);
     std::string getID() const;
 
     const std::string getEdgeId() const;
@@ -110,6 +111,7 @@ public:
     void setMyPTStopLength(double myPTStopLength);
 private:
     const std::string myName;
+    const double myParkingLength;
     std::string myLaneId;
     const SVCPermissions myPermissions;
 
