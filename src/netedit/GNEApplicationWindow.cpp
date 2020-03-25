@@ -1743,7 +1743,7 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject* obj, FXSelector sel, void* ptr) 
 
 
 long
-GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void* /* ptr */) {
     // first check that we have a ViewNet
     if (myViewNet) {
         // first check what selector was called
