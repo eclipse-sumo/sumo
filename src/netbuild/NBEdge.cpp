@@ -1618,7 +1618,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         bool oppositeLeftIntersect = !foes && bothLeftIntersect(n, shape, dir, *i2, *k2, numPoints, width2);
                         int shapeFlag = 0;
                         // do not warn if only bicycles pedestrians or delivery vehicles are involved as this is a typical occurence
-                        SVCPermissions warn = SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY);
+                        SVCPermissions warn = SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY | SVC_RAIL_CLASSES);
                         if (oppositeLeftIntersect
                                 && (((*i2)->getPermissions((*k2).fromLane) & warn) != 0
                                     && ((*k2).toEdge->getPermissions((*k2).toLane) & warn) != 0)) {
