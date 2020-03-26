@@ -84,6 +84,7 @@ const int STOP_LINE_SET = 2 << 10;
 const int STOP_SPEED_SET = 2 << 11;
 const int STOP_SPLIT_SET = 2 << 12;
 const int STOP_JOIN_SET = 2 << 13;
+const int STOP_ARRIVAL_SET = 2 << 14;
 
 const double MIN_STOP_LENGTH = 2 * POSITION_EPS;
 
@@ -349,6 +350,9 @@ public:
 
         /// @brief The stopping position end
         double endPos;
+
+        /// @brief The (expected) time at which the vehicle reaches the stop
+        SUMOTime arrival;
 
         /// @brief The stopping duration
         SUMOTime duration;

@@ -360,6 +360,9 @@ SUMORouteHandler::addParam(const SUMOSAXAttributes& attrs) {
 bool
 SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs, std::string errorSuffix, MsgHandler* const errorOutput) {
     stop.parametersSet = 0;
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVAL)) {
+        stop.parametersSet |= STOP_ARRIVAL_SET;
+    }
     if (attrs.hasAttribute(SUMO_ATTR_DURATION)) {
         stop.parametersSet |= STOP_DURATION_SET;
     }
@@ -440,6 +443,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
         triggers.push_back(toString(SUMO_TAG_CONTAINER));
     };
     SUMOVehicleParameter::parseStopTriggers(triggers, expectTrigger, stop);
+    stop.arrival = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ARRIVAL, nullptr, ok, -1);
     stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);
     stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, -1);
     if (!expectTrigger && (!ok || (stop.duration < 0 && stop.until < 0 && stop.speed == 0))) {
