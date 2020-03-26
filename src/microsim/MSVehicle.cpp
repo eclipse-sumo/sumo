@@ -2336,8 +2336,17 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
     if (myInfluencer != nullptr) {
         const double vMin = MAX2(0., cfModel.minNextSpeed(myState.mySpeed, this));
+#ifdef DEBUG_TRACI
+        if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " speedBeforeTraci=" << v;
+#endif
         v = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), v, v, vMin, maxV);
+#ifdef DEBUG_TRACI
+        if (DEBUG_COND) std::cout << " influencedSpeed=" << v;
+#endif
         v = myInfluencer->gapControlSpeed(MSNet::getInstance()->getCurrentTimeStep(), this, v, v, vMin, maxV);
+#ifdef DEBUG_TRACI
+        if (DEBUG_COND) std::cout << " gapControlSpeed=" << v << "\n";
+#endif
     }
     // all links within dist are taken into account (potentially)
     const double dist = SPEED2DIST(maxV) + cfModel.brakeGap(maxV);
