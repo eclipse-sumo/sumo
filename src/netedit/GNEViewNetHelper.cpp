@@ -883,6 +883,7 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
                 // start geometry moving
                 i->startGeometryMoving();
             }
+            /*
             // obtain index shape of clicked edge
             int index = clickedEdge->getVertexIndex(myViewNet->getPositionInformation(), true, true);
             // check that index is valid
@@ -933,6 +934,7 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
                     }
                 }
             }
+            */
         }
     }
 }
