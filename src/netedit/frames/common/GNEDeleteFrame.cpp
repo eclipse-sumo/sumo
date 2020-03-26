@@ -55,6 +55,10 @@ GNEDeleteFrame::DeleteOptions::DeleteOptions(GNEDeleteFrame* deleteFrameParent) 
     myProtectAdditionals->setCheck(TRUE);
 
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
+    myProtectTAZs = new FXCheckButton(this, "Protect TAZ elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectTAZs->setCheck(TRUE);
+
+    // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
     myProtectShapes = new FXCheckButton(this, "Protect shape elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectShapes->setCheck(TRUE);
 
@@ -80,6 +84,12 @@ GNEDeleteFrame::DeleteOptions::deleteOnlyGeometryPoints() const {
 bool 
 GNEDeleteFrame::DeleteOptions::protectAdditionals() const {
     return (myProtectAdditionals->getCheck() == TRUE);
+}
+
+
+bool
+GNEDeleteFrame::DeleteOptions::protectTAZs() const {
+    return (myProtectTAZs->getCheck() == TRUE);
 }
 
 
@@ -329,6 +339,10 @@ GNEDeleteFrame::SubordinatedElements::checkElements(const DeleteOptions* deleteO
         openWarningDialog("additional", additionalParents, false);
     } else if ((additionalChilds > 0) && deleteOptions->protectAdditionals()) {
         openWarningDialog("additional", additionalChilds, true);
+    } else if ((TAZParents > 0) && deleteOptions->protectTAZs()) {
+        openWarningDialog("TAZ", TAZParents, false);
+    } else if ((TAZChilds > 0) && deleteOptions->protectTAZs()) {
+        openWarningDialog("TAZ", TAZChilds, true);
     } else if ((shapeParents > 0) && deleteOptions->protectShapes()) {
         openWarningDialog("shape", shapeParents, false);
     } else if ((shapeChilds > 0) && deleteOptions->protectShapes()) {
@@ -354,6 +368,8 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
     myViewNet(viewNet),
     additionalParents(0),
     additionalChilds(0),
+    TAZParents(0),
+    TAZChilds(0),
     shapeParents(0),
     shapeChilds(0),
     demandElementParents(0),
@@ -368,8 +384,10 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
     const GNEHierarchicalChildElements* hierarchicalChild) :
     myAttributeCarrier(attributeCarrier),
     myViewNet(viewNet),
-    additionalParents(hierarchicalParent->getParentAdditionals().size()),
-    additionalChilds(hierarchicalChild->getChildAdditionals().size()),
+    additionalParents(hierarchicalParent->getNumberOfParentAdditionals(GNETagProperties::TagType::ADDITIONALELEMENT)),
+    additionalChilds(hierarchicalChild->getNumberOfChildAdditionals(GNETagProperties::TagType::ADDITIONALELEMENT)),
+    TAZParents(hierarchicalParent->getNumberOfParentAdditionals(GNETagProperties::TagType::TAZ)),
+    TAZChilds(hierarchicalChild->getNumberOfChildAdditionals(GNETagProperties::TagType::TAZ)),
     shapeParents(hierarchicalParent->getParentShapes().size()),
     shapeChilds(hierarchicalChild->getChildShapes().size()),
     demandElementParents(hierarchicalParent->getParentDemandElements().size()),
@@ -408,6 +426,8 @@ void
 GNEDeleteFrame::SubordinatedElements::addValuesFromSubordinatedElements(SubordinatedElements* originalSE, const SubordinatedElements& newSE) {
     originalSE->additionalParents += newSE.additionalParents;
     originalSE->additionalChilds += newSE.additionalChilds;
+    originalSE->TAZParents += newSE.TAZParents;
+    originalSE->TAZChilds += newSE.TAZChilds;
     originalSE->shapeParents += newSE.shapeParents;
     originalSE->shapeChilds += newSE.shapeChilds;
     originalSE->demandElementParents += newSE.demandElementParents;

@@ -90,6 +90,29 @@ GNEHierarchicalParentElements::getParentAdditionals() const {
 }
 
 
+size_t 
+GNEHierarchicalParentElements::getNumberOfParentAdditionals(GNETagProperties::TagType additionalType) const {
+    size_t number = 0;
+    // check additional type
+    if (additionalType == GNETagProperties::TagType::ADDITIONALELEMENT) {
+        for (const auto& additional : myParentAdditionals) {
+            if (additional->getTagProperty().isAdditionalElement()) {
+                number++;
+            }
+        }
+    } else if (additionalType == GNETagProperties::TagType::TAZ) {
+        for (const auto& additional : myParentAdditionals) {
+            if (additional->getTagProperty().isTAZ()) {
+                number++;
+            }
+        }
+    } else {
+        throw ProcessError("invalid additionalType");
+    }
+    return number;
+}
+
+
 void
 GNEHierarchicalParentElements::addParentDemandElement(GNEDemandElement* demandElement) {
     // First check that demandElement wasn't already inserted

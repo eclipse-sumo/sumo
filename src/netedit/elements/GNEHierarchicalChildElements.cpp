@@ -136,6 +136,29 @@ GNEHierarchicalChildElements::getChildAdditionals() const {
 }
 
 
+size_t 
+GNEHierarchicalChildElements::getNumberOfChildAdditionals(GNETagProperties::TagType additionalType) const {
+    size_t number = 0;
+    // check additional type
+    if (additionalType == GNETagProperties::TagType::ADDITIONALELEMENT) {
+        for (const auto &additional : myChildAdditionals) {
+            if (additional->getTagProperty().isAdditionalElement()){
+                number++;
+            }
+        }
+    } else if (additionalType == GNETagProperties::TagType::TAZ) {
+        for (const auto& additional : myChildAdditionals) {
+            if (additional->getTagProperty().isTAZ()) {
+                number++;
+            }
+        }
+    } else {
+        throw ProcessError("invalid additionalType");
+    }
+    return number;
+}
+
+
 void
 GNEHierarchicalChildElements::sortChildAdditionals() {
     if (myAC->getTagProperty().getTag() == SUMO_TAG_E3DETECTOR) {

@@ -51,6 +51,9 @@ public:
         /// @brief check if protect additional elements checkbox is enabled
         bool protectAdditionals() const;
 
+        /// @brief check if protect TAZ elements checkbox is enabled
+        bool protectTAZs() const;
+
         /// @brief check if protect shapes elements checkbox is enabled
         bool protectShapes() const;
 
@@ -66,6 +69,9 @@ public:
 
         /// @brief checkbox for enable/disable protect additionals
         FXCheckButton* myProtectAdditionals;
+
+        /// @brief checkbox for enable/disable protect TAZs
+        FXCheckButton* myProtectTAZs;
 
         /// @brief checkbox for enable/disable protect shapes
         FXCheckButton* myProtectShapes;
@@ -149,6 +155,12 @@ protected:
 
         /// @brief child additional
         size_t additionalChilds;
+
+        /// @brief parent TAZs
+        size_t TAZParents;
+
+        /// @brief child TAZ
+        size_t TAZChilds;
 
         /// @brief parent shapes
         size_t shapeParents;

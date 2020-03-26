@@ -136,6 +136,9 @@ public:
     /// @brief get parent additionals
     const std::vector<GNEAdditional*>& getParentAdditionals() const;
 
+    /// @brief get number of parent additionals
+    size_t getNumberOfParentAdditionals(GNETagProperties::TagType additionalType) const;
+
     /// @}
 
     /// @name members and functions related to parent demand elements

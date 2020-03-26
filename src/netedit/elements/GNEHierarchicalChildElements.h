@@ -141,6 +141,9 @@ public:
     /// @brief return child additionals
     const std::vector<GNEAdditional*>& getChildAdditionals() const;
 
+    /// @brief get number of child additionals
+    size_t getNumberOfChildAdditionals(GNETagProperties::TagType additionalType) const;
+
     /// @brief sort child additionals (used by Rerouters, VSS, TAZs...)
     void sortChildAdditionals();
 
