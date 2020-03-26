@@ -98,12 +98,12 @@ public:
     }
 
     double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
-        assert(E::getTravelTimeStatic(this->getEdge(), trip->vehicle, time) > 0);
+        assert(E::getTravelTimeStatic(this->getEdge(), trip->vehicle, time) >= 0.);
         return getPartialTravelTime(E::getTravelTimeStatic(this->getEdge(), trip->vehicle, time), trip);
     }
 
     double getTravelTimeAggregated(const IntermodalTrip<E, N, V>* const trip, double time) const {
-        assert(E::getTravelTimeAggregated(this->getEdge(), trip->vehicle, time) > 0);
+        assert(E::getTravelTimeAggregated(this->getEdge(), trip->vehicle, time) >= 0.);
         return getPartialTravelTime(E::getTravelTimeAggregated(this->getEdge(), trip->vehicle, time), trip);
     }
 
@@ -126,7 +126,7 @@ private:
         if (this->getEdge() == trip->from && trip->departPos >= myStartPos&& trip->departPos < myStartPos + this->getLength()) {
             distTravelled -= trip->departPos - myStartPos;
         }
-        assert(fullTravelTime * distTravelled / this->getEdge()->getLength() > 0);
+        assert(fullTravelTime * distTravelled / this->getEdge()->getLength() >= 0.);
         return fullTravelTime * distTravelled / this->getEdge()->getLength();
     }
 
