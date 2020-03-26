@@ -212,8 +212,8 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
         if (myDeleteOptions->deleteOnlyGeometryPoints() && !ignoreOptions) {
             // check type of of object under cursor object with geometry points
             if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                if (objectsUnderCursor.getEdgeFront()->getVertexIndex(clickedPosition, false, false) != -1) {
-                    objectsUnderCursor.getEdgeFront()->deleteGeometryPoint(clickedPosition);
+                if (objectsUnderCursor.getEdgeFront()->getEdgeVertexIndex(clickedPosition, false) != -1) {
+                    objectsUnderCursor.getEdgeFront()->deleteEdgeGeometryPoint(clickedPosition);
                 }
             } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_POLY) {
                 if (objectsUnderCursor.getPolyFront()->getVertexIndex(clickedPosition, false, false) != -1) {
@@ -233,8 +233,8 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                 }
             } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
                 // check if click was over a geometry point or over a shape's edge
-                if (objectsUnderCursor.getEdgeFront()->getVertexIndex(clickedPosition, false, false) != -1) {
-                    objectsUnderCursor.getEdgeFront()->deleteGeometryPoint(clickedPosition);
+                if (objectsUnderCursor.getEdgeFront()->getEdgeVertexIndex(clickedPosition, false) != -1) {
+                    objectsUnderCursor.getEdgeFront()->deleteEdgeGeometryPoint(clickedPosition);
                 } else if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getEdgeFront()).checkElements(myDeleteOptions)) {
                     // if all ok, then delete edge
                     myViewNet->getNet()->deleteEdge(objectsUnderCursor.getEdgeFront(), myViewNet->getUndoList(), false);

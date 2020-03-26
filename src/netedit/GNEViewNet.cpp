@@ -3326,7 +3326,7 @@ GNEViewNet::mergeJunctions(GNEJunction* moved, const Position& oldPos) {
             }
         }
         // restore previous position of junction moved
-        moved->moveGeometry(oldPos, Position(0, 0));
+        moved->moveGeometry(Position(0, 0));
         // finish geometry moving
         moved->endGeometryMoving();
         // merge moved and targed junctions
@@ -3486,8 +3486,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     // before delete al selected attribute carriers, check if we clicked over a geometry point
                     if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints() &&
-                            (((myObjectsUnderCursor.getEdgeFront()) && (myObjectsUnderCursor.getEdgeFront()->getVertexIndex(getPositionInformation(), false, false) != -1))
-                             || ((myObjectsUnderCursor.getPolyFront()) && (myObjectsUnderCursor.getPolyFront()->getVertexIndex(getPositionInformation(), false, false) != -1)))) {
+                            (((myObjectsUnderCursor.getEdgeFront()) && (myObjectsUnderCursor.getEdgeFront()->getEdgeVertexIndex(getPositionInformation(), false) != -1)) || 
+                             ((myObjectsUnderCursor.getPolyFront()) && (myObjectsUnderCursor.getPolyFront()->getVertexIndex(getPositionInformation(), false, false) != -1)))) {
                         myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
                     } else {
                         myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();

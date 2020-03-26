@@ -156,13 +156,11 @@ public:
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
     void endGeometryMoving(bool extendToNeighbors = true);
 
-    /**@brief change the position of the element geometry without saving in undoList
-    * @param[in] oldPos old position before start moving
-    */
-    void moveGeometry(const Position& oldPos, const Position& offset);
+    /// @brief change the position of the element geometry without saving in undoList
+    void moveGeometry(const Position& offset);
 
     /// @brief registers completed movement with the undoList
-    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+    void commitGeometryMoving(GNEUndoList* undoList);
 
     /// @}
 

@@ -199,6 +199,9 @@ protected:
     /// @brief boundary used during moving of elements
     Boundary myMovingGeometryBoundary;
 
+    /// @brief position used during moving
+    Position myMovingPosition;
+
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;

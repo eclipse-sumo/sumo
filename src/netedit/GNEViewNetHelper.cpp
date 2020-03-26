@@ -551,7 +551,7 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
         myPOIToMove->moveGeometry(originalPositionInView, offsetMovement);
     } else if (myJunctionToMove) {
         // Move Junction's geometry without commiting changes
-        myJunctionToMove->moveGeometry(originalPositionInView, offsetMovement);
+        myJunctionToMove->moveGeometry(offsetMovement);
     } else if (myEdgeToMove) {
         // check if we're moving the start or end position, or a geometry point
         if (myMovingStartPos) {
@@ -560,7 +560,7 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
             myEdgeToMove->moveShapeEnd(originalPositionInView, offsetMovement);
         } else {
             // move edge's geometry without commiting changes
-            movingIndexShape = myEdgeToMove->moveVertexShape(movingIndexShape, originalPositionInView, offsetMovement);
+            myEdgeToMove->moveEdgeShape(offsetMovement);
         }
     } else if (myAdditionalToMove && (myAdditionalToMove->isAdditionalBlocked() == false)) {
         // Move Additional geometry without commiting changes
@@ -594,7 +594,7 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
     } else if (myJunctionToMove) {
         // check if in the moved position there is another Junction and it will be merged
         if (!myViewNet->mergeJunctions(myJunctionToMove, originalPositionInView)) {
-            myJunctionToMove->commitGeometryMoving(originalPositionInView, myViewNet->getUndoList());
+            myJunctionToMove->commitGeometryMoving(myViewNet->getUndoList());
         }
         myJunctionToMove = nullptr;
     } else if (myEdgeToMove) {
@@ -606,7 +606,7 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
             myEdgeToMove->commitShapeEndChange(originalPositionInView, myViewNet->getUndoList());
             myMovingEndPos = false;
         } else {
-            myEdgeToMove->commitShapeChange(originalShapeBeforeMoving, myViewNet->getUndoList());
+            myEdgeToMove->commitEdgeShapeChange(myViewNet->getUndoList());
         }
         myEdgeToMove = nullptr;
     } else if (myAdditionalToMove) {
@@ -703,33 +703,30 @@ GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues() {
     } else {
         // assign clicked edge to edgeToMove
         myEdgeToMove = myViewNet->myObjectsUnderCursor.getEdgeFront();
+        // calculate offset
+        const double edgeShapeOffset = myEdgeToMove->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
         // check if we clicked over a start or end position
         if (myEdgeToMove->clickedOverShapeStart(myViewNet->getPositionInformation())) {
-            // save start pos
-            myViewNet->myMoveSingleElementValues.originalPositionInView = myEdgeToMove->getNBEdge()->getGeometry().front();
+            // set flag
             myViewNet->myMoveSingleElementValues.myMovingStartPos = true;
             // start geometry moving
-            myEdgeToMove->startGeometryMoving();
+            myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset);
             // edge values sucesfully calculated, then return true
             return true;
         } else if (myEdgeToMove->clickedOverShapeEnd(myViewNet->getPositionInformation())) {
-            // save end pos
-            myViewNet->myMoveSingleElementValues.originalPositionInView = myEdgeToMove->getNBEdge()->getGeometry().back();
+            // set flag
             myViewNet->myMoveSingleElementValues.myMovingEndPos = true;
             // start geometry moving
-            myEdgeToMove->startGeometryMoving();
+            myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset);
             // edge values sucesfully calculated, then return true
             return true;
         } else {
             // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
             if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
                 // check if in the clicked position a geometry point exist
-                int existentIndex = myEdgeToMove->getVertexIndex(myViewNet->getPositionInformation(), false, false);
-                if (existentIndex != -1) {
-                    myViewNet->myMoveSingleElementValues.movingIndexShape = existentIndex;
-                    myViewNet->myMoveSingleElementValues.originalPositionInView = myEdgeToMove->getNBEdge()->getInnerGeometry()[existentIndex];
+                if (myEdgeToMove->getEdgeVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
                     // start geometry moving
-                    myEdgeToMove->startGeometryMoving();
+                    myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset);
                     // edge values sucesfully calculated, then return true
                     return true;
                 } else {
@@ -739,25 +736,10 @@ GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues() {
                     return false;
                 }
             } else {
-                // save original shape (needed for commit change)
-                myViewNet->myMoveSingleElementValues.originalShapeBeforeMoving = myEdgeToMove->getNBEdge()->getInnerGeometry();
-                // obtain index of vertex to move and moving reference
-                myViewNet->myMoveSingleElementValues.movingIndexShape = myEdgeToMove->getVertexIndex(myViewNet->getPositionInformation(), false, false);
-                // if index doesn't exist, create it snapping new edge to grid
-                if (myViewNet->myMoveSingleElementValues.movingIndexShape == -1) {
-                    myViewNet->myMoveSingleElementValues.movingIndexShape = myEdgeToMove->getVertexIndex(myViewNet->getPositionInformation(), true, true);
-                }
-                // make sure that myViewNet->myMoveSingleElementValues.movingIndexShape isn't -1
-                if (myViewNet->myMoveSingleElementValues.movingIndexShape != -1) {
-                    myViewNet->myMoveSingleElementValues.originalPositionInView = myEdgeToMove->getNBEdge()->getInnerGeometry()[myViewNet->myMoveSingleElementValues.movingIndexShape];
-                    // start geometry moving
-                    myEdgeToMove->startGeometryMoving();
-                    // edge values sucesfully calculated, then return true
-                    return true;
-                } else {
-                    // edge values wasn't calculated, then return false
-                    return false;
-                }
+                // start geometry moving
+                myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset);
+                // edge values sucesfully calculated, then return true
+                return true;
             }
         }
     }
@@ -822,25 +804,24 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
     // save clicked position (to calculate offset)
     myClickedPosition = myViewNet->getPositionInformation();
     // obtain Junctions and edges selected
-    std::vector<GNEJunction*> selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
-    std::vector<GNEEdge*> selectedEdges = myViewNet->getNet()->retrieveEdges(true);
+    myMovedJunction = myViewNet->getNet()->retrieveJunctions(true);
+    myMovedEdges = myViewNet->getNet()->retrieveEdges(true);
     // Junctions are always moved, then save position of current selected junctions (Needed when mouse is released)
-    for (auto i : selectedJunctions) {
-        // save junction position
-        myMovedJunctionOriginPositions[i] = i->getPositionInView();
+    for (const auto &junction : myMovedJunction) {
         // start geometry moving
-        i->startGeometryMoving();
+        junction->startGeometryMoving();
     }
     // make special movement depending of clicked AC
     if (originAC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
         // if clicked element is a junction, move shapes of all selected edges
-        for (auto i : selectedEdges) {
-            // save entire edge geometry
-            myMovedEdgesOriginShape[i] = i->getNBEdge()->getInnerGeometry();
+        for (const auto &edge : myMovedEdges) {
+            // add edge into movedEdges
+            myMovedEdges.push_back(edge);
             // start geometry moving
-            i->startGeometryMoving();
+            edge->startEdgeGeometryMoving(-1);
         }
     } else if (originAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+    /*
         // obtain clicked edge
         GNEEdge* clickedEdge = dynamic_cast<GNEEdge*>(originAC);
         // if clicked edge has origin and destiny junction selected, move shapes of all selected edges
@@ -850,7 +831,7 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
                 // save entire edge geometry
                 myMovedEdgesOriginShape[i] = i->getNBEdge()->getInnerGeometry();
                 // start geometry moving
-                i->startGeometryMoving();
+                i->startEdgeGeometryMoving();
             }
         } else {
             // declare three groups for dividing edges
@@ -872,7 +853,7 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
                     // save edge geometry
                     myMovedEdgesOriginShape[i] = i->getNBEdge()->getInnerGeometry();
                     // start geometry moving
-                    i->startGeometryMoving();
+                    i->startEdgeGeometryMoving();
                 }
             }
             // save original shape of all noJunctionsSelected edges (needed for commit change)
@@ -881,7 +862,7 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
                 // save edge geometry
                 myMovedEgdesGeometryPoints[i]->originalShapeBeforeMoving = i->getNBEdge()->getInnerGeometry();
                 // start geometry moving
-                i->startGeometryMoving();
+                i->startEdgeGeometryMoving();
             }
             // obtain index shape of clicked edge
             int index = clickedEdge->getVertexIndex(myViewNet->getPositionInformation(), true, true);
@@ -934,6 +915,7 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
                 }
             }
         }
+        */
     }
 }
 
@@ -950,17 +932,13 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection() {
         // leave z empty (because in this case offset only actuates over X-Y)
         offsetMovement.setz(0);
     }
-    // move selected junctions
-    for (auto i : myMovedJunctionOriginPositions) {
-        i.first->moveGeometry(i.second, offsetMovement);
+    // move junctions
+    for (const auto &junction : myMovedJunction) {
+        junction->moveGeometry(offsetMovement);
     }
-    // move entire edge shapes
-    for (auto i : myMovedEdgesOriginShape) {
-        i.first->moveEntireShape(i.second, offsetMovement);
-    }
-    // move partial shapes
-    for (auto i : myMovedEgdesGeometryPoints) {
-        i.first->moveVertexShape(i.second->movingIndexShape, i.second->originalPositionInView, offsetMovement);
+    // move edges
+    for (const auto& edge : myMovedEdges) {
+        edge->moveEdgeShape(offsetMovement);
     }
     // update view (needed to see the movement)
     myViewNet->update();
@@ -972,29 +950,20 @@ GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
     // begin undo list
     myViewNet->getUndoList()->p_begin("position of selected elements");
     // commit positions of moved junctions
-    for (auto i : myMovedJunctionOriginPositions) {
-        i.first->commitGeometryMoving(i.second, myViewNet->getUndoList());
+    for (const auto& junction : myMovedJunction) {
+        junction->commitGeometryMoving(myViewNet->getUndoList());
     }
     // commit shapes of entired moved edges
-    for (auto i : myMovedEdgesOriginShape) {
-        i.first->commitShapeChange(i.second, myViewNet->getUndoList());
-    }
-    //commit shapes of partial moved shapes
-    for (auto i : myMovedEgdesGeometryPoints) {
-        i.first->commitShapeChange(i.second->originalShapeBeforeMoving, myViewNet->getUndoList());
+    for (const auto& edge : myMovedEdges) {
+        edge->commitEdgeShapeChange(myViewNet->getUndoList());
     }
     // end undo list
     myViewNet->getUndoList()->p_end();
     // stop moving selection
     myMovingSelection = false;
     // clear containers
-    myMovedJunctionOriginPositions.clear();
-    myMovedEdgesOriginShape.clear();
-    // delete all movedEgdesGeometryPoints before clear container
-    for (const auto& i : myMovedEgdesGeometryPoints) {
-        delete i.second;
-    }
-    myMovedEgdesGeometryPoints.clear();
+    myMovedJunction.clear();
+    myMovedEdges.clear();
 }
 
 

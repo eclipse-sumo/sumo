@@ -533,6 +533,8 @@ void
 GNEJunction::startGeometryMoving(bool extendToNeighbors) {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
+    // save position
+    myMovingPosition = myNBNode->getPosition();
     // First declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
     std::set<GNEJunction*> affectedJunctions;
     std::set<GNEEdge*> affectedEdges;
@@ -563,7 +565,7 @@ GNEJunction::startGeometryMoving(bool extendToNeighbors) {
     // Iterate over affected Edges
     for (const auto& edge : affectedEdges) {
         // start geometry moving in edges
-        edge->startGeometryMoving();
+        edge->startEdgeGeometryMoving(-1);
     }
 }
 
@@ -606,7 +608,7 @@ GNEJunction::endGeometryMoving(bool extendToNeighbors) {
         // Iterate over affected Edges
         for (const auto& affectedEdge : affectedEdges) {
             // end geometry moving in edges
-            affectedEdge->endGeometryMoving();
+            affectedEdge->endEdgeGeometryMoving();
         }
         // add object into grid again (using the new centering boundary)
         myNet->addGLObjectIntoGrid(this);
@@ -621,9 +623,9 @@ GNEJunction::endGeometryMoving(bool extendToNeighbors) {
 
 
 void
-GNEJunction::moveGeometry(const Position& oldPos, const Position& offset) {
+GNEJunction::moveGeometry(const Position& offset) {
     // calculate new position
-    Position newPosition = oldPos;
+    Position newPosition = myMovingPosition;
     newPosition.add(offset);
     // filtern position using snap to active grid
     newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition, offset.z() == 0);
@@ -633,16 +635,16 @@ GNEJunction::moveGeometry(const Position& oldPos, const Position& offset) {
 
 
 void
-GNEJunction::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNEJunction::commitGeometryMoving(GNEUndoList* undoList) {
     // first end geometry point
     endGeometryMoving();
     if (isValid(SUMO_ATTR_POSITION, toString(myNBNode->getPosition()))) {
         undoList->p_begin("position of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myNBNode->getPosition()), true, toString(oldPos)));
+        undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myNBNode->getPosition()), true, toString(myMovingPosition)));
         undoList->p_end();
     } else {
         // tried to set an invalid position, revert back to the previous one
-        moveJunctionGeometry(oldPos);
+        moveJunctionGeometry(myMovingPosition);
     }
 }
 

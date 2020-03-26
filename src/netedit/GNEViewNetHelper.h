@@ -823,13 +823,10 @@ struct GNEViewNetHelper {
         bool myMovingSelection;
 
         /// @brief container used for move junctions
-        std::map<GNEJunction*, Position> myMovedJunctionOriginPositions;
+        std::vector<GNEJunction*> myMovedJunction;
 
-        /// @brief container used for move entire edges
-        std::map<GNEEdge*, PositionVector> myMovedEdgesOriginShape;
-
-        /// @brief container used for move GeometryPoints of edges
-        std::map<GNEEdge*, MoveSingleElementValues*> myMovedEgdesGeometryPoints;
+        /// @brief container used for move edges
+        std::vector<GNEEdge*> myMovedEdges;
     };
 
     /// @brief struct used to group all variables related with movement of groups of elements
