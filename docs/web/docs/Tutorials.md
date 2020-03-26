@@ -43,11 +43,7 @@ These tutorials use the [Python-TraCI Library](TraCI/Interfacing_TraCI_from_Pyth
 <iframe width="560" height="315" src="https://www.youtube.com/embed/UeaeCdLt_1o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## ITSC 2015
-Preparations for doing the tutorial:
 
-* Installation of python2.7 [https://www.python.org/ftp/python/2.7.7/python-2.7.7.msi](https://www.python.org/ftp/python/2.7.7/python-2.7.7.msi)
-* Installation of a text editing application with syntax highlighting (i.e. [http://download.tuxfamily.org/notepadplus/archive/6.7.5/npp.6.7.5.Installer.exe](http://download.tuxfamily.org/notepadplus/archive/6.7.5/npp.6.7.5.Installer.exe))
-* Download and unpack [http://sumo.dlr.de/daily/sumo-msvc10Win32-svn.zip](http://sumo.dlr.de/daily/sumo-msvc10Win32-svn.zip) **to a directory that does not contain the space (' ') character**. We're using the latest development version because 0.24.0 does not yet have [NETEDIT](NETEDIT.md).
 * Download the Tutorial Files at [http://sumo.dlr.de/daily/ITSC2015_tutorial.zip](http://sumo.dlr.de/daily/ITSC2015_tutorial.zip)
 
 ## Im- and Export
