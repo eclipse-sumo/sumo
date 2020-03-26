@@ -22,6 +22,7 @@
             <xsd:attribute name="started" use="required" type="xsd:float"/>
             <xsd:attribute name="ended" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="delay" use="required" type="xsd:float"/>
+            <xsd:attribute name="arrivalDelay" use="optional" type="xsd:float"/>
             <xsd:attribute name="initialPersons" use="required" type="nonNegativeIntType"/>
             <xsd:attribute name="loadedPersons" use="required" type="nonNegativeIntType"/>
             <xsd:attribute name="unloadedPersons" use="required" type="nonNegativeIntType"/>

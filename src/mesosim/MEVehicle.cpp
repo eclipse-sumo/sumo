@@ -234,6 +234,9 @@ MEVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& /*err
     if (segmentStops.back().until >= 0) {
         segmentStops.back().until += untilOffset;
     }
+    if (segmentStops.back().arrival >= 0) {
+        segmentStops.back().arrival += untilOffset;
+    }
     if (myStopEdges.empty() || myStopEdges.back() != edge || cyclicRoute) {
         myStopEdges.push_back(edge);
     }

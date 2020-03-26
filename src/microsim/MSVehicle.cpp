@@ -1524,6 +1524,9 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         // !!! it would be much cleaner to invent a constructor for stops which takes "until" as an argument
         const_cast<SUMOVehicleParameter::Stop&>(stop.pars).until += untilOffset;
     }
+    if (stopPar.arrival != -1) {
+        const_cast<SUMOVehicleParameter::Stop&>(stop.pars).arrival += untilOffset;
+    }
     stop.collision = collision;
     stop.numExpectedPerson = (int)stopPar.awaitedPersons.size();
     stop.numExpectedContainer = (int)stopPar.awaitedContainers.size();

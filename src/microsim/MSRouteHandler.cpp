@@ -549,6 +549,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                             }
                         }
                         stop.until += myActiveRoutePeriod * (i + 1);
+                        stop.arrival += myActiveRoutePeriod * (i + 1);
                     }
                     myActiveRouteStops.push_back(stop);
                 }
