@@ -483,7 +483,7 @@ public:
      *
      * @param[in] ignoreStopErrors whether invalid stops trigger a warning only
      */
-    void addStops(const bool ignoreStopErrors);
+    void addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart = 0);
 
     /// @brief whether this vehicle is selected in the GUI
     virtual bool isSelected() const {

@@ -6463,6 +6463,9 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     if (hasDeparted()) {
         myCurrEdge += routeOffset;
         myDeparture -= offset;
+        // fix stops
+        myStops.clear();
+        addStops(!MSGlobals::gCheckRoutes, &myCurrEdge);
     }
     myState.myPos = attrs.getFloat(SUMO_ATTR_POSITION);
     myState.mySpeed = attrs.getFloat(SUMO_ATTR_SPEED);

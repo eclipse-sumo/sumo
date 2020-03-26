@@ -625,10 +625,10 @@ MSBaseVehicle::saveState(OutputDevice& out) {
 
 
 void
-MSBaseVehicle::addStops(const bool ignoreStopErrors) {
+MSBaseVehicle::addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart) {
     for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myRoute->getStops().begin(); i != myRoute->getStops().end(); ++i) {
         std::string errorMsg;
-        if (!addStop(*i, errorMsg, myParameter->depart) && !ignoreStopErrors) {
+        if (!addStop(*i, errorMsg, myParameter->depart, false, searchStart) && !ignoreStopErrors) {
             throw ProcessError(errorMsg);
         }
         if (errorMsg != "") {
@@ -638,7 +638,7 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors) {
     const SUMOTime untilOffset = myParameter->repetitionOffset > 0 ? myParameter->repetitionsDone * myParameter->repetitionOffset : 0;
     for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myParameter->stops.begin(); i != myParameter->stops.end(); ++i) {
         std::string errorMsg;
-        if (!addStop(*i, errorMsg, untilOffset) && !ignoreStopErrors) {
+        if (!addStop(*i, errorMsg, untilOffset, false, searchStart) && !ignoreStopErrors) {
             throw ProcessError(errorMsg);
         }
         if (errorMsg != "") {
