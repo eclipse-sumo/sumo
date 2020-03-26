@@ -317,7 +317,7 @@ GUIPerson::drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) con
         setColor(s);
         MSPModel_Striping::PState* stripingState = dynamic_cast<MSPModel_Striping::PState*>(stage->getState());
         if (stripingState != nullptr) {
-            MSPModel_Striping::WalkingAreaPath* waPath = stripingState->myWalkingAreaPath;
+            const MSPModel_Striping::WalkingAreaPath* waPath = stripingState->myWalkingAreaPath;
             if (waPath != nullptr) {
                 glPushMatrix();
                 glTranslated(0, 0, getType());

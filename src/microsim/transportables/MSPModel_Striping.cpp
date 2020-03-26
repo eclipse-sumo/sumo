@@ -381,7 +381,7 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
                             shape = shape.reverse();
                         }
                         WalkingAreaPath wap = WalkingAreaPath(from, walkingArea, to, shape, fromDir);
-                        myWalkingAreaPaths[std::make_pair(from, to)] = wap;
+                        myWalkingAreaPaths.insert(std::make_pair(std::make_pair(from, to), wap));
                         myMinNextLengths[walkingArea] = MIN2(myMinNextLengths[walkingArea], wap.length);
                     }
                 }
@@ -391,22 +391,20 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
 }
 
 
-MSPModel_Striping::WalkingAreaPath*
+const MSPModel_Striping::WalkingAreaPath*
 MSPModel_Striping::getArbitraryPath(const MSEdge* walkingArea) {
     assert(walkingArea->isWalkingArea());
     std::vector<const MSLane*> lanes;
-    const MSEdgeVector& incoming = walkingArea->getPredecessors();
-    for (int j = 0; j < (int)incoming.size(); ++j) {
-        lanes.push_back(getSidewalk<MSEdge, MSLane>(incoming[j]));
+    for (const MSEdge* const pred : walkingArea->getPredecessors()) {
+        lanes.push_back(getSidewalk<MSEdge, MSLane>(pred));
     }
-    const MSEdgeVector& outgoing = walkingArea->getSuccessors();
-    for (int j = 0; j < (int)outgoing.size(); ++j) {
-        lanes.push_back(getSidewalk<MSEdge, MSLane>(outgoing[j]));
+    for (const MSEdge* const succ : walkingArea->getSuccessors()) {
+        lanes.push_back(getSidewalk<MSEdge, MSLane>(succ));
     }
     if (lanes.size() < 1) {
         throw ProcessError("Invalid walkingarea '" + walkingArea->getID() + "' does not allow continuation.");
     }
-    return &myWalkingAreaPaths[std::make_pair(lanes.front(), lanes.back())];
+    return &myWalkingAreaPaths.find(std::make_pair(lanes.front(), lanes.back()))->second;
 }
 
 
@@ -1509,9 +1507,16 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
             }
             if (myLane->getEdge().isWalkingArea()) {
                 if (myNLI.dir != UNDEFINED_DIRECTION) {
-                    myWalkingAreaPath = &myWalkingAreaPaths[std::make_pair(oldLane, myNLI.lane)];
-                    assert(myWalkingAreaPath->from != 0);
-                    assert(myWalkingAreaPath->to != 0);
+                    const auto pathIt = myWalkingAreaPaths.find(std::make_pair(oldLane, myNLI.lane));
+                    if (pathIt != myWalkingAreaPaths.end()) {
+                        myWalkingAreaPath = &pathIt->second;
+                    } else {
+                        // this can happen in case of moveToXY where oldLane can point anywhere
+                        const MSEdge* const pred = myLane->getEdge().getPredecessors().front();
+                        const auto pathIt2 = myWalkingAreaPaths.find(std::make_pair(getSidewalk<MSEdge, MSLane>(pred), myNLI.lane));
+                        assert(pathIt2 != myWalkingAreaPaths.end());
+                        myWalkingAreaPath = &pathIt2->second;
+                    }
                     assert(myWalkingAreaPath->shape.size() >= 2);
                     if DEBUGCOND(*this) {
                         std::cout << "  mWAPath shape=" << myWalkingAreaPath->shape << " length=" << myWalkingAreaPath->length << "\n";

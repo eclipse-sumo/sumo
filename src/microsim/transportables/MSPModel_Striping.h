@@ -158,7 +158,7 @@ protected:
     typedef std::map<const MSLane*, Pedestrians, lane_by_numid_sorter> ActiveLanes;
     typedef std::vector<Obstacle> Obstacles;
     typedef std::map<const MSLane*, Obstacles, lane_by_numid_sorter> NextLanesObstacles;
-    typedef std::map<std::pair<const MSLane*, const MSLane*>, WalkingAreaPath> WalkingAreaPaths;
+    typedef std::map<std::pair<const MSLane*, const MSLane*>, const WalkingAreaPath> WalkingAreaPaths;
     typedef std::map<const MSLane*, double> MinNextLengths;
 
     struct NextLaneInfo {
@@ -224,14 +224,12 @@ protected:
             length(_shape.length()) {
         }
 
-        WalkingAreaPath(): from(0), to(0), lane(0) {};
-
-        const MSLane* from;
-        const MSLane* to;
-        const MSLane* lane; // the walkingArea;
-        PositionVector shape; // actually const but needs to be copyable by some stl code
-        int dir; // the direction when entring this path
-        double length;
+        const MSLane* const from;
+        const MSLane* const to;
+        const MSLane* const lane; // the walkingArea;
+        const PositionVector shape;
+        const int dir; // the direction when entering this path
+        const double length;
 
     };
 
@@ -297,7 +295,7 @@ protected:
         /// @brief information about the upcoming lane
         NextLaneInfo myNLI;
         /// @brief the current walkingAreaPath or 0
-        WalkingAreaPath* myWalkingAreaPath;
+        const WalkingAreaPath* myWalkingAreaPath;
         /// @brief whether the person is jammed
         bool myAmJammed;
         /// @brief remote-controlled position
@@ -443,7 +441,7 @@ private:
     static void initWalkingAreaPaths(const MSNet* net);
 
     /// @brief return an arbitrary path across the given walkingArea
-    static WalkingAreaPath* getArbitraryPath(const MSEdge* walkingArea);
+    static const WalkingAreaPath* getArbitraryPath(const MSEdge* walkingArea);
 
     /// @brief return the maximum number of pedestrians walking side by side
     static int numStripes(const MSLane* lane);
