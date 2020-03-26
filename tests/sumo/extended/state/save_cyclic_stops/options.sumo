@@ -1,0 +1,5 @@
+--no-step-log --no-duration-log --net-file=net2.net.xml
+-r input_routes.rou.xml 
+--save-state.times 350 --save-state.files state.xml
+--stop-output stopinfos.xml
+
