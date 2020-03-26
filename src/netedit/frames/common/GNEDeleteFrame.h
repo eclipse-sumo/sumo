@@ -150,35 +150,35 @@ protected:
         /// @brief pointer to view net
         GNEViewNet* myViewNet;
 
-        /// @brief parent additionals
-        size_t additionalParents;
+        /// @brief parent additionals (except TAZs)
+        size_t myAdditionalParents;
 
-        /// @brief child additional
-        size_t additionalChilds;
+        /// @brief child additional (except TAZs)
+        size_t myAdditionalChilds;
 
         /// @brief parent TAZs
-        size_t TAZParents;
+        size_t myTAZParents;
 
         /// @brief child TAZ
-        size_t TAZChilds;
+        size_t myTAZChilds;
 
         /// @brief parent shapes
-        size_t shapeParents;
+        size_t myShapeParents;
 
         /// @brief child shape
-        size_t shapeChilds;
+        size_t myShapeChilds;
 
         /// @brief parent demand elements
-        size_t demandElementParents;
+        size_t myDemandElementParents;
 
         /// @brief child demand elements
-        size_t demandElementChilds;
+        size_t myDemandElementChilds;
 
         /// @brief parent demand elements
-        size_t genericDataParents;
+        size_t myGenericDataParents;
 
         /// @brief child demand elements
-        size_t genericDataChilds;
+        size_t myGenericDataChilds;
 
     private:
         // default constructor for non-net elements
@@ -202,13 +202,10 @@ protected:
         SubordinatedElements& operator=(const SubordinatedElements&) = delete;
     };
 
-    /// @brief check if there is ACs to delete
-    bool ACsToDelete() const;
+    /// @brief check if there is selected ACs to delete
+    bool selectedACsToDelete() const;
 
 private:
     /// @brief modul for delete options
     DeleteOptions* myDeleteOptions;
-
-    /// @brief modul for hierarchy
-    GNEFrameModuls::AttributeCarrierHierarchy* myAttributeCarrierHierarchy;
 };

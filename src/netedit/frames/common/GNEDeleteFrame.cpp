@@ -118,9 +118,6 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     GNEFrame(horizontalFrameParent, viewNet, "Delete") {
     // create delete options modul
     myDeleteOptions = new DeleteOptions(this);
-
-    // Create groupbox and tree list
-    myAttributeCarrierHierarchy = new GNEFrameModuls::AttributeCarrierHierarchy(this);
 }
 
 
@@ -129,11 +126,6 @@ GNEDeleteFrame::~GNEDeleteFrame() {}
 
 void
 GNEDeleteFrame::show() {
-    if (myViewNet->getNet()->getSelectedAttributeCarriers(false).size() == 1) {
-        myAttributeCarrierHierarchy->showAttributeCarrierHierarchy(*myViewNet->getNet()->getSelectedAttributeCarriers(false).begin());
-    } else {
-        myAttributeCarrierHierarchy->hideAttributeCarrierHierarchy();
-    }
     GNEFrame::show();
 }
 
@@ -147,7 +139,7 @@ GNEDeleteFrame::hide() {
 void
 GNEDeleteFrame::removeSelectedAttributeCarriers() {
     // first check if there is additional to remove
-    if (ACsToDelete()) {
+    if (selectedACsToDelete()) {
         // remove all selected attribute carrier susing the following parent-child sequence
         myViewNet->getUndoList()->p_begin("remove selected items");
         // disable update geometry
@@ -335,26 +327,26 @@ GNEDeleteFrame::SubordinatedElements::~SubordinatedElements() {}
 bool
 GNEDeleteFrame::SubordinatedElements::checkElements(const DeleteOptions* deleteOptions) {
     // check every parent/child
-    if ((additionalParents > 0) && deleteOptions->protectAdditionals()) {
-        openWarningDialog("additional", additionalParents, false);
-    } else if ((additionalChilds > 0) && deleteOptions->protectAdditionals()) {
-        openWarningDialog("additional", additionalChilds, true);
-    } else if ((TAZParents > 0) && deleteOptions->protectTAZs()) {
-        openWarningDialog("TAZ", TAZParents, false);
-    } else if ((TAZChilds > 0) && deleteOptions->protectTAZs()) {
-        openWarningDialog("TAZ", TAZChilds, true);
-    } else if ((shapeParents > 0) && deleteOptions->protectShapes()) {
-        openWarningDialog("shape", shapeParents, false);
-    } else if ((shapeChilds > 0) && deleteOptions->protectShapes()) {
-        openWarningDialog("shape", shapeChilds, true);
-    } else if ((demandElementParents > 0) && deleteOptions->protectDemandElements()) {
-        openWarningDialog("demand", demandElementParents, false);
-    } else if ((demandElementChilds > 0) && deleteOptions->protectDemandElements()) {
-        openWarningDialog("demand", demandElementChilds, true);
-    } else if ((genericDataParents > 0) && deleteOptions->protectGenericDatas()) {
-        openWarningDialog("data", genericDataParents, false);
-    } else if ((genericDataChilds > 0) && deleteOptions->protectGenericDatas()) {
-        openWarningDialog("data", genericDataChilds, true);
+    if ((myAdditionalParents > 0) && deleteOptions->protectAdditionals()) {
+        openWarningDialog("additional", myAdditionalParents, false);
+    } else if ((myAdditionalChilds > 0) && deleteOptions->protectAdditionals()) {
+        openWarningDialog("additional", myAdditionalChilds, true);
+    } else if ((myTAZParents > 0) && deleteOptions->protectTAZs()) {
+        openWarningDialog("TAZ", myTAZParents, false);
+    } else if ((myTAZChilds > 0) && deleteOptions->protectTAZs()) {
+        openWarningDialog("TAZ", myTAZChilds, true);
+    } else if ((myShapeParents > 0) && deleteOptions->protectShapes()) {
+        openWarningDialog("shape", myShapeParents, false);
+    } else if ((myShapeChilds > 0) && deleteOptions->protectShapes()) {
+        openWarningDialog("shape", myShapeChilds, true);
+    } else if ((myDemandElementParents > 0) && deleteOptions->protectDemandElements()) {
+        openWarningDialog("demand", myDemandElementParents, false);
+    } else if ((myDemandElementChilds > 0) && deleteOptions->protectDemandElements()) {
+        openWarningDialog("demand", myDemandElementChilds, true);
+    } else if ((myGenericDataParents > 0) && deleteOptions->protectGenericDatas()) {
+        openWarningDialog("data", myGenericDataParents, false);
+    } else if ((myGenericDataChilds > 0) && deleteOptions->protectGenericDatas()) {
+        openWarningDialog("data", myGenericDataChilds, true);
     } else {
         // all checks ok, then return true, to remove element
         return true;
@@ -366,16 +358,16 @@ GNEDeleteFrame::SubordinatedElements::checkElements(const DeleteOptions* deleteO
 GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCarrier* attributeCarrier, GNEViewNet* viewNet) :
     myAttributeCarrier(attributeCarrier),
     myViewNet(viewNet),
-    additionalParents(0),
-    additionalChilds(0),
-    TAZParents(0),
-    TAZChilds(0),
-    shapeParents(0),
-    shapeChilds(0),
-    demandElementParents(0),
-    demandElementChilds(0),
-    genericDataParents(0),
-    genericDataChilds(0) {
+    myAdditionalParents(0),
+    myAdditionalChilds(0),
+    myTAZParents(0),
+    myTAZChilds(0),
+    myShapeParents(0),
+    myShapeChilds(0),
+    myDemandElementParents(0),
+    myDemandElementChilds(0),
+    myGenericDataParents(0),
+    myGenericDataChilds(0) {
 }
 
 
@@ -384,16 +376,16 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
     const GNEHierarchicalChildElements* hierarchicalChild) :
     myAttributeCarrier(attributeCarrier),
     myViewNet(viewNet),
-    additionalParents(hierarchicalParent->getNumberOfParentAdditionals(GNETagProperties::TagType::ADDITIONALELEMENT)),
-    additionalChilds(hierarchicalChild->getNumberOfChildAdditionals(GNETagProperties::TagType::ADDITIONALELEMENT)),
-    TAZParents(hierarchicalParent->getNumberOfParentAdditionals(GNETagProperties::TagType::TAZ)),
-    TAZChilds(hierarchicalChild->getNumberOfChildAdditionals(GNETagProperties::TagType::TAZ)),
-    shapeParents(hierarchicalParent->getParentShapes().size()),
-    shapeChilds(hierarchicalChild->getChildShapes().size()),
-    demandElementParents(hierarchicalParent->getParentDemandElements().size()),
-    demandElementChilds(hierarchicalChild->getChildDemandElements().size()),
-    genericDataParents(hierarchicalParent->getParentGenericDatas().size()),
-    genericDataChilds(hierarchicalChild->getChildGenericDataElements().size()) {
+    myAdditionalParents(hierarchicalParent->getNumberOfParentAdditionals(GNETagProperties::TagType::ADDITIONALELEMENT)),
+    myAdditionalChilds(hierarchicalChild->getNumberOfChildAdditionals(GNETagProperties::TagType::ADDITIONALELEMENT)),
+    myTAZParents(hierarchicalParent->getNumberOfParentAdditionals(GNETagProperties::TagType::TAZ)),
+    myTAZChilds(hierarchicalChild->getNumberOfChildAdditionals(GNETagProperties::TagType::TAZ)),
+    myShapeParents(hierarchicalParent->getParentShapes().size()),
+    myShapeChilds(hierarchicalChild->getChildShapes().size()),
+    myDemandElementParents(hierarchicalParent->getParentDemandElements().size()),
+    myDemandElementChilds(hierarchicalChild->getChildDemandElements().size()),
+    myGenericDataParents(hierarchicalParent->getParentGenericDatas().size()),
+    myGenericDataChilds(hierarchicalChild->getChildGenericDataElements().size()) {
     // add the number of subodinated elements of additionals, shapes, demand elements and generic datas
     for (const auto& additional : hierarchicalParent->getParentAdditionals()) {
         addValuesFromSubordinatedElements(this, additional);
@@ -424,16 +416,16 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
 
 void
 GNEDeleteFrame::SubordinatedElements::addValuesFromSubordinatedElements(SubordinatedElements* originalSE, const SubordinatedElements& newSE) {
-    originalSE->additionalParents += newSE.additionalParents;
-    originalSE->additionalChilds += newSE.additionalChilds;
-    originalSE->TAZParents += newSE.TAZParents;
-    originalSE->TAZChilds += newSE.TAZChilds;
-    originalSE->shapeParents += newSE.shapeParents;
-    originalSE->shapeChilds += newSE.shapeChilds;
-    originalSE->demandElementParents += newSE.demandElementParents;
-    originalSE->demandElementChilds += newSE.demandElementChilds;
-    originalSE->genericDataParents += newSE.genericDataParents;
-    originalSE->genericDataChilds += newSE.genericDataChilds;
+    originalSE->myAdditionalParents += newSE.myAdditionalParents;
+    originalSE->myAdditionalChilds += newSE.myAdditionalChilds;
+    originalSE->myTAZParents += newSE.myTAZParents;
+    originalSE->myTAZChilds += newSE.myTAZChilds;
+    originalSE->myShapeParents += newSE.myShapeParents;
+    originalSE->myShapeChilds += newSE.myShapeChilds;
+    originalSE->myDemandElementParents += newSE.myDemandElementParents;
+    originalSE->myDemandElementChilds += newSE.myDemandElementChilds;
+    originalSE->myGenericDataParents += newSE.myGenericDataParents;
+    originalSE->myGenericDataChilds += newSE.myGenericDataChilds;
 }
 
 
@@ -448,11 +440,11 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
     // set message depending of isChild
     if (isChild) {
         message = myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() +
-            "' cannot be deleted because has " + toString(number) + " " + type + " element" + plural + ".\n" + 
+            "' cannot be deleted because it has " + toString(number) + " " + type + " element" + plural + ".\n" + 
             "To delete it, uncheck 'protect " + type + " elements'.";
     } else {
         message = myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() +
-            "' cannot be deleted because is part of " + toString(number) + " " + type + " element" + plural + ".\n" +
+            "' cannot be deleted because it is part of " + toString(number) + " " + type + " element" + plural + ".\n" +
             "To delete it, uncheck 'protect " + type + " elements'.";
     }
     // write warning
@@ -468,7 +460,7 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
 // ---------------------------------------------------------------------------
 
 bool
-GNEDeleteFrame::ACsToDelete() const {
+GNEDeleteFrame::selectedACsToDelete() const {
     // invert selection of elements depending of current supermode
     if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         // iterate over junctions
@@ -540,6 +532,5 @@ GNEDeleteFrame::ACsToDelete() const {
     }
     return false;
 }
-
 
 /****************************************************************************/
