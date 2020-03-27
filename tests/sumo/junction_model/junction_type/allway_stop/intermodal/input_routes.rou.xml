@@ -12,4 +12,17 @@
     <vehicle id="WC" depart="6" departSpeed="max" type="t0">
         <route edges="WC CE"/>
     </vehicle>
+
+    <vehicle id="SE" depart="20" departSpeed="max" type="t0">
+        <route edges="SC CE"/>
+    </vehicle>
+    <vehicle id="EN" depart="22" departSpeed="max" type="t0">
+        <route edges="EC CN"/>
+    </vehicle>
+    <vehicle id="NE" depart="24" departSpeed="max" type="t0">
+        <route edges="NC CE"/>
+    </vehicle>
+    <vehicle id="WN" depart="26" departSpeed="max" type="t0">
+        <route edges="WC CN"/>
+    </vehicle>
 </routes>
