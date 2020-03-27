@@ -3276,7 +3276,7 @@ GNEViewNet::deleteSelectedShapes() {
 
 
 bool
-GNEViewNet::mergeJunctions(GNEJunction* moved, const Position& oldPos) {
+GNEViewNet::mergeJunctions(GNEJunction* moved, const Position& /*oldPos*/) {
     const Position& newPos = moved->getNBNode()->getPosition();
     GNEJunction* mergeTarget = nullptr;
     // try to find another junction to merge with

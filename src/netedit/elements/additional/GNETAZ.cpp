@@ -209,7 +209,7 @@ GNETAZ::getTAZVertexIndex(Position pos, const bool snapToGrid) const {
 void
 GNETAZ::moveTAZShape(const Position& offset) {
     // first obtain a copy of shapeBeforeMoving
-    PositionVector newShape = getShapeBevoreMoving();
+    PositionVector newShape = getShapeBeforeMoving();
     if (moveEntireShape()) {
         // move entire shape
         newShape.add(offset);
@@ -217,7 +217,7 @@ GNETAZ::moveTAZShape(const Position& offset) {
         int geometryPointIndex = getGeometryPointIndex();
         // if geometryPoint is -1, then we have to create a new geometry point
         if (geometryPointIndex == -1) {
-            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBevoreMoving(), true);
+            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBeforeMoving(), true);
         }
         // get last index
         const int lastIndex = (int)newShape.size() - 1;
@@ -252,7 +252,7 @@ GNETAZ::commitTAZShapeChange(GNEUndoList* undoList) {
     // update geometry
     updateGeometry();
     // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
-    myTAZShape = getShapeBevoreMoving();
+    myTAZShape = getShapeBeforeMoving();
     // finish geometry moving
     endTAZGeometryMoving();
     // commit new shape
@@ -611,7 +611,7 @@ GNETAZ::updateParentAdditional() {
 // ===========================================================================
 
 void
-GNETAZ::performTesselation(const GUIVisualizationSettings& s, double lineWidth) const {
+GNETAZ::performTesselation(const GUIVisualizationSettings& s, double /*lineWidth*/) const {
     const bool moveMode = (myViewNet->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE);
     if (myDrawFill && (!s.drawForPositionSelection || moveMode || myBlockShape)) {
         // draw the tesselated shape

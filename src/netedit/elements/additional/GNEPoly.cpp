@@ -136,7 +136,7 @@ GNEPoly::getPolyVertexIndex(Position pos, const bool snapToGrid) const {
 void
 GNEPoly::movePolyShape(const Position& offset) {
     // first obtain a copy of shapeBeforeMoving
-    PositionVector newShape = getShapeBevoreMoving();
+    PositionVector newShape = getShapeBeforeMoving();
     if (moveEntireShape()) {
         // move entire shape
         newShape.add(offset);
@@ -144,7 +144,7 @@ GNEPoly::movePolyShape(const Position& offset) {
         int geometryPointIndex = getGeometryPointIndex();
         // if geometryPoint is -1, then we have to create a new geometry point
         if (geometryPointIndex == -1) {
-            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBevoreMoving(), true);
+            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBeforeMoving(), true);
         }
         // get last index
         const int lastIndex = (int)newShape.size() - 1;
@@ -179,7 +179,7 @@ GNEPoly::commitPolyShapeChange(GNEUndoList* undoList) {
     // update geometry
     updateGeometry();
     // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
-    myShape = getShapeBevoreMoving();
+    myShape = getShapeBeforeMoving();
     // finish geometry moving
     endShapeGeometryMoving();
     // commit new shape

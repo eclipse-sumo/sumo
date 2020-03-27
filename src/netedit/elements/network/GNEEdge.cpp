@@ -337,7 +337,7 @@ GNEEdge::getEdgeVertexIndex(Position pos, const bool snapToGrid) const {
 void
 GNEEdge::moveEdgeShape(const Position& offset) {
     // first make a copy of myMovingShape
-    PositionVector newShape = getShapeBevoreMoving();
+    PositionVector newShape = getShapeBeforeMoving();
     // move entire shap if this edge and their junctions is selected
     const bool allSelected = mySelected && myGNEJunctionSource->isAttributeCarrierSelected() && myGNEJunctionDestiny->isAttributeCarrierSelected();
     if (moveEntireShape() || allSelected) {
@@ -347,7 +347,7 @@ GNEEdge::moveEdgeShape(const Position& offset) {
         int geometryPointIndex = getGeometryPointIndex();
         // if geometryPoint is -1, then we have to create a new geometry point
         if (geometryPointIndex == -1) {
-            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBevoreMoving(), true);
+            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBeforeMoving(), true);
         }
         // move geometry point within newShape
         newShape[geometryPointIndex].add(offset);
@@ -395,7 +395,7 @@ GNEEdge::commitEdgeShapeChange(GNEUndoList* undoList) {
 
     updateGeometry();
     // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
-    setGeometry(getShapeBevoreMoving(), true);
+    setGeometry(getShapeBeforeMoving(), true);
     // finish geometry moving
     endEdgeGeometryMoving();
     // commit new shape

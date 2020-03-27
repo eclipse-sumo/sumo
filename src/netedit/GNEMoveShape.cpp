@@ -29,27 +29,27 @@ GNEMoveShape::GNEMoveShape() :
 
 
 void 
-GNEMoveShape::startMoveShape(const PositionVector& shapeBevoreMoving, const double offsetMovingShape, const double sensibility) {
+GNEMoveShape::startMoveShape(const PositionVector& shapeBeforeMoving, const double offsetMovingShape, const double sensibility) {
     // update shape before moving
-    myShapeBevoreMoving = shapeBevoreMoving;
+    myShapeBeforeMoving = shapeBeforeMoving;
     // check if entire shape must be moved
     if (offsetMovingShape == -1) {
         myMoveEntireShape = true;
-    } else if (myShapeBevoreMoving.size() > 0) {
+    } else if (myShapeBeforeMoving.size() > 0) {
         myMoveEntireShape = false;
         // calculate position over shape
         if (offsetMovingShape <= 0) {
-            myPosOverShape = myShapeBevoreMoving.front();
-        } else if (offsetMovingShape >= getShapeBevoreMoving().length()) {
-            myPosOverShape = myShapeBevoreMoving.back();
+            myPosOverShape = myShapeBeforeMoving.front();
+        } else if (offsetMovingShape >= getShapeBeforeMoving().length()) {
+            myPosOverShape = myShapeBeforeMoving.back();
         } else {
-            myPosOverShape = shapeBevoreMoving.positionAtOffset2D(offsetMovingShape);
+            myPosOverShape = shapeBeforeMoving.positionAtOffset2D(offsetMovingShape);
         }
         // reset geometry point index
         myGeometryPointIndex = -1;
-        // check if in shapeBevoreMoving, for the given offsetMovingShape, there is a geometry point
-        for (int i = 0; i < (int)shapeBevoreMoving.size(); i++) {
-            if (shapeBevoreMoving[i].distanceSquaredTo2D(myPosOverShape) <= sensibility) {
+        // check if in shapeBeforeMoving, for the given offsetMovingShape, there is a geometry point
+        for (int i = 0; i < (int)shapeBeforeMoving.size(); i++) {
+            if (shapeBeforeMoving[i].distanceSquaredTo2D(myPosOverShape) <= sensibility) {
                 myGeometryPointIndex = i;
             }
         }
@@ -58,13 +58,13 @@ GNEMoveShape::startMoveShape(const PositionVector& shapeBevoreMoving, const doub
 
 
 const PositionVector&
-GNEMoveShape::getShapeBevoreMoving() const {
-    return myShapeBevoreMoving;
+GNEMoveShape::getShapeBeforeMoving() const {
+    return myShapeBeforeMoving;
 }
 
 
 const Position& 
-GNEMoveShape::getPosOverShapeBevoreMoving() const {
+GNEMoveShape::getPosOverShapeBeforeMoving() const {
     return myPosOverShape;
 }
 
