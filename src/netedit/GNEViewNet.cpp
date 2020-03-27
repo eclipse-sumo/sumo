@@ -526,7 +526,8 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
         scheme.clear();
         // add new thresholds
         if (hide) {
-            minValue = MAX2(hideThreshold + 1, minValue);
+            const double rawRange = maxValue - minValue;
+            minValue = MAX2(hideThreshold + MIN2(1.0, rawRange / 100.0), minValue);
             scheme.addColor(RGBColor(204, 204, 204), hideThreshold);
         }
         double range = maxValue - minValue;
