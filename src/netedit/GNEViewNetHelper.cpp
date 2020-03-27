@@ -619,7 +619,8 @@ GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues() {
     // assign clicked poly to polyToMove
     myPolyToMove = myViewNet->myObjectsUnderCursor.getPolyFront();
     // calculate polyShapeOffset
-    const double polyShapeOffset = myPolyToMove->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation());
+    double polyShapeOffset = myPolyToMove->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
+    // if polyShapeOffset is -1, then we clicked over
     // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
     if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
         // check if in the clicked position a geometry point exist
@@ -701,7 +702,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculateTAZValues() {
     // assign clicked TAZ to TAZToMove
     myTAZToMove = myViewNet->myObjectsUnderCursor.getTAZFront();
     // calculate TAZShapeOffset
-    const double TAZShapeOffset = myTAZToMove->getTAZShape().nearest_offset_to_point2D(myViewNet->getPositionInformation());
+    const double TAZShapeOffset = myTAZToMove->getTAZShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
     // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
     if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
         // check if in the clicked position a geometry point exist
