@@ -158,9 +158,12 @@ void
 GNETAZ::startTAZGeometryMoving(const double shapeOffset) {
     // save current centering boundary
     myMove.movingGeometryBoundary = getCenteringBoundary();
-    // save shape
-    myMovingShape = myTAZShape;
-    myMovingShapeOffset = shapeOffset;
+    // start move shape depending of block shape
+    if (myBlockShape) {
+        startMoveShape(myTAZShape, -1, myHintSize);
+    } else {
+        startMoveShape(myTAZShape, shapeOffset, myHintSize);
+    }
 }
 
 
@@ -205,62 +208,56 @@ GNETAZ::getTAZVertexIndex(Position pos, const bool snapToGrid) const {
 
 void
 GNETAZ::moveTAZShape(const Position& offset) {
-    // first amke a copy of myMovingShape
-    PositionVector newShape = myMovingShape;
-    if (myMovingShapeOffset == -1) {
+    // first obtain a copy of shapeBeforeMoving
+    PositionVector newShape = getShapeBevoreMoving();
+    if (moveEntireShape()) {
         // move entire shape
         newShape.add(offset);
-        // set new shape
-        myTAZShape = newShape;
-    } else if (myMovingShapeOffset > 0 && myMovingShapeOffset < myMovingShape.length()) {
-        // get position over newShape
-        const Position posOverMovingShape = newShape.positionAtOffset2D(myMovingShapeOffset);
-        // check if posOverMovingShape correspond to a geometry point
-        int geometryPoint = -1;
-        // first check if vertex already exists in the inner geometry
-        for (int i = 0; i < (int)newShape.size(); i++) {
-            if (newShape[i].distanceTo2D(posOverMovingShape) < myHintSize) {
-                geometryPoint = i;
-            }
-        }
+    } else {
+        int geometryPointIndex = getGeometryPointIndex();
         // if geometryPoint is -1, then we have to create a new geometry point
-        if (geometryPoint == -1) {
-            geometryPoint = newShape.insertAtClosest(posOverMovingShape, true);
+        if (geometryPointIndex == -1) {
+            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBevoreMoving(), true);
         }
-        // move geometry point within newShape
-        newShape[geometryPoint].add(offset);
-        // set new shape
-        myTAZShape = newShape;
+        // get last index
+        const int lastIndex = (int)newShape.size() - 1;
+        // check if we have to move first and last postion
+        if ((newShape.size() > 2) &&
+            ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
+            // move first and last position in newShape
+            newShape[0].add(offset);
+            newShape[lastIndex].add(offset);
+        } else {
+            // move geometry point within newShape
+            newShape[geometryPointIndex].add(offset);
+        }
     }
+    // set new TAZ shape
+    myTAZShape = newShape;
 }
 
 
 void
 GNETAZ::commitTAZShapeChange(GNEUndoList* undoList) {
     // restore original shape into shapeToCommit
-    PositionVector innerShapeToCommit = myTAZShape;
-    // first check if second and penultimate isn't in Junction's buubles
-    double buubleRadius = myHintSize * myViewNet->getVisualisationSettings().junctionSize.exaggeration;
-    if (myTAZShape.size() > 2 && myTAZShape[0].distanceTo2D(myTAZShape[1]) < buubleRadius) {
-        innerShapeToCommit.removeClosest(innerShapeToCommit[0]);
+    PositionVector shapeToCommit = myTAZShape;
+    // get geometryPoint radius
+    const double geometryPointRadius = myHintSize * myViewNet->getVisualisationSettings().junctionSize.exaggeration;
+    // remove double points
+    shapeToCommit.removeDoublePoints(geometryPointRadius);
+    // check if we have to merge start and end points
+    if ((shapeToCommit.front() != shapeToCommit.back()) && (shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < geometryPointRadius)) {
+        shapeToCommit[0] = shapeToCommit.back();
     }
-    if (myTAZShape.size() > 2 && myTAZShape[(int)myTAZShape.size() - 2].distanceTo2D(myTAZShape[(int)myTAZShape.size() - 1]) < buubleRadius) {
-        innerShapeToCommit.removeClosest(innerShapeToCommit[(int)innerShapeToCommit.size() - 1]);
-    }
-    // second check if double points has to be removed
-    innerShapeToCommit.removeDoublePoints(myHintSize);
-    // show warning if some of edge's shape was merged
-    if (innerShapeToCommit.size() != myTAZShape.size()) {
-        WRITE_WARNING("Merged TAZ's point")
-    }
+    // update geometry
     updateGeometry();
     // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
-    myTAZShape = innerShapeToCommit;
+    myTAZShape = getShapeBevoreMoving();
     // finish geometry moving
     endTAZGeometryMoving();
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_SHAPE, toString(innerShapeToCommit)));
+    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_SHAPE, toString(shapeToCommit)));
     undoList->p_end();
 }
 
@@ -340,20 +337,21 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         (s.scale * MAX2(TAZBoundary.getWidth(), TAZBoundary.getHeight())) >= s.polySize.minSize) {
         // push name
         glPushName(getGlID());
+        // check TAZ ssize
         if (myTAZShape.size() > 1) {
+            // push line matrix
             glPushMatrix();
-            glTranslated(0, 0, 128);
+            // translate to 0 (GLO_NETWORK)
+            glTranslated(0, 0, GLO_NETWORK);
+            // set color
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectionColor);
             } else {
                 GLHelper::setColor(myColor);
             }
-            GLHelper::drawLine(myTAZShape);
-
-            glPushMatrix();
-            glTranslated(0, 0, GLO_NETWORK);
             // recall tesselation
-            performTesselation(1);
+            performTesselation(s, 1);
+            // pop tesselation matrix
             glPopMatrix();
             // draw name
             drawName(myTAZShape.getPolygonCenter(), s.scale, s.polyName, s.angle);
@@ -378,7 +376,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             if (myBlockShape == false) {
                 // draw a boundary for moving using darkerColor
                 glPushMatrix();
-                glTranslated(0, 0, GLO_POLYGON + 0.01);
+                glTranslated(0, 0, GLO_TAZ);
                 GLHelper::setColor(darkerColor);
                 GLHelper::drawBoxLines(myTAZShape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
                 glPopMatrix();
@@ -387,7 +385,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                     for (const auto& TAZVertex : myTAZShape) {
                         if (!s.drawForRectangleSelection || (myViewNet->getPositionInformation().distanceSquaredTo2D(TAZVertex) <= (myHintSizeSquared + 2))) {
                             glPushMatrix();
-                            glTranslated(TAZVertex.x(), TAZVertex.y(), GLO_POLYGON + 0.02);
+                            glTranslated(TAZVertex.x(), TAZVertex.y(), GLO_TAZ + 0.01);
                             // Change color of vertex and flag mouseOverVertex if mouse is over vertex
                             if (modeMove && (TAZVertex.distanceTo2D(mousePosition) < myHintSize)) {
                                 mouseOverVertex = true;
@@ -404,7 +402,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                         // push matrix
                         glPushMatrix();
                         Position hintPos = myTAZShape.size() > 1 ? myTAZShape.positionAtOffset2D(myTAZShape.nearest_offset_to_point2D(mousePosition)) : myTAZShape[0];
-                        glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
+                        glTranslated(hintPos.x(), hintPos.y(), GLO_TAZ + 0.02);
                         GLHelper::setColor(invertedColor);
                         GLHelper:: drawFilledCircle(myHintSize, s.getCircleResolution());
                         glPopMatrix();
@@ -414,7 +412,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if ((myViewNet->getDottedAC() == this) || (myViewNet->getViewParent()->getTAZFrame()->getTAZCurrentModul()->getTAZ() == this)) {
-            GNEGeometry::drawShapeDottedContour(s, GLO_POLYGON + 1, TAZExaggeration, myDottedGeometry);
+            GNEGeometry::drawShapeDottedContour(s, GLO_TAZ + 1, TAZExaggeration, myDottedGeometry);
         }
         // pop name
         glPopName();
@@ -613,8 +611,9 @@ GNETAZ::updateParentAdditional() {
 // ===========================================================================
 
 void
-GNETAZ::performTesselation(double lineWidth) const {
-    if (myDrawFill) {
+GNETAZ::performTesselation(const GUIVisualizationSettings& s, double lineWidth) const {
+    const bool moveMode = (myViewNet->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE);
+    if (myDrawFill && (!s.drawForPositionSelection || moveMode || myBlockShape)) {
         // draw the tesselated shape
         double* points = new double[myTAZShape.size() * 3];
         GLUtesselator* tobj = gluNewTess();
@@ -638,9 +637,10 @@ GNETAZ::performTesselation(double lineWidth) const {
         gluDeleteTess(tobj);
         delete[] points;
     } else {
-        GLHelper::drawLine(myTAZShape);
-        GLHelper::drawBoxLines(myTAZShape, lineWidth);
+        // draw line around TAZ
+        GLHelper::drawBoxLines(myTAZShape, 1);
     }
+
 }
 
 

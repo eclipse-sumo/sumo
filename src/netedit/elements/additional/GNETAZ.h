@@ -20,6 +20,7 @@
 #pragma once
 #include "GNEAdditional.h"
 
+#include <netedit/GNEMoveShape.h>
 
 // ===========================================================================
 // class definitions
@@ -28,7 +29,7 @@
  * @class GNETAZ
  * Class for Traffic Assign Zones (TAZs)
  */
-class GNETAZ : public GNEAdditional {
+class GNETAZ : public GNEAdditional, public GNEMoveShape {
 
 public:
     /**@brief GNETAZ Constructor
@@ -174,12 +175,6 @@ protected:
     /// @brief TAZ shape
     PositionVector myTAZShape;
 
-    /// @brief variable used to save shape bevore moving (used to avoid inconsistences in GL Tree)
-    PositionVector myMovingShape;
-
-    /// @brief variable used to save moving shape offset
-    double myMovingShapeOffset;
-
     /// @brief flag for block shape
     bool myBlockShape;
 
@@ -215,7 +210,7 @@ private:
     double myAverageWeightSink;
 
     // @brief perform the tesselation / drawing
-    void performTesselation(double lineWidth) const;
+    void performTesselation(const GUIVisualizationSettings& s, double lineWidth) const;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
