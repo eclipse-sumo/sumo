@@ -565,7 +565,7 @@ GNEJunction::startGeometryMoving(bool extendToNeighbors) {
     // Iterate over affected Edges
     for (const auto& edge : affectedEdges) {
         // start geometry moving in edges
-        edge->startEdgeGeometryMoving(-1);
+        edge->startEdgeGeometryMoving(-1, false);
     }
 }
 

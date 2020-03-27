@@ -103,7 +103,7 @@ public:
     /// @name functions for edit geometry
     /// @{
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    void startEdgeGeometryMoving(const double shapeOffset);
+    void startEdgeGeometryMoving(const double shapeOffset, const bool invertOffset);
 
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
     void endEdgeGeometryMoving();

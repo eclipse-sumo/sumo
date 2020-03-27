@@ -661,14 +661,14 @@ GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues() {
             // set flag
             myViewNet->myMoveSingleElementValues.myMovingStartPos = true;
             // start geometry moving
-            myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset);
+            myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset, false);
             // edge values sucesfully calculated, then return true
             return true;
         } else if (myEdgeToMove->clickedOverShapeEnd(myViewNet->getPositionInformation())) {
             // set flag
             myViewNet->myMoveSingleElementValues.myMovingEndPos = true;
             // start geometry moving
-            myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset);
+            myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset, false);
             // edge values sucesfully calculated, then return true
             return true;
         } else {
@@ -677,7 +677,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues() {
                 // check if in the clicked position a geometry point exist
                 if (myEdgeToMove->getEdgeVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
                     // start geometry moving
-                    myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset);
+                    myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset, false);
                     // edge values sucesfully calculated, then return true
                     return true;
                 } else {
@@ -688,7 +688,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues() {
                 }
             } else {
                 // start geometry moving
-                myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset);
+                myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset, false);
                 // edge values sucesfully calculated, then return true
                 return true;
             }
@@ -756,15 +756,54 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
             // add edge into movedEdges
             myMovedEdges.push_back(edge);
             // start geometry moving
-            edge->startEdgeGeometryMoving(-1);
+            edge->startEdgeGeometryMoving(-1, false);
         }
     } else if (originAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        // get clicked edge
+        GNEEdge* clickedEdge = myViewNet->myObjectsUnderCursor.getEdgeFront();
+        GNEEdge* oppositeClickedEdge = clickedEdge->getOppositeEdge();
         // calculate edgeShapeOffset
-        const double edgeShapeOffset = myViewNet->myObjectsUnderCursor.getEdgeFront()->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
-        // if clicked element is a junction, move shapes of all selected edges
-        for (const auto& edge : myMovedEdges) {
+        const double edgeShapeOffset = clickedEdge->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
+        // make a set using of myMovedEdges
+        std::set<GNEEdge*> setMovedEdges(myMovedEdges.begin(), myMovedEdges.end());
+        // split edges in two groups
+        std::vector<GNEEdge*> groupNormalEdges;
+        std::vector<GNEEdge*> groupOppositeEdges;
+        // add clicked edge in group A
+        groupNormalEdges.push_back(clickedEdge);
+        // remove it from copyOfMovedEdges
+        setMovedEdges.erase(clickedEdge);
+        // if opposite edge is selected, add it in group B
+        if (oppositeClickedEdge && oppositeClickedEdge->isAttributeCarrierSelected()) {
+            groupOppositeEdges.push_back(clickedEdge->getOppositeEdge());
+            // remove it from copyOfMovedEdges
+            setMovedEdges.erase(oppositeClickedEdge);
+        }
+        // iterate over copyOfMovedEdges
+        while (setMovedEdges.size() > 0) {
+            // get first and opposite edge
+            GNEEdge* edge = (*setMovedEdges.begin());
+            GNEEdge* oppositeEdge = edge->getOppositeEdge();
+            // add edge in group A
+            groupNormalEdges.push_back(edge);
+            // check if oppositeEdge exist and is selected
+            if (oppositeEdge && oppositeEdge->isAttributeCarrierSelected()) {
+                // add opposite edge in group B
+                groupOppositeEdges.push_back(oppositeEdge);
+                // remove opposite edge from setMovedEdges
+                setMovedEdges.erase(oppositeEdge);
+            }
+            // pop back element
+            setMovedEdges.erase(edge);
+        }
+        // move shapes of both groups
+        for (const auto& edge : groupNormalEdges) {
             // start geometry moving
-            edge->startEdgeGeometryMoving(edgeShapeOffset);
+            edge->startEdgeGeometryMoving(edgeShapeOffset, false);
+        }
+        for (const auto& edge : groupOppositeEdges) {
+            // start geometry moving using an opposite offset
+            edge->startEdgeGeometryMoving(edgeShapeOffset, true);
         }
     }
 }

@@ -243,11 +243,15 @@ GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
 
 
 void
-GNEEdge::startEdgeGeometryMoving(const double shapeOffset) {
+GNEEdge::startEdgeGeometryMoving(const double shapeOffset, const bool invertOffset) {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape
-    startMoveShape(myNBEdge->getGeometry(), shapeOffset, SNAP_RADIUS);
+    if (invertOffset) {
+        startMoveShape(myNBEdge->getGeometry(), myNBEdge->getGeometry().length() - shapeOffset, SNAP_RADIUS);
+    } else {
+        startMoveShape(myNBEdge->getGeometry(), shapeOffset, SNAP_RADIUS);
+    }
     // Save current centering boundary of lanes (and their children)
     for (const auto &lane : myLanes) {
         lane->startGeometryMoving();
@@ -1619,7 +1623,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_SHAPE:
             // start geometry moving (because a new shape affect all child edges)
-            startEdgeGeometryMoving(-1);
+            startEdgeGeometryMoving(-1, false);
             // set new geometry
             setGeometry(parse<PositionVector>(value), true);
             // start geometry moving (because a new shape affect all child edges)
@@ -1667,7 +1671,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
                 newShapeStart = parse<Position>(value);
             }
             // start geometry moving (because a new shape affect all child edges)
-            startEdgeGeometryMoving(-1);
+            startEdgeGeometryMoving(-1, false);
             // set shape start position
             setShapeStartPos(newShapeStart);
             // end geometry moving
@@ -1683,7 +1687,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
                 newShapeEnd = parse<Position>(value);
             }
             // start geometry moving (because a new shape affect all child edges)
-            startEdgeGeometryMoving(-1);
+            startEdgeGeometryMoving(-1, false);
             // set shape end position
             setShapeEndPos(newShapeEnd);
             // end geometry moving
