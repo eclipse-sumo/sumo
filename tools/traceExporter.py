@@ -89,7 +89,7 @@ def procFCDStream(fcdstream, options):
     chosen = {}
     for q in fcdstream:
         pt = lt
-        lt = float(q.time)
+        lt = sumolib.miscutils.parseTime(q.time)
         if options.begin and options.begin > lt:
             continue  # do not export steps before a set begin
         if options.end and options.end <= lt:
