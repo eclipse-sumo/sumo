@@ -741,12 +741,6 @@ struct GNEViewNetHelper {
         /// @brief finish moving single elements in Network AND Demand mode
         void finishMoveSingleElement();
 
-        /// @brief original shape of element before start moving (used by polygons, edges, etc., needed for commmit position changes)
-        PositionVector originalShapeBeforeMoving;
-
-        /// @brief index moved
-        int movingIndexShape;
-
         /// @brief original position of geometry position (needed for commmit position changes)
         Position originalPositionInView;
 

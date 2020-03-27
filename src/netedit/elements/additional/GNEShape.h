@@ -94,10 +94,10 @@ public:
     /// @name functions for edit geometry
     /// @{
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    virtual void startGeometryMoving() = 0;
+    virtual void startShapeGeometryMoving(const double shapeOffset) = 0;
 
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    virtual void endGeometryMoving() = 0;
+    virtual void endShapeGeometryMoving() = 0;
 
     /**@brief update pre-computed geometry information
     * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens

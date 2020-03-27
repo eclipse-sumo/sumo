@@ -246,6 +246,7 @@ void
 GNEEdge::startEdgeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
+    // save shape
     myMovingShape = myNBEdge->getGeometry();
     myMovingShapeOffset = shapeOffset;
     // Save current centering boundary of lanes (and their children)

@@ -154,84 +154,119 @@ GNETAZ::commitGeometryMoving(GNEUndoList* undoList) {
 }
 
 
+void
+GNETAZ::startTAZGeometryMoving(const double shapeOffset) {
+    // save current centering boundary
+    myMove.movingGeometryBoundary = getCenteringBoundary();
+    // save shape
+    myMovingShape = myTAZShape;
+    myMovingShapeOffset = shapeOffset;
+}
+
+
+void
+GNETAZ::endTAZGeometryMoving() {
+    // check that endGeometryMoving was called only once
+    if (myMove.movingGeometryBoundary.isInitialised()) {
+        // Remove object from net
+        myViewNet->getNet()->removeGLObjectFromGrid(this);
+        // reset myMovingGeometryBoundary
+        myMove.movingGeometryBoundary.reset();
+        // add object into grid again (using the new centering boundary)
+        myViewNet->getNet()->addGLObjectIntoGrid(this);
+    }
+}
+
+
 int
-GNETAZ::moveVertexShape(const int index, const Position& oldPos, const Position& offset) {
-    // only move shape if block movement block shape are disabled
-    if (!myBlockMovement && !myBlockShape && (index != -1)) {
-        // check that index is correct before change position
-        if (index < (int)myTAZShape.size()) {
-            // save current moving Geometry Point
-            myCurrentMovingVertexIndex = index;
-            // if closed shape and cliked is first or last, move both giving more priority to first always
-            if ((index == 0 || index == (int)myTAZShape.size() - 1)) {
-                // Change position of first shape Geometry Point and filtern position using snap to active grid
-                myTAZShape.front() = oldPos;
-                myTAZShape.front().add(offset);
-                myTAZShape.front() = myViewNet->snapToActiveGrid(myTAZShape.front());
-                // Change position of last shape Geometry Point and filtern position using snap to active grid
-                myTAZShape.back() = oldPos;
-                myTAZShape.back().add(offset);
-                myTAZShape.back() = myViewNet->snapToActiveGrid(myTAZShape.back());
-            } else {
-                // change position of Geometry Point and filtern position using snap to active grid
-                myTAZShape[index] = oldPos;
-                myTAZShape[index].add(offset);
-                myTAZShape[index] = myViewNet->snapToActiveGrid(myTAZShape[index]);
+GNETAZ::getTAZVertexIndex(Position pos, const bool snapToGrid) const {
+    // check if position has to be snapped to grid
+    if (snapToGrid) {
+        pos = myViewNet->snapToActiveGrid(pos);
+    }
+    const double offset = myTAZShape.nearest_offset_to_point2D(pos, true);
+    if (offset == GeomHelper::INVALID_OFFSET) {
+        return -1;
+    }
+    Position newPos = myTAZShape.positionAtOffset2D(offset);
+    // first check if vertex already exists in the inner geometry
+    for (int i = 0; i < (int)myTAZShape.size(); i++) {
+        if (myTAZShape[i].distanceTo2D(newPos) < myHintSize) {
+            // index refers to inner geometry
+            if (i == 0 || i == (int)(myTAZShape.size() - 1)) {
+                return -1;
             }
-            // return index of moved Geometry Point
-            return index;
-        } else {
-            throw InvalidArgument("Index greater than shape size");
+            return i;
         }
-    } else {
-        return index;
+    }
+    return -1;
+}
+
+
+void
+GNETAZ::moveTAZShape(const Position& offset) {
+    // first amke a copy of myMovingShape
+    PositionVector newShape = myMovingShape;
+    if (myMovingShapeOffset == -1) {
+        // move entire shape
+        newShape.add(offset);
+        // set new shape
+        myTAZShape = newShape;
+    } else if (myMovingShapeOffset > 0 && myMovingShapeOffset < myMovingShape.length()) {
+        // get position over newShape
+        const Position posOverMovingShape = newShape.positionAtOffset2D(myMovingShapeOffset);
+        // check if posOverMovingShape correspond to a geometry point
+        int geometryPoint = -1;
+        // first check if vertex already exists in the inner geometry
+        for (int i = 0; i < (int)newShape.size(); i++) {
+            if (newShape[i].distanceTo2D(posOverMovingShape) < myHintSize) {
+                geometryPoint = i;
+            }
+        }
+        // if geometryPoint is -1, then we have to create a new geometry point
+        if (geometryPoint == -1) {
+            geometryPoint = newShape.insertAtClosest(posOverMovingShape, true);
+        }
+        // move geometry point within newShape
+        newShape[geometryPoint].add(offset);
+        // set new shape
+        myTAZShape = newShape;
     }
 }
 
 
 void
-GNETAZ::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
-    // only move shape if block movement is disabled and block shape is enabled
-    if (!myBlockMovement && myBlockShape) {
-        // restore original shape
-        myTAZShape = oldShape;
-        // change all points of the shape shape using offset
-        for (auto& i : myTAZShape) {
-            i.add(offset);
-        }
+GNETAZ::commitTAZShapeChange(GNEUndoList* undoList) {
+    // restore original shape into shapeToCommit
+    PositionVector innerShapeToCommit = myTAZShape;
+    // first check if second and penultimate isn't in Junction's buubles
+    double buubleRadius = myHintSize * myViewNet->getVisualisationSettings().junctionSize.exaggeration;
+    if (myTAZShape.size() > 2 && myTAZShape[0].distanceTo2D(myTAZShape[1]) < buubleRadius) {
+        innerShapeToCommit.removeClosest(innerShapeToCommit[0]);
     }
-}
-
-
-void
-GNETAZ::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList) {
-    if (!myBlockMovement) {
-        // disable current moving vertex
-        myCurrentMovingVertexIndex = -1;
-        // restore original shape into shapeToCommit
-        PositionVector shapeToCommit = myTAZShape;
-        // restore old shape in polygon (to avoid problems with RTree)
-        myTAZShape = oldShape;
-        // first check if double points has to be removed
-        shapeToCommit.removeDoublePoints(myHintSize);
-        if (shapeToCommit.size() != myTAZShape.size()) {
-            WRITE_WARNING("Merged shape's point")
-        }
-        // check if polygon has to be closed
-        if (shapeToCommit.size() > 1 && shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < (2 * myHintSize)) {
-            shapeToCommit.pop_back();
-            shapeToCommit.push_back(shapeToCommit.front());
-        }
-        // commit new shape
-        undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_SHAPE, toString(shapeToCommit)));
-        undoList->p_end();
+    if (myTAZShape.size() > 2 && myTAZShape[(int)myTAZShape.size() - 2].distanceTo2D(myTAZShape[(int)myTAZShape.size() - 1]) < buubleRadius) {
+        innerShapeToCommit.removeClosest(innerShapeToCommit[(int)innerShapeToCommit.size() - 1]);
     }
+    // second check if double points has to be removed
+    innerShapeToCommit.removeDoublePoints(myHintSize);
+    // show warning if some of edge's shape was merged
+    if (innerShapeToCommit.size() != myTAZShape.size()) {
+        WRITE_WARNING("Merged TAZ's point")
+    }
+    updateGeometry();
+    // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
+    myTAZShape = innerShapeToCommit;
+    // finish geometry moving
+    endTAZGeometryMoving();
+    // commit new shape
+    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_SHAPE, toString(innerShapeToCommit)));
+    undoList->p_end();
 }
 
 
 int
-GNETAZ::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
+GNETAZ::getVertexIndex(Position pos, bool snapToGrid) {
     // check if position has to be snapped to grid
     if (snapToGrid) {
         pos = myViewNet->snapToActiveGrid(pos);
@@ -242,12 +277,7 @@ GNETAZ::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
             return myTAZShape.indexOfClosest(i);
         }
     }
-    // if vertex doesn't exist, insert it
-    if (createIfNoExist) {
-        return myTAZShape.insertAtClosest(pos, true);
-    } else {
-        return -1;
-    }
+    return -1;
 }
 
 

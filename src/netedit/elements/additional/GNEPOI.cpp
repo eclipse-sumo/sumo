@@ -79,12 +79,12 @@ GNEPOI::generateChildID(SumoXMLTag childTag) {
 
 
 void
-GNEPOI::startGeometryMoving() {
+GNEPOI::startShapeGeometryMoving(const double /*shapeOffset*/) {
 }
 
 
 void
-GNEPOI::endGeometryMoving() {
+GNEPOI::endShapeGeometryMoving() {
 }
 
 

@@ -94,10 +94,10 @@ public:
     /// @name functions for edit geometry
     /// @{
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    void startGeometryMoving();
+    void startShapeGeometryMoving(const double shapeOffset);
 
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    void endGeometryMoving();
+    void endShapeGeometryMoving();
 
     /**@brief change the position of the element geometry without saving in undoList
     * @param[in] newPosition new position of geometry

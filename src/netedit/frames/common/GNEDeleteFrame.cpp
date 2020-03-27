@@ -216,11 +216,11 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                     objectsUnderCursor.getEdgeFront()->deleteEdgeGeometryPoint(clickedPosition);
                 }
             } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_POLY) {
-                if (objectsUnderCursor.getPolyFront()->getVertexIndex(clickedPosition, false, false) != -1) {
+                if (objectsUnderCursor.getPolyFront()->getVertexIndex(clickedPosition, false) != -1) {
                     objectsUnderCursor.getPolyFront()->deleteGeometryPoint(clickedPosition);
                 }
             } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-                if (objectsUnderCursor.getTAZFront()->getVertexIndex(clickedPosition, false, false) != -1) {
+                if (objectsUnderCursor.getTAZFront()->getVertexIndex(clickedPosition, false) != -1) {
                     objectsUnderCursor.getTAZFront()->deleteGeometryPoint(clickedPosition);
                 }
             }

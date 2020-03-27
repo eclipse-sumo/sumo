@@ -76,29 +76,27 @@ public:
     /// @name functions for edit geometry
     /// @{
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    void startGeometryMoving();
+    void startShapeGeometryMoving(const double shapeOffset);
 
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    void endGeometryMoving();
+    void endShapeGeometryMoving();
 
-    /**@brief change position of a vertex of shape without commiting change
-    * @param[in] index index of Vertex shape
-    * @param[in] newPos The new position of vertex
-    * @return index of vertex (in some cases index can change
+    /**@brief return index of geometry point placed in given position, or -1 if no exist
+    * @param pos position of new/existent vertex
+    * @param snapToGrid enable or disable snapToActiveGrid
+    * @return index of position vector
     */
-    int moveVertexShape(const int index, const Position& oldPos, const Position& offset);
+    int getPolyVertexIndex(Position pos, const bool snapToGrid) const;
 
-    /**@brief move entire shape without commiting change
-    * @param[in] oldShape the old shape of polygon before moving
+    /**@brief move shape
     * @param[in] offset the offset of movement
     */
-    void moveEntireShape(const PositionVector& oldShape, const Position& offset);
+    void movePolyShape(const Position& offset);
 
     /**@brief commit geometry changes in the attributes of an element after use of changeShapeGeometry(...)
-    * @param[in] oldShape the old shape of polygon
     * @param[in] undoList The undoList on which to register changes
     */
-    void commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList);
+    void commitPolyShapeChange(GNEUndoList* undoList);
     /// @}
 
     /// @name inherited from GNEShape
@@ -189,11 +187,10 @@ public:
 
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
      * @param pos position of new/existent vertex
-     * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
      * @param snapToGrid enable or disable snapToActiveGrid
      * @return index of position vector
      */
-    int getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid);
+    int getVertexIndex(Position pos, bool snapToGrid);
 
     /// @brief delete the geometry point closest to the given pos
     void deleteGeometryPoint(const Position& pos, bool allowUndo = true);
@@ -225,6 +222,12 @@ public:
 protected:
     /// @brief junction of which the shape is being edited (optional)
     GNENetworkElement* myNetworkElementShapeEdited;
+
+    /// @brief variable used to save shape bevore moving (used to avoid inconsistences in GL Tree)
+    PositionVector myMovingShape;
+
+    /// @brief variable used to save moving shape offset
+    double myMovingShapeOffset;
 
     /// @brief Latitude of Polygon
     PositionVector myGeoShape;

@@ -82,14 +82,17 @@ GNEPoly::generateChildID(SumoXMLTag childTag) {
 
 
 void
-GNEPoly::startGeometryMoving() {
+GNEPoly::startShapeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
+    // save shape
+    myMovingShape = myShape;
+    myMovingShapeOffset = shapeOffset;
 }
 
 
 void
-GNEPoly::endGeometryMoving() {
+GNEPoly::endShapeGeometryMoving() {
     // check that endGeometryMoving was called only once
     if (myMovingGeometryBoundary.isInitialised()) {
         // Remove object from net
@@ -103,87 +106,90 @@ GNEPoly::endGeometryMoving() {
 
 
 int
-GNEPoly::moveVertexShape(const int index, const Position& oldPos, const Position& offset) {
-    // only move shape if block movement block shape are disabled
-    if (!myBlockMovement && !myBlockShape && (index != -1)) {
-        // check that index is correct before change position
-        if (index < (int)myShape.size()) {
-            // save current moving Geometry Point
-            myCurrentMovingVertexIndex = index;
-            // if closed shape and cliked is first or last, move both giving more priority to first always
-            if (myClosedShape && (index == 0 || index == (int)myShape.size() - 1)) {
-                // Change position of first shape Geometry Point and filtern position using snap to active grid
-                myShape.front() = oldPos;
-                myShape.front().add(offset);
-                myShape.front() = myNet->getViewNet()->snapToActiveGrid(myShape[index]);
-                // Change position of last shape Geometry Point and filtern position using snap to active grid
-                myShape.back() = oldPos;
-                myShape.back().add(offset);
-                myShape.back() = myNet->getViewNet()->snapToActiveGrid(myShape[index]);
-            } else {
-                // change position of Geometry Point and filtern position using snap to active grid
-                myShape[index] = oldPos;
-                myShape[index].add(offset);
-                myShape[index] = myNet->getViewNet()->snapToActiveGrid(myShape[index]);
+GNEPoly::getPolyVertexIndex(Position pos, const bool snapToGrid) const {
+    // check if position has to be snapped to grid
+    if (snapToGrid) {
+        pos = myNet->getViewNet()->snapToActiveGrid(pos);
+    }
+    const double offset = myShape.nearest_offset_to_point2D(pos, true);
+    if (offset == GeomHelper::INVALID_OFFSET) {
+        return -1;
+    }
+    Position newPos = myShape.positionAtOffset2D(offset);
+    // first check if vertex already exists in the inner geometry
+    for (int i = 0; i < (int)myShape.size(); i++) {
+        if (myShape[i].distanceTo2D(newPos) < myHintSize) {
+            // index refers to inner geometry
+            if (i == 0 || i == (int)(myShape.size() - 1)) {
+                return -1;
             }
-            // return index of moved Geometry Point
-            return index;
-        } else {
-            throw InvalidArgument("Index greater than shape size");
+            return i;
         }
-    } else {
-        return index;
+    }
+    return -1;
+}
+
+
+void
+GNEPoly::movePolyShape(const Position& offset) {
+    // first amke a copy of myMovingShape
+    PositionVector newShape = myMovingShape;
+    if (myMovingShapeOffset == -1) {
+        // move entire shape
+        newShape.add(offset);
+        // set new shape
+        myShape = newShape;
+    } else if (myMovingShapeOffset > 0 && myMovingShapeOffset < myMovingShape.length()) {
+        // get position over newShape
+        const Position posOverMovingShape = newShape.positionAtOffset2D(myMovingShapeOffset);
+        // check if posOverMovingShape correspond to a geometry point
+        int geometryPoint = -1;
+        // first check if vertex already exists in the inner geometry
+        for (int i = 0; i < (int)newShape.size(); i++) {
+            if (newShape[i].distanceTo2D(posOverMovingShape) < myHintSize) {
+                geometryPoint = i;
+            }
+        }
+        // if geometryPoint is -1, then we have to create a new geometry point
+        if (geometryPoint == -1) {
+            geometryPoint = newShape.insertAtClosest(posOverMovingShape, true);
+        }
+        // move geometry point within newShape
+        newShape[geometryPoint].add(offset);
+        // set new shape
+        myShape = newShape;
     }
 }
 
 
 void
-GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
-    // only move shape if block movement is disabled and block shape is enabled
-    if (!myBlockMovement && myBlockShape) {
-        // restore original shape
-        myShape = oldShape;
-        // change all points of the shape shape using offset
-        for (auto& i : myShape) {
-            i.add(offset);
-        }
-        // update Geometry after moving
-        updateGeometry();
+GNEPoly::commitPolyShapeChange(GNEUndoList* undoList) {
+    // restore original shape into shapeToCommit
+    PositionVector innerShapeToCommit = myShape;
+    // first check if second and penultimate isn't in Junction's buubles
+    double buubleRadius = myHintSize * myNet->getViewNet()->getVisualisationSettings().junctionSize.exaggeration;
+    if (myShape.size() > 2 && myShape[0].distanceTo2D(myShape[1]) < buubleRadius) {
+        innerShapeToCommit.removeClosest(innerShapeToCommit[0]);
     }
-}
-
-
-void
-GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList) {
-    if (!myBlockMovement) {
-        // disable current moving vertex
-        myCurrentMovingVertexIndex = -1;
-        // restore original shape into shapeToCommit
-        PositionVector shapeToCommit = myShape;
-        // restore old shape in polygon (to avoid problems with RTree)
-        myShape = oldShape;
-        // first check if double points has to be removed
-        shapeToCommit.removeDoublePoints(myHintSize);
-        if (shapeToCommit.size() != myShape.size() && !myNet->getViewNet()->getEditShapes().editingNetworkElementShapes) {
-            WRITE_WARNING("Merged shape's point")
-        }
-
-        // check if polygon has to be closed
-        if (shapeToCommit.size() > 1 && shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < (2 * myHintSize)) {
-            shapeToCommit.pop_back();
-            shapeToCommit.push_back(shapeToCommit.front());
-        }
-        // only use GNEChange_Attribute if we aren't editing a junction's shape
-        if (myNetworkElementShapeEdited == nullptr) {
-            // commit new shape
-            undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
-            undoList->p_end();
-        } else {
-            // set new shape calling private setAttribute function
-            setAttribute(SUMO_ATTR_SHAPE, toString(shapeToCommit));
-        }
+    if (myShape.size() > 2 && myShape[(int)myShape.size() - 2].distanceTo2D(myShape[(int)myShape.size() - 1]) < buubleRadius) {
+        innerShapeToCommit.removeClosest(innerShapeToCommit[(int)innerShapeToCommit.size() - 1]);
     }
+    // second check if double points has to be removed
+    innerShapeToCommit.removeDoublePoints(myHintSize);
+    // show warning if some of edge's shape was merged
+    if (innerShapeToCommit.size() != myShape.size()) {
+        WRITE_WARNING("Merged poly's point")
+    }
+
+    updateGeometry();
+    // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
+    myShape = innerShapeToCommit;
+    // finish geometry moving
+    endShapeGeometryMoving();
+    // commit new shape
+    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+    undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_SHAPE, toString(innerShapeToCommit)));
+    undoList->p_end();
 }
 
 
@@ -271,7 +277,7 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         }
     }
     // create a extra FXMenuCommand if mouse is over a vertex
-    int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false, false);
+    int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
     if (index != -1) {
         FXMenuCommand* removeGeometryPoint = new FXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", nullptr, &parent, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT);
         FXMenuCommand* setFirstPoint = new FXMenuCommand(ret, "Set first geometry point\t\tSet", nullptr, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
@@ -428,7 +434,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
 
 
 int
-GNEPoly::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
+GNEPoly::getVertexIndex(Position pos, bool snapToGrid) {
     // check if position has to be snapped to grid
     if (snapToGrid) {
         pos = myNet->getViewNet()->snapToActiveGrid(pos);
@@ -439,12 +445,7 @@ GNEPoly::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
             return myShape.indexOfClosest(i);
         }
     }
-    // if vertex doesn't exist, insert it
-    if (createIfNoExist) {
-        return myShape.insertAtClosest(pos, true);
-    } else {
-        return -1;
-    }
+    return -1;
 }
 
 
