@@ -45,6 +45,8 @@ def get_options():
                          default="tripinfo", help="element to analyze")
     optParser.add_option("--attribute", type="string",
                          default="timeLoss", help="attribute to analyze")
+    optParser.add_option("--id-attribute", type="string", dest="idAttr",
+                         default="id", help="attribute to identify data elements")
     optParser.add_option("--binwidth", type="float",
                          default=50, help="binning width of result histogram")
     optParser.add_option("--hist-output", type="string",
@@ -56,28 +58,40 @@ def get_options():
     if len(args) != 1:
         sys.exit(USAGE)
 
-    options.tripinfos = args[0]
+    options.datafile = args[0]
     return options
 
 
 def main():
     options = get_options()
-    attribute_retriever = None
-
-    def attribute_retriever(tripinfo):
-        return
 
     vals = defaultdict(list)
     stats = Statistics("%s %ss" % (options.element, options.attribute), histogram=True, scale=options.binwidth)
-    for tripinfo in parse(options.tripinfos, options.element):
-        try:
-            val = float(tripinfo.getAttribute(options.attribute))
-        except:
-            val = sumolib.miscutils.parseTime(tripinfo.getAttribute(options.attribute))
-        vals[tripinfo.id].append(val)
-        stats.add(val, tripinfo.id)
+    missingAttr = set()
+    invalidType = set()
+    for element in parse(options.datafile, options.element, heterogeneous=True):
+        if element.hasAttribute(options.idAttr):
+            elementID = element.getAttribute(options.idAttr)
+        else:
+            elementID = None
+        if element.hasAttribute(options.attribute):
+            stringVal = element.getAttribute(options.attribute)
+            try:
+                val = sumolib.miscutils.parseTime(stringVal)
+                vals[elementID].append(val)
+                stats.add(val, elementID)
+            except:
+                invalidType.add(stringVal)
+        else:
+            missingAttr.add(elementID)
 
     print(stats)
+    if missingAttr:
+        print("%s elements did not provide attribute '%s' Example ids: %s" % (
+            len(missingAttr), options.attribute, sorted(missingAttr)[:10]))
+    if invalidType:
+        print("%s distinct values of attribute '%s' could not be interpreted as numerical value or time. Example values: %s" % (
+            len(invalidType), options.attribute, sorted(invalidType)[:10]))
 
     if options.hist_output is not None:
         with open(options.hist_output, 'w') as f:
