@@ -15,3 +15,6 @@ element
 
 # missing and invalid data
 data_issues
+
+# use fast parser
+fast
