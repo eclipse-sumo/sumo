@@ -334,10 +334,11 @@ void
 GNEEdge::moveEdgeShape(const Position& offset) {
     // first make a copy of myMovingShape
     PositionVector newShape = getShapeBevoreMoving();
-    if (moveEntireShape()) {
+    // move entire shap if this edge and their junctions is selected
+    const bool allSelected = mySelected && myGNEJunctionSource->isAttributeCarrierSelected() && myGNEJunctionDestiny->isAttributeCarrierSelected();
+    if (moveEntireShape() || allSelected) {
         // move entire shape
         newShape.add(offset);
-        /* selected */
     } else {
         int geometryPointIndex = getGeometryPointIndex();
         // if geometryPoint is -1, then we have to create a new geometry point
@@ -346,47 +347,26 @@ GNEEdge::moveEdgeShape(const Position& offset) {
         }
         // move geometry point within newShape
         newShape[geometryPointIndex].add(offset);
-        /* selected */
+        // check if edge is selected
+        if (isAttributeCarrierSelected()) {
+            // move more geometry points, depending if junctions are selected
+            if (myGNEJunctionSource->isAttributeCarrierSelected()) {
+                for (int i = 1; i < geometryPointIndex; i++) {
+                    newShape[i].add(offset);
+                }
+            }
+            if (myGNEJunctionDestiny->isAttributeCarrierSelected()) {
+                for (int i = (geometryPointIndex + 1); i < (int)newShape.size(); i++) {
+                    newShape[i].add(offset);
+                }
+            }
+        }
     }
     // pop front and back 
     newShape.pop_front();
     newShape.pop_back();
     // set new inner shape
     setGeometry(newShape, true);
-/*
-    // obtain inner geometry of edge
-    PositionVector edgeGeometry = myNBEdge->getInnerGeometry();
-    // Make sure that index is valid AND ins't the first and last index
-    if (index != -1) {
-        // check that index is correct before change position
-        if (index < (int)edgeGeometry.size()) {
-            // change position of vertex
-            edgeGeometry[index] = oldPos;
-            edgeGeometry[index].add(offset);
-            // filtern position using snap to active grid
-            edgeGeometry[index] = myNet->getViewNet()->snapToActiveGrid(edgeGeometry[index], offset.z() == 0);
-            // update edge's geometry without updating RTree (To avoid unnecesary changes in RTree)
-            setGeometry(edgeGeometry, true);
-            return index;
-        } else {
-            throw InvalidArgument("Index greater than shape size");
-        }
-    } else {
-        return index;
-    }
-
-    void
-    GNEEdge::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
-        // make a copy of the old shape to change it
-        PositionVector modifiedShape = oldShape;
-        // change all points of the inner geometry using offset
-        for (auto& i : modifiedShape) {
-            i.add(offset);
-        }
-        // restore modified shape
-        setGeometry(modifiedShape, true);
-    }
-*/
 }
 
 
