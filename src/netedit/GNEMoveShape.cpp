@@ -18,14 +18,8 @@
 // Class used for elements that own a movable shape
 /****************************************************************************/
 #include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNEJunction.h>
-#include <netedit/elements/network/GNELane.h>
-#include <netedit/elements/additional/GNEAdditional.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEMoveShape.h"
-#include "GNEViewNet.h"
 
 
 GNEMoveShape::GNEMoveShape() :
