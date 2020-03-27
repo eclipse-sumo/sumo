@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-
+#include <netedit/GNEMoveShape.h>
 #include <netedit/elements/GNEHierarchicalParentElements.h>
 #include <netedit/elements/GNEHierarchicalChildElements.h>
 
@@ -29,7 +29,8 @@
 // class definitions
 // ===========================================================================
 
-class GNEShape : public GNEAttributeCarrier, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
+class GNEShape : public GNEAttributeCarrier, public GNEMoveShape, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
+
 public:
     /**@brief Constructor.
      * @param[in] net The net to inform about gui updates

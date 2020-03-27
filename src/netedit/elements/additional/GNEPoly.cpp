@@ -85,9 +85,12 @@ void
 GNEPoly::startShapeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
-    // save shape
-    myMovingShape = myShape;
-    myMovingShapeOffset = shapeOffset;
+    // start move shape depending of block shape
+    if (myBlockShape) {
+        startMoveShape(myShape, -1, myHintSize);
+    } else {
+        startMoveShape(myShape, shapeOffset, myHintSize);
+    }
 }
 
 
@@ -132,63 +135,56 @@ GNEPoly::getPolyVertexIndex(Position pos, const bool snapToGrid) const {
 
 void
 GNEPoly::movePolyShape(const Position& offset) {
-    // first amke a copy of myMovingShape
-    PositionVector newShape = myMovingShape;
-    if (myMovingShapeOffset == -1) {
+    // first obtain a copy of shapeBeforeMoving
+    PositionVector newShape = getShapeBevoreMoving();
+    if (moveEntireShape()) {
         // move entire shape
         newShape.add(offset);
-        // set new shape
-        myShape = newShape;
-    } else if (myMovingShapeOffset > 0 && myMovingShapeOffset < myMovingShape.length()) {
-        // get position over newShape
-        const Position posOverMovingShape = newShape.positionAtOffset2D(myMovingShapeOffset);
-        // check if posOverMovingShape correspond to a geometry point
-        int geometryPoint = -1;
-        // first check if vertex already exists in the inner geometry
-        for (int i = 0; i < (int)newShape.size(); i++) {
-            if (newShape[i].distanceTo2D(posOverMovingShape) < myHintSize) {
-                geometryPoint = i;
-            }
-        }
+    } else {
+        int geometryPointIndex = getGeometryPointIndex();
         // if geometryPoint is -1, then we have to create a new geometry point
-        if (geometryPoint == -1) {
-            geometryPoint = newShape.insertAtClosest(posOverMovingShape, true);
+        if (geometryPointIndex == -1) {
+            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBevoreMoving(), true);
         }
-        // move geometry point within newShape
-        newShape[geometryPoint].add(offset);
-        // set new shape
-        myShape = newShape;
+        // get last index
+        const int lastIndex = (int)newShape.size() - 1;
+        // check if we have to move first and last postion
+        if ((newShape.size() > 2) && (newShape.front() == newShape.back()) && 
+            ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
+            // move first and last position in newShape
+            newShape[0].add(offset);
+            newShape[lastIndex] = newShape[0];
+        } else {
+            // move geometry point within newShape
+            newShape[geometryPointIndex].add(offset);
+        }
     }
+    // set new poly shape
+    myShape = newShape;
 }
 
 
 void
 GNEPoly::commitPolyShapeChange(GNEUndoList* undoList) {
     // restore original shape into shapeToCommit
-    PositionVector innerShapeToCommit = myShape;
-    // first check if second and penultimate isn't in Junction's buubles
-    double buubleRadius = myHintSize * myNet->getViewNet()->getVisualisationSettings().junctionSize.exaggeration;
-    if (myShape.size() > 2 && myShape[0].distanceTo2D(myShape[1]) < buubleRadius) {
-        innerShapeToCommit.removeClosest(innerShapeToCommit[0]);
+    PositionVector shapeToCommit = myShape;
+    // get geometryPoint radius
+    const double geometryPointRadius = myHintSize * myNet->getViewNet()->getVisualisationSettings().junctionSize.exaggeration;
+    // remove double points
+    shapeToCommit.removeDoublePoints(geometryPointRadius);
+    // check if we have to merge start and end points
+    if ((shapeToCommit.front() != shapeToCommit.back()) && (shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < geometryPointRadius)) {
+        shapeToCommit[0] = shapeToCommit.back();
     }
-    if (myShape.size() > 2 && myShape[(int)myShape.size() - 2].distanceTo2D(myShape[(int)myShape.size() - 1]) < buubleRadius) {
-        innerShapeToCommit.removeClosest(innerShapeToCommit[(int)innerShapeToCommit.size() - 1]);
-    }
-    // second check if double points has to be removed
-    innerShapeToCommit.removeDoublePoints(myHintSize);
-    // show warning if some of edge's shape was merged
-    if (innerShapeToCommit.size() != myShape.size()) {
-        WRITE_WARNING("Merged poly's point")
-    }
-
+    // update geometry
     updateGeometry();
     // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
-    myShape = innerShapeToCommit;
+    myShape = getShapeBevoreMoving();
     // finish geometry moving
     endShapeGeometryMoving();
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_SHAPE, toString(innerShapeToCommit)));
+    undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
     undoList->p_end();
 }
 
@@ -311,6 +307,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         const double vertexWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s, this));
         const double vertexWidthSquared = (vertexWidth * vertexWidth);
         const double contourWidth = (myHintSize / 4.0) * polyExaggeration;
+        const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE);
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
@@ -319,7 +316,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         // first check if inner polygon can be drawn
         if (s.drawForPositionSelection && getFill()) {
-            if (myShape.around(mousePosition)) {
+            if ((moveMode || myBlockShape) && myShape.around(mousePosition)) {
                 // push matrix
                 glPushMatrix();
                 glTranslated(mousePosition.x(), mousePosition.y(), GLO_POLYGON + 0.04);

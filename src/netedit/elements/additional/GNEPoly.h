@@ -223,12 +223,6 @@ protected:
     /// @brief junction of which the shape is being edited (optional)
     GNENetworkElement* myNetworkElementShapeEdited;
 
-    /// @brief variable used to save shape bevore moving (used to avoid inconsistences in GL Tree)
-    PositionVector myMovingShape;
-
-    /// @brief variable used to save moving shape offset
-    double myMovingShapeOffset;
-
     /// @brief Latitude of Polygon
     PositionVector myGeoShape;
 
