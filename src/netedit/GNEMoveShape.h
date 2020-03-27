@@ -46,7 +46,7 @@ public:
     const int& getGeometryPointIndex() const;
 
     /// @brief check if entire shape must be moved
-    const bool moveEntireShape() const;
+    bool moveEntireShape() const;
 
 private:
     /// @brief save shape bevore moving

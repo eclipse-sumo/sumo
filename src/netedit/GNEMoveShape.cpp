@@ -47,8 +47,6 @@ GNEMoveShape::startMoveShape(const PositionVector& shapeBevoreMoving, const doub
         }
         // reset geometry point index
         myGeometryPointIndex = -1;
-        // calculate sensibility squared
-        const double sensibilitySquared = (sensibility * sensibility);
         // check if in shapeBevoreMoving, for the given offsetMovingShape, there is a geometry point
         for (int i = 0; i < (int)shapeBevoreMoving.size(); i++) {
             if (shapeBevoreMoving[i].distanceSquaredTo2D(myPosOverShape) <= sensibility) {
@@ -77,7 +75,7 @@ GNEMoveShape::getGeometryPointIndex() const {
 }
 
 
-const bool 
+bool 
 GNEMoveShape::moveEntireShape() const {
     return myMoveEntireShape;
 }
