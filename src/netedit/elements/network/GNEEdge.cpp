@@ -246,28 +246,27 @@ void
 GNEEdge::startEdgeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
-    // save shape
-    myMovingShape = myNBEdge->getGeometry();
-    myMovingShapeOffset = shapeOffset;
+    // start move shape
+    startMoveShape(myNBEdge->getGeometry(), shapeOffset, SNAP_RADIUS);
     // Save current centering boundary of lanes (and their children)
-    for (auto i : myLanes) {
-        i->startGeometryMoving();
+    for (const auto &lane : myLanes) {
+        lane->startGeometryMoving();
     }
     // Save current centering boundary of additionals children vinculated to this edge
-    for (auto i : getChildAdditionals()) {
-        i->startGeometryMoving();
+    for (const auto &additional : getChildAdditionals()) {
+        additional->startGeometryMoving();
     }
     // Save current centering boundary of parent additionals that have this edge as parent
-    for (auto i : getParentAdditionals()) {
-        i->startGeometryMoving();
+    for (const auto &additional : getParentAdditionals()) {
+        additional->startGeometryMoving();
     }
     // Save current centering boundary of demand elements children vinculated to this edge
-    for (auto i : getChildDemandElements()) {
-        i->startGeometryMoving();
+    for (const auto &demandElement : getChildDemandElements()) {
+        demandElement->startGeometryMoving();
     }
     // Save current centering boundary of demand elements parents that have this edge as parent
-    for (auto i : getParentDemandElements()) {
-        i->startGeometryMoving();
+    for (const auto& demandElement : getParentDemandElements()) {
+        demandElement->startGeometryMoving();
     }
 }
 
@@ -281,24 +280,24 @@ GNEEdge::endEdgeGeometryMoving() {
         // reset myMovingGeometryBoundary
         myMovingGeometryBoundary.reset();
         // Restore centering boundary of lanes (and their children)
-        for (auto i : myLanes) {
-            i->endGeometryMoving();
+        for (const auto& lane : myLanes) {
+            lane->endGeometryMoving();
         }
         // Restore centering boundary of additionals children vinculated to this edge
-        for (auto i : getChildAdditionals()) {
-            i->endGeometryMoving();
+        for (const auto& additional : getChildAdditionals()) {
+            additional->endGeometryMoving();
         }
         // Restore centering boundary of parent additionals that have this edge as parent
-        for (auto i : getParentAdditionals()) {
-            i->endGeometryMoving();
+        for (const auto& additional : getParentAdditionals()) {
+            additional->endGeometryMoving();
         }
         // Restore centering boundary of demand elements children vinculated to this edge
-        for (auto i : getChildDemandElements()) {
-            i->endGeometryMoving();
+        for (const auto& demandElement : getChildDemandElements()) {
+            demandElement->endGeometryMoving();
         }
         // Restore centering boundary of demand elements parents that have this edge as parent
-        for (auto i : getParentDemandElements()) {
-            i->endGeometryMoving();
+        for (const auto& demandElement : getParentDemandElements()) {
+            demandElement->endGeometryMoving();
         }
         // add object into grid again (using the new centering boundary)
         myNet->addGLObjectIntoGrid(this);
@@ -333,39 +332,27 @@ GNEEdge::getEdgeVertexIndex(Position pos, const bool snapToGrid) const {
 
 void
 GNEEdge::moveEdgeShape(const Position& offset) {
-    // first amke a copy of myMovingShape
-    PositionVector newShape = myMovingShape;
-    if (myMovingShapeOffset == -1) {
+    // first make a copy of myMovingShape
+    PositionVector newShape = getShapeBevoreMoving();
+    if (moveEntireShape()) {
         // move entire shape
         newShape.add(offset);
-        // pop front and back 
-        newShape.pop_front();
-        newShape.pop_back();
-        // set new inner shape
-        setGeometry(newShape, true);
-    } else if (myMovingShapeOffset > 0 && myMovingShapeOffset < myMovingShape.length()) {
-        // get position over newShape
-        const Position posOverMovingShape = newShape.positionAtOffset2D(myMovingShapeOffset);
-        // check if posOverMovingShape correspond to a geometry point
-        int geometryPoint = -1;
-        // first check if vertex already exists in the inner geometry
-        for (int i = 0; i < (int)newShape.size(); i++) {
-            if (newShape[i].distanceTo2D(posOverMovingShape) < SNAP_RADIUS) {
-                geometryPoint = i;
-            }
-        }
+        /* selected */
+    } else {
+        int geometryPointIndex = getGeometryPointIndex();
         // if geometryPoint is -1, then we have to create a new geometry point
-        if (geometryPoint == -1) {
-            geometryPoint = newShape.insertAtClosest(posOverMovingShape, true);
+        if (geometryPointIndex == -1) {
+            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBevoreMoving(), true);
         }
         // move geometry point within newShape
-        newShape[geometryPoint].add(offset);
-        // pop front and back 
-        newShape.pop_front();
-        newShape.pop_back();
-        // set new inner shape
-        setGeometry(newShape, true);
+        newShape[geometryPointIndex].add(offset);
+        /* selected */
     }
+    // pop front and back 
+    newShape.pop_front();
+    newShape.pop_back();
+    // set new inner shape
+    setGeometry(newShape, true);
 /*
     // obtain inner geometry of edge
     PositionVector edgeGeometry = myNBEdge->getInnerGeometry();
@@ -424,7 +411,7 @@ GNEEdge::commitEdgeShapeChange(GNEUndoList* undoList) {
 
     updateGeometry();
     // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
-    setGeometry(myMovingShape, true);
+    setGeometry(getShapeBevoreMoving(), true);
     // finish geometry moving
     endEdgeGeometryMoving();
     // commit new shape

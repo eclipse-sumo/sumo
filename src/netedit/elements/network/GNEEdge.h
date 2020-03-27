@@ -19,9 +19,10 @@
 // Basically a container for an NBEdge with drawing and editing capabilities
 /****************************************************************************/
 #pragma once
-#include <netbuild/NBEdge.h>
-
 #include "GNENetworkElement.h"
+
+#include <netbuild/NBEdge.h>
+#include <netedit/GNEMoveShape.h>
 
 
 // ===========================================================================
@@ -32,8 +33,6 @@ class GNEJunction;
 class GNELane;
 class GNEConnection;
 class GNERouteProbe;
-class GNEVaporizer;
-class GNERerouter;
 class GNECrossing;
 
 // ===========================================================================
@@ -45,7 +44,7 @@ class GNECrossing;
  *
  * @see MSEdge
  */
-class GNEEdge : public GNENetworkElement {
+class GNEEdge : public GNENetworkElement, public GNEMoveShape {
 
     /// @brief Friend class
     friend class GNEChange_Lane;
@@ -317,12 +316,6 @@ public:
 protected:
     /// @brief the underlying NBEdge
     NBEdge* myNBEdge;
-
-    /// @brief variable used to save shape bevore moving (used to avoid inconsistences in GL Tree)
-    PositionVector myMovingShape;
-
-    /// @brief variable used to save moving shape offset
-    double myMovingShapeOffset;
 
     /// @brief pointer to GNEJunction source
     GNEJunction* myGNEJunctionSource;
