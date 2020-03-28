@@ -105,6 +105,8 @@ git push
 ```
 
 - Send us a [pull request on GitHub](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork)
+- Delete your fork, once the pull request is accepted or declined.
+- (If you wish to keep your fork consider adding a topic branch to your local copy and push it before submitting the pull request.)
 - More info may be found at
   <https://wiki.eclipse.org/Development_Resources/Contributing_via_Git>
 
