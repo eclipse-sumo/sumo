@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sat Mar 28 02:00:53 2020 by Eclipse SUMO duarouter Version v1_5_0+0988-75786a29d6
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.xml"/>
+        <alternatives-output value="routes.alt.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="1000.0"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00">
+        <route edges="-gneE4 -gneE3 -gneE2 NC"/>
+    </vehicle>
+    <vehicle id="1" depart="0.50">
+        <route edges="-gneE5 -gneE4 EC CW gneE0 gneE1"/>
+    </vehicle>
+    <vehicle id="2" depart="1.00">
+        <route edges="-gneE7 -gneE6 SC CS gneE6"/>
+    </vehicle>
+    <vehicle id="3" depart="1.50">
+        <route edges="-gneE1 -gneE0 WC CW gneE0"/>
+    </vehicle>
+    <vehicle id="4" depart="2.00">
+        <route edges="-gneE1 -gneE0 -gneE7 -gneE6 -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="5" depart="2.50">
+        <route edges="-gneE2 -gneE1 -gneE0"/>
+    </vehicle>
+    <vehicle id="6" depart="3.00">
+        <route edges="-gneE1 -gneE0 WC CS"/>
+    </vehicle>
+    <vehicle id="7" depart="3.50">
+        <route edges="gneE5 SC CW"/>
+    </vehicle>
+    <vehicle id="8" depart="4.00">
+        <route edges="-gneE1 -gneE0 WC CE EC"/>
+    </vehicle>
+    <vehicle id="9" depart="4.50">
+        <route edges="-gneE2 NC CS -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="10" depart="5.00">
+        <route edges="CS SC CW WC"/>
+    </vehicle>
+    <vehicle id="11" depart="5.50">
+        <route edges="-gneE1 -gneE0 WC CE -gneE3"/>
+    </vehicle>
+    <vehicle id="12" depart="6.00">
+        <route edges="gneE5 SC CE -gneE3"/>
+    </vehicle>
+    <vehicle id="13" depart="6.50">
+        <route edges="CE -gneE3"/>
+    </vehicle>
+    <vehicle id="14" depart="7.00">
+        <route edges="-gneE5 -gneE4 EC"/>
+    </vehicle>
+    <vehicle id="15" depart="7.50">
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
+    </vehicle>
+    <vehicle id="16" depart="8.00">
+        <route edges="EC CS -gneE5"/>
+    </vehicle>
+    <vehicle id="17" depart="8.50">
+        <route edges="-gneE4 -gneE3"/>
+    </vehicle>
+    <vehicle id="18" depart="9.00">
+        <route edges="CW -gneE7 -gneE6 -gneE5"/>
+    </vehicle>
+    <vehicle id="19" depart="9.50">
+        <route edges="SC CW -gneE7"/>
+    </vehicle>
+    <vehicle id="20" depart="10.00">
+        <route edges="-gneE4 EC"/>
+    </vehicle>
+    <vehicle id="21" depart="10.50">
+        <route edges="SC CW gneE0"/>
+    </vehicle>
+    <vehicle id="22" depart="11.00">
+        <route edges="EC CE gneE4"/>
+    </vehicle>
+    <vehicle id="23" depart="11.50">
+        <route edges="-gneE2"/>
+    </vehicle>
+    <vehicle id="24" depart="12.00">
+        <route edges="SC CW -gneE7"/>
+    </vehicle>
+    <vehicle id="25" depart="12.50">
+        <route edges="gneE4 gneE5 SC CE -gneE3"/>
+    </vehicle>
+    <vehicle id="26" depart="13.00">
+        <route edges="-gneE6 SC CE gneE4 gneE5"/>
+    </vehicle>
+    <vehicle id="27" depart="13.50">
+        <route edges="CS SC CN -gneE1"/>
+    </vehicle>
+    <vehicle id="28" depart="14.00">
+        <route edges="NC CE EC"/>
+    </vehicle>
+    <vehicle id="29" depart="14.50">
+        <route edges="-gneE6 SC CW WC"/>
+    </vehicle>
+    <vehicle id="30" depart="15.00">
+        <route edges="-gneE4 EC CE"/>
+    </vehicle>
+    <vehicle id="31" depart="15.50">
+        <route edges="gneE2 gneE3 EC CW -gneE7"/>
+    </vehicle>
+    <vehicle id="32" depart="16.00">
+        <route edges="gneE6 gneE7 WC CN"/>
+    </vehicle>
+    <vehicle id="33" depart="16.50">
+        <route edges="-gneE1 -gneE0 WC CW"/>
+    </vehicle>
+    <vehicle id="34" depart="17.00">
+        <route edges="gneE4 gneE5 SC"/>
+    </vehicle>
+    <vehicle id="35" depart="17.50">
+        <route edges="-gneE4 EC"/>
+    </vehicle>
+    <vehicle id="36" depart="18.00">
+        <route edges="CW WC CN gneE2"/>
+    </vehicle>
+    <vehicle id="37" depart="18.50">
+        <route edges="NC CE gneE4"/>
+    </vehicle>
+    <vehicle id="38" depart="19.00">
+        <route edges="gneE5 SC CS"/>
+    </vehicle>
+    <vehicle id="39" depart="19.50">
+        <route edges="gneE1 NC CW -gneE7 -gneE6"/>
+    </vehicle>
+    <vehicle id="40" depart="20.00">
+        <route edges="gneE4 gneE5 gneE6"/>
+    </vehicle>
+    <vehicle id="41" depart="20.50">
+        <route edges="gneE0 gneE1 NC CW -gneE7"/>
+    </vehicle>
+    <vehicle id="42" depart="21.00">
+        <route edges="CS SC CN NC"/>
+    </vehicle>
+    <vehicle id="43" depart="21.50">
+        <route edges="gneE0 gneE1 NC CW -gneE7"/>
+    </vehicle>
+    <vehicle id="44" depart="22.00">
+        <route edges="gneE2 gneE3 EC CW -gneE7"/>
+    </vehicle>
+    <vehicle id="45" depart="22.50">
+        <route edges="-gneE5 -gneE4 EC CN gneE2"/>
+    </vehicle>
+    <vehicle id="46" depart="23.00">
+        <route edges="CW -gneE7 -gneE6 -gneE5"/>
+    </vehicle>
+    <vehicle id="47" depart="23.50">
+        <route edges="CS"/>
+    </vehicle>
+    <vehicle id="48" depart="24.00">
+        <route edges="gneE0 gneE1 NC CE -gneE3 -gneE2"/>
+    </vehicle>
+    <vehicle id="49" depart="24.50">
+        <route edges="gneE0 gneE1 NC CE -gneE3 -gneE2"/>
+    </vehicle>
+    <vehicle id="50" depart="25.00">
+        <route edges="-gneE0 WC CE gneE4 gneE5"/>
+    </vehicle>
+    <vehicle id="51" depart="25.50">
+        <route edges="-gneE6 SC"/>
+    </vehicle>
+    <vehicle id="52" depart="26.00">
+        <route edges="-gneE0 -gneE7 -gneE6 SC"/>
+    </vehicle>
+    <vehicle id="53" depart="26.50">
+        <route edges="-gneE1 -gneE0 -gneE7"/>
+    </vehicle>
+    <vehicle id="54" depart="27.00">
+        <route edges="gneE5 gneE6 gneE7"/>
+    </vehicle>
+    <vehicle id="55" depart="27.50">
+        <route edges="gneE4 gneE5 SC CS -gneE5"/>
+    </vehicle>
+    <vehicle id="56" depart="28.00">
+        <route edges="CW WC CE EC"/>
+    </vehicle>
+    <vehicle id="57" depart="28.50">
+        <route edges="-gneE2 NC"/>
+    </vehicle>
+    <vehicle id="58" depart="29.00">
+        <route edges="-gneE3 -gneE2 NC CW gneE0"/>
+    </vehicle>
+    <vehicle id="59" depart="29.50">
+        <route edges="gneE3 EC CW WC"/>
+    </vehicle>
+    <vehicle id="60" depart="30.00">
+        <route edges="-gneE1 -gneE0 WC CE -gneE3 -gneE2"/>
+    </vehicle>
+    <vehicle id="61" depart="30.50">
+        <route edges="-gneE5 -gneE4 EC CS"/>
+    </vehicle>
+    <vehicle id="62" depart="31.00">
+        <route edges="-gneE6 SC CE gneE4 gneE5"/>
+    </vehicle>
+    <vehicle id="63" depart="31.50">
+        <route edges="CN NC CS -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="64" depart="32.00">
+        <route edges="CS SC CE gneE4 gneE5"/>
+    </vehicle>
+    <vehicle id="65" depart="32.50">
+        <route edges="SC CN"/>
+    </vehicle>
+    <vehicle id="66" depart="33.00">
+        <route edges="gneE7 WC CS"/>
+    </vehicle>
+    <vehicle id="67" depart="33.50">
+        <route edges="gneE0 gneE1 NC"/>
+    </vehicle>
+    <vehicle id="68" depart="34.00">
+        <route edges="WC CW -gneE7"/>
+    </vehicle>
+    <vehicle id="69" depart="34.50">
+        <route edges="CW gneE0"/>
+    </vehicle>
+    <vehicle id="70" depart="35.00">
+        <route edges="SC"/>
+    </vehicle>
+    <vehicle id="71" depart="35.50">
+        <route edges="-gneE0 -gneE7 -gneE6 -gneE5"/>
+    </vehicle>
+    <vehicle id="72" depart="36.00">
+        <route edges="NC CN gneE2 gneE3"/>
+    </vehicle>
+    <vehicle id="73" depart="36.50">
+        <route edges="gneE2 gneE3 gneE4 gneE5"/>
+    </vehicle>
+    <vehicle id="74" depart="37.00">
+        <route edges="-gneE4 -gneE3 -gneE2 -gneE1"/>
+    </vehicle>
+    <vehicle id="75" depart="37.50">
+        <route edges="CN NC CW gneE0"/>
+    </vehicle>
+    <vehicle id="76" depart="38.00">
+        <route edges="CN NC CE -gneE3"/>
+    </vehicle>
+    <vehicle id="77" depart="38.50">
+        <route edges="gneE3 EC CE"/>
+    </vehicle>
+    <vehicle id="78" depart="39.00">
+        <route edges="-gneE5 -gneE4 EC CW gneE0 gneE1"/>
+    </vehicle>
+    <vehicle id="79" depart="39.50">
+        <route edges="gneE7 WC CW -gneE7 -gneE6"/>
+    </vehicle>
+    <vehicle id="80" depart="40.00">
+        <route edges="CE EC CW WC"/>
+    </vehicle>
+    <vehicle id="81" depart="40.50">
+        <route edges="NC CE gneE4"/>
+    </vehicle>
+    <vehicle id="82" depart="41.00">
+        <route edges="CN gneE2 gneE3"/>
+    </vehicle>
+    <vehicle id="83" depart="41.50">
+        <route edges="-gneE3"/>
+    </vehicle>
+    <vehicle id="84" depart="42.00">
+        <route edges="CE EC CS SC"/>
+    </vehicle>
+    <vehicle id="85" depart="42.50">
+        <route edges="gneE3 EC CW gneE0 gneE1"/>
+    </vehicle>
+    <vehicle id="86" depart="43.00">
+        <route edges="-gneE6 -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="87" depart="43.50">
+        <route edges="CE EC CS gneE6 gneE7"/>
+    </vehicle>
+    <vehicle id="88" depart="44.00">
+        <route edges="NC CS"/>
+    </vehicle>
+    <vehicle id="89" depart="44.50">
+        <route edges="-gneE6 SC CN"/>
+    </vehicle>
+    <vehicle id="90" depart="45.00">
+        <route edges="-gneE4 EC CN gneE2"/>
+    </vehicle>
+    <vehicle id="91" depart="45.50">
+        <route edges="-gneE3 -gneE2 NC CE gneE4"/>
+    </vehicle>
+    <vehicle id="92" depart="46.00">
+        <route edges="gneE7 WC CE -gneE3 -gneE2"/>
+    </vehicle>
+    <vehicle id="93" depart="46.50">
+        <route edges="gneE4 gneE5 SC CS -gneE5"/>
+    </vehicle>
+    <vehicle id="94" depart="47.00">
+        <route edges="-gneE1 -gneE0 -gneE7 -gneE6 -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="95" depart="47.50">
+        <route edges="CS gneE6 gneE7"/>
+    </vehicle>
+    <vehicle id="96" depart="48.00">
+        <route edges="CS SC CN -gneE1"/>
+    </vehicle>
+    <vehicle id="97" depart="48.50">
+        <route edges="CW WC CE gneE4"/>
+    </vehicle>
+    <vehicle id="98" depart="49.00">
+        <route edges="gneE5 SC CS"/>
+    </vehicle>
+    <vehicle id="99" depart="49.50">
+        <route edges="-gneE2 NC CE -gneE3"/>
+    </vehicle>
+    <vehicle id="100" depart="50.00">
+        <route edges="gneE0 gneE1 NC CS -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="101" depart="50.50">
+        <route edges="-gneE0 WC CE"/>
+    </vehicle>
+    <vehicle id="102" depart="51.00">
+        <route edges="gneE1 NC CS gneE6"/>
+    </vehicle>
+    <vehicle id="103" depart="51.50">
+        <route edges="-gneE7 -gneE6 SC CS gneE6"/>
+    </vehicle>
+    <vehicle id="104" depart="52.00">
+        <route edges="-gneE1"/>
+    </vehicle>
+    <vehicle id="105" depart="52.50">
+        <route edges="-gneE6 SC CW WC"/>
+    </vehicle>
+    <vehicle id="106" depart="53.00">
+        <route edges="-gneE7 -gneE6 SC CS gneE6 gneE7"/>
+    </vehicle>
+    <vehicle id="107" depart="53.50">
+        <route edges="-gneE0 -gneE7 -gneE6"/>
+    </vehicle>
+    <vehicle id="108" depart="54.00">
+        <route edges="NC CE"/>
+    </vehicle>
+    <vehicle id="109" depart="54.50">
+        <route edges="gneE5 SC CN gneE2"/>
+    </vehicle>
+    <vehicle id="110" depart="55.00">
+        <route edges="gneE6 gneE7 WC CW -gneE7 -gneE6"/>
+    </vehicle>
+    <vehicle id="111" depart="55.50">
+        <route edges="gneE4 gneE5 SC CS -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="112" depart="56.00">
+        <route edges="-gneE4 EC CE gneE4 gneE5"/>
+    </vehicle>
+    <vehicle id="113" depart="56.50">
+        <route edges="NC CS SC"/>
+    </vehicle>
+    <vehicle id="114" depart="57.00">
+        <route edges="gneE4 gneE5 SC CE -gneE3 -gneE2"/>
+    </vehicle>
+    <vehicle id="115" depart="57.50">
+        <route edges="CE -gneE3 -gneE2 -gneE1"/>
+    </vehicle>
+    <vehicle id="116" depart="58.00">
+        <route edges="-gneE0 WC CW"/>
+    </vehicle>
+    <vehicle id="117" depart="58.50">
+        <route edges="CS SC CN gneE2 gneE3"/>
+    </vehicle>
+    <vehicle id="118" depart="59.00">
+        <route edges="gneE0 gneE1 NC"/>
+    </vehicle>
+    <vehicle id="119" depart="59.50">
+        <route edges="EC CE"/>
+    </vehicle>
+    <vehicle id="120" depart="60.00">
+        <route edges="gneE4 gneE5 SC CN gneE2 gneE3"/>
+    </vehicle>
+    <vehicle id="121" depart="60.50">
+        <route edges="-gneE7 -gneE6 SC CS"/>
+    </vehicle>
+    <vehicle id="122" depart="61.00">
+        <route edges="CN NC CE EC"/>
+    </vehicle>
+    <vehicle id="123" depart="61.50">
+        <route edges="WC CS SC"/>
+    </vehicle>
+    <vehicle id="124" depart="62.00">
+        <route edges="gneE2 gneE3 EC CW -gneE7 -gneE6"/>
+    </vehicle>
+    <vehicle id="125" depart="62.50">
+        <route edges="CS SC CW -gneE7"/>
+    </vehicle>
+    <vehicle id="126" depart="63.00">
+        <route edges="-gneE5 -gneE4 EC CE gneE4 gneE5"/>
+    </vehicle>
+    <vehicle id="127" depart="63.50">
+        <route edges="gneE4 gneE5 SC CN -gneE1 -gneE0"/>
+    </vehicle>
+    <vehicle id="128" depart="64.00">
+        <route edges="gneE6 gneE7"/>
+    </vehicle>
+    <vehicle id="129" depart="64.50">
+        <route edges="-gneE4 EC CW -gneE7 -gneE6"/>
+    </vehicle>
+    <vehicle id="130" depart="65.00">
+        <route edges="gneE3 EC CS gneE6 gneE7"/>
+    </vehicle>
+    <vehicle id="131" depart="65.50">
+        <route edges="NC CW gneE0"/>
+    </vehicle>
+    <vehicle id="132" depart="66.00">
+        <route edges="-gneE4 -gneE3 -gneE2 -gneE1"/>
+    </vehicle>
+    <vehicle id="133" depart="66.50">
+        <route edges="CS -gneE5 -gneE4 -gneE3"/>
+    </vehicle>
+    <vehicle id="134" depart="67.00">
+        <route edges="-gneE2 -gneE1 -gneE0 -gneE7 -gneE6"/>
+    </vehicle>
+    <vehicle id="135" depart="67.50">
+        <route edges="EC CW gneE0 gneE1"/>
+    </vehicle>
+    <vehicle id="136" depart="68.00">
+        <route edges="CE -gneE3"/>
+    </vehicle>
+    <vehicle id="137" depart="68.50">
+        <route edges="CS SC CN gneE2 gneE3"/>
+    </vehicle>
+    <vehicle id="138" depart="69.00">
+        <route edges="-gneE1 -gneE0 WC CW gneE0"/>
+    </vehicle>
+    <vehicle id="139" depart="69.50">
+        <route edges="-gneE7 -gneE6 SC CW WC"/>
+    </vehicle>
+    <vehicle id="140" depart="70.00">
+        <route edges="-gneE5 -gneE4 -gneE3 -gneE2 -gneE1"/>
+    </vehicle>
+    <vehicle id="141" depart="70.50">
+        <route edges="CW WC CE EC"/>
+    </vehicle>
+    <vehicle id="142" depart="71.00">
+        <route edges="CE EC CS gneE6"/>
+    </vehicle>
+    <vehicle id="143" depart="71.50">
+        <route edges="gneE5 SC CN"/>
+    </vehicle>
+    <vehicle id="144" depart="72.00">
+        <route edges="-gneE7 -gneE6 SC CW"/>
+    </vehicle>
+    <vehicle id="145" depart="72.50">
+        <route edges="WC CN -gneE1"/>
+    </vehicle>
+    <vehicle id="146" depart="73.00">
+        <route edges="-gneE1 -gneE0 WC CE -gneE3"/>
+    </vehicle>
+    <vehicle id="147" depart="73.50">
+        <route edges="-gneE5 -gneE4 EC CE gneE4"/>
+    </vehicle>
+    <vehicle id="148" depart="74.00">
+        <route edges="-gneE7 -gneE6 -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="149" depart="74.50">
+        <route edges="-gneE2 NC CE"/>
+    </vehicle>
+    <vehicle id="150" depart="75.00">
+        <route edges="CS SC CW gneE0 gneE1"/>
+    </vehicle>
+    <vehicle id="151" depart="75.50">
+        <route edges="-gneE3 -gneE2 NC CS -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="152" depart="76.00">
+        <route edges="gneE6 gneE7 WC CN gneE2"/>
+    </vehicle>
+    <vehicle id="153" depart="76.50">
+        <route edges="-gneE2 NC CE gneE4"/>
+    </vehicle>
+    <vehicle id="154" depart="77.00">
+        <route edges="CE EC CW gneE0"/>
+    </vehicle>
+    <vehicle id="155" depart="77.50">
+        <route edges="gneE5"/>
+    </vehicle>
+    <vehicle id="156" depart="78.00">
+        <route edges="-gneE0 WC CE gneE4 gneE5"/>
+    </vehicle>
+    <vehicle id="157" depart="78.50">
+        <route edges="-gneE6 SC CN gneE2 gneE3"/>
+    </vehicle>
+    <vehicle id="158" depart="79.00">
+        <route edges="-gneE4 EC CS gneE6 gneE7"/>
+    </vehicle>
+    <vehicle id="159" depart="79.50">
+        <route edges="gneE5 SC CS"/>
+    </vehicle>
+    <vehicle id="160" depart="80.00">
+        <route edges="NC CE"/>
+    </vehicle>
+    <vehicle id="161" depart="80.50">
+        <route edges="WC CN gneE2 gneE3"/>
+    </vehicle>
+    <vehicle id="162" depart="81.00">
+        <route edges="-gneE7 -gneE6 -gneE5 -gneE4 -gneE3 -gneE2"/>
+    </vehicle>
+    <vehicle id="163" depart="81.50">
+        <route edges="gneE1 NC CW WC"/>
+    </vehicle>
+    <vehicle id="164" depart="82.00">
+        <route edges="-gneE2 NC CN"/>
+    </vehicle>
+    <vehicle id="165" depart="82.50">
+        <route edges="gneE7 WC CN -gneE1"/>
+    </vehicle>
+    <vehicle id="166" depart="83.00">
+        <route edges="CE EC"/>
+    </vehicle>
+    <vehicle id="167" depart="83.50">
+        <route edges="CE EC CW WC"/>
+    </vehicle>
+    <vehicle id="168" depart="84.00">
+        <route edges="gneE0 gneE1 NC CS"/>
+    </vehicle>
+    <vehicle id="169" depart="84.50">
+        <route edges="-gneE4 EC CW -gneE7"/>
+    </vehicle>
+    <vehicle id="170" depart="85.00">
+        <route edges="CS SC CE gneE4 gneE5"/>
+    </vehicle>
+    <vehicle id="171" depart="85.50">
+        <route edges="gneE4 gneE5 SC CW gneE0 gneE1"/>
+    </vehicle>
+    <vehicle id="172" depart="86.00">
+        <route edges="WC CN gneE2"/>
+    </vehicle>
+    <vehicle id="173" depart="86.50">
+        <route edges="gneE5 SC CE -gneE3 -gneE2"/>
+    </vehicle>
+    <vehicle id="174" depart="87.00">
+        <route edges="gneE4 gneE5 SC CS"/>
+    </vehicle>
+    <vehicle id="175" depart="87.50">
+        <route edges="CS SC CE"/>
+    </vehicle>
+    <vehicle id="176" depart="88.00">
+        <route edges="gneE2 gneE3 EC CE"/>
+    </vehicle>
+    <vehicle id="177" depart="88.50">
+        <route edges="gneE3 EC"/>
+    </vehicle>
+    <vehicle id="178" depart="89.00">
+        <route edges="-gneE1 -gneE0 WC CS gneE6 gneE7"/>
+    </vehicle>
+    <vehicle id="179" depart="89.50">
+        <route edges="gneE4"/>
+    </vehicle>
+    <vehicle id="180" depart="90.00">
+        <route edges="EC CS SC"/>
+    </vehicle>
+    <vehicle id="181" depart="90.50">
+        <route edges="-gneE5 -gneE4 -gneE3"/>
+    </vehicle>
+    <vehicle id="182" depart="91.00">
+        <route edges="gneE0 gneE1 NC CN"/>
+    </vehicle>
+    <vehicle id="183" depart="91.50">
+        <route edges="gneE2 gneE3 EC CS"/>
+    </vehicle>
+    <vehicle id="184" depart="92.00">
+        <route edges="-gneE0 WC CE -gneE3"/>
+    </vehicle>
+    <vehicle id="185" depart="92.50">
+        <route edges="CW WC CE"/>
+    </vehicle>
+    <vehicle id="186" depart="93.00">
+        <route edges="gneE3 EC CS"/>
+    </vehicle>
+    <vehicle id="187" depart="93.50">
+        <route edges="-gneE2 NC CS"/>
+    </vehicle>
+    <vehicle id="188" depart="94.00">
+        <route edges="gneE7 WC CN"/>
+    </vehicle>
+    <vehicle id="189" depart="94.50">
+        <route edges="gneE7 WC CS SC"/>
+    </vehicle>
+    <vehicle id="190" depart="95.00">
+        <route edges="-gneE3 -gneE2 NC CS gneE6 gneE7"/>
+    </vehicle>
+    <vehicle id="191" depart="95.50">
+        <route edges="EC CW WC"/>
+    </vehicle>
+    <vehicle id="192" depart="96.00">
+        <route edges="gneE3 gneE4 gneE5"/>
+    </vehicle>
+    <vehicle id="193" depart="96.50">
+        <route edges="-gneE3 -gneE2 -gneE1 -gneE0"/>
+    </vehicle>
+    <vehicle id="194" depart="97.00">
+        <route edges="gneE5 SC CN NC"/>
+    </vehicle>
+    <vehicle id="195" depart="97.50">
+        <route edges="-gneE1 -gneE0"/>
+    </vehicle>
+    <vehicle id="196" depart="98.00">
+        <route edges="gneE4 gneE5 gneE6 gneE7"/>
+    </vehicle>
+    <vehicle id="197" depart="98.50">
+        <route edges="-gneE1 -gneE0 WC CE gneE4"/>
+    </vehicle>
+    <vehicle id="198" depart="99.00">
+        <route edges="-gneE6 SC CN -gneE1"/>
+    </vehicle>
+    <vehicle id="199" depart="99.50">
+        <route edges="-gneE0 WC CN -gneE1"/>
+    </vehicle>
+    <vehicle id="200" depart="100.00">
+        <route edges="gneE6 gneE7"/>
+    </vehicle>
+    <vehicle id="201" depart="100.50">
+        <route edges="-gneE3 -gneE2 NC CE gneE4"/>
+    </vehicle>
+    <vehicle id="202" depart="101.00">
+        <route edges="-gneE0 -gneE7 -gneE6 -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="203" depart="101.50">
+        <route edges="CN NC CS gneE6"/>
+    </vehicle>
+    <vehicle id="204" depart="102.00">
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
+    </vehicle>
+    <vehicle id="205" depart="102.50">
+        <route edges="-gneE7 -gneE6 SC CN gneE2"/>
+    </vehicle>
+    <vehicle id="206" depart="103.00">
+        <route edges="-gneE0 WC CN gneE2 gneE3"/>
+    </vehicle>
+    <vehicle id="207" depart="103.50">
+        <route edges="CE EC CW -gneE7 -gneE6"/>
+    </vehicle>
+    <vehicle id="208" depart="104.00">
+        <route edges="-gneE3 -gneE2 NC CS -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="209" depart="104.50">
+        <route edges="gneE3 EC CN"/>
+    </vehicle>
+    <vehicle id="210" depart="105.00">
+        <route edges="gneE6 gneE7 WC CS"/>
+    </vehicle>
+    <vehicle id="211" depart="105.50">
+        <route edges="-gneE0 WC CS gneE6"/>
+    </vehicle>
+    <vehicle id="212" depart="106.00">
+        <route edges="CW WC CE gneE4"/>
+    </vehicle>
+    <vehicle id="213" depart="106.50">
+        <route edges="-gneE1 -gneE0 WC CE gneE4"/>
+    </vehicle>
+    <vehicle id="214" depart="107.00">
+        <route edges="-gneE6 SC CW WC"/>
+    </vehicle>
+    <vehicle id="215" depart="107.50">
+        <route edges="-gneE3 -gneE2 NC CE gneE4"/>
+    </vehicle>
+    <vehicle id="216" depart="108.00">
+        <route edges="gneE4 gneE5 SC CE EC"/>
+    </vehicle>
+    <vehicle id="217" depart="108.50">
+        <route edges="EC CW WC"/>
+    </vehicle>
+    <vehicle id="218" depart="109.00">
+        <route edges="gneE2 gneE3"/>
+    </vehicle>
+    <vehicle id="219" depart="109.50">
+        <route edges="EC"/>
+    </vehicle>
+    <vehicle id="220" depart="110.00">
+        <route edges="-gneE2 NC CS -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="221" depart="110.50">
+        <route edges="-gneE2"/>
+    </vehicle>
+    <vehicle id="222" depart="111.00">
+        <route edges="WC CE gneE4 gneE5"/>
+    </vehicle>
+    <vehicle id="223" depart="111.50">
+        <route edges="SC CE EC"/>
+    </vehicle>
+    <vehicle id="224" depart="112.00">
+        <route edges="-gneE1 -gneE0 WC CN gneE2 gneE3"/>
+    </vehicle>
+    <vehicle id="225" depart="112.50">
+        <route edges="-gneE6 SC CN -gneE1 -gneE0"/>
+    </vehicle>
+    <vehicle id="226" depart="113.00">
+        <route edges="gneE6 gneE7 WC CS -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="227" depart="113.50">
+        <route edges="-gneE5 -gneE4 -gneE3 -gneE2 -gneE1 -gneE0"/>
+    </vehicle>
+    <vehicle id="228" depart="114.00">
+        <route edges="-gneE5 -gneE4 -gneE3 -gneE2 -gneE1 -gneE0"/>
+    </vehicle>
+    <vehicle id="229" depart="114.50">
+        <route edges="NC CS -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="230" depart="115.00">
+        <route edges="-gneE5 -gneE4 EC CS"/>
+    </vehicle>
+    <vehicle id="231" depart="115.50">
+        <route edges="-gneE1 -gneE0 -gneE7 -gneE6 SC"/>
+    </vehicle>
+    <vehicle id="232" depart="116.00">
+        <route edges="WC CN"/>
+    </vehicle>
+    <vehicle id="233" depart="116.50">
+        <route edges="-gneE2 NC CE -gneE3"/>
+    </vehicle>
+    <vehicle id="234" depart="117.00">
+        <route edges="CE EC CS -gneE5"/>
+    </vehicle>
+    <vehicle id="235" depart="117.50">
+        <route edges="NC CE"/>
+    </vehicle>
+    <vehicle id="236" depart="118.00">
+        <route edges="-gneE1 -gneE0 -gneE7"/>
+    </vehicle>
+    <vehicle id="237" depart="118.50">
+        <route edges="-gneE2 -gneE1 -gneE0 -gneE7"/>
+    </vehicle>
+    <vehicle id="238" depart="119.00">
+        <route edges="gneE4 gneE5 SC CN"/>
+    </vehicle>
+    <vehicle id="239" depart="119.50">
+        <route edges="-gneE0 WC CW"/>
+    </vehicle>
+    <vehicle id="240" depart="120.00">
+        <route edges="NC CE gneE4 gneE5"/>
+    </vehicle>
+    <vehicle id="241" depart="120.50">
+        <route edges="-gneE5 -gneE4 EC CW WC"/>
+    </vehicle>
+    <vehicle id="242" depart="121.00">
+        <route edges="-gneE0 WC CW gneE0 gneE1"/>
+    </vehicle>
+    <vehicle id="243" depart="121.50">
+        <route edges="CS SC CW gneE0"/>
+    </vehicle>
+    <vehicle id="244" depart="122.00">
+        <route edges="-gneE1 -gneE0 -gneE7"/>
+    </vehicle>
+    <vehicle id="245" depart="122.50">
+        <route edges="gneE0 gneE1 NC CW"/>
+    </vehicle>
+    <vehicle id="246" depart="123.00">
+        <route edges="gneE5 SC CE"/>
+    </vehicle>
+    <vehicle id="247" depart="123.50">
+        <route edges="gneE7 WC CS SC"/>
+    </vehicle>
+    <vehicle id="248" depart="124.00">
+        <route edges="CS SC CN"/>
+    </vehicle>
+    <vehicle id="249" depart="124.50">
+        <route edges="CN NC"/>
+    </vehicle>
+    <vehicle id="250" depart="125.00">
+        <route edges="gneE7 WC CW"/>
+    </vehicle>
+    <vehicle id="251" depart="125.50">
+        <route edges="-gneE7 -gneE6 SC CN -gneE1"/>
+    </vehicle>
+    <vehicle id="252" depart="126.00">
+        <route edges="gneE3 EC CN -gneE1"/>
+    </vehicle>
+    <vehicle id="253" depart="126.50">
+        <route edges="CW WC CE gneE4 gneE5"/>
+    </vehicle>
+    <vehicle id="254" depart="127.00">
+        <route edges="gneE7 WC CN"/>
+    </vehicle>
+    <vehicle id="255" depart="127.50">
+        <route edges="-gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="256" depart="128.00">
+        <route edges="-gneE6 -gneE5 -gneE4 -gneE3 -gneE2"/>
+    </vehicle>
+    <vehicle id="257" depart="128.50">
+        <route edges="-gneE1 -gneE0 -gneE7 -gneE6 -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="258" depart="129.00">
+        <route edges="gneE4 gneE5 SC CE EC"/>
+    </vehicle>
+    <vehicle id="259" depart="129.50">
+        <route edges="-gneE5 -gneE4 EC CN gneE2"/>
+    </vehicle>
+    <vehicle id="260" depart="130.00">
+        <route edges="-gneE4 EC CS"/>
+    </vehicle>
+    <vehicle id="261" depart="130.50">
+        <route edges="-gneE3 -gneE2 NC CE gneE4 gneE5"/>
+    </vehicle>
+    <vehicle id="262" depart="131.00">
+        <route edges="gneE6 gneE7 WC CW"/>
+    </vehicle>
+    <vehicle id="263" depart="131.50">
+        <route edges="WC CW gneE0 gneE1"/>
+    </vehicle>
+    <vehicle id="264" depart="132.00">
+        <route edges="CS SC CE gneE4"/>
+    </vehicle>
+    <vehicle id="265" depart="132.50">
+        <route edges="EC CS"/>
+    </vehicle>
+    <vehicle id="266" depart="133.00">
+        <route edges="CW gneE0 gneE1"/>
+    </vehicle>
+    <vehicle id="267" depart="133.50">
+        <route edges="-gneE0 WC CW gneE0"/>
+    </vehicle>
+    <vehicle id="268" depart="134.00">
+        <route edges="NC CW"/>
+    </vehicle>
+    <vehicle id="269" depart="134.50">
+        <route edges="gneE0 gneE1 NC CN"/>
+    </vehicle>
+    <vehicle id="270" depart="135.00">
+        <route edges="-gneE2 NC CE gneE4"/>
+    </vehicle>
+    <vehicle id="271" depart="135.50">
+        <route edges="SC CS gneE6 gneE7"/>
+    </vehicle>
+    <vehicle id="272" depart="136.00">
+        <route edges="SC CW -gneE7 -gneE6"/>
+    </vehicle>
+    <vehicle id="273" depart="136.50">
+        <route edges="-gneE7 -gneE6 SC CN -gneE1"/>
+    </vehicle>
+    <vehicle id="274" depart="137.00">
+        <route edges="SC CS"/>
+    </vehicle>
+    <vehicle id="275" depart="137.50">
+        <route edges="-gneE1 -gneE0 WC CS gneE6"/>
+    </vehicle>
+    <vehicle id="276" depart="138.00">
+        <route edges="gneE6 gneE7 WC CE -gneE3 -gneE2"/>
+    </vehicle>
+    <vehicle id="277" depart="138.50">
+        <route edges="CS -gneE5 -gneE4 -gneE3"/>
+    </vehicle>
+    <vehicle id="278" depart="139.00">
+        <route edges="gneE5 SC CE gneE4"/>
+    </vehicle>
+    <vehicle id="279" depart="139.50">
+        <route edges="gneE1 gneE2"/>
+    </vehicle>
+    <vehicle id="280" depart="140.00">
+        <route edges="CE EC CN gneE2"/>
+    </vehicle>
+    <vehicle id="281" depart="140.50">
+        <route edges="NC CN -gneE1"/>
+    </vehicle>
+    <vehicle id="282" depart="141.00">
+        <route edges="CS SC CN -gneE1"/>
+    </vehicle>
+    <vehicle id="283" depart="141.50">
+        <route edges="-gneE5 -gneE4 EC"/>
+    </vehicle>
+    <vehicle id="284" depart="142.00">
+        <route edges="gneE5 SC CE -gneE3 -gneE2"/>
+    </vehicle>
+    <vehicle id="285" depart="142.50">
+        <route edges="gneE3 EC CS gneE6"/>
+    </vehicle>
+    <vehicle id="286" depart="143.00">
+        <route edges="gneE2 gneE3 EC CS SC"/>
+    </vehicle>
+    <vehicle id="287" depart="143.50">
+        <route edges="WC CW"/>
+    </vehicle>
+    <vehicle id="288" depart="144.00">
+        <route edges="-gneE6 SC CW gneE0 gneE1"/>
+    </vehicle>
+    <vehicle id="289" depart="144.50">
+        <route edges="-gneE1 -gneE0 -gneE7 -gneE6 -gneE5 -gneE4"/>
+    </vehicle>
+    <vehicle id="290" depart="145.00">
+        <route edges="CE -gneE3 -gneE2 -gneE1 -gneE0"/>
+    </vehicle>
+</routes>
