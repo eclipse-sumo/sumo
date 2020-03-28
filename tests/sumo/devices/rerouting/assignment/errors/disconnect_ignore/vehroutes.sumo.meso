@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/24/15 14:14:17 by SUMO Version dev-SVN-r18913
+<!-- generated on Sat Mar 28 13:34:21 2020 by Eclipse SUMO Version v1_5_0+0988-75786a29d6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -10,26 +10,23 @@ SPDX-License-Identifier: EPL-2.0
 
     <input>
         <net-file value="net.net.xml"/>
-        <additional-files value="input_districts.taz.xml,input_trips.trips.xml"/>
+        <route-files value="input_trips.trips.xml"/>
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
-    <time>
-        <begin value="0"/>
-    </time>
-
-    <routing>
-        <device.rerouting.probability value="1"/>
-        <device.rerouting.adaptation-weight value="0.4"/>
-        <device.rerouting.with-taz value="true"/>
-    </routing>
+    <processing>
+        <ignore-route-errors value="true"/>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -41,4 +38,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00" arrival="109.00">
+        <route edges="left middle"/>
+    </vehicle>
+
 </routes>
