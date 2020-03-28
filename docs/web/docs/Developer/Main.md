@@ -18,6 +18,7 @@ permalink: /Developer/Main/
   PyAutoGUI
 - [Developer/Debugging](Debugging.md) - information
   about debugging SUMO
+- [Developer/Exploring the structure](ExploringTheStructure.md) - Explore the structure of SUMO with the doxygen documentation
 - [inline code documentation
   (doxygen)](http://sumo.dlr.de/daily/doxygen/)
 - [Developer/Used Tools](Used_Tools.md) - tools used
